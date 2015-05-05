@@ -1,0 +1,6 @@
+<div class="text-{{ properties.alignment }}">
+    <button
+        ng-class="'btn btn-' + properties.buttonStyle"
+        ng-click="ctrl.action()"
+        ng-disabled="properties.disabled">{{ properties.label }}</button>
+</div>

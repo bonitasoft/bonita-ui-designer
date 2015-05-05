@@ -1,0 +1,13 @@
+<div class="row">
+    <label
+        ng-if="!properties.labelHidden"
+        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left'}"
+        class="col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
+        {{ properties.label }}
+    </label>
+
+    <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+        <textarea class="form-control" ng-model="properties.value" ng-readonly="properties.readOnly"></textarea>
+    </div>
+
+</div>

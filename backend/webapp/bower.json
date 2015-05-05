@@ -1,0 +1,28 @@
+{
+  "name": "page-builder-backend-webapp",
+  "version": "1.0.0",
+  "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
+  "authors": [
+    "Vincent Elcrin <vincent.elcrin@bonitasoft.com>"
+  ],
+  "description": "Bonitasoft page builder backend webapp",
+  "license": "proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.3.11",
+    "angular-sanitize": "1.3.11",
+    "angular-bootstrap": "0.12.1",
+    "bootstrap": "3.3.2",
+    "lodash": "3.5.0"
+  },
+  "resolutions": {
+    "angular": "~1.3.11"
+  }
+}

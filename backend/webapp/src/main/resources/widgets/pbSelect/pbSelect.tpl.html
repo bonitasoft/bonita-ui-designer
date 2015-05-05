@@ -1,0 +1,21 @@
+<div class="row">
+    <label
+        ng-if="!properties.labelHidden"
+        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left'}"
+        class="col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
+        {{ properties.label }}
+    </label>
+
+    <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}" >
+        <select
+            class="form-control"
+            ng-model="properties.value"
+            ng-options="ctrl.getValue(option) as ctrl.getLabel(option) for option in properties.availableValues"
+            ng-disabled="properties.disabled">
+            <option style="display:none" value="">
+                {{properties.placeholder}}
+            </option>
+        </select>
+    </div>
+</div>
+

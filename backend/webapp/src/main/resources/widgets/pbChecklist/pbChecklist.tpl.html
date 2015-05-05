@@ -1,0 +1,21 @@
+<div ng-if="properties.inline">
+    <label class="checkbox-inline" ng-repeat="choice in properties.availableValues track by $index">
+        <input
+            type="checkbox"
+            ng-model="ctrl.selectedItems[$index]"
+            ng-change="ctrl.updateValues()"
+            ng-disabled="properties.disabled">
+        {{ ctrl.getLabel(choice) || choice }}
+    </label>
+</div>
+
+<div ng-if="!properties.inline" class="checkbox" ng-repeat="choice in properties.availableValues track by $index">
+    <label>
+        <input
+            type="checkbox"
+            ng-model="ctrl.selectedItems[$index]"
+            ng-change="ctrl.updateValues()"
+            ng-disabled="properties.disabled">
+        {{ ctrl.getLabel(choice) || choice }}
+    </label>
+</div>
