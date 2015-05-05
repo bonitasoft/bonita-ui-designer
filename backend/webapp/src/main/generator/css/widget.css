@@ -1,0 +1,32 @@
+.widget-label-horizontal {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.table-hover tr {
+    cursor: pointer;
+}
+
+.component {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+/* .component is in col- system, so for widget including .container we set his width to 100% to avoid horizontal scrollbar
+   if we don't do that, bootstrap will set it's width in px corresponding to resolution
+ */
+.component .container {
+    width: 100%;
+}
+
+.typeahead-sublist {padding: 0}
+.typeahead-sublist li {
+    list-style: none;
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.ng-invalid {
+    border: 1px solid #F00 !important;
+}

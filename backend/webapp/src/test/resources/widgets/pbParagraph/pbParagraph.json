@@ -1,0 +1,13 @@
+{
+  "id": "pbParagraph",
+  "name": "Paragraph",
+  "template": "<p ng-bind-html=\"propertyValues.content\"></p>",
+  "properties": [
+    {
+      "label": "Content",
+      "name": "content",
+      "type": "html",
+      "defaultValue": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
+    }
+  ]
+}

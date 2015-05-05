@@ -1,0 +1,37 @@
+{
+  "id": "pbTable",
+  "name": "Table",
+  "template": "@pbTable.tpl.html",
+  "controller": "@pbTable.ctrl.js",
+  "order": "1",
+  "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#868695' d='M36,15v2h11v-2H36z M40,10v2h7v-2H40z M11,10v2h14v-2H11z M3,10v2h3v-2H3z M11,15v2h17v-2H11z M3,15v2h3 v-2H3z'/><path fill='#424251' d='M1,19V1h48v18H1z M0,0v20h50V0H0z'/><path fill='#A7A8B7' d='M1,7v1h7v11h1V8h22v11h1V8h17V7H32V1h-1v6H9V1H8v6H1z'/><path fill='none' stroke='#424251' d='M35,3h12v2H35V3z M11,3h13v2H11V3z M3,3h3v2H3V3z'/></g></svg>",
+  "properties": [
+    {
+      "label": "Headers",
+      "caption": "Comma separated",
+      "help": "List of table column headings, separated by commas. Headings are displayed at the top of the table.",
+      "name": "headers",
+      "type": "collection",
+      "defaultValue": ["Id", "Name", "Description", "Date"]
+    },
+    {
+      "label": "Available values",
+      "help": "Collection used to populate the table. Could be a simple list or a list of objects",
+      "name": "availableValues",
+      "type": "collection"
+    },
+    {
+      "label": "Columns key",
+      "caption": "Empty in case of simple list",
+      "help": "When 'Available values' is a list of objects, specifies the attributes to display in the table columns. Column identifiers are separated by commas",
+      "name": "columnsKey",
+      "type": "collection"
+    },
+    {
+      "label": "Selected Row",
+      "name": "selectedRow",
+      "type": "text",
+      "bidirectional": true
+    }
+  ]
+}
