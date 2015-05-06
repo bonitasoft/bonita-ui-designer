@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+
+    <link rel='stylesheet' href='{{resourceContext}}css/bootstrap.min.css'>
+    <link rel='stylesheet' href='{{resourceContext}}css/widget.css'>
+
+    <script src="{{resourceContext}}js/vendor.min.js"></script>
+    <script src="{{resourceContext}}js/generator.min.js"></script>
+
+    <!-- widget need to be injected at runtime -->
+    {{#each widgets}}
+        <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>
+    {{/each}}
+</head>
+<body ng-app="org.bonitasoft.pagebuilder.generator" pb-model='{{ id }}'>
+<div class="container-fluid">
+    {{#each rowsHtml}}
+        <div class="row">
+            {{{this}}}
+        </div>
+    {{/each}}
+    <script>{{{ dataModelFactory }}}</script>
+    <script>{{{ propertyValuesFactory }}}</script>
+</div>
+</body>
+</html>

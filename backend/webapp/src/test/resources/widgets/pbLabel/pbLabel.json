@@ -1,0 +1,20 @@
+{
+  "id": "pbLabel",
+  "name": "Label",
+  "template": "<div class=\"text-{{ propertyValues.alignment }}\"><label>{{ propertyValues.text }}</label></div>",
+  "properties": [
+    {
+      "label": "Text",
+      "name": "text",
+      "type": "text",
+      "defaultValue": "Static Label"
+    },
+    {
+      "label": "Alignment",
+      "name": "alignment",
+      "type": "choice",
+      "defaultValue": "left",
+      "choiceValues": ["left", "center", "right"]
+    }
+  ]
+}
