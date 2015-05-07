@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer;
 
+import java.io.IOException;
+import java.util.Properties;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -44,12 +46,27 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
     private static final Logger logger = LoggerFactory.getLogger(SpringWebApplicationInitializer.class);
 
+    private static Properties prop = new Properties();
+
+    //This bloc static is executed before the Spring configuration loading
+    static {
+        //We can't use Spring to load the property file because we are before the context initialization
+        try {
+            prop.load(SpringWebApplicationInitializer.class.getClassLoader().getResourceAsStream("application.properties"));
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Error on test environment initialization");
+        }
+    }
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 
         for (String line : BANNER) {
             logger.info(line);
         }
+        logger.info(Strings.repeat("=", 100));
+        logger.info(String.format("UI-DESIGNER : %s edition v.%s", prop.getProperty("designer.edition"), prop.getProperty("designer.version")));
         logger.info(Strings.repeat("=", 100));
 
         // Create the root context Spring

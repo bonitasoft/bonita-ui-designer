@@ -37,12 +37,10 @@ public class DesignerConfigConditional implements Condition {
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
         try{
             get(DesignerConfigConditional.class.getClassLoader().getResource("org/bonitasoft/web/designer/config/DesignerConfigSP.class").toURI());
-            logger.info("UI-DESIGNER :  SP edition");
-            logger.info(Strings.repeat("=", 100));
+            logger.info("Conf loaded :  SP edition");
             return false;
         } catch (URISyntaxException | NullPointerException e) {
-            logger.info("UI-DESIGNER :  Community edition");
-            logger.info(Strings.repeat("=", 100));
+            logger.info("Conf loaded :  Community edition");
             return true;
         }
     }
