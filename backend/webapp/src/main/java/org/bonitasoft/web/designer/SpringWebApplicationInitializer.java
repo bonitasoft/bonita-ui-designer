@@ -66,14 +66,5 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         dispatcher.setAsyncSupported(true);
         //We have to define a global context. If we want to use "/" we have a conflict with the static resources.
         dispatcher.addMapping("/");
-
-        //We need a servlet to resolve the resources generated at runtime. The widgets are not in the webapp and their resources
-        // have to be exported in preview or user's uploads. We can't use a resource handler on the webapp load because the resources
-        // added can't be added after the init at runtime. We use a servlet and not an api call because we want to distinguish api calls
-        // for user's actions and  calls of backend to load a static resource.
-        // Register and map the widgetDirectiveLoader servlet
-        ServletRegistration.Dynamic redirect = servletContext.addServlet("widgetDirectiveLoaderServlet", new HttpRequestHandlerServlet());
-        redirect.setLoadOnStartup(2);
-        redirect.addMapping("/generator/widgets/*");
     }
 }

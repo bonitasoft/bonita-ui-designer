@@ -12,43 +12,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.servlet;
+package org.bonitasoft.web.designer.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.HttpRequestHandler;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.HandlerMapping;
 
 /**
- * Simple servlet that serves widgets files located outside of the war
+ * Simple controller that serves widgets files located outside of the war
  *
  * ex : for a request GET [mappedurl]/pbInput/pbInput.js it will load [widgetRepositoryPath]/pbInput/pbInput.js located on disk
  * @author Colin Puy
  */
-@Component("widgetDirectiveLoaderServlet")
-public class WidgetDirectiveLoader implements HttpRequestHandler {
+@Controller
+public class WidgetDirectiveLoaderController {
 
     private Path widgetRepositoryPath;
 
     @Inject
-    public WidgetDirectiveLoader(@Named("widgetPath") Path widgetRepositoryPath) {
+    public WidgetDirectiveLoaderController(@Named("widgetPath") Path widgetRepositoryPath) {
         this.widgetRepositoryPath = widgetRepositoryPath;
     }
 
-    @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Path filePath = getAskedFilePath(request);
+    @RequestMapping("generator/widgets/**")
+    public void serveWidgetDirective(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Path filePath = extractPathWithinPattern(request);
 
         if (Files.notExists(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -60,13 +60,17 @@ public class WidgetDirectiveLoader implements HttpRequestHandler {
         response.setHeader("Content-Disposition", "inline; filename=\"" + filePath.getFileName() + "\"");
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         try (OutputStream out = response.getOutputStream()) {
-            Files.copy(filePath, response.getOutputStream());
+            Files.copy(filePath, out);
         }
     }
 
-    private Path getAskedFilePath(HttpServletRequest request) throws UnsupportedEncodingException {
-        // could be /something/file.js
-        String relativeFilePath = URLDecoder.decode(request.getPathInfo().substring(1), StandardCharsets.UTF_8.toString());
-        return widgetRepositoryPath.resolve(relativeFilePath);
+    /**
+     * Extract path from a controller mapping. /generator/widgets/pbInput/pbInput.js => /pbInput/pbInput.js
+     */
+    private Path extractPathWithinPattern(final HttpServletRequest request){
+        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        String bestMatchPattern = (String ) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+        String finalPath = new AntPathMatcher().extractPathWithinPattern(bestMatchPattern, path);
+        return widgetRepositoryPath.resolve(finalPath);
     }
 }
