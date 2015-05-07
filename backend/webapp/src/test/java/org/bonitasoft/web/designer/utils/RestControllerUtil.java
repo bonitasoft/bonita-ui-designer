@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.rest.ResourceControllerAdvice;
+import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 

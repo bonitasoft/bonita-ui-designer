@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
+import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
@@ -47,6 +48,7 @@ import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
@@ -209,5 +211,15 @@ public class DesignerConfig {
     @Bean
     public PropertyValuesVisitor propertyValuesVisitor(){
         return new PropertyValuesVisitor();
+    }
+
+    @Bean
+    public AssetRepository<Page> pageAssetRepository(PageRepository pageRepository){
+        return new AssetRepository<>(pageRepository, beanValidator());
+    }
+
+    @Bean
+    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository){
+        return new AssetUploader<>(pageRepository, pageAssetRepository(pageRepository));
     }
 }

@@ -157,6 +157,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <version>1.0.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.github.dreamhead</groupId>
             <artifactId>moco-core</artifactId>
             <scope>test</scope>

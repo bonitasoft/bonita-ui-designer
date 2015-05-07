@@ -12,33 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.model.asset;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+public enum AssetType {
 
-@RequestMapping("/fake")
-@RestController
-public class FakeResource {
-
-    private FakeService fakeService;
-
-
-    public FakeResource(){
-
-    }
-
-    public FakeResource(FakeService fakeService) {
-        this.fakeService = fakeService;
-    }
-
-    @RequestMapping("resource")
-    public void doSomethingFake() throws Exception {
-        fakeService.doSomething();
-    }
-
-    public void setFakeService(FakeService fakeService) {
-        this.fakeService = fakeService;
-    }
+    CSS,
+    JAVASCRIPT,
+    IMAGE
 
 }

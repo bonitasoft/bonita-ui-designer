@@ -12,33 +12,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.controller;
 
-/**
- * Representation of error messages, part of the response when exception occurs
- *
- * @author Colin Puy
- */
-public class ErrorMessage {
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-    private String type;
-    private String message;
+@RequestMapping("/fake")
+@RestController
+public class FakeResource {
 
-    public ErrorMessage(Exception exception) {
-        this.type = exception.getClass().getSimpleName();
-        this.message = exception.getMessage();
+    private FakeService fakeService;
+
+
+    public FakeResource(){
+
     }
 
-    public ErrorMessage(String type, String message) {
-        this.type = type;
-        this.message = message;
+    public FakeResource(FakeService fakeService) {
+        this.fakeService = fakeService;
     }
 
-    public String getType() {
-        return type;
+    @RequestMapping("resource")
+    public void doSomethingFake() throws Exception {
+        fakeService.doSomething();
     }
 
-    public String getMessage() {
-        return message;
+    public void setFakeService(FakeService fakeService) {
+        this.fakeService = fakeService;
     }
+
 }

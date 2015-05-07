@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.bonitasoft.web.designer.builder.DataBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.controller.PageResource;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -45,7 +46,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 /**
- * Test de {@link PageResource} => only the part links to data
+ * Test de {@link org.bonitasoft.web.designer.controller.PageResource} => only the part links to data
  */
 public class PageDataResourceTest {
 

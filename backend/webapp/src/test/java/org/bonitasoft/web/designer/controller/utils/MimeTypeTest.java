@@ -14,30 +14,37 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
+import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class MimeTypeTest {
 
-    @Test
-    public void should_matche_main_mimeType() throws Exception {
-        boolean matches = MimeType.APPLICATION_ZIP.matches("application/zip");
-
-        assertThat(matches).isTrue();
+    /**
+     * Values injected in the test.
+     * <ul>
+     * <li>First value is our enum mime type (example MimeType.APPLICATION_ZIP)</li>
+     * <li>Second value is value of the mime type sent by the web client (example "application/zip")</li>
+     * <li>Last value is the expected result</li>
+     * </ul>
+     */
+    protected Object[] typeMimeValues() {
+        return $(
+                $(MimeType.APPLICATION_ZIP, "application/zip", true),
+                $(MimeType.APPLICATION_ZIP, "application/x-zip", true),
+                $(MimeType.APPLICATION_ZIP, "application/not-a-zip", false)
+        );
     }
 
+    @Parameters(method = "typeMimeValues")
     @Test
-    public void should_match_alternative_mimeTypes() throws Exception {
-        boolean matches = MimeType.APPLICATION_ZIP.matches("application/x-zip");
-
-        assertThat(matches).isTrue();
-    }
-
-    @Test
-    public void should_not_match_other_things() throws Exception {
-        boolean matches = MimeType.APPLICATION_ZIP.matches("application/not-a-zip");
-
-        assertThat(matches).isFalse();
+    public void should_verify_main_mimeType(MimeType mimeType, String mimeTypeText, boolean resultExpected) throws Exception {
+        boolean matches = mimeType.matches(mimeTypeText);
+        assertThat(matches).isEqualTo(resultExpected);
     }
 }

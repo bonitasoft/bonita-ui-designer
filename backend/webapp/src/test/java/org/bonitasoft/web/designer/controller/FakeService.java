@@ -12,38 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
+package org.bonitasoft.web.designer.controller;
 
-import org.joda.time.Instant;
+public class FakeService {
 
-/**
- * A component is identifiable when he has an id and a version because
- * a component can evolve between two versions of the designer.
- */
-public interface Identifiable {
-    /**
-     * Unique id for a component
-     */
-    String getId();
+    public void doSomething() throws Exception {
 
-    /**
-     * A component has a name
-     */
-    String getName();
-
-    /**
-     * Version of the designer
-     */
-    String getDesignerVersion();
-
-    /**
-     * Generally a version is given when the component is created
-     */
-    void setDesignerVersionIfEmpty(String version);
-
-    /**
-     * The last update is audited
-     */
-    void setLastUpdate(Instant lastUpdate);
-
+    }
 }

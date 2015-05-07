@@ -127,7 +127,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
             FileUtils.deleteDirectory(path.resolve(component.getId()).toFile());
         }
         catch (IOException e) {
-            throw new RepositoryException(String.format("Error while saving %s [%s]", getComponentName(), id), e);
+            throw new RepositoryException(String.format("Error while deleting %s [%s]", getComponentName(), id), e);
         }
     }
 

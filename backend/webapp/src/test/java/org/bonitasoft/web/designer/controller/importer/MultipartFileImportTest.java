@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.rest.ErrorMessage;
+import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

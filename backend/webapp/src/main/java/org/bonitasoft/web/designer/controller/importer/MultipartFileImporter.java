@@ -20,7 +20,7 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.bonitasoft.web.designer.rest.ErrorMessage;
+import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
