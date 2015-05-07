@@ -14,34 +14,21 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import static java.nio.file.Paths.get;
-
-import java.net.URISyntaxException;
-
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
 public class DesignerConfigConditional implements Condition {
 
     private static final Logger logger = LoggerFactory.getLogger(DesignerConfigConditional.class);
 
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        try{
-            get(DesignerConfigConditional.class.getClassLoader().getResource("org/bonitasoft/web/designer/config/DesignerConfigSP.class").toURI());
-            logger.info("Conf loaded :  SP edition");
-            return false;
-        } catch (URISyntaxException | NullPointerException e) {
-            logger.info("Conf loaded :  Community edition");
-            return true;
-        }
+        String edition = conditionContext.getEnvironment().getProperty("designer.edition", "Community");
+        logger.info(String.format("Conf loaded :  %s edition", edition));
+        return edition.equals("Community");
     }
 }
