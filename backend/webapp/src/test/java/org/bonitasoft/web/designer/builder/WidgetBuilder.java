@@ -15,8 +15,11 @@
 package org.bonitasoft.web.designer.builder;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.joda.time.Instant;
@@ -29,6 +32,7 @@ public class WidgetBuilder {
     private String template = "<h1>this is a template</h1>";
     List<Property> properties = new ArrayList<>();
     private Instant lastUpdate;
+    private HashSet<String> modules;
 
     public static WidgetBuilder aWidget() {
         return new WidgetBuilder();
@@ -68,6 +72,10 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder modules(String... modules) {
+        this.modules = Sets.<String>newHashSet(modules);
+        return this;
+    }
 
     public Widget build() {
         Widget widget = new Widget();
@@ -79,6 +87,7 @@ public class WidgetBuilder {
         for (Property property : properties) {
             widget.addProperty(property);
         }
+        widget.setRequiredModules(modules);
         return widget;
     }
 }
