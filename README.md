@@ -1,4 +1,4 @@
-# Page Designer
+# Bonita UI designer
 
 ## Build
 You can build entire project using maven.
