@@ -10,12 +10,6 @@
     <script src="{{resourceContext}}js/vendor.min.js"></script>
     <script src="{{resourceContext}}js/generator.min.js"></script>
 
-    {{#if modules}}
-    <script>
-        angular.module('org.bonitasoft.pagebuilder.generator').requires.push({{{join modules "', '" prefix="'" suffix="'"}}});
-    </script>
-    {{/if}}
-
     <!-- widget need to be injected at runtime -->
     {{#each widgets}}
         <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>

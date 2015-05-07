@@ -15,9 +15,7 @@
 package org.bonitasoft.web.designer.visitor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -40,7 +38,6 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     private WidgetIdVisitor widgetIdVisitor;
     private PropertyValuesVisitor propertyValuesVisitor;
     private DataModelVisitor dataModelVisitor;
-    private RequiredModulesVisitor requiredModulesVisitor;
 
     class TabTemplate {
         private final String title;
@@ -63,13 +60,11 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     public HtmlBuilderVisitor(WidgetRepository widgetRepository,
                               WidgetIdVisitor widgetIdVisitor,
                               PropertyValuesVisitor propertyValuesVisitor,
-                              DataModelVisitor dataModelVisitor,
-                              RequiredModulesVisitor requiredModulesVisitor) {
+                              DataModelVisitor dataModelVisitor) {
         this.widgetRepository = widgetRepository;
         this.widgetIdVisitor = widgetIdVisitor;
         this.propertyValuesVisitor = propertyValuesVisitor;
         this.dataModelVisitor = dataModelVisitor;
-        this.requiredModulesVisitor = requiredModulesVisitor;
     }
 
     @Override
@@ -123,18 +118,14 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * @param resourceContext the URL context can change on export or preview...
      */
     public <P extends Previewable & Identifiable> String build(P previewable, String resourceContext) {
-        TemplateEngine template = new TemplateEngine("page.hbs.html")
+
+        return new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("widgets", widgetRepository.getByIds(widgetIdVisitor.visit(previewable)))
                 .with("rowsHtml", buildRowsHtml(previewable.getRows()))
                 .with("dataModelFactory", dataModelVisitor.generateFactory(previewable))
-                .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable));
-
-        Set<String> modules = requiredModulesVisitor.visit(previewable);
-        if (!modules.isEmpty()) {
-            template = template.with("modules", modules);
-        }
-        return template.build(previewable);
+                .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable))
+                .build(previewable);
     }
 
     private List<String> buildRowsHtml(List<List<Element>> rows) {

@@ -3,7 +3,6 @@
   "name": "Date Picker",
   "template": "@pbDatePicker.tpl.html",
   "controller": "@pbDatePicker.ctrl.js",
-  "requiredModules": ["ui.bootstrap"],
   "order": "8",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><path fill='#424251' d='M0 0v20h50V0H0zm49 19H1V1h48v18z'/><path fill='#A8A8B7' d='M32 6v2h-3V6h-1v2h-3V6h-1v2h-3V6h-1v2h-3v1h3v2h-3v1h3v2h-3v1h3v2h1v-2h3v2h1v-2h3v2h1v-2h3v2h1V6h-1zm-4 3v2h-3V9h3zm-7 0h3v2h-3V9zm0 5v-2h3v2h-3zm4 0v-2h3v2h-3zm7 0h-3v-2h3v2zm0-3h-3V9h3v2z'/><path fill='#424251' d='M21 9h3v2h-3z'/><path fill='#424251' d='M31 4V2h-2v2h-8V2h-2v2h-3v14h18V4h-3zm2 13H17V6h16v11z'/></svg>",
   "properties": [

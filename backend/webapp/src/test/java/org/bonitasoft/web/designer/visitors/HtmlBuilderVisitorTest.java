@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitors;
 
-import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -25,20 +24,12 @@ import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.util.Collections;
-import java.util.UUID;
-
-import com.google.common.collect.Sets;
-import org.bonitasoft.web.designer.builder.WidgetBuilder;
-import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.GenerationException;
@@ -48,9 +39,7 @@ import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
-import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Before;
@@ -76,9 +65,6 @@ public class HtmlBuilderVisitorTest {
     @Mock
     private WidgetIdVisitor widgetIdVisitor;
 
-    @Mock
-    private RequiredModulesVisitor requiredModulesVisitor;
-
     @InjectMocks
     private HtmlBuilderVisitor visitor;
 
@@ -88,7 +74,6 @@ public class HtmlBuilderVisitorTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String>emptySet());
     }
 
     @Test
@@ -322,27 +307,5 @@ public class HtmlBuilderVisitorTest {
                 .build()));
 
         assertThat(element.getElementsByTag("form").first()).hasClass("maclassCss");
-    }
-
-    @Test
-    public void should_add_extra_modules_when_widgets_needs_them() throws Exception {
-        Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(newHashSet("needed.module"));
-
-        String html = visitor.build(page, "");
-
-        Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("angular.module('org.bonitasoft.pagebuilder.generator').requires.push('needed.module');");
-    }
-
-    @Test
-    public void should_not_add_extra_modules_when_no_widgets_needs_them() throws Exception {
-        Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String>emptySet());
-
-        String html = visitor.build(page, "");
-
-        Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).doesNotContain("angular.module('org.bonitasoft.pagebuilder.generator').requires.push");
     }
 }

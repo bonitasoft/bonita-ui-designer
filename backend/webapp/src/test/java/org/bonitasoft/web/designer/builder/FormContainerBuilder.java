@@ -37,10 +37,6 @@ public class FormContainerBuilder extends ElementBuilder<FormContainer> {
         return this;
     }
 
-    public FormContainerBuilder with(ContainerBuilder container) {
-        return with(container.build());
-    }
-
     public FormContainerBuilder name(String name) {
         setParameter("name", name);
         return this;

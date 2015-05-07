@@ -20,7 +20,6 @@ import java.util.HashMap;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Jackson2Helper;
-import com.github.jknack.handlebars.helper.StringHelpers;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 
 public class TemplateEngine {
@@ -32,7 +31,6 @@ public class TemplateEngine {
     public TemplateEngine(String template) {
         handlebars = new Handlebars(new ClassPathTemplateLoader("/", ""));
         handlebars.registerHelper("json", Jackson2Helper.INSTANCE);
-        handlebars.registerHelper("join", StringHelpers.join);
         handlebars.prettyPrint(true);
 
         location = "templates/" + template;
