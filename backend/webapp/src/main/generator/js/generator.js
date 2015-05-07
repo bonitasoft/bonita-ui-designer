@@ -11,7 +11,7 @@
     'org.bonitasoft.pagebuilder.generator.constants',
     'org.bonitasoft.pagebuilder.generator.services',
     'org.bonitasoft.pagebuilder.generator.directives',
-    'org.bonitasoft.pagebuilder.widgets',
-    'ui.bootstrap']);
+    'org.bonitasoft.pagebuilder.widgets'
+  ]);
 })();
 
