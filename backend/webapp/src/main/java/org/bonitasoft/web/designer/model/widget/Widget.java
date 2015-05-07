@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
@@ -55,6 +56,7 @@ public class Widget extends Versioned implements Identifiable {
     @Valid
     private List<Property> properties = new ArrayList<>();
     private Map<String, List<Identifiable>> usedBy; // list of element that use this widget
+    private Set<String> requiredModules;
 
     /**
      * The validation context can change depending on the nature of a widget. A custom widget name can't contain space but a
@@ -191,6 +193,15 @@ public class Widget extends Versioned implements Identifiable {
     @JsonIgnore
     public boolean isUsed() {
         return getUsedBy() != null && !getUsedBy().isEmpty();
+    }
+
+    @JsonView({ JsonViewPersistence.class })
+    public Set<String> getRequiredModules() {
+        return requiredModules;
+    }
+
+    public void setRequiredModules(Set<String> requiredModules) {
+        this.requiredModules = requiredModules;
     }
 
     @Override
