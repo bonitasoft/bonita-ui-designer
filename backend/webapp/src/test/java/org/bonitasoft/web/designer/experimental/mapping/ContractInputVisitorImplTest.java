@@ -63,7 +63,7 @@ public class ContractInputVisitorImplTest {
         List<Element> firstRow = page.getRows().get(0);
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
-        assertThat(((Component) firstRow.get(0)).getWidgetId()).isEqualTo("pbTitle");
+        assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Names")));
 
@@ -74,16 +74,16 @@ public class ContractInputVisitorImplTest {
         assertThat(container.getRows()).hasSize(1);
         assertThat(container.getRows().get(0)).hasSize(1);
         Component component = (Component) container.getRows().get(0).get(0);
-        assertThat(component.getWidgetId()).isEqualTo("pbInput");
+        assertThat(component.getId()).isEqualTo("pbInput");
         assertThat(component.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("")));
 
         List<Element> thirdRow = page.getRows().get(2);
         assertThat(thirdRow).hasSize(2);
         Component addButton = (Component) thirdRow.get(0);
-        assertThat(addButton.getWidgetId()).isEqualTo("pbButton");
+        assertThat(addButton.getId()).isEqualTo("pbButton");
         Component removeButton = (Component) thirdRow.get(1);
-        assertThat(removeButton.getWidgetId()).isEqualTo("pbButton");
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ContractInputVisitorImplTest {
         List<Element> firstRow = page.getRows().get(0);
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
-        assertThat(((Component) firstRow.get(0)).getWidgetId()).isEqualTo("pbTitle");
+        assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
 
@@ -111,12 +111,12 @@ public class ContractInputVisitorImplTest {
         assertThat(container.getRows().get(0)).hasSize(1);
 
         Component firstNameComponent = (Component) container.getRows().get(0).get(0);
-        assertThat(firstNameComponent.getWidgetId()).isEqualTo("pbInput");
+        assertThat(firstNameComponent.getId()).isEqualTo("pbInput");
         assertThat(firstNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("First Name")));
 
         Component lastNameComponent = (Component) container.getRows().get(1).get(0);
-        assertThat(lastNameComponent.getWidgetId()).isEqualTo("pbInput");
+        assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
     }
@@ -134,7 +134,7 @@ public class ContractInputVisitorImplTest {
         List<Element> firstRow = page.getRows().get(0);
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
-        assertThat(((Component) firstRow.get(0)).getWidgetId()).isEqualTo("pbTitle");
+        assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
 
@@ -146,20 +146,20 @@ public class ContractInputVisitorImplTest {
         assertThat(container.getRows().get(0)).hasSize(1);
 
         Component firstNameComponent = (Component) container.getRows().get(0).get(0);
-        assertThat(firstNameComponent.getWidgetId()).isEqualTo("pbInput");
+        assertThat(firstNameComponent.getId()).isEqualTo("pbInput");
         assertThat(firstNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("First Name")));
 
         Component lastNameComponent = (Component) container.getRows().get(1).get(0);
-        assertThat(lastNameComponent.getWidgetId()).isEqualTo("pbInput");
+        assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
 
         List<Element> thirdRow = page.getRows().get(2);
         assertThat(thirdRow).hasSize(2);
         Component addButton = (Component) thirdRow.get(0);
-        assertThat(addButton.getWidgetId()).isEqualTo("pbButton");
+        assertThat(addButton.getId()).isEqualTo("pbButton");
         Component removeButton = (Component) thirdRow.get(1);
-        assertThat(removeButton.getWidgetId()).isEqualTo("pbButton");
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
     }
 }

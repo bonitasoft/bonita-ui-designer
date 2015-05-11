@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.visitor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -105,7 +104,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     public String visit(Component component) {
 
         return new TemplateEngine("component.hbs.html")
-                .with("template", "<" + Widget.spinalCase(component.getWidgetId()) + "></" + Widget.spinalCase(component.getWidgetId()) + ">")
+                .with("template", "<" + Widget.spinalCase(component.getId()) + "></" + Widget.spinalCase(component.getId()) + ">")
                 .build(component);
     }
 

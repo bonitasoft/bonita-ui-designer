@@ -81,7 +81,7 @@ public class WidgetIdVisitorTest {
 
     private Component createComponentWithWidget(String widgetId) {
         Component component = new Component();
-        component.setWidgetId(widgetId);
+        component.setId(widgetId);
         return component;
     }
 }

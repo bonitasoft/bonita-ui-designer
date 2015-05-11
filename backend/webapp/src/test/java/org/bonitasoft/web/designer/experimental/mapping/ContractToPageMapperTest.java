@@ -94,7 +94,7 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
 
         Component submitButon = (Component) page.getRows().get(3).get(0);
-        assertThat(submitButon.getWidgetId()).isEqualTo("pbButton");
+        assertThat(submitButon.getId()).isEqualTo("pbButton");
         assertThat(submitButon.getPropertyValues()).contains(
                 entry(ParameterConstants.DATA_TO_SEND_PARAMETER, aDataPropertyValue("sentData")),
                 entry(ParameterConstants.ACTION_PARAMETER, aConstantPropertyValue(ButtonAction.SUBMIT_TASK.getValue())));

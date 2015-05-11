@@ -56,7 +56,7 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
 
     @Override
     public Set<String> visit(Component component) {
-        return singleton(component.getWidgetId());
+        return singleton(component.getId());
     }
 
     @Override

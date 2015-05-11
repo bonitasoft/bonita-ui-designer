@@ -16,9 +16,6 @@ package org.bonitasoft.web.designer.visitor;
 
 import static java.util.Collections.emptySet;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +61,7 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
 
     @Override
     public Set<String> visit(Component component) {
-        Widget widget = widgetRepository.get(component.getWidgetId());
+        Widget widget = widgetRepository.get(component.getId());
         Set<String> modules = widget.getRequiredModules();
         if (modules == null) {
             return emptySet();

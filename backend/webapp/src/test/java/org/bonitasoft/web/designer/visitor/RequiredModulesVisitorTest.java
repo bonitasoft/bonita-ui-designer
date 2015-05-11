@@ -111,7 +111,7 @@ public class RequiredModulesVisitorTest {
     private Component mockComponentFor(WidgetBuilder widgetBuilder) throws Exception {
         Widget widget = widgetBuilder.id(String.valueOf(UUID.randomUUID())).build();
         Component component = aComponent().withWidgetId(widget.getId()).build();
-        when(widgetRepository.get(component.getWidgetId())).thenReturn(widget);
+        when(widgetRepository.get(component.getId())).thenReturn(widget);
         return component;
     }
 }

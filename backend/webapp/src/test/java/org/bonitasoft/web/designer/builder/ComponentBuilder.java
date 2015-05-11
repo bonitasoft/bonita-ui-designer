@@ -42,7 +42,7 @@ public class ComponentBuilder extends ElementBuilder<Component> {
     }
 
     public ComponentBuilder withWidgetId(String id) {
-        component.setWidgetId(id);
+        component.setId(id);
         return this;
     }
 

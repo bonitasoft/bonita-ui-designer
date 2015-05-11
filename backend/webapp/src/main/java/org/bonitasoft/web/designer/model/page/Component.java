@@ -27,15 +27,15 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 @JsonTypeName("component")
 public class Component extends Element {
 
-    private String widgetId;
+    private String id;
 
     @JsonView({JsonViewPersistence.class})
-    public String getWidgetId() {
-        return widgetId;
+    public String getId() {
+        return id;
     }
 
-    public void setWidgetId(String widgetId) {
-        this.widgetId = widgetId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Component extends Element {
         if (obj instanceof Component) {
             final Component other = (Component) obj;
             return new EqualsBuilder()
-                    .append(widgetId, other.widgetId)
+                    .append(id, other.id)
                     .append(getPropertyValues(), other.getPropertyValues())
                     .append(getDimension(), other.getDimension())
                     .isEquals();
@@ -60,7 +60,7 @@ public class Component extends Element {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(widgetId)
+                .append(id)
                 .append(getPropertyValues())
                 .append(getDimension())
                 .toHashCode();
@@ -69,7 +69,7 @@ public class Component extends Element {
     @Override
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
-                .append("widgetId", widgetId)
+                .append("id", id)
                 .append("propertyValues", getPropertyValues())
                 .append("dimension", getDimension())
                 .toString();
