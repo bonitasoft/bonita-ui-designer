@@ -55,6 +55,7 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
+import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.fedorahosted.tennera.jgettext.PoParser;
@@ -204,8 +205,13 @@ public class DesignerConfig {
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(WidgetRepository widgetRepository){
-        return new HtmlBuilderVisitor(widgetRepository, widgetIdVisitor(), propertyValuesVisitor(), dataModelVisitor());
+    public RequiredModulesVisitor requiredModulesVisitor(WidgetRepository widgetRepository) {
+        return new RequiredModulesVisitor(widgetRepository);
+    }
+
+    @Bean
+    public HtmlBuilderVisitor htmlBuilderVisitor(WidgetRepository widgetRepository, RequiredModulesVisitor requiredModulesVisitor){
+        return new HtmlBuilderVisitor(widgetRepository, widgetIdVisitor(), propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor);
     }
 
     @Bean
