@@ -125,7 +125,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     public <T extends Element> T getAdapter(Class<T> adapterClass) {
         if (Component.class.equals(adapterClass)) {
             Component component = new Component();
-            component.setWidgetId(getWidgetId());
+            component.setId(getWidgetId());
             component.setDimension(ImmutableSortedMap.of("xs", dimension));
             component.setPropertyValues(toPropertyValues());
             return (T) component;

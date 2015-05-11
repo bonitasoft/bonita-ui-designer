@@ -36,7 +36,7 @@ public class ContractInputToWidgetMapperTest {
 
         Component element = (Component) contractInputToWidgetMapper.toElement(aStringContractInput("firstName"), Collections.<List<Element>> emptyList());
 
-        assertThat(element.getWidgetId()).isEqualTo("pbInput");
+        assertThat(element.getId()).isEqualTo("pbInput");
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ContractInputToWidgetMapperTest {
 
         Component element = (Component) contractInputToWidgetMapper.toElement(aLongContractInput("updateTime"), Collections.<List<Element>> emptyList());
 
-        assertThat(element.getWidgetId()).isEqualTo("pbInput");
+        assertThat(element.getId()).isEqualTo("pbInput");
     }
 
     @Test
