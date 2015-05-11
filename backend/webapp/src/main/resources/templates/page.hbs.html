@@ -20,6 +20,16 @@
     {{#each widgets}}
         <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>
     {{/each}}
+
+    <!-- assets attached to the page -->
+    {{#each assets}}
+        {{#ifequal type value='CSS'}}
+            <link rel='stylesheet' href='{{resourceContext}}css/{{ name }}'>
+        {{/ifequal}}
+        {{#ifequal type value='JAVASCRIPT'}}
+            <script src="{{resourceContext}}js/{{ name }}"></script>
+        {{/ifequal}}
+    {{/each}}
 </head>
 <body ng-app="org.bonitasoft.pagebuilder.generator" pb-model='{{ id }}'>
 <div class="container-fluid">

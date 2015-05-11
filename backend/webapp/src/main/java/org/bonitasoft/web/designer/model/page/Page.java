@@ -47,7 +47,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     private String name;
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
-    private List<Asset<Page>> assets;
+    private List<Asset<Page>> assets = new ArrayList<>();
     private Map<String, Data> data = new HashMap<>();
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })

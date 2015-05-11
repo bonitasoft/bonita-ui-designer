@@ -101,7 +101,7 @@ public class AssetUploaderTest {
         doThrow(IOException.class).when(repository).save(page);
         ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
 
-        assertThat(errorMessage.getMessage()).isEqualTo("Error while creating asset in file.js [null]");
+        assertThat(errorMessage.getMessage()).isEqualTo("Error while creating asset in myfile.inv [null]");
     }
 
     @Test

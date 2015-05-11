@@ -33,6 +33,7 @@ public class TemplateEngine {
         handlebars = new Handlebars(new ClassPathTemplateLoader("/", ""));
         handlebars.registerHelper("json", Jackson2Helper.INSTANCE);
         handlebars.registerHelper("join", StringHelpers.join);
+        handlebars.registerHelper("ifequal", IfEqualHelper.INSTANCE);
         handlebars.prettyPrint(true);
 
         location = "templates/" + template;

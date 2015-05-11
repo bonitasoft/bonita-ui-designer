@@ -16,17 +16,45 @@ package org.bonitasoft.web.designer.builder;
 
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 
 public class AssetBuilder {
 
+    private String name = "maresource.js";
+    private AssetType type = AssetType.JAVASCRIPT;
+    private Identifiable component;
+
+    public static AssetBuilder anAsset() {
+        return new AssetBuilder();
+    }
+
     public static Asset<Page> aFilledAsset() {
+        return anAsset().withPage(aPage().build()).buildPageAsset();
+    }
+
+    public AssetBuilder withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public AssetBuilder withType(AssetType type) {
+        this.type = type;
+        return this;
+    }
+
+    public AssetBuilder withPage(Page page) {
+        this.component = page;
+        return this;
+    }
+
+    public Asset<Page> buildPageAsset() {
         Asset<Page> asset = new Asset<>();
-        asset.setName("maresource.js");
-        asset.setType(AssetType.JAVASCRIPT);
-        asset.setComponent(aPage().build());
+        asset.setName(name);
+        asset.setType(type);
+        asset.setComponent((Page) component);
         return asset;
     }
 }

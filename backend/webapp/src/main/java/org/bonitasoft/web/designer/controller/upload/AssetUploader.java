@@ -54,12 +54,12 @@ public class AssetUploader<T extends WebResourceable> {
         T component = repository.get(id);
 
         Asset<T> asset = new Asset<>();
-        asset.setName(file.getName());
+        asset.setName(file.getOriginalFilename());
         asset.setType(assetType);
         asset.setComponent(component);
 
-        for (Iterator<Asset<T>> webResourceIterator = component.getAssets().iterator(); webResourceIterator.hasNext(); ) {
-            Asset<T> existingAsset = webResourceIterator.next();
+        for (Iterator<Asset<T>> assetIterator = component.getAssets().iterator(); assetIterator.hasNext(); ) {
+            Asset<T> existingAsset = assetIterator.next();
 
             //If the resource exist we delete the file before save the new one
             if (asset.equals(existingAsset)) {
@@ -70,7 +70,7 @@ public class AssetUploader<T extends WebResourceable> {
                 } catch (IOException e) {
                     return new ErrorMessage("Web resource deletion", String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), id));
                 }
-                webResourceIterator.remove();
+                assetIterator.remove();
                 break;
             }
         }

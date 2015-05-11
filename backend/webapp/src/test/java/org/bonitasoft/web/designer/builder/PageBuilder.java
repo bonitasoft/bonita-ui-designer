@@ -61,7 +61,7 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withWebResources(Asset<Page> asset){
+    public PageBuilder withAsset(Asset<Page> asset){
         assets.add(asset);
         return this;
     }
@@ -117,7 +117,7 @@ public class PageBuilder {
         formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
 
         return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
-                .withWebResources(aFilledAsset())
+                .withAsset(aFilledAsset())
                 .withData("aData", aConstantData().value("a value"))
                 .withData("anotherData", aConstantData().value(4))
                 .build();
