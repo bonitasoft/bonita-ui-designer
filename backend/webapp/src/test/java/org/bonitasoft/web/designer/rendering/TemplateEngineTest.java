@@ -57,6 +57,20 @@ public class TemplateEngineTest {
                 .isEqualTo("<div>bazqux</div>");
     }
 
+    @Test
+    public void should_displayData_when_ifequal_value_is_true() throws GenerationException {
+        TemplateEngine template = new TemplateEngine("ifequal-template.html");
+
+        assertThat(template.with("variable", "JAVASCRIPT").build(null)).isEqualTo("JAVASCRIPT");
+    }
+
+    @Test
+    public void should_not_displayData_when_ifequal_value_is_false() throws GenerationException {
+        TemplateEngine template = new TemplateEngine("ifequal-template.html");
+
+        assertThat(template.with("variable", "PAJAVASCRIPT").build(null)).isEmpty();
+    }
+
     class Bar {
 
         private String variable;

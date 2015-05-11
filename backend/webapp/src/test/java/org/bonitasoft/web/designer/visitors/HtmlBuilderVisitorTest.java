@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.visitors;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
@@ -31,14 +33,10 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Collections;
-import java.util.UUID;
 
-import com.google.common.collect.Sets;
-import org.bonitasoft.web.designer.builder.WidgetBuilder;
-import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.GenerationException;
@@ -51,6 +49,7 @@ import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Before;
@@ -321,7 +320,7 @@ public class HtmlBuilderVisitorTest {
                 .addParam("cssClasses", "string", "maclassCss")
                 .build()));
 
-        assertThat(element.getElementsByTag("form").first()).hasClass("maclassCss");
+        assertThat(element.getElementsByTag("form").first().hasClass("maclassCss")).isTrue();
     }
 
     @Test
@@ -344,5 +343,36 @@ public class HtmlBuilderVisitorTest {
 
         Element head = Jsoup.parse(html).head();
         assertThat(head.html()).doesNotContain("angular.module('org.bonitasoft.pagebuilder.generator').requires.push");
+    }
+
+
+    @Test
+    public void should_add_js_asset_import_in_header() throws Exception {
+        Page page = aPage().withId("page-id").withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).buildPageAsset()).build();
+
+        String html = visitor.build(page, "mycontext/");
+
+        Element head = Jsoup.parse(html).head();
+        assertThat(head.html()).contains("<script src=\"mycontext/js/myfile.js\"></script>");
+    }
+    @Test
+    public void should_add_css_asset_import_in_header() throws Exception {
+        Page page = aPage().withId("page-id").withAsset(anAsset().withName("myfile.css").withType(AssetType.CSS).buildPageAsset()).build();
+
+        String html = visitor.build(page, "mycontext/");
+
+        Element head = Jsoup.parse(html).head();
+        assertThat(head.html()).contains("<link rel=\"stylesheet\" href=\"mycontext/css/myfile.css\">");
+    }
+
+    @Test
+    public void should_not_add_img_asset_import_in_header() throws Exception {
+        Page page = aPage().withAsset(anAsset().withName("myfile.png").withType(AssetType.IMAGE).buildPageAsset()).build();
+
+        String html = visitor.build(page, "mycontext/");
+
+        Document dom = Jsoup.parse(html);
+        assertThat(dom.head().html()).doesNotContain("myfile.png");
+        assertThat(dom.html()).doesNotContain("myfile.png");
     }
 }
