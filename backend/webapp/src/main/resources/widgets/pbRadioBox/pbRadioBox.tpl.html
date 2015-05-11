@@ -1,0 +1,23 @@
+<div ng-if="properties.inline">
+    <label class="radio-inline" ng-repeat="option in properties.availableValues track by $index">
+        <input
+            type="radio"
+            ng-model="properties.selectedValue"
+            ng-value="ctrl.getValue(option)"
+            ng-disabled="properties.disabled">
+        {{ ctrl.getLabel(option) || option }}
+    </label>
+</div>
+
+<div ng-if="!properties.inline" class="radio" ng-repeat="option in properties.availableValues track by $index">
+    <label>
+        <input
+            type="radio"
+            ng-model="properties.selectedValue"
+            ng-value="ctrl.getValue(option)"
+            ng-disabled="properties.disabled">
+        {{ ctrl.getLabel(option) || option }}
+    </label>
+</div>
+
+

@@ -1,0 +1,11 @@
+<div pb-property-values='{{ reference }}'>
+    <div class="{{ cssClasses }}" ng-if="!properties.hidden">
+        <tabset>
+            {{#each tabTemplates}}
+                <tab heading="{{ title }}">
+                    {{{ content }}}
+                </tab>
+            {{/each}}
+        </tabset>
+    </div>
+</div>

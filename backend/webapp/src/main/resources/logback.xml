@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss} [%thread] %-5level %logger{16} - %msg%n%rEx</pattern>
+        </encoder>
+    </appender>
+
+
+    <if condition='isDefined("catalina.base")'>
+        <then>
+            <!-- for Tomcat the logs are redirect in a file in the tomcat log folder -->
+            <appender name="LOGFILE" class="ch.qos.logback.core.FileAppender">
+                <file>${catalina.base}/logs/ui-designer.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>ui-designer.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>%date{HH:mm:ss} [%thread] %-5level %logger{16} - %msg%n%rEx</pattern>
+                </encoder>
+            </appender>
+
+            <if condition='property("catalina.base").contains(".extract")'>
+                <then>
+                    <!-- If we use embedded tomcat we use 2 loggers console and file -->
+                    <root level="INFO">
+                        <appender-ref ref="CONSOLE"/>
+                        <appender-ref ref="LOGFILE"/>
+                    </root>
+                </then>
+                <else>
+                    <root level="INFO">
+                        <appender-ref ref="LOGFILE"/>
+                    </root>
+                </else>
+            </if>
+
+        </then>
+        <else>
+            <root level="INFO">
+                <appender-ref ref="CONSOLE"/>
+            </root>
+        </else>
+    </if>
+
+
+    <logger name="org.bonitasoft.web.designer" level="TRACE"/>
+
+</configuration>
