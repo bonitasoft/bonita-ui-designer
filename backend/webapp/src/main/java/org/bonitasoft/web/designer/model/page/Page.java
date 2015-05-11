@@ -31,13 +31,15 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.model.WebResourceable;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
-public class Page extends Versioned implements Previewable, Identifiable, ElementContainer {
+public class Page extends Versioned implements Previewable, Identifiable, ElementContainer, WebResourceable<Page> {
 
     private String id;
     @NotBlank(message = "Page name should not be blank")
@@ -45,6 +47,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     private String name;
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
+    private List<Asset<Page>> assets;
     private Map<String, Data> data = new HashMap<>();
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
@@ -83,6 +86,16 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     public void setRows(List<List<Element>> rows) {
         this.rows = rows;
     }
+
+    @JsonView({ JsonViewPersistence.class })
+    public List<Asset<Page>> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset<Page>> assets) {
+        this.assets = assets;
+    }
+
 
     @JsonView({ JsonViewPersistence.class })
     public Map<String, Data> getData() {

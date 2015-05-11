@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.controller;
 
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 
@@ -21,6 +21,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.contract.Contract;
@@ -28,6 +29,8 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -35,20 +38,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/rest/pages")
 public class PageResource extends DataResource<Page> {
-
+    protected static final Logger logger = LoggerFactory.getLogger(AssetUploader.class);
+    private AssetUploader<Page> pageAssetUploader;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
 
     @Inject
-    public PageResource(PageRepository pageRepository, SimpMessagingTemplate messagingTemplate, ContractToPageMapper contractToPageMapper) {
+    public PageResource(PageRepository pageRepository, SimpMessagingTemplate messagingTemplate, ContractToPageMapper contractToPageMapper, AssetUploader<Page> pageAssetUploader) {
         super(pageRepository);
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
+        this.pageAssetUploader = pageAssetUploader;
     }
 
     /**
@@ -98,5 +105,15 @@ public class PageResource extends DataResource<Page> {
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("pageId") String pageId) throws RepositoryException {
         getRepository().delete(pageId);
+    }
+
+    @RequestMapping(value = "/{id}/asset", method = RequestMethod.POST)
+    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("id") String id, @RequestParam("type") String type) {
+        ErrorMessage errorMessage = pageAssetUploader.upload(file, id, type);
+        if (errorMessage != null) {
+            logger.error(errorMessage.getMessage());
+            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

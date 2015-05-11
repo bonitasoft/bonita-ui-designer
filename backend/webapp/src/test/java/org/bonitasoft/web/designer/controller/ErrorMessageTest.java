@@ -12,10 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.junit.Test;
 
 public class ErrorMessageTest {

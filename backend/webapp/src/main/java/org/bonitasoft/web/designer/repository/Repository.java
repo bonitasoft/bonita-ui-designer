@@ -69,4 +69,9 @@ public interface Repository<T extends Identifiable> {
      * Return the component name
      */
     String getComponentName();
+
+    /**
+     * Path where the component files are saved
+     */
+    Path resolvePathFolder(T component);
 }

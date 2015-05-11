@@ -20,12 +20,14 @@ import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -37,6 +39,7 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 public class PageBuilder {
 
     private List<List<Element>> rows = new ArrayList<>();
+    private List<Asset<Page>> assets = new ArrayList<>();
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
     private String id;
@@ -58,7 +61,10 @@ public class PageBuilder {
         return this;
     }
 
-
+    public PageBuilder withWebResources(Asset<Page> asset){
+        assets.add(asset);
+        return this;
+    }
 
     public PageBuilder withData(String name, Data data) {
         this.data.put(name, data);
@@ -85,6 +91,7 @@ public class PageBuilder {
         page.setRows(rows);
         page.setData(data);
         page.setId(id);
+        page.setAssets(assets);
         return page;
     }
 
@@ -110,6 +117,7 @@ public class PageBuilder {
         formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
 
         return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
+                .withWebResources(aFilledAsset())
                 .withData("aData", aConstantData().value("a value"))
                 .withData("anotherData", aConstantData().value(4))
                 .build();

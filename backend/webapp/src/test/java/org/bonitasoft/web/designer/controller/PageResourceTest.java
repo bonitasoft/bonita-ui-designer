@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +37,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.PageResource;
+import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -54,10 +56,11 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * Test de {@link PageResource}
+ * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
  */
 public class PageResourceTest {
 
@@ -71,6 +74,9 @@ public class PageResourceTest {
 
     @Mock
     private ContractToPageMapper contractToPageMapper;
+
+    @Mock
+    private AssetUploader<Page> pageAssetUploader;
 
     @InjectMocks
     private PageResource pageResource;
@@ -247,5 +253,25 @@ public class PageResourceTest {
         mockMvc
                 .perform(put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(convertObjectToJsonBytes("hello")))
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void should_upload_an_asset() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
+
+        mockMvc.perform(fileUpload("/rest/pages/my-page/asset?type=JAVASCRIPT").file(file)).andExpect(status().isCreated());
+
+        verify(pageAssetUploader).upload(file, "my-page", "JAVASCRIPT");
+    }
+
+    @Test
+    public void should_not_upload_an_asset() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
+        when(pageAssetUploader.upload(file, "my-page", "JAVASCRIPT")).thenReturn(new ErrorMessage("error", "error"));
+        mockMvc.perform(fileUpload("/rest/pages/my-page/asset?type=JAVASCRIPT").file(file)).andExpect(status().isInternalServerError());
+
+        verify(pageAssetUploader).upload(file, "my-page", "JAVASCRIPT");
     }
 }

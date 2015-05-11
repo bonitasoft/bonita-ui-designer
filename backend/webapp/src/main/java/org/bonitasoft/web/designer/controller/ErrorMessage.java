@@ -12,38 +12,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
-
-import org.joda.time.Instant;
+package org.bonitasoft.web.designer.controller;
 
 /**
- * A component is identifiable when he has an id and a version because
- * a component can evolve between two versions of the designer.
+ * Representation of error messages, part of the response when exception occurs
+ *
+ * @author Colin Puy
  */
-public interface Identifiable {
-    /**
-     * Unique id for a component
-     */
-    String getId();
+public class ErrorMessage {
 
-    /**
-     * A component has a name
-     */
-    String getName();
+    private String type;
+    private String message;
 
-    /**
-     * Version of the designer
-     */
-    String getDesignerVersion();
+    public ErrorMessage(Exception exception) {
+        this.type = exception.getClass().getSimpleName();
+        this.message = exception.getMessage();
+    }
 
-    /**
-     * Generally a version is given when the component is created
-     */
-    void setDesignerVersionIfEmpty(String version);
+    public ErrorMessage(String type, String message) {
+        this.type = type;
+        this.message = message;
+    }
 
-    /**
-     * The last update is audited
-     */
-    void setLastUpdate(Instant lastUpdate);
+    public String getType() {
+        return type;
+    }
 
+    public String getMessage() {
+        return message;
+    }
 }

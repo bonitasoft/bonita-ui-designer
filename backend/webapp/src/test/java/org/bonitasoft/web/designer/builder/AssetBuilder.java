@@ -12,11 +12,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.rest;
+package org.bonitasoft.web.designer.builder;
 
-public class FakeService {
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
-    public void doSomething() throws Exception {
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.page.Page;
 
+public class AssetBuilder {
+
+    public static Asset<Page> aFilledAsset() {
+        Asset<Page> asset = new Asset<>();
+        asset.setName("maresource.js");
+        asset.setType(AssetType.JAVASCRIPT);
+        asset.setComponent(aPage().build());
+        return asset;
     }
 }

@@ -14,36 +14,12 @@
  */
 package org.bonitasoft.web.designer.model;
 
-import org.joda.time.Instant;
 
-/**
- * A component is identifiable when he has an id and a version because
- * a component can evolve between two versions of the designer.
- */
-public interface Identifiable {
-    /**
-     * Unique id for a component
-     */
-    String getId();
+import java.util.List;
 
-    /**
-     * A component has a name
-     */
-    String getName();
+import org.bonitasoft.web.designer.model.asset.Asset;
 
-    /**
-     * Version of the designer
-     */
-    String getDesignerVersion();
+public interface WebResourceable<T extends Identifiable> extends Identifiable {
 
-    /**
-     * Generally a version is given when the component is created
-     */
-    void setDesignerVersionIfEmpty(String version);
-
-    /**
-     * The last update is audited
-     */
-    void setLastUpdate(Instant lastUpdate);
-
+    List<Asset<T>> getAssets();
 }
