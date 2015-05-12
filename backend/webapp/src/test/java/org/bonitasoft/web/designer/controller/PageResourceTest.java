@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.PageResource;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
@@ -270,6 +269,7 @@ public class PageResourceTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         when(pageAssetUploader.upload(file, "my-page", "js")).thenReturn(new ErrorMessage("error", "error"));
+
         mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isInternalServerError());
 
         verify(pageAssetUploader).upload(file, "my-page", "js");

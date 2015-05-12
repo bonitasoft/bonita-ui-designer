@@ -83,7 +83,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     /**
      * Return asset content used by a component
      */
-    public Path findAsset(String id, final String filename, final AssetType assetType) throws IOException{
+    public Path findAsset(String id, final String filename, final AssetType assetType) throws IOException {
         Preconditions.checkNotNull(filename, "Filename is required");
         Preconditions.checkNotNull(assetType, "Asset type is required");
 

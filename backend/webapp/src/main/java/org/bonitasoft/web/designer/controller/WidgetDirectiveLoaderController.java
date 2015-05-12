@@ -15,9 +15,6 @@
 package org.bonitasoft.web.designer.controller;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,14 +22,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.AssetRepository;
+import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -43,16 +37,15 @@ import org.springframework.web.servlet.HandlerMapping;
  * @author Colin Puy
  */
 @Controller
-public class ComponentLoaderController {
+public class WidgetDirectiveLoaderController {
 
-    protected static final Logger logger = LoggerFactory.getLogger(ComponentLoaderController.class);
+    protected static final Logger logger = LoggerFactory.getLogger(WidgetDirectiveLoaderController.class);
     private Path widgetRepositoryPath;
-    private AssetRepository<Page> pageAssetUploader;
+
 
     @Inject
-    public ComponentLoaderController(@Named("widgetPath") Path widgetRepositoryPath, AssetRepository<Page> pageAssetUploader) {
+    public WidgetDirectiveLoaderController(@Named("widgetPath") Path widgetRepositoryPath) {
         this.widgetRepositoryPath = widgetRepositoryPath;
-        this.pageAssetUploader = pageAssetUploader;
     }
 
     @RequestMapping("generator/widgets/**")
@@ -60,49 +53,10 @@ public class ComponentLoaderController {
         Path filePath = extractPathWithinPattern(request);
 
         try {
-            writeFileInResponse(request, response, filePath);
+            HttpFile.writeFileInResponse(request, response, filePath);
         } catch (IOException e) {
             logger.error("Error on widget generation", e);
             throw new ServletException("Error on widget generation", e);
-        }
-    }
-
-    @RequestMapping("generator/pages/{id}/{type}/{filename:.*}")
-    public void servePageAsset(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("id") String id,
-            @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
-
-        try {
-            writeFileInResponse(
-                    request,
-                    response,
-                    pageAssetUploader.findAsset(id, filename, AssetType.getAsset(type)));
-        } catch (IOException e) {
-            logger.error("Error on widget generation", e);
-            throw new ServletException("Error on widget generation", e);
-        }
-
-    }
-
-    /**
-     * Write headers and content in the response
-     */
-    private void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-
-        if (filePath == null || Files.notExists(filePath)) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-
-        response.setHeader("Content-Type", request.getServletContext().getMimeType(filePath.getFileName().toString()));
-        response.setHeader("Content-Length", String.valueOf(filePath.toFile().length()));
-        response.setHeader("Content-Disposition", "inline; filename=\"" + filePath.getFileName() + "\"");
-        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        try (OutputStream out = response.getOutputStream()) {
-            Files.copy(filePath, out);
         }
     }
 
