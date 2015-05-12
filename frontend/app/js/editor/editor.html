@@ -1,0 +1,90 @@
+<nav id="menubar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a>
+            <span class="navbar-brand" translate><span class="editor-title">{{ mode }}</span> editor</span>
+        </div>
+        <form name="formName" class="form-inline navbar-form navbar-left" autocomplete="off">
+            <div class="form-group tooltip-error"
+                 tooltip="{{ mode + ' name should contains only alphanumeric characters with no space' | translate }} "
+                 tooltip-toggle="formName.name.$error.pattern"
+                 tooltip-placement="bottom">
+                 <input type="text" name="name"
+                   class="form-control"
+                   ng-pattern="'[a-zA-Z0-9]*$'"
+                   id="pageName"
+                   placeholder="{{ 'Enter ' +  mode + ' name' | translate }}"
+                   ng-model="page.name"
+                   ng-trim="false"
+                   required >
+            </div>
+
+         </form>
+        <div class="btn-group navbar-btn" dropdown>
+            <button id="save" type="button" class="btn btn-default" ng-disabled="!formName.$valid" ng-click="save()" translate>Save</button>
+            <button type="button" class="btn btn-default dropdown-toggle" ng-disabled="!formName.$valid" dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Save</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a id="saveAs" href="#"  ng-click="saveAs(page)" ng-disabled="!formName.$valid" translate>Save as ...</a></li>
+            </ul>
+        </div>
+
+        <div resolutions-bar id="resolutions" class="navbar-btn btn-group btn-group-md"></div>
+
+        <div class="navbar-right">
+            <button type="button" id="export" class="btn btn-default navbar-btn" ng-disabled="!formName.$valid" ng-click="saveAndExport()" title="Export"><i class="fa fa-alias-export"></i></button>
+            <button
+                id="preview"
+                class="btn btn-default navbar-btn"
+                title="Preview"
+                ng-click="save()"
+                ng-disabled="!formName.$valid"
+                open-preview="{{mode}}"><i class="fa fa-play"></i></button>
+        </div>
+    </div>
+</nav>
+<div class="content-wrapper">
+
+    <div id="palette" class="sidebar sidebar-left">
+        <div ui-view="palette"></div>
+        <div id="palette-splitter" splitter-vertical="left" pane-left="#palette" pane-right="#editor-container"></div>
+    </div>
+
+    <div id="editor-container">
+
+        <div splitter-toggle="#palette-splitter" id="toggle-palette" class="clickable toggle">
+            <i class="fa toggle-left"></i>
+        </div>
+
+        <div class="workspace">
+            <container container="page" editor="editor" id="editor"  ng-click="editor.selectComponent(null, $event)" component-highlighter="component-element--hover" data-is-editor-container="true"  bo-dropzone bo-drop-success="appendComponent($event, $data)"></container>
+            <div class="alert alert-editor-hint" ng-if="page.rows.length === 1 && page.rows[0].length === 0">
+                <i class="fa fa-rotate-90 fa-share"></i>
+                <h4 class="hint-title">This page is empty.</h4>
+                To add content, drag and drop components from the palette to the whiteboard above.
+            </div>
+            <div id="data-sidebar" class="sidebar-bottom">
+                <div id="data-sidebar-splitter" splitter-horizontal closed-on-init="false" pane-top="#editor" pane-bottom="#data-sidebar" pane-bottom-max="600" pane-bottom-min="250"></div>
+                <i splitter-toggle="#data-sidebar-splitter" class="fa fa-angle-down clickable bottom-sidebar-toggle"></i>
+
+                <div ui-view="data"></div>
+            </div>
+        </div>
+
+        <div id="toolbar-bottom">
+            <a class="btn btn-sm btn-default" splitter-toggle="#data-sidebar-splitter" ><i class="fa fa-database"></i> Data</a>
+        </div>
+
+        <div splitter-toggle="#widget-properties-splitter" id="toggle-properties" class="clickable toggle">
+            <i class="fa toggle-right"></i>
+        </div>
+
+    </div>
+
+    <div id="widget-properties" class="sidebar sidebar-right">
+        <div id="widget-properties-splitter" splitter-vertical="right" pane-left="#editor-container" pane-right="#widget-properties" pane-right-max="500" pane-right-min="250"></div>
+        <div ng-include="'js/editor/properties-panel/properties-panel.html'"></div>
+    </div>
+</div>

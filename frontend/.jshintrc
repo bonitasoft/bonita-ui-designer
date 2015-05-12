@@ -1,0 +1,46 @@
+{
+  "node": false,
+  "browser": true,
+  "esnext": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": "nofunc",
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "regexp": true,
+  "undef": true,
+  "unused": true,
+  "strict": false,
+  "trailing": true,
+  "smarttabs": true,
+  "globals": {
+    "angular": false,
+    "ace": false,
+
+    // Logic
+    "console": false,
+
+    // For IE
+    "ActiveXObject": false,
+
+    // Jasmine
+    "describe": false,
+    "beforeEach": false,
+    "module": false,
+    "inject": false,
+    "afterEach": false,
+    "it": false,
+    "expect": false,
+    "jasmine": false,
+    "spyOn": false,
+    "$$": false,
+    "$": false,
+
+    "require": false
+  }
+}

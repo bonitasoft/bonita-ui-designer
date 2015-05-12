@@ -1,0 +1,46 @@
+.dropRow {
+    position: relative
+}
+.dropZone {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 42;
+}
+
+.dropZone--right {
+    left: 50%;
+}
+
+.dropZone.bo-dropzone-container.bo-drag-enter{
+    font-family: FontAwesome;
+    background-color: rgba(132, 132, 132, 0.3);
+}
+
+
+.bo-drag-enter::before {
+    position: absolute;
+    font-size:1.5em;
+    line-height:1em;
+    font-family: FontAwesome;
+    text-align: center;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -.5em;
+    color: #999
+}
+
+.dropZone.bo-drag-enter::before {
+    content: "\f137"; // fa-chevron-circle-left
+}
+
+.dropZone--right.bo-drag-enter::before {
+    content: "\f138"; // fa-chevron-circle-right
+}
+
+.dropZone.bo-drag-dropzone-child {
+  display: none
+}

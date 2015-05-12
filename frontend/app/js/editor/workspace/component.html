@@ -1,0 +1,6 @@
+<div class="widget-wrapper">
+    <component-mover class="component-mover" component="component" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(component)"></component-mover>
+    <div class="widget-content"></div>
+    <drop-zone editor="editor" row="row" container="container" component-index="componentIndex"></drop-zone>
+    <element-resizer component="component" editor="editor" resizable="resizable" ng-if="editor.isCurrentComponent(component)"></element-resizer>
+</div>
