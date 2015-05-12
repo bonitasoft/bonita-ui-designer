@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.controller;
 
 import static java.nio.file.Files.readAllBytes;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -23,7 +22,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.junit.Before;
@@ -34,16 +32,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ComponentLoaderControllerTest {
+public class WidgetDirectiveLoaderControllerTest {
 
     @Mock
     private AssetRepository<Page> pageAssetRepository;
     private MockMvc mockMvc;
+
     private Path widgetRepositoryPath = Paths.get("src/test/resources/widgets");
 
     @Before
     public void setUp() {
-        ComponentLoaderController componentLoaderController = new ComponentLoaderController(widgetRepositoryPath, pageAssetRepository);
+        WidgetDirectiveLoaderController componentLoaderController = new WidgetDirectiveLoaderController(widgetRepositoryPath);
         mockMvc = standaloneSetup(componentLoaderController).build();
     }
 
@@ -67,27 +66,6 @@ public class ComponentLoaderControllerTest {
 
                 .andExpect(status().isNotFound());
 
-    }
-
-    @Test
-    public void should_load_asset_on_disk() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(pageAssetRepository.findAsset("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
-
-        mockMvc.perform(get("/generator/pages/page-id/js/asset.js"))
-
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
-                .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
-                .andExpect(content().encoding("UTF-8"));
-    }
-
-    @Test
-    public void should_respond_404_when_asset_is_not_found() throws Exception {
-        when(pageAssetRepository.findAsset("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(null);
-
-        mockMvc.perform(get("/generator/pages/page-id/js/asset.js")).andExpect(status().isNotFound());
     }
 
 }

@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+
 public class AssetUploader<T extends Assetable> {
 
     protected static final Logger logger = LoggerFactory.getLogger(AssetUploader.class);

@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='{{resourceContext}}css/widget.css'>
     {{#each assets}}
       {{#ifequal type value='CSS'}}
-        <link rel='stylesheet' href='{{resourceContext}}pages/{{ id }}/css/{{ name }}'>
+        <link rel='stylesheet' href='assets/css/{{ name }}'>
       {{/ifequal}}
     {{/each}}
 
@@ -17,7 +17,7 @@
     <!-- assets attached to the page -->
     {{#each assets}}
       {{#ifequal type value='JAVASCRIPT'}}
-        <script src="{{resourceContext}}pages/{{ id }}/js/{{ name }}"></script>
+        <script src="assets/js/{{ name }}"></script>
       {{/ifequal}}
     {{/each}}
 
@@ -31,6 +31,7 @@
     {{#each widgets}}
         <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>
     {{/each}}
+
 </head>
 <body ng-app="org.bonitasoft.pagebuilder.generator" pb-model='{{ id }}'>
 <div class="container-fluid">

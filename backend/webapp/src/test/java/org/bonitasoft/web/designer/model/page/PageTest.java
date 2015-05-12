@@ -17,32 +17,27 @@ package org.bonitasoft.web.designer.model.page;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
-import javax.inject.Inject;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.builder.PageBuilder;
-import org.bonitasoft.web.designer.config.ContextConfigTest;
+import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ContextConfigTest.class , ApplicationConfig.class })
-@WebAppConfiguration("src/test/resources")
 public class PageTest {
 
-    @Inject
     private ObjectMapper objectMapper;
 
-    @Inject
     private BeanValidator beanValidator;
+
+    @Before
+    public void init(){
+        objectMapper = new DesignerConfig().objectMapper();
+        beanValidator = new DesignerConfig().beanValidator();
+    }
 
     @Test
     public void jsonview_light_should_only_manage_id_and_name() throws Exception {

@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.config;
 
 import java.nio.file.Path;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.export.Exporter;
+import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.HtmlExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportStep;
@@ -160,8 +162,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep, PagePropertiesExportStep pagePropertiesExportStep, HtmlExportStep htmlExportStep) {
-        return new ExportStep[] {htmlExportStep, widgetsExportStep, pagePropertiesExportStep};
+    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep, PagePropertiesExportStep pagePropertiesExportStep, HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
+        return new ExportStep[] {htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
     }
 
     @Bean
