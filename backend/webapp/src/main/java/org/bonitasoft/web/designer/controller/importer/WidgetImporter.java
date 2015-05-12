@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -36,7 +37,7 @@ public class WidgetImporter implements DependencyImporter<Widget> {
     }
 
     @Override
-    public List<Widget> load(Path resources) throws IOException {
+    public List<Widget> load(Identifiable parent, Path resources) throws IOException {
         Path widgetsPath = resources.resolve("widgets");
         if (exists(widgetsPath)) {
             return widgetLoader.getAllCustom(widgetsPath);
@@ -45,7 +46,7 @@ public class WidgetImporter implements DependencyImporter<Widget> {
     }
 
     @Override
-    public void save(List<Widget> elements) {
+    public void save(List<Widget> elements, Path resources) {
         widgetRepository.saveAll(elements);
     }
 }

@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.model.asset;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
+import java.nio.file.Path;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -46,8 +47,9 @@ public class Asset<T extends Identifiable> {
         return component;
     }
 
-    public void setComponent(T component) {
+    public Asset setComponent(T component) {
         this.component = component;
+        return this;
     }
 
     @JsonView({JsonViewPersistence.class})
@@ -55,8 +57,9 @@ public class Asset<T extends Identifiable> {
         return name;
     }
 
-    public void setName(String name) {
+    public Asset setName(String name) {
         this.name = name;
+        return this;
     }
 
     @JsonView({JsonViewPersistence.class})
@@ -64,8 +67,9 @@ public class Asset<T extends Identifiable> {
         return type;
     }
 
-    public void setType(AssetType type) {
+    public Asset setType(AssetType type) {
         this.type = type;
+        return this;
     }
 
     @Override
