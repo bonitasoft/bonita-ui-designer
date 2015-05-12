@@ -28,8 +28,8 @@
     {{/if}}
 
     <!-- widget need to be injected at runtime -->
-    {{#each widgets}}
-        <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>
+    {{#each directives}}
+        <script src="{{resourceContext}}{{ this }}"></script>
     {{/each}}
 
 </head>

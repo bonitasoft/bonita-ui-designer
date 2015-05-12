@@ -55,6 +55,7 @@ import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
+import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
@@ -192,17 +193,17 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetIdVisitor widgetIdVisitor(){
+    public WidgetIdVisitor widgetIdVisitor() {
         return new WidgetIdVisitor();
     }
 
     @Bean
-    public ComponentVisitor componentVisitor(){
+    public ComponentVisitor componentVisitor() {
         return new ComponentVisitor();
     }
 
     @Bean
-    public DataModelVisitor dataModelVisitor(){
+    public DataModelVisitor dataModelVisitor() {
         return new DataModelVisitor();
     }
 
@@ -212,22 +213,22 @@ public class DesignerConfig {
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(WidgetRepository widgetRepository, RequiredModulesVisitor requiredModulesVisitor){
-        return new HtmlBuilderVisitor(widgetRepository, widgetIdVisitor(), propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor);
+    public HtmlBuilderVisitor htmlBuilderVisitor(RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector) {
+        return new HtmlBuilderVisitor(propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor, directivesCollector);
     }
 
     @Bean
-    public PropertyValuesVisitor propertyValuesVisitor(){
+    public PropertyValuesVisitor propertyValuesVisitor() {
         return new PropertyValuesVisitor();
     }
 
     @Bean
-    public AssetRepository<Page> pageAssetRepository(PageRepository pageRepository){
+    public AssetRepository<Page> pageAssetRepository(PageRepository pageRepository) {
         return new AssetRepository<>(pageRepository, beanValidator());
     }
 
     @Bean
-    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository){
+    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository) {
         return new AssetUploader<>(pageRepository, pageAssetRepository(pageRepository));
     }
 }

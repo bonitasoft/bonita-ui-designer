@@ -18,17 +18,18 @@ import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtml;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.toElement;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -38,16 +39,14 @@ import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
+import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
-import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -64,19 +63,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class HtmlBuilderVisitorTest {
 
     @Mock
-    private WidgetRepository widgetRepository;
-
-    @Mock
     private PropertyValuesVisitor propertyValuesVisitor;
 
     @Mock
     private DataModelVisitor dataModelVisitor;
 
     @Mock
-    private WidgetIdVisitor widgetIdVisitor;
+    private RequiredModulesVisitor requiredModulesVisitor;
 
     @Mock
-    private RequiredModulesVisitor requiredModulesVisitor;
+    private DirectivesCollector directivesCollector;
 
     @InjectMocks
     private HtmlBuilderVisitor visitor;
@@ -243,9 +239,9 @@ public class HtmlBuilderVisitorTest {
         when(propertyValuesVisitor.generateFactory(page)).thenReturn("var foo = \"bar\";");
         when(dataModelVisitor.generateFactory(page)).thenReturn("var baz = \"qux\";");
         // given two widgets
-        Widget input = aWidget().id("pbInput").build();
-        Widget label = aWidget().id("pbLabel").build();
-        when(widgetRepository.getByIds(anySet())).thenReturn(asList(input, label));
+        when(directivesCollector.collect(page)).thenReturn(asList(
+                "widgets/pbInput/pbInput.js",
+                "widgets/pbLabel/pbLabel.js"));
 
         // when we generate the html
         String generatedHtml = visitor.build(page, "mycontext/");
@@ -267,9 +263,9 @@ public class HtmlBuilderVisitorTest {
                                 aParagraph().withReference("paragraph-reference"))).withReference("container-reference")).build();
         when(dataModelVisitor.generateFactory(page)).thenReturn("var baz = \"qux\";");
         when(propertyValuesVisitor.generateFactory(page)).thenReturn("var foo = \"bar\";");
-        when(widgetRepository.getByIds(anySet())).thenReturn(asList(
-                aWidget().id("input").build(),
-                aWidget().id("paragraph").build()));
+        when(directivesCollector.collect(page)).thenReturn(asList(
+                "widgets/input/input.js",
+                "widgets/paragraph/paragraph.js"));
 
         String html = visitor.build(page, "mycontext/");
 
