@@ -46,7 +46,7 @@ public class AssetUploaderTest {
 
     @Test
     public void should_return_error_when_file_nultl() {
-        ErrorMessage errorMessage = assetUploader.upload(null, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(null, "page-id", "js");
         assertThat(errorMessage.getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
     }
 
@@ -55,7 +55,7 @@ public class AssetUploaderTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
-        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "js");
 
         assertThat(errorMessage.getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
     }
@@ -77,7 +77,7 @@ public class AssetUploaderTest {
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
         when(repository.get("page-id")).thenThrow(new NotFoundException("not found"));
 
-        assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        assetUploader.upload(file, "page-id", "js");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class AssetUploaderTest {
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
         when(repository.get("page-id")).thenReturn(page);
 
-        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "js");
 
         verify(assetRepository).save(any(Asset.class), (byte[]) any());
         verify(repository).save(page);
@@ -99,7 +99,7 @@ public class AssetUploaderTest {
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
         when(repository.get("page-id")).thenReturn(page);
         doThrow(IOException.class).when(repository).save(page);
-        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "js");
 
         assertThat(errorMessage.getMessage()).isEqualTo("Error while creating asset in myfile.inv [null]");
     }
@@ -107,10 +107,10 @@ public class AssetUploaderTest {
     @Test
     public void should_upload_existingfile() throws Exception {
         Page page = aFilledPage("page-id");
-        MockMultipartFile file = new MockMultipartFile("maresource.js", "maresource.js", "application/javascript", "function(){}".getBytes());
+        MockMultipartFile file = new MockMultipartFile("myasset.js", "myasset.js", "application/javascript", "function(){}".getBytes());
         when(repository.get("page-id")).thenReturn(page);
 
-        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "js");
 
         verify(assetRepository).delete(page.getAssets().get(0));
         verify(assetRepository).save(page.getAssets().get(0), "function(){}".getBytes());
@@ -121,13 +121,13 @@ public class AssetUploaderTest {
     @Test
     public void should_return_error_when_upload_existingfile_witherror() throws Exception {
         Page page = aFilledPage("page-id");
-        MockMultipartFile file = new MockMultipartFile("maresource.js", "maresource.js", "application/javascript", "function(){}".getBytes());
+        MockMultipartFile file = new MockMultipartFile("myasset.js", "myasset.js", "application/javascript", "function(){}".getBytes());
         when(repository.get("page-id")).thenReturn(page);
         doThrow(IOException.class).when(assetRepository).delete(page.getAssets().get(0));
 
-        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "JAVASCRIPT");
+        ErrorMessage errorMessage = assetUploader.upload(file, "page-id", "js");
 
-        assertThat(errorMessage.getMessage()).isEqualTo("Error while deleting asset in maresource.js [null]");
+        assertThat(errorMessage.getMessage()).isEqualTo("Error while deleting asset in myasset.js [null]");
     }
 
 }

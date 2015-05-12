@@ -23,7 +23,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 
 public class AssetBuilder {
 
-    private String name = "maresource.js";
+    private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
     private Identifiable component;
 

@@ -6,9 +6,20 @@
 
     <link rel='stylesheet' href='{{resourceContext}}css/bootstrap.min.css'>
     <link rel='stylesheet' href='{{resourceContext}}css/widget.css'>
+    {{#each assets}}
+      {{#ifequal type value='CSS'}}
+        <link rel='stylesheet' href='{{resourceContext}}pages/{{ id }}/css/{{ name }}'>
+      {{/ifequal}}
+    {{/each}}
 
     <script src="{{resourceContext}}js/vendor.min.js"></script>
     <script src="{{resourceContext}}js/generator.min.js"></script>
+    <!-- assets attached to the page -->
+    {{#each assets}}
+      {{#ifequal type value='JAVASCRIPT'}}
+        <script src="{{resourceContext}}pages/{{ id }}/js/{{ name }}"></script>
+      {{/ifequal}}
+    {{/each}}
 
     {{#if modules}}
     <script>
@@ -19,16 +30,6 @@
     <!-- widget need to be injected at runtime -->
     {{#each widgets}}
         <script src="{{resourceContext}}widgets/{{id}}/{{id}}.js"></script>
-    {{/each}}
-
-    <!-- assets attached to the page -->
-    {{#each assets}}
-        {{#ifequal type value='CSS'}}
-            <link rel='stylesheet' href='{{resourceContext}}css/{{ name }}'>
-        {{/ifequal}}
-        {{#ifequal type value='JAVASCRIPT'}}
-            <script src="{{resourceContext}}js/{{ name }}"></script>
-        {{/ifequal}}
     {{/each}}
 </head>
 <body ng-app="org.bonitasoft.pagebuilder.generator" pb-model='{{ id }}'>

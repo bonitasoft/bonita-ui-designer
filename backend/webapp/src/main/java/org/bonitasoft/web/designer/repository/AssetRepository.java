@@ -22,14 +22,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.inject.Inject;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 
 /**
  * This Persister is used to attach assets to a component. Each of them are serialized in the same directory
  */
-public class AssetRepository<T extends Identifiable> {
+public class AssetRepository<T extends Identifiable & Assetable> {
 
     private Repository<T> repository;
     private BeanValidator validator;
@@ -75,4 +80,21 @@ public class AssetRepository<T extends Identifiable> {
         return readAllBytes(resolveExistingAssetPath(asset));
     }
 
+    /**
+     * Return asset content used by a component
+     */
+    public Path findAsset(String id, final String filename, final AssetType assetType) throws IOException{
+        Preconditions.checkNotNull(filename, "Filename is required");
+        Preconditions.checkNotNull(assetType, "Asset type is required");
+
+        T component = repository.get(id);
+        Asset<T> asset = (Asset<T>) Iterables.find(component.getAssets(), new Predicate<Asset>() {
+            @Override
+            public boolean apply(Asset asset) {
+                return filename.equals(asset.getName()) && assetType.equals(asset.getType());
+            }
+        });
+        asset.setComponent(component);
+        return resolveExistingAssetPath(asset);
+    }
 }

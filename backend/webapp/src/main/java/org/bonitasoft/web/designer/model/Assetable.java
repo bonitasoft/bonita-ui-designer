@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
 
-public interface WebResourceable<T extends Identifiable> extends Identifiable {
+public interface Assetable<T extends Identifiable> extends Identifiable {
 
     List<Asset<T>> getAssets();
 }

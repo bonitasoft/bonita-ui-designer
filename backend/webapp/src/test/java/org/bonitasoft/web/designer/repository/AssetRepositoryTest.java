@@ -17,16 +17,19 @@ package org.bonitasoft.web.designer.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 
 import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -145,4 +148,43 @@ public class AssetRepositoryTest {
         assetRepository.getResourceStream(asset);
     }
 
+
+    @Test
+    public void should_find_asset_used_by_a_component() throws Exception {
+        Asset<Page> asset = aFilledAsset();
+        pagesPath.resolve(asset.getName());
+        temporaryFolder.newFilePath(asset.getName());
+        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.get("page-id")).thenReturn(
+                aPage().withAsset(asset).build());
+
+        assertThat(assetRepository.findAsset("page-id", "myasset.js", AssetType.JAVASCRIPT).toFile()).exists();
+    }
+
+    @Test
+    public void should_throw_NullPointerException_when_find_asset_with_filename_null() throws Exception {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Filename is required");
+
+        assetRepository.findAsset("page-id", null, AssetType.JAVASCRIPT);
+    }
+
+    @Test
+    public void should_throw_NullPointerException_when_find_asset_with_type_null() throws Exception {
+        exception.expect(NullPointerException.class);
+        exception.expectMessage("Asset type is required");
+
+        assetRepository.findAsset("page-id", "myfile.js", null);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void should_throw_NoSuchElementException_when_finding_inexistant_asset() throws Exception {
+        Asset<Page> asset = aFilledAsset();
+        pagesPath.resolve(asset.getName());
+        temporaryFolder.newFilePath(asset.getName());
+        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.get("page-id")).thenReturn(aPage().withAsset(asset).build());
+
+        assetRepository.findAsset("page-id", "inexistant.js", AssetType.JAVASCRIPT);
+    }
 }

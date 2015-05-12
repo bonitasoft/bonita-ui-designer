@@ -107,8 +107,8 @@ public class PageResource extends DataResource<Page> {
         getRepository().delete(pageId);
     }
 
-    @RequestMapping(value = "/{id}/asset", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("id") String id, @RequestParam("type") String type) {
+    @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
+    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id, @PathVariable("type") String type) {
         ErrorMessage errorMessage = pageAssetUploader.upload(file, id, type);
         if (errorMessage != null) {
             logger.error(errorMessage.getMessage());

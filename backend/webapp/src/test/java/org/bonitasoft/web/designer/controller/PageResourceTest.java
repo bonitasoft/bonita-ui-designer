@@ -260,18 +260,18 @@ public class PageResourceTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
 
-        mockMvc.perform(fileUpload("/rest/pages/my-page/asset?type=JAVASCRIPT").file(file)).andExpect(status().isCreated());
+        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isCreated());
 
-        verify(pageAssetUploader).upload(file, "my-page", "JAVASCRIPT");
+        verify(pageAssetUploader).upload(file, "my-page", "js");
     }
 
     @Test
     public void should_not_upload_an_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
-        when(pageAssetUploader.upload(file, "my-page", "JAVASCRIPT")).thenReturn(new ErrorMessage("error", "error"));
-        mockMvc.perform(fileUpload("/rest/pages/my-page/asset?type=JAVASCRIPT").file(file)).andExpect(status().isInternalServerError());
+        when(pageAssetUploader.upload(file, "my-page", "js")).thenReturn(new ErrorMessage("error", "error"));
+        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isInternalServerError());
 
-        verify(pageAssetUploader).upload(file, "my-page", "JAVASCRIPT");
+        verify(pageAssetUploader).upload(file, "my-page", "js");
     }
 }

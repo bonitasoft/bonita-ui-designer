@@ -14,10 +14,33 @@
  */
 package org.bonitasoft.web.designer.model.asset;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum AssetType {
 
-    CSS,
-    JAVASCRIPT,
-    IMAGE
+    CSS("css"),
+    JAVASCRIPT("js"),
+    IMAGE("img");
 
+    private String prefix;
+
+    AssetType(String prefix) {
+        this.prefix = prefix;
+    }
+
+    @JsonCreator
+    public static AssetType getAsset(String prefix){
+        for(AssetType type : values()){
+            if(type.prefix.equals(prefix)){
+                return type;
+            }
+        }
+        return null;
+    }
+
+    @JsonValue
+    public String getPrefix() {
+        return prefix;
+    }
 }
