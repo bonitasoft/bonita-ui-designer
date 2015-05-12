@@ -1,0 +1,78 @@
+<form name="addData" role="form" novalidate ng-submit="save(newData)">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-if="isNewData" translate>Create a new variable</h3>
+
+        <h3 class="modal-title" ng-if="!isNewData"><span translate>Edit variable</span>
+            <strong>{{newData.$$name}}</strong></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-if="isNewData" ng-class="{'has-error': !isDataNameUnique(newData.$$name)}">
+            <label class="control-label control-label--required" for="name">
+                <span translate>Name</span>
+                <span ng-show="!isDataNameUnique(newData.$$name)" translate> '{{newData.$$name}}' is already used</span>
+            </label>
+            <input type="text" class="form-control" autofocus placeholder="{{'Name' | translate}}" name="name"
+                   ng-model="newData.$$name" ng-trim="false" ng-pattern="/^[a-zA-Z][\w]*$/" required>
+
+            <p class="text-danger" ng-show="addData.name.$dirty && addData.name.$error.pattern" translate>Data name
+                should start with a letter and be composed of alphanumeric character</p>
+        </div>
+        <div class="form-group row">
+            <label class="control-label" for="type" translate>Type</label>
+            <select name="type"
+                    class="form-control"
+                    ng-model="newData.type"
+                    ng-change="updateValue(newData.type)"
+                    ng-options="dataType.type as getLabel(dataType.type) group by dataType.group for dataType in dataTypes"></select>
+        </div>
+        <div ng-switch="newData.type" class="form-group form-group--data">
+            <!-- string -->
+            <label ng-switch-default class="control-label" for="value" translate>Value</label>
+            <input ng-switch-default type="text" class="form-control" placeholder="{{'Value' | translate }}" id="value"
+                   name="value" ng-model="newData.value">
+
+            <!-- url parameter -->
+            <label ng-switch-when="urlparameter" class="control-label" for="value" translate>Url parameter name</label>
+            <input ng-switch-when="urlparameter" type="text" class="form-control" placeholder="{{'name' | translate}}"
+                   id="value" name="value" ng-model="newData.value">
+
+            <p class="help-block" ng-switch-when="urlparameter" translate>
+                Tip: URL parameter are located after a <em>?</em> in the page Url.
+            </p>
+            <!-- url -->
+            <label ng-switch-when="url" class="control-label" for="value" translate>Api url</label>
+            <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="/bonita/API" id="value"
+                   name="value" ng-model="newData.value" required valid-url>
+
+            <p class="help-block" ng-switch-when="url" translate>
+                Tip: You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em>
+            </p>
+
+            <!-- json -->
+            <label ng-switch-when="json" class="control-label" for="value" translate>Value</label>
+            <ace-editor ng-switch-when="json" autofocus mode="json" ng-model="newData.value"
+                        ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
+                        id="value"></ace-editor>
+            <p class="help-block" ng-switch-when="json" translate>
+                Tip: Array syntax: ["val1", "val2"], Object syntax: {"key", "value"}
+            </p>
+
+            <!-- expression -->
+            <label ng-switch-when="expression" class="control-label" for="value" translate>Value</label>
+            <ace-editor ng-switch-when="expression" autofocus mode="javascript" auto-completion="{{pageData}}"
+                        ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
+                        class="form-control" id="value"></ace-editor>
+            <p class="help-block" ng-switch-when="expression" translate>
+                Tip: Hit $ key to access data, use ctrl-space to trigger auto-completion.
+            </p>
+        </div>
+        <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-if="isNewData"
+                ng-disabled="!addData.$valid || !isDataNameUnique(newData.$$name)" translate>Save
+        </button>
+        <button class="btn btn-primary" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save</button>
+        <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
+    </div>
+</form>

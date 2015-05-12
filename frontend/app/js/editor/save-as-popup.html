@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h3 class="modal-title">Save {{page.name}} as...</h3>
+</div>
+<form class="form" name="newPage" ng-submit="createPage(page)">
+    <div class="modal-body" id="modal-save-page-as">
+        <div class="form-group">
+            <input
+                name="name"
+                ng-model="newName"
+                ng-pattern="'[a-zA-Z0-9]*$'"
+                class="form-control"
+                id="page-name"
+                placeholder="Page Name"
+                required>
+        </div>
+        <span ng-if="newPage.name.$error.pattern" class="text-danger">Page name should contains only alphanumeric characters with no space</span>
+    </div>
+    <div class="modal-footer" id="modal-delete-page-controls">
+        <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newPage.name.$dirty || newPage.$invalid || newName == page.name">Save</button>
+        <button class="btn btn-link" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

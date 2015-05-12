@@ -1,0 +1,23 @@
+<div class="preview-container">
+    <nav id="menubar" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button ng-init="navCollapsed = true" type="button" class="navbar-toggle"  ng-click="navCollapsed = !navCollapsed">
+                    <span class="sr-only" translaye>Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand" translate>Preview - {{pageName}}</span>
+            </div>
+
+            <div collapse="navCollapsed"  class="collapse navbar-collapse text-center">
+                <resolutions-bar id="resolutions" class="btn-group btn-group-lg"></resolutions-bar>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid text-center">
+        <iframe ng-src="{{iframe.src}}" width="{{ resolution().width + 4 }}" height="98%"></iframe>
+    </div>
+</div>

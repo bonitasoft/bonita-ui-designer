@@ -1,0 +1,207 @@
+@widget-active-color: #1E90FF;
+@widget-hover-color: #87CEFA;
+@widget-active-background: #ecf7ff;
+@row-border-color: #aaa;
+@row-border-active-color: #888;
+
+/**
+ * Caption
+ */
+.component-caption {
+  color: #F5F5F5;
+  position: absolute;
+  top: -1.85em;
+  left: -2px;
+  background-color: @widget-hover-color;
+  line-height: 1.5;
+  opacity: 0;
+  z-index: 50;
+  visibility: hidden;
+  display: inline-block;
+  padding: .15em .4em;
+}
+
+
+// row caption
+.component-caption--row {
+  left: -5px;
+  background-color: @row-border-color;
+  box-shadow: 0 0 4px #aaa;
+}
+
+.btn-caption {
+  background: transparent;
+  border: 0
+}
+
+.btn-caption:hover {
+  color: #333;
+}
+
+.row-builder{
+  position: relative;
+}
+
+/**
+ * Caption for Row element
+ */
+.row-element.component-element--hover .component-element--selected .component-caption  {
+  opacity: 0;
+  z-index: auto;
+}
+
+.row-element.component-element--hover > .component-caption {
+  opacity: 1;
+  z-index: 52;
+  transition: opacity .3s ease;
+  transition-delay: .2s;
+  visibility: visible;
+}
+
+/**
+ * Caption for component
+ */
+
+.component-element--selected:hover > .widget-wrapper > .component-caption {
+  background-color: @widget-active-color;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease;
+}
+
+.row-element {
+  border: 1px transparent solid;
+  border-left: #eee 5px solid;
+}
+
+/**
+ * Component
+ */
+.component-element,
+.form-element,
+.fragment-element,
+.container-element {
+  display: block;
+  border: 1px transparent solid;
+  margin: .3em 0;
+  padding: 1px;
+}
+
+.container-element {
+  box-shadow: 1px 1px 4px #ccc
+}
+
+.form-element {
+  border-style: dashed;
+  border-color: #424251;
+}
+
+.component-element--hover {
+  border-color: @widget-hover-color;
+  transition: opacity .3s ease;
+}
+
+.row-element.component-element--hover {
+  border:1px solid @row-border-active-color;
+  border-left: @row-border-active-color 5px solid;
+  transition: border .3s ease;
+  transition-delay: .2s;
+}
+
+.component-element--selected {
+  border: 1px solid @widget-active-color;
+  background-color: @widget-active-background;
+  transition: opacity .3s ease;
+}
+
+
+
+.move-row-action {
+  font-size: large;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+.widget-content > .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+
+
+.widget-label-horizontal {
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.fragment-element {
+  background-color: #fff;
+}
+
+
+
+// wrapper is the relative position used by the overlay
+// with a minimum height for esthetics
+.widget-wrapper {
+  position: relative;
+}
+
+
+// overlay covering the widget when the user over the widget
+// disallowing any interaction with the widget itslef
+.widget-overlay,
+.fragment-overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 24;
+  position: absolute;
+}
+
+.widget-content,
+.fragment-content {
+  overflow-x: hidden;
+}
+
+.component-selected {
+  .shadow-on-focus();
+  border: 2px #555555 solid;
+}
+
+
+.widget-placeholder {
+  margin: 0.3em 0;
+  .text-center();
+  background-color: #eeeeee;
+  color: #cccccc;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: .2em;
+  border: 2px dashed transparent;
+}
+
+
+.widget-placeholder.drop-container.bo-drag-dropzone-child {
+  background-color: #eee;
+  font-family: 'Helvetica'
+}
+
+.widget-placeholder.bo-dropzone-hover {
+  background-color: #ddd;
+  font-family: 'Helvetica';
+  border-color: #999;
+  color: #aaa;
+}
+
+.current-tab {
+  text-shadow: 0px 0px 4px #555555;
+}
+
+.tab-body {
+  margin-top: 10px;
+}
+

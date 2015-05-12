@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label for="width" translate>
+        Width
+        <i class="fa fa-info-circle" tooltip-placement="top" tooltip="Specify the number of columns of the element. All elements can take up to 12 columns." tooltip-append-to-body="true"></i>
+    </label>
+    <div class="inner-addon left-addon">
+        <i class="fa fa-{{ resolution().icon }} bold"></i>
+        <input ng-model="currentComponent.dimension[resolution().key]" type="number" class="form-control property--width" id="width" min="1" max="12">
+        <div class="editor-field-icon-label">column<span ng-if="currentComponent.dimension[resolution().key]>1">s</span></div>
+    </div>
+</div>
+
+<property-field
+    ng-repeat="property in currentComponent.$$widget.properties"
+    property="property"
+    property-value="currentComponent.propertyValues[property.name]"
+    properties="currentComponent.propertyValues"
+    page-data="page.data"></property-field>

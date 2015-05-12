@@ -1,0 +1,39 @@
+@sidebar-transition: ease-out 0.2s;
+
+.splitter.splitter-horizontal {
+  cursor: row-resize;
+}
+
+.splitter.splitter-vertical {
+  cursor:  col-resize;
+}
+
+.sidebar-right .splitter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: @z-index-splitter;
+    width: 4px;
+    background-color: @navbar-default-bg;
+    border-right: 1px solid @navbar-default-border;
+}
+
+.splitter-pane {
+  transition: right @sidebar-transition, left @sidebar-transition, bottom @sidebar-transition, transform @sidebar-transition;
+}
+
+.splitter-pane.splitter-onmove {
+  transition: none;
+}
+
+.splitter-pane-bottom.splitter-pane-closed {
+  transform: translate(0, 100%);
+}
+
+.splitter-pane-left.splitter-pane-closed {
+  transform: translate(-100%, 0);
+}
+
+.splitter-pane-right.splitter-pane-closed {
+  transform: translate(100%, 0);
+}

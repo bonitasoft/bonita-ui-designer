@@ -1,0 +1,40 @@
+.file-upload {
+  position: relative;
+  overflow: hidden;
+
+  .form-control {
+    z-index: 1;
+
+    &[readonly] {
+      cursor: inherit;
+    }
+  }
+
+}
+
+.file-upload-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  display: block;
+  z-index: 2;
+}
+
+.file-upload-input--disabled {
+  left: 0;
+  right: auto;
+  width:0;
+  height:0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  z-index: -1;
+}

@@ -1,0 +1,16 @@
+<div class="content sidebar-palette" bo-drag-polyfill>
+    <section ng-repeat="section in sections | orderBy:'order' ">
+        <div class="sidebar-palette-title sidebar-title clickable"
+             ng-class="{'collapsed-in': !collapsed, 'collapsed': collapsed}"
+             ng-click="collapsed = !collapsed"
+             translate>
+             {{section.name | translate}}
+        </div>
+
+        <div collapse="collapsed">
+            <div ng-repeat="widget in section.widgets | orderBy:'component.order'" class="palette-widget">
+                <palette-widget class="palette-item" widget="widget"></palette-widget>
+            </div>
+        </div>
+    </section>
+</div>

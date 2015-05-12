@@ -13,3 +13,7 @@ npm-debug.log
 backend/webapp/node/
 backend/webapp/src/main/webapp/i18n/*.json
 backend/webapp/src/test/resources/i18n/*.json
+
+frontend/node/
+frontend/build/
+

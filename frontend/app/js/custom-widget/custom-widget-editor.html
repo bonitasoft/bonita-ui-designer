@@ -1,0 +1,110 @@
+<nav id="menubar" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a>
+        <span class="navbar-brand" translate>Custom widget editor</span>
+
+        <p class="navbar-text"><i class="fa fa-alias-custom-widget"></i> {{widget.name}}</p>
+        <button id="save" ng-click="save()" class="btn btn-primary navbar-btn" ng-disabled="widgetForm.$invalid" translate>Save</button>
+        <button type="button"s id="export" class="btn btn-default navbar-btn" ng-click="saveAndExport()" title="{{'Export'|translate}}"><i
+                class="fa fa-alias-export"></i></button>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-7">
+            <form id="widget-form" name="widgetForm">
+                <div>
+                    <h4 translate>Description</h4>
+                    <textarea class="form-control textarea--widget" placeholder="Widget description" ng-model="widget.description"></textarea>
+                    <span class="help-block" translate>This description will be displayed as a tooltip in the widget palette</span>
+                </div>
+                <div>
+                    <h4 translate>Template</h4>
+                    <ace-editor class="ace-editor--widget" mode="html" ng-model="widget.template" id="template"></ace-editor>
+                </div>
+                <div>
+                    <h4 translate>Controller</h4>
+                    <ace-editor class="ace-editor--widget" mode="javascript" ng-model="widget.controller" id="controller"></ace-editor>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-5">
+            <div class="row">
+                <h4 class="col-xs-10" translate>Properties</h4>
+                <div class="col-xs-2">
+                    <button id="create" title="Create a new property" class="btn btn-success pull-right" ng-click="createOrUpdate()">
+                        <i class="fa fa-plus"></i>
+                        <span translate>Create</span>
+                    </button>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <tr ng-repeat="property in widget.properties">
+                    <td class="col-xs-10">
+                        <strong class="property-name">{{ property.name }}</strong><br/>
+                        <small translate>Label</small>:
+                        {{ property.label }}<br/>
+                        <small translate>Type</small>:
+                        {{property.type}}<br/>
+                        <span ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}<br/></span>
+                        <span><small translate>Default value</small>: {{ property.defaultValue }}</span>
+                    </td>
+                    <td class="col-xs-2" style="vertical-align: middle">
+                        <div class="pull-right btn-group btn-group">
+                            <button class="btn btn-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="createProperty.html">
+        <div class="modal-header">
+            <h3 class="modal-title" ng-if="!paramToUpdate" translate>Create new property</h3>
+            <h3 class="modal-title" ng-if="paramToUpdate"><span translate>Edit property</span><i>{{ currentParam.name }}</i></h3>
+        </div>
+        <form name="propertyForm" ng-submit="ok()">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name" class="control-label control-label--required" translate>Name</label> &nbsp;<small class="text-muted" translate>(used in your template and controller)</small>
+                    <input id="name" class="form-control" name="name" ng-model="currentParam.name" ng-pattern="'[a-zA-Z0-9]*$'" required autofocus="animationFinished">
+                    <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property name should contains only alphanumeric characters with no space</span>
+                </div>
+                <div class="form-group">
+                    <label for="label" class="control-label control-label--required" translate>Label</label> &nbsp;<small class="text-muted" translate>(displayed in editor's property panel)</small>
+                    <input id="label" class="form-control" name="label" ng-model="currentParam.label" required>
+                </div>
+                <div class="form-group">
+                    <label for="type" class="control-label control-label--required" translate>Type</label>
+                    <select id="type" class="form-control" name="type" ng-model="currentParam.type"
+                            ng-options="type for type in types" ng-change="currentParam.defaultValue = null" required></select>
+                </div>
+                <div class="form-group" ng-if="currentParam.type === 'choice'">
+                    <label for="choices" class="control-label control-label--required" translate>Choices (comma separated)</label>
+                    <input id="choices" class="form-control" name="choices" ng-model="currentParam.choiceValues" ng-list required>
+                </div>
+                <div class="form-group">
+                    <label for="default" class="control-label" translate>Default</label>
+                    <input id="default" class="form-control" name="default" ng-model="currentParam.defaultValue"
+                           ng-if="currentParam.type === 'text' || currentParam.type === 'html'">
+                    <input id="default" type="number" class="form-control" name="default"
+                           ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'integer'">
+                    <select id="default" class="form-control" name="default" ng-init="currentParam.defaultValue = true"
+                           ng-model="currentParam.defaultValue" ng-options="key for key in [true, false]" ng-if="currentParam.type === 'boolean'">
+                    <input id="default" type="text" class="form-control" name="default" ng-list
+                           ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'collection'">
+                    <select id="default" class="form-control" name="default"
+                            ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'choice'"
+                            ng-options="choice for choice in currentParam.choiceValues"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ng-disabled="propertyForm.$invalid" ng-click="ok()">{{ (paramToUpdate ? 'Save' : 'Create')|translate }}</button>
+                <button type="button" class="btn btn-link" ng-click="cancel()" translate>Cancel</button>
+            </div>
+        </form>
+    </script>
+</div>
