@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.bonitasoft.web.designer.controller.ErrorMessage;
-import org.bonitasoft.web.designer.model.WebResourceable;
+import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.repository.AssetRepository;
@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-public class AssetUploader<T extends WebResourceable> {
+public class AssetUploader<T extends Assetable> {
 
     protected static final Logger logger = LoggerFactory.getLogger(AssetUploader.class);
 
@@ -46,7 +46,7 @@ public class AssetUploader<T extends WebResourceable> {
             return new ErrorMessage("Argument", "Part named [file] is needed to successfully import a component");
         }
 
-        AssetType assetType = AssetType.valueOf(type);
+        AssetType assetType = AssetType.getAsset(type);
         if (assetType == null) {
             return new ErrorMessage("Argument", "The type is invalid");
         }

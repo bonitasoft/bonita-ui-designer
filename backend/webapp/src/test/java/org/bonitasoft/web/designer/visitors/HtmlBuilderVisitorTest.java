@@ -353,7 +353,7 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "mycontext/");
 
         Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("<script src=\"mycontext/js/myfile.js\"></script>");
+        assertThat(head.html()).contains("<script src=\"mycontext/pages/page-id/js/myfile.js\"></script>");
     }
     @Test
     public void should_add_css_asset_import_in_header() throws Exception {
@@ -362,7 +362,7 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "mycontext/");
 
         Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("<link rel=\"stylesheet\" href=\"mycontext/css/myfile.css\">");
+        assertThat(head.html()).contains("<link rel=\"stylesheet\" href=\"mycontext/pages/page-id/css/myfile.css\">");
     }
 
     @Test

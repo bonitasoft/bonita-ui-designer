@@ -31,7 +31,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.Versioned;
-import org.bonitasoft.web.designer.model.WebResourceable;
+import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -39,7 +39,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
-public class Page extends Versioned implements Previewable, Identifiable, ElementContainer, WebResourceable<Page> {
+public class Page extends Versioned implements Previewable, Identifiable, ElementContainer, Assetable<Page> {
 
     private String id;
     @NotBlank(message = "Page name should not be blank")
