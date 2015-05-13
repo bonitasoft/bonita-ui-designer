@@ -1,0 +1,114 @@
+
+#palette {
+  overflow-x: hidden;
+
+  section .sidebar-title {
+    position: relative;
+
+    &.collapsed::after {
+      position: absolute;
+      right: 5px;
+      font-family: FontAwesome;
+      content: "\f106"; //fa-angle-up
+    }
+
+    &.collapsed-in::after {
+      position: absolute;
+      right: 5px;
+      font-family: FontAwesome;
+      content: "\f107"; //fa-angle-down
+    }
+  }
+}
+
+.sidebar-palette {
+  [collapse] {
+    font-size: 0
+  }
+}
+
+.sidebar-palette-title {
+  background-color: @bg-color-palette-title;
+  font-size: .85em;
+  margin-left: 0;
+  padding: 5px .3em;
+  box-shadow: 0 2px 4px darken(@bg-color-palette-title, 20%);
+}
+.sidebar-palette-title.collapsed {
+  box-shadow: none;
+}
+
+.palette-widget {
+  color: #646464;
+  cursor: move;
+  padding: 5px;
+  background-color: rgba(239, 239, 239, 0.13);
+  font-size: 15px;
+  width: 50%;
+  border: 1px solid #D7D7D7;
+  border-radius: 0;
+  border-left: 0;
+  border-top: 0;
+  margin: 0;
+  min-height: 70px;
+  box-shadow: inset -4px -3px 5px 5px rgba(173, 173, 173, 0.05);
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+
+.palette-widget:first-child,
+.palette-widget:first-child + .palette-widget {
+  border-top: 1px solid rgba(215, 215, 215, 0.4)
+}
+.palette-widget:nth-child(2n) {
+  border-right: 0
+}
+
+
+.palette-item {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+.widget-icon {
+  width:57%;
+  margin: 1em auto 4px;
+
+  svg {
+    width: 100%;
+  }
+}
+
+.widget-label {
+  font-size: .65em;
+  text-transform:uppercase;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: .5em 0 0;
+}
+
+@media screen and (max-width: @minWidth) {
+
+  .widget-icon {
+    margin-top: 1.2em;
+    width:50%;
+  }
+}
+
+@media screen and (min-width: @maxWidth) {
+  .sidebar-palette-title {
+    font-size: 1em;
+    padding: .3em .75em;
+  }
+  .widget-label {
+    font-size: .7em;
+  }
+}

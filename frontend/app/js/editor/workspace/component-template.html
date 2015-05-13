@@ -1,0 +1,11 @@
+<component id="{{ component.$$id }}"
+           class="component-element"
+           component="component"
+           editor="editor"
+           component-index="$index"
+           row="row"
+           container="container"
+           ng-click="editor.selectComponent(component, $event)"
+           ng-class="{'component-element--selected': editor.isCurrentComponent(component)}"
+           resizable="true">
+</component>

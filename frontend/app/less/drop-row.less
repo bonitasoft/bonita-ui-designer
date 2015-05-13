@@ -1,0 +1,29 @@
+.dropRow {
+  height: 5px;
+  font-size: 12px;
+  padding-left: 10px;
+  border-radius: 3px;
+  margin: 0 5px;
+  color: transparent;
+}
+
+
+.dropRow.bo-drag-enter {
+  .shadow-on-focus();
+}
+
+.dropRow.bo-drag-enter:not(.bo-drag-dropzone-child) {
+  height: 40px;
+  line-height: 40px;
+  color: #919191;
+  background-color: #efefef;
+}
+
+.dropRow.bo-drag-dropzone-child {
+  overflow: hidden;
+  color: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  pointer-events: none
+}
+
