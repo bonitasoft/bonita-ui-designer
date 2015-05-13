@@ -2,10 +2,6 @@
     <div class="{{cssClasses}}"
          ng-if="!properties.hidden" {{#repeated}}ng-repeat="$item in properties.repeatedCollection track by $index"
          ng-init="$collection = properties.repeatedCollection"{{/repeated}}>
-        {{#each rowsHtml}}
-            <div class="row">
-                {{{this}}}
-            </div>
-        {{/each}}
+        {{{rowsHtml}}}
     </div>
 </div>
