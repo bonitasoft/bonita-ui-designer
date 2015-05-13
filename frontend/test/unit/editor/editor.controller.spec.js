@@ -371,10 +371,7 @@ describe('EditorCtrl', function() {
           item: 'foo',
           $$parentContainerRow: $scope.currentContainerRow,
           dimension: {
-            xs: 12,
-            sm: 12,
-            md: 12,
-            lg: 12
+            xs: 12
           }
         };
       }

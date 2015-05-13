@@ -1,5 +1,5 @@
 angular.module('pb.services')
-  .service('componentFactory', function (paletteService, widgetFactory, commonParams) {
+  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions) {
 
     'use strict';
 
@@ -50,12 +50,7 @@ angular.module('pb.services')
       var item = {
         id: widget.id,
         type: 'component',
-        dimension: {
-          xs: 12,
-          md: 12,
-          sm: 12,
-          lg: 12
-        },
+        dimension: resolutions.getDefaultDimension(),
         propertyValues: (widget.properties || []).reduce(function(props, property) {
           props[property.name] = {
             type: 'constant',
@@ -95,12 +90,7 @@ angular.module('pb.services')
     function createContainer(parentRow) {
       var container = {
         type: 'container',
-        dimension: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12
-        },
+        dimension: resolutions.getDefaultDimension(),
         propertyValues: angular.extend(commonParams.getDefaultValues(), {
           'repeatedCollection': {
             type: 'constant',
@@ -131,13 +121,7 @@ angular.module('pb.services')
     function createTabsContainer(parentRow) {
       var container = {
         type: 'tabsContainer',
-
-        dimension: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12
-        },
+        dimension:  resolutions.getDefaultDimension(),
         propertyValues: commonParams.getDefaultValues()
       };
       container.tabs = ['Tab 1', 'Tab 2'].map(createNewTab);
@@ -180,12 +164,7 @@ angular.module('pb.services')
     function createFormContainer(parentRow) {
       var container = {
         type: 'formContainer',
-        dimension: {
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 12
-        },
+        dimension: resolutions.getDefaultDimension(),
         propertyValues: angular.extend(commonParams.getDefaultValues(), {
           'url': {
             type: 'constant',

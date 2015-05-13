@@ -99,9 +99,7 @@ angular.module('pb.services')
 
     /**
      * Returns the CSS column width that must be used by a component in the editor to reflect its width and the currently
-     * selected resolution. If 'lg' is the current resolution and the component's lg width is 7, then the returned width
-     * is 7. If no dimension is set for 'lg', but 'md' is set to 7, then 7 is also returned. If no
-     * width is set at all, 12 is returned.
+     * selected resolution.
      */
     function columnWidth(component) {
       var property,

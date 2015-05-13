@@ -19,7 +19,7 @@ describe('whiteboard', function() {
         [
           {
             "type": "container",
-            "dimension": {"xs": 12, "md": 6},
+            "dimension": {"xs": 12},
             "rows": [
               [
                 {
@@ -60,10 +60,7 @@ describe('whiteboard', function() {
           {
             "type": "formContainer",
             "dimension": {
-              "xs": 12,
-              "sm": 12,
-              "md": 12,
-              "lg": 12
+              "xs": 12
             },
             "propertyValues": {
               "cssClasses": {
@@ -90,10 +87,7 @@ describe('whiteboard', function() {
             "container": {
               "type": "container",
               "dimension": {
-                "xs": 12,
-                "sm": null,
-                "md": null,
-                "lg": null
+                "xs": 12
               },
               "propertyValues": {
                 "cssClasses": {
