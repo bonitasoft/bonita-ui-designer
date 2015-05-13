@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html ng-app="uidesigner" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>UI designer</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- build:css -->
+    <link rel="stylesheet" href="css/main.css"/>
+    <!-- endbuild -->
+
+    <!-- build:vendor -->
+    <script src="/js/vendor.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js -->
+    <script src="/js/pb.module.js"></script>
+
+    <script src="/js/preview/preview.module.js"></script>
+    <script src="/js/home/home.module.js"></script>
+
+    <script src="/js/custom-widget/custom-widget.module.js"></script>
+    <script src="/js/common/repositories/repositories.module.js"></script>
+    <script src="/js/common/services/services.module.js"></script>
+
+    <script src="/js/routes.js"></script>
+    <script src="/js/app.config.js"></script>
+
+    <script src="/js/home/home.controller.js"></script>
+    <script src="/js/home/file-input-change.directive.js"></script>
+    <script src="/js/home/custom-widget-factory.service.js"></script>
+    <script src="/js/home/deletion-popup.controller.js"></script>
+
+    <script src="/js/preview/preview.controller.js"></script>
+    <script src="/js/preview/open-preview.directive.js"></script>
+    <script src="/js/preview/web-socket.service.js"></script>
+
+    <script src="/js/editor/editor.controller.js"></script>
+    <script src="/js/editor/component-utils.service.js"></script>
+    <script src="/js/editor/component-scope-builder.service.js"></script>
+    <script src="/js/editor/whiteboard.service.js"></script>
+    <script src="/js/editor/component-factory.service.js"></script>
+    <script src="/js/editor/palette.service.js"></script>
+    <script src="/js/editor/common-params.service.js"></script>
+    <script src="/js/editor/widget-factory.service.js"></script>
+
+    <script src="/js/editor/palette/palette.controller.js"></script>
+    <script src="/js/editor/palette/palette-widget.directive.js"></script>
+
+    <script src="/js/editor/data-panel/data.controller.js"></script>
+    <script src="/js/editor/data-panel/data-popup.controller.js"></script>
+    <script src="/js/editor/data-panel/data-type.service.js"></script>
+    <script src="/js/editor/data-panel/valid-json.directive.js"></script>
+
+    <script src="/js/editor/properties-panel/property-field.directive.js"></script>
+    <script src="/js/editor/properties-panel/property-field.controller.js"></script>
+    <script src="/js/editor/properties-panel/empty-typeahead.directive.js"></script>
+
+    <script src="/js/editor/workspace/component.directive.js"></script>
+    <script src="/js/editor/workspace/container.directive.js"></script>
+    <script src="/js/editor/workspace/container.controller.js"></script>
+
+    <script src="/js/editor/workspace/element-resizer.directive.js"></script>
+    <script src="/js/editor/workspace/form-container.directive.js"></script>
+    <script src="/js/editor/workspace/tabs-container.directive.js"></script>
+    <script src="/js/editor/workspace/tabs-container.controller.js"></script>
+    <script src="/js/editor/workspace/component-mover.directive.js"></script>
+    <script src="/js/editor/workspace/component-mover.controller.js"></script>
+    <script src="/js/editor/workspace/drop-zone.directive.js"></script>
+    <script src="/js/editor/workspace/component-highlighter.directive.js"></script>
+    <script src="/js/editor/workspace/data.filter.js"></script>
+    <script src="/js/editor/workspace/element-resizer-model.service.js"></script>
+
+    <script src="/js/custom-widget/custom-widget-editor.controller.js"></script>
+    <script src="/js/custom-widget/property-editor-popup.controller.js"></script>
+
+    <script src="/js/common/repositories/page-repository.service.js"></script>
+    <script src="/js/common/repositories/widget-repository.service.js"></script>
+
+    <script src="/js/common/services/ace-data-completer.service.js"></script>
+    <script src="/js/common/services/arrays.service.js"></script>
+    <script src="/js/common/services/alerts.service.js"></script>
+    <script src="/js/common/services/error-interceptor.service.js"></script>
+    <script src="/js/common/services/clock.service.js"></script>
+    <script src="/js/common/services/keymaster.service.js"></script>
+    <script src="/js/common/services/resolutions.service.js"></script>
+    <script src="/js/common/services/utils.service.js"></script>
+
+    <script src="/js/common/directives/alerts.directive.js"></script>
+    <script src="/js/common/directives/ace-editor.directive.js"></script>
+    <script src="/js/common/directives/autofocus.directive.js"></script>
+    <script src="/js/common/directives/splitter-vertical.directive.js"></script>
+    <script src="/js/common/directives/splitter-horizontal.directive.js"></script>
+    <script src="/js/common/directives/splitter-toggle.directive.js"></script>
+    <script src="/js/common/directives/tooltip-toggle.directive.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:e2e -->
+    <!-- endbuild -->
+</head>
+<body ng-cloak>
+    <alerts></alerts>
+    <ui-view></ui-view>
+</body>
+</html>

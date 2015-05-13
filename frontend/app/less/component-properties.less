@@ -1,0 +1,57 @@
+
+
+.property-label label,
+.property-label .help-block {
+    margin: 0;
+}
+
+.property--width {
+  width: 90px;
+  display: inline-block;
+}
+
+// inner addon, icon embedded in input
+.inner-addon {
+  position: relative;
+
+  .fa {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+  }
+}
+
+// align inner addon to the left
+.left-addon {
+  .fa {
+    left: 0px;
+  }
+
+  input {
+    padding-left: 35px;
+  }
+}
+
+// align inner addon to the right
+.right-addon {
+  .fa {
+    right: 0px;
+  }
+
+  input {
+    padding-right: 35px;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+// typeahead when linking data
+widget-property-field ul[typeahead-popup] {
+  width: 90%;
+}
+
+.input-group.linked {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(233, 197, 102, 0.6);
+}

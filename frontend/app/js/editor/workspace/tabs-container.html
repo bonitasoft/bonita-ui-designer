@@ -1,0 +1,15 @@
+<div class="widget-wrapper">
+    <component-mover component="tabsContainer" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(tabsContainer)"></component-mover>
+    <ul class="nav nav-tabs" role="tablist">
+        <li  class="tab-element" ng-repeat="tab in tabsContainer.tabs" ng-class="{'active': isOpened(tab), 'current-tab': editor.isCurrentTab(tab)}">
+            <a href ng-click="openTab(tab, $event)">
+                <i ng-click="moveTabLeft(tab)" ng-if="moveTabLeftVisible(tab)" class="fa fa-arrow-circle-left move-tab-left"></i>
+                {{ tab.title }}
+                <i ng-click="moveTabRight(tab)" ng-if="moveTabRightVisible(tab)" class="fa fa-arrow-circle-right move-tab-right"></i>
+            </a>
+        </li>
+    </ul>
+    <div ng-repeat="tab in tabsContainer.tabs" ng-show="isOpened(tab)">
+        <container container="tab.container" component="tabsContainer" editor="editor"></container>
+    </div>
+</div>

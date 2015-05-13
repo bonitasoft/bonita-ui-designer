@@ -1,0 +1,6 @@
+<section class="component-caption">
+    {{component.$$widget.name}}
+    <button ng-if="moveLeftVisible()" ng-click="moveLeft()" class="fa fa-arrow-circle-left btn-caption move-left"  title="Move the component to the left"></button>
+    <button ng-if="moveRightVisible()" ng-click="moveRight()" class="fa fa-arrow-circle-right btn-caption move-right" title="Move the component to the right"></button>
+    <button ng-click="onDelete()" class="fa fa-times-circle btn-caption" title="Delete the component"></button>
+</section>
