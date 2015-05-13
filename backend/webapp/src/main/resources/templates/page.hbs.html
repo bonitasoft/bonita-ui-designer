@@ -7,18 +7,18 @@
     <link rel='stylesheet' href='{{resourceContext}}css/bootstrap.min.css'>
     <link rel='stylesheet' href='{{resourceContext}}css/widget.css'>
     {{#each previableassets}}
-      {{#ifequal type value='CSS'}}
-        <link rel="stylesheet" href="{{#assetsrc}}{{/assetsrc}}">
-      {{/ifequal}}
+        {{#ifequal type value='CSS'}}
+            <link rel="stylesheet" href="{{#assetsrc}}{{/assetsrc}}">
+        {{/ifequal}}
     {{/each}}
 
     <script src="{{resourceContext}}js/vendor.min.js"></script>
     <script src="{{resourceContext}}js/generator.min.js"></script>
     <!-- assets attached to the page -->
     {{#each previableassets}}
-      {{#ifequal type value='JAVASCRIPT'}}
-        <script src="{{#assetsrc}}{{/assetsrc}}"></script>
-      {{/ifequal}}
+        {{#ifequal type value='JAVASCRIPT'}}
+            <script src="{{#assetsrc}}{{/assetsrc}}"></script>
+        {{/ifequal}}
     {{/each}}
 
     {{#if modules}}
@@ -35,11 +35,7 @@
 </head>
 <body ng-app="org.bonitasoft.pagebuilder.generator" pb-model='{{ id }}'>
 <div class="container-fluid">
-    {{#each rowsHtml}}
-        <div class="row">
-            {{{this}}}
-        </div>
-    {{/each}}
+    {{{rowsHtml}}}
     {{#each factories}}
         <script>{{{ this }}}</script>
     {{/each}}

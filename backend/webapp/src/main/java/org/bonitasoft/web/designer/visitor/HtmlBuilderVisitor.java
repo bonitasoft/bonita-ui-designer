@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.transform;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     public String visit(Container container) {
 
         return new TemplateEngine("container.hbs.html")
-                .with("rowsHtml", buildRowsHtml(container.getRows()))
+                .with("rowsHtml", build(container.getRows()))
                 .build(container);
     }
 
@@ -124,7 +125,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         TemplateEngine template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("directives", directivesCollector.collect(previewable))
-                .with("rowsHtml", buildRowsHtml(previewable.getRows()))
+                .with("rowsHtml", build(previewable.getRows()))
                 .with("previableassets", assetVisitor.visit(previewable))
                 .with("factories", transform(pageFactories, new Function<PageFactory, String>() {
                     @Override
@@ -140,18 +141,21 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         return template.build(previewable);
     }
 
-    private List<String> buildRowsHtml(List<List<Element>> rows) {
+    public String build(List<List<Element>> rows) {
+        return new TemplateEngine("rows.hbs.html")
+                .with("rows", transform(rows, new Function<List<Element>, String>() {
 
-        List<String> rowsHtml = new ArrayList<>();
-        for (List<Element> row : rows) {
-            StringBuilder rowHtml = new StringBuilder();
-            for (Element element : row) {
-                rowHtml.append(element.accept(this));
-            }
-            rowsHtml.add(rowHtml.toString());
-        }
-        return rowsHtml;
+                    @Override
+                    public String apply(List<Element> elements) {
+                        return on("").join(transform(elements, new Function<Element, String>() {
+
+                            @Override
+                            public String apply(Element element) {
+                                return element.accept(HtmlBuilderVisitor.this);
+                            }
+                        }));
+                    }
+                }))
+                .build(new Object());
     }
-
-
 }
