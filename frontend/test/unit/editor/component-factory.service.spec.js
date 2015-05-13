@@ -2,7 +2,7 @@ describe('componentFactory', function() {
 
   var service, item, widget, parentRow ;
 
-  beforeEach(module('pb.services'));
+  beforeEach(module('pb.services', 'pb.common.services'));
   beforeEach(module('pb.factories'));
 
   beforeEach(inject(function ($injector){
@@ -32,9 +32,6 @@ describe('componentFactory', function() {
 
     expect(newCompo.type).toBe('component');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.dimension.md).toBe(12);
-    expect(newCompo.dimension.sm).toBe(12);
-    expect(newCompo.dimension.lg).toBe(12);
     expect(newCompo.propertyValues.robert.type).toBe('constant');
     expect(newCompo.propertyValues.robert.value).toBe('manger');
     expect(service.initializeWidget).toHaveBeenCalled();
@@ -46,9 +43,6 @@ describe('componentFactory', function() {
 
     expect(newCompo.type).toBe('container');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.dimension.md).toBe(12);
-    expect(newCompo.dimension.sm).toBe(12);
-    expect(newCompo.dimension.lg).toBe(12);
     expect(newCompo.propertyValues.hasOwnProperty('repeatedCollection')).toBe(true);
     expect(newCompo.propertyValues.hasOwnProperty('repeatedCollection')).toBe(true);
     expect(newCompo.rows.length).toBe(1);
@@ -61,9 +55,6 @@ describe('componentFactory', function() {
 
     expect(newCompo.type).toBe('formContainer');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.dimension.md).toBe(12);
-    expect(newCompo.dimension.sm).toBe(12);
-    expect(newCompo.dimension.lg).toBe(12);
     expect(newCompo.propertyValues.hasOwnProperty('url')).toBe(true);
     expect(newCompo.propertyValues.hasOwnProperty('method')).toBe(true);
     expect(newCompo.container).toBeDefined();
@@ -77,9 +68,6 @@ describe('componentFactory', function() {
 
     expect(newCompo.type).toBe('tabsContainer');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.dimension.md).toBe(12);
-    expect(newCompo.dimension.sm).toBe(12);
-    expect(newCompo.dimension.lg).toBe(12);
     expect(newCompo.tabs.length).toBe(2);
     expect(service.initializeTabsContainer).toHaveBeenCalled();
   });

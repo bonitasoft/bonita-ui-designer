@@ -6,9 +6,6 @@ angular.module('pb.common.services')
 
     'use strict';
 
-    /**
-     * The various resolutions that the user can choose.
-     */
     var resolutions = [
       {
         key: 'xs',
@@ -22,6 +19,10 @@ angular.module('pb.common.services')
     var defaultResolution = resolutions[0];
     var currentResolution = resolutions[0];
 
+    var defaultDimension = {
+      xs: 12
+    };
+
     return {
       addResolutions: function(newResolutions) {
          resolutions =  resolutions.concat(newResolutions);
@@ -32,19 +33,32 @@ angular.module('pb.common.services')
         currentResolution =  defaultResolution;
       },
 
+      setDefaultDimension: function(dimension) {
+        defaultDimension = dimension || defaultDimension;
+      },
+
       $get: function() {
         return {
           all: all,
           get: get,
           selected: selected,
           select: select,
-          getDefaultResolution: getDefaultResolution
+          getDefaultResolution: getDefaultResolution,
+          getDefaultDimension: getDefaultDimension
         };
       }
     };
 
     /**
-     * Returns the default resolution, currently the desktop one.
+     * Returns the default dimension object
+     * @returns {Object}
+     */
+    function getDefaultDimension() {
+      return angular.copy(defaultDimension);
+    }
+
+    /**
+     * Returns the default resolution
      * @returns {Object}
      */
     function getDefaultResolution() {

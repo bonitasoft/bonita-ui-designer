@@ -49,9 +49,7 @@ describe('elementResizer ', function() {
     scope.component = {
       $$id: 'toto',
       dimension: {
-        xs: 12,
-        sm: 12,
-        md: 8
+        xs: 12
       }
     };
 
