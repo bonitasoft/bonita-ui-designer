@@ -14,6 +14,12 @@
       "defaultValue": false
     },
     {
+      "label": "Required",
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": false
+    },
+    {
       "label": "label Hidden",
       "name": "labelHidden",
       "type": "boolean",
