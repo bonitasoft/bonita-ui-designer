@@ -3,6 +3,7 @@ describe('pbCheckbox', function() {
   var compile, rootScope, dom, scope;
 
   beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');
@@ -111,4 +112,13 @@ describe('pbCheckbox', function() {
       expect(input.attr('disabled')).toBe('disabled');
     })
   });
+
+  it('should be required when requested', function () {
+    scope.properties.required = true;
+    var element = compile('<pb-radio></pb-radio>')(scope);
+    scope.$apply();
+    [].slice.call(element.find('input')[0]).forEach(function(input) {
+      expect(input.attr('required')).toBe('required');
+    })
+});
 });
