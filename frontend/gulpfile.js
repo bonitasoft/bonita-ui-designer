@@ -47,9 +47,32 @@ var paths = {
     'app/bower_components/angular-moment/angular-moment.min.js'
   ],
   js: [
-    'app/js/**/*.js',
-    'build/templates/**/*.tpl.js'
-  ]
+    'app/js/**/*.js'
+  ],
+  templates: [
+    'app/js/**/*.html'
+  ],
+  less: [
+    'app/less/**/*.less'
+  ],
+  assets: {
+    fonts: [
+      'app/bower_components/font-awesome/fonts/*.*',
+      'app/bower_components/bootstrap/fonts/*.*'
+    ],
+    ace: [
+      'app/bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json}.js'
+    ],
+    licences: [
+      'licences/**/*.*'
+    ],
+    images: [
+      'app/img/*.*'
+    ],
+    favicon: [
+      'app/favicon.ico'
+    ]
+  }
 };
 
 /**
@@ -84,9 +107,10 @@ gulp.task('test-watch', function (done) {
  * Convert partials into js
  */
 gulp.task('html2js', function () {
-  return gulp.src(['app/**/*.html', '!app/index-dev.html', '!app/bower_components/**/*.html'])
+  return gulp.src(paths.templates)
     .pipe(ngHtml2Js({
-      moduleName: 'pb'
+      moduleName: 'pb',
+      prefix: 'js/'
     }))
     .pipe(rename(function (file) {
       file.extname = '.tpl.js';
@@ -96,7 +120,7 @@ gulp.task('html2js', function () {
 });
 
 gulp.task('ace', function () {
-  gulp.src('app/bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json}.js', {buffer: false})
+  gulp.src(paths.assets.ace, {buffer: false})
     .pipe(gulp.dest('.tmp/js'))
     .pipe(gulp.dest('build/dist/js'));
 });
@@ -117,7 +141,7 @@ gulp.task('vendor', function () {
  * with uglified JS files. The JS files are jshinted by this process and an error causes the task to fail
  */
 gulp.task('js', ['ace', 'html2js'], function () {
-  gulp.src(paths.js)
+  gulp.src(paths.js.concat('build/templates/**/*.tpl.js'))
     .pipe(sourcemaps.init())
     .pipe(order([
       '**/*.module.js',
@@ -148,22 +172,22 @@ gulp.task('css', ['font'], function () {
 });
 
 gulp.task('font', function () {
-  return gulp.src(['app/bower_components/font-awesome/fonts/*.*', 'app/bower_components/bootstrap/fonts/*.*'])
+  return gulp.src(paths.assets.fonts)
     .pipe(gulp.dest('.tmp/fonts'));
 });
 
 gulp.task('licences', function () {
-  return gulp.src('licences/**/*.*')
+  return gulp.src(paths.assets.licences)
     .pipe(gulp.dest('build/dist'));
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/img/*.*')
+  return gulp.src(paths.assets.images)
     .pipe(gulp.dest('build/dist/img'));
 });
 
 gulp.task('favicon', function () {
-  return gulp.src('app/favicon.ico')
+  return gulp.src(paths.assets.favicon)
     .pipe(gulp.dest('build/dist'));
 });
 
@@ -176,7 +200,7 @@ function handleError(err) {
  * watch less files
  */
 gulp.task('watch', ['css'], function () {
-  gulp.watch('app/less/**/*.less', ['css']);
+  gulp.watch(paths.less, ['css']);
 });
 
 /**
@@ -365,3 +389,7 @@ gulp.task('build', ['js', 'css', 'html', 'images', 'favicon', 'i18n', 'licences'
 gulp.task('default', function (callback) {
   runSequence('clean', 'test', 'build', callback);
 });
+
+module.exports = {
+  paths: paths
+};
