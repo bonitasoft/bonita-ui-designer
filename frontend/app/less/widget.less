@@ -79,7 +79,6 @@
  */
 .component-element,
 .form-element,
-.fragment-element,
 .container-element {
   display: block;
   border: 1px transparent solid;
@@ -138,12 +137,6 @@
   text-align: right;
 }
 
-.fragment-element {
-  background-color: #fff;
-}
-
-
-
 // wrapper is the relative position used by the overlay
 // with a minimum height for esthetics
 .widget-wrapper {
@@ -153,16 +146,14 @@
 
 // overlay covering the widget when the user over the widget
 // disallowing any interaction with the widget itslef
-.widget-overlay,
-.fragment-overlay {
+.widget-overlay {
   width: 100%;
   height: 100%;
   z-index: 24;
   position: absolute;
 }
 
-.widget-content,
-.fragment-content {
+.widget-content {
   overflow-x: hidden;
 }
 
