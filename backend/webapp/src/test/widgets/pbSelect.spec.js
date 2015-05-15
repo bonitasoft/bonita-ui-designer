@@ -5,6 +5,7 @@ describe('pbSelect', function () {
   var collection = [{name: 'foo', value: 'baz'}, {name: 'bar', value: 'qux'}];
 
   beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
@@ -132,6 +133,14 @@ describe('pbSelect', function () {
     scope.$apply();
 
     expect(element.find('select').attr('disabled')).toBe('disabled');
+  });
+  it('should be required when requested', function () {
+    scope.properties.required = true;
+
+    var element = $compile('<pb-select></pb-select>')(scope);
+    scope.$apply();
+
+    expect(element.find('select').attr('required')).toBe('required');
   });
 
   it('should return value using returned key', function () {

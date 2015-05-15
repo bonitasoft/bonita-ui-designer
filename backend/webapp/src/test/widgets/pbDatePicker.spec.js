@@ -3,6 +3,7 @@ describe('pbDatePicker', function () {
   var $compile, scope;
 
   beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
 
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
@@ -119,6 +120,16 @@ describe('pbDatePicker', function () {
       date.triggerHandler('input');
 
       expect(inputs.val()).toBe('barfoo');
+    });
+
+    it('should be required when requested', function () {
+      scope.properties.required = true;
+      var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
+      scope.$apply();
+
+
+      var input = element.find('input');
+      expect(input.attr('required')).toBe('required');
     });
   });
 
