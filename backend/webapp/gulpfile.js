@@ -11,13 +11,19 @@ var inlineJSON = require('./src/build/widgets/inlineJSON');
 var buildDirective = require('./src/build/widgets/buildDirective');
 var karma = require('karma').server;
 
+var merge = require('merge-stream');
+var html2js = require('gulp-ng-html2js');
+
 var paths = {
-  htmlTemplates: ['src/main/resources/templates/*.html'],
+  htmlTemplates: [
+    'src/main/resources/templates/*.html'
+  ],
   generator: ['src/main/generator/**/*.js'],
   vendor: [
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/angular/angular.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
+    'bower_components/angular-messages/angular-messages.min.js',
     'bower_components/ng-file-upload/angular-file-upload.min.js',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'bower_components/lodash/lodash.min.js'
@@ -102,12 +108,19 @@ gulp.task('vendor', function () {
  * js task, concatenate and minimify js files
  */
 gulp.task('generator', ['generator:css', 'generator:fonts', 'vendor'], function () {
-  return gulp.src(paths.generator)
-    .pipe(sourcemaps.init())
+  var tpl = gulp.src('src/main/generator/templates/*.html')
+    .pipe(html2js({
+      moduleName: 'org.bonitasoft.pagebuilder.generator.templates'
+    }));
+
+  var app = gulp.src(paths.generator)
     .pipe(ngAnnotate({
       single_quotes: true,
       add: true
-    }))
+    }));
+
+  return merge(app, tpl)
+    .pipe(sourcemaps.init())
     .pipe(concat('generator.min.js'))
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))

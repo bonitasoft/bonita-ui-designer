@@ -8,6 +8,8 @@
 
   angular.module('org.bonitasoft.pagebuilder.generator', [
     'ngSanitize',
+    'ngMessages',
+    'org.bonitasoft.pagebuilder.generator.templates',
     'org.bonitasoft.pagebuilder.generator.constants',
     'org.bonitasoft.pagebuilder.generator.services',
     'org.bonitasoft.pagebuilder.generator.directives',
