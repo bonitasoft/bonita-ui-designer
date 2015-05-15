@@ -1,4 +1,4 @@
-function PbDatePickerCtrl($scope, $log) {
+function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
 
   'use strict';
 
@@ -24,4 +24,6 @@ function PbDatePickerCtrl($scope, $log) {
     }
 
   };
+
+  this.name = widgetNameFactory.getName('pbDatepicker');
 }
