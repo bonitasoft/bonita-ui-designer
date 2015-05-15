@@ -1,4 +1,4 @@
-function PbSelectCtrl($scope, $parse) {
+function PbSelectCtrl($scope, $parse, widgetNameFactory) {
   var ctrl = this;
 
   function comparator(initialValue, item) {
@@ -26,4 +26,6 @@ function PbSelectCtrl($scope, $parse) {
         }, undefined);
     }
   });
+
+  this.name = widgetNameFactory.getName('pbSelect');
 }
