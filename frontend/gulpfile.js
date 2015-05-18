@@ -38,6 +38,7 @@ var paths = {
     'test/e2e/config/e2eConfig.js',
     'test/e2e/polyfill/dnd.js'
   ],
+  tests: 'test/**/*.spec.js',
   assets: {
     fonts: [
       'app/bower_components/font-awesome/fonts/*.*',
@@ -76,7 +77,7 @@ gulp.task('serve', function() {
   gulp.start('dev');
 });
 
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean', 'ddescriber'], function() {
   gulp.start(['test', 'build']);
 });
 
