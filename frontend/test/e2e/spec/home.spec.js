@@ -83,9 +83,9 @@ describe('home page', function() {
   });
 
   it('should export a page', function() {
-    $$('.btn-page-export').first().click();
+    var btn = $$('.btn-page-export').first();
 
-    expect(browser.getCurrentUrl()).toMatch(/\/export\/page\/person/);
+    expect(btn.getAttribute('href')).toMatch(/\/export\/page\/person/);
   });
 
   it('should open a modal to confirm widget deletion', function() {
