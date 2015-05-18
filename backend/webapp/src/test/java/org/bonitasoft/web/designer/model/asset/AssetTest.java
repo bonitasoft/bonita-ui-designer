@@ -48,7 +48,7 @@ public class AssetTest {
     }
 
     /**
-     * AssetNames injected in the test
+     * AssetNames injected in the test {@link #should_be_valid_when_name_is_valid(String)}. A name can be a filename or an URL
      */
     protected Object[] validNames() {
         return $(
@@ -56,31 +56,41 @@ public class AssetTest {
                 $("jquery-1.11.3.min.js"),
                 $("jquery-1.11.3.min-SNAPSHOT.js"),
                 $("myimage_test.jpg"),
-                $("myimage_test.PNG")
+                $("myimage_test.PNG"),
+                $("https://code.jquery.com/jquery-2.1.4.min.js"),
+                $("http://code.jquery.com/jquery-2.1.4.min.js"),
+                $("https://code.jquery.com/jquery-2.1.4.min.JS"),
+                $("https://code.jquery.com/jquery version 2.1.4.min.js"),
+                $("https://code.jquery.com/jquery2.1.4.min.js")
         );
     }
 
     /**
-     * AssetNames injected in the test.
+     * AssetNames injected in the test {@link #should_be_invalid_when_name_is_invalid(String, String)}
      * <ul>
      * <li>The  value is the asset name (example jquery-1.11.3.min.js)</li>
      * <li>Second value is the expected error message</li>
      * </ul>
      */
     protected Object[] invalidNames() {
+        String errorMessage = "Asset name should be a filename containing only alphanumeric characters and no space or an external URL";
         return $(
                 //Not null
                 $(null, "Asset name should not be blank"),
                 //No space in name
-                $("my name.js", "Asset name should contains only alphanumeric characters, with no space"),
+                $("my name.js", errorMessage),
                 //No special characters
-                $("myé&name.js", "Asset name should contains only alphanumeric characters, with no space")
+                $("myé&name.js", errorMessage),
+                //URL without protocole
+                $("code.jquery.com/jquery-2.1.4.min.js", errorMessage),
+                //absolute path
+                $("./jquery-2.1.4.min.JS", errorMessage)
         );
     }
 
     @Test
     @Parameters(method = "validNames")
-    public void should_be_valid(String name) {
+    public void should_be_valid_when_name_is_valid(String name) {
         asset.setName(name);
         beanValidator.validate(asset);
     }
@@ -94,7 +104,6 @@ public class AssetTest {
 
         beanValidator.validate(asset);
     }
-
 
     @Test
     public void should_be_invalid_when_type_null() {
