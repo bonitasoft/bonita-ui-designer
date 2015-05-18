@@ -111,4 +111,11 @@ describe('CustomWidgetEditorCtrl', function() {
     expect($modal.open).toHaveBeenCalled();
   });
 
+  it('should open a dialog to save a widget as ..', function() {
+    spyOn($modal, 'open').and.returnValue(modalInstance);
+    spyOn(widgetRepo, 'create').and.returnValue($q.when({ data: {id: 'customNewName', name: 'newName'}}));
+
+    $scope.saveAs({ id: 'customOldName', name: 'oldName'});
+    expect($modal.open).toHaveBeenCalled();
+  });
 });
