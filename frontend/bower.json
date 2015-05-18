@@ -30,7 +30,7 @@
     "sockjs": "0.3.4",
     "stomp-websocket": "2.3.4",
     "angular-moment": "0.9.0",
-    "ngUpload": "~0.5.14",
+    "ngUpload": "0.5.16",
     "keymaster": "~1.6.3"
   },
   "resolutions": {
