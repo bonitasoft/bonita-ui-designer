@@ -20,7 +20,8 @@ public class ImportException extends RuntimeException {
         SERVER_ERROR,
         PAGE_NOT_FOUND,
         UNEXPECTED_ZIP_STRUCTURE,
-        CANNOT_OPEN_ZIP
+        CANNOT_OPEN_ZIP,
+        JSON_STRUCTURE
     }
 
     private Type type;

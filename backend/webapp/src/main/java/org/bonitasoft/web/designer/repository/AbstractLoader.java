@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.repository;
 
 import static java.nio.file.Files.readAllBytes;
+import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.JSON_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.PAGE_NOT_FOUND;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -70,11 +72,14 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         try {
             return objectMapper.fromJson(readAllBytes(directory.resolve(filename)), type);
         }
+        catch (JsonParseException e) {
+            throw new ImportException(JSON_STRUCTURE, String.format("Could not read json file [%s]", filename), e);
+        }
         catch (NoSuchFileException e) {
-            throw new ImportException(PAGE_NOT_FOUND, "Could not load component, unexpected structure");
+            throw new ImportException(PAGE_NOT_FOUND, String.format("Could not load component, unexpected structure in the file [%s]", filename), e);
         }
         catch (IOException e) {
-            throw new ServerImportException("Error while getting component", e);
+            throw new ServerImportException(String.format("Error while getting component (on file [%s])", filename), e);
         }
     }
 
