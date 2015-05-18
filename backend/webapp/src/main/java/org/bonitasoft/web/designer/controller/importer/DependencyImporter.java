@@ -20,9 +20,9 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.model.Identifiable;
 
-public interface DependencyImporter<T extends Identifiable> {
+public interface DependencyImporter<T> {
 
-    public List<T> load(Path resources) throws IOException;
+    public <P extends Identifiable> List<T> load(P parent, Path resources) throws IOException;
 
-    public void save(List<T> elements);
+    public void save(List<T> elements, Path resources);
 }

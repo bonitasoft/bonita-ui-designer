@@ -65,11 +65,11 @@ public class ArtefactImporter<T extends Identifiable> {
 
         try {
             // first load everything
-            Map<DependencyImporter, List<Identifiable>> dependencies = loadArtefactDependencies(resources);
             T element = loader.load(resources, repository.getComponentName() + ".json");
+            Map<DependencyImporter, List<Identifiable>> dependencies = loadArtefactDependencies(element, resources);
 
             // then save them
-            saveArtefactDependencies(dependencies);
+            saveArtefactDependencies(resources, dependencies);
             repository.save(element);
         } catch (IOException e) {
             logger.error("Error while getting artefacts, verify the zip content", e);
@@ -82,16 +82,16 @@ public class ArtefactImporter<T extends Identifiable> {
         }
     }
 
-    private void saveArtefactDependencies(Map<DependencyImporter, List<Identifiable>> map) {
+    private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<Identifiable>> map) {
         for (Entry<DependencyImporter, List<Identifiable>> entry : map.entrySet()) {
-            entry.getKey().save(entry.getValue());
+            entry.getKey().save(entry.getValue(), resources);
         }
     }
 
-    private Map<DependencyImporter, List<Identifiable>> loadArtefactDependencies(Path resources) throws IOException {
+    private Map<DependencyImporter, List<Identifiable>> loadArtefactDependencies(T element, Path resources) throws IOException {
         Map<DependencyImporter, List<Identifiable>> map = new HashMap<>();
         for (DependencyImporter importer : dependencyImporters) {
-            map.put(importer, importer.load(resources));
+            map.put(importer, importer.load(element, resources));
         }
         return map;
     }

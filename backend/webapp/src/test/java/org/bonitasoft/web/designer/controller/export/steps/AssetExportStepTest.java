@@ -56,7 +56,8 @@ public class AssetExportStepTest {
 
     @Test
     public void should_export_asset_when_page_has_asset() throws Exception {
-        when(pageAssetRepository.findAsset("pageId", "myfile.css", AssetType.CSS)).thenReturn(assetPath);
+        when(pageAssetRepository.findAssetPath("pageId", "myfile.css", AssetType.CSS)).thenReturn(assetPath);
+
         Page page = aPage().withId("pageId").withAsset(anAsset().withName("myfile.css").withType(AssetType.CSS).buildPageAsset()).build();
 
         assetExportStep.execute(zipper, page);

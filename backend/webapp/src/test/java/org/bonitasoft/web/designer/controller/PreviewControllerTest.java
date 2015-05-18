@@ -82,7 +82,7 @@ public class PreviewControllerTest {
     @Test
     public void should_load_asset_on_disk() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(pageAssetRepository.findAsset("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
+        when(pageAssetRepository.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
 
         mockMvc
                 .perform(get("/preview/page/page-id/assets/js/asset.js"))
@@ -95,7 +95,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_respond_404_when_asset_is_not_found() throws Exception {
-        when(pageAssetRepository.findAsset("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(null);
+        when(pageAssetRepository.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(null);
 
         mockMvc.perform(get("/preview/page/page-id/assets/js/asset.js")).andExpect(status().isNotFound());
     }
