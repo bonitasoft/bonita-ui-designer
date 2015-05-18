@@ -9,10 +9,8 @@ angular.module('pb.common.services')
     var resolutions = [
       {
         key: 'xs',
-        label: 'Phone',
-        icon: 'mobile',
-        width: 320,
-        tooltip: 'Extra Small devices (width < 768px)'
+        icon: 'laptop',
+        width: 320
       }
     ];
 
@@ -24,8 +22,8 @@ angular.module('pb.common.services')
     };
 
     return {
-      addResolutions: function(newResolutions) {
-         resolutions =  resolutions.concat(newResolutions);
+      registerResolutions: function(newResolutions) {
+         resolutions =  newResolutions;
       },
 
       setDefaultResolution: function(resolutionKey) {
