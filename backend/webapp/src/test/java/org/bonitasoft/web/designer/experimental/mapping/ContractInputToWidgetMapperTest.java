@@ -16,14 +16,20 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
@@ -116,6 +122,34 @@ public class ContractInputToWidgetMapperTest {
         PropertyValue valueParameter = element.getPropertyValues().get("value");
         assertThat(valueParameter.getType()).isEqualTo("data");
         assertThat(valueParameter.getValue()).isEqualTo("sentData.firstName");
+    }
+
+    @Test
+    public void should_configure_value_property_of_container_with_$item_when_generating_a_multiple_string_in_a_multiple_node_contract_input() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        ContractInput contractInput = aContractInput("names").mulitple().withType(String.class.getName()).build();
+        aNodeContractInput("employee").mulitple()
+                .withInput(contractInput).build();
+        Element container = contractInputToWidgetMapper.toElement(contractInput,
+                new ArrayList<List<Element>>());
+
+        assertThat(container).isInstanceOf(Container.class);
+        PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.names");
+    }
+
+    @Test
+    public void should_configure_value_property_of_container_with_sentData_when_generating_a_multiple_node_input() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        Container container = contractInputToWidgetMapper.toContainer((NodeContractInput) aNodeContractInput("employee").mulitple().build(),
+                new ArrayList<List<Element>>());
+
+        PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("sentData.employee");
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {

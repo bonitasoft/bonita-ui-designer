@@ -65,8 +65,12 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
-        multipleContainer.setRepeatedCollection(inputValue(contractInput));
+        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
         return multipleContainer.getAdapter(Container.class);
+    }
+
+    private boolean isParentMultiple(ContractInput contractInput) {
+        return contractInput.getParent() != null && contractInput.getParent().isMultiple();
     }
 
     private Container toSimpleContainer(NodeContractInput nodeContractInput) {
