@@ -64,7 +64,7 @@ public class PreviewController {
             HttpFile.writeFileInResponse(
                     request,
                     response,
-                    pageAssetUploader.findAsset(id, filename, AssetType.getAsset(type)));
+                    pageAssetUploader.findAssetPath(id, filename, AssetType.getAsset(type)));
         } catch (IOException e) {
             logger.error("Error on widget generation", e);
             throw new ServletException("Error on widget generation", e);

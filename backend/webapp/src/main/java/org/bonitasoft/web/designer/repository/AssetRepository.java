@@ -14,12 +14,16 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static com.google.common.collect.Iterables.find;
 import static java.lang.String.format;
 import static java.nio.file.Files.*;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 
 import com.google.common.base.Preconditions;
@@ -45,10 +49,14 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         this.validator = validator;
     }
 
+    protected Path resolveComponentPath(Asset asset) {
+        return repository.resolvePathFolder((T) asset.getComponent());
+    }
+
     protected Path resolveAssetPath(Asset asset) {
         validator.validate(asset);
         validator.validate(asset.getComponent());
-        return repository.resolvePathFolder((T) asset.getComponent()).resolve(asset.getName());
+        return resolveComponentPath(asset).resolve(asset.getName());
     }
 
     protected Path resolveExistingAssetPath(Asset asset) {
@@ -60,35 +68,42 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     }
 
     /**
-     * Add a file resource to a component
+     * Add a file asset to a component
      */
     public void save(Asset asset, byte[] content) throws IOException {
+        Path parent = resolveComponentPath(asset);
+        if (!exists(parent)) {
+            //When an asset is imported the page folder can not exist
+            createDirectories(parent);
+        }
         write(resolveAssetPath(asset), content);
     }
 
     /**
-     * Remove a component resource
+     * Remove an asset
      */
     public void delete(Asset asset) throws IOException {
         Files.delete(resolveExistingAssetPath(asset));
     }
 
     /**
-     * Get resource content
+     * Read resource content
      */
-    public byte[] getResourceStream(Asset asset) throws IOException {
-        return readAllBytes(resolveExistingAssetPath(asset));
+    public byte[] readAllBytes(Asset asset) throws IOException {
+        return Files.readAllBytes(resolveExistingAssetPath(asset));
     }
 
     /**
-     * Return asset content used by a component
+     * Return the asset path used by a component
+     *
+     * @throws org.bonitasoft.web.designer.repository.exception.NotFoundException when component not exists
      */
-    public Path findAsset(String id, final String filename, final AssetType assetType) throws IOException {
+    public Path findAssetPath(String componentId, final String filename, final AssetType assetType) throws IOException {
         Preconditions.checkNotNull(filename, "Filename is required");
         Preconditions.checkNotNull(assetType, "Asset type is required");
 
-        T component = repository.get(id);
-        Asset<T> asset = (Asset<T>) Iterables.find(component.getAssets(), new Predicate<Asset>() {
+        T component = repository.get(componentId);
+        Asset<T> asset = (Asset<T>) find(component.getAssets(), new Predicate<Asset>() {
             @Override
             public boolean apply(Asset asset) {
                 return filename.equals(asset.getName()) && assetType.equals(asset.getType());
@@ -97,4 +112,24 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         asset.setComponent(component);
         return resolveExistingAssetPath(asset);
     }
+
+    /**
+     * Return the list of assets found in a repository
+     */
+    public List<Asset<T>> findAssetInPath(T component, AssetType type, Path directory) throws IOException {
+        List<Asset<T>> objects = new ArrayList<>();
+
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
+            for (Path path : directoryStream) {
+                objects.add(new Asset<>()
+                                .setName(path.getFileName().toString())
+                                .setType(type)
+                                .setComponent(component)
+                );
+            }
+        }
+
+        return objects;
+    }
+
 }
