@@ -77,4 +77,28 @@ describe('custom widget editor', function() {
     // should go back to root when saved
     expect(browser.getCurrentUrl()).toMatch(/.*#\//);
   });
+
+
+  it('should save a widget as', function() {
+    $('button.dropdown-toggle').click();
+    $('#saveAs').click();
+
+    var newName = $('.modal-body input[name="name"]');
+    var submitButton = $('.modal-footer .btn-primary');
+
+    // input should be filled with current widget name
+    expect(newName.getAttribute('value')).toBe('awesomeWidget');
+
+    // button disabled when we enter a wrong widget name
+    newName.clear();
+    newName.sendKeys('wrong widget name');
+    expect(submitButton.isEnabled()).toBeFalsy();
+
+    // page is renamed and url is updated
+    newName.clear();
+    newName.sendKeys('GoodNewName');
+    submitButton.click();
+    expect(browser.getCurrentUrl()).toMatch(/.*\/widget\/customGoodNewName/);   // http://host:port/#/en/widget/GoodNewName
+  });
+
 });

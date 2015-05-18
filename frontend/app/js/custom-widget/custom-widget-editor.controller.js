@@ -1,4 +1,4 @@
-angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, widget, widgetRepo, alerts, $modal, $window, keymaster, gettextCatalog) {
+angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, widget, widgetRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
 
   'use strict';
 
@@ -59,6 +59,39 @@ angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function
     widgetRepo.save($scope.widget).then(function() {
       $window.location = widgetRepo.exportUrl($scope.widget);
     });
+  };
+
+  $scope.saveAs = function(widget) {
+    var modalInstance = $modal.open({
+      templateUrl: 'js/custom-widget/save-as-popup.html',
+      backdrop: 'static',
+      controller: function($scope, $modalInstance, widget) {
+        $scope.widget = widget;
+        $scope.newName = widget.name;
+
+        $scope.ok = function() {
+          $scope.widget.name = $scope.newName;
+          $modalInstance.close($scope.widget);
+        };
+
+        $scope.cancel = function() {
+          $modalInstance.dismiss('cancel');
+        };
+      },
+      resolve: {
+        widget: function () {
+          return widget;
+        }
+      }
+    });
+    modalInstance.result
+      .then(widgetRepo.create)
+      .then(function (data) {
+        $stateParams.widgetId = data.id;
+        $state.go($state.current, $stateParams, {
+          reload: true
+        });
+      });
   };
 
   $scope.createOrUpdate = function(param) {

@@ -4,7 +4,16 @@
         <span class="navbar-brand" translate>Custom widget editor</span>
 
         <p class="navbar-text"><i class="fa fa-alias-custom-widget"></i> {{widget.name}}</p>
-        <button id="save" ng-click="save()" class="btn btn-primary navbar-btn" ng-disabled="widgetForm.$invalid" translate>Save</button>
+        <div class="btn-group navbar-btn" dropdown>
+            <button id="save" type="button" class="btn btn-default" ng-click="save()" translate>Save</button>
+            <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Save</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a id="saveAs" href="#"  ng-click="saveAs(widget)" translate>Save as ...</a></li>
+            </ul>
+        </div>
         <button type="button"s id="export" class="btn btn-default navbar-btn" ng-click="saveAndExport()" title="{{'Export'|translate}}"><i
                 class="fa fa-alias-export"></i></button>
     </div>

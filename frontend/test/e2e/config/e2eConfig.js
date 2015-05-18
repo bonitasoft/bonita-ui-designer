@@ -114,7 +114,7 @@ angular.module('pb.e2e', ['ngMockE2E'])
       },
       {
         id: 'customAwesomeWidget',
-        name: 'Awesome widget',
+        name: 'awesomeWidget',
         custom: true,
         template: '<div>My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>',
         properties: [
