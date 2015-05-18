@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.builder;
 
 import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -24,10 +25,13 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -39,7 +43,7 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 public class PageBuilder {
 
     private List<List<Element>> rows = new ArrayList<>();
-    private List<Asset<Page>> assets = new ArrayList<>();
+    private Set<Asset> assets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
     private String id;
@@ -61,7 +65,7 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withAsset(Asset<Page> asset){
+    public PageBuilder withAsset(Asset asset){
         assets.add(asset);
         return this;
     }
@@ -117,7 +121,7 @@ public class PageBuilder {
         formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
 
         return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
-                .withAsset(aFilledAsset())
+                .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).buildAsset())
                 .withData("aData", aConstantData().value("a value"))
                 .withData("anotherData", aConstantData().value(4))
                 .build();

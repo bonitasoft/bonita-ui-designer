@@ -22,20 +22,15 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetDirectiveLoaderControllerTest {
 
-    @Mock
-    private AssetRepository<Page> pageAssetRepository;
     private MockMvc mockMvc;
 
     private Path widgetRepositoryPath = Paths.get("src/test/resources/widgets");

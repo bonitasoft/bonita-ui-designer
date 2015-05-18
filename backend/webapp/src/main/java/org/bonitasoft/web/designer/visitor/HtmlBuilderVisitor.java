@@ -34,6 +34,7 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
  */
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
+    private AssetVisitor assetVisitor;
     private PropertyValuesVisitor propertyValuesVisitor;
     private DataModelVisitor dataModelVisitor;
     private RequiredModulesVisitor requiredModulesVisitor;
@@ -60,11 +61,13 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     public HtmlBuilderVisitor(PropertyValuesVisitor propertyValuesVisitor,
                               DataModelVisitor dataModelVisitor,
                               RequiredModulesVisitor requiredModulesVisitor,
-                              DirectivesCollector directivesCollector) {
+                              DirectivesCollector directivesCollector,
+                              AssetVisitor assetVisitor) {
         this.propertyValuesVisitor = propertyValuesVisitor;
         this.dataModelVisitor = dataModelVisitor;
         this.requiredModulesVisitor = requiredModulesVisitor;
         this.directivesCollector = directivesCollector;
+        this.assetVisitor = assetVisitor;
     }
 
     @Override
@@ -123,7 +126,8 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                 .with("directives", directivesCollector.collect(previewable))
                 .with("rowsHtml", buildRowsHtml(previewable.getRows()))
                 .with("dataModelFactory", dataModelVisitor.generateFactory(previewable))
-                .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable));
+                .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable))
+                .with("previableassets", assetVisitor.visit(previewable));
 
         Set<String> modules = requiredModulesVisitor.visit(previewable);
         if (!modules.isEmpty()) {

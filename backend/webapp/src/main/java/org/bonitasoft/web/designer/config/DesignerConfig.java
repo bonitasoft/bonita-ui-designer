@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.config;
 
 import java.nio.file.Path;
 import java.util.List;
-import javax.inject.Inject;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -46,14 +45,15 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
-import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
@@ -198,7 +198,12 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetIdVisitor widgetIdVisitor() {
+    public AssetVisitor assetVisitor(WidgetRepository widgetRepository){
+        return new AssetVisitor(widgetRepository);
+    }
+
+    @Bean
+    public WidgetIdVisitor widgetIdVisitor(){
         return new WidgetIdVisitor();
     }
 
@@ -218,8 +223,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector) {
-        return new HtmlBuilderVisitor(propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor, directivesCollector);
+    public HtmlBuilderVisitor htmlBuilderVisitor(RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
+        return new HtmlBuilderVisitor(propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor, directivesCollector, assetVisitor);
     }
 
     @Bean
@@ -233,7 +238,19 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository) {
+    public AssetRepository<Widget> widgetAssetRepository(WidgetRepository widgetRepository) {
+        return new AssetRepository<>(widgetRepository, beanValidator());
+    }
+
+    @Bean
+    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository){
         return new AssetUploader<>(pageRepository, pageAssetRepository(pageRepository));
     }
+
+    @Bean
+    public AssetUploader<Widget> widgetAssetUploader(WidgetRepository widgetRepository){
+        return new AssetUploader<>(widgetRepository, widgetAssetRepository(widgetRepository));
+    }
+
+
 }

@@ -19,6 +19,7 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,14 +32,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
-public class Widget extends Versioned implements Identifiable {
+public class Widget extends Versioned implements Identifiable, Assetable {
 
     private static final Pattern PATTERN_DATE_VALIDATION = Pattern.compile("[a-zA-Z0-9]*$");
 
@@ -56,6 +59,7 @@ public class Widget extends Versioned implements Identifiable {
     @Valid
     private List<Property> properties = new ArrayList<>();
     private Map<String, List<Identifiable>> usedBy; // list of element that use this widget
+    private Set<Asset> assets = new HashSet<>();
     private Set<String> requiredModules;
 
     /**
@@ -163,6 +167,17 @@ public class Widget extends Versioned implements Identifiable {
     public void replaceProperty(Property oldProperty, Property newProperty) {
         Collections.replaceAll(properties, oldProperty, newProperty);
     }
+
+    @JsonView({ JsonViewPersistence.class })
+    public Set<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(Set<Asset> assets) {
+        this.assets = assets;
+    }
+
+
 
     public void deleteProperty(Property property) {
         this.properties.remove(property);

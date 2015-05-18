@@ -20,9 +20,12 @@ import java.util.Iterator;
 import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +44,7 @@ public class AssetUploader<T extends Assetable> {
         this.assetRepository = assetRepository;
     }
 
-    public ErrorMessage upload(MultipartFile file, String id, String type) {
+    public ErrorMessage upload(MultipartFile file, T component, String type) {
 
         if (file == null || file.isEmpty()) {
             return new ErrorMessage("Argument", "Part named [file] is needed to successfully import a component");
@@ -52,15 +55,14 @@ public class AssetUploader<T extends Assetable> {
             return new ErrorMessage("Argument", "The type is invalid");
         }
 
-        T component = repository.get(id);
+        Asset asset = new Asset()
+                .setName(file.getOriginalFilename())
+                .setComponentId(component.getId())
+                .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
+                .setType(assetType);
 
-        Asset<T> asset = new Asset<>();
-        asset.setName(file.getOriginalFilename());
-        asset.setType(assetType);
-        asset.setComponent(component);
-
-        for (Iterator<Asset<T>> assetIterator = component.getAssets().iterator(); assetIterator.hasNext(); ) {
-            Asset<T> existingAsset = assetIterator.next();
+        for (Iterator<Asset> assetIterator = component.getAssets().iterator(); assetIterator.hasNext(); ) {
+            Asset existingAsset = assetIterator.next();
 
             //If the resource exist we delete the file before save the new one
             if (asset.equals(existingAsset)) {
@@ -69,7 +71,7 @@ public class AssetUploader<T extends Assetable> {
                 } catch (NotFoundException e) {
                     logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
                 } catch (IOException e) {
-                    return new ErrorMessage("Web resource deletion", String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), id));
+                    return new ErrorMessage("Web resource deletion", String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()));
                 }
                 assetIterator.remove();
                 break;
@@ -84,7 +86,7 @@ public class AssetUploader<T extends Assetable> {
 
         } catch (IOException e) {
             logger.error("Asset creation" + e);
-            return new ErrorMessage("Asset creation", String.format("Error while creating asset in %s [%s]", asset.getName(), repository.getComponentName(), id));
+            return new ErrorMessage("Asset creation", String.format("Error while creating asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()));
         }
 
         return null;

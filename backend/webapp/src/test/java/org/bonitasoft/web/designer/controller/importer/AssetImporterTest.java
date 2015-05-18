@@ -64,7 +64,7 @@ public class AssetImporterTest {
 
     @Test
     public void should_not_thrown_excpetion_when_page_has_no_asset() throws Exception{
-        List<Asset<Page>> assets = pageAssetImporter.load(PageBuilder.aPage().build(), zipBaseDir);
+        List<Asset> assets = pageAssetImporter.load(PageBuilder.aPage().build(), zipBaseDir);
         assertThat(assets).isEmpty();
     }
 
@@ -74,12 +74,12 @@ public class AssetImporterTest {
         createDirectoryAsset("css");
         Files.write(zipBaseDir.resolve("assets").resolve("css").resolve("myfile.css"), "<style>.maclass1{}</style>".getBytes());
 
-        List<Asset<Page>> assetsReturned = new ArrayList<>();
-        assetsReturned.add(new Asset<Page>().setName("myfile.css"));
+        List<Asset> assetsReturned = new ArrayList<>();
+        assetsReturned.add(new Asset().setName("myfile.css"));
 
         when(pageAssetRepository.findAssetInPath(page, AssetType.CSS, zipBaseDir.resolve("assets").resolve("css"))).thenReturn(assetsReturned);
 
-        List<Asset<Page>> assets = pageAssetImporter.load(page, zipBaseDir);
+        List<Asset> assets = pageAssetImporter.load(page, zipBaseDir);
 
         assertThat(assets).isNotEmpty();
     }

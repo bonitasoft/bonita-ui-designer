@@ -16,13 +16,11 @@ package org.bonitasoft.web.designer.model.asset;
 
 
 import static junitparams.JUnitParamsRunner.$;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.junit.Before;
@@ -36,14 +34,14 @@ public class AssetTest {
 
     private BeanValidator beanValidator = new DesignerConfig().beanValidator();
 
-    private Asset<Page> asset;
+    private Asset asset;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void init() {
-        asset = aFilledAsset();
+        asset = anAsset().withScope(AssetScope.PAGE).buildAsset();
 
     }
 
@@ -114,12 +112,4 @@ public class AssetTest {
         beanValidator.validate(asset);
     }
 
-    @Test
-    public void should_be_invalid_when_component_null() {
-        exception.expect(ConstraintValidationException.class);
-        exception.expectMessage("Asset has be attached to a component");
-        asset.setComponent(null);
-
-        beanValidator.validate(asset);
-    }
 }

@@ -18,7 +18,6 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -26,7 +25,6 @@ import static org.mockito.Mockito.when;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,6 +34,7 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
@@ -71,38 +70,43 @@ public class AssetRepositoryTest {
 
     @Test
     public void should_resolveAssetPath() {
-        Asset<Page> asset = aFilledAsset();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
 
-        Path path = assetRepository.resolveAssetPath(asset);
+        Path path = assetRepository.resolveAssetPath(page, asset);
 
         Assertions.assertThat(path.toUri()).isEqualTo(pagesPath.resolve(asset.getName()).toUri());
     }
 
     @Test
     public void should_not_resolveAssetPath_when_asset_invalid() {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         exception.expect(ConstraintValidationException.class);
         doThrow(ConstraintValidationException.class).when(validator).validate(asset);
 
-        assetRepository.resolveAssetPath(asset);
+        assetRepository.resolveAssetPath(page, asset);
     }
 
     @Test
     public void should_not_resolveAssetPath_when_component_in_asset_invalid() {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         exception.expect(ConstraintValidationException.class);
-        doThrow(ConstraintValidationException.class).when(validator).validate(asset.getComponent());
+        doThrow(ConstraintValidationException.class).when(validator).validate(page);
 
-        assetRepository.resolveAssetPath(asset);
+        assetRepository.resolveAssetPath(page, asset);
     }
 
     @Test
     public void should_save_asset() throws Exception {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         Path fileExpected = pagesPath.resolve(asset.getName());
         assertThat(fileExpected.toFile()).doesNotExist();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.save(asset, "My example with special characters réè@# \ntest".getBytes(Charset.forName("UTF-8")));
 
@@ -111,13 +115,20 @@ public class AssetRepositoryTest {
         assertThat(Files.readFirstLine(fileExpected.toFile(), Charset.forName("UTF-8"))).isEqualTo("My example with special characters réè@# ");
     }
 
+    @Test(expected = NullPointerException.class)
+    public void should_throw_NullPointerException_when_deleting_asset_componentId_null() throws Exception {
+        assetRepository.delete(new Asset());
+    }
+
     @Test
     public void should_delete_asset() throws Exception {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         Path fileExpected = pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
         assertThat(fileExpected.toFile()).exists();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
 
@@ -126,8 +137,10 @@ public class AssetRepositoryTest {
 
     @Test(expected = NotFoundException.class)
     public void should_throw_NotFoundException_when_deleting_inexisting_page() throws Exception {
-        Asset<Page> asset = aFilledAsset();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
     }
@@ -135,19 +148,28 @@ public class AssetRepositoryTest {
 
     @Test
     public void should_readAllBytes_asset() throws Exception {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         Path fileExpected = pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
         assertThat(fileExpected.toFile()).exists();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assertThat(assetRepository.readAllBytes(asset)).isNotNull().isEmpty();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void should_throw_NullPointerException_when_reading_asset_with_component_id_null() throws Exception {
+        assetRepository.readAllBytes(new Asset());
+    }
+
     @Test(expected = NotFoundException.class)
     public void should_throw_NotFoundException_when_reading_inexisting_page() throws Exception {
-        Asset<Page> asset = aFilledAsset();
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.readAllBytes(asset);
     }
@@ -155,10 +177,11 @@ public class AssetRepositoryTest {
 
     @Test
     public void should_find_asset_path_used_by_a_component() throws Exception {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
         when(pageRepository.get("page-id")).thenReturn(
                 aPage().withAsset(asset).build());
 
@@ -166,7 +189,24 @@ public class AssetRepositoryTest {
     }
 
     @Test
-    public void should_throw_NullPointerException_when_find_asset_path_with_filename_null() throws Exception {
+    public void should_throw_NotAllowedException_when_find_external_asset() throws Exception {
+        exception.expect(NotAllowedException.class);
+        exception.expectMessage("We can't load an external asset. Use the link http://mycdnserver.myasset.js");
+        Page page = aPage().withId("page-id").build();
+
+        Asset asset = aFilledAsset(page);
+        asset.setName("http://mycdnserver.myasset.js");
+
+        when(pageRepository.get("page-id")).thenReturn(
+                aPage().withAsset(asset).build());
+
+        assetRepository.findAssetPath(
+
+                "page-id", "http://mycdnserver.myasset.js", AssetType.JAVASCRIPT);
+    }
+
+    @Test
+    public void should_throw_NullPointerException_when_find_asset_with_filename_null() throws Exception {
         exception.expect(NullPointerException.class);
         exception.expectMessage("Filename is required");
 
@@ -183,10 +223,11 @@ public class AssetRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     public void should_throw_NoSuchElementException_when_finding_inexistant_asset() throws Exception {
-        Asset<Page> asset = aFilledAsset();
+        Page page = aPage().withId("page-id").build();
+        Asset asset = aFilledAsset(page);
         pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
-        when(pageRepository.resolvePathFolder(asset.getComponent())).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
         when(pageRepository.get("page-id")).thenReturn(aPage().withAsset(asset).build());
 
         assetRepository.findAssetPath("page-id", "inexistant.js", AssetType.JAVASCRIPT);
@@ -198,7 +239,7 @@ public class AssetRepositoryTest {
         write(pagesPath.resolve("file1.css"), "<style>.maclass1{}</style>".getBytes());
         write(pagesPath.resolve("file2.css"), "<style>.maclass2{}</style>".getBytes());
 
-        List<Asset<Page>> assets = assetRepository.findAssetInPath(page, AssetType.CSS,  pagesPath);
+        List<Asset> assets = assetRepository.findAssetInPath(page, AssetType.CSS,  pagesPath);
 
         assertThat(assets).hasSize(2);
         assertThat(assets).extracting("name").contains("file1.css", "file2.css");
@@ -208,7 +249,7 @@ public class AssetRepositoryTest {
     public void should_findAssetInPath_asset_when_noone_is_present() throws Exception {
         Page page = aPage().withId("page-id").build();
 
-        List<Asset<Page>> assets = assetRepository.findAssetInPath(page, AssetType.CSS, pagesPath);
+        List<Asset> assets = assetRepository.findAssetInPath(page, AssetType.CSS, pagesPath);
 
         assertThat(assets).isEmpty();
     }
