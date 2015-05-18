@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.slf4j.Logger;
@@ -38,20 +39,27 @@ public class PreviewController {
 
     protected static final Logger logger = LoggerFactory.getLogger(PreviewController.class);
 
-    @Inject
     private PageRepository pageRepository;
-
-    @Inject
     private Previewer previewer;
+    private AssetRepository<Page> pageAssetUploader;
+    private AssetRepository<Widget> widgetAssetUploader;
 
     @Inject
-    private AssetRepository<Page> pageAssetUploader;
+    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetUploader, AssetRepository<Widget> widgetAssetUploader) {
+        this.pageRepository = pageRepository;
+        this.previewer = previewer;
+        this.pageAssetUploader = pageAssetUploader;
+        this.widgetAssetUploader = widgetAssetUploader;
+    }
 
     @RequestMapping(value = "/preview/page/{id}", produces = "text/html; charset=UTF-8")
     public ResponseEntity<String> previewPage(@PathVariable(value = "id") String id, HttpServletRequest httpServletRequest) {
         return previewer.render(id, pageRepository, httpServletRequest);
     }
 
+    /**
+     * A page can serve its own assets or assets linked to its widgets
+     */
     @RequestMapping("/preview/page/{id}/assets/{type}/{filename:.*}")
     public void servePageAsset(
             HttpServletRequest request,
@@ -66,8 +74,46 @@ public class PreviewController {
                     response,
                     pageAssetUploader.findAssetPath(id, filename, AssetType.getAsset(type)));
         } catch (IOException e) {
-            logger.error("Error on widget generation", e);
-            throw new ServletException("Error on widget generation", e);
+            logger.error("Error when loading page asset", e);
+            throw new ServletException("Error when loading page asset", e);
+        }
+
+    }
+
+    /**
+     * A page can serve its own assets or assets linked to its widgets
+     */
+    @RequestMapping("/preview/page/{id}/assets/{widgetId}/{type}/{filename:.*}")
+    public void serveWidgetAssetIncludedInPage(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable("id") String id,
+            @PathVariable("widgetId") String widgetId,
+            @PathVariable("type") String type,
+            @PathVariable("filename") String filename) throws ServletException {
+
+        serveWidgetAsset(request, response, widgetId, type, filename);
+    }
+
+    /**
+     * A widget can only serve its own assets
+     */
+    @RequestMapping("/preview/widget/{id}/assets/{type}/{filename:.*}")
+    public void serveWidgetAsset(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable("id") String id,
+            @PathVariable("type") String type,
+            @PathVariable("filename") String filename) throws ServletException {
+
+        try {
+            HttpFile.writeFileInResponse(
+                    request,
+                    response,
+                    widgetAssetUploader.findAssetPath(id, filename, AssetType.getAsset(type)));
+        } catch (IOException e) {
+            logger.error("Error when loading widget asset", e);
+            throw new ServletException("Error when loading widget asset", e);
         }
 
     }

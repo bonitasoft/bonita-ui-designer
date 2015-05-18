@@ -12,14 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
+package org.bonitasoft.web.designer.model.asset;
 
+public enum AssetScope {
 
-import java.util.Set;
-
-import org.bonitasoft.web.designer.model.asset.Asset;
-
-public interface Assetable<T extends Identifiable> extends Identifiable {
-
-    Set<Asset> getAssets();
+    PAGE,
+    WIDGET
 }

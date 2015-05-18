@@ -35,7 +35,7 @@ public class AssetExportStep implements ExportStep<Page> {
 
     @Override
     public void execute(Zipper zipper, Page page) throws IOException {
-        for (Asset<Page> pageAsset : page.getAssets()) {
+        for (Asset pageAsset : page.getAssets()) {
             zipper.addDirectoryToZip(
                     pageAssetRepository.findAssetPath(page.getId(), pageAsset.getName(), pageAsset.getType()),
                     String.format("%s/assets/%s/%s", RESOURCES, pageAsset.getType().getPrefix(), pageAsset.getName())

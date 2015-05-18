@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Iterables.find;
 import static java.lang.String.format;
 import static java.nio.file.Files.*;
@@ -26,13 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 
 /**
@@ -40,6 +42,7 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
  */
 public class AssetRepository<T extends Identifiable & Assetable> {
 
+    public static final String COMPONENT_ID_REQUIRED = "The component id is required to add an asset to this component";
     private Repository<T> repository;
     private BeanValidator validator;
 
@@ -49,48 +52,52 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         this.validator = validator;
     }
 
-    protected Path resolveComponentPath(Asset asset) {
-        return repository.resolvePathFolder((T) asset.getComponent());
+    protected Path resolveComponentPath(T component, Asset asset) {
+        return repository.resolvePathFolder(component);
     }
 
-    protected Path resolveAssetPath(Asset asset) {
+    protected Path resolveAssetPath(T component, Asset asset) {
         validator.validate(asset);
-        validator.validate(asset.getComponent());
-        return resolveComponentPath(asset).resolve(asset.getName());
+        validator.validate(component);
+        return resolveComponentPath(component, asset).resolve(asset.getName());
     }
 
-    protected Path resolveExistingAssetPath(Asset asset) {
-        if (!exists(resolveAssetPath(asset))) {
+    protected Path resolveExistingAssetPath(T component, Asset asset) {
+        if (!exists(resolveAssetPath(component, asset))) {
             throw new NotFoundException(format("Error when searching asset %s for %s [%s]: asset not found.",
-                    asset.getName(), repository.getComponentName(), asset.getComponent().getId()));
+                    asset.getName(), repository.getComponentName(), asset.getComponentId()));
         }
-        return resolveAssetPath(asset);
+        return resolveAssetPath(component, asset);
     }
 
     /**
      * Add a file asset to a component
      */
     public void save(Asset asset, byte[] content) throws IOException {
-        Path parent = resolveComponentPath(asset);
+        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        T component = repository.get(asset.getComponentId());
+        Path parent = resolveComponentPath(component, asset);
         if (!exists(parent)) {
             //When an asset is imported the page folder can not exist
             createDirectories(parent);
         }
-        write(resolveAssetPath(asset), content);
+        write(resolveAssetPath(component, asset), content);
     }
 
     /**
      * Remove an asset
      */
     public void delete(Asset asset) throws IOException {
-        Files.delete(resolveExistingAssetPath(asset));
+        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        Files.delete(resolveExistingAssetPath(repository.get(asset.getComponentId()), asset));
     }
 
     /**
      * Read resource content
      */
     public byte[] readAllBytes(Asset asset) throws IOException {
-        return Files.readAllBytes(resolveExistingAssetPath(asset));
+        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        return Files.readAllBytes(resolveExistingAssetPath(repository.get(asset.getComponentId()), asset));
     }
 
     /**
@@ -99,33 +106,37 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * @throws org.bonitasoft.web.designer.repository.exception.NotFoundException when component not exists
      */
     public Path findAssetPath(String componentId, final String filename, final AssetType assetType) throws IOException {
-        Preconditions.checkNotNull(filename, "Filename is required");
-        Preconditions.checkNotNull(assetType, "Asset type is required");
+        checkNotNull(filename, "Filename is required");
+        checkNotNull(assetType, "Asset type is required");
 
         T component = repository.get(componentId);
-        Asset<T> asset = (Asset<T>) find(component.getAssets(), new Predicate<Asset>() {
+        Asset asset = (Asset) find(component.getAssets(), new Predicate<Asset>() {
             @Override
             public boolean apply(Asset asset) {
                 return filename.equals(asset.getName()) && assetType.equals(asset.getType());
             }
         });
-        asset.setComponent(component);
-        return resolveExistingAssetPath(asset);
+        asset.setComponentId(componentId);
+        if (asset.isExternal()) {
+            throw new NotAllowedException("We can't load an external asset. Use the link " + asset.getName());
+        }
+        return resolveExistingAssetPath(component, asset);
     }
 
     /**
      * Return the list of assets found in a repository
      */
-    public List<Asset<T>> findAssetInPath(T component, AssetType type, Path directory) throws IOException {
-        List<Asset<T>> objects = new ArrayList<>();
+    public List<Asset> findAssetInPath(T component, AssetType type, Path directory) throws IOException {
+        List<Asset> objects = new ArrayList<>();
 
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
             for (Path path : directoryStream) {
-                objects.add(new Asset<>()
-                                .setName(path.getFileName().toString())
-                                .setType(type)
-                                .setComponent(component)
-                );
+                objects.add(new Asset()
+                        .setName(path.getFileName().toString())
+                        .setType(type)
+                        .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
+                        .setComponentId(component.getId()
+                        ));
             }
         }
 

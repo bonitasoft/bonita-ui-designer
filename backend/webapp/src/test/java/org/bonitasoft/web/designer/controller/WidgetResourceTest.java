@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -40,7 +41,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.WidgetResource;
+import org.bonitasoft.web.designer.controller.upload.AssetUploader;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -55,6 +57,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -73,10 +76,13 @@ public class WidgetResourceTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    @Mock
+    private AssetUploader<Widget> widgetAssetUploader;
+
     @Before
     public void setUp() {
         initMocks(this);
-        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository);
+        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetUploader);
         widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
         mockMvc = standaloneSetup(widgetResource)
                 .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
@@ -426,7 +432,42 @@ public class WidgetResourceTest {
                 .andExpect(status().isInternalServerError());
     }
 
+    @Test
+    public void should_upload_an_asset() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
+        Widget widget = aWidget().id("my-widget").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
 
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isCreated());
+
+        verify(widgetAssetUploader).upload(file, widget, "js");
+    }
+
+    @Test
+    public void should_not_upload_an_asset() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
+        Widget widget = aWidget().id("my-widget").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetAssetUploader.upload(file, widget, "js")).thenReturn(new ErrorMessage("error", "error"));
+
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isInternalServerError());
+
+        verify(widgetAssetUploader).upload(file, widget, "js");
+    }
+
+    @Test
+    public void should_not_upload_an_asset_for_custom_widget() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
+        Widget widget = aWidget().id("my-widget").build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetAssetUploader.upload(file, widget, "js")).thenReturn(new ErrorMessage("error", "error"));
+
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isForbidden());
+
+    }
 
     private String toJson(Object o) throws IOException {
         return new String(convertObjectToJsonBytes(o));

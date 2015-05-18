@@ -18,8 +18,10 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -47,7 +49,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     private String name;
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
-    private List<Asset<Page>> assets = new ArrayList<>();
+    private Set<Asset> assets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
@@ -88,11 +90,11 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     }
 
     @JsonView({ JsonViewPersistence.class })
-    public List<Asset<Page>> getAssets() {
+    public Set<Asset> getAssets() {
         return assets;
     }
 
-    public void setAssets(List<Asset<Page>> assets) {
+    public void setAssets(Set<Asset> assets) {
         this.assets = assets;
     }
 

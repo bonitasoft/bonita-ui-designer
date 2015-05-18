@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -31,6 +32,8 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,19 +42,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/rest/widgets")
 public class WidgetResource {
-
+    private static final Logger logger = LoggerFactory.getLogger(WidgetResource.class);
     private JacksonObjectMapper objectMapper;
     private WidgetRepository repository;
     private List<Repository> usedByRepositories;
+    private AssetUploader<Widget> widgetAssetUploader;
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository) {
+    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetUploader<Widget> widgetAssetUploader) {
         this.repository = repository;
         this.objectMapper = objectMapper;
+        this.widgetAssetUploader = widgetAssetUploader;
     }
 
     /**
@@ -157,6 +163,19 @@ public class WidgetResource {
         return repository.deleteProperty(widgetId, propertyName);
     }
 
+    @RequestMapping(value = "/{widgetId}/assets/{type}", method = RequestMethod.POST)
+    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String id, @PathVariable("type") String type) {
+        Widget widget = repository.get(id);
+        if (!widget.isCustom()) {
+            throw new NotAllowedException("We can only save a custom widget");
+        }
+        ErrorMessage errorMessage = widgetAssetUploader.upload(file, widget, type);
+        if (errorMessage != null) {
+            logger.error(errorMessage.getMessage());
+            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {
         if (isPbWidgetId(widgetId)) {

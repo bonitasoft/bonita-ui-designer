@@ -29,7 +29,7 @@ import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
-public class AssetImporter<T extends Identifiable & Assetable> implements DependencyImporter<Asset<T>> {
+public class AssetImporter<T extends Identifiable & Assetable> implements DependencyImporter<Asset> {
 
     private AssetRepository<T> assetRepository;
 
@@ -38,10 +38,10 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
     }
 
     @Override
-    public List<Asset<T>> load(Identifiable component, Path resources) throws IOException {
+    public List<Asset> load(Identifiable component, Path resources) throws IOException {
         Path assetsPath = resources.resolve("assets");
         if (exists(assetsPath)) {
-            List<Asset<T>> assets = new ArrayList<>();
+            List<Asset> assets = new ArrayList<>();
             for (AssetType type : AssetType.values()) {
                 Path path = assetsPath.resolve(type.getPrefix());
                 if (exists(path)) {
@@ -55,7 +55,7 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
 
 
     @Override
-    public void save(List<Asset<T>> elements, Path resources) {
+    public void save(List<Asset> elements, Path resources) {
         Path assetsPath = resources.resolve("assets");
         for (Asset asset : elements) {
             Path sourceFile = assetsPath.resolve(asset.getType().getPrefix()).resolve(asset.getName());

@@ -17,10 +17,7 @@ package org.bonitasoft.web.designer.visitors;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -35,6 +32,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Collections;
 
+import com.google.common.collect.Sets;
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -42,13 +42,13 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Before;
@@ -73,6 +73,9 @@ public class HtmlBuilderVisitorTest {
 
     @Mock
     private DirectivesCollector directivesCollector;
+
+    @Mock
+    private AssetVisitor assetVisitor;
 
     @InjectMocks
     private HtmlBuilderVisitor visitor;
@@ -280,7 +283,7 @@ public class HtmlBuilderVisitorTest {
                         .with(aContainer().withReference("container-reference").build())
                         .withReference("formcontainer-reference")
                         .build()))
-                    .isEqualTo(testResource.load("formContainerSimple.html"));
+                .isEqualTo(testResource.load("formContainerSimple.html"));
     }
 
     @Test
@@ -343,32 +346,26 @@ public class HtmlBuilderVisitorTest {
 
 
     @Test
-    public void should_add_js_asset_import_in_header() throws Exception {
-        Page page = aPage().withId("page-id").withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).buildPageAsset()).build();
+    public void should_add_asset_import_in_header() throws Exception {
+        Page page = aPage().build();
+
+        when(assetVisitor.visit(page)).thenReturn(
+                Sets.newHashSet(
+                        //A css file in the page
+                        new Asset().setName("myfile.css").setType(AssetType.CSS),
+                        //An external css file in the page
+                        new Asset().setName("http://moncdn/myfile.css").setType(AssetType.CSS),
+                        //A js file in a widget
+                        new Asset().setName("myfile.js").setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id")
+                )
+        );
 
         String html = visitor.build(page, "mycontext/");
 
-        Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("<script src=\"assets/js/myfile.js\"></script>");
-    }
-    @Test
-    public void should_add_css_asset_import_in_header() throws Exception {
-        Page page = aPage().withId("page-id").withAsset(anAsset().withName("myfile.css").withType(AssetType.CSS).buildPageAsset()).build();
-
-        String html = visitor.build(page, "mycontext/");
-
-        Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css\">");
+        String head = Jsoup.parse(html).head().html();
+        assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css\">");
+        assertThat(head).contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">");
+        assertThat(head).contains("<script src=\"assets/widget-id/js/myfile.js\"></script>");
     }
 
-    @Test
-    public void should_not_add_img_asset_import_in_header() throws Exception {
-        Page page = aPage().withAsset(anAsset().withName("myfile.png").withType(AssetType.IMAGE).buildPageAsset()).build();
-
-        String html = visitor.build(page, "mycontext/");
-
-        Document dom = Jsoup.parse(html);
-        assertThat(dom.head().html()).doesNotContain("myfile.png");
-        assertThat(dom.html()).doesNotContain("myfile.png");
-    }
 }

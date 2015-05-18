@@ -26,6 +26,7 @@ import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -45,7 +46,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/rest/pages")
 public class PageResource extends DataResource<Page> {
-    protected static final Logger logger = LoggerFactory.getLogger(AssetUploader.class);
+    protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
     private AssetUploader<Page> pageAssetUploader;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
@@ -109,7 +110,8 @@ public class PageResource extends DataResource<Page> {
 
     @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
     public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id, @PathVariable("type") String type) {
-        ErrorMessage errorMessage = pageAssetUploader.upload(file, id, type);
+        Page page = getRepository().get(id);
+        ErrorMessage errorMessage = pageAssetUploader.upload(file, page, type);
         if (errorMessage != null) {
             logger.error(errorMessage.getMessage());
             return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);

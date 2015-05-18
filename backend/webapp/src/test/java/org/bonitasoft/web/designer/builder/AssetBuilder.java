@@ -14,25 +14,26 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 
 public class AssetBuilder {
 
     private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
+    private AssetScope scope = AssetScope.PAGE;
     private Identifiable component;
 
     public static AssetBuilder anAsset() {
         return new AssetBuilder();
     }
 
-    public static Asset<Page> aFilledAsset() {
-        return anAsset().withPage(aPage().build()).buildPageAsset();
+    public static Asset aFilledAsset(Page page) {
+        return anAsset().withScope(AssetScope.PAGE).withPage(page).buildAsset();
     }
 
     public AssetBuilder withName(String name) {
@@ -45,16 +46,27 @@ public class AssetBuilder {
         return this;
     }
 
+    public AssetBuilder withScope(AssetScope scope) {
+        this.scope = scope;
+        return this;
+    }
+
     public AssetBuilder withPage(Page page) {
         this.component = page;
         return this;
     }
 
-    public Asset<Page> buildPageAsset() {
-        Asset<Page> asset = new Asset<>();
-        asset.setName(name);
-        asset.setType(type);
-        asset.setComponent((Page) component);
+    public AssetBuilder withPage(Widget widget) {
+        this.component = widget;
+        return this;
+    }
+
+    public Asset buildAsset() {
+        Asset asset = new Asset().setName(name).setType(type).setScope(scope);
+        if (component != null) {
+            asset.setComponentId(component.getId());
+        }
         return asset;
     }
+
 }

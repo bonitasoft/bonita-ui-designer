@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.builder;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class WidgetBuilder {
     private boolean custom = false;
     private String template = "<h1>this is a template</h1>";
     List<Property> properties = new ArrayList<>();
+    private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
     private HashSet<String> modules;
 
@@ -77,6 +77,11 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder assets(AssetBuilder ... assetBuilders){
+        this.assetBuilders = assetBuilders;
+        return this;
+    }
+
     public Widget build() {
         Widget widget = new Widget();
         widget.setId(id);
@@ -84,6 +89,11 @@ public class WidgetBuilder {
         widget.setCustom(custom);
         widget.setTemplate(template);
         widget.setLastUpdate(lastUpdate);
+        if(assetBuilders!=null) {
+            for (AssetBuilder assetBuilder : assetBuilders) {
+                widget.getAssets().add(assetBuilder.withPage(widget).buildAsset());
+            }
+        }
         for (Property property : properties) {
             widget.addProperty(property);
         }

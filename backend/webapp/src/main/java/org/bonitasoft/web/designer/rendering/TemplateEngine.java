@@ -34,6 +34,7 @@ public class TemplateEngine {
         handlebars.registerHelper("json", Jackson2Helper.INSTANCE);
         handlebars.registerHelper("join", StringHelpers.join);
         handlebars.registerHelper("ifequal", IfEqualHelper.INSTANCE);
+        handlebars.registerHelper("assetsrc", AssetHelper.INSTANCE);
         handlebars.prettyPrint(true);
 
         location = "templates/" + template;

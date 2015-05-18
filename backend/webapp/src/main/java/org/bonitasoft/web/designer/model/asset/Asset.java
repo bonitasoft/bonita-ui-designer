@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.model.asset;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
-import java.nio.file.Path;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,14 +23,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * A web resource can be attached to a component
  */
-public class Asset<T extends Identifiable> {
+public class Asset {
     /**
      * An asset is identified by its name
      */
@@ -44,24 +42,17 @@ public class Asset<T extends Identifiable> {
     @NotNull(message = "Asset type may not be null")
     private AssetType type;
     /**
-     * An asset belongs to a component
+
+     * If asset is linked to a widget, we need the id. When a widget is in a page we must have
+     * an id to find the widget and after the asset
      */
-    @NotNull(message = "Asset has be attached to a component")
-    private T component;
+    private String componentId;
+
+    private AssetScope scope;
 
     @JsonIgnore
     public boolean isExternal() {
         return name != null && name.startsWith("http");
-    }
-
-    @JsonIgnore
-    public T getComponent() {
-        return component;
-    }
-
-    public Asset setComponent(T component) {
-        this.component = component;
-        return this;
     }
 
     @JsonView({JsonViewPersistence.class})
@@ -84,8 +75,30 @@ public class Asset<T extends Identifiable> {
         return this;
     }
 
+    @JsonIgnore
+    public String getComponentId() {
+        return componentId;
+    }
+
+    public Asset setComponentId(String componentId) {
+        this.componentId = componentId;
+        return this;
+    }
+
+    @JsonIgnore
+    public AssetScope getScope() {
+        return scope;
+    }
+
+    public Asset setScope(AssetScope scope) {
+        this.scope = scope;
+        return this;
+    }
+
     @Override
     public boolean equals(final Object obj) {
+        //componentId is not in hashcode. If a page use a widget asset with the same name
+        //the page asset must to be used
         if (obj instanceof Asset) {
             final Asset other = (Asset) obj;
             return new EqualsBuilder()
@@ -99,6 +112,8 @@ public class Asset<T extends Identifiable> {
 
     @Override
     public int hashCode() {
+        //componentId is not in hashcode. If a page use a widget asset with the same name
+        //the page asset must to be used
         return new HashCodeBuilder(17, 37)
                 .append(name)
                 .append(type)
@@ -110,6 +125,7 @@ public class Asset<T extends Identifiable> {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
                 .append("name", name)
                 .append("type", type)
+                .append("componentId", componentId)
                 .toString();
     }
 
