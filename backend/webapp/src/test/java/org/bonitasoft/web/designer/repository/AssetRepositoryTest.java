@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.repository;
 
 
+import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
@@ -72,11 +73,11 @@ public class AssetRepositoryTest {
     public void should_resolveAssetPath() {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
 
-        Path path = assetRepository.resolveAssetPath(page, asset);
+        Path path = assetRepository.resolveAssetPath(asset);
 
-        Assertions.assertThat(path.toUri()).isEqualTo(pagesPath.resolve(asset.getName()).toUri());
+        Assertions.assertThat(path.toUri()).isEqualTo(pagesPath.resolve("assets").resolve("js").resolve(asset.getName()).toUri());
     }
 
     @Test
@@ -86,26 +87,16 @@ public class AssetRepositoryTest {
         exception.expect(ConstraintValidationException.class);
         doThrow(ConstraintValidationException.class).when(validator).validate(asset);
 
-        assetRepository.resolveAssetPath(page, asset);
-    }
-
-    @Test
-    public void should_not_resolveAssetPath_when_component_in_asset_invalid() {
-        Page page = aPage().withId("page-id").build();
-        Asset asset = aFilledAsset(page);
-        exception.expect(ConstraintValidationException.class);
-        doThrow(ConstraintValidationException.class).when(validator).validate(page);
-
-        assetRepository.resolveAssetPath(page, asset);
+        assetRepository.resolveAssetPath(asset);
     }
 
     @Test
     public void should_save_asset() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        Path fileExpected = pagesPath.resolve(asset.getName());
+        Path fileExpected = pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
         assertThat(fileExpected.toFile()).doesNotExist();
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.save(asset, "My example with special characters réè@# \ntest".getBytes(Charset.forName("UTF-8")));
@@ -124,10 +115,11 @@ public class AssetRepositoryTest {
     public void should_delete_asset() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        Path fileExpected = pagesPath.resolve(asset.getName());
-        temporaryFolder.newFilePath(asset.getName());
+        Path fileExpected = pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
+        createDirectories(pagesPath.resolve("assets").resolve("js"));
+        temporaryFolder.newFilePath("assets/js/" + asset.getName());
         assertThat(fileExpected.toFile()).exists();
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
@@ -139,7 +131,7 @@ public class AssetRepositoryTest {
     public void should_throw_NotFoundException_when_deleting_inexisting_page() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
@@ -150,10 +142,11 @@ public class AssetRepositoryTest {
     public void should_readAllBytes_asset() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        Path fileExpected = pagesPath.resolve(asset.getName());
-        temporaryFolder.newFilePath(asset.getName());
+        Path fileExpected = pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
+        createDirectories(pagesPath.resolve("assets").resolve("js"));
+        temporaryFolder.newFilePath("assets/js/" + asset.getName());
         assertThat(fileExpected.toFile()).exists();
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assertThat(assetRepository.readAllBytes(asset)).isNotNull().isEmpty();
@@ -168,7 +161,7 @@ public class AssetRepositoryTest {
     public void should_throw_NotFoundException_when_reading_inexisting_page() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.readAllBytes(asset);
@@ -179,9 +172,10 @@ public class AssetRepositoryTest {
     public void should_find_asset_path_used_by_a_component() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
-        pagesPath.resolve(asset.getName());
-        temporaryFolder.newFilePath(asset.getName());
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
+        createDirectories(pagesPath.resolve("assets").resolve("js"));
+        temporaryFolder.newFilePath("assets/js/" + asset.getName());
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get("page-id")).thenReturn(
                 aPage().withAsset(asset).build());
 
@@ -227,7 +221,7 @@ public class AssetRepositoryTest {
         Asset asset = aFilledAsset(page);
         pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
-        when(pageRepository.resolvePathFolder(page)).thenReturn(pagesPath);
+        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get("page-id")).thenReturn(aPage().withAsset(asset).build());
 
         assetRepository.findAssetPath("page-id", "inexistant.js", AssetType.JAVASCRIPT);

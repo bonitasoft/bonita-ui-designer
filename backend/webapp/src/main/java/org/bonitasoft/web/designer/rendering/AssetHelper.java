@@ -35,15 +35,19 @@ public class AssetHelper implements Helper<Object> {
     public CharSequence apply(final Object context, final Options options)
             throws IOException {
 
-        if(context instanceof Asset){
+        if (context instanceof Asset) {
             Asset asset = (Asset) context;
+            String widgetPrefix = "";
 
             if (asset.getName().startsWith("http")) {
                 return asset.getName();
             }
-            return String.format("assets%s/%s/%s", AssetScope.WIDGET.equals(asset.getScope()) ? "/" + asset.getComponentId() : "", asset.getType().getPrefix(), asset.getName());
+            if (AssetScope.WIDGET.equals(asset.getScope())) {
+                widgetPrefix = String.format("widgets/%s/", asset.getComponentId());
+            }
+            return String.format("%sassets/%s/%s", widgetPrefix, asset.getType().getPrefix(), asset.getName());
         }
-        return  null;
+        return null;
     }
 
 }

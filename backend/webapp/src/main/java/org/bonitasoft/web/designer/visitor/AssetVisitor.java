@@ -26,7 +26,6 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
@@ -64,7 +63,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
     public Set<Asset> visit(Component component) {
         Widget widget = widgetRepository.get(component.getId());
         //Component id and scope are not persisted
-        for(Asset asset : widget.getAssets()){
+        for (Asset asset : widget.getAssets()) {
             asset.setComponentId(widget.getId());
             asset.setScope(AssetScope.WIDGET);
         }
@@ -75,8 +74,8 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
     public <P extends Previewable & Identifiable> Set<Asset> visit(P previewable) {
         Set<Asset> assets = new HashSet<>();
 
-        if(previewable instanceof Assetable){
-            assets.addAll(((Assetable)previewable).getAssets());
+        if (previewable instanceof Assetable) {
+            assets.addAll(((Assetable) previewable).getAssets());
             assets.addAll(visitRows(previewable.getRows()));
         }
 

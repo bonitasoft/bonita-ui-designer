@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.util.Arrays.asList;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -42,7 +41,6 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;

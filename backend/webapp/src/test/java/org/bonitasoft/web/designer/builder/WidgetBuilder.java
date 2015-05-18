@@ -49,7 +49,7 @@ public class WidgetBuilder {
     }
 
     public WidgetBuilder custom() {
-        this.custom  = true;
+        this.custom = true;
         return this;
     }
 
@@ -77,7 +77,7 @@ public class WidgetBuilder {
         return this;
     }
 
-    public WidgetBuilder assets(AssetBuilder ... assetBuilders){
+    public WidgetBuilder assets(AssetBuilder... assetBuilders) {
         this.assetBuilders = assetBuilders;
         return this;
     }
@@ -89,7 +89,8 @@ public class WidgetBuilder {
         widget.setCustom(custom);
         widget.setTemplate(template);
         widget.setLastUpdate(lastUpdate);
-        if(assetBuilders!=null) {
+
+        if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {
                 widget.getAssets().add(assetBuilder.withPage(widget).buildAsset());
             }

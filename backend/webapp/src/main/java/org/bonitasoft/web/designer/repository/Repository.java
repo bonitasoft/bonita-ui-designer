@@ -73,5 +73,5 @@ public interface Repository<T extends Identifiable> {
     /**
      * Path where the component files are saved
      */
-    Path resolvePathFolder(T component);
+    Path resolvePathFolder(String id);
 }
