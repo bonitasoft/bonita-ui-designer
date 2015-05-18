@@ -91,7 +91,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         createComponentDirectory(component);
 
         try {
-            persister.save(resolvePathFolder(component), component.getId(), component);
+            persister.save(resolvePathFolder(component.getId()), component.getId(), component);
         } catch (IOException e) {
             throw new RepositoryException(String.format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
         }
@@ -131,8 +131,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         }
     }
 
-    public Path resolvePathFolder(T component) {
-        return resolvePath(component.getId());
+    public Path resolvePathFolder(String id) {
+        return resolvePath(id);
     }
 
     public void createComponentDirectory(T component) {

@@ -365,7 +365,7 @@ public class HtmlBuilderVisitorTest {
         String head = Jsoup.parse(html).head().html();
         assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css\">");
         assertThat(head).contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">");
-        assertThat(head).contains("<script src=\"assets/widget-id/js/myfile.js\"></script>");
+        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile.js\"></script>");
     }
 
 }

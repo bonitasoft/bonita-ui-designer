@@ -21,7 +21,6 @@ import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 
 import java.util.ArrayList;
 import java.util.HashMap;

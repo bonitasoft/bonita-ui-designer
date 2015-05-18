@@ -60,6 +60,8 @@ public class WidgetArtefactImporterTest {
     private WidgetLoader widgetLoader;
     @Mock
     private WidgetRepository widgetRepository;
+    @Mock
+    private AssetImporter<Widget> widgetAssetImporter;
 
     private ArtefactImporter<Widget> importer;
 
@@ -71,7 +73,7 @@ public class WidgetArtefactImporterTest {
 
     @Before
     public void setUp() throws IOException {
-        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository);
+        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
         importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, widgetImporter);
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");

@@ -21,19 +21,25 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WidgetImporter implements DependencyImporter<Widget> {
 
+    protected static final Logger logger = LoggerFactory.getLogger(WidgetImporter.class);
     private WidgetLoader widgetLoader;
     private WidgetRepository widgetRepository;
+    private AssetImporter<Widget> widgetAssetImporter;
 
-    public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
+    public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;
+        this.widgetAssetImporter = widgetAssetImporter;
     }
 
     @Override
@@ -48,5 +54,19 @@ public class WidgetImporter implements DependencyImporter<Widget> {
     @Override
     public void save(List<Widget> elements, Path resources) {
         widgetRepository.saveAll(elements);
+
+        for(Widget widget : elements) {
+            try {
+                Path widgetPath = resources.resolve("widgets").resolve(widget.getId());
+                widgetAssetImporter.save(
+                        widgetAssetImporter.load(widget, widgetPath),
+                        widgetPath
+                );
+            } catch (IOException e) {
+                String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
+                logger.error(error, e);
+                throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
+            }
+        }
     }
 }

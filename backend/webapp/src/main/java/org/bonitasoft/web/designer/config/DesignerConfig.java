@@ -149,14 +149,20 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
-        return new WidgetImporter(widgetLoader, widgetRepository);
+    public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        return new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
     }
 
     @Bean
     public AssetImporter<Page> pageAssetImporter(AssetRepository<Page> pageAssetRepository){
         return new AssetImporter<>(pageAssetRepository);
     }
+
+    @Bean
+    public AssetImporter<Widget> widgetAssetImporter(AssetRepository<Widget> widgetAssetRepository){
+        return new AssetImporter<>(widgetAssetRepository);
+    }
+
     @Bean
     public ArtefactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
         return new ArtefactImporter<>(unzip, pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
