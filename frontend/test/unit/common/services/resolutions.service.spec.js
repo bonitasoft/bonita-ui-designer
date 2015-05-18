@@ -2,7 +2,12 @@ describe('Resolution service', function() {
   var resolutions;
 
   beforeEach( module('pb.common.services', function(resolutionsProvider){
-    resolutionsProvider.addResolutions([
+    resolutionsProvider.registerResolutions([
+      {
+        key: 'xs',
+        icon: 'laptop',
+        width: 320
+      },
       {
         key: 'foo',
         label: 'bar',

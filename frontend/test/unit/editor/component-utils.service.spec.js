@@ -5,7 +5,12 @@ describe('ComponentUtils Service', function() {
   var service, tabsContainerStructureMockJSON, pageJson, resolutions, $stateParams;
 
   beforeEach( module('pb.common.services', function(resolutionsProvider){
-    resolutionsProvider.addResolutions([
+    resolutionsProvider.registerResolutions([
+      {
+        key: 'xs',
+        icon: 'laptop',
+        width: 320
+      },
       {
         key: 'foo',
         label: 'bar',
@@ -13,7 +18,7 @@ describe('ComponentUtils Service', function() {
         width: 1337,
         tooltip: 'foo bar quux'
       }
-    ]);
+    ])
     resolutionsProvider.setDefaultResolution('foo');
   }));
 
