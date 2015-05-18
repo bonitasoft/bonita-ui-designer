@@ -14,7 +14,6 @@ module.exports = function (config) {
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/ace-builds/src-noconflict/ace.js',
       'app/bower_components/ace-builds/src-noconflict/ext-language_tools.js',
-      'app/bower_components/js-beautify/js/lib/beautify.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
