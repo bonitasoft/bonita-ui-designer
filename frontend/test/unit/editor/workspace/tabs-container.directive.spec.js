@@ -4,7 +4,7 @@ describe('tabsContainer', function() {
   beforeEach(module('ui.router'));
   beforeEach(module('pb.directives', 'pb.common.services', 'pb.factories', 'RecursionHelper'));
   beforeEach(module('pb.directives', 'pb.common.services', 'pb.common.repositories', 'pb.factories', 'RecursionHelper'));
-  beforeEach(module('pb.templates'));
+  beforeEach(module('pb.templates', 'gettext'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
