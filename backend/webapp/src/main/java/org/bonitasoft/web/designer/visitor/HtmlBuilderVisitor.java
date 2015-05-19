@@ -14,10 +14,13 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static com.google.common.collect.Lists.transform;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -35,8 +38,7 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     private AssetVisitor assetVisitor;
-    private PropertyValuesVisitor propertyValuesVisitor;
-    private DataModelVisitor dataModelVisitor;
+    private List<PageFactory> pageFactories;
     private RequiredModulesVisitor requiredModulesVisitor;
     private DirectivesCollector directivesCollector;
 
@@ -58,13 +60,11 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         }
     }
 
-    public HtmlBuilderVisitor(PropertyValuesVisitor propertyValuesVisitor,
-                              DataModelVisitor dataModelVisitor,
+    public HtmlBuilderVisitor(List<PageFactory> pageFactories,
                               RequiredModulesVisitor requiredModulesVisitor,
                               DirectivesCollector directivesCollector,
                               AssetVisitor assetVisitor) {
-        this.propertyValuesVisitor = propertyValuesVisitor;
-        this.dataModelVisitor = dataModelVisitor;
+        this.pageFactories = pageFactories;
         this.requiredModulesVisitor = requiredModulesVisitor;
         this.directivesCollector = directivesCollector;
         this.assetVisitor = assetVisitor;
@@ -114,20 +114,24 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     /**
      * Build a previewable HTML, based on the given list of widgets
-     *
      * TODO: once resourceContext remove we can merge this method with HtmlBuilderVisitor#visit(Previewable)
      *
      * @param previewable     to build
      * @param resourceContext the URL context can change on export or preview...
      */
-    public <P extends Previewable & Identifiable> String build(P previewable, String resourceContext) {
+    public <P extends Previewable & Identifiable> String build(final P previewable, String resourceContext) {
+
         TemplateEngine template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("directives", directivesCollector.collect(previewable))
                 .with("rowsHtml", buildRowsHtml(previewable.getRows()))
-                .with("dataModelFactory", dataModelVisitor.generateFactory(previewable))
-                .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable))
-                .with("previableassets", assetVisitor.visit(previewable));
+                .with("previableassets", assetVisitor.visit(previewable))
+                .with("factories", transform(pageFactories, new Function<PageFactory, String>() {
+                    @Override
+                    public String apply(PageFactory factory) {
+                        return factory.generate(previewable);
+                    }
+                }));
 
         Set<String> modules = requiredModulesVisitor.visit(previewable);
         if (!modules.isEmpty()) {

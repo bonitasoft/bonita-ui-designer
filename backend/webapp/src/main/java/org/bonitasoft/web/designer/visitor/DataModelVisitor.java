@@ -34,7 +34,7 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the data used in a page
  */
-public class DataModelVisitor implements ElementVisitor<Map<String, Map<String, Data>>> {
+public class DataModelVisitor implements ElementVisitor<Map<String, Map<String, Data>>>, PageFactory {
 
     @Override
     public Map<String, Map<String, Data>> visit(Container container) {
@@ -76,7 +76,7 @@ public class DataModelVisitor implements ElementVisitor<Map<String, Map<String, 
         return data;
     }
 
-    public <P extends Previewable & Identifiable> String generateFactory(P previewable) {
+    public <P extends Previewable & Identifiable> String generate(P previewable) {
         return new TemplateEngine("factory.hbs.js")
                 .with("name", "dataModel")
                 .with("resources", this.visit(previewable))

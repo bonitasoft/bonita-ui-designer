@@ -33,7 +33,7 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 /**
  * An element visitor which traverses the tree of elements recursively to collect property values in a page
  */
-public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<String, PropertyValue>>> {
+public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<String, PropertyValue>>>, PageFactory {
 
     @Override
     public Map<String, Map<String, PropertyValue>> visit(Component component) {
@@ -71,7 +71,7 @@ public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<Str
         return getPropertyValuesFor(previewable.getRows());
     }
 
-    public String generateFactory(Previewable previewable) {
+    public String generate(Previewable previewable) {
         return new TemplateEngine("factory.hbs.js")
                 .with("name", "propertyValues")
                 .with("resources", this.visit(previewable))

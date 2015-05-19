@@ -43,10 +43,9 @@ import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
-import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
+import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -55,7 +54,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -63,10 +61,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class HtmlBuilderVisitorTest {
 
     @Mock
-    private PropertyValuesVisitor propertyValuesVisitor;
-
-    @Mock
-    private DataModelVisitor dataModelVisitor;
+    private PageFactory pageFactory;
 
     @Mock
     private RequiredModulesVisitor requiredModulesVisitor;
@@ -77,7 +72,6 @@ public class HtmlBuilderVisitorTest {
     @Mock
     private AssetVisitor assetVisitor;
 
-    @InjectMocks
     private HtmlBuilderVisitor visitor;
 
     @Rule
@@ -86,6 +80,7 @@ public class HtmlBuilderVisitorTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, directivesCollector, assetVisitor);
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String>emptySet());
     }
 
@@ -231,7 +226,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_build_a_container_fluid_for_a_previewable() throws Exception {
         Page page = aPage().build();
-        when(propertyValuesVisitor.generateFactory(page)).thenReturn("var foo = \"bar\";");
+        when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
 
         assertThatHtml(visitor.build(page, "mycontext/")).hasElement("div.container-fluid");
     }
@@ -239,8 +234,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_generate_an_html_with_the_list_of_widgets() throws Exception {
         Page page = aPage().withId("page-id").build();
-        when(propertyValuesVisitor.generateFactory(page)).thenReturn("var foo = \"bar\";");
-        when(dataModelVisitor.generateFactory(page)).thenReturn("var baz = \"qux\";");
+        when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
         // given two widgets
         when(directivesCollector.collect(page)).thenReturn(asList(
                 "widgets/pbInput/pbInput.js",
@@ -264,8 +258,7 @@ public class HtmlBuilderVisitorTest {
                         aRow().with(
                                 anInput().withReference("input-reference"),
                                 aParagraph().withReference("paragraph-reference"))).withReference("container-reference")).build();
-        when(dataModelVisitor.generateFactory(page)).thenReturn("var baz = \"qux\";");
-        when(propertyValuesVisitor.generateFactory(page)).thenReturn("var foo = \"bar\";");
+        when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
         when(directivesCollector.collect(page)).thenReturn(asList(
                 "widgets/input/input.js",
                 "widgets/paragraph/paragraph.js"));
@@ -343,7 +336,6 @@ public class HtmlBuilderVisitorTest {
         Element head = Jsoup.parse(html).head();
         assertThat(head.html()).doesNotContain("angular.module('org.bonitasoft.pagebuilder.generator').requires.push");
     }
-
 
     @Test
     public void should_add_asset_import_in_header() throws Exception {

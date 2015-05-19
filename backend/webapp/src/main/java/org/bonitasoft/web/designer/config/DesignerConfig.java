@@ -58,6 +58,7 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
@@ -169,7 +170,7 @@ public class DesignerConfig {
 
     @Bean
     public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep, PagePropertiesExportStep pagePropertiesExportStep, HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
-        return new ExportStep[] {htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
+        return new ExportStep[]{htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
     }
 
     @Bean
@@ -223,8 +224,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
-        return new HtmlBuilderVisitor(propertyValuesVisitor(), dataModelVisitor(), requiredModulesVisitor, directivesCollector, assetVisitor);
+    public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories, RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
+        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, directivesCollector, assetVisitor);
     }
 
     @Bean
@@ -245,6 +246,11 @@ public class DesignerConfig {
     @Bean
     public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository){
         return new AssetUploader<>(pageRepository, pageAssetRepository(pageRepository));
+    }
+
+    @Bean
+    public List<PageFactory> pageFactories(PropertyValuesVisitor propertyValuesVisitor, DataModelVisitor dataModelVisitor) {
+        return Lists.<PageFactory>newArrayList(propertyValuesVisitor, dataModelVisitor);
     }
 
     @Bean
