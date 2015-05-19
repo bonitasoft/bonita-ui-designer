@@ -18,7 +18,6 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.nio.file.Path;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -33,14 +32,27 @@ import org.hibernate.validator.constraints.NotBlank;
  * A web resource can be attached to a component
  */
 public class Asset<T extends Identifiable> {
-
+    /**
+     * An asset is identified by its name
+     */
     @NotBlank(message = "Asset name should not be blank")
-    @Pattern(regexp = "[a-zA-Z0-9._-]*$", message = "Asset name should contains only alphanumeric characters, with no space")
+    @CheckAssetName(message = "Asset name should be a filename containing only alphanumeric characters and no space or an external URL")
     private String name;
+    /**
+     * AssetType correspond to the file type
+     */
     @NotNull(message = "Asset type may not be null")
     private AssetType type;
+    /**
+     * An asset belongs to a component
+     */
     @NotNull(message = "Asset has be attached to a component")
     private T component;
+
+    @JsonIgnore
+    public boolean isExternal() {
+        return name != null && name.startsWith("http");
+    }
 
     @JsonIgnore
     public T getComponent() {
