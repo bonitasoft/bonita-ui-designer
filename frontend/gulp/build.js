@@ -17,7 +17,7 @@ var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var utils = require('gulp-util');
 var del = require('del');
-var through = require("through2");
+var ddescriber = require("./ddescriber.js");
 
 module.exports = function(gulp, config) {
   var paths = config.paths;
@@ -41,18 +41,6 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.tests)
       .pipe(ddescriber());
   });
-
-  function ddescriber(options) {
-    return through.obj(function (file, enc, cb) {
-      var contents = file.contents.toString();
-      var err = null;
-
-      if (/.*ddescribe|iit/.test(contents)) {
-        err = new Error('ddescribe or iit present in file ' + file.path);
-      }
-      cb(err, file);
-    });
-  }
 
   /**
    * Assets
