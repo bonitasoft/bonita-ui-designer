@@ -155,7 +155,7 @@ public class PropertyValuesVisitorTest {
         Component component = aComponent().withPropertyValue("foo", "bar", "baz").build();
         Page page = aPage().with(component).build();
 
-        assertThat(propertyValuesVisitor.generateFactory(page))
+        assertThat(propertyValuesVisitor.generate(page))
                 .isEqualTo(new TemplateEngine("factory.hbs.js")
                         .with("name", "propertyValues")
                         .with("resources", singletonMap(component.getReference(), propertyValues)).build(this));

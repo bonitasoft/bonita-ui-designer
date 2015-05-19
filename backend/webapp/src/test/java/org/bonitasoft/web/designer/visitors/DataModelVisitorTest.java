@@ -22,6 +22,8 @@ import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,9 +51,23 @@ public class DataModelVisitorTest {
 
     @Test
     public void should_retrieve_data_model_from_page() throws Exception {
-        assertThat(dataModelVisitor.visit(aPage()
+        Page page = aPage()
                 .withId("page-id")
                 .withData("foo", data)
-                .build())).containsExactly(entry("page-id", singletonMap("foo", data)));
+                .build();
+
+        assertThat(dataModelVisitor.visit(page)).containsExactly(entry("page-id", singletonMap("foo", data)));
+    }
+
+    @Test
+    public void should_generate_a_factory_based_on_model_found_in_the_page() throws Exception {
+        Page page = aPage()
+                .withId("page-id")
+                .withData("foo", data)
+                .build();
+
+        assertThat(dataModelVisitor.generate(page)).isEqualTo(new TemplateEngine("factory.hbs.js")
+                .with("name", "dataModel")
+                .with("resources", singletonMap("page-id", singletonMap("foo", data))).build(this));
     }
 }
