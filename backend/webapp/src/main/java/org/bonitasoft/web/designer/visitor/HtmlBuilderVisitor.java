@@ -28,18 +28,16 @@ import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
  */
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
-    private WidgetRepository widgetRepository;
-    private WidgetIdVisitor widgetIdVisitor;
     private PropertyValuesVisitor propertyValuesVisitor;
     private DataModelVisitor dataModelVisitor;
     private RequiredModulesVisitor requiredModulesVisitor;
+    private DirectivesCollector directivesCollector;
 
     class TabTemplate {
         private final String title;
@@ -59,16 +57,14 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         }
     }
 
-    public HtmlBuilderVisitor(WidgetRepository widgetRepository,
-                              WidgetIdVisitor widgetIdVisitor,
-                              PropertyValuesVisitor propertyValuesVisitor,
+    public HtmlBuilderVisitor(PropertyValuesVisitor propertyValuesVisitor,
                               DataModelVisitor dataModelVisitor,
-                              RequiredModulesVisitor requiredModulesVisitor) {
-        this.widgetRepository = widgetRepository;
-        this.widgetIdVisitor = widgetIdVisitor;
+                              RequiredModulesVisitor requiredModulesVisitor,
+                              DirectivesCollector directivesCollector) {
         this.propertyValuesVisitor = propertyValuesVisitor;
         this.dataModelVisitor = dataModelVisitor;
         this.requiredModulesVisitor = requiredModulesVisitor;
+        this.directivesCollector = directivesCollector;
     }
 
     @Override
@@ -124,7 +120,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     public <P extends Previewable & Identifiable> String build(P previewable, String resourceContext) {
         TemplateEngine template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
-                .with("widgets", widgetRepository.getByIds(widgetIdVisitor.visit(previewable)))
+                .with("directives", directivesCollector.collect(previewable))
                 .with("rowsHtml", buildRowsHtml(previewable.getRows()))
                 .with("dataModelFactory", dataModelVisitor.generateFactory(previewable))
                 .with("propertyValuesFactory", propertyValuesVisitor.generateFactory(previewable));
