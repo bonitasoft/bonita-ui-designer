@@ -10,6 +10,7 @@ var fs = require('fs');
 var inlineJSON = require('./src/build/widgets/inlineJSON');
 var buildDirective = require('./src/build/widgets/buildDirective');
 var karma = require('karma').server;
+var ddescriber = require("../../frontend/gulp/ddescriber.js");
 
 var paths = {
   htmlTemplates: ['src/main/resources/templates/*.html'],
@@ -154,7 +155,15 @@ gulp.task('watch', function () {
 });
 
 /**
+ * Check for ddescribe and iit
+ */
+gulp.task('ddescriber', function () {
+  return gulp.src('src/test/**/*.spec.js')
+    .pipe(ddescriber());
+});
+
+/**
  * Default task
  * Run by 'npm run build' called by maven build
  */
-gulp.task('default', ['test', 'generator', 'widgets']);
+gulp.task('default', ['ddescriber', 'test', 'generator', 'widgets']);
