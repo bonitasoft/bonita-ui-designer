@@ -6,7 +6,8 @@ describe('preview test', function() {
     var preview = Preview.getPage('person');
 
     // then we should have an iframe with a desktop width
-    expect(preview.iframeWidth).toBe('324');
+    expect(preview.iframeWidth).toBe('100%');
     expect(preview.iframeSrc).toContain('preview/page/person');
+
   });
 });

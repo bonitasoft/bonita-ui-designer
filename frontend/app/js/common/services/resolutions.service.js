@@ -10,7 +10,7 @@ angular.module('pb.common.services')
       {
         key: 'xs',
         icon: 'laptop',
-        width: 320
+        width: '100%'
       }
     ];
 

@@ -20,6 +20,10 @@ angular.module('pb.preview').controller('PreviewCtrl', function($scope, $sce, $s
     return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '?time=' + clock.now());
   };
 
+  $scope.iframeWidth = function() {
+    return resolutions.selected().width;
+  };
+
   $scope.iframe = {
     src: $scope.buildIframeSrc()
   };
@@ -35,9 +39,5 @@ angular.module('pb.preview').controller('PreviewCtrl', function($scope, $sce, $s
   };
 
   webSocket.listen('/previewableUpdates', this.wsCallback);
-
-  $scope.resolution = function() {
-    return resolutions.selected();
-  };
 
 });
