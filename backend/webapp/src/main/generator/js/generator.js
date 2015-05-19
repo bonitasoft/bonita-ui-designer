@@ -9,6 +9,7 @@
   angular.module('org.bonitasoft.pagebuilder.generator', [
     'ngSanitize',
     'ngMessages',
+    'ngUpload',
     'org.bonitasoft.pagebuilder.generator.templates',
     'org.bonitasoft.pagebuilder.generator.constants',
     'org.bonitasoft.pagebuilder.generator.services',
