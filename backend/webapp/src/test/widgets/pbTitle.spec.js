@@ -1,4 +1,4 @@
-describe('pbAnchor', function() {
+describe('pbTitle', function() {
 
   var compile, scope, dom;
 
