@@ -2,7 +2,7 @@ describe('formContainer', function() {
   var $compile, $rootScope, $document, element;
 
   beforeEach(module('pb.directives', 'pb.services', 'pb.common.services', 'pb.factories', 'RecursionHelper', 'pb.common.repositories'));
-  beforeEach(module('ui.router'));
+  beforeEach(module('ui.router', 'gettext'));
   beforeEach(module('pb.templates'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_ ) {
     $compile = _$compile_;
