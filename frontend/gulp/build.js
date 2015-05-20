@@ -142,7 +142,7 @@ module.exports = function(gulp, config) {
       .pipe(jshint.reporter('fail'))
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
-      .pipe(uglify())
+      .pipe(uglify({output: { ascii_only: true }}))   // preserve ascii unicode characters such as \u226E
       .pipe(gulp.dest(paths.dist + '/js'));
   });
 
