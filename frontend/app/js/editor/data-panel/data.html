@@ -8,10 +8,10 @@
 
         <div class="search-filter">
             <i class="fa fa-search search-filter-icon" aria-hidden="true"></i>
-            <input class="form-control search-filter-input" ng-model="searchedData" placeholder="{{ 'Search' | translate }}"
+            <input class="form-control search-filter-input" ng-model="searchedData" placeholder="{{ 'Search' | translate }}"
                    ng-change="filterPageData()" type="search">
             <button type="button" ng-if="clearFilterVisible(searchedData)" ng-click="clearFilter()"
-                    class="search-filter-button" title="{{ 'Clear filter' | translate }}" aria-label="{{ 'Clear filter' | translate }}">
+                    class="search-filter-button" title="{{ 'Clear filter' | translate }}" aria-label="{{ 'Clear filter' | translate }}">
                 <i aria-hidden="true" class="fa fa-times"></i>
             </button>
         </div>
@@ -36,10 +36,10 @@
                 </td>
                 <td class="col-xs-1">
                     <div class="btn-group link-group btn-group-sm pull-right">
-                        <button class="btn update-data" ng-click="openDataPopup(key)" title="{{ 'Edit variable' | translate }}">
+                        <button class="btn update-data" ng-click="openDataPopup(key)" title="{{ 'Edit variable' | translate }}">
                             <i class="fa fa-pencil"></i>
                         </button>
-                        <button class="btn delete-data" ng-click="delete(key)" title="{{ 'Delete variable' | translate }}">
+                        <button class="btn delete-data" ng-click="delete(key)" title="{{ 'Delete variable' | translate }}">
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
