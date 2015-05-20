@@ -16,7 +16,7 @@ describe('container', function () {
   beforeEach(module('pb.common.services'));
   beforeEach(module('pb.factories'));
   beforeEach(module('pb.common.repositories'));
-  beforeEach(module('ui.router'));
+  beforeEach(module('ui.router', 'gettext'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
