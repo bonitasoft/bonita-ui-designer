@@ -102,6 +102,15 @@ describe('pbAutocomplete', function () {
       expect(element.find('input').attr('readonly')).toBe('readonly');
     });
 
+    it('should be required when requested', function () {
+      scope.properties.required = true;
+
+      var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
+      scope.$apply();
+
+      expect(element.find('input').attr('required')).toBe('required');
+    });
+
     it('should use the typeahead directive if we have a availableValues for an autocomplete', function() {
       var scope = $rootScope.$new();
       scope.properties = {

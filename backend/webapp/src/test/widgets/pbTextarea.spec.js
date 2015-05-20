@@ -108,6 +108,41 @@ describe('pbTextarea', function () {
       expect(element.find('textarea').attr('readonly')).toBe('readonly');
     });
 
+    it('should be required when requested', function () {
+      scope.properties.required = true;
+
+      var element = $compile('<pb-textarea></pb-textarea>')(scope);
+      scope.$apply();
+
+      expect(element.find('textarea').attr('required')).toBe('required');
+    });
+
+    it('should validate minlength', function () {
+      scope.properties.minLength = 5;
+      scope.properties.value = 'foo';
+
+      var element = $compile('<pb-textarea></pb-textarea>')(scope);
+      scope.$apply();
+      expect(element.find('textarea').attr('class')).toMatch('ng-invalid-minlength');
+
+      scope.properties.value = 'foofoo';
+      scope.$apply();
+      expect(element.find('textarea').attr('class')).not.toMatch('ng-invalid-minlength');
+    });
+
+    it('should validate maxlength', function () {
+      scope.properties.maxLength = 5;
+      scope.properties.value = 'foofoo';
+
+      var element = $compile('<pb-textarea></pb-textarea>')(scope);
+      scope.$apply();
+      expect(element.find('textarea').attr('class')).toMatch('ng-invalid-maxlength');
+
+      scope.properties.value = 'foo';
+      scope.$apply();
+      expect(element.find('textarea').attr('class')).not.toMatch('ng-invalid-maxlength');
+    });
+
     it('should not set a className from-control if the textarea type is range', function() {
       var element = $compile('<pb-textarea id="toto"></pb-textarea>')(scope);
       scope.properties.type = 'range';

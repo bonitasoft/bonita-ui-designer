@@ -108,14 +108,72 @@ describe('pbInput', function () {
       expect(element.find('input').attr('readonly')).toBe('readonly');
     });
 
-    it('should not set a className from-control if the input type is range', function() {
-      var element = $compile('<pb-input id="toto"></pb-input>')(scope);
-      scope.properties.type = 'range';
+    it('should be required when requested', function () {
+      scope.properties.required = true;
+
+      var element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();
 
-      // It should works... It works everywhere but not with PhantomJS (for the lulz I think)
-      // expect(element.find('input').hasClass('form-control')).toBe(false);
+      expect(element.find('input').attr('required')).toBe('required');
     });
+
+    it('should validate minlength', function () {
+      scope.properties.minLength = 5;
+      scope.properties.value = 'foo';
+
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+      expect(element.find('input').attr('class')).toMatch('ng-invalid-minlength');
+
+      scope.properties.value = 'foofoo';
+      scope.$apply();
+      expect(element.find('input').attr('class')).not.toMatch('ng-invalid-minlength');
+    });
+
+    it('should validate maxlength', function () {
+      scope.properties.maxLength = 5;
+      scope.properties.value = 'foofoo';
+
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+      expect(element.find('input').attr('class')).toMatch('ng-invalid-maxlength');
+
+      scope.properties.value = 'foo';
+      scope.$apply();
+      expect(element.find('input').attr('class')).not.toMatch('ng-invalid-maxlength');
+    });
+
+    it('should validate email', function () {
+      scope.properties.type = 'email';
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+
+      element.find('input').val('barfoo');
+      element.find('input').triggerHandler('input');
+
+      expect(element.find('input').attr('class')).toMatch('ng-invalid-email');
+
+      scope.properties.value = 'foo@bar.com';
+      scope.$apply();
+
+      expect(element.find('input').attr('class')).not.toMatch('ng-invalid-email');
+    });
+
+    it('should validate min value', function () {
+      scope.properties.type = 'number';
+      scope.properties.min = 1;
+      scope.properties.min = 1;
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.properties.value = 0;
+      scope.$apply();
+
+      expect(element.find('input').attr('class')).toMatch('ng-invalid-min');
+
+      scope.properties.value = 3;
+      scope.$apply();
+      expect(element.find('input').attr('class')).not.toMatch('ng-invalid-min');
+    });
+
   });
 
 });

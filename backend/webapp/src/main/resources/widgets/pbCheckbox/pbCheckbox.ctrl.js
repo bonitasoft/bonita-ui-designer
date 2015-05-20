@@ -1,4 +1,4 @@
-function PbCheckboxCtrl($scope) {
+function PbCheckboxCtrl($scope, widgetNameFactory) {
 
   $scope.$watch('properties.value', function(value) {
     if (value === 'true' || value === true) {
@@ -8,4 +8,5 @@ function PbCheckboxCtrl($scope) {
     }
   });
 
+  this.name = widgetNameFactory.getName('pbCheckbox');
 }

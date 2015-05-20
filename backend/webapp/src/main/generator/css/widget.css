@@ -27,6 +27,14 @@
     display: inline-block;
 }
 
-.ng-invalid {
-    border: 1px solid #F00 !important;
+
+input[type=text|email|number|password].ng-invalid.ng-dirty {
+  border-color: #C00;
+  border-width: 1px;
 }
+
+.control-label--required:after {
+  content: "*";
+  color: #C00;
+}
+
