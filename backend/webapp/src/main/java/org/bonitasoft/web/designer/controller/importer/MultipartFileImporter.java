@@ -46,6 +46,7 @@ public class MultipartFileImporter {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (ImportException e) {
+            logger.error("Technical error when importing a component", e);
             return new ResponseEntity<>(new ErrorMessage(e.getType().toString(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (IOException e) {

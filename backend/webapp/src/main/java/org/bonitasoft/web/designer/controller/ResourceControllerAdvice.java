@@ -83,4 +83,10 @@ public class ResourceControllerAdvice {
         logger.error("Element In Use Exception", exception);
         return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorMessage> handleRepositoryException(RuntimeException exception) {
+        logger.error("Internal Exception", exception);
+        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
