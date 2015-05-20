@@ -3,6 +3,7 @@ describe('pbCheckbox', function() {
   var compile, scope, element;
 
   beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');
@@ -29,6 +30,13 @@ describe('pbCheckbox', function() {
     scope.$apply();
 
     expect(element.find('input').attr('disabled')).toBe('disabled');
+  });
+
+  it('should be required  when requested', function() {
+    scope.properties.required = true;
+    scope.$apply();
+
+    expect(element.find('input').attr('required')).toBe('required');
   });
 
   it('should be checked when value is true', function() {

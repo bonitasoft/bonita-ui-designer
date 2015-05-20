@@ -1,4 +1,4 @@
-function PbAutocompleteCtrl($scope, $parse) {
+function PbAutocompleteCtrl($scope, $parse, widgetNameFactory) {
 
   'use strict';
 
@@ -9,4 +9,6 @@ function PbAutocompleteCtrl($scope, $parse) {
   this.getLabel = createGetter($scope.properties.displayedKey) || function (item) {
     return typeof item === 'string' ? item : JSON.stringify(item);
   };
+
+  this.name = widgetNameFactory.getName('pbAutocomplete');
 }

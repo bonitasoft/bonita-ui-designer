@@ -1,7 +1,7 @@
 <div class="row">
     <label
         ng-if="!properties.labelHidden"
-        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left'}"
+        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left', 'control-label--required': properties.required }"
         class="col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
         {{ properties.label }}
     </label>
@@ -16,11 +16,15 @@
             typeahead="ctrl.getLabel(item) for item in properties.availableValues | filter:$viewValue"
             typeahead-template-url="customTypeaheadForInputAutocomplete.html"
             ng-model="properties.value"
+            name="{{ctrl.name}}"
+            ng-required="properties.required"
             ng-readonly="properties.readOnly">
 
         <!-- It doesn't work if we put it inside form.html -->
         <script type="text/ng-template" id="customTypeaheadForInputAutocomplete.html">
             <a  bind-html-unsafe="match.label | typeaheadHighlight:query"></a>
         </script>
+
+        <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
     </div>
 </div>

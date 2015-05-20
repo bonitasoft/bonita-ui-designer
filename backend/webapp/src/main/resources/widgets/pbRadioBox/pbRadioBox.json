@@ -13,6 +13,12 @@
       "defaultValue": false
     },
     {
+      "label": "Required",
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": false
+    },
+    {
       "label": "Inline",
       "name": "inline",
       "type": "boolean",

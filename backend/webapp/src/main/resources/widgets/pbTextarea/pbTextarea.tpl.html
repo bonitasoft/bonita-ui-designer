@@ -1,13 +1,20 @@
 <div class="row">
     <label
         ng-if="!properties.labelHidden"
-        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left'}"
+        ng-class="{ 'widget-label-horizontal': !properties.labelHidden && properties.labelPosition === 'left', 'control-label--required': properties.required }"
         class="col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
         {{ properties.label }}
     </label>
 
     <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
-        <textarea class="form-control" ng-model="properties.value" ng-readonly="properties.readOnly"></textarea>
+        <textarea class="form-control"
+            name="{{ctrl.name}}"
+            ng-model="properties.value"
+            ng-required="properties.required"
+            ng-minlength="properties.minLength"
+            ng-maxlength="properties.maxLength"
+            ng-readonly="properties.readOnly">
+        </textarea>
+        <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
     </div>
-
 </div>
