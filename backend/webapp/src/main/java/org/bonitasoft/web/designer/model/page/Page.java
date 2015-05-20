@@ -131,6 +131,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
         if (obj instanceof Page) {
             final Page other = (Page) obj;
             return new EqualsBuilder()
+                    .append(id, other.id)
                     .append(rows, other.rows)
                     .append(data, other.data)
                     .isEquals();
@@ -142,6 +143,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(id)
                 .append(rows)
                 .append(data)
                 .toHashCode();
@@ -150,6 +152,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     @Override
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("id", id)
                 .append("rows", rows)
                 .append("data", data)
                 .toString();
