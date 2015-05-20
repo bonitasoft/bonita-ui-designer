@@ -117,7 +117,8 @@ describe('pbCheckbox', function() {
     scope.properties.required = true;
     var element = compile('<pb-radio></pb-radio>')(scope);
     scope.$apply();
-    [].slice.call(element.find('input')[0]).forEach(function(input) {
+
+    [].slice.call(element.find('input')).forEach(function(input) {
       expect(input.attr('required')).toBe('required');
     })
 });
