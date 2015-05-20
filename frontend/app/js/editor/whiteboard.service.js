@@ -12,13 +12,13 @@ angular.module('pb.services')
       paletteItems[key] = repository;
     };
 
-    this.initialize = function(repo, id ) {
+    this.initialize = function(repo, id) {
       return widgetRepo.all()
         .then(initializePalette)
         .then( function() {
           var promises = Object.keys(paletteItems)
             .reduce(function(promises, key) {
-              return promises.concat(paletteItems[key]());
+              return promises.concat(paletteItems[key](id));
             }, []);
           return $q.all( promises );
         })
