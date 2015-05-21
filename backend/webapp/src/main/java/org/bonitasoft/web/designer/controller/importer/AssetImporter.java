@@ -25,7 +25,9 @@ import java.util.List;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
@@ -39,7 +41,8 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
 
     @Override
     public List<Asset> load(Identifiable component, Path resources) throws IOException {
-        Path assetsPath = resources.resolve("assets");
+        Path assetsPath = component instanceof Widget ? resources.resolve(component.getId()).resolve("assets") : resources.resolve("assets");
+
         if (exists(assetsPath)) {
             List<Asset> assets = new ArrayList<>();
             for (AssetType type : AssetType.values()) {
@@ -50,14 +53,15 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
             }
             return assets;
         }
+
         return new ArrayList<>();
     }
 
 
     @Override
     public void save(List<Asset> elements, Path resources) {
-        Path assetsPath = resources.resolve("assets");
         for (Asset asset : elements) {
+            Path assetsPath = AssetScope.WIDGET.equals(asset.getScope()) ?  resources.resolve(asset.getComponentId()).resolve("assets") : resources.resolve("assets");
             Path sourceFile = assetsPath.resolve(asset.getType().getPrefix()).resolve(asset.getName());
             try {
                 assetRepository.save(asset, readAllBytes(sourceFile));

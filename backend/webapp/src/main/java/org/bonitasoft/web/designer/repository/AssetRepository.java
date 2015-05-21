@@ -33,6 +33,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -52,22 +53,22 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         this.validator = validator;
     }
 
-    protected Path resolveComponentPath(T component, Asset asset) {
-        return repository.resolvePathFolder(component);
+    protected Path resolveComponentPath(Asset asset) {
+        return repository.resolvePathFolder(asset.getComponentId());
     }
 
-    protected Path resolveAssetPath(T component, Asset asset) {
+    protected Path resolveAssetPath(Asset asset) {
         validator.validate(asset);
-        validator.validate(component);
-        return resolveComponentPath(component, asset).resolve(asset.getName());
+        return resolveComponentPath(asset).resolve("assets").resolve(asset.getType().getPrefix()).resolve(asset.getName());
     }
 
-    protected Path resolveExistingAssetPath(T component, Asset asset) {
-        if (!exists(resolveAssetPath(component, asset))) {
+    protected Path resolveExistingAssetPath(Asset asset) {
+        Path path = resolveAssetPath(asset);
+        if (!exists(path)) {
             throw new NotFoundException(format("Error when searching asset %s for %s [%s]: asset not found.",
                     asset.getName(), repository.getComponentName(), asset.getComponentId()));
         }
-        return resolveAssetPath(component, asset);
+        return path;
     }
 
     /**
@@ -75,13 +76,11 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      */
     public void save(Asset asset, byte[] content) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
-        T component = repository.get(asset.getComponentId());
-        Path parent = resolveComponentPath(component, asset);
-        if (!exists(parent)) {
-            //When an asset is imported the page folder can not exist
-            createDirectories(parent);
+        Path parent = resolveComponentPath(asset);
+        if (!exists(parent.resolve("assets").resolve(asset.getType().getPrefix()))) {
+            createDirectories(parent.resolve("assets").resolve(asset.getType().getPrefix()));
         }
-        write(resolveAssetPath(component, asset), content);
+        write(resolveAssetPath(asset), content);
     }
 
     /**
@@ -89,7 +88,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      */
     public void delete(Asset asset) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
-        Files.delete(resolveExistingAssetPath(repository.get(asset.getComponentId()), asset));
+        Files.delete(resolveExistingAssetPath(asset));
     }
 
     /**
@@ -97,7 +96,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      */
     public byte[] readAllBytes(Asset asset) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
-        return Files.readAllBytes(resolveExistingAssetPath(repository.get(asset.getComponentId()), asset));
+        return Files.readAllBytes(resolveExistingAssetPath(asset));
     }
 
     /**
@@ -120,7 +119,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         if (asset.isExternal()) {
             throw new NotAllowedException("We can't load an external asset. Use the link " + asset.getName());
         }
-        return resolveExistingAssetPath(component, asset);
+        return resolveExistingAssetPath(asset);
     }
 
     /**
