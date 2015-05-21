@@ -479,51 +479,12 @@ angular.module('pb.e2e', ['ngMockE2E'])
       return [201, page, {}];
     });
 
-    $httpBackend.whenPUT('rest/pages/person/data/aName').respond(
-      angular.extend({}, personPage.data, {
-        aName: {
-          type: "constant",
-          value: "aValue"
-        }
-      })
-    );
-
-    $httpBackend.whenPUT('rest/pages/person/data/aJson').respond(
-      angular.extend({}, personPage.data, {
-        aArray: {
-          type: "json",
-          value: '{"key": "foo"}'
-        }
-      })
-    );
-
-    $httpBackend.whenPUT('rest/pages/person/data/aUrl').respond(
-      angular.extend({}, personPage.data, {
-        aUrl: {
-          type: "url",
-          value: '{{base}}/bonita/test'
-        }
-      })
-    );
-
-    $httpBackend.whenPUT('rest/pages/person/data/anExpression').respond(
-      angular.extend({}, personPage.data, {
-        anExpression: {
-          type: "expression",
-          value: 'return "test";'
-        }
-      })
-    );
-
-    $httpBackend.whenPUT('rest/pages/person/data/alreadyExistsData').respond(
-      angular.extend({}, personPage.data, {
-        aName: {
-          type: "constant",
-          value: "foo"
-        }
-      })
-    );
-
+    // create new data on page 'person'
+    $httpBackend.whenPUT(/rest\/pages\/person\/data\/.*/).respond(function (method, url, data) {
+      var dataName = e2ehelper.lastChunk(url);
+      personPage.data[dataName] = angular.fromJson(data);
+      return [201, personPage.data, {}];
+    });
 
     // update page
     $httpBackend.whenPUT(/rest\/pages\/.*/).respond(200);
