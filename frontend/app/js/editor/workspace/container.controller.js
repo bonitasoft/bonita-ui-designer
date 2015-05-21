@@ -84,4 +84,7 @@ angular.module('pb.directives').controller('ContainerDirectiveCtrl', function ($
     $scope.dropAtEndOfTheRow(data, event, rows[rowIndex]);
   };
 
+  $scope.isEmpty = function(container) {
+    return componentUtils.isEmpty(container);
+  };
 });

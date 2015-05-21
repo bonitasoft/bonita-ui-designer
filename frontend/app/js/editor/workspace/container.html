@@ -2,9 +2,7 @@
     <component-mover component="container" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(container)"></component-mover>
     <div ng-repeat="row in container.rows" ng-init="rowIndex = $index" >
 
-        <div ng-if="$first" class="row dropRow" bo-dropzone bo-drop-success="dropBeforeRow($data, $event, $index, container.rows)" translate>
-            Create row...
-        </div>
+        <div ng-if="$first && !isEmpty(container)" class="row dropRow" bo-dropzone bo-drop-success="dropBeforeRow($data, $event, $index, container.rows)" ></div>
 
         <div class="row row-builder" ng-class="{'row-element':moveRowUpVisible(row) || moveRowDownVisible(row) || container.rows.length > 1,  'row-separator': !$last}">
 
@@ -23,9 +21,7 @@
             <div ng-if="editor.rowSize(row) < 12" bo-dropzone bo-drop-success="dropAtEndOfTheRow($data, $event, row)" class="widget-placeholder drop-container col-xs-{{12 - editor.rowSize(row)}}">{{12 - editor.rowSize(row)}}</div>
 
         </div>
-        <div class="row dropRow" ng-class="{ 'dropRow--last': $last }" bo-dropzone bo-drop-success="dropAfterRow($data, $event, $index, container.rows)" translate>
-            Create row...
-        </div>
+        <div ng-if="!isEmpty(container)" class="row dropRow" ng-class="{ 'dropRow--last': $last }" bo-dropzone bo-drop-success="dropAfterRow($data, $event, $index, container.rows)" ></div>
 
     </div>
     <element-resizer component="container" editor="editor" resizable="resizable" ng-if="editor.isCurrentComponent(container)"></element-resizer>

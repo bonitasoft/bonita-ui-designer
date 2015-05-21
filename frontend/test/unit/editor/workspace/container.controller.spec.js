@@ -22,7 +22,7 @@ describe('ContainerDirectiveCtrl', function() {
       return $controller('ContainerDirectiveCtrl', {
         $scope: $scope,
         $rootScope: rootScope,
-        $element: $element,
+        $element: $element
       });
     };
   }));
@@ -49,6 +49,26 @@ describe('ContainerDirectiveCtrl', function() {
 
     $scope.editor = mockEditor;
     $scope.container = {};
+  });
+
+  it('should verify that a container is empty', function() {
+    init();
+    var container = {
+      rows: [[]]
+    };
+
+    expect($scope.isEmpty(container)).toBeTruthy();
+  });
+
+  it('should verify that a container is not empty', function() {
+    init();
+    var container = {
+      rows: [[{name: 'test'}]]
+    };
+
+    $scope.isEmpty(container);
+
+    expect($scope.isEmpty(container)).toBeFalsy();
   });
 
   describe('We can move rows', function() {
