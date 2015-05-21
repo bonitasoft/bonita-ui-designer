@@ -53,11 +53,11 @@ public class WidgetImporter implements DependencyImporter<Widget> {
 
     @Override
     public void save(List<Widget> elements, Path resources) {
-        widgetRepository.saveAll(elements);
+        Path widgetPath = resources.resolve("widgets");
 
-        for(Widget widget : elements) {
+        widgetRepository.saveAll(elements);
+        for (Widget widget : elements) {
             try {
-                Path widgetPath = resources.resolve("widgets").resolve(widget.getId());
                 widgetAssetImporter.save(
                         widgetAssetImporter.load(widget, widgetPath),
                         widgetPath
