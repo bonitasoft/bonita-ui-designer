@@ -23,7 +23,7 @@
       this.name = name;
       this.type = type;
 
-      if (type === 'Expression' || type === 'JSON') {
+      if (type === 'Javascript expression' || type === 'JSON') {
         this.setAceValue(value);
       } else {
         this.value = value;
