@@ -66,6 +66,15 @@
           }
         }
       },
+      'designer.page.asset':{
+        views: {
+          //  sub view named in editor.html
+          'data@designer.page': {
+            controller: 'AssetCtrl',
+            templateUrl: 'js/assets/asset.html'
+          }
+        }
+      },
       'designer.page.preview': {
         url: '/preview',
         views: {
