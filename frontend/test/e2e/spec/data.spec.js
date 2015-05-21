@@ -1,6 +1,6 @@
 var PageEditor = require('../pages/editor.page.js');
 
-describe('data dataPanel', function() {
+describe('data panel', function() {
 
   describe('for page', function() {
     var dataPanel;
@@ -55,19 +55,19 @@ describe('data dataPanel', function() {
       expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toBe('{{base}}/bonita/test');
     });
 
-    it('should add an Expression data', function() {
+    it('should add a Javascript expression data', function() {
       var nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
 
-      dataPanel.addData('aExpression', 'Expression', 'return "test"');
+      dataPanel.addData('anExpression', 'Javascript expression', 'return "test"');
 
       dataPanel.lines.count().then(function(nb) {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toBe('return "test";');
+      expect(dataPanel.lines.get(1).element(by.exactBinding('data.value')).getText()).toBe('return "test";');
     });
 
     it('should delete a data', function() {

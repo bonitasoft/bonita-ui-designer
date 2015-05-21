@@ -506,9 +506,9 @@ angular.module('pb.e2e', ['ngMockE2E'])
       })
     );
 
-    $httpBackend.whenPUT('rest/pages/person/data/aExpression').respond(
+    $httpBackend.whenPUT('rest/pages/person/data/anExpression').respond(
       angular.extend({}, personPage.data, {
-        aExpression: {
+        anExpression: {
           type: "expression",
           value: 'return "test";'
         }
