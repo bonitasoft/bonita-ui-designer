@@ -2,6 +2,7 @@ var through = require('through');
 var fs = require('fs');
 var path = require('path');
 var jsesc = require('jsesc');
+var Handlebars = require('handlebars');
 
 /**
  * Inline file contents by replacing @<path>postfix with the contents
@@ -26,8 +27,27 @@ function inline(postfix) {
   });
 }
 
-module.exports = function inlineJSON() {
+function inlineJSON() {
   var stream = inline('.tpl.html');
   stream.pipe(inline('.ctrl.js'));
   return stream;
+}
+
+function getDirectiveTemplate(template) {
+  return Handlebars.compile(String(fs.readFileSync(template)));
+}
+
+function buildDirective(template) {
+  return through(function (file) {
+    var context = JSON.parse(file.contents);
+    context.escapedTemplate = jsesc(context.template);
+    file.path = file.path.replace('.json', '.js');
+    file.contents = new Buffer(getDirectiveTemplate(template)(context));
+    this.queue(file);
+  });
+}
+
+module.exports = {
+  inlineJSON: inlineJSON,
+  buildDirective: buildDirective
 };
