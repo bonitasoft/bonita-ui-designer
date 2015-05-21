@@ -14,7 +14,7 @@ angular.module('pb.services')
     }
     var dataTypes = [
       { label: gettext('String'), type: 'constant', group: ' ', defaultValue: ''},
-      { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: ''},
+      { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: '{}'},
       { label: gettext('External API'), type: 'url', group: '--', defaultValue: ''},
       { label: gettext('Expression'), type: 'expression', group: '--', defaultValue: 'return "hello";'},
       { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: ''},
