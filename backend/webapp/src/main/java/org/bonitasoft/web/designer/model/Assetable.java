@@ -22,4 +22,5 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 public interface Assetable<T extends Identifiable> extends Identifiable {
 
     Set<Asset> getAssets();
+
 }

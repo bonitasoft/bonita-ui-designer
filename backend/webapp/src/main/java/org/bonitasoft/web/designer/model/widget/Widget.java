@@ -41,6 +41,7 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
+
 public class Widget extends Versioned implements Identifiable, Assetable {
 
     private static final Pattern PATTERN_DATE_VALIDATION = Pattern.compile("[a-zA-Z0-9]*$");
@@ -66,15 +67,15 @@ public class Widget extends Versioned implements Identifiable, Assetable {
      * The validation context can change depending on the nature of a widget. A custom widget name can't contain space but a
      * normal one yes
      */
-    @AssertTrue(message="Widget name should contains only alphanumeric characters with no space")
-    private boolean isValidName(){
-        if(!isCustom()){
+    @AssertTrue(message = "Widget name should contains only alphanumeric characters with no space")
+    private boolean isValidName() {
+        if (!isCustom()) {
             return true;
         }
         return PATTERN_DATE_VALIDATION.matcher(name).matches();
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getId() {
         return id;
     }
@@ -83,7 +84,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.id = id;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getName() {
         return name;
     }
@@ -92,7 +93,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.name = name;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public Instant getLastUpdate() {
         return lastUpdate;
     }
@@ -101,7 +102,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.lastUpdate = lastUpdate;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getTemplate() {
         return template;
     }
@@ -110,7 +111,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.template = template;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getIcon() {
         return icon;
     }
@@ -119,7 +120,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.icon = icon;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getController() {
         return controller;
     }
@@ -128,7 +129,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.controller = controller;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getDescription() {
         return description;
     }
@@ -137,7 +138,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.description = description;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public boolean isCustom() {
         return custom;
     }
@@ -146,7 +147,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.custom = custom;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Integer getOrder() {
         return order;
     }
@@ -155,7 +156,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.order = order;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public List<Property> getProperties() {
         return Collections.unmodifiableList(properties);
     }
@@ -168,7 +169,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         Collections.replaceAll(properties, oldProperty, newProperty);
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Set<Asset> getAssets() {
         return assets;
     }
@@ -176,7 +177,6 @@ public class Widget extends Versioned implements Identifiable, Assetable {
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
     }
-
 
 
     public void deleteProperty(Property property) {
@@ -192,7 +192,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         return null;
     }
 
-    @JsonView({ JsonViewLight.class })
+    @JsonView({JsonViewLight.class})
     public Map<String, List<Identifiable>> getUsedBy() {
         return usedBy;
     }
@@ -210,7 +210,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         return getUsedBy() != null && !getUsedBy().isEmpty();
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Set<String> getRequiredModules() {
         return requiredModules;
     }
@@ -261,7 +261,7 @@ public class Widget extends Versioned implements Identifiable, Assetable {
     }
 
     public static String spinalCase(String widgetId) {
-        char firstLetter =  Character.toLowerCase(widgetId.charAt(0));
+        char firstLetter = Character.toLowerCase(widgetId.charAt(0));
         return firstLetter + widgetId.substring(1).replaceAll("([A-Z])", "-$1").toLowerCase();
     }
 }

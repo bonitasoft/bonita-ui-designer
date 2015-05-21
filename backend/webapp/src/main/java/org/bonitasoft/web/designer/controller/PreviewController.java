@@ -83,7 +83,7 @@ public class PreviewController {
     /**
      * A page can serve its own assets or assets linked to its widgets
      */
-    @RequestMapping("/preview/page/{id}/assets/{widgetId}/{type}/{filename:.*}")
+    @RequestMapping("/preview/page/{id}/widgets/{widgetId}/assets/{type}/{filename:.*}")
     public void serveWidgetAssetIncludedInPage(
             HttpServletRequest request,
             HttpServletResponse response,

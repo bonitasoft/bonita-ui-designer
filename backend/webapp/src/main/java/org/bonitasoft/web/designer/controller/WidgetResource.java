@@ -77,8 +77,7 @@ public class WidgetResource {
                 fillWithUsedBy(widget);
             }
             json = objectMapper.toJson(widgets, JsonViewLight.class);
-        }
-        else {
+        } else {
             json = objectMapper.toJson(widgets);
         }
         //In our case we don't know the view asked outside this method. So like we can't know which JsonView used, I

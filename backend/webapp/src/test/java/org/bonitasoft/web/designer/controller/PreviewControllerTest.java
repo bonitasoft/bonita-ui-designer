@@ -126,7 +126,7 @@ public class PreviewControllerTest {
         when(widgetAssetRepository.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
 
         mockMvc
-                .perform(get("/preview/page/page-id/assets/widget-id/js/asset.js"))
+                .perform(get("/preview/page/page-id/widgets/widget-id/assets/js/asset.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
@@ -138,6 +138,6 @@ public class PreviewControllerTest {
     public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
         when(widgetAssetRepository.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(null);
 
-        mockMvc.perform(get("/preview/page/page-id/assets/widget-id/js/asset.js")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/preview/page/page-id/widgets/widget-id/assets/js/asset.js")).andExpect(status().isNotFound());
     }
 }
