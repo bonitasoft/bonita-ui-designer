@@ -37,7 +37,7 @@
                    id="value" name="value" ng-model="newData.value">
 
             <p class="help-block" ng-switch-when="urlparameter" translate>
-                Tip: URL parameter are located after a <em>?</em> in the page Url.
+                <span class="tip">Tip:</span> URL parameter are located after a <em>?</em> in the page Url.
             </p>
             <!-- url -->
             <label ng-switch-when="url" class="control-label" for="value" translate>Api url</label>
@@ -45,7 +45,7 @@
                    name="value" ng-model="newData.value" required valid-url>
 
             <p class="help-block" ng-switch-when="url" translate>
-                Tip: You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em>
+                <span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em>
             </p>
 
             <!-- json -->
@@ -54,7 +54,7 @@
                         ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
                         id="value"></ace-editor>
             <p class="help-block" ng-switch-when="json" translate>
-                Tip: Array syntax: ["val1", "val2"], Object syntax: {"key": "value"}
+                <span class="tip">Tip:</span> Array syntax: ["val1", "val2"], Object syntax: {"key": "value"}
             </p>
 
             <!-- expression -->
@@ -63,7 +63,7 @@
                         ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
                         class="form-control" id="value"></ace-editor>
             <p class="help-block" ng-switch-when="expression" translate>
-                Tip: Hit $ key to access data, use ctrl-space to trigger auto-completion.
+                <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger auto-completion.
             </p>
         </div>
         <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>
