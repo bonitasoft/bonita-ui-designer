@@ -2,7 +2,6 @@
 @import "../bower_components/bootstrap/less/responsive-utilities";
 @import "../bower_components/bootstrap/less/glyphicons.less";
 @import "../bower_components/font-awesome/less/font-awesome.less";
-
 @import "variables";
 @import "forms";
 @import "widget";
@@ -31,16 +30,16 @@
 /* Can be removed when using bootstrap > v3.3.x                                                                            */
 /****************************************************************************************************************************/
 
-.row{
-    margin-left: 0;
-    margin-right: 0;
+.row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
-.container{
-    .row{
-        margin-left: -15px;
-        margin-right: -15px;
-    }
+.container {
+  .row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
 }
 
 /****************************************************************************************************************************/
@@ -57,6 +56,7 @@ html, body {
 .bo-drag-action {
   user-select: none;
 }
+
 .shadow-on-focus() {
   @color-rgba: rgba(red(#555555), green(#555555), blue(#555555), .8);
   outline: 0;
@@ -78,7 +78,6 @@ html, body {
   pointer-events: none;
 }
 
-
 .@{fa-css-prefix}-alias-import:before {
   content: @fa-var-download;
 }
@@ -92,11 +91,33 @@ html, body {
 }
 
 .@{fa-css-prefix}-alias-page:before {
-   content: @fa-var-file-code-o;
- }
+  content: @fa-var-file-code-o;
+}
 
 .fa[tooltip] {
   cursor: default;
+}
+
+.tip {
+  font-weight: bold;
+  &:before {
+    .fa-icon();
+    content: "@{fa-var-lightbulb-o}\00a0";
+  }
+}
+
+.key {
+  background-color: #fcfcfc;
+  border-color: #ccc #ccc #bbb;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 -1px 0 #bbb inset;
+  color: #555;
+  display: inline-block;
+  font: 11px/10px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  padding: 3px 5px;
+  vertical-align: middle;
 }
 
 /****************************************************************************************************************************/
@@ -126,6 +147,6 @@ html, body {
 }
 
 .control-label--required:after {
-  content:" *";
-  color:@state-danger-text;
+  content: " *";
+  color: @state-danger-text;
 }
