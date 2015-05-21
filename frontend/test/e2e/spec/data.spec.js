@@ -6,6 +6,7 @@ describe('data panel', function() {
     var dataPanel;
 
     beforeEach(function() {
+
       dataPanel = PageEditor.get('person').dataPanel();
       element(by.css('body')).allowAnimations(false);
     });
