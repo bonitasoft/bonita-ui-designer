@@ -61,7 +61,7 @@ describe('data panel', function() {
         nbData = nb;
       });
 
-      dataPanel.addData('anExpression', 'Javascript expression', 'return "test"');
+      dataPanel.addData('anExpression', 'Javascript expression', 'return "test";');
 
       dataPanel.lines.count().then(function(nb) {
         expect(nb).toBe(nbData + 1);
