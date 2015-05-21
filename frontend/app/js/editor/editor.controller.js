@@ -374,8 +374,10 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
     if (data.$$widget) {
       return;
     }
-    $scope.page.rows.push([]);
-    var lastRow = $scope.page.rows[$scope.page.rows.length-1];
+    if (!componentUtils.isEmpty( $scope.page)) {
+      $scope.page.rows.push([]);
+    }
+    var lastRow = $scope.page.rows[$scope.page.rows.length - 1];
     $scope.addComponentToRow(data, $scope.page, lastRow, 0);
   };
 

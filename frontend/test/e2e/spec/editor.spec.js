@@ -42,7 +42,7 @@ describe('editor test', function() {
   });
 
   it('should not allow removing a widget using DEL keyboard shortcut if no widget is selected', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     editor.removeWidget();
     expect(editor.components.count()).toBe(1);
@@ -51,7 +51,7 @@ describe('editor test', function() {
   });
 
   it('should move selection to the next component using RIGHT', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     editor.components.first().click()
     browser.actions().sendKeys(protractor.Key.RIGHT).perform();
@@ -59,21 +59,21 @@ describe('editor test', function() {
   });
 
   it('should leave selection using RIGHT to the last component if is already selected', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     browser.actions().sendKeys(protractor.Key.RIGHT).perform();
     expect(editor.components.last().getAttribute('class')).toContain('component-element--selected')
   });
 
   it('should move selection to the previous component using LEFT', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     browser.actions().sendKeys( protractor.Key.LEFT ).perform();
     expect(editor.components.first().getAttribute('class')).toContain('component-element--selected')
   });
 
   it('should leave selection using LEFT to the last component if is already selected', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     editor.components.first().click()
     browser.actions().sendKeys( protractor.Key.LEFT ).perform();
@@ -90,11 +90,11 @@ describe('editor test', function() {
     expect(editor.components.count()).toBe(0);
   });
 
-  it('should allow adding a row', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+  it('should fill widget placeholder when page is empty', function() {
+    editor.addWidget('pbParagraph');
 
     expect(editor.components.count()).toBe(1);
-    expect($$('.widget-placeholder').count()).toBe(1);
+    expect($$('.widget-placeholder').count()).toBe(0);
   });
 
   it('should not allow removing the unique row', function() {
@@ -102,13 +102,13 @@ describe('editor test', function() {
   });
 
   it('should allow removing a non-unique row', function() {
-    editor.addElement('pbParagraph').to('.dropRow');
+    editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
 
     browser
-      .executeScript("$('.builder-row .removeRow').first().click();")
+      .executeScript("$('.row-builder .fa-times-circle').first().click();")
       .then(function() {
-        expect($$('.widget-placeholder').count()).toBe(1);
+        expect(editor.rows.count()).toBe(1);
       });
   });
 

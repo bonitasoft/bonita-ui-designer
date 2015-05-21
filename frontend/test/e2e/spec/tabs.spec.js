@@ -94,16 +94,17 @@ describe('tabs test', function() {
 
   it('should not disappear if I take the tabContainer and push it in itself nor its children', function() {
 
-    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-0 .bo-dropzone-container',true);
+    //browser.pause();
+    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-0 .widget-placeholder',true);
     expect($('#tabsContainer-0').isPresent()).toBe(true);
 
-    editor.addElement('tabsContainer').to('#tabsContainer-0 .bo-dropzone-container',true);
+    editor.addElement('tabsContainer').to('#tabsContainer-0 .widget-placeholder',true);
 
-    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-1 .bo-dropzone-container',true);
+    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-1 .widget-placeholder',true);
     expect($('#tabsContainer-0').isPresent()).toBe(true);
     expect($('#tabsContainer-1').isPresent()).toBe(true);
 
-    editor.drag('#tabsContainer-1').andDropOn('#tabsContainer-1 .bo-dropzone-container',true);
+    editor.drag('#tabsContainer-1').andDropOn('#tabsContainer-1 .widget-placeholder',true);
     expect($('#tabsContainer-0').isPresent()).toBe(true);
     expect($('#tabsContainer-1').isPresent()).toBe(true);
 
@@ -111,15 +112,15 @@ describe('tabs test', function() {
 
   it('should not disappear if I take the parent tabContainer and push it in a container inside of itself', function() {
 
-    editor.addElement('container').to('#tabsContainer-0 .bo-dropzone-container',true);
+    editor.addElement('container').to('#tabsContainer-0 .widget-placeholder',true);
 
-    editor.drag('#tabsContainer-0').andDropOn('#container-2 .bo-dropzone-container',true);
+    editor.drag('#tabsContainer-0').andDropOn('#container-2 .widget-placeholder',true);
     expect($('#tabsContainer-0').isPresent()).toBe(true);
     expect($('#container-2').isPresent()).toBe(true);
 
-    editor.addElement('tabsContainer').to('#container-2 .bo-dropzone-container',true);
+    editor.addElement('tabsContainer').to('#container-2 .widget-placeholder',true);
 
-    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-1 .bo-dropzone-container',true);
+    editor.drag('#tabsContainer-0').andDropOn('#tabsContainer-1 .widget-placeholder',true);
     expect($('#tabsContainer-0').isPresent()).toBe(true);
     expect($('#tabsContainer-1').isPresent()).toBe(true);
     expect($('#container-2').isPresent()).toBe(true);
