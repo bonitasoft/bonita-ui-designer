@@ -81,19 +81,19 @@ public class PagePropertiesBuilderTest {
     public void should_add_bonita_resource_found_in_page_data() throws Exception {
         Data resource = new Data();
         resource.setType(URL);
-        resource.setValue("/bonita/API/bpm/userTask");
+        resource.setValue("/bonita/API/living/application-menu");
         page.setData(singletonMap("foo", resource));
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
-        assertThat(properties).contains("resources=[GET|bpm/userTask]");
+        assertThat(properties).contains("resources=[GET|living/application-menu]");
     }
 
     @Test
     public void should_add_relative_bonita_resource_found_in_page_data() throws Exception {
         Data resource = new Data();
         resource.setType(URL);
-        resource.setValue("../API/bpm/userTask");
+        resource.setValue("../API/bpm/userTask?filter=mine");
         page.setData(singletonMap("foo", resource));
 
         String properties = new String(pagePropertiesBuilder.build(page));
@@ -105,7 +105,7 @@ public class PagePropertiesBuilderTest {
     public void should_not_add_a_resource_which_is_not_a_bonita_resource() throws Exception {
         Data resource = new Data();
         resource.setType(URL);
-        resource.setValue("/path/to/wathever/resource");
+        resource.setValue("../API/path/to/wathever/resource");
 
         page.setData(singletonMap("foo", resource));
 
