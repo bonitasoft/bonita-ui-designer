@@ -28,9 +28,9 @@ describe('pbChecklist', function() {
   });
 
   it('should display the textOption', function() {
-    expect(dom.find('label').eq(0).text().trim()).toBe('jeanne');
-    expect(dom.find('label').eq(1).text().trim()).toBe('serge');
-    expect(dom.find('label').eq(2).text().trim()).toBe('maurice');
+    expect(dom.find('div.checkbox label').eq(0).text().trim()).toBe('jeanne');
+    expect(dom.find('div.checkbox label').eq(1).text().trim()).toBe('serge');
+    expect(dom.find('div.checkbox label').eq(2).text().trim()).toBe('maurice');
   });
 
   it('should display inlined checkbox', function() {
@@ -49,8 +49,8 @@ describe('pbChecklist', function() {
     var widget = compile('<pb-checklist></pb-checklist>')(scope);
     scope.$apply();
 
-    expect(widget.find('label').eq(0).text().trim()).toBe('serge');
-    expect(widget.find('label').eq(1).text().trim()).toBe('jeanne');
+    expect(widget.find('div.checkbox label').eq(0).text().trim()).toBe('serge');
+    expect(widget.find('div.checkbox label').eq(1).text().trim()).toBe('jeanne');
   });
 
   it('should exposed the selectedValues', function() {
@@ -107,5 +107,46 @@ describe('pbChecklist', function() {
       scope.$apply();
 
       expect(element.find('input').attr('disabled')).toBe('disabled');
+    });
+
+    describe('label', function() {
+
+        it('should be on top by default if displayed', function () {
+            scope.properties = {
+                labelHidden: false,
+                label: 'foobar'
+            };
+
+            var element = compile('<pb-checklist></pb-checklist>')(scope);
+            scope.$apply();
+
+            expect(element.find('div.form-group').hasClass('form-horizontal')).toBeFalsy();
+            expect(element.find('label.control-label').text().trim()).toBe('foobar');
+        });
+
+        it('should be on the left of the checklist', function () {
+            scope.properties = {
+                labelHidden: false,
+                label: 'barbaz',
+                labelPosition: 'left'
+            };
+
+            var element = compile('<pb-checklist></pb-checklist>')(scope);
+            scope.$apply();
+
+            expect(element.find('div.form-group').hasClass('form-horizontal')).toBeTruthy();
+            expect(element.find('label.control-label').text().trim()).toBe('barbaz');
+        });
+
+        it('should not be there when labelHidden is truthy', function () {
+            scope.properties = {
+                labelHidden: true
+            };
+
+            var element = compile('<pb-checklist></pb-checklist>')(scope);
+            scope.$apply();
+
+            expect(element.find('label.control-label').length).toBe(0);
+        });
     });
 });
