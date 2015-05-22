@@ -2,6 +2,7 @@ var browserSync = require('browser-sync');
 var connect = require('connect');
 var serveStatic = require('serve-static');
 var http = require('http');
+var multiparty = require('multiparty');
 
 module.exports = function(gulp, config) {
 
@@ -41,6 +42,40 @@ module.exports = function(gulp, config) {
     }
   }
 
+
+  function uploadMiddleware(req, res, next){
+    if (/\/API\/formFileUpload$/.test(req.url)){
+      var form = new multiparty.Form();
+      var filename;
+
+      form.on('error', function(error){
+        console.log('Error parsing form', error.stack);
+        res.writeHead(500, {'content-type': 'text/plain'});
+        res.end(JSON.stringify(error));
+      });
+
+      form.on('part', function(part){
+        if (part.filename) {
+          filename = part.filename;
+        }
+        part.resume();
+      });
+
+      form.on('close', function() {
+        res.writeHead(200, {'content-type': 'text/plain'});
+        res.write(JSON.stringify({
+          filename: filename,
+          tempPath: '1234.file'
+        }));
+        res.end();
+      });
+
+      form.parse(req);
+    } else {
+      next();
+    }
+  }
+
   function browserSyncInit(baseDir, files, startPath, browser) {
     browser = browser || 'default';
 
@@ -49,6 +84,7 @@ module.exports = function(gulp, config) {
       server: {
         baseDir: baseDir,
         middleware: [
+          uploadMiddleware,
           proxyMiddleware,
           serveStatic(paths.dist)
         ]
@@ -63,8 +99,8 @@ module.exports = function(gulp, config) {
       index: 'index-e2e.html'
     }));
 
+    app.use(uploadMiddleware);
     app.use(serveStatic(paths.dist));
-
     app.use(function (req, res, next) {
       req.url = '/index-e2e.html';
       next();
