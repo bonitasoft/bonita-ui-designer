@@ -304,6 +304,22 @@ describe('ComponentUtils Service', function() {
     });
   });
 
+  describe('isEmpty', function() {
+    it('should return true if a container is empty', function() {
+      var container = {
+        rows: [[],[]]
+      };
+      expect(service.isEmpty(container)).toBe(true);
+    });
+
+    it('should return false if a container is not empty', function() {
+      var container = {
+        rows: [[],[{"name": "titi"}]]
+      };
+      expect(service.isEmpty(container)).toBe(false);
+    });
+  });
+
   describe('getVisibleComponents', function() {
     it ('should return a flat array of child components', function() {
       expect(service.getVisibleComponents(pageJson).length).toBe(8);

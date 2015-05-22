@@ -1,4 +1,5 @@
 var PageEditor = require('../pages/editor.page.js');
+var utils = require('../pages/utils.js');
 
 describe('moving rows test', function() {
 
@@ -6,6 +7,7 @@ describe('moving rows test', function() {
   beforeEach(function() {
     editor = PageEditor.get('empty');
 
+    editor.addWidget('pbInput');
     editor.addElement('pbParagraph').to('.dropRow--last');
     editor.addElement('pbInput').to('.dropRow--last');
   });
@@ -20,14 +22,14 @@ describe('moving rows test', function() {
 
   it('should allow moving a row up', function() {
     // simulate a mouse over on the row
-    browser.actions().mouseMove( editor.rows.get(1), {x:1, y:1} ).perform();
+    utils.mouseOver(editor.rows.get(1));
     editor.rows.get(1).element(by.css('.move-row-up')).click();
     expect(editor.rows.first().all(by.css('component p')).count()).toBe(1);
   });
 
   it('should allow moving a row down', function() {
     // simulate a mouse over on the row
-    browser.actions().mouseMove( editor.rows.get(1), {x:1, y:1} ).perform();
+    utils.mouseOver(editor.rows.get(1));
     editor.rows.get(1).element(by.css('.move-row-down')).click();
     expect(editor.rows.last().all(by.css('component p')).count()).toBe(1);
   });
