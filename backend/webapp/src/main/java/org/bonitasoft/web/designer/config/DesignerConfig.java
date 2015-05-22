@@ -263,6 +263,4 @@ public class DesignerConfig {
     public AssetUploader<Widget> widgetAssetUploader(WidgetRepository widgetRepository){
         return new AssetUploader<>(widgetRepository, widgetAssetRepository(widgetRepository));
     }
-
-
 }
