@@ -25,8 +25,8 @@ describe('pbTextarea', function () {
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();
 
+      expect(element.find('.form-horizontal').length).toBe(0);
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeFalsy();
       expect(label.text().trim()).toBe('foobar');
     });
 
@@ -40,8 +40,8 @@ describe('pbTextarea', function () {
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();
 
+      expect(element.find('.form-horizontal').length).toBe(1);
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeTruthy();
       expect(label.text().trim()).toBe('barbaz');
     });
 
