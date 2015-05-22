@@ -3,7 +3,7 @@
   "name": "Select",
   "template": "@pbSelect.tpl.html",
   "controller": "@pbSelect.ctrl.js",
-  "order": "4",
+  "order": "5",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#424251' d='M36.8,6.6L35.3,8l4.2,4.2l1.4,1.4l1.4-1.4L46.7,8l-1.4-1.4L41,10.8L36.8,6.6z M0,0v20h50V0H0z M1,19V1h31 v18H1z M33,1h16v18H33V1z'/><path fill='#424251' d='M36.8,6.6L35.3,8l4.2,4.2l1.4,1.4l1.4-1.4L46.7,8l-1.4-1.4L41,10.8L36.8,6.6z M0,0v20h50V0H0z M1,19V1h31 v18H1z M33,1h16v18H33V1z'/></g></svg>",
   "properties": [
     {
