@@ -23,7 +23,7 @@ module.exports = function(gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
 
-  gulp.task('build', ['assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
+  gulp.task('build', ['jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
 
   gulp.task('bundle', ['bundle:vendors', 'bundle:js', 'bundle:css']);
 
@@ -135,11 +135,15 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dev + '/js'));
   });
 
-  gulp.task('dist:js', ['bundle:js'], function(){
-    return gulp.src(paths.dev + '/js/app.js')
+  gulp.task('jshint', function(){
+    return gulp.src(paths.js)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
       .pipe(jshint.reporter('fail'))
+  });
+
+  gulp.task('dist:js', ['bundle:js'], function(){
+    return gulp.src(paths.dev + '/js/app.js')
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
       .pipe(uglify({output: { ascii_only: true }}))   // preserve ascii unicode characters such as \u226E
