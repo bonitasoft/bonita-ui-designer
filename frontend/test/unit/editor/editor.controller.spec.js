@@ -241,7 +241,19 @@ describe('EditorCtrl', function() {
       $scope.$apply();
     });
 
+    it('should append a component to first row if page is empty', function(){
+      $scope.page.rows = [[]];
+      $scope.appendComponent(null, dragData);
+
+      expect($scope.page.rows.length).toBe(1);
+
+      var lastRow = $scope.page.rows.slice(-1)[0];
+      expect(lastRow.length).toBe(1);
+      expect($scope.currentComponent).toEqual(widget);
+    });
+
     it('should append a component and create a new row at the end', function(){
+      $scope.page.rows = [[{"name": "titi"}]];
       var nbRow = $scope.page.rows.length;
       $scope.appendComponent(null, dragData);
 

@@ -178,8 +178,14 @@ angular.module('pb.services')
       component.dimension[resolutions.selected().key] = width;
     }
 
+    function isEmpty(container) {
+      return !(container.rows || []).some(function(row) {
+        return row.length > 0;
+      });
+    }
 
     var service = {
+      isEmpty: isEmpty,
       isChildOf: isChildOf,
       isMovable: isMovable,
       getVisibleComponents: getVisibleComponents,
