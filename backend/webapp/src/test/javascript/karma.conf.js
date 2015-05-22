@@ -15,7 +15,6 @@ module.exports = function (config) {
             'node_modules/angular-mocks/angular-mocks.js',
             'bower_components/angular-sanitize/angular-sanitize.min.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'bower_components/lodash/lodash.min.js',
 
             'src/main/generator/js/generator.js',
             'src/main/generator/js/services/*.js',
