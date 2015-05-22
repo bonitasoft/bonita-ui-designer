@@ -35,7 +35,7 @@ import org.bonitasoft.web.designer.model.page.Element;
 public class ContractInputToWidgetMapper {
 
     private static final String ITEM_ITERATOR = "$item";
-    static final String SENT_DATA_NAME = "sentData";
+    static final String SENT_DATA_NAME = "formOutput";
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
 
     public ContractInputToWidgetMapper() {

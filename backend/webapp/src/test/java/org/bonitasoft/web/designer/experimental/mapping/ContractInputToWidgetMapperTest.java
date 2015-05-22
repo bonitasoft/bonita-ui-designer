@@ -110,7 +110,7 @@ public class ContractInputToWidgetMapperTest {
 
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
         assertThat(PropertyValue.getType()).isEqualTo("data");
-        assertThat(PropertyValue.getValue()).isEqualTo("sentData");
+        assertThat(PropertyValue.getValue()).isEqualTo("formOutput");
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ContractInputToWidgetMapperTest {
 
         PropertyValue valueParameter = element.getPropertyValues().get("value");
         assertThat(valueParameter.getType()).isEqualTo("data");
-        assertThat(valueParameter.getValue()).isEqualTo("sentData.firstName");
+        assertThat(valueParameter.getValue()).isEqualTo("formOutput.firstName");
     }
 
     @Test
@@ -149,7 +149,7 @@ public class ContractInputToWidgetMapperTest {
 
         PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
-        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("sentData.employee");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("formOutput.employee");
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
