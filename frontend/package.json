@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Bonitasoft page builder",
   "main": "index.js",
-  "dependencies": {
-    "gulp": "~3.8.8"
-  },
   "engine": {
     "npm": ">=2.0.0"
   },
@@ -15,6 +12,7 @@
     "connect": "~3.2.0",
     "del": "^1.1.1",
     "gulp": "~3.8.8",
+    "multiparty": "^4.1.2",
     "gulp-angular-gettext": "^2.1.0",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-concat": "~2.4.1",
