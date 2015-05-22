@@ -50,7 +50,7 @@
 
             <!-- json -->
             <label ng-switch-when="json" class="control-label" for="value" translate>Value</label>
-            <ace-editor ng-switch-when="json" autofocus mode="json" ng-model="newData.value"
+            <ace-editor class="ace-editor--data" ng-switch-when="json" autofocus mode="json" ng-model="newData.value"
                         ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
                         id="value"></ace-editor>
             <p class="help-block" ng-switch-when="json" translate>
@@ -59,7 +59,7 @@
 
             <!-- expression -->
             <label ng-switch-when="expression" class="control-label" for="value" translate>Value</label>
-            <ace-editor ng-switch-when="expression" autofocus mode="javascript" auto-completion="{{pageData}}"
+            <ace-editor class="ace-editor--data" ng-switch-when="expression" autofocus mode="javascript" auto-completion="{{pageData}}"
                         ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
                         class="form-control" id="value"></ace-editor>
             <p class="help-block" ng-switch-when="expression" translate>
