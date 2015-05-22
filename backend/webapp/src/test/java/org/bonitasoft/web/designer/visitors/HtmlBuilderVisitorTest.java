@@ -17,7 +17,9 @@ package org.bonitasoft.web.designer.visitors;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -358,6 +360,16 @@ public class HtmlBuilderVisitorTest {
         assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css\">");
         assertThat(head).contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">");
         assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile.js\"></script>");
+    }
+
+    @Test
+    public void should_build_rows() throws Exception {
+
+        String html = visitor.build(asList(
+                aRow().with(aParagraph().withReference("1")).build(),
+                aRow().with(anInput().withReference("2"), aParagraph().withReference("3")).build()));
+
+        assertThatHtml(html).isEqualTo(testResource.load("rowsWithComponents.html"));
     }
 
 }
