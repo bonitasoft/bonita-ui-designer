@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -24,12 +25,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -50,13 +52,20 @@ public class PageResource extends DataResource<Page> {
     private AssetUploader<Page> pageAssetUploader;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
+    private AssetVisitor assetVisitor;
 
     @Inject
-    public PageResource(PageRepository pageRepository, SimpMessagingTemplate messagingTemplate, ContractToPageMapper contractToPageMapper, AssetUploader<Page> pageAssetUploader) {
+    public PageResource(
+            PageRepository pageRepository,
+            SimpMessagingTemplate messagingTemplate,
+            ContractToPageMapper contractToPageMapper,
+            AssetUploader<Page> pageAssetUploader,
+            AssetVisitor assetVisitor) {
         super(pageRepository);
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
         this.pageAssetUploader = pageAssetUploader;
+        this.assetVisitor = assetVisitor;
     }
 
     /**
@@ -117,5 +126,11 @@ public class PageResource extends DataResource<Page> {
             return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{pageId}/assets")
+    @JsonView(JsonViewLight.class)
+    public Set<Asset> assets(@PathVariable("pageId") String id) {
+        return assetVisitor.visit(getRepository().get(id));
     }
 }

@@ -16,11 +16,12 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.*;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -35,16 +36,21 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,6 +63,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -76,6 +83,9 @@ public class PageResourceTest {
 
     @Mock
     private AssetUploader<Page> pageAssetUploader;
+
+    @Mock
+    private AssetVisitor assetVisitor;
 
     @InjectMocks
     private PageResource pageResource;
@@ -148,7 +158,6 @@ public class PageResourceTest {
                 .perform(
                         put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
                                 convertObjectToJsonBytes(pageToBeSaved)))
-                .andDo(print())
                 .andExpect(status().isOk());
 
         verify(pageRepository).save(pageToBeSaved);
@@ -279,5 +288,22 @@ public class PageResourceTest {
         verify(pageAssetUploader).upload(file, page, "js");
     }
 
+    @Test
+    public void should_list_page_assets() throws Exception {
+        Page page = aPage().withId("my-page").build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+        when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(
+                anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withWidget(aWidget().id("widget-id").build()).build(),
+                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
+        ));
 
+        MvcResult result = mockMvc.perform(get("/rest/pages/my-page/assets"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+
+        assertThat(convertJsonByteToObject(result.getResponse().getContentAsByteArray(), Set.class))
+                .hasSize(3);
+    }
 }
