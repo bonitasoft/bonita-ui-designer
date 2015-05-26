@@ -10,6 +10,12 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
+  var staticProxyfiedFiles = [
+    /^\/generator\/.*/,               // http://localhost:8080/generator/...
+    /^\/widgets\/.*/,                 // http://localhost:8080/widgets/...
+    /^\/preview\/.*\/assets\/.*/      // http://localhost:8080/preview/.../assets/....
+  ];
+
   /**
    * Web Server & livereload
    */
@@ -31,11 +37,13 @@ module.exports = function(gulp, config) {
       return /\.(html|css|js|png|jpg|jpeg|gif|ico|xml|rss|txt|eot|svg|ttf|woff|map)(\?((r|v|rel|rev)=[\-\.\w]*)?)?$/.test(req.url);
     }
 
-    function matchGenerator(req) {
-      return req.url.lastIndexOf('/generator', 0) === 0 || req.url.lastIndexOf('/widgets', 0) === 0;
+    function matchStaticProxyfied(req) {
+      return staticProxyfiedFiles.some(function(regexp) {
+        return req.url.match(regexp);
+      });
     }
 
-    if (matchStaticFile(req) && !matchGenerator(req)) {
+    if (matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
     } else {
       proxy.web(req, res);
