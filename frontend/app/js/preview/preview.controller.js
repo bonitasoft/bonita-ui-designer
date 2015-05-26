@@ -17,7 +17,7 @@ angular.module('pb.preview').controller('PreviewCtrl', function($scope, $sce, $s
    * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
    */
   $scope.buildIframeSrc = function() {
-    return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '?time=' + clock.now());
+    return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '/?time=' + clock.now());
   };
 
   $scope.iframeWidth = function() {
