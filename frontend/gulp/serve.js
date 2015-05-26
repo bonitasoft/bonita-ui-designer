@@ -45,7 +45,7 @@ module.exports = function(gulp, config) {
 
     if (matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
-    } else {
+    } else {  
       proxy.web(req, res);
     }
   }
