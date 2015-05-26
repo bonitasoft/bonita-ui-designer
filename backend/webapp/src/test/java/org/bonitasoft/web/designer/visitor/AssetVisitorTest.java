@@ -79,7 +79,7 @@ public class AssetVisitorTest {
     @Test
     public void should_return_list_of_asset_used_by_one_page() throws Exception {
 
-        Page page = aPage().withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).buildAsset()).build();
+        Page page = aPage().withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).build()).build();
 
         Set<Asset> assets = assetVisitor.visit(page);
 
@@ -96,7 +96,7 @@ public class AssetVisitorTest {
 
         Page page = aPage()
                 .with(component)
-                .withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).buildAsset())
+                .withAsset(anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT).build())
                 .build();
 
         Set<Asset> assets = assetVisitor.visit(page);

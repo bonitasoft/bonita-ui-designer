@@ -33,7 +33,7 @@ public class AssetBuilder {
     }
 
     public static Asset aFilledAsset(Page page) {
-        return anAsset().withScope(AssetScope.PAGE).withPage(page).buildAsset();
+        return anAsset().withScope(AssetScope.PAGE).withPage(page).build();
     }
 
     public AssetBuilder withName(String name) {
@@ -56,12 +56,12 @@ public class AssetBuilder {
         return this;
     }
 
-    public AssetBuilder withPage(Widget widget) {
+    public AssetBuilder withWidget(Widget widget) {
         this.component = widget;
         return this;
     }
 
-    public Asset buildAsset() {
+    public Asset build() {
         Asset asset = new Asset().setName(name).setType(type).setScope(scope);
         if (component != null) {
             asset.setComponentId(component.getId());

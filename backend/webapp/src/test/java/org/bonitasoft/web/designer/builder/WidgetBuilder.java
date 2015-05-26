@@ -92,7 +92,7 @@ public class WidgetBuilder {
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {
-                widget.getAssets().add(assetBuilder.withPage(widget).buildAsset());
+                widget.getAssets().add(assetBuilder.withWidget(widget).build());
             }
         }
         for (Property property : properties) {

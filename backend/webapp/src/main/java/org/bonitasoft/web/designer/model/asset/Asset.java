@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -55,7 +56,7 @@ public class Asset {
         return name != null && name.startsWith("http");
     }
 
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({JsonViewPersistence.class, JsonViewLight.class})
     public String getName() {
         return name;
     }
@@ -65,7 +66,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({JsonViewPersistence.class, JsonViewLight.class})
     public AssetType getType() {
         return type;
     }
@@ -75,7 +76,7 @@ public class Asset {
         return this;
     }
 
-    @JsonIgnore
+    @JsonView({JsonViewLight.class})
     public String getComponentId() {
         return componentId;
     }
@@ -85,7 +86,7 @@ public class Asset {
         return this;
     }
 
-    @JsonIgnore
+    @JsonView({JsonViewLight.class})
     public AssetScope getScope() {
         return scope;
     }
