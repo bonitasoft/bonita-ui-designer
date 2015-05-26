@@ -37,7 +37,7 @@ module.exports = function(gulp, config) {
 
     if (matchStaticFile(req) && !matchGenerator(req)) {
       next();
-    } else {
+    } else {  
       proxy.web(req, res);
     }
   }

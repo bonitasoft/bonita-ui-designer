@@ -42,7 +42,7 @@ describe('PreviewCtrl', function() {
 
   it('should set the iframe\'s source', function() {
     // then $sce should build a value for the iframe src, that we have to unwrap
-    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337?time=now');
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
   });
 
   it('should update the iframe src when a notification is received', function() {
@@ -50,7 +50,7 @@ describe('PreviewCtrl', function() {
 
     ctrl.wsCallback(iframeParameters.id);
 
-    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337?time=now');
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
   });
 
   it('should not update the iframe src when a notification is received for another id', function() {
