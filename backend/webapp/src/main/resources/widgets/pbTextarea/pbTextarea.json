@@ -1,6 +1,6 @@
 {
   "id": "pbTextarea",
-  "name": "Textarea",
+  "name": "Text Area",
   "template": "@pbTextarea.tpl.html",
   "controller": "@pbTextarea.ctrl.js",
   "order": "3",
