@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller;
 
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.model.asset.Asset.JsonViewAsset;
 
 import java.util.List;
 import java.util.Set;
@@ -129,7 +130,7 @@ public class PageResource extends DataResource<Page> {
     }
 
     @RequestMapping(value = "/{pageId}/assets")
-    @JsonView(JsonViewLight.class)
+    @JsonView(JsonViewAsset.class)
     public Set<Asset> assets(@PathVariable("pageId") String id) {
         return assetVisitor.visit(getRepository().get(id));
     }

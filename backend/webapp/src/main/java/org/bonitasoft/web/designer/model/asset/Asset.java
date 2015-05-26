@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -31,6 +30,9 @@ import org.hibernate.validator.constraints.NotBlank;
  * A web resource can be attached to a component
  */
 public class Asset {
+
+    public interface JsonViewAsset {}
+
     /**
      * An asset is identified by its name
      */
@@ -56,7 +58,7 @@ public class Asset {
         return name != null && name.startsWith("http");
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewLight.class})
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
     public String getName() {
         return name;
     }
@@ -66,7 +68,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewLight.class})
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
     public AssetType getType() {
         return type;
     }
@@ -76,7 +78,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewLight.class})
+    @JsonView({JsonViewAsset.class})
     public String getComponentId() {
         return componentId;
     }
@@ -86,7 +88,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewLight.class})
+    @JsonView({JsonViewAsset.class})
     public AssetScope getScope() {
         return scope;
     }
