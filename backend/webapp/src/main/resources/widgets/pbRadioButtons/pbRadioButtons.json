@@ -1,8 +1,8 @@
 {
-  "id": "pbRadioBox",
-  "name": "Radio Button",
-  "template": "@pbRadioBox.tpl.html",
-  "controller": "@pbRadioBox.ctrl.js",
+  "id": "pbRadioButtons",
+  "name": "Radio Buttons",
+  "template": "@pbRadioButtons.tpl.html",
+  "controller": "@pbRadioButtons.ctrl.js",
   "order": "7",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#424251' d='M18,10.7C17.1,1.6,31,0.2,32,9.3C32.9,18.4,19,19.8,18,10.7z M16,10c0,5,4,9,9,9s9-4,9-9s-4-9-9-9 S16,5,16,10z M21,10c0,2.2,1.8,4,4,4s4-1.8,4-4s-1.8-4-4-4S21,7.8,21,10z'/></g></svg>",
   "properties": [

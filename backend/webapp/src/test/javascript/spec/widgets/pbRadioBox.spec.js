@@ -1,4 +1,4 @@
-describe('pbCheckbox', function() {
+describe('pbRadioButtons', function() {
 
   var compile, rootScope, dom, scope;
 
@@ -18,7 +18,7 @@ describe('pbCheckbox', function() {
   }));
 
   beforeEach(function() {
-    dom = compile('<pb-radio-box></pb-radio-box>')(scope);
+    dom = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$apply();
   });
 
@@ -54,7 +54,7 @@ describe('pbCheckbox', function() {
   it('should display the correct label if label property  is provided', function(){
     scope.properties.availableValues = [{name: 'jeanne'}];
     scope.properties.displayedKey = 'name';
-    var widget = compile('<pb-radio-box></pb-radio-box>')(scope);
+    var widget = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$digest();
     expect(widget.find("label").eq(0).text().trim()).toBe("jeanne")
   });
@@ -69,7 +69,7 @@ describe('pbCheckbox', function() {
     scope.properties.availableValues = [{"name": 'jeanne'}, {"name": 'serge'}];
     scope.properties.selectedValue = {"name": 'serge'};
     scope.properties.displayedKey = 'name';
-    var widget = compile('<pb-radio-box></pb-radio-box>')(scope);
+    var widget = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$digest();
 
     var selectedElement = [].slice.call(widget.find("input")).filter(function(el){
@@ -87,7 +87,7 @@ describe('pbCheckbox', function() {
       displayedKey: 'name',
       returnedKey: 'name'
     }
-    var widget = compile('<pb-radio-box></pb-radio-box>')(scope);
+    var widget = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$digest();
 
     var selectedElement = [].slice.call(widget.find("input")).filter(function(el){
@@ -106,7 +106,7 @@ describe('pbCheckbox', function() {
 
   it('should be disabled when requested', function () {
     scope.properties.disabled = true;
-    var element = compile('<pb-radio></pb-radio>')(scope);
+    var element = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$apply();
     [].slice.call(element.find('input')[0]).forEach(function(input) {
       expect(input.attr('disabled')).toBe('disabled');
@@ -115,10 +115,10 @@ describe('pbCheckbox', function() {
 
   it('should be required when requested', function () {
     scope.properties.required = true;
-    var element = compile('<pb-radio></pb-radio>')(scope);
+    var element = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$apply();
 
-    [].slice.call(element.find('input')).forEach(function(input) {
+    [].slice.call(element.find('input')[0]).forEach(function(input) {
       expect(input.attr('required')).toBe('required');
     })
 });
