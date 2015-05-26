@@ -13,7 +13,7 @@ describe('pbParagraph', function () {
   it('should contains specified html', function () {
     scope.properties.text = "<em>hello</em>";
 
-    var element = $compile('<pb-paragraph></pb-paragraph>')(scope);
+    var element = $compile('<pb-text></pb-text>')(scope);
     scope.$apply();
 
     expect(element.text().trim()).toBe("hello");
@@ -21,7 +21,7 @@ describe('pbParagraph', function () {
 
   it('should allow text alignment', function () {
     scope.properties.alignment = "right";
-    var element = $compile('<pb-paragraph></pb-paragraph>')(scope);
+    var element = $compile('<pb-text></pb-text>')(scope);
     scope.$apply();
 
     expect(element.find('p').hasClass('text-right')).toBeTruthy();

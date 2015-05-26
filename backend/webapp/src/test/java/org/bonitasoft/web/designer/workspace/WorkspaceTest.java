@@ -127,7 +127,7 @@ public class WorkspaceTest {
         workspace.initialize();
 
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbParagraph/pbParagraph.json")).exists();
+        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
     }
 
     @Test

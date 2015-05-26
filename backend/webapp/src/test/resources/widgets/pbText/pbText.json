@@ -1,6 +1,6 @@
 {
-  "id": "pbParagraph",
-  "name": "Paragraph",
+  "id": "pbText",
+  "name": "Text",
   "template": "<p ng-bind-html=\"propertyValues.content\"></p>",
   "properties": [
     {
