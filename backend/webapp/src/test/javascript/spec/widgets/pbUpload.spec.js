@@ -16,7 +16,7 @@ describe('pbUpload', function() {
       placeholder: 'coucou',
       alignment: 'left',
       url: 'test',
-      value: '',
+      value: ''
     };
   }));
 
@@ -34,7 +34,7 @@ describe('pbUpload', function() {
       scope.$apply();
 
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeTruthy();
+      expect(element.find('.form-horizontal').length).toBe(1);
     });
 
     it('should be on the top of the input', function () {
@@ -43,8 +43,7 @@ describe('pbUpload', function() {
       var element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeFalsy();
+      expect(element.find('.form-horizontal').length).toBe(0);
     });
 
     it('should not be there when labelHidden is true', function () {
