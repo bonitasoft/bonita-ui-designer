@@ -4,10 +4,17 @@
 
     'use strict';
 
-    $scope.component = artifact;
-
     $scope.searchedAsset = assets.initFilterMap();
     $scope.isAssetPage = mode==='page';
+
+    if(artifactRepo.loadAssets){
+      artifactRepo.loadAssets(artifact.id).then(function (response) {
+        $scope.assets = response.data;
+      });
+    }
+    else{
+      $scope.assets = artifact.assets;
+    }
 
     $scope.filterBySearchedAsset = function (asset) {
       var assetType =  $scope.searchedAsset.filter(function(elt){
