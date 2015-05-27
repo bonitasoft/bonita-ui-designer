@@ -23,8 +23,7 @@ var paths = {
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'src/main/generator/css/**.css'
   ],
-  JSONs: ['src/main/resources/widgets/**/*.json'],
-  widgets: ['src/main/resources/widgets/**/*.js', 'src/main/resources/widgets/**/*.html', 'src/main/resources/widgets/**/*.json'],
+  widgets: ['src/main/resources/widgets/**/*.*'],
   karma: { configFile: __dirname + '/src/test/javascript/karma.conf.js' },
   tests: ['src/test/**/*.spec.js'],
 

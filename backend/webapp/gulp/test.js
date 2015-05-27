@@ -30,7 +30,7 @@ module.exports = function(gulp, config) {
    * Task to build widget directives for tests.
    */
   gulp.task('test:widgets', function () {
-    return gulp.src(paths.JSONs)
+    return gulp.src(paths.widgets)
       .pipe(inlineJSON())
       .pipe(buildDirective('src/main/resources/templates/widgetDirectiveTemplate.hbs.js'))
       .pipe(gulp.dest('target/widget-directives'));
