@@ -22,7 +22,8 @@ describe('CustomWidgetEditorCtrl', function() {
     $controller('CustomWidgetEditorCtrl', {
       $scope: $scope,
       $modal:  _$modal_,
-      widget: awesomeWidget,
+      artifact: awesomeWidget,
+      artifactRepo : widgetRepo,
       $timeout: $timeout
     });
 

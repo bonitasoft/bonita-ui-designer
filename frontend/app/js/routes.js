@@ -71,7 +71,7 @@
           //  sub view named in editor.html
           'data@designer.page': {
             controller: 'AssetCtrl',
-            templateUrl: 'js/assets/asset.html'
+            templateUrl: 'js/assets/pageAsset.html'
           }
         }
       },
@@ -100,16 +100,34 @@
       },
       'designer.widget': {
         url: '/widget/:widgetId',
-        controller: 'CustomWidgetEditorCtrl',
         resolve: {
           /* @ngInject */
-          widget: function(widgetRepo, $stateParams) {
+          artifact: function(widgetRepo, $stateParams) {
             return widgetRepo.getById($stateParams.widgetId).then(function(response) {
               return response.data;
             });
+          },
+          /* @ngInject */
+          artifactRepo: function(widgetRepo) {
+            return widgetRepo;
+          },
+          /* @ngInject */
+          mode: function() {
+            return 'widget';
           }
         },
-        templateUrl: 'js/custom-widget/custom-widget-editor.html'
+        views: {
+          // main view (ui-view in index.html)
+          '@designer': {
+            controller: 'CustomWidgetEditorCtrl',
+            templateUrl: 'js/custom-widget/custom-widget-editor.html'
+          },
+          //  sub view named in editor.html
+          'asset@designer.widget': {
+            controller: 'AssetCtrl',
+            templateUrl: 'js/assets/widgetAsset.html'
+          }
+        }
       }
     });
 })();

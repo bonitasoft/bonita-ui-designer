@@ -14,6 +14,8 @@
       $injector.get('$controller')('AssetCtrl', {
         $scope: $scope,
         artifact: {},
+        artifactRepo: {},
+        mode : 'page',
         assets: assets
       });
 

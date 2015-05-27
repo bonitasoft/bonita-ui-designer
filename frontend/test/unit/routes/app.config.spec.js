@@ -55,7 +55,7 @@ describe('The route config', function() {
     // then we should have
     // resolve widgets
     expect(widgetRepo.getById).toHaveBeenCalledWith('customLabel');
-    expect($state.current.controller).toBe('CustomWidgetEditorCtrl');
+    expect($state.current.views['@designer'].controller).toBe('CustomWidgetEditorCtrl');
   });
 
   it('should redirect to home otherwise', function() {
