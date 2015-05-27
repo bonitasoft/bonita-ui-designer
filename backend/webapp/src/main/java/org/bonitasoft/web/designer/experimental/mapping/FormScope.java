@@ -12,21 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model.contract;
+package org.bonitasoft.web.designer.experimental.mapping;
 
-public enum ContractType {
+public enum FormScope {
 
-    TASK("Submit task"),
-    PROCESS("Start process");
-
-    private String value;
-
-    ContractType(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    PROCESS, TASK, OVERVIEW
 
 }

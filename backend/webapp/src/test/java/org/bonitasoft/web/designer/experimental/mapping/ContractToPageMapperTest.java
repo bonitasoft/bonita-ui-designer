@@ -16,10 +16,14 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.DataBuilder.*;
+import static org.bonitasoft.web.designer.builder.DataBuilder.aJSONData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.aUrlParameterData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.anURLData;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
@@ -33,7 +37,7 @@ public class ContractToPageMapperTest {
     public void visit_a_contract_when_creating_a_page() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aSimpleTaskContract());
+        Page page = contractToPageMapper.createPage("myPage", aSimpleContract(), FormScope.TASK);
 
         assertThat(page.getRows()).hasSize(5);
     }
@@ -46,7 +50,7 @@ public class ContractToPageMapperTest {
     public void create_a_page_with_a_sentData_json_data() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
+        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("formOutput", aJSONData().value("{}").build()));
     }
@@ -55,43 +59,61 @@ public class ContractToPageMapperTest {
     public void create_a_page_with_a_context_url_data_for_task() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
+        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("context", anURLData().value("/bonita/API/bpm/userTask/{{taskId}}/context").build()));
     }
 
     @Test
-    public void create_a_page_with_a_id_expression_data_for_task() throws Exception {
+    public void create_a_page_with_a_id_expression_data_for_task_scope() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
+        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("taskId", aUrlParameterData().value("id").build()));
     }
 
     @Test
-    public void create_a_page_without_a_context_url_data_for_process() throws Exception {
+    public void create_a_page_without_a_context_url_data_for_process_scope() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aSimpleProcessContract());
+        Page page = contractToPageMapper.createPage("myPage", aSimpleContract(), FormScope.PROCESS);
 
-        assertThat(page.getData()).doesNotContain(entry("context", anURLData().value("/bonita/API/bpm/userTask/{{id}}/context").build()));
+        assertThat(page.getData()).doesNotContain(entry("context", anURLData().value("/bonita/API/bpm/userTask/{{taskId}}/context").build()));
     }
 
     @Test
     public void create_a_page_without_an_id_expression_data_for_process() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aSimpleProcessContract());
+        Page page = contractToPageMapper.createPage("myPage", aSimpleContract(), FormScope.PROCESS);
 
         assertThat(page.getData()).doesNotContain(entry("taskId", aUrlParameterData().value("id").build()));
+    }
+
+    @Test
+    public void create_a_page_without_submit_button_for_overview_scope() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createPage("myPage", aContract().build(), FormScope.OVERVIEW);
+
+        assertThat(page.getRows()).isEmpty();
+    }
+
+    @Test
+    public void create_a_page_without_output_data_for_overview_scope() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createPage("myPage", aContract().build(), FormScope.OVERVIEW);
+
+        assertThat(page.getData()).isEmpty();
     }
 
     @Test
     public void create_a_page_with_a_submit_button_sending_contract() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
+        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
         Component submitButon = (Component) page.getRows().get(3).get(0);
         assertThat(submitButon.getId()).isEqualTo("pbButton");

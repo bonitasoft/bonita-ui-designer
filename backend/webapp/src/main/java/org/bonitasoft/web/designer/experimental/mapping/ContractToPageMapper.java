@@ -16,9 +16,9 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import java.util.ArrayList;
 
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.ContractType;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -35,18 +35,22 @@ public class ContractToPageMapper {
         this.contractToWidgetMapper = contractToWidgetMapper;
     }
 
-    public Page createPage(String name, Contract contract) {
-        Page page = createEmptyPageWithData(name, contract);
+    public Page createPage(String name, Contract contract, FormScope scope) {
+        Page page = createEmptyPageWithData(name, contract, scope);
         contract.accept(new ContractInputVisitorImpl(page, contractToWidgetMapper));
-        addSubmitButton(page, contract);
+        if (scope != FormScope.OVERVIEW) {
+            addSubmitButton(page, contract, scope);
+        }
         return page;
     }
 
-    private Page createEmptyPageWithData(String name, Contract contract) {
+    private Page createEmptyPageWithData(String name, Contract contract, FormScope scope) {
         Page page = new Page();
         page.setName(name);
-        page.addData(ContractInputToWidgetMapper.SENT_DATA_NAME, newData(DataType.JSON, "{}"));
-        if (contract.getContractType() == ContractType.TASK) {
+        if (scope != FormScope.OVERVIEW) {
+            page.addData(ContractInputToWidgetMapper.SENT_DATA_NAME, newData(DataType.JSON, "{}"));
+        }
+        if (scope == FormScope.TASK) {
             page.addData(TASK_ID_DATA_NAME, newData(DataType.URLPARAMETER, "id"));
             page.addData(CONTEXT_DATA_NAME, newData(DataType.URL, CONTEXT_API_URL));
         }
@@ -60,9 +64,9 @@ public class ContractToPageMapper {
         return data;
     }
 
-    private void addSubmitButton(ElementContainer page, Contract contract) {
+    private void addSubmitButton(ElementContainer page, Contract contract, FormScope scope) {
         ArrayList<Element> row = new ArrayList<>();
-        row.add(contractToWidgetMapper.createSubmitButton(contract));
+        row.add(contractToWidgetMapper.createSubmitButton(contract, ButtonAction.fromScope(scope)));
         page.getRows().add(row);
     }
 

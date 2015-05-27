@@ -15,7 +15,7 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
@@ -97,7 +98,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_submit_button_have_contract_action() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleTaskContract());
+        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         assertThat(element.getPropertyValues().get("action").getValue()).isEqualTo("Submit task");
     }
@@ -106,7 +107,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_submit_button_send_sentData_data() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleTaskContract());
+        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
         assertThat(PropertyValue.getType()).isEqualTo("data");
