@@ -38,7 +38,7 @@ module.exports = function(gulp, config) {
     // only copy widgets if the repository exist to let
     // the application create and build them the first time.
     if (fs.existsSync('target/widgets-repository')) {
-      gulp.src(paths.JSONs)
+      gulp.src(paths.widgets)
         .pipe(inlineJSON())
         .pipe(gulp.dest('target/widgets-repository'));
     }
