@@ -16,9 +16,10 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import java.util.Date;
 
-import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+
+import com.google.common.base.CaseFormat;
 
 public class ParametrizedWidgetFactory {
 
@@ -111,12 +112,12 @@ public class ParametrizedWidgetFactory {
         return createTitle(inputDisplayLabel(input));
     }
 
-    public ButtonWidget createSubmitButton(Contract contract) {
+    public ButtonWidget createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget buttonComponent = new ButtonWidget();
         buttonComponent.setLabel("Submit");
         buttonComponent.setButtonStyle(ButtonStyle.PRIMARY);
         buttonComponent.setAlignment(Alignment.CENTER);
-        buttonComponent.setAction(ButtonAction.byActionName(contract.getContractType().getValue()));
+        buttonComponent.setAction(actionType);
         return buttonComponent;
     }
 
