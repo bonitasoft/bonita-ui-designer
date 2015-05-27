@@ -1,3 +1,88 @@
+.PropertyPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100 - @sidebar-properties-default-width;
+  padding: 1em;
+  padding-left: 0;
+}
+
+.PropertyPanel .splitter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: @z-index-splitter;
+    width: 4px;
+    background-color: @color-properties-bg;
+    margin:1em 0;
+}
+
+.PropertyPanel-popover {
+  background-color: @color-properties-bg;
+  color: @color-properties-text;
+  height: 100%;
+  position: relative;
+
+  .help-block {
+    color: @color-properties-help;
+  }
+}
+
+
+
+.PropertyPanel-popover::before {
+  content: "";
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 11px solid @color-properties-bg;
+  position: absolute;
+  top: -11px;
+  right: 17px;
+  z-index: 100;
+}
+
+.PropertyPanel-inner {
+  height: 100%;
+}
+
+.PropertyPanel-title {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: .9em;
+  line-height: 2.2;
+  padding: 1em 1em 0;
+}
+
+.PropertyPanel-content {
+  height: calc(~"100% - 2.55em");
+  padding: 0 10px;
+  overflow: auto;
+  padding: 1em;
+
+  .row {
+    margin: 5px;
+  }
+}
+
+
+
+/**
+ * properties toolbar
+ */
+.editor-field-icon-label{
+  display: inline-block;
+  color: @color-properties-help;;
+  padding: 5px;
+}
 
 
 .property-label label,

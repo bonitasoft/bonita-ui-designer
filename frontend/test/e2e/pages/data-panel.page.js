@@ -29,7 +29,7 @@
         this.value = value;
       }
 
-      $('.modal-footer .btn-primary').click();
+      $('.modal-footer').element(by.buttonText('Save')).click();
     },
 
     setAceValue: function(value) {
@@ -47,8 +47,7 @@
 
     deleteData: function(index) {
       this.lines.get(index).element(by.css('.delete-data')).click();
-    },
-
+    }
 
   };
 
@@ -90,6 +89,12 @@
     lines: {
       get: function() {
         return this.sidebar.all(by.repeater('(key, data) in pageData track by key'));
+      }
+    },
+
+    popupSaveBtn: {
+      get: function() {
+        return $('.modal-footer').element(by.buttonText('Save'));
       }
     }
 

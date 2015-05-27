@@ -169,7 +169,7 @@ var SideBar = require('./data-panel.page');
     // get the menu bar
     menu: {
       get: function () {
-        return element(by.tagName('nav'));
+        return element(by.css('.EditorHeader'));
       }
     }
   });

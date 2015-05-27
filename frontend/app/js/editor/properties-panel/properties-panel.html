@@ -1,47 +1,45 @@
-<section class="sidebar-container">
-    <div ng-show="currentComponent">
-        <h3 class="sidebar-title">{{ currentComponent.$$widget.name }}</h3>
+<div class="PropertyPanel-inner" ng-show="currentComponent">
+    <h3 class="PropertyPanel-title">{{ currentComponent.$$widget.name }}</h3>
 
-        <div class="sidebar-content">
-            <div class="row">
-                <div class="col-xs-12" ng-if="currentComponent.$$widget.custom">
-                    <button class="btn btn-primary" id="edit-custom-widget" ng-disabled="!formName.$valid"
-                            ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>Edit the custom widget
-                    </button>
-                </div>
+    <div class="PropertyPanel-content">
+        <div class="row">
+            <div class="col-xs-12" ng-if="currentComponent.$$widget.custom">
+                <button class="btn btn-bonita-property" id="edit-custom-widget" ng-disabled="!formName.$valid"
+                        ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>Edit the custom widget
+                </button>
             </div>
-            <div ng-include="currentComponent.$$propertiesTemplateUrl"></div>
         </div>
+        <div ng-include="currentComponent.$$propertiesTemplateUrl"></div>
     </div>
+</div>
 
-    <div id="tab-editor" ng-if="currentTab">
+<div id="tab-editor" ng-if="currentTab">
 
-        <h3 class="sidebar-title" translate>Tab</h3>
+    <h3 class="sidebar-title" translate>Tab</h3>
 
-        <div class="sidebar-content">
+    <div class="sidebar-content">
 
-            <div class="row">
-                <h5 class="col-xs-5" translate>Add a tab</h5>
+        <div class="row">
+            <h5 class="col-xs-5" translate>Add a tab</h5>
 
-                <div class="col-xs-7 text-right">
-                    <a href ng-click="addTabBeforeCurrent()" id="add-tab-before" translate>before</a> |
-                    <a href ng-click="addTabAfterCurrent()" id="add-tab-after" translate>after</a>
-                </div>
+            <div class="col-xs-7 text-right">
+                <a href ng-click="addTabBeforeCurrent()" id="add-tab-before" translate>before</a> |
+                <a href ng-click="addTabAfterCurrent()" id="add-tab-after" translate>after</a>
             </div>
-
-            <ul class="row sidebar-action-list" ng-if="currentTab.$$parentTabsContainer.tabs.length > 1">
-                <li>
-                    <translate>Remove tab</translate>
-                    <button class="btn btn-danger btn-xs pull-right" ng-click="removeCurrentTab()" id="remove-tab"
-                            title="Remove tab">&times;</button>
-                </li>
-            </ul>
-
-            <div class="form-group">
-                <label for="tab-title-input" translate>Title</label>
-                <input ng-model="currentTab.title" name="tab-title-input" class="form-control" id="tab-title-input">
-            </div>
-
         </div>
+
+        <ul class="row sidebar-action-list" ng-if="currentTab.$$parentTabsContainer.tabs.length > 1">
+            <li>
+                <translate>Remove tab</translate>
+                <button class="btn btn-danger btn-xs pull-right" ng-click="removeCurrentTab()" id="remove-tab"
+                        title="Remove tab">&times;</button>
+            </li>
+        </ul>
+
+        <div class="form-group">
+            <label for="tab-title-input" translate>Title</label>
+            <input ng-model="currentTab.title" name="tab-title-input" class="form-control" id="tab-title-input">
+        </div>
+
     </div>
-</section>
+</div>

@@ -102,7 +102,7 @@ describe('data panel', function() {
       dataPanel.name = 'aJson';
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('zezez');
-      expect($('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow adding empty url', function() {
@@ -110,14 +110,14 @@ describe('data panel', function() {
       dataPanel.name = 'aUrl';
       dataPanel.type = 'External API';
       dataPanel.value = '';
-      expect($('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not be possible to add data with same name than already existing one', function() {
       dataPanel.addButton.click();
       dataPanel.name = 'alreadyExistsData';
       dataPanel.value = 'aValue';
-      expect($('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not be possible to add data with an invalid name', function() {
@@ -126,12 +126,12 @@ describe('data panel', function() {
       dataPanel.name = 'invalid name';
       dataPanel.value = 'aValue';
 
-      expect($('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
 
       dataPanel.name = '1data';
       dataPanel.value = 'aValue';
 
-      expect($('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should display an error message when invalid name is provided', function() {
@@ -151,21 +151,21 @@ describe('data panel', function() {
     it('should allow modifying existing data value and confirming', function() {
       dataPanel.editData(0);
       dataPanel.value = 'foo';
-      $('.modal-footer .btn-primary').click();
+      dataPanel.popupSaveBtn.click();
       expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toEqual('foo');
     });
 
     it('should not allow confirming invalid URL', function() {
       dataPanel.editData(2);
       dataPanel.value = '';
-      expect( $('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect( dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow confirming invalid Json', function() {
       dataPanel.editData(1);
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('');
-      expect( $('.modal-footer .btn-primary').isEnabled()).toBe(false);
+      expect( dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
   });

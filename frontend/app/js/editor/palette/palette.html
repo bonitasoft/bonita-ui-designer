@@ -1,15 +1,15 @@
-<div class="content sidebar-palette" bo-drag-polyfill>
+<div class="Palette" bo-drag-polyfill>
     <section ng-repeat="section in sections | orderBy:'order' ">
-        <div class="sidebar-palette-title sidebar-title clickable"
-             ng-class="{'collapsed-in': !collapsed, 'collapsed': collapsed}"
+        <div class="Palette-title clickable"
+             ng-class="{'Palette-title--collapsed': collapsed}"
              ng-click="collapsed = !collapsed"
              translate>
              {{section.name | translate}}
         </div>
 
         <div collapse="collapsed">
-            <div ng-repeat="widget in section.widgets | orderBy:'component.order'" class="palette-widget">
-                <palette-widget class="palette-item" widget="widget"></palette-widget>
+            <div ng-repeat="widget in section.widgets | orderBy:'component.order'" class="Palette-widget">
+                <palette-widget widget="widget"></palette-widget>
             </div>
         </div>
     </section>

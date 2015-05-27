@@ -17,7 +17,7 @@ angular.module('pb.directives')
         defaultState: '@'
       },
       transclude: true,
-      template: '<div class="splitter splitter-horizontal"></div><ng-transclude></ng-transclude>',
+      template: '<div class="BottomPanel-splitter"></div>',
       controller: function($scope) {
         this.displayed = true;
         this.topElem = $($scope.paneTop);
@@ -86,7 +86,7 @@ angular.module('pb.directives')
           $ctrl.closeBottom();
         }
 
-        $element.find('.splitter').on('mousedown', function(event) {
+        $element.find('.BottomPanel-splitter').on('mousedown', function(event) {
           event.preventDefault();
 
           // delegate event to document beacause when moving mouse we go out of the splitter
@@ -110,16 +110,15 @@ angular.module('pb.directives')
 
         $element.on('splitter:toggle:bottom', function(event, targetState) {
           event.preventDefault();
-
-          //When the state didn't change it's a panel toggle
-          if(currentState === targetState){
+          //When the state didn't change it's a panel toggle or panel is hidden
+          if(currentState === targetState && $ctrl.displayed || ! $ctrl.displayed){
             $ctrl.toggleBottom();
+            return;
           }
-          else{
             //Call ui-router to change state
             currentState = targetState;
             $state.go(currentState);
-          }
+
         });
       }
     };

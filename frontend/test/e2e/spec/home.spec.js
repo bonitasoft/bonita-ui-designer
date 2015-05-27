@@ -7,7 +7,7 @@ describe('home page', function() {
   it('should navigate to a page', function() {
     $$('#pages a').first().click();
 
-    expect($('span.navbar-brand').getText()).toBe('Page editor');
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
   it('should navigate to a widget', function() {
@@ -19,7 +19,7 @@ describe('home page', function() {
   it('should create a page', function() {
     $('#page-name').sendKeys('test');
     $('#create-page').click();
-    expect($('span.navbar-brand').getText()).toBe('Page editor');
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
   it('should not create a page with space or special characters in name', function() {

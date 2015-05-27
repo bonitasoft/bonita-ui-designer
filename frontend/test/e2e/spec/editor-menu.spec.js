@@ -60,9 +60,9 @@ describe('editor menu', function() {
   it('should allow to edit page data', function() {
     var editor = PageEditor.get('person');
 
-    editor.dataPanel();
+    var dataPanel = editor.dataPanel();
 
-    expect($('.sidebar-bottom div.title').getText()).toBe('Data');
+    expect(dataPanel.addButton.isPresent()).toBeTruthy();
   });
 
   it('should move an item to another row', function() {
