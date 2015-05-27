@@ -101,6 +101,7 @@ public class ContractInputToWidgetMapper {
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FORM_OUTPUT_DATA);
+        submitButton.setTargetUrlOnSuccess("/bonita");
         return submitButton.getAdapter(Component.class);
     }
 

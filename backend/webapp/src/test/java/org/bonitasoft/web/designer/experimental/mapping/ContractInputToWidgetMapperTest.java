@@ -69,7 +69,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_map_a_numeric_contract_input_to_an_input_with_number_type() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"), Collections.<List<Element>> emptyList());
+        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"), Collections.<List<Element>>emptyList());
 
         assertThat(element.getPropertyValues().get("type").getValue()).isEqualTo("number");
     }
@@ -112,6 +112,17 @@ public class ContractInputToWidgetMapperTest {
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
         assertThat(PropertyValue.getType()).isEqualTo("data");
         assertThat(PropertyValue.getValue()).isEqualTo("formOutput");
+    }
+
+    @Test
+    public void submit_button_should_redirect_to_bonita_on_success() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
+
+        PropertyValue PropertyValue = element.getPropertyValues().get("targetUrlOnSuccess");
+        assertThat(PropertyValue.getType()).isEqualTo("constant");
+        assertThat(PropertyValue.getValue()).isEqualTo("/bonita");
     }
 
     @Test
