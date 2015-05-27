@@ -18,22 +18,26 @@ describe('Directive: model', function () {
             }[uuid];
           }
         });
+        $provide.value('modelPropertiesFactory', {
+          get: function () {
+          }
+        });
       }));
 
   var $scope, modelFactory, $compile, data = {
     'foo': {
       type: 'variable',
       value: 'bar'
-      }
-    };
+    }
+  };
 
-  beforeEach(inject(function($rootScope, _$compile_, _modelFactory_) {
+  beforeEach(inject(function ($rootScope, _$compile_, _modelFactory_) {
     $compile = _$compile_;
     modelFactory = _modelFactory_;
     $scope = $rootScope.$new();
   }));
 
-  it('should expose a model from the data via a model controller', function() {
+  it('should expose a model from the data via a model controller', function () {
     var element = $compile('<div pb-model=\'outerModel\'></div>')($scope);
     $scope.$apply();
 
@@ -42,16 +46,16 @@ describe('Directive: model', function () {
     expect(JSON.stringify(model)).toBe(JSON.stringify(modelFactory.create(data)));
   });
 
-  it('should expose a method to retrieve a value from the model', function() {
+  it('should expose a method to retrieve a value from the model', function () {
     var element = $compile('<div pb-model=\'outerModel\'></div>')($scope);
     $scope.$apply();
 
     expect(element.scope().pbModelCtrl.getModel().foo).toBe('bar');
   });
 
-  it('should mask previous scope model', function() {
+  it('should mask previous scope model', function () {
     var element = $compile('<div pb-model=\'outerModel\'>' +
-    '<div pb-model=\'innerModel\'></div></div>')($scope);
+      '<div pb-model=\'innerModel\'></div></div>')($scope);
     $scope.$apply();
 
     expect(element.scope().pbModelCtrl.getModel().foo).toBe('bar');
