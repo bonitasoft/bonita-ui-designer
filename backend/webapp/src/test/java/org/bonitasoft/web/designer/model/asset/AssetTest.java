@@ -41,7 +41,7 @@ public class AssetTest {
 
     @Before
     public void init() {
-        asset = anAsset().withScope(AssetScope.PAGE).buildAsset();
+        asset = anAsset().withScope(AssetScope.PAGE).build();
 
     }
 
