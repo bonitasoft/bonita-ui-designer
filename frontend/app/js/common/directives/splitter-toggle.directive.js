@@ -22,7 +22,7 @@ angular.module('pb.directives').directive('splitterToggle', function() {
     link: function($scope, $element, $attrs) {
       var eventName = getEventName(document.querySelector($attrs.splitterToggle));
       $element.on('click', function() {
-        angular.element($attrs.splitterToggle).trigger(eventName);
+        angular.element($attrs.splitterToggle).trigger(eventName, $attrs.targetState);
       });
     }
   };
