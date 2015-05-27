@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('org.bonitasoft.pagebuilder.generator.directives')
-    .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory) {
+    .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory) {
 
       function PbModelCtrl() {}
       PbModelCtrl.prototype.fill = function (rawData) {
@@ -14,13 +14,10 @@
       };
 
       function pbModelCompile(tElement, tAttributes) {
-        var pbModelProperties = $parse(tAttributes.pbModelProperties)();
-        // avoid having angular interpolating property values as well
-        tElement.removeAttr("pbModelProperties");
-
         return {
           pre: function (scope, element, attrs, pbModelCtrl) {
             pbModelCtrl.fill(dataModelFactory.get(tAttributes.pbModel));
+            var pbModelProperties = modelPropertiesFactory.get(tAttributes.pbModelProperties);
             if(pbModelProperties && scope.$parent.pbModelCtrl) {
               bindingsFactory.create(pbModelProperties, scope.$parent.pbModelCtrl.createGateway(), pbModelCtrl.getModel());
             }
