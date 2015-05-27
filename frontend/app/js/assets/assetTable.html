@@ -1,0 +1,21 @@
+<div class="col-xs-12">
+    <table class="table table-condensed  table-striped table-text-ellipsis">
+        <thead>
+        <th class="col-xs-9" translate>Name</th>
+        <th class="col-xs-1" translate>Type</th>
+        <th class="col-xs-1" translate ng-if="isAssetPage">Scope</th>
+        <th class="col-xs-1" translate>&nbsp;</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="asset in component.assets | filter:filterBySearchedAsset as results">
+            <td>{{asset.name}}</td>
+            <td>{{asset.type | assetType}}</td>
+            <td ng-if="isAssetPage">{{asset.scope}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="{{isAssetPage ? 4 : 3}}" ng-if="results.length===0">No asset for the moment</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

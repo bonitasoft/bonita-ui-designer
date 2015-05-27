@@ -1,0 +1,17 @@
+<div class="title" translate>Assets</div>
+<div class="content">
+    <div class="col-xs-7">
+
+    </div>
+    <div class="col-xs-5 alignright" ng-if="filterActive">
+        <label class="sr-only" translate> filter : </label>
+        <div class="search-filter">
+            <label class="checkbox-inline" ng-repeat="search in searchedAsset">
+                <input type="checkbox" ng-model="search.filter"> {{search.label}}
+            </label>
+        </div>
+    </div>
+
+    <div ng-include="'js/assets/assetTable.html'"></div>
+
+</div>
