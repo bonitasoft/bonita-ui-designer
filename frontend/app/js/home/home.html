@@ -20,7 +20,7 @@
                     <form class="form" name="newPage" ng-submit="createPage(page)">
                         <fieldset class="CreateArtifact">
                             <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>New Page</legend>
-                            <button class="btn btn-success CreateArtifact-import" title="{{'Import a page' | translate}}" type="button" ng-click="importElement('page')">
+                            <button class="btn btn-bonita-primary CreateArtifact-import" title="{{'Import a page' | translate}}" type="button" ng-click="importElement('page')">
                                 <i class="fa fa-alias-import"></i>
                             </button>
                             <div class="input-group CreateArtifact-form">
@@ -36,7 +36,7 @@
                                     <button id="create-page"
                                             title="{{'Create new page' | translate}}"
                                             type="submit"
-                                            class="btn btn-success"
+                                            class="btn btn-bonita-primary"
                                             ng-disabled="!newPage.$valid">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -73,6 +73,7 @@
                             <div class="Artifact-actions">
                                 <button class="Artifact-button Artifact-button--primary btn-page-rename "
                                         ng-click="toggleItemEdition(page)"
+                                        type="button"
                                         title="{{'Rename page' | translate}}">
                                     <i class="fa fa-pencil"></i>
                                 </button>
@@ -84,6 +85,7 @@
                                 </a>
                                 <button class="Artifact-button Artifact-button--primary btn-page-delete"
                                         ng-click="deletePage(page)"
+                                        type="button"
                                         title="{{'Delete page'| translate}}">
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -107,7 +109,7 @@
                     <form name="newWidget" ng-submit="createWidget(widget.name)">
                         <fieldset class="CreateArtifact">
                             <legend class="CreateArtifact-label" translate>New Widget</legend>
-                            <button class="btn btn-primary CreateArtifact-import" title="{{'Import a widget' | translate}}" type="button" ng-click="importElement('widget')">
+                            <button class="btn btn-bonita-default CreateArtifact-import" title="{{'Import a widget' | translate}}" type="button" ng-click="importElement('widget')">
                                 <i class="fa fa-alias-import"></i>
                             </button>
                             <div class="input-group CreateArtifact-form">
@@ -116,7 +118,7 @@
                                     <button id="create-widget"
                                             title="{{'Create new widget'| translate }}"
                                             type="submit"
-                                            class="btn btn-primary"
+                                            class="btn btn-bonita-default"
                                             ng-disabled="!newWidget.$valid">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -148,6 +150,7 @@
                                    <i class="fa fa-alias-export"></i>
                                 </a>
                                 <button class="Artifact-button btn-widget-delete"
+                                        type="button"
                                         ng-click="deleteCustomWidget(widget)"
                                         title="{{'Delete widget' | translate }} {{ widget.name }}">
                                     <i class="fa fa-trash">&nbsp;</i>

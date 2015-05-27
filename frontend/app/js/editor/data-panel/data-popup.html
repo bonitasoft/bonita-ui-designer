@@ -69,10 +69,10 @@
         <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-if="isNewData"
+        <button class="btn btn-bonita-default" ng-if="isNewData"
                 ng-disabled="!addData.$valid || !isDataNameUnique(newData.$$name)" translate>Save
         </button>
-        <button class="btn btn-primary" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save</button>
+        <button class="btn btn-bonita-default" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save</button>
         <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
     </div>
 </form>

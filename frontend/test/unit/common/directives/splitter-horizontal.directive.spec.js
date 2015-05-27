@@ -24,8 +24,10 @@ describe('splitter horizontal directive', function() {
     doc = _$document_;
     $window = _$window_;
     $state = _$state_;
+    spyOn($state, 'go');
+
     scope = _$rootScope_.$new();
-    var template = '<div splitter-horizontal pane-top="#top" pane-bottom="#bottom" ><div id="content">Content</div></div>';
+    var template = '<div splitter-horizontal pane-top="#top" default-state="test" pane-bottom="#bottom" ></div>';
     element = $compile(template)(scope);
     scope.$digest();
 
@@ -35,9 +37,8 @@ describe('splitter horizontal directive', function() {
   it('should add an extra splitter div before content', function() {
     var divs = element.find('div');
 
-    expect(divs.length).toBe(2);
-    expect(divs.get(0)).toHaveClass('splitter splitter-horizontal');
-    expect(divs.get(1).id).toBe('content');
+    expect(divs.length).toBe(1);
+    expect(divs.get(0)).toHaveClass('BottomPanel-splitter');
   });
 
   it('should add class names to top and bottom elements', function() {
@@ -49,7 +50,7 @@ describe('splitter horizontal directive', function() {
     spyOn(controller, 'closeBottom');
     controller.displayed = true;
 
-    element.triggerHandler('splitter:toggle:bottom');
+    element.triggerHandler('splitter:toggle:bottom', 'test');
 
     expect(controller.closeBottom).toHaveBeenCalled();
   });
@@ -65,7 +66,7 @@ describe('splitter horizontal directive', function() {
 
   it('should resize left and right elements and add classes when splitter is clicked', function() {
     spyOn(controller, 'resize');
-    var splitter = angular.element(element.find('.splitter').get(0));
+    var splitter = angular.element(element.find('.BottomPanel-splitter').get(0));
 
     splitter.triggerHandler('mousedown');
     triggerEvent('mousemove', {target: document, pageY: 100});

@@ -1,0 +1,72 @@
+
+.BottomPanel {
+  background-color: @color-data-bg;
+  position: absolute;
+  margin: 25px 30px 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: @sidebar-data-default-height;
+  z-index: @z-index-sidebar;
+
+}
+
+.BottomPanel-splitter {
+  cursor: row-resize;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: @bottom-sidebar-splitter-height;
+  background-color: @color-data-bg;
+}
+
+.BottomPanel-content {
+  overflow: auto;
+  height: 100%;
+  padding: .7em 0;
+}
+
+.BottomPanel-toggleBar {
+  position: absolute;
+  top: -2.6em;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.BottomPanel-toggle {
+  font-size: 1.2em;
+  padding: 4px 8px;
+  text-align: left;
+  display: inline-block;
+  background-color: @color-data-bg;
+}
+
+
+/**
+ * Data panel filter
+ */
+.search-filter {
+  position: relative;
+ }
+
+.search-filter-input {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.search-filter-icon {
+  position: absolute;
+  left: .4em;
+  top: .7em;
+}
+
+.search-filter-button {
+  border: none;
+  background: none;
+  padding: 0;
+  position: absolute;
+  right: .4em;
+  top: .7em;
+  line-height: 1;
+}

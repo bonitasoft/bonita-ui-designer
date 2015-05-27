@@ -18,8 +18,11 @@
             <input ng-switch-when="float" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
             <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value" type="text" class="form-control"/>
-
-            <div class="input-group-addon clickable" ng-click="link()" title="Link data"><i class="fa fa-unlink"></i></div>
+            <span class="input-group-btn">
+                <button class="btn btn-bonita-property" ng-click="link()" title="Link data" type="button">
+                    <i class="fa fa-unlink"></i>
+                </button>
+            </span>
         </div>
     </div>
 
@@ -33,6 +36,10 @@
                    autofocus="linked"
                    class="form-control" />
         </form>
-        <div class="input-group-addon clickable" ng-click="unlink()" title="Unlink data"><i class="fa fa-link"></i></div>
+        <span class="input-group-btn">
+            <button class="btn btn-bonita-property" ng-click="unlink()" title="Unlink data" type="button">
+                <i class="fa fa-link"></i>
+            </button>
+        </span>
     </div>
 </div>

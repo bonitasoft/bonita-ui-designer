@@ -40,27 +40,64 @@
 /* panel content */
 @color-search-list: #CBD5E1;
 
-
-@color-primary-button-bg: #DD0033;
-@color-primary-button-bg-active: #F40846;
-@color-primary-button-bg-inactive: #F40846;
-@color-primary-button-text: #fff;
-
-@color-default-button-bg: #0B4361;
-@color-default-button-bg-active: #0E678E;
-@color-default-button-bg-inactive: #0E678E;
-@color-default-button-text: #fff;
-
-
 /**
  * bootstrap overide
- * @type {[type]}
  */
-
 @border-radius-base: 3px;
 @border-radius-large: 4px; // used in modal
 @border-radius-small: 2px;
 
-@brand-success:#DD0033;
-@brand-primary:#0B4361;
+@btn-bonita-primary-color:              #fff;
+@btn-bonita-primary-bg:                 #DD0033;
+@btn-bonita-primary-border:             darken(@btn-bonita-primary-bg, 5%);
 
+@btn-bonita-default-color:              #fff;
+@btn-bonita-default-bg:                 #0B4361;
+@btn-bonita-default-border:             darken(@btn-bonita-default-bg, 5%);
+
+@btn-bonita-property-color:              #fff;
+@btn-bonita-property-bg:                 #CBD5E1;
+@btn-bonita-property-border:             darken(@btn-bonita-property-bg, 5%);
+
+.btn-bonita-default {
+  .button-variant(@btn-bonita-default-color, @btn-bonita-default-bg, @btn-bonita-default-border);
+}
+
+.btn-bonita-property {
+  .button-variant(@btn-bonita-property-color, @btn-bonita-property-bg, @btn-bonita-property-border);
+}
+
+.btn-bonita-primary {
+  .button-variant(@btn-bonita-primary-color, @btn-bonita-primary-bg, @btn-bonita-primary-border);
+}
+
+
+
+/**
+ * Editor
+ */
+@color-editor-header-bg: #0B4361;
+@color-editor-header-text: #fff;
+
+/**
+ * Palette
+ */
+@color-palette-bg: #1F2735;
+@color-palette-section-bg: #E21938;
+@color-palette-section-bg-active: #F40846;
+@color-palette-section-text: #fff;
+@color-palette-section-border: #1F2735;
+@color-palette-item-bg: #404853;
+@color-palette-item-text: #fff;
+
+/**
+ * Data panel
+ */
+@color-data-bg: #CBD5E1;
+
+/**
+ * Properties
+ */
+@color-properties-bg: #404853;
+@color-properties-text: #fff;
+@color-properties-help: #CBD5E1;
