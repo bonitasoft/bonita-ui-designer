@@ -120,7 +120,7 @@ public class PageBuilder {
         formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
 
         return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
-                .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).buildAsset())
+                .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).build())
                 .withData("aData", aConstantData().value("a value"))
                 .withData("anotherData", aConstantData().value(4))
                 .build();

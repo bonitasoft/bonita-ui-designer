@@ -30,6 +30,9 @@ import org.hibernate.validator.constraints.NotBlank;
  * A web resource can be attached to a component
  */
 public class Asset {
+
+    public interface JsonViewAsset {}
+
     /**
      * An asset is identified by its name
      */
@@ -55,7 +58,7 @@ public class Asset {
         return name != null && name.startsWith("http");
     }
 
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
     public String getName() {
         return name;
     }
@@ -65,7 +68,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
     public AssetType getType() {
         return type;
     }
@@ -75,7 +78,7 @@ public class Asset {
         return this;
     }
 
-    @JsonIgnore
+    @JsonView({JsonViewAsset.class})
     public String getComponentId() {
         return componentId;
     }
@@ -85,7 +88,7 @@ public class Asset {
         return this;
     }
 
-    @JsonIgnore
+    @JsonView({JsonViewAsset.class})
     public AssetScope getScope() {
         return scope;
     }
