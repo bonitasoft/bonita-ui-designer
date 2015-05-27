@@ -2,7 +2,7 @@
   'use strict'
 
   describe('AssetCtrl', function(){
-    var $scope, $q, assets;
+    var $scope, $q, assets, artifactRepo;
 
     beforeEach(module('pb.assets', 'ui.bootstrap'));
 
@@ -10,6 +10,15 @@
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assets = $injector.get('assets');
+      artifactRepo =  {
+        loadAssets : function() {
+          return $q.when({
+            data: [
+              {name: 'myAsset'}
+            ]
+          });
+        }
+      };
     }));
 
     describe('Page editor', function(){
@@ -18,15 +27,7 @@
         $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: {},
-          artifactRepo: {
-            loadAssets : function() {
-              return $q.when({
-                data: [
-                  {name: 'myAsset'}
-                ]
-              });
-            }
-          },
+          artifactRepo: artifactRepo,
           mode : 'page',
           assets: assets
         });
@@ -88,18 +89,15 @@
       beforeEach(inject(function($injector) {
         $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
-          artifact: {
-            assets : [
-              {name: 'myAsset'}
-            ]
-          },
-          artifactRepo: {},
+          artifact: {},
+          artifactRepo: artifactRepo,
           mode : 'widget',
           assets: assets
         });
       }));
 
       it('should put assets in $scope', function(){
+        $scope.$digest();
         expect($scope.assets).toEqual([{name: 'myAsset'}]);
       });
 

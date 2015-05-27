@@ -1,7 +1,7 @@
 /**
  * Repo containing all our palette widgets.
  */
-angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
+angular.module('pb.common.repositories').factory('widgetRepo', function($http, $q) {
 
   'use strict';
 
@@ -24,6 +24,17 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
 
   function all() {
     return $http.get('rest/widgets');
+  }
+
+  /**
+   * Loads assets used by the widgets and by the widgets
+   * Returns a promise
+   * @param widget
+   */
+  function loadAssets(widget) {
+    return $q.when({
+      data : widget.assets
+    });
   }
 
   function create(widget) {
@@ -67,6 +78,7 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
   return {
     all: all,
     getById: getById,
+    loadAssets: loadAssets,
     create: create,
     customs: customs,
     save: save,

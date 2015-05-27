@@ -70,10 +70,10 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   /**
    * Loads assets used by the page and by the widgets
    * Returns a promise
-   * @param id - the page's id
+   * @param page
    */
-  function loadAssets(id) {
-    return $http.get('rest/pages/' + id + '/assets');
+  function loadAssets(page) {
+    return $http.get('rest/pages/' + page.id + '/assets');
   }
 
   /**
