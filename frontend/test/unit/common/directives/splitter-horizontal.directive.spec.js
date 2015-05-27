@@ -1,5 +1,5 @@
 describe('splitter horizontal directive', function() {
-  var $compile, $rootScope, element, doc, scope, controller, $window;
+  var $compile, $rootScope, element, doc, scope, controller, $window, $state;
 
   function triggerEvent (event, opt) {
     var e = angular.element.Event(event);
@@ -17,13 +17,13 @@ describe('splitter horizontal directive', function() {
     jasmine.addMatchers(CustomMatcher.elementMatchers);
   });
 
-  beforeEach(module('pb.directives'));
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$window_) {
+  beforeEach(module('pb.directives', 'ui.router'));
+  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$window_, _$state_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     doc = _$document_;
     $window = _$window_;
-
+    $state = _$state_;
     scope = _$rootScope_.$new();
     var template = '<div splitter-horizontal pane-top="#top" pane-bottom="#bottom" ><div id="content">Content</div></div>';
     element = $compile(template)(scope);
