@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+import java.io.File;
 import java.util.Date;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
@@ -40,16 +41,31 @@ public class ParametrizedWidgetFactory {
         if (aBooleanInput(input)) {
             return createCheckBox(input);
         }
+        if (aFileInput(input)) {
+            return createFileUploadWidget(input);
+        }
         throw new IllegalArgumentException("Unsupported contract input type");
     }
 
+    private FileUploadWidget createFileUploadWidget(ContractInput input) {
+        FileUploadWidget fileUploadWidget = new FileUploadWidget();
+        fileUploadWidget.setLabel(inputDisplayLabel(input));
+        fileUploadWidget.setLabelPosition(LabelPosition.TOP);
+        fileUploadWidget.setPlaceholder(input.getDescription());
+        return fileUploadWidget;
+    }
+
     public boolean isSupported(ContractInput input) {
-        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aBooleanInput(input);
+        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aBooleanInput(input) || aFileInput(input);
     }
 
     // contract sent by studio contain things like that "java.lang.Boolean" for type
     private boolean aBooleanInput(ContractInput input) {
         return input.getType() != null && input.getType().toLowerCase().endsWith("boolean");
+    }
+
+    private boolean aFileInput(ContractInput input) {
+        return input.getType() != null && input.getType().equals(File.class.getName());
     }
 
     private CheckboxWidget createCheckBox(ContractInput input) {
