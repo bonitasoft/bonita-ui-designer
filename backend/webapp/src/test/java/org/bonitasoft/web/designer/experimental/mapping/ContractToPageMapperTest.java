@@ -48,7 +48,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput());
 
-        assertThat(page.getData()).contains(entry("sentData", aJSONData().value("{}").build()));
+        assertThat(page.getData()).contains(entry("formOutput", aJSONData().value("{}").build()));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ContractToPageMapperTest {
         Component submitButon = (Component) page.getRows().get(3).get(0);
         assertThat(submitButon.getId()).isEqualTo("pbButton");
         assertThat(submitButon.getPropertyValues()).contains(
-                entry(ParameterConstants.DATA_TO_SEND_PARAMETER, aDataPropertyValue("sentData")),
+                entry(ParameterConstants.DATA_TO_SEND_PARAMETER, aDataPropertyValue("formOutput")),
                 entry(ParameterConstants.ACTION_PARAMETER, aConstantPropertyValue(ButtonAction.SUBMIT_TASK.getValue())));
     }
 }
