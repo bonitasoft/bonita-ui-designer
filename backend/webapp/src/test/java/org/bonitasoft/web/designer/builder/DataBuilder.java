@@ -45,6 +45,10 @@ public class DataBuilder {
         return new DataBuilder(DataType.URLPARAMETER);
     }
 
+    public static DataBuilder anExpressionData() {
+        return new DataBuilder(EXPRESSION);
+    }
+
     public DataBuilder value(Object value) {
         this.value = value;
         return this;

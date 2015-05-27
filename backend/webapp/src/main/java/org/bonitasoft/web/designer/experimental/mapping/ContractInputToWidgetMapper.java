@@ -19,6 +19,8 @@ import static com.google.common.base.Joiner.on;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
@@ -33,10 +35,12 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 
+@Named
 public class ContractInputToWidgetMapper {
 
     private static final String ITEM_ITERATOR = "$item";
-    static final String SENT_DATA_NAME = "formOutput";
+    static final String FORM_INPUT_DATA = "formInput";
+    static final String FORM_OUTPUT_DATA = "formOutput";
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
 
     public ContractInputToWidgetMapper() {
@@ -96,12 +100,12 @@ public class ContractInputToWidgetMapper {
 
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
-        submitButton.setDataToSend(SENT_DATA_NAME);
+        submitButton.setDataToSend(FORM_OUTPUT_DATA);
         return submitButton.getAdapter(Component.class);
     }
 
     private String inputValue(ContractInput contractInput) {
-        return on(".").join(SENT_DATA_NAME, contractInput.path());
+        return on(".").join(FORM_INPUT_DATA, contractInput.path());
     }
 
     public boolean canCreateComponent(ContractInput contractInput) {
