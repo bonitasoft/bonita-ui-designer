@@ -49,4 +49,24 @@ public class JacksonObjectMapperTest {
 
         JSONAssert.assertEquals(new String(objectMapper.toJson(object, JsonViewPersistence.class)), "{\"name\":\"Vincent\",\"number\":1}", false);
     }
+
+    @Test
+    public void should_format_json_when_using_pretty_print_on_object() throws Exception {
+        SimpleObject object = new SimpleObject("id", "Vincent", 1);
+
+        assertThat(objectMapper.prettyPrint(object)).isEqualTo("{\n" +
+                "  \"id\" : \"id\",\n" +
+                "  \"name\" : \"Vincent\",\n" +
+                "  \"number\" : 1\n" +
+                "}");
+    }
+
+    @Test
+    public void should_format_json_when_using_pretty_print_on_json() throws Exception {
+        SimpleObject object = new SimpleObject("id", "Vincent", 1);
+
+        assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{\n" +
+                "  \"foo\" : \"bar\"\n" +
+                "}");
+    }
 }

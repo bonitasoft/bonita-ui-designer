@@ -36,8 +36,6 @@ import org.bonitasoft.web.designer.controller.importer.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
-import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
-import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -187,16 +185,6 @@ public class DesignerConfig {
     @Bean
     public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, JacksonObjectMapper objectMapper, WidgetByIdExportStep widgetByIdExportStep) {
         return new Exporter(widgetRepository, objectMapper, widgetByIdExportStep);
-    }
-
-    @Bean
-    public ContractToPageMapper contractToPageMapper() {
-        return new ContractToPageMapper(contractInputToWidgetMapper());
-    }
-
-    @Bean
-    public ContractInputToWidgetMapper contractInputToWidgetMapper() {
-        return new ContractInputToWidgetMapper();
     }
 
     @Bean
