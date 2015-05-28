@@ -19,10 +19,10 @@ import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPD
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
 import javax.inject.Inject;
 
-import org.bonitasoft.web.designer.controller.upload.AssetUploader;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -47,14 +47,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 @RestController
 @RequestMapping("/rest/pages")
 public class PageResource extends DataResource<Page> {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
-    private AssetUploader<Page> pageAssetUploader;
+    private AssetService<Page> pageAssetService;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
     private AssetVisitor assetVisitor;
@@ -64,12 +62,12 @@ public class PageResource extends DataResource<Page> {
             PageRepository pageRepository,
             SimpMessagingTemplate messagingTemplate,
             ContractToPageMapper contractToPageMapper,
-            AssetUploader<Page> pageAssetUploader,
+            AssetService<Page> pageAssetService,
             AssetVisitor assetVisitor) {
         super(pageRepository);
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
-        this.pageAssetUploader = pageAssetUploader;
+        this.pageAssetService = pageAssetService;
         this.assetVisitor = assetVisitor;
     }
 
@@ -124,14 +122,25 @@ public class PageResource extends DataResource<Page> {
     }
 
     @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id, @PathVariable("type") String type) {
-        Page page = getRepository().get(id);
-        ErrorMessage errorMessage = pageAssetUploader.upload(file, page, type);
-        if (errorMessage != null) {
-            logger.error(errorMessage.getMessage());
-            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id, @PathVariable("type") String type) {
+        try{
+            pageAssetService.upload(file, getRepository().get(id), type);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        catch (RepositoryException | IllegalArgumentException e){
+            logger.error(e.getMessage(),e);
+            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.POST)
+    public void saveAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) {
+        pageAssetService.save(getRepository().get(id), asset);
+    }
+
+    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.DELETE)
+    public void deleteAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) throws RepositoryException {
+        pageAssetService.delete(getRepository().get(id), asset);
     }
 
     @RequestMapping(value = "/{pageId}/assets")
