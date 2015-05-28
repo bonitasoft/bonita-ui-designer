@@ -15,18 +15,19 @@
 package org.bonitasoft.web.designer.controller;
 
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
-import static org.bonitasoft.web.designer.model.asset.Asset.JsonViewAsset;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
 import javax.inject.Inject;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
+import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.Asset.JsonViewAsset;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -46,9 +47,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @RestController
 @RequestMapping("/rest/pages")
 public class PageResource extends DataResource<Page> {
+
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
     private AssetUploader<Page> pageAssetUploader;
     private SimpMessagingTemplate messagingTemplate;
@@ -87,9 +91,10 @@ public class PageResource extends DataResource<Page> {
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/contract/{name}", method = RequestMethod.POST)
-    public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("name") String name) throws RepositoryException {
-        return create(contractToPageMapper.createPage(name, contract));
+    @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
+    public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("scope") String scope, @PathVariable("name") String name)
+            throws RepositoryException {
+        return create(contractToPageMapper.createPage(name, contract, FormScope.valueOf(scope.toUpperCase())));
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)

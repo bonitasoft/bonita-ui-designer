@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+import org.bonitasoft.web.designer.experimental.mapping.FormScope;
+
 public enum ButtonAction {
     NONE("None"),
     SUBMIT_TASK("Submit task"),
@@ -33,12 +35,14 @@ public enum ButtonAction {
         return value;
     }
 
-    public static ButtonAction byActionName(String action) {
-        for (ButtonAction bAction : values()) {
-            if (bAction.getValue().equals(action)) {
-                return bAction;
-            }
+    public static ButtonAction fromScope(FormScope scope) {
+        switch (scope) {
+            case TASK:
+                return SUBMIT_TASK;
+            case PROCESS:
+                return START_PROCESS;
+            default:
+                throw new IllegalArgumentException("Unsupported form scope: " + scope);
         }
-        throw new IllegalArgumentException("Unknow button action: " + action);
     }
 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bonitasoft.web.designer.model.contract.databind.ContractDeserializer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -25,18 +26,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Contract implements ContractInputContainer {
 
     private List<ContractInput> contractInput = new ArrayList<>();
-    private ContractType contractType = ContractType.TASK;
 
     public void setContractInput(List<ContractInput> contractInput) {
         this.contractInput = contractInput;
-    }
-
-    public ContractType getContractType() {
-        return contractType;
-    }
-
-    public void setContractType(ContractType contractType) {
-        this.contractType = contractType;
     }
 
     @JsonIgnore

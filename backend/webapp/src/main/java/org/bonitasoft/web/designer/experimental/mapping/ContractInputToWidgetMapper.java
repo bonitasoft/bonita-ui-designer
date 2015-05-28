@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.InputWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
@@ -91,8 +92,8 @@ public class ContractInputToWidgetMapper {
         return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput) : toSimpleContainer(nodeContractInput);
     }
 
-    public Component createSubmitButton(Contract contract) {
-        ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract);
+    public Component createSubmitButton(Contract contract, ButtonAction actionType) {
+        ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(SENT_DATA_NAME);
         return submitButton.getAdapter(Component.class);
     }

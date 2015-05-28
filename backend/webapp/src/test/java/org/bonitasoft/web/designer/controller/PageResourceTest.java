@@ -20,28 +20,36 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
+import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -65,6 +73,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.google.common.collect.Sets;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -135,14 +145,45 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_create_a_page_from_a_Contract() throws Exception {
-        Contract contract = aSimpleTaskContract();
-        Page newPage = new Page();
-        newPage.setName("myPage");
-        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class))).thenReturn(newPage);
+    public void should_create_a_page_from_a_Contract_at_task_scope() throws Exception {
+        Contract contract = aSimpleContract();
+        Page newPage = aPage().withName("myPage").build();
+        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.TASK))).thenReturn(newPage);
 
         mockMvc
-                .perform(post("/rest/pages/contract/myPage")
+                .perform(post("/rest/pages/contract/task/myPage")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(contract)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", notNullValue()));
+
+        verify(pageRepository).save(newPage);
+    }
+
+    @Test
+    public void should_create_a_page_from_a_Contract_at_process_scope() throws Exception {
+        Contract contract = aSimpleContract();
+        Page newPage = aPage().withName("myPage").build();
+        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.PROCESS))).thenReturn(newPage);
+
+        mockMvc
+                .perform(post("/rest/pages/contract/process/myPage")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(contract)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", notNullValue()));
+
+        verify(pageRepository).save(newPage);
+    }
+
+    @Test
+    public void should_create_a_page_from_a_Contract_at_overview_scope() throws Exception {
+        Contract contract = aSimpleContract();
+        Page newPage = aPage().withName("myPage").build();
+        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.OVERVIEW))).thenReturn(newPage);
+
+        mockMvc
+                .perform(post("/rest/pages/contract/overview/myPage")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(contract)))
                 .andExpect(status().isCreated())
@@ -292,7 +333,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset[] assets = new Asset[]{
+        Asset[] assets = new Asset[] {
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withWidget(aWidget().id("widget-id").build()).build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
