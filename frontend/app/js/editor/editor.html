@@ -66,7 +66,7 @@
                 <translate>To add content, drag and drop components from the palette to the whiteboard above.</translate>
             </div>
             <div id="data-sidebar" class="sidebar-bottom">
-                <div id="data-sidebar-splitter" splitter-horizontal closed-on-init="false" pane-top="#editor" pane-bottom="#data-sidebar" pane-bottom-max="600" pane-bottom-min="250"></div>
+                <div id="data-sidebar-splitter" splitter-horizontal closed-on-init="false" default-state="designer.page" pane-top="#editor" pane-bottom="#data-sidebar" pane-bottom-max="600" pane-bottom-min="250"></div>
                 <i splitter-toggle="#data-sidebar-splitter" class="fa fa-angle-down clickable bottom-sidebar-toggle"></i>
 
                 <div ui-view="data"></div>
@@ -74,7 +74,8 @@
         </div>
 
         <div id="toolbar-bottom">
-            <a class="btn btn-sm btn-default" splitter-toggle="#data-sidebar-splitter" ><i class="fa fa-database"></i> <translate>Data</translate></a>
+            <a class="btn btn-sm btn-default" id="data-panel" splitter-toggle="#data-sidebar-splitter" target-state="designer.page"><i class="fa fa-database"></i> <translate>Data</translate></a>
+            <a class="btn btn-sm btn-default" id="asset-panel" splitter-toggle="#data-sidebar-splitter" target-state="designer.page.asset" ng-if="mode==='page'"><i class="fa fa-file-code-o"></i> <translate>Asset</translate></a>
         </div>
 
         <div splitter-toggle="#widget-properties-splitter" id="toggle-properties" class="clickable toggle">

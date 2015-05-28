@@ -1,10 +1,11 @@
-angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, widget, widgetRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
+angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
 
   'use strict';
 
-  $scope.widget = widget;
+  $scope.widget = artifact;
 
   var saveSuccessMsg = gettextCatalog.getString('Custom widget [ {{name}} ] successfully saved', { name: $scope.widget.name });
+  var widgetRepo = artifactRepo;
 
   keymaster('ctrl+s', function() {
     $scope.$apply(function() {
