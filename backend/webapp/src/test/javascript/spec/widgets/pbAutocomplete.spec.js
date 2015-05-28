@@ -23,7 +23,7 @@ describe('pbAutocomplete', function () {
       scope.$apply();
 
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeFalsy();
+      expect(element.find('.form-horizontal').length).toBe(0);
       expect(label.text().trim()).toBe('foobar');
     });
 
@@ -35,8 +35,9 @@ describe('pbAutocomplete', function () {
       var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
       scope.$apply();
 
+      expect(element.find('.form-horizontal').length).toBe(1);
+
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeTruthy();
       expect(label.text().trim()).toBe('barbaz');
     });
 

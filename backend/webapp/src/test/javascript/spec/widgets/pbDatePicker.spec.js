@@ -37,18 +37,20 @@ describe('pbDatePicker', function () {
     it('should be on the left by default', function () {
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
-      expect(element.find('label').hasClass('widget-label-horizontal')).toBe(true);
+      expect(element.find('.form-horizontal').length).toBe(1);
     });
 
     it('should be on the top of the input if labelPosition change', function () {
       scope.properties = {
+        label : 'Date',
         labelPosition: 'top'
       };
 
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
+      expect(element.find('.form-horizontal').length).toBe(0);
       var label = element.find('label');
-      expect(label.hasClass('widget-label-horizontal')).toBeFalsy();
+      expect(label.text().trim()).toBe('Date');
     });
 
     it('should not be there when displayLabel is falsy', function () {
