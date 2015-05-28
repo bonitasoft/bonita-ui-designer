@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -40,7 +41,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.upload.AssetUploader;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -75,12 +77,12 @@ public class WidgetResourceTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
-    private AssetUploader<Widget> widgetAssetUploader;
+    private AssetService<Widget> widgetAssetService;
 
     @Before
     public void setUp() {
         initMocks(this);
-        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetUploader);
+        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService);
         widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
         mockMvc = standaloneSetup(widgetResource)
                 .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
@@ -439,7 +441,7 @@ public class WidgetResourceTest {
 
         mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isCreated());
 
-        verify(widgetAssetUploader).upload(file, widget, "js");
+        verify(widgetAssetService).upload(file, widget, "js");
     }
 
     @Test
@@ -448,11 +450,11 @@ public class WidgetResourceTest {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Widget widget = aWidget().id("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
-        when(widgetAssetUploader.upload(file, widget, "js")).thenReturn(new ErrorMessage("error", "error"));
+        doThrow(IllegalArgumentException.class).when(widgetAssetService).upload(file, widget, "js");
 
         mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isInternalServerError());
 
-        verify(widgetAssetUploader).upload(file, widget, "js");
+        verify(widgetAssetService).upload(file, widget, "js");
     }
 
     @Test
@@ -461,10 +463,67 @@ public class WidgetResourceTest {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Widget widget = aWidget().id("my-widget").build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
-        when(widgetAssetUploader.upload(file, widget, "js")).thenReturn(new ErrorMessage("error", "error"));
+        doThrow(IllegalArgumentException.class).when(widgetAssetService).upload(file, widget, "js");
 
-        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isForbidden());
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isInternalServerError());
 
+    }
+
+    @Test
+    public void should_save_an_external_asset() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        Asset asset = anAsset().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+        mockMvc.perform(
+                post("/rest/widgets/my-widget/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(widgetAssetService).save(widget, asset);
+    }
+
+    @Test
+    public void should_not_save_an_external_asset_for_internal_widget() throws Exception {
+        Widget widget = aWidget().id("pb-widget").build();
+        Asset asset = anAsset().build();
+        when(widgetRepository.get("pb-widget")).thenReturn(widget);
+
+        mockMvc.perform(
+                post("/rest/widgets/pb-widget/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        Asset asset = anAsset().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        doThrow(IllegalArgumentException.class).when(widgetAssetService).save(widget, asset);
+
+        mockMvc.perform(
+                post("/rest/widgets/my-widget/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_delete_an_asset() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        Asset asset = anAsset().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+        mockMvc.perform(
+                delete("/rest/widgets/my-widget/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(widgetAssetService).delete(widget, asset);
     }
 
     private String toJson(Object o) throws IOException {

@@ -20,10 +20,12 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
-import org.bonitasoft.web.designer.controller.upload.AssetUploader;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -51,13 +53,13 @@ public class WidgetResource {
     private JacksonObjectMapper objectMapper;
     private WidgetRepository repository;
     private List<Repository> usedByRepositories;
-    private AssetUploader<Widget> widgetAssetUploader;
+    private AssetService<Widget> widgetAssetService;
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetUploader<Widget> widgetAssetUploader) {
+    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService) {
         this.repository = repository;
         this.objectMapper = objectMapper;
-        this.widgetAssetUploader = widgetAssetUploader;
+        this.widgetAssetService = widgetAssetService;
     }
 
     /**
@@ -163,17 +165,28 @@ public class WidgetResource {
     }
 
     @RequestMapping(value = "/{widgetId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> upload(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String id, @PathVariable("type") String type) {
-        Widget widget = repository.get(id);
-        if (!widget.isCustom()) {
-            throw new NotAllowedException("We can only save a custom widget");
+    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String widgetId, @PathVariable("type") String type) {
+        checkWidgetIdIsNotAPbWidget(widgetId);
+        try{
+            widgetAssetService.upload(file, repository.get(widgetId), type);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        ErrorMessage errorMessage = widgetAssetUploader.upload(file, widget, type);
-        if (errorMessage != null) {
-            logger.error(errorMessage.getMessage());
-            return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        catch (ServerImportException | IllegalArgumentException e){
+            logger.error(e.getMessage(),e);
+            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.POST)
+    public void saveAsset(@RequestBody Asset asset, @PathVariable("widgetId") String widgetId) {
+        checkWidgetIdIsNotAPbWidget(widgetId);
+        widgetAssetService.save(repository.get(widgetId), asset);
+    }
+
+    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.DELETE)
+    public void deleteAsset(@RequestBody Asset asset, @PathVariable("widgetId") String widgetId) throws RepositoryException {
+        checkWidgetIdIsNotAPbWidget(widgetId);
+        widgetAssetService.delete(repository.get(widgetId), asset);
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

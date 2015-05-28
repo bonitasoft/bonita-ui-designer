@@ -47,7 +47,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.upload.AssetUploader;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -93,7 +93,7 @@ public class PageResourceTest {
     private ContractToPageMapper contractToPageMapper;
 
     @Mock
-    private AssetUploader<Page> pageAssetUploader;
+    private AssetService<Page> pageAssetService;
 
     @Mock
     private AssetVisitor assetVisitor;
@@ -314,7 +314,7 @@ public class PageResourceTest {
 
         mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isCreated());
 
-        verify(pageAssetUploader).upload(file, page, "js");
+        verify(pageAssetService).upload(file, page, "js");
     }
 
     @Test
@@ -323,11 +323,40 @@ public class PageResourceTest {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Page page = aFilledPage("my-page");
         when(pageRepository.get("my-page")).thenReturn(page);
-        when(pageAssetUploader.upload(file, page, "js")).thenReturn(new ErrorMessage("error", "error"));
+        doThrow(IllegalArgumentException.class).when(pageAssetService).upload(file, page, "js");
 
         mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isInternalServerError());
 
-        verify(pageAssetUploader).upload(file, page, "js");
+        verify(pageAssetService).upload(file, page, "js");
+    }
+
+    @Test
+    public void should_save_an_external_asset() throws Exception {
+        Page page = aFilledPage("my-page");
+        Asset asset = anAsset().build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+
+        mockMvc.perform(
+                post("/rest/pages/my-page/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                        .andExpect(status().isOk());
+
+        verify(pageAssetService).save(page, asset);
+    }
+
+    @Test
+    public void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
+        Page page = aFilledPage("my-page");
+        Asset asset = anAsset().build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+        doThrow(IllegalArgumentException.class).when(pageAssetService).save(page, asset);
+
+        mockMvc.perform(
+                post("/rest/pages/my-page/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -350,5 +379,20 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$[*].scope", Matchers.containsInAnyOrder("PAGE", "PAGE", "WIDGET")))
                 .andExpect(jsonPath("$[*].componentId", Matchers.containsInAnyOrder("widget-id")));
 
+    }
+
+    @Test
+    public void should_delete_an_asset() throws Exception {
+        Page page = aFilledPage("my-page");
+        Asset asset = anAsset().build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+
+        mockMvc.perform(
+                delete("/rest/pages/my-page/assets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(pageAssetService).delete(page, asset);
     }
 }

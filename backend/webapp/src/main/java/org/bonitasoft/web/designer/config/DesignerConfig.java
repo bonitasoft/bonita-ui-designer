@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.Lists;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
@@ -34,7 +35,6 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
 import org.bonitasoft.web.designer.controller.importer.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
-import org.bonitasoft.web.designer.controller.upload.AssetUploader;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -238,8 +238,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetUploader<Page> pageAssetUploader(PageRepository pageRepository){
-        return new AssetUploader<>(pageRepository, pageAssetRepository(pageRepository));
+    public AssetService<Page> pageAssetUploader(PageRepository pageRepository){
+        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository));
     }
 
     @Bean
@@ -248,7 +248,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetUploader<Widget> widgetAssetUploader(WidgetRepository widgetRepository){
-        return new AssetUploader<>(widgetRepository, widgetAssetRepository(widgetRepository));
+    public AssetService<Widget> widgetAssetUploader(WidgetRepository widgetRepository){
+        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository));
     }
 }
