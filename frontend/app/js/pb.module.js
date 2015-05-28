@@ -22,6 +22,7 @@
     'pb.directives',
     'pb.filters',
     'pb.templates',
+    'pb.assets',
     'ngSanitize',
     'ui.router',
     'RecursionHelper',

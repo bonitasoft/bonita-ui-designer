@@ -68,6 +68,15 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   }
 
   /**
+   * Loads assets used by the page and by the widgets
+   * Returns a promise
+   * @param page
+   */
+  function loadAssets(page) {
+    return $http.get('rest/pages/' + page.id + '/assets');
+  }
+
+  /**
    * Return export url of a page
    * @param page - the page to be exported
    */
@@ -82,6 +91,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     rename: rename,
     delete: deletePage,
     load: load,
+    loadAssets: loadAssets,
     saveData: saveData,
     deleteData: deleteData,
     exportUrl: exportUrl

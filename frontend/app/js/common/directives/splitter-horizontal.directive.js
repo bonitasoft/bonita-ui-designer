@@ -5,7 +5,7 @@
  * Panes should be passed via attributes pane-top and pane-bottom by css selectors
  */
 angular.module('pb.directives')
-  .directive('splitterHorizontal', function($document) {
+  .directive('splitterHorizontal', function($document, $state) {
 
     return {
       scope: {
@@ -13,7 +13,8 @@ angular.module('pb.directives')
         paneBottom: '@',
         paneBottomMax: '@',
         paneBottomMin: '@',
-        closedOnInit: '@'
+        closedOnInit: '@',
+        defaultState: '@'
       },
       transclude: true,
       template: '<div class="splitter splitter-horizontal"></div><ng-transclude></ng-transclude>',
@@ -76,7 +77,7 @@ angular.module('pb.directives')
         };
       },
       link: function($scope, $element, $attrs, $ctrl) {
-
+        var currentState = $attrs.defaultState;
         var paneTop = $($attrs.paneTop);
         var paneBottom = $($attrs.paneBottom);
         paneTop.addClass('splitter-pane splitter-pane-top');
@@ -107,9 +108,18 @@ angular.module('pb.directives')
           $ctrl.resize(event.pageY);
         }
 
-        $element.on('splitter:toggle:bottom', function(event) {
+        $element.on('splitter:toggle:bottom', function(event, targetState) {
           event.preventDefault();
-          $ctrl.toggleBottom();
+
+          //When the state didn't change it's a panel toggle
+          if(currentState === targetState){
+            $ctrl.toggleBottom();
+          }
+          else{
+            //Call ui-router to change state
+            currentState = targetState;
+            $state.go(currentState);
+          }
         });
       }
     };
