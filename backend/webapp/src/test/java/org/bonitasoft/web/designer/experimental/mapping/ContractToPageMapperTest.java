@@ -97,7 +97,8 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createPage("myPage", aContract().build(), FormScope.OVERVIEW);
 
-        assertThat(page.getRows()).isEmpty();
+        assertThat(page.getRows()).hasSize(1);
+        assertThat(page.getRows().get(0)).isEmpty();
     }
 
     @Test
