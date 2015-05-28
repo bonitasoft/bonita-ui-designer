@@ -18,33 +18,41 @@ import static java.nio.file.Files.createDirectories;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.controller.exception.ImportException;
+import org.bonitasoft.web.designer.controller.importer.AssetImporter;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ResourceLoader;
 
 @Named
 public class Workspace {
-
+    protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
     private WorkspacePathResolver workspacePathResolver;
     private WidgetRepository widgetRepository;
     private WidgetLoader widgetLoader;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     private ResourceLoader resourceLoader;
+    private AssetImporter<Widget> widgetAssetImporter;
 
     @Inject
     public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetLoader widgetLoader,
-                     WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader) {
+                     WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
         this.resourceLoader = resourceLoader;
         this.widgetDirectiveBuilder = widgetDirectiveBuilder;
+        this.widgetAssetImporter = widgetAssetImporter;
     }
 
     public void initialize() throws IOException {
@@ -62,12 +70,22 @@ public class Workspace {
     }
 
     private void ensureWidgetRepositoryFilled() throws IOException {
-        List<Widget> widgets = widgetLoader.getAll(Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI()));
+        Path widgetRepositorySourcePah = Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI());
+        List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePah);
 
         for (Widget widget : widgets) {
             if (!widgetRepository.exists(widget.getId())) {
                 createDirectories(widgetRepository.resolvePath(widget.getId()));
                 widgetRepository.save(widget);
+                //Widget assets are copied if they exist
+                try {
+                    List<Asset> assets = widgetAssetImporter.load(widget, widgetRepositorySourcePah);
+                    widgetAssetImporter.save(assets, widgetRepositorySourcePah);
+                } catch (IOException e) {
+                    String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
+                    logger.error(error, e);
+                    throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
+                }
             }
         }
         widgetDirectiveBuilder.start(workspacePathResolver.getWidgetsRepositoryPath());
