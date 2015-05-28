@@ -63,6 +63,10 @@
 @btn-bonita-asset-bg:                    #fff;
 @btn-bonita-asset-border:                darken(@btn-bonita-asset-bg, 5%);
 
+@btn-bonita-help-color:                  #fff;
+@btn-bonita-help-bg:                     lighten(@btn-bonita-default-bg, 10%);
+@btn-bonita-help-border:                 transparent;
+
 .btn-bonita-default {
   .button-variant(@btn-bonita-default-color, @btn-bonita-default-bg, @btn-bonita-default-border);
 }
@@ -78,6 +82,13 @@
   .button-variant(@btn-bonita-asset-color, @btn-bonita-asset-bg, @btn-bonita-asset-border);
 }
 
+.btn-bonita-help {
+  .button-variant(@btn-bonita-help-color, @btn-bonita-help-bg, @btn-bonita-help-border);
+
+  &:hover {
+    background-color: lighten(@btn-bonita-help-bg, 5%);
+  }
+}
 
 /**
  * Editor
