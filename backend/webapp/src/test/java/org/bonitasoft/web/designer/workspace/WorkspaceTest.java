@@ -29,6 +29,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.importer.AssetImporter;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.BeanValidator;
@@ -59,6 +60,8 @@ public class WorkspaceTest {
     @Mock
     private ResourceLoader resourceLoader;
     @Mock
+    private AssetImporter<Widget> widgetAssetImporter;
+    @Mock
     private Resource resource;
     @Mock
     private BeanValidator validator;
@@ -84,7 +87,7 @@ public class WorkspaceTest {
                 new WidgetLoader(jacksonObjectMapper),
                 validator);
 
-        workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader);
+        workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
     }
 
     @Test
