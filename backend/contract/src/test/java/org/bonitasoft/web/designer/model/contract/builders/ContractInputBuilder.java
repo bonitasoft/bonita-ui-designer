@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.model.contract.builders;
 
+import java.io.File;
 import java.util.Date;
 
 import org.bonitasoft.web.designer.model.contract.ContractInput;
@@ -97,6 +98,10 @@ public class ContractInputBuilder {
 
     public static LeafContractInput aDateContractInput(String name) {
         return new LeafContractInput(name, Date.class);
+    }
+
+    public static LeafContractInput aFileContractInput(String name) {
+        return new LeafContractInput(name, File.class);
     }
 
     public static ContractInputBuilder aNodeContractInput(String name) {

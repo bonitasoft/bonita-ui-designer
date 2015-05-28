@@ -22,7 +22,7 @@ import java.util.List;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.InputWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContainer;
@@ -51,10 +51,12 @@ public class ContractInputToWidgetMapper {
         Container container = toMultipleContainer(contractInput);
         rows.add(Collections.<Element> singletonList(parametrizedWidgetFactory.createTitle(contractInput).getAdapter(Component.class)));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
-        if (component instanceof InputWidget) {
-            component.setLabel("");
-            ((InputWidget) component).setLabelWidth(0);
-            ((InputWidget) component).setValue(ITEM_ITERATOR);
+        if (component instanceof Labeled) {
+            ((Labeled) component).setLabel("");
+            ((Labeled) component).setLabelWidth(0);
+        }
+        if (component instanceof Valuable) {
+            ((Valuable) component).setValue(ITEM_ITERATOR);
         }
         container.getRows().add(Collections.<Element> singletonList(component.getAdapter(Component.class)));
         return container;

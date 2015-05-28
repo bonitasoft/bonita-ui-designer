@@ -14,24 +14,18 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-/**
- * @author Romain Bioteau
- */
-public class InputWidget extends AbstractParametrizedWidget implements Labeled, Valuable {
+public class FileUploadWidget extends AbstractParametrizedWidget implements Valuable, Labeled {
 
-    static final String INPUT_WIDGET_ID = "pbInput";
+    static final String FILE_UPLOAD_WIDGET_ID = "pbUpload";
+
     private String labelPosition = LabelPosition.LEFT.getValue();
     private int labelWidth = 1;
-    private String type;
     private String placeholder;
     private String value;
+    private String url = "../API/formFileUpload";
 
-    public InputWidget(String widgetId) {
-        super(widgetId);
-    }
-
-    public InputWidget() {
-        super(INPUT_WIDGET_ID);
+    public FileUploadWidget() {
+        super(FILE_UPLOAD_WIDGET_ID);
     }
 
     public String getLabelPosition() {
@@ -50,14 +44,6 @@ public class InputWidget extends AbstractParametrizedWidget implements Labeled, 
         this.labelWidth = labelWidth;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(InputType type) {
-        this.type = type.getValue();
-    }
-
     public String getPlaceholder() {
         return placeholder;
     }
@@ -72,6 +58,14 @@ public class InputWidget extends AbstractParametrizedWidget implements Labeled, 
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }
