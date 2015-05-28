@@ -1,0 +1,52 @@
+<form action="{{assetSavingAction}}" name="addAsset" error-catcher="onError" ng-upload="onSuccess(content)">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-if="isNewAsset" translate>Create a new asset</h3>
+
+        <h3 class="modal-title" ng-if="!isNewAsset"><span translate>Edit asset</span>
+            <strong>{{asset.name}}</strong></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="control-label control-label--required" for="type" translate>Type</label>
+            <select name="type" ng-model="newAsset.type" class="form-control" ng-options="type.key as type.label for type in assetTypes"></select>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label control-label--required" for="place" translate>Place</label>
+            <select name="type" class="form-control" ng-model="newAsset.place" ng-options="place for place in assetPlaces"></select>
+        </div>
+
+        <div class="form-group row" ng-if="newAsset.place===externalPlace">
+            <label class="control-label control-label--required" for="name">
+                <span translate>URL</span>
+            </label>
+            <input type="text" ng-model="newAsset.name" class="form-control" autofocus placeholder="http://...." required>
+        </div>
+
+        <div class="form-group row" ng-if="newAsset.place!==externalPlace">
+            <label class="control-label control-label--required" for="name">
+                <span translate>File</span>
+            </label>
+            <div class="input-group file-upload">
+                <input type="text" readonly="" disabled placeholder="{{'Select your file' | translate}}"
+                       value="{{newAsset.filename}}" class="form-control">
+                    <span class="input-group-btn">
+                <span class="btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
+                    <input class="file-upload-input"
+                           ng-class="{'file-upload-input--disabled':$isUploading}"
+                           name="file" type="file"
+                           ng-model="newAsset.filename"
+                           required file-input-change/>
+                    <i class="fa" ng-class="{'fa fa-spinner fa-pulse':$isUploading, 'fa-folder':!$isUploading}"/>
+                </span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-if="newAsset.place!==externalPlace" ng-disabled="!addAsset.$valid" translate>Save</button>
+        <button class="btn btn-primary" type="button" ng-if="newAsset.place===externalPlace" ng-click="saveExternalAsset(newAsset)" ng-disabled="!addAsset.$valid" translate >Save</button>
+        <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
+    </div>
+</form>

@@ -5,7 +5,7 @@
     'use strict';
 
     return function(key){
-      return assets.getLabel(key);
+      return assets.getTypeLabel(key);
     };
   });
 
