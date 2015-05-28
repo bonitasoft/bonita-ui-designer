@@ -5,3 +5,53 @@
 .textarea--widget {
   resize:vertical;
 }
+
+.textarea--widget,
+.ace-editor--widget {
+  box-shadow: 1px 2px 5px -2px lighten(@gray-light, 20%);
+}
+
+.EditorHeader-name {
+  display: inline-block;
+  margin: 0 2em;
+  vertical-align: middle;
+  color: @color-editor-header-sub;
+}
+
+.CustomEditor {
+  background-color: lighten(@gray-lighter, 5%);
+  padding-bottom: 3em;
+}
+
+.EditorIDE {
+  box-shadow: 0 5px 5px @gray-light;
+}
+
+.CustomEditor-section {
+  color: @color-custom-editor-section;
+  font-size: 1.5em;
+  font-weight: normal;
+  position: relative;
+  margin: 1em 0 1.5em;
+}
+
+.CustomEditor-section::after {
+  content: '';
+  position: absolute;
+  width: 115px;
+  height: 2px;
+  bottom: -0.4em;
+  left: 0;
+  background-color: @color-custom-editor-section;
+}
+
+.Property-actions {
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.CustomEditor-helper {
+  font-size: .65em;
+  color: @color-custom-editor-helper;
+  vertical-align: top;
+}
