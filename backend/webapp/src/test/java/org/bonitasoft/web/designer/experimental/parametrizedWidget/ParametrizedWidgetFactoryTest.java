@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
@@ -107,6 +108,17 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         assertThat(component).isInstanceOf(CheckboxWidget.class);
         assertThat(component.getLabel()).isEqualTo("Is Validated");
+    }
+
+    @Test
+    public void create_a_file_upload_for_file_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aFileContractInput("document"));
+
+        assertThat(component).isInstanceOf(FileUploadWidget.class);
+        assertThat(component.getLabel()).isEqualTo("Document");
+        assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("../API/formFileUpload");
     }
 
     @Test
@@ -218,6 +230,15 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         boolean isSupported = elementFactory.isSupported(aDateContractInput("creationDate"));
+
+        assertThat(isSupported).isTrue();
+    }
+
+    @Test
+    public void file_contract_input_is_supported() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        boolean isSupported = elementFactory.isSupported(aFileContractInput("document"));
 
         assertThat(isSupported).isTrue();
     }
