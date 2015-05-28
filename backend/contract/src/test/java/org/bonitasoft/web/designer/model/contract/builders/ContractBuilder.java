@@ -24,7 +24,6 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
-import org.bonitasoft.web.designer.model.contract.ContractType;
 
 public class ContractBuilder {
 
@@ -38,11 +37,6 @@ public class ContractBuilder {
         return new ContractBuilder(new Contract());
     }
 
-    public ContractBuilder withType(ContractType type) {
-        contract.setContractType(type);
-        return this;
-    }
-
     public ContractBuilder withInput(ContractInput... contractInput) {
         for (ContractInput input : contractInput) {
             contract.addInput(input);
@@ -54,17 +48,8 @@ public class ContractBuilder {
         return contract;
     }
 
-    public static Contract aSimpleTaskContract() {
+    public static Contract aSimpleContract() {
         return aContract().withInput(aContractInput("name").withDescription("employee name").build(),
-                aBooleanContractInput("isValid"),
-                aNodeContractInput("ticket").withInput(
-                        aStringContractInput("title"),
-                        aDateContractInput("creationDate"),
-                        aLongContractInput("updateTime")).build()).build();
-    }
-
-    public static Contract aSimpleProcessContract() {
-        return aContract().withType(ContractType.PROCESS).withInput(aStringContractInput("name"),
                 aBooleanContractInput("isValid"),
                 aNodeContractInput("ticket").withInput(
                         aStringContractInput("title"),

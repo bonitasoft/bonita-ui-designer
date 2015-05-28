@@ -20,19 +20,15 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 
 import java.util.Date;
 
-import org.bonitasoft.web.designer.model.contract.ContractType;
-import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.builders.ContractBuilder;
-import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.junit.Test;
 
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,7 +36,7 @@ public class ContractDeserializerTest {
 
     @Test
     public void deserialize_a_serialized_contract_json_document_into_a_contract_object() throws Exception {
-        Contract aSimpleContract = aSimpleTaskContract();
+        Contract aSimpleContract = aSimpleContract();
         byte[] serializedContract = new ObjectMapper().writeValueAsBytes(aSimpleContract);
         ContractDeserializer contractDeserializer = new ContractDeserializer();
 
@@ -78,15 +74,4 @@ public class ContractDeserializerTest {
                 .contains(tuple("", String.class.getName(), null, false, false, newArrayList()));
     }
 
-    @Test
-    public void should_dezerialize_contract_type() throws Exception {
-        Contract anEmptyContract = aContract().withType(ContractType.PROCESS).build();
-        byte[] serializedContract = new ObjectMapper().writeValueAsBytes(anEmptyContract);
-        ContractDeserializer contractDeserializer = new ContractDeserializer();
-
-        Contract contract = contractDeserializer.deserialize(new JsonFactory(new ObjectMapper()).createParser(serializedContract), null);
-
-        assertThat(contract.getContractType()).isEqualTo(ContractType.PROCESS);
-
-    }
 }

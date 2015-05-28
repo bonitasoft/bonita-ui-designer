@@ -15,9 +15,11 @@
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleProcessContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleTaskContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
 import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;
@@ -163,19 +165,19 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_submit_button_with_submit_task_action_for_a_task_contract() throws Exception {
+    public void create_submit_button_with_submit_task_action_for_a_contract() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleTaskContract());
+        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.SUBMIT_TASK.getValue());
     }
 
     @Test
-    public void create_submit_button_with_start_process_action_for_a_process_contract() throws Exception {
+    public void create_submit_button_with_start_process_action_for_a_contract() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleProcessContract());
+        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.START_PROCESS);
 
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.START_PROCESS.getValue());
     }
@@ -184,7 +186,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_submit_button_with_submit_label() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleProcessContract());
+        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.START_PROCESS);
 
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         AbstractParametrizedWidgetAssert.assertThat(button)
@@ -288,6 +290,5 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     private ParametrizedWidgetFactory createFactory() {
         return new ParametrizedWidgetFactory();
     }
-
 
 }
