@@ -41,15 +41,15 @@ public class PreviewController {
 
     private PageRepository pageRepository;
     private Previewer previewer;
-    private AssetRepository<Page> pageAssetUploader;
-    private AssetRepository<Widget> widgetAssetUploader;
+    private AssetRepository<Page> pageAssetService;
+    private AssetRepository<Widget> widgetAssetService;
 
     @Inject
-    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetUploader, AssetRepository<Widget> widgetAssetUploader) {
+    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetService, AssetRepository<Widget> widgetAssetService) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
-        this.pageAssetUploader = pageAssetUploader;
-        this.widgetAssetUploader = widgetAssetUploader;
+        this.pageAssetService = pageAssetService;
+        this.widgetAssetService = widgetAssetService;
     }
 
     @RequestMapping(value = "/preview/page/{id}", produces = "text/html; charset=UTF-8")
@@ -72,7 +72,7 @@ public class PreviewController {
             HttpFile.writeFileInResponse(
                     request,
                     response,
-                    pageAssetUploader.findAssetPath(id, filename, AssetType.getAsset(type)));
+                    pageAssetService.findAssetPath(id, filename, AssetType.getAsset(type)));
         } catch (IOException e) {
             logger.error("Error when loading page asset", e);
             throw new ServletException("Error when loading page asset", e);
@@ -110,7 +110,7 @@ public class PreviewController {
             HttpFile.writeFileInResponse(
                     request,
                     response,
-                    widgetAssetUploader.findAssetPath(id, filename, AssetType.getAsset(type)));
+                    widgetAssetService.findAssetPath(id, filename, AssetType.getAsset(type)));
         } catch (IOException e) {
             logger.error("Error when loading widget asset", e);
             throw new ServletException("Error when loading widget asset", e);

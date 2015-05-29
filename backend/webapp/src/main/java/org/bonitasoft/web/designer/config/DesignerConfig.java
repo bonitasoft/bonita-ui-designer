@@ -238,7 +238,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetService<Page> pageAssetUploader(PageRepository pageRepository){
+    public AssetService<Page> pageAssetService(PageRepository pageRepository){
         return new AssetService<>(pageRepository, pageAssetRepository(pageRepository));
     }
 
@@ -248,7 +248,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetService<Widget> widgetAssetUploader(WidgetRepository widgetRepository){
+    public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository){
         return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository));
     }
 }
