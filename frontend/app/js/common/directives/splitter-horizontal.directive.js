@@ -113,11 +113,13 @@ angular.module('pb.directives')
           //When the state didn't change it's a panel toggle or panel is hidden
           if(currentState === targetState && $ctrl.displayed || ! $ctrl.displayed){
             $ctrl.toggleBottom();
-            return;
           }
+
+          if(currentState !== targetState) {
             //Call ui-router to change state
             currentState = targetState;
             $state.go(currentState);
+          }
 
         });
       }
