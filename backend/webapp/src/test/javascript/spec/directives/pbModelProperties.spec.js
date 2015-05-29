@@ -23,11 +23,15 @@ describe('Directive: modelProperties', function () {
             }[uuid];
           }
         });
-      }));
 
-  var properties = {
-    'baz': {type: 'data', value: 'foo'}
-  };
+        $provide.value('modelPropertiesFactory', {
+          get: function (uuid) {
+            return {
+              'properties': {'baz': {type: 'data', value: 'foo'}}
+            }[uuid];
+          }
+        });
+      }));
 
   var $scope, modelFactory, $compile, element;
 
@@ -36,8 +40,7 @@ describe('Directive: modelProperties', function () {
     modelFactory = _modelFactory_;
     $scope = $rootScope.$new();
 
-    $scope.properties = properties;
-    element = $compile('<div pb-model=\'outerModel\'><div pb-model=\'innerModel\' pb-model-properties=\'' + JSON.stringify(properties) + '\'></div></div>')($scope);
+    element = $compile('<div pb-model=\'outerModel\'><div pb-model=\'innerModel\' pb-model-properties=\'properties\'></div></div>')($scope);
     $scope.$apply();
   }));
 
