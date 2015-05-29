@@ -27,6 +27,7 @@ import java.util.Collections;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PageType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.junit.Before;
 import org.junit.Test;
@@ -144,5 +145,14 @@ public class PagePropertiesBuilderTest {
         String properties = new String(pagePropertiesBuilder.build(page));
 
         assertThat(properties).contains("resources=[GET|bpm/userTask, POST|bpm/process, POST|bpm/userTask]");
+    }
+
+    @Test
+    public void should_add_contentType() throws Exception {
+        page.setType(PageType.LAYOUT);
+
+        String properties = new String(pagePropertiesBuilder.build(page));
+
+        assertThat(properties).contains("contentType=layout");
     }
 }
