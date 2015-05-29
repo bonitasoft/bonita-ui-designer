@@ -12,12 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.controller.upload;
+package org.bonitasoft.web.designer.controller.asset;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.bonitasoft.web.designer.controller.ErrorMessage;
+import com.google.common.base.Preconditions;
+import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -25,35 +29,36 @@ import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 
-public class AssetUploader<T extends Assetable> {
+public class AssetService<T extends Assetable> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(AssetUploader.class);
+    protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
+    public static final String ASSET_TYPE_IS_REQUIRED = "Asset type is required";
+    public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
 
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
 
-    public AssetUploader(Repository<T> repository, AssetRepository<T> assetRepository) {
+
+    public AssetService(Repository<T> repository, AssetRepository<T> assetRepository) {
         this.repository = repository;
         this.assetRepository = assetRepository;
     }
 
-    public ErrorMessage upload(MultipartFile file, T component, String type) {
-
-        if (file == null || file.isEmpty()) {
-            return new ErrorMessage("Argument", "Part named [file] is needed to successfully import a component");
-        }
-
+    /**
+     * Upload a local asset
+     */
+    public void upload(MultipartFile file, T component, String type) {
         AssetType assetType = AssetType.getAsset(type);
-        if (assetType == null) {
-            return new ErrorMessage("Argument", "The type is invalid");
-        }
+
+        checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
+        checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
         Asset asset = new Asset()
                 .setName(file.getOriginalFilename())
@@ -61,6 +66,21 @@ public class AssetUploader<T extends Assetable> {
                 .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
                 .setType(assetType);
 
+        deleteComponentAsset(component, asset);
+
+        try {
+            assetRepository.save(asset, file.getBytes());
+            //The component is updated
+            component.getAssets().add(asset);
+            repository.save(component);
+
+        } catch (IOException e) {
+            logger.error("Asset creation" + e);
+            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName(), component.getId()), e);
+        }
+    }
+
+    private void deleteComponentAsset(T component, Asset asset) {
         for (Iterator<Asset> assetIterator = component.getAssets().iterator(); assetIterator.hasNext(); ) {
             Asset existingAsset = assetIterator.next();
 
@@ -71,26 +91,35 @@ public class AssetUploader<T extends Assetable> {
                 } catch (NotFoundException e) {
                     logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
                 } catch (IOException e) {
-                    return new ErrorMessage("Web resource deletion", String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()));
+                    throw new RepositoryException(String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()), e);
                 }
                 assetIterator.remove();
                 break;
             }
         }
-
-        try {
-            assetRepository.save(asset, file.getBytes());
-            //The component is updated
-            component.getAssets().add(asset);
-            repository.save(component);
-
-        } catch (IOException e) {
-            logger.error("Asset creation" + e);
-            return new ErrorMessage("Asset creation", String.format("Error while creating asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()));
-        }
-
-        return null;
     }
 
+    /**
+     * Save an external asset
+     */
+    public void save(T component, Asset asset) {
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
+        if (!component.getAssets().contains(asset)) {
+            component.getAssets().add(asset);
+        }
+        repository.save(component);
+    }
+
+    /**
+     * Delete an external asset
+     */
+    public void delete(T component, Asset asset) {
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
+
+        deleteComponentAsset(component, asset);
+        repository.save(component);
+    }
 }
