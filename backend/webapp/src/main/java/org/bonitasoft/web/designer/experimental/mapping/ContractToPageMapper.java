@@ -47,6 +47,9 @@ public class ContractToPageMapper {
     public Page createPage(String name, Contract contract, FormScope scope) {
         Page page = createEmptyPageWithData(name, contract, scope);
         contract.accept(new ContractInputVisitorImpl(page, contractToWidgetMapper));
+        if (page.getRows().isEmpty()) {
+            page.getRows().add(new ArrayList<Element>());
+        }
         if (scope != FormScope.OVERVIEW) {
             addSubmitButton(page, contract, scope);
         }
