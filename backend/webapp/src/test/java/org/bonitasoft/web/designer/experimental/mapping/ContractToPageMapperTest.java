@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterCons
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PageType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -52,6 +53,15 @@ public class ContractToPageMapperTest {
 
     private ContractToPageMapper makeContractToPageMapper() {
         return new ContractToPageMapper(new ContractInputToWidgetMapper(), objectMapper);
+    }
+
+    @Test
+    public void should_create_a_page_the_form_type() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
+
+        assertThat(page.getType()).isEqualTo(PageType.FORM);
     }
 
     @Test
