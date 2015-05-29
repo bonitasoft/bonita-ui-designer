@@ -5,15 +5,15 @@
                 {{ header }}
             </th>
         </thead>
-        <tbody ng-if="ctrl.isArray(properties.availableValues) && ctrl.isArray(properties.columnsKey)">
-            <tr ng-repeat="row in properties.availableValues" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
+        <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
                 <td ng-repeat="column in properties.columnsKey track by $index">
                     {{ $eval(column, row) }}
                 </td>
             </tr>
         </tbody>
-        <tbody ng-if="ctrl.isArray(properties.availableValues) && !ctrl.isArray(properties.columnsKey)">
-            <tr ng-repeat="row in properties.availableValues" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
                 <td> {{ row }} </td>
             </tr>
         </tbody>

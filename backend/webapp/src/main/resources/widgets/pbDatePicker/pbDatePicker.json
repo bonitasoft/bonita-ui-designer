@@ -62,7 +62,7 @@
       "type": "text"
     },
     {
-      "label": "dateFormat",
+      "label": "Date format",
       "name": "dateFormat",
       "type": "text",
       "defaultValue": "MM/dd/yyyy",
