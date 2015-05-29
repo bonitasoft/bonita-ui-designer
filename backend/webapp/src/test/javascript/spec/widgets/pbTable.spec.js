@@ -23,7 +23,7 @@ describe('pbTable', function() {
   });
 
   it('should add a tr per row', function() {
-    scope.properties.availableValues = ['first', 'second', 'third'];
+    scope.properties.content = ['first', 'second', 'third'];
     var element = $compile('<pb-table></pb-table>')(scope);
     scope.$apply();
 
@@ -35,7 +35,7 @@ describe('pbTable', function() {
   });
 
   it('should fill rows using columnsKey', function() {
-    scope.properties.availableValues = [{id: '42', content: 'hello'}, {id: '43', content: 'salut'}];
+    scope.properties.content = [{id: '42', content: 'hello'}, {id: '43', content: 'salut'}];
     scope.properties.columnsKey = ['id', 'content'];
     var element = $compile('<pb-table></pb-table>')(scope);
     scope.$apply();
@@ -50,7 +50,7 @@ describe('pbTable', function() {
   });
 
   it('should handle columnKey with nested properties', function() {
-      scope.properties.availableValues = [{id: '42', content: {name: 'hello'}}, {id: '43', content: {name: 'salut'}}];
+      scope.properties.content = [{id: '42', content: {name: 'hello'}}, {id: '43', content: {name: 'salut'}}];
       scope.properties.columnsKey = ['id', 'content.name'];
       var element = $compile('<pb-table></pb-table>')(scope);
       scope.$apply();
@@ -65,7 +65,7 @@ describe('pbTable', function() {
     });
 
   it('should not show tbody if rows isn\'t an array', function() {
-    scope.properties.availableValues = '';
+    scope.properties.content = '';
     var element = $compile('<pb-table></pb-table>')(scope);
     scope.$apply();
 
@@ -73,7 +73,7 @@ describe('pbTable', function() {
   });
 
   it('should allow selecting row', function() {
-    scope.properties.availableValues = ['first', 'second', 'third', 'last'];
+    scope.properties.content = ['first', 'second', 'third', 'last'];
     scope.propertyValues = {
       selectedRow: {type: 'data'}
     };

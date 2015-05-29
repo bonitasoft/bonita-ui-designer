@@ -5,7 +5,7 @@ angular.module('pb.factories')
 
     var common = [
       {
-        label: 'Css classes',
+        label: 'CSS classes',
         caption: 'Space separated',
         name: 'cssClasses',
         type: 'string',
