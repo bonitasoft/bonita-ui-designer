@@ -20,6 +20,10 @@ describe('Directive: propertyValues', function () {
             }[uuid];
           }
         });
+        $provide.value('modelPropertiesFactory', {
+          get: function () {
+          }
+        });
       }
     ));
 
@@ -117,9 +121,9 @@ describe('Directive: propertyValues', function () {
 
     function compileRepeatedTemplate() {
       return $compile('<div pb-model=\'dataModel\'>' +
-      '<div class="container" pb-property-values=\'containerProperties\'>' +
-      '<div ng-repeat="$item in properties.repeatedCollection" ng-init="$collection = properties.repeatedCollection">' +
-      '<div class="widget" pb-property-values=\'properties\'></div></div></div></div>')($scope);
+        '<div class="container" pb-property-values=\'containerProperties\'>' +
+        '<div ng-repeat="$item in properties.repeatedCollection" ng-init="$collection = properties.repeatedCollection">' +
+        '<div class="widget" pb-property-values=\'properties\'></div></div></div></div>')($scope);
     }
 
     it('should allow access to the current value of the iteration', function () {
