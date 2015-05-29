@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.io.IOException;
@@ -38,6 +39,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class AssetService<T extends Assetable> {
 
     protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
+    public static final String ASSET_TYPE_IS_REQUIRED = "Asset type is required";
+    public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
 
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
@@ -54,8 +57,8 @@ public class AssetService<T extends Assetable> {
     public void upload(MultipartFile file, T component, String type) {
         AssetType assetType = AssetType.getAsset(type);
 
-        Preconditions.checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
-        Preconditions.checkArgument(assetType != null, "The type is invalid");
+        checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
+        checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
         Asset asset = new Asset()
                 .setName(file.getOriginalFilename())
@@ -100,8 +103,8 @@ public class AssetService<T extends Assetable> {
      * Save an external asset
      */
     public void save(T component, Asset asset) {
-        Preconditions.checkArgument(isNotEmpty(asset.getName()), "Asset URL is required");
-        Preconditions.checkArgument(asset.getType() != null, "Asset type is required");
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
         if (!component.getAssets().contains(asset)) {
             component.getAssets().add(asset);
@@ -113,8 +116,8 @@ public class AssetService<T extends Assetable> {
      * Delete an external asset
      */
     public void delete(T component, Asset asset) {
-        Preconditions.checkArgument(isNotEmpty(asset.getName()), "Asset URL is required");
-        Preconditions.checkArgument(asset.getType() != null, "Asset type is required");
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
         deleteComponentAsset(component, asset);
         repository.save(component);
