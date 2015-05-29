@@ -14,25 +14,34 @@
  */
 package org.bonitasoft.web.designer.experimental.mapping;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.ElementContainer;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
 
+@Named
 public class ContractToPageMapper {
 
     private static final String CONTEXT_API_URL = "/bonita/API/bpm/userTask/{{taskId}}/context";
     private static final String CONTEXT_DATA_NAME = "context";
     private static final String TASK_ID_DATA_NAME = "taskId";
     private ContractInputToWidgetMapper contractToWidgetMapper;
+    private JacksonObjectMapper objectMapperWrapper;
 
-    public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper) {
+    @Inject
+    public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, JacksonObjectMapper objectMapperWrapper) {
         this.contractToWidgetMapper = contractToWidgetMapper;
+        this.objectMapperWrapper = objectMapperWrapper;
     }
 
     public Page createPage(String name, Contract contract, FormScope scope) {
@@ -48,13 +57,30 @@ public class ContractToPageMapper {
         Page page = new Page();
         page.setName(name);
         if (scope != FormScope.OVERVIEW) {
-            page.addData(ContractInputToWidgetMapper.SENT_DATA_NAME, newData(DataType.JSON, "{}"));
+            addFormInputData(contract, page);
+            addFormOutputData(contract, page);
         }
         if (scope == FormScope.TASK) {
             page.addData(TASK_ID_DATA_NAME, newData(DataType.URLPARAMETER, "id"));
             page.addData(CONTEXT_DATA_NAME, newData(DataType.URL, CONTEXT_API_URL));
         }
         return page;
+    }
+
+    private void addFormOutputData(Contract contract, Page page) {
+        FormOutputVisitor formOutputVisitor = new FormOutputVisitor();
+        contract.accept(formOutputVisitor);
+        page.addData(ContractInputToWidgetMapper.FORM_OUTPUT_DATA, newData(DataType.EXPRESSION, formOutputVisitor.toJavascriptExpression()));
+    }
+
+    private void addFormInputData(Contract contract, Page page) {
+        FormInputVisitor formInputVisitor = new FormInputVisitor(objectMapperWrapper);
+        contract.accept(formInputVisitor);
+        try {
+            page.addData(ContractInputToWidgetMapper.FORM_INPUT_DATA, newData(DataType.JSON, formInputVisitor.toJson()));
+        } catch (IOException e) {
+            page.addData(ContractInputToWidgetMapper.FORM_INPUT_DATA, newData(DataType.JSON, "{}"));
+        }
     }
 
     private Data newData(DataType type, Object value) {
@@ -69,5 +95,4 @@ public class ContractToPageMapper {
         row.add(contractToWidgetMapper.createSubmitButton(contract, ButtonAction.fromScope(scope)));
         page.getRows().add(row);
     }
-
 }
