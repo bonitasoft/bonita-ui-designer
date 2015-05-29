@@ -30,18 +30,22 @@
 .BottomPanel-toggleBar {
   position: absolute;
   top: -2.6em;
-  padding: 4px 8px;
+  padding: 4px 0;
   text-align: left;
 }
 
 .BottomPanel-toggle {
   font-size: 1.2em;
-  padding: 4px 8px;
+  padding: 4px 10px;
   text-align: left;
   display: inline-block;
   background-color: @color-data-bg;
-}
 
+  &:not(.BottomPanel-toggle--active) {
+    color: white;
+    background-color: lighten(@color-data-bg, 5%);
+  }
+}
 
 /**
  * Data panel filter
