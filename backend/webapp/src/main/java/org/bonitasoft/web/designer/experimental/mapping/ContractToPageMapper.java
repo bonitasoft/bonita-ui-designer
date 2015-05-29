@@ -28,6 +28,7 @@ import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PageType;
 
 @Named
 public class ContractToPageMapper {
@@ -46,6 +47,7 @@ public class ContractToPageMapper {
 
     public Page createPage(String name, Contract contract, FormScope scope) {
         Page page = createEmptyPageWithData(name, contract, scope);
+        page.setType(PageType.FORM);
         contract.accept(new ContractInputVisitorImpl(page, contractToWidgetMapper));
         if (page.getRows().isEmpty()) {
             page.getRows().add(new ArrayList<Element>());

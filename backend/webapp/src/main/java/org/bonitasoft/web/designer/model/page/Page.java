@@ -47,6 +47,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     @NotBlank(message = "Page name should not be blank")
     @Pattern(regexp = "[a-zA-Z0-9]*$", message = "Page name should contains only alphanumeric characters with no space")
     private String name;
+    private PageType type = PageType.PAGE;
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
@@ -68,6 +69,15 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    public PageType getType() {
+        return type;
+    }
+
+    public void setType(PageType type) {
+        this.type = type;
     }
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
@@ -94,10 +104,10 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
         return assets;
     }
 
+
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
     }
-
 
     @JsonView({ JsonViewPersistence.class })
     public Map<String, Data> getData() {
@@ -159,5 +169,4 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
                 .append("data", data)
                 .toString();
     }
-
 }
