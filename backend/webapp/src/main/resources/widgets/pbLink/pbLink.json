@@ -9,8 +9,7 @@
       "label": "Text",
       "name": "text",
       "type": "text",
-      "defaultValue": "Link",
-      "caption": "Text do display"
+      "defaultValue": "Link"
     },
     {
       "label": "Target Url",

@@ -55,14 +55,14 @@
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT'"
     },
     {
-      "label": "Data to send on click",
+      "label": "Data sent on click",
       "help": "Data submitted with the HTTP request when this button is clicked.",
       "type": "text",
       "name": "dataToSend",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
     },
     {
-      "label": "Bind data on success",
+      "label": "Successful request binding",
       "caption": "If the request returns a value, it will be bound to this variable",
       "help": "The page variable to map to the data returned if the HTTP request succeeds. If the data is not mapped to a variable, it is not usable.",
       "name": "dataFromSuccess",
@@ -71,7 +71,7 @@
       "bidirectional": true
     },
     {
-      "label": "Bind data on error",
+      "label": "Failed request binding",
       "caption": "If the request returns a value, it will be bound to this variable",
       "help": "The page variable to map to the data returned if the HTTP request fails. If the data is not mapped to a variable, it is not usable.",
       "name": "dataFromError",
