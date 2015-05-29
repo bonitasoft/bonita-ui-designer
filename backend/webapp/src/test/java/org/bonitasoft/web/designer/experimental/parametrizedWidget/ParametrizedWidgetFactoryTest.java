@@ -111,14 +111,14 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_file_upload_for_file_contract_input() throws Exception {
+    public void create_a_file_upload_for_file_contract_input_with_a_default_url() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aFileContractInput("document"));
 
         assertThat(component).isInstanceOf(FileUploadWidget.class);
         assertThat(component.getLabel()).isEqualTo("Document");
-        assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("../API/formFileUpload");
+        assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("/bonita/API/formFileUpload");
     }
 
     @Test

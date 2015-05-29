@@ -54,19 +54,17 @@ public class JacksonObjectMapperTest {
     public void should_format_json_when_using_pretty_print_on_object() throws Exception {
         SimpleObject object = new SimpleObject("id", "Vincent", 1);
 
-        assertThat(objectMapper.prettyPrint(object)).isEqualTo("{\n" +
-                "  \"id\" : \"id\",\n" +
-                "  \"name\" : \"Vincent\",\n" +
-                "  \"number\" : 1\n" +
+        assertThat(objectMapper.prettyPrint(object)).isEqualTo("{" + System.lineSeparator() +
+                "  \"id\" : \"id\"," + System.lineSeparator() +
+                "  \"name\" : \"Vincent\"," + System.lineSeparator() +
+                "  \"number\" : 1" + System.lineSeparator() +
                 "}");
     }
 
     @Test
     public void should_format_json_when_using_pretty_print_on_json() throws Exception {
-        SimpleObject object = new SimpleObject("id", "Vincent", 1);
-
-        assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{\n" +
-                "  \"foo\" : \"bar\"\n" +
+        assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{" + System.lineSeparator() +
+                "  \"foo\" : \"bar\"" + System.lineSeparator() +
                 "}");
     }
 }
