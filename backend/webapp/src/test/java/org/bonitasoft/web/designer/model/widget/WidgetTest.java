@@ -47,7 +47,7 @@ public class WidgetTest {
         assertEquals(json,
                 "{\"id\":\"UUID2\",\"name\":\"aName\",\"custom\":false,"
                         + "\"usedBy\":{"
-                        + "\"page\":[{\"id\":\"UUID\",\"name\":\"myPage\"}],"
+                        + "\"page\":[{\"id\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\"}],"
                         + "\"widget\":[{\"id\":\"UUID\",\"name\":\"aName\",\"custom\":false}]}}", true);
     }
 
