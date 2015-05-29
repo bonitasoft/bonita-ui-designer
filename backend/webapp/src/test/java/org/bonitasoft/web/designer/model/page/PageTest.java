@@ -42,7 +42,7 @@ public class PageTest {
     @Test
     public void jsonview_light_should_only_manage_id_and_name() throws Exception {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledPage());
-        assertThat(json).isEqualTo("{\"id\":\"UUID\",\"name\":\"myPage\"}");
+        assertThat(json).isEqualTo("{\"id\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\"}");
     }
 
     @Test
