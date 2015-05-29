@@ -43,4 +43,12 @@ public class JacksonObjectMapper {
         // Use UTF8 to accept any character and have platform-independent files.
         return objectMapper.writerWithView(serializationView).writeValueAsString(object).getBytes(StandardCharsets.UTF_8);
     }
+
+    public String prettyPrint(Object object) throws IOException {
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    }
+
+    public String prettyPrint(String json) throws IOException {
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(fromJson(json.getBytes(StandardCharsets.UTF_8), Object.class));
+    }
 }

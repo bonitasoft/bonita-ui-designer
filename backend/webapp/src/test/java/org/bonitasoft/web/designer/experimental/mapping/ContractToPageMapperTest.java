@@ -18,20 +18,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.DataBuilder.aJSONData;
 import static org.bonitasoft.web.designer.builder.DataBuilder.aUrlParameterData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.anExpressionData;
 import static org.bonitasoft.web.designer.builder.DataBuilder.anURLData;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {
+
+    JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
 
     @Test
     public void visit_a_contract_when_creating_a_page() throws Exception {
@@ -43,16 +51,17 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(new ContractInputToWidgetMapper());
+        return new ContractToPageMapper(new ContractInputToWidgetMapper(), objectMapper);
     }
 
     @Test
-    public void create_a_page_with_a_sentData_json_data() throws Exception {
+    public void create_a_page_with_form_input_and_output() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
         Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("formOutput", aJSONData().value("{}").build()));
+        assertThat(page.getData()).contains(entry("formInput", aJSONData().value(objectMapper.prettyPrint("{\"names\":\"\"}")).build()));
+        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("return {'names':$data.formInput.names};").build()));
     }
 
     @Test
