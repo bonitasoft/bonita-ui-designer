@@ -13,13 +13,13 @@
       "defaultValue": false
     },
     {
-      "label": "Min length",
+      "label": "Value min length",
       "name": "minLength",
       "type": "integer",
       "defaultValue": ""
     },
     {
-      "label": "Max length",
+      "label": "Value max length",
       "name": "maxLength",
       "type": "integer",
       "defaultValue": ""

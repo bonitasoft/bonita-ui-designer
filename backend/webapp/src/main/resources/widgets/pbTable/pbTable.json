@@ -15,9 +15,9 @@
       "defaultValue": ["Id", "Name", "Description", "Date"]
     },
     {
-      "label": "Available values",
+      "label": "Content",
       "help": "Collection used to populate the table. Could be a simple list or a list of objects",
-      "name": "availableValues",
+      "name": "content",
       "type": "collection"
     },
     {
