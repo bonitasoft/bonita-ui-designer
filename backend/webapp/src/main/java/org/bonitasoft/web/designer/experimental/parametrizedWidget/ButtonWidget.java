@@ -22,6 +22,7 @@ public class ButtonWidget extends AbstractParametrizedWidget {
     private String action;
     private String dataToSend;
     private String collectionToModify;
+    private String targetUrlOnSuccess;
 
     public ButtonWidget() {
         super(BUTTON_WIDGET_ID);
@@ -67,4 +68,11 @@ public class ButtonWidget extends AbstractParametrizedWidget {
         this.collectionToModify = collectionToModify;
     }
 
+    public String getTargetUrlOnSuccess() {
+        return targetUrlOnSuccess;
+    }
+
+    public void setTargetUrlOnSuccess(String targetUrlOnSuccess) {
+        this.targetUrlOnSuccess = targetUrlOnSuccess;
+    }
 }
