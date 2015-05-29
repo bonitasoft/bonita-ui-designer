@@ -22,10 +22,10 @@ module.exports = function(gulp, config) {
   });
 
   /**
-   * Task to inline JSON and add them to the webapp for production.
+   * Task to inline add widgets to the webapp for production and inline templates in json file
    */
   gulp.task('widgets', function () {
-    return gulp.src(paths.JSONs)
+    return gulp.src(paths.widgets.concat('!**/*.ctrl.js', '!**/*.tpl.html'))
       .pipe(inlineJSON())
       .pipe(gulp.dest(paths.dest.json));
   });
