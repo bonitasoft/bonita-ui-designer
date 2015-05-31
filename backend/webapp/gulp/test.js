@@ -32,7 +32,7 @@ module.exports = function(gulp, config) {
   gulp.task('test:widgets', function () {
     return gulp.src(paths.widgets)
       .pipe(inlineJSON())
-      .pipe(buildDirective('src/main/resources/templates/widgetDirectiveTemplate.hbs.js'))
+      .pipe(buildDirective(__dirname + '/../src/main/resources/templates/widgetDirectiveTemplate.hbs.js'))
       .pipe(gulp.dest('target/widget-directives'));
   });
 
