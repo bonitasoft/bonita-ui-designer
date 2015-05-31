@@ -3,6 +3,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: @color-palette-bg;
+  border-right: 1px solid @color-palette-bg;
 }
 
 .Palette {
@@ -103,8 +104,9 @@
 
 .toggle {
   font-size: 24px;
-  border: 1px solid #ddd;
-  background-color: white;
+  background-color: @color-palette-bg;
+  color: @color-palette-item-text;
+
   position: absolute;
   top: 1em;
   z-index: @z-index-splitter + 1;
@@ -112,7 +114,6 @@
     pointer-events: none;
     margin: 0 0.3em;
   }
-  box-shadow: 2px 2px 3px #ccc;
 }
 
 #toggle-palette {
