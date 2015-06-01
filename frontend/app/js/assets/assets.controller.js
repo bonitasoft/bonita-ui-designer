@@ -17,7 +17,9 @@
      */
     function refreshAssetsInScope(response){
       $scope.assets = response;
-      $scope[mode].assets = artifact;
+      $scope[mode].assets = response.filter(function(asset){
+        return asset.scope!=='WIDGET';
+      });
     }
     function refresh(){
       artifactRepo.loadAssets(artifact).then(refreshAssetsInScope);
@@ -108,7 +110,8 @@
           }
         }
       });
-      modalInstance.result.then(createAndRefresh);
+      modalInstance.result
+        .then(createAndRefresh);
     };
   });
 
