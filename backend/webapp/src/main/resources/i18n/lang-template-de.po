@@ -1,0 +1,461 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: bonita-bpm-new-features\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: bonita-bpm-new-features\n"
+"X-Crowdin-Language: de\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"PO-Revision-Date: 2015-05-26 02:56-0400\n"
+
+#: editor/data-panel/data-popup.html:12
+msgid "'{{newData.$$name}}' is already used"
+msgstr "'{{newData.$$name}}' is already used"
+
+#: custom-widget/custom-widget-editor.html:86
+msgid "(displayed in editor's property panel)"
+msgstr "(displayed in editor's property panel)"
+
+#: custom-widget/custom-widget-editor.html:81
+msgid "(used in your template and controller)"
+msgstr "(used in your template and controller)"
+
+#: editor/editor.html:5
+msgid "<span class=\"editor-title\">{{ mode }}</span> editor"
+msgstr "<span class=\"editor-title\">{{ mode }}</span> editor"
+
+#: editor/data-panel/data-popup.html:56
+msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
+msgstr "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
+
+#: editor/data-panel/data-popup.html:65
+msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger auto-completion."
+msgstr "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger auto-completion."
+
+#: editor/data-panel/data-popup.html:39
+msgid "<span class=\"tip\">Tip:</span> URL parameter are located after a <em>?</em> in the page Url."
+msgstr "<span class=\"tip\">Tip:</span> URL parameter are located after a <em>?</em> in the page Url."
+
+#: editor/data-panel/data-popup.html:47
+msgid "<span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em>"
+msgstr "<span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em>"
+
+#: editor/properties-panel/properties-panel.html:24
+msgid "Add a tab"
+msgstr "Add a tab"
+
+#: editor/data-panel/data-popup.html:43
+msgid "Api url"
+msgstr "Api url"
+
+#: custom-widget/custom-widget-editor.html:115
+#: editor/data-panel/data-popup.html:76
+#: editor/save-as-popup.html:20
+#: home/confirm-deletion-popup.html:10
+#: home/import-artifact.html:26
+msgid "Cancel"
+msgstr "Annulieren"
+
+#: custom-widget/custom-widget-editor.html:59
+msgid "Choices"
+msgstr "Auswahl"
+
+#: custom-widget/custom-widget-editor.html:95
+msgid "Choices (comma separated)"
+msgstr "Choices (comma separated)"
+
+#: editor/data-panel/data.html:14
+msgid "Clear filter"
+msgstr "Clear filter"
+
+#: home/alert-deletion-notpossible-popup.html:16
+msgid "Close"
+msgstr "Schließen"
+
+#: home/confirm-deletion-popup.html:3
+msgid "Confirm deletion"
+msgstr "Löschen bestätigen"
+
+#: custom-widget/custom-widget-editor.html:35
+msgid "Controller"
+msgstr "Controller"
+
+#: custom-widget/custom-widget-editor.html:46
+msgid "Create"
+msgstr "Erstellen"
+
+#: editor/data-panel/data-popup.html:3
+#: editor/data-panel/data.html:4
+msgid "Create a new variable"
+msgstr "Create a new variable"
+
+#: home/home.html:41
+msgid "Create new page"
+msgstr "Create new page"
+
+#: custom-widget/custom-widget-editor.html:75
+msgid "Create new property"
+msgstr "Create new property"
+
+#: home/home.html:118
+msgid "Create new widget"
+msgstr "Create new widget"
+
+#: home/home.html:108
+msgid "Custom Widgets"
+msgstr "Custom Widgets"
+
+#: custom-widget/custom-widget-editor.controller.js:7
+msgid "Custom widget [ {{name}} ] successfully saved"
+msgstr "Custom widget [ {{name}} ] successfully saved"
+
+#: custom-widget/custom-widget-editor.html:4
+msgid "Custom widget editor"
+msgstr "Custom widget editor"
+
+#: editor/data-panel/data.html:1
+#: editor/editor.html:77
+msgid "Data"
+msgstr "Daten"
+
+#: editor/data-panel/data-popup.html:17
+msgid "Data name\n"
+"                should start with a letter and be composed of alphanumeric character"
+msgstr "Data name\n"
+"                should start with a letter and be composed of alphanumeric character"
+
+#: custom-widget/custom-widget-editor.html:99
+msgid "Default"
+msgstr "Standard"
+
+#: custom-widget/custom-widget-editor.html:60
+msgid "Default value"
+msgstr "Standardwert"
+
+#: home/confirm-deletion-popup.html:9
+msgid "Delete"
+msgstr "Löschen"
+
+#: home/home.html:93
+msgid "Delete page"
+msgstr "Delete page"
+
+#: editor/data-panel/data.html:42
+msgid "Delete variable"
+msgstr "Delete variable"
+
+#: home/home.html:150
+msgid "Delete widget"
+msgstr "Delete widget"
+
+#: home/alert-deletion-notpossible-popup.html:4
+msgid "Deletion is not possible"
+msgstr "Deletion is not possible"
+
+#: custom-widget/custom-widget-editor.html:26
+msgid "Description"
+msgstr "Beschreibung"
+
+#: home/confirm-deletion-popup.html:5
+msgid "Do you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b> ?"
+msgstr "Do you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b> ?"
+
+#: custom-widget/custom-widget-editor.html:76
+msgid "Edit property"
+msgstr "Edit property"
+
+#: editor/properties-panel/properties-panel.html:8
+msgid "Edit the custom widget"
+msgstr "Edit the custom widget"
+
+#: editor/data-panel/data-popup.html:5
+#: editor/data-panel/data.html:39
+msgid "Edit variable"
+msgstr "Variable bearbeiten"
+
+#: editor/editor.html:16
+msgid "Enter ' +  mode + ' name"
+msgstr "Enter ' +  mode + ' name"
+
+#: home/home.html:53
+msgid "Existing Pages"
+msgstr "Existing Pages"
+
+#: home/home.html:128
+msgid "Existing Widgets"
+msgstr "Existing Widgets"
+
+#: custom-widget/custom-widget-editor.html:17
+#: editor/editor.html:37
+msgid "Export"
+msgstr "Exportieren"
+
+#: home/home.html:89
+msgid "Export page"
+msgstr "Export page"
+
+#: home/home.html:146
+msgid "Export widget"
+msgstr "Export widget"
+
+#: editor/data-panel/data.html:25
+msgid "Exposed"
+msgstr "Exposed"
+
+#: editor/data-panel/data-type.service.js:18
+msgid "External API"
+msgstr "External API"
+
+#: home/import-artifact.html:25
+msgid "Import"
+msgstr "Importieren"
+
+#: home/home.html:49
+msgid "Import a page"
+msgstr "Import a page"
+
+#: home/home.html:123
+msgid "Import a widget"
+msgstr "Import a widget"
+
+#: home/import-artifact.html:6
+msgid "Import a {{importType}}"
+msgstr "Import a {{importType}}"
+
+#: editor/data-panel/data-type.service.js:17
+msgid "JSON"
+msgstr "JSON"
+
+#: editor/data-panel/data-type.service.js:19
+msgid "Javascript expression"
+msgstr "Javascript expression"
+
+#: custom-widget/custom-widget-editor.html:55
+#: custom-widget/custom-widget-editor.html:86
+msgid "Label"
+msgstr "Label"
+
+#: editor/workspace/container.html:13
+msgid "Move the row down"
+msgstr "Move the row down"
+
+#: editor/workspace/container.html:12
+msgid "Move the row up"
+msgstr "Move the row up"
+
+#: custom-widget/custom-widget-editor.html:81
+#: editor/data-panel/data-popup.html:11
+#: editor/data-panel/data-popup.html:14
+#: editor/data-panel/data.html:22
+msgid "Name"
+msgstr "Name"
+
+#: home/home.html:29
+msgid "New Page"
+msgstr "New Page"
+
+#: home/home.html:113
+msgid "New Widget"
+msgstr "New Widget"
+
+#: home/home.html:129
+msgid "No custom widget yet."
+msgstr "No custom widget yet."
+
+#: home/home.html:55
+msgid "No page yet."
+msgstr "No page yet."
+
+#: editor/save-as-popup.html:13
+#: home/home.html:38
+msgid "Page Name"
+msgstr "Page Name"
+
+#: editor/save-as-popup.html:16
+#: home/home.html:47
+#: home/home.html:73
+msgid "Page name should contains only alphanumeric characters with no space"
+msgstr "Page name should contains only alphanumeric characters with no space"
+
+#: home/home.html:24
+msgid "Pages"
+msgstr "Seiten"
+
+#: editor/editor.html:41
+msgid "Preview"
+msgstr "Vorschau"
+
+#: preview/preview.html:11
+msgid "Preview - {{pageName}}"
+msgstr "Preview - {{pageName}}"
+
+#: custom-widget/custom-widget-editor.html:42
+msgid "Properties"
+msgstr "Properties"
+
+#: custom-widget/custom-widget-editor.html:83
+msgid "Property name should contains only alphanumeric characters with no space"
+msgstr "Property name should contains only alphanumeric characters with no space"
+
+#: editor/properties-panel/properties-panel.html:34
+msgid "Remove tab"
+msgstr "Remove tab"
+
+#: home/home.html:83
+msgid "Rename page"
+msgstr "Rename page"
+
+#: editor/workspace/container.html:11
+msgid "Row"
+msgstr "Row"
+
+#: custom-widget/custom-widget-editor.html:8
+#: editor/data-panel/data-popup.html:72
+#: editor/data-panel/data-popup.html:75
+#: editor/editor.html:24
+#: editor/editor.html:27
+#: editor/save-as-popup.html:19
+msgid "Save"
+msgstr "Speichern"
+
+#: custom-widget/custom-widget-editor.html:14
+#: editor/editor.html:30
+msgid "Save as ..."
+msgstr "Save as ..."
+
+#: editor/save-as-popup.html:2
+msgid "Save {{page.name}} as..."
+msgstr "Save {{page.name}} as..."
+
+#: editor/data-panel/data.html:11
+msgid "Search"
+msgstr "Suche"
+
+#: home/import-artifact.html:10
+msgid "Select your .zip file"
+msgstr "Wählen Sie Ihre ZIP-Datei"
+
+#: editor/properties-panel/component-properties-template.html:4
+msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
+msgstr "Specify the number of columns of the element. All elements can take up to 12 columns."
+
+#: editor/data-panel/data-type.service.js:16
+msgid "String"
+msgstr "String"
+
+#: editor/properties-panel/properties-panel.html:19
+msgid "Tab"
+msgstr "Tab"
+
+#: custom-widget/custom-widget-editor.html:31
+msgid "Template"
+msgstr "Template"
+
+#: home/alert-deletion-notpossible-popup.html:8
+msgid "The {{ artifact.type }} cannot be deleted because it is used in :"
+msgstr "The {{ artifact.type }} cannot be deleted because it is used in :"
+
+#: custom-widget/custom-widget-editor.html:28
+msgid "This description will be displayed as a tooltip in the widget palette"
+msgstr "This description will be displayed as a tooltip in the widget palette"
+
+#: editor/editor.html:65
+msgid "This page is empty."
+msgstr "This page is empty."
+
+#: editor/properties-panel/properties-panel.html:41
+msgid "Title"
+msgstr "Titel"
+
+#: editor/editor.html:66
+msgid "To add content, drag and drop components from the palette to the whiteboard above."
+msgstr "To add content, drag and drop components from the palette to the whiteboard above."
+
+#: preview/preview.html:6
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: custom-widget/custom-widget-editor.html:57
+#: custom-widget/custom-widget-editor.html:90
+#: editor/data-panel/data-popup.html:21
+#: editor/data-panel/data.html:24
+msgid "Type"
+msgstr "Typ"
+
+#: home/home.html:12
+msgid "UI designer"
+msgstr "UI designer"
+
+#: editor/data-panel/data-type.service.js:20
+msgid "URL parameter"
+msgstr "URL parameter"
+
+#: home/home.html:138
+#: home/home.html:75
+msgid "Updated"
+msgstr "Updated"
+
+#: editor/data-panel/data-popup.html:35
+msgid "Url parameter name"
+msgstr "Url parameter name"
+
+#: editor/data-panel/data-popup.html:30
+#: editor/data-panel/data-popup.html:31
+#: editor/data-panel/data-popup.html:52
+#: editor/data-panel/data-popup.html:61
+#: editor/data-panel/data.html:23
+msgid "Value"
+msgstr "Wert"
+
+#: home/home.html:116
+msgid "Widget Name"
+msgstr "Widget Name"
+
+#: home/home.html:121
+msgid "Widget name should contains only alphanumeric characters with no space"
+msgstr "Widget name should contains only alphanumeric characters with no space"
+
+#: editor/properties-panel/component-properties-template.html:2
+msgid "Width\n"
+"        <i class=\"fa fa-info-circle\" tooltip-placement=\"top\" tooltip=\"{{ 'Specify the number of columns of the element. All elements can take up to 12 columns.' | translate }}\" tooltip-append-to-body=\"true\"></i>"
+msgstr "Width\n"
+"        <i class=\"fa fa-info-circle\" tooltip-placement=\"top\" tooltip=\"{{ 'Specify the number of columns of the element. All elements can take up to 12 columns.' | translate }}\" tooltip-append-to-body=\"true\"></i>"
+
+#: editor/properties-panel/properties-panel.html:28
+msgid "after"
+msgstr "after"
+
+#: editor/properties-panel/properties-panel.html:27
+msgid "before"
+msgstr "before"
+
+#: editor/properties-panel/component-properties-template.html:9
+msgid "column"
+msgid_plural "columns"
+msgstr[0] "column"
+msgstr[1] "columns"
+
+#: editor/data-panel/data.html:7
+msgid "filter :"
+msgstr "filter :"
+
+#: editor/data-panel/data-popup.html:36
+msgid "name"
+msgstr "name"
+
+#: home/alert-deletion-notpossible-popup.html:11
+msgid "{{ key }}"
+msgid_plural "{{ key }}s"
+msgstr[0] "{{ key }}"
+msgstr[1] "{{ key }}s"
+
+#: editor/palette/palette.html:3
+msgid "{{section.name | translate}}"
+msgstr "{{section.name | translate}}"
+
