@@ -14,7 +14,7 @@ describe('custom widget test', function() {
     $('#edit-custom-widget').click();
 
     // then we should go the custom widget edition
-      expect($('span.navbar-brand').getText()).toBe('Custom widget editor');
+      expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
 });

@@ -1,12 +1,20 @@
-<nav id="menubar" class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container-fluid">
-        <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a>
-        <span class="navbar-brand" translate>Custom widget editor</span>
-
-        <p class="navbar-text"><i class="fa fa-alias-custom-widget"></i> {{widget.name}}</p>
-        <div class="btn-group navbar-btn" dropdown>
-            <button id="save" type="button" class="btn btn-default" ng-click="save()" translate>Save</button>
-            <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+<div class="EditorHeader" role="navigation">
+    <div class="EditorHeader-menu">
+        <a class="EditorHeader-back" ui-sref="designer.home">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <i class="EditorHeader-icon ui-icon ui-designer"></i>
+        <strong class="EditorHeader-brand" translate>
+            <!-- <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a> -->
+            Custom widget editor
+        </strong>
+        <h3 class="EditorHeader-name">
+            <i class="ui-icon ui-custom-widget"></i>
+            {{widget.name}}
+        </h3>
+        <div class="btn-group" dropdown>
+            <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" translate>Save</button>
+            <button type="button" class="btn btn-bonita-primary dropdown-toggle" dropdown-toggle>
                 <span class="caret"></span>
                 <span class="sr-only">Save</span>
             </button>
@@ -14,61 +22,71 @@
                 <li><a id="saveAs" href="#"  ng-click="saveAs(widget)" translate>Save as ...</a></li>
             </ul>
         </div>
-        <button type="button"s id="export" class="btn btn-default navbar-btn" ng-click="saveAndExport()" title="{{'Export'|translate}}"><i
-                class="fa fa-alias-export"></i></button>
+        <button type="button"
+                id="export"
+                class="btn btn-bonita-primary"
+                ng-click="saveAndExport()"
+                title="{{'Export'|translate}}">
+            <i class="fa fa-alias-export"></i>
+        </button>
     </div>
-</nav>
-<div class="container-fluid">
+
+</div>
+
+
+<div class="container-fluid CustomEditor">
     <div class="row">
-        <div class="col-xs-7">
+        <div class="col-sm-7">
             <form id="widget-form" name="widgetForm">
                 <div>
-                    <h4 translate>Description</h4>
+                    <h4 class="CustomEditor-section" translate>
+                        Description
+                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the widget palette' | translate }}" tooltip-append-to-body="true"></i>
+                    </h4>
                     <textarea class="form-control textarea--widget" placeholder="Widget description" ng-model="widget.description"></textarea>
-                    <span class="help-block" translate>This description will be displayed as a tooltip in the widget palette</span>
                 </div>
                 <div>
-                    <h4 translate>Template</h4>
+                    <h4 class="CustomEditor-section" translate>Template</h4>
                     <ace-editor class="ace-editor--widget" mode="html" ng-model="widget.template" id="template"></ace-editor>
                 </div>
                 <div>
-                    <h4 translate>Controller</h4>
+                    <h4 class="CustomEditor-section" translate>Controller</h4>
                     <ace-editor class="ace-editor--widget" mode="javascript" ng-model="widget.controller" id="controller"></ace-editor>
                 </div>
             </form>
         </div>
-        <div class="col-xs-5">
+        <div class="col-sm-5">
 
             <div ui-view="asset"></div>
-
-            <div class="row">
-                <h4 class="col-xs-10" translate>Properties</h4>
-                <div class="col-xs-2">
-                    <button id="create" title="Create a new property" class="btn btn-success pull-right" ng-click="createOrUpdate()">
-                        <i class="fa fa-plus"></i>
-                        <span translate>Create</span>
-                    </button>
-                </div>
-            </div>
-
             <table class="table table-striped">
-                <tr ng-repeat="property in widget.properties">
-                    <td class="col-xs-10">
-                        <strong class="property-name">{{ property.name }}</strong><br/>
-                        <small translate>Label</small>:
-                        {{ property.label }}<br/>
-                        <small translate>Type</small>:
-                        {{property.type}}<br/>
-                        <span ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}<br/></span>
-                        <span><small translate>Default value</small>: {{ property.defaultValue }}</span>
-                    </td>
-                    <td class="col-xs-2" style="vertical-align: middle">
-                        <div class="pull-right btn-group btn-group">
-                            <button class="btn btn-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </td>
-                </tr>
+                <thead>
+                    <th class="col-xs-10">
+                         <h4 class="CustomEditor-section" translate>Properties</h4>
+                    </th>
+                    <th class="col-xs-2 Property-actions">
+                        <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-click="createOrUpdate()">
+                            <i class="fa fa-plus"></i>
+                            <span translate>Create</span>
+                        </button>
+                    </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="property in widget.properties">
+                        <td class="col-xs-10">
+                            <strong class="property-name">{{ property.name }}</strong><br/>
+                            <small translate>Label</small>:
+                            {{ property.label }}<br/>
+                            <small translate>Type</small>:
+                            {{property.type}}<br/>
+                            <span ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}<br/></span>
+                            <span><small translate>Default value</small>: {{ property.defaultValue }}</span>
+                        </td>
+                        <td class="col-xs-2 Property-actions">
+                            <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-bonita-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
+                     </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -114,7 +132,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ng-disabled="propertyForm.$invalid" ng-click="ok()">{{ (paramToUpdate ? 'Save' : 'Create')|translate }}</button>
+                <button type="submit" class="btn btn-bonita-default" ng-disabled="propertyForm.$invalid" ng-click="ok()">{{ (paramToUpdate ? 'Save' : 'Create')|translate }}</button>
                 <button type="button" class="btn btn-link" ng-click="cancel()" translate>Cancel</button>
             </div>
         </form>

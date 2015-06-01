@@ -13,7 +13,7 @@ describe('home page', function() {
   it('should navigate to a widget', function() {
     $$('#widgets a').first().click();
 
-    expect($('span.navbar-brand').getText()).toBe('Custom widget editor');
+    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
   it('should create a page', function() {
@@ -44,7 +44,7 @@ describe('home page', function() {
   it('should create a widget', function() {
     $('#widget-name').sendKeys('test');
     $('#create-widget').click();
-    expect($('span.navbar-brand').getText()).toBe('Custom widget editor');
+    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
   it('should not create a widget with non alphanumeric characters', function() {
