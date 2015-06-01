@@ -1,7 +1,8 @@
 <div class="content">
     <div class="col-xs-7">
-        <button class="btn btn-default" ng-click="openAssetPopup()" translate>Create a new asset</button>
+        <button class="btn btn-default" ng-click="openAssetPopup()" translate>Add a new asset</button>
     </div>
+
     <div class="col-xs-5 text-right">
         <label class="sr-only" translate> filter : </label>
 
@@ -30,6 +31,10 @@
                         <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup(asset)"
                                 title="{{ 'View asset content' | translate }}" ng-if="!isExternal(asset)">
                             <i class="fa fa-search"></i>
+                        </button>
+                        <button class="btn btn-bonita-asset" ng-click="delete(asset)"
+                                title="{{ 'Delete asset' | translate }}" ng-if="!asset.componentId">
+                            <i class="fa fa-trash"></i>
                         </button>
                     </div>
                 </td>

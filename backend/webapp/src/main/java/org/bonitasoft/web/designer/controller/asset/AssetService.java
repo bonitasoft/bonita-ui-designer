@@ -88,10 +88,8 @@ public class AssetService<T extends Assetable> {
             if (asset.equals(existingAsset)) {
                 try {
                     assetRepository.delete(asset);
-                } catch (NotFoundException e) {
+                } catch (NotFoundException | IOException e) {
                     logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
-                } catch (IOException e) {
-                    throw new RepositoryException(String.format("Error while deleting asset in %s [%s]", asset.getName(), repository.getComponentName(), component.getId()), e);
                 }
                 assetIterator.remove();
                 break;

@@ -54,6 +54,15 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     });
   }
 
+  function deleteAsset(id, asset) {
+    //we need to send the object because the id should be an URL
+    return $http({ url: 'rest/widgets/' + id + '/assets',
+      method: 'DELETE',
+      data: asset,
+      headers: {'Content-Type': 'application/json;charset=utf-8'}
+    });
+  }
+
   function remove(id) {
     return $http.delete('rest/widgets/' + id);
   }
@@ -91,6 +100,7 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     customs: customs,
     save: save,
     delete: remove,
+    deleteAsset: deleteAsset,
     addProperty: addProperty,
     updateProperty: updateProperty,
     deleteProperty: deleteProperty,

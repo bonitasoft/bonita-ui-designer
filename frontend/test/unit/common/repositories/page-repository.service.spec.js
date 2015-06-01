@@ -120,4 +120,52 @@ describe('pageRepo', function() {
     $httpBackend.expectPUT('rest/pages/person/name').respond(200, 'hello');
     $httpBackend.flush();
   });
+
+  it('should list the page assets', function() {
+    var expectedAssets = [
+      { name: 'asset1' }
+    ];
+    $httpBackend.expectGET('rest/pages/1/assets').respond(expectedAssets);
+
+    var pages;
+    pageRepo.loadAssets({id : 1}).then(function(data) {
+      assets = data;
+    });
+
+    $httpBackend.flush();
+    expect(assets).toEqual(expectedAssets);
+  });
+
+  it('should delete a local asset', function() {
+    var asset = {
+      name : 'myfile.js',
+      type : 'js'
+    };
+    $httpBackend.expectDELETE('rest/pages/page1/assets').respond(200);
+
+    pageRepo.deleteAsset('page1', asset);
+    $httpBackend.flush();
+  });
+
+  it('should delete an external asset', function() {
+    var asset = {
+      name : 'http://mycdn.com/myfile.js',
+      type : 'js'
+    };
+    $httpBackend.expectDELETE('rest/pages/page1/assets').respond(200);
+
+    pageRepo.deleteAsset('page1', asset);
+    $httpBackend.flush();
+  });
+
+
+  it('should save an asset', function() {
+    var asset = {
+      name : 'http://mycdn.com/myfile.js',
+      type : 'js'
+    };
+    $httpBackend.expectPOST('rest/pages/my-page/assets').respond(200);
+    pageRepo.createAsset('my-page', asset);
+    $httpBackend.flush();
+  });
 });

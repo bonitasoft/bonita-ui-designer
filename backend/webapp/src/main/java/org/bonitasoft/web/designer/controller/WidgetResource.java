@@ -186,6 +186,7 @@ public class WidgetResource {
     @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.DELETE)
     public void deleteAsset(@RequestBody Asset asset, @PathVariable("widgetId") String widgetId) throws RepositoryException {
         checkWidgetIdIsNotAPbWidget(widgetId);
+        asset.setComponentId(widgetId);
         widgetAssetService.delete(repository.get(widgetId), asset);
     }
 
