@@ -1,4 +1,5 @@
 /* jshint node:true */
+/* jshint node:true */
 var gulp = require('gulp');
 
 var paths = {
@@ -41,6 +42,7 @@ var paths = {
   tests: 'test/**/*.spec.js',
   assets: {
     fonts: [
+      'app/fonts/*.*',
       'app/bower_components/font-awesome/fonts/*.*',
       'app/bower_components/bootstrap/fonts/*.*'
     ],
