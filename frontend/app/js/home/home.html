@@ -65,7 +65,7 @@
                                            ng-pattern="'[a-zA-Z0-9]*$'"
                                            id="page-name-input-{{$index}}"
                                            ng-model="page.name"
-                                           ng-blur="renameItem(page)"
+                                           ng-blur="renamePage.$valid && renameItem(page)"
                                            class="form-control" required>
                                     <span ng-if="renamePage.name.$error.pattern" class="text-danger" translate>Page name should contains only alphanumeric characters with no space</span>
                                 </form>
