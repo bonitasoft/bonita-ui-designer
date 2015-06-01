@@ -1,6 +1,6 @@
 <form action="{{assetSavingAction}}" novalidate name="addAsset" error-catcher="onError(error)" ng-upload="onSuccess(content)">
     <div class="modal-header">
-        <h3 class="modal-title" ng-if="isNewAsset" translate>Create a new asset</h3>
+        <h3 class="modal-title" ng-if="isNewAsset" translate>Add a new asset</h3>
 
         <h3 class="modal-title" ng-if="!isNewAsset"><span translate>Edit asset</span>
             <strong>{{asset.name}}</strong></h3>

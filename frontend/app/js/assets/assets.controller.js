@@ -13,7 +13,7 @@
      * Use for asset table filtering
      */
     $scope.filterBySearchedAsset = function (asset) {
-      var assetType =  $scope.searchedAsset.filter(function(elt){
+      var assetType = $scope.searchedAsset.filter(function (elt) {
         return elt.key === asset.type;
       })[0];
       return assetType ? assetType.filter : false;
@@ -23,17 +23,15 @@
      * Refresh assets in scope
      */
     $scope.refresh = function(data) {
-      function refreshComponentAssets(){
-        return artifactRepo.loadAssets(component);
-      }
       function refreshAssetsInScope(response){
         $scope.assets = response;
+        $scope[mode].assets = artifact;
       }
 
       if(data){
         artifactRepo
           .createAsset(artifact.id, assets.formToAsset(data))
-          .then(refreshComponentAssets)
+          .then(artifactRepo.loadAssets.bind(null, component))
           .then(refreshAssetsInScope);
       }
       else{
@@ -45,9 +43,18 @@
 
 
     /**
+     * Delete an asset
+     */
+    $scope.delete = function (asset) {
+      artifactRepo.deleteAsset(component.id, asset).then(function () {
+        $scope.refresh();
+      });
+    };
+
+    /**
      * Popup to see the content of the asset file
      */
-    $scope.openAssetPreviewPopup = function(element) {
+    $scope.openAssetPreviewPopup = function (element) {
       var asset = element;
 
       $modal.open({
@@ -97,9 +104,9 @@
           }
         }
       });
-
       modalInstance.result.then($scope.refresh);
     };
   });
+
 })
 ();

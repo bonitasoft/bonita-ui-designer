@@ -140,6 +140,7 @@ public class PageResource extends DataResource<Page> {
 
     @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.DELETE)
     public void deleteAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) throws RepositoryException {
+        asset.setComponentId(id);
         pageAssetService.delete(getRepository().get(id), asset);
     }
 

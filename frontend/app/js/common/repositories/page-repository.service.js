@@ -90,6 +90,19 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   }
 
   /**
+   * Delete an asset
+   * Returns a promise
+   */
+  function deleteAsset(id, asset) {
+    //we need to send the object because the id should be an URL
+    return $http({ url: 'rest/pages/' + id + '/assets',
+      method: 'DELETE',
+      data: asset,
+      headers: {'Content-Type': 'application/json;charset=utf-8'}
+    });
+  }
+
+  /**
    * Return export url of a page
    * @param page - the page to be exported
    */
@@ -104,6 +117,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     save: save,
     rename: rename,
     delete: deletePage,
+    deleteAsset: deleteAsset,
     load: load,
     loadAssets: loadAssets,
     saveData: saveData,

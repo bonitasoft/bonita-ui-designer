@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <th class="col-xs-8">
-            <h4 class="CustomEditor-section" translate>Properties</h4>
+            <h4 class="CustomEditor-section" translate>Assets</h4>
         </th>
         <th class="col-xs-2 Property-actions" colspan="2">
             <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="openAssetPopup()">
@@ -26,6 +26,9 @@
         <td class="col-xs-2 Property-actions">
             <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
                     ng-if="!isExternal(asset)" ng-click="openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
+            <button class="btn btn-bonita-default" ng-click="delete(asset)" title="{{ 'Delete asset' | translate }}">
+                <i class="fa fa-trash"></i>
+            </button>
         </td>
 
     </tr>
@@ -34,3 +37,4 @@
     </tr>
     </tbody>
 </table>
+
