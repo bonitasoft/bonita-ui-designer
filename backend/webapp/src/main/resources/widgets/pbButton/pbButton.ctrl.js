@@ -10,14 +10,14 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
     } else if ($scope.properties.action === "Start process") {
       var id = getUrlParam('id');
       if (id) {
-        doRequestDelayed('POST', '/bonita/API/bpm/process/' + id + '/instantiation', getUserParam());
+        doRequestDelayed('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
       } else {
         $log.log('Impossible to retrieve the process definition id value from the URL');
       }
     } else if ($scope.properties.action === 'Submit task') {
       var id = getUrlParam('id');
       if (id) {
-        doRequestDelayed('POST', '/bonita/API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
+        doRequestDelayed('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
       } else {
         $log.log('Impossible to retrieve the task id value from the URL');
       }
