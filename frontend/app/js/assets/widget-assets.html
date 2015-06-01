@@ -1,11 +1,36 @@
-<div class="row">
-    <h4 class="col-xs-10" translate>Assets</h4>
-    <div class="col-xs-2">
-        <button id="createAsset" title="Create a new asset" class="btn btn-success pull-right" ng-click="openAssetPopup()">
-            <i class="fa fa-plus"></i>
-            <span translate>Create</span>
-        </button>
-    </div>
-</div>
-<div class="row" ng-include="'js/assets/assets-table.html'"></div>
-<br>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th class="col-xs-8">
+            <h4 class="CustomEditor-section" translate>Properties</h4>
+        </th>
+        <th class="col-xs-2 Property-actions" colspan="2">
+            <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="openAssetPopup()">
+                <i class="fa fa-plus"></i>
+                <span translate>Add</span>
+            </button>
+        </th>
+    </tr>
+    <tr>
+        <th class="col-xs-8" translate>Name</th>
+        <th class="col-xs-1" translate>Type</th>
+        <th class="col-xs-3" translate>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
+        <td>{{asset.name}}</td>
+
+        <td ng-if="isAssetPage">{{asset.componentId}}</td>
+        <td>{{asset.type | assetType}}</td>
+        <td class="col-xs-2 Property-actions">
+            <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
+                    ng-if="!isExternal(asset)" ng-click="openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="{{isPageAsset ? 4 : 3}}" ng-if="results.length===0">No asset</td>
+    </tr>
+    </tbody>
+</table>

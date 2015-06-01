@@ -1,4 +1,4 @@
-<form action="{{assetSavingAction}}" name="addAsset" error-catcher="onError" ng-upload="onSuccess(content)">
+<form action="{{assetSavingAction}}" novalidate name="addAsset" error-catcher="onError(error)" ng-upload="onSuccess(content)">
     <div class="modal-header">
         <h3 class="modal-title" ng-if="isNewAsset" translate>Create a new asset</h3>
 
@@ -6,24 +6,24 @@
             <strong>{{asset.name}}</strong></h3>
     </div>
     <div class="modal-body">
-        <div class="form-group row">
+        <div class="form-group">
             <label class="control-label control-label--required" for="type" translate>Type</label>
             <select name="type" ng-model="newAsset.type" class="form-control" ng-options="type.key as type.label for type in assetTypes"></select>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group">
             <label class="control-label control-label--required" for="place" translate>Place</label>
             <select name="type" class="form-control" ng-model="newAsset.place" ng-options="place for place in assetPlaces"></select>
         </div>
 
-        <div class="form-group row" ng-if="newAsset.place===externalPlace">
+        <div class="form-group" ng-if="newAsset.place===externalPlace">
             <label class="control-label control-label--required" for="name">
                 <span translate>URL</span>
             </label>
             <input type="text" ng-model="newAsset.name" class="form-control" autofocus placeholder="http://...." required>
         </div>
 
-        <div class="form-group row" ng-if="newAsset.place!==externalPlace">
+        <div class="form-group" ng-if="newAsset.place!==externalPlace">
             <label class="control-label control-label--required" for="name">
                 <span translate>File</span>
             </label>
