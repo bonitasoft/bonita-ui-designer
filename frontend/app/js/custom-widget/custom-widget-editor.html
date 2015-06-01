@@ -58,6 +58,15 @@
         <div class="col-sm-5">
 
             <div ui-view="asset"></div>
+
+            <div class="form-group">
+                <h4 class="CustomEditor-section" translate>
+                    Required angular modules
+                    <i class="fa fa-info-circle CustomEditor-helper" tooltip="{{'Extra angular modules needed by this custom widget (comma separated)' | translate }}" tooltip-append-to-body="true"></i>
+                </h4>
+                <input type="text" class="form-control" id="requiredModules" ng-model="widget.requiredModules" ng-list>
+            </div>
+
             <table class="table table-striped">
                 <thead>
                     <th class="col-xs-10">
