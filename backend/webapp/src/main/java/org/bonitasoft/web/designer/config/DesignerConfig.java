@@ -55,6 +55,7 @@ import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
+import org.bonitasoft.web.designer.visitor.EmptyPageFactory;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
@@ -153,12 +154,12 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetImporter<Page> pageAssetImporter(AssetRepository<Page> pageAssetRepository){
+    public AssetImporter<Page> pageAssetImporter(AssetRepository<Page> pageAssetRepository) {
         return new AssetImporter<>(pageAssetRepository);
     }
 
     @Bean
-    public AssetImporter<Widget> widgetAssetImporter(AssetRepository<Widget> widgetAssetRepository){
+    public AssetImporter<Widget> widgetAssetImporter(AssetRepository<Widget> widgetAssetRepository) {
         return new AssetImporter<>(widgetAssetRepository);
     }
 
@@ -193,12 +194,12 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetVisitor assetVisitor(WidgetRepository widgetRepository){
+    public AssetVisitor assetVisitor(WidgetRepository widgetRepository) {
         return new AssetVisitor(widgetRepository);
     }
 
     @Bean
-    public WidgetIdVisitor widgetIdVisitor(){
+    public WidgetIdVisitor widgetIdVisitor() {
         return new WidgetIdVisitor();
     }
 
@@ -210,6 +211,11 @@ public class DesignerConfig {
     @Bean
     public DataModelVisitor dataModelVisitor() {
         return new DataModelVisitor();
+    }
+
+    @Bean
+    public PageFactory modelPropertiesFactory() {
+        return new EmptyPageFactory("modelProperties");
     }
 
     @Bean
@@ -238,17 +244,12 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetService<Page> pageAssetService(PageRepository pageRepository){
+    public AssetService<Page> pageAssetService(PageRepository pageRepository) {
         return new AssetService<>(pageRepository, pageAssetRepository(pageRepository));
     }
 
     @Bean
-    public List<PageFactory> pageFactories(PropertyValuesVisitor propertyValuesVisitor, DataModelVisitor dataModelVisitor) {
-        return Lists.<PageFactory>newArrayList(propertyValuesVisitor, dataModelVisitor);
-    }
-
-    @Bean
-    public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository){
+    public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository) {
         return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository));
     }
 }
