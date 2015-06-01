@@ -25,6 +25,7 @@
     describe('Page editor', function () {
 
       beforeEach(inject(function ($injector) {
+        $scope.page= {};
         $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           $modal: $modal,
@@ -118,6 +119,7 @@
     describe('Widget editor', function () {
 
       beforeEach(inject(function ($injector) {
+        $scope.widget= {};
         $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: {},

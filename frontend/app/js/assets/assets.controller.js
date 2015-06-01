@@ -9,6 +9,35 @@
     $scope.isPageAsset = mode==='page';
     $scope.isExternal = assets.isExternal;
 
+    //Load assets
+    refresh();
+
+    /**
+     * Refresh assets in scope
+     */
+    function refreshAssetsInScope(response){
+      $scope.assets = response;
+      $scope[mode].assets = artifact;
+    }
+    function refresh(){
+      artifactRepo.loadAssets(artifact).then(refreshAssetsInScope);
+    }
+
+    /**
+     * Create an asset via popup
+     */
+    function createAndRefresh(data) {
+      if(data){
+        artifactRepo
+          .createAsset(artifact.id, assets.formToAsset(data))
+          .then(artifactRepo.loadAssets.bind(null, component))
+          .then(refreshAssetsInScope);
+      }
+      else{
+        refresh();
+      }
+    }
+
     /**
      * Use for asset table filtering
      */
@@ -20,35 +49,10 @@
     };
 
     /**
-     * Refresh assets in scope
-     */
-    $scope.refresh = function(data) {
-      function refreshAssetsInScope(response){
-        $scope.assets = response;
-        $scope[mode].assets = artifact;
-      }
-
-      if(data){
-        artifactRepo
-          .createAsset(artifact.id, assets.formToAsset(data))
-          .then(artifactRepo.loadAssets.bind(null, component))
-          .then(refreshAssetsInScope);
-      }
-      else{
-        artifactRepo.loadAssets(artifact)
-          .then(refreshAssetsInScope);
-      }
-    };
-    $scope.refresh();
-
-
-    /**
      * Delete an asset
      */
     $scope.delete = function (asset) {
-      artifactRepo.deleteAsset(component.id, asset).then(function () {
-        $scope.refresh();
-      });
+      artifactRepo.deleteAsset(component.id, asset).then(refresh);
     };
 
     /**
@@ -104,7 +108,7 @@
           }
         }
       });
-      modalInstance.result.then($scope.refresh);
+      modalInstance.result.then(createAndRefresh);
     };
   });
 
