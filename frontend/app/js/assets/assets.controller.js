@@ -6,12 +6,12 @@
 
     var component = artifact;
     $scope.searchedAsset = assets.initFilterMap();
-    $scope.isAssetPage = mode==='page';
+    $scope.isPageAsset = mode==='page';
+    $scope.isExternal = assets.isExternal;
 
-    artifactRepo.loadAssets(artifact).then(function (response) {
-        $scope.assets = response.data;
-    });
-
+    /**
+     * Use for asset table filtering
+     */
     $scope.filterBySearchedAsset = function (asset) {
       var assetType =  $scope.searchedAsset.filter(function(elt){
         return elt.key === asset.type;
@@ -19,6 +19,34 @@
       return assetType ? assetType.filter : false;
     };
 
+    /**
+     * Refresh assets in scope
+     */
+    $scope.refresh = function(data) {
+      function refreshComponentAssets(){
+        return artifactRepo.loadAssets(component);
+      }
+      function refreshAssetsInScope(response){
+        $scope.assets = response;
+      }
+
+      if(data){
+        artifactRepo
+          .createAsset(artifact.id, assets.formToAsset(data))
+          .then(refreshComponentAssets)
+          .then(refreshAssetsInScope);
+      }
+      else{
+        artifactRepo.loadAssets(artifact)
+          .then(refreshAssetsInScope);
+      }
+    };
+    $scope.refresh();
+
+
+    /**
+     * Popup to see the content of the asset file
+     */
     $scope.openAssetPreviewPopup = function(element) {
       var asset = element;
 
@@ -47,6 +75,31 @@
       });
     };
 
+    /**
+     * Popup to add or update assets
+     */
+    $scope.openAssetPopup = function(element) {
+      var asset = element;
+
+      var modalInstance = $modal.open({
+        templateUrl: 'js/assets/asset-popup.html',
+        backdrop: 'static',
+        controller: 'AssetPopupCtrl',
+        resolve: {
+          asset: function () {
+            return asset;
+          },
+          mode: function () {
+            return mode;
+          },
+          artifact: function () {
+            return artifact;
+          }
+        }
+      });
+
+      modalInstance.result.then($scope.refresh);
+    };
   });
 })
 ();

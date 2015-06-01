@@ -13,11 +13,7 @@
       $modal = $injector.get('$modal');
       artifactRepo =  {
         loadAssets : function() {
-          return $q.when({
-            data: [
-              {name: 'myAsset'}
-            ]
-          });
+          return $q.when([{name: 'myAsset'}]);
         }
       };
     }));
@@ -41,7 +37,7 @@
       });
 
       it('should return isAssetPage=true when artifact is a page', function(){
-        expect($scope.isAssetPage).toBeTruthy();
+        expect($scope.isPageAsset).toBeTruthy();
       });
 
       /**
@@ -91,6 +87,14 @@
         $scope.openAssetPreviewPopup();
         expect($modal.open).toHaveBeenCalled()
       });
+
+      it('should open a data popup for asset management', function(){
+        spyOn($modal, 'open').and.returnValue( {
+          result: $q.when({})
+        });
+        $scope.openAssetPopup();
+        expect($modal.open).toHaveBeenCalled()
+      });
     });
 
 
@@ -112,7 +116,23 @@
       });
 
       it('should return isAssetPage=false when artifact is a widget', function(){
-        expect($scope.isAssetPage).toBeFalsy();
+        expect($scope.isPageAsset).toBeFalsy();
+      });
+
+      it('should open a data popup for asset preview', function(){
+        spyOn($modal, 'open').and.returnValue( {
+          result: $q.when({})
+        });
+        $scope.openAssetPreviewPopup();
+        expect($modal.open).toHaveBeenCalled()
+      });
+
+      it('should open a data popup for asset management', function(){
+        spyOn($modal, 'open').and.returnValue( {
+          result: $q.when({})
+        });
+        $scope.openAssetPopup();
+        expect($modal.open).toHaveBeenCalled()
       });
 
       it('should open a data popup for asset preview', function(){

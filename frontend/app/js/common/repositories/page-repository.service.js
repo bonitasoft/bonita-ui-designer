@@ -42,6 +42,17 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   }
 
   /**
+   * Creates a new asset
+   * @param id - the page's id
+   * @param asset
+   */
+  function createAsset(id, asset) {
+    return $http.post('rest/pages/' + id + '/assets', asset).then(function(response) {
+      return response.data;
+    });
+  }
+
+  /**
    * Renames a page and returns a promise
    * @param id - the page's id
    * @param newName - the page's new name
@@ -73,7 +84,9 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
    * @param page
    */
   function loadAssets(page) {
-    return $http.get('rest/pages/' + page.id + '/assets');
+    return $http.get('rest/pages/' + page.id + '/assets').then(function(response) {
+      return response.data;
+    });
   }
 
   /**
@@ -87,6 +100,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   return {
     all: all,
     create: create,
+    createAsset: createAsset,
     save: save,
     rename: rename,
     delete: deletePage,

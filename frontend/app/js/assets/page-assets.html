@@ -1,7 +1,10 @@
 <div class="content">
-
-    <div class="col-xs-4 pull-right text-right">
+    <div class="col-xs-7">
+        <button class="btn btn-default" ng-click="openAssetPopup()" translate>Create a new asset</button>
+    </div>
+    <div class="col-xs-5 text-right">
         <label class="sr-only" translate> filter : </label>
+
         <div class="search-filter">
             <label class="checkbox-inline" ng-repeat="search in searchedAsset">
                 <input type="checkbox" ng-model="search.filter"> {{search.label}}
@@ -9,6 +12,34 @@
         </div>
     </div>
 
-    <div class="col-xs-12" ng-include="'js/assets/assets-table.html'"></div>
+    <div class="col-xs-12">
+        <table class="table table-condensed  table-striped table-text-ellipsis">
+            <thead>
+            <th class="col-xs-8" translate>Name</th>
+            <th class="col-xs-2" translate ng-if="isPageAsset">Widget</th>
+            <th class="col-xs-1" translate>Type</th>
+            <th class="col-xs-1" translate>&nbsp;</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
+                <td>{{asset.name}}</td>
+                <td>{{asset.componentId}}</td>
+                <td>{{asset.type | assetType}}</td>
+                <td class="text-right">
+                    <div class="btn-group link-group btn-group-sm">
+                        <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup(asset)"
+                                title="{{ 'View asset content' | translate }}" ng-if="!isExternal(asset)">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" ng-if="results.length===0">No asset</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 
 </div>
