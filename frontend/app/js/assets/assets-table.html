@@ -1,4 +1,3 @@
-
 <table class="table table-condensed  table-striped table-text-ellipsis">
     <thead>
     <th class="col-xs-{{isAssetPage ? 8 : 10}}" translate>Name</th>
@@ -10,11 +9,18 @@
     <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
         <td>{{asset.name}}</td>
         <td ng-if="isAssetPage">{{asset.componentId}}</td>
-        <td>{{asset.type | assetType}}</td>
-        <td></td>
+        <td>{{asset.type | assetType}}</td>
+        <td class="text-right">
+            <div class="btn-group link-group btn-group-sm">
+                <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup(asset)" title="{{ 'View asset content' | translate }}">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </td>
     </tr>
     <tr>
         <td colspan="{{isAssetPage ? 4 : 3}}" ng-if="results.length===0">No asset for the moment</td>
     </tr>
     </tbody>
 </table>
+

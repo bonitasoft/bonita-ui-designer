@@ -2,7 +2,7 @@
   'use strict'
 
   describe('AssetCtrl', function(){
-    var $scope, $q, assets, artifactRepo;
+    var $scope, $q, $modal, assets, artifactRepo;
 
     beforeEach(module('pb.assets', 'ui.bootstrap'));
 
@@ -10,6 +10,7 @@
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assets = $injector.get('assets');
+      $modal = $injector.get('$modal');
       artifactRepo =  {
         loadAssets : function() {
           return $q.when({
@@ -26,6 +27,7 @@
       beforeEach(inject(function($injector) {
         $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
+          $modal:$modal,
           artifact: {},
           artifactRepo: artifactRepo,
           mode : 'page',
@@ -81,6 +83,14 @@
           expect($scope.filterBySearchedAsset({ "name": "MyAbcExample.png", "type": "img" })).toBeFalsy();
         });
       });
+
+      it('should open a data popup for asset preview', function(){
+        spyOn($modal, 'open').and.returnValue( {
+          result: $q.when({})
+        });
+        $scope.openAssetPreviewPopup();
+        expect($modal.open).toHaveBeenCalled()
+      });
     });
 
 
@@ -103,6 +113,14 @@
 
       it('should return isAssetPage=false when artifact is a widget', function(){
         expect($scope.isAssetPage).toBeFalsy();
+      });
+
+      it('should open a data popup for asset preview', function(){
+        spyOn($modal, 'open').and.returnValue( {
+          result: $q.when({})
+        });
+        $scope.openAssetPreviewPopup();
+        expect($modal.open).toHaveBeenCalled()
       });
     });
 
