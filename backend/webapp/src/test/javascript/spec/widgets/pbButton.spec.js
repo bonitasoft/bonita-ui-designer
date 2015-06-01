@@ -285,7 +285,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('/bonita/API/bpm/userTask/42/execution', scope.properties.dataToSend).respond("success");
+      $httpBackend.expectPOST('../API/bpm/userTask/42/execution', scope.properties.dataToSend).respond("success");
 
       element.find('button').triggerHandler('click');
 
@@ -299,7 +299,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('/bonita/API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond("success");
+      $httpBackend.expectPOST('../API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond("success");
 
       element.find('button').triggerHandler('click');
 
@@ -336,7 +336,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('/bonita/API/bpm/process/8880000/instantiation', scope.properties.dataToSend).respond('success');
+      $httpBackend.expectPOST('../API/bpm/process/8880000/instantiation', scope.properties.dataToSend).respond('success');
 
       element.find('button').triggerHandler('click');
 
@@ -350,7 +350,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('/bonita/API/bpm/process/8880000/instantiation?user=1', scope.properties.dataToSend).respond('success');
+      $httpBackend.expectPOST('../API/bpm/process/8880000/instantiation?user=1', scope.properties.dataToSend).respond('success');
 
       element.find('button').triggerHandler('click');
 
