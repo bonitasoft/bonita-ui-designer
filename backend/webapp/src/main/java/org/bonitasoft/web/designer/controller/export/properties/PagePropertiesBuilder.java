@@ -63,12 +63,13 @@ public class PagePropertiesBuilder {
             resources.add("POST|bpm/userTask");
         }
 
-        Map<String, String> map = new HashMap<>();
-        map.put("name", page.getName());
-        map.put("resources", resources.toString());
+        Map<String, String> context = new HashMap<>();
+        context.put("name", page.getName());
+        context.put("resources", resources.toString());
+        context.put("type", String.valueOf(page.getType()).toLowerCase());
 
         // Java properties files must be encoded using ISO_8859_1
-        return template.build(map).getBytes(StandardCharsets.ISO_8859_1);
+        return template.build(context).getBytes(StandardCharsets.ISO_8859_1);
     }
 
 }
