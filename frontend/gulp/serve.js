@@ -13,7 +13,8 @@ module.exports = function(gulp, config) {
   var staticProxyfiedFiles = [
     /^\/generator\/.*/,               // http://localhost:8080/generator/...
     /^\/widgets\/.*/,                 // http://localhost:8080/widgets/...
-    /^\/preview\/.*\/assets\/.*/      // http://localhost:8080/preview/.../assets/....
+    /^\/preview\/.*\/assets\/.*/,      // http://localhost:8080/preview/.../assets/....
+    /^\/preview\/page\/theme\/theme.css/
   ];
 
   /**
@@ -45,7 +46,7 @@ module.exports = function(gulp, config) {
 
     if (matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
-    } else {  
+    } else {
       proxy.web(req, res);
     }
   }
