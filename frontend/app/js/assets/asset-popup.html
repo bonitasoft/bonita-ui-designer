@@ -8,7 +8,8 @@
     <div class="modal-body">
         <div class="form-group">
             <label class="control-label control-label--required" for="type" translate>Type</label>
-            <select name="type" ng-model="newAsset.type" class="form-control" ng-options="type.key as type.label for type in assetTypes"></select>
+            <select name="type" ng-model="newAsset.type" class="form-control" ng-options="type.key as type.label for type in assetTypes"
+                    ng-change="updateSavingAction(newAsset.type)"></select>
         </div>
 
         <div class="form-group">
