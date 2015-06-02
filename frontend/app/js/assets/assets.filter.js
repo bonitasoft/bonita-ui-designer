@@ -1,11 +1,11 @@
 (function() {
 
-  angular.module('pb.assets').filter('assetType', function(assets) {
+  angular.module('pb.assets').filter('assetType', function(assetsService) {
 
     'use strict';
 
     return function(key){
-      return assets.getTypeLabel(key);
+      return assetsService.getTypeLabel(key);
     };
   });
 
