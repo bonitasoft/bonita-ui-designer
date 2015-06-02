@@ -33,14 +33,14 @@
     }
 
     /**
-     * Asset palces
+     * Asset sources
      */
     function getSources() {
       return sources;
     }
 
     /**
-     * Asset palces
+     * Asset external source
      */
     function getExternalSource() {
       return sources[0].key;
