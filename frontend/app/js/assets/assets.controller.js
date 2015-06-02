@@ -93,7 +93,7 @@
       artifactRepo.loadAssets(component)
         .then(function(response){
           $scope.assets = response;
-          $scope[mode].assets = response.filter(function(asset){
+          component.assets = response.filter(function(asset){
             //In the page editor, we filter on the assets linked to the page
             return asset.scope!=='WIDGET';
           });
