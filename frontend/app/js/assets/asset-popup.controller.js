@@ -16,16 +16,12 @@
     //Asset is converted in another object for the html form
     $scope.newAsset = assetsService.assetToForm(asset);
 
-    //The form action target is not the same according to the asset type : css, js or img
-    $scope.$watch('newAsset.type', function (newValue) {
-      $scope.assetSavingAction = urlPrefixForLocalAsset + newValue;
-    });
-
+    $scope.cancel = cancel;
     $scope.isExternalAsset = isExternalAsset;
-    $scope.saveExternalAsset = saveExternalAsset;
     $scope.onSuccess = onSuccess;
     $scope.onError = onError;
-    $scope.cancel = cancel;
+    $scope.saveExternalAsset = saveExternalAsset;
+    $scope.updateSavingAction = updateSavingAction;
 
     function isExternalAsset(asset) {
       return asset.source === assetsService.getExternalSource();
@@ -64,6 +60,13 @@
      */
     function cancel() {
       $modalInstance.dismiss();
+    }
+
+    /**
+     * The form action target is not the same according to the asset type : css, js or img
+     */
+    function updateSavingAction(type){
+      $scope.assetSavingAction = urlPrefixForLocalAsset + type;
     }
 
   });
