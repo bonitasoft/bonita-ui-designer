@@ -19,6 +19,37 @@
       "defaultValue": false
     },
     {
+      "label": "Label hidden",
+      "name": "labelHidden",
+      "type": "boolean",
+      "defaultValue": false
+    },
+    {
+      "label": "Label",
+      "name": "label",
+      "type": "text",
+      "defaultValue": "Default label",
+      "showFor": "properties.labelHidden.value === false"
+    },
+    {
+      "label": "Label position",
+      "name": "labelPosition",
+      "type": "choice",
+      "choiceValues": [
+        "left",
+        "top"
+      ],
+      "defaultValue": "left",
+      "showFor": "properties.labelHidden.value === false"
+    },
+    {
+      "label": "Label width",
+      "name": "labelWidth",
+      "type": "integer",
+      "defaultValue": 4,
+      "showFor": "properties.labelHidden.value === false"
+    },
+    {
       "label": "Inline",
       "name": "inline",
       "type": "boolean",

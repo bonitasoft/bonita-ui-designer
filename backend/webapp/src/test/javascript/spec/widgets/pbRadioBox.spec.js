@@ -31,9 +31,9 @@ describe('pbRadioButtons', function() {
   });
 
   it('should display the textOption', function() {
-    expect(dom.find('label').eq(0).text().trim()).toBe('jeanne');
-    expect(dom.find('label').eq(1).text().trim()).toBe('serge');
-    expect(dom.find('label').eq(2).text().trim()).toBe('maurice');
+    expect(dom.find('.radio label').eq(0).text().trim()).toBe('jeanne');
+    expect(dom.find('.radio label').eq(1).text().trim()).toBe('serge');
+    expect(dom.find('.radio label').eq(2).text().trim()).toBe('maurice');
   });
 
   it('should display inlined checkbox', function() {
@@ -56,13 +56,13 @@ describe('pbRadioButtons', function() {
     scope.properties.displayedKey = 'name';
     var widget = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$digest();
-    expect(widget.find("label").eq(0).text().trim()).toBe("jeanne")
+    expect(widget.find(".radio label").eq(0).text().trim()).toBe("jeanne")
   });
 
   it('should display data as label if label property is not provided', function(){
     scope.properties.availableValues = [{"name": 'jeanne'}];
     scope.$digest();
-    expect(dom.find("label").eq(0).text().trim()).toBe(JSON.stringify(scope.properties.availableValues[0]));
+    expect(dom.find(".radio label").eq(0).text().trim()).toBe(JSON.stringify(scope.properties.availableValues[0]));
   });
 
   it('should select the radio  if selectedValue is  not null', function(){
@@ -97,10 +97,10 @@ describe('pbRadioButtons', function() {
     expect(selectedElement[0].parentNode.textContent.trim()).toBe('serge');
   });
 
-  it('should set a value according the ', function(){
+  it('should set a value according the availableValues', function(){
     scope.properties.availableValues = [{"name": 'jeanne'}];
     scope.$digest();
-    expect(dom.find("label").eq(0).text().trim()).toBe(JSON.stringify(scope.properties.availableValues[0]));
+    expect(dom.find(".radio label").eq(0).text().trim()).toBe(JSON.stringify(scope.properties.availableValues[0]));
   });
 
 
@@ -121,5 +121,47 @@ describe('pbRadioButtons', function() {
     [].slice.call(element.find('input')[0]).forEach(function(input) {
       expect(input.attr('required')).toBe('required');
     })
-});
+  });
+
+
+  describe('label', function() {
+
+    it('should be on top by default if displayed', function () {
+      scope.properties = {
+        labelHidden: false,
+        label: 'foobar'
+      };
+
+      var element = compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+
+      var label = element.find('label');
+      expect(element.find('.form-horizontal').length).toBe(0);
+      expect(label.text().trim()).toBe('foobar');
+    });
+
+    it('should be on the left of the input', function () {
+      scope.properties = {
+        labelHidden: false,
+        label: 'barbaz',
+        labelPosition: 'left'
+      };
+
+      var element = compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+
+      expect(element.find('.form-horizontal').length).toBe(1);
+      var label = element.find('label');
+      expect(label.text().trim()).toBe('barbaz');
+    });
+
+    it('should not be there when displayValue is falsy', function () {
+
+      var element = compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+
+      expect(element.find('control-label').length).toBe(0);
+    });
+  });
+
 });
