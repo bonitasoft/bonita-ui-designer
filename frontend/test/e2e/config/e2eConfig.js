@@ -371,8 +371,8 @@ angular.module('pb.e2e', ['ngMockE2E'])
      * ******************************************************************************************************/
     $httpBackend.whenGET(/^partials\//).passThrough();
 
-    $httpBackend.whenGET('i18n/english.json').respond({'en': {'New Page': ''}});
-    $httpBackend.whenGET('i18n/francais.json').respond({'fr': {'New Page': 'Nouvelle Page'}});
+    // I18n
+    $httpBackend.whenGET(/i18n\/.*-fr.json/).respond({'fr': {'New Page': 'Nouvelle Page'}});
 
 
     /********************************************************************************************************

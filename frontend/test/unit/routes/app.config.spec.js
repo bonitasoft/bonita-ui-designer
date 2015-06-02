@@ -15,10 +15,6 @@ describe('The route config', function() {
     $q = $injector.get('$q');
 
     spyOn(whiteboard, 'initialize').and.returnValue({});
-
-    // states being activated requests are made
-    $httpBackend.expectGET('i18n/english.json').respond(200, '');
-    $httpBackend.flush();
   }));
 
   it('should resolve the necessary for the page editor', function() {
@@ -68,4 +64,48 @@ describe('The route config', function() {
     expect($state.current.name).toBe('designer.home');
   });
 
+  it('should load french translations', function() {
+
+    $httpBackend.expectGET('i18n/lang-template-fr.json').respond(200, '');
+
+    $location.url('fr/home');
+
+    $httpBackend.flush();
+  });
+
+  it('should load deutsch translations', function() {
+
+    $httpBackend.expectGET('i18n/lang-template-de.json').respond(200, '');
+
+    $location.url('de/home');
+
+    $httpBackend.flush();
+  });
+
+  it('should load spanish translations', function() {
+
+    $httpBackend.expectGET('i18n/lang-template-es-ES.json').respond(200, '');
+
+    $location.url('es/home');
+
+    $httpBackend.flush();
+  });
+
+  it('should load italian translations', function() {
+
+    $httpBackend.expectGET('i18n/lang-template-it.json').respond(200, '');
+
+    $location.url('it/home');
+
+    $httpBackend.flush();
+  });
+
+  it('should load portuguese translations', function() {
+
+    $httpBackend.expectGET('i18n/lang-template-pt-BR.json').respond(200, '');
+
+    $location.url('pt/home');
+
+    $httpBackend.flush();
+  });
 });
