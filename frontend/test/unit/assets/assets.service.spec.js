@@ -36,7 +36,9 @@ describe('utils', function () {
     });
 
     it('getSources should return a table containing Local and External', function () {
-      expect(assetsService.getSources()).toEqual(['External', 'Local']);
+      expect(assetsService.getSources()).toEqual([
+        { key: 'External', label: 'External'},
+        { key: 'Local', label: 'Local'}]);
     });
 
     it('getExternalSource should return External', function () {
