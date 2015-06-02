@@ -2,14 +2,14 @@
   'use strict'
 
   describe('AssetCtrl', function () {
-    var $scope, $q, $modal, assets, artifactRepo;
+    var $scope, $q, $modal, assetsService, artifactRepo, controller;
 
     beforeEach(module('pb.assets', 'ui.bootstrap'));
 
     beforeEach(inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
-      assets = $injector.get('assets');
+      assetsService = $injector.get('assetsService');
       $modal = $injector.get('$modal');
       artifactRepo = {
         loadAssets: function () {
@@ -18,6 +18,8 @@
           ]);
         },
         deleteAsset: function () {
+        },
+        createAsset: function () {
         }
       };
     }));
@@ -26,13 +28,13 @@
 
       beforeEach(inject(function ($injector) {
         $scope.page= {};
-        $injector.get('$controller')('AssetCtrl', {
+        controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           $modal: $modal,
           artifact: { id: 12},
           artifactRepo: artifactRepo,
           mode: 'page',
-          assets: assets
+          assetsService: assetsService
         });
       }));
 
@@ -41,10 +43,6 @@
         expect($scope.assets).toEqual([
           {name: 'myAsset'}
         ]);
-      });
-
-      it('should return isAssetPage=true when artifact is a page', function () {
-        expect($scope.isPageAsset).toBeTruthy();
       });
 
       /**
@@ -113,6 +111,30 @@
 
         expect(artifactRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
       });
+
+      it('should return an empty promise when arg datas is undefined in createOrUpdate', function () {
+        expect(controller.createOrUpdate()).toEqual( $q.when({}));
+      });
+
+      it('should create a new external asset', function () {
+        var asset = {name: 'myasset.js', isNew: true};
+        spyOn(artifactRepo, 'createAsset').and.returnValue($q.when({}));
+
+        controller.createOrUpdate(asset);
+
+        expect(artifactRepo.createAsset).toHaveBeenCalled();
+      });
+
+      it('should create an existing external asset', function () {
+        var asset = {name: 'myasset.js', oldname: 'myoldasset.js'};
+        spyOn(artifactRepo, 'deleteAsset').and.returnValue($q.when({}));
+        spyOn(artifactRepo, 'createAsset').and.returnValue($q.when({}));
+
+        controller.createOrUpdate(asset);
+
+        expect(artifactRepo.deleteAsset).toHaveBeenCalled();
+      });
+
     });
 
 
@@ -120,12 +142,12 @@
 
       beforeEach(inject(function ($injector) {
         $scope.widget= {};
-        $injector.get('$controller')('AssetCtrl', {
+        controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: {},
           artifactRepo: artifactRepo,
           mode: 'widget',
-          assets: assets
+          assetsService: assetsService
         });
       }));
 
@@ -134,10 +156,6 @@
         expect($scope.assets).toEqual([
           {name: 'myAsset'}
         ]);
-      });
-
-      it('should return isAssetPage=false when artifact is a widget', function () {
-        expect($scope.isPageAsset).toBeFalsy();
       });
 
       it('should open a data popup for asset preview', function () {
@@ -163,7 +181,11 @@
         $scope.openAssetPreviewPopup();
         expect($modal.open).toHaveBeenCalled()
       });
+
+
     });
+
+
 
   });
 })();

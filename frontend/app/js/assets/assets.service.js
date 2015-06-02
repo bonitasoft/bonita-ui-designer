@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('pb.assets').service('assets', function () {
+  angular.module('pb.assets').service('assetsService', function () {
 
     'use strict';
 
@@ -10,7 +10,7 @@
       { key: 'img', label: 'Images'}
     ];
 
-    var places = [ 'External', 'Local' ];
+    var sources = [ 'External', 'Local' ];
 
     /**
      * By default all the assets are displayed
@@ -32,15 +32,15 @@
     /**
      * Asset palces
      */
-    function getPlaces() {
-      return places;
+    function getSources() {
+      return sources;
     }
 
     /**
      * Asset palces
      */
-    function getExternalPlace() {
-      return places[0];
+    function getExternalSource() {
+      return sources[0];
     }
 
     /**
@@ -61,13 +61,17 @@
       if(!asset){
         return {
           type : types[0].key,
-          place : 'External'
+          source : 'External'
         };
       }
+      //An asset is identified by name and type. If user choose to change them we need to delete
+      //the old asset and we need the old name and type
       return {
         name : asset.name,
         type : asset.type,
-        place : isExternal(asset) ? 'External' : 'Local'
+        source : isExternal(asset) ? 'External' : 'Local',
+        oldname : asset.name,
+        oldtype : asset.type
       };
     }
 
@@ -78,7 +82,7 @@
       var asset = {
         type : formAsset.type
       };
-      if(formAsset.place=== 'External'){
+      if(formAsset.source=== 'External'){
         asset.name = formAsset.name;
       }
       return asset;
@@ -94,8 +98,8 @@
     return {
       initFilterMap: initFilterMap,
       isExternal: isExternal,
-      getPlaces:getPlaces,
-      getExternalPlace:getExternalPlace,
+      getSources:getSources,
+      getExternalSource:getExternalSource,
       getTypeLabel:getTypeLabel,
       getTypes : getTypes,
       assetToForm : assetToForm,

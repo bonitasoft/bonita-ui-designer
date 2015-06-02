@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('pb.assets').controller('AssetPopupCtrl', function ($scope, $modalInstance, alerts, assets, asset, mode, artifact) {
+  angular.module('pb.assets').controller('AssetPopupCtrl', function ($scope, $modalInstance, alerts, assetsService, asset, mode, artifact) {
 
     'use strict';
 
@@ -9,13 +9,13 @@
     $scope.asset = asset;
     $scope.isNewAsset = asset===undefined;
 
-    //All datas (type, places) are defined in the assets service.
-    $scope.assetTypes = assets.getTypes();
-    $scope.assetPlaces = assets.getPlaces();
-    $scope.externalPlace = assets.getExternalPlace();
+    //All datas (type, sources) are defined in the assets service.
+    $scope.assetTypes = assetsService.getTypes();
+    $scope.assetSources = assetsService.getSources();
+    $scope.externalSource = assetsService.getExternalSource();
 
     //Asset is converted in another object for the html form
-    $scope.newAsset = assets.assetToForm(asset);
+    $scope.newAsset = assetsService.assetToForm(asset);
 
     //The form action target is not the same according to the asset type : css, js or img
     $scope.$watch('newAsset.type', function(newValue) {
@@ -26,11 +26,12 @@
      * An external asset is saved by a $http call
      */
     $scope.saveExternalAsset = function(data) {
+      data.isNew = $scope.isNewAsset;
       $modalInstance.close(data);
     };
 
     /**
-     * An local asset (file) is saved by the submit of the html form
+     * A local asset (file) is saved by the submit of the html form
      */
     $scope.onSuccess = function(response) {
       //Even if a problem occurs in the backend a response is sent with a message

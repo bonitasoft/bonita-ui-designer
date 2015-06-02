@@ -16,10 +16,10 @@
     <div class="col-xs-12">
         <table class="table table-condensed  table-striped table-text-ellipsis">
             <thead>
-            <th class="col-xs-8" translate>Name</th>
-            <th class="col-xs-2" translate ng-if="isPageAsset">Widget</th>
+            <th class="col-xs-7" translate>Name</th>
+            <th class="col-xs-2" translate>Widget</th>
             <th class="col-xs-1" translate>Type</th>
-            <th class="col-xs-1" translate>&nbsp;</th>
+            <th class="col-xs-2" translate>&nbsp;</th>
             </thead>
             <tbody>
             <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
@@ -31,6 +31,10 @@
                         <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup(asset)"
                                 title="{{ 'View asset content' | translate }}" ng-if="!isExternal(asset)">
                             <i class="fa fa-search"></i>
+                        </button>
+                        <button class="btn btn-bonita-asset" ng-click="openAssetPopup(asset)"
+                                title="{{ 'Update asset' | translate }}" ng-if="isExternal(asset)">
+                            <i class="fa fa-pencil"></i>
                         </button>
                         <button class="btn btn-bonita-asset" ng-click="delete(asset)"
                                 title="{{ 'Delete asset' | translate }}" ng-if="!asset.componentId">

@@ -1,33 +1,33 @@
 describe('utils', function () {
-  var assets;
+  var assetsService;
 
   beforeEach(module('pb.assets'));
 
   beforeEach(inject(function ($injector) {
-    assets = $injector.get('assets');
+    assetsService = $injector.get('assetsService');
   }));
 
   describe('getTypeLabel', function () {
     it('should return "" by default', function () {
-      expect(assets.getTypeLabel()).toBe('');
+      expect(assetsService.getTypeLabel()).toBe('');
     });
 
     it('should return "CSS" for type css', function () {
-      expect(assets.getTypeLabel('css')).toBe('CSS');
+      expect(assetsService.getTypeLabel('css')).toBe('CSS');
     });
 
     it('should return "Images" for type img', function () {
-      expect(assets.getTypeLabel('img')).toBe('Images');
+      expect(assetsService.getTypeLabel('img')).toBe('Images');
     });
 
     it('should return "JavaScript" for type js', function () {
-      expect(assets.getTypeLabel('js')).toBe('JavaScript');
+      expect(assetsService.getTypeLabel('js')).toBe('JavaScript');
     });
   });
 
   describe('data', function () {
     it('initFilterMap should return a table for all the types and a filter initialized to true', function () {
-      expect(assets.initFilterMap()).toEqual(
+      expect(assetsService.initFilterMap()).toEqual(
         [
           { key: 'js', label: 'JavaScript', filter: true},
           { key: 'css', label: 'CSS', filter: true},
@@ -35,16 +35,16 @@ describe('utils', function () {
         ]);
     });
 
-    it('getPlaces should return a table containing Local and External', function () {
-      expect(assets.getPlaces()).toEqual(['External', 'Local']);
+    it('getSources should return a table containing Local and External', function () {
+      expect(assetsService.getSources()).toEqual(['External', 'Local']);
     });
 
-    it('getExternalPlace should return External', function () {
-      expect(assets.getExternalPlace()).toBe('External');
+    it('getExternalSource should return External', function () {
+      expect(assetsService.getExternalSource()).toBe('External');
     });
 
     it('getTypes should return a table with all the types ', function () {
-      expect(assets.getTypes()).toEqual(
+      expect(assetsService.getTypes()).toEqual(
         [
           { key: 'js', label: 'JavaScript'},
           { key: 'css', label: 'CSS'},
@@ -54,10 +54,10 @@ describe('utils', function () {
   });
 
   describe('assetToForm', function () {
-    it('should return an object with default value for type and place', function () {
-      expect(assets.assetToForm()).toEqual( {
+    it('should return an object with default value for type and source', function () {
+      expect(assetsService.assetToForm()).toEqual( {
         type : 'js',
-        place : 'External'
+        source : 'External'
       });
     });
 
@@ -66,10 +66,12 @@ describe('utils', function () {
         name : 'http://asset.css',
         type : 'css'
       };
-      expect(assets.assetToForm(asset)).toEqual( {
+      expect(assetsService.assetToForm(asset)).toEqual( {
         name : 'http://asset.css',
         type : 'css',
-        place : 'External'
+        source : 'External',
+        oldname : 'http://asset.css',
+        oldtype : 'css'
       });
     });
 
@@ -78,10 +80,12 @@ describe('utils', function () {
         name : 'asset.css',
         type : 'css'
       };
-      expect(assets.assetToForm(asset)).toEqual( {
+      expect(assetsService.assetToForm(asset)).toEqual( {
         name : 'asset.css',
         type : 'css',
-        place : 'Local'
+        source : 'Local',
+        oldname : 'asset.css',
+        oldtype : 'css'
       });
     });
   });
@@ -91,9 +95,9 @@ describe('utils', function () {
       var formasset = {
         name : 'http://asset.css',
         type : 'css',
-        place : 'External'
+        source : 'External'
       };
-      expect(assets.formToAsset(formasset)).toEqual( {
+      expect(assetsService.formToAsset(formasset)).toEqual( {
         name : 'http://asset.css',
         type : 'css'
       });
