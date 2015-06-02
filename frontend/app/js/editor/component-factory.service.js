@@ -205,19 +205,19 @@ angular.module('pb.services')
     function getPaletteContainers() {
       return [
         {
-          sectionName: 'widget',
+          sectionName: 'widgets',
           sectionOrder: 1,
           component: widgetFactory.createContainerWidget(),
           init: initializeContainer,
           create: createContainer
         }, {
-          sectionName: 'widget',
+          sectionName: 'widgets',
           sectionOrder: 1,
           component: widgetFactory.createTabsContainerWidget(),
           init: initializeTabsContainer,
           create: createTabsContainer
         }, {
-          sectionName: 'widget',
+          sectionName: 'widgets',
           sectionOrder: 1,
           component: widgetFactory.createFormContainerWidget(),
           init: initializeFormContainer,
