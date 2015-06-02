@@ -4,6 +4,7 @@
 
     'use strict';
 
+    var ctrl = this;
     var component = artifact;
     $scope.searchedAsset = assetsService.initFilterMap();
     $scope.isExternal = assetsService.isExternal;
@@ -82,7 +83,7 @@
         }
       });
       //Action launched after a local asset upload or an external asset creation
-      modalInstance.result.then(this.createOrUpdate).then(refresh);
+      modalInstance.result.then(ctrl.createOrUpdate).then(refresh);
     };
 
     /**

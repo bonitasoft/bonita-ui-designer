@@ -20,8 +20,7 @@
             <label class="control-label control-label--required" for="name">
                 <span translate>URL</span>
             </label>
-            <input type="url" ng-model="newAsset.name" class="form-control" autofocus placeholder="http://...." required>
-           test {{addAsset.name.$dirty}}{{addAsset.name.$error.url}}
+            <input type="url" name="name" ng-model="newAsset.name" class="form-control" autofocus placeholder="http://...." required>
             <p class="text-danger" ng-show="addAsset.name.$dirty && addAsset.name.$error.url" translate>Not valid url (should start by http:// or https://)! </p>
         </div>
 
