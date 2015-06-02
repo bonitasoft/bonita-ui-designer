@@ -16,7 +16,7 @@
             <select name="type" class="form-control" ng-model="newAsset.source" ng-options="source for source in assetSources"></select>
         </div>
 
-        <div class="form-group" ng-if="newAsset.source===externalSource">
+        <div class="form-group" ng-if="isExternalAsset(newAsset)">
             <label class="control-label control-label--required" for="name">
                 <span translate>URL</span>
             </label>
@@ -24,7 +24,7 @@
             <p class="text-danger" ng-show="addAsset.name.$dirty && addAsset.name.$error.url" translate>Not valid url (should start by http:// or https://)! </p>
         </div>
 
-        <div class="form-group" ng-if="newAsset.source  !==externalSource">
+        <div class="form-group" ng-if="!isExternalAsset(newAsset)">
             <label class="control-label control-label--required" for="name">
                 <span translate>File</span>
             </label>
@@ -46,8 +46,8 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-if="newAsset.source!==externalSource" ng-disabled="!addAsset.$valid" translate>Save</button>
-        <button class="btn btn-primary" type="button" ng-if="newAsset.source===externalSource" ng-click="saveExternalAsset(newAsset)" ng-disabled="!addAsset.$valid" translate >Save</button>
+        <button class="btn btn-primary" ng-if="!isExternalAsset(newAsset)" ng-disabled="!addAsset.$valid" translate>Add</button>
+        <button class="btn btn-primary" type="button" ng-if="isExternalAsset(newAsset)" ng-click="saveExternalAsset(newAsset)" ng-disabled="!addAsset.$valid" translate >Add</button>
         <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
     </div>
 </form>

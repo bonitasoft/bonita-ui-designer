@@ -12,7 +12,6 @@
     //All datas (type, sources) are defined in the assets service.
     $scope.assetTypes = assetsService.getTypes();
     $scope.assetSources = assetsService.getSources();
-    $scope.externalSource = assetsService.getExternalSource();
 
     //Asset is converted in another object for the html form
     $scope.newAsset = assetsService.assetToForm(asset);
@@ -21,6 +20,10 @@
     $scope.$watch('newAsset.type', function(newValue) {
       $scope.assetSavingAction = urlPrefixForLocalAsset + newValue;
     });
+
+    $scope.isExternalAsset = function (asset) {
+      return asset.source === assetsService.getExternalSource();
+    }
 
     /**
      * An external asset is saved by a $http call
