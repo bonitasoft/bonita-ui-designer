@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('pb.assets').service('assetsService', function () {
+  angular.module('pb.assets').service('assetsService', function (gettextCatalog) {
 
     'use strict';
 
@@ -10,7 +10,10 @@
       { key: 'img', label: 'Images'}
     ];
 
-    var sources = [ 'External', 'Local' ];
+    var sources = [
+      { key: 'External', label: gettextCatalog.getString('External')},
+      { key: 'Local', label: gettextCatalog.getString('Local')}
+    ];
 
     /**
      * By default all the assets are displayed
@@ -40,7 +43,7 @@
      * Asset palces
      */
     function getExternalSource() {
-      return sources[0];
+      return sources[0].key;
     }
 
     /**
@@ -61,7 +64,7 @@
       if(!asset){
         return {
           type : types[0].key,
-          source : 'External'
+          source : sources[0].key
         };
       }
       //An asset is identified by name and type. If user choose to change them we need to delete
@@ -69,7 +72,7 @@
       return {
         name : asset.name,
         type : asset.type,
-        source : isExternal(asset) ? 'External' : 'Local',
+        source : sources[isExternal(asset) ? 0 : 1].key,
         oldname : asset.name,
         oldtype : asset.type
       };
