@@ -151,4 +151,10 @@ describe('home page', function() {
     var input = $('#page-name-input-0');
     expect(input.getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
   });
+
+  it('should open help popup',  function() {
+    $('.btn-bonita-help').click();
+
+    expect($('.modal-header .modal-title').getText()).toBe('Help');
+  });
 });
