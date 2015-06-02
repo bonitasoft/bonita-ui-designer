@@ -172,4 +172,24 @@ describe('widgetRepo', function() {
     widgetRepo.createAsset('my-widget', asset);
     $httpBackend.flush();
   });
+
+  it('should decrement order of an asset', function() {
+    var asset = {
+      name : 'http://mycdn.com/myfile.js',
+      type : 'js'
+    };
+    $httpBackend.expectPUT('rest/widgets/my-widget/assets?decrement=true').respond(200);
+    widgetRepo.decrementOrderAsset('my-widget', asset);
+    $httpBackend.flush();
+  });
+
+  it('should increment order of an asset', function() {
+    var asset = {
+      name : 'http://mycdn.com/myfile.js',
+      type : 'js'
+    };
+    $httpBackend.expectPUT('rest/widgets/my-widget/assets?increment=true').respond(200);
+    widgetRepo.incrementOrderAsset('my-widget', asset);
+    $httpBackend.flush();
+  });
 });
