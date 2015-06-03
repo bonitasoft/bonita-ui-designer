@@ -12,15 +12,21 @@
         resolve: { /* @ngInject */
           language: function($stateParams, gettextCatalog) {
             var languages = {
-              'en': {lang: 'en', file: 'english.json'},
-              'fr': {lang: 'fr', file: 'francais.json'}
+              'en': {lang: 'en'},
+              'fr': {lang: 'fr', file: 'lang-template-fr.json'},
+              'de': {lang: 'de', file: 'lang-template-de.json'},
+              'es': {lang: 'es', file: 'lang-template-es-ES.json'},
+              'it': {lang: 'it', file: 'lang-template-it.json'},
+              'pt': {lang: 'pt', file: 'lang-template-pt-BR.json'}
             };
             // narrow down which language is used or use en
             var language = languages[Object.keys(languages).reduce(function(previous, current) {
               return $stateParams.lang === current ? current : previous;
             })];
             gettextCatalog.setCurrentLanguage(language.lang);
-            return gettextCatalog.loadRemote('i18n/' + language.file);
+            if (language !== languages.en) {
+              return gettextCatalog.loadRemote('i18n/' + language.file);
+            }
           }
         }
       },
