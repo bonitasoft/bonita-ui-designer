@@ -1,9 +1,11 @@
 <div class="table-responsive">
     <table class="table table-striped" ng-class="{'table-hover': ctrl.isClickable()}">
         <thead>
-            <th ng-repeat="header in properties.headers">
-                {{ header }}
-            </th>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                    {{ header }}
+                </th>
+            </tr>
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
