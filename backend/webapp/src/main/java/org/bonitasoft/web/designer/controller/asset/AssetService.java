@@ -123,7 +123,6 @@ public class AssetService<T extends Assetable> {
     }
 
     /**
-     * Save an external asset
      * Return the max order of the assets included in component
      */
     private int getNextOrder(T component) {
