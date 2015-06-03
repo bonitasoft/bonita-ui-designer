@@ -169,14 +169,9 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * Return the list of the previewable assets sorted with only active assets
      */
     protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable){
-        Comparator<Asset> byOrderNumber = new Comparator<Asset>() {
-            @Override
-            public int compare(Asset asset1, Asset asset2) {
-                return Ints.compare(asset1.getOrder(), asset2.getOrder());
-            }
-        };
         return Ordering
-                .from(byOrderNumber)
+                .from(Asset.getComparatorByComponentId())
+                .compound(Asset.getComparatorByOrder())
                 .sortedCopy(
                         Iterables.filter(
                                 assetVisitor.visit(previewable),
