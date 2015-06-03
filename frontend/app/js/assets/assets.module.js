@@ -2,6 +2,6 @@
 
   'use strict';
 
-  angular.module('pb.assets', []);
+  angular.module('pb.assets', ['gettext']);
 
 })();

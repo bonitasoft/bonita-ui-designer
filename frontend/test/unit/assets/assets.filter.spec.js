@@ -2,32 +2,65 @@
   'use strict'
 
   describe('assetType filter', function(){
-    var $filter;
+    var $filter, assets, filters;
 
     beforeEach(module('pb.assets'));
 
     beforeEach(inject(function(_$filter_){
       $filter = _$filter_;
+
+      assets = [
+        { "name": "MyAbcExample.js", "type": "js" },
+        { "name": "MyAbcExample.css", "type": "css" },
+        { "name": "MyAbcExample.png", "type": "img" }
+      ];
+
+      filters = [
+        { key: 'js', label: 'JavaScript', filter: true},
+        { key: 'css', label: 'CSS', filter: true},
+        { key: 'img', label: 'Image', filter: true}
+      ];
     }));
 
-    it('should return "JavaScript" when given js', function() {
-      expect($filter('assetType')('js')).toEqual('JavaScript');
+    function filterOnItem(item){
+      filters.filter(function(elt){
+        return elt.key === item;
+      })[0].filter = false;
+    }
+
+    it('should not filter when no arg filters', function() {
+      expect($filter('assetFilter')(assets)).toEqual(assets);
     });
 
-    it('should return "CSS" when given css', function() {
-      expect($filter('assetType')('css')).toEqual('CSS');
+    it('should not filter when filtering items are true', function() {
+      expect($filter('assetFilter')(assets, filters)).toEqual(assets);
     });
 
-    it('should return "Images" when given img', function() {
-      expect($filter('assetType')('img')).toEqual('Images');
+    it('should exlude css', function() {
+      filterOnItem('css');
+
+      expect($filter('assetFilter')(assets, filters)).toEqual([
+        { "name": "MyAbcExample.js", "type": "js" },
+        { "name": "MyAbcExample.png", "type": "img" }
+      ]);
     });
 
-    it('should return "" when given undefined', function() {
-      expect($filter('assetType')()).toEqual('');
+    it('should exlude img', function() {
+      filterOnItem('img');
+
+      expect($filter('assetFilter')(assets, filters)).toEqual([
+        { "name": "MyAbcExample.js", "type": "js" },
+        { "name": "MyAbcExample.css", "type": "css" }
+      ]);
     });
 
-    it('should return "" when given unknown', function() {
-      expect($filter('assetType')('sdsdd')).toEqual('');
+    it('should exlude js', function() {
+      filterOnItem('js');
+
+      expect($filter('assetFilter')(assets, filters)).toEqual([
+        { "name": "MyAbcExample.css", "type": "css" },
+        { "name": "MyAbcExample.png", "type": "img" }
+      ]);
     });
   });
 

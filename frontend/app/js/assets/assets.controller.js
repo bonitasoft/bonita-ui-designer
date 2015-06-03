@@ -1,54 +1,16 @@
 (function () {
 
-  angular.module('pb.assets').controller('AssetCtrl', function ($scope, $modal, artifact, artifactRepo, mode, assets) {
+  angular.module('pb.assets').controller('AssetCtrl', function ($scope, $modal, $q, artifact, artifactRepo, mode, assetsService) {
 
     'use strict';
 
+    var ctrl = this;
     var component = artifact;
-    $scope.searchedAsset = assets.initFilterMap();
-    $scope.isPageAsset = mode==='page';
-    $scope.isExternal = assets.isExternal;
+    $scope.searchedAsset = assetsService.initFilterMap();
+    $scope.isExternal = assetsService.isExternal;
 
     //Load assets
     refresh();
-
-    /**
-     * Refresh assets in scope
-     */
-    function refreshAssetsInScope(response){
-      $scope.assets = response;
-      $scope[mode].assets = response.filter(function(asset){
-        return asset.scope!=='WIDGET';
-      });
-    }
-    function refresh(){
-      artifactRepo.loadAssets(artifact).then(refreshAssetsInScope);
-    }
-
-    /**
-     * Create an asset via popup
-     */
-    function createAndRefresh(data) {
-      if(data){
-        artifactRepo
-          .createAsset(artifact.id, assets.formToAsset(data))
-          .then(artifactRepo.loadAssets.bind(null, component))
-          .then(refreshAssetsInScope);
-      }
-      else{
-        refresh();
-      }
-    }
-
-    /**
-     * Use for asset table filtering
-     */
-    $scope.filterBySearchedAsset = function (asset) {
-      var assetType = $scope.searchedAsset.filter(function (elt) {
-        return elt.key === asset.type;
-      })[0];
-      return assetType ? assetType.filter : false;
-    };
 
     /**
      * Delete an asset
@@ -110,8 +72,47 @@
           }
         }
       });
-      modalInstance.result
-        .then(createAndRefresh);
+      //Action launched after a local asset upload or an external asset creation
+      modalInstance.result.then(ctrl.createOrUpdate).then(refresh);
+    };
+
+    /**
+     * Refresh assets in scope
+     */
+    function refresh(){
+      artifactRepo.loadAssets(component)
+        .then(function(response){
+          $scope.assets = response;
+          component.assets = response.filter(function(asset){
+            //In the page editor, we filter on the assets linked to the page
+            return asset.scope!=='WIDGET';
+          });
+        }
+      );
+    }
+
+    /**
+     * Create or update an asset
+     */
+    this.createOrUpdate = function (data){
+      if(data){
+        if(data.isNew){
+          //An external asset is created by a POST request. Specific data are not send to backend. formToAsset does the transformation
+          return artifactRepo.createAsset(component.id, assetsService.formToAsset(data));
+        }
+        else{
+          //If data exist, we delete it (the user can change the name or the type). The first step is the deletion of the old asset
+          //and the second the creation of the new one
+          var oldAsset = assetsService.formToAsset(data);
+          oldAsset.type = data.oldtype;
+          oldAsset.name = data.oldname;
+          return artifactRepo.deleteAsset(component.id, oldAsset).then(artifactRepo.createAsset.bind(null, component.id, assetsService.formToAsset(data)));
+        }
+      }
+      else{
+        //A local asset is created via a form send in the popup. We just have to return a promise
+        return $q.when({});
+      }
     };
   });
 

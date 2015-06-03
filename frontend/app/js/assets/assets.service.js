@@ -1,16 +1,19 @@
 (function () {
 
-  angular.module('pb.assets').service('assets', function () {
+  angular.module('pb.assets').service('assetsService', function (gettextCatalog) {
 
     'use strict';
 
     var types = [
       { key: 'js', label: 'JavaScript'},
       { key: 'css', label: 'CSS'},
-      { key: 'img', label: 'Images'}
+      { key: 'img', label: 'Image'}
     ];
 
-    var places = [ 'External', 'Local' ];
+    var sources = [
+      { key: 'External', label: gettextCatalog.getString('External')},
+      { key: 'Local', label: gettextCatalog.getString('Local')}
+    ];
 
     /**
      * By default all the assets are displayed
@@ -30,17 +33,17 @@
     }
 
     /**
-     * Asset palces
+     * Asset sources
      */
-    function getPlaces() {
-      return places;
+    function getSources() {
+      return sources;
     }
 
     /**
-     * Asset palces
+     * Asset external source
      */
-    function getExternalPlace() {
-      return places[0];
+    function getExternalSource() {
+      return sources[0].key;
     }
 
     /**
@@ -61,13 +64,17 @@
       if(!asset){
         return {
           type : types[0].key,
-          place : 'External'
+          source : sources[0].key
         };
       }
+      //An asset is identified by name and type. If user choose to change them we need to delete
+      //the old asset and we need the old name and type
       return {
         name : asset.name,
         type : asset.type,
-        place : isExternal(asset) ? 'External' : 'Local'
+        source : sources[isExternal(asset) ? 0 : 1].key,
+        oldname : asset.name,
+        oldtype : asset.type
       };
     }
 
@@ -78,7 +85,7 @@
       var asset = {
         type : formAsset.type
       };
-      if(formAsset.place=== 'External'){
+      if(formAsset.source=== 'External'){
         asset.name = formAsset.name;
       }
       return asset;
@@ -94,8 +101,8 @@
     return {
       initFilterMap: initFilterMap,
       isExternal: isExternal,
-      getPlaces:getPlaces,
-      getExternalPlace:getExternalPlace,
+      getSources:getSources,
+      getExternalSource:getExternalSource,
       getTypeLabel:getTypeLabel,
       getTypes : getTypes,
       assetToForm : assetToForm,
