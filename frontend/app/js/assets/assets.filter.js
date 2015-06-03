@@ -3,7 +3,7 @@
   /**
    * Filters the assets table in editor by type
    */
-  angular.module('pb.assets').filter('assetFilter', function(assetsService) {
+  angular.module('pb.assets').filter('assetFilter', function() {
 
     'use strict';
 
