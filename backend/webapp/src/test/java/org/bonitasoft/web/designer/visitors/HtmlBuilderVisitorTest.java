@@ -17,9 +17,7 @@ package org.bonitasoft.web.designer.visitors;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -372,4 +370,29 @@ public class HtmlBuilderVisitorTest {
         assertThatHtml(html).isEqualTo(testResource.load("rowsWithComponents.html"));
     }
 
+    @Test
+    public void should_add_active_and_ordered_asset_import_in_header() throws Exception {
+        Page page = aPage().build();
+
+        when(assetVisitor.visit(page)).thenReturn(
+                Sets.newHashSet(
+                        //Widgets assets
+                        new Asset().setName("myfile3.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile2.js").setOrder(-1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile99.js").setOrder(99).setInactive(true).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        //Page asset
+                        new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT)
+                )
+        );
+
+        String html = visitor.build(page, "mycontext/");
+
+        String head = Jsoup.parse(html).head().html();
+
+        //The header should contains in this order myfile3, myfile1 and myfile2
+        assertThat(head).doesNotContain("myfile99.js");
+        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
+                "<script src=\"assets/js/myfile1.js\"></script> \n" +
+                "<script src=\"widgets/widget-id/assets/js/myfile3.js\"></script>");
+    }
 }
