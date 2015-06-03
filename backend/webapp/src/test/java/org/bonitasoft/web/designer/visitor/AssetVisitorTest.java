@@ -65,6 +65,7 @@ public class AssetVisitorTest {
     public void should_return_list_of_asset_used_by_widgets() throws Exception {
         Component component = mockComponentFor(
                 aWidget(),
+                UUID.randomUUID().toString(),
                 anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT),
                 anAsset().withName("http://mycdn.com/myfile.js").withType(AssetType.JAVASCRIPT)
         );
@@ -90,6 +91,7 @@ public class AssetVisitorTest {
     public void should_return_list_of_distinct_asset_used_by_page_and_widgets() throws Exception {
         Component component = mockComponentFor(
                 aWidget(),
+                "id1",
                 anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT),
                 anAsset().withName("http://mycdn.com/myfile.js").withType(AssetType.JAVASCRIPT)
         );
@@ -101,23 +103,25 @@ public class AssetVisitorTest {
 
         Set<Asset> assets = assetVisitor.visit(page);
 
-        assertThat(assets).extracting("name").containsOnlyOnce("myfile.js", "http://mycdn.com/myfile.js");
+        assertThat(assets).extracting("name").contains("myfile.js", "myfile.js", "http://mycdn.com/myfile.js");
+        assertThat(assets).extracting("componentId").contains(null, "id1", "id1");
     }
 
     @Test
     public void should_return_list_of_asset_needed_by_widgets_in_container() throws Exception {
-        Component component1 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
-        Component component2 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component1 = mockComponentFor(aWidget(), "id1", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), "id2", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
 
         Set<Asset> assets = assetVisitor.visit(aContainer().with(component1, component2).build());
 
-        assertThat(assets).extracting("name").containsOnlyOnce("myfile.js");
+        assertThat(assets).extracting("name").containsExactly("myfile.js","myfile.js");
+        assertThat(assets).extracting("componentId").contains("id2","id1");
     }
 
     @Test
     public void should_return_list_of_asset_needed_by_widgets_in_formcontainer() throws Exception {
-        Component component1 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
-        Component component2 = mockComponentFor(aWidget(), anAsset().withName("myfile.css").withType(AssetType.CSS));
+        Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.css").withType(AssetType.CSS));
 
         Set<Asset> assets = assetVisitor.visit(aFormContainer().with(
                 aContainer().with(component1, component2)).build());
@@ -127,8 +131,8 @@ public class AssetVisitorTest {
 
     @Test
     public void should_return_list_of_asset_needed_by_widgets_in_tabscontainer_plus_uibootstrap_which_is_needed_by_tabscontainer() throws Exception {
-        Component component1 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
-        Component component2 = mockComponentFor(aWidget(), anAsset().withName("myfile.css").withType(AssetType.CSS));
+        Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.css").withType(AssetType.CSS));
 
         Set<Asset> assets = assetVisitor.visit(aTabsContainer().with(
                 aTab().with(aContainer().with(component1)),
@@ -139,8 +143,8 @@ public class AssetVisitorTest {
 
     }
 
-    private Component mockComponentFor(WidgetBuilder widgetBuilder, AssetBuilder... assetBuilders) throws Exception {
-        Widget widget = widgetBuilder.id(UUID.randomUUID().toString()).assets(assetBuilders).build();
+    private Component mockComponentFor(WidgetBuilder widgetBuilder, String id, AssetBuilder... assetBuilders) throws Exception {
+        Widget widget = widgetBuilder.id(id).assets(assetBuilders).build();
         Component component = aComponent().withWidgetId(widget.getId()).build();
         when(widgetRepository.get(component.getId())).thenReturn(widget);
         return component;

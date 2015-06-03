@@ -14,14 +14,16 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
@@ -199,5 +201,130 @@ public class AssetServiceTest {
         assetService.delete(page, asset);
 
         verify(assetRepository).delete(asset);
+    }
+
+    @Test
+    public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_name() throws Exception {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage(is("Asset URL is required"));
+        assetService.changeAssetOrderInComponent(anAsset().withName(null).build(), DECREMENT);
+    }
+
+    @Test
+    public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_type() throws Exception {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage(is("Asset type is required"));
+        assetService.changeAssetOrderInComponent(anAsset().withType(null).build(), DECREMENT);
+    }
+
+    @Test
+    public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_compenent_id_in_asset() throws Exception {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage(is("component id is required"));
+        assetService.changeAssetOrderInComponent(anAsset().build(), DECREMENT);
+    }
+
+    private Asset[] getSortedAssets() {
+        return new Asset[]{
+                anAsset().withName("asset1").withOrder(1).build(),
+                anAsset().withName("asset2").withOrder(2).build(),
+                anAsset().withName("asset3").withOrder(3).build()
+        };
+    }
+
+    @Test
+    public void should_increment_asset_order_in_component() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[1].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[1], INCREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset2");
+        assertThat(assets[0].getOrder()).isEqualTo(1);
+        assertThat(assets[1].getOrder()).isEqualTo(3);
+        assertThat(assets[2].getOrder()).isEqualTo(2);
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_decrement_asset_order_in_component() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[1].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[1], DECREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset2");
+        assertThat(assets[0].getOrder()).isEqualTo(2);
+        assertThat(assets[1].getOrder()).isEqualTo(1);
+        assertThat(assets[2].getOrder()).isEqualTo(3);
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_not_increment_asset_order_in_component_when_asset_is_the_last() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[2].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[2], INCREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset3");
+        assertThat(assets[0].getOrder()).isEqualTo(1);
+        assertThat(assets[1].getOrder()).isEqualTo(2);
+        assertThat(assets[2].getOrder()).isEqualTo(3);
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_decrement_asset_order_in_component_when_asset_is_the_last() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[2].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[2], DECREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset3");
+        assertThat(assets[0].getOrder()).isEqualTo(1);
+        assertThat(assets[1].getOrder()).isEqualTo(3);
+        assertThat(assets[2].getOrder()).isEqualTo(2);
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_not_decrement_asset_order_in_component_when_asset_is_the_first() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[0].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[0], DECREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset1");
+        assertThat(assets[0].getOrder()).isEqualTo(1);
+        assertThat(assets[1].getOrder()).isEqualTo(2);
+        assertThat(assets[2].getOrder()).isEqualTo(3);
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_increment_asset_order_in_component_when_asset_is_the_first() throws Exception {
+        Asset[] assets = getSortedAssets();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(assets).build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        assets[0].setComponentId("page-id");
+        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[0], INCREMENT);
+
+        assertThat(assetReturned.getName()).isEqualTo("asset1");
+        assertThat(assets[0].getOrder()).isEqualTo(2);
+        assertThat(assets[1].getOrder()).isEqualTo(1);
+        assertThat(assets[2].getOrder()).isEqualTo(3);
+        verify(repository).save(page);
     }
 }

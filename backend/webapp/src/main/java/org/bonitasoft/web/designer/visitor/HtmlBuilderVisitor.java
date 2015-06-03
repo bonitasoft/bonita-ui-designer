@@ -18,7 +18,6 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.transform;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +25,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
-import com.google.common.primitives.Ints;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -168,7 +166,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     /**
      * Return the list of the previewable assets sorted with only active assets
      */
-    protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable){
+    protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable) {
         return Ordering
                 .from(Asset.getComparatorByComponentId())
                 .compound(Asset.getComparatorByOrder())

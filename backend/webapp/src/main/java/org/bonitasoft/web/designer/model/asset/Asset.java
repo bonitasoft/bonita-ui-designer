@@ -133,6 +133,19 @@ public class Asset {
 
     @Override
     public boolean equals(final Object obj) {
+        if (obj instanceof Asset) {
+            final Asset other = (Asset) obj;
+            return new EqualsBuilder()
+                    .append(name, other.name)
+                    .append(type, other.type)
+                    .append(componentId, other.componentId)
+                    .isEquals();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean equalsWithoutComponentId(final Object obj) {
         //componentId is not in hashcode. If a page use a widget asset with the same name
         //the page asset must to be used
         if (obj instanceof Asset) {
@@ -153,6 +166,7 @@ public class Asset {
         return new HashCodeBuilder(17, 37)
                 .append(name)
                 .append(type)
+                .append(componentId)
                 .toHashCode();
     }
 
@@ -182,4 +196,5 @@ public class Asset {
             }
         };
     }
+
 }
