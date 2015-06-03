@@ -15,6 +15,9 @@
 package org.bonitasoft.web.designer.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +32,7 @@ import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +49,8 @@ public class PreviewController {
     private AssetRepository<Widget> widgetAssetService;
 
     @Inject
-    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetService, AssetRepository<Widget> widgetAssetService) {
+    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetService,
+            AssetRepository<Widget> widgetAssetService) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
         this.pageAssetService = pageAssetService;
@@ -117,4 +122,24 @@ public class PreviewController {
         }
 
     }
+
+    /**
+     * Returns fake css file for living app theme.css
+     */
+    @RequestMapping("/preview/page/theme/theme.css")
+    public void serveWidgetAsset(HttpServletResponse response) throws ServletException {
+
+        response.setHeader("Content-Type", "text/css");
+        response.setHeader("Content-Disposition", "inline; filename=\"theme.css\"");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        response.setStatus(HttpStatus.OK.value());
+        try (PrintWriter writer = response.getWriter()) {
+            writer.println("/**");
+            writer.println("* Living application theme");
+            writer.print("*/");
+        } catch (IOException e) {
+            // fail silently
+        }
+    }
+
 }

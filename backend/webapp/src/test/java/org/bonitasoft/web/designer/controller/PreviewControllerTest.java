@@ -140,4 +140,19 @@ public class PreviewControllerTest {
 
         mockMvc.perform(get("/preview/page/page-id/widgets/widget-id/assets/js/asset.js")).andExpect(status().isNotFound());
     }
+
+    @Test
+    public void should_return_a_fake_css_file_for_living_application_theme() throws Exception {
+        String expectedContent = "/**" + System.lineSeparator()
+                + "* Living application theme" + System.lineSeparator()
+                + "*/";
+
+        mockMvc
+                .perform(get("/preview/page/theme/theme.css"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expectedContent))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"theme.css\""))
+                .andExpect(content().encoding("UTF-8"));
+
+    }
 }
