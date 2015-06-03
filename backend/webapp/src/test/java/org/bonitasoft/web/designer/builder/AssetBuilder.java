@@ -27,6 +27,7 @@ public class AssetBuilder {
     private AssetType type = AssetType.JAVASCRIPT;
     private AssetScope scope = AssetScope.PAGE;
     private Identifiable component;
+    private int order = 1;
 
     public static AssetBuilder anAsset() {
         return new AssetBuilder();
@@ -38,6 +39,11 @@ public class AssetBuilder {
 
     public AssetBuilder withName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public AssetBuilder withOrder(int order) {
+        this.order = order;
         return this;
     }
 
@@ -62,7 +68,7 @@ public class AssetBuilder {
     }
 
     public Asset build() {
-        Asset asset = new Asset().setName(name).setType(type).setScope(scope);
+        Asset asset = new Asset().setName(name).setType(type).setScope(scope).setOrder(order);
         if (component != null) {
             asset.setComponentId(component.getId());
         }
