@@ -395,6 +395,19 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
 
   };
 
+  $scope.openHelp = function() {
+    $modal.open({
+      templateUrl: 'js/editor/help-popup.html',
+      backdrop: 'static',
+      size: 'lg',
+      controller: function($scope, $modalInstance) {
+        $scope.cancel = function() {
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    });
+  };
+
   /**
    * Object containing methods helpful for the component and container directives of the editor, and which is passed
    * as an attribute of these directives.
