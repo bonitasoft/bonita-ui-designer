@@ -14,7 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static java.lang.Boolean.TRUE;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
 import java.util.List;
 import java.util.Set;
@@ -131,6 +134,19 @@ public class PageResource extends DataResource<Page> {
             logger.error(e.getMessage(),e);
             return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.PUT)
+    public Asset incrementOrder(
+            @RequestBody Asset asset,
+            @PathVariable("pageId") String pageId,
+            @RequestParam(value = "increment", required = false) Boolean increment,
+            @RequestParam(value = "decrement", required = false) Boolean decrement) {
+        if (increment != null || decrement != null) {
+            asset.setComponentId(pageId);
+            return pageAssetService.changeAssetOrderInComponent(asset, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+        }
+        return asset;
     }
 
     @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.POST)

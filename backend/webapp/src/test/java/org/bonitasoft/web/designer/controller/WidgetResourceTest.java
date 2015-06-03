@@ -20,6 +20,8 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -514,7 +516,7 @@ public class WidgetResourceTest {
     @Test
     public void should_delete_an_asset() throws Exception {
         Widget widget = aWidget().id("my-widget").custom().build();
-        Asset asset = anAsset().build();
+        Asset asset = anAsset().withWidget(widget).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
@@ -524,6 +526,36 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk());
 
         verify(widgetAssetService).delete(widget, asset);
+    }
+
+    @Test
+    public void should_increment_an_asset() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        Asset asset = anAsset().withWidget(widget).withOrder(3).build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+        mockMvc.perform(
+                put("/rest/widgets/my-widget/assets?increment=true")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(widgetAssetService).changeAssetOrderInComponent(asset, INCREMENT);
+    }
+
+    @Test
+    public void should_decrement_an_asset() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        Asset asset = anAsset().withWidget(widget).withOrder(3).build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+        mockMvc.perform(
+                put("/rest/widgets/my-widget/assets?decrement=true")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(widgetAssetService).changeAssetOrderInComponent(asset, DECREMENT);
     }
 
     private String toJson(Object o) throws IOException {
