@@ -16,10 +16,13 @@ package org.bonitasoft.web.designer.model.asset;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
+import java.util.Comparator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.primitives.Ints;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -162,4 +165,21 @@ public class Asset {
                 .toString();
     }
 
+    public static Comparator<Asset> getComparatorByOrder() {
+        return new Comparator<Asset>() {
+            @Override
+            public int compare(Asset asset1, Asset asset2) {
+                return Ints.compare(asset1.getOrder(), asset2.getOrder());
+            }
+        };
+    }
+
+    public static Comparator<Asset> getComparatorByComponentId() {
+        return new Comparator<Asset>() {
+            @Override
+            public int compare(Asset asset1, Asset asset2) {
+                return ObjectUtils.compare(asset1.getComponentId(), asset2.getComponentId());
+            }
+        };
+    }
 }

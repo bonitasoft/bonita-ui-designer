@@ -378,8 +378,10 @@ public class HtmlBuilderVisitorTest {
                 Sets.newHashSet(
                         //Widgets assets
                         new Asset().setName("myfile3.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile2.js").setOrder(-1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile2.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
                         new Asset().setName("myfile99.js").setOrder(99).setInactive(true).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        //Another widget but with a name starting with z
+                        new Asset().setName("myfile4.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"),
                         //Page asset
                         new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT)
                 )
@@ -389,10 +391,12 @@ public class HtmlBuilderVisitorTest {
 
         String head = Jsoup.parse(html).head().html();
 
-        //The header should contains in this order myfile3, myfile1 and myfile2
+        //The header not contain inactive asset
         assertThat(head).doesNotContain("myfile99.js");
-        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
-                "<script src=\"assets/js/myfile1.js\"></script> \n" +
-                "<script src=\"widgets/widget-id/assets/js/myfile3.js\"></script>");
+        //Page asset should be the first, after assets of widget-id and assets of zidget-id
+        assertThat(head).contains("<script src=\"assets/js/myfile1.js\"></script> \n" +
+                "<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
+                "<script src=\"widgets/widget-id/assets/js/myfile3.js\"></script> \n" +
+                "<script src=\"widgets/zidget-id/assets/js/myfile4.js\"></script>");
     }
 }
