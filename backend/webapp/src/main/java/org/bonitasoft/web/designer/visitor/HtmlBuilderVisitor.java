@@ -18,11 +18,17 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.transform;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
+import com.google.common.primitives.Ints;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -126,7 +132,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("directives", directivesCollector.collect(previewable))
                 .with("rowsHtml", build(previewable.getRows()))
-                .with("previableassets", assetVisitor.visit(previewable))
+                .with("previableassets", getSortedAssets(previewable))
                 .with("factories", transform(pageFactories, new Function<PageFactory, String>() {
                     @Override
                     public String apply(PageFactory factory) {
@@ -157,5 +163,23 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                     }
                 }))
                 .build(new Object());
+    }
+
+    /**
+     * Return the list of the previewable assets sorted with only active assets
+     */
+    protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable){
+        return Ordering
+                .from(Asset.getComparatorByComponentId())
+                .compound(Asset.getComparatorByOrder())
+                .sortedCopy(
+                        Iterables.filter(
+                                assetVisitor.visit(previewable),
+                                new Predicate<Asset>() {
+                                    @Override
+                                    public boolean apply(Asset asset) {
+                                        return !asset.isInactive();
+                                    }
+                                }));
     }
 }

@@ -16,10 +16,13 @@ package org.bonitasoft.web.designer.model.asset;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
+import java.util.Comparator;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.primitives.Ints;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,7 +34,8 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class Asset {
 
-    public interface JsonViewAsset {}
+    public interface JsonViewAsset {
+    }
 
     /**
      * An asset is identified by its name
@@ -45,13 +49,22 @@ public class Asset {
     @NotNull(message = "Asset type may not be null")
     private AssetType type;
     /**
-
      * If asset is linked to a widget, we need the id. When a widget is in a page we must have
      * an id to find the widget and after the asset
      */
     private String componentId;
-
+    /**
+     * An asset can belong to a widget or a page
+     */
     private AssetScope scope;
+    /**
+     * Asset order is important. User or the system has to define it
+     */
+    private int order;
+    /**
+     * If asset is desactivated this value is true
+     */
+    private boolean inactive;
 
     @JsonIgnore
     public boolean isExternal() {
@@ -98,6 +111,26 @@ public class Asset {
         return this;
     }
 
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
+    public int getOrder() {
+        return order;
+    }
+
+    public Asset setOrder(int order) {
+        this.order = order;
+        return this;
+    }
+
+    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
+    public boolean isInactive() {
+        return inactive;
+    }
+
+    public Asset setInactive(boolean inactive) {
+        this.inactive = inactive;
+        return this;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         //componentId is not in hashcode. If a page use a widget asset with the same name
@@ -132,4 +165,21 @@ public class Asset {
                 .toString();
     }
 
+    public static Comparator<Asset> getComparatorByOrder() {
+        return new Comparator<Asset>() {
+            @Override
+            public int compare(Asset asset1, Asset asset2) {
+                return Ints.compare(asset1.getOrder(), asset2.getOrder());
+            }
+        };
+    }
+
+    public static Comparator<Asset> getComparatorByComponentId() {
+        return new Comparator<Asset>() {
+            @Override
+            public int compare(Asset asset1, Asset asset2) {
+                return ObjectUtils.compare(asset1.getComponentId(), asset2.getComponentId());
+            }
+        };
+    }
 }
