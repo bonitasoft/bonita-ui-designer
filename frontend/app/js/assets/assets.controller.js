@@ -13,16 +13,6 @@
     refresh();
 
     /**
-     * Use for asset table filtering
-     */
-    $scope.filterBySearchedAsset = function (asset) {
-      var assetType = $scope.searchedAsset.filter(function (elt) {
-        return elt.key === asset.type;
-      })[0];
-      return assetType ? assetType.filter : false;
-    };
-
-    /**
      * Delete an asset
      */
     $scope.delete = function (asset) {

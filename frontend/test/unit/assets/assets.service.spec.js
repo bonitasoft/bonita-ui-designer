@@ -16,8 +16,8 @@ describe('utils', function () {
       expect(assetsService.getTypeLabel('css')).toBe('CSS');
     });
 
-    it('should return "Images" for type img', function () {
-      expect(assetsService.getTypeLabel('img')).toBe('Images');
+    it('should return "Image" for type img', function () {
+      expect(assetsService.getTypeLabel('img')).toBe('Image');
     });
 
     it('should return "JavaScript" for type js', function () {
@@ -31,7 +31,7 @@ describe('utils', function () {
         [
           { key: 'js', label: 'JavaScript', filter: true},
           { key: 'css', label: 'CSS', filter: true},
-          { key: 'img', label: 'Images', filter: true}
+          { key: 'img', label: 'Image', filter: true}
         ]);
     });
 
@@ -50,7 +50,7 @@ describe('utils', function () {
         [
           { key: 'js', label: 'JavaScript'},
           { key: 'css', label: 'CSS'},
-          { key: 'img', label: 'Images'}
+          { key: 'img', label: 'Image'}
         ]);
     });
   });

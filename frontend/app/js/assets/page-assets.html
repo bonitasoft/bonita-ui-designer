@@ -22,9 +22,9 @@
             <th class="col-xs-2" translate>&nbsp;</th>
             </thead>
             <tbody>
-            <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
+            <tr ng-repeat="asset in assets | assetFilter:searchedAsset as results">
                 <td>{{asset.name}}</td>
-                <td>{{asset.componentId}}</td>
+                <td>{{asset.componentId}}<span ng-if="!asset.componentId" translate>Page level</span></td>
                 <td>{{asset.type | assetType}}</td>
                 <td class="text-right">
                     <div class="btn-group link-group btn-group-sm">
