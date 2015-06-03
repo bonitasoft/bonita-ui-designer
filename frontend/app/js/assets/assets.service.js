@@ -7,7 +7,7 @@
     var types = [
       { key: 'js', label: 'JavaScript'},
       { key: 'css', label: 'CSS'},
-      { key: 'img', label: 'Images'}
+      { key: 'img', label: 'Image'}
     ];
 
     var sources = [
