@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help</h3>
+</div>
+<div class="modal-body">
+
+    <tabset class="tabs-left">
+        <tab heading="{{ 'Rows' | translate }}">
+            <p>
+                <translate>Whiteboard is organized in <b>rows</b> that you can move up and down, or delete.</translate>
+            <ul>
+                <li>Drag and drop widgets or containers in rows</li>
+                <li>When you delete a row, the following rows move up</li>
+                <li>Within a row, when you delete a widget or a container, the following elements move to the left</li>
+            </ul>
+            </p>
+        </tab>
+
+        <tab heading="{{ 'Widgets' | translate }}">
+            <p translate>
+            <ul>
+                <li>Use <b>widgets</b> from the palette to <b>display information to</b> and <b>gather information from</b>  the end user</li>
+                <li>Configure widgets using the <b>properties panel</b> on the right</li>
+                <li>You can also create <b>custom widgets</b> in the UI Designer</li>
+            </ul>
+            </p>
+        </tab>
+
+        <tab heading="{{ 'Containers' | translate }}">
+            <p translate>
+                You can group widgets into containers for layout purposes. (You can also put containers in containers).
+            </p>
+            <p>
+                <translate>Each container also have specific behaviors</translate>
+            <ul>
+
+                <li translate>Repeat content for the plain container</li>
+                <li translate>Multiple content for tabs container</li>
+                <li translate>Access to $form capabilities for form container</li>
+            </ul>
+            </p>
+        </tab>
+
+        <tab heading="{{ 'Variables' | translate }}">
+            <p translate>
+                In the scope of a page, form, or layout, variables are used for handling business data, and for modeling the behavior of widgets.
+                <br/>Create variables in the Variables panel. Bind them to widget properties by clicking on the <i>Bind</i> button and typing the variable name in the
+                property field.
+            </p>
+        </tab>
+    </tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
+</div>

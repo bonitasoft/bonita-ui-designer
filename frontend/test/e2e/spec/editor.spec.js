@@ -213,4 +213,10 @@ describe('editor test', function() {
     editor.removeWidget();
     expect($$('#component-0').count()).toBe(0);
   });
+
+  it('should open help popup',  function() {
+    $('.btn-bonita-help').click();
+
+    expect($('.modal-header .modal-title').getText()).toBe('Help');
+  });
 });
