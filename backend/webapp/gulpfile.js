@@ -4,7 +4,7 @@ var gulp = require('gulp');
 
 var paths = {
   templates: [
-    'src/main/resources/templates/*.html'
+    'src/main/generator/templates/*.html'
   ],
   generator: ['src/main/generator/**/*.js'],
   vendor: [
