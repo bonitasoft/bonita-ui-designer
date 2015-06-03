@@ -8,16 +8,14 @@
     'use strict';
 
     return function(assets, filters){
-      if(assets && filters){
-        var assetsFiltered = assets.filter(function(asset){
-          var assetType = filters.filter(function (elt) {
-            return elt.key === asset.type;
-          })[0];
-          return assetType ? assetType.filter : false;
-        });
-        return assetsFiltered;
+      if(!assets || !filters){
+        return assets;
       }
-      return assets;
+      return assets.filter(function(asset){
+        return filters.filter(function (elt) {
+          return elt.key === asset.type;
+        })[0].filter;
+      });
     };
   });
 
