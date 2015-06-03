@@ -1,8 +1,7 @@
+@bottom-tab-height: 2.2em;
 
 .BottomPanel {
-  background-color: @color-data-bg;
   position: absolute;
-  margin: 25px 30px 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -14,7 +13,7 @@
 .BottomPanel-splitter {
   cursor: row-resize;
   position: absolute;
-  top: 0;
+  top: calc(~"2.2em" - @bottom-sidebar-splitter-height);
   left: 0;
   right: 0;
   height: @bottom-sidebar-splitter-height;
@@ -23,33 +22,49 @@
 
 .BottomPanel-content {
   overflow: auto;
-  height: 100%;
-  padding: .7em 0;
+  background-color: @color-data-bg;
+  padding: .7em;
+
+  height: calc(~"100%" - @bottom-tab-height);
 }
 
 .BottomPanel-toggleBar {
-  position: absolute;
-  top: -2.6em;
-  padding: 4px 0;
   text-align: left;
+  padding-left: 1em;
 }
 
 .BottomPanel-toggle {
-  font-size: 1.2em;
+  font-size: 1em;
+  text-transform: uppercase;
   padding: 4px 10px;
   text-align: left;
   display: inline-block;
-  background-color: @color-data-bg;
+  height: @bottom-tab-height;
+  background-color:lighten(@color-data-bg, 5%);
+}
 
-  &:not(.BottomPanel-toggle--active) {
-    color: white;
-    background-color: lighten(@color-data-bg, 5%);
-  }
+.BottomPanel-toggle--active {
+  background-color: @color-data-bg;
 }
 
 /**
  * Data panel filter
  */
+
+.DataHeader {
+   padding-bottom: .7em;
+   display: table;
+   width: 100%
+}
+.DataHeader-action,
+.DataHeader-filter {
+   display: table-cell;
+   vertical-align: top;
+}
+.DataHeader-action {
+  width: 70%;
+}
+
 .search-filter {
   position: relative;
  }
@@ -73,4 +88,53 @@
   right: .4em;
   top: .7em;
   line-height: 1;
+}
+
+
+
+.table-ui-designer {
+
+  background-color: @color-table-tr-even;
+  // Cells
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        border-top: 1px solid @color-data-bg;
+      }
+    }
+  }
+  // Bottom align for column headings
+  > thead > tr > th {
+    background-color: @color-table-header-bg;
+    color: @color-table-header-text;
+    border-bottom: 2px solid @color-data-bg;
+  }
+  // Remove top border from thead by default
+  > caption + thead,
+  > colgroup + thead,
+  > thead:first-child {
+    > tr:first-child {
+      > th,
+      > td {
+        border-top: 0;
+      }
+    }
+  }
+  // Account for multiple tbody instances
+  > tbody + tbody {
+    border-top: 2px solid @color-data-bg;
+  }
+
+}
+
+.table-ui-designer.table-striped {
+  > tbody > tr:nth-child(odd) {
+    > td,
+    > th {
+      background-color: @color-table-tr-odd;
+    }
+  }
 }
