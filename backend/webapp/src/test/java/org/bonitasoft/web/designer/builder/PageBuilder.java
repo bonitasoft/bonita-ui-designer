@@ -64,8 +64,10 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withAsset(Asset asset){
-        assets.add(asset);
+    public PageBuilder withAsset(Asset ... assets){
+        for(Asset asset : assets){
+            this.assets.add(asset);
+        }
         return this;
     }
 

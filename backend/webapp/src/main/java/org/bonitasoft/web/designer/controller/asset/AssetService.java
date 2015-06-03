@@ -19,8 +19,8 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Set;
 
-import com.google.common.base.Preconditions;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -30,7 +30,6 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,7 +63,8 @@ public class AssetService<T extends Assetable> {
                 .setName(file.getOriginalFilename())
                 .setComponentId(component.getId())
                 .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
-                .setType(assetType);
+                .setType(assetType)
+                .setOrder(getNextOrder(component));
 
         deleteComponentAsset(component, asset);
 
@@ -105,6 +105,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
         if (!component.getAssets().contains(asset)) {
+            asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
         }
         repository.save(component);
@@ -120,4 +121,17 @@ public class AssetService<T extends Assetable> {
         deleteComponentAsset(component, asset);
         repository.save(component);
     }
+
+    /**
+     * Save an external asset
+     * Return the max order of the assets included in component
+     */
+    private int getNextOrder(T component) {
+        int order = 0;
+        for (Asset asset : (Set<Asset>) component.getAssets()) {
+            order = asset.getOrder() > order ? asset.getOrder() : order;
+        }
+        return order+1;
+    }
+
 }
