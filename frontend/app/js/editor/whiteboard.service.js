@@ -49,7 +49,7 @@ angular.module('pb.services')
 
 
       var coreWidgets = widgets.filter(isCoreWidget)
-        .map(componentFactory.paletteWrapper.bind(null, 'widget', 1));
+        .map(componentFactory.paletteWrapper.bind(null, 'widgets', 1));
 
       var customWidgets = widgets.filter(isCustomWidget)
         .map(componentFactory.paletteWrapper.bind(null, 'customWidgets', 2));
