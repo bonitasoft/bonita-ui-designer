@@ -83,12 +83,12 @@
         <div id="data-sidebar" class="BottomPanel">
             <div id="data-sidebar-splitter" splitter-horizontal default-state="designer.page" closed-on-init="false" pane-top="#editor" pane-bottom="#data-sidebar" pane-bottom-max="600" pane-bottom-min="250"></div>
             <div class="BottomPanel-toggleBar">
-                <div class="BottomPanel-toggle clickable" ng-class="{ 'BottomPanel-toggle--active': ctrl.isActive() }" splitter-toggle="#data-sidebar-splitter"  target-state="designer.page">
-                    <span translate>Data</span>
+                <div class="BottomPanel-toggle clickable" ng-class="{ 'BottomPanel-toggle--active': splitter.isActive() }" splitter-toggle="#data-sidebar-splitter"  target-state="designer.page">
+                    <span translate>Variables</span>
                     <i class="fa fa-angle-down" ></i>
                 </div>
 
-                <div class="BottomPanel-toggle clickable" ng-class="{ 'BottomPanel-toggle--active': ctrl.isActive() }" splitter-toggle="#data-sidebar-splitter" target-state="designer.page.asset" ng-if="mode==='page'">
+                <div class="BottomPanel-toggle clickable" ng-class="{ 'BottomPanel-toggle--active': splitter.isActive() }" splitter-toggle="#data-sidebar-splitter" target-state="designer.page.asset" ng-if="mode==='page'">
                     <span translate>Assets</span>
                     <i class="fa fa-angle-down" ></i>
                 </div>
