@@ -29,7 +29,7 @@ angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTyp
 
   $scope.filterPageData = function () {
     function matchData(pattern, key, data ) {
-      return key.indexOf(pattern.trim()) !== -1 || angular.toJson(data).indexOf(pattern.trim()) !== -1 ;
+      return key.indexOf(pattern.trim()) !== -1 || angular.toJson(data || {}).indexOf(pattern.trim()) !== -1 ;
     }
 
     $scope.pageData = Object.keys($scope.page.data).reduce(function(data, key){
