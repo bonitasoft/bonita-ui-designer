@@ -24,9 +24,10 @@ angular.module('pb.directives').directive('splitterToggle', function() {
       var eventName = getEventName(document.querySelector($attrs.splitterToggle));
       $element.on('click', function() {
         angular.element($attrs.splitterToggle).trigger(eventName, $attrs.targetState);
+        $scope.$digest();
       });
     },
-    controllerAs: 'ctrl',
+    controllerAs: 'splitter',
     controller: function($element, $scope, $state) {
       this.isActive = function() {
         return $state.current.name === this.state;
