@@ -4,7 +4,7 @@ var serveStatic = require('serve-static');
 var http = require('http');
 var multiparty = require('multiparty');
 
-module.exports = function(gulp, config) {
+module.exports = function (gulp, config) {
 
   require('./build.js')(gulp, config);
 
@@ -21,12 +21,7 @@ module.exports = function(gulp, config) {
    * Web Server & livereload
    */
   var proxy = require('http-proxy')
-    .createProxyServer({
-      target: {
-        host: 'localhost',
-        port: 8080
-      }
-    }).on('error', function (e) {
+    .createProxyServer({}).on('error', function (e) {
       console.error(e);
     });
 
@@ -39,38 +34,40 @@ module.exports = function(gulp, config) {
     }
 
     function matchStaticProxyfied(req) {
-      return staticProxyfiedFiles.some(function(regexp) {
+      return staticProxyfiedFiles.some(function (regexp) {
         return req.url.match(regexp);
       });
     }
 
     if (matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
+    } else if (/^\/bonita\/.*/.test(req.url)) {
+      proxy.web(req, res, { target: 'http://127.0.0.1:8081' });
     } else {
-      proxy.web(req, res);
+      proxy.web(req, res, { target: 'http://127.0.0.1:8080' });
     }
   }
 
 
-  function uploadMiddleware(req, res, next){
-    if (/\/API\/formFileUpload$/.test(req.url)){
+  function uploadMiddleware(req, res, next) {
+    if (/\/API\/formFileUpload$/.test(req.url)) {
       var form = new multiparty.Form();
       var filename;
 
-      form.on('error', function(error){
+      form.on('error', function (error) {
         console.log('Error parsing form', error.stack);
         res.writeHead(500, {'content-type': 'text/plain'});
         res.end(JSON.stringify(error));
       });
 
-      form.on('part', function(part){
+      form.on('part', function (part) {
         if (part.filename) {
           filename = part.filename;
         }
         part.resume();
       });
 
-      form.on('close', function() {
+      form.on('close', function () {
         res.writeHead(200, {'content-type': 'text/plain'});
         res.write(JSON.stringify({
           filename: filename,

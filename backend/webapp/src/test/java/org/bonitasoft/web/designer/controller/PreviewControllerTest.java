@@ -62,7 +62,7 @@ public class PreviewControllerTest {
 
     @Before
     public void beforeEach() throws Exception {
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, pageAssetRepository, widgetAssetRepository)).build();
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, pageAssetRepository, widgetAssetRepository, new RequestMappingUtils())).build();
     }
 
     @Test
@@ -154,5 +154,19 @@ public class PreviewControllerTest {
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"theme.css\""))
                 .andExpect(content().encoding("UTF-8"));
 
+    }
+
+    @Test
+    public void should_redirect_API_calls_to_the_real_API() throws Exception {
+        mockMvc
+                .perform(get("/preview/page/API/portal/page"))
+                .andExpect(redirectedUrl("/bonita/API/portal/page"));
+    }
+
+    @Test
+    public void should_redirect_API_calls_to_the_real_API_and_add_the_query_string() throws Exception {
+        mockMvc
+                .perform(get("/preview/page/API/portal/page?p=0&c=1"))
+                .andExpect(redirectedUrl("/bonita/API/portal/page?p=0&c=1"));
     }
 }
