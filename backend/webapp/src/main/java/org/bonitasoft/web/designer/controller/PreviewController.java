@@ -14,8 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import javax.inject.Inject;
@@ -47,14 +48,35 @@ public class PreviewController {
     private Previewer previewer;
     private AssetRepository<Page> pageAssetService;
     private AssetRepository<Widget> widgetAssetService;
+    private RequestMappingUtils requestMappingUtils;
 
     @Inject
-    public PreviewController(PageRepository pageRepository, Previewer previewer, AssetRepository<Page> pageAssetService,
-            AssetRepository<Widget> widgetAssetService) {
+    public PreviewController(PageRepository pageRepository,
+                             Previewer previewer,
+                             AssetRepository<Page> pageAssetService,
+                             AssetRepository<Widget> widgetAssetService,
+                             RequestMappingUtils requestMappingUtils) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
         this.pageAssetService = pageAssetService;
         this.widgetAssetService = widgetAssetService;
+        this.requestMappingUtils = requestMappingUtils;
+    }
+
+    /**
+     * Send redirect to the Rest API
+     */
+    @RequestMapping("/preview/page/API/**")
+    public void proxyAPICall(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+
+        try {
+            String queryString = isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString();
+            response.sendRedirect("/bonita/API/" + requestMappingUtils.extractPathWithinPattern(request) + queryString);
+        } catch (IOException e) {
+            String message = "Error while redirecting API call";
+            logger.error(message, e);
+            throw new ServletException(message, e);
+        }
     }
 
     @RequestMapping(value = "/preview/page/{id}", produces = "text/html; charset=UTF-8")
