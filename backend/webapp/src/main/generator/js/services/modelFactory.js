@@ -4,7 +4,7 @@
   function modelFactory($interpolate, $http, $log, $location) {
 
     function resolveVariable(dataModel, descriptor, name) {
-      dataModel[name] = descriptor.value||undefined;
+      dataModel[name] = descriptor.value || undefined;
     }
 
     function resolveJson(dataModel, descriptor, name) {
@@ -14,12 +14,16 @@
     function resolveExpression(dataModel, descriptor, name) {
 
       // use strict. Avoid pollution of the global object.
-      var expression = new Function('$data', '"use strict";' + descriptor.value);
+      var expression = new Function('$data', '"use strict";' + descriptor.value), currentValue;
 
       Object.defineProperty(dataModel, name, {
         get: function () {
           try {
-            return expression(dataModel);
+            var value = expression(dataModel);
+            if(!angular.equals(currentValue, value)) {
+              currentValue = value;
+            }
+            return currentValue;
           } catch (e) {
             $log.warn("Error evaluating <", name, "> data: ", e.message);
           }
