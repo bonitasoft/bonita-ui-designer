@@ -190,4 +190,16 @@ angular.module('pb.home').controller('HomeCtrl', function($scope, $state, $modal
     }
   };
 
+  $scope.openHelp = function() {
+    $modal.open({
+      templateUrl: 'js/home/help-popup.html',
+      backdrop: 'static',
+      size: 'lg',
+      controller: function($scope, $modalInstance) {
+        $scope.cancel = function() {
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    });
+  };
 });
