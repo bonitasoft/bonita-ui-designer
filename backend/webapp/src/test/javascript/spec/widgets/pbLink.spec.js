@@ -2,7 +2,7 @@ describe('pbLink', function() {
 
   var compile, scope, dom;
 
-  beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('pb.widgets'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');

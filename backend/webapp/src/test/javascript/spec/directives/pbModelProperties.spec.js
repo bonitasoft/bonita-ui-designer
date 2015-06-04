@@ -2,8 +2,8 @@ describe('Directive: modelProperties', function () {
 
   beforeEach(
     module(
-      'org.bonitasoft.pagebuilder.generator.services',
-      'org.bonitasoft.pagebuilder.generator.directives',
+      'pb.generator.services',
+      'pb.generator.directives',
       function ($provide) {
         $provide.value('dataModelFactory', {
           get: function (uuid) {
