@@ -163,7 +163,7 @@ public class AssetService<T extends Assetable> {
                 }
                 break;
             }
-            if (asset.equals(a)) {
+            if (asset.equalsWithoutComponentId(a)) {
                 //If asset is found we change order
                 actual = a;
                 //If elt is the first we can't decremented it. This is the same if we want to increment the last one
