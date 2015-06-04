@@ -70,4 +70,17 @@ angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTyp
     modalInstance.result.then($scope.save);
 
   };
+
+  $scope.openHelp = function() {
+    $modal.open({
+      templateUrl: 'js/editor/data-panel/help-popup.html',
+      backdrop: 'static',
+      size: 'lg',
+      controller: function($scope, $modalInstance) {
+        $scope.cancel = function() {
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    });
+  };
 });

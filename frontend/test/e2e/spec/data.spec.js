@@ -168,5 +168,10 @@ describe('data panel', function() {
       expect( dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
+    it('should open help popup',  function() {
+      $('.btn-data--help').click();
+
+      expect($('.modal-header .modal-title').getText()).toBe('Help');
+    });
   });
 });

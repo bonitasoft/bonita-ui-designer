@@ -1,0 +1,66 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help</h3>
+</div>
+<div class="modal-body">
+
+    <tabset class="tabs-left">
+        <tab heading="{{ 'General' | translate }}">
+            <p translate>
+                In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information
+                that determines how page elements behave.
+            </p translate>
+
+            <p translate> Create a variable here. To bind it to a widget property, first click on the <i>Bind</i> button in the property field and then type the variable
+                name.</p>
+
+            <p translate>Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic).</p>
+        </tab>
+
+        <tab heading="{{ 'Living data' | translate }}">
+            <p translate>Variables can be bound to input fields to create conditional behavior between widget properties.</p>
+
+            <p translate>A binding is dynamic, so every time data changes, the whole data model is re-evaluated and the UI is updated.</p>
+        </tab>
+
+        <tab heading="{{ 'Default variables' | translate }}">
+            <p translate>
+                When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>,
+                <code>formOutput</code>, <code>taskId</code>, and <code>context</code>
+            </p>
+
+            <p translate>
+                <code>formInput</code> is a JSON object.
+                <br/>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial
+                values for form fields.
+                <br/>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with
+                values from an object in an external source that has the same model (such as with a BDM external API).
+                <br/>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to
+                edit <code>formOutput</code> manually.
+            </p>
+
+            <p translate>
+                <code>formOutput</code> is a JavaScript object.
+                <br/>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields
+                from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and
+                aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) and submitted to
+                the process or task
+            </p>
+
+            <p translate>
+                <code>taskId</code> is a URL Parameter.
+                <br/>It is the id of the current BPM task. You can use it as a BPM API parameter.
+            </p>
+
+            <p ng-non-bindable translate><code>context</code> is an External API.
+                <br/>It provides references to all business variables and documents in the process instance.
+                To retrieve a business variable instance, create an External API variable with value ../{{context.myBusinessData_ref.link}}
+            </p>
+
+        </tab>
+
+    </tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
+</div>
