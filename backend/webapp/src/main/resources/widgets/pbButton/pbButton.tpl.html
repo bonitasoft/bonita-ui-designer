@@ -2,5 +2,5 @@
     <button
         ng-class="'btn btn-' + properties.buttonStyle"
         ng-click="ctrl.action()"
-        ng-disabled="properties.disabled">{{ properties.label }}</button>
+        ng-disabled="properties.disabled || ($form && $form.$invalid)">{{ properties.label }}</button>
 </div>
