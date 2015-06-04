@@ -22,6 +22,7 @@
     $scope.onError = onError;
     $scope.saveExternalAsset = saveExternalAsset;
     $scope.updateSavingAction = updateSavingAction;
+    $scope.assetSavingAction = urlPrefixForLocalAsset + 'js';
 
     function isExternalAsset(asset) {
       return asset.source === assetsService.getExternalSource();
