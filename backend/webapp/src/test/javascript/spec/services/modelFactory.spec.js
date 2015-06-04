@@ -1,6 +1,6 @@
 describe('Service: modelFactory', function () {
 
-  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
+  beforeEach(module('pb.generator.services'));
 
   var dataModel, template, scope, $httpBackend, $compile, $location, data = {
     foo: {

@@ -2,7 +2,7 @@ describe('pbButton', function () {
 
   var $compile, scope, element, $timeout, $parse, $q, $location, $window;
 
-  beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+  beforeEach(module('pb.widgets'));
 
   beforeEach(inject(function ($injector, $rootScope) {
 

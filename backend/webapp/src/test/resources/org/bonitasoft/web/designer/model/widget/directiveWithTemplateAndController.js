@@ -1,4 +1,4 @@
-angular.module('org.bonitasoft.pagebuilder.widgets')
+angular.module('pb.widgets')
   .directive('pbInput', function() {
     return {
       controllerAs: 'ctrl',

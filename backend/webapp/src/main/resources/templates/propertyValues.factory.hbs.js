@@ -1,4 +1,4 @@
-angular.module('org.bonitasoft.pagebuilder.generator.services').factory('propertyValuesFactory', function() {
+angular.module('pb.generator.services').factory('propertyValuesFactory', function() {
   var identifiedPropertyValues = {};
   {{#each identifiedPropertyValues}}
   identifiedPropertyValues['{{ key }}'] =  {{ json this }};

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('org.bonitasoft.pagebuilder.generator.directives')
+  angular.module('pb.generator.directives')
     .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory) {
 
       function PbModelCtrl() {}
