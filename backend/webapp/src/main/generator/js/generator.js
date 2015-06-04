@@ -1,20 +1,20 @@
 (function() {
   'use strict';
 
-  angular.module('org.bonitasoft.pagebuilder.generator.constants', []);
-  angular.module('org.bonitasoft.pagebuilder.generator.services', []);
-  angular.module('org.bonitasoft.pagebuilder.generator.directives', []);
-  angular.module('org.bonitasoft.pagebuilder.widgets', []);
+  angular.module('pb.generator.constants', []);
+  angular.module('pb.generator.services', []);
+  angular.module('pb.generator.directives', []);
+  angular.module('pb.widgets', []);
 
-  angular.module('org.bonitasoft.pagebuilder.generator', [
+  angular.module('pb.generator', [
     'ngSanitize',
     'ngMessages',
     'ngUpload',
-    'org.bonitasoft.pagebuilder.generator.templates',
-    'org.bonitasoft.pagebuilder.generator.constants',
-    'org.bonitasoft.pagebuilder.generator.services',
-    'org.bonitasoft.pagebuilder.generator.directives',
-    'org.bonitasoft.pagebuilder.widgets'
+    'pb.generator.templates',
+    'pb.generator.constants',
+    'pb.generator.services',
+    'pb.generator.directives',
+    'pb.widgets'
   ]);
 })();
 

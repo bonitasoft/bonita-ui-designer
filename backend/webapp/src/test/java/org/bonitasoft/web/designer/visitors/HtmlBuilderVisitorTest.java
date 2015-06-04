@@ -323,7 +323,7 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "");
 
         Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).contains("angular.module('org.bonitasoft.pagebuilder.generator').requires.push('needed.module');");
+        assertThat(head.html()).contains("angular.module('pb.generator').requires.push('needed.module');");
     }
 
     @Test
@@ -334,7 +334,7 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "");
 
         Element head = Jsoup.parse(html).head();
-        assertThat(head.html()).doesNotContain("angular.module('org.bonitasoft.pagebuilder.generator').requires.push");
+        assertThat(head.html()).doesNotContain("angular.module('pb.generator').requires.push");
     }
 
     @Test
