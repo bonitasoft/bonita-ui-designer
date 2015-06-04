@@ -47,7 +47,7 @@ angular.module('pb.services').factory('widgetFactory', function(commonParams) {
       properties: commonParams.getDefinitions().concat([
         {
           name: 'action',
-          label: 'Url',
+          label: 'URI',
           caption: 'The URI of a program that processes the form information',
           type: 'string'
         },
