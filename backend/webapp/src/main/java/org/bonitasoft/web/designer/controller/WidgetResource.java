@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static java.lang.Boolean.TRUE;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
@@ -167,12 +171,11 @@ public class WidgetResource {
     @RequestMapping(value = "/{widgetId}/assets/{type}", method = RequestMethod.POST)
     public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String widgetId, @PathVariable("type") String type) {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        try{
+        try {
             widgetAssetService.upload(file, repository.get(widgetId), type);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        catch (ServerImportException | IllegalArgumentException e){
-            logger.error(e.getMessage(),e);
+        } catch (ServerImportException | IllegalArgumentException e) {
+            logger.error(e.getMessage(), e);
             return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -188,6 +191,21 @@ public class WidgetResource {
         checkWidgetIdIsNotAPbWidget(widgetId);
         asset.setComponentId(widgetId);
         widgetAssetService.delete(repository.get(widgetId), asset);
+    }
+
+    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.PUT)
+    public Asset incrementOrder(
+            @RequestBody Asset asset,
+            @PathVariable("widgetId") String widgetId,
+            @RequestParam(value = "increment", required = false) Boolean increment,
+            @RequestParam(value = "decrement", required = false) Boolean decrement) {
+        checkWidgetIdIsNotAPbWidget(widgetId);
+
+        if (increment != null || decrement != null) {
+            asset.setComponentId(widgetId);
+            return widgetAssetService.changeAssetOrderInComponent(asset, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+        }
+        return asset;
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

@@ -19,8 +19,10 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -40,6 +42,8 @@ public class AssetService<T extends Assetable> {
     protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
     public static final String ASSET_TYPE_IS_REQUIRED = "Asset type is required";
     public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
+
+    public enum OrderType {INCREMENT, DECREMENT}
 
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
@@ -85,7 +89,7 @@ public class AssetService<T extends Assetable> {
             Asset existingAsset = assetIterator.next();
 
             //If the resource exist we delete the file before save the new one
-            if (asset.equals(existingAsset)) {
+            if (asset.equalsWithoutComponentId(existingAsset)) {
                 try {
                     assetRepository.delete(asset);
                 } catch (NotFoundException | IOException e) {
@@ -130,7 +134,56 @@ public class AssetService<T extends Assetable> {
         for (Asset asset : (Set<Asset>) component.getAssets()) {
             order = asset.getOrder() > order ? asset.getOrder() : order;
         }
-        return order+1;
+        return order + 1;
+    }
+
+    /**
+     * Uses to change assset order in the component
+     */
+    public Asset changeAssetOrderInComponent(Asset asset, OrderType ordering) {
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
+        checkArgument(asset.getComponentId() != null, "component id is required");
+
+        T component = repository.get(asset.getComponentId());
+
+        //In need an ordered list
+        List<Asset> assets = Ordering.from(Asset.getComparatorByOrder()).sortedCopy(component.getAssets());
+
+        Asset previous = null;
+        Asset actual = null;
+        int i = 0;
+        int size = assets.size();
+
+        for (Asset a : assets) {
+            if (actual != null) {
+                //We have to break the loop
+                if (OrderType.INCREMENT.equals(ordering)) {
+                    a.setOrder(a.getOrder() - 1);
+                }
+                break;
+            }
+            if (asset.equalsWithoutComponentId(a)) {
+                //If asset is found we change order
+                actual = a;
+                //If elt is the first we can't decremented it. This is the same if we want to increment the last one
+                if ((OrderType.DECREMENT.equals(ordering) && previous == null) ||
+                        (OrderType.INCREMENT.equals(ordering) && i == size - 1)) {
+                    //If elt is the first or the last it can't be decremented or incremented
+                    break;
+                }
+                a.setOrder(OrderType.DECREMENT.equals(ordering) ? a.getOrder() - 1 : a.getOrder() + 1);
+                //If current asset is placed before we change the previous asset
+                if (previous != null && OrderType.DECREMENT.equals(ordering)) {
+                    previous.setOrder(previous.getOrder() + 1);
+                }
+            } else {
+                previous = a;
+            }
+            i++;
+        }
+        repository.save(component);
+        return actual;
     }
 
 }

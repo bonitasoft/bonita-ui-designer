@@ -20,6 +20,8 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
@@ -27,25 +29,18 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
@@ -73,8 +68,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.google.common.collect.Sets;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -382,9 +375,39 @@ public class PageResourceTest {
     }
 
     @Test
+    public void should_increment_an_asset() throws Exception {
+        Page page = aPage().withId("my-page").build();
+        Asset asset = anAsset().withPage(page).withOrder(3).build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+
+        mockMvc.perform(
+                put("/rest/pages/my-page/assets?increment=true")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(pageAssetService).changeAssetOrderInComponent(asset, INCREMENT);
+    }
+
+    @Test
+    public void should_decrement_an_asset() throws Exception {
+        Page page = aPage().withId("my-page").build();
+        Asset asset = anAsset().withPage(page).withOrder(3).build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+
+        mockMvc.perform(
+                put("/rest/pages/my-page/assets?decrement=true")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(pageAssetService).changeAssetOrderInComponent(asset, DECREMENT);
+    }
+
+    @Test
     public void should_delete_an_asset() throws Exception {
         Page page = aFilledPage("my-page");
-        Asset asset = anAsset().build();
+        Asset asset = anAsset().withPage(page).build();
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
