@@ -9,6 +9,7 @@
         </strong>
 
         <form name="formName" class="form-inline EditorHeader-form" autocomplete="off">
+
             <div class="form-group tooltip-error"
                  tooltip="{{ mode + ' name should contains only alphanumeric characters with no space' | translate }} "
                  tooltip-toggle="formName.name.$error.pattern"
@@ -35,6 +36,7 @@
                 </ul>
             </div>
             <button type="button" id="export" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="saveAndExport()" title="{{ 'Export' | translate }}"><i class="fa fa-alias-export"></i></button>
+
         </form>
 
         <button class="btn btn-bonita-primary"
@@ -51,6 +53,11 @@
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>
     </div>
+
+    <div class="EditorHeader-help">
+        <button class="btn btn-bonita-help" ng-click="openHelp()" ><i class="fa fa-question-circle"></i></button>
+    </div>
+
     <div class="EditorHeader-properties">
         <button class="btn btn-bonita-primary"
                 splitter-toggle="#widget-properties-splitter" >
