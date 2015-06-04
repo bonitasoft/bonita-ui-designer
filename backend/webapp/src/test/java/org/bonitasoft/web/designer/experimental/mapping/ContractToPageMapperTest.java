@@ -70,8 +70,8 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("formInput", aJSONData().value(objectMapper.prettyPrint("{\"names\":\"\"}")).build()));
-        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("return {'names':$data.formInput.names};").build()));
+        assertThat(page.getData()).contains(entry("formInput", aJSONData().value(objectMapper.prettyPrint("{\"names\":[]}")).build()));
+        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("return {\n\t'names': $data.formInput.names\n};").build()));
     }
 
     @Test
