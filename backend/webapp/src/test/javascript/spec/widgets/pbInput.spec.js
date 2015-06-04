@@ -2,8 +2,8 @@ describe('pbInput', function () {
 
   var $compile, scope;
 
- beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
-  beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
+ beforeEach(module('pb.generator.services'));
+  beforeEach(module('pb.widgets'));
 
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;

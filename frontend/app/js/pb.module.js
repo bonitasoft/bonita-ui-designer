@@ -7,7 +7,7 @@
   angular.module('pb.services', ['pb.filters']);
   angular.module('pb.factories', ['pb.filters']);
   angular.module('pb.directives', ['pb.filters']);
-  angular.module('org.bonitasoft.pagebuilder.widgets', []);
+  angular.module('pb.widgets', []);
 
   angular.module('pb', [
     'app.route',
@@ -28,7 +28,7 @@
     'RecursionHelper',
     'ui.bootstrap',
     'ui.ace',
-    'org.bonitasoft.pagebuilder.widgets',
+    'pb.widgets',
     'org.bonitasoft.dragAndDrop',
     'gettext',
     'ngUpload',

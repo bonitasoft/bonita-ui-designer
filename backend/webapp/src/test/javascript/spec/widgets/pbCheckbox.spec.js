@@ -2,8 +2,8 @@ describe('pbCheckbox', function() {
 
   var compile, scope, element;
 
-  beforeEach(module('org.bonitasoft.pagebuilder.widgets'));
-  beforeEach(module('org.bonitasoft.pagebuilder.generator.services'));
+  beforeEach(module('pb.widgets'));
+  beforeEach(module('pb.generator.services'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');

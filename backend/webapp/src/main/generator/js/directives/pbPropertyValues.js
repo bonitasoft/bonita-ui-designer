@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('org.bonitasoft.pagebuilder.generator.directives')
+  angular.module('pb.generator.directives')
     .directive('pbPropertyValues', function ($parse, bindingsFactory, propertyValuesFactory) {
 
       function pbPropertyValuesCompile(tElement, tAttributes) {

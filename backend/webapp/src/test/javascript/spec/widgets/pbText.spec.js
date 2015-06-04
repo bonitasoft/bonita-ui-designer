@@ -2,7 +2,7 @@ describe('pbParagraph', function () {
 
   var $compile, scope;
 
-  beforeEach(module('org.bonitasoft.pagebuilder.widgets', 'ngSanitize'));
+  beforeEach(module('pb.widgets', 'ngSanitize'));
 
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;

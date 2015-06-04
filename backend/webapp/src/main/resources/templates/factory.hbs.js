@@ -1,4 +1,4 @@
-angular.module('org.bonitasoft.pagebuilder.generator.services').factory('{{name}}Factory', function() {
+angular.module('pb.generator.services').factory('{{name}}Factory', function() {
   var resources = {};
   {{#each resources}}
   resources['{{ key }}'] =  {{ json this }};

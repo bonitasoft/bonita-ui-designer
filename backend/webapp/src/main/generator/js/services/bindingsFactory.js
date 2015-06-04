@@ -78,6 +78,6 @@
     }
   }
 
-  angular.module('org.bonitasoft.pagebuilder.generator.services')
+  angular.module('pb.generator.services')
     .factory('bindingsFactory', bindingsFactory);
 })();
