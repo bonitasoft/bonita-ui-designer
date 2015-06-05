@@ -5,33 +5,44 @@
 <div class="modal-body">
 
     <tabset class="tabs-left">
+        <tab heading="{{ 'Editor organization' | translate }}">
+
+            <p translate>Use the palette on the left to drag and drop containers and widgets in the whiteboard.</p>
+
+            <p translate>Once you select an element, edit its properties in the properties panel on the right.</p>
+
+            <p translate>Create variables in the Variables panel at the bottom, and use them to edit the widget properties.</p>
+
+            <p translate>Add images CSS or JavaScript resources to your pages in the Assets panel at the bottom.</p>
+
+        </tab>
+
         <tab heading="{{ 'Rows' | translate }}">
             <p>
-                <translate>Whiteboard is organized in <b>rows</b> that you can move up and down, or delete.</translate>
+                <translate>The whiteboard is organized in <b>rows</b> that you can move up and down, or delete.</translate>
             <ul>
-                <li>Drag and drop widgets or containers in rows</li>
-                <li>When you delete a row, the following rows move up</li>
-                <li>Within a row, when you delete a widget or a container, the following elements move to the left</li>
+                <li translate>Drag and drop widgets or containers in rows</li>
+                <li translate>When you delete a row, the following rows move up</li>
+                <li translate>Within a row, when you delete a widget or a container, the following elements move to the left</li>
             </ul>
             </p>
         </tab>
 
         <tab heading="{{ 'Widgets' | translate }}">
-            <p translate>
-            <ul>
-                <li>Use <b>widgets</b> from the palette to <b>display information to</b> and <b>gather information from</b>  the end user</li>
-                <li>Configure widgets using the <b>properties panel</b> on the right</li>
-                <li>You can also create <b>custom widgets</b> in the UI Designer</li>
-            </ul>
-            </p>
+            <p translate>Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users.</p>
+
+            <p translate>Configure widgets using the <b>properties panel</b> on the right.</p>
+
+            <p translate>You can also create <b>custom widgets</b> from the home page.</p>
         </tab>
 
         <tab heading="{{ 'Containers' | translate }}">
             <p translate>
-                You can group widgets into containers for layout purposes. (You can also put containers in containers).
+                You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers.
             </p>
+
             <p>
-                <translate>Each container also have specific behaviors</translate>
+                <translate>Each type or container has sepcific behaviors</translate>
             <ul>
 
                 <li translate>Repeat content for the plain container</li>
@@ -39,13 +50,30 @@
                 <li translate>Access to $form capabilities for form container</li>
             </ul>
             </p>
+
+            <p class="CalloutSubscription">
+                <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                <translate>You can save the content of a plain container as a reusable fragment.</translate>
+            </p>
+
         </tab>
 
         <tab heading="{{ 'Variables' | translate }}">
             <p translate>
-                In the scope of a page, form, or layout, variables are used for handling business data, and for modeling the behavior of widgets.
-                <br/>Create variables in the Variables panel. Bind them to widget properties by clicking on the <i>Bind</i> button and typing the variable name in the
-                property field.
+                In the scope of a page, form, or layout, a variable can be used to handle business or process data, or can contain structural information that
+                determines how page elements behave.
+            </p>
+
+            <p translate>
+                Create a variable in the bottom panel. To bind it to a widget property, click on the “Bind” button in the property field and then type the
+                variable name.
+            </p>
+
+            <p class="CalloutSubscription">
+                <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                <translate>
+                    In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>.
+                </translate>
             </p>
         </tab>
     </tabset>
