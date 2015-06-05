@@ -1,4 +1,4 @@
 <div pb-property-values='container-reference'>
-    <div class="col-xs-12" ng-if="!properties.hidden"
+    <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden"
          ng-repeat="$item in properties.repeatedCollection track by $index" ng-init="$collection = properties.repeatedCollection"></div>
 </div>

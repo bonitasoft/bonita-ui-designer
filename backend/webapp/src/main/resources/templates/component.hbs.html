@@ -1,5 +1,5 @@
 <div pb-property-values='{{ reference }}'>
-    <div ng-if="!properties.hidden" class="component {{ cssClasses }}">
+    <div ng-if="!properties.hidden" class="component {{ dimensionAsCssClasses }}" ng-class="properties.cssClasses">
         {{{ template }}}
     </div>
 </div>
