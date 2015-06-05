@@ -4,7 +4,7 @@
 
   angular.module('pb.filters', []);
   angular.module('pb.controllers', ['pb.filters']);
-  angular.module('pb.services', ['pb.filters']);
+  angular.module('pb.services', ['pb.filters', 'gettext']);
   angular.module('pb.factories', ['pb.filters']);
   angular.module('pb.directives', ['pb.filters']);
   angular.module('pb.widgets', []);
