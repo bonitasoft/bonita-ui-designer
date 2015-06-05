@@ -55,9 +55,12 @@
 @btn-bonita-default-bg:                 #0B4361;
 @btn-bonita-default-border:             darken(@btn-bonita-default-bg, 5%);
 
-@btn-bonita-property-color:              #fff;
+@btn-bonita-property-color:              #001936;
 @btn-bonita-property-bg:                 #CBD5E1;
-@btn-bonita-property-border:             darken(@btn-bonita-property-bg, 5%);
+@btn-bonita-property-border:             @btn-bonita-property-bg;
+@btn-bonita-property-linked-color:       #fff;
+@btn-bonita-property-linked-bg:          @btn-bonita-property-color;
+@btn-bonita-property-linked-border:      @btn-bonita-property-color;
 
 @btn-bonita-asset-color:                 #404853;
 @btn-bonita-asset-bg:                    #fff;
@@ -73,6 +76,10 @@
 
 .btn-bonita-property {
   .button-variant(@btn-bonita-property-color, @btn-bonita-property-bg, @btn-bonita-property-border);
+}
+
+.linked .btn-bonita-property {
+  .button-variant(@btn-bonita-property-linked-color, @btn-bonita-property-linked-bg, @btn-bonita-property-linked-border);
 }
 
 .btn-bonita-primary {
