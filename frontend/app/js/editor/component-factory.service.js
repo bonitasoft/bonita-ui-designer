@@ -1,5 +1,5 @@
 angular.module('pb.services')
-  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions) {
+  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions, gettextCatalog) {
 
     'use strict';
 
@@ -54,7 +54,7 @@ angular.module('pb.services')
         propertyValues: (widget.properties || []).reduce(function(props, property) {
           props[property.name] = {
             type: 'constant',
-            value: property.defaultValue
+            value: (property.type === 'text' ? gettextCatalog.getString( property.defaultValue ) : property.defaultValue)
           };
           return props;
         }, {})

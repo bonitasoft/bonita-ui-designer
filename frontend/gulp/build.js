@@ -18,7 +18,6 @@ var rename = require('gulp-rename');
 var utils = require('gulp-util');
 var del = require('del');
 var ddescriber = require('./ddescriber.js');
-var gettextWidget = require('./gettext-widget.js');
 
 module.exports = function(gulp, config) {
   var paths = config.paths;
@@ -76,9 +75,8 @@ module.exports = function(gulp, config) {
   /**
    * Translate application
    */
-  gulp.task('pot', ['pot:widget', 'pot:front']);
 
-  gulp.task('pot:front', function () {
+  gulp.task('pot', function () {
     var files = [paths.templates, paths.js].reduce(function(files, arr) {
       return files.concat(arr);
     }, [] );
@@ -86,21 +84,6 @@ module.exports = function(gulp, config) {
       .pipe(gettext.extract('lang-template.pot', {}))
       .pipe(gulp.dest('build/po'));
   });
-
-  gulp.task('pot:widgets', function () {
-    var files = [
-      '../../community/backend/webapp/src/main/resources/widgets/**/*.json',
-      '../../subscription/backend/src/main/resources/widgets/**/*.json'
-    ];
-    return gulp.src(files)
-      .pipe(plumber())
-      .pipe( gettextWidget.prepare() )
-      .pipe(concat('widgets.json', {newLine: ','}))
-      .pipe( gettextWidget.extract() )
-      .pipe(gulp.dest('build/po'));
-  });
-
-
 
   /**
    * Compile css
