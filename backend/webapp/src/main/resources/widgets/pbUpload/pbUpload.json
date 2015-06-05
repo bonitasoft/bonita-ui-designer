@@ -9,6 +9,7 @@
     {
       "label": "Required",
       "name": "required",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "boolean",
       "defaultValue": false
     },
@@ -46,17 +47,20 @@
     {
       "label": "Placeholder",
       "name": "placeholder",
+      "help": "Short hint that describes the expected value",
       "type": "text"
     },
     {
-      "label": "Url",
+      "label": "URL",
       "name": "url",
+      "help": "Defines endpoint URL where the file will be uploaded",
       "type": "text",
       "defaultValue": "../API/formFileUpload"
     },
     {
       "label": "Value",
       "name": "value",
+      "help": "Holds the response from the upload endpoint. That value can be used to fulfill a contract",
       "type": "text",
       "bidirectional": true
     }

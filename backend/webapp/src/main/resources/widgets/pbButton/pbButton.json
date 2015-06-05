@@ -56,24 +56,22 @@
     },
     {
       "label": "Data sent on click",
-      "help": "Data submitted with the HTTP request when this button is clicked.",
+      "help": "Can be used to fulfill a contract",
       "type": "text",
       "name": "dataToSend",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
     },
     {
-      "label": "Successful request binding",
-      "caption": "If the request returns a value, it will be bound to this variable",
-      "help": "The page variable to map to the data returned if the HTTP request succeeds. If the data is not mapped to a variable, it is not usable.",
+      "label": "Successful response value",
+      "help": "Holds the response when the request is successful",
       "name": "dataFromSuccess",
       "type": "text",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
       "bidirectional": true
     },
     {
-      "label": "Failed request binding",
-      "caption": "If the request returns a value, it will be bound to this variable",
-      "help": "The page variable to map to the data returned if the HTTP request fails. If the data is not mapped to a variable, it is not usable.",
+      "label": "Failed response value",
+      "help": "Holds the response when the request has failed",
       "name": "dataFromError",
       "type": "text",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
@@ -82,6 +80,7 @@
     {
       "label": "Collection",
       "name": "collectionToModify",
+      "caption": "Must be an array",
       "type": "collection",
       "showFor": "properties.action.value === 'Remove from collection' || properties.action.value === 'Add to collection'",
       "bidirectional": true
@@ -110,7 +109,6 @@
     },
     {
       "label": "Value to add",
-      "caption": "Leave empty to add an empty value",
       "name": "valueToAdd",
       "type": "text",
       "showFor": "properties.action.value === 'Add to collection'"
@@ -118,6 +116,7 @@
     {
       "label": "Target URL on success",
       "type": "text",
+      "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
       "name": "targetUrlOnSuccess",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
     }
