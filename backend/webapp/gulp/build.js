@@ -6,12 +6,13 @@ var sourcemaps = require('gulp-sourcemaps');
 var html2js = require('gulp-ng-html2js');
 var merge = require('merge-stream');
 var inlineJSON = require('./utils.js').inlineJSON;
+var gettextWidget = require('./gettext-widget.js');
 
 module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['generator', 'widgets']);
+  gulp.task('build', ['generator', 'widgets', 'pot']);
 
   /**
    * Check for ddescribe and iit
@@ -29,6 +30,15 @@ module.exports = function(gulp, config) {
       .pipe(inlineJSON())
       .pipe(gulp.dest(paths.dest.json));
   });
+
+  gulp.task('pot', function () {
+    return gulp.src(paths.widgetsJson)
+      .pipe( gettextWidget.prepare() )
+      .pipe(concat('widgets.json', {newLine: ','}))
+      .pipe( gettextWidget.extract() )
+      .pipe(gulp.dest('target/po'));
+  });
+
 
   /**
    * js task, concatenate and minimify vendor js files

@@ -1,7 +1,7 @@
 describe('widget property field', function () {
   var $compile, element, template, scope, directiveScope;
 
-  beforeEach(module('pb.templates', 'pb.directives'));
+  beforeEach(module('pb.templates', 'pb.directives', 'gettext'));
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
     var $rootScope = _$rootScope_;
