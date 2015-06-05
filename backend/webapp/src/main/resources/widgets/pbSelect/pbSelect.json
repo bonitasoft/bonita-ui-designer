@@ -15,6 +15,7 @@
     {
       "label": "Required",
       "name": "required",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "boolean",
       "defaultValue": false
     },
@@ -52,31 +53,33 @@
     {
       "label": "Placeholder",
       "name": "placeholder",
+      "help": "Short hint that describes the expected value",
       "type": "text",
       "defaultValue": "Select an option"
     },
     {
       "label": "Available values",
       "name": "availableValues",
+      "help": "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection",
       "type": "collection"
+    },
+    {
+      "label": "Displayed key",
+      "help": "Object key to display",
+      "type": "text",
+      "name": "displayedKey"
+    },
+    {
+      "label": "Returned key",
+      "help": "Object key to store in value",
+      "type": "text",
+      "name": "returnedKey"
     },
     {
       "label": "Value",
       "name": "value",
       "type": "text",
       "bidirectional": true
-    },
-    {
-      "label": "Displayed key",
-      "caption": "The name of the key to use as label. Can be empty",
-      "type": "text",
-      "name": "displayedKey"
-    },
-    {
-      "label": "Returned key",
-      "caption": "The name of the key to use as value. Can be empty",
-      "type": "text",
-      "name": "returnedKey"
     }
   ]
 }
