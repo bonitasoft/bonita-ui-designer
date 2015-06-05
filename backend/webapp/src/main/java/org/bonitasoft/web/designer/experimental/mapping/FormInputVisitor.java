@@ -16,6 +16,7 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static com.google.common.collect.Maps.newLinkedHashMap;
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.EMPTY_MAP;
 
 import java.io.File;
@@ -53,6 +54,10 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
+        if(contractInput.isMultiple()) {
+            properties.put(contractInput.getName(), EMPTY_LIST);
+            return;
+        }
         FormInputVisitor visitor = new FormInputVisitor(objectMapperWrapper);
         for (ContractInput input : contractInput.getInput()) {
             input.accept(visitor);
@@ -62,6 +67,10 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(LeafContractInput contractInput) {
+        if(contractInput.isMultiple()) {
+            properties.put(contractInput.getName(), EMPTY_LIST);
+            return;
+        }
         properties.put(contractInput.getName(), defaultValues.get(contractInput.getType()));
     }
 
