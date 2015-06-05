@@ -34,6 +34,10 @@ describe('Service: modelFactory', function () {
     failingUrlParam: {
       type: 'urlparameter',
       value: 'foo'
+    },
+    arrayExpression: {
+      type: 'expression',
+      value: 'return ["pierre", "paul", "jack"];'
     }
   };
 
@@ -140,5 +144,9 @@ describe('Service: modelFactory', function () {
     expect(dataModel.urlParamTime).toBe('123');
     expect(dataModel.urlParamToto).toBe('bob');
     expect(dataModel.failingUrlParam).toBe('');
+  });
+
+  it('should return the same reference when expression result did not change', function () {
+    expect(dataModel.arrayExpression === dataModel.arrayExpression).toBeTruthy();
   });
 });
