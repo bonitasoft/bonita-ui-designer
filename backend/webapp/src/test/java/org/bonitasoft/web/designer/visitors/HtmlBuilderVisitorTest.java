@@ -103,24 +103,6 @@ public class HtmlBuilderVisitorTest {
     }
 
     @Test
-    public void should_add_css_classes_to_component() throws Exception {
-        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
-                .withPropertyValue("cssClasses", "maclassCss")
-                .build()));
-
-        assertThatHtml(element.childNode(1).outerHtml()).hasClass("maclassCss");
-    }
-
-    @Test
-    public void should_not_add_css_classes_null_to_component_when_property_is_null() throws Exception {
-        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
-                .withPropertyValue("cssClasses", null)
-                .build()));
-
-        assertThatHtml(element.childNode(1).outerHtml()).hasClassEqualTo("component col-xs-12");
-    }
-
-    @Test
     public void should_build_a_container() throws GenerationException {
 
         assertThatHtml(visitor.visit(aContainer()
@@ -176,14 +158,6 @@ public class HtmlBuilderVisitorTest {
     }
 
     @Test
-    public void should_add_css_classes_to_container() throws Exception {
-
-        assertThatHtml(visitor.visit(aContainer()
-                .with(aRow())
-                .withPropertyValue("cssClasses", "maclassCss").build())).hasElement(".maclassCss");
-    }
-
-    @Test
     public void should_build_a_tabsContainer_html_when_visiting_a_tabsContainer() throws Exception {
 
         assertThatHtml(visitor.visit(aTabsContainer().
@@ -215,15 +189,6 @@ public class HtmlBuilderVisitorTest {
                                 .withReference("container-reference")))
                 .withReference("tabs-container-reference")
                 .build())).isEqualTo(testResource.load("tabsContainerWithContent.html"));
-    }
-
-    @Test
-    public void should_add_css_classes_to_tabsContainer() throws Exception {
-        TabsContainer tabsContainer = aTabsContainer().withPropertyValue("cssClasses", "maclassCss").build();
-
-        String generatedHtml = visitor.visit(tabsContainer);
-
-        assertThatHtml(generatedHtml).element("div.col-xs-12").hasClass("maclassCss");
     }
 
     @Test
@@ -305,16 +270,6 @@ public class HtmlBuilderVisitorTest {
                         .build();
 
         assertThatHtml(visitor.visit(formContainer)).isEqualTo(testResource.load("formContainerWithContainer.html"));
-    }
-
-    @Test
-    public void should_add_cssclasses_to_component() throws Exception {
-
-        Element element = toElement(visitor.visit(aFormContainer()
-                .addParam("cssClasses", "string", "maclassCss")
-                .build()));
-
-        assertThat(element.getElementsByTag("form").first().hasClass("maclassCss")).isTrue();
     }
 
     @Test

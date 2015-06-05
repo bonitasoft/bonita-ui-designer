@@ -1,10 +1,10 @@
 <div pb-property-values='formcontainer-reference'>
-    <form novalidate class="col-xs-12" name="$form" method="POST" action="/action.do" ng-if="!properties.hidden">
+    <form novalidate class="col-xs-12" ng-class="properties.cssClasses" name="$form" method="POST" action="/action.do" ng-if="!properties.hidden">
         <div pb-property-values="container-reference">
-            <div class="col-xs-12" ng-if="!properties.hidden">
+            <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden">
                 <div class="row">
                     <div pb-property-values="component-reference">
-                        <div ng-if="!properties.hidden" class="component col-xs-12">
+                        <div ng-if="!properties.hidden" class="component col-xs-12" ng-class="properties.cssClasses">
                             <pb-label></pb-label>
                         </div>
                     </div>
