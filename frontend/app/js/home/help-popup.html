@@ -9,29 +9,49 @@
             <p translate>Use the UI Designer to build <b>pages</b> for your business applications, <b>forms</b> to start process instances or execute human
                 tasks, and <b>application layouts</b> that apply to all pages of an application.
             <ul>
-                <li translate>Create <b>pages</b> directly in the UI Designer.</li>
-                <li translate>Start <b>form</b> design in Bonita BPM Studio from the appropriate contract.</li>
-                <li translate>Create layouts by duplicating the default layout available in the Bonita BPM Portal resources.</li>
+                <li translate>Create <b>pages</b> directly in the UI Designer</li>
+                <li translate>Start <b>form</b> design in Bonita BPM Studio from the appropriate contract</li>
+                <li translate>Create layouts by duplicating the default layout available in the Bonita BPM Portal resources</li>
                 <li translate>You can import an existing page, form, or layout to edit, or duplicate existing ones</li>
             </ul>
             </p>
 
-            <p translate>A set of <b>standard widgets</b> is provided, to display information to and gather information from the end users. You can also create
-                your own <b>custom widgets</b>.</p>
+            <p translate>
+                There is a set of <b>standard widgets</b> for displaying information to and for gathering information from the end users. You can also create
+                <b>custom widgets</b>.
+            </p>
 
-            <p translate>The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them
-                in your favorite web development environment.</p>
+            <p class="CalloutSubscription">
+                <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                <translate>Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms.</translate>
+            </p>
+
+            <p translate>
+                The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a
+                different favorite web development environment.
+            </p>
         </tab>
 
         <tab heading="{{ 'Integration with Bonita BPM platform' | translate }}">
-            <p translate><b>To use a page in a business application</b>, export it from the UI Designer, import it as a portal resource, and from the relevant
-                application, add it to the list of pages and then insert it in a navigation menu.</p>
+            <p translate>
+                <b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the
+                relevant application, add it to the list of pages and to a navigation menu.
+            </p>
 
-            <p translate><b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the
+            <p translate>
+                <b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the
                 .bar archive ready to deploy in the portal.</p>
 
-            <p translate><b>To use a layout in a business application</b>, export it from the UI Designer, import it as a portal resource and map it as the
-                layout of the relevant application.</p>
+            <p class="CalloutSubscription">
+                <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                <span translate>To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and
+                    then map it to the relevant task or process start event.</span>
+            </p>
+
+            <p translate>
+                <b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the
+                layout of the relevant application.
+            </p>
         </tab>
     </tabset>
 </div>
