@@ -18,6 +18,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
@@ -66,5 +67,17 @@ public class FormInputVisitorTest {
 
         assertThat(visitor.toJson())
                 .isEqualTo(objectMapper.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
+    }
+
+    @Test
+    public void should_add_an_empty_list_when_input_is_multiple() throws Exception {
+        Contract contract = aContract().withInput(
+                aNodeContractInput("persons").mulitple().build(),
+                aMultipleStringContractInput("roles")).build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJson())
+                .isEqualTo(objectMapper.prettyPrint("{\"persons\":[],\"roles\":[]}"));
     }
 }

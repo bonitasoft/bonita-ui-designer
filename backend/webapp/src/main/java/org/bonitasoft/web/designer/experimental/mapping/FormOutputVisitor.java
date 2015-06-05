@@ -16,14 +16,11 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.reverse;
 import static java.lang.String.format;
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
@@ -34,26 +31,19 @@ public class FormOutputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        FormOutputVisitor visitor = new FormOutputVisitor();
-        for (ContractInput input : contractInput.getInput()) {
-            input.accept(visitor);
-        }
-        properties.add(format("'%s':{%s}", contractInput.getName(), on(",").join(visitor.properties)));
+        properties.add(createProperty(contractInput.getName()));
     }
 
     @Override
     public void visit(LeafContractInput contractInput) {
-        ImmutableList.Builder<String> path = ImmutableList.<String>builder().add(contractInput.getName());
-        ContractInput parent = contractInput.getParent();
-        while (parent != null) {
-            path.add(parent.getName());
-            parent = parent.getParent();
-        }
-        properties.add(format("'%s':$data.formInput.%s", contractInput.getName(), on(".").join(reverse(path.build()))));
+        properties.add(createProperty(contractInput.getName()));
     }
 
+    private String createProperty(String name) {
+        return format("\t'%s': $data.formInput.%s", name, name);
+    }
 
     public String toJavascriptExpression() {
-        return format("return {%s};", on(",").join(properties));
+        return format("return {\n%s\n};", on(",\n").join(properties));
     }
 }
