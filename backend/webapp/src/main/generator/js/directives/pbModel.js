@@ -19,7 +19,30 @@
             pbModelCtrl.fill(dataModelFactory.get(tAttributes.pbModel));
             var pbModelProperties = modelPropertiesFactory.get(tAttributes.pbModelProperties);
             if(pbModelProperties && scope.$parent.pbModelCtrl) {
-              bindingsFactory.create(pbModelProperties, scope.$parent.pbModelCtrl.createGateway(), pbModelCtrl.getModel());
+
+              var context = scope.$parent.pbModelCtrl.createGateway();
+              Object.defineProperty(context, '$item', {
+                get: function () {
+                  return scope.$item;
+                },
+                set: function (value) {
+                  if (scope.$collection) {
+                    scope.$collection[scope.$index] = value;
+                  }
+                },
+                enumerable: true
+              });
+
+              Object.defineProperty(context, '$form', {
+                get: function () {
+                  return scope.$form;
+                },
+                set: function (value) {
+                  scope.$form = value;
+                },
+                enumerable: true
+              });
+              bindingsFactory.create(pbModelProperties, context, pbModelCtrl.getModel());
             }
           }
         }
