@@ -63,6 +63,14 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     });
   }
 
+  function incrementOrderAsset(widgetId, asset){
+    return $http.put('rest/widgets/' + widgetId + '/assets?increment=true', asset);
+  }
+
+  function decrementOrderAsset(widgetId, asset){
+    return $http.put('rest/widgets/' + widgetId + '/assets?decrement=true', asset);
+  }
+
   function remove(id) {
     return $http.delete('rest/widgets/' + id);
   }
@@ -101,6 +109,8 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     save: save,
     delete: remove,
     deleteAsset: deleteAsset,
+    incrementOrderAsset: incrementOrderAsset,
+    decrementOrderAsset: decrementOrderAsset,
     addProperty: addProperty,
     updateProperty: updateProperty,
     deleteProperty: deleteProperty,

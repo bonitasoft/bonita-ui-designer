@@ -9,6 +9,17 @@
     $scope.searchedAsset = assetsService.initFilterMap();
     $scope.isExternal = assetsService.isExternal;
 
+    $scope.incrementOrderAsset = incrementOrderAsset;
+    $scope.decrementOrderAsset = decrementOrderAsset;
+
+    function incrementOrderAsset(asset){
+      return artifactRepo.incrementOrderAsset(component.id, asset).then(refresh);
+    }
+
+    function decrementOrderAsset(asset){
+      return artifactRepo.decrementOrderAsset(component.id, asset).then(refresh);
+    }
+
     //Load assets
     refresh();
 
