@@ -31,7 +31,7 @@ describe('widgetFactory', function() {
     expect(widget.id).toBe( 'formContainer');
     expect(widget.name.length).toBeGreaterThan(0);
     expect(widget.order).toBeDefined();
-    expect(widget.properties.length).toBeGreaterThan(2);
+    expect(widget.properties.length).toBe(2);
     expect(widget.icon).toMatch('<svg');
     expect(widget.custom).toBe(false);
   });
