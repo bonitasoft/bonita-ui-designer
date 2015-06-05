@@ -51,7 +51,6 @@
             <section ng-switch-when="url" >
                 <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
                 <div class="well" collapse="examplesCollapsed">
-                    <!--ng-options="dataType.type as getLabel(dataType.type) group by dataType.group for dataType in dataTypes"></select>-->
                     <div class="form-group">
                         <select class="form-control" ng-options="example as example.description group by example.category for example in apiExamples"
                                 ng-model="example"></select>
@@ -80,6 +79,19 @@
             <p class="help-block" ng-switch-when="expression" translate>
                 <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger auto-completion.
             </p>
+            <section ng-switch-when="expression" >
+                <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                <div collapse="examplesCollapsed">
+                    <p class="alert alert-default">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span translate>This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code></span>
+                    </p>
+                    <pre>return $data.supportTicket.environment.some(function(env){
+   return env.indexOf("Linux") != -1;
+});</pre>
+                </div>
+            </section>
+
         </div>
         <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>
     </div>
