@@ -48,6 +48,21 @@
                 <span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em>
             </p>
 
+            <section ng-switch-when="url" >
+                <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                <div class="well" collapse="examplesCollapsed">
+                    <!--ng-options="dataType.type as getLabel(dataType.type) group by dataType.group for dataType in dataTypes"></select>-->
+                    <div class="form-group">
+                        <select class="form-control" ng-options="example as example.description group by example.category for example in apiExamples"
+                                ng-model="example"></select>
+                    </div>
+                    <div>
+                        <p ng-bind-html="example.url"></p>
+                        <p>{{ example.more }}</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- json -->
             <label ng-switch-when="json" class="control-label" for="value" translate>Value</label>
             <ace-editor class="ace-editor--data" ng-switch-when="json" autofocus mode="json" ng-model="newData.value"

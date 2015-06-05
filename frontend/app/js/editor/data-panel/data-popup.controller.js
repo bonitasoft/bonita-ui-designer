@@ -1,7 +1,11 @@
 angular.module('pb.controllers')
-  .controller('DataPopupController', function ($scope, dataTypeService, $modalInstance, mode, pageData, data) {
+  .controller('DataPopupController', function ($scope, dataTypeService, $modalInstance, mode, pageData, data, apiExamples) {
 
     'use strict';
+
+    $scope.apiExamples = apiExamples.get();
+    $scope.example = $scope.apiExamples[0];
+    $scope.examplesCollapsed = true;
 
     $scope.dataTypes = dataTypeService.getDataTypes();
     $scope.getLabel = dataTypeService.getDataLabel;
