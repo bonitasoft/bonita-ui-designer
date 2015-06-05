@@ -31,7 +31,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   };
 
   $scope.shouldBeLinked = function() {
-    return $scope.propertyValue && $scope.propertyValue.type === 'data';
+    return $scope.property.bidirectional || $scope.propertyValue && $scope.propertyValue.type === 'data';
   };
 
   $scope.unlink = function () {
@@ -48,4 +48,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     $scope.linked = true;
   };
 
+  if($scope.property.bidirectional) {
+    $scope.link();
+  }
 });

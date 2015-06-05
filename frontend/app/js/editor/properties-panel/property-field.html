@@ -18,7 +18,7 @@
             <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
             <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value" type="text" class="form-control"/>
             <span class="input-group-btn">
-                <button class="btn btn-bonita-property" ng-click="link()" title="Link data" type="button">
+                <button class="btn btn-bonita-property" ng-click="link()" title="Bind dynamic value" type="button">
                     <i class="fa fa-unlink"></i>
                 </button>
             </span>
@@ -33,10 +33,10 @@
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
                    empty-typeahead
                    autofocus="linked"
-                   class="form-control" />
+                   class="form-control" placeholder="{{ property.bidirectional ? 'dataName': 'dataName === true' }}"/>
         </form>
         <span class="input-group-btn">
-            <button class="btn btn-bonita-property" ng-click="unlink()" title="Unlink data" type="button">
+            <button class="btn btn-bonita-property" ng-click="unlink()" title="{{ property.bidirectional ? 'Bound' : 'Remove binding' }}" type="button">
                 <i class="fa fa-link"></i>
             </button>
         </span>

@@ -16,7 +16,8 @@ angular.module('pb.services').factory('widgetFactory', function(commonParams) {
           name: 'repeatedCollection',
           label: 'Repeat contents',
           caption: 'Select an array over which contents will be repeated over. Use `$item` in components inside this container to use current iteration.',
-          type: 'string'
+          type: 'string',
+          bidirectional: true
         }
       ])
     };
