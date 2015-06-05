@@ -41,6 +41,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
@@ -86,7 +87,6 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_build_a_component_html_when_visiting_a_component() throws Exception {
-
         assertThatHtml(visitor.visit(aComponent("pbWidget")
                 .withReference("component-reference")
                 .withPropertyValue("property", "value")
@@ -95,26 +95,29 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_add_dimension_to_component() throws Exception {
-
-        assertThatHtml(visitor.visit(aComponent("pbWidget")
+        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
                 .withDimension(3)
-                .build())).hasClass("col-xs-3");
+                .build()));
+
+        assertThatHtml(element.childNode(1).outerHtml()).hasClass("col-xs-3");
     }
 
     @Test
     public void should_add_css_classes_to_component() throws Exception {
-
-        assertThatHtml(visitor.visit(aComponent("pbWidget")
+        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
                 .withPropertyValue("cssClasses", "maclassCss")
-                .build())).hasClass("maclassCss");
+                .build()));
+
+        assertThatHtml(element.childNode(1).outerHtml()).hasClass("maclassCss");
     }
 
     @Test
     public void should_not_add_css_classes_null_to_component_when_property_is_null() throws Exception {
-
-        assertThatHtml(visitor.visit(aComponent("pbWidget")
+        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
                 .withPropertyValue("cssClasses", null)
-                .build())).hasClassEqualTo("component col-xs-12");
+                .build()));
+
+        assertThatHtml(element.childNode(1).outerHtml()).hasClassEqualTo("component col-xs-12");
     }
 
     @Test
@@ -264,7 +267,6 @@ public class HtmlBuilderVisitorTest {
                 "widgets/paragraph/paragraph.js"));
 
         String html = visitor.build(page, "mycontext/");
-
 
         assertThatHtml(html).isEqualTo(testResource.load("page.html"));
     }
