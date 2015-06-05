@@ -1,10 +1,10 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th class="col-xs-8">
+        <th class="col-xs-8" colspan="2">
             <h4 class="CustomEditor-section" translate>Assets</h4>
         </th>
-        <th class="col-xs-2 Property-actions" colspan="2">
+        <th class="col-xs-4 Property-actions" colspan="2">
             <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="openAssetPopup()">
                 <i class="fa fa-plus"></i>
                 <span translate>Add</span>
@@ -12,13 +12,18 @@
         </th>
     </tr>
     <tr>
-        <th class="col-xs-8" translate>Name</th>
+        <th class="col-xs-1">&nbsp;</th>
+        <th class="col-xs-7" translate>Name</th>
         <th class="col-xs-1" translate>Type</th>
-        <th class="col-xs-3" translate>&nbsp;</th>
+        <th class="col-xs-3">&nbsp;</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in assets | filter:filterBySearchedAsset as results">
+    <tr ng-repeat="asset in assets | orderBy:'order' | filter:filterBySearchedAsset as results">
+        <td>
+            <a ng-click="decrementOrderAsset(asset)" ng-if="!$first"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
+            <a ng-click="incrementOrderAsset(asset)" ng-if="!$last"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
+        </td>
         <td>{{asset.name}}</td>
         <td>{{asset.type | assetType}}</td>
         <td class="col-xs-2 Property-actions">
