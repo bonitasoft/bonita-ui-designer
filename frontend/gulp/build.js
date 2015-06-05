@@ -17,7 +17,8 @@ var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var utils = require('gulp-util');
 var del = require('del');
-var ddescriber = require("./ddescriber.js");
+var ddescriber = require('./ddescriber.js');
+var gettextWidget = require('./gettext-widget.js');
 
 module.exports = function(gulp, config) {
   var paths = config.paths;
@@ -75,14 +76,31 @@ module.exports = function(gulp, config) {
   /**
    * Translate application
    */
-  gulp.task('pot', function () {
+  gulp.task('pot', ['pot:widget', 'pot:front']);
+
+  gulp.task('pot:front', function () {
     var files = [paths.templates, paths.js].reduce(function(files, arr) {
       return files.concat(arr);
     }, [] );
     return gulp.src(files)
       .pipe(gettext.extract('lang-template.pot', {}))
-      .pipe(gulp.dest('build/po/'));
+      .pipe(gulp.dest('build/po'));
   });
+
+  gulp.task('pot:widgets', function () {
+    var files = [
+      '../../community/backend/webapp/src/main/resources/widgets/**/*.json',
+      '../../subscription/backend/src/main/resources/widgets/**/*.json'
+    ];
+    return gulp.src(files)
+      .pipe(plumber())
+      .pipe( gettextWidget.prepare() )
+      .pipe(concat('widgets.json', {newLine: ','}))
+      .pipe( gettextWidget.extract() )
+      .pipe(gulp.dest('build/po'));
+  });
+
+
 
   /**
    * Compile css
@@ -139,14 +157,14 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.js)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
-      .pipe(jshint.reporter('fail'))
+      .pipe(jshint.reporter('fail'));
   });
 
   gulp.task('dist:js', ['bundle:js'], function(){
     return gulp.src(paths.dev + '/js/app.js')
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
-      .pipe(uglify({output: { ascii_only: true }}))   // preserve ascii unicode characters such as \u226E
+      .pipe(uglify({output: { 'ascii_only': true }}))   // preserve ascii unicode characters such as \u226E
       .pipe(gulp.dest(paths.dist + '/js'));
   });
 
