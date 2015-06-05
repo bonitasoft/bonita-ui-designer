@@ -72,6 +72,31 @@
                 <span class="tip">Tip:</span> Array syntax: ["val1", "val2"], Object syntax: {"key": "value"}
             </p>
 
+            <section ng-switch-when="json" >
+                <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                <div collapse="examplesCollapsed">
+                    <p translate>
+                        supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level,
+                        user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact.
+                    </p>
+                    <pre>{
+    "subject": "I have an issue",
+    "severity": 2,
+    "environment": ["Linux","PostgreSQL 9.3","Java 1.8","AngularJS 1.3"],
+    "contact":{
+        "name":"John Doe",
+        "jobTitle":"FrontEnd developer",
+         "contactDetailsURL":"http://jsonplaceholder.typicode.com/users/1"
+    }
+}</pre>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span translate>JSON specifications can be found on the </span>
+                        <a href="http://www.w3.org/TR/json-ld/" title="{{'view W3C\'s Json specification'|translate}}" translate>W3C website</a>
+                    </p>
+                </div>
+            </section>
+
             <!-- expression -->
             <label ng-switch-when="expression" class="control-label" for="value" translate>Value</label>
             <ace-editor class="ace-editor--data" ng-switch-when="expression" autofocus mode="javascript" auto-completion="{{pageData}}"
