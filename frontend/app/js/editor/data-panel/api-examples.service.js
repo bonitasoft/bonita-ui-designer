@@ -1,0 +1,84 @@
+angular.module('pb.services').factory('apiExamples', function (gettextCatalog) {
+
+  var examples = {
+    'System API': [
+      {
+        description: gettextCatalog.getString('Get current logged user'),
+        url: '../API/system/session/1',
+        more: gettextCatalog.getString('User id could then be obtained by using {{youVar.user_id}}')
+      }
+    ],
+    'BPM API': [
+      {
+        description: gettextCatalog.getString('Get a human task by its identifier'),
+        url: '../API/bpm/humanTask/<strong>{{taskId}}</strong>',
+        more: gettextCatalog.getString('Case identifier could then be retrieved by {{myVar.rootCaseId}}')
+      },
+      {
+        description: gettextCatalog.getString('List of human task in ready state for current user (pending + assigned)'),
+        url: '../API/bpm/humanTask?c=10&p=0&f=state=ready&f=user_id=<strong>{{userId}}</strong>&f=caseId=<strong>{{caseId}}</strong>'
+      },
+      {
+        description: gettextCatalog.getString('List of cases open for a process definition id'),
+        url: '../API/bpm/case?p=0&c=10&f=processDefinitionId=<strong>{{myProcessDefinitionId}}</strong>'
+      },
+      {
+        description: gettextCatalog.getString('All process data of a case: Search for a list of case variables'),
+        url: '../API/bpm/caseVariable?p=0&c=10&f=case_id=<strong>{{caseId}}</strong>'
+      },
+      {
+        description: gettextCatalog.getString('Search a list of cases based on search indexes'),
+        url: '../API/bpm/case?p=0&c=10&s=<strong>{{searchIndexValueSearched}}</strong>'
+      },
+      {
+        description: gettextCatalog.getString('Get a case by its identifier'),
+        url: '../API/bpm/case/<strong>{{caseId}}</strong>'
+      }
+    ],
+    'Identity API': [
+      {
+        description: gettextCatalog.getString('Get professional details of a user'),
+        url: '../API/identity/user/<strong>{{userId}}</strong>?d=professional_data'
+      }
+    ],
+    'Customuserinfo API': [
+      {
+        description: gettextCatalog.getString('Get custom informations of a user'),
+        url: '../API/customuserinfo/user?p=0&c=10&f=userId=<strong>{{userId}}</strong>'
+      }
+    ],
+    'BDM API': [
+      {
+        description: gettextCatalog.getString('Get all business data references defined in a case'),
+        url: '../API/bdm/businessDataReference?f=caseId=<strong>{{caseId}}</strong>&p=0&c=10'
+      },
+      {
+        description: gettextCatalog.getString('Get a named business data reference defined in a case'),
+        url: '../API/bdm/businessDataReference/<strong>{{caseId}}</strong>/<strong>{{businessDataName}}</strong>',
+        more: gettextCatalog.getString('Where businessDataName is the name of the data variable defined on the pool.')
+      },
+      {
+        description: gettextCatalog.getString('Call a business data (custom) query'),
+        url: '..API/bdm/businessData/<strong>{{businessDataType}}</strong>?q=<strong>{{queryName}}</strong>&p=0&c=10&f=<strong>{{filter}}</strong>',
+        more: gettextCatalog.getString('Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = "myParam=myValue"')
+      }
+    ]
+  };
+
+  function flatten(arrayOfArray) {
+    return [].concat.apply([], arrayOfArray);
+  }
+
+  var transformExamplesToFlatList = function () {
+    return flatten(Object.keys(examples).map(function (category) {
+      return examples[category].map(function (api) {
+        api.category = category;
+        return api;
+      });
+    }));
+  };
+
+  return {
+    get: transformExamplesToFlatList
+  };
+});
