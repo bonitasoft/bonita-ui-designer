@@ -1,15 +1,20 @@
 describe('widget property field controller', function () {
-  var $scope, rootScope, ctrl;
+  var $scope, rootScope, ctrl, $rootScope, createController;
 
   beforeEach(module('pb.directives'));
-  beforeEach(inject(function ($rootScope, $controller) {
+  beforeEach(inject(function (_$rootScope_, $controller) {
+    $rootScope = _$rootScope_;
+
     $scope = $rootScope.$new();
     $scope.propertyValue = undefined;
-    $scope.property = { label: 'aLabel', name: 'aName'};
+    $scope.property = {label: 'aLabel', name: 'aName'};
 
-    $controller('PropertyFieldDirectiveCtrl', {
-      $scope: $scope
-    });
+    createController = function($scope) {
+      $controller('PropertyFieldDirectiveCtrl', {
+        $scope: $scope
+      });
+    };
+    createController($scope);
     $scope.$apply();
   }));
 
@@ -44,24 +49,43 @@ describe('widget property field controller', function () {
   });
 
   it('should set old linked value to property value when unlicking field', function () {
-    $scope.propertyValue = { value: 'aValue', type: 'constant' };
+    $scope.propertyValue = {value: 'aValue', type: 'constant'};
 
     $scope.link();
     $scope.unlink();
 
-    expect($scope.propertyValue.value ).toBe('aValue');
+    expect($scope.propertyValue.value).toBe('aValue');
   });
 
   it('should set old unlinked value to property value when licking field', function () {
-    $scope.propertyValue = { value: 'aValue', type: 'data' };
+    $scope.propertyValue = {value: 'aValue', type: 'data'};
 
     $scope.unlink();
     $scope.link();
 
-    expect($scope.propertyValue.value ).toBe('aValue');
+    expect($scope.propertyValue.value).toBe('aValue');
   });
 
-  it('should return the list of dataNames', function() {
+  it('should not allow unbinding a bidirectional property', function () {
+    $scope.propertyValue = {value: 'aValue', type: 'data'};
+    $scope.property = {bidirectional: true};
+
+    $scope.unlink();
+
+    expect($scope.propertyValue.type).toBe('data');
+  });
+
+  it('should force binding of bidirectional property', function () {
+    var scope = $rootScope.$new();
+    scope.property = {bidirectional: true};
+
+    createController(scope);
+
+    expect(scope.propertyValue.type).toBe('data');
+    expect(scope.linked).toBe(true);
+  });
+
+  it('should return the list of dataNames', function () {
     $scope.pageData = {
       jeanne: {},
       robert: {}
@@ -75,17 +99,17 @@ describe('widget property field controller', function () {
 
   });
 
-  describe('check if we have a condition to display', function() {
+  describe('check if we have a condition to display', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
       $scope.property = {};
     });
 
-    it('should return true if there is no condition', function() {
+    it('should return true if there is no condition', function () {
       expect($scope.displayCondition()).toBe(true);
     });
 
-    it('should true if the condition is valid', function() {
+    it('should true if the condition is valid', function () {
       $scope.property.showFor = 'properties.displayLabel.value === true';
       $scope.properties = {
         displayLabel: {
@@ -95,7 +119,7 @@ describe('widget property field controller', function () {
       expect($scope.displayCondition()).toBe(true);
     });
 
-    it('should false if the condition is not valid', function() {
+    it('should false if the condition is not valid', function () {
       $scope.property.showFor = 'properties.displayLabel.value === true';
       $scope.properties = {
         displayLabel: {
