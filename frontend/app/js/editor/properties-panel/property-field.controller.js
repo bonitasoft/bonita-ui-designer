@@ -31,10 +31,14 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   };
 
   $scope.shouldBeLinked = function() {
-    return $scope.property.bidirectional || $scope.propertyValue && $scope.propertyValue.type === 'data';
+    return $scope.propertyValue && $scope.propertyValue.type === 'data';
   };
 
   $scope.unlink = function () {
+    if($scope.property.bidirectional) {
+      return;
+    }
+
     $scope.oldLinkedValue = angular.copy($scope.propertyValue.value);
     $scope.propertyValue.value = $scope.oldUnlikedValue;
     $scope.propertyValue.type = 'constant';
@@ -49,6 +53,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   };
 
   if($scope.property.bidirectional) {
-    $scope.link();
+    $scope.propertyValue.type = 'data';
+    $scope.linked = true;
   }
 });
