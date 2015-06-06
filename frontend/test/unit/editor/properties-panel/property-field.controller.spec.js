@@ -9,7 +9,7 @@ describe('widget property field controller', function () {
     $scope.propertyValue = undefined;
     $scope.property = {label: 'aLabel', name: 'aName'};
 
-    createController = function($scope) {
+    createController = function ($scope) {
       $controller('PropertyFieldDirectiveCtrl', {
         $scope: $scope
       });
