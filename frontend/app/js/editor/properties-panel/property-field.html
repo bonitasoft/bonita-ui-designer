@@ -28,11 +28,8 @@
 
     <div class="input-group linked" ng-show="shouldBeLinked()">
         <form name="paramForm">
-            <!-- small hack to display the list if the input is clicked or contains just a space, with ng-trim at false to care about spaces
-            we use a custom filter to do so (filterTypeahead) and ng-click triggers the filter by adding a space to the viewValue-->
             <input name="paramValue" ng-model="propertyValue.value" type="text"
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
-                   empty-typeahead
                    autofocus="linked"
                    class="form-control" />
         </form>
