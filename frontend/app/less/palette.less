@@ -62,8 +62,18 @@
   border-right: 0
 }
 
+.PaletteItem-description {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 0;
+  height: 0;
+  border-bottom: 9px solid transparent;
+  border-right: 10px solid @color-palette-bg;
+  cursor: pointer;
+}
 
-.widget-icon {
+.PaletteItem-icon {
   width:57%;
   margin: 1em auto 4px;
 
@@ -72,7 +82,7 @@
   }
 }
 
-.widget-label {
+.PaletteItem-label {
   font-size: .55em;
   text-transform:uppercase;
   text-align: center;
@@ -86,7 +96,7 @@
 
 @media screen and (max-width: @minWidth) {
 
-  .widget-icon {
+  .PaletteItem-icon {
     margin-top: 1.2em;
     width:50%;
   }
@@ -97,7 +107,7 @@
     font-size: 1em;
     padding: .3em .75em;
   }
-  .widget-label {
+  .PaletteItem-label {
     font-size: .60em;
   }
 }
