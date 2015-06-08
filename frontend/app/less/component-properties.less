@@ -4,8 +4,7 @@
   right: 0;
   bottom: 0;
   left: 100 - @sidebar-properties-default-width;
-  padding: 1em 0 0 1em;
-  padding-left: 0;
+  padding: 0;
 }
 
 .PropertyPanel .splitter {
@@ -27,23 +26,6 @@
   .help-block {
     color: @color-properties-help;
   }
-}
-
-
-
-.PropertyPanel-popover::before {
-  content: "";
-  width: 0;
-  height: 0;
-  font-size: 0;
-  line-height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 11px solid @color-properties-bg;
-  position: absolute;
-  top: -11px;
-  right: 28px;
-  z-index: 100;
 }
 
 .PropertyPanel-inner {
@@ -154,3 +136,17 @@ widget-property-field ul[typeahead-popup] {
   border: 2px solid @btn-bonita-property-linked-border;
 }
 
+#toggle-properties {
+  right: -6px;
+  padding-right: 4px;
+  border-right: none;
+  background-color: @color-properties-bg;
+}
+
+.toggle-right:before {
+  content: @fa-var-angle-right;
+}
+
+.splitter-closed-right .toggle-right:before {
+  content: @fa-var-angle-left;
+}
