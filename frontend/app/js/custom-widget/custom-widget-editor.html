@@ -5,7 +5,6 @@
         </a>
         <i class="EditorHeader-icon ui-icon ui-designer"></i>
         <strong class="EditorHeader-brand" translate>
-            <!-- <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a> -->
             Custom widget editor
         </strong>
         <h3 class="EditorHeader-name">
@@ -38,11 +37,11 @@
         <div class="col-sm-7">
             <form id="widget-form" name="widgetForm">
                 <div>
-                    <h4 class="CustomEditor-section" translate>
-                        Description
-                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the widget palette' | translate }}" tooltip-append-to-body="true"></i>
+                    <h4 class="CustomEditor-section">
+                        <translate>Description</translate>
+                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
                     </h4>
-                    <textarea class="form-control textarea--widget" placeholder="Widget description" ng-model="widget.description"></textarea>
+                    <textarea class="form-control textarea--widget" placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
                 </div>
                 <div>
                     <h4 class="CustomEditor-section" translate>Template</h4>
@@ -109,7 +108,7 @@
                 <div class="form-group">
                     <label for="name" class="control-label control-label--required" translate>Name</label> &nbsp;<small class="text-muted" translate>(used in your template and controller)</small>
                     <input id="name" class="form-control" name="name" ng-model="currentParam.name" ng-pattern="'[a-zA-Z0-9]*$'" required autofocus="animationFinished">
-                    <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property name should contains only alphanumeric characters with no space</span>
+                    <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property names must start with a letter and contain only alphanumeric characters</span>
                 </div>
                 <div class="form-group">
                     <label for="label" class="control-label control-label--required" translate>Label</label> &nbsp;<small class="text-muted" translate>(displayed in editor's property panel)</small>
