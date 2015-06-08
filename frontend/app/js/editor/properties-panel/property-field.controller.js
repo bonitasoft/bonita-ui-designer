@@ -76,5 +76,5 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
       'boolean' : 'variableName === true'
     }[property.type];
     return placeholder || 'variableName';
-  }
+  };
 });
