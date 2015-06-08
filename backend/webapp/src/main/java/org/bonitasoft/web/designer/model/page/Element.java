@@ -78,23 +78,8 @@ public abstract class Element {
      */
     public abstract <T> T accept(ElementVisitor<T> visitor);
 
-    /**
-     * @return the CSS classes used to personalize the style of a component
-     */
     @JsonIgnore
-    public String getCssClasses() {
-        return getDimensionAsCssClasses() + getPropertyValueClasses();
-    }
-
-    private String getPropertyValueClasses() {
-        PropertyValue cssClasses = propertyValues.get("cssClasses");
-        if (cssClasses == null || cssClasses.getValue() == null) {
-            return "";
-        }
-        return " " + cssClasses.getValue();
-    }
-
-    private String getDimensionAsCssClasses() {
+    public String getDimensionAsCssClasses() {
         StringBuilder classes = new StringBuilder();
         for (Map.Entry<String, Integer> enty : dimension.entrySet()) {
             classes.append(stringifyColumn(enty.getKey(), enty.getValue())).append(" ");

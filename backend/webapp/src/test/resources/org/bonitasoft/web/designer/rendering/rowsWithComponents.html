@@ -1,16 +1,16 @@
 <div class="row">
     <div pb-property-values="1">
-        <div ng-if="!properties.hidden" class="component col-xs-12">
+        <div ng-if="!properties.hidden" class="component col-xs-12" ng-class="properties.cssClasses">
             <paragraph></paragraph>
         </div>
     </div>
 </div>
 <div class="row">
     <div pb-property-values='2'>
-        <div ng-if="!properties.hidden" class="component col-xs-12" ><input></input></div>
+        <div ng-if="!properties.hidden" class="component col-xs-12" ng-class="properties.cssClasses"><input></input></div>
     </div>
     <div pb-property-values='3'>
-        <div ng-if="!properties.hidden" class="component col-xs-12" >
+        <div ng-if="!properties.hidden" class="component col-xs-12" ng-class="properties.cssClasses">
             <paragraph></paragraph>
         </div>
     </div>
