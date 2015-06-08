@@ -5,7 +5,6 @@
         </a>
         <i class="EditorHeader-icon ui-icon ui-designer"></i>
         <strong class="EditorHeader-brand" translate>
-            <!-- <a class="navbar-brand" ui-sref="designer.home"><span class="fa fa-home"></span></a> -->
             Custom widget editor
         </strong>
         <h3 class="EditorHeader-name">
@@ -38,11 +37,11 @@
         <div class="col-sm-7">
             <form id="widget-form" name="widgetForm">
                 <div>
-                    <h4 class="CustomEditor-section" translate>
-                        Description
+                    <h4 class="CustomEditor-section">
+                        <translate>Description</translate>
                         <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the widget palette' | translate }}" tooltip-append-to-body="true"></i>
                     </h4>
-                    <textarea class="form-control textarea--widget" placeholder="Widget description" ng-model="widget.description"></textarea>
+                    <textarea class="form-control textarea--widget" placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
                 </div>
                 <div>
                     <h4 class="CustomEditor-section" translate>Template</h4>
