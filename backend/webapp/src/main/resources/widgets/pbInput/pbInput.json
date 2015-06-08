@@ -9,18 +9,21 @@
     {
       "label": "Required",
       "name": "required",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "boolean",
       "defaultValue": false
     },
     {
       "label": "Value min length",
       "name": "minLength",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
       "defaultValue": ""
     },
     {
       "label": "Value max length",
       "name": "maxLength",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
       "defaultValue": ""
     },
@@ -64,6 +67,7 @@
     {
       "label": "Placeholder",
       "name": "placeholder",
+      "help": "Short hint that describes the expected value",
       "type": "text"
     },
     {
@@ -75,6 +79,7 @@
     {
       "label": "Type",
       "name": "type",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "choice",
       "choiceValues": [
         "text",
@@ -87,12 +92,14 @@
     {
       "label": "Min value",
       "name": "min",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
       "showFor": "properties.type.value === 'number'"
     },
     {
       "label": "Max value",
       "name": "max",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
       "showFor": "properties.type.value === 'number'"
     }

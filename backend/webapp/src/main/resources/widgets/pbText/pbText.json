@@ -10,7 +10,7 @@
       "name": "text",
       "type": "html",
       "defaultValue": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...",
-      "caption": "You can use basics html tags"
+      "caption": "Use basics html tags and {{ dataVariable }} to access data"
     },
     {
       "label": "Alignment",

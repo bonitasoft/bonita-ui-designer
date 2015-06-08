@@ -9,7 +9,8 @@ angular.module('pb.factories')
         caption: 'Space separated',
         name: 'cssClasses',
         type: 'string',
-        defaultValue: ''
+        defaultValue: '',
+        help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes'
       },
       {
         label: 'Hidden',
