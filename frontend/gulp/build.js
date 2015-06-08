@@ -18,6 +18,7 @@ var rename = require('gulp-rename');
 var utils = require('gulp-util');
 var del = require('del');
 var ddescriber = require('./ddescriber.js');
+var header = require('gulp-header');
 
 module.exports = function(gulp, config) {
   var paths = config.paths;
@@ -148,6 +149,7 @@ module.exports = function(gulp, config) {
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
       .pipe(uglify({output: { 'ascii_only': true }}))   // preserve ascii unicode characters such as \u226E
+      .pipe(header(config.banner))
       .pipe(gulp.dest(paths.dist + '/js'));
   });
 
