@@ -9,7 +9,8 @@
 
     <div ng-switch="property.type" ng-if="!shouldBeLinked()">
         <div class="input-group unlinked">
-            <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"></textarea>
+            <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"
+                      placeholder="Use \{\{ variableName \}\} to access variable"></textarea>
             <select ng-switch-when="choice" ng-model="propertyValue.value"
                     ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues"
                     class="form-control"></select>
@@ -24,9 +25,11 @@
             <input ng-switch-when="float" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
             <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value"
-                   type="text" class="form-control"/>
+                   type="text" class="form-control"
+                   placeholder="{{ 'Use \{\{ variableName \}\} to access variable' | translate }}"/>
             <span class="input-group-btn">
-                <button class="btn btn-bonita-property" ng-click="link()" title="Bind to a dynamic value" type="button">
+                <button class="btn btn-bonita-property" ng-click="link()"
+                        title="{{ 'Bind to a dynamic value' | translate }}" type="button">
                     <i class="fa fa-unlink"></i>
                 </button>
             </span>
@@ -38,7 +41,8 @@
             <input name="paramValue" ng-model="propertyValue.value" type="text"
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
                    autofocus="linked"
-                   class="form-control" placeholder="{{ property.bidirectional ? 'variableName': 'variableName === true' | translate }}"/>
+                   class="form-control"
+                   placeholder="{{ property.bidirectional ? 'variableName': 'variableName === true' }}"/>
         </form>
         <span class="input-group-btn">
             <button class="btn btn-bonita-property" ng-click="unlink()"
