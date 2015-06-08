@@ -70,4 +70,11 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     $scope.propertyValue.type = 'data';
     $scope.linked = true;
   }
+
+  this.getBindingPlaceholder = function(property) {
+    var placeholder = {
+      'boolean' : 'variableName === true'
+    }[property.type];
+    return placeholder || 'variableName';
+  }
 });

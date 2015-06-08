@@ -10,7 +10,7 @@
     <div ng-switch="property.type" ng-if="!shouldBeLinked()">
         <div class="input-group unlinked">
             <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"
-                      placeholder="Use \{\{ variableName \}\} to access variable"></textarea>
+                      placeholder="{{ 'Use \{\{ variableName \}\} to access variable' | translate }}"></textarea>
             <select ng-switch-when="choice" ng-model="propertyValue.value"
                     ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues"
                     class="form-control"></select>
@@ -42,7 +42,7 @@
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
                    autofocus="linked"
                    class="form-control"
-                   placeholder="{{ property.bidirectional ? 'variableName': 'variableName === true' }}"/>
+                   placeholder="{{ propertyField.getBindingPlaceholder(property) }}"/>
         </form>
         <span class="input-group-btn">
             <button class="btn btn-bonita-property" ng-click="unlink()"
