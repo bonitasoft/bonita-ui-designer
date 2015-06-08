@@ -16,11 +16,15 @@ package org.bonitasoft.web.designer.controller.export;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
+import static org.springframework.util.FileCopyUtils.copy;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bonitasoft.web.designer.controller.exception.ExportException;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -49,11 +53,17 @@ public class Exporter<T extends Identifiable> {
             throw new IllegalArgumentException("Id is needed to successfully export a component");
         }
 
-        try (ServletOutputStream outputStream = resp.getOutputStream(); Zipper zipper = new Zipper(outputStream)) {
-            T identifiable = repository.get(id);
+        //We can't write directly in response outputstream. When you start to write a message, you can't remove it after the first flush.
+        // If an error occurs you can't prevent a partial file loading. So we need to use a temp stream.
+        ByteArrayOutputStream zipStream = null;
+        String filename = null;
+        //In the first step the zipStream is created
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); Zipper zipper = new Zipper(outputStream)) {
+            //The outputStream scope is local in the try-with-resource-block
+            zipStream = outputStream;
 
-            resp.setContentType(MimeType.APPLICATION_ZIP.toString());
-            resp.setHeader("Content-Disposition", String.format("inline; filename=%s;", getFileName(identifiable)));
+            T identifiable = repository.get(id);
+            filename = getFileName(identifiable);
 
             // add json model
             zipper.addToZip(objectMapper.toJson(identifiable), String.format("%s/%s.json", RESOURCES, repository.getComponentName()));
@@ -61,21 +71,34 @@ public class Exporter<T extends Identifiable> {
             for (ExportStep exporter : exportSteps) {
                 exporter.execute(zipper, identifiable);
             }
+
+        } catch (Exception e) {
+            logger.error(String.format("Technical error on zip creation %s with id %s", repository.getComponentName(), id), e);
+            throw new ExportException(e);
         }
-        catch (Exception e) {
-            logger.error(String.format("Technical error when exporting %s with id %s", repository.getComponentName(), id), e);
-            throw new ServletException(e);
+
+        //In the second step (we can't do that in the first block, because the zip has to be closed before to be able to read it)
+        //the stream is stored in the servlet response
+        if (zipStream != null) {
+            try (ByteArrayInputStream inputStream = new ByteArrayInputStream(zipStream.toByteArray()); ServletOutputStream servletOutputStream = resp.getOutputStream();) {
+                resp.setContentType(MimeType.APPLICATION_ZIP.toString());
+                resp.setHeader("Content-Disposition", String.format("inline; filename=%s;", filename));
+                copy(inputStream, servletOutputStream);
+            } catch (Exception e) {
+                logger.error(String.format("Technical error when exporting %s with id %s", repository.getComponentName(), id), e);
+                throw new ExportException(e);
+            }
         }
     }
 
     /**
      * Generates the filename. It has to be placed in the header before the first writting in the stream
      */
-    private String getFileName(Identifiable identifiable){
+    private String getFileName(Identifiable identifiable) {
         return String.format("%s-%s.zip", repository.getComponentName(), escape(identifiable.getName()));
     }
 
     private String escape(String s) {
-        return s==null ? null : s.replace(' ', '-').replaceAll("[^a-zA-Z0-9-]", "");
+        return s == null ? null : s.replace(' ', '-').replaceAll("[^a-zA-Z0-9-]", "");
     }
 }

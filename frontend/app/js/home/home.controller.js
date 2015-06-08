@@ -66,7 +66,7 @@ angular.module('pb.home').controller('HomeCtrl', function($scope, $state, $modal
       .then($scope.refreshAll);
   };
 
-  $scope.exportPage = function(page) {
+  $scope.exportPageUrl = function(page) {
     return pageRepo.exportUrl(page);
   };
 
@@ -122,7 +122,7 @@ angular.module('pb.home').controller('HomeCtrl', function($scope, $state, $modal
       .then($scope.refreshAll);
   };
 
-  $scope.exportWidget = function(widget) {
+  $scope.exportWidgetUrl = function(widget) {
     return widgetRepo.exportUrl(widget);
   };
 
