@@ -350,10 +350,10 @@ public class HtmlBuilderVisitorTest {
 
         //The header not contain inactive asset
         assertThat(head).doesNotContain("myfile99.js");
-        //Page asset should be the first, after assets of widget-id and assets of zidget-id
-        assertThat(head).contains("<script src=\"assets/js/myfile1.js\"></script> \n" +
-                "<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
+        //Page asset should be the last one, after widget assets identified by [widget-id] and widget assets identified by [zidget-id]
+        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
                 "<script src=\"widgets/widget-id/assets/js/myfile3.js\"></script> \n" +
-                "<script src=\"widgets/zidget-id/assets/js/myfile4.js\"></script>");
+                "<script src=\"widgets/zidget-id/assets/js/myfile4.js\"></script> \n" +
+                "<script src=\"assets/js/myfile1.js\"></script>");
     }
 }

@@ -192,7 +192,7 @@ public class Asset {
         return new Comparator<Asset>() {
             @Override
             public int compare(Asset asset1, Asset asset2) {
-                return ObjectUtils.compare(asset1.getComponentId(), asset2.getComponentId());
+                return ObjectUtils.compare(asset1.getComponentId(), asset2.getComponentId(), true);
             }
         };
     }

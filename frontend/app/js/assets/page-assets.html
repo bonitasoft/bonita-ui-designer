@@ -22,7 +22,7 @@
     <th class="col-xs-2">&nbsp;</th>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in assets | assetFilter:searchedAsset as results">
+    <tr ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:searchedAsset as results">
         <td>{{asset.name}}</td>
         <td>{{asset.componentId}}<span ng-if="!asset.componentId" translate>Page level</span></td>
         <td>{{asset.type | assetType}}</td>
