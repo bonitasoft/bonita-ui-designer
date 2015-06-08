@@ -15,7 +15,22 @@
   display: inline-block;
   margin: 0 2em;
   vertical-align: middle;
-  color: @color-editor-header-sub;
+
+  &::-webkit-input-placeholder {
+    color: @color-editor-header-placeholder;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: @color-editor-header-placeholder;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: @color-editor-header-placeholder;
+  }
+
+  &:-ms-input-placeholder {
+    color: @color-editor-header-placeholder;
+  }
 }
 
 .CustomEditor {
