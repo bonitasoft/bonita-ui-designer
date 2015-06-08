@@ -5,7 +5,7 @@
         </h3>
     </div>
     <div class="modal-body">
-        <span translate>The {{ artifact.type }} cannot be deleted because it is used in :</span>
+        <span translate>The {{ artifact.type }} cannot be deleted because it is used in:</span>
         <ul>
             <li ng-repeat="(key, value) in artifact.usedBy">
                 <translate translate-n="artifact.usedBy[key].length" translate-plural="{{ key }}s">{{ key }}</translate>: <span style="margin-left: 2px" class="badge" ng-repeat="usedBy in artifact.usedBy[key]">{{ usedBy.name }}</span>

@@ -13,7 +13,7 @@
                 placeholder="Widget Name"
                 required>
         </div>
-        <span ng-if="newWidget.name.$error.pattern" class="text-danger">Widget name should contains only alphanumeric characters with no space</span>
+        <span ng-if="newWidget.name.$error.pattern" class="text-danger">Widget names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-widget-controls">
         <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || newName == widget.name">Save</button>
