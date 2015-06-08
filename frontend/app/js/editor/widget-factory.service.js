@@ -15,7 +15,8 @@ angular.module('pb.services').factory('widgetFactory', function(commonParams) {
         {
           name: 'repeatedCollection',
           label: 'Repeat contents',
-          caption: 'Select an array over which contents will be repeated over. Use `$item` in components inside this container to use current iteration.',
+          caption: 'Use $item as the current iteration.',
+          help: 'Bind this property to a variable of type array. For each iteration, a widget property can be bound to $item to access the current JavaScript object',
           type: 'string',
           bidirectional: true
         }

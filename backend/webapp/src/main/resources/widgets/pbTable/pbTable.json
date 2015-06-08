@@ -9,7 +9,7 @@
     {
       "label": "Headers",
       "caption": "Comma separated",
-      "caption": "Column titles separated by commas",
+      "help": "Column titles",
       "name": "headers",
       "type": "collection",
       "defaultValue": ["Id", "Name", "Description", "Date"]
@@ -22,8 +22,8 @@
     },
     {
       "label": "Column keys",
-      "help": "Object keys to display in columns",
-      "help": "When 'Available values' is a list of objects, specifies the attributes to display in the table columns. Column identifiers are separated by commas",
+      "caption": "Comma separated",
+      "help": "When 'Content' is a list of objects, specifies the attributes to display in the table columns",
       "name": "columnsKey",
       "type": "collection"
     },
