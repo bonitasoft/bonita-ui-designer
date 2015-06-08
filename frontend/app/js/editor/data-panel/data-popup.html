@@ -9,13 +9,13 @@
         <div class="form-group" ng-if="isNewData" ng-class="{'has-error': !isDataNameUnique(newData.$$name)}">
             <label class="control-label control-label--required" for="name">
                 <span translate>Name</span>
-                <span ng-show="!isDataNameUnique(newData.$$name)" translate> '{{newData.$$name}}' is already used</span>
+                <span ng-show="!isDataNameUnique(newData.$$name)" translate> '{{newData.$$name}}' already exists</span>
             </label>
             <input type="text" class="form-control" autofocus placeholder="{{'Name' | translate}}" name="name"
                    ng-model="newData.$$name" ng-trim="false" ng-pattern="/^[a-zA-Z][\w]*$/" required>
 
-            <p class="text-danger" ng-show="addData.name.$dirty && addData.name.$error.pattern" translate>Data name
-                should start with a letter and be composed of alphanumeric character</p>
+            <p class="text-danger" ng-show="addData.name.$dirty && addData.name.$error.pattern" translate>Variable names
+                must start with a letter and contain only alphanumeric characters</p>
         </div>
         <div class="form-group">
             <label class="control-label" for="type" translate>Type</label>
@@ -32,15 +32,15 @@
                    name="value" ng-model="newData.value">
 
             <!-- url parameter -->
-            <label ng-switch-when="urlparameter" class="control-label" for="value" translate>Url parameter name</label>
+            <label ng-switch-when="urlparameter" class="control-label" for="value" translate>URL parameter name</label>
             <input ng-switch-when="urlparameter" type="text" class="form-control" placeholder="{{'name' | translate}}"
                    id="value" name="value" ng-model="newData.value">
 
             <p class="help-block" ng-switch-when="urlparameter" translate>
-                <span class="tip">Tip:</span> URL parameter are located after a <em>?</em> in the page Url.
+                <span class="tip">Tip:</span> URL parameters are located after a <em>?</em> in the page URL.
             </p>
             <!-- url -->
-            <label ng-switch-when="url" class="control-label" for="value" translate>Api url</label>
+            <label ng-switch-when="url" class="control-label" for="value" translate>API URL</label>
             <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="../API" id="value"
                    name="value" ng-model="newData.value" required valid-url>
 
@@ -103,7 +103,7 @@
                         ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
                         class="form-control" id="value"></ace-editor>
             <p class="help-block" ng-switch-when="expression" translate>
-                <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger auto-completion.
+                <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.
             </p>
         </div>
         <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>

@@ -39,7 +39,7 @@
                 <div>
                     <h4 class="CustomEditor-section">
                         <translate>Description</translate>
-                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the widget palette' | translate }}" tooltip-append-to-body="true"></i>
+                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
                     </h4>
                     <textarea class="form-control textarea--widget" placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                     <label for="name" class="control-label control-label--required" translate>Name</label> &nbsp;<small class="text-muted" translate>(used in your template and controller)</small>
                     <input id="name" class="form-control" name="name" ng-model="currentParam.name" ng-pattern="'[a-zA-Z0-9]*$'" required autofocus="animationFinished">
-                    <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property name should contains only alphanumeric characters with no space</span>
+                    <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property names must start with a letter and contain only alphanumeric characters</span>
                 </div>
                 <div class="form-group">
                     <label for="label" class="control-label control-label--required" translate>Label</label> &nbsp;<small class="text-muted" translate>(displayed in editor's property panel)</small>
