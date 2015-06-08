@@ -18,8 +18,11 @@
                 <div ng-include="component.$$templateUrl"></div>
             </div>
 
-            <div ng-if="editor.rowSize(row) < 12"  class="col-xs-{{12 - editor.rowSize(row)}}">
-                <div class="widget-placeholder drop-container" bo-dropzone bo-drop-success="dropAtEndOfTheRow($data, $event, row)">{{12 - editor.rowSize(row)}}</div>
+            <div ng-if="editor.rowSize(row) < 12"
+                 bo-dropzone
+                 bo-drop-success="dropAtEndOfTheRow($data, $event, row)"
+                 data-col="{{12 - editor.rowSize(row)}}"
+                 class="widget-placeholder drop-container col-xs-{{12 - editor.rowSize(row)}}">
             </div>
 
         </div>
