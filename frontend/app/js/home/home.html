@@ -80,12 +80,7 @@
                                         title="{{'Rename page' | translate}}">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <a class="Artifact-button Artifact-button--primary btn-page-export"
-                                   target="_self"
-                                   ng-href="{{exportPage(page)}}"
-                                   title="{{'Export page' | translate}}">
-                                   <i class="fa fa-alias-export"></i>
-                                </a>
+                                <file-download class="Artifact-button Artifact-button--primary btn-page-export" href="exportPageUrl(page)" title="{{'Export page' | translate }}"></file-download>
                                 <button class="Artifact-button Artifact-button--primary btn-page-delete"
                                         ng-click="deletePage(page)"
                                         type="button"
@@ -146,12 +141,7 @@
                                 </a>
                             </div>
                             <div class="Artifact-actions">
-                                <a class="Artifact-button btn-widget-export"
-                                   target="_self"
-                                   ng-href="{{exportWidget(widget)}}"
-                                   title="{{'Export widget' | translate }}">
-                                   <i class="fa fa-alias-export"></i>
-                                </a>
+                                <file-download class="Artifact-button Artifact-button--primary btn-widget-export" href="exportWidgetUrl(widget)" title="{{'Export widget' | translate }}"></file-download>
                                 <button class="Artifact-button btn-widget-delete"
                                         type="button"
                                         ng-click="deleteCustomWidget(widget)"

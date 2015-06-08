@@ -84,8 +84,9 @@ describe('home page', function() {
 
   it('should export a page', function() {
     var btn = $$('.btn-page-export').first();
-
-    expect(btn.getAttribute('href')).toMatch(/\/export\/page\/person/);
+    var iframe = $$('.ExportArtifact').first();
+    btn.click();
+    expect(iframe.getAttribute('src')).toMatch(/\/export\/page\/person/);
   });
 
   it('should open a modal to confirm widget deletion', function() {

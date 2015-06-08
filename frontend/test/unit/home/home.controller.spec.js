@@ -91,7 +91,7 @@ describe('HomeCtrl', function () {
     var page = {id: 'aPage'};
     spyOn(pageRepo, 'exportUrl');
 
-    $scope.exportPage(page);
+    $scope.exportPageUrl(page);
     $scope.$apply();
 
     expect(pageRepo.exportUrl).toHaveBeenCalledWith(page);
@@ -101,7 +101,7 @@ describe('HomeCtrl', function () {
     var widget = {id: 'idWidget'};
     spyOn(widgetRepo, 'exportUrl');
 
-    $scope.exportWidget(widget);
+    $scope.exportWidgetUrl(widget);
     $scope.$apply();
 
     expect(widgetRepo.exportUrl).toHaveBeenCalledWith(widget);
