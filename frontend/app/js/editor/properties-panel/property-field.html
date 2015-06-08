@@ -1,24 +1,32 @@
 <div class="form-group" ng-if="displayCondition()" data-property="{{ property.name }}">
 
     <div class="property-label">
-        <label>{{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help" tooltip="{{property.help | translate}}" tooltip-append-to-body="true"></i></label></label>
+        <label>{{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help"
+                                                   tooltip="{{property.help | translate}}"
+                                                   tooltip-append-to-body="true"></i></label></label>
         <small class="help-block">{{property.caption | translate}}</small>
     </div>
 
     <div ng-switch="property.type" ng-if="!shouldBeLinked()">
         <div class="input-group unlinked">
             <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"></textarea>
-            <select ng-switch-when="choice" ng-model="propertyValue.value" ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues" class="form-control" ></select>
+            <select ng-switch-when="choice" ng-model="propertyValue.value"
+                    ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues"
+                    class="form-control"></select>
+
             <div ng-switch-when="boolean">
-                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="false" ng-value="false"/><span translate>no</span></label>
-                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="true" ng-value="true"/><span translate>yes</span></label>
+                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="false"
+                                                   ng-value="false"/><span translate>no</span></label>
+                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="true"
+                                                   ng-value="true"/><span translate>yes</span></label>
             </div>
             <input ng-switch-when="integer" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="float" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
-            <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value" type="text" class="form-control"/>
+            <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value"
+                   type="text" class="form-control"/>
             <span class="input-group-btn">
-                <button class="btn btn-bonita-property" ng-click="link()" title="Link data" type="button">
+                <button class="btn btn-bonita-property" ng-click="link()" title="Bind to a dynamic value" type="button">
                     <i class="fa fa-unlink"></i>
                 </button>
             </span>
@@ -33,10 +41,12 @@
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
                    empty-typeahead
                    autofocus="linked"
-                   class="form-control" />
+                   class="form-control" placeholder="{{ property.bidirectional ? 'variableName': 'variableName === true' | translate }}"/>
         </form>
         <span class="input-group-btn">
-            <button class="btn btn-bonita-property" ng-click="unlink()" title="Unlink data" type="button">
+            <button class="btn btn-bonita-property" ng-click="unlink()"
+                    title="{{ property.bidirectional ? 'Bind to a variable' : 'Remove binding' | translate }}"
+                    ng-disabled="property.bidirectional" type="button">
                 <i class="fa fa-link"></i>
             </button>
         </span>

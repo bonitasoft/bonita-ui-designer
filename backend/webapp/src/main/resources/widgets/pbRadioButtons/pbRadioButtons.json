@@ -15,6 +15,7 @@
     {
       "label": "Required",
       "name": "required",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "boolean",
       "defaultValue": false
     },

@@ -9,21 +9,21 @@
     {
       "label": "Headers",
       "caption": "Comma separated",
-      "help": "List of table column headings, separated by commas. Headings are displayed at the top of the table.",
+      "help": "Column titles",
       "name": "headers",
       "type": "collection",
       "defaultValue": ["Id", "Name", "Description", "Date"]
     },
     {
       "label": "Content",
-      "help": "Collection used to populate the table. Could be a simple list or a list of objects",
+      "help": "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content",
       "name": "content",
       "type": "collection"
     },
     {
-      "label": "Columns key",
-      "caption": "Empty in case of simple list",
-      "help": "When 'Available values' is a list of objects, specifies the attributes to display in the table columns. Column identifiers are separated by commas",
+      "label": "Column keys",
+      "caption": "Comma separated",
+      "help": "When 'Content' is a list of objects, specifies the attributes to display in the table columns",
       "name": "columnsKey",
       "type": "collection"
     },

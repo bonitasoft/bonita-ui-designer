@@ -16,6 +16,7 @@
     {
       "label": "Required",
       "name": "required",
+      "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "boolean",
       "defaultValue": false
     },
@@ -53,20 +54,23 @@
     {
       "label": "Placeholder",
       "name": "placeholder",
+      "help": "Short hint that describes the expected value",
       "type": "text",
       "defaultValue": "MM/dd/yyyy"
     },
     {
       "label": "Value",
       "name": "value",
-      "type": "text"
+      "type": "text",
+      "bidirectional": true
     },
     {
       "label": "Date format",
       "name": "dateFormat",
       "type": "text",
       "defaultValue": "MM/dd/yyyy",
-      "caption": "You can specify your own format (y: year, M: month, d day, h: hour, m;minute, s:second)"
+      "help": "Specify your own format",
+      "caption": "y: year, M: month, d: day, h: hour, m: minute, s: second"
     }
   ]
 }
