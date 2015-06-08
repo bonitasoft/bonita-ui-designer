@@ -63,7 +63,7 @@ describe('home page', function() {
     //We want to delete a page
     $$('.btn-page-delete').first().click();
     //A modal is opened with a confirmation message
-    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Do you want to delete the page Person ?');
+    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the page Person?');
   });
 
   it('should not delete page if user cancels deletion', function() {
@@ -92,7 +92,7 @@ describe('home page', function() {
     //We want to delete a widget
     $$('.btn-widget-delete').first().click();
     //A modal is opened with a confirmation message
-    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Do you want to delete the custom widget awesomeWidget ?');
+    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the custom widget awesomeWidget?');
   });
 
   it('should rename a page', function() {

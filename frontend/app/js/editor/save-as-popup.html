@@ -13,7 +13,7 @@
                 placeholder="{{ 'Page Name' | translate }}"
                 required>
         </div>
-        <span ng-if="newPage.name.$error.pattern" class="text-danger" translate>Page name should contains only alphanumeric characters with no space</span>
+        <span ng-if="newPage.name.$error.pattern" class="text-danger" translate>Page names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-page-controls">
         <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newPage.name.$dirty || newPage.$invalid || newName == page.name" translate>Save</button>
