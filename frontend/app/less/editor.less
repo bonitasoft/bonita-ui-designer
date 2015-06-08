@@ -78,6 +78,22 @@
   border-width: 2px;
   box-shadow: none;
   text-align: center;
+
+  &::-webkit-input-placeholder {
+    color: @color-editor-header-placeholder;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: @color-editor-header-placeholder;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: @color-editor-header-placeholder;
+  }
+
+  &:-ms-input-placeholder {
+    color: @color-editor-header-placeholder;
+  }
 }
 
 .editor-title {

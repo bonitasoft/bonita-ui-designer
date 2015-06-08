@@ -11,26 +11,11 @@
   box-shadow: 1px 2px 5px -2px lighten(@gray-light, 20%);
 }
 
-.EditorHeader-name {
+.EditorHeader-name--custom {
   display: inline-block;
   margin: 0 2em;
   vertical-align: middle;
-
-  &::-webkit-input-placeholder {
-    color: @color-editor-header-placeholder;
-  }
-
-  &:-moz-placeholder { /* Firefox 18- */
-    color: @color-editor-header-placeholder;
-  }
-
-  &::-moz-placeholder {  /* Firefox 19+ */
-    color: @color-editor-header-placeholder;
-  }
-
-  &:-ms-input-placeholder {
-    color: @color-editor-header-placeholder;
-  }
+  color: @color-custom-editor-widget-name;
 }
 
 .CustomEditor {
