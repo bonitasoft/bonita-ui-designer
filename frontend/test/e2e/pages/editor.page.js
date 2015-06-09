@@ -15,6 +15,9 @@ var SideBar = require('./data-panel.page');
     // wait for angular to be ready;
     browser.waitForAngular();
 
+    //remove onbeforeunload to avoid confirm popup at the end of a test
+    //so protractor can continue to run tests
+    browser.executeScript('window.onbeforeunload = function(){};');
     return new PageEditor();
   };
 
@@ -109,6 +112,10 @@ var SideBar = require('./data-panel.page');
 
     property: function (propertyName) {
       return $('#widget-properties').element(by.id('property-' + propertyName));
+    },
+
+    back: function() {
+      $('.EditorHeader-back').click();
     }
   };
 

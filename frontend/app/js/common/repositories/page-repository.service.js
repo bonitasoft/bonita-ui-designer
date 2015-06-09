@@ -19,6 +19,8 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
 
   'use strict';
 
+  var lastSavedState = {};
+
   /**
    * Lists all the pages and returns a promise containing the pages
    */
@@ -52,7 +54,10 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
    * @param content - the page's content
    */
   function save(id, content) {
-    return $http.put('rest/pages/' + id, content);
+    return $http.put('rest/pages/' + id, content)
+      .success(function(){
+        lastSavedState = content;
+      });
   }
 
   /**
@@ -124,7 +129,27 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     return 'export/page/' + page.id;
   };
 
+
+  /**
+   * Initialise lastSavedState to track update from editor
+   * @param  {Object} widget  the current widget being edited
+   */
+  function initLastSavedState(widget){
+    lastSavedState = angular.copy(widget);
+  }
+
+  /**
+   * Utility function to track if a widget being updated, need to be saved
+   * @param  {Object} widget the widget being updated
+   * @return {Boolean}
+   */
+  function needSave(widget){
+    return !angular.equals(widget, lastSavedState);
+  }
+
   return {
+    initLastSavedState: initLastSavedState,
+    needSave: needSave,
     all: all,
     create: create,
     createAsset: createAsset,
