@@ -116,6 +116,20 @@
       );
     }
 
+    $scope.openHelp = function(elm) {
+      $modal.open({
+        templateUrl: 'js/assets/help-popup.html',
+        backdrop: 'static',
+        size: 'lg',
+        controller: function($scope, $modalInstance) {
+          $scope.isPage = (elm !== 'widget');
+          $scope.cancel = function() {
+            $modalInstance.dismiss('cancel');
+          };
+        }
+      });
+    };
+
     /**
      * Create or update an asset
      */
