@@ -195,12 +195,24 @@ public class AssetServiceTest {
     @Test
     public void should_delete_existing_asset() throws Exception {
         Page page = aFilledPage("page-id");
-        Asset asset = anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
+        Asset asset = anAsset().withName("myfile.js").withType(JAVASCRIPT).build();
         page.getAssets().add(asset);
 
         assetService.delete(page, asset);
 
         verify(assetRepository).delete(asset);
+    }
+
+    @Test
+    public void should_not_delete_file_for_existing_external_asset() throws Exception {
+        Page page = aFilledPage("page-id");
+        Asset asset = anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
+        page.getAssets().add(asset);
+
+        assetService.delete(page, asset);
+
+        //We must'nt call the delete method for an external resource
+        verifyNoMoreInteractions(assetRepository);
     }
 
     @Test
