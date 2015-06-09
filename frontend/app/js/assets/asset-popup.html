@@ -17,6 +17,7 @@
         <div class="form-group">
             <label class="control-label control-label--required" for="source" translate>Source</label>
             <select name="type" class="form-control" ng-model="newAsset.source"
+                    ng-disabled="!isNewAsset"
                     ng-options="source.key as source.label for source in assetSources"></select>
         </div>
 
