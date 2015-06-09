@@ -26,7 +26,8 @@
             <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value"
                    type="text" class="form-control"/>
             <span class="input-group-btn">
-                <button class="btn btn-bonita-property" ng-click="link()" title="Bind to a dynamic value" type="button">
+                <button class="btn btn-bonita-property" ng-click="link()"
+                        title="{{ 'Bind to a dynamic value' | translate }}" type="button">
                     <i class="fa fa-unlink"></i>
                 </button>
             </span>
@@ -38,7 +39,8 @@
             <input name="paramValue" ng-model="propertyValue.value" type="text"
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
                    autofocus="linked"
-                   class="form-control" placeholder="{{ property.bidirectional ? 'variableName': 'variableName === true' | translate }}"/>
+                   class="form-control PropertyPanel-bond"
+                   placeholder="{{ propertyField.getBindingPlaceholder(property) }}"/>
         </form>
         <span class="input-group-btn">
             <button class="btn btn-bonita-property" ng-click="unlink()"

@@ -7,14 +7,20 @@
   padding: 0;
 }
 
+.PropertyPanel-bond {
+  &::placeholder {
+    color: @color-properties-placeholder;
+  }
+}
+
 .PropertyPanel .splitter {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: @z-index-splitter;
-    width: 4px;
-    background-color: @color-properties-bg;
-    margin:1em 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: @z-index-splitter;
+  width: 4px;
+  background-color: @color-properties-bg;
+  margin: 1em 0;
 }
 
 .PropertyPanel-popover {
@@ -68,16 +74,15 @@
 /**
  * properties toolbar
  */
-.editor-field-icon-label{
+.editor-field-icon-label {
   display: inline-block;
   color: @color-properties-help;;
   padding: 5px;
 }
 
-
 .property-label label,
 .property-label .help-block {
-    margin: 0;
+  margin: 0;
 }
 
 .property--width {
