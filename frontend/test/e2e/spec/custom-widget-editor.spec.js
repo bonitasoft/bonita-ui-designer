@@ -2,6 +2,10 @@ describe('custom widget editor', function() {
 
   beforeEach(function() {
     browser.get('#/en/widget/customAwesomeWidget');
+
+    //prevent onbeforeunload event to avoid blocking protractor when running tests
+    //@see editor.page.js
+    browser.executeScript('window.onbeforeunload = function(){};');
   });
 
   var clearAndFillAceEditor = function(elementId, text) {
@@ -17,9 +21,33 @@ describe('custom widget editor', function() {
     });
   }
 
+  it('should not open a confirm dialog if there is no modification', function() {
+    $('.EditorHeader-back').click();
+    expect(browser.getCurrentUrl()).toMatch(/\/home/);
+  });
+
+  it('should open a confirm dialog before going home', function() {
+    element.all(by.model('widget.description')).sendKeys('update');
+    $('.EditorHeader-back').click();
+
+    var dialog = browser.switchTo().alert();
+    expect(dialog.accept).toBeDefined();
+    dialog.accept();
+    expect(browser.getCurrentUrl()).toMatch(/\/home/);
+  });
+
+  it('should open a confirm dialog and stay on the same page if dismiss', function() {
+    element.all(by.model('widget.description')).sendKeys('update');
+    $('.EditorHeader-back').click();
+
+    var dialog = browser.switchTo().alert();
+    expect(dialog.dismiss).toBeDefined();
+    dialog.dismiss();
+    expect(browser.getCurrentUrl()).toMatch(/\/customAwesomeWidget/);
+  });
+
   it('should display custom widget properties', function() {
     var properties = getPropertyNamesInList();
-
     expect(properties).toEqual(['qualifier', 'verb']);
   });
 
