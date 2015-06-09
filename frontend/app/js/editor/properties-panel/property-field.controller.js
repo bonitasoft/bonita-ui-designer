@@ -30,26 +30,26 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     };
   }
 
-  $scope.displayCondition = function() {
+  $scope.displayCondition = function () {
 
     // If there is no expression we will always display the option
-    if(!$scope.property.showFor) {
+    if (!$scope.property.showFor) {
       return true;
     }
 
     return $scope.$eval($scope.property.showFor);
   };
 
-  $scope.getDataNames = function() {
+  $scope.getDataNames = function () {
     return Object.keys($scope.pageData);
   };
 
-  $scope.shouldBeLinked = function() {
+  $scope.shouldBeLinked = function () {
     return $scope.propertyValue && $scope.propertyValue.type === 'data';
   };
 
   $scope.unlink = function () {
-    if($scope.property.bidirectional) {
+    if ($scope.property.bidirectional) {
       return;
     }
 
@@ -66,8 +66,12 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     $scope.linked = true;
   };
 
-  if($scope.property.bidirectional) {
+  if ($scope.property.bidirectional) {
     $scope.propertyValue.type = 'data';
     $scope.linked = true;
   }
+
+  this.getBindingPlaceholder = function (property) {
+    return property.type === 'boolean' ? 'variableName === true' : 'variableName';
+  };
 });

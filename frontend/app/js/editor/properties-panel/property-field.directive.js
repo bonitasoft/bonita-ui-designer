@@ -25,6 +25,7 @@ angular.module('pb.directives').directive('propertyField', function() {
       pageData: '='
     },
     templateUrl: 'js/editor/properties-panel/property-field.html',
-    controller: 'PropertyFieldDirectiveCtrl'
+    controller: 'PropertyFieldDirectiveCtrl',
+    controllerAs: 'propertyField'
   };
 });
