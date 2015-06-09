@@ -57,7 +57,7 @@ angular.module('pb.services').factory('apiExamples', function (gettextCatalog) {
     ],
     'Customuserinfo API': [
       {
-        description: gettextCatalog.getString('Get custom informations of a user'),
+        description: gettextCatalog.getString('Get custom information of a user'),
         url: '../API/customuserinfo/user?p=0&c=10&f=userId=<strong>{{userId}}</strong>'
       }
     ],
