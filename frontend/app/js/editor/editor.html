@@ -58,12 +58,7 @@
         <button class="btn btn-bonita-help" ng-click="openHelp()" ><i class="fa fa-question-circle"></i></button>
     </div>
 
-    <div class="EditorHeader-properties">
-        <button class="btn btn-bonita-primary"
-                splitter-toggle="#widget-properties-splitter" >
-                <i class="fa fa-tasks"></i>
-        </button>
-    </div>
+
 </div>
 
 <div class="content-wrapper">
@@ -103,7 +98,9 @@
             <div class="BottomPanel-content" ui-view="data"></div>
         </div>
 
-
+        <div splitter-toggle="#widget-properties-splitter" id="toggle-properties" class="clickable toggle">
+            <i class="fa toggle-right"></i>
+        </div>
     </div>
 
     <div id="widget-properties" class="PropertyPanel">
