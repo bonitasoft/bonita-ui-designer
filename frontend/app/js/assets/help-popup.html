@@ -1,0 +1,98 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help</h3>
+</div>
+<div class="modal-body">
+    <tabset class="tabs-left">
+        <tab heading="{{ 'General' | translate }}">
+            <p translate>
+                Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, and <strong>Image</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL).
+            </p>
+            <p translate>
+                A local asset name must not contain special characters or spaces. An external asset name must be a standard URL.
+            </p>
+
+            <p translate ng-if="!isPage">
+                To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page.
+            </p>
+
+        </tab>
+
+        <tab heading="{{ 'Asset use' | translate }}" ng-if="isPage">
+            <p translate >
+                Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)
+            </p>
+            <p translate>
+                Image assets can be displayed in custom widgets (see Custom widget editor > Assets help).
+            </p>
+            <p translate>
+                Add image assets at page level if the image is used as a custom widget property.
+            </p>
+        </tab>
+
+        <tab heading="{{ 'Asset use' | translate }}" ng-if="!isPage">
+            <p translate >
+                In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href="http://ngmodules.org/">http://ngmodules.org/</a>.
+            </p>
+            <p translate>
+                To use an image asset, you need to create a custom widget. <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See this example</button>
+            </p>
+            <section>
+                <div class="well" collapse="!examplesCollapsed">
+                    <div>
+                        In the custom widget editor, create a widget with two properties:
+                        <ul>
+                            <li><code>{name : "src", type : "text", "Default value" : "assets/img/assetname.png"}</code></li>
+                            <li><code>{name : "description", type : "text"}</code></li>
+                        </ul>
+                        <p>
+                            You do not need to define a controller but you must create an HTML template:
+                            <br>
+
+                            <code ng-non-bindable>
+                                &lt;img ng-src="{{properties.src}}" alt="{{properties.description}}";&gt;
+                            </code>
+                        </p>
+                        <p>
+                            You can now use this custom widget in any page, by adding an image asset and changing the property <code>src</code> to point to it. For an external asset, specify a URL. To load a local image, specify a relative path as follows:
+
+                        <ul>
+                            <li><code>assets/img/[image name]</code> for a local image added in the page</li>
+                            <li><code>assets/[custom widget name]/img/[image name]</code> for a local image added in a widget</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </tab>
+
+        <tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
+            <p translate >
+                The list contains both page assets and the assets of the custom widgets used in this page.
+            </p>
+            <p translate >
+                In the list, you can delete page assets only, view local assets, and edit external assets of a page.
+            </p>
+            <p translate >
+                You can’t manually change the order of assets in a page.
+            </p>
+            <p translate >
+                At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header.
+            </p>
+        </tab>
+
+        <tab heading="{{ 'Asset list' | translate }}" ng-if="!isPage">
+            <p translate >
+                In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any.
+            </p>
+            <p translate >
+                At runtime, assets of a custom widget are loaded in the order defined.
+            </p>
+        </tab>
+
+
+    </tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
+</div>
