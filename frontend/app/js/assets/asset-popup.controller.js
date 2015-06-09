@@ -63,7 +63,7 @@
     }
 
     /**
-     * If an error occured on saving, the message is displayed in alerts area
+     * If an error occurred on saving, the message is displayed in alerts area
      */
     function onError(error) {
       alerts.addError(error);
@@ -80,10 +80,9 @@
     /**
      * The form action target is not the same according to the asset type : css, js or img
      */
-    function updateSavingAction(type){
+    function updateSavingAction(type) {
       $scope.assetSavingAction = urlPrefixForLocalAsset + type;
     }
-
   });
 
 })();
