@@ -66,18 +66,24 @@
       });
     }
 
+    var resolveMap = {
+      variable: resolveVariable,
+      constant: resolveVariable,
+      json: resolveJson,
+      expression: resolveExpression,
+      url: resolveUrl,
+      urlparameter: resolveUrlParameter
+    };
+
     return {
       create: function (data) {
-        var model = _.transform(data, function (dataModel, descriptor, name) {
-          ({
-            variable: resolveVariable,
-            constant: resolveVariable,
-            json: resolveJson,
-            expression: resolveExpression,
-            url: resolveUrl,
-            urlparameter: resolveUrlParameter
-          }[descriptor.type] || angular.noop)(dataModel, descriptor, name);
-        });
+
+        var model = Object.keys(data).reduce(function(acc, name) {
+          var descriptor = data[name];
+          resolveMap[descriptor.type](acc, descriptor, name);
+          return acc;
+        }, {});
+
         model.createGateway = function () {
           var context = {};
           Object.keys(model).forEach(function (property) {

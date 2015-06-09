@@ -50,7 +50,7 @@
       function createConstantAccessors(value, name) {
         return {
           get: function () {
-            return _.isString(value) ? $interpolate(String(value))(context) : value;
+            return angular.isString(value) ? $interpolate(String(value))(context) : value;
           },
           set: function () {
             $log.warn('<', name, '> is a constant therefor it can\'t be updated. Please bind a data instead.');

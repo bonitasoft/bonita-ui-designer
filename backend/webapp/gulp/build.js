@@ -5,6 +5,8 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var html2js = require('gulp-ng-html2js');
 var merge = require('merge-stream');
+var gulpIf = require('gulp-if');
+
 var inlineJSON = require('./utils.js').inlineJSON;
 var gettextWidget = require('./gettext-widget.js');
 
@@ -46,9 +48,12 @@ module.exports = function(gulp, config) {
   gulp.task('generator', ['generator:js', 'generator:css', 'generator:fonts', 'vendor']);
 
   gulp.task('vendor', function () {
+    function notMinified(file) {
+      return !/(src-min|\.min\.js)/.test(file.path);
+    }
     return gulp.src(paths.vendor)
       .pipe(concat('vendor.min.js'))
-      .pipe(uglify())
+      .pipe(gulpIf(notMinified, uglify()))
       .pipe(gulp.dest(paths.dest.vendors));
   });
 
