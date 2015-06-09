@@ -89,11 +89,13 @@ public class AssetService<T extends Assetable> {
             Asset existingAsset = assetIterator.next();
 
             //If the resource exist we delete the file before save the new one
-            if (asset.equalsWithoutComponentId(existingAsset) && !asset.isExternal()) {
-                try {
-                    assetRepository.delete(asset);
-                } catch (NotFoundException | IOException e) {
-                    logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
+            if (asset.equalsWithoutComponentId(existingAsset) ) {
+                if(!asset.isExternal()){
+                    try {
+                        assetRepository.delete(asset);
+                    } catch (NotFoundException | IOException e) {
+                        logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
+                    }
                 }
                 assetIterator.remove();
                 break;
