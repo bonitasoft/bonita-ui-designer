@@ -71,6 +71,14 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withAsset(AssetBuilder ... assets){
+        for(AssetBuilder asset : assets){
+            this.assets.add(asset.build());
+        }
+        return this;
+    }
+
+
     public PageBuilder withData(String name, Data data) {
         this.data.put(name, data);
         return this;
