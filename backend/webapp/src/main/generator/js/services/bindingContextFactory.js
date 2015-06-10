@@ -38,9 +38,6 @@
         .with('$form', {
           get: function () {
             return scope.$form;
-          },
-          set: function (value) {
-            scope.$form = value;
           }
         });
       return context;
