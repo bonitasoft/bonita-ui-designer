@@ -15,7 +15,9 @@
 /**
  * add click event to element to trigger event to toggle a sidebar
  */
-angular.module('pb.directives').directive('splitterToggle', function() {
+angular
+  .module('pb.directives')
+  .directive('splitterToggle', function() {
 
   /**
    * Get event name according to target splitter type
@@ -33,19 +35,12 @@ angular.module('pb.directives').directive('splitterToggle', function() {
   }
 
   return {
-    link: function($scope, $element, $attrs, controller) {
-      controller.state = $attrs.targetState;
+    link: function($scope, $element, $attrs) {
       var eventName = getEventName(document.querySelector($attrs.splitterToggle));
       $element.on('click', function() {
         angular.element($attrs.splitterToggle).trigger(eventName, $attrs.targetState);
         $scope.$digest();
       });
-    },
-    controllerAs: 'splitter',
-    controller: function($element, $scope, $state) {
-      this.isActive = function() {
-        return $state.current.name === this.state;
-      };
     }
   };
 });
