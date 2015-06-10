@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.Path;
@@ -57,11 +59,21 @@ public class AssetExportStepTest {
     @Test
     public void should_export_asset_when_page_has_asset() throws Exception {
         when(pageAssetRepository.findAssetPath("pageId", "myfile.css", AssetType.CSS)).thenReturn(assetPath);
-
-        Page page = aPage().withId("pageId").withAsset(anAsset().withName("myfile.css").withType(AssetType.CSS).build()).build();
+        Page page = aPage().withId("pageId").withAsset(
+                anAsset().withName("myfile.css").withType(AssetType.CSS)).build();
 
         assetExportStep.execute(zipper, page);
 
-        Mockito.verify(zipper).addDirectoryToZip(assetPath, "resources/assets/css/myfile.css");
+        verify(zipper).addDirectoryToZip(assetPath, "resources/assets/css/myfile.css");
+    }
+
+    @Test
+    public void should_not_export_external_assets() throws Exception {
+        Page page = aPage().withAsset(
+                anAsset().withName("http://external.asset")).build();
+
+        assetExportStep.execute(zipper, page);
+
+        verifyZeroInteractions(zipper);
     }
 }
