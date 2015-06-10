@@ -19,21 +19,18 @@
  * Panes should be passed via attributes pane-top and pane-bottom by css selectors
  */
 angular.module('pb.directives')
-  .directive('splitterHorizontal', function($document, $state) {
+  .directive('splitterHorizontal', function($document) {
 
     return {
       scope: {
         paneTop: '@',
         paneBottom: '@',
         paneBottomMax: '@',
-        paneBottomMin: '@',
-        closedOnInit: '@',
-        defaultState: '@'
+        paneBottomMin: '@'
       },
-      transclude: true,
+      require: '?^splitterContainer',
       template: '<div class="BottomPanel-splitter"></div>',
       controller: function($scope) {
-        this.displayed = true;
         this.topElem = $($scope.paneTop);
         this.bottomElem = $($scope.paneBottom);
 
@@ -70,7 +67,6 @@ angular.module('pb.directives')
         this.closeBottom = function() {
           this.topElem.css({bottom: 0});
           this.bottomElem.addClass('splitter-pane-closed');
-          this.displayed = false;
         };
 
         /**
@@ -79,26 +75,20 @@ angular.module('pb.directives')
         this.openBottom = function() {
           this.bottomElem.removeClass('splitter-pane-closed');
           this.topElem.css({bottom: this.bottomElem[0].getBoundingClientRect().height + 'px'});
-          this.displayed = true;
         };
 
-        this.toggleBottom = function() {
-          if (this.displayed) {
-            this.closeBottom();
-          } else {
-            this.openBottom();
-          }
-        };
       },
-      link: function($scope, $element, $attrs, $ctrl) {
-        var currentState = $attrs.defaultState;
+      link: function($scope, $element, $attrs, splitter) {
         var paneTop = $($attrs.paneTop);
         var paneBottom = $($attrs.paneBottom);
+        var controller =  $element.controller('splitterHorizontal');
+
+        if (splitter) {
+          splitter.register(controller);
+        }
+
         paneTop.addClass('splitter-pane splitter-pane-top');
         paneBottom.addClass('splitter-pane splitter-pane-bottom');
-        if (!!$scope.$eval($attrs.closedOnInit) ) {
-          $ctrl.closeBottom();
-        }
 
         $element.find('.BottomPanel-splitter').on('mousedown', function(event) {
           event.preventDefault();
@@ -119,23 +109,8 @@ angular.module('pb.directives')
         function mousemove (event) {
           paneTop.addClass('splitter-onmove');
           paneBottom.addClass('splitter-onmove');
-          $ctrl.resize(event.pageY);
+          controller.resize(event.pageY);
         }
-
-        $element.on('splitter:toggle:bottom', function(event, targetState) {
-          event.preventDefault();
-          //When the state didn't change it's a panel toggle or panel is hidden
-          if(currentState === targetState && $ctrl.displayed || ! $ctrl.displayed){
-            $ctrl.toggleBottom();
-          }
-
-          if(currentState !== targetState) {
-            //Call ui-router to change state
-            currentState = targetState;
-            $state.go(currentState);
-          }
-
-        });
       }
     };
   });

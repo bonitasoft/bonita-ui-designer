@@ -46,24 +46,6 @@ describe('splitter horizontal directive', function() {
     expect(bottom).toHaveClass('splitter-pane splitter-pane-bottom');
   });
 
-  it('should close bottom element when it is opened', function() {
-    spyOn(controller, 'closeBottom');
-    controller.displayed = true;
-
-    element.triggerHandler('splitter:toggle:bottom', 'test');
-
-    expect(controller.closeBottom).toHaveBeenCalled();
-  });
-
-  it('should open bottom element when it is closed', function() {
-    spyOn(controller, 'openBottom');
-    controller.displayed = false;
-
-    element.triggerHandler('splitter:toggle:bottom');
-
-    expect(controller.openBottom).toHaveBeenCalled();
-  });
-
   it('should resize left and right elements and add classes when splitter is clicked', function() {
     spyOn(controller, 'resize');
     var splitter = angular.element(element.find('.BottomPanel-splitter').get(0));
