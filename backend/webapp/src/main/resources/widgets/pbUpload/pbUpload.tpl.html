@@ -8,7 +8,8 @@
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
             {{ properties.label }}
-        </label><div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+        </label>
+        <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
            <form action="{{ctrl.url}}"
                  ng-upload="ctrl.uploadComplete(content)"
                  ng-upload-loading="ctrl.startUploading()"
@@ -27,7 +28,7 @@
                                    name="{{ctrl.name}}" type="file"
                                    ng-required="properties.required"
                                    ng-model="ctrl.filemodel" />
-                            <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}" />
+                            <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}"></i>
                         </span>
                     </span>
                 </div>
