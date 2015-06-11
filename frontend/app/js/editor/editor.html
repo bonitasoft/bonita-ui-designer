@@ -55,7 +55,7 @@
     </div>
 
     <div class="EditorHeader-help">
-        <button class="btn btn-bonita-help" ng-click="openHelp()" ><i class="fa fa-question-circle"></i></button>
+        <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
     </div>
 
 
@@ -69,7 +69,7 @@
     </div>
 
     <div id="editor-container">
-        <div splitter-toggle="#palette-splitter" id="toggle-palette" class="clickable toggle">
+        <div splitter-toggle="#palette-splitter" id="toggle-palette"  title="{{'Toggle palette' | translate}}"  class="clickable toggle">
             <i class="fa toggle-left"></i>
         </div>
 
@@ -98,7 +98,7 @@
             <div class="BottomPanel-content" ui-view="data"></div>
         </div>
 
-        <div splitter-toggle="#widget-properties-splitter" target-state="designer.page" id="toggle-properties" class="clickable toggle">
+        <div splitter-toggle="#widget-properties-splitter" title="{{'Toggle properties panel' | translate}}" target-state="designer.page" id="toggle-properties" class="clickable toggle">
             <i class="fa toggle-right"></i>
         </div>
     </div>
