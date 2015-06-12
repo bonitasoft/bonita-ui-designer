@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2015-06-10 01:49-0400\n"
+"PO-Revision-Date: 2015-06-12 09:30-0400\n"
 
 #: editor/data-panel/data-popup.html:12
 msgid "'{{newData.$$name}}' already exists"
@@ -227,7 +227,7 @@ msgid ""
 "Add images, CSS or JavaScript resources to your pages in the Assets panel at "
 "the bottom."
 msgstr ""
-"Agregar recursos de imágenes, CSS o JavaScript a tus páginas en el panel "
+"Agrega recursos de imágenes, CSS o JavaScript a tus páginas en el panel "
 "Recursos en el panel de la parte inferior."
 
 #: editor/data-panel/api-examples.service.js:40
@@ -956,8 +956,8 @@ msgid ""
 "To add content, drag and drop components from the palette to the whiteboard "
 "above."
 msgstr ""
-"Para agregar contenido, arrastrar y soltar los componentes de la paleta en "
-"la zona de trabajo."
+"Para agregar contenido, arrastra y suelta los componentes de la paleta en la "
+"zona de trabajo."
 
 #: home/help-popup.html:48
 msgid ""
