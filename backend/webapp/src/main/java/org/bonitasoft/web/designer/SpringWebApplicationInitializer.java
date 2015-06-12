@@ -81,7 +81,6 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         dispatcher.setLoadOnStartup(1);
         dispatcher.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
         dispatcher.setAsyncSupported(true);
-        //We have to define a global context. If we want to use "/" we have a conflict with the static resources.
-        dispatcher.addMapping("/");
+        dispatcher.addMapping("/*");
     }
 }
