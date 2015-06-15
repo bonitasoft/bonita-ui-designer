@@ -20,7 +20,7 @@
                 <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="true"
                                                    ng-value="true"/><span translate>yes</span></label>
             </div>
-            <input ng-switch-when="integer" ng-model="propertyValue.value" type="number" class="form-control"/>
+            <input ng-switch-when="integer" min="{{property.constraints.min}}" max="{{property.constraints.max}}" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="float" ng-model="propertyValue.value" type="number" class="form-control"/>
             <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
             <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value"
