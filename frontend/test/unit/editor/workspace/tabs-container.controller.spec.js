@@ -1,7 +1,7 @@
 describe('TabsContainerDirectiveCtrl', function() {
   var $scope;
 
-  beforeEach(module('pb.directives', 'pb.common.services'));
+  beforeEach(module('pb.directives', 'pb.common.services', 'pb.factories'));
   beforeEach(inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
 
@@ -68,5 +68,80 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect($scope.tabsContainer.tabs[0].name).toBe('tab-1');
     expect($scope.tabsContainer.tabs[1].name).toBe('tab-0');
 
+  });
+
+  it('should add tab at the end', function () {
+    $scope.tabsContainer = {
+      tabs: [
+        {name: 'tab-0'},
+        {name: 'tab-1'}
+      ]
+    };
+
+    $scope.addTab();
+
+    expect($scope.tabsContainer.tabs.length).toBe(3);
+    expect($scope.tabsContainer.tabs[2].title).toBe('Tab 3');
+    expect($scope.tabsContainer.tabs[2].$$parentTabsContainer).toBe($scope.tabsContainer);
+    expect($scope.tabsContainer.tabs[2].container.rows).toEqual([[]]);
+  });
+
+  it('should remove current tab and select previous one', function () {
+    $scope.tabsContainer = {
+      tabs: [
+        {name: 'tab-1'},
+        {name: 'tab-2'},
+        {name: 'tab-3'}
+      ]
+    };
+
+    $scope.removeTab($scope.tabsContainer.tabs[1]);
+
+    expect($scope.tabsContainer.tabs.length).toBe(2);
+    expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-1'});
+    expect($scope.editor.selectTab).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+  });
+
+  it('should remove current tab and select first when deleting first tab', function () {
+    $scope.tabsContainer = {
+      tabs: [
+        {name: 'tab-1'},
+        {name: 'tab-2'},
+        {name: 'tab-3'}
+      ]
+    };
+
+    $scope.removeTab($scope.tabsContainer.tabs[0]);
+
+    expect($scope.tabsContainer.tabs.length).toBe(2);
+    expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-2'});
+    expect($scope.editor.selectTab).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+  });
+
+  it('should hide remove button when there is only one tab', function () {
+    $scope.tabsContainer = {
+      tabs: [
+        {name: 'tab-1'}
+      ]
+    };
+    spyOn($scope.editor, 'isCurrentTab').and.returnValue(true);
+
+    var visible = $scope.isRemoveTabVisible($scope.tabsContainer.tabs[0]);
+
+    expect(visible).toBeFalsy();
+  });
+
+  it('should show remove button when there is more than one tab', function () {
+    $scope.tabsContainer = {
+      tabs: [
+        {name: 'tab-1'},
+        {name: 'tab-2'}
+      ]
+    };
+    spyOn($scope.editor, 'isCurrentTab').and.returnValue(true);
+
+    var visible = $scope.isRemoveTabVisible($scope.tabsContainer.tabs[0]);
+
+    expect(visible).toBeTruthy();
   });
 });

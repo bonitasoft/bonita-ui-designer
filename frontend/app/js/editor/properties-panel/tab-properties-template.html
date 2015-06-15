@@ -1,23 +1,4 @@
-<div id="tab-editor">
-    <div class="row">
-        <h5 class="col-xs-5" translate>Add a tab</h5>
-
-        <div class="col-xs-7 text-right">
-            <a href ng-click="addTabBeforeCurrent()" id="add-tab-before" translate>before</a> |
-            <a href ng-click="addTabAfterCurrent()" id="add-tab-after" translate>after</a>
-        </div>
-    </div>
-
-    <ul class="row sidebar-action-list" ng-if="currentComponent.$$parentTabsContainer.tabs.length > 1">
-        <li>
-            <translate>Remove tab</translate>
-            <button class="btn btn-danger btn-xs pull-right" ng-click="removeCurrentTab()" id="remove-tab"
-                    title="Remove tab">&times;</button>
-        </li>
-    </ul>
-
-    <div class="form-group">
-        <label for="tab-title-input" translate>Title</label>
-        <input ng-model="currentComponent.title" name="tab-title-input" class="form-control" id="tab-title-input">
-    </div>
+<div class="form-group">
+    <label for="tab-title-input" translate>Title</label>
+    <input ng-model="currentComponent.title" name="tab-title-input" class="form-control" id="tab-title-input">
 </div>
