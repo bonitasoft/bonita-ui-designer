@@ -205,8 +205,7 @@ describe('EditorCtrl', function() {
 
     // then we should have an element selected
     expect($scope.currentContainerRow).toBeFalsy();
-    expect($scope.currentComponent).toBeFalsy();
-    expect($scope.currentTab).toBe(tab);
+    expect($scope.currentComponent).toBe(tab);
     expect(event.stopPropagation).toHaveBeenCalled();
   });
 
@@ -407,7 +406,7 @@ describe('EditorCtrl', function() {
     };
     tabsContainer.tabs.push(tab1);
 
-    $scope.currentTab = tab1;
+    $scope.currentComponent = tab1;
 
     $scope.addTabBeforeCurrent();
     expect(tabsContainer.tabs.length).toBe(2);
@@ -428,7 +427,7 @@ describe('EditorCtrl', function() {
     };
     tabsContainer.tabs.push(tab1);
 
-    $scope.currentTab = tab1;
+    $scope.currentComponent = tab1;
 
     $scope.addTabAfterCurrent();
 
@@ -455,12 +454,12 @@ describe('EditorCtrl', function() {
     tabsContainer.tabs.push(tab1);
     tabsContainer.tabs.push(tab2);
 
-    $scope.currentTab = tab2;
+    $scope.currentComponent = tab2;
 
     $scope.removeCurrentTab();
 
     expect(tabsContainer.tabs.length).toBe(1);
-    expect($scope.currentTab).toBeFalsy();
+    expect($scope.currentComponent).toBeFalsy();
     expect(tabsContainer.$$openedTab).toBe(tab1);
   });
 
@@ -481,9 +480,9 @@ describe('EditorCtrl', function() {
 
   it('should tell if a tab is the current tab', function() {
 
-    $scope.currentTab = {};
+    $scope.currentComponent = {};
 
-    expect($scope.isCurrentTab($scope.currentTab)).toBe(true);
+    expect($scope.isCurrentTab($scope.currentComponent)).toBe(true);
     expect($scope.isCurrentTab({})).toBe(false);
   });
 

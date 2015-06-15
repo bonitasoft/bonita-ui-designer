@@ -98,7 +98,7 @@ describe('componentFactory', function() {
     expect(service.initializeContainer).toHaveBeenCalled();
   });
 
-  it('should init a tabsContainer', function() {
+  it('should init a tabsContainer and its tabs', function() {
     spyOn(service, 'initializeContainer');
     item.tabs = ['tab1', 'tab2'].map(service.createNewTab);
     service.initializeTabsContainer(item, parentRow);
@@ -107,6 +107,32 @@ describe('componentFactory', function() {
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
     expect(service.initializeContainer.calls.count()).toBe(2);
+
+    item.tabs.forEach(function(tab) {
+      expect(tab.$$parentTabsContainer).toBe(item);
+      expect(tab.$$widget.name).toBe('Tab');
+      expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
+    });
+  });
+
+  it('should create a new tab', function() {
+    var parentRow = {};
+    var title = "tab";
+    var tab = service.createNewTab(title);
+    expect(tab.title).toEqual(title);
+    expect(Object.keys(tab.container.propertyValues).length).toBeGreaterThan(0);
+    expect(tab.container.rows.length).toBe(1);
+  });
+
+  it('should initialize a tab', function() {
+    var tab = { title: 'aTab'};
+    var tabContainer = { type: 'tabsContainer' };
+
+    service.initializeTab(tab, tabContainer);
+
+    expect(tab.$$parentTabsContainer).toBe(tabContainer);
+    expect(tab.$$widget.name).toBe('Tab');
+    expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
   });
 
   describe('getNextId', function() {
@@ -119,17 +145,5 @@ describe('componentFactory', function() {
       expect(service.getNextId('toto')).toEqual('toto-1');
     });
   });
-
-  describe('createNewTab', function() {
-    it('should return an new tab Object', function() {
-      var parentRow = {};
-      var title = "tab"
-      var tab = service.createNewTab(title)
-      expect(tab.title).toEqual(title);
-      expect(Object.keys(tab.container.propertyValues).length).toBeGreaterThan(0);
-      expect(tab.container.rows.length).toBe(1);
-    });
-  });
-
 
 });
