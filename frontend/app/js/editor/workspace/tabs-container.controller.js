@@ -15,7 +15,7 @@
 /**
  * Controller of the tabsContainer directive
  */
-angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays) {
+angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, componentFactory) {
 
   'use strict';
 
@@ -44,5 +44,26 @@ angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', functio
 
   $scope.moveTabRight = function(tab) {
     arrays.moveRight(tab, $scope.tabsContainer.tabs);
+  };
+
+  $scope.addTab = function (event) {
+    var tabs = $scope.tabsContainer.tabs;
+    var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
+    componentFactory.initializeTab(newTab, $scope.tabsContainer);
+    tabs.push(newTab);
+    $scope.openTab(newTab, event);
+  };
+
+  $scope.isRemoveTabVisible = function (tab) {
+    return $scope.editor.isCurrentTab(tab) && $scope.tabsContainer.tabs.length > 1;
+  };
+
+  $scope.removeTab = function (tab, event) {
+    var tabs = $scope.tabsContainer.tabs;
+    var index = tabs.indexOf(tab);
+    index = index >= tabs.length ? tabs.length - 1: index;
+    var previousTabIndex = index === 0 ? 0 : index - 1;
+    tabs.splice(index, 1);
+    $scope.openTab(tabs[previousTabIndex], event);
   };
 });

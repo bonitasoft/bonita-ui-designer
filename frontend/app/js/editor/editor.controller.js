@@ -248,44 +248,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
   };
 
   /**
-   * Adds a tab before the current tab
-   */
-  $scope.addTabBeforeCurrent = function() {
-    var tab = $scope.currentComponent;
-    var tabs = tab.$$parentTabsContainer.tabs;
-    var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
-    componentFactory.initializeTab(newTab, tab.$$parentTabsContainer);
-    tabs.splice(tabs.indexOf(tab), 0, newTab);
-  };
-
-  /**
-   * Adds a tab after the current tab
-   */
-  $scope.addTabAfterCurrent = function() {
-    var tab = $scope.currentComponent;
-    var tabs = tab.$$parentTabsContainer.tabs;
-    var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
-    componentFactory.initializeTab(newTab, tab.$$parentTabsContainer);
-    tabs.splice(tabs.indexOf(tab) + 1, 0, newTab);
-  };
-
-  /**
-   * Removes the current tab
-   */
-  $scope.removeCurrentTab = function() {
-    var tab = $scope.currentComponent;
-    var tabsContainer = tab.$$parentTabsContainer;
-    var tabs = tabsContainer.tabs;
-    var index = tabs.indexOf(tab);
-    tabs.splice(index, 1);
-    if (index >= tabs.length) {
-      index--;
-    }
-    tab.$$parentTabsContainer.$$openedTab = tabs[index];
-    $scope.currentComponent = null;
-  };
-
-  /**
    * Tells if the given tab is the currently selected one.
    */
   $scope.isCurrentTab = function(tab) {

@@ -24,12 +24,12 @@ describe('tabs test', function() {
   });
 
   it('should allow moving a tab left', function() {
-    var lastTab = $$('tabs-container li a').last();
-    expect(lastTab.element(by.css('.move-tab-left')).isPresent()).toBe(false);
-    lastTab.click();
-    expect(lastTab.element(by.css('.move-tab-left')).isPresent()).toBe(true);
+    var secondTab = $$('tabs-container li a').get(1);
+    expect(secondTab.element(by.css('.move-tab-left')).isPresent()).toBe(false);
+    secondTab.click();
+    expect(secondTab.element(by.css('.move-tab-left')).isPresent()).toBe(true);
 
-    lastTab.element(by.css('.move-tab-left')).click();
+    secondTab.element(by.css('.move-tab-left')).click();
 
     expect($$('tabs-container li a').first().getText()).toBe('Tab 2');
   });
@@ -42,45 +42,26 @@ describe('tabs test', function() {
 
     firstTab.element(by.css('.move-tab-right')).click();
 
-    expect($$('tabs-container li a').last().getText()).toBe('Tab 1');
+    expect($$('tabs-container li a').get(1).getText()).toBe('Tab 1');
   });
 
   it('should allow removing a tab unless except the last one', function() {
     var firstTab = $$('tabs-container li a').first();
     firstTab.click();
 
-    // Thanks to cancer chrome driver... cf {@link https://code.google.com/p/selenium/issues/detail?id=2766}
-    browser.executeScript("$('#remove-tab').click();")
-      .then(function() {
-        expect($$('tabs-container li a').count()).toBe(1);
+    firstTab.element(By.css('.fa-times-circle')).click();
 
-        browser.executeScript("$('tabs-container li a').eq(0).click()")
-          .then(function() {
-            expect($('#remove-tab').isPresent()).toBe(false);
-          });
-      });
-
-
+    expect($$('tabs-container li a').count()).toBe(2);
   });
 
-  it('should allow adding a tab before the current one', function() {
-    var firstTab = $$('tabs-container li a').first();
-    firstTab.click();
+  it('should allow adding a tab', function() {
+    expect($$('tabs-container li a .tab-title').count()).toBe(2);
 
-    $('#add-tab-before').click();
-    expect($$('tabs-container li a').count()).toBe(3);
+    var plus = $$('tabs-container li a').last();
+    plus.click();
 
-    expect($$('tabs-container li a').first().getText()).toBe('Tab 3');
-  });
-
-  it('should allow adding a tab after the current one', function() {
-    var firstTab = $$('tabs-container li a').first();
-    firstTab.click();
-
-    $('#add-tab-after').click();
-    expect($$('tabs-container li a').count()).toBe(3);
-
-    expect($$('tabs-container li a').get(1).getText()).toBe('Tab 3');
+    expect($$('tabs-container li a .tab-title').count()).toBe(3);
+    expect($$('tabs-container li a .tab-title').get(2).getText()).toBe('Tab 3');
   });
 
   it('should allow setting a tab title', function() {
