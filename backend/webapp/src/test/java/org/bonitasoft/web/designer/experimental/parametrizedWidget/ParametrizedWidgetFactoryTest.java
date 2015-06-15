@@ -127,7 +127,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aDateContractInput("creationDate"));
 
-        DatePickerWidgetAssert.assertThat(component).hasDateFormat("yyyy-MM-dd HH:mm:ss");
+        DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
     }
 
     @Test
