@@ -109,7 +109,7 @@
      * External asset are URL
      */
     function isExternal(asset) {
-      return asset.name.indexOf('http') === 0;
+      return asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0;
     }
 
     return {

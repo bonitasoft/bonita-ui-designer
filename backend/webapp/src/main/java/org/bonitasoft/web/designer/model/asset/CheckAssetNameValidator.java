@@ -25,8 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 
 public class CheckAssetNameValidator implements ConstraintValidator<CheckAssetName, String> {
 
-    private final static String FILENAME_REGEXP = "[a-zA-Z0-9._-]*$";
-
     @Override
     public void initialize(CheckAssetName checkAssetName) {
     }
@@ -38,15 +36,19 @@ public class CheckAssetNameValidator implements ConstraintValidator<CheckAssetNa
         }
 
         //The name can be an URL
-        try {
-            new URL(name);
-            return true;
-        } catch (MalformedURLException e) {
-            //Otherwise the name has to be a valid filename
-            if (Pattern.matches(FILENAME_REGEXP, name)) {
+        if(isAssetexternal(name)) {
+            try {
+                new URL(name);
                 return true;
+            } catch (MalformedURLException e) {
+                return false;
             }
         }
-        return false;
+        //The filename of local asset can't be changed by the user. The name is always valid because it's a filename validated by the user OS
+        return true;
+    }
+
+    public static boolean isAssetexternal(String name){
+        return name != null && (name.startsWith("http:") || name.startsWith("https:"));
     }
 }
