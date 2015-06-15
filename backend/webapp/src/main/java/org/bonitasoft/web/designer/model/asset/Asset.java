@@ -68,7 +68,7 @@ public class Asset {
 
     @JsonIgnore
     public boolean isExternal() {
-        return name != null && name.startsWith("http");
+        return CheckAssetNameValidator.isAssetexternal(name);
     }
 
     @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
