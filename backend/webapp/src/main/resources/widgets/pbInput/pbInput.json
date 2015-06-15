@@ -19,14 +19,20 @@
       "name": "minLength",
       "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
-      "defaultValue": ""
+      "defaultValue": "",
+      "constraints": {
+        "min": "0"
+      }
     },
     {
       "label": "Value max length",
       "name": "maxLength",
       "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
-      "defaultValue": ""
+      "defaultValue": "",
+      "constraints": {
+        "min": "1"
+      }
     },
     {
       "label": "Read-only",
@@ -63,7 +69,11 @@
       "name": "labelWidth",
       "type": "integer",
       "defaultValue": 4,
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "constraints": {
+        "min": "1",
+        "max": "12"
+      }
     },
     {
       "label": "Placeholder",

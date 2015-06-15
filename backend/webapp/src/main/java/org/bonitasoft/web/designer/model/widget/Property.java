@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.model.widget;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -41,6 +42,7 @@ public class Property {
     private Object defaultValue;
     private List<Object> choiceValues;
     private Boolean bidirectional = false;
+    private Map<String, Object> constraints;
 
     @JsonView({JsonViewPersistence.class})
     public String getLabel() {
@@ -130,6 +132,15 @@ public class Property {
 
     public void setHelp(String help) {
         this.help = help;
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public Map<String, Object> getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(Map<String, Object> constraints) {
+        this.constraints = constraints;
     }
 
     @Override

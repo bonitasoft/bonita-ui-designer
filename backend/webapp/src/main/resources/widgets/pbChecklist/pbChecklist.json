@@ -48,7 +48,11 @@
       "name": "labelWidth",
       "type": "integer",
       "defaultValue": 4,
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "constraints": {
+        "min": "1",
+        "max": "12"
+      }
     },
     {
       "label": "Available values",
