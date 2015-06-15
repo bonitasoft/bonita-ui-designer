@@ -154,9 +154,20 @@ angular.module('pb.services')
       });
 
       container.tabs.forEach( function(tab) {
-        tab.$$parentTabsContainer = container;
+        service.initializeTab(tab, container);
         service.initializeContainer(tab.container);
       });
+    }
+
+    function initializeTab(tab, tabsContainer) {
+      angular.extend(tab, {
+          $$parentTabsContainer: tabsContainer,
+          $$widget: {
+            name: 'Tab'
+          },
+          $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html'
+        }
+      );
     }
 
     /**
@@ -251,7 +262,6 @@ angular.module('pb.services')
     }
 
     this.getNextId = getNextId;
-    this.createNewTab = createNewTab;
     this.initializePage = initializePage;
 
     this.createWidget = createWidget;
@@ -262,6 +272,8 @@ angular.module('pb.services')
 
     this.createTabsContainer = createTabsContainer;
     this.initializeTabsContainer = initializeTabsContainer;
+    this.createNewTab = createNewTab;
+    this.initializeTab = initializeTab;
 
     this.createFormContainer = createFormContainer;
     this.initializeFormContainer = initializeFormContainer;

@@ -111,7 +111,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
   $scope.selectRow = function(container, row, event) {
 
     $scope.currentComponent = null;
-    $scope.currentTab = null;
     $scope.currentContainerRow = {
       row: row,
       container: container
@@ -156,7 +155,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
   $scope.selectComponent = function(component, event) {
 
     $scope.currentContainerRow = null;
-    $scope.currentTab = null;
     $scope.currentComponent = component;
     if (event) {
       event.stopPropagation();
@@ -166,7 +164,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
   $scope.deselectComponent = function() {
 
     $scope.currentContainerRow = null;
-    $scope.currentTab = null;
     $scope.currentComponent = null;
     if (event) {
       event.stopPropagation();
@@ -243,8 +240,7 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    */
   $scope.selectTab = function(tab, event) {
     $scope.currentContainerRow = null;
-    $scope.currentComponent = null;
-    $scope.currentTab = tab;
+    $scope.currentComponent = tab;
 
     if (event) {
       event.stopPropagation();
@@ -255,10 +251,10 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    * Adds a tab before the current tab
    */
   $scope.addTabBeforeCurrent = function() {
-    var tab = $scope.currentTab;
+    var tab = $scope.currentComponent;
     var tabs = tab.$$parentTabsContainer.tabs;
     var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
-    newTab.$$parentTabsContainer = tab.$$parentTabsContainer;
+    componentFactory.initializeTab(newTab, tab.$$parentTabsContainer);
     tabs.splice(tabs.indexOf(tab), 0, newTab);
   };
 
@@ -266,10 +262,10 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    * Adds a tab after the current tab
    */
   $scope.addTabAfterCurrent = function() {
-    var tab = $scope.currentTab;
+    var tab = $scope.currentComponent;
     var tabs = tab.$$parentTabsContainer.tabs;
     var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
-    newTab.$$parentTabsContainer = tab.$$parentTabsContainer;
+    componentFactory.initializeTab(newTab, tab.$$parentTabsContainer);
     tabs.splice(tabs.indexOf(tab) + 1, 0, newTab);
   };
 
@@ -277,7 +273,7 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    * Removes the current tab
    */
   $scope.removeCurrentTab = function() {
-    var tab = $scope.currentTab;
+    var tab = $scope.currentComponent;
     var tabsContainer = tab.$$parentTabsContainer;
     var tabs = tabsContainer.tabs;
     var index = tabs.indexOf(tab);
@@ -286,14 +282,14 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
       index--;
     }
     tab.$$parentTabsContainer.$$openedTab = tabs[index];
-    $scope.currentTab = null;
+    $scope.currentComponent = null;
   };
 
   /**
    * Tells if the given tab is the currently selected one.
    */
   $scope.isCurrentTab = function(tab) {
-    return !!$scope.currentTab && $scope.currentTab === tab;
+    return !!$scope.currentComponent && $scope.currentComponent === tab;
   };
 
   /**
