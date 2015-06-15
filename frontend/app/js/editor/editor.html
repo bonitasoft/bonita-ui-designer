@@ -86,11 +86,11 @@
             <div class="BottomPanel-toggleBar">
                 <div class="BottomPanel-toggle clickable"
                      splitter-toggle="#data-sidebar-splitter"
-                     ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.page') && splitterContainer.isOpen() }"
-                     ng-click="splitterContainer.toggle('designer.page')"
+                     ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive( 'designer.' + mode) && splitterContainer.isOpen() }"
+                     ng-click="splitterContainer.toggle( 'designer.' + mode)">
                     <span translate>Variables</span>
                     <i class="fa"
-                        ng-if="splitterContainer.isActive('designer.page') || !splitterContainer.isOpen()"
+                        ng-if="splitterContainer.isActive( 'designer.' + mode) || !splitterContainer.isOpen()"
                         ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
                     </i>
                 </div>
@@ -99,7 +99,7 @@
                      splitter-toggle="#data-sidebar-splitter"
                      ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.page.asset') && splitterContainer.isOpen() }"
                      ng-click="splitterContainer.toggle('designer.page.asset')"
-                     g-if="mode==='page'">
+                     ng-if="mode==='page'">
                     <span translate>Assets</span>
                     <i class="fa"
                         ng-if="splitterContainer.isActive('designer.page.asset') || !splitterContainer.isOpen()"
