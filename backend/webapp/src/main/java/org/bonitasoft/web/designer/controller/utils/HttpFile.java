@@ -24,20 +24,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.common.base.Preconditions;
+import org.springframework.http.MediaType;
 
 public class HttpFile {
 
-    /**
-     * Write headers and content in the response
-     */
-    public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
 
+    public static void writeFileInResponseForVisualization(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
         if (filePath == null || Files.notExists(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
+        String mimeType = request.getServletContext().getMimeType(filePath.getFileName().toString());
+        if(mimeType==null || !mimeType.contains("image")) {
+            mimeType = MediaType.TEXT_PLAIN_VALUE;
+        }
+        writeFileInResponse(request, response, filePath, mimeType);
+    }
 
-        response.setHeader("Content-Type", request.getServletContext().getMimeType(filePath.getFileName().toString()));
+    public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
+        if (filePath == null || Files.notExists(filePath)) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        writeFileInResponse(request, response, filePath, request.getServletContext().getMimeType(filePath.getFileName().toString()));
+    }
+
+    /**
+     * Write headers and content in the response
+     */
+    private static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath, String mimeType) throws IOException {
+        if (filePath == null || Files.notExists(filePath)) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        response.setHeader("Content-Type", mimeType);
         response.setHeader("Content-Length", String.valueOf(filePath.toFile().length()));
         response.setHeader("Content-Disposition", "inline; filename=\"" + filePath.getFileName() + "\"");
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
@@ -45,7 +65,6 @@ public class HttpFile {
             Files.copy(filePath, out);
         }
     }
-
 
     /**
      * This method helps to fix a bug on IE when the browser send the full path of the file in the filename
@@ -67,4 +86,5 @@ public class HttpFile {
             return filename;
         }
     }
+
 }

@@ -19,6 +19,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PreviewController {
@@ -93,13 +95,19 @@ public class PreviewController {
             HttpServletResponse response,
             @PathVariable("id") String id,
             @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
+            @PathVariable("filename") String filename,
+            @RequestParam(value = "format", required = false) String format) throws ServletException {
 
         try {
-            HttpFile.writeFileInResponse(
-                    request,
-                    response,
-                    pageAssetService.findAssetPath(id, filename, AssetType.getAsset(type)));
+            Path filePath = pageAssetService.findAssetPath(id, filename, AssetType.getAsset(type));
+
+            if("text".equals(format)){
+                HttpFile.writeFileInResponseForVisualization(request, response, filePath);
+            }
+            else{
+                HttpFile.writeFileInResponse(request, response, filePath);
+            }
+
         } catch (IOException e) {
             logger.error("Error when loading page asset", e);
             throw new ServletException("Error when loading page asset", e);
@@ -117,9 +125,10 @@ public class PreviewController {
             @PathVariable("id") String id,
             @PathVariable("widgetId") String widgetId,
             @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
+            @PathVariable("filename") String filename,
+            @RequestParam(value = "format", required = false) String format) throws ServletException {
 
-        serveWidgetAsset(request, response, widgetId, type, filename);
+        serveWidgetAsset(request, response, widgetId, type, filename, format);
     }
 
     /**
@@ -131,13 +140,19 @@ public class PreviewController {
             HttpServletResponse response,
             @PathVariable("id") String id,
             @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
+            @PathVariable("filename") String filename,
+            @RequestParam(value = "format", required = false) String format) throws ServletException {
 
         try {
-            HttpFile.writeFileInResponse(
-                    request,
-                    response,
-                    widgetAssetService.findAssetPath(id, filename, AssetType.getAsset(type)));
+            Path filePath = widgetAssetService.findAssetPath(id, filename, AssetType.getAsset(type));
+
+            if("text".equals(format)){
+                HttpFile.writeFileInResponseForVisualization(request, response, filePath);
+            }
+            else{
+                HttpFile.writeFileInResponse(request, response, filePath);
+            }
+
         } catch (IOException e) {
             logger.error("Error when loading widget asset", e);
             throw new ServletException("Error when loading widget asset", e);
