@@ -7,10 +7,11 @@ describe('pbSelect', function () {
   beforeEach(module('pb.widgets'));
   beforeEach(module('pb.generator.services'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function (_$compile_, _$rootScope_, _$timeout_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     scope = _$rootScope_.$new();
+    $timeout = _$timeout_;
     scope.properties = {
       labelHidden: true,
       disabled: false
@@ -162,7 +163,7 @@ describe('pbSelect', function () {
     scope.properties.value =  'serge' ;
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-
+    $timeout.flush();
     var selectedIndex = widget.find("select")[0].value;
 
     expect(scope.properties.availableValues[selectedIndex]).toBe('serge');
@@ -178,6 +179,7 @@ describe('pbSelect', function () {
     }
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
+    $timeout.flush();
 
     var selectedIndex = widget.find("select")[0].value;
 
