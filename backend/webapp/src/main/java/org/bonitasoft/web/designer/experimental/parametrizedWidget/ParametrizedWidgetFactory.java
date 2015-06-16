@@ -76,7 +76,7 @@ public class ParametrizedWidgetFactory {
 
     protected DatePickerWidget createDatePicker(ContractInput input) {
         DatePickerWidget datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
-        datePickerComponent.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        datePickerComponent.setDateFormat("MM/dd/yyyy");
         return datePickerComponent;
     }
 
