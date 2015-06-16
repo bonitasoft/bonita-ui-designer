@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('pb.services')
-  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions, gettextCatalog) {
+  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions, gettextCatalog, gettext) {
 
     'use strict';
 
@@ -228,21 +228,22 @@ angular.module('pb.services')
 
 
     function getPaletteContainers() {
+      // using gettext to add key to catalog that will be later translated in a template
       return [
         {
-          sectionName: 'widgets',
+          sectionName: gettext('widgets'),
           sectionOrder: 1,
           component: widgetFactory.createContainerWidget(),
           init: initializeContainer,
           create: createContainer
         }, {
-          sectionName: 'widgets',
+          sectionName: gettext('widgets'),
           sectionOrder: 1,
           component: widgetFactory.createTabsContainerWidget(),
           init: initializeTabsContainer,
           create: createTabsContainer
         }, {
-          sectionName: 'widgets',
+          sectionName: gettext('widgets'),
           sectionOrder: 1,
           component: widgetFactory.createFormContainerWidget(),
           init: initializeFormContainer,

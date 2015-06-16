@@ -2,7 +2,7 @@ describe('factory commonParams', function() {
 
   var commonParams;
 
-  beforeEach(module('pb.factories'));
+  beforeEach(module('pb.factories', 'gettext'));
   beforeEach(inject(function ($injector) {
     commonParams = $injector.get('commonParams');
   }));
