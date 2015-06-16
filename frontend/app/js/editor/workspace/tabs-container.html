@@ -1,7 +1,7 @@
 <div class="widget-wrapper">
     <component-mover component="tabsContainer" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(tabsContainer)"></component-mover>
     <ul class="nav nav-tabs" role="tablist">
-        <li  class="tab-element" ng-repeat="tab in tabsContainer.tabs" ng-class="{'active': isOpened(tab), 'current-tab': editor.isCurrentTab(tab)}">
+        <li  class="tab-element" ng-repeat="tab in tabsContainer.tabs" ng-class="{'active': isOpened(tab), 'current-tab': editor.isCurrentComponent(tab)}">
             <a class="clickable" ng-click="openTab(tab, $event)">
                 <button ng-click="moveTabLeft(tab)" ng-if="moveTabLeftVisible(tab)" class="fa fa-arrow-circle-left move-tab-left btn-tab"></button>
                 <button ng-click="moveTabRight(tab)" ng-if="moveTabRightVisible(tab)" class="fa fa-arrow-circle-right move-tab-right btn-tab"></button>

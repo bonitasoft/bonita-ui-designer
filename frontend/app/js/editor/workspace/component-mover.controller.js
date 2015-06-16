@@ -21,7 +21,7 @@ angular.module('pb.directives').controller('ComponentMoverDirectiveCtrl', functi
   };
 
   function hasParent() {
-    return  $scope.component.hasOwnProperty('$$parentContainerRow');
+    return  $scope.component && $scope.component.hasOwnProperty('$$parentContainerRow');
   }
 
   $scope.moveLeftVisible = function() {

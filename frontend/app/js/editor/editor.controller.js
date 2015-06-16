@@ -230,30 +230,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
     $scope.currentComponent = null;
   };
 
-
-  /**
-   * Function called when we want the current selection to be a tab. Selecting a tab allows displaying the editor
-   * for this tab, and the controls used to move the tab.
-   * Selecting a tab automatically unselects the previously selected row or component or tab.
-   * @param tab the tab to select
-   * @param event the event, used to prevent the click to propagate to parent elements
-   */
-  $scope.selectTab = function(tab, event) {
-    $scope.currentContainerRow = null;
-    $scope.currentComponent = tab;
-
-    if (event) {
-      event.stopPropagation();
-    }
-  };
-
-  /**
-   * Tells if the given tab is the currently selected one.
-   */
-  $scope.isCurrentTab = function(tab) {
-    return !!$scope.currentComponent && $scope.currentComponent === tab;
-  };
-
   /**
    * Tells if the given row is the currently selected one.
    */
@@ -267,8 +243,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
   $scope.isCurrentComponent = function(component) {
     return !!$scope.currentComponent && $scope.currentComponent === component;
   };
-
-
 
   /**
    * Computes the size of a row by summing its components size.
@@ -386,7 +360,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    */
   $scope.editor = {
     addComponentToRow: $scope.addComponentToRow,
-    selectTab: $scope.selectTab,
     selectRow: $scope.selectRow,
     selectComponent: $scope.selectComponent,
     deselectComponent: $scope.deselectComponent,
@@ -396,7 +369,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
     removeCurrentComponent: $scope.removeCurrentComponent,
     rowSize: $scope.rowSize,
     isCurrentRow: $scope.isCurrentRow,
-    isCurrentTab: $scope.isCurrentTab,
     isCurrentComponent: $scope.isCurrentComponent,
     moveAtPosition: $scope.moveAtPosition,
     changeComponentWidth: $scope.changeComponentWidth,
