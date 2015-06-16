@@ -16,7 +16,7 @@
  * add click event to element to trigger event to toggle a sidebar
  */
 angular
-  .module('pb.directives')
+  .module('pb.common.directives')
   .directive('splitterToggle', function() {
 
   /**
