@@ -23,6 +23,8 @@ import java.nio.file.Path;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Preconditions;
+
 public class HttpFile {
 
     /**
@@ -41,6 +43,28 @@ public class HttpFile {
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         try (OutputStream out = response.getOutputStream()) {
             Files.copy(filePath, out);
+        }
+    }
+
+
+    /**
+     * This method helps to fix a bug on IE when the browser send the full path of the file in the filename
+     */
+    public static String getOriginalFilename(String filename) {
+        Preconditions.checkNotNull(filename, "File name is required");
+        // check for Unix-style path
+        int pos = filename.lastIndexOf("/");
+        if (pos == -1) {
+            // check for Windows-style path
+            pos = filename.lastIndexOf("\\");
+        }
+        if (pos != -1)  {
+            // any sort of path separator found
+            return filename.substring(pos + 1);
+        }
+        else {
+            // plain name
+            return filename;
         }
     }
 }
