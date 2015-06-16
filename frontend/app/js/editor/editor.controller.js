@@ -345,7 +345,13 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
       templateUrl: 'js/editor/help-popup.html',
       backdrop: 'static',
       size: 'lg',
-      controller: function($scope, $modalInstance) {
+      resolve: {
+        pageEdition: function(){
+          return 'page' === $scope.mode;
+        }
+      },
+      controller: function($scope, $modalInstance, pageEdition) {
+        $scope.pageEdition = pageEdition;
         $scope.cancel = function() {
           $modalInstance.dismiss('cancel');
         };
