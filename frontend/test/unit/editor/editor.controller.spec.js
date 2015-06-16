@@ -201,7 +201,7 @@ describe('EditorCtrl', function() {
       }
     };
     spyOn(event, 'stopPropagation');
-    $scope.selectTab(tab, event);
+    $scope.selectComponent(tab, event);
 
     // then we should have an element selected
     expect($scope.currentContainerRow).toBeFalsy();
@@ -409,14 +409,6 @@ describe('EditorCtrl', function() {
 
     expect($scope.isCurrentRow(row1)).toBe(true);
     expect($scope.isCurrentRow(row2)).toBe(false);
-  });
-
-  it('should tell if a tab is the current tab', function() {
-
-    $scope.currentComponent = {};
-
-    expect($scope.isCurrentTab($scope.currentComponent)).toBe(true);
-    expect($scope.isCurrentTab({})).toBe(false);
   });
 
   it('should compute row size', function() {

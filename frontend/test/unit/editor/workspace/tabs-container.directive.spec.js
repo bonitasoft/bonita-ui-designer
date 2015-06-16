@@ -38,13 +38,10 @@ describe('tabsContainer', function() {
       isCurrentComponent: function() {
         return false;
       },
-      isCurrentTab: function() {
-        return false;
-      },
       isCurrentRow: function() {
         return false;
       },
-      selectTab: function() {
+      selectComponent: function() {
         return true;
       }
     };
@@ -84,7 +81,7 @@ describe('tabsContainer', function() {
         {name: 'tab-2'}
       ]
     };
-    spyOn($rootScope.editor, 'isCurrentTab').and.returnValue(true);
+    spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
     $rootScope.$apply();
 
     element.find('button.btn-tab.fa-times-circle').first().triggerHandler({type: 'click'});
@@ -99,7 +96,7 @@ describe('tabsContainer', function() {
         {name: 'tab-2'}
       ]
     };
-    spyOn($rootScope.editor, 'isCurrentTab').and.returnValue(true);
+    spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
     $rootScope.$apply();
 
     expect(element.find('button.btn-tab.fa-times-circle').length).toBe(2); // two tabs
@@ -111,7 +108,7 @@ describe('tabsContainer', function() {
         {name: 'tab-1'}
       ]
     };
-    spyOn($rootScope.editor, 'isCurrentTab').and.returnValue(true);
+    spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
     $rootScope.$apply();
 
     expect(element.find('button.btn-tab.fa-times-circle').length).toBe(0);

@@ -21,7 +21,7 @@ angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', functio
 
   $scope.openTab = function(tab, event) {
     $scope.tabsContainer.$$openedTab = tab;
-    $scope.editor.selectTab(tab, event);
+    $scope.editor.selectComponent(tab, event);
   };
 
   $scope.isOpened = function(tab) {
@@ -31,11 +31,11 @@ angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', functio
   $scope.tabsContainer.$$openedTab = $scope.tabsContainer.tabs[0];
 
   $scope.moveTabLeftVisible = function(tab) {
-    return $scope.editor.isCurrentTab(tab) && arrays.moveLeftPossible(tab, $scope.tabsContainer.tabs);
+    return $scope.editor.isCurrentComponent(tab) && arrays.moveLeftPossible(tab, $scope.tabsContainer.tabs);
   };
 
   $scope.moveTabRightVisible = function(tab) {
-    return $scope.editor.isCurrentTab(tab) && arrays.moveRightPossible(tab, $scope.tabsContainer.tabs);
+    return $scope.editor.isCurrentComponent(tab) && arrays.moveRightPossible(tab, $scope.tabsContainer.tabs);
   };
 
   $scope.moveTabLeft = function(tab) {
@@ -55,7 +55,7 @@ angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', functio
   };
 
   $scope.isRemoveTabVisible = function (tab) {
-    return $scope.editor.isCurrentTab(tab) && $scope.tabsContainer.tabs.length > 1;
+    return $scope.editor.isCurrentComponent(tab) && $scope.tabsContainer.tabs.length > 1;
   };
 
   $scope.removeTab = function (tab, event) {

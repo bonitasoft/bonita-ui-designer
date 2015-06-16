@@ -12,10 +12,10 @@ describe('TabsContainerDirectiveCtrl', function() {
       ]
     };
     $scope.editor = {
-      selectTab: function() {},
-      isCurrentTab: function() {}
+      selectComponent: function() {},
+      isCurrentComponent: function() {}
     };
-    spyOn($scope.editor, 'selectTab');
+    spyOn($scope.editor, 'selectComponent');
     $controller('TabsContainerDirectiveCtrl', {
       $scope: $scope
     });
@@ -24,7 +24,7 @@ describe('TabsContainerDirectiveCtrl', function() {
   it('should have the first tab opened, but not selected in the editor', function() {
     expect($scope.isOpened($scope.tabsContainer.tabs[0])).toBe(true);
     expect($scope.isOpened($scope.tabsContainer.tabs[1])).toBe(false);
-    expect($scope.editor.selectTab).not.toHaveBeenCalled();
+    expect($scope.editor.selectComponent).not.toHaveBeenCalled();
   });
 
   it('should open a tab and select it int he editor', function() {
@@ -32,25 +32,25 @@ describe('TabsContainerDirectiveCtrl', function() {
     $scope.openTab($scope.tabsContainer.tabs[1], event);
     expect($scope.isOpened($scope.tabsContainer.tabs[0])).toBe(false);
     expect($scope.isOpened($scope.tabsContainer.tabs[1])).toBe(true);
-    expect($scope.editor.selectTab).toHaveBeenCalledWith($scope.tabsContainer.tabs[1], event);
+    expect($scope.editor.selectComponent).toHaveBeenCalledWith($scope.tabsContainer.tabs[1], event);
   });
 
   it('should be possible to move left only if current tab and not first tab', function() {
-    spyOn($scope.editor, 'isCurrentTab').and.returnValue(false);
+    spyOn($scope.editor, 'isCurrentComponent').and.returnValue(false);
     expect($scope.moveTabLeftVisible($scope.tabsContainer.tabs[0])).toBe(false);
     expect($scope.moveTabLeftVisible($scope.tabsContainer.tabs[1])).toBe(false);
 
-    $scope.editor.isCurrentTab.and.returnValue(true);
+    $scope.editor.isCurrentComponent.and.returnValue(true);
     expect($scope.moveTabLeftVisible($scope.tabsContainer.tabs[0])).toBe(false);
     expect($scope.moveTabLeftVisible($scope.tabsContainer.tabs[1])).toBe(true);
   });
 
   it('should be possible to move right only if current tab and not first tab', function() {
-    spyOn($scope.editor, 'isCurrentTab').and.returnValue(false);
+    spyOn($scope.editor, 'isCurrentComponent').and.returnValue(false);
     expect($scope.moveTabRightVisible($scope.tabsContainer.tabs[0])).toBe(false);
     expect($scope.moveTabRightVisible($scope.tabsContainer.tabs[1])).toBe(false);
 
-    $scope.editor.isCurrentTab.and.returnValue(true);
+    $scope.editor.isCurrentComponent.and.returnValue(true);
     expect($scope.moveTabRightVisible($scope.tabsContainer.tabs[0])).toBe(true);
     expect($scope.moveTabRightVisible($scope.tabsContainer.tabs[1])).toBe(false);
   });
@@ -99,7 +99,7 @@ describe('TabsContainerDirectiveCtrl', function() {
 
     expect($scope.tabsContainer.tabs.length).toBe(2);
     expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-1'});
-    expect($scope.editor.selectTab).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+    expect($scope.editor.selectComponent).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
   });
 
   it('should remove current tab and select first when deleting first tab', function () {
@@ -115,7 +115,7 @@ describe('TabsContainerDirectiveCtrl', function() {
 
     expect($scope.tabsContainer.tabs.length).toBe(2);
     expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-2'});
-    expect($scope.editor.selectTab).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+    expect($scope.editor.selectComponent).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
   });
 
   it('should hide remove button when there is only one tab', function () {
@@ -124,7 +124,7 @@ describe('TabsContainerDirectiveCtrl', function() {
         {name: 'tab-1'}
       ]
     };
-    spyOn($scope.editor, 'isCurrentTab').and.returnValue(true);
+    spyOn($scope.editor, 'isCurrentComponent').and.returnValue(true);
 
     var visible = $scope.isRemoveTabVisible($scope.tabsContainer.tabs[0]);
 
@@ -138,7 +138,7 @@ describe('TabsContainerDirectiveCtrl', function() {
         {name: 'tab-2'}
       ]
     };
-    spyOn($scope.editor, 'isCurrentTab').and.returnValue(true);
+    spyOn($scope.editor, 'isCurrentComponent').and.returnValue(true);
 
     var visible = $scope.isRemoveTabVisible($scope.tabsContainer.tabs[0]);
 
