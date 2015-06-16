@@ -17,7 +17,7 @@
  */
 
 
-angular.module('pb.directives').directive('tooltipToggle', function($timeout) {
+angular.module('pb.common.directives').directive('tooltipToggle', function($timeout) {
   'use strict';
 
   return {

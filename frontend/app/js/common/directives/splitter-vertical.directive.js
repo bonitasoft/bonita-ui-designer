@@ -18,7 +18,7 @@
  *
  * Panes should be passed via attributes pane-left and pane-right by css selectors
  */
-angular.module('pb.directives')
+angular.module('pb.common.directives')
   .directive('splitterVertical', function($document) {
 
     return {

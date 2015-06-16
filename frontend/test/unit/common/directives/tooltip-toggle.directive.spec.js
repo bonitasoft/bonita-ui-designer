@@ -1,7 +1,7 @@
 describe('tooltip toggle', function() {
   var c, element, $scope, $compile, $timeout,  handlers;
 
-  beforeEach(module('pb.directives'));
+  beforeEach(module('pb.common.directives'));
   beforeEach(inject(function ($injector) {
     rootScope = $injector.get('$rootScope');
     $compile = $injector.get('$compile');
