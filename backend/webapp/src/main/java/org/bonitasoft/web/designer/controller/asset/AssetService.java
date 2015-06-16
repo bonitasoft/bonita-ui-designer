@@ -24,6 +24,7 @@ import java.util.Set;
 
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
+import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -64,7 +65,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
         Asset asset = new Asset()
-                .setName(file.getOriginalFilename())
+                .setName(HttpFile.getOriginalFilename(file.getOriginalFilename()))
                 .setComponentId(component.getId())
                 .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
                 .setType(assetType)
