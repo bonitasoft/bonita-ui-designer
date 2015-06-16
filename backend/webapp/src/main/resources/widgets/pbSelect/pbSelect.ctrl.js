@@ -1,4 +1,4 @@
-function PbSelectCtrl($scope, $parse, widgetNameFactory) {
+function PbSelectCtrl($scope, $parse, widgetNameFactory, $timeout) {
   var ctrl = this;
 
   function comparator(initialValue, item) {
@@ -17,14 +17,26 @@ function PbSelectCtrl($scope, $parse, widgetNameFactory) {
     return item;
   };
 
-  $scope.$watch('properties.availableValues', function(items){
+  $scope.$watch('properties.availableValues', function(items) {
     if (Array.isArray(items)) {
-      $scope.properties.value = items
+      var foundItem = items
         .filter(comparator.bind(null, $scope.properties.value))
         .reduce(function (acc, item) {
           return ctrl.getValue(item);
         }, undefined);
+
+      // terrible hack to force the select ui to show the correct options
+      // so we change it's value to undefined and then delay to the correct value
+      if (foundItem) {
+        $scope.properties.value = undefined;
+      }
+      $timeout(function(){
+        if (foundItem) {
+          $scope.properties.value = foundItem;
+        }
+      }, 0);
     }
+
   });
 
   this.name = widgetNameFactory.getName('pbSelect');
