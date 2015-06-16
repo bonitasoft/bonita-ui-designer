@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('pb.generator.directives')
-    .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory) {
+    .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory, bindingContextFactory) {
 
       function PbModelCtrl() {}
       PbModelCtrl.prototype.fill = function (rawData) {
@@ -19,7 +19,10 @@
             pbModelCtrl.fill(dataModelFactory.get(tAttributes.pbModel));
             var pbModelProperties = modelPropertiesFactory.get(tAttributes.pbModelProperties);
             if(pbModelProperties && scope.$parent.pbModelCtrl) {
-              bindingsFactory.create(pbModelProperties, scope.$parent.pbModelCtrl.createGateway(), pbModelCtrl.getModel());
+              bindingsFactory.create(
+                pbModelProperties,
+                bindingContextFactory.create(scope.$parent.pbModelCtrl, scope),
+                pbModelCtrl.getModel());
             }
           }
         }
