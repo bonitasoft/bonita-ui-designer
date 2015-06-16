@@ -1,7 +1,7 @@
 describe('ace-editor directive', function () {
   var $compile, element, template, scope, directiveScope;
 
-  beforeEach(module('pb.directives', 'pb.common.services', 'ui.ace'));
+  beforeEach(module('pb.common.directives'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;

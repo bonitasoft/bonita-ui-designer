@@ -15,7 +15,7 @@
 /**
  * Wrap ace directive according to page builder needs
  */
-angular.module('pb.directives').directive('aceEditor', function(aceDataCompleter) {
+angular.module('pb.common.directives').directive('aceEditor', function(aceDataCompleter) {
 
   'use strict';
 

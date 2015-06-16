@@ -30,6 +30,7 @@
     'pb.custom-widget',
     'pb.common.repositories',
     'pb.common.services',
+    'pb.common.directives',
     'pb.controllers',
     'pb.factories',
     'pb.services',
