@@ -30,7 +30,6 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
    * The editor mode
    */
   $scope.mode = mode || 'page';
-
   /**
    * The root container of the editor, always present. If there is no page loaded, then we build an empty one.
    * It initially contains a single row, and may not contain less than a row. The counters are used by e2e tests.
