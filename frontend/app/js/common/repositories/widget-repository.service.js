@@ -19,6 +19,8 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
 
   'use strict';
 
+  var lastSavedState = {};
+
   /**
    * Returns all the custom widgets by fetching all of them and filtering the custom ones.
    * @returns {*}
@@ -59,7 +61,10 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
   }
 
   function save(widget) {
-    return $http.put('rest/widgets/' + widget.id, widget);
+    return $http.put('rest/widgets/' + widget.id, widget)
+     .success(function(){
+        lastSavedState = widget;
+      });
   }
 
   function createAsset(id, asset) {
@@ -113,7 +118,27 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     return 'export/widget/' + widget.id;
   };
 
+
+  /**
+   * Initialise lastSavedState to track update from editor
+   * @param  {Object} widget  the current widget being edited
+   */
+  function initLastSavedState(widget){
+    lastSavedState = angular.copy(widget);
+  }
+
+  /**
+   * Utility function to track if a widget being updated, need to be saved
+   * @param  {Object} widget the widget being updated
+   * @return {Boolean}
+   */
+  function needSave(widget){
+    return !angular.equals(widget, lastSavedState);
+  }
+
   return {
+    initLastSavedState: initLastSavedState,
+    needSave: needSave,
     all: all,
     getById: getById,
     loadAssets: loadAssets,
