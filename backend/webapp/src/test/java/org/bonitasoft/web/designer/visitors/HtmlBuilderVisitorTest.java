@@ -336,7 +336,7 @@ public class HtmlBuilderVisitorTest {
                         //Widgets assets
                         new Asset().setName("myfile3.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
                         new Asset().setName("myfile2.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile99.js").setOrder(99).setInactive(true).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile99.js").setOrder(99).setActive(false).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
                         //Another widget but with a name starting with z
                         new Asset().setName("myfile4.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"),
                         //Page asset

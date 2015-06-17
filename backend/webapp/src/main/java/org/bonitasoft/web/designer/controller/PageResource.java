@@ -141,10 +141,14 @@ public class PageResource extends DataResource<Page> {
             @RequestBody Asset asset,
             @PathVariable("pageId") String pageId,
             @RequestParam(value = "increment", required = false) Boolean increment,
-            @RequestParam(value = "decrement", required = false) Boolean decrement) {
+            @RequestParam(value = "decrement", required = false) Boolean decrement,
+            @RequestParam(value = "active", required = false) Boolean active) {
         if (increment != null || decrement != null) {
             asset.setComponentId(pageId);
             return pageAssetService.changeAssetOrderInComponent(asset, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+        }
+        if (active != null) {
+            return pageAssetService.changeAssetStateInPreviewable(asset, active, pageId);
         }
         return asset;
     }
