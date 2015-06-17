@@ -19,7 +19,7 @@
  */
 
 angular
-  .module('pb.directives')
+  .module('pb.common.directives')
   .controller('SplitterContainerCtrl', function($scope, $state){
     var splitter;
     var isOpen = true;

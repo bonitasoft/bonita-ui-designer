@@ -12,25 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Element directive used to display alerts of the alerts service.
- * Usage:
- *     <alerts></alerts>
- */
-angular.module('pb.common.directives').directive('alerts', function() {
+(function() {
 
   'use strict';
 
-  return {
-    restrict: 'E',
-    controller: function($scope, alerts) {
-      $scope.alerts = alerts.alerts;
+  angular.module('pb.common.directives', ['pb.common.services', 'ui.ace', 'ui.bootstrap', 'ui.router', 'gettext']);
 
-      $scope.remove = function(index) {
-        alerts.remove(index);
-      };
-
-    },
-    template: '<div class="alerts-wrapper" ng-show="alerts.length > 0"><alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="remove($index)" class="text-center">{{ alert.message }}</alert></div>'
-  };
-});
+})();
