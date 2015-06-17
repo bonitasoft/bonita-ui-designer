@@ -42,7 +42,7 @@
         "left",
         "top"
       ],
-      "defaultValue": "left",
+      "defaultValue": "top",
       "showFor": "properties.labelHidden.value === false"
     },
     {
