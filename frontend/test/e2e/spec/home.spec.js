@@ -86,6 +86,7 @@ describe('home page', function() {
     var btn = $$('.btn-page-export').first();
     var iframe = $$('.ExportArtifact').first();
     btn.click();
+
     expect(iframe.getAttribute('src')).toMatch(/\/export\/page\/person/);
   });
 
