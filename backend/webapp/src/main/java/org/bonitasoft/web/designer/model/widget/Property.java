@@ -41,7 +41,7 @@ public class Property {
     private PropertyType type;
     private Object defaultValue;
     private List<Object> choiceValues;
-    private Boolean bidirectional = false;
+    private BondType bond = BondType.EXPRESSION;
     private Map<String, Object> constraints;
 
     @JsonView({JsonViewPersistence.class})
@@ -117,12 +117,12 @@ public class Property {
     }
 
     @JsonView({JsonViewPersistence.class})
-    public Boolean isBidirectional() {
-        return bidirectional;
+    public BondType getBond() {
+        return bond;
     }
 
-    public void setBidirectional(Boolean bidirectional) {
-        this.bidirectional = bidirectional;
+    public void setBond(BondType bond) {
+        this.bond = bond;
     }
 
     @JsonView({JsonViewPersistence.class})

@@ -49,7 +49,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   };
 
   $scope.unlink = function () {
-    if ($scope.property.bidirectional) {
+    if ($scope.property.bond === 'variable') {
       return;
     }
 
@@ -66,7 +66,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     $scope.linked = true;
   };
 
-  if ($scope.property.bidirectional) {
+  if ($scope.property.bond === 'variable') {
     $scope.propertyValue.type = 'data';
     $scope.linked = true;
   }

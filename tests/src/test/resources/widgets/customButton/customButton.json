@@ -11,6 +11,6 @@
     "name": "value",
     "type": "text",
     "defaultValue": "This is the initial value",
-    "bidirectional": false
+    "bond": "variable"
   }]
 }
