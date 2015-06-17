@@ -36,6 +36,7 @@ angular.module('pb.common.directives').directive('aceEditor', function(aceDataCo
         if (!editor) {
           return;
         }
+        editor.$blockScrolling = Infinity;
         if ($attrs.autoCompletion) {
           var dataCompleter = aceDataCompleter($scope.$eval($scope.autoCompletion));
           langTools.setCompleters([dataCompleter, langTools.keyWordCompleter ]);
