@@ -16,7 +16,7 @@
  * Listen to an input file and assign the selected file to a scope variable
  */
 angular.module('pb.home')
-  .directive('fileDownload', function($document){
+  .directive('fileDownload', function($document, $http){
     'use strict';
 
     $document.find('body').append('<iframe class="ExportArtifact" src=""></iframe>');
@@ -31,7 +31,12 @@ angular.module('pb.home')
       },
       link : function(scope) {
         scope.download = function(){
-          iframe.setAttribute('src', scope.href);
+          //We need to intercept errorr when we change the iframe src
+          $http
+            .get(scope.href)
+            .success(function(){
+              iframe.setAttribute('src', scope.href);
+            });
         };
       }
     };
