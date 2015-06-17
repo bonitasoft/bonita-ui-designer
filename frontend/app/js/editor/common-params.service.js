@@ -13,22 +13,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('pb.factories')
-  .factory('commonParams', function() {
+  .factory('commonParams', function(gettext) {
 
     'use strict';
 
+    // using gettext to add key to catalog that will be later translated in a template
+
     var common = [
       {
-        label: 'CSS classes',
-        caption: 'Space separated',
+        label: gettext('CSS classes'),
+        caption: gettext('Space separated'),
         name: 'cssClasses',
         type: 'string',
         defaultValue: '',
-        help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes'
+        help: gettext('Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes')
       },
       {
-        label: 'Hidden',
-        name: 'hidden',
+        label: gettext('Hidden'),
+        name: gettext('hidden'),
         type: 'boolean',
         defaultValue: false
       }

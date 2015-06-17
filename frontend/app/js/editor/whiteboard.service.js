@@ -16,7 +16,7 @@
  * Repo to save or load a page.
  */
 angular.module('pb.services')
-  .service('whiteboard', function ($q, widgetRepo, paletteService, componentFactory, commonParams, alerts) {
+  .service('whiteboard', function ($q, widgetRepo, paletteService, componentFactory, commonParams, alerts, gettext) {
 
     'use strict';
 
@@ -61,12 +61,13 @@ angular.module('pb.services')
 
       var containerWidgets = componentFactory.getPaletteContainers();
 
+      // using gettext to add key to catalog that will be later translated in a template
 
       var coreWidgets = widgets.filter(isCoreWidget)
-        .map(componentFactory.paletteWrapper.bind(null, 'widgets', 1));
+        .map(componentFactory.paletteWrapper.bind(null, gettext('widgets'), 1));
 
       var customWidgets = widgets.filter(isCustomWidget)
-        .map(componentFactory.paletteWrapper.bind(null, 'customWidgets', 2));
+        .map(componentFactory.paletteWrapper.bind(null, gettext('customWidgets'), 2));
       // reset the components map
       paletteService.reset();
       paletteService.register(containerWidgets);
