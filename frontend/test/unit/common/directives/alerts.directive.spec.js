@@ -1,7 +1,7 @@
 describe('alerts', function () {
   var $compile, $rootScope, element;
 
-  beforeEach(module('pb.directives', 'pb.common.services', 'ui.bootstrap'));
+  beforeEach(module('pb.common.directives'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, alerts) {
     $compile = _$compile_;
