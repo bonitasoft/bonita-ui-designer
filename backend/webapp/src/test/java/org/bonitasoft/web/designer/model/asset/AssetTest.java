@@ -51,15 +51,32 @@ public class AssetTest {
     protected Object[] validNames() {
         return $(
                 $("test.js"),
+                //Minified files
                 $("jquery-1.11.3.min.js"),
+                //Snapshot verison
                 $("jquery-1.11.3.min-SNAPSHOT.js"),
+                //Space
+                $("copy jquery.js"),
+                //Parenthesis
+                $("jquery(1).js"),
+                //underscore
                 $("myimage_test.jpg"),
+                //Extension in uppercase
                 $("myimage_test.PNG"),
+                //URL
                 $("https://code.jquery.com/jquery-2.1.4.min.js"),
+                //URL in https
                 $("http://code.jquery.com/jquery-2.1.4.min.js"),
+                //URL with extension in uppercase
                 $("https://code.jquery.com/jquery-2.1.4.min.JS"),
+                //URL with space
                 $("https://code.jquery.com/jquery version 2.1.4.min.js"),
-                $("https://code.jquery.com/jquery2.1.4.min.js")
+                //encoded URL
+                $("http://code.jquery.com/jquery%20%402.1.4.min.js"),
+                //Special character
+                $("myé&name.js.js"),
+                //Local asset with name starting by http
+                $("http_test.js")
         );
     }
 
@@ -74,15 +91,7 @@ public class AssetTest {
         String errorMessage = "Asset name should be a filename containing only alphanumeric characters and no space or an external URL";
         return $(
                 //Not null
-                $(null, "Asset name should not be blank"),
-                //No space in name
-                $("my name.js", errorMessage),
-                //No special characters
-                $("myé&name.js", errorMessage),
-                //URL without protocole
-                $("code.jquery.com/jquery-2.1.4.min.js", errorMessage),
-                //absolute path
-                $("./jquery-2.1.4.min.JS", errorMessage)
+                $(null, "Asset name should not be blank")
         );
     }
 
