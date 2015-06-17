@@ -44,8 +44,8 @@
         </form>
         <span class="input-group-btn">
             <button class="btn btn-bonita-property" ng-click="unlink()"
-                    title="{{ property.bidirectional ? 'Bind to a variable' : 'Remove binding' | translate }}"
-                    ng-disabled="property.bidirectional" type="button">
+                    title="{{ property.bond === 'variable' ? 'Bind to a variable' : 'Remove binding' | translate }}"
+                    ng-disabled="property.bond === 'variable'" type="button">
                 <i class="fa fa-link"></i>
             </button>
         </span>

@@ -66,18 +66,18 @@ describe('widget property field controller', function () {
     expect($scope.propertyValue.value).toBe('aValue');
   });
 
-  it('should not allow unbinding a bidirectional property', function () {
+  it('should not allow unbinding a variable bond', function () {
     $scope.propertyValue = {value: 'aValue', type: 'data'};
-    $scope.property = {bidirectional: true};
+    $scope.property = {bond: 'variable'};
 
     $scope.unlink();
 
     expect($scope.propertyValue.type).toBe('data');
   });
 
-  it('should force binding of bidirectional property', function () {
+  it('should force binding of variable bond property', function () {
     var scope = $rootScope.$new();
-    scope.property = {bidirectional: true};
+    scope.property = $scope.property = {bond: 'variable'};
 
     createController(scope);
 
