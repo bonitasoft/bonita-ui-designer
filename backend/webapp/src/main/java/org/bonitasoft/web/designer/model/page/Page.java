@@ -51,6 +51,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
+    private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
@@ -107,6 +108,15 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
 
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
+    }
+
+    @JsonView({ JsonViewPersistence.class })
+    public Set<String> getInactiveAssets() {
+        return inactiveAssets;
+    }
+
+    public void setInactiveAssets(Set<String> inactiveAssets) {
+        this.inactiveAssets = inactiveAssets;
     }
 
     @JsonView({ JsonViewPersistence.class })
