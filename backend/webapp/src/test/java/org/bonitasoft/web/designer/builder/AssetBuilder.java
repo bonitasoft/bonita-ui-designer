@@ -23,7 +23,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 
 public class AssetBuilder {
 
-    private String id = "private String name = \"myasset.js\";";
+    private String id = "UUID";
     private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
     private AssetScope scope = AssetScope.PAGE;

@@ -38,6 +38,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -62,6 +63,8 @@ public class WidgetArtefactImporterTest {
     private WidgetRepository widgetRepository;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
+    @Mock
+    private ComponentMigrator componentMigrator;
 
     private ArtefactImporter<Widget> importer;
 
@@ -73,8 +76,8 @@ public class WidgetArtefactImporterTest {
 
     @Before
     public void setUp() throws IOException {
-        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
-        importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, widgetImporter);
+        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter, componentMigrator);
+        importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, componentMigrator, widgetImporter);
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(widgetRepository.getComponentName()).thenReturn("widget");
