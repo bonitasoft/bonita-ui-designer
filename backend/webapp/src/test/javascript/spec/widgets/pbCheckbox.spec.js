@@ -9,6 +9,9 @@ describe('pbCheckbox', function() {
     compile = $injector.get('$compile');
     scope = $injector.get('$rootScope').$new();
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       disabled: false
     };
   }));

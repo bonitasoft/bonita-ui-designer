@@ -1,4 +1,4 @@
-function PbSelectCtrl($scope, $parse, widgetNameFactory, $timeout) {
+function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout) {
   var ctrl = this;
 
   function comparator(initialValue, item) {
@@ -40,4 +40,8 @@ function PbSelectCtrl($scope, $parse, widgetNameFactory, $timeout) {
   });
 
   this.name = widgetNameFactory.getName('pbSelect');
+
+  if (!$scope.properties.isBound('value')) {
+    $log.error('the pbSelect property named "value" need to be bound to a variable');
+  }
 }

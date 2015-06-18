@@ -46,6 +46,17 @@ describe('Directive: propertyValues', function () {
     'twoWayBaz': {
       type: 'data',
       value: 'foo'
+    },
+    'notBound': {
+      type: 'data'
+    },
+    'notBoundNull': {
+      type: 'data',
+      value: null
+    },
+    'notBoundEmpty': {
+      type: 'data',
+      value: ''
     }
   };
 
@@ -106,8 +117,10 @@ describe('Directive: propertyValues', function () {
   it('should return false when data is not bound', function () {
     var element = compileTemplate();
     $scope.$apply();
-
     expect(element.find('div').scope().properties.isBound('baz')).toBe(false);
+    expect(element.find('div').scope().properties.isBound('notBoundEmpty')).toBe(false);
+    expect(element.find('div').scope().properties.isBound('notBound')).toBe(false);
+    expect(element.find('div').scope().properties.isBound('notBoundNull')).toBe(false);
   });
 
   it('should return false when data does not exist', function () {

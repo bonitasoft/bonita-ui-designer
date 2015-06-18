@@ -34,10 +34,12 @@
             return getter(context);
           },
           set: function (value) {
-            getter.assign(context, value);
+            if (getter.assign) {
+              getter.assign(context, value);
+            }
           },
           enumerable: true
-        }
+        };
       }
 
       /**
