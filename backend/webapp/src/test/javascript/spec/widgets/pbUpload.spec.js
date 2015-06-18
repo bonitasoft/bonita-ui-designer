@@ -8,6 +8,9 @@ describe('pbUpload', function() {
     $compile = $injector.get('$compile');
     scope = $injector.get('$rootScope').$new();
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       labelHidden: false,
       required: false,
       label: 'upload',

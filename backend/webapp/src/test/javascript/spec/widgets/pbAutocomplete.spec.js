@@ -10,15 +10,18 @@ describe('pbAutocomplete', function () {
     $document = _$document_;
     $rootScope = _$rootScope_;
     scope = $rootScope.$new();
-    scope.properties = {labelHidden: true};
+    scope.properties = {
+      isBound: function() {
+        return false;
+      },
+      label: 'foobar',
+      labelHidden: false
+    };
   }));
 
   describe('label', function () {
 
     it('should be on top by default if displayed', function () {
-      scope.properties.labelHidden = false;
-      scope.properties.label = 'foobar';
-
       var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
       scope.$apply();
 
@@ -28,7 +31,7 @@ describe('pbAutocomplete', function () {
     });
 
     it('should be on the left of the input', function () {
-      scope.properties.labelHidden = false;
+
       scope.properties.label = 'barbaz';
       scope.properties.labelPosition = 'left';
 
@@ -42,7 +45,7 @@ describe('pbAutocomplete', function () {
     });
 
     it('should not be there when displayValue is falsy', function () {
-
+      scope.properties.labelHidden = true;
       var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
       scope.$apply();
 
@@ -113,13 +116,12 @@ describe('pbAutocomplete', function () {
     });
 
     it('should use the typeahead directive if we have a availableValues for an autocomplete', function() {
-      var scope = $rootScope.$new();
-      scope.properties = {
+
+      scope.properties = angular.extend(scope.properties, {
         availableValues: [{name: 'jeanne'}, {name: 'paul'}],
         value:  'paul',
         displayedKey:  'name',
-        labelHidden: false
-      };
+      });
 
       var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
       scope.$apply();

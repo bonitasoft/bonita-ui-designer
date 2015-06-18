@@ -13,7 +13,11 @@ describe('pbSelect', function () {
     scope = _$rootScope_.$new();
     $timeout = _$timeout_;
     scope.properties = {
-      labelHidden: true,
+      isBound: function() {
+        return false;
+      },
+      labelHidden: false,
+      label: 'hello',
       disabled: false
     };
   }));
@@ -23,15 +27,11 @@ describe('pbSelect', function () {
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
-    expect(element.find('label').length).toBe(0);
+    expect(element.find('label').length).toBe(1);
     expect(element.find('select').length).toBe(1);
   });
 
   it('should display a label when required', function () {
-    scope.properties = {
-      labelHidden: false,
-      label: 'hello'
-    };
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
@@ -39,11 +39,11 @@ describe('pbSelect', function () {
   });
 
   it('should have label and input side by side', function () {
-    scope.properties = {
+    scope.properties = angular.extend(scope.properties, {
       labelHidden: false,
       labelPosition: 'left',
       labelWidth: 5
-    };
+    });
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
@@ -52,9 +52,7 @@ describe('pbSelect', function () {
   });
 
   it('should update model value with selected model', function () {
-    scope.properties = {
-      availableValues: collection
-    };
+    scope.properties.availableValues = collection;
 
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
@@ -66,10 +64,10 @@ describe('pbSelect', function () {
   });
 
   it('should set option\'s label using complex displayed key', function () {
-    scope.properties = {
+    scope.properties = angular.extend(scope.properties, {
       availableValues: [{'foo': {'bar': 'baz'}}],
       displayedKey: 'foo.bar'
-    };
+    });
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
@@ -81,9 +79,7 @@ describe('pbSelect', function () {
   });
 
   it('should use whole object if no displayed key is specified', function () {
-    scope.properties = {
-      availableValues: collection
-    };
+    scope.properties.availableValues = collection;
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
@@ -145,10 +141,10 @@ describe('pbSelect', function () {
   });
 
   it('should return value using returned key', function () {
-    scope.properties = {
+    scope.properties = angular.extend(scope.properties, {
       availableValues: [{'foo': {'bar': 'baz'}}],
       returnedKey: 'foo.bar'
-    };
+    });
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
@@ -170,13 +166,12 @@ describe('pbSelect', function () {
   });
 
   it('should select the correct option if value is not null, depending of returnedKey', function(){
-    var scope = $rootScope.$new();
-    scope.properties = {
+    scope.properties = angular.extend(scope.properties, {
       availableValues: [{"name": 'jeanne'}, {"name": 'serge'}, {"name": 'bob'}],
       value: 'serge',
       displayedKey: 'name',
       returnedKey: 'name'
-    }
+    });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
     $timeout.flush();

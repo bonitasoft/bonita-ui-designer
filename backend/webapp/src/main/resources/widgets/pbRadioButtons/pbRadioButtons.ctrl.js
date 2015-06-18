@@ -1,4 +1,4 @@
-function PbRadioBoxCtrl($scope, $parse, widgetNameFactory) {
+function PbRadioBoxCtrl($scope, $parse, $log, widgetNameFactory) {
 
   'use strict';
   var ctrl = this;
@@ -22,13 +22,20 @@ function PbRadioBoxCtrl($scope, $parse, widgetNameFactory) {
 
   $scope.$watch('properties.availableValues', function(items){
     if (Array.isArray(items)) {
-      $scope.properties.selectedValue = items
+      var foundValue = items
         .filter(comparator.bind(null, $scope.properties.selectedValue))
         .reduce(function (acc, item) {
           return ctrl.getValue(item);
         }, undefined);
+      if (foundValue) {
+        $scope.properties.selectedValue = foundValue;
+      }
     }
   });
 
   this.name = widgetNameFactory.getName('pbRadioBox');
+
+  if (!$scope.properties.isBound('selectedValue')) {
+    $log.error('the pbRadioBox property named "selectedValue" need to be bound to a variable');
+  }
 }

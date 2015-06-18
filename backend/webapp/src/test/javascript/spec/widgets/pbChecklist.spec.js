@@ -9,8 +9,12 @@ describe('pbChecklist', function () {
     compile = $injector.get('$compile');
     scope = $injector.get('$rootScope').$new();
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       inline: false,
       disabled: false,
+      label: 'foobar',
       availableValues: ['jeanne', 'serge', 'maurice']
     };
   }));
@@ -115,10 +119,7 @@ describe('pbChecklist', function () {
   describe('label', function () {
 
     it('should be on top by default if displayed', function () {
-      scope.properties = {
-        labelHidden: false,
-        label: 'foobar'
-      };
+      scope.properties.label = 'foobar';
 
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();
@@ -128,11 +129,10 @@ describe('pbChecklist', function () {
     });
 
     it('should be on the left of the checklist', function () {
-      scope.properties = {
-        labelHidden: false,
+      scope.properties = angular.extend(scope.properties, {
         label: 'barbaz',
         labelPosition: 'left'
-      };
+      });
 
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();
@@ -142,9 +142,7 @@ describe('pbChecklist', function () {
     });
 
     it('should not be there when labelHidden is truthy', function () {
-      scope.properties = {
-        labelHidden: true
-      };
+      scope.properties.labelHidden = true;
 
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();

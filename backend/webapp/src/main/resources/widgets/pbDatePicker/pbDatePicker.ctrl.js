@@ -18,12 +18,11 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
     $event.preventDefault();
     $event.stopPropagation();
     this.opened = true;
-
-    if($scope.properties.value===null){
-      $log.warn('Your date picker need a data to be bound. Without data, your app doesn\'t know what to do with the date');
-    }
-
   };
 
   this.name = widgetNameFactory.getName('pbDatepicker');
+
+  if (!$scope.properties.isBound('value')) {
+    $log.error('the pbDatepicker property named "value" need to be bound to a variable');
+  }
 }
