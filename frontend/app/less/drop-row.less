@@ -1,4 +1,5 @@
 .dropRow {
+  position: relative;
   height: 5px;
   font-size: 12px;
   padding-left: 10px;
@@ -30,3 +31,14 @@
   pointer-events: none
 }
 
+// Special case for the first and last dropRow in the editor;
+// we want it to cover all the upper space so once we drop a component on top,
+#editor > .widget-wrapper > div > .dropRow:first-child,
+#editor > .widget-wrapper > div > .dropRow--last{
+  height: 40px;
+}
+
+// placeholder special case when there is an empty whiteboard
+#editor > .widget-wrapper > div:first-child > .row-builder > .widget-placeholder{
+  margin-top: 40px;
+}
