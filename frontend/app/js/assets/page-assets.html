@@ -8,8 +8,8 @@
         <label class="sr-only" translate> filter: </label>
 
         <div class="search-filter">
-            <label class="checkbox-inline" ng-repeat="search in searchedAsset">
-                <input type="checkbox" ng-model="search.filter"> {{search.label}}
+            <label class="checkbox-inline" ng-repeat="(key, search) in searchedAsset">
+                <input type="checkbox" ng-model="search.filter"> {{search.value}}
             </label>
         </div>
     </div>
@@ -17,15 +17,17 @@
 
 <table class="table table-condensed table-ui-designer table-striped table-text-ellipsis">
     <thead>
-    <th class="col-xs-7" translate>Name</th>
+    <th class="col-xs-1" translate>Active</th>
+    <th class="col-xs-6" translate>Name</th>
     <th class="col-xs-2" translate>Widget</th>
     <th class="col-xs-1" translate>Type</th>
     <th class="col-xs-2">&nbsp;</th>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:searchedAsset as results">
+    <tr ng-class="{'text-muted':!asset.active}" ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:searchedAsset as results">
+        <td><input type="checkbox" ng-model="asset.active" ng-click="desactivateAsset(asset)"></td>
         <td>{{asset.name}}</td>
-        <td>{{asset.componentId}}<span ng-if="!asset.componentId" translate>Page level</span></td>
+        <td>{{asset.componentId}}<span ng-if="isPageAsset(asset)" translate>Page level</span></td>
         <td>{{asset.type | assetType}}</td>
         <td class="text-right">
             <div class="btn-group link-group btn-group-sm">
@@ -34,11 +36,11 @@
                     <i class="fa fa-search"></i>
                 </button>
                 <button class="btn btn-bonita-asset" ng-click="openAssetPopup(asset)"
-                        title="{{ 'Update asset' | translate }}" ng-if="!asset.componentId && isExternal(asset)">
+                        title="{{ 'Update asset' | translate }}" ng-if="isPageAsset(asset) && isExternal(asset)">
                     <i class="fa fa-pencil"></i>
                 </button>
                 <button class="btn btn-bonita-asset" ng-click="delete(asset)"
-                        title="{{ 'Delete asset' | translate }}" ng-if="!asset.componentId">
+                        title="{{ 'Delete asset' | translate }}" ng-if="isPageAsset(asset)">
                     <i class="fa fa-trash"></i>
                 </button>
             </div>

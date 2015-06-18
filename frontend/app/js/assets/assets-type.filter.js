@@ -18,8 +18,10 @@
 
     'use strict';
 
+    var type = assetsService.getType();
+
     return function(key){
-      return assetsService.getTypeLabel(key);
+      return type[key] ? type[key].value : '';
     };
   });
 

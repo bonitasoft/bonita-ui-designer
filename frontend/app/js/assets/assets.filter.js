@@ -26,9 +26,7 @@
         return assets;
       }
       return assets.filter(function(asset){
-        return filters.filter(function (elt) {
-          return elt.key === asset.type;
-        })[0].filter;
+        return filters[asset.type].filter;
       });
     };
   });
