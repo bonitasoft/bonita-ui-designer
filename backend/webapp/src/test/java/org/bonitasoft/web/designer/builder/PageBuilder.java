@@ -47,6 +47,7 @@ public class PageBuilder {
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
     private String id;
+    private String version;
 
     private PageBuilder() {
     }
@@ -105,6 +106,11 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withVersion(String version) {
+        this.version = version;
+        return this;
+    }
+
     public Page build() {
         Page page = new Page();
         page.setName(name);
@@ -113,6 +119,7 @@ public class PageBuilder {
         page.setId(id);
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
+        page.setDesignerVersion(version);
         return page;
     }
 

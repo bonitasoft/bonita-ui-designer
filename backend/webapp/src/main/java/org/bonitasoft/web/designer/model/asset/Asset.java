@@ -63,7 +63,7 @@ public class Asset {
      */
     private int order;
     /**
-     * If asset is desactivated this value is true
+     * If asset is desactivated this value is false
      */
     private boolean active = true;
 

@@ -16,11 +16,15 @@ package org.bonitasoft.web.designer.model.asset;
 
 
 import static junitparams.JUnitParamsRunner.$;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.junit.Before;
@@ -35,12 +39,14 @@ public class AssetTest {
     private BeanValidator beanValidator = new DesignerConfig().beanValidator();
 
     private Asset asset;
+    private ObjectMapper objectMapper;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void init() {
+        objectMapper = new DesignerConfig().objectMapper();
         asset = anAsset().withScope(AssetScope.PAGE).build();
 
     }
@@ -121,4 +127,34 @@ public class AssetTest {
         beanValidator.validate(asset);
     }
 
+    @Test
+    public void json_view_asset_should_persist_all_the_properties() throws Exception {
+        String json = objectMapper.writerWithView(Asset.JsonViewAsset.class)
+                .writeValueAsString(new Asset()
+                        .setId("UIID")
+                        .setName("file.js")
+                        .setType(AssetType.JAVASCRIPT)
+                        .setComponentId("page-id")
+                        .setOrder(1)
+                        .setActive(true)
+                        .setScope(AssetScope.PAGE));
+
+        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"componentId\":\"page-id\",\"scope\":\"PAGE\",\"order\":1,\"active\":true}");
+    }
+
+    @Test
+    public void json_view_persistence_should_persist_a_subset_of_properties() throws Exception {
+        String json = objectMapper.writerWithView(JsonViewPersistence.class)
+                .writeValueAsString(new Asset()
+                        .setId("UIID")
+                        .setName("file.js")
+                        .setType(AssetType.JAVASCRIPT)
+                        .setComponentId("page-id")
+                        .setOrder(1)
+                        .setActive(true)
+                        .setScope(AssetScope.PAGE));
+
+        //should only persist id, name, type and order
+        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"order\":1}");
+    }
 }
