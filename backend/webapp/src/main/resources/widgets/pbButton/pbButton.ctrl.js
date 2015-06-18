@@ -3,19 +3,21 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
   'use strict';
 
   this.action = function action() {
+    var id;
+
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
     } else if ($scope.properties.action === "Start process") {
-      var id = getUrlParam('id');
+      id = getUrlParam('id');
       if (id) {
         doRequestDelayed('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
       } else {
         $log.log('Impossible to retrieve the process definition id value from the URL');
       }
     } else if ($scope.properties.action === 'Submit task') {
-      var id = getUrlParam('id');
+      id = getUrlParam('id');
       if (id) {
         doRequestDelayed('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
       } else {
@@ -66,9 +68,9 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
   // we delayed the doRequest to ensure dataToSend is updated
   // this usefull when copy() update the dataToSend object.
   function doRequestDelayed(method, url, params) {
-    $timeout(function () {
-      doRequest(method, url, params);
-    }, false);
+    $scope.properties
+      .waitFor('dataToSend')
+      .then(doRequest.bind(null, method, url, params));
   }
 
   /**
@@ -77,14 +79,14 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
    * @return {void}
    */
   function doRequest(method, url, params) {
-    var req = {
+     var req = {
       method: method,
       url: url,
       data: angular.copy($scope.properties.dataToSend),
       params: params
     };
 
-    $http(req)
+    return $http(req)
       .success(function (data) {
         if ($scope.properties.targetUrlOnSuccess) {
           $window.top.location.assign($scope.properties.targetUrlOnSuccess);

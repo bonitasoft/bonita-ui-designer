@@ -2,6 +2,7 @@ describe('pbButton', function () {
 
   var $compile, scope, element, $timeout, $parse, $q, $location, $window;
 
+  beforeEach(module('pb.generator.services'));
   beforeEach(module('pb.widgets'));
 
   beforeEach(inject(function ($injector, $rootScope) {
@@ -18,7 +19,10 @@ describe('pbButton', function () {
     scope = $rootScope.$new();
     // set the default value for property method
     scope.properties = {
-      method: "Submit task"
+      method: "Submit task",
+      waitFor: function(){
+        return $q.when(true);
+      }
     };
 
     element = $compile('<pb-button></pb-button>')(scope);
