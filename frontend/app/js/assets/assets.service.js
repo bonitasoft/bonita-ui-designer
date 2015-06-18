@@ -18,77 +18,50 @@
 
     'use strict';
 
-    var types = [
-      { key: 'js', label: 'JavaScript'},
-      { key: 'css', label: 'CSS'},
-      { key: 'img', label: 'Image'}
-    ];
+    var type = {
+      js : {key : 'js', value: 'JavaScript', filter:true },
+      css : {key : 'css', value: 'CSS', filter:true},
+      img : {key : 'img', value: 'Image', filter:true}
+    };
 
-    var sources = [
-      { key: 'External', label: gettextCatalog.getString('External')},
-      { key: 'Local', label: gettextCatalog.getString('Local')}
-    ];
-
-    /**
-     * By default all the assets are displayed
-     */
-    function initFilterMap() {
-      return types.map(function (obj) {
-        obj.filter = true;
-        return obj;
-      });
-    }
+    var source = {
+      external : {key : 'external', value: gettextCatalog.getString('External')},
+      local : {key : 'local', value: gettextCatalog.getString('Local')}
+    };
 
     /**
      * Asset types
      */
-    function getTypes() {
-      return types;
+    function getType() {
+      return type;
     }
 
     /**
      * Asset sources
      */
-    function getSources() {
-      return sources;
-    }
-
-    /**
-     * Asset external source
-     */
-    function getExternalSource() {
-      return sources[0].key;
-    }
-
-    /**
-     * Return the label for a type
-     */
-    function getTypeLabel(key) {
-      var type = types.filter(function (element) {
-        return element.key === key;
-      })[0];
-
-      return type ? type.label : '';
+    function getSource() {
+      return source;
     }
 
     /**
      * Convert asset object in object for the html form
      */
     function assetToForm(asset) {
-      if(!asset){
+      if (!asset) {
         return {
-          type : types[0].key,
-          source : sources[0].key
+          type: type.js.key,
+          source: source.external.key
         };
       }
       //An asset is identified by name and type. If user choose to change them we need to delete
       //the old asset and we need the old name and type
       return {
-        name : asset.name,
-        type : asset.type,
-        source : sources[isExternal(asset) ? 0 : 1].key,
-        oldname : asset.name,
-        oldtype : asset.type
+        id: asset.id,
+        name: asset.name,
+        type: asset.type,
+        source: isExternal(asset) ? source.external.key : source.local.key,
+        oldname: asset.name,
+        oldtype: asset.type
       };
     }
 
@@ -97,9 +70,10 @@
      */
     function formToAsset(formAsset) {
       var asset = {
-        type : formAsset.type
+        id: formAsset.id,
+        type: formAsset.type
       };
-      if(formAsset.source=== 'External'){
+      if (formAsset.source === source.external.key) {
         asset.name = formAsset.name;
       }
       return asset;
@@ -109,18 +83,23 @@
      * External asset are URL
      */
     function isExternal(asset) {
-      return asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0;
+      return asset.source === source.external.key || (asset.name && (asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0));
+    }
+
+    /**
+     * Page asset
+     */
+    function isPageAsset(asset) {
+      return !asset.componentId;
     }
 
     return {
-      initFilterMap: initFilterMap,
       isExternal: isExternal,
-      getSources:getSources,
-      getExternalSource:getExternalSource,
-      getTypeLabel:getTypeLabel,
-      getTypes : getTypes,
-      assetToForm : assetToForm,
-      formToAsset : formToAsset
+      isPageAsset: isPageAsset,
+      getSource: getSource,
+      getType: getType,
+      assetToForm: assetToForm,
+      formToAsset: formToAsset
     };
   });
 

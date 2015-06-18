@@ -20,9 +20,10 @@
 
     var ctrl = this;
     var component = artifact;
-    $scope.searchedAsset = assetsService.initFilterMap();
+    $scope.searchedAsset = assetsService.getType();
     $scope.isExternal = assetsService.isExternal;
-
+    $scope.isPageAsset = assetsService.isPageAsset;
+    $scope.desactivateAsset = desactivateAsset;
     $scope.incrementOrderAsset = incrementOrderAsset;
     $scope.decrementOrderAsset = decrementOrderAsset;
 
@@ -32,6 +33,10 @@
 
     function decrementOrderAsset(asset){
       return artifactRepo.decrementOrderAsset(component.id, asset).then(refresh);
+    }
+
+    function desactivateAsset(asset){
+      return artifactRepo.desactivateAsset(component.id, asset).then(refresh);
     }
 
     //Load assets

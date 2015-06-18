@@ -88,6 +88,10 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     return $http.delete('rest/pages/' + id);
   }
 
+  function desactivateAsset(id, asset){
+    return $http.put('rest/pages/' + id + '/assets?active=' + asset.active, asset);
+  }
+
   /**
    * Loads the page identified by the given id
    * Returns a promise
@@ -153,6 +157,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     all: all,
     create: create,
     createAsset: createAsset,
+    desactivateAsset: desactivateAsset,
     save: save,
     rename: rename,
     delete: deletePage,

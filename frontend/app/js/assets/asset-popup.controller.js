@@ -24,23 +24,19 @@
     $scope.isNewAsset = asset === undefined;
 
     //All datas (type, sources) are defined in the assets service.
-    $scope.assetTypes = assetsService.getTypes();
-    $scope.assetSources = assetsService.getSources();
+    $scope.assetType = assetsService.getType();
+    $scope.assetSource = assetsService.getSource();
 
     //Asset is converted in another object for the html form
     $scope.newAsset = assetsService.assetToForm(asset);
 
     $scope.cancel = cancel;
-    $scope.isExternalAsset = isExternalAsset;
+    $scope.isExternalAsset = assetsService.isExternal;
     $scope.onSuccess = onSuccess;
     $scope.onError = onError;
     $scope.saveExternalAsset = saveExternalAsset;
     $scope.updateSavingAction = updateSavingAction;
     $scope.assetSavingAction = urlPrefixForLocalAsset + 'js';
-
-    function isExternalAsset(asset) {
-      return asset.source === assetsService.getExternalSource();
-    }
 
     /**
      * An external asset is saved by a $http call

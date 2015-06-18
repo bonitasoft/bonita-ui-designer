@@ -15,18 +15,13 @@
         { "name": "MyAbcExample.png", "type": "img" }
       ];
 
-      filters = [
-        { key: 'js', label: 'JavaScript', filter: true},
-        { key: 'css', label: 'CSS', filter: true},
-        { key: 'img', label: 'Image', filter: true}
-      ];
-    }));
+      filters = {
+        js : {key : 'js', value: 'JavaScript', filter:true },
+        css : {key : 'css', value: 'CSS', filter:true},
+        img : {key : 'img', value: 'Image', filter:true}
+      };
 
-    function filterOnItem(item){
-      filters.filter(function(elt){
-        return elt.key === item;
-      })[0].filter = false;
-    }
+    }));
 
     it('should not filter when no arg filters', function() {
       expect($filter('assetFilter')(assets)).toEqual(assets);
@@ -37,7 +32,7 @@
     });
 
     it('should exlude css', function() {
-      filterOnItem('css');
+      filters.css.filter = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
         { "name": "MyAbcExample.js", "type": "js" },
@@ -46,7 +41,7 @@
     });
 
     it('should exlude img', function() {
-      filterOnItem('img');
+      filters.img.filter = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
         { "name": "MyAbcExample.js", "type": "js" },
@@ -55,7 +50,7 @@
     });
 
     it('should exlude js', function() {
-      filterOnItem('js');
+      filters.js.filter = false;;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
         { "name": "MyAbcExample.css", "type": "css" },
