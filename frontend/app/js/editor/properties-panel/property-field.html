@@ -8,7 +8,7 @@
     </div>
 
     <div ng-switch="property.type" ng-if="!shouldBeLinked()">
-        <div class="input-group unlinked">
+        <div class="input-group input-group-sm unlinked">
             <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"></textarea>
             <select ng-switch-when="choice" ng-model="propertyValue.value"
                     ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues"
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div class="input-group linked" ng-if="shouldBeLinked()">
+    <div class="input-group input-group-sm linked" ng-show="shouldBeLinked()">
         <form name="paramForm">
             <input name="paramValue" ng-model="propertyValue.value" type="text"
                    typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
