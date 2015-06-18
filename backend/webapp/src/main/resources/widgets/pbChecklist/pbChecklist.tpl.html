@@ -10,6 +10,7 @@
         <label class="checkbox-inline" ng-repeat="choice in properties.availableValues track by $index">
             <input
                     type="checkbox"
+                    name="{{ctrl.name}}"
                     ng-model="ctrl.selectedItems[$index]"
                     ng-change="ctrl.updateValues()"
                     ng-disabled="properties.disabled">
@@ -22,6 +23,7 @@
             <label>
                 <input
                         type="checkbox"
+                        name="{{ctrl.name}}"
                         ng-model="ctrl.selectedItems[$index]"
                         ng-change="ctrl.updateValues()"
                         ng-disabled="properties.disabled">
