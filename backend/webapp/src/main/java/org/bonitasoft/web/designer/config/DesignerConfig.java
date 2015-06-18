@@ -33,8 +33,8 @@ import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportS
 import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
-import org.bonitasoft.web.designer.controller.importer.AssetImporter;
-import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
+import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
