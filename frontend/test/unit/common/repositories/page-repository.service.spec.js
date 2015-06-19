@@ -90,23 +90,6 @@ describe('pageRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should delete a page data', function() {
-    $httpBackend.expectDELETE('rest/pages/person/data/aData').respond(200, []);
-    json.id = 'person';
-
-    pageRepo.deleteData(json, "aData");
-    $httpBackend.flush();
-  });
-
-  it('should save a page data', function() {
-    var data = {$$name: "aData", value: "aValue"};
-    $httpBackend.expectPUT('rest/pages/person/data/aData').respond(200, [data]);
-    json.id = 'person';
-
-    pageRepo.saveData(json, data);
-    $httpBackend.flush();
-  });
-
   it('should compute page export url', function() {
     var page = {id: 'aPageId'};
 
