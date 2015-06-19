@@ -69,7 +69,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_map_a_numeric_contract_input_to_an_input_with_number_type() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"), Collections.<List<Element>>emptyList());
+        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"), Collections.<List<Element>> emptyList());
 
         assertThat(element.getPropertyValues().get("type").getValue()).isEqualTo("number");
     }
@@ -162,6 +162,32 @@ public class ContractInputToWidgetMapperTest {
         PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("formInput.employee");
+    }
+
+    @Test
+    public void should_configure_collection_property_of_add_button_with_iterator_if_in_a_repeated_container() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        ContractInput skills = aNodeContractInput("skills").mulitple().build();
+        aNodeContractInput("employee").mulitple().withInput(skills);
+        Component button = contractInputToWidgetMapper.createAddButton(skills);
+
+        PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
+    }
+
+    @Test
+    public void should_configure_collection_property_of_remove_button_with_iterator_if_in_a_repeated_container() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        ContractInput skills = aNodeContractInput("skills").mulitple().build();
+        aNodeContractInput("employee").mulitple().withInput(skills);
+        Component button = contractInputToWidgetMapper.createRemoveButton(skills);
+
+        PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
