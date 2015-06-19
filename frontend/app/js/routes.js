@@ -27,11 +27,11 @@
           language: function($stateParams, gettextCatalog) {
             var languages = {
               'en': {lang: 'en'},
-              'fr': {lang: 'fr', file: 'lang-template-fr.json'},
-              'de': {lang: 'de', file: 'lang-template-de.json'},
+              'fr': {lang: 'fr', file: 'lang-template-fr-FR.json'},
+              'de': {lang: 'de', file: 'lang-template-de-DE.json'},
               'es': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
               'es-ES': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
-              'it': {lang: 'it', file: 'lang-template-it.json'},
+              'it': {lang: 'it', file: 'lang-template-it-IT.json'},
               'pt': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
               'pt-BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'}
             };
