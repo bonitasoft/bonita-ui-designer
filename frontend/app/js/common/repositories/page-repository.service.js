@@ -30,14 +30,6 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     });
   }
 
-  function saveData(page, data) {
-    return $http.put('rest/pages/' + page.id + '/data/' + data.$$name, data);
-  }
-
-  function deleteData(page, dataName) {
-    return $http.delete('rest/pages/' + page.id + '/data/' + dataName);
-  }
-
   /**
    * Creates a new page and returns a promise containing the returned data
    * @param content - the page's content (name and empty row, typically)
@@ -164,8 +156,6 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     deleteAsset: deleteAsset,
     load: load,
     loadAssets: loadAssets,
-    saveData: saveData,
-    deleteData: deleteData,
     exportUrl: exportUrl
   };
 })
