@@ -66,7 +66,7 @@ describe('The route config', function() {
 
   it('should load french translations', function() {
 
-    $httpBackend.expectGET('i18n/lang-template-fr.json').respond(200, '');
+    $httpBackend.expectGET('i18n/lang-template-fr-FR.json').respond(200, '');
 
     $location.url('fr/home');
 
@@ -75,7 +75,7 @@ describe('The route config', function() {
 
   it('should load deutsch translations', function() {
 
-    $httpBackend.expectGET('i18n/lang-template-de.json').respond(200, '');
+    $httpBackend.expectGET('i18n/lang-template-de-DE.json').respond(200, '');
 
     $location.url('de/home');
 
@@ -93,7 +93,7 @@ describe('The route config', function() {
 
   it('should load italian translations', function() {
 
-    $httpBackend.expectGET('i18n/lang-template-it.json').respond(200, '');
+    $httpBackend.expectGET('i18n/lang-template-it-IT.json').respond(200, '');
 
     $location.url('it/home');
 
