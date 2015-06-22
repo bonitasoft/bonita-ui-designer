@@ -1,30 +1,15 @@
-<div class="form-group" ng-if="displayCondition()" data-property="{{ property.name }}">
+<div class="form-group" ng-if="isDisplayed()" data-property="{{ property.name }}">
 
     <div class="property-label">
         <label>{{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help"
                                                    tooltip="{{property.help | translate}}"
-                                                   tooltip-append-to-body="true"></i></label></label>
+                                                   tooltip-append-to-body="true"></i></label>
         <small class="help-block">{{property.caption | translate}}</small>
     </div>
 
     <div ng-switch="property.type" ng-if="!shouldBeLinked()">
         <div class="input-group input-group-sm unlinked">
-            <textarea ng-switch-when="html" ng-model="propertyValue.value" class="form-control"></textarea>
-            <select ng-switch-when="choice" ng-model="propertyValue.value"
-                    ng-options="choiceValue as choiceValue|translate for choiceValue in property.choiceValues"
-                    class="form-control"></select>
-
-            <div ng-switch-when="boolean">
-                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="false"
-                                                   ng-value="false"/><span translate>no</span></label>
-                <label class="radio-inline"><input ng-model="propertyValue.value" type="radio" ng-checked="true"
-                                                   ng-value="true"/><span translate>yes</span></label>
-            </div>
-            <input ng-switch-when="integer" min="{{property.constraints.min}}" max="{{property.constraints.max}}" ng-model="propertyValue.value" type="number" class="form-control"/>
-            <input ng-switch-when="float" ng-model="propertyValue.value" type="number" class="form-control"/>
-            <input ng-switch-when="collection" ng-model="propertyValue.value" ng-list class="form-control"/>
-            <input id="property-{{ property.label.toLowerCase() }}" ng-switch-default ng-model="propertyValue.value"
-                   type="text" class="form-control"/>
+            <ng-include src="propertyField.getFieldTemplate(property)" include-replace></ng-include>
             <span class="input-group-btn">
                 <button class="btn btn-bonita-property" ng-click="link()"
                         title="{{ 'Bind to a dynamic value' | translate }}" type="button">
@@ -34,14 +19,12 @@
         </div>
     </div>
 
-    <div class="input-group input-group-sm linked" ng-show="shouldBeLinked()">
-        <form name="paramForm">
-            <input name="paramValue" ng-model="propertyValue.value" type="text"
-                   typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
-                   autofocus="linked"
-                   class="form-control PropertyPanel-bond"
-                   placeholder="{{ propertyField.getBindingPlaceholder(property) }}"/>
-        </form>
+    <div class="input-group input-group-sm linked" ng-if="shouldBeLinked()">
+        <input name="paramValue" ng-model="propertyValue.value" type="text"
+               typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
+               autofocus="linked"
+               class="form-control PropertyPanel-bond"
+               placeholder="{{ propertyField.getBindingPlaceholder(property) }}"/>
         <span class="input-group-btn">
             <button class="btn btn-bonita-property" ng-click="unlink()"
                     title="{{ property.bond === 'variable' ? 'Bind to a variable' : 'Remove binding' | translate }}"

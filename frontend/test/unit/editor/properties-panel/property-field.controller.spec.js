@@ -106,7 +106,7 @@ describe('widget property field controller', function () {
     });
 
     it('should return true if there is no condition', function () {
-      expect($scope.displayCondition()).toBe(true);
+      expect($scope.isDisplayed()).toBe(true);
     });
 
     it('should true if the condition is valid', function () {
@@ -116,7 +116,7 @@ describe('widget property field controller', function () {
           value: true
         }
       };
-      expect($scope.displayCondition()).toBe(true);
+      expect($scope.isDisplayed()).toBe(true);
     });
 
     it('should false if the condition is not valid', function () {
@@ -126,7 +126,7 @@ describe('widget property field controller', function () {
           value: false
         }
       };
-      expect($scope.displayCondition()).toBe(false);
+      expect($scope.isDisplayed()).toBe(false);
     });
   });
 
