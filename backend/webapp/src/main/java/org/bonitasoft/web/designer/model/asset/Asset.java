@@ -175,15 +175,14 @@ public class Asset {
         //componentId is not in hashcode. If a page use a widget asset with the same name
         //the page asset must to be used
         return new HashCodeBuilder(17, 37)
-                .append(name)
-                .append(type)
-                .append(componentId)
+                .append(id)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("id", id)
                 .append("name", name)
                 .append("type", type)
                 .append("componentId", componentId)

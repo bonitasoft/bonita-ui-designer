@@ -76,23 +76,13 @@
         expect(controller.createOrUpdate()).toEqual( $q.when({}));
       });
 
-      it('should create a new external asset', function () {
+      it('should save an external asset', function () {
         var asset = {name: 'myasset.js', isNew: true};
         spyOn(artifactRepo, 'createAsset').and.returnValue($q.when({}));
 
         controller.createOrUpdate(asset);
 
         expect(artifactRepo.createAsset).toHaveBeenCalled();
-      });
-
-      it('should create an existing external asset', function () {
-        var asset = {name: 'myasset.js', oldname: 'myoldasset.js'};
-        spyOn(artifactRepo, 'deleteAsset').and.returnValue($q.when({}));
-        spyOn(artifactRepo, 'createAsset').and.returnValue($q.when({}));
-
-        controller.createOrUpdate(asset);
-
-        expect(artifactRepo.deleteAsset).toHaveBeenCalled();
       });
 
     });

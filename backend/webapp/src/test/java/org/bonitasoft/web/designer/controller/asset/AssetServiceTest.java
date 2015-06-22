@@ -108,12 +108,12 @@ public class AssetServiceTest {
 
     @Test
     public void should_upload_existing_file() throws Exception {
-        Page page = aFilledPage("page-id");
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(anAsset().withId("UIID").withName("asset.js").withComponentId("page-id")).build();
         MockMultipartFile file = new MockMultipartFile("asset.js", "asset.js", "application/javascript", "function(){}".getBytes());
 
         assetService.upload(file, page, "js");
 
-        verify(assetRepository).delete(page.getAssets().iterator().next());
+        verify(assetRepository).delete(any(Asset.class));
         verify(assetRepository).save(page.getAssets().iterator().next(), "function(){}".getBytes());
         verify(repository).save(page);
     }
@@ -179,26 +179,18 @@ public class AssetServiceTest {
     @Test
     public void should_return_error_when_deleting_asset_with_name_empty() {
         expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset URL is required"));
+        expectedException.expectMessage(is("Asset id is required"));
         //We construct a mockfile (the first arg is the name of the property expected in the controller
-        assetService.delete(aPage().withId("page-id").build(), anAsset().withName(null).build());
-    }
-
-    @Test
-    public void should_return_error_when_deleting_asset_with_type_invalid() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset type is required"));
-        assetService.delete(aPage().withId("page-id").build(), anAsset().withName("http://mycdn.com/myasset.js").withType(null).build());
-
+        assetService.delete(aPage().withId("page-id").build(), null);
     }
 
     @Test
     public void should_delete_existing_asset() throws Exception {
         Page page = aFilledPage("page-id");
-        Asset asset = anAsset().withName("myfile.js").withType(JAVASCRIPT).build();
+        Asset asset = anAsset().withId("UIID").withName("myfile.js").withType(JAVASCRIPT).build();
         page.getAssets().add(asset);
 
-        assetService.delete(page, asset);
+        assetService.delete(page, "UIID");
 
         verify(assetRepository).delete(asset);
     }
@@ -206,10 +198,10 @@ public class AssetServiceTest {
     @Test
     public void should_not_delete_file_for_existing_external_asset() throws Exception {
         Page page = aFilledPage("page-id");
-        Asset asset = anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
+        Asset asset = anAsset().withId("UIID").withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
         page.getAssets().add(asset);
 
-        assetService.delete(page, asset);
+        assetService.delete(page, "UIID");
 
         //We must'nt call the delete method for an external resource
         verifyNoMoreInteractions(assetRepository);

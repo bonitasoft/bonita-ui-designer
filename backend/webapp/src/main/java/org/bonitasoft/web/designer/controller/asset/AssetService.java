@@ -15,17 +15,20 @@
 package org.bonitasoft.web.designer.controller.asset;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.UUID.randomUUID;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.UUID;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
-import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -45,6 +48,7 @@ public class AssetService<T extends Assetable> {
     protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
     public static final String ASSET_TYPE_IS_REQUIRED = "Asset type is required";
     public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
+    public static final String ASSET_ID_IS_REQUIRED = "Asset id is required";
 
     public enum OrderType {INCREMENT, DECREMENT}
 
@@ -66,15 +70,20 @@ public class AssetService<T extends Assetable> {
         checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
         checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
-        Asset asset = new Asset()
-                .setId(UUID.randomUUID().toString())
-                .setName(HttpFile.getOriginalFilename(file.getOriginalFilename()))
+        final Asset asset = new Asset()
+                .setId(randomUUID().toString())
+                .setName(getOriginalFilename(file.getOriginalFilename()))
                 .setComponentId(component.getId())
                 .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
                 .setType(assetType)
                 .setOrder(getNextOrder(component));
 
-        deleteComponentAsset(component, asset);
+        deleteComponentAsset(component, new Predicate<Asset>() {
+            @Override
+            public boolean apply(Asset element) {
+                return asset.equalsWithoutComponentId(element);
+            }
+        });
 
         try {
             assetRepository.save(asset, file.getBytes());
@@ -88,35 +97,42 @@ public class AssetService<T extends Assetable> {
         }
     }
 
-    private void deleteComponentAsset(T component, Asset asset) {
-        for (Iterator<Asset> assetIterator = component.getAssets().iterator(); assetIterator.hasNext(); ) {
-            Asset existingAsset = assetIterator.next();
-
-            //If the resource exist we delete the file before save the new one
-            if (asset.equalsWithoutComponentId(existingAsset)) {
-                //For a local asset the file is deleted
-                if (!asset.isExternal()) {
-                    try {
-                        assetRepository.delete(asset);
-                    } catch (NotFoundException | IOException e) {
-                        logger.warn(String.format("Asset to delete %s was not found", asset.getName()), e);
-                    }
+    private void deleteComponentAsset(T component, Predicate<Asset> assetPredicate) {
+        try {
+            Asset existingAsset = Iterables.<Asset>find(component.getAssets(), assetPredicate);
+            if (!existingAsset.isExternal()) {
+                try {
+                    existingAsset.setComponentId(component.getId());
+                    assetRepository.delete(existingAsset);
+                } catch (NotFoundException | IOException e) {
+                    logger.warn(String.format("Asset to delete %s was not found", existingAsset.getName()), e);
                 }
-                assetIterator.remove();
-                break;
             }
+            component.getAssets().remove(existingAsset);
+        }
+        catch (NoSuchElementException e){
+            //For a creation component does not contain the asset
         }
     }
 
     /**
      * Save an external asset
      */
-    public void save(T component, Asset asset) {
+    public void save(T component, final Asset asset) {
         checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
         checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
-        if (!component.getAssets().contains(asset)) {
-            asset.setId(UUID.randomUUID().toString());
+        if(asset.getId()!=null){
+            //We find the existing asset and change the name and the type
+            Iterables.<Asset>find(component.getAssets(), new Predicate<Asset>() {
+                @Override
+                public boolean apply(Asset element) {
+                    return asset.getId().equals(element.getId());
+                }
+            }).setName(asset.getName()).setType(asset.getType());
+        }
+        else {
+            asset.setId(randomUUID().toString());
             asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
         }
@@ -126,11 +142,15 @@ public class AssetService<T extends Assetable> {
     /**
      * Delete an external asset
      */
-    public void delete(T component, Asset asset) {
-        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
-        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
+    public void delete(T component, final String assetId) {
+        checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
-        deleteComponentAsset(component, asset);
+        deleteComponentAsset(component, new Predicate<Asset>() {
+            @Override
+            public boolean apply(Asset asset) {
+                return assetId.equals(asset.getId());
+            }
+        });
         repository.save(component);
     }
 

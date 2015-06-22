@@ -435,7 +435,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_upload_an_asset() throws Exception {
+    public void should_upload_a_local_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Widget widget = aWidget().id("my-widget").custom().build();
@@ -520,12 +520,11 @@ public class WidgetResourceTest {
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
-                delete("/rest/widgets/my-widget/assets")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(asset)))
+                delete("/rest/widgets/my-widget/assets/UIID")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
-        verify(widgetAssetService).delete(widget, asset);
+        verify(widgetAssetService).delete(widget, "UIID");
     }
 
     @Test
