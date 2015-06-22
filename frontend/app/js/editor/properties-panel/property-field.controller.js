@@ -19,24 +19,17 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
 
   'use strict';
 
-  $scope.linked = false;
-
-  // initialize propertyValue if not yet initialized. Could appear when creating custom widgets and adding properties
-  // when custom widget is already in the page
-  if (!$scope.propertyValue) {
-    $scope.propertyValue = {
+  $scope.propertyValue = $scope.propertyValue || {
       type: 'constant',
       value: $scope.property.defaultValue
     };
-  }
 
-  $scope.displayCondition = function () {
+  $scope.isDisplayed = function () {
 
     // If there is no expression we will always display the option
     if (!$scope.property.showFor) {
       return true;
     }
-
     return $scope.$eval($scope.property.showFor);
   };
 
@@ -73,5 +66,13 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
 
   this.getBindingPlaceholder = function (property) {
     return property.type === 'boolean' ? 'variableName === true' : 'variableName';
+  };
+
+  // should be shared with widget editor
+  var supportedTypes = ['boolean', 'choice', 'collection', 'float', 'html', 'integer'];
+
+  this.getFieldTemplate = function (property) {
+    var type = supportedTypes.indexOf(property.type) >= 0 ? property.type : 'text';
+    return 'js/editor/properties-panel/field/' + type + '.html';
   };
 });
