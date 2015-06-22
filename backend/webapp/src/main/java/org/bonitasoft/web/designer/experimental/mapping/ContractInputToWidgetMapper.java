@@ -87,8 +87,7 @@ public class ContractInputToWidgetMapper {
     private Component toSimpleComponent(ContractInput contractInput) {
         AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (widget instanceof Valuable) {
-            ((Valuable) widget).setValue(contractInput.getParent() != null && contractInput.getParent().isMultiple()
-                    ? multipleInputValue(contractInput) : inputValue(contractInput));
+            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
         }
         return widget.getAdapter(Component.class);
     }
@@ -115,13 +114,13 @@ public class ContractInputToWidgetMapper {
 
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
-        addButton.setCollectionToModify(inputValue(contractInput));
+        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
         return addButton.getAdapter(Component.class);
     }
 
     public Component createRemoveButton(ContractInput contractInput) {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
-        removeButton.setCollectionToModify(inputValue(contractInput));
+        removeButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
         return removeButton.getAdapter(Component.class);
     }
 
