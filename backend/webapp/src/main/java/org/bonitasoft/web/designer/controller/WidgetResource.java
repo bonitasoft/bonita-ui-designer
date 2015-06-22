@@ -168,8 +168,10 @@ public class WidgetResource {
         return repository.deleteProperty(widgetId, propertyName);
     }
 
+
     @RequestMapping(value = "/{widgetId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String widgetId, @PathVariable("type") String type) {
+    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String widgetId,
+                                                    @PathVariable("type") String type) {
         checkWidgetIdIsNotAPbWidget(widgetId);
         try {
             widgetAssetService.upload(file, repository.get(widgetId), type);
@@ -186,11 +188,10 @@ public class WidgetResource {
         widgetAssetService.save(repository.get(widgetId), asset);
     }
 
-    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.DELETE)
-    public void deleteAsset(@RequestBody Asset asset, @PathVariable("widgetId") String widgetId) throws RepositoryException {
+    @RequestMapping(value = "/{widgetId}/assets/{assetId}", method = RequestMethod.DELETE)
+    public void deleteAsset(@PathVariable("widgetId") String widgetId, @PathVariable("assetId") String assetId) throws RepositoryException {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        asset.setComponentId(widgetId);
-        widgetAssetService.delete(repository.get(widgetId), asset);
+        widgetAssetService.delete(repository.get(widgetId), assetId);
     }
 
     @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.PUT)

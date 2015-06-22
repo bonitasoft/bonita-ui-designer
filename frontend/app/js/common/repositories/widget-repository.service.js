@@ -75,11 +75,7 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
 
   function deleteAsset(id, asset) {
     //we need to send the object because the id should be an URL
-    return $http({ url: 'rest/widgets/' + id + '/assets',
-      method: 'DELETE',
-      data: asset,
-      headers: {'Content-Type': 'application/json;charset=utf-8'}
-    });
+    return $http.delete('rest/widgets/' + id + '/assets/' + asset.id);
   }
 
   function incrementOrderAsset(widgetId, asset){

@@ -142,10 +142,11 @@ describe('widgetRepo', function() {
 
   it('should delete a local asset', function() {
     var asset = {
+      id: 'UIID',
       name : 'myfile.js',
       type : 'js'
     };
-    $httpBackend.expectDELETE('rest/widgets/my-widget/assets').respond(200, []);
+    $httpBackend.expectDELETE('rest/widgets/my-widget/assets/UIID').respond(200, []);
 
     widgetRepo.deleteAsset('my-widget', asset);
     $httpBackend.flush();
@@ -153,10 +154,11 @@ describe('widgetRepo', function() {
 
   it('should delete an external asset', function() {
     var asset = {
+      id: 'UIID',
       name : 'http://mycdn.com/myfile.js',
       type : 'js'
     };
-    $httpBackend.expectDELETE('rest/widgets/my-widget/assets').respond(200, []);
+    $httpBackend.expectDELETE('rest/widgets/my-widget/assets/UIID').respond(200, []);
 
     widgetRepo.deleteAsset('my-widget', asset);
     $httpBackend.flush();
