@@ -1,4 +1,4 @@
-function PbChecklistCtrl($scope, $parse) {
+function PbChecklistCtrl($scope, $parse, widgetNameFactory) {
 
   'use strict';
   var ctrl = this;
@@ -50,4 +50,6 @@ function PbChecklistCtrl($scope, $parse) {
 
   $scope.$watch('properties.availableValues', updateSelectedValues);
   $scope.$watch('properties.selectedValues', updateSelectedValues);
+
+  this.name = widgetNameFactory.getName('pbChecklist');
 }

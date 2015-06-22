@@ -3,6 +3,7 @@ describe('pbChecklist', function () {
   var compile, scope, dom;
 
   beforeEach(module('pb.widgets'));
+  beforeEach(module('pb.generator.services'));
 
   beforeEach(inject(function ($injector) {
     compile = $injector.get('$compile');
