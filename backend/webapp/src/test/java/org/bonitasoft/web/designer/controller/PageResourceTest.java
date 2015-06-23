@@ -380,12 +380,12 @@ public class PageResourceTest {
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
-                put("/rest/pages/my-page/assets?increment=true")
+                put("/rest/pages/my-page/assets/UIID?increment=true")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
                 .andExpect(status().isOk());
 
-        verify(pageAssetService).changeAssetOrderInComponent(asset, INCREMENT);
+        verify(pageAssetService).changeAssetOrderInComponent(page, "UIID", INCREMENT);
     }
 
     @Test
@@ -395,12 +395,12 @@ public class PageResourceTest {
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
-                put("/rest/pages/my-page/assets?decrement=true")
+                put("/rest/pages/my-page/assets/UIID?decrement=true")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
                 .andExpect(status().isOk());
 
-        verify(pageAssetService).changeAssetOrderInComponent(asset, DECREMENT);
+        verify(pageAssetService).changeAssetOrderInComponent(page, "UIID", DECREMENT);
     }
 
     @Test
@@ -424,11 +424,11 @@ public class PageResourceTest {
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
-                put("/rest/pages/my-page/assets?active=false")
+                put("/rest/pages/my-page/assets/UIID?active=false")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
                 .andExpect(status().isOk());
 
-        verify(pageAssetService).changeAssetStateInPreviewable(asset, false, "my-page");
+        verify(pageAssetService).changeAssetStateInPreviewable(page, "UIID", false);
     }
 }

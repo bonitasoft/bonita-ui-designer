@@ -194,19 +194,17 @@ public class WidgetResource {
         widgetAssetService.delete(repository.get(widgetId), assetId);
     }
 
-    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.PUT)
-    public Asset incrementOrder(
-            @RequestBody Asset asset,
+    @RequestMapping(value = "/{widgetId}/assets/{assetId}", method = RequestMethod.PUT)
+    public void incrementOrder(
             @PathVariable("widgetId") String widgetId,
+            @PathVariable("assetId") String assetId,
             @RequestParam(value = "increment", required = false) Boolean increment,
             @RequestParam(value = "decrement", required = false) Boolean decrement) {
         checkWidgetIdIsNotAPbWidget(widgetId);
 
         if (increment != null || decrement != null) {
-            asset.setComponentId(widgetId);
-            return widgetAssetService.changeAssetOrderInComponent(asset, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+            widgetAssetService.changeAssetOrderInComponent(repository.get(widgetId), assetId, TRUE.equals(increment) ? INCREMENT : DECREMENT);
         }
-        return asset;
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

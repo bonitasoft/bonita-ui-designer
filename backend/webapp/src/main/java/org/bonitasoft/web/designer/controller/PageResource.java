@@ -125,8 +125,6 @@ public class PageResource {
         pageRepository.delete(pageId);
     }
 
-
-
     @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
     public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id,
                                                     @PathVariable("type") String type) {
@@ -140,21 +138,19 @@ public class PageResource {
         }
     }
 
-    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.PUT)
-    public Asset incrementOrder(
-            @RequestBody Asset asset,
+    @RequestMapping(value = "/{pageId}/assets/{assetId}", method = RequestMethod.PUT)
+    public void incrementOrder(
             @PathVariable("pageId") String pageId,
+            @PathVariable("assetId") String assetId,
             @RequestParam(value = "increment", required = false) Boolean increment,
             @RequestParam(value = "decrement", required = false) Boolean decrement,
             @RequestParam(value = "active", required = false) Boolean active) {
         if (increment != null || decrement != null) {
-            asset.setComponentId(pageId);
-            return pageAssetService.changeAssetOrderInComponent(asset, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+            pageAssetService.changeAssetOrderInComponent(pageRepository.get(pageId), assetId, TRUE.equals(increment) ? INCREMENT : DECREMENT);
         }
         if (active != null) {
-            return pageAssetService.changeAssetStateInPreviewable(asset, active, pageId);
+            pageAssetService.changeAssetStateInPreviewable(pageRepository.get(pageId), assetId, active);
         }
-        return asset;
     }
 
     @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.POST)

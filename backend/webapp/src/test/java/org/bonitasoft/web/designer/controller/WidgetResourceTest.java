@@ -534,12 +534,12 @@ public class WidgetResourceTest {
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
-                put("/rest/widgets/my-widget/assets?increment=true")
+                put("/rest/widgets/my-widget/assets/UIID?increment=true")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
                 .andExpect(status().isOk());
 
-        verify(widgetAssetService).changeAssetOrderInComponent(asset, INCREMENT);
+        verify(widgetAssetService).changeAssetOrderInComponent(widget, "UIID", INCREMENT);
     }
 
     @Test
@@ -549,12 +549,12 @@ public class WidgetResourceTest {
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
-                put("/rest/widgets/my-widget/assets?decrement=true")
+                put("/rest/widgets/my-widget/assets/UIID?decrement=true")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
                 .andExpect(status().isOk());
 
-        verify(widgetAssetService).changeAssetOrderInComponent(asset, DECREMENT);
+        verify(widgetAssetService).changeAssetOrderInComponent(widget, "UIID", DECREMENT);
     }
 
     private String toJson(Object o) throws IOException {
