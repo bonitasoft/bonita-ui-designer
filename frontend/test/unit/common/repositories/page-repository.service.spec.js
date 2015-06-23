@@ -53,6 +53,29 @@ describe('pageRepo', function() {
     expect(result).toEqual(createdPage);
   });
 
+  it('should duplicate a page', function() {
+    var page = {
+      name: 'foo',
+      rows: [[]]
+    };
+
+    var createdPage = {
+      id: 'generated-id',
+      name: 'foo',
+      rows: [[]]
+    };
+
+    $httpBackend.expectPOST('rest/pages?duplicata=src-page-id').respond(201, createdPage);
+
+    var result;
+    pageRepo.create(page, 'src-page-id').then(function(data) {
+      result = data;
+    });
+
+    $httpBackend.flush();
+    expect(result).toEqual(createdPage);
+  });
+
   it('should save a page', function() {
     // given a page
     $httpBackend.expectPUT('rest/pages/person').respond(204);

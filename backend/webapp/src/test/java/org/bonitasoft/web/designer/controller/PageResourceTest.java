@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -134,6 +135,22 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$.id", notNullValue()));
 
         verify(pageRepository).save(notNull(Page.class));
+    }
+
+    @Test
+    public void should_duplicate_a_page_from_a_Page() throws Exception {
+        Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(anAsset().withName("myfile.js")).build();
+        when(pageRepository.get("my-page-source")).thenReturn(aPage().withId("my-page-source").withName("test").withAsset(anAsset().withName("myfile.js")).build());
+
+        mockMvc
+                .perform(post("/rest/pages?duplicata=my-page-source")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(pageToBeSaved)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", notNullValue()));
+
+        verify(pageRepository).save(notNull(Page.class));
+        verify(pageAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-page-source"), anyString());
     }
 
     @Test

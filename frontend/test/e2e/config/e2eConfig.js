@@ -478,6 +478,14 @@ angular.module('pb.e2e', ['ngMockE2E'])
       return [200, widget, {}];
     });
 
+    // duplicate widget
+    $httpBackend.whenPOST('rest/widgets?duplicata=customAwesomeWidget').respond(function (method, url, data) {
+      var widget = angular.fromJson(data);
+      widget.id = 'custom' + widget.name;
+      widgets.push(widget);
+      return [200, widget, {}];
+    });
+
     // update widget
     $httpBackend.whenPUT(/rest\/widgets\/.*/).respond(200);
 
@@ -508,6 +516,14 @@ angular.module('pb.e2e', ['ngMockE2E'])
     });
 
     // create new page
+    $httpBackend.whenPOST('rest/pages?duplicata=person').respond(function (method, url, data) {
+      var page = angular.fromJson(data);
+      page.id = page.name;
+      pages.push(page);
+      return [201, page, {}];
+    });
+
+    // duplicate page
     $httpBackend.whenPOST('rest/pages').respond(function (method, url, data) {
       var page = angular.fromJson(data);
       page.id = page.name;

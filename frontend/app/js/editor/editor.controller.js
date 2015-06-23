@@ -284,13 +284,17 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
       }
     });
     modalInstance.result
-      .then(artifactRepo.create)
+      .then(saveAs)
       .then(function (data) {
         $stateParams.id = data.id;
         $state.go($state.current, $stateParams, {
           reload: true
         });
       });
+
+    function saveAs(data){
+      return artifactRepo.create(data, page.id);
+    }
   };
 
   $scope.saveAndEditCustomWidget = function(widgetId) {
