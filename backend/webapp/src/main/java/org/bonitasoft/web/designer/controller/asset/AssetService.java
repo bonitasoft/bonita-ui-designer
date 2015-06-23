@@ -168,12 +168,8 @@ public class AssetService<T extends Assetable> {
     /**
      * Uses to change assset order in the component
      */
-    public Asset changeAssetOrderInComponent(Asset asset, OrderType ordering) {
-        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
-        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
-        checkArgument(asset.getComponentId() != null, "component id is required");
-
-        T component = repository.get(asset.getComponentId());
+    public Asset changeAssetOrderInComponent(T component, String assetId, OrderType ordering) {
+        checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
         //In need an ordered list
         List<Asset> assets = Ordering.from(Asset.getComparatorByOrder()).sortedCopy(component.getAssets());
@@ -191,7 +187,7 @@ public class AssetService<T extends Assetable> {
                 }
                 break;
             }
-            if (asset.equalsWithoutComponentId(a)) {
+            if (assetId.equals(a.getId())) {
                 //If asset is found we change order
                 actual = a;
                 //If elt is the first we can't decremented it. This is the same if we want to increment the last one
@@ -217,24 +213,20 @@ public class AssetService<T extends Assetable> {
     /**
      * Changes asset state (active/inactive) in prewiable
      */
-    public Asset changeAssetStateInPreviewable(final Asset asset, boolean active, String prewiableId) {
-        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
-        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
-
-        T component = repository.get(prewiableId);
+    public void changeAssetStateInPreviewable(T component, String assetId, boolean active) {
+        checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
         if (component instanceof Previewable) {
             Previewable previewable = (Previewable) component;
 
-            if (previewable.getInactiveAssets().contains(asset.getId()) && active) {
-                previewable.getInactiveAssets().remove(asset.getId());
+            if (previewable.getInactiveAssets().contains(assetId) && active) {
+                previewable.getInactiveAssets().remove(assetId);
                 repository.save(component);
-            } else if (!previewable.getInactiveAssets().contains(asset.getId()) && !active) {
-                previewable.getInactiveAssets().add(asset.getId());
+            } else if (!previewable.getInactiveAssets().contains(assetId) && !active) {
+                previewable.getInactiveAssets().add(assetId);
                 repository.save(component);
             }
         }
-        return asset;
     }
 
 }

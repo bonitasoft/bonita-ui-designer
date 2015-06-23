@@ -79,11 +79,11 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
   }
 
   function incrementOrderAsset(widgetId, asset){
-    return $http.put('rest/widgets/' + widgetId + '/assets?increment=true', asset);
+    return $http.put('rest/widgets/' + widgetId + '/assets/' + asset.id + '?increment=true', asset);
   }
 
   function decrementOrderAsset(widgetId, asset){
-    return $http.put('rest/widgets/' + widgetId + '/assets?decrement=true', asset);
+    return $http.put('rest/widgets/' + widgetId + '/assets/' + asset.id + '?decrement=true', asset);
   }
 
   function remove(id) {

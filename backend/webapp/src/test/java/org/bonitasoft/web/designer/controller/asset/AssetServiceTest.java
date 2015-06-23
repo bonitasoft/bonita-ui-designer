@@ -210,29 +210,16 @@ public class AssetServiceTest {
     @Test
     public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_name() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset URL is required"));
-        assetService.changeAssetOrderInComponent(anAsset().withName(null).build(), DECREMENT);
+        expectedException.expectMessage(is("Asset id is required"));
+        assetService.changeAssetOrderInComponent(aPage().build(), null, DECREMENT);
     }
 
-    @Test
-    public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_type() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset type is required"));
-        assetService.changeAssetOrderInComponent(anAsset().withType(null).build(), DECREMENT);
-    }
-
-    @Test
-    public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_compenent_id_in_asset() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("component id is required"));
-        assetService.changeAssetOrderInComponent(anAsset().build(), DECREMENT);
-    }
 
     private Asset[] getSortedAssets() {
         return new Asset[]{
-                anAsset().withName("asset1").withOrder(1).build(),
-                anAsset().withName("asset2").withOrder(2).build(),
-                anAsset().withName("asset3").withOrder(3).build()
+                anAsset().withId("asset1").withName("asset1").withOrder(1).build(),
+                anAsset().withId("asset2").withName("asset2").withOrder(2).build(),
+                anAsset().withId("asset3").withName("asset3").withOrder(3).build()
         };
     }
 
@@ -243,7 +230,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[1].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[1], INCREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset2", INCREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset2");
         assertThat(assets[0].getOrder()).isEqualTo(1);
@@ -259,7 +246,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[1].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[1], DECREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset2", DECREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset2");
         assertThat(assets[0].getOrder()).isEqualTo(2);
@@ -275,7 +262,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[2].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[2], INCREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset3", INCREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset3");
         assertThat(assets[0].getOrder()).isEqualTo(1);
@@ -291,7 +278,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[2].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[2], DECREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset3", DECREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset3");
         assertThat(assets[0].getOrder()).isEqualTo(1);
@@ -307,7 +294,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[0].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[0], DECREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset1", DECREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset1");
         assertThat(assets[0].getOrder()).isEqualTo(1);
@@ -323,7 +310,7 @@ public class AssetServiceTest {
         when(repository.get("page-id")).thenReturn(page);
 
         assets[0].setComponentId("page-id");
-        Asset assetReturned = assetService.changeAssetOrderInComponent(assets[0], INCREMENT);
+        Asset assetReturned = assetService.changeAssetOrderInComponent(page, "asset1", INCREMENT);
 
         assertThat(assetReturned.getName()).isEqualTo("asset1");
         assertThat(assets[0].getOrder()).isEqualTo(2);
@@ -343,7 +330,7 @@ public class AssetServiceTest {
 
         Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
 
-        assetService.changeAssetStateInPreviewable(assetSent, false, "page-id");
+        assetService.changeAssetStateInPreviewable(page, "assetUIID", false);
 
         assertThat(page.getInactiveAssets()).isNotEmpty().contains("assetUIID");
     }
@@ -358,7 +345,7 @@ public class AssetServiceTest {
 
         Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
 
-        assetService.changeAssetStateInPreviewable(assetSent, false, "page-id");
+        assetService.changeAssetStateInPreviewable(page, "assetUIID", false);
 
         assertThat(page.getInactiveAssets()).isNotEmpty().contains("assetUIID");
         verify(repository).save(page);
@@ -375,7 +362,7 @@ public class AssetServiceTest {
 
         Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
 
-        assetService.changeAssetStateInPreviewable(assetSent, true, "page-id");
+        assetService.changeAssetStateInPreviewable(page, "assetUIID", true);
 
         assertThat(page.getInactiveAssets()).isEmpty();
         verify(repository).save(page);
