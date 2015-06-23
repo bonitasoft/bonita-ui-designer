@@ -100,13 +100,17 @@ angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function
       }
     });
     modalInstance.result
-      .then(widgetRepo.create)
+      .then(saveAs)
       .then(function (data) {
         $stateParams.widgetId = data.id;
         $state.go($state.current, $stateParams, {
           reload: true
         });
       });
+
+    function saveAs(data){
+      return widgetRepo.create(data, widget.id);
+    }
   };
 
   $scope.createOrUpdate = function(param) {

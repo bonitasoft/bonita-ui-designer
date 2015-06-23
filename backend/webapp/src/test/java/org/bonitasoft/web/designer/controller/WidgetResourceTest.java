@@ -38,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +54,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -78,13 +80,16 @@ public class WidgetResourceTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
+
     @Mock
     private AssetService<Widget> widgetAssetService;
 
     @Before
     public void setUp() {
         initMocks(this);
-        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService);
+        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService, tempDir.toPath());
         widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
         mockMvc = standaloneSetup(widgetResource)
                 .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
@@ -214,6 +219,22 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk());
 
         verify(widgetRepository).create(notNull(Widget.class));
+    }
+
+    @Test
+    public void should_duplicate_a_widget_from_a_widget() throws Exception {
+        Widget customLabel = aWidget().name("label").assets(anAsset().withName("myfile.js")).custom().build();
+        when(widgetRepository.get("my-widget-source")).thenReturn(aWidget().id("my-widget-source").name("label").assets(anAsset().withName("myfile.js")).custom().build());
+        when(widgetRepository.create(customLabel)).thenReturn(customLabel);
+
+        mockMvc
+                .perform(post("/rest/widgets?duplicata=my-widget-source")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(customLabel)))
+                .andExpect(status().isOk()) ;
+
+        verify(widgetRepository).create(notNull(Widget.class));
+        verify(widgetAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-widget-source"), anyString());
     }
 
     @Test

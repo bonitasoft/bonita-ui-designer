@@ -54,8 +54,8 @@ angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
     });
   }
 
-  function create(widget) {
-    return $http.post('rest/widgets', widget).then(function (response) {
+  function create(widget, sourceWidgetId) {
+    return $http.post('rest/widgets' + (sourceWidgetId ? '?duplicata=' + sourceWidgetId : ''), widget).then(function (response) {
       return response.data;
     });
   }

@@ -81,6 +81,28 @@ describe('widgetRepo', function() {
     $httpBackend.flush();
   });
 
+  it('should duplicate a widget', function() {
+    var widget = {
+      name: 'foo'
+    };
+
+    var createdWidget = {
+      id: 'generated-id',
+      name: 'foo'
+    };
+
+    $httpBackend.expectPOST('rest/widgets?duplicata=src-widget-id').respond(201, createdWidget);
+
+    var result;
+    widgetRepo.create(widget, 'src-widget-id').then(function(data) {
+      result = data;
+    });
+
+    $httpBackend.flush();
+    expect(result).toEqual(createdWidget);
+  });
+
+
   it('should delete a widget', function() {
     $httpBackend.expectDELETE('rest/widgets/awesome-custom-widget').respond(200);
 
