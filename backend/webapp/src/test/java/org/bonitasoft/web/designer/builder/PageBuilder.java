@@ -43,6 +43,7 @@ public class PageBuilder {
 
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
+    private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
     private String id;
@@ -64,20 +65,26 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withAsset(Asset ... assets){
-        for(Asset asset : assets){
+    public PageBuilder withAsset(Asset... assets) {
+        for (Asset asset : assets) {
             this.assets.add(asset);
         }
         return this;
     }
 
-    public PageBuilder withAsset(AssetBuilder ... assets){
-        for(AssetBuilder asset : assets){
+    public PageBuilder withAsset(AssetBuilder... assets) {
+        for (AssetBuilder asset : assets) {
             this.assets.add(asset.build());
         }
         return this;
     }
 
+    public PageBuilder withInactiveAsset(String... assetIds) {
+        for (String id : assetIds) {
+            this.inactiveAssets.add(id);
+        }
+        return this;
+    }
 
     public PageBuilder withData(String name, Data data) {
         this.data.put(name, data);
@@ -105,6 +112,7 @@ public class PageBuilder {
         page.setData(data);
         page.setId(id);
         page.setAssets(assets);
+        page.setInactiveAssets(inactiveAssets);
         return page;
     }
 

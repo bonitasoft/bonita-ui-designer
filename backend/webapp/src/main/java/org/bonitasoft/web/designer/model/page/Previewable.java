@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.model.page;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -46,4 +47,5 @@ public interface Previewable {
 
     void removeData(String dataName) throws NotFoundException;
 
+    Set<String> getInactiveAssets();
 }

@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
@@ -333,7 +332,7 @@ public class PageResourceTest {
                 post("/rest/pages/my-page/assets")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(asset)))
-                        .andExpect(status().isOk());
+                .andExpect(status().isOk());
 
         verify(pageAssetService).save(page, asset);
     }
@@ -355,8 +354,8 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset[] assets = new Asset[] {
-                anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withWidget(aWidget().id("widget-id").build()).build(),
+        Asset[] assets = new Asset[]{
+                anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
         };
@@ -377,7 +376,7 @@ public class PageResourceTest {
     @Test
     public void should_increment_an_asset() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset asset = anAsset().withPage(page).withOrder(3).build();
+        Asset asset = anAsset().withComponentId("my-page").withOrder(3).build();
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
@@ -392,7 +391,7 @@ public class PageResourceTest {
     @Test
     public void should_decrement_an_asset() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset asset = anAsset().withPage(page).withOrder(3).build();
+        Asset asset = anAsset().withComponentId("my-page").withOrder(3).build();
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
@@ -407,7 +406,7 @@ public class PageResourceTest {
     @Test
     public void should_delete_an_asset() throws Exception {
         Page page = aFilledPage("my-page");
-        Asset asset = anAsset().withPage(page).build();
+        Asset asset = anAsset().withComponentId("my-page").build();
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
@@ -417,5 +416,20 @@ public class PageResourceTest {
                 .andExpect(status().isOk());
 
         verify(pageAssetService).delete(page, asset);
+    }
+
+    @Test
+    public void should_inactive_an_asset() throws Exception {
+        Page page = aPage().withId("my-page").build();
+        Asset asset = anAsset().withComponentId("my-page").withOrder(3).build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+
+        mockMvc.perform(
+                put("/rest/pages/my-page/assets?active=false")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(convertObjectToJsonBytes(asset)))
+                .andExpect(status().isOk());
+
+        verify(pageAssetService).changeAssetStateInPreviewable(asset, false, "my-page");
     }
 }

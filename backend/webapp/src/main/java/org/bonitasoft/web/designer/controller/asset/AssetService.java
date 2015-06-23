@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
@@ -29,6 +30,7 @@ import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -65,6 +67,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
         Asset asset = new Asset()
+                .setId(UUID.randomUUID().toString())
                 .setName(HttpFile.getOriginalFilename(file.getOriginalFilename()))
                 .setComponentId(component.getId())
                 .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
@@ -90,8 +93,9 @@ public class AssetService<T extends Assetable> {
             Asset existingAsset = assetIterator.next();
 
             //If the resource exist we delete the file before save the new one
-            if (asset.equalsWithoutComponentId(existingAsset) ) {
-                if(!asset.isExternal()){
+            if (asset.equalsWithoutComponentId(existingAsset)) {
+                //For a local asset the file is deleted
+                if (!asset.isExternal()) {
                     try {
                         assetRepository.delete(asset);
                     } catch (NotFoundException | IOException e) {
@@ -112,6 +116,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
         if (!component.getAssets().contains(asset)) {
+            asset.setId(UUID.randomUUID().toString());
             asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
         }
@@ -187,6 +192,29 @@ public class AssetService<T extends Assetable> {
         }
         repository.save(component);
         return actual;
+    }
+
+    /**
+     * Changes asset state (active/inactive) in prewiable
+     */
+    public Asset changeAssetStateInPreviewable(final Asset asset, boolean active, String prewiableId) {
+        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
+        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
+
+        T component = repository.get(prewiableId);
+
+        if (component instanceof Previewable) {
+            Previewable previewable = (Previewable) component;
+
+            if (previewable.getInactiveAssets().contains(asset.getId()) && active) {
+                previewable.getInactiveAssets().remove(asset.getId());
+                repository.save(component);
+            } else if (!previewable.getInactiveAssets().contains(asset.getId()) && !active) {
+                previewable.getInactiveAssets().add(asset.getId());
+                repository.save(component);
+            }
+        }
+        return asset;
     }
 
 }

@@ -339,4 +339,53 @@ public class AssetServiceTest {
         assertThat(assets[2].getOrder()).isEqualTo(3);
         verify(repository).save(page);
     }
+
+    @Test
+    public void should_not_change_asset_state_in_previewable_when_asset_is_already_inactive() throws Exception {
+        Page page = aPage()
+                .withId("page-id")
+                .withName("my-page")
+                .withInactiveAsset("assetUIID")
+                .build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
+
+        assetService.changeAssetStateInPreviewable(assetSent, false, "page-id");
+
+        assertThat(page.getInactiveAssets()).isNotEmpty().contains("assetUIID");
+    }
+
+    @Test
+    public void should_change_asset_state_in_previewable_when_asset_state_is_inactive() throws Exception {
+        Page page = aPage()
+                .withId("page-id")
+                .withName("my-page")
+                .build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
+
+        assetService.changeAssetStateInPreviewable(assetSent, false, "page-id");
+
+        assertThat(page.getInactiveAssets()).isNotEmpty().contains("assetUIID");
+        verify(repository).save(page);
+    }
+
+    @Test
+    public void should_reactive_asset_in_previable_when_asset_is_inactive_in_previewable() throws Exception {
+        Page page = aPage()
+                .withId("page-id")
+                .withName("my-page")
+                .withInactiveAsset("assetUIID")
+                .build();
+        when(repository.get("page-id")).thenReturn(page);
+
+        Asset assetSent = anAsset().withId("assetUIID").withComponentId("page-id").withName("myasset.js").build();
+
+        assetService.changeAssetStateInPreviewable(assetSent, true, "page-id");
+
+        assertThat(page.getInactiveAssets()).isEmpty();
+        verify(repository).save(page);
+    }
 }

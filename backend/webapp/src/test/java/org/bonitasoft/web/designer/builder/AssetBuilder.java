@@ -23,10 +23,11 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 
 public class AssetBuilder {
 
+    private String id = "private String name = \"myasset.js\";";
     private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
     private AssetScope scope = AssetScope.PAGE;
-    private Identifiable component;
+    private String componentId;
     private int order = 1;
 
     public static AssetBuilder anAsset() {
@@ -34,7 +35,12 @@ public class AssetBuilder {
     }
 
     public static Asset aFilledAsset(Page page) {
-        return anAsset().withScope(AssetScope.PAGE).withPage(page).build();
+        return anAsset().withScope(AssetScope.PAGE).withComponentId(page.getId()).build();
+    }
+
+    public AssetBuilder withId(String id) {
+        this.id = id;
+        return this;
     }
 
     public AssetBuilder withName(String name) {
@@ -57,22 +63,13 @@ public class AssetBuilder {
         return this;
     }
 
-    public AssetBuilder withPage(Page page) {
-        this.component = page;
-        return this;
-    }
-
-    public AssetBuilder withWidget(Widget widget) {
-        this.component = widget;
+    public AssetBuilder withComponentId(String id) {
+        this.componentId = id;
         return this;
     }
 
     public Asset build() {
-        Asset asset = new Asset().setName(name).setType(type).setScope(scope).setOrder(order);
-        if (component != null) {
-            asset.setComponentId(component.getId());
-        }
-        return asset;
+        return new Asset().setId(id).setName(name).setType(type).setScope(scope).setOrder(order).setComponentId(componentId);
     }
 
 }

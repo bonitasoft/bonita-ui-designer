@@ -176,7 +176,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                                 new Predicate<Asset>() {
                                     @Override
                                     public boolean apply(Asset asset) {
-                                        return !asset.isInactive();
+                                        return asset.isActive();
                                     }
                                 }));
     }
