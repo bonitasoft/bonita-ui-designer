@@ -92,9 +92,10 @@
       "type": "choice",
       "choiceValues": [
         "First",
+        "Current item",
         "Last"
       ],
-      "defaultValue": "Last",
+      "defaultValue": "Current item",
       "showFor": "properties.action.value === 'Remove from collection'"
     },
     {
