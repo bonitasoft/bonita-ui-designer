@@ -49,7 +49,7 @@ public class AssetVisitorTest {
     private WidgetRepository widgetRepository;
     @InjectMocks
     private AssetVisitor assetVisitor;
-    
+
     @Test
     public void should_return_empty_set_when_components_use_no_asset() throws Exception {
         Component component = mockComponentFor(aWidget(), null);
@@ -114,8 +114,8 @@ public class AssetVisitorTest {
 
         Set<Asset> assets = assetVisitor.visit(aContainer().with(component1, component2).build());
 
-        assertThat(assets).extracting("name").containsExactly("myfile.js","myfile.js");
-        assertThat(assets).extracting("componentId").contains("id2","id1");
+        assertThat(assets).extracting("name").containsExactly("myfile.js", "myfile.js");
+        assertThat(assets).extracting("componentId").contains("id2", "id1");
     }
 
     @Test
@@ -150,4 +150,19 @@ public class AssetVisitorTest {
         return component;
     }
 
+    @Test
+    public void should_update_inactive_indicator_when_asset_is_inactive_in_a_page() throws Exception {
+        Page page = aPage()
+                .withAsset(
+                        anAsset().withId("assetUIID1").withName("myfile.js").withType(AssetType.JAVASCRIPT).build(),
+                        anAsset().withId("assetUIID2").withName("myfile.css").withType(AssetType.CSS).build()
+                )
+                .withInactiveAsset("assetUIID2")
+                .build();
+
+        Set<Asset> assets = assetVisitor.visit(page);
+
+        assertThat(assets).extracting("name").contains("myfile.js", "myfile.css");
+        assertThat(assets).extracting("active").contains(true, false);
+    }
 }

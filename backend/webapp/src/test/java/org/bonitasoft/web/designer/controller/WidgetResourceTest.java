@@ -516,7 +516,7 @@ public class WidgetResourceTest {
     @Test
     public void should_delete_an_asset() throws Exception {
         Widget widget = aWidget().id("my-widget").custom().build();
-        Asset asset = anAsset().withWidget(widget).build();
+        Asset asset = anAsset().withComponentId("my-widget").build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
@@ -531,7 +531,7 @@ public class WidgetResourceTest {
     @Test
     public void should_increment_an_asset() throws Exception {
         Widget widget = aWidget().id("my-widget").custom().build();
-        Asset asset = anAsset().withWidget(widget).withOrder(3).build();
+        Asset asset = anAsset().withComponentId("my-widget").withOrder(3).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(
@@ -546,7 +546,7 @@ public class WidgetResourceTest {
     @Test
     public void should_decrement_an_asset() throws Exception {
         Widget widget = aWidget().id("my-widget").custom().build();
-        Asset asset = anAsset().withWidget(widget).withOrder(3).build();
+        Asset asset = anAsset().withComponentId("my-widget").withOrder(3).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
 
         mockMvc.perform(

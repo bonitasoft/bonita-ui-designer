@@ -77,6 +77,11 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
         if (previewable instanceof Assetable) {
             assets.addAll(((Assetable) previewable).getAssets());
             assets.addAll(visitRows(previewable.getRows()));
+
+            //User can exclude assets or specify a specific order in the page
+            for(Asset asset : assets){
+                asset.setActive(!previewable.getInactiveAssets().contains(asset.getId()));
+            }
         }
 
         return assets;

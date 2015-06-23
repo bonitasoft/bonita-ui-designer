@@ -37,6 +37,7 @@ public class Asset {
     public interface JsonViewAsset {
     }
 
+    private String id;
     /**
      * An asset is identified by its name
      */
@@ -64,7 +65,17 @@ public class Asset {
     /**
      * If asset is desactivated this value is true
      */
-    private boolean inactive;
+    private boolean active = true;
+
+    @JsonView({ JsonViewAsset.class, JsonViewPersistence.class })
+    public String getId() {
+        return id;
+    }
+
+    public Asset setId(String id) {
+        this.id = id;
+        return this;
+    }
 
     @JsonIgnore
     public boolean isExternal() {
@@ -121,13 +132,13 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
-    public boolean isInactive() {
-        return inactive;
+    @JsonView({JsonViewAsset.class})
+    public boolean isActive() {
+        return active;
     }
 
-    public Asset setInactive(boolean inactive) {
-        this.inactive = inactive;
+    public Asset setActive(boolean inactive) {
+        this.active = inactive;
         return this;
     }
 
