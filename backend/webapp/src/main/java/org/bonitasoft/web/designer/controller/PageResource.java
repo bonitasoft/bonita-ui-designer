@@ -52,10 +52,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/rest/pages")
-public class PageResource extends DataResource<Page> {
+public class PageResource {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
     private AssetService<Page> pageAssetService;
+    private PageRepository pageRepository;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
     private AssetVisitor assetVisitor;
@@ -67,7 +68,7 @@ public class PageResource extends DataResource<Page> {
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
             AssetVisitor assetVisitor) {
-        super(pageRepository);
+        this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
         this.pageAssetService = pageAssetService;
@@ -80,7 +81,7 @@ public class PageResource extends DataResource<Page> {
     @RequestMapping(method = RequestMethod.GET)
     @JsonView(JsonViewLight.class)
     public List<Page> list() throws RepositoryException {
-        return getRepository().getAll();
+        return pageRepository.getAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -88,7 +89,7 @@ public class PageResource extends DataResource<Page> {
         // the page should not have an ID. If it has one, we ignore it and generate one
         String pageId = UUID.randomUUID().toString();
         content.setId(pageId);
-        getRepository().save(content);
+        pageRepository.save(content);
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
 
@@ -102,26 +103,26 @@ public class PageResource extends DataResource<Page> {
     public void save(@PathVariable("pageId") String pageId, @RequestBody Page content) throws RepositoryException {
         // the page should have the same ID as pageId.
         content.setId(pageId);
-        getRepository().save(content);
+        pageRepository.save(content);
         // send notification of update
         messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
     }
 
     @RequestMapping(value = "/{pageId}/name", method = RequestMethod.PUT)
     public void rename(@PathVariable("pageId") String pageId, @RequestBody String name) throws RepositoryException {
-        Page page = getRepository().get(pageId);
+        Page page = pageRepository.get(pageId);
         page.setName(name);
-        getRepository().save(page);
+        pageRepository.save(page);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
     public Page get(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
-        return getRepository().get(pageId);
+        return pageRepository.get(pageId);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("pageId") String pageId) throws RepositoryException {
-        getRepository().delete(pageId);
+        pageRepository.delete(pageId);
     }
 
 
@@ -130,7 +131,7 @@ public class PageResource extends DataResource<Page> {
     public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id,
                                                     @PathVariable("type") String type) {
         try{
-            pageAssetService.upload(file, getRepository().get(id), type);
+            pageAssetService.upload(file, pageRepository.get(id), type);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (RepositoryException | IllegalArgumentException e){
@@ -158,17 +159,17 @@ public class PageResource extends DataResource<Page> {
 
     @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.POST)
     public void saveAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) {
-        pageAssetService.save(getRepository().get(id), asset);
+        pageAssetService.save(pageRepository.get(id), asset);
     }
 
     @RequestMapping(value = "/{pageId}/assets/{assetId}", method = RequestMethod.DELETE)
     public void deleteAsset(@PathVariable("pageId") String pageId, @PathVariable("assetId") String assetId) throws RepositoryException {
-        pageAssetService.delete(getRepository().get(pageId), assetId);
+        pageAssetService.delete(pageRepository.get(pageId), assetId);
     }
 
     @RequestMapping(value = "/{pageId}/assets")
     @JsonView(JsonViewAsset.class)
     public Set<Asset> assets(@PathVariable("pageId") String id) {
-        return assetVisitor.visit(getRepository().get(id));
+        return assetVisitor.visit(pageRepository.get(id));
     }
 }
