@@ -1,0 +1,632 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "input",
+  "name": "input",
+  "lastUpdate": 1427989759801,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "model"
+          },
+          "placeholder": {
+            "type": "data",
+            "value": "placeholder"
+          },
+          "maxlength": {
+            "type": "data",
+            "value": "maxLength"
+          },
+          "labelHidden": {
+            "type": "data",
+            "value": "isLabelHidden"
+          },
+          "label": {
+            "type": "data",
+            "value": "inputLabel"
+          },
+          "labelPosition": {
+            "type": "data",
+            "value": "alignment"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "hidden": {
+            "type": "data",
+            "value": "!isDisplayed"
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "data",
+            "value": "isReadonly"
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "isDisplayed"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Is Displayed ?"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "isReadonly"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Is Readonly ?"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "isLabelHidden"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Is Label Hidden"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "inputLabel"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Input Label"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "alignment"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Alignment"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "model"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Model"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "placeholder"
+          },
+          "placeholder": {
+            "type": "data",
+            "value": ""
+          },
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Placeholder"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "isRequired"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Is Required"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "maxLength"
+          },
+          "placeholder": {"type": "constant"},
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "maxlength": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Max Length"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "id": "pbInput"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "value": {
+            "type": "data",
+            "value": "model"
+          },
+          "placeholder": {"type": "constant"},
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Password"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "type": {
+            "type": "constant",
+            "value": "password"
+          }
+        },
+        "id": "pbInput"
+      }
+    ]
+  ],
+  "data": {
+    "isDisplayed": {
+      "type": "constant",
+      "exposed": false
+    },
+    "isLabelHidden": {
+      "type": "constant",
+      "exposed": false
+    },
+    "inputLabel": {
+      "type": "constant",
+      "exposed": false
+    },
+    "alignment": {
+      "type": "constant",
+      "exposed": false
+    },
+    "model": {
+      "type": "constant",
+      "exposed": false
+    },
+    "placeholder": {
+      "type": "constant",
+      "exposed": false
+    },
+    "isRequired": {
+      "type": "constant",
+      "exposed": false
+    },
+    "maxLength": {
+      "type": "constant",
+      "exposed": false
+    },
+    "isReadonly": {
+      "type": "constant",
+      "exposed": false
+    }
+  }
+}

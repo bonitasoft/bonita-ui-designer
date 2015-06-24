@@ -1,0 +1,366 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "buttonAddRemove",
+  "name": "buttonAddRemove",
+  "lastUpdate": 1429524131612,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": true
+          },
+          "label": {
+            "type": "constant",
+            "value": "Disabled Button"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Remove from collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "First"
+          }
+        },
+        "reference": "83744581-30e5-4d24-a7a3-19f7d98e9801",
+        "id": "pbButton"
+      },
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": true
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Hidden button"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Remove from collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "First"
+          }
+        },
+        "id": "pbButton"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "id": "pbButton",
+        "propertyValues": {
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Remove First"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Remove from collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "First"
+          }
+        },
+        "id": "pbButton"
+      },
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "id": "pbButton",
+        "propertyValues": {
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Remove Last"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Remove from collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "Last"
+          }
+        },
+        "reference": "9ec84598-a888-435d-8430-28aecb4fe339",
+        "id": "pbButton"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "propertyValues": {
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Add First"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Add to collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "First"
+          },
+          "valueToAdd": {
+            "type": "constant",
+            "value": "john doé"
+          }
+        },
+        "reference": "a43fa1d6-850b-4df5-b6a9-010a5887c79a",
+        "id": "pbButton"
+      },
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 12
+        },
+        "propertyValues": {
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Add Last"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "buttonStyle": {
+            "type": "constant",
+            "value": "default"
+          },
+          "action": {
+            "type": "constant",
+            "value": "Add to collection"
+          },
+          "url": {"type": "constant"},
+          "dataToSend": {"type": "constant"},
+          "dataFromSuccess": {"type": "constant"},
+          "dataFromError": {"type": "constant"},
+          "collectionToModify": {
+            "type": "data",
+            "value": "collection"
+          },
+          "collectionPosition": {
+            "type": "constant",
+            "value": "Last"
+          },
+          "valueToAdd": {
+            "type": "constant",
+            "value": "Hélène"
+          }
+        },
+        "reference": "da1b05b9-95d2-4c5b-81e8-3bddf8ef2876",
+        "id": "pbButton"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"},
+          "headers": {"type": "constant"},
+          "content": {
+            "type": "data",
+            "value": "collection"
+          },
+          "columnsKey": {"type": "constant"},
+          "selectedRow": {"type": "constant"}
+        },
+        "reference": "01dd784c-f1ac-44f5-8941-9da87659bf12",
+        "id": "pbTable"
+      }
+    ]
+  ],
+  "data": {
+    "collection": {
+      "type": "json",
+      "value": "[ \"colin\", \"vincent\", \"guillaume\", \"lionel\" ]",
+      "exposed": false
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "select",
+  "name": "select",
+  "lastUpdate": 1429524120184,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "countries"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 2
+          },
+          "placeholder": {
+            "type": "constant",
+            "value": "Select a country"
+          },
+          "availableValues": {
+            "type": "data",
+            "value": "countries"
+          },
+          "value": {
+            "type": "data",
+            "value": "country"
+          },
+          "displayedKey": {
+            "type": "constant",
+            "value": "name"
+          }
+        },
+        "reference": "e7b1b48e-c7ed-4d09-b00d-4d8c429cd9be",
+        "id": "pbSelect"
+      },
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "cities"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {
+            "type": "constant",
+            "value": "Select a city"
+          },
+          "availableValues": {
+            "type": "data",
+            "value": "country.cities"
+          },
+          "value": {
+            "type": "data",
+            "value": "city"
+          },
+          "displayedKey": {"type": "constant"}
+        },
+        "reference": "3e2fb791-b7bf-4bbe-aa7d-2581dddd8c98",
+        "id": "pbSelect"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "text": {
+            "type": "data",
+            "value": "city"
+          }
+        },
+        "reference": "2bdf2557-ab40-4584-b7e0-fc3ccbac1be1",
+        "id": "pbText"
+      }
+    ]
+  ],
+  "data": {
+    "countries": {
+      "type": "json",
+      "value": "[\n    {\n        \"name\": \"France\",\n        \"cities\": [\"Paris\", \"Grenoble\",\"Charnècles\"]\n    },\n    {\n        \"name\": \"Spain\",\n        \"cities\": [\"Barcelone\", \"Madrid\"]\n    }\n]",
+      "exposed": false
+    },
+    "country": {
+      "type": "constant",
+      "value": "",
+      "exposed": false
+    },
+    "city": {
+      "type": "constant",
+      "exposed": false
+    }
+  }
+}
