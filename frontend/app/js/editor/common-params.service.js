@@ -26,13 +26,15 @@ angular.module('pb.factories')
         name: 'cssClasses',
         type: 'string',
         defaultValue: '',
+        bond: 'expression',
         help: gettext('Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes')
       },
       {
         label: gettext('Hidden'),
         name: gettext('hidden'),
         type: 'boolean',
-        defaultValue: false
+        defaultValue: false,
+        bond: 'expression'
       }
     ];
 
@@ -59,7 +61,7 @@ angular.module('pb.factories')
 
       data.forEach(function (property) {
         propertyValues[property.name] = {
-          type: 'constant',
+          type: property.bond === 'expression' ? 'constant' : property.bond,
           value: property.defaultValue
         };
       });

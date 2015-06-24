@@ -47,7 +47,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -100,7 +100,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -151,7 +151,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -200,7 +200,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -251,7 +251,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -304,7 +304,7 @@
           "dataFromSuccess": {"type": "constant"},
           "dataFromError": {"type": "constant"},
           "collectionToModify": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "collectionPosition": {
@@ -345,7 +345,7 @@
           "repeatedCollection": {"type": "constant"},
           "headers": {"type": "constant"},
           "content": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           },
           "columnsKey": {"type": "constant"},

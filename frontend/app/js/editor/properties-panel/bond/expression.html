@@ -1,0 +1,20 @@
+<div class="input-group input-group-sm" ng-class="{ 'linked': propertyField.isExpression() }">
+    <ng-include src="propertyField.getFieldTemplate(property)" include-replace
+                ng-if="!propertyField.isExpression()"></ng-include>
+
+    <input id="property-{{ property.label.toLowerCase() }}"
+           ng-model="propertyValue.value"
+           type="text"
+           class="form-control"
+           ng-if="propertyField.isExpression()"/>
+
+    <span class="input-group-btn">
+        <button class="btn btn-bonita-property"
+                title="{{ 'Bind to a dynamic value' | translate }}"
+                type="button"
+                ng-click="propertyField.toggleExpressionEditor()">
+
+            <i class="fa fa-superscript"></i>
+        </button>
+    </span>
+</div>

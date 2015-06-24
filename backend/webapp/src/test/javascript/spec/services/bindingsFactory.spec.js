@@ -24,17 +24,17 @@ describe('Service: bindingsFactory', function () {
   var properties = {
     // data are two way bound (e.g. input/output widget). Only one data can be bound.
     'foo': {
-      type: 'data',
+      type: 'variable',
       value: 'baz.foo'
     },
 
     // constants are actually one way expression. Can contains data or expression to evaluate.
     'bar': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ qux === 15 }}'
     },
     'baz': {
-      type: 'constant',
+      type: 'interpolation',
       value: 'Hello {{ qux }}'
     },
     'qux': {
@@ -42,7 +42,7 @@ describe('Service: bindingsFactory', function () {
       value: true
     },
     'tux': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ unknown }}'
     },
     'position': {
@@ -50,15 +50,15 @@ describe('Service: bindingsFactory', function () {
       value: 'left'
     },
     'collection': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ collection }}'
     },
     'number': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ baz.foo }}'
     },
     'falsy': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ baz.foo === 7 }}'
     },
     'undefined': {

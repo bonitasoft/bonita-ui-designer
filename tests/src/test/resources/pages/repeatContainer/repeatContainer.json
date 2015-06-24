@@ -22,7 +22,7 @@
             "value": false
           },
           "repeatedCollection": {
-            "type": "data",
+            "type": "variable",
             "value": "collection"
           }
         },
@@ -39,7 +39,7 @@
               },
               "propertyValues": {
                 "text": {
-                  "type": "constant",
+                  "type": "interpolation",
                   "value": "{{$item}}"
                 },
                 "alignment": {
@@ -73,7 +73,7 @@
               },
               "propertyValues": {
                 "value": {
-                  "type": "data",
+                  "type": "variable",
                   "value": "$item"
                 },
                 "placeholder": {"type": "constant"},
@@ -130,7 +130,7 @@
         },
         "propertyValues": {
           "text": {
-            "type": "constant",
+            "type": "interpolation",
             "value": "{{collection}}"
           },
           "alignment": {

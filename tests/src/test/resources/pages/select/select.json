@@ -47,11 +47,11 @@
             "value": "Select a country"
           },
           "availableValues": {
-            "type": "data",
+            "type": "expression",
             "value": "countries"
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "country"
           },
           "displayedKey": {
@@ -104,11 +104,11 @@
             "value": "Select a city"
           },
           "availableValues": {
-            "type": "data",
+            "type": "variable",
             "value": "country.cities"
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "city"
           },
           "displayedKey": {"type": "constant"}
@@ -136,7 +136,7 @@
             "value": true
           },
           "text": {
-            "type": "data",
+            "type": "variable",
             "value": "city"
           }
         },

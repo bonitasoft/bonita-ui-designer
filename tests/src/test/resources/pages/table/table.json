@@ -38,15 +38,15 @@
             ]
           },
           "content": {
-            "type": "data",
+            "type": "expression",
             "value": "repos"
           },
           "columnsKey": {
-            "type": "data",
+            "type": "expression",
             "value": "columns"
           },
           "selectedRow": {
-            "type": "data",
+            "type": "variable",
             "value": "selectedRow"
           }
         },
@@ -80,7 +80,7 @@
             "value": ""
           },
           "text": {
-            "type": "constant",
+            "type": "interpolation",
             "value": "{{ selectedRow.full_name }}"
           }
         },

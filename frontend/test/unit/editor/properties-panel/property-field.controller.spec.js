@@ -1,89 +1,24 @@
 describe('widget property field controller', function () {
-  var $scope, rootScope, ctrl, $rootScope, createController;
+  var $scope, $rootScope, createController, controller;
 
   beforeEach(module('pb.directives'));
   beforeEach(inject(function (_$rootScope_, $controller) {
     $rootScope = _$rootScope_;
 
     $scope = $rootScope.$new();
-    $scope.propertyValue = undefined;
+    $scope.propertyValue = {
+      type: 'constant'
+    };
     $scope.property = {label: 'aLabel', name: 'aName'};
 
     createController = function ($scope) {
-      $controller('PropertyFieldDirectiveCtrl', {
+      return $controller('PropertyFieldDirectiveCtrl', {
         $scope: $scope
       });
     };
-    createController($scope);
+    controller = createController($scope);
     $scope.$apply();
   }));
-
-  it('should init property value if not already done', function () {
-    expect($scope.propertyValue).toBeDefined();
-  });
-
-  it('should not be linked by default', function () {
-    expect($scope.shouldBeLinked()).toBe(false);
-  });
-
-  it('should be linked when property value type is data', function () {
-    $scope.propertyValue.type = 'data';
-
-    expect($scope.shouldBeLinked()).toBe(true);
-  });
-
-  it('should link field to a data', function () {
-
-    $scope.link();
-
-    expect($scope.shouldBeLinked()).toBe(true);
-    expect($scope.propertyValue.type).toBe('data');
-  });
-
-  it('should unlink field from data', function () {
-
-    $scope.unlink();
-
-    expect($scope.shouldBeLinked()).toBe(false);
-    expect($scope.propertyValue.type).toBe('constant');
-  });
-
-  it('should set old linked value to property value when unlicking field', function () {
-    $scope.propertyValue = {value: 'aValue', type: 'constant'};
-
-    $scope.link();
-    $scope.unlink();
-
-    expect($scope.propertyValue.value).toBe('aValue');
-  });
-
-  it('should set old unlinked value to property value when licking field', function () {
-    $scope.propertyValue = {value: 'aValue', type: 'data'};
-
-    $scope.unlink();
-    $scope.link();
-
-    expect($scope.propertyValue.value).toBe('aValue');
-  });
-
-  it('should not allow unbinding a variable bond', function () {
-    $scope.propertyValue = {value: 'aValue', type: 'data'};
-    $scope.property = {bond: 'variable'};
-
-    $scope.unlink();
-
-    expect($scope.propertyValue.type).toBe('data');
-  });
-
-  it('should force binding of variable bond property', function () {
-    var scope = $rootScope.$new();
-    scope.property = $scope.property = {bond: 'variable'};
-
-    createController(scope);
-
-    expect(scope.propertyValue.type).toBe('data');
-    expect(scope.linked).toBe(true);
-  });
 
   it('should return the list of dataNames', function () {
     $scope.pageData = {
@@ -96,7 +31,56 @@ describe('widget property field controller', function () {
     expect(names.length).toBe(2);
     expect(names[0]).toBe('jeanne');
     expect(names[1]).toBe('robert');
+  });
 
+  it('should toggle the expression editor by changing parameter value type', function() {
+    $scope.propertyValue.type = 'constant';
+
+    controller.toggleExpressionEditor();
+    expect($scope.propertyValue.type).toBe('expression');
+
+    controller.toggleExpressionEditor();
+    expect($scope.propertyValue.type).toBe('constant');
+  });
+
+  it('should return true if the propertyValue is an expression', function() {
+    $scope.propertyValue.type = 'expression';
+    expect(controller.isExpression()).toBe(true);
+  });
+
+  it('should return generic placeholder when property type is not a boolean', function() {
+    expect(controller.getBindingPlaceholder({
+      type: 'whatever'
+    })).toBe('variableName');
+  });
+
+  it('should return boolean placeholder when property type is a boolean', function() {
+    expect(controller.getBindingPlaceholder({
+      type: 'boolean'
+    })).toBe('variableName === true');
+  });
+
+  it('should trigger a call to the right field template', function() {
+    expect(controller.getFieldTemplate({
+      type: 'integer'
+    })).toBe('js/editor/properties-panel/field/integer.html');
+  });
+
+  it('should trigger a call to text field template if type is not supported', function() {
+    expect(controller.getFieldTemplate({
+      type: 'whatever'
+    })).toBe('js/editor/properties-panel/field/text.html');
+  });
+
+  it('should trigger a call to the right bond template', function() {
+    expect(controller.getBondTemplate({
+      bond: 'interpolation'
+    })).toBe('js/editor/properties-panel/bond/interpolation.html');
+  });
+
+  it('should return false if the propertyValue is an expression', function() {
+    $scope.propertyValue.type = 'constant';
+    expect(controller.isExpression()).toBe(false);
   });
 
   describe('check if we have a condition to display', function () {

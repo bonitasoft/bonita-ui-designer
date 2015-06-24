@@ -40,29 +40,29 @@ describe('Directive: propertyValues', function () {
 
   var properties = {
     'baz': {
-      type: 'constant',
+      type: 'interpolation',
       value: '{{ foo }}'
     },
     'twoWayBaz': {
-      type: 'data',
+      type: 'variable',
       value: 'foo'
     },
     'notBound': {
-      type: 'data'
+      type: 'variable'
     },
     'notBoundNull': {
-      type: 'data',
+      type: 'variable',
       value: null
     },
     'notBoundEmpty': {
-      type: 'data',
+      type: 'variable',
       value: ''
     }
   };
 
   var containerProperties = {
     'repeatedCollection': {
-      type: 'data',
+      type: 'variable',
       value: 'collection'
     }
   };
@@ -187,7 +187,7 @@ describe('Directive: propertyValues', function () {
 
     it('should allow access to the current value of the iteration', function () {
       properties.qux = {
-        type: 'constant',
+        type: 'interpolation',
         value: 'Hello {{ $item }}'
       };
 
@@ -201,7 +201,7 @@ describe('Directive: propertyValues', function () {
 
     it('should allow two way binding on data', function () {
       properties.qux = {
-        type: 'data',
+        type: 'variable',
         value: '$item'
       };
 

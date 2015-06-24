@@ -67,7 +67,7 @@ angular.module('pb.services')
         dimension: resolutions.getDefaultDimension(),
         propertyValues: (widget.properties || []).reduce(function(props, property) {
           props[property.name] = {
-            type: 'constant',
+            type: property.bond === 'expression' ? 'constant' : property.bond,
             value: (property.type === 'text' ? gettextCatalog.getString( property.defaultValue ) : property.defaultValue)
           };
           return props;
@@ -107,7 +107,7 @@ angular.module('pb.services')
         dimension: resolutions.getDefaultDimension(),
         propertyValues: angular.extend(commonParams.getDefaultValues(), {
           'repeatedCollection': {
-            type: 'constant',
+            type: 'variable',
             value: ''
           }
         }),

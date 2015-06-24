@@ -65,8 +65,8 @@
                 "value": false
               },
               "text": {
-                "type": "data",
-                "value": "$form | json"
+                "type": "interpolation",
+                "value": "{{ $form | json }}"
               },
               "alignment": {
                 "type": "constant",

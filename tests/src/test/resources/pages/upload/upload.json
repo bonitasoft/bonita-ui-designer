@@ -68,7 +68,7 @@
               "value": "/API/formFileUpload"
             },
             "value": {
-              "type": "data",
+              "type": "variable",
               "value": "sendData.attachments"
             }
           },
@@ -90,8 +90,8 @@
               "value": false
             },
             "text": {
-              "type": "data",
-              "value": "sendData.attachments | json"
+              "type": "interpolation",
+              "value": "{{ sendData.attachments | json }}"
             },
             "alignment": {
               "type": "constant",

@@ -35,7 +35,7 @@
             "value": "A label"
           },
           "labelPosition": {
-            "type": "data",
+            "type": "expression",
             "value": "alignment"
           },
           "labelWidth": {
@@ -43,7 +43,7 @@
             "value": 4
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "theValue"
           }
         },
@@ -90,7 +90,7 @@
             "value": 4
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "theValue"
           }
         },

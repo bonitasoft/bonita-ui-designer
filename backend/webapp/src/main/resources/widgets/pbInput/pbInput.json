@@ -44,6 +44,7 @@
       "label": "Label hidden",
       "name": "labelHidden",
       "type": "boolean",
+      "bond": "constant",
       "defaultValue": false
     },
     {
@@ -51,7 +52,8 @@
       "name": "label",
       "type": "text",
       "defaultValue": "Default label",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "interpolation"
     },
     {
       "label": "Label position",
@@ -62,6 +64,7 @@
         "top"
       ],
       "defaultValue": "top",
+      "bond": "constant",
       "showFor": "properties.labelHidden.value === false"
     },
     {
@@ -70,6 +73,7 @@
       "type": "integer",
       "defaultValue": 4,
       "showFor": "properties.labelHidden.value === false",
+      "bond": "constant",
       "constraints": {
         "min": "1",
         "max": "12"
@@ -79,7 +83,8 @@
       "label": "Placeholder",
       "name": "placeholder",
       "help": "Short hint that describes the expected value",
-      "type": "text"
+      "type": "text",
+      "bond": "interpolation"
     },
     {
       "label": "Value",
@@ -98,6 +103,7 @@
         "email",
         "password"
       ],
+      "bond": "constant",
       "defaultValue": "text"
     },
     {

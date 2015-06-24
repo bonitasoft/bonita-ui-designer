@@ -20,7 +20,7 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   'use strict';
 
   $scope.propertyValue = $scope.propertyValue || {
-      type: 'constant',
+      type: $scope.property.bond,
       value: $scope.property.defaultValue
     };
 
@@ -37,32 +37,13 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
     return Object.keys($scope.pageData);
   };
 
-  $scope.shouldBeLinked = function () {
-    return $scope.propertyValue && $scope.propertyValue.type === 'data';
+  this.toggleExpressionEditor = function () {
+    $scope.propertyValue.type = $scope.propertyValue.type === 'expression' ? 'constant': 'expression';
   };
 
-  $scope.unlink = function () {
-    if ($scope.property.bond === 'variable') {
-      return;
-    }
-
-    $scope.oldLinkedValue = angular.copy($scope.propertyValue.value);
-    $scope.propertyValue.value = $scope.oldUnlikedValue;
-    $scope.propertyValue.type = 'constant';
-    $scope.linked = false;
+  this.isExpression = function () {
+    return $scope.propertyValue.type === 'expression';
   };
-
-  $scope.link = function () {
-    $scope.oldUnlikedValue = angular.copy($scope.propertyValue.value);
-    $scope.propertyValue.value = $scope.oldLinkedValue;
-    $scope.propertyValue.type = 'data';
-    $scope.linked = true;
-  };
-
-  if ($scope.property.bond === 'variable') {
-    $scope.propertyValue.type = 'data';
-    $scope.linked = true;
-  }
 
   this.getBindingPlaceholder = function (property) {
     return property.type === 'boolean' ? 'variableName === true' : 'variableName';
@@ -74,5 +55,9 @@ angular.module('pb.directives').controller('PropertyFieldDirectiveCtrl', functio
   this.getFieldTemplate = function (property) {
     var type = supportedTypes.indexOf(property.type) >= 0 ? property.type : 'text';
     return 'js/editor/properties-panel/field/' + type + '.html';
+  };
+
+  this.getBondTemplate = function (property) {
+    return 'js/editor/properties-panel/bond/' + property.bond + '.html';
   };
 });
