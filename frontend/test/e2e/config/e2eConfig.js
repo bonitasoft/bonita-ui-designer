@@ -39,13 +39,15 @@ angular.module('pb.e2e', ['ngMockE2E'])
           name: 'text',
           caption: 'You can use basics html tags',
           type: 'html',
+          bond: 'expression',
           defaultValue: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...'
         }, {
           label: 'Alignment',
           name: 'alignment',
           type: 'choice',
           defaultValue: 'left',
-          choiceValues: ['left', 'center', 'right']
+          choiceValues: ['left', 'center', 'right'],
+          bond: 'constant'
         }]
       },
       {
@@ -57,51 +59,127 @@ angular.module('pb.e2e', ['ngMockE2E'])
         icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 20"><g><path fill="#424251" d="M1,19V1h48v18H1z M0,0v20h50V0H0z M6,18v-1H5v1H6z M8,17H7v1h1V17z M7,2v1h1V2H7z M5,3h1V2H5V3z M6,3v14h1 V3H6z "/></g></svg>',
         custom: false,
         order: 2,
-        properties: [{
-          label: 'Read-only',
-          name: 'readOnly',
-          type: 'boolean',
-          defaultValue: false,
-          bond: 'expression'
-        }, {
-          label: 'Label hidden',
-          name: 'labelHidden',
-          type: 'boolean',
-          defaultValue: false
-        }, {
-          label: 'Label',
-          name: 'label',
-          showFor: 'properties.labelHidden.value === false',
-          type: 'text',
-          defaultValue: 'Default label'
-        }, {
-          label: 'Label position',
-          name: 'labelPosition',
-          showFor: 'properties.labelHidden.value === false',
-          type: 'choice',
-          defaultValue: 'left',
-          choiceValues: ['left', 'top']
-        }, {
-          label: 'Label width',
-          name: 'labelWidth',
-          showFor: 'properties.labelHidden.value === false',
-          type: 'integer',
-          defaultValue: 4
-        }, {
-          label: 'Placeholder',
-          name: 'placeholder',
-          type: 'text'
-        }, {
-          label: 'Value',
-          name: 'value',
-          type: 'text'
-        }, {
-          label: 'Type',
-          name: 'type',
-          type: 'choice',
-          defaultValue: 'text',
-          choiceValues: ['text', 'number', 'email', 'password']
-        }]
+        "properties": [
+          {
+            "label": "Required",
+            "name": "required",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "boolean",
+            "defaultValue": false,
+            bond: 'expression'
+          },
+          {
+            "label": "Value min length",
+            "name": "minLength",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "integer",
+            "defaultValue": "",
+            "constraints": {
+              "min": "0"
+            },
+            bond: 'expression'
+          },
+          {
+            "label": "Value max length",
+            "name": "maxLength",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "integer",
+            "defaultValue": "",
+            "constraints": {
+              "min": "1"
+            },
+            bond: 'expression'
+          },
+          {
+            "label": "Read-only",
+            "name": "readOnly",
+            "type": "boolean",
+            "defaultValue": false,
+            bond: 'expression'
+          },
+          {
+            "label": "Label hidden",
+            "name": "labelHidden",
+            "type": "boolean",
+            "bond": "constant",
+            "defaultValue": false
+          },
+          {
+            "label": "Label",
+            "name": "label",
+            "type": "text",
+            "defaultValue": "Default label",
+            "showFor": "properties.labelHidden.value === false",
+            "bond": "interpolation"
+          },
+          {
+            "label": "Label position",
+            "name": "labelPosition",
+            "type": "choice",
+            "choiceValues": [
+              "left",
+              "top"
+            ],
+            "defaultValue": "top",
+            "bond": "constant",
+            "showFor": "properties.labelHidden.value === false"
+          },
+          {
+            "label": "Label width",
+            "name": "labelWidth",
+            "type": "integer",
+            "defaultValue": 4,
+            "showFor": "properties.labelHidden.value === false",
+            "bond": "constant",
+            "constraints": {
+              "min": "1",
+              "max": "12"
+            }
+          },
+          {
+            "label": "Placeholder",
+            "name": "placeholder",
+            "help": "Short hint that describes the expected value",
+            "type": "text",
+            "bond": "interpolation"
+          },
+          {
+            "label": "Value",
+            "name": "value",
+            "type": "text",
+            "bond": "variable"
+          },
+          {
+            "label": "Type",
+            "name": "type",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "choice",
+            "choiceValues": [
+              "text",
+              "number",
+              "email",
+              "password"
+            ],
+            "bond": "constant",
+            "defaultValue": "text"
+          },
+          {
+            "label": "Min value",
+            "name": "min",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "integer",
+            "showFor": "properties.type.value === 'number'",
+            bond: 'expression'
+          },
+          {
+            "label": "Max value",
+            "name": "max",
+            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
+            "type": "integer",
+            "showFor": "properties.type.value === 'number'",
+            bond: 'expression'
+          }
+        ]
       },
       {
         id: 'customAwesomeWidget',
@@ -113,13 +191,15 @@ angular.module('pb.e2e', ['ngMockE2E'])
             label: 'Qualifier',
             name: 'qualifier',
             type: 'text',
-            defaultValue: 'awesome'
+            defaultValue: 'awesome',
+            bond: 'expression'
           },
           {
             label: 'Verb',
             name: 'verb',
             type: 'text',
-            defaultValue: 'rocks'
+            defaultValue: 'rocks',
+            bond: 'expression'
           }
         ]
       }

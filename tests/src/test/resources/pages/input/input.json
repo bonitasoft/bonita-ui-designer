@@ -15,27 +15,27 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "model"
           },
           "placeholder": {
-            "type": "data",
-            "value": "placeholder"
+            "type": "interpolation",
+            "value": "{{ placeholder }}"
           },
           "maxlength": {
-            "type": "data",
+            "type": "variable",
             "value": "maxLength"
           },
           "labelHidden": {
-            "type": "data",
+            "type": "variable",
             "value": "isLabelHidden"
           },
           "label": {
-            "type": "data",
+            "type": "variable",
             "value": "inputLabel"
           },
           "labelPosition": {
-            "type": "data",
+            "type": "variable",
             "value": "alignment"
           },
           "labelWidth": {
@@ -43,7 +43,7 @@
             "value": 4
           },
           "hidden": {
-            "type": "data",
+            "type": "variable",
             "value": "!isDisplayed"
           },
           "isDisabled": {
@@ -51,7 +51,7 @@
             "value": false
           },
           "readOnly": {
-            "type": "data",
+            "type": "variable",
             "value": "isReadonly"
           },
           "repeatedCollection": {"type": "constant"}
@@ -70,7 +70,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "isDisplayed"
           },
           "placeholder": {"type": "constant"},
@@ -123,7 +123,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "isReadonly"
           },
           "placeholder": {"type": "constant"},
@@ -176,7 +176,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "isLabelHidden"
           },
           "placeholder": {"type": "constant"},
@@ -229,7 +229,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "inputLabel"
           },
           "placeholder": {"type": "constant"},
@@ -282,7 +282,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "alignment"
           },
           "placeholder": {"type": "constant"},
@@ -335,7 +335,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "model"
           },
           "placeholder": {"type": "constant"},
@@ -388,11 +388,11 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "placeholder"
           },
           "placeholder": {
-            "type": "data",
+            "type": "variable",
             "value": ""
           },
           "required": {
@@ -444,7 +444,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "isRequired"
           },
           "placeholder": {"type": "constant"},
@@ -497,7 +497,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "maxLength"
           },
           "placeholder": {"type": "constant"},
@@ -550,7 +550,7 @@
         },
         "propertyValues": {
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "model"
           },
           "placeholder": {"type": "constant"},

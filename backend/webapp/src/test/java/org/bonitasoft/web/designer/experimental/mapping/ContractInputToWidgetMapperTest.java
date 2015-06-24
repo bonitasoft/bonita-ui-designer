@@ -104,13 +104,13 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_submit_button_send_sentData_data() throws Exception {
+    public void should_submit_button_send_sentData_variable() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
-        assertThat(PropertyValue.getType()).isEqualTo("data");
+        assertThat(PropertyValue.getType()).isEqualTo("variable");
         assertThat(PropertyValue.getValue()).isEqualTo("formOutput");
     }
 
@@ -132,7 +132,7 @@ public class ContractInputToWidgetMapperTest {
         Element element = contractInputToWidgetMapper.toElement(aStringContractInput("firstName"), Collections.<List<Element>> emptyList());
 
         PropertyValue valueParameter = element.getPropertyValues().get("value");
-        assertThat(valueParameter.getType()).isEqualTo("data");
+        assertThat(valueParameter.getType()).isEqualTo("variable");
         assertThat(valueParameter.getValue()).isEqualTo("formInput.firstName");
     }
 
@@ -148,7 +148,7 @@ public class ContractInputToWidgetMapperTest {
 
         assertThat(container).isInstanceOf(Container.class);
         PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
-        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.names");
     }
 
@@ -160,7 +160,7 @@ public class ContractInputToWidgetMapperTest {
                 new ArrayList<List<Element>>());
 
         PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
-        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("formInput.employee");
     }
 
@@ -173,7 +173,7 @@ public class ContractInputToWidgetMapperTest {
         Component button = contractInputToWidgetMapper.createAddButton(skills);
 
         PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
-        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
     }
 
@@ -186,7 +186,7 @@ public class ContractInputToWidgetMapperTest {
         Component button = contractInputToWidgetMapper.createRemoveButton(skills);
 
         PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
-        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("data");
+        assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
     }
 

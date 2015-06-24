@@ -19,6 +19,7 @@ describe('componentFactory', function() {
       properties: [
         {
           name: 'robert',
+          bond: 'constant',
           defaultValue: 'manger'
         }
       ]

@@ -107,7 +107,7 @@
               "value": ["London", "Paris", "San Francisco"]
             },
             "value": {
-              "type": "data",
+              "type": "variable",
               "value": "selectedCity"
             },
             "displayedKey": {
@@ -133,7 +133,7 @@
               "value": false
             },
             "text": {
-              "type": "constant",
+              "type": "interpolation",
               "value": "city: {{selectedCity}}"
             },
             "alignment": {
@@ -245,11 +245,11 @@
               "type": "constant"
             },
             "availableValues": {
-              "type": "data",
+              "type": "variable",
               "value": "users"
             },
             "value": {
-              "type": "data",
+              "type": "variable",
               "value": "selectedUser"
             },
             "displayedKey": {
@@ -276,7 +276,7 @@
               "value": false
             },
             "text": {
-              "type": "constant",
+              "type": "interpolation",
               "value": "user {{selectedUser|json}}"
             },
             "alignment": {

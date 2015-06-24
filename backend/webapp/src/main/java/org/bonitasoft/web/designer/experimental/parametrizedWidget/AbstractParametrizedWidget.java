@@ -158,7 +158,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
             @Override
             public PropertyValue transformEntry(String paramName, Object value) {
-                return isDataParameter(paramName) ? createPropertyValue(ParameterType.DATA, value) : createPropertyValue(ParameterType.CONSTANT, value);
+                return isDataParameter(paramName) ? createPropertyValue(ParameterType.VARIABLE, value) : createPropertyValue(ParameterType.CONSTANT, value);
             }
         };
     }

@@ -27,7 +27,7 @@ describe('Directive: modelProperties', function () {
         $provide.value('modelPropertiesFactory', {
           get: function (uuid) {
             return {
-              'properties': {'baz': {type: 'data', value: 'foo'}}
+              'properties': {'baz': {type: 'variable', value: 'foo'}}
             }[uuid];
           }
         });

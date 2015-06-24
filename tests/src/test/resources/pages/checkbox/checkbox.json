@@ -31,7 +31,7 @@
             "value": "First"
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "valeur"
           }
         },
@@ -66,7 +66,7 @@
             "value": "Second"
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "valeur"
           }
         },
@@ -133,7 +133,7 @@
             "value": "Disabled checkbox"
           },
           "value": {
-            "type": "data",
+            "type": "variable",
             "value": "truthy"
           }
         },
@@ -160,8 +160,8 @@
             "value": false
           },
           "text": {
-            "type": "data",
-            "value": "valeur"
+            "type": "interpolation",
+            "value": "{{ valeur }}"
           },
           "alignment": {
             "type": "constant",

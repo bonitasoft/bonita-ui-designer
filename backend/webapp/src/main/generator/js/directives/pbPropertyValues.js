@@ -15,7 +15,7 @@
 
             $scope.properties.isBound = function (propertyName) {
               return !!pbPropertyValues[propertyName] &&
-                pbPropertyValues[propertyName].type === 'data' &&
+                pbPropertyValues[propertyName].type === 'variable' &&
                 !!pbPropertyValues[propertyName].value;
             };
 

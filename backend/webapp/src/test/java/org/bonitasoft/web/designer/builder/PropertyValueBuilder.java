@@ -30,7 +30,7 @@ public class PropertyValueBuilder {
     }
 
     public static PropertyValue aDataPropertyValue(Object value) {
-        return new PropertyValueBuilder(new PropertyValue()).withType(ParameterType.DATA).withValue(value).build();
+        return new PropertyValueBuilder(new PropertyValue()).withType(ParameterType.VARIABLE).withValue(value).build();
     }
 
     public PropertyValueBuilder withType(ParameterType type) {
