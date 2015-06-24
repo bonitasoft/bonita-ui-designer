@@ -36,11 +36,12 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
         index = 0;
       } else if ($scope.properties.collectionPosition === 'Last') {
         index = $scope.properties.collectionToModify.length -1;
-      } else if ($scope.properties.collectionPosition === 'Current item') {
-        index = $scope.properties.collectionToModify.indexOf($scope.$item);
+      } else if ($scope.properties.collectionPosition === 'Item') {
+        index = $scope.properties.collectionToModify.indexOf($scope.properties.removeItem);
       }
+
       // Only remove element for valid index
-      if (index !== -1) {
+      if ( index !== -1) {
         $scope.properties.collectionToModify.splice(index, 1);
       }
     }

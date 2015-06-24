@@ -107,8 +107,8 @@ describe('pbButton', function () {
 
     it('should remove $item element from collection when current item is selected', function () {
       scope.properties.collectionToModify = ["apple", "banana"];
-      scope.properties.collectionPosition = 'Current item';
-      scope.$item = 'apple';
+      scope.properties.collectionPosition = 'Item';
+      scope.properties.removeItem = "apple";
       scope.$apply();
 
       element.find('button').triggerHandler('click');
@@ -118,8 +118,8 @@ describe('pbButton', function () {
 
     it('should do nothing when removing unknow item', function () {
       scope.properties.collectionToModify = ["apple", "banana"];
-      scope.properties.collectionPosition = 'Current item';
-      scope.$item = 'carrot';
+      scope.properties.collectionPosition = 'Item';
+      scope.properties.removeItem = "lemon";
       scope.$apply();
 
       element.find('button').triggerHandler('click');
