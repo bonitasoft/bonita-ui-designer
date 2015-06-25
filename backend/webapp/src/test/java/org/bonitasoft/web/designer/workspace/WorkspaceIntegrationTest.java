@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.workspace;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.config.ContextConfigTest;
@@ -25,10 +24,10 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,7 +39,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration("file:target/test-classes")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class WorkspaceIntegrationTest {
-
+    @Value("${designer.version}")
+    private String version;
     @Autowired
     private PageRepository pageRepository;
     @Autowired
@@ -55,7 +55,7 @@ public class WorkspaceIntegrationTest {
     @Test
     public void should_migrate_page_json_file_oninit() throws IOException {
         Page page = pageRepository.get("page_1_0_0");
-        assertThat(page.getDesignerVersion()).isEqualTo("1.0.2-SNAPSHOT");
+        assertThat(page.getDesignerVersion()).isEqualTo(version);
         assertThat(page.getAssets().iterator().next().getId()).isNotEmpty();
     }
 
@@ -66,7 +66,7 @@ public class WorkspaceIntegrationTest {
     @Test
     public void should_migrate_widget_json_file_oninit() throws IOException {
         Widget widget = widgetRepository.get("widget_1_0_0");
-        assertThat(widget.getDesignerVersion()).isEqualTo("1.0.2-SNAPSHOT");
+        assertThat(widget.getDesignerVersion()).isEqualTo(version);
         assertThat(widget.getAssets().iterator().next().getId()).isNotEmpty();
     }
 }
