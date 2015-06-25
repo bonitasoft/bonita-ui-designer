@@ -37,6 +37,14 @@ public class RestControllerUtil {
     }
 
     /**
+     * Convert an object in String
+     */
+    public static String convertObjectToJsonString(Object object) throws IOException {
+        JacksonObjectMapper mapper = new DesignerConfig().objectMapperWrapper();
+        return new String(mapper.toJson(object));
+    }
+
+    /**
      * Create a context with the controller advice which contains errors resolvers
      */
     public static WebMvcConfigurationSupport createContextForTest() {

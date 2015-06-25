@@ -30,7 +30,7 @@ import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WidgetImporter implements DependencyImporter<Widget> {
+public class WidgetImporter implements ComponentDependencyImporter<Widget> {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetImporter.class);
     private WidgetLoader widgetLoader;
@@ -72,5 +72,10 @@ public class WidgetImporter implements DependencyImporter<Widget> {
                 throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
             }
         }
+    }
+
+    @Override
+    public String getComponentName() {
+        return widgetRepository.getComponentName();
     }
 }

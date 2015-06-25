@@ -32,7 +32,7 @@ public class MultipartFileImporter {
 
     private static final Logger logger = LoggerFactory.getLogger(MultipartFileImporter.class);
 
-    public ResponseEntity<ErrorMessage> importFile(MultipartFile file, ArtefactImporter importer){
+    public ResponseEntity importFile(MultipartFile file, ArtefactImporter importer){
         if (file == null || file.isEmpty()) {
             return new ResponseEntity<>(new ErrorMessage("Argument", "Part named [file] is needed to successfully import a component"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -42,8 +42,8 @@ public class MultipartFileImporter {
         }
 
         try (InputStream is = file.getInputStream()){
-            importer.execute(is);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            ImportReport report = importer.execute(is);
+            return new ResponseEntity<>(report, HttpStatus.CREATED);
         }
         catch (ImportException e) {
             logger.error("Technical error when importing a component", e);
