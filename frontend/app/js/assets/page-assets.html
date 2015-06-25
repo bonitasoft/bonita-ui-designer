@@ -46,8 +46,8 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <td colspan="4" ng-if="results.length===0" translate>No asset</td>
+    <tr ng-if="results.length===0">
+        <td colspan="5" translate>No asset</td>
     </tr>
     </tbody>
 </table>
