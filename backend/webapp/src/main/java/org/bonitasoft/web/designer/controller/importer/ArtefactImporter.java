@@ -58,7 +58,7 @@ public class ArtefactImporter<T extends Identifiable> {
         this.dependencyImporters = dependencyImporters;
     }
 
-    public void execute(InputStream is) {
+    public ImportReport execute(InputStream is) {
         Path extractDir = unzip(is);
 
         Path resources = extractDir.resolve("resources");
@@ -70,12 +70,14 @@ public class ArtefactImporter<T extends Identifiable> {
         try {
             // first load everything
             T element = loader.load(resources, repository.getComponentName() + ".json");
-            Map<DependencyImporter, List<Identifiable>> dependencies = loadArtefactDependencies(element, resources);
+            Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
             // then save them
             saveArtefactDependencies(resources, dependencies);
             componentMigrator.migrate(repository, element);
             repository.save(element);
+
+            return ImportReport.from(element, dependencies);
         } catch (IOException e) {
             logger.error("Error while getting artefacts, verify the zip content", e);
             throw new ServerImportException("Error while getting artefacts", e);
@@ -87,14 +89,14 @@ public class ArtefactImporter<T extends Identifiable> {
         }
     }
 
-    private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<Identifiable>> map) {
-        for (Entry<DependencyImporter, List<Identifiable>> entry : map.entrySet()) {
+    private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<?>> map) {
+        for (Entry<DependencyImporter, List<?>> entry : map.entrySet()) {
             entry.getKey().save(entry.getValue(), resources);
         }
     }
 
-    private Map<DependencyImporter, List<Identifiable>> loadArtefactDependencies(T element, Path resources) throws IOException {
-        Map<DependencyImporter, List<Identifiable>> map = new HashMap<>();
+    private Map<DependencyImporter, List<?>> loadArtefactDependencies(T element, Path resources) throws IOException {
+        Map<DependencyImporter, List<?>> map = new HashMap<>();
         for (DependencyImporter importer : dependencyImporters) {
             map.put(importer, importer.load(element, resources));
         }

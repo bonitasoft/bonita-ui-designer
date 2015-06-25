@@ -20,6 +20,7 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.CANNOT_OPEN_ZIP;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
+import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.zip.ZipException;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
@@ -36,7 +38,10 @@ import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
+import org.bonitasoft.web.designer.controller.importer.mocks.StreamMock;
+import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -72,10 +77,7 @@ public class WidgetArtefactImporterTest {
     private ArtefactImporter<Widget> importer;
 
     private Path unzippedPath;
-
-    private InputStream aStream() {
-        return new ByteArrayInputStream("foo".getBytes());
-    }
+    private WidgetImportMock wMocks;
 
     @Before
     public void setUp() throws IOException {
@@ -84,16 +86,26 @@ public class WidgetArtefactImporterTest {
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(widgetRepository.getComponentName()).thenReturn("widget");
+
+        wMocks = new WidgetImportMock(unzippedPath, widgetLoader, widgetRepository);
     }
 
     @Test
-    public void should_unzip_stream_then_import_artefacts_for_a_page() throws Exception {
-        Widget widget = aWidget().id("aWidget").build();
-        when(widgetLoader.load(unzippedPath,"widget.json")).thenReturn(widget);
+    public void should_unzip_stream_then_import_artefacts_for_a_widget() throws Exception {
+        Widget widget = wMocks.mockWidgetToBeImported();
 
         importer.execute(aStream());
 
         verify(widgetRepository).save(widget);
+    }
+
+    @Test
+    public void should_return_an_import_report_containing_imported_element() throws Exception {
+        Widget widget = wMocks.mockWidgetToBeImported();
+
+        ImportReport report = importer.execute(aStream());
+
+        assertThat(report.getElement()).isEqualTo(widget);
     }
 
     @Test

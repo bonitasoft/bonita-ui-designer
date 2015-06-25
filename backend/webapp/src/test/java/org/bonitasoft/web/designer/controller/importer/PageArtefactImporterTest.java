@@ -22,6 +22,7 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.CANNOT_OPEN_ZIP;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
+import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
@@ -39,6 +40,9 @@ import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
+import org.bonitasoft.web.designer.controller.importer.mocks.PageImportMock;
+import org.bonitasoft.web.designer.controller.importer.mocks.StreamMock;
+import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -84,14 +88,8 @@ public class PageArtefactImporterTest {
     private ArtefactImporter<Page> importer;
 
     private Path unzippedPath;
-
-    private InputStream aStream() {
-        return new ByteArrayInputStream("foo".getBytes());
-    }
-
-    private List<Widget> aListOfCustomWidgets() {
-        return asList(aWidget().id("aWidget").custom().build(), aWidget().id("anotherWidget").custom().build());
-    }
+    private WidgetImportMock wMocks;
+    private PageImportMock pMocks;
 
     @Before
     public void setUp() throws IOException {
@@ -100,18 +98,31 @@ public class PageArtefactImporterTest {
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(pageRepository.getComponentName()).thenReturn("page");
+
+        wMocks = new WidgetImportMock(unzippedPath, widgetLoader, widgetRepository);
+        pMocks = new PageImportMock(unzippedPath, pageLoader);
     }
 
     @Test
     public void should_unzip_stream_then_import_artefacts_for_a_page() throws Exception {
-        tempDir.newFolderPath("resources", WIDGETS_FOLDER);
-        List<Widget> widgets = aListOfCustomWidgets();
-
-        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(widgets);
+        List<Widget> widgets = wMocks.mockWidgetsAsDependencies();
+        Page page = pMocks.mockPageToBeImported();
 
         importer.execute(aStream());
 
         verify(widgetRepository).saveAll(widgets);
+        verify(pageRepository).save(page);
+    }
+
+    @Test
+    public void should_return_an_import_report_containing_imported_element_and_imported_dependencies() throws Exception {
+        List<Widget> widgets = wMocks.mockWidgetsAsDependencies();
+        Page page = pMocks.mockPageToBeImported();
+
+        ImportReport report = importer.execute(aStream());
+
+        assertThat(report.getDependencies().get("widget")).isEqualTo(widgets);
+        assertThat(report.getElement()).isEqualTo(page);
     }
 
     @Test
@@ -178,4 +189,5 @@ public class PageArtefactImporterTest {
         when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
         importer.execute(aStream());
     }
+
 }

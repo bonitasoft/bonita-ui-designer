@@ -14,21 +14,44 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonString;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
+import org.bonitasoft.web.designer.controller.importer.ImportReport;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.utils.RestControllerUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ImportControllerTest {
@@ -53,19 +76,36 @@ public class ImportControllerTest {
     public void should_import_a_page() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        ImportReport expectedReport = buildImportReport(
+                aPage().withId("aPage").withName("thePage").build(),
+                aWidget().id("aWidget").name("myWidgetName").build());
+        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
 
-        mockMvc.perform(fileUpload("/import/page").file(file));
 
-        verify(multipartFileImporter).importFile(file, pageImporter);
+        mockMvc.perform(fileUpload("/import/page").file(file))
+                .andExpect(jsonPath("element.id").value("aPage"))
+                .andExpect(jsonPath("element.name").value("thePage"))
+                .andExpect(jsonPath("dependencies.widget[0].id").value("aWidget"))
+                .andExpect(jsonPath("dependencies.widget[0].name").value("myWidgetName"));
     }
 
     @Test
     public void should_import_a_widget() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        ImportReport expectedReport = buildImportReport(aWidget().id("aWidget").name("myWidgetName").build());
+        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
 
-        mockMvc.perform(fileUpload("/import/widget").file(file));
+        mockMvc.perform(fileUpload("/import/widget").file(file))
+                .andExpect(jsonPath("element.id").value("aWidget"))
+                .andExpect(jsonPath("element.name").value("myWidgetName"));
+    }
 
-        verify(multipartFileImporter).importFile(file, widgetImporter);
+    private ImportReport buildImportReport(Identifiable element, Widget... dependencies) {
+        ImportReport expectedReport = new ImportReport();
+        expectedReport.setElement(element);
+        List<? extends Identifiable> widgets = Lists.newArrayList(dependencies);
+        expectedReport.addDependency("widget", (List<Identifiable>) widgets);
+        return expectedReport;
     }
 }
