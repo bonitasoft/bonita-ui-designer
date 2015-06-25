@@ -8,7 +8,7 @@ describe('custom widget test', function() {
   });
 
   it('should allow adding a custom widget and edit it', function() {
-    editor.addWidget('customAwesomeWidget');
+    editor.addCustomWidget('customAwesomeWidget');
 
     // then we should be able to edit it
     $('#edit-custom-widget').click();

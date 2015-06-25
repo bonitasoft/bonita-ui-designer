@@ -33,7 +33,7 @@
 
   height: @nav-bar-height;
   line-height: @nav-bar-height;
-  width: 3em;
+  width: 50px;
 
 }
 .EditorHeader-back:hover {
@@ -94,7 +94,6 @@
   text-transform: capitalize;
 }
 .content-wrapper {
-  min-width: @screen-sm-max;
   position: absolute;
   top: @nav-bar-height;
   left: 0;
@@ -115,25 +114,12 @@
   right: @sidebar-properties-default-width;
 }
 
-@maxWidth:  (@sidebar-palette-max-width * 100  / unit(@sidebar-palette-width)) ;
-@minWidth:  (@sidebar-palette-min-width * 100  / unit(@sidebar-palette-width)) ;
-
-@media screen and (min-width: @maxWidth) {
-  #editor-container {
-    left: @sidebar-palette-max-width;
-  }
-  #palette {
-    right:  calc(~"100% - "@sidebar-palette-max-width);
-  }
+.Palette--closed + #editor-container{
+  left: @sidebar-palette-section-width;
 }
 
-@media screen and (max-width: @minWidth) {
-  #editor-container {
-    left: @sidebar-palette-min-width;
-  }
-  #palette {
-    right:  calc(~"100% - "@sidebar-palette-min-width);
-  }
+.Palette--narrow + #editor-container{
+  left: @sidebar-palette-width--narrow;
 }
 
 

@@ -39,6 +39,7 @@
     'pb.templates',
     'pb.assets',
     'ngSanitize',
+    'ngAnimate',
     'ui.router',
     'RecursionHelper',
     'ui.bootstrap',
