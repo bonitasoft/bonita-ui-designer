@@ -479,20 +479,8 @@ angular.module('pb.e2e', ['ngMockE2E'])
       return [201, page, {}];
     });
 
-    // create new data on page 'person'
-    $httpBackend.whenPUT(/rest\/pages\/person\/data\/.*/).respond(function (method, url, data) {
-      var dataName = e2ehelper.lastChunk(url);
-      personPage.data[dataName] = angular.fromJson(data);
-      return [201, personPage.data, {}];
-    });
-
     // update page
     $httpBackend.whenPUT(/rest\/pages\/.*/).respond(200);
-
-    $httpBackend.whenDELETE('rest/pages/person/data/alreadyExistsData').respond({
-      jsonExample: {type: 'json', value: '{}'},
-      urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
-    });
 
     $httpBackend.whenDELETE('rest/pages/person').respond(200);
 

@@ -27,25 +27,25 @@ describe('DataCtrl', function() {
   }));
 
   it('should save a new data', function() {
-    var data = {name: "colin", value: 4};
-    spyOn(repository, 'saveData').and.returnValue($q.when({data: [data]}));
-
+    $scope.page.data = {};
+    var data = {
+      $$name: "colin",
+      value: 4,
+      exposed: false,
+      type: 'constant'
+    };
     $scope.save(data);
     $scope.$apply();
 
-    expect(repository.saveData).toHaveBeenCalledWith($scope.page, data);
-    expect($scope.page.data).toContain(data);
+    expect(data).toEqual(jasmine.objectContaining($scope.page.data.colin));
   });
 
   it('should delete a data', function() {
-    var data = {name: "colin", value: 4};
-    spyOn(repository, 'deleteData').and.returnValue($q.when({data: []}));
+    $scope.page.data = {name: "colin", value: 4};
 
-    $scope.delete(data);
+    $scope.delete("colin");
     $scope.$apply();
-
-    expect(repository.deleteData).toHaveBeenCalledWith($scope.page, data);
-    expect($scope.page.data).not.toContain(data);
+    expect($scope.page.data.hasOwnProperty('colin')).toBe(false);
   });
 
   it('should filter a data that match a key value', function() {
