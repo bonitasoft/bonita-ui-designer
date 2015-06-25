@@ -27,7 +27,7 @@
     <th></th>
     </thead>
     <tbody>
-    <tr ng-repeat="(key, data) in pageData track by key">
+    <tr ng-repeat="(key, data) in pageData as results track by key">
         <td class="col-xs-2">{{key}}</td>
         <td class="col-xs-5"> {{data.value}}
         </td>
@@ -45,6 +45,9 @@
                 </button>
             </div>
         </td>
+    </tr>
+    <tr ng-if="keys(results).length===0">
+        <td colspan="{{exposableData ? 5 : 4}}" translate>No variable</td>
     </tr>
     </tbody>
 </table>

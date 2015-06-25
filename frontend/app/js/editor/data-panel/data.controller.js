@@ -21,6 +21,7 @@ angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTyp
   $scope.pageData = artifact.data;
   $scope.getLabel = dataTypeService.getDataLabel;
   $scope.exposableData = mode !== 'page';
+  $scope.keys = Object.keys;
 
   function updateData(data) {
     $scope.page.data = data;
