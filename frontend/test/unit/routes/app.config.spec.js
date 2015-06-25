@@ -29,7 +29,6 @@ describe('The route config', function() {
     // a controller
     expect($state.current.views['@designer'].controller).toBe('EditorCtrl');
     expect($state.current.views['data@designer.page'].controller).toBe('DataCtrl');
-    expect($state.current.views['palette@designer.page'].controller).toBe('PaletteCtrl');
   });
 
   it('should resolve the necessary for the page preview', function() {

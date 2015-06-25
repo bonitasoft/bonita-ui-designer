@@ -81,10 +81,6 @@
           'data@designer.page': {
             controller: 'DataCtrl',
             templateUrl: 'js/editor/data-panel/data.html'
-          },
-          'palette@designer.page': {
-            controller: 'PaletteCtrl',
-            templateUrl: 'js/editor/palette/palette.html'
           }
         }
       },
