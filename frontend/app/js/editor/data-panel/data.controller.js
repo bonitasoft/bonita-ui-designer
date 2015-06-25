@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTypeService, $location, $modal, artifactRepo, artifact, mode) {
+angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTypeService, $location, $modal, artifact, mode) {
 
   'use strict';
 
@@ -22,23 +22,18 @@ angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTyp
   $scope.getLabel = dataTypeService.getDataLabel;
   $scope.exposableData = mode !== 'page';
 
-  function updateData(data) {
-    $scope.page.data = data;
-    $scope.filterPageData();
-  }
-
   $scope.delete = function(dataName) {
-    artifactRepo.deleteData($scope.page, dataName)
-      .then(function(response) {
-        updateData(response.data);
-      });
+    delete $scope.page.data[dataName];
+    $scope.filterPageData();
   };
 
   $scope.save = function(data) {
-    artifactRepo.saveData($scope.page, data)
-      .then(function(response) {
-        updateData(response.data);
-      });
+    $scope.page.data[data.$$name] = {
+      exposed: data.exposed,
+      type: data.type,
+      value: data.value
+    };
+    $scope.filterPageData();
   };
 
   $scope.filterPageData = function () {
