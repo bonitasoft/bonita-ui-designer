@@ -1,7 +1,8 @@
 /* global browser, by, element */
 
 var Preview = require('./preview.page.js');
-var SideBar = require('./data-panel.page');
+var DataPanel = require('./data-panel.page');
+var AssetPanel = require('./asset-panel.page');
 
 (function () {
   'use strict';
@@ -107,7 +108,11 @@ var SideBar = require('./data-panel.page');
     },
 
     dataPanel: function () {
-      return new SideBar();
+      return new DataPanel();
+    },
+
+    assetPanel: function () {
+      return new AssetPanel();
     },
 
     property: function (propertyName) {
