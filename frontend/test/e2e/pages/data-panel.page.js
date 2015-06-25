@@ -88,7 +88,7 @@
 
     lines: {
       get: function() {
-        return this.sidebar.all(by.repeater('(key, data) in pageData track by key'));
+        return this.sidebar.all(by.repeater('(key, data) in pageData as results track by key'));
       }
     },
 
