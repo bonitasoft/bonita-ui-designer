@@ -31,11 +31,18 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
       if (!Array.isArray($scope.properties.collectionToModify)) {
         throw 'Collection property for widget button should be an array, but was ' + $scope.properties.collectionToModify;
       }
-
+      var index = -1;
       if ($scope.properties.collectionPosition === 'First') {
-        $scope.properties.collectionToModify.shift();
-      } else {
-        $scope.properties.collectionToModify.pop();
+        index = 0;
+      } else if ($scope.properties.collectionPosition === 'Last') {
+        index = $scope.properties.collectionToModify.length -1;
+      } else if ($scope.properties.collectionPosition === 'Item') {
+        index = $scope.properties.collectionToModify.indexOf($scope.properties.removeItem);
+      }
+
+      // Only remove element for valid index
+      if ( index !== -1) {
+        $scope.properties.collectionToModify.splice(index, 1);
       }
     }
   }
