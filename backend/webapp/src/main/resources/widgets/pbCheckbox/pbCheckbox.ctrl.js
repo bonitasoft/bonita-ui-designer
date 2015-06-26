@@ -1,4 +1,4 @@
-function PbCheckboxCtrl($scope, widgetNameFactory) {
+function PbCheckboxCtrl($scope, $log, widgetNameFactory) {
 
   $scope.$watch('properties.value', function(value) {
     if (value === 'true' || value === true) {
@@ -9,4 +9,8 @@ function PbCheckboxCtrl($scope, widgetNameFactory) {
   });
 
   this.name = widgetNameFactory.getName('pbCheckbox');
+
+  if (!$scope.properties.isBound('value')) {
+    $log.error('the pbCheckbox property named "value" need to be bound to a variable');
+  }
 }

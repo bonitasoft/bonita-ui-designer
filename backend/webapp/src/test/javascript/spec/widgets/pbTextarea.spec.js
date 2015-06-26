@@ -9,18 +9,19 @@ describe('pbTextarea', function () {
     $compile = _$compile_;
     scope = $rootScope.$new();
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       type: 'text',
-      labelHidden: true
+      label: 'foobar',
+      labelPosition: 'top',
+      labelHidden: false
     };
   }));
 
   describe('label', function() {
 
     it('should be on top by default if displayed', function () {
-      scope.properties = {
-        labelHidden: false,
-        label: 'foobar'
-      };
 
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();
@@ -31,11 +32,8 @@ describe('pbTextarea', function () {
     });
 
     it('should be on the left of the textarea', function () {
-      scope.properties = {
-        labelHidden: false,
-        label: 'barbaz',
-        labelPosition: 'left'
-      };
+      scope.properties.labelPosition =  'left';
+      scope.properties.label =  'barbaz';
 
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();
@@ -45,8 +43,8 @@ describe('pbTextarea', function () {
       expect(label.text().trim()).toBe('barbaz');
     });
 
-    it('should not be there when displayValue is falsy', function () {
-
+    it('should not be there when label is hidden', function () {
+      scope.properties.labelHidden =  true;
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();
 
@@ -57,11 +55,8 @@ describe('pbTextarea', function () {
   describe('textarea', function() {
 
     it('should adapt its width to label size when on the left', function () {
-      scope.properties = {
-        labelHidden: false,
-        labelPosition: 'left',
-        labelWidth: 4
-      };
+      scope.properties.labelPosition = 'left';
+      scope.properties.labelWidth = 4;
 
       var element = $compile('<pb-textarea></pb-textarea>')(scope);
       scope.$apply();

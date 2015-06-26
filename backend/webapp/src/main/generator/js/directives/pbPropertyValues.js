@@ -13,8 +13,10 @@
               bindingContextFactory.create(pbModelCtrl, $scope),
               $scope.properties = {});
             $scope.properties.isBound = function (property) {
-              return !!(pbPropertyValues[property] && pbPropertyValues[property].type === 'data');
-            }
+              return !!pbPropertyValues[property] &&
+                pbPropertyValues[property].type === 'data' &&
+                !!pbPropertyValues[property].value;
+            };
           }
         };
       }

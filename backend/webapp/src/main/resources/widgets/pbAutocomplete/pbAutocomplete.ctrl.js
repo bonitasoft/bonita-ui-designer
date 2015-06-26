@@ -1,4 +1,4 @@
-function PbAutocompleteCtrl($scope, $parse, widgetNameFactory) {
+function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
 
   'use strict';
 
@@ -11,4 +11,8 @@ function PbAutocompleteCtrl($scope, $parse, widgetNameFactory) {
   };
 
   this.name = widgetNameFactory.getName('pbAutocomplete');
+
+  if (!$scope.properties.isBound('value')) {
+    $log.error('the pbAutocomplete property named "value" need to be bound to a variable');
+  }
 }
