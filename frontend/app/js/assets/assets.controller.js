@@ -140,18 +140,7 @@
      */
     this.createOrUpdate = function (data){
       if(data){
-        if(data.isNew){
-          //An external asset is created by a POST request. Specific data are not send to backend. formToAsset does the transformation
-          return artifactRepo.createAsset(component.id, assetsService.formToAsset(data));
-        }
-        else{
-          //If data exist, we delete it (the user can change the name or the type). The first step is the deletion of the old asset
-          //and the second the creation of the new one
-          var oldAsset = assetsService.formToAsset(data);
-          oldAsset.type = data.oldtype;
-          oldAsset.name = data.oldname;
-          return artifactRepo.deleteAsset(component.id, oldAsset).then(artifactRepo.createAsset.bind(null, component.id, assetsService.formToAsset(data)));
-        }
+        return artifactRepo.createAsset(component.id, assetsService.formToAsset(data));
       }
       else{
         //A local asset is created via a form send in the popup. We just have to return a promise

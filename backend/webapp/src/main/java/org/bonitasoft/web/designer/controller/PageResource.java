@@ -124,8 +124,11 @@ public class PageResource extends DataResource<Page> {
         getRepository().delete(pageId);
     }
 
+
+
     @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id, @PathVariable("type") String type) {
+    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id,
+                                                    @PathVariable("type") String type) {
         try{
             pageAssetService.upload(file, getRepository().get(id), type);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -158,10 +161,9 @@ public class PageResource extends DataResource<Page> {
         pageAssetService.save(getRepository().get(id), asset);
     }
 
-    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.DELETE)
-    public void deleteAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) throws RepositoryException {
-        asset.setComponentId(id);
-        pageAssetService.delete(getRepository().get(id), asset);
+    @RequestMapping(value = "/{pageId}/assets/{assetId}", method = RequestMethod.DELETE)
+    public void deleteAsset(@PathVariable("pageId") String pageId, @PathVariable("assetId") String assetId) throws RepositoryException {
+        pageAssetService.delete(getRepository().get(pageId), assetId);
     }
 
     @RequestMapping(value = "/{pageId}/assets")

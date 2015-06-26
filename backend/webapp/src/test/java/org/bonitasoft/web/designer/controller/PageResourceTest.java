@@ -298,7 +298,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_upload_an_asset() throws Exception {
+    public void should_upload_a_local_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Page page = aFilledPage("my-page");
@@ -410,12 +410,11 @@ public class PageResourceTest {
         when(pageRepository.get("my-page")).thenReturn(page);
 
         mockMvc.perform(
-                delete("/rest/pages/my-page/assets")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(asset)))
+                delete("/rest/pages/my-page/assets/UIID")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
-        verify(pageAssetService).delete(page, asset);
+        verify(pageAssetService).delete(page, "UIID");
     }
 
     @Test

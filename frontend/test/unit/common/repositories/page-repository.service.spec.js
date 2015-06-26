@@ -121,10 +121,11 @@ describe('pageRepo', function() {
 
   it('should delete a local asset', function() {
     var asset = {
+      id: 'UIID',
       name : 'myfile.js',
       type : 'js'
     };
-    $httpBackend.expectDELETE('rest/pages/page1/assets').respond(200);
+    $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
 
     pageRepo.deleteAsset('page1', asset);
     $httpBackend.flush();
@@ -132,10 +133,11 @@ describe('pageRepo', function() {
 
   it('should delete an external asset', function() {
     var asset = {
+      id: 'UIID',
       name : 'http://mycdn.com/myfile.js',
       type : 'js'
     };
-    $httpBackend.expectDELETE('rest/pages/page1/assets').respond(200);
+    $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
 
     pageRepo.deleteAsset('page1', asset);
     $httpBackend.flush();
