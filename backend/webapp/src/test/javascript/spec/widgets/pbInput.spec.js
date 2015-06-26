@@ -9,19 +9,17 @@ describe('pbInput', function () {
     $compile = _$compile_;
     scope = $rootScope.$new();
     scope.properties = {
-      type: 'text',
-      labelHidden: true,
+      isBound: function() {
+        return false;
+      },
+      labelWidth: 4,
+      label: 'foobar'
     };
   }));
 
   describe('label', function() {
 
     it('should be on top by default if displayed', function () {
-      scope.properties = {
-        labelHidden: false,
-        label: 'foobar'
-      };
-
       var element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();
 
@@ -31,11 +29,10 @@ describe('pbInput', function () {
     });
 
     it('should be on the left of the input', function () {
-      scope.properties = {
-        labelHidden: false,
+      scope.properties = angular.extend( scope.properties, {
         label: 'barbaz',
         labelPosition: 'left'
-      };
+      });
 
       var element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();
@@ -45,8 +42,8 @@ describe('pbInput', function () {
       expect(label.text().trim()).toBe('barbaz');
     });
 
-    it('should not be there when displayValue is falsy', function () {
-
+    it('should not be there when label is hidden', function () {
+      scope.properties.labelHidden = true;
       var element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();
 
@@ -57,11 +54,11 @@ describe('pbInput', function () {
   describe('input', function() {
 
     it('should adapt its width to label size when on the left', function () {
-      scope.properties = {
+      scope.properties = angular.extend( scope.properties, {
         labelHidden: false,
         labelPosition: 'left',
         labelWidth: 4
-      };
+      });
 
       var element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();

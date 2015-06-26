@@ -10,6 +10,9 @@ describe('pbRadioButtons', function() {
     rootScope = $injector.get('$rootScope');
     scope = rootScope.$new();
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       inline: false,
       availableValues: ['jeanne', 'serge', 'maurice'],
       selectedValue: 'serge',
@@ -65,7 +68,7 @@ describe('pbRadioButtons', function() {
     expect(dom.find(".radio label").eq(0).text().trim()).toBe(JSON.stringify(scope.properties.availableValues[0]));
   });
 
-  it('should select the radio  if selectedValue is  not null', function(){
+  it('should select the radio  if selectedValue is not null', function(){
     scope.properties.availableValues = [{"name": 'jeanne'}, {"name": 'serge'}];
     scope.properties.selectedValue = {"name": 'serge'};
     scope.properties.displayedKey = 'name';
@@ -80,13 +83,12 @@ describe('pbRadioButtons', function() {
   });
 
   it('should select the correct radio if selectedValue is not null, depending of returnedKey', function(){
-    var scope = rootScope.$new();
-    scope.properties = {
+    scope.properties = angular.extend(scope.properties, {
       availableValues: [{"name": 'jeanne'}, {"name": 'serge'}],
       selectedValue: 'serge',
       displayedKey: 'name',
       returnedKey: 'name'
-    }
+    });
     var widget = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
     scope.$digest();
 
@@ -127,10 +129,10 @@ describe('pbRadioButtons', function() {
   describe('label', function() {
 
     it('should be on top by default if displayed', function () {
-      scope.properties = {
+      scope.properties = angular.extend(scope.properties, {
         labelHidden: false,
         label: 'foobar'
-      };
+      });
 
       var element = compile('<pb-input></pb-input>')(scope);
       scope.$apply();
@@ -141,11 +143,11 @@ describe('pbRadioButtons', function() {
     });
 
     it('should be on the left of the input', function () {
-      scope.properties = {
+      scope.properties = angular.extend(scope.properties, {
         labelHidden: false,
         label: 'barbaz',
         labelPosition: 'left'
-      };
+      });
 
       var element = compile('<pb-input></pb-input>')(scope);
       scope.$apply();

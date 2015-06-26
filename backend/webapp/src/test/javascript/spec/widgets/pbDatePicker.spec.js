@@ -10,12 +10,12 @@ describe('pbDatePicker', function () {
     scope = $rootScope.$new();
     //We specified the default values
     scope.properties = {
+      isBound: function() {
+        return false;
+      },
       placeholder : 'dd/MM/yyyy',
       dateFormat : 'dd/MM/yyyy',
-      label : 'Date',
-      labelHidden : false,
-      labelWidth : 4,
-      labelPosition : 'left'
+      label : 'Date'
     };
   }));
 
@@ -34,17 +34,14 @@ describe('pbDatePicker', function () {
       expect(element.find('label').text().trim()).toBe('Date');
     });
 
-    it('should be on the left by default', function () {
+    it('should be on the top by default', function () {
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
-      expect(element.find('.form-horizontal').length).toBe(1);
+      expect(element.find('.form-horizontal').length).toBe(0);
     });
 
     it('should be on the top of the input if labelPosition change', function () {
-      scope.properties = {
-        label : 'Date',
-        labelPosition: 'top'
-      };
+      scope.properties.label= 'Date';
 
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
@@ -54,9 +51,8 @@ describe('pbDatePicker', function () {
     });
 
     it('should not be there when displayLabel is falsy', function () {
-      scope.properties = {
-        labelHidden: true
-      };
+      scope.properties.labelHidden = true;
+
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
 
@@ -66,18 +62,20 @@ describe('pbDatePicker', function () {
 
   describe('input-group', function() {
     it('should adapt its width to label size when on the left', function () {
+      scope.properties = angular.extend(scope.properties, {
+        labelPosition: 'left',
+        labelWidth: 4
+      });
+
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
 
-      var input = element.find('input').parent();
-      expect(input.parent().hasClass('col-xs-8')).toBeTruthy();
-
+      var input = element.find('input');
+      expect(input.parent().parent().hasClass('col-xs-8')).toBeTruthy();
     });
 
     it('should be wrapped in full width div when no label', function () {
-      scope.properties = {
-        labelHidden: true
-      };
+      scope.properties.labelHidden = true;
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
 
@@ -86,9 +84,7 @@ describe('pbDatePicker', function () {
     });
 
     it('should be wrapped in full width div when label is on the top', function () {
-      scope.properties = {
-        labelPosition: 'top'
-      };
+
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
 
