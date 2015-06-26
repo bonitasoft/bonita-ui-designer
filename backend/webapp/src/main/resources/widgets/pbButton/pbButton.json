@@ -79,23 +79,19 @@
       "bidirectional": true
     },
     {
+      "label": "Target URL on success",
+      "type": "text",
+      "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
+      "name": "targetUrlOnSuccess",
+      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
+    },
+    {
       "label": "Collection",
       "name": "collectionToModify",
       "caption": "Must be an array",
       "type": "collection",
       "showFor": "properties.action.value === 'Remove from collection' || properties.action.value === 'Add to collection'",
       "bidirectional": true
-    },
-    {
-      "label": "Remove",
-      "name": "collectionPosition",
-      "type": "choice",
-      "choiceValues": [
-        "First",
-        "Last"
-      ],
-      "defaultValue": "Last",
-      "showFor": "properties.action.value === 'Remove from collection'"
     },
     {
       "label": "Add",
@@ -115,11 +111,24 @@
       "showFor": "properties.action.value === 'Add to collection'"
     },
     {
-      "label": "Target URL on success",
+      "label": "Remove",
+      "name": "collectionPosition",
+      "type": "choice",
+      "choiceValues": [
+        "First",
+        "Item",
+        "Last"
+      ],
+      "defaultValue": "Last",
+      "showFor": "properties.action.value === 'Remove from collection'"
+    },
+    {
+      "label": "Item to remove",
+      "name": "removeItem",
+      "help": "Use $item to remove the current item in a repeated collection",
       "type": "text",
-      "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
-      "name": "targetUrlOnSuccess",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
+      "bidirectional": "true",
+      "showFor": "properties.collectionPosition.value === 'Item'"
     }
   ]
 }

@@ -104,6 +104,28 @@ describe('pbButton', function () {
 
       expect(scope.properties.collectionToModify).toEqual(undefined);
     });
+
+    it('should remove $item element from collection when current item is selected', function () {
+      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionPosition = 'Item';
+      scope.properties.removeItem = "apple";
+      scope.$apply();
+
+      element.find('button').triggerHandler('click');
+
+      expect(scope.properties.collectionToModify).toEqual(["banana"]);
+    });
+
+    it('should do nothing when removing unknow item', function () {
+      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionPosition = 'Item';
+      scope.properties.removeItem = "lemon";
+      scope.$apply();
+
+      element.find('button').triggerHandler('click');
+
+      expect(scope.properties.collectionToModify).toEqual(["apple", "banana"]);
+    });
   });
 
   describe('add to collection action', function () {
