@@ -2,10 +2,10 @@
 var gulp = require('gulp');
 var ddescriber = require("../../community/frontend/gulp/ddescriber.js");
 var protractor = require('gulp-protractor').protractor;
-
 var connect = require('connect');
 var multiparty = require('multiparty');
 var http = require('http');
+
 var proxy = require('http-proxy')
   .createProxyServer({
     target: {
@@ -16,41 +16,17 @@ var proxy = require('http-proxy')
     console.error(e);
   });
 
-/**
- * Check for ddescribe and iit
- */
-gulp.task('ddescriber', function () {
-  return gulp.src('src/test/**/*.spec.js')
-    .pipe(ddescriber());
-});
-
-gulp.task('test', function() {
-  var app = connect();
-
-  // use upload middleware to mock /API/formFileUpload
-
-  app.use(uploadMiddleware);
-  app.use(proxyMiddleware);
-
-  var server = http.createServer(app).listen(8086);
-  console.log('Server started http://localhost:8086');
-  return gulp.src(['src/test/**/*.spec.js'])
-    .pipe(protractor({
-      configFile: 'protractor.conf.js'
-    }))
-    .on('error', function (e) {
-      console.log(e);
-      throw e;
-    })
-    .on('end', function () {
-      console.log('close upload server');
-      server.close();
-    });
-});
-
-gulp.task('default', ['ddescriber'], function() {
-  gulp.start(['test']);
-});
+var config = {
+  paths: {
+    specs: ['src/test/**/*.spec.js']
+  },
+  protractor: {
+    port: 8086
+  },
+  tomcat: {
+    port: 8083
+  }
+};
 
 function matchUpload(req) {
   return /API\/formFileUpload/.test(req.url);
@@ -93,6 +69,71 @@ function uploadMiddleware(req, res, next){
 
 /* proxyMiddleware forwards all requests to tomcat server
  except fake upload request */
-function proxyMiddleware(req, res, next) {
-  proxy.web(req, res);
+function creatproxyMiddleware(port) {
+  var proxy = require('http-proxy')
+    .createProxyServer({
+      target: {
+        host: 'localhost',
+        port: port
+      }
+    }).on('error', function (e) {
+      console.error(e);
+    });
+
+  return function(req, res, next) {
+    proxy.web(req, res);
+  }
 }
+
+/**
+ * Check for ddescribe and iit
+ */
+var registerDdescriberTask = function(gulp, config) {
+  gulp.task('ddescriber', function () {
+    return gulp.src(config.paths.specs)
+      .pipe(ddescriber());
+  });
+};
+
+var registerTestTask = function(gulp, config) {
+  gulp.task('test', function() {
+    var app = connect();
+
+    // use upload middleware to mock /API/formFileUpload
+    app.use(uploadMiddleware);
+    app.use(creatproxyMiddleware(config.tomcat.port));
+
+    var server = http.createServer(app).listen(config.protractor.port);
+    console.log('Server started http://localhost:%d', config.protractor.port);
+    return gulp.src(config.paths.specs)
+      .pipe(protractor({
+        configFile: 'protractor.conf.js'
+      }))
+      .on('error', function (e) {
+        console.log(e);
+        throw e;
+      })
+      .on('end', function () {
+        console.log('close upload server');
+        server.close();
+      });
+  });
+};
+
+var registerTasks = function(gulp, config) {
+
+  registerDdescriberTask(gulp, config);
+  registerTestTask(gulp, config);
+
+  gulp.task('default', ['ddescriber'], function() {
+    gulp.start(['test']);
+  });
+
+};
+
+registerTasks(gulp, config);
+
+module.exports = {
+  config: config,
+  registerTasks: registerTasks
+};
