@@ -1,0 +1,107 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "table",
+  "name": "table",
+  "lastUpdate": 1426697536204,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "headers": {
+            "type": "constant",
+            "value": [
+              "id",
+              "name"
+            ]
+          },
+          "content": {
+            "type": "data",
+            "value": "repos"
+          },
+          "columnsKey": {
+            "type": "data",
+            "value": "columns"
+          },
+          "selectedRow": {
+            "type": "data",
+            "value": "selectedRow"
+          }
+        },
+        "id": "pbTable"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "isReadonly": {
+            "type": "constant",
+            "value": false
+          },
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "text": {
+            "type": "constant",
+            "value": "{{ selectedRow.full_name }}"
+          }
+        },
+        "id": "pbText"
+      }
+    ]
+  ],
+  "data": {
+    "selectedRow": {
+      "type": "constant",
+      "exposed": false
+    },
+    "columns": {
+      "type": "json",
+      "value": "[ \"id\", \"name\" ]",
+      "exposed": false
+    },
+    "repos": {
+      "type": "json",
+      "value": "[\n  {\n    \"id\": 11336005,\n    \"name\": \"bonita-connectors\",\n    \"full_name\": \"bonitasoft/bonita-connectors\"\n  },\n  {\n    \"id\": 11336028,\n    \"name\": \"bonita-connectors-assembly\",\n    \"full_name\": \"bonitasoft/bonita-connectors-assembly\"\n  },\n  {\n    \"id\": 12897159,\n    \"name\": \"bonita-connectors-packaging\",\n    \"full_name\": \"bonitasoft/bonita-connectors-packaging\"\n  },\n  {\n    \"id\": 24060487,\n    \"name\": \"bonita-custom-page-seed\",\n    \"full_name\": \"bonitasoft/bonita-custom-page-seed\"\n  },\n  {\n    \"id\": 11337159,\n    \"name\": \"bonita-distrib\",\n    \"full_name\": \"bonitasoft/bonita-distrib\"\n  }\n]",
+      "exposed": false
+    }
+  }
+}

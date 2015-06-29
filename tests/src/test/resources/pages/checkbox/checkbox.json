@@ -1,0 +1,187 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "checkbox",
+  "name": "checkbox",
+  "lastUpdate": 1429892551581,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "First"
+          },
+          "value": {
+            "type": "data",
+            "value": "valeur"
+          }
+        },
+        "reference": "1c8490f5-b709-476f-9299-e15da9cf880f",
+        "id": "pbCheckbox"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 6,
+          "md": 6,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Second"
+          },
+          "value": {
+            "type": "data",
+            "value": "valeur"
+          }
+        },
+        "reference": "bb7c4dcc-5e42-415e-9f6f-463c3eb52a1f",
+        "id": "pbCheckbox"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": true
+          },
+          "disabled": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Hidden checkbox"
+          },
+          "value": {"type": "constant"}
+        },
+        "reference": "b46a712f-93d5-4a8d-a6fa-29b4445e791b",
+        "id": "pbCheckbox"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "disabled": {
+            "type": "constant",
+            "value": true
+          },
+          "label": {
+            "type": "constant",
+            "value": "Disabled checkbox"
+          },
+          "value": {
+            "type": "data",
+            "value": "truthy"
+          }
+        },
+        "reference": "f64b288a-d4fa-4a25-9f28-d03c1ef61c67",
+        "id": "pbCheckbox"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "text": {
+            "type": "data",
+            "value": "valeur"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          }
+        },
+        "reference": "639cb9ec-aaa4-4211-8fe3-2ca4ddafde9c",
+        "id": "pbText"
+      }
+    ]
+  ],
+  "data": {
+    "valeur": {
+      "type": "constant",
+      "exposed": false
+    },
+    "truthy": {
+      "type": "constant",
+      "value": "true",
+      "exposed": false
+    }
+  }
+}

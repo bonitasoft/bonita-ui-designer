@@ -1,0 +1,115 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "upload",
+  "name": "upload",
+  "lastUpdate": 1432058011852,
+  "rows": [
+    [{
+      "type": "container",
+      "dimension": {
+        "xs": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": "upload-test"
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "repeatedCollection": {
+          "type": "constant",
+          "value": ""
+        }
+      },
+      "reference": "8733825a-ba77-4cac-a2e1-436a5cab6cd3",
+      "rows": [
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "required": {
+              "type": "constant",
+              "value": false
+            },
+            "labelHidden": {
+              "type": "constant",
+              "value": false
+            },
+            "label": {
+              "type": "constant",
+              "value": "photo 1"
+            },
+            "labelPosition": {
+              "type": "constant",
+              "value": "top"
+            },
+            "labelWidth": {
+              "type": "constant",
+              "value": 4
+            },
+            "placeholder": {
+              "type": "constant",
+              "value": "photo.jpg"
+            },
+            "url": {
+              "type": "constant",
+              "value": "/API/formFileUpload"
+            },
+            "value": {
+              "type": "data",
+              "value": "sendData.attachments"
+            }
+          },
+          "reference": "0f285645-5898-4c2a-853d-ec34b78a14d9",
+          "id": "pbUpload"
+        }],
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "text": {
+              "type": "data",
+              "value": "sendData.attachments | json"
+            },
+            "alignment": {
+              "type": "constant",
+              "value": "left"
+            }
+          },
+          "reference": "b92efa9c-69e4-44f5-bc98-d24207236629",
+          "id": "pbText"
+        }]
+      ]
+    }]
+  ],
+  "assets": [],
+  "data": {
+    "sendData": {
+      "type": "json",
+      "value": "{}",
+      "exposed": false
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "customButton",
+  "name": "button",
+  "lastUpdate": 1431954947969,
+  "template": "<button ng-click=\"ctrl.sayClicked()\">Enter your template here, using {{ properties.value }}</button>",
+  "controller": "function WidgetbuttonController($scope) {\n    this.sayClicked = function() {\n        $scope.properties.value = 'clicked';\n    };\n}",
+  "custom": true,
+  "properties": [{
+    "label": "Value",
+    "name": "value",
+    "type": "text",
+    "defaultValue": "This is the initial value",
+    "bidirectional": false
+  }]
+}

@@ -1,0 +1,310 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "autocomplete",
+  "name": "autocomplete",
+  "lastUpdate": 1429799064124,
+  "rows": [
+    [{
+      "type": "container",
+      "dimension": {
+        "xs": 12,
+        "sm": 12,
+        "md": 12,
+        "lg": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": "test-simple"
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "repeatedCollection": {
+          "type": "constant",
+          "value": ""
+        }
+      },
+      "reference": "a133b9d3-9a80-4b5b-bf7a-df5d99ea5928",
+      "rows": [
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "text": {
+              "type": "constant",
+              "value": "simple list of value"
+            },
+            "level": {
+              "type": "constant",
+              "value": "Level 3"
+            },
+            "alignment": {
+              "type": "constant",
+              "value": "left"
+            }
+          },
+          "reference": "9d70759c-48d9-4ea9-b9a1-988a16846606",
+          "id": "pbTitle"
+        }],
+        [{
+          "type": "component",
+          "id": "pbAutocomplete",
+          "dimension": {
+            "xs": 12,
+            "md": 12,
+            "sm": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "readOnly": {
+              "type": "constant",
+              "value": false
+            },
+            "labelHidden": {
+              "type": "constant",
+              "value": false
+            },
+            "label": {
+              "type": "constant",
+              "value": "city"
+            },
+            "labelPosition": {
+              "type": "constant",
+              "value": "left"
+            },
+            "labelWidth": {
+              "type": "constant",
+              "value": 4
+            },
+            "placeholder": {
+              "type": "constant"
+            },
+            "availableValues": {
+              "type": "constant",
+              "value": ["London", "Paris", "San Francisco"]
+            },
+            "value": {
+              "type": "data",
+              "value": "selectedCity"
+            },
+            "displayedKey": {
+              "type": "constant"
+            }
+          }
+        }],
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "text": {
+              "type": "constant",
+              "value": "city: {{selectedCity}}"
+            },
+            "alignment": {
+              "type": "constant",
+              "value": "left"
+            }
+          },
+          "reference": "3fb6cdc9-e085-49fe-bb3a-c4511e61e9ca",
+          "id": "pbText"
+        }]
+      ]
+    }],
+    [{
+      "type": "container",
+      "dimension": {
+        "xs": 12,
+        "sm": 12,
+        "md": 12,
+        "lg": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": "test-object"
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "repeatedCollection": {
+          "type": "constant",
+          "value": ""
+        }
+      },
+      "reference": "cf7059f9-6696-4751-80ac-c4710ce64bdd",
+      "rows": [
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "text": {
+              "type": "constant",
+              "value": "Object list"
+            },
+            "level": {
+              "type": "constant",
+              "value": "Level 2"
+            },
+            "alignment": {
+              "type": "constant",
+              "value": "left"
+            }
+          },
+          "reference": "588951be-a375-4757-947f-9f887784c4c1",
+          "id": "pbTitle"
+        }],
+        [{
+          "type": "component",
+          "id": "pbAutocomplete",
+          "dimension": {
+            "xs": 12,
+            "md": 12,
+            "sm": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "readOnly": {
+              "type": "constant",
+              "value": false
+            },
+            "labelHidden": {
+              "type": "constant",
+              "value": false
+            },
+            "label": {
+              "type": "constant",
+              "value": "user"
+            },
+            "labelPosition": {
+              "type": "constant",
+              "value": "left"
+            },
+            "labelWidth": {
+              "type": "constant",
+              "value": 4
+            },
+            "placeholder": {
+              "type": "constant"
+            },
+            "availableValues": {
+              "type": "data",
+              "value": "users"
+            },
+            "value": {
+              "type": "data",
+              "value": "selectedUser"
+            },
+            "displayedKey": {
+              "type": "constant",
+              "value": "name"
+            }
+          }
+        }],
+        [{
+          "type": "component",
+          "dimension": {
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12
+          },
+          "propertyValues": {
+            "cssClasses": {
+              "type": "constant",
+              "value": ""
+            },
+            "hidden": {
+              "type": "constant",
+              "value": false
+            },
+            "text": {
+              "type": "constant",
+              "value": "user {{selectedUser|json}}"
+            },
+            "alignment": {
+              "type": "constant",
+              "value": "left"
+            }
+          },
+          "reference": "18bf9f7b-40f0-4242-aed2-4ab7f60951ff",
+          "id": "pbText"
+        }]
+      ]
+    }]
+  ],
+  "data": {
+    "selectedUser": {
+      "type": "json",
+      "value": "{ \"name\": \"Paul\" }",
+      "exposed": false
+    },
+    "users": {
+      "type": "json",
+      "value": "[\n {\"name\": \"Paul\", \"age\": 31},\n {\"name\": \"Hokusai\", \"age\": 32},\n {\"name\": \"Pablo\", \"age\": 33}\n]",
+      "exposed": false
+    },
+    "selectedCity": {
+      "type": "constant",
+      "value": null,
+      "exposed": false
+    }
+  }
+}

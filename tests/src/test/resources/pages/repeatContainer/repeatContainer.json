@@ -1,0 +1,166 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "repeatContainer",
+  "name": "repeatContainer",
+  "lastUpdate": 1429524823727,
+  "rows": [
+    [
+      {
+        "type": "container",
+        "dimension": {"xs": 12},
+        "propertyValues": {
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "isReadonly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {
+            "type": "data",
+            "value": "collection"
+          }
+        },
+        "reference": "a66d07fc-5e66-480a-b4b9-673a7b1b17d3",
+        "rows": [
+          [
+            {
+              "type": "component",
+              "dimension": {
+                "xs": 12,
+                "sm": 12,
+                "md": 12,
+                "lg": 12
+              },
+              "propertyValues": {
+                "text": {
+                  "type": "constant",
+                  "value": "{{$item}}"
+                },
+                "alignment": {
+                  "type": "constant",
+                  "value": "left"
+                },
+                "isDisplayed": {
+                  "type": "constant",
+                  "value": true
+                },
+                "isDisabled": {
+                  "type": "constant",
+                  "value": false
+                },
+                "isReadonly": {
+                  "type": "constant",
+                  "value": false
+                },
+                "repeatedCollection": {"type": "constant"}
+              },
+              "reference": "94d69198-2f30-48d9-8249-f75a8fbfb0dd",
+              "id": "pbText"
+            },
+            {
+              "type": "component",
+              "dimension": {
+                "xs": 12,
+                "sm": 12,
+                "md": 12,
+                "lg": 12
+              },
+              "propertyValues": {
+                "value": {
+                  "type": "data",
+                  "value": "$item"
+                },
+                "placeholder": {"type": "constant"},
+                "required": {
+                  "type": "constant",
+                  "value": false
+                },
+                "maxlength": {"type": "constant"},
+                "labelHidden": {
+                  "type": "constant",
+                  "value": true
+                },
+                "label": {
+                  "type": "constant",
+                  "value": "Item"
+                },
+                "labelPosition": {
+                  "type": "constant",
+                  "value": "left"
+                },
+                "labelWidth": {
+                  "type": "constant",
+                  "value": 4
+                },
+                "isDisplayed": {
+                  "type": "constant",
+                  "value": true
+                },
+                "isDisabled": {
+                  "type": "constant",
+                  "value": false
+                },
+                "isReadonly": {
+                  "type": "constant",
+                  "value": false
+                },
+                "repeatedCollection": {"type": "constant"}
+              },
+              "reference": "26fbebfc-b5e6-44af-b4d8-f03d6446f2a4",
+              "id": "pbInput"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "text": {
+            "type": "constant",
+            "value": "{{collection}}"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "isDisabled": {
+            "type": "constant",
+            "value": false
+          },
+          "isReadonly": {
+            "type": "constant",
+            "value": false
+          },
+          "repeatedCollection": {"type": "constant"}
+        },
+        "reference": "290553a2-5ada-4b83-b836-f4d0dd6c1d15",
+        "id": "pbText"
+      }
+    ]
+  ],
+  "data": {
+    "collection": {
+      "type": "json",
+      "value": "[\"hello\", \"designer\"]",
+      "exposed": false
+    }
+  }
+}
