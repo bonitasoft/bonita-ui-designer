@@ -53,7 +53,7 @@
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this an error
       if (response && response.type && response.message) {
-        alerts.addError(response);
+        alerts.addError(response.message);
       }
       $modalInstance.close();
     }
@@ -62,7 +62,7 @@
      * If an error occurred on saving, the message is displayed in alerts area
      */
     function onError(error) {
-      alerts.addError(error);
+      alerts.addError(error.message);
       $modalInstance.dismiss('cancel');
     }
 

@@ -20,7 +20,7 @@ describe('errorInterceptor', function() {
     $http.put('/foo');
     $httpBackend.flush();
 
-    expect(alerts.addError).toHaveBeenCalledWith(data);
+    expect(alerts.addError).toHaveBeenCalledWith(data.message);
   });
 
   it('should add a generic error if non-JSON error response', function() {
@@ -29,7 +29,7 @@ describe('errorInterceptor', function() {
     $http.put('/foo');
     $httpBackend.flush();
 
-    expect(alerts.addError).toHaveBeenCalledWith({message: 'Unexpected server error'});
+    expect(alerts.addError).toHaveBeenCalledWith('Unexpected server error');
   });
 
   it('should add a generic error if JSON error without message', function() {
@@ -40,6 +40,6 @@ describe('errorInterceptor', function() {
     $http.put('/foo');
     $httpBackend.flush();
 
-    expect(alerts.addError).toHaveBeenCalledWith({message: 'Unexpected server error'});
+    expect(alerts.addError).toHaveBeenCalledWith('Unexpected server error');
   });
 });

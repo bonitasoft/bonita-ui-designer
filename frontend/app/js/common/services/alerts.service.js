@@ -12,32 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.common.services').factory('alerts', function($timeout) {
+angular.module('pb.common.services').factory('alerts', function($timeout, gettext) {
 
   'use strict';
-
 
   var alerts = [];
 
   var defaultDelay = 8000;
 
   /**
-   * Adds an error and removes it a few seconds later
+   * Adds an alert and removes it a few seconds later
    * @param error
    */
-  var addError = function(error) {
-    alerts.push({type: 'danger', message: error.message});
-    $timeout(function() {
-      remove(0);
-    }, defaultDelay);
-  };
-
-  /**
-   * Adds a success message and removes it a few seconds later
-   * @param error
-   */
-  var addSuccess = function(message, delay) {
-    alerts.push({type: 'success', message: message});
+  var add = function(alert, delay) {
+    alerts.push(alert);
     $timeout(function() {
       remove(0);
     }, delay || defaultDelay);
@@ -51,10 +39,51 @@ angular.module('pb.common.services').factory('alerts', function($timeout) {
     alerts.splice(index, 1);
   };
 
+  /**
+   * An alert could be a message or an object
+   * @param alert
+   */
+  var getAlert = function(alert, type) {
+    if (typeof alert === 'string') {
+      return {type: type, content: alert};
+    } else {
+      alert.type = type;
+      return alert;
+    }
+  };
+
+  /**
+   * Adds a success message and removes it a few seconds later
+   * @param message
+   */
+  var addSuccess = function(alert, delay) {
+    var a = getAlert(alert, gettext('success')); // gettext, add success to pot file
+    add(a, delay);
+  };
+
+  /**
+   * Adds an error and removes it a few seconds later
+   * @param error
+   */
+  var addError = function(alert, delay) {
+    var a = getAlert(alert, gettext('error')); // gettext, add error to pot file
+    add(a, delay);
+  };
+
+  /**
+   * Adds a warning message and removes it a few seconds later
+   * @param error
+   */
+  var addWarning = function(alert, delay) {
+    var a = getAlert(alert, gettext('warning')); // gettext, add warning to pot file
+    add(a, delay);
+  };
+
   return {
     alerts: alerts,
     addError: addError,
     addSuccess: addSuccess,
-    remove: remove
+    remove: remove,
+    addWarning: addWarning
   };
 });
