@@ -1,0 +1,82 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "formContainer",
+  "name": "formContainer",
+  "lastUpdate": 1430205301264,
+  "rows": [
+    [{
+      "type": "formContainer",
+      "dimension": {
+        "xs": 12,
+        "sm": 12,
+        "md": 12,
+        "lg": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": ""
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "url": {
+          "type": "constant",
+          "value": ""
+        },
+        "method": {
+          "type": "constant",
+          "value": ""
+        },
+        "action": {
+          "type": "constant"
+        }
+      },
+      "container": {
+        "type": "container",
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          }
+        },
+        "rows": [
+          [{
+            "type": "component",
+            "id": "pbText",
+            "dimension": {
+              "xs": 12,
+              "md": 12,
+              "sm": 12,
+              "lg": 12
+            },
+            "propertyValues": {
+              "cssClasses": {
+                "type": "constant",
+                "value": ""
+              },
+              "hidden": {
+                "type": "constant",
+                "value": false
+              },
+              "text": {
+                "type": "data",
+                "value": "$form | json"
+              },
+              "alignment": {
+                "type": "constant",
+                "value": "left"
+              }
+            }
+          }]
+        ]
+      }
+    }]
+  ],
+  "data": {}
+}

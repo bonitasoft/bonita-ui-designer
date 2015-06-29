@@ -1,0 +1,162 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "textarea",
+  "name": "textarea",
+  "lastUpdate": 1428910965912,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "A label"
+          },
+          "labelPosition": {
+            "type": "data",
+            "value": "alignment"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "value": {
+            "type": "data",
+            "value": "theValue"
+          }
+        },
+        "reference": "6b46dece-1b09-49a5-9103-f773f3090f96",
+        "id": "pbTextarea"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": true
+          },
+          "label": {
+            "type": "constant",
+            "value": "Default label"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "value": {
+            "type": "data",
+            "value": "theValue"
+          }
+        },
+        "reference": "d6d61446-9ed1-4f33-8dbd-5538722f0ad5",
+        "id": "pbTextarea"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isDisplayed": {
+            "type": "constant",
+            "value": true
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Alignment selection"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {"type": "constant"},
+          "value": {"type": "constant"},
+          "type": {
+            "type": "constant",
+            "value": "text"
+          }
+        },
+        "reference": "35572768-217a-4933-b63d-ab71f347cc90",
+        "id": "pbInput"
+      }
+    ]
+  ],
+  "data": {
+    "theValue": {
+      "type": "constant",
+      "value": "Here is the preloaded text",
+      "exposed": false
+    },
+    "alignment": {
+      "type": "constant",
+      "exposed": false
+    }
+  }
+}
