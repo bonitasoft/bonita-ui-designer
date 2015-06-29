@@ -3,6 +3,7 @@
   height: @nav-bar-height;
   display: table;
   width: 100%;
+  min-width: @screen-sm-max;
 }
 
 .EditorHeader-menu {
@@ -13,7 +14,6 @@
 .EditorHeader-resolutions {
   display: table-cell;
   vertical-align: middle;
-  width: 15%;
 }
 
 .EditorHeader-help {
@@ -22,7 +22,6 @@
   text-align: right;
   padding-right: 1.5em;
 }
-
 
 .EditorHeader-back {
   display: inline-block;
@@ -34,21 +33,21 @@
   height: @nav-bar-height;
   line-height: @nav-bar-height;
   width: 50px;
-
 }
+
 .EditorHeader-back:hover {
-    background: lighten(@color-editor-header-back-bg, 5%);
-    color: @color-editor-header-text;
-  }
+  background: lighten(@color-editor-header-back-bg, 5%);
+  color: @color-editor-header-text;
+}
 
 .EditorHeader-icon  {
-   color: @color-editor-header-text;
-   font-size: 2.5em;
-   vertical-align: middle;
-   display: inline-block;
-   margin: 0 .6em;
-   position: relative;
-   top: -.08em;
+  color: @color-editor-header-text;
+  font-size: 2.5em;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 .6em;
+  position: relative;
+  top: -.08em;
 }
 
 .EditorHeader-brand {
@@ -65,7 +64,6 @@
   display: inline-block;
   margin: 0 2em;
 }
-
 
 .EditorHeader-name {
   border-color: #404853;
