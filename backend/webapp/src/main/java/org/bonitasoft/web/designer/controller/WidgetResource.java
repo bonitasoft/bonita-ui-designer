@@ -14,11 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static java.lang.Boolean.TRUE;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -28,11 +24,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -51,24 +45,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/rest/widgets")
-public class WidgetResource {
+public class WidgetResource extends AssetResource<Widget>{
     private static final Logger logger = LoggerFactory.getLogger(WidgetResource.class);
     private JacksonObjectMapper objectMapper;
     private WidgetRepository repository;
     private List<Repository> usedByRepositories;
-    private AssetService<Widget> widgetAssetService;
     private Path widgetPath;
 
     @Inject
     public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService, @Named("widgetPath") Path widgetPath) {
+        super(widgetAssetService, repository, null);
         this.repository = repository;
         this.objectMapper = objectMapper;
-        this.widgetAssetService = widgetAssetService;
         this.widgetPath = widgetPath;
+    }
+
+    @Override
+    protected void checkArtifactId(String artifactId) {
+        checkWidgetIdIsNotAPbWidget(artifactId);
     }
 
     /**
@@ -112,7 +109,7 @@ public class WidgetResource {
     public Widget create(@RequestBody Widget widget, @RequestParam(value = "duplicata", required = false) String sourceWidgetId) throws IllegalArgumentException {
         Widget newWidget = repository.create(widget);
         if(isNotEmpty(sourceWidgetId)) {
-            widgetAssetService.duplicateAsset(widgetPath, repository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
+            assetService.duplicateAsset(widgetPath, repository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
         }
         return newWidget;
     }
@@ -175,45 +172,6 @@ public class WidgetResource {
     public List<Property> deleteProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
         return repository.deleteProperty(widgetId, propertyName);
-    }
-
-
-    @RequestMapping(value = "/{widgetId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("widgetId") String widgetId,
-                                                    @PathVariable("type") String type) {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        try {
-            widgetAssetService.upload(file, repository.get(widgetId), type);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (ServerImportException | IllegalArgumentException e) {
-            logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @RequestMapping(value = "/{widgetId}/assets", method = RequestMethod.POST)
-    public void saveAsset(@RequestBody Asset asset, @PathVariable("widgetId") String widgetId) {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        widgetAssetService.save(repository.get(widgetId), asset);
-    }
-
-    @RequestMapping(value = "/{widgetId}/assets/{assetId}", method = RequestMethod.DELETE)
-    public void deleteAsset(@PathVariable("widgetId") String widgetId, @PathVariable("assetId") String assetId) throws RepositoryException {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        widgetAssetService.delete(repository.get(widgetId), assetId);
-    }
-
-    @RequestMapping(value = "/{widgetId}/assets/{assetId}", method = RequestMethod.PUT)
-    public void incrementOrder(
-            @PathVariable("widgetId") String widgetId,
-            @PathVariable("assetId") String assetId,
-            @RequestParam(value = "increment", required = false) Boolean increment,
-            @RequestParam(value = "decrement", required = false) Boolean decrement) {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-
-        if (increment != null || decrement != null) {
-            widgetAssetService.changeAssetOrderInComponent(repository.get(widgetId), assetId, TRUE.equals(increment) ? INCREMENT : DECREMENT);
-        }
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

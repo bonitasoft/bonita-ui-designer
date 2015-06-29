@@ -14,14 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static java.lang.Boolean.TRUE;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import javax.inject.Inject;
 
@@ -30,8 +27,6 @@ import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.Asset.JsonViewAsset;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -43,24 +38,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rest/pages")
-public class PageResource {
+public class PageResource extends AssetResource<Page>{
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
-    private AssetService<Page> pageAssetService;
     private PageRepository pageRepository;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
-    private AssetVisitor assetVisitor;
 
     @Inject
     public PageResource(
@@ -69,11 +56,15 @@ public class PageResource {
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
             AssetVisitor assetVisitor) {
+        super(pageAssetService, pageRepository, assetVisitor);
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
-        this.pageAssetService = pageAssetService;
-        this.assetVisitor = assetVisitor;
+    }
+
+    @Override
+    protected void checkArtifactId(String artifactId) {
+        checkNotNull(artifactId);
     }
 
     /**
@@ -92,7 +83,7 @@ public class PageResource {
         content.setId(pageId);
         pageRepository.save(content);
         if(isNotEmpty(sourcePageId)) {
-            pageAssetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
+            assetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
         }
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
@@ -129,47 +120,4 @@ public class PageResource {
         pageRepository.delete(pageId);
     }
 
-    @RequestMapping(value = "/{pageId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("pageId") String id,
-                                                    @PathVariable("type") String type) {
-        try{
-            pageAssetService.upload(file, pageRepository.get(id), type);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        catch (RepositoryException | IllegalArgumentException e){
-            logger.error(e.getMessage(),e);
-            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @RequestMapping(value = "/{pageId}/assets/{assetId}", method = RequestMethod.PUT)
-    public void incrementOrder(
-            @PathVariable("pageId") String pageId,
-            @PathVariable("assetId") String assetId,
-            @RequestParam(value = "increment", required = false) Boolean increment,
-            @RequestParam(value = "decrement", required = false) Boolean decrement,
-            @RequestParam(value = "active", required = false) Boolean active) {
-        if (increment != null || decrement != null) {
-            pageAssetService.changeAssetOrderInComponent(pageRepository.get(pageId), assetId, TRUE.equals(increment) ? INCREMENT : DECREMENT);
-        }
-        if (active != null) {
-            pageAssetService.changeAssetStateInPreviewable(pageRepository.get(pageId), assetId, active);
-        }
-    }
-
-    @RequestMapping(value = "/{pageId}/assets", method = RequestMethod.POST)
-    public void saveAsset(@RequestBody Asset asset, @PathVariable("pageId") String id) {
-        pageAssetService.save(pageRepository.get(id), asset);
-    }
-
-    @RequestMapping(value = "/{pageId}/assets/{assetId}", method = RequestMethod.DELETE)
-    public void deleteAsset(@PathVariable("pageId") String pageId, @PathVariable("assetId") String assetId) throws RepositoryException {
-        pageAssetService.delete(pageRepository.get(pageId), assetId);
-    }
-
-    @RequestMapping(value = "/{pageId}/assets")
-    @JsonView(JsonViewAsset.class)
-    public Set<Asset> assets(@PathVariable("pageId") String id) {
-        return assetVisitor.visit(pageRepository.get(id));
-    }
 }
