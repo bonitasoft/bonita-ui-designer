@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('pb.common.directives', ['pb.common.services', 'ui.ace', 'ui.bootstrap', 'ui.router', 'gettext']);
+  angular.module('pb.common.directives', ['ngSanitize', 'pb.common.services', 'pb.templates', 'ui.ace', 'ui.router', 'gettext']);
 
 })();

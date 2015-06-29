@@ -29,8 +29,7 @@ angular.module('pb.common.directives').directive('alerts', function() {
       $scope.remove = function(index) {
         alerts.remove(index);
       };
-
     },
-    template: '<div class="alerts-wrapper" ng-show="alerts.length > 0"><alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="remove($index)" class="text-center">{{ alert.message }}</alert></div>'
+    templateUrl: 'js/common/directives/alert.html'
   };
 });

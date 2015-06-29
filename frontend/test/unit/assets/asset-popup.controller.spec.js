@@ -35,16 +35,18 @@ describe('AssetPopupCtrl', function() {
   });
 
   it('should diplay error and dismiss modal onError after form submit', function() {
-    var error = {error : 'error'};
+    var error = {error : 'error', message: 'an error occured'};
+
     $scope.onError(error);
-    expect(alerts.addError).toHaveBeenCalledWith(error);
+
+    expect(alerts.addError).toHaveBeenCalledWith(error.message);
     expect($modalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should diplay error and close modal when response contains error after form submit', function() {
     var response = {type : 'error', message: 'an error occured'};
     $scope.onSuccess(response);
-    expect(alerts.addError).toHaveBeenCalledWith(response);
+    expect(alerts.addError).toHaveBeenCalledWith(response.message);
     expect($modalInstance.close).toHaveBeenCalled();
   });
 
