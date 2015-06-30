@@ -394,7 +394,8 @@ angular.module('pb.e2e', ['ngMockE2E'])
       {
         id: 'empty',
         name: 'empty',
-        rows: [[]]
+        rows: [[]],
+        data: {}
       }
     ];
 

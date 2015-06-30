@@ -206,7 +206,7 @@ describe('editor test', function() {
   });
 
   it('should allow adding a custom widget', function() {
-    editor.addWidget('customAwesomeWidget');
+    editor.addCustomWidget('customAwesomeWidget');
 
     expect($('#component-0 .widget-content').getInnerHtml()).toContain('My awesome widget just rocks!');
 

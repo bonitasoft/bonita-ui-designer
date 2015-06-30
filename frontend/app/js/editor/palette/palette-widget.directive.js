@@ -20,7 +20,7 @@ angular.module('pb.directives').directive('paletteWidget', function() {
   'use strict';
 
   return {
-    restrict: 'E',
+    restrict: 'EA',
     scope: {
       widget: '='
     },

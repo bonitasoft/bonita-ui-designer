@@ -82,9 +82,25 @@ var AssetPanel = require('./asset-panel.page');
 
     // add a widget by its id
     addWidget: function (widgetId) {
-      this.addElement(widgetId).to('.widget-placeholder');
+      var editor = this;
+      var btn = $('.Palette-section[aria-label=widgets]');
+      btn.getAttribute('class').then(function(className){
+        if(!/.Palette-section--active/.test(className)) {
+          btn.click();
+        }
+        editor.addElement(widgetId).to('.widget-placeholder');
+      });
     },
-
+    addCustomWidget: function(widgetId) {
+      var editor = this;
+      var btn = $('.Palette-section[aria-label=customwidgets]');
+      btn.getAttribute('class').then(function(className){
+        if(!/.Palette-section--active/.test(className)) {
+          btn.click();
+        }
+        editor.addElement(widgetId).to('.widget-placeholder');
+      });
+    },
     // remove selected widget
     removeWidget: function () {
       var selectedItem = element(by.css('.component-element--selected'));
@@ -92,7 +108,7 @@ var AssetPanel = require('./asset-panel.page');
       element(by.css('.component-element--selected .fa.fa-times-circle')).click();
     },
 
-    // add a containe
+    // add a container
     addContainer: function () {
       this.addElement('container').to('.widget-placeholder', false, true);
     },
@@ -129,7 +145,7 @@ var AssetPanel = require('./asset-panel.page');
     // Palette listing widgets
     palette: {
       get: function () {
-        return element(by.id('palette'));
+        return element(by.css('.Palette'));
       }
     },
 

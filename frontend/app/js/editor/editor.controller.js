@@ -359,6 +359,14 @@ angular.module('pb.controllers').controller('EditorCtrl', function($scope, $stat
     });
   };
 
+
+  $scope.resizePaletteHandler = function(isClosed, isNarrow) {
+    $scope.isPaletteClosed = isClosed;
+    $scope.isPaletteNarrow = isNarrow;
+  };
+
+
+
   /**
    * Object containing methods helpful for the component and container directives of the editor, and which is passed
    * as an attribute of these directives.

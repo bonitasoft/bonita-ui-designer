@@ -1,10 +1,6 @@
-@sidebar-transition: 400ms cubic-bezier(0.19, 1, 0.22, 1);
-
-
 .splitter.splitter-vertical {
   cursor:  col-resize;
 }
-
 
 .splitter-pane {
   transition: right @sidebar-transition, left @sidebar-transition, bottom @sidebar-transition, transform @sidebar-transition;
@@ -16,10 +12,6 @@
 
 .splitter-pane-bottom.splitter-pane-closed {
   transform: translate(0, 100%) translate(0, -2.2em);
-}
-
-.splitter-pane-left.splitter-pane-closed {
-  transform: translate(-100%, 0);
 }
 
 .splitter-pane-right.splitter-pane-closed {

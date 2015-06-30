@@ -1,0 +1,22 @@
+<section class="Palette-sections">
+    <button class="Palette-section"
+            ng-class="{'Palette-section--active': palette.isActiveSection(section)}"
+            ng-repeat="section in palette.sections track by $index | orderBy:'order'"
+            ng-click="palette.toggleSection(section)"
+            aria-label="{{section.name | translate}}"
+            tooltip="{{section.name | translate}}"
+            tooltip-placement="right"
+            tooltip-popup-delay="500"
+            tooltip-append-to-body="true">
+        <i class="ui-icon" ng-class="'ui-'+section.name"></i>
+    </button>
+</section>
+<div class="Palette-widgets"
+     ng-class="{'Palette-widgets--narrow': palette.isNarrow()}"
+     ng-if="palette.currentSection !== undefined">
+    <div palette-widget
+        class="PaletteItem text-center"
+        ng-repeat="widget in palette.currentSection.widgets | orderBy:'component.order'"
+        widget="widget">
+    </div>
+</div>
