@@ -39,6 +39,9 @@ describe('Service: modelFactory', function () {
       type: 'expression',
       value: 'return ["pierre", "paul", "jack"];'
     }
+  }, expectedHeaders = {
+    'Accept': 'application/json, text/plain, */*',
+    'X-Bonita-API-Token': 'CSRF_Generated_Token'
   };
 
   beforeEach(inject(function(modelFactory, $rootScope, _$compile_, _$httpBackend_, _$location_) {
@@ -49,6 +52,7 @@ describe('Service: modelFactory', function () {
     $compile = _$compile_;
     $location = _$location_;
     template = $compile('<div>{{ properties.qux }}</div>')(scope);
+    $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '', {'X-Bonita-API-Token': 'CSRF_Generated_Token'});
   }));
 
   afterEach(function() {
@@ -84,18 +88,18 @@ describe('Service: modelFactory', function () {
   });
 
   it('should make a call to the url when accessing data for the first time', function () {
-    $httpBackend.expectGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
+    $httpBackend.expectGET('https://some.url.com/rest/bar/foo', expectedHeaders).respond(200, ['foo', 'bar', 'baz']);
     expect(dataModel.bar).toBeUndefined();
     $httpBackend.flush();
     expect(dataModel.bar).toEqual(['foo', 'bar', 'baz']);
   });
 
   it('should make a call to the url when url change', function () {
-    $httpBackend.expectGET('https://some.url.com/rest/bar/foo').respond(200, "foobar");
+    $httpBackend.expectGET('https://some.url.com/rest/bar/foo', expectedHeaders).respond(200, "foobar");
     expect(dataModel.bar).toBeUndefined();
     $httpBackend.flush();
 
-    $httpBackend.expectGET('https://some.url.com/rest/baz/foo').respond(200, "foobaz");
+    $httpBackend.expectGET('https://some.url.com/rest/baz/foo', expectedHeaders).respond(200, "foobaz");
     dataModel.foo = 'baz';
     expect(dataModel.bar).toEqual("foobar");
     $httpBackend.flush();
