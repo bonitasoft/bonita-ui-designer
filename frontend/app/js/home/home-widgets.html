@@ -1,0 +1,58 @@
+<div class="Panel">
+    <div class="Panel-heading">
+        <h3 class="Panel-title">
+            <i class="ui-icon ui-customwidgets Panel-icon"></i>
+            <span translate>Custom Widgets</span>
+        </h3>
+    </div>
+
+    <div class="Panel-body">
+        <form name="newWidget" ng-submit="createWidget(widget.name)">
+            <fieldset class="CreateArtifact">
+                <legend class="CreateArtifact-label" translate>New widget</legend>
+                <button class="btn btn-bonita-default CreateArtifact-import" title="{{'Import a widget' | translate}}" type="button" ng-click="importElement('widget')">
+                    <i class="fa fa-alias-import"></i>
+                </button>
+                <div class="input-group CreateArtifact-form">
+                    <input name="name" ng-model="widget.name" type="text" class="form-control" id="widget-name" placeholder="{{'Widget Name' | translate}}" ng-pattern="'[a-zA-Z0-9]*$'" required>
+                    <span class="input-group-btn">
+                        <button id="create-widget"
+                                title="{{'Create new widget'| translate }}"
+                                type="submit"
+                                class="btn btn-bonita-default"
+                                ng-disabled="!newWidget.$valid">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                </div>
+                <span ng-if="newWidget.name.$error.pattern" class="text-danger CreateArtifact-error" translate>Widget name should contains only alphanumeric characters with no space</span>
+            </fieldset>
+        </form>
+
+        <p class="Artifact-empty" ng-if="widgets.length == 0" translate>
+            No custom widget
+        </p>
+
+        <ul class="ArtifactList">
+            <li class="ArtifactList-item" ng-repeat="widget in widgets | orderBy:'name'">
+                <div class="Artifact-info">
+                    <a ui-sref="designer.widget({ widgetId: widget.id })" class="Artifact-link ">
+                        <span title="{{ widget.name }}">
+                            <i class="ui-icon ui-customwidgets Artifact-icon"></i>
+                            {{ widget.name }}
+                        </span>
+                    </a>
+                </div>
+                <div class="Artifact-actions">
+                    <file-download class="Artifact-button Artifact-button--primary btn-widget-export" href="exportWidgetUrl(widget)" title="{{'Export widget' | translate }}"></file-download>
+                    <button class="Artifact-button btn-widget-delete"
+                            type="button"
+                            ng-click="deleteCustomWidget(widget)"
+                            title="{{'Delete widget' | translate }} {{ widget.name }}">
+                        <i class="fa fa-trash">&nbsp;</i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
