@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller;
 
 import static java.lang.Boolean.TRUE;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
@@ -85,18 +86,21 @@ public class PageResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Page> create(@RequestBody Page content) throws RepositoryException {
+    public ResponseEntity<Page> create(@RequestBody Page content, @RequestParam(value = "duplicata", required = false) String sourcePageId) throws RepositoryException {
         // the page should not have an ID. If it has one, we ignore it and generate one
         String pageId = UUID.randomUUID().toString();
         content.setId(pageId);
         pageRepository.save(content);
+        if(isNotEmpty(sourcePageId)) {
+            pageAssetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
+        }
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("scope") String scope, @PathVariable("name") String name)
             throws RepositoryException {
-        return create(contractToPageMapper.createPage(name, contract, FormScope.valueOf(scope.toUpperCase())));
+        return create(contractToPageMapper.createPage(name, contract, FormScope.valueOf(scope.toUpperCase())), null);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)

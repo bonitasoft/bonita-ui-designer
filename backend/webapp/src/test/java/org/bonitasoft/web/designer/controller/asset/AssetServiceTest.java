@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
+import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
@@ -26,8 +27,15 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
+import com.google.common.collect.Lists;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
+import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
@@ -39,19 +47,26 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.springframework.mock.web.MockMultipartFile;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@RunWith(JUnitParamsRunner.class)
 public class AssetServiceTest {
+
     @Mock
     private Repository<Page> repository;
     @Mock
     private AssetRepository<Page> assetRepository;
+    @Mock
+    private AssetImporter<Page> assetImporter;
     @InjectMocks
     private AssetService assetService;
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
     public void should_return_error_when_uploading_file_null() {
@@ -174,6 +189,41 @@ public class AssetServiceTest {
         doThrow(IOException.class).when(assetRepository).delete(page.getAssets().iterator().next());
 
         assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
+    }
+
+
+
+    protected Object[] invalidArgsForDuplicate() throws Exception{
+        Path tempPath = Files.createTempDirectory("test");
+        return $(
+                $(null, tempPath, "src-page-id", "page-id", "source page path is required"),
+                $(tempPath, null, "src-page-id", "page-id", "target page path is required"),
+                $(tempPath, tempPath, null, "page-id", "source page id is required"),
+                $(tempPath, tempPath, "src-page-id", null, "target page id is required")
+        );
+    }
+
+    @Parameters(method = "invalidArgsForDuplicate")
+    @Test
+    public void should_not_duplicate_asset_when_arg_invalid(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId, String expectedErrorMessage) throws Exception {
+        when(repository.getComponentName()).thenReturn("page");
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage(is(expectedErrorMessage));
+        assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId);
+    }
+
+
+    @Test
+    public void should_duplicate_asset() throws Exception {
+        Page page = new Page();
+        List<Asset> assets = Lists.newArrayList(anAsset().withId("UUID").withName("myfile.js").build());
+        Path tempPath = Files.createTempDirectory("test");
+        when(repository.get("src-page-id")).thenReturn(page);
+        when(assetImporter.load(page, tempPath)).thenReturn(assets);
+
+        assetService.duplicateAsset(tempPath, tempPath, "src-page-id", "page-id");
+
+        verify(assetImporter).save(eq(assets), eq(tempPath));
     }
 
     @Test

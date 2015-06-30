@@ -15,14 +15,17 @@
 package org.bonitasoft.web.designer.controller;
 
 import static java.lang.Boolean.TRUE;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
@@ -58,12 +61,14 @@ public class WidgetResource {
     private WidgetRepository repository;
     private List<Repository> usedByRepositories;
     private AssetService<Widget> widgetAssetService;
+    private Path widgetPath;
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService) {
+    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService, @Named("widgetPath") Path widgetPath) {
         this.repository = repository;
         this.objectMapper = objectMapper;
         this.widgetAssetService = widgetAssetService;
+        this.widgetPath = widgetPath;
     }
 
     /**
@@ -104,8 +109,12 @@ public class WidgetResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Widget create(@RequestBody Widget widget) throws IllegalArgumentException {
-        return repository.create(widget);
+    public Widget create(@RequestBody Widget widget, @RequestParam(value = "duplicata", required = false) String sourceWidgetId) throws IllegalArgumentException {
+        Widget newWidget = repository.create(widget);
+        if(isNotEmpty(sourceWidgetId)) {
+            widgetAssetService.duplicateAsset(widgetPath, repository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
+        }
+        return newWidget;
     }
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.PUT)

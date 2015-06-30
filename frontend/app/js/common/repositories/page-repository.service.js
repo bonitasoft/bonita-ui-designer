@@ -33,9 +33,10 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
   /**
    * Creates a new page and returns a promise containing the returned data
    * @param content - the page's content (name and empty row, typically)
+   * @param sourcePageId - for a save as this arg is the id of the source page
    */
-  function create(content) {
-    return $http.post('rest/pages', content).then(function(response) {
+  function create(content, sourcePageId) {
+    return $http.post('rest/pages' + (sourcePageId ? '?duplicata=' + sourcePageId : ''), content).then(function(response) {
       return response.data;
     });
   }

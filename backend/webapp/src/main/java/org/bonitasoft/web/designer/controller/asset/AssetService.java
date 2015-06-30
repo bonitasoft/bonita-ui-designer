@@ -15,12 +15,13 @@
 package org.bonitasoft.web.designer.controller.asset;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.nio.file.Files.exists;
 import static java.util.UUID.randomUUID;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -29,6 +30,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
+
+
+import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -38,6 +42,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,11 +59,12 @@ public class AssetService<T extends Assetable> {
 
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
+    private AssetImporter<T> assetImporter;
 
-
-    public AssetService(Repository<T> repository, AssetRepository<T> assetRepository) {
+    public AssetService(Repository<T> repository, AssetRepository<T> assetRepository, AssetImporter<T> assetImporter) {
         this.repository = repository;
         this.assetRepository = assetRepository;
+        this.assetImporter = assetImporter;
     }
 
     /**
@@ -137,6 +143,28 @@ public class AssetService<T extends Assetable> {
             component.getAssets().add(asset);
         }
         repository.save(component);
+    }
+
+    /**
+     * Duplicate assets when an artifact is duplicated
+     */
+    public void duplicateAsset(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId){
+        checkArgument(isNotEmpty(sourceArtifactId), String.format("source %s id is required", repository.getComponentName()));
+        checkArgument(isNotEmpty(targetArtifactId), String.format("target %s id is required", repository.getComponentName()));
+        checkArgument(artifactSourcePath !=null && exists(artifactSourcePath), String.format("source %s path is required", repository.getComponentName()));
+        checkArgument(artifactTargetPath != null && exists(artifactTargetPath), String.format("target %s path is required", repository.getComponentName()));
+
+        try {
+            List<Asset> assets = assetImporter.load(repository.get(sourceArtifactId), artifactSourcePath);
+            for(Asset asset: assets){
+                asset.setScope(null);
+                asset.setComponentId(targetArtifactId);
+            }
+            assetImporter.save(assets,artifactTargetPath);
+        }
+        catch(IOException e){
+            throw new RepositoryException("Error on assets duplication", e);
+        }
     }
 
     /**
