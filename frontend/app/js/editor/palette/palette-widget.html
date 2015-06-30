@@ -1,10 +1,11 @@
-<div id="{{ widget.component.id }}" class="PaletteItem text-center" bo-draggable bo-draggable-data="widget"  >
+<div id="{{ widget.component.id }}" bo-draggable bo-draggable-data="widget"  >
     <img class="PaletteItem-icon" ng-src="{{iconData}}" />
     <h5 class="PaletteItem-label">{{ widget.component.name }}</h5>
     <i class="PaletteItem-description"
        ng-if="widget.component.description"
        tooltip-placement="right"
        tooltip="{{ widget.component.description | translate }}"
+       tooltip-popup-delay="300"
        tooltip-append-to-body="true">
        <span class="sr-only" translate>Description</span>
     </i>

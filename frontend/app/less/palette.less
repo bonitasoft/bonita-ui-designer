@@ -1,64 +1,146 @@
-
-#palette {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: @color-palette-bg;
-  border-right: 1px solid @color-palette-bg;
-}
-
 .Palette {
-  [collapse] {
-    font-size: 0
-  }
+  width: @sidebar-palette-width;
+  bottom: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width @sidebar-transition;
+  background-color: @color-palette-item-bg;
 }
 
-.Palette-title {
-  position: relative;
-  border-bottom:1px solid @color-palette-bg;
+.Palette--closed {
+   width: @sidebar-palette-section-width;
+}
+
+.Palette--narrow {
+   width: @sidebar-palette-width--narrow;
+}
+
+.Palette-sections {
+  background-color: @color-palette-bg;
+  width: @sidebar-palette-section-width;
+  height: 100%;
+  z-index: 2;
+  position: absolute;
+}
+
+
+.Palette-section {
+  display: block;
+  width: 100%;
+  height: 2.5em;
+  color: @color-palette-section-text;
+  border: none;
+  background-color: @color-palette-section-bg;
+  font-size: 2em;
+  vertical-align: middle;
+  border-top: @color-palette-section-border 1px solid;
+  line-height: 1;
+}
+.Palette-section:focus {
+  outline: @color-palette-section-bg-active 1px dashed;
+  outline-offset: -1px;
+  color: @color-palette-section-bg-active;
+}
+
+.Palette-section:active {
   background-color: @color-palette-section-bg-active;
   color: @color-palette-section-text;
-  margin-left: 0;
-  padding: 5px .3em;
-  text-transform: uppercase;
 }
 
-.Palette-title::after {
+/* increase specificity to override :focus styles */
+.Palette-section.Palette-section--active {
+  background-color: lighten(@color-palette-section-bg-active, 10%);
+  color: @color-palette-section-text;
+}
+
+
+.Palette-widgets {
   position: absolute;
-  right: 5px;
-  font-family: FontAwesome;
-  content: "\f107"; //fa-angle-down
+  z-index: 1;
+  top: 0;
+  left: @sidebar-palette-section-width;
+  width: @sidebar-palette-width - @sidebar-palette-section-width;
+  height: 100%;
+  overflow-y: scroll;
+  border-right: 1px solid @color-palette-bg;
+  border-top: 1px solid @color-palette-bg;
+  background:
+    /* Shadow covers */
+    linear-gradient(@color-palette-item-bg 30%, rgba(255,255,255,0)),
+    linear-gradient(rgba(255,255,255,0), @color-palette-item-bg 70%) 0 100%,
+
+    /* Shadows */
+    radial-gradient(farthest-side at 50% 0, fade(@color-palette-bg, 100%), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 50% 100%, fade(@color-palette-bg, 100%), rgba(0,0,0,0)) 0 100%;
+
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
+
+  transition: width @sidebar-transition,  transform @sidebar-transition;
 }
 
-.Palette-title--collapsed::after {
-  position: absolute;
-  right: 5px;
-  font-family: FontAwesome;
-  content: "\f106"; //fa-angle-up
+
+// Resize animation 1col <-> 2 col
+.Palette-widgets.ng-enter {
+  transform: translate(-100%, 0);
+}
+.Palette-widgets.ng-enter-active {
+  transform: translate(0, 0);
+}
+.Palette-widgets.ng-leave {
+  transform: translate(0, 0);
+}
+.Palette-widgets.ng-leave-active {
+  transform: translate(-100%, 0);
 }
 
-.Palette-title--collapsed {
-  background-color: @color-palette-section-bg;
+.Palette-widgets--narrow  {
+   width: @sidebar-palette-width--narrow - @sidebar-palette-section-width;
+}
+
+.Palette-widgets--narrow .PaletteItem {
+  border-right: 0;
+  width: 100%;
 }
 
 
-.Palette-widget {
+.PaletteItem {
   color: @color-palette-item-text;
   cursor: move;
-  background-color: @color-palette-item-bg;
-  font-size: 15px;
+  font-size: 14px;
   width: 50%;
-  border: 1px solid @color-palette-bg;
-  border-radius: 0;
-  border-left: 0;
-  border-top: 0;
+  border-bottom: 1px solid @color-palette-bg;
+  border-right: 1px solid @color-palette-bg;
   margin: 0;
-  min-height: 70px;
+  min-height: 5em;
   display: inline-block;
   position: relative;
   vertical-align: top;
+  opacity: 1;
+  transition: opacity @transition-duration @sidebar-transition;
 }
 
-.Palette-widget:nth-child(2n) {
+//  Alpha animation
+.PaletteItem.ng-leave{
+  opacity: 1;
+  transition: none;
+}
+.PaletteItem.ng-leave-active{
+  opacity: 0;
+}
+.PaletteItem.ng-enter{
+  opacity: 0;
+}
+.PaletteItem.ng-enter-active{
+  opacity: 1;
+}
+
+.PaletteItem:nth-child(2n) {
   border-right: 0
 }
 
@@ -94,23 +176,6 @@
   margin: 0;
 }
 
-@media screen and (max-width: @minWidth) {
-
-  .PaletteItem-icon {
-    margin-top: 1.2em;
-    width:50%;
-  }
-}
-
-@media screen and (min-width: @maxWidth) {
-  .Palette-title {
-    font-size: 1em;
-    padding: .3em .75em;
-  }
-  .PaletteItem-label {
-    font-size: .60em;
-  }
-}
 
 
 .toggle {
@@ -127,15 +192,3 @@
   }
 }
 
-#toggle-palette {
-  left: -1px;
-  border-left: none;
-}
-
-.toggle-left:before {
-  content: @fa-var-angle-left;
-}
-
-.splitter-closed-left .toggle-left:before {
-  content: @fa-var-angle-right;
-}
