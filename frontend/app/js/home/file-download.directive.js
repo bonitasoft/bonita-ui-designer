@@ -23,7 +23,7 @@ angular.module('pb.home')
     var iframe = $document[0].querySelector('.ExportArtifact');
 
     return {
-      templateUrl : 'js/home/file-download.directive-template.html',
+      templateUrl : 'js/home/file-download.html',
       scope : {
         href: '=',
         class: '@',

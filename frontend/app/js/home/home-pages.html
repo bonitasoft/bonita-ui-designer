@@ -1,0 +1,80 @@
+<div class="Panel">
+    <div class="Panel-heading Panel-heading--primary">
+        <h3 class="Panel-title">
+            <i class="ui-icon ui-pages Panel-icon"></i>
+            <span translate>Pages &amp; Forms</span>
+        </h3>
+    </div>
+    <div class="Panel-body">
+        <form class="form" name="newPage" ng-submit="createPage(page)">
+            <fieldset class="CreateArtifact">
+                <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>New page</legend>
+                <button class="btn btn-bonita-primary CreateArtifact-import" title="{{'Import a page' | translate}}" type="button" ng-click="importElement('page')">
+                    <i class="fa fa-alias-import"></i>
+                </button>
+                <div class="input-group CreateArtifact-form">
+                    <input name="name"
+                           id="page-name"
+                           ng-model="page.name"
+                           type="text"
+                           ng-pattern="'[a-zA-Z0-9]*$'"
+                           class="form-control"
+                           placeholder="{{'Page Name' | translate}}"
+                           required>
+                    <span class="input-group-btn">
+                        <button id="create-page"
+                                title="{{'Create new page' | translate}}"
+                                type="submit"
+                                class="btn btn-bonita-primary"
+                                ng-disabled="!newPage.$valid">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                </div>
+                <span ng-if="newPage.name.$error.pattern" class="text-danger CreateArtifact-error" translate>Page name should contains only alphanumeric characters with no space</span>
+            </fieldset>
+        </form>
+
+        <p class="Artifact-empty" ng-if="pages.length == 0" translate>
+            No page or form
+        </p>
+
+        <ul class="ArtifactList">
+            <li class="ArtifactList-item ArtifactList-item--primary" ng-repeat="page in pages | orderBy:'-lastUpdate'">
+                <div class="Artifact-info">
+                    <a ng-if="!page.isEditingName" ui-sref="designer.page({id: page.id})" class="Artifact-link Artifact-link--primary">
+                        <span title="{{ page.name }}">
+                            <i class="ui-icon ui-pages Artifact-icon"></i>
+                            {{ page.name }}
+                        </span>
+                    </a>
+                    <form name="renamePage" class="Artifact-form" ng-if="page.isEditingName" ng-submit="renameItem(page)">
+                        <input name="name"
+                               data-autofocus
+                               ng-pattern="'[a-zA-Z0-9]*$'"
+                               id="page-name-input-{{$index}}"
+                               ng-model="page.name"
+                               ng-blur="renamePage.$valid && renameItem(page)"
+                               class="form-control" required>
+                        <span ng-if="renamePage.name.$error.pattern" class="text-danger" translate>Page name should contains only alphanumeric characters with no space</span>
+                    </form>
+                </div>
+                <div class="Artifact-actions">
+                    <button class="Artifact-button Artifact-button--primary btn-page-rename "
+                            ng-click="toggleItemEdition(page)"
+                            type="button"
+                            title="{{'Rename page' | translate}}">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <file-download class="Artifact-button Artifact-button--primary btn-page-export" href="exportPageUrl(page)" title="{{'Export page' | translate }}"></file-download>
+                    <button class="Artifact-button Artifact-button--primary btn-page-delete"
+                            ng-click="deletePage(page)"
+                            type="button"
+                            title="{{'Delete page'| translate}}">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
