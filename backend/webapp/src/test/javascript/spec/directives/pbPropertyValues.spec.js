@@ -67,11 +67,13 @@ describe('Directive: propertyValues', function () {
     }
   };
 
-  var $scope, modelFactory, $compile;
+  var $scope, modelFactory, $compile, $timout, pendingStatus;
 
-  beforeEach(inject(function ($rootScope, _$compile_, _modelFactory_) {
+  beforeEach(inject(function ($rootScope, _$compile_, _modelFactory_, _$timeout_, _pendingStatus_) {
     $compile = _$compile_;
     modelFactory = _modelFactory_;
+    $timeout = _$timeout_;
+    pendingStatus = _pendingStatus_;
     $scope = $rootScope.$new();
     $scope.properties = properties;
   }));
@@ -128,6 +130,50 @@ describe('Directive: propertyValues', function () {
     $scope.$apply();
 
     expect(element.find('div').scope().properties.isBound('notExisting')).toBe(false);
+  });
+
+  describe('waitfor', function(){
+    it('should return a promise', function() {
+      var element = compileTemplate();
+      $scope.$apply();
+      var scope = element.find('div').scope();
+
+      var handler = jasmine.createSpy('handler');
+
+      var promise = scope.properties.waitFor('baz');
+      expect(promise).toBeDefined();
+      expect(promise.then).toBeDefined();
+      expect(handler).not.toHaveBeenCalled();
+    });
+
+    it('should resolve waitFor if it doesn\'t depends on an External API', function() {
+      var element = compileTemplate();
+      $scope.$apply();
+      var scope = element.find('div').scope();
+
+      var handler = jasmine.createSpy('handler');
+
+      var promise = scope.properties.waitFor('baz').then(handler);
+      $timeout.flush();
+      expect(handler).toHaveBeenCalled();
+
+    });
+
+    it('should resolve waitFor after External API had been resolved', function() {
+      var element = compileTemplate();
+      $scope.$apply();
+      var scope = element.find('div').scope();
+
+      var handler = jasmine.createSpy('handler');
+
+      pendingStatus.addPendingRequest();
+      var promise = scope.properties.waitFor('baz').then(handler);
+      expect(handler).not.toHaveBeenCalled();
+      pendingStatus.removePendingRequest();
+      $timeout.flush();
+      expect(handler).toHaveBeenCalled();
+    });
+
   });
 
   describe('in a repeated context', function () {
