@@ -15,6 +15,9 @@
     'pb.generator.services',
     'pb.generator.directives',
     'pb.widgets'
-  ]);
+  ])
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push('httpActivityInterceptor');
+  });
 })();
 
