@@ -39,15 +39,13 @@ angular.module('pb.e2e', ['ngMockE2E'])
           name: 'text',
           caption: 'You can use basics html tags',
           type: 'html',
-          defaultValue: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...',
-          bidirectional: false
+          defaultValue: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...'
         }, {
           label: 'Alignment',
           name: 'alignment',
           type: 'choice',
           defaultValue: 'left',
-          choiceValues: ['left', 'center', 'right'],
-          bidirectional: false
+          choiceValues: ['left', 'center', 'right']
         }]
       },
       {
@@ -64,52 +62,45 @@ angular.module('pb.e2e', ['ngMockE2E'])
           name: 'readOnly',
           type: 'boolean',
           defaultValue: false,
-          bidirectional: false
+          bond: 'expression'
         }, {
           label: 'Label hidden',
           name: 'labelHidden',
           type: 'boolean',
-          defaultValue: false,
-          bidirectional: false
+          defaultValue: false
         }, {
           label: 'Label',
           name: 'label',
           showFor: 'properties.labelHidden.value === false',
           type: 'text',
-          defaultValue: 'Default label',
-          bidirectional: false
+          defaultValue: 'Default label'
         }, {
           label: 'Label position',
           name: 'labelPosition',
           showFor: 'properties.labelHidden.value === false',
           type: 'choice',
           defaultValue: 'left',
-          choiceValues: ['left', 'top'],
-          bidirectional: false
+          choiceValues: ['left', 'top']
         }, {
           label: 'Label width',
           name: 'labelWidth',
           showFor: 'properties.labelHidden.value === false',
           type: 'integer',
-          defaultValue: 4,
-          bidirectional: false
+          defaultValue: 4
         }, {
           label: 'Placeholder',
           name: 'placeholder',
-          type: 'text',
-          bidirectional: false
+          type: 'text'
         }, {
           label: 'Value',
           name: 'value',
-          type: 'text',
-          bidirectional: true
+          type: 'text'
         }, {
           label: 'Type',
           name: 'type',
           type: 'choice',
           defaultValue: 'text',
-          choiceValues: ['text', 'number', 'email', 'password'],
-          bidirectional: false
+          choiceValues: ['text', 'number', 'email', 'password']
         }]
       },
       {

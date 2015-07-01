@@ -68,7 +68,7 @@
       "name": "dataFromSuccess",
       "type": "text",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
-      "bidirectional": true
+      "bond": "variable"
     },
     {
       "label": "Failed response value",
@@ -76,7 +76,7 @@
       "name": "dataFromError",
       "type": "text",
       "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
-      "bidirectional": true
+      "bond": "variable"
     },
     {
       "label": "Target URL on success",
@@ -91,7 +91,7 @@
       "caption": "Must be an array",
       "type": "collection",
       "showFor": "properties.action.value === 'Remove from collection' || properties.action.value === 'Add to collection'",
-      "bidirectional": true
+      "bond": "variable"
     },
     {
       "label": "Add",
@@ -127,7 +127,7 @@
       "name": "removeItem",
       "help": "Use $item to remove the current item in a repeated collection",
       "type": "text",
-      "bidirectional": "true",
+      "bond": "variable",
       "showFor": "properties.collectionPosition.value === 'Item'"
     }
   ]

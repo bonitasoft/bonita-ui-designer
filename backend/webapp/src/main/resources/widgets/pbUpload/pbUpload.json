@@ -67,7 +67,7 @@
       "name": "value",
       "help": "Holds the response from the upload endpoint. That value can be used to fulfill a contract",
       "type": "text",
-      "bidirectional": true
+      "bond": "variable"
     }
   ]
 }
