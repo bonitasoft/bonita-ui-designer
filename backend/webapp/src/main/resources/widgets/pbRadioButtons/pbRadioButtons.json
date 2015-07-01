@@ -72,7 +72,7 @@
       "label": "Selected Value",
       "name": "selectedValue",
       "type": "text",
-      "bidirectional": true
+      "bond": "variable"
     },
     {
       "label": "Displayed key",

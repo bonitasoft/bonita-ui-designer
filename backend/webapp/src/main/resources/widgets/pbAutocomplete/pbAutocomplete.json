@@ -79,7 +79,7 @@
       "label": "Value",
       "name": "value",
       "type": "text",
-      "bidirectional": true
+      "bond": "variable"
     }
   ]
 }

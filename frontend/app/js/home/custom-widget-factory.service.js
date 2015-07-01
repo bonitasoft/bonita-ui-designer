@@ -44,8 +44,7 @@ angular.module('pb.home').factory('customWidgetFactory', function() {
             'Chartreuse',
             'Tomato',
             'DeepSkyBlue'
-          ],
-          bidirectional: false
+          ]
         },
         {
           label: 'Background color on click',
@@ -55,8 +54,7 @@ angular.module('pb.home').factory('customWidgetFactory', function() {
           choiceValues: [
             'Yellow',
             'LightGray'
-          ],
-          bidirectional: false
+          ]
         }
       ]
     };

@@ -66,18 +66,18 @@ describe('widget property field controller', function () {
     expect($scope.propertyValue.value).toBe('aValue');
   });
 
-  it('should not allow unbinding a bidirectional property', function () {
+  it('should not allow unbinding a variable bond', function () {
     $scope.propertyValue = {value: 'aValue', type: 'data'};
-    $scope.property = {bidirectional: true};
+    $scope.property = {bond: 'variable'};
 
     $scope.unlink();
 
     expect($scope.propertyValue.type).toBe('data');
   });
 
-  it('should force binding of bidirectional property', function () {
+  it('should force binding of variable bond property', function () {
     var scope = $rootScope.$new();
-    scope.property = {bidirectional: true};
+    scope.property = $scope.property = {bond: 'variable'};
 
     createController(scope);
 
@@ -106,7 +106,7 @@ describe('widget property field controller', function () {
     });
 
     it('should return true if there is no condition', function () {
-      expect($scope.displayCondition()).toBe(true);
+      expect($scope.isDisplayed()).toBe(true);
     });
 
     it('should true if the condition is valid', function () {
@@ -116,7 +116,7 @@ describe('widget property field controller', function () {
           value: true
         }
       };
-      expect($scope.displayCondition()).toBe(true);
+      expect($scope.isDisplayed()).toBe(true);
     });
 
     it('should false if the condition is not valid', function () {
@@ -126,7 +126,7 @@ describe('widget property field controller', function () {
           value: false
         }
       };
-      expect($scope.displayCondition()).toBe(false);
+      expect($scope.isDisplayed()).toBe(false);
     });
   });
 
