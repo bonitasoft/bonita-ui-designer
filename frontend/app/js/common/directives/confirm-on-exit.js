@@ -36,7 +36,7 @@ angular.module('pb.common.directives')
 
         $window.onbeforeunload = function() {
           if (repository.needSave($scope.confirmData)) {
-            return message + 'unload';
+            return message;
           }
         };
 
