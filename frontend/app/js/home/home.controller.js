@@ -126,9 +126,6 @@ angular.module('pb.home').controller('HomeCtrl', function($scope, $state, $modal
     return widgetRepo.exportUrl(widget);
   };
 
-
-
-
   $scope.importElement = function(type){
     var modalInstance = $modal.open({
       templateUrl: 'js/home/import-artifact.html',
@@ -143,13 +140,13 @@ angular.module('pb.home').controller('HomeCtrl', function($scope, $state, $modal
           //Even if a problem occurs in the backend a response is sent with a message
           //If the message has a type and a message this an error
           if(response && response.type && response.message){
-            alerts.addError(response);
+            alerts.addError(response.message);
           }
           $modalInstance.close();
         };
 
         $scope.onError = function(error) {
-          alerts.addError(error);
+          alerts.addError(error.message);
           $modalInstance.dismiss('cancel');
         };
 

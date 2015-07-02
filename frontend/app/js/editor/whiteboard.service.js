@@ -38,7 +38,7 @@ angular.module('pb.services')
         })
         .then( repo.load.bind(null, id) )
         .catch(function(error){
-          alerts.addError(error);
+          alerts.addError(error.message);
           return $q.reject(error);
         })
         .then( function(response) {

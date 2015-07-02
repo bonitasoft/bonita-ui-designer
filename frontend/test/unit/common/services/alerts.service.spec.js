@@ -7,38 +7,114 @@ describe('alerts', function() {
     $timeout = _$timeout_;
   }));
 
-  it('should add and remove alerts', function() {
-    expect(alerts.alerts.length).toBe(0);
+  describe('success', function() {
 
-    alerts.addError({ message: 'hello' });
+    it('can be added as message', function() {
+      alerts.addSuccess('hello');
 
-    expect(alerts.alerts.length).toBe(1);
-    expect(alerts.alerts[0].type).toBe('danger');
-    expect(alerts.alerts[0].message).toBe('hello');
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('success');
+      expect(alerts.alerts[0].content).toBe('hello');
+    });
 
-    alerts.remove(0);
+    it('can be added as object', function() {
+      alerts.addSuccess({title: 'a title', content: 'a content'});
 
-    expect(alerts.alerts.length).toBe(0);
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('success');
+      expect(alerts.alerts[0].content).toBe('a content');
+      expect(alerts.alerts[0].title).toBe('a title');
+    });
+
+    it('can be removed', function() {
+      alerts.addSuccess({title: 'a title', content: 'a content'});
+
+      alerts.remove(0);
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
+    it('should be removed after a few seconds', function() {
+      alerts.addSuccess('Well done');
+
+      $timeout.flush();
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
   });
 
-  it('should add success alerts and remove it after a few seconds', function() {
+  describe('error', function() {
 
-    alerts.addSuccess('Well done');
+    it('can be added as message', function() {
+      alerts.addError('hello');
 
-    expect(alerts.alerts.length).toBe(1);
-    expect(alerts.alerts[0].type).toBe('success');
-    expect(alerts.alerts[0].message).toBe('Well done');
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('error');
+      expect(alerts.alerts[0].content).toBe('hello');
+    });
 
-    $timeout.flush();
+    it('can be added as object', function() {
+      alerts.addError({title: 'a title', content: 'a content'});
 
-    expect(alerts.alerts.length).toBe(0);
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('error');
+      expect(alerts.alerts[0].content).toBe('a content');
+      expect(alerts.alerts[0].title).toBe('a title');
+    });
+
+    it('can be removed', function() {
+      alerts.addError({title: 'a title', content: 'a content'});
+
+      alerts.remove(0);
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
+    it('should be removed after a few seconds', function() {
+      alerts.addError('Well done');
+
+      $timeout.flush();
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
   });
 
-  it('should remove alerts after a few seconds', function() {
-    alerts.addError('hello');
+  describe('warning', function() {
 
-    $timeout.flush();
+    it('can be added as message', function() {
+      alerts.addWarning('hello');
 
-    expect(alerts.alerts.length).toBe(0);
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('warning');
+      expect(alerts.alerts[0].content).toBe('hello');
+    });
+
+    it('can be added as object', function() {
+      alerts.addWarning({title: 'a title', content: 'a content'});
+
+      expect(alerts.alerts.length).toBe(1);
+      expect(alerts.alerts[0].type).toBe('warning');
+      expect(alerts.alerts[0].content).toBe('a content');
+      expect(alerts.alerts[0].title).toBe('a title');
+    });
+
+    it('can be removed', function() {
+      alerts.addWarning({title: 'a title', content: 'a content'});
+
+      alerts.remove(0);
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
+    it('should be removed after a few seconds', function() {
+      alerts.addWarning('Well done');
+
+      $timeout.flush();
+
+      expect(alerts.alerts.length).toBe(0);
+    });
+
   });
 });
