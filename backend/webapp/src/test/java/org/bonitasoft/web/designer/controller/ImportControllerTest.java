@@ -14,12 +14,20 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import com.google.common.collect.Lists;
+import static org.bonitasoft.web.designer.builder.ImportReportBuilder.anImportReportFor;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
-import org.bonitasoft.web.designer.controller.importer.ImportReport;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
-import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
@@ -33,17 +41,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
-
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ImportControllerTest {
@@ -67,41 +64,35 @@ public class ImportControllerTest {
     }
 
     @Test
-    public void should_import_a_page() throws Exception {
+    public void should_import_a_page_with_its_dependencies() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
-        ImportReport expectedReport = buildImportReport(
-                aPage().withId("aPage").withName("thePage").build(),
-                aWidget().id("aWidget").name("myWidgetName").build());
+        ImportReport expectedReport =
+                anImportReportFor(aPage().withId("aPage").withName("thePage"))
+                        .withAdded(aWidget().id("addedWidget").name("newWidget"))
+                        .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
         when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
-
 
         mockMvc.perform(fileUpload("/import/page").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(jsonPath("element.id").value("aPage"))
                 .andExpect(jsonPath("element.name").value("thePage"))
-                .andExpect(jsonPath("dependencies.widget[0].id").value("aWidget"))
-                .andExpect(jsonPath("dependencies.widget[0].name").value("myWidgetName"));
+                .andExpect(jsonPath("dependencies.added.widget[0].id").value("addedWidget"))
+                .andExpect(jsonPath("dependencies.added.widget[0].name").value("newWidget"))
+                .andExpect(jsonPath("dependencies.overridden.widget[0].id").value("overriddenWidget"))
+                .andExpect(jsonPath("dependencies.overridden.widget[0].name").value("oldWidget"));
     }
 
     @Test
     public void should_import_a_widget() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
-        ImportReport expectedReport = buildImportReport(aWidget().id("aWidget").name("myWidgetName").build());
+        ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).build() ;
         when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
 
         mockMvc.perform(fileUpload("/import/widget").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
-    }
-
-    private ImportReport buildImportReport(Identifiable element, Widget... dependencies) {
-        ImportReport expectedReport = new ImportReport();
-        expectedReport.setElement(element);
-        List<? extends Identifiable> widgets = Lists.newArrayList(dependencies);
-        expectedReport.addDependency("widget", (List<Identifiable>) widgets);
-        return expectedReport;
     }
 }

@@ -14,9 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.importer.dependencies;
 
-import static java.nio.file.Files.exists;
-
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
     @Override
     public List<Widget> load(Identifiable parent, Path resources) throws IOException {
         Path widgetsPath = resources.resolve("widgets");
-        if (exists(widgetsPath)) {
+        if (Files.exists(widgetsPath)) {
             return widgetLoader.getAllCustom(widgetsPath);
         }
         return new ArrayList<>();
@@ -73,5 +72,10 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
     @Override
     public String getComponentName() {
         return widgetRepository.getComponentName();
+    }
+
+    @Override
+    public boolean exists(Widget widget) {
+        return widgetRepository.exists(widget.getId());
     }
 }
