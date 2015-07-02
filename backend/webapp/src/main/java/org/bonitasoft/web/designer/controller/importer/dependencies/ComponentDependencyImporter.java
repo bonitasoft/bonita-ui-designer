@@ -14,8 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.importer.dependencies;
 
+import org.bonitasoft.web.designer.model.Identifiable;
 
-public interface ComponentDependencyImporter<T> extends DependencyImporter<T> {
+public interface ComponentDependencyImporter<T  extends Identifiable> extends DependencyImporter<T> {
 
     String getComponentName();
+
+    boolean exists(T element);
 }

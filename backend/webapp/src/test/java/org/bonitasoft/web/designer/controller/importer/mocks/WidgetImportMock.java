@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -34,20 +35,35 @@ public class WidgetImportMock {
     private Path unzippedPath;
     private WidgetLoader widgetLoader;
     private WidgetRepository widgetRepository;
+    private List<Widget> widgets = new ArrayList<>();
 
-    public WidgetImportMock(Path unzippedPath, WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
+    public WidgetImportMock(Path unzippedPath, WidgetLoader widgetLoader, WidgetRepository widgetRepository) throws IOException {
         this.unzippedPath = unzippedPath;
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;
     }
 
-    public List<Widget> mockWidgetsAsDependencies() throws IOException {
-        Files.createDirectory(unzippedPath.resolve(WIDGETS_FOLDER));
+    public List<Widget> mockWidgetsAsAddedDependencies() throws IOException {
+        Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
         List<Widget> widgets = asList(
                 aWidget().id("aWidget").custom().build(),
                 aWidget().id("anotherWidget").custom().build());
+        this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");
-        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(widgets);
+        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
+        return widgets;
+    }
+
+    public List<Widget> mockWidgetsAsOverridenDependencies() throws IOException {
+        Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
+        List<Widget> widgets = asList(
+                aWidget().id("alreadyThereWidget").custom().build(),
+                aWidget().id("anotherExistingWidget").custom().build());
+        this.widgets.addAll(widgets);
+        when(widgetRepository.getComponentName()).thenReturn("widget");
+        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
+        when(widgetRepository.exists("alreadyThereWidget")).thenReturn(true);
+        when(widgetRepository.exists("anotherExistingWidget")).thenReturn(true);
         return widgets;
     }
 
