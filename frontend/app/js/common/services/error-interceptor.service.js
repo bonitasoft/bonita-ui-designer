@@ -25,10 +25,10 @@ angular.module('pb.common.services').factory('errorInterceptor', function($q, al
       if (rejection.headers('Content-Type') &&
           rejection.headers('Content-Type').indexOf('application/json') === 0 &&
           angular.isDefined(rejection.data.message)) {
-        alerts.addError(rejection.data);
+        alerts.addError(rejection.data.message);
       }
       else {
-        alerts.addError({message: 'Unexpected server error'});
+        alerts.addError('Unexpected server error');
       }
       return $q.reject(rejection);
     }

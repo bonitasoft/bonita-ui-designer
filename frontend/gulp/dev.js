@@ -14,7 +14,7 @@ module.exports = function(gulp, config) {
 
   gulp.task('watch', function() {
     gulp.watch(paths.js, ['bundle:js']);
-    gulp.watch([paths.templates], ['bundle:js']);
+    gulp.watch(paths.templates, ['bundle:js']);
     gulp.watch(['app/index.html'], ['index:dev']);
     gulp.watch(paths.less, ['bundle:css']);
   });
