@@ -81,6 +81,6 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         dispatcher.setLoadOnStartup(1);
         dispatcher.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
         dispatcher.setAsyncSupported(true);
-        dispatcher.addMapping("/*");
+        dispatcher.addMapping("/");
     }
 }
