@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.livebuild;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Paths;
 
 import org.apache.commons.vfs2.FileChangeEvent;
@@ -45,7 +46,9 @@ public class BuilderFileListener implements FileListener {
     }
 
     private void build(FileChangeEvent fileChangeEvent) throws IOException, URISyntaxException {
-        URI uri = fileChangeEvent.getFile().getURL().toURI();
+        URL url = fileChangeEvent.getFile().getURL();
+        //uri build this way does escape characters
+        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), null);
         if (builder.isBuildable(uri.getPath())) {
             builder.build(Paths.get(uri));
         }
