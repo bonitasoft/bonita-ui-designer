@@ -48,7 +48,7 @@
       function createInterpolation(propertyValue) {
         return {
           get: function () {
-            return $interpolate(propertyValue)(context);
+            return $interpolate(propertyValue || '')(context);
           },
           enumerable: true
         };
