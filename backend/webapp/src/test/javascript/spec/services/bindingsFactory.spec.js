@@ -68,6 +68,10 @@ describe('Service: bindingsFactory', function () {
     'array': {
       type: 'constant',
       value: ['foo', 'bar']
+    },
+    'expression': {
+      type: 'expression',
+      value: '(1 === 1) + "" | uppercase'
     }
   };
 
@@ -102,5 +106,9 @@ describe('Service: bindingsFactory', function () {
 
   it('should return an array when interpolation is an array', function () {
     expect(componentModel.array).toEqual(['foo', 'bar']);
+  });
+
+  it('should return an expression result', function () {
+    expect(componentModel.expression).toEqual('TRUE');
   });
 });
