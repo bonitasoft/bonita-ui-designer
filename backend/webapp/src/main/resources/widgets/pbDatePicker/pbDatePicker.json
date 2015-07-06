@@ -25,14 +25,16 @@
       "label": "Label hidden",
       "name": "labelHidden",
       "type": "boolean",
-      "defaultValue": false
+      "defaultValue": false,
+      "bond": "constant"
     },
     {
       "label": "Label",
       "name": "label",
       "type": "text",
       "defaultValue": "Date",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "interpolation"
     },
     {
       "label": "Label position",
@@ -43,7 +45,8 @@
         "top"
       ],
       "defaultValue": "top",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "constant"
     },
     {
       "label": "labelWidth",
@@ -54,14 +57,16 @@
       "constraints": {
         "min": "1",
         "max": "12"
-      }
+      },
+      "bond": "constant"
     },
     {
       "label": "Placeholder",
       "name": "placeholder",
       "help": "Short hint that describes the expected value",
       "type": "text",
-      "defaultValue": "MM/dd/yyyy"
+      "defaultValue": "MM/dd/yyyy",
+      "bond": "interpolation"
     },
     {
       "label": "Value",

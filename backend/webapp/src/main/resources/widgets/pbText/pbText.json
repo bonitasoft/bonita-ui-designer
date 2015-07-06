@@ -11,14 +11,16 @@
       "name": "text",
       "type": "html",
       "defaultValue": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...",
-      "caption": "Use basics html tags and {{ dataVariable }} to access data"
+      "caption": "Use basics html tags and {{ dataVariable }} to access data",
+      "bond": "interpolation"
     },
     {
       "label": "Alignment",
       "name": "alignment",
       "type": "choice",
       "defaultValue": "left",
-      "choiceValues": ["left", "center", "right"]
+      "choiceValues": ["left", "center", "right"],
+      "bond": "constant"
     }
   ]
 }

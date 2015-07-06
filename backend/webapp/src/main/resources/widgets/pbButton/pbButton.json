@@ -17,21 +17,24 @@
       "label": "Label",
       "name": "label",
       "type": "text",
-      "defaultValue": "Submit"
+      "defaultValue": "Submit",
+      "bond": "interpolation"
     },
     {
       "label": "Alignment",
       "name": "alignment",
       "type": "choice",
       "defaultValue": "left",
-      "choiceValues": ["left", "center", "right"]
+      "choiceValues": ["left", "center", "right"],
+      "bond": "constant"
     },
     {
       "label": "Style",
       "name": "buttonStyle",
       "type": "choice",
       "defaultValue": "default",
-      "choiceValues": ["default", "primary", "success", "info", "warning", "danger", "link"]
+      "choiceValues": ["default", "primary", "success", "info", "warning", "danger", "link"],
+      "bond": "constant"
     },
     {
       "label": "Action",
@@ -45,7 +48,8 @@
         "Add to collection",
         "Remove from collection"
       ],
-      "defaultValue": "Submit task"
+      "defaultValue": "Submit task",
+      "bond": "constant"
     },
     {
       "label": "URL to call",
@@ -53,7 +57,8 @@
       "help": "URL used to perform the HTTP request when this button is clicked.",
       "type": "text",
       "name": "url",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT'"
+      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT'",
+      "bond": "interpolation"
     },
     {
       "label": "Data sent on click",
@@ -83,7 +88,8 @@
       "type": "text",
       "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
       "name": "targetUrlOnSuccess",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'"
+      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
+      "bond": "interpolation"
     },
     {
       "label": "Collection",
@@ -102,7 +108,8 @@
         "Last"
       ],
       "defaultValue": "Last",
-      "showFor": "properties.action.value === 'Add to collection'"
+      "showFor": "properties.action.value === 'Add to collection'",
+      "bond": "constant"
     },
     {
       "label": "Value to add",
@@ -120,7 +127,8 @@
         "Last"
       ],
       "defaultValue": "Last",
-      "showFor": "properties.action.value === 'Remove from collection'"
+      "showFor": "properties.action.value === 'Remove from collection'",
+      "bond": "constant"
     },
     {
       "label": "Item to remove",

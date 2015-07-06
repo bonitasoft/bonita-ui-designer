@@ -14,7 +14,8 @@
     {
       "label": "description",
       "name": "description",
-      "type": "text"
+      "type": "text",
+      "bond": "interpolation"
     }
   ]
 }

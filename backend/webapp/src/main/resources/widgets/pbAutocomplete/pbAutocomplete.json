@@ -25,14 +25,16 @@
       "label": "label Hidden",
       "name": "labelHidden",
       "type": "boolean",
-      "defaultValue": false
+      "defaultValue": false,
+      "bond": "constant"
     },
     {
       "label": "Label",
       "name": "label",
       "type": "text",
       "defaultValue": "Default name",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "interpolation"
     },
     {
       "label": "Label position",
@@ -43,7 +45,8 @@
         "top"
       ],
       "defaultValue": "top",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "constant"
     },
     {
       "label": "Label width",
@@ -54,13 +57,15 @@
       "constraints": {
         "min": "1",
         "max": "12"
-      }
+      },
+      "bond": "constant"
     },
     {
       "label": "Placeholder",
       "name": "placeholder",
       "help": "Short hint that describes the expected value",
-      "type": "text"
+      "type": "text",
+      "bond": "interpolation"
     },
     {
       "label": "Available values",
@@ -73,7 +78,8 @@
       "label": "Displayed key",
       "help": "Object key to display",
       "type": "text",
-      "name": "displayedKey"
+      "name": "displayedKey",
+      "bond": "constant"
     },
     {
       "label": "Value",
