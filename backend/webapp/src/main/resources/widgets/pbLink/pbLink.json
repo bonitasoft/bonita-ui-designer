@@ -10,7 +10,8 @@
       "label": "Text",
       "name": "text",
       "type": "text",
-      "defaultValue": "Link"
+      "defaultValue": "Link",
+      "bond": "interpolation"
     },
     {
       "label": "Target Url",
@@ -23,14 +24,16 @@
       "name": "alignment",
       "type": "choice",
       "defaultValue": "left",
-      "choiceValues": ["left", "center", "right"]
+      "choiceValues": ["left", "center", "right"],
+      "bond": "constant"
     },
     {
       "label": "Style",
       "name": "buttonStyle",
       "type": "choice",
       "defaultValue": "link",
-      "choiceValues": ["link", "primary", "success", "info", "warning", "danger"]
+      "choiceValues": ["link", "primary", "success", "info", "warning", "danger"],
+      "bond": "expression"
     }
   ]
 }

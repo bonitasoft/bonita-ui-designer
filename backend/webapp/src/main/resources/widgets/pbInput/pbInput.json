@@ -45,7 +45,8 @@
       "name": "labelHidden",
       "type": "boolean",
       "bond": "constant",
-      "defaultValue": false
+      "defaultValue": false,
+      "bond": "constant"
     },
     {
       "label": "Label",

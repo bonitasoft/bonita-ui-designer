@@ -38,14 +38,16 @@
       "label": "Label hidden",
       "name": "labelHidden",
       "type": "boolean",
-      "defaultValue": false
+      "defaultValue": false,
+      "bond": "constant"
     },
     {
       "label": "Label",
       "name": "label",
       "type": "text",
       "defaultValue": "Default label",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "interpolation"
     },
     {
       "label": "Label position",
@@ -56,7 +58,8 @@
         "top"
       ],
       "defaultValue": "top",
-      "showFor": "properties.labelHidden.value === false"
+      "showFor": "properties.labelHidden.value === false",
+      "bond": "constant"
     },
     {
       "label": "Label width",
@@ -67,7 +70,8 @@
       "constraints": {
         "min": "1",
         "max": "12"
-      }
+      },
+      "bond": "constant"
     },
     {
       "label": "Value",

@@ -24,7 +24,8 @@
       "label": "Label",
       "name": "label",
       "type": "text",
-      "defaultValue": "Default label"
+      "defaultValue": "Default label",
+      "bond": "interpolation"
     },
     {
       "label": "Value",
