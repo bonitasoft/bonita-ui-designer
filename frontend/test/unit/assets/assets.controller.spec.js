@@ -1,8 +1,8 @@
 (function () {
-  'use strict'
+  'use strict';
 
   describe('AssetCtrl', function () {
-    var $scope, $q, $modal, assetsService, artifactRepo, controller;
+    var $scope, $q, $modal, assetsService, artifactRepo, controller, component;
 
     beforeEach(module('pb.assets', 'ui.bootstrap'));
 
@@ -11,10 +11,14 @@
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
       $modal = $injector.get('$modal');
+      component = { id: 12};
       artifactRepo = {
         loadAssets: function () {
           return $q.when([
-            {name: 'myAsset'}
+            {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+            {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
+            {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
+            {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
           ]);
         },
         deleteAsset: function () {
@@ -31,7 +35,7 @@
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           $modal: $modal,
-          artifact: { id: 12},
+          artifact: component,
           artifactRepo: artifactRepo,
           mode: 'page',
           assetsService: assetsService
@@ -41,7 +45,16 @@
       it('should put assets in $scope', function () {
         $scope.$digest();
         expect($scope.assets).toEqual([
-          {name: 'myAsset'}
+          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
+          {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
+          {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
+        ]);
+        expect(component.assets).toEqual([
+          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false}
+        ]);
+        expect(component.inactiveAssets).toEqual(['456', '321'
         ]);
       });
 
@@ -50,7 +63,7 @@
           result: $q.when({})
         });
         $scope.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled()
+        expect($modal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset management', function () {
@@ -58,7 +71,7 @@
           result: $q.when({})
         });
         $scope.openAssetPopup();
-        expect($modal.open).toHaveBeenCalled()
+        expect($modal.open).toHaveBeenCalled();
       });
 
       it('should delete an asset', function () {
@@ -104,7 +117,10 @@
       it('should put assets in $scope', function () {
         $scope.$digest();
         expect($scope.assets).toEqual([
-          {name: 'myAsset'}
+          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
+          {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
+          {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
         ]);
       });
 
@@ -113,7 +129,7 @@
           result: $q.when({})
         });
         $scope.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled()
+        expect($modal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset management', function () {
@@ -121,7 +137,7 @@
           result: $q.when({})
         });
         $scope.openAssetPopup();
-        expect($modal.open).toHaveBeenCalled()
+        expect($modal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset preview', function () {
@@ -129,7 +145,7 @@
           result: $q.when({})
         });
         $scope.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled()
+        expect($modal.open).toHaveBeenCalled();
       });
 
 

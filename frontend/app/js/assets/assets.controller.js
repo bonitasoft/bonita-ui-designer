@@ -117,6 +117,12 @@
             //In the page editor, we filter on the assets linked to the page
             return asset.scope!=='WIDGET';
           });
+          var inactiveAssets = response.filter(function(asset){
+            return !asset.active;
+          }).map(function (asset) {
+            return asset.id;
+          });
+          component.inactiveAssets = (inactiveAssets.length)?inactiveAssets: undefined;
         }
       );
     }

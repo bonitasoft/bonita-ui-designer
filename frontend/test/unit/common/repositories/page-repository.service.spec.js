@@ -166,6 +166,23 @@ describe('pageRepo', function() {
     $httpBackend.flush();
   });
 
+  it('should deactivate an asset', function() {
+    var asset = {
+      id: 'UIID',
+      name : 'http://mycdn.com/myfile.js',
+      type : 'js',
+      active: false
+    };
+    $httpBackend.expectPUT('rest/pages/page1/assets/UIID?active=false').respond(200);
+
+    pageRepo.desactivateAsset('page1', asset);
+    $httpBackend.flush();
+    $httpBackend.expectPUT('rest/pages/page1/assets/UIID?active=true').respond(200);
+    asset.active = true;
+    pageRepo.desactivateAsset('page1', asset);
+    $httpBackend.flush();
+  });
+
 
   it('should save an asset', function() {
     var asset = {

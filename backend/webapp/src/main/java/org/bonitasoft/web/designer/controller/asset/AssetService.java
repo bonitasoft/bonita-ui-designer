@@ -135,7 +135,7 @@ public class AssetService<T extends Assetable> {
                 public boolean apply(Asset element) {
                     return asset.getId().equals(element.getId());
                 }
-            }).setName(asset.getName()).setType(asset.getType());
+            }).setName(asset.getName()).setType(asset.getType()).setActive(asset.isActive());
         }
         else {
             asset.setId(randomUUID().toString());
