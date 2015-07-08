@@ -156,6 +156,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
                     .append(id, other.id)
                     .append(rows, other.rows)
                     .append(data, other.data)
+                    .append(getDesignerVersion(), other.getDesignerVersion())
                     .isEquals();
         } else {
             return false;
