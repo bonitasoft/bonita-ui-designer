@@ -38,7 +38,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImport
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
-import org.bonitasoft.web.designer.retrocompatibility.JacksonRetrocompatibilityHandler;
+import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -95,7 +95,7 @@ public class DesignerConfig {
         objectMapper.registerSubtypes(jacksonSubTypes());
 
         //add Handler to migrate old json
-        objectMapper.addHandler(new JacksonRetrocompatibilityHandler());
+        objectMapper.addHandler(new JacksonDeserializationProblemHandler());
 
         return objectMapper;
     }
