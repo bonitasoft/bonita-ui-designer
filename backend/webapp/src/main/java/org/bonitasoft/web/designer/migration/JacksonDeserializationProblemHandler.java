@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.retrocompatibility;
+package org.bonitasoft.web.designer.migration;
 
 import java.io.IOException;
 
@@ -27,9 +27,9 @@ import org.slf4j.LoggerFactory;
  * This handler is called by Jackson when a property is unknown
  * @see org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator
  */
-public class JacksonRetrocompatibilityHandler extends DeserializationProblemHandler {
+public class JacksonDeserializationProblemHandler extends DeserializationProblemHandler {
 
-    protected static final Logger logger = LoggerFactory.getLogger(JacksonRetrocompatibilityHandler.class);
+    protected static final Logger logger = LoggerFactory.getLogger(JacksonDeserializationProblemHandler.class);
 
     @Override
     public boolean handleUnknownProperty(DeserializationContext ctxt, com.fasterxml.jackson.core.JsonParser jp, JsonDeserializer<?> deserializer, Object beanOrClass, String propertyName) throws IOException {
