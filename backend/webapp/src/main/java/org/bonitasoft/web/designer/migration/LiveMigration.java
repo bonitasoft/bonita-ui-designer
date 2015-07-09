@@ -19,7 +19,6 @@ import static java.lang.String.format;
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.walkFileTree;
-import static java.nio.file.Paths.get;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -59,12 +58,12 @@ public class LiveMigration {
 
             @Override
             public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
-                migrate(get(fileChangeEvent.getFile().getURL().toURI()), migrationList, type);
+                migrate(watcher.resolve(fileChangeEvent), migrationList, type);
             }
 
             @Override
             public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
-                migrate(get(fileChangeEvent.getFile().getURL().toURI()), migrationList, type);
+                migrate(watcher.resolve(fileChangeEvent), migrationList, type);
             }
 
             @Override

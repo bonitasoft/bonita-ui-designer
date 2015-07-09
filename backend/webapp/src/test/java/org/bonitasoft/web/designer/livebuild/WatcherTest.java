@@ -14,29 +14,33 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import static java.nio.file.Paths.get;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import javax.inject.Named;
+import java.io.File;
 
 import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.FileListener;
-import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.VFS;
-import org.apache.commons.vfs2.impl.DefaultFileMonitor;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
-@Named
-public class Watcher {
+@RunWith(MockitoJUnitRunner.class)
+public class WatcherTest {
 
-    public void watch(Path path, FileListener fileListener) throws FileSystemException {
-        final DefaultFileMonitor monitor = new DefaultFileMonitor(fileListener);
-        monitor.setRecursive(true);
-        monitor.addFile(VFS.getManager().resolveFile(path.toUri().toString()));
-        monitor.start();
-    }
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
 
-    public Path resolve(FileChangeEvent fileChangeEvent) throws FileSystemException, URISyntaxException {
-        return get(fileChangeEvent.getFile().getURL().getPath());
+    Watcher watcher = new Watcher();
+
+    @Test
+    public void should_resolve_file_path() throws Exception {
+        folder.newFolder("répertoire vers un");
+        File file = folder.newFile("répertoire vers un/fichier quelconque.txt");
+
+        FileChangeEvent fileChangeEvent = new FileChangeEvent(VFS.getManager().resolveFile(file.getPath()));
+
+        assertThat(watcher.resolve(fileChangeEvent).toString()).isEqualTo(file.getPath());
     }
 }
