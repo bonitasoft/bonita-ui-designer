@@ -12,32 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.bonitasoft.web.designer.repository;
 
 import java.nio.file.Path;
-import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.page.Page;
+public interface PathListener {
 
+    void pathCreated(Path path);
 
-@Named
-public class PageRepository extends AbstractRepository<Page> {
+    void pathDeleted(Path path);
 
-    @Inject
-    public PageRepository(
-            @Named("pagesPath") Path path,
-            @Named("pageFileBasedPersister") JsonFileBasedPersister<Page> persister,
-            @Named("pageFileBasedLoader") JsonFileBasedLoader<Page> loader,
-            BeanValidator validator,
-            Watcher watcher) {
-        super(path, persister, loader, validator, watcher);
-    }
-
-
-    @Override
-    public String getComponentName() {
-        return "page";
-    }
+    void pathChanged(Path path);
 }

@@ -36,6 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -50,6 +52,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -65,10 +68,15 @@ public class WidgetRepositoryTest {
     private Path widgetDirectory;
 
     private JsonFileBasedPersister<Widget> jsonFileRepository;
+
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Mock
+    private LiveMigration<Widget> liveMigration;
 
     @Before
     public void setUp() throws IOException {
@@ -81,7 +89,8 @@ public class WidgetRepositoryTest {
                 widgetDirectory,
                 jsonFileRepository,
                 new WidgetLoader(objectMapper),
-                new BeanValidator(validatorFactory.getValidator()));
+                new BeanValidator(validatorFactory.getValidator()),
+                new Watcher());
 
         ReflectionTestUtils.setField(jsonFileRepository, "version", DESIGNER_VERSION);
     }
