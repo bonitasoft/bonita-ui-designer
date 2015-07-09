@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
+import static java.lang.String.valueOf;
+
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.apache.commons.vfs2.FileChangeEvent;
 import org.apache.commons.vfs2.FileListener;
@@ -26,9 +26,11 @@ import org.apache.commons.vfs2.FileListener;
 public class BuilderFileListener implements FileListener {
 
     private AbstractLiveFileBuilder builder;
+    private Watcher watcher;
 
-    BuilderFileListener(AbstractLiveFileBuilder builder) {
+    BuilderFileListener(AbstractLiveFileBuilder builder, Watcher watcher) {
         this.builder = builder;
+        this.watcher = watcher;
     }
 
     @Override
@@ -46,11 +48,9 @@ public class BuilderFileListener implements FileListener {
     }
 
     private void build(FileChangeEvent fileChangeEvent) throws IOException, URISyntaxException {
-        URL url = fileChangeEvent.getFile().getURL();
-        //uri build this way does escape characters
-        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), null);
-        if (builder.isBuildable(uri.getPath())) {
-            builder.build(Paths.get(uri));
+        Path path = watcher.resolve(fileChangeEvent);
+        if (builder.isBuildable(valueOf(path))) {
+            builder.build(path);
         }
     }
 }
