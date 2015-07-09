@@ -26,6 +26,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
@@ -41,8 +42,9 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             @Named("widgetPath") Path path,
             @Named("widgetFileBasedPersister") JsonFileBasedPersister<Widget> fileBasedRepository,
             WidgetLoader widgetLoader,
-            BeanValidator validator) {
-        super(path, fileBasedRepository, widgetLoader, validator);
+            BeanValidator validator,
+            Watcher watcher) {
+        super(path, fileBasedRepository, widgetLoader, validator, watcher);
     }
 
     @Override
@@ -126,5 +128,4 @@ public class WidgetRepository extends AbstractRepository<Widget> {
     public boolean exists(String widgetId) {
         return Files.exists(resolvePath(widgetId).resolve(widgetId + ".json"));
     }
-
 }
