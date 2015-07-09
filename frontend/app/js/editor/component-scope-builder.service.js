@@ -25,6 +25,10 @@ angular.module('bonitasoft.designer.services').factory('componentScopeBuilder', 
   var build = function(scope) {
     var componentScope = scope.$new(true);
 
+    /*componentScope._globalProperties = {
+      pageId: scope.editor.page.id
+    };*/
+
     // Keep in sync propertyValues and injected properties in widget
     componentScope.properties = {};
     angular.forEach(scope.component.propertyValues, function(value, key) {

@@ -27,10 +27,10 @@
                 Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)
             </p>
             <p translate>
-                Image assets can be displayed in custom widgets (see Custom widget editor > Assets help).
+                To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>.
             </p>
             <p translate>
-                Add image assets at page level if the image is used as a custom widget property.
+                To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field.
             </p>
         </tab>
 
@@ -39,35 +39,8 @@
                 In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href="http://ngmodules.org/">http://ngmodules.org/</a>.
             </p>
             <p translate>
-                To use an image asset, you need to create a custom widget. <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See this example</button>
+                To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src="widgets/[custom widget id]/assets/img/[image name]"&gt;</code>
             </p>
-            <section>
-                <div class="well" collapse="!examplesCollapsed">
-                    <div>
-                        In the custom widget editor, create a widget with two properties:
-                        <ul>
-                            <li><code>{name : "src", type : "text", "Default value" : "assets/img/assetname.png"}</code></li>
-                            <li><code>{name : "description", type : "text"}</code></li>
-                        </ul>
-                        <p>
-                            You do not need to define a controller but you must create an HTML template:
-                            <br>
-
-                            <code ng-non-bindable>
-                                &lt;img ng-src="{{properties.src}}" alt="{{properties.description}}";&gt;
-                            </code>
-                        </p>
-                        <p>
-                            You can now use this custom widget in any page, by adding an image asset and changing the property <code>src</code> to point to it. For an external asset, specify a URL. To load a local image, specify a relative path as follows:
-
-                        <ul>
-                            <li><code>assets/img/[image name]</code> for a local image added in the page</li>
-                            <li><code>widgets/[custom widget id]/assets/img/[image name]</code> for a local image added in a widget  (if the name of your custom widget is <code>image</code>, its id will be <code>customImage</code>)</li>
-                        </ul>
-                        </p>
-                    </div>
-                </div>
-            </section>
         </tab>
 
         <tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
