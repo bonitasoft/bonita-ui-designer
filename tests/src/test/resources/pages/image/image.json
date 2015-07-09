@@ -1,0 +1,77 @@
+{
+  "designerVersion": "1.0.2-SNAPSHOT",
+  "id": "image",
+  "name": "image",
+  "type": "page",
+  "lastUpdate": 1435569142133,
+  "rows": [
+    [{
+      "type": "component",
+      "dimension": {
+        "lg": 6,
+        "md": 6,
+        "sm": 12,
+        "xs": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": ""
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "srcType": {
+          "type": "constant",
+          "value": "Asset"
+        },
+        "assetName": {
+          "type": "constant",
+          "value": "assets/img/bonitaLogo.png"
+        },
+        "alt": {
+          "type": "constant",
+          "value": "Bonita Logo"
+        }
+      },
+      "reference": "47018a7f-c4f9-44d4-8e9e-f9c70c6559aa",
+      "id": "pbImage"
+    }, {
+      "type": "component",
+      "dimension": {
+        "lg": 6,
+        "md": 6,
+        "sm": 12,
+        "xs": 12
+      },
+      "propertyValues": {
+        "cssClasses": {
+          "type": "constant",
+          "value": ""
+        },
+        "hidden": {
+          "type": "constant",
+          "value": false
+        },
+        "srcType": {
+          "type": "constant",
+          "value": "URL"
+        },
+        "url": {
+          "type": "constant",
+          "value": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc7PIQ0-qveL_4Q2Wwl8xkaT-OnRsAewpUOHutYtZlhVBvjwJ3"
+        },
+        "alt": {
+          "type": "constant",
+          "value": "a test"
+        }
+      },
+      "reference": "468f825e-f46f-4898-a30b-f85108fa9670",
+      "id": "pbImage"
+    }]
+  ],
+  "assets": [],
+  "inactiveAssets": [],
+  "data": {}
+}
