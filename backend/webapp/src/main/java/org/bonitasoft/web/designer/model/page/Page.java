@@ -41,7 +41,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
-public class Page extends Versioned implements Previewable, Identifiable, ElementContainer, Assetable<Page> {
+public class Page extends Versioned implements Previewable, Identifiable, ElementContainer, Assetable {
 
     private String id;
     @NotBlank(message = "Page name should not be blank")

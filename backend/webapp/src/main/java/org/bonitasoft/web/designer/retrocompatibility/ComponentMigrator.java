@@ -21,14 +21,13 @@ import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.Versioned;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.repository.AbstractRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * @see org.bonitasoft.web.designer.retrocompatibility.JacksonRetrocompatibilityHandler
+ * @see org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler
  */
 @Named
 public class ComponentMigrator {
@@ -51,7 +50,7 @@ public class ComponentMigrator {
         }
     }
 
-    private <T extends Versioned & Assetable<T>> void migrateAsset(T component) {
+    private <T extends Versioned & Assetable> void migrateAsset(T component) {
         logger.info(String.format("The page [%s] id=[%s] is in version %s... it need to migrate to the version %s",
                 component.getName(), component.getId(), component.getDesignerVersion(), version));
 
