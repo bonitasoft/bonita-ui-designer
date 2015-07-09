@@ -14,7 +14,9 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.createDirectory;
+import static java.nio.file.Files.write;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
@@ -26,8 +28,12 @@ import static org.mockito.Mockito.spy;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
@@ -370,15 +376,17 @@ public class WidgetRepositoryTest {
         widgetRepository.deleteProperty(aWidget.getId(), "unknownPrameter");
     }
 
+    @Test
     public void should_find_widget_which_use_another_widget() throws Exception {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").template("use <input>").build();
         addToRepository(input, label);
 
         //input is used by label
-        assertThat(widgetRepository.findByObjectId("input")).extracting("id").isEqualTo("label");
+        assertThat(widgetRepository.findByObjectId("input")).extracting("id").containsExactly("label");
     }
 
+    @Test
     public void should_find_widget_which_not_use_another_widget() throws Exception {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").template("use <input>").build();
@@ -388,6 +396,7 @@ public class WidgetRepositoryTest {
         assertThat(widgetRepository.findByObjectId("label")).isEmpty();
     }
 
+    @Test
     public void should_find_widget_by_id() throws Exception {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").build();
@@ -395,7 +404,51 @@ public class WidgetRepositoryTest {
 
         //input is used by label
         assertThat(widgetRepository.getByIds(Sets.newHashSet("input", "label"))).hasSize(2)
-                .extracting("id").containsExactly("input", "label");
+                .extracting("id").containsOnly("input", "label");
+    }
+
+    @Test
+    public void should_walk_widget_repository() throws Exception {
+        File file = temporaryFolder.newFile("file");
+        final List<Path> visitedPaths = new ArrayList<>();
+
+        widgetRepository.walk(new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                visitedPaths.add(file);
+                return super.visitFile(file, attrs);
+            }
+        });
+
+        assertThat(visitedPaths).containsExactly(file.toPath());
+    }
+
+    @Test
+    public void should_watch_widget_repository() throws Exception {
+
+        final List<Path> createdPaths = new ArrayList<>();
+
+        widgetRepository.watch(new PathListener() {
+
+            @Override
+            public void pathCreated(Path path) {
+                createdPaths.add(path);
+            }
+
+            @Override
+            public void pathDeleted(Path path) {
+            }
+
+            @Override
+            public void pathChanged(Path path) {
+            }
+        });
+
+        File file = temporaryFolder.newFile("file");
+
+        Thread.sleep(100); // Needed as we need DefaultFileMonitor.class to kick in
+
+        assertThat(createdPaths).containsExactly(file.toPath());
     }
 
     private void addToRepository(Widget... widgets) throws Exception {

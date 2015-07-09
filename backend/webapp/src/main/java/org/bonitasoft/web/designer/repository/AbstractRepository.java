@@ -58,7 +58,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
 
     public abstract String getComponentName();
 
-
     @Override
     public T get(String id) throws NotFoundException, RepositoryException {
         try {
@@ -159,8 +158,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public void walk(FileVisitor<? super Path> visitor) throws IOException {
         walkFileTree(path, visitor);
     }
-
-
 
     @Override
     public void watch(final PathListener pathListener) throws FileSystemException {
