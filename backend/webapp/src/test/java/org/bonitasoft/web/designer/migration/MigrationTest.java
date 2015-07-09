@@ -21,7 +21,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.PageRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,16 +33,13 @@ public class MigrationTest {
     @Mock
     MigrationStep<Page> migrationStep;
 
-    @Mock
-    PageRepository repository;
-
     Migration<Page> migration;
 
     Page page = aPage().withId("123").build();
 
     @Before
     public void setUp() throws Exception {
-        migration = new Migration<>("1.0.1", repository, singletonList(migrationStep));
+        migration = new Migration<>("1.0.1", singletonList(migrationStep));
     }
 
     @Test
@@ -53,19 +49,6 @@ public class MigrationTest {
         migration.migrate(page);
 
         verify(migrationStep).migrate(page);
-        verify(repository).save(page);
-    }
-
-    @Test
-    public void should_save_migrated_page_with_the_new_version() throws Exception {
-        page.setDesignerVersion("1.0.0");
-
-        migration.migrate(page);
-
-        verify(repository).save(aPage()
-                .withId("123")
-                .withVersion("1.0.1")
-                .build());
     }
 
     @Test

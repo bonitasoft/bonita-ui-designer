@@ -20,7 +20,6 @@ import static java.lang.String.format;
 import java.util.List;
 
 import org.bonitasoft.web.designer.model.Versioned;
-import org.bonitasoft.web.designer.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +28,9 @@ public class Migration<A extends Versioned> {
     protected static final Logger logger = LoggerFactory.getLogger(Migration.class);
     private final String version;
     private final List<MigrationStep<A>> migrationSteps;
-    private Repository<A> repository;
 
-    public Migration(String version, Repository<A> repository, List<MigrationStep<A>> migrationSteps) {
+    public Migration(String version, List<MigrationStep<A>> migrationSteps) {
         this.version = version;
-        this.repository = repository;
         this.migrationSteps = migrationSteps;
     }
 
@@ -50,7 +47,6 @@ public class Migration<A extends Versioned> {
             }
 
             artifact.setDesignerVersion(version);
-            repository.save(artifact);
         }
     }
 }
