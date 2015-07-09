@@ -20,6 +20,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.io.IOException;
 
+import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -33,6 +36,13 @@ public class WorkspaceInitializerTest {
 
     @Mock
     private Workspace workspace;
+
+    @Mock
+    LiveMigration<Page> pageLiveMigration;
+
+    @Mock
+    LiveMigration<Widget> widgetLiveMigration;
+
     @InjectMocks
     private WorkspaceInitializer workspaceInitializer;
 
@@ -46,6 +56,18 @@ public class WorkspaceInitializerTest {
     public void should_initialize_workspace() throws Exception {
         workspaceInitializer.contextInitialized();
         verify(workspace).initialize();
+    }
+
+    @Test
+    public void should_start_page_live_migration() throws Exception {
+        workspaceInitializer.contextInitialized();
+        verify(pageLiveMigration).start();
+    }
+
+    @Test
+    public void should_start_widget_live_migration() throws Exception {
+        workspaceInitializer.contextInitialized();
+        verify(widgetLiveMigration).start();
     }
 
     @Test(expected = RuntimeException.class)
