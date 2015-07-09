@@ -15,16 +15,6 @@
       "label": "description",
       "name": "description",
       "type": "text"
-    },
-    {
-      "label": "Image Width",
-      "name": "imageWidth",
-      "type": "text"
-    },
-    {
-      "label": "Image Height",
-      "name": "imageHeight",
-      "type": "text"
     }
   ]
 }

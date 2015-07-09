@@ -17,22 +17,18 @@ describe('pbImage', function () {
     var element = $compile('<pb-image></pb-image>')(scope);
     scope.$apply();
     expect(element.find('img').attr('ng-src')).toBe("assets/img/bonita.jpg");
-    expect(element.find('img').attr('width')).toBeFalsy();
-    expect(element.find('img').attr('height')).toBeFalsy();
+    expect(element.find('img').attr('class')).toBe("img-responsive");
     expect(element.find('img').attr('alt')).toBeFalsy();
   });
 
   it('should contains src, width, height and alt html attributes', function() {
     scope.properties.src = "assets/img/bonita.jpg";
     scope.properties.description = "Bonitasoft Logo";
-    scope.properties.imageWidth = 123;
-    scope.properties.imageHeight = 456;
 
     var element = $compile('<pb-image></pb-image>')(scope);
     scope.$apply();
     expect(element.find('img').attr('ng-src')).toBe("assets/img/bonita.jpg");
-    expect(element.find('img').attr('width')).toBe('123');
-    expect(element.find('img').attr('height')).toBe('456');
+    expect(element.find('img').attr('class')).toBe("img-responsive");
     expect(element.find('img').attr('alt')).toBe('Bonitasoft Logo');
   });
 
