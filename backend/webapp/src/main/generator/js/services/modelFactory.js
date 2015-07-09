@@ -36,6 +36,16 @@
 
       var url = null;
       var value;
+      var csrf = {
+        get promise() {
+          return this.$promise || (this.$promise = $http({
+            method: 'GET',
+            url: '../API/system/session/unusedId'
+          }).success(function(data, status, headers) {
+            $http.defaults.headers.common['X-Bonita-API-Token'] = headers('X-Bonita-API-Token');
+          }));
+        }
+      };
 
       Object.defineProperty(dataModel, name, {
         get: function () {
@@ -43,8 +53,10 @@
 
           if (currentUrl !== url && currentUrl !== undefined) {
             url = currentUrl;
-            $http.get(url).success(function (data) {
-              value = data;
+            csrf.promise.then(function() {
+              $http.get(url).success(function (data) {
+                value = data;
+              });
             });
           }
           return value;
