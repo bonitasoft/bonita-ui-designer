@@ -21,6 +21,9 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
+import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.springframework.web.context.ServletContextAware;
 
 /**
@@ -34,12 +37,20 @@ public class WorkspaceInitializer implements ServletContextAware {
     @Inject
     private Workspace workspace;
 
+    @Inject
+    private LiveMigration<Page> pageLiveMigration;
+
+    @Inject
+    private LiveMigration<Widget> widgetLiveMigration;
+
     private ServletContext servletContext;
 
     @PostConstruct
     public void contextInitialized() {
         try {
             workspace.initialize();
+            pageLiveMigration.start();
+            widgetLiveMigration.start();
         } catch (IOException e) {
             throw new DesignerInitializerException("Unable to initialize workspace", e);
         }

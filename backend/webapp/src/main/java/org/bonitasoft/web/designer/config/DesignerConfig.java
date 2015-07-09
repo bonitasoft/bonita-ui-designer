@@ -14,7 +14,10 @@
  */
 package org.bonitasoft.web.designer.config;
 
+import static java.util.Collections.singletonList;
+
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -36,9 +39,12 @@ import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
+import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
+import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.migration.Migration;
+import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -53,6 +59,7 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
@@ -258,4 +265,19 @@ public class DesignerConfig {
         return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository), widgetAssetImporter(widgetAssetRepository(widgetRepository)));
     }
 
+    @Bean
+    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository) {
+        return new LiveMigration<>(pageRepository, pageFileBasedLoader, singletonList(
+
+                new Migration<>("1.0.2", Collections.<MigrationStep<Page>>singletonList(
+                        new AssetIdMigrationStep<Page>()))));
+    }
+
+    @Bean
+    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
+        return new LiveMigration<>(widgetRepository, widgetLoader, singletonList(
+
+                new Migration<>("1.0.2", Collections.<MigrationStep<Widget>>singletonList(
+                        new AssetIdMigrationStep<Widget>()))));
+    }
 }
