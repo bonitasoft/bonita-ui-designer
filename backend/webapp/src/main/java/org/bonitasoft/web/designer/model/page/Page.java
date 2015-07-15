@@ -178,6 +178,7 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
                 .append("id", id)
                 .append("rows", rows)
                 .append("data", data)
+                .append("version", getDesignerVersion())
                 .toString();
     }
 }
