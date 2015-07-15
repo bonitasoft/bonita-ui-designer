@@ -59,7 +59,6 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
@@ -161,8 +160,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter, ComponentMigrator componentMigrator) {
-        return new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter, componentMigrator);
+    public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        return new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
     }
 
     @Bean
@@ -176,13 +175,13 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtefactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, ComponentMigrator componentMigrator, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
-        return new ArtefactImporter<>(unzip, pageRepository, pageFileBasedLoader(), componentMigrator, widgetImporter, pageAssetImporter);
+    public ArtefactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
+        return new ArtefactImporter<>(unzip, pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
     }
 
     @Bean
-    public ArtefactImporter<Widget> widgetImporter(Unzipper unzip, WidgetLoader widgetLoader, ComponentMigrator componentMigrator, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtefactImporter<>(unzip, widgetRepository, widgetLoader, componentMigrator, widgetAssetImporter);
+    public ArtefactImporter<Widget> widgetImporter(Unzipper unzip, WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        return new ArtefactImporter<>(unzip, widgetRepository, widgetLoader, widgetAssetImporter);
     }
 
     @Bean

@@ -36,7 +36,6 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,13 +47,11 @@ public class ArtefactImporter<T extends Identifiable> {
     private Repository<T> repository;
     private Loader<T> loader;
     private DependencyImporter[] dependencyImporters;
-    private ComponentMigrator componentMigrator;
 
-    public ArtefactImporter(Unzipper unzip, Repository<T> repository, Loader<T> loader, ComponentMigrator componentMigrator, DependencyImporter... dependencyImporters) {
+    public ArtefactImporter(Unzipper unzip, Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
         this.loader = loader;
         this.repository = repository;
         this.unzip = unzip;
-        this.componentMigrator = componentMigrator;
         this.dependencyImporters = dependencyImporters;
     }
 
@@ -74,7 +71,6 @@ public class ArtefactImporter<T extends Identifiable> {
 
             // then save them
             saveArtefactDependencies(resources, dependencies);
-            componentMigrator.migrate(repository, element);
             repository.save(element);
 
             return ImportReport.from(element, dependencies);
