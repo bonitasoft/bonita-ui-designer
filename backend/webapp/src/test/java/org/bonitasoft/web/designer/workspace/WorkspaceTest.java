@@ -57,8 +57,6 @@ public class WorkspaceTest {
     @Mock
     private WorkspacePathResolver pathResolver;
     @Mock
-    private WorkspaceMigrator workspaceMigrator;
-    @Mock
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     @Mock
     private ResourceLoader resourceLoader;
@@ -91,7 +89,7 @@ public class WorkspaceTest {
                 validator,
                 new Watcher());
 
-        workspace = new Workspace(pathResolver, workspaceMigrator, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
+        workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
     }
 
     @Test

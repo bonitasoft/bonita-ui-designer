@@ -38,7 +38,6 @@ import org.springframework.core.io.ResourceLoader;
 public class Workspace {
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
     private WorkspacePathResolver workspacePathResolver;
-    private WorkspaceMigrator workspaceMigrator;
     private WidgetRepository widgetRepository;
     private WidgetLoader widgetLoader;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
@@ -46,10 +45,9 @@ public class Workspace {
     private AssetImporter<Widget> widgetAssetImporter;
 
     @Inject
-    public Workspace(WorkspacePathResolver workspacePathResolver, WorkspaceMigrator workspaceMigrator, WidgetRepository widgetRepository, WidgetLoader widgetLoader,
+    public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetLoader widgetLoader,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
-        this.workspaceMigrator = workspaceMigrator;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
         this.resourceLoader = resourceLoader;
@@ -61,7 +59,6 @@ public class Workspace {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
-        workspaceMigrator.migrate();
     }
 
     private void ensurePageRepositoryPresent() throws IOException {

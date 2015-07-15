@@ -23,14 +23,15 @@ import static org.bonitasoft.web.designer.controller.importer.exception.ImportEx
 import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.zip.ZipException;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
@@ -38,15 +39,12 @@ import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.controller.importer.mocks.StreamMock;
 import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -71,8 +69,6 @@ public class WidgetArtefactImporterTest {
     private WidgetRepository widgetRepository;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
-    @Mock
-    private ComponentMigrator componentMigrator;
 
     private ArtefactImporter<Widget> importer;
 
@@ -81,8 +77,8 @@ public class WidgetArtefactImporterTest {
 
     @Before
     public void setUp() throws IOException {
-        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter, componentMigrator);
-        importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, componentMigrator, widgetImporter);
+        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
+        importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, widgetImporter);
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(widgetRepository.getComponentName()).thenReturn("widget");

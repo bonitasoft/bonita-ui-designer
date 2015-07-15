@@ -14,20 +14,20 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.CANNOT_OPEN_ZIP;
 import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
 import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -41,7 +41,6 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.mocks.PageImportMock;
-import org.bonitasoft.web.designer.controller.importer.mocks.StreamMock;
 import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -51,7 +50,6 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -82,8 +80,6 @@ public class PageArtefactImporterTest {
     private WidgetRepository widgetRepository;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
-    @Mock
-    private ComponentMigrator componentMigrator;
 
     private ArtefactImporter<Page> importer;
 
@@ -93,8 +89,8 @@ public class PageArtefactImporterTest {
 
     @Before
     public void setUp() throws IOException {
-        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter, componentMigrator);
-        importer = new ArtefactImporter<>(unzip, pageRepository, pageLoader, componentMigrator, widgetImporter);
+        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
+        importer = new ArtefactImporter<>(unzip, pageRepository, pageLoader, widgetImporter);
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(pageRepository.getComponentName()).thenReturn("page");

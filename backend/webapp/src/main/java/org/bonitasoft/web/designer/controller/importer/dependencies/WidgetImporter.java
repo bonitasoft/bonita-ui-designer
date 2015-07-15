@@ -26,7 +26,6 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,13 +35,11 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
     private WidgetLoader widgetLoader;
     private WidgetRepository widgetRepository;
     private AssetImporter<Widget> widgetAssetImporter;
-    private ComponentMigrator componentMigrator;
 
-    public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter, ComponentMigrator componentMigrator) {
+    public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;
         this.widgetAssetImporter = widgetAssetImporter;
-        this.componentMigrator = componentMigrator;
     }
 
     @Override
@@ -61,7 +58,6 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
         widgetRepository.saveAll(elements);
         for (Widget widget : elements) {
             try {
-                componentMigrator.migrate(widgetRepository, widget);
                 widgetAssetImporter.save(
                         widgetAssetImporter.load(widget, widgetPath),
                         widgetPath
