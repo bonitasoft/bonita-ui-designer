@@ -57,7 +57,7 @@ public class BondMigrationVisitor implements ElementVisitor<Void> {
     public void migrate(Element element, Widget widget) {
         Map<String, PropertyValue> propertyValues = element.getPropertyValues();
         for (Map.Entry<String, PropertyValue> entry : propertyValues.entrySet()) {
-            Property property = widget.getProperties(entry.getKey());
+            Property property = widget.getProperty(entry.getKey());
             BondType bondType = property != null ? property.getBond() : BondType.EXPRESSION;
             migrationStrategies.get(bondType).migrate(property, entry.getValue());
         }
