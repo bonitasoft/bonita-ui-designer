@@ -59,7 +59,7 @@ public class PreviewControllerTest {
     @Mock
     private AssetRepository<Widget> widgetAssetRepository;
 
-    private Path widgetRepositoryPath = Paths.get("src/test/resources/widgets");
+    private Path widgetRepositoryPath = Paths.get("target/test-classes/workspace/widgets");
 
     @Before
     public void beforeEach() throws Exception {

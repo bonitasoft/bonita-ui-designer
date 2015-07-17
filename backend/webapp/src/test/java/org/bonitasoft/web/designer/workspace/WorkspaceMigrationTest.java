@@ -15,15 +15,18 @@
 
 package org.bonitasoft.web.designer.workspace;
 
+import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.transform;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
 import javax.inject.Inject;
 
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -36,7 +39,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class })
+@ContextConfiguration(classes = {ApplicationConfig.class})
 @WebAppConfiguration("file:target/test-classes")
 public class WorkspaceMigrationTest {
 
@@ -72,6 +75,21 @@ public class WorkspaceMigrationTest {
                 return asset.getId();
             }
         })).doesNotContainNull();
+    }
+
+    @Test
+    public void should_migrate_a_page_property_values() {
+
+        Page page = pageRepository.get("page_1_0_1");
+
+        Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
+
+        assertThat(transform(propertyValues.values(), new Function<PropertyValue, String>() {
+            @Override
+            public String apply(PropertyValue value) {
+                return value.getType();
+            }
+        })).doesNotContain("data");
     }
 
     @Test

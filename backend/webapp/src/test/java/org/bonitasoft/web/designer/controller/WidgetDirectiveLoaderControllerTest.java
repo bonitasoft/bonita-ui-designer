@@ -33,7 +33,7 @@ public class WidgetDirectiveLoaderControllerTest {
 
     private MockMvc mockMvc;
 
-    private Path widgetRepositoryPath = Paths.get("src/test/resources/widgets");
+    private Path widgetRepositoryPath = Paths.get("target/test-classes/workspace/widgets");
 
     @Before
     public void setUp() {
