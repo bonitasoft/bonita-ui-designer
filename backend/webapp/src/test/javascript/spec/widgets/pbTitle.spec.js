@@ -2,7 +2,7 @@ describe('pbTitle', function() {
 
   var compile, scope, dom;
 
-  beforeEach(module('pb.widgets'));
+  beforeEach(module('bonitasoft.ui.widgets'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');

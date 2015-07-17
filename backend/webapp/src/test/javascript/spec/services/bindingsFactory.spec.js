@@ -1,6 +1,6 @@
 describe('Service: bindingsFactory', function () {
 
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   var data = {
     foo: {

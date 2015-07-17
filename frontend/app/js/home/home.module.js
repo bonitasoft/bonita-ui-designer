@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('pb.home', ['pb.services', 'pb.factories', 'pb.common.repositories', 'ui.bootstrap', 'ui.router']);
+  angular.module('bonitasoft.ui.home', ['bonitasoft.ui.services', 'bonitasoft.ui.factories', 'bonitasoft.ui.common.repositories', 'ui.bootstrap', 'ui.router']);
 
 })();

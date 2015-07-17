@@ -55,7 +55,7 @@ module.exports = function (config) {
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'app/',
-      moduleName: 'pb.templates'
+      moduleName: 'bonitasoft.ui.templates'
     },
 
     coverageReporter: {

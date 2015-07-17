@@ -1,7 +1,7 @@
 describe('alerts', function() {
   var alerts, $timeout;
 
-  beforeEach(module('pb.common.services'));
+  beforeEach(module('bonitasoft.ui.common.services'));
   beforeEach(inject(function(_alerts_, _$timeout_) {
     alerts = _alerts_;
     $timeout = _$timeout_;

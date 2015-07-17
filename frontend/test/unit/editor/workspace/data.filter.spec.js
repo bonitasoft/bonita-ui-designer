@@ -2,7 +2,7 @@ describe('data filters', function() {
 
   var data;
 
-  beforeEach(module('pb.filters'));
+  beforeEach(module('bonitasoft.ui.filters'));
 
   beforeEach(inject(function($filter) {
     data = $filter('data');

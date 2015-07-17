@@ -115,6 +115,6 @@
     };
   }
 
-  angular.module('pb.generator.services')
+  angular.module('bonitasoft.ui.services')
     .factory('modelFactory', modelFactory);
 })();

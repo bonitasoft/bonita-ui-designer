@@ -2,8 +2,8 @@ describe('pbDatePicker', function () {
 
   var $compile, scope;
 
-  beforeEach(module('pb.widgets'));
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.widgets'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;

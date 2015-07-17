@@ -2,7 +2,7 @@ describe('The route config', function() {
 
   var $rootScope, $location, $state, widgetRepo, pageRepo, whiteboard, $httpBackend, $q;
 
-  beforeEach(module('uidesigner', 'ui.router', 'pb.templates'));
+  beforeEach(module('uidesigner', 'ui.router', 'bonitasoft.ui.templates'));
 
   beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');

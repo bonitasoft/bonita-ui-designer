@@ -1,7 +1,7 @@
 describe('paletteWidget', function() {
   var $compile, $rootScope, element, directiveScope;
 
-  beforeEach(module('pb.directives', 'pb.templates', 'gettext'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.templates', 'gettext'));
   beforeEach(inject(function(_$compile_, _$rootScope_ ) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

@@ -1,7 +1,7 @@
 describe('data-type', function() {
   var service, DATA_TYPES;
 
-  beforeEach(module('pb.common.services', 'gettext'));
+  beforeEach(module('bonitasoft.ui.common.services', 'gettext'));
   beforeEach(inject(function($injector) {
     service = $injector.get('dataTypeService');
   }));

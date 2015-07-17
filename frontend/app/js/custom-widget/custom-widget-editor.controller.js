@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
+angular.module('bonitasoft.ui.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
 
   'use strict';
 

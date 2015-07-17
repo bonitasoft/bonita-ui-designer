@@ -85,7 +85,7 @@
   }
 
   angular
-    .module('pb.generator.services')
+    .module('bonitasoft.ui.services')
     .service('pendingStatus', pendingStatus)
     .service('httpActivityInterceptor', httpActivityInterceptor);
 

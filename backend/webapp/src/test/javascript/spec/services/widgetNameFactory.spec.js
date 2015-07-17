@@ -1,6 +1,6 @@
 describe('Service: widgetNameFactory', function () {
 
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   var service;
 

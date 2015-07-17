@@ -1,7 +1,7 @@
 describe('directive pb-datepicker-utc', function(){
   var $scope, $compile;
 
-  beforeEach(module('pb.generator.directives'));
+  beforeEach(module('bonitasoft.ui.directives'));
 
   beforeEach(inject(function($injector){
     $compile = $injector.get('$compile');

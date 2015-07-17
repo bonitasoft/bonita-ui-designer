@@ -1,6 +1,6 @@
 describe('Service: bindingContextFactory', function () {
 
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   var bindingContextFactory, modelCtrl;
 

@@ -115,7 +115,7 @@ module.exports = function(gulp, config) {
     var tpl = gulp.src(paths.templates)
       .pipe(plumber())
       .pipe(html2js({
-        moduleName: 'pb.templates',
+        moduleName: 'bonitasoft.ui.templates',
         prefix: 'js/'
       }));
 

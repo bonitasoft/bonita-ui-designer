@@ -17,7 +17,7 @@
  */
 
 
-angular.module('pb.common.directives').directive('tooltipToggle', function($timeout) {
+angular.module('bonitasoft.ui.common.directives').directive('tooltipToggle', function($timeout) {
   'use strict';
 
   return {

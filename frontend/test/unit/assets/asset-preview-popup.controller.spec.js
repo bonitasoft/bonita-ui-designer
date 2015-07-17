@@ -2,7 +2,7 @@ describe('AssetPreviewPopupCtrl', function() {
 
   var $scope, asset, $modalInstance;
 
-  beforeEach(module('pb.assets'));
+  beforeEach(module('bonitasoft.ui.assets'));
 
   beforeEach(inject(function($injector) {
     $scope = $injector.get('$rootScope').$new();

@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('pb.custom-widget', ['pb.common.repositories', 'pb.common.services', 'ui.bootstrap', 'gettext', 'ui.router']);
+  angular.module('bonitasoft.ui.custom-widget', ['bonitasoft.ui.common.repositories', 'bonitasoft.ui.common.services', 'ui.bootstrap', 'gettext', 'ui.router']);
 
 })();

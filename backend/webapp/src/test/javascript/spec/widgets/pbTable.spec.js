@@ -2,7 +2,7 @@ describe('pbTable', function() {
 
   var $compile, scope;
 
-  beforeEach(module('pb.widgets'));
+  beforeEach(module('bonitasoft.ui.widgets'));
 
   beforeEach(inject(function(_$compile_, $rootScope) {
     $compile = _$compile_;

@@ -111,7 +111,7 @@ describe('whiteboard', function() {
     }
   };
 
-  beforeEach(module('pb.common.services', 'pb.common.repositories', 'pb.services', 'pb.factories'));
+  beforeEach(module('bonitasoft.ui.common.services', 'bonitasoft.ui.common.repositories', 'bonitasoft.ui.services', 'bonitasoft.ui.factories'));
   beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');
     $httpBackend = $injector.get('$httpBackend');

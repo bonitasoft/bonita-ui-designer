@@ -14,7 +14,7 @@
  */
  (function () {
    'use strict';
-   angular.module('pb.home').directive('homeWidgets', function(){
+   angular.module('bonitasoft.ui.home').directive('homeWidgets', function(){
      return {
        restrict: 'E',
        templateUrl: 'js/home/home-widgets.html'

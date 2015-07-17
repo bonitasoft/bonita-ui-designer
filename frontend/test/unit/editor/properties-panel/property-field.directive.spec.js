@@ -1,7 +1,7 @@
 describe('widget property field', function () {
   var $compile, element, scope;
 
-  beforeEach(module('pb.templates', 'pb.directives', 'gettext'));
+  beforeEach(module('bonitasoft.ui.templates', 'bonitasoft.ui.directives', 'gettext'));
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
 

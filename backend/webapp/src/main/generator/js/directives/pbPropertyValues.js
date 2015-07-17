@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('pb.generator.directives')
+  angular.module('bonitasoft.ui.directives')
     .directive('pbPropertyValues', function ($parse, $q, $timeout, $log, bindingsFactory, propertyValuesFactory, bindingContextFactory, pendingStatus) {
 
       function pbPropertyValuesCompile(tElement, tAttributes) {

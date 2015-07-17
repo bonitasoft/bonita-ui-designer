@@ -2,8 +2,8 @@ describe('pbButton', function () {
 
   var $compile, scope, element, $timeout, $parse, $q, $location, $window;
 
-  beforeEach(module('pb.generator.services'));
-  beforeEach(module('pb.widgets'));
+  beforeEach(module('bonitasoft.ui.services'));
+  beforeEach(module('bonitasoft.ui.widgets'));
 
   beforeEach(inject(function ($injector, $rootScope) {
 

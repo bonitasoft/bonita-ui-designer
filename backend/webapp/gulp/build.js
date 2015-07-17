@@ -73,7 +73,7 @@ module.exports = function(gulp, config) {
   gulp.task('generator:js', function () {
     var tpl = gulp.src(paths.templates)
       .pipe(html2js({
-        moduleName: 'pb.generator.templates'
+        moduleName: 'bonitasoft.ui.templates'
       }));
 
     var app = gulp.src(paths.generator)

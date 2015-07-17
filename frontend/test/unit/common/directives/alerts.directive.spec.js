@@ -1,7 +1,7 @@
 describe('alerts', function () {
   var $compile, $rootScope, element, alerts, $timeout;
 
-  beforeEach(module('pb.common.directives'));
+  beforeEach(module('bonitasoft.ui.common.directives'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _alerts_, _$timeout_) {
     $compile = _$compile_;

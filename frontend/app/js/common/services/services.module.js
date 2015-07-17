@@ -16,7 +16,7 @@
 
   'use strict';
 
-  // for now pb.services is injected as dependency to not breack tests, will be remove when editor.module.js will be introduced
-  angular.module('pb.common.services', ['pb.services', 'gettext']);
+  // for now bonitasoft.ui.services is injected as dependency to not breack tests, will be remove when editor.module.js will be introduced
+  angular.module('bonitasoft.ui.common.services', ['bonitasoft.ui.services', 'gettext']);
 
 })();

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.services')
+angular.module('bonitasoft.ui.services')
   .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions, gettextCatalog, gettext) {
 
     'use strict';

@@ -1,7 +1,7 @@
 describe('DeletionPopController', function () {
   var page, modalInstance;
 
-  beforeEach(module('pb.home'));
+  beforeEach(module('bonitasoft.ui.home'));
   beforeEach(inject(function ($controller, $rootScope, $injector) {
     $scope = $rootScope.$new();
 

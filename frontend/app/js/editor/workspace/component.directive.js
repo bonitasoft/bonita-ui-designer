@@ -17,7 +17,7 @@
  * It wraps the widget in a div containing also an overlay that will be displayed whenever the user
  * enter the div with his mouse, and hidden when he left.
  */
-angular.module('pb.directives').directive('component', function ($compile, componentScopeBuilder) {
+angular.module('bonitasoft.ui.directives').directive('component', function ($compile, componentScopeBuilder) {
 
   'use strict';
 

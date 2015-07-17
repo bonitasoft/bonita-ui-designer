@@ -2,7 +2,7 @@ describe('directive autofocus', function() {
 
   var $document, rootScope, compile, scope, timeout, dom;
 
-  beforeEach(module('pb.common.directives'));
+  beforeEach(module('bonitasoft.ui.common.directives'));
 
   beforeEach(inject(function ($injector) {
 

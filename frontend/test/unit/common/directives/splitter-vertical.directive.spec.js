@@ -17,7 +17,7 @@ describe('splitter vertical directive', function() {
     jasmine.addMatchers(CustomMatcher.elementMatchers);
   });
 
-  beforeEach(module('pb.common.directives'));
+  beforeEach(module('bonitasoft.ui.common.directives'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$window_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('pb.common.repositories', []);
+  angular.module('bonitasoft.ui.common.repositories', []);
 
 })();

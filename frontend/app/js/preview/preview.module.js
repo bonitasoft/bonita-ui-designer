@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('pb.preview', ['ui.router', 'pb.services', 'pb.directives', 'pb.common.services']);
+  angular.module('bonitasoft.ui.preview', ['ui.router', 'bonitasoft.ui.services', 'bonitasoft.ui.directives', 'bonitasoft.ui.common.services']);
 
 })();

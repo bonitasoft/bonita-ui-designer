@@ -2,9 +2,9 @@ describe('tabsContainer', function() {
   var $compile, $rootScope, element;
 
   beforeEach(module('ui.router'));
-  beforeEach(module('pb.directives', 'pb.common.services', 'pb.factories', 'RecursionHelper'));
-  beforeEach(module('pb.directives', 'pb.common.services', 'pb.common.repositories', 'pb.factories', 'RecursionHelper'));
-  beforeEach(module('pb.templates', 'gettext'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services', 'bonitasoft.ui.factories', 'RecursionHelper'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services', 'bonitasoft.ui.common.repositories', 'bonitasoft.ui.factories', 'RecursionHelper'));
+  beforeEach(module('bonitasoft.ui.templates', 'gettext'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

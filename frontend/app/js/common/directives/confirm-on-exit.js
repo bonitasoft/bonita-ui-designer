@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.common.directives')
+angular.module('bonitasoft.ui.common.directives')
   .directive('confirmOnExit', function($rootScope, $stateParams, $state, $injector, $window, gettextCatalog){
 
     'use strict';

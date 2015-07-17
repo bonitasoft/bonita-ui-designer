@@ -4,7 +4,7 @@ describe('ContainerDirectiveCtrl', function() {
   var $scope, componentUtils,  $element, rootScope, init;
 
   beforeEach(module('ui.router'));
-  beforeEach(module('pb.directives', 'pb.common.services', 'pb.common.repositories'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services', 'bonitasoft.ui.common.repositories'));
 
   beforeEach(inject(function ($rootScope, $controller, $injector) {
 

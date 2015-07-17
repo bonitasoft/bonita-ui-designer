@@ -1,7 +1,7 @@
 describe('utils', function () {
   var assetsService;
 
-  beforeEach(module('pb.assets'));
+  beforeEach(module('bonitasoft.ui.assets'));
 
   beforeEach(inject(function ($injector) {
     assetsService = $injector.get('assetsService');
