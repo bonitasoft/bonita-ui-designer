@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# This file is needed by npm-frontend-plugin since due to a bug, this plugin doesn't work whithout local node installation for our need
+# https://github.com/eirslett/frontend-maven-plugin/issues/204
+
+"node/node" "node/npm/bin/npm-cli.js" "$@"
