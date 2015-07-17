@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.config;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 import java.nio.file.Path;
@@ -44,6 +45,7 @@ import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandle
 import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -265,11 +267,11 @@ public class DesignerConfig {
     }
 
     @Bean
-    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository) {
+    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository, BondMigrationStep bondMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, singletonList(
 
-                new Migration<>("1.0.2", Collections.<MigrationStep<Page>>singletonList(
-                        new AssetIdMigrationStep<Page>()))));
+                new Migration<>("1.0.2", asList(
+                        new AssetIdMigrationStep<Page>(), bondMigrationStep))));
     }
 
     @Bean

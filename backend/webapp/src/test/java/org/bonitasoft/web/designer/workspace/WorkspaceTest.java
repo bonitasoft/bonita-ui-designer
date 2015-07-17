@@ -123,11 +123,12 @@ public class WorkspaceTest {
 
     @Test
     public void should_copy_widget_to_widget_repository_folder() throws Exception {
-        when(resource.getURI()).thenReturn(new File("src/test/resources/widgets").toURI());
+        when(resource.getURI()).thenReturn(new File("target/test-classes/workspace/widgets").toURI());
         when(resourceLoader.getResource(anyString())).thenReturn(resource);
 
         workspace.initialize();
 
+        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbInput/pbInput.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
     }

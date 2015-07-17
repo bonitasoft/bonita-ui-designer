@@ -14,9 +14,12 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 
 public class PropertyValue {
@@ -61,5 +64,13 @@ public class PropertyValue {
                 .append(type)
                 .append(value)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("type", type)
+                .append("value", value)
+                .toString();
     }
 }

@@ -35,7 +35,7 @@ public class Migration<A extends Versioned> {
     }
 
     public void migrate(A artifact) {
-        if (version.compareTo(artifact.getDesignerVersion()) > 0) {
+        if (artifact.getDesignerVersion() == null || version.compareTo(artifact.getDesignerVersion()) > 0) {
 
             logger.info(format("Migrate <%s> with id <%s> from %s to %s...",
                     artifact.getName(),
