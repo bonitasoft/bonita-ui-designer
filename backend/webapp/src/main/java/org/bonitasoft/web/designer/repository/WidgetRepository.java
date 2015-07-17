@@ -89,7 +89,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> addProperty(String widgetId, Property property) {
         Widget widget = get(widgetId);
-        Property existingProperty = widget.getProperties(property.getName());
+        Property existingProperty = widget.getProperty(property.getName());
         if (existingProperty != null) {
             throw new NotAllowedException(format("Widget [ %s ] has already a property named %s", widgetId, property.getName()));
         }
@@ -100,7 +100,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
         Widget widget = get(widgetId);
-        Property existingProperty = widget.getProperties(propertyName);
+        Property existingProperty = widget.getProperty(propertyName);
         if (existingProperty == null) {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
         }
@@ -111,7 +111,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> deleteProperty(String widgetId, String propertyName) {
         Widget widget = get(widgetId);
-        Property param = widget.getProperties(propertyName);
+        Property param = widget.getProperty(propertyName);
         if (param == null) {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
         }

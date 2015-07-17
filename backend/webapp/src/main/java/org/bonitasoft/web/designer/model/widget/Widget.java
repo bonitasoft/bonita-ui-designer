@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
+import static com.google.common.collect.Iterables.find;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javax.validation.constraints.AssertTrue;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.base.Predicate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -183,13 +185,13 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         this.properties.remove(property);
     }
 
-    public Property getProperties(String propertyName) {
-        for (Property property : properties) {
-            if (property.getName().equals(propertyName)) {
-                return property;
+    public Property getProperty(final String propertyName) {
+        return find(properties, new Predicate<Property>() {
+            @Override
+            public boolean apply(Property property) {
+                return propertyName.equals(property.getName());
             }
-        }
-        return null;
+        }, null);
     }
 
     @JsonView({JsonViewLight.class})
