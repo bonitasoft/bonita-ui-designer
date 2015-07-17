@@ -15,7 +15,7 @@
 /**
  * Listen to an input file and assign the selected file to a scope variable
  */
-angular.module('pb.home')
+angular.module('bonitasoft.ui.home')
   .directive('fileDownload', function($document, $http){
     'use strict';
 

@@ -26,7 +26,7 @@
     ]
   }];
 
-  beforeEach(module('pb.directives', 'pb.services', 'pb.templates', 'gettext'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.services', 'bonitasoft.ui.templates', 'gettext'));
   beforeEach(inject(function($injector) {
     $compile = $injector.get("$compile");
     $controller = $injector.get("$controller");

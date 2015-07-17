@@ -19,6 +19,6 @@
       return widget + widgetsName[widget];
     }
   }
-  angular.module('pb.generator.services')
+  angular.module('bonitasoft.ui.services')
     .service('widgetNameFactory', widgetNameFactory);
 })();

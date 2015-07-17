@@ -1,7 +1,7 @@
 //  Add e2e module to main pb module
-angular.module('uidesigner').requires.push('pb.e2e');
+angular.module('uidesigner').requires.push('bonitasoft.ui.e2e');
 
-angular.module('pb.e2e', ['ngMockE2E'])
+angular.module('bonitasoft.ui.e2e', ['ngMockE2E'])
 
   .config(function ($compileProvider) {
     // the 1.3 optimization needs to be disable for the e2e tests

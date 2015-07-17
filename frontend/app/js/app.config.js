@@ -24,7 +24,7 @@
 
   var isIE9 = window.navigator.userAgent.indexOf('MSIE 9') > -1;
 
-  angular.module('uidesigner', ['pb'])
+  angular.module('uidesigner', ['bonitasoft.ui'])
     .value('isIE9', isIE9)
     .config(configureModule);
 

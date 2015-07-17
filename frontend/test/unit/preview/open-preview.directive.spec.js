@@ -4,7 +4,7 @@ describe('directive openPreview', function() {
 
   var scope, $window, $state, resolutions, dom, $compile;
 
-  beforeEach(module('pb.preview'));
+  beforeEach(module('bonitasoft.ui.preview'));
   beforeEach(inject(function ($injector) {
 
     $window = $injector.get('$window');

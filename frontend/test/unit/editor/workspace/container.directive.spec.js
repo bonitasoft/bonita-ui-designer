@@ -10,12 +10,12 @@ describe('container', function () {
     });
   });
 
-  beforeEach(module('pb.templates'));
-  beforeEach(module('pb.directives'));
+  beforeEach(module('bonitasoft.ui.templates'));
+  beforeEach(module('bonitasoft.ui.directives'));
   beforeEach(module('RecursionHelper'));
-  beforeEach(module('pb.common.services'));
-  beforeEach(module('pb.factories'));
-  beforeEach(module('pb.common.repositories'));
+  beforeEach(module('bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.ui.factories'));
+  beforeEach(module('bonitasoft.ui.common.repositories'));
   beforeEach(module('ui.router', 'gettext'));
 
   beforeEach(inject(function(_$compile_, _$rootScope_) {

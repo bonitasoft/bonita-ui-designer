@@ -4,7 +4,7 @@
   describe('AssetCtrl', function () {
     var $scope, $q, $modal, assetsService, artifactRepo, controller, component;
 
-    beforeEach(module('pb.assets', 'ui.bootstrap'));
+    beforeEach(module('bonitasoft.ui.assets', 'ui.bootstrap'));
 
     beforeEach(inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();

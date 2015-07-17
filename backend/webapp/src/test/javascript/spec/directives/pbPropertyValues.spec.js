@@ -2,8 +2,8 @@ describe('Directive: propertyValues', function () {
 
   beforeEach(
     module(
-      'pb.generator.services',
-      'pb.generator.directives',
+      'bonitasoft.ui.services',
+      'bonitasoft.ui.directives',
       function ($provide) {
         $provide.value('propertyValuesFactory', {
           get: function (uuid) {

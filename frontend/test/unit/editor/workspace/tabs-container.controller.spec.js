@@ -1,7 +1,7 @@
 describe('TabsContainerDirectiveCtrl', function() {
   var $scope;
 
-  beforeEach(module('pb.directives', 'pb.common.services', 'pb.factories'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services', 'bonitasoft.ui.factories'));
   beforeEach(inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
 

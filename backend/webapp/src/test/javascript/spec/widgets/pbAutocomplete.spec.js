@@ -2,8 +2,8 @@ describe('pbAutocomplete', function () {
 
   var $compile, scope, $rootScope, $document;
 
-  beforeEach(module('pb.generator.services'));
-  beforeEach(module('pb.widgets'));
+  beforeEach(module('bonitasoft.ui.services'));
+  beforeEach(module('bonitasoft.ui.widgets'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _$document_) {
     $compile = _$compile_;

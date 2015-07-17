@@ -17,7 +17,7 @@
  * Usage:
  *     <alerts></alerts>
  */
-angular.module('pb.common.directives').directive('alerts', function() {
+angular.module('bonitasoft.ui.common.directives').directive('alerts', function() {
 
   'use strict';
 

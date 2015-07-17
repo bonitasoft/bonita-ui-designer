@@ -5,7 +5,7 @@ describe('dropZone directive', function () {
   var $compile, element, container, row, template, scope, directiveScope, componentUtils;
 
   beforeEach(module('ui.router'));
-  beforeEach(module('pb.directives', 'pb.common.services', 'pb.common.repositories'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services', 'bonitasoft.ui.common.repositories'));
   beforeEach(inject(function ($injector) {
 
     var $rootScope = $injector.get('$rootScope');

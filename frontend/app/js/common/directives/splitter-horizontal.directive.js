@@ -18,7 +18,7 @@
  *
  * Panes should be passed via attributes pane-top and pane-bottom by css selectors
  */
-angular.module('pb.common.directives')
+angular.module('bonitasoft.ui.common.directives')
   .directive('splitterHorizontal', function($document) {
 
     return {

@@ -14,7 +14,7 @@
  */
 (function () {
 
-  angular.module('pb.assets').service('assetsService', function (gettextCatalog) {
+  angular.module('bonitasoft.ui.assets').service('assetsService', function (gettextCatalog) {
 
     'use strict';
 

@@ -1,7 +1,7 @@
 describe('Resolution service', function() {
   var resolutions;
 
-  beforeEach( module('pb.common.services', function(resolutionsProvider){
+  beforeEach( module('bonitasoft.ui.common.services', function(resolutionsProvider){
     resolutionsProvider.registerResolutions([
       {
         key: 'xs',

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('pb.generator.directives')
+  angular.module('bonitasoft.ui.directives')
     .directive('pbDatepickerUtc', function ($parse, $filter) {
       function datepickerUtcLink(scope, element, attr, ngModelController) {
           // called with a JavaScript Date object when picked from the datepicker

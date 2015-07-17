@@ -27,7 +27,7 @@
 
     {{#if modules}}
         <script>
-            angular.module('pb.generator').requires.push({{{join modules "', '" prefix="'" suffix="'"}}});
+            angular.module('bonitasoft.ui.generator').requires.push({{{join modules "', '" prefix="'" suffix="'"}}});
         </script>
     {{/if}}
 
@@ -37,7 +37,7 @@
     {{/each}}
 
 </head>
-<body ng-app="pb.generator" pb-model='{{ id }}'>
+<body ng-app="bonitasoft.ui.generator" pb-model='{{ id }}'>
 <div class="container-fluid">
     {{{rowsHtml}}}
     {{#each factories}}

@@ -1,11 +1,11 @@
 describe('component', function () {
   var $compile, $rootScope, element, directiveScope;
 
-  beforeEach(module('pb.templates'));
+  beforeEach(module('bonitasoft.ui.templates'));
   beforeEach(module('ui.router'));
   beforeEach(module('RecursionHelper'));
-  beforeEach(module('pb.directives', 'pb.common.repositories', 'pb.common.services'));
-  beforeEach(module('pb.factories', function ($provide) {
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.repositories', 'bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.ui.factories', function ($provide) {
     $provide.factory('componentResizerModel', function() {
       return {
         set: angular.noop,

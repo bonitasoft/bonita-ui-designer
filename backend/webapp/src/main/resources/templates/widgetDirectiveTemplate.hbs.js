@@ -1,4 +1,4 @@
-angular.module('pb.widgets')
+angular.module('bonitasoft.ui.widgets')
   .directive('{{ id }}', function() {
     return {
       {{#if controller}}

@@ -1,7 +1,7 @@
 describe('HomeCtrl', function () {
   var $scope, $q, $modal, pageRepo, widgetRepo, pages, widgets, $state, $timeout;
 
-  beforeEach(module('pb.home'));
+  beforeEach(module('bonitasoft.ui.home'));
   beforeEach(inject(function ($controller, $rootScope, $injector) {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');

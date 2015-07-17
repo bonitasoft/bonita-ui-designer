@@ -2,8 +2,8 @@ describe('componentFactory', function() {
 
   var service, item, widget, parentRow ;
 
-  beforeEach(module('pb.services', 'pb.common.services'));
-  beforeEach(module('pb.factories'));
+  beforeEach(module('bonitasoft.ui.services', 'bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.ui.factories'));
 
   beforeEach(inject(function ($injector){
     service = $injector.get('componentFactory');

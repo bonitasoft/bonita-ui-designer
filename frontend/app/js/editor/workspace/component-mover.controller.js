@@ -15,7 +15,7 @@
 /**
  * Controller of the componentMover directive
  */
-angular.module('pb.directives').controller('ComponentMoverDirectiveCtrl', function($scope, arrays) {
+angular.module('bonitasoft.ui.directives').controller('ComponentMoverDirectiveCtrl', function($scope, arrays) {
   var componentRow = function() {
     return $scope.component.$$parentContainerRow.row;
   };

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.common.services').service('aceDataCompleter', function(){
+angular.module('bonitasoft.ui.common.services').service('aceDataCompleter', function(){
   return function(data){
      return {
       getCompletions: function(editor, session, pos, prefix, callback) {

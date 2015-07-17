@@ -49,6 +49,6 @@
   }
 
   angular
-    .module('pb.generator.services')
+    .module('bonitasoft.ui.services')
     .factory('bindingContextFactory', bindingContextFactory);
 })();

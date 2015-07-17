@@ -14,7 +14,7 @@
  */
 (function () {
 
-  angular.module('pb.assets').controller('AssetCtrl', function ($scope, $modal, $q, artifact, artifactRepo, mode, assetsService) {
+  angular.module('bonitasoft.ui.assets').controller('AssetCtrl', function ($scope, $modal, $q, artifact, artifactRepo, mode, assetsService) {
 
     'use strict';
 

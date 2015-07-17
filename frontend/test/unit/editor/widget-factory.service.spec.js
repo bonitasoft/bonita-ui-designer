@@ -1,7 +1,7 @@
 describe('widgetFactory', function() {
   var service;
 
-  beforeEach(module('pb.services', 'pb.factories'));
+  beforeEach(module('bonitasoft.ui.services', 'bonitasoft.ui.factories'));
   beforeEach(inject(function($injector){
     service = $injector.get('widgetFactory');
   }));

@@ -5,7 +5,7 @@ describe('ComponentMoverDirectiveCtrl', function() {
   var component3;
   var row;
 
-  beforeEach(module('pb.directives', 'pb.common.services'));
+  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services'));
   beforeEach(inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
 

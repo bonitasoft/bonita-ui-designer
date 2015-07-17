@@ -16,7 +16,7 @@
  * Element directive displaying a widget in the palette, with just its label for now.
  */
 angular
-  .module('pb.directives')
+  .module('bonitasoft.ui.directives')
   .controller('EditorPaletteCtrl', function($scope, paletteService){
     'use strict';
 

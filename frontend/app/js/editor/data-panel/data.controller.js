@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('pb.controllers').controller('DataCtrl', function($scope, dataTypeService, $location, $modal, artifact, mode) {
+angular.module('bonitasoft.ui.controllers').controller('DataCtrl', function($scope, dataTypeService, $location, $modal, artifact, mode) {
 
   'use strict';
 

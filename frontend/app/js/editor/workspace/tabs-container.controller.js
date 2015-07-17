@@ -15,7 +15,7 @@
 /**
  * Controller of the tabsContainer directive
  */
-angular.module('pb.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, componentFactory) {
+angular.module('bonitasoft.ui.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, componentFactory) {
 
   'use strict';
 

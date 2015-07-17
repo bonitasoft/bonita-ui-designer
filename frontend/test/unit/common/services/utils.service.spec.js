@@ -1,7 +1,7 @@
 describe('utils', function() {
   var utils;
 
-  beforeEach(module('pb.common.services'));
+  beforeEach(module('bonitasoft.ui.common.services'));
   beforeEach(inject(function($injector) {
     utils = $injector.get('utils');
   }));

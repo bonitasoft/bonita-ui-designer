@@ -14,7 +14,7 @@
  */
 (function() {
 
-  angular.module('pb.assets').filter('assetType', function(assetsService) {
+  angular.module('bonitasoft.ui.assets').filter('assetType', function(assetsService) {
 
     'use strict';
 

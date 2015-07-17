@@ -1,6 +1,6 @@
 describe('pendingStatus service', function() {
   var service, $timeout;
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.services'));
   beforeEach(inject(function($injector) {
     service = $injector.get('pendingStatus');
     $timeout = $injector.get('$timeout');

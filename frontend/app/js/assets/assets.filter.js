@@ -17,7 +17,7 @@
   /**
    * Filters the assets table in editor by type
    */
-  angular.module('pb.assets').filter('assetFilter', function() {
+  angular.module('bonitasoft.ui.assets').filter('assetFilter', function() {
 
     'use strict';
 

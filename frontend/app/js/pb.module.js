@@ -16,35 +16,35 @@
 
   'use strict';
 
-  angular.module('pb.filters', []);
-  angular.module('pb.controllers', ['pb.filters']);
-  angular.module('pb.services', ['pb.filters', 'gettext']);
-  angular.module('pb.factories', ['pb.filters']);
-  angular.module('pb.directives', ['pb.filters']);
-  angular.module('pb.widgets', []);
+  angular.module('bonitasoft.ui.filters', []);
+  angular.module('bonitasoft.ui.controllers', ['bonitasoft.ui.filters']);
+  angular.module('bonitasoft.ui.services', ['bonitasoft.ui.filters', 'gettext']);
+  angular.module('bonitasoft.ui.factories', ['bonitasoft.ui.filters']);
+  angular.module('bonitasoft.ui.directives', ['bonitasoft.ui.filters']);
+  angular.module('bonitasoft.ui.widgets', []);
 
-  angular.module('pb', [
+  angular.module('bonitasoft.ui', [
     'app.route',
-    'pb.preview',
-    'pb.home',
-    'pb.custom-widget',
-    'pb.common.repositories',
-    'pb.common.services',
-    'pb.common.directives',
-    'pb.controllers',
-    'pb.factories',
-    'pb.services',
-    'pb.directives',
-    'pb.filters',
-    'pb.templates',
-    'pb.assets',
+    'bonitasoft.ui.preview',
+    'bonitasoft.ui.home',
+    'bonitasoft.ui.custom-widget',
+    'bonitasoft.ui.common.repositories',
+    'bonitasoft.ui.common.services',
+    'bonitasoft.ui.common.directives',
+    'bonitasoft.ui.controllers',
+    'bonitasoft.ui.factories',
+    'bonitasoft.ui.services',
+    'bonitasoft.ui.directives',
+    'bonitasoft.ui.filters',
+    'bonitasoft.ui.templates',
+    'bonitasoft.ui.assets',
     'ngSanitize',
     'ngAnimate',
     'ui.router',
     'RecursionHelper',
     'ui.bootstrap',
     'ui.ace',
-    'pb.widgets',
+    'bonitasoft.ui.widgets',
     'org.bonitasoft.dragAndDrop',
     'gettext',
     'ngUpload',

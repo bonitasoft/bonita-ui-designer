@@ -4,7 +4,7 @@ describe('ComponentUtils Service', function() {
 
   var service, tabsContainerStructureMockJSON, pageJson, resolutions, $stateParams;
 
-  beforeEach( module('pb.common.services', function(resolutionsProvider){
+  beforeEach( module('bonitasoft.ui.common.services', function(resolutionsProvider){
     resolutionsProvider.registerResolutions([
       {
         key: 'xs',
@@ -22,7 +22,7 @@ describe('ComponentUtils Service', function() {
     resolutionsProvider.setDefaultResolution('foo');
   }));
 
-  beforeEach(module('pb.factories', 'pb.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
+  beforeEach(module('bonitasoft.ui.factories', 'bonitasoft.ui.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
   beforeEach(module('ui.router'));
 
   beforeEach(inject(function ($injector) {

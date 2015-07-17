@@ -15,7 +15,7 @@
 /**
  * Repo containing all our palette widgets.
  */
-angular.module('pb.common.repositories').factory('widgetRepo', function($http) {
+angular.module('bonitasoft.ui.common.repositories').factory('widgetRepo', function($http) {
 
   'use strict';
 

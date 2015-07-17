@@ -1,7 +1,7 @@
 describe('widget property field controller', function () {
   var $scope, $rootScope, createController, controller;
 
-  beforeEach(module('pb.directives'));
+  beforeEach(module('bonitasoft.ui.directives'));
   beforeEach(inject(function (_$rootScope_, $controller) {
     $rootScope = _$rootScope_;
 

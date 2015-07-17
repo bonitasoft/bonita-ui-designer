@@ -2,8 +2,8 @@ describe('pbRadioButtons', function() {
 
   var compile, rootScope, dom, scope;
 
-  beforeEach(module('pb.widgets'));
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.widgets'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');

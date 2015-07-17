@@ -16,7 +16,7 @@
  * http response interceptor which extracts the error message from an error http response and adds it to the alerts
  * service
  */
-angular.module('pb.common.services').factory('errorInterceptor', function($q, alerts) {
+angular.module('bonitasoft.ui.common.services').factory('errorInterceptor', function($q, alerts) {
 
   'use strict';
 

@@ -4,8 +4,8 @@ describe('pbSelect', function () {
 
   var collection = [{name: 'foo', value: 'baz'}, {name: 'bar', value: 'qux'}];
 
-  beforeEach(module('pb.widgets'));
-  beforeEach(module('pb.generator.services'));
+  beforeEach(module('bonitasoft.ui.widgets'));
+  beforeEach(module('bonitasoft.ui.services'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _$timeout_) {
     $compile = _$compile_;

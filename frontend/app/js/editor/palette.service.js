@@ -19,7 +19,7 @@
  * Create a new scope with a properties object derived from user entered propertyValues.
  * This allow to bind propertyValues to widget properties and keep a WYSWYG approach in editor while editing widget properties
  */
-angular.module('pb.services')
+angular.module('bonitasoft.ui.services')
   .service('paletteService', function() {
 
     'use strict';
