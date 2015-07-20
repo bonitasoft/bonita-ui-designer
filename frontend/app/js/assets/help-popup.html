@@ -94,31 +94,33 @@
             </p>
         </tab>
 
-        <tab heading="{{ 'Extension mechanism' | translate }}" ng-if="isPage">
+        <tab heading="{{ 'Custom services' | translate }}" ng-if="isPage">
             <p translate >
-                To extend the generated pages with new services like a date formatter filter, the generated pages application module has a dependency to the <code>bonitasoft.ui.extensions</code> module and can be used to define such filters or extended services. <button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link">See this example</button>
+                To extend pages or forms with custom angular services (filters, constants, factories and more), use the <code>bonitasoft.ui.extensions</code> module. <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link">Relative time filter example</button>
             </p>
 
             <section>
                 <div class="well" collapse="!extensionsExamplesCollapsed">
                     <div>
-                        <h4>Relative Time Filter</h4>
+                        <h4 translate>Relative time filter</h4>
                         <p translate>
-                            This filter will provide a common way of displaying relative time, transforming '01/01/2011' to '4 years ago' for instance. To do so, we will use the <a href="http://momentjs.com/">Moment.js</a> library.
+                            This filter will provide a common way of displaying relative time, transforming '01/01/2011' to '4 years ago' for instance. To do so, you may use the <a href="http://momentjs.com/">Moment.js</a> library.
                         </p>
                         <p translate>
                             <ul>
-                                <li>First, import the moment.js as an external asset.</li>
-                                <li>Second, create a JavaScript file named <code>date-ago-filter.js</code> that will define our filter in the <code>bonitasoft.ui.extensions</code> module :<br><br>
-                             <pre><code ng-non-bindable>angular.module('bonitasoft.ui.extensions')
+                                <li translate>import the moment.js as an external asset.</li>
+                                <li>
+                                    <p translate>Create a JavaScript file named <code>date-ago-filter.js</code> that will define the filter in the <code>bonitasoft.ui.extensions</code> module :</p>
+                                    <pre><code ng-non-bindable>angular.module('bonitasoft.ui.extensions')
   .filter('dateAgo', ['$window', function ($window) {
     return function dateAgo(input) {
       var compar = new Date(input);
       return $window.moment(compar).fromNow();
     };
 }]);</code></pre></li>
-                                <li>Third, import this JavaScript as a local asset inside the page.</li>
-                                <li>Last, inside a expression property input of a widget, use the <code>dateAgo</code> filter on a created <code>updateDate</code> variable as follows : <code>updateDate | dateAgo</code></li>
+                                <li translate>Import this JavaScript file as a page local asset.</li>
+                                <li translate>Create a JSON variable <code>updateDate</code> to hold a timestamp as a long </li>
+                                <li translate>To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code></li>
                             </ul>
                         </p>
                 </ul>
