@@ -186,6 +186,7 @@ public class Asset {
                 .append("name", name)
                 .append("type", type)
                 .append("componentId", componentId)
+                .append("active", active)
                 .toString();
     }
 

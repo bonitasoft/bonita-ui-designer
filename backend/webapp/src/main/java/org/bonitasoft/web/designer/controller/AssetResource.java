@@ -90,7 +90,7 @@ public abstract class AssetResource<T extends Assetable> {
     }
 
     @RequestMapping(value = "/{artifactId}/assets/{assetId}", method = RequestMethod.PUT)
-    public void incrementOrder(
+    public void updateAsset(
             @PathVariable("artifactId") String id,
             @PathVariable("assetId") String assetId,
             @RequestParam(value = "increment", required = false) Boolean increment,
