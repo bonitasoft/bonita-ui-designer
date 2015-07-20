@@ -48,7 +48,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
    */
   function save(id, content) {
     return $http.put('rest/pages/' + id, content)
-      .success(function(){
+      .success(function() {
         lastSavedState = content;
       });
   }
@@ -81,8 +81,8 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     return $http.delete('rest/pages/' + id);
   }
 
-  function desactivateAsset(id, asset){
-    return $http.put('rest/pages/' + id + '/assets?active=' + asset.active, asset);
+  function desactivateAsset(pageId, asset) {
+    return $http.put('rest/pages/' + pageId + '/assets/' + asset.id + '?active=' + asset.active, asset);
   }
 
   /**
@@ -126,7 +126,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
    * Initialise lastSavedState to track update from editor
    * @param  {Object} widget  the current widget being edited
    */
-  function initLastSavedState(widget){
+  function initLastSavedState(widget) {
     lastSavedState = angular.copy(widget);
   }
 
@@ -135,7 +135,7 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
    * @param  {Object} widget the widget being updated
    * @return {Boolean}
    */
-  function needSave(widget){
+  function needSave(widget) {
     return !angular.equals(widget, lastSavedState);
   }
 
@@ -154,5 +154,4 @@ angular.module('pb.common.repositories').factory('pageRepo', function($http) {
     loadAssets: loadAssets,
     exportUrl: exportUrl
   };
-})
-;
+});
