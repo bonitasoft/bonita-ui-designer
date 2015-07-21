@@ -15,24 +15,60 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.google.common.collect.ImmutableMap;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.model.widget.BondType;
+import org.bonitasoft.web.designer.model.widget.Property;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.bonitasoft.web.designer.visitor.AnyContainerVisitor;
 
 @Named
 public class BondMigrationStep implements MigrationStep<Page> {
 
-    private BondMigrationVisitor bondMigrationVisitor;
+    private ComponentVisitor componentVisitor;
+    private WidgetRepository widgetRepository;
+
+    private Map<BondType, BondMigrationStrategy> migrationStrategies = ImmutableMap.<BondType, BondMigrationStrategy>builder()
+            .put(BondType.CONSTANT, new ConstantBondMigrationStrategy())
+            .put(BondType.INTERPOLATION, new InterpolationBondMigrationStrategy())
+            .put(BondType.EXPRESSION, new ExpressionBondMigrationStrategy())
+            .put(BondType.VARIABLE, new VariableBondMigrationStrategy())
+            .build();
 
     @Inject
-    public BondMigrationStep(BondMigrationVisitor bondMigrationVisitor) {
-        this.bondMigrationVisitor = bondMigrationVisitor;
+    public BondMigrationStep(ComponentVisitor componentVisitor, WidgetRepository widgetRepository) {
+        this.componentVisitor = componentVisitor;
+        this.widgetRepository = widgetRepository;
     }
 
     @Override
     public void migrate(Page page) {
-        page.accept(bondMigrationVisitor);
+        for (Component component :  page.accept(componentVisitor)) {
+            Widget widget = widgetRepository.get(component.getId());
+            for (Map.Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
+                Property property = widget.getProperty(entry.getKey());
+                migrationStrategies
+                        .get(property != null ? property.getBond() : BondType.EXPRESSION)
+                        .migrate(property, entry.getValue());
+            }
+        }
+
+        for(Element element: page.accept(new AnyContainerVisitor())) {
+            for (Map.Entry<String, PropertyValue> entry : element.getPropertyValues().entrySet()) {
+                migrationStrategies
+                        .get(BondType.EXPRESSION)
+                        .migrate(new Property(), entry.getValue());
+            }
+        }
     }
 }
