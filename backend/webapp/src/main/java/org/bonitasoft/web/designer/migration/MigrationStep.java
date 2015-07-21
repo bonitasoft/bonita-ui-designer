@@ -12,23 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.livebuild;
 
-import java.nio.file.Path;
-import javax.inject.Named;
+package org.bonitasoft.web.designer.migration;
 
-import org.apache.commons.vfs2.FileListener;
-import org.apache.commons.vfs2.FileSystemException;
-import org.apache.commons.vfs2.VFS;
-import org.apache.commons.vfs2.impl.DefaultFileMonitor;
+public interface MigrationStep<A> {
 
-@Named
-public class Watcher {
-
-    public void watch(Path path, FileListener fileListener) throws FileSystemException {
-        final DefaultFileMonitor monitor = new DefaultFileMonitor(fileListener);
-        monitor.setRecursive(true);
-        monitor.addFile(VFS.getManager().resolveFile(path.toUri().toString()));
-        monitor.start();
-    }
+    void migrate(A artifact);
 }
