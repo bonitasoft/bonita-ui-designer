@@ -20,11 +20,11 @@ public class ComponentBuilder extends ElementBuilder<Component> {
 
     private Component component;
 
-    private ComponentBuilder() throws Exception {
+    private ComponentBuilder() {
         component = new Component();
     }
 
-    public static ComponentBuilder aComponent() throws Exception {
+    public static ComponentBuilder aComponent() {
         return new ComponentBuilder();
     }
 
