@@ -20,12 +20,12 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.DeserializationProblemHandler;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.widget.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This handler is called by Jackson when a property is unknown
- * @see org.bonitasoft.web.designer.retrocompatibility.ComponentMigrator
+ * This handler is called by Jackson when a property is unknown.
  */
 public class JacksonDeserializationProblemHandler extends DeserializationProblemHandler {
 
@@ -35,7 +35,12 @@ public class JacksonDeserializationProblemHandler extends DeserializationProblem
     public boolean handleUnknownProperty(DeserializationContext ctxt, com.fasterxml.jackson.core.JsonParser jp, JsonDeserializer<?> deserializer, Object beanOrClass, String propertyName) throws IOException {
 
         if (beanOrClass instanceof Asset && "inactive".equals(propertyName)) {
-            logger.info(String.format("%s is unknown value(%s) => property no more persisted after 1.0.0", propertyName, jp.getValueAsString()));
+            logger.info("inactive asset is deprecated since 1.0.1");
+            return true;
+        }
+
+        if (beanOrClass instanceof Property && "bidirectional".equals(propertyName)) {
+            logger.info("bidirectional property is deprecated since 1.0.2");
             return true;
         }
 
