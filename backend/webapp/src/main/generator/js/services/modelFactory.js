@@ -33,7 +33,6 @@
     }
 
     function resolveUrl(dataModel, descriptor, name) {
-
       var url = null;
       var value;
       var csrf = {
@@ -53,7 +52,7 @@
 
           if (currentUrl !== url && currentUrl !== undefined) {
             url = currentUrl;
-            csrf.promise.then(function() {
+            csrf.promise.finally(function() {
               $http.get(url).success(function (data) {
                 value = data;
               });

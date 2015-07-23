@@ -21,8 +21,12 @@ module.exports = function (gulp, config) {
    * Web Server & livereload
    */
   var proxy = require('http-proxy')
-    .createProxyServer({}).on('error', function (e) {
-      console.error(e);
+    .createProxyServer({}).on('error', function (err, req, res) {
+      res.writeHead(500, {
+        'Content-Type': 'text/plain'
+      });
+      res.end(JSON.stringify(err));
+      console.error(err);
     });
 
   /* proxyMiddleware forwards static file requests to BrowserSync server
