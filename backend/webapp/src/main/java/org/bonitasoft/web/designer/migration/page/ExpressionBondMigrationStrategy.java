@@ -24,7 +24,7 @@ public class ExpressionBondMigrationStrategy implements BondMigrationStrategy {
     @Override
     public void migrate(Property property, PropertyValue propertyValue) {
         if("data".equals(propertyValue.getType())) {
-            propertyValue.setType(BondType.EXPRESSION.toString());
+            propertyValue.setType(BondType.EXPRESSION.toJson());
         }
     }
 }

@@ -28,6 +28,6 @@ public class InterpolationBondMigrationStrategy implements BondMigrationStrategy
         if ("data".equals(propertyValue.getType())) {
             propertyValue.setValue(format("{{%s}}", propertyValue.getValue()));
         }
-        propertyValue.setType(BondType.INTERPOLATION.toString());
+        propertyValue.setType(BondType.INTERPOLATION.toJson());
     }
 }
