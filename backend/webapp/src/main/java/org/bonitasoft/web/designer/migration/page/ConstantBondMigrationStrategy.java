@@ -26,6 +26,6 @@ public class ConstantBondMigrationStrategy implements BondMigrationStrategy {
         if ("data".equals(propertyValue.getType())) {
             propertyValue.setValue(property.getDefaultValue());
         }
-        propertyValue.setType(BondType.CONSTANT.toString());
+        propertyValue.setType(BondType.CONSTANT.toJson());
     }
 }

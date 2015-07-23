@@ -78,7 +78,7 @@ public class BondMigrationStepTest {
         bondMigrationStep.migrate(page);
 
         PropertyValue foo = component.getPropertyValues().get("foo");
-        assertThat(foo.getType()).isEqualTo("CONSTANT");
+        assertThat(foo.getType()).isEqualTo("constant");
         assertThat(foo.getValue()).isEqualTo("baz");
     }
 
@@ -89,7 +89,7 @@ public class BondMigrationStepTest {
         bondMigrationStep.migrate(page);
 
         PropertyValue foo = component.getPropertyValues().get("foo");
-        assertThat(foo.getType()).isEqualTo("INTERPOLATION");
+        assertThat(foo.getType()).isEqualTo("interpolation");
         assertThat(foo.getValue()).isEqualTo("{{bar}}");
     }
 
@@ -100,7 +100,7 @@ public class BondMigrationStepTest {
         bondMigrationStep.migrate(page);
 
         PropertyValue foo = component.getPropertyValues().get("foo");
-        assertThat(foo.getType()).isEqualTo("EXPRESSION");
+        assertThat(foo.getType()).isEqualTo("expression");
         assertThat(foo.getValue()).isEqualTo("bar");
     }
 
@@ -111,7 +111,7 @@ public class BondMigrationStepTest {
         bondMigrationStep.migrate(page);
 
         PropertyValue foo = component.getPropertyValues().get("foo");
-        assertThat(foo.getType()).isEqualTo("VARIABLE");
+        assertThat(foo.getType()).isEqualTo("variable");
         assertThat(foo.getValue()).isEqualTo("bar");
     }
 
@@ -122,7 +122,7 @@ public class BondMigrationStepTest {
         bondMigrationStep.migrate(page);
 
         PropertyValue foo = container.getPropertyValues().get("foo");
-        assertThat(foo.getType()).isEqualTo("EXPRESSION");
+        assertThat(foo.getType()).isEqualTo("expression");
         assertThat(foo.getValue()).isEqualTo("bar");
     }
 }
