@@ -28,10 +28,5 @@
     "help": "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration",
     "type": "text",
     "bond": "interpolation"
-  }, {
-    "label": "pageId",
-    "name": "pageId",
-    "type": "text",
-    "showFor": "false"
   }]
 }
