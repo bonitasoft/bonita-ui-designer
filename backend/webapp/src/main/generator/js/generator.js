@@ -7,6 +7,10 @@
   angular.module('bonitasoft.ui.widgets', []);
   angular.module('bonitasoft.ui.extensions', []);
 
+  /* keep the former main module name for backward compatibility reasons*/
+  angular.module('pb.generator', []);
+
+
   angular.module('bonitasoft.ui.generator', [
     'ngSanitize',
     'ngMessages',
@@ -16,7 +20,8 @@
     'bonitasoft.ui.services',
     'bonitasoft.ui.directives',
     'bonitasoft.ui.widgets',
-    'bonitasoft.ui.extensions'
+    'bonitasoft.ui.extensions',
+    'pb.generator'
   ])
   .config(function($httpProvider) {
     $httpProvider.interceptors.push('httpActivityInterceptor');
