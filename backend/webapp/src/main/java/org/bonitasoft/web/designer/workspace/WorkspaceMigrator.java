@@ -52,7 +52,7 @@ public class WorkspaceMigrator {
         loadAndMigrateComponents(widgetRepository);
     }
 
-    private <T extends Versioned & Assetable<T>> void loadAndMigrateComponents(AbstractRepository<T> repository) {
+    private <T extends Versioned & Assetable> void loadAndMigrateComponents(AbstractRepository<T> repository) {
         List<T> assetables = repository.getAll();
 
         for (T assetable : assetables) {

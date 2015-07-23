@@ -15,10 +15,8 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import static java.lang.String.format;
+import static java.lang.String.valueOf;
 import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.walkFileTree;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -27,61 +25,61 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
-import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.FileListener;
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.repository.AbstractLoader;
+import org.bonitasoft.web.designer.repository.PathListener;
+import org.bonitasoft.web.designer.repository.Repository;
 
-public class LiveMigration {
+public class LiveMigration<A extends Versioned> {
 
-    private final Watcher watcher;
-    private JacksonObjectMapper objectMapper;
+    private AbstractLoader<A> loader;
+    private Repository<A> repository;
+    private final List<Migration<A>> migrationList;
 
-    public LiveMigration(Watcher watcher, JacksonObjectMapper objectMapper) {
-        this.watcher = watcher;
-        this.objectMapper = objectMapper;
+    public LiveMigration(Repository<A> repository,
+                         AbstractLoader<A> loader,
+                         List<Migration<A>> migrationList) {
+        this.loader = loader;
+        this.repository = repository;
+        this.migrationList = migrationList;
     }
 
-    public <A extends Versioned> void start(final Path root, final Class<A> type, final List<Migration<A>> migrationList) throws IOException {
+    public void start() throws IOException {
 
-        walkFileTree(root, new SimpleFileVisitor<Path>() {
+        repository.walk(new SimpleFileVisitor<Path>() {
 
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                migrate(path.toFile().toPath(), migrationList, type);
+                migrate(repository, path.toFile().toPath());
                 return CONTINUE;
             }
         });
 
-        watcher.watch(root, new FileListener() {
+        repository.watch(new PathListener() {
 
             @Override
-            public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
-                migrate(watcher.resolve(fileChangeEvent), migrationList, type);
+            public void pathCreated(Path path) {
+                migrate(repository, path);
             }
 
             @Override
-            public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
-                migrate(watcher.resolve(fileChangeEvent), migrationList, type);
+            public void pathChanged(Path path) {
+                migrate(repository, path);
             }
 
             @Override
-            public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
+            public void pathDeleted(Path path) {
             }
         });
     }
 
-    private <A extends Versioned> void migrate(Path path, List<Migration<A>> migrationList, Class<A> type) {
+    private void migrate(Repository<A> repository, Path path) {
         if (path.toString().endsWith(".json")) {
-            try {
-                final A artifact = objectMapper.fromJson(readAllBytes(path), type);
-                for (Migration<A> migration : migrationList) {
-                    migration.migrate(artifact);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(format("Error while reading <%s> as a <%s>", path, type), e);
+            final A artifact = loader.load(path.getParent(), valueOf(path.getFileName()));
+            for (Migration<A> migration : migrationList) {
+                migration.migrate(artifact);
             }
+            repository.save(artifact);
         }
     }
 }

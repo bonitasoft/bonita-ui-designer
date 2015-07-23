@@ -14,7 +14,9 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
@@ -75,7 +77,8 @@ public class WidgetDirectiveBuilderTest {
                 Paths.get(widgetRepositoryDirectory.getRoot().getPath()),
                 new DesignerConfig().widgetFileBasedPersister(),
                 widgetLoader,
-                validator);
+                validator,
+                new Watcher());
 
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);

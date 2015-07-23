@@ -24,10 +24,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.validation.Validation;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -37,11 +40,18 @@ import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PageRepositoryTest {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
+    @Mock
+    private LiveMigration<Page> liveMigration;
 
     //The persister is not mocked
     private JsonFileBasedPersister<Page> persister;
@@ -62,7 +72,8 @@ public class PageRepositoryTest {
                 pagesPath,
                 persister,
                 loader,
-                new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()));
+                new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),
+                new Watcher());
     }
 
     private void addToRepository(Page... pages) throws Exception {
@@ -142,7 +153,7 @@ public class PageRepositoryTest {
         Page expectedPage = aFilledPage("page-id");
 
         assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
-        repository.saveAll(Arrays.asList(expectedPage));
+        repository.saveAll(Collections.singletonList(expectedPage));
 
         //A json file has to be created in the repository
         assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
