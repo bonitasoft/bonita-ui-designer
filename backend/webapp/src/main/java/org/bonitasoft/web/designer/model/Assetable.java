@@ -19,7 +19,7 @@ import java.util.Set;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
 
-public interface Assetable<T extends Identifiable> extends Identifiable {
+public interface Assetable extends Identifiable {
 
     Set<Asset> getAssets();
 
