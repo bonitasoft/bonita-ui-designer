@@ -3,7 +3,7 @@
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2.0 of the License, or
+ * the Free Softwœare Foundation, either version 2.0 of the License, or
  * (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,9 +25,10 @@ angular.module('bonitasoft.designer.services').factory('componentScopeBuilder', 
   var build = function(scope) {
     var componentScope = scope.$new(true);
 
-    /*componentScope._globalProperties = {
+    componentScope.environment = {};
+    componentScope.environment.editor = {
       pageId: scope.editor.page.id
-    };*/
+    };
 
     // Keep in sync propertyValues and injected properties in widget
     componentScope.properties = {};

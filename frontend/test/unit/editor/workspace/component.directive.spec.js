@@ -50,7 +50,8 @@ describe('component', function () {
     $rootScope.editor = {
       isCurrentComponent: function () {
         return false;
-      }
+      },
+      page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898'}
     };
 
     element = $compile(template)($rootScope);

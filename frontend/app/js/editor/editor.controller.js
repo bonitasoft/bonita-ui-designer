@@ -389,7 +389,7 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
     isCurrentComponent: $scope.isCurrentComponent,
     moveAtPosition: $scope.moveAtPosition,
     changeComponentWidth: $scope.changeComponentWidth,
-    getComponentWidth: $scope.getComponentWidth/*,
-    page: $scope.page*/
+    getComponentWidth: $scope.getComponentWidth,
+    page: $scope.page
   };
 });
