@@ -1,6 +1,6 @@
 /* jshint node:true */
 var gulp = require('gulp');
-var ddescriber = require("../../community/frontend/gulp/ddescriber.js");
+var ddescriber = require("../frontend/gulp/ddescriber.js");
 var protractor = require('gulp-protractor').protractor;
 var connect = require('connect');
 var multiparty = require('multiparty');
