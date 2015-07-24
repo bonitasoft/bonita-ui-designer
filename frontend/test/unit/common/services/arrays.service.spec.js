@@ -1,7 +1,7 @@
 describe('arrays', function() {
   var arrays;
 
-  beforeEach(module('bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.designer.common.services'));
   beforeEach(inject(function(_arrays_) {
     arrays = _arrays_;
   }));

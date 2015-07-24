@@ -1,7 +1,7 @@
 describe('paletteService', function() {
   var paletteService;
 
-  beforeEach(module('bonitasoft.ui.services'));
+  beforeEach(module('bonitasoft.designer.services'));
   beforeEach(inject(function(_paletteService_) {
     paletteService= _paletteService_;
   }));

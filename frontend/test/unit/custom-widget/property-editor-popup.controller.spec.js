@@ -2,7 +2,7 @@ describe('PropertyEditorPopupCtrl', function() {
 
   var $scope, modalInstance;
 
-  beforeEach(module('bonitasoft.ui.custom-widget', 'mock.modal'));
+  beforeEach(module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
   beforeEach(inject(function($rootScope, $controller, $timeout, $modalInstance) {
     $scope = $rootScope.$new();

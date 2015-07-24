@@ -15,7 +15,7 @@
 /**
  * Repo to save or load a page.
  */
-angular.module('bonitasoft.ui.services')
+angular.module('bonitasoft.designer.services')
   .service('whiteboard', function ($q, widgetRepo, paletteService, componentFactory, commonParams, alerts, gettext) {
 
     'use strict';

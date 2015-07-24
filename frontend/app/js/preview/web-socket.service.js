@@ -14,7 +14,7 @@
  */
 /* global SockJS */
 /* global Stomp */
-angular.module('bonitasoft.ui.preview').factory('webSocket', function($rootScope, $log) {
+angular.module('bonitasoft.designer.preview').factory('webSocket', function($rootScope, $log) {
 
   'use strict';
 

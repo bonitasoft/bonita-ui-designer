@@ -14,7 +14,7 @@
  */
 
 angular
-  .module('bonitasoft.ui.common.directives')
+  .module('bonitasoft.designer.common.directives')
   .directive('includeReplace', function () {
     return {
       require: 'ngInclude',

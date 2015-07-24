@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.ui.assets', ['gettext']);
+  angular.module('bonitasoft.designer.assets', ['gettext']);
 
 })();

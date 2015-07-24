@@ -16,7 +16,7 @@
  * directive used to validate that a page control contains valid JSON.
  * Usage: <textarea ng-model="some.property" valid-json></textarea>
  */
-angular.module('bonitasoft.ui.directives').directive('validJson', function() {
+angular.module('bonitasoft.designer.directives').directive('validJson', function() {
 
   'use strict';
 

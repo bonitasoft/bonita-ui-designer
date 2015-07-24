@@ -17,7 +17,7 @@ describe('splitter horizontal directive', function() {
     jasmine.addMatchers(CustomMatcher.elementMatchers);
   });
 
-  beforeEach(module('bonitasoft.ui.common.directives'));
+  beforeEach(module('bonitasoft.designer.common.directives'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$window_, _$state_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

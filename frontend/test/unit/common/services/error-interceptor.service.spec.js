@@ -2,7 +2,7 @@ describe('errorInterceptor', function() {
 
   var alerts, $httpBackend, $http;
 
-  beforeEach(module('bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.designer.common.services'));
 
   beforeEach(inject(function(_$httpBackend_, _$http_, _alerts_) {
     $httpBackend = _$httpBackend_;

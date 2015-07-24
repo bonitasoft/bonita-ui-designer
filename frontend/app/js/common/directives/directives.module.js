@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.ui.common.directives', ['ngSanitize', 'bonitasoft.ui.common.services', 'bonitasoft.ui.templates', 'ui.ace', 'ui.router', 'gettext']);
+  angular.module('bonitasoft.designer.common.directives', ['ngSanitize', 'bonitasoft.designer.common.services', 'bonitasoft.designer.templates', 'ui.ace', 'ui.router', 'gettext']);
 
 })();

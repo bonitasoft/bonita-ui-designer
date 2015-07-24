@@ -16,7 +16,7 @@
  * The preview controller. It handles the loading of the page model, the resolution changes and provides
  * common functions to the directives used inside the page.
  */
-angular.module('bonitasoft.ui.preview').controller('PreviewCtrl', function($scope, $sce, $stateParams, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+angular.module('bonitasoft.designer.preview').controller('PreviewCtrl', function($scope, $sce, $stateParams, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
 
   'use strict';
 

@@ -14,7 +14,7 @@ describe('widgetRepo', function() {
     }
   ];
 
-  beforeEach(module('bonitasoft.ui.common.repositories'));
+  beforeEach(module('bonitasoft.designer.common.repositories'));
   beforeEach(inject(function(_$httpBackend_, _widgetRepo_) {
     widgetRepo = _widgetRepo_;
     $httpBackend = _$httpBackend_;

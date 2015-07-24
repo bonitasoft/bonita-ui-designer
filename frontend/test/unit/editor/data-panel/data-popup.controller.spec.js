@@ -2,7 +2,7 @@ describe('DataPopupController', function() {
 
   var $scope, $q, $location, $modalInstance, getController;
 
-  beforeEach(module('bonitasoft.ui.controllers',  'ui.bootstrap', 'bonitasoft.ui.common.services', 'mock.modal', 'gettext'));
+  beforeEach(module('bonitasoft.designer.controllers',  'ui.bootstrap', 'bonitasoft.designer.common.services', 'mock.modal', 'gettext'));
 
   beforeEach(inject(function($injector) {
     $scope = $injector.get('$rootScope').$new();

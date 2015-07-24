@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.ui.common.services').factory('alerts', function($timeout, gettext) {
+angular.module('bonitasoft.designer.common.services').factory('alerts', function($timeout, gettext) {
 
   'use strict';
 

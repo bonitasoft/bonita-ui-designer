@@ -1,7 +1,7 @@
 describe('validJSon', function () {
   var $compile, $rootScope, element;
 
-  beforeEach(module('bonitasoft.ui.directives'));
+  beforeEach(module('bonitasoft.designer.directives'));
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

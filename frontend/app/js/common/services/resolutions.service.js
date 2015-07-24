@@ -15,7 +15,7 @@
 /**
  * Repo containing all our palette widgets.
  */
-angular.module('bonitasoft.ui.common.services')
+angular.module('bonitasoft.designer.common.services')
   .provider('resolutions', function () {
 
     'use strict';

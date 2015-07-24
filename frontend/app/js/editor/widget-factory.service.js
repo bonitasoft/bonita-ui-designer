@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.ui.services').factory('widgetFactory', function(commonParams, gettext) {
+angular.module('bonitasoft.designer.services').factory('widgetFactory', function(commonParams, gettext) {
 
   'use strict';
   // using gettext to add key to catalog that will be later translated in a template

@@ -16,7 +16,7 @@
 
   'use strict';
 
-  // for now bonitasoft.ui.services is injected as dependency to not breack tests, will be remove when editor.module.js will be introduced
-  angular.module('bonitasoft.ui.common.services', ['bonitasoft.ui.services', 'gettext']);
+  // for now bonitasoft.designer.services is injected as dependency to not breack tests, will be remove when editor.module.js will be introduced
+  angular.module('bonitasoft.designer.common.services', ['bonitasoft.designer.services', 'gettext']);
 
 })();

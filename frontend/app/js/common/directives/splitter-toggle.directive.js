@@ -16,7 +16,7 @@
  * add click event to element to trigger event to toggle a sidebar
  */
 angular
-  .module('bonitasoft.ui.common.directives')
+  .module('bonitasoft.designer.common.directives')
   .directive('splitterToggle', function() {
 
   /**

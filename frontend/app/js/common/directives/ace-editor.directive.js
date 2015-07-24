@@ -15,7 +15,7 @@
 /**
  * Wrap ace directive according to page builder needs
  */
-angular.module('bonitasoft.ui.common.directives').directive('aceEditor', function(aceDataCompleter) {
+angular.module('bonitasoft.designer.common.directives').directive('aceEditor', function(aceDataCompleter) {
 
   'use strict';
 

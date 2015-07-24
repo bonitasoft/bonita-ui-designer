@@ -14,7 +14,7 @@
  */
 (function() {
   'use strict';
-  angular.module('bonitasoft.ui.common.services').service('utils', function() {
+  angular.module('bonitasoft.designer.common.services').service('utils', function() {
 
     /**
      * clamp a value between a min and a max value

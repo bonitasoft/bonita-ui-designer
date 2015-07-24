@@ -18,7 +18,7 @@
    * This modules wrap the keymaster library (available in window.key)
    * into an angular service
    */
-  angular.module('bonitasoft.ui.common.services').service('keymaster', function($window){
+  angular.module('bonitasoft.designer.common.services').service('keymaster', function($window){
     // key is library name taht handle keyboard shortcuts
     return $window.key;
   });

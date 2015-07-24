@@ -96,7 +96,7 @@
 
        <tab heading="{{ 'Custom services' | translate }}" ng-if="isPage">
             <p translate >
-                To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module. <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link">Example: relative time filter</button>
+                To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.designer.extensions</code> module. <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link">Example: relative time filter</button>
             </p>
 
             <section>
@@ -110,8 +110,8 @@
                             <ul>
                                 <li translate>Import the moment.js library as an external asset.</li>
                                 <li>
-                                    <p translate>Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:</p>
-                                    <pre><code ng-non-bindable>angular.module('bonitasoft.ui.extensions')
+                                    <p translate>Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.designer.extensions</code> module with the filter:</p>
+                                    <pre><code ng-non-bindable>angular.module('bonitasoft.designer.extensions')
   .filter('dateAgo', ['$window', function ($window) {
     return function dateAgo(input) {
       var compar = new Date(input);

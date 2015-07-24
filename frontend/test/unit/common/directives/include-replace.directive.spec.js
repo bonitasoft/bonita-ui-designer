@@ -2,7 +2,7 @@ describe('directive includeReplace', function() {
 
   var compile, scope, templateCache;
 
-  beforeEach(module('bonitasoft.ui.common.directives'));
+  beforeEach(module('bonitasoft.designer.common.directives'));
 
   beforeEach(inject(function ($injector, $rootScope) {
     templateCache = $injector.get('$templateCache');
