@@ -4,7 +4,7 @@
   describe('assetType filter', function(){
     var $filter;
 
-    beforeEach(module('bonitasoft.ui.assets'));
+    beforeEach(module('bonitasoft.designer.assets'));
 
     beforeEach(inject(function(_$filter_){
       $filter = _$filter_;

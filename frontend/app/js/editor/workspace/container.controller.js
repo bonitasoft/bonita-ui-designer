@@ -15,7 +15,7 @@
 /**
  * Controller of the container directive
  */
-angular.module('bonitasoft.ui.directives').controller('ContainerDirectiveCtrl', function ($scope, $rootScope, arrays, componentUtils) {
+angular.module('bonitasoft.designer.directives').controller('ContainerDirectiveCtrl', function ($scope, $rootScope, arrays, componentUtils) {
 
   'use strict';
 

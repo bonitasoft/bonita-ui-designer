@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.ui.home', ['bonitasoft.ui.services', 'bonitasoft.ui.factories', 'bonitasoft.ui.common.repositories', 'ui.bootstrap', 'ui.router']);
+  angular.module('bonitasoft.designer.home', ['bonitasoft.designer.services', 'bonitasoft.designer.factories', 'bonitasoft.designer.common.repositories', 'ui.bootstrap', 'ui.router']);
 
 })();

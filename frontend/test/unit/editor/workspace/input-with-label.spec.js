@@ -1,7 +1,7 @@
 describe('input with label', function () {
   var $compile, $rootScope, element, directiveScope;
 
-  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services'));
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

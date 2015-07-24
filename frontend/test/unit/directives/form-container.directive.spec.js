@@ -1,9 +1,9 @@
 describe('formContainer', function() {
   var $compile, $rootScope, $document, element;
 
-  beforeEach(module('bonitasoft.ui.directives', 'bonitasoft.ui.services', 'bonitasoft.ui.common.services', 'bonitasoft.ui.factories', 'RecursionHelper', 'bonitasoft.ui.common.repositories'));
+  beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.services', 'bonitasoft.designer.common.services', 'bonitasoft.designer.factories', 'RecursionHelper', 'bonitasoft.designer.common.repositories'));
   beforeEach(module('ui.router', 'gettext'));
-  beforeEach(module('bonitasoft.ui.templates'));
+  beforeEach(module('bonitasoft.designer.templates'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_ ) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

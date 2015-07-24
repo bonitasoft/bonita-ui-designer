@@ -3,9 +3,9 @@ describe('EditorCtrl', function() {
   var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON;
 
   beforeEach(module('ui.bootstrap'));
-  beforeEach(module('bonitasoft.ui.controllers', 'bonitasoft.ui.common.repositories'));
-  beforeEach(module('bonitasoft.ui.common.services'));
-  beforeEach(module('bonitasoft.ui.factories'));
+  beforeEach(module('bonitasoft.designer.controllers', 'bonitasoft.designer.common.repositories'));
+  beforeEach(module('bonitasoft.designer.common.services'));
+  beforeEach(module('bonitasoft.designer.factories'));
   beforeEach(module('tabsContainerStructureMock'));
   beforeEach(module('ui.router'));
 

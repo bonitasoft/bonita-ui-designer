@@ -2,7 +2,7 @@ describe('directive fileInputChange', function() {
 
   var $document, scope, element;
 
-  beforeEach(module('bonitasoft.ui.home'));
+  beforeEach(module('bonitasoft.designer.home'));
 
   beforeEach(inject(function ($injector) {
     var rootScope = $injector.get('$rootScope');

@@ -15,7 +15,7 @@
 (function(){
   'use strict';
 
-  angular.module('bonitasoft.ui.directives').directive('componentHighlighter', function(){
+  angular.module('bonitasoft.designer.directives').directive('componentHighlighter', function(){
     return {
       restrict:'A',
       link: function($scope, elem, attrs) {

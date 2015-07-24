@@ -2,7 +2,7 @@ describe('PreviewCtrl', function() {
   var ctrl, $scope, $q, $location, $stateParams, iframeParameters, webSocket, pageRequest, pageRepo;
 
 
-  beforeEach(module('bonitasoft.ui.preview'));
+  beforeEach(module('bonitasoft.designer.preview'));
 
   beforeEach(inject(function ($injector) {
 

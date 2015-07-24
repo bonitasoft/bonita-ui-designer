@@ -16,7 +16,7 @@
  * Create a default custom widget.
  * TODO: should be moved to backend side
  */
-angular.module('bonitasoft.ui.home').factory('customWidgetFactory', function() {
+angular.module('bonitasoft.designer.home').factory('customWidgetFactory', function() {
 
   function createCustomWidget (name) {
     var template = '<!-- The custom widget template is defined here\n   - You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system\n   - Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty\n   - Functions exposed in the controller can be used with ctrl.newFunction()\n -->\n \n<div style="color: {{ properties.color }}; background-color: {{ backgroudColor }}" ng-click="ctrl.toggleBackgroundColor()">\n    Value is:  <i>{{ properties.value }}</i>. Click me to toggle background color\n</div>';

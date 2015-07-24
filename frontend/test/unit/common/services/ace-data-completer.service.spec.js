@@ -1,7 +1,7 @@
 describe('ace-data-completer', function() {
   var service;
 
-  beforeEach(module('bonitasoft.ui.common.services'));
+  beforeEach(module('bonitasoft.designer.common.services'));
   beforeEach(inject(function($injector) {
     service = $injector.get('aceDataCompleter');
   }));

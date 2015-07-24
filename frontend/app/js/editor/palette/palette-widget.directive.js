@@ -15,7 +15,7 @@
 /**
  * Element directive displaying a widget in the palette, with just its label for now.
  */
-angular.module('bonitasoft.ui.directives').directive('paletteWidget', function() {
+angular.module('bonitasoft.designer.directives').directive('paletteWidget', function() {
 
   'use strict';
 

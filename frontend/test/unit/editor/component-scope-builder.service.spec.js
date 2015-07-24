@@ -1,7 +1,7 @@
 describe('componentScopeBuilder', function() {
   var $rootScope, componentScopeBuilder;
 
-  beforeEach(module('bonitasoft.ui.common.services', 'bonitasoft.ui.filters'));
+  beforeEach(module('bonitasoft.designer.common.services', 'bonitasoft.designer.filters'));
   beforeEach(inject(function(_componentScopeBuilder_, _$rootScope_) {
     $rootScope = _$rootScope_;
     componentScopeBuilder = _componentScopeBuilder_;

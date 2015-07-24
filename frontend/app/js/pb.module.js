@@ -16,35 +16,35 @@
 
   'use strict';
 
-  angular.module('bonitasoft.ui.filters', []);
-  angular.module('bonitasoft.ui.controllers', ['bonitasoft.ui.filters']);
-  angular.module('bonitasoft.ui.services', ['bonitasoft.ui.filters', 'gettext']);
-  angular.module('bonitasoft.ui.factories', ['bonitasoft.ui.filters']);
-  angular.module('bonitasoft.ui.directives', ['bonitasoft.ui.filters']);
-  angular.module('bonitasoft.ui.widgets', []);
+  angular.module('bonitasoft.designer.filters', []);
+  angular.module('bonitasoft.designer.controllers', ['bonitasoft.designer.filters']);
+  angular.module('bonitasoft.designer.services', ['bonitasoft.designer.filters', 'gettext']);
+  angular.module('bonitasoft.designer.factories', ['bonitasoft.designer.filters']);
+  angular.module('bonitasoft.designer.directives', ['bonitasoft.designer.filters']);
+  angular.module('bonitasoft.designer.widgets', []);
 
-  angular.module('bonitasoft.ui', [
+  angular.module('bonitasoft.designer', [
     'app.route',
-    'bonitasoft.ui.preview',
-    'bonitasoft.ui.home',
-    'bonitasoft.ui.custom-widget',
-    'bonitasoft.ui.common.repositories',
-    'bonitasoft.ui.common.services',
-    'bonitasoft.ui.common.directives',
-    'bonitasoft.ui.controllers',
-    'bonitasoft.ui.factories',
-    'bonitasoft.ui.services',
-    'bonitasoft.ui.directives',
-    'bonitasoft.ui.filters',
-    'bonitasoft.ui.templates',
-    'bonitasoft.ui.assets',
+    'bonitasoft.designer.preview',
+    'bonitasoft.designer.home',
+    'bonitasoft.designer.custom-widget',
+    'bonitasoft.designer.common.repositories',
+    'bonitasoft.designer.common.services',
+    'bonitasoft.designer.common.directives',
+    'bonitasoft.designer.controllers',
+    'bonitasoft.designer.factories',
+    'bonitasoft.designer.services',
+    'bonitasoft.designer.directives',
+    'bonitasoft.designer.filters',
+    'bonitasoft.designer.templates',
+    'bonitasoft.designer.assets',
     'ngSanitize',
     'ngAnimate',
     'ui.router',
     'RecursionHelper',
     'ui.bootstrap',
     'ui.ace',
-    'bonitasoft.ui.widgets',
+    'bonitasoft.designer.widgets',
     'org.bonitasoft.dragAndDrop',
     'gettext',
     'ngUpload',

@@ -14,7 +14,7 @@
  */
 (function () {
 
-  angular.module('bonitasoft.ui.assets').controller('AssetPreviewPopupCtrl', function ($scope, $modalInstance, asset, url) {
+  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function ($scope, $modalInstance, asset, url) {
 
     'use strict';
 

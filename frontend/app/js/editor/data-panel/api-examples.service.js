@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.ui.services').factory('apiExamples', function (gettextCatalog) {
+angular.module('bonitasoft.designer.services').factory('apiExamples', function (gettextCatalog) {
 
   var examples = {
     'System API': [

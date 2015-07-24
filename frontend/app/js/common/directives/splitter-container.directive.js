@@ -19,7 +19,7 @@
  */
 
 angular
-  .module('bonitasoft.ui.common.directives')
+  .module('bonitasoft.designer.common.directives')
   .controller('SplitterContainerCtrl', function($scope, $state){
     var splitter;
     var isOpen = true;

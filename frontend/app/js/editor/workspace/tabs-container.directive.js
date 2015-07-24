@@ -15,7 +15,7 @@
 /**
  * Element directive allowing to display a tabs container in the page editor.
  */
-angular.module('bonitasoft.ui.directives').directive('tabsContainer', function() {
+angular.module('bonitasoft.designer.directives').directive('tabsContainer', function() {
 
   'use strict';
 

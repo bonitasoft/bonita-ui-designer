@@ -15,7 +15,7 @@
 /**
  * Listen to an input file and assign the selected file to a scope variable
  */
-angular.module('bonitasoft.ui.home')
+angular.module('bonitasoft.designer.home')
   .directive('fileInputChange', function(){
 
     'use strict';

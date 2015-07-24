@@ -15,7 +15,7 @@
 /**
  * Repo to save or load a page.
  */
-angular.module('bonitasoft.ui.common.repositories').factory('pageRepo', function($http) {
+angular.module('bonitasoft.designer.common.repositories').factory('pageRepo', function($http) {
 
   'use strict';
 
