@@ -23,6 +23,6 @@ public class VariableBondMigrationStrategy implements BondMigrationStrategy {
 
     @Override
     public void migrate(Property property, PropertyValue propertyValue) {
-        propertyValue.setType(BondType.VARIABLE.toString());
+        propertyValue.setType(BondType.VARIABLE.toJson());
     }
 }
