@@ -26,8 +26,8 @@ public class InterpolationBondMigrationStrategy implements BondMigrationStrategy
     @Override
     public void migrate(Property property, PropertyValue propertyValue) {
         if ("data".equals(propertyValue.getType())) {
-            propertyValue.setValue(format("{{ %s }}", propertyValue.getValue()));
+            propertyValue.setValue(format("{{%s}}", propertyValue.getValue()));
         }
-        propertyValue.setType(BondType.INTERPOLATION.toString());
+        propertyValue.setType(BondType.INTERPOLATION.toJson());
     }
 }
