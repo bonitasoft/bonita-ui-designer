@@ -286,7 +286,7 @@ describe('EditorCtrl', function() {
       container.rows[0][0] = {
         item: 'foo',
         dimension: {
-          xs: 12,
+          xs: 12
         }
       };
       $scope.addComponent(dragData, 1);
@@ -363,6 +363,23 @@ describe('EditorCtrl', function() {
     expect($scope.currentContainerRow).toBeNull();
   });
 
+  it('should not remove row when there is only one in a container', function() {
+    var row1 = [];
+
+    var container = {
+      rows: [row1]
+    };
+    $scope.currentContainerRow = {
+      container: container,
+      row: row1
+    };
+
+    $scope.removeCurrentRow();
+
+    expect(container.rows.length).toBe(1);
+    expect(container.rows[0]).toBe(row1);
+  });
+
   it('should remove the current component', function() {
 
     var container = {
@@ -393,6 +410,39 @@ describe('EditorCtrl', function() {
     $scope.removeCurrentComponent();
 
     expect(container.rows[0].length).toBe(0);
+    expect($scope.currentComponent).toBeNull();
+  });
+
+  it('should remove row when removing last component of a row', function() {
+
+    var container = {
+      rows: [
+        [], []
+      ]
+    };
+
+    $scope.currentContainerRow = {
+      container: container,
+      row: container.rows[1]
+    };
+
+    var dragData = {
+      create: function() {
+        return {
+          item: 'foo',
+          $$parentContainerRow: $scope.currentContainerRow,
+          dimension: {
+            xs: 12
+          }
+        };
+      }
+    };
+
+    $scope.addComponent(dragData, 0);
+
+    $scope.removeCurrentComponent();
+
+    expect(container.rows[1]).toBeUndefined();
     expect($scope.currentComponent).toBeNull();
   });
 
