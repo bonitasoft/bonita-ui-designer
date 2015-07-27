@@ -43,6 +43,22 @@ describe('widget property field controller', function () {
     expect($scope.propertyValue.type).toBe('constant');
   });
 
+  it('should store property value whenever we switch editor to come back to it', function() {
+    $scope.propertyValue.type = 'constant';
+    $scope.property.defaultValue = 'foo';
+
+    controller.toggleExpressionEditor();
+    expect($scope.propertyValue.value).toBeUndefined();
+
+    $scope.propertyValue.value = 'bar';
+
+    controller.toggleExpressionEditor();
+    expect($scope.propertyValue.value).toBe('foo');
+
+    controller.toggleExpressionEditor();
+    expect($scope.propertyValue.value).toBe('bar');
+  });
+
   it('should return true if the propertyValue is an expression', function() {
     $scope.propertyValue.type = 'expression';
     expect(controller.isExpression()).toBe(true);
