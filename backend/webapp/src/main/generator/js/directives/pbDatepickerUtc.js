@@ -7,8 +7,6 @@
           // called with a JavaScript Date object when picked from the datepicker
           ngModelController.$parsers.push(function (viewValue) {
             if (angular.isDate(viewValue)) {
-              // fix utc
-              viewValue.setMinutes(viewValue.getMinutes() - viewValue.getTimezoneOffset());
               // reset hours, min, sec...
               viewValue.setUTCHours(0,0,0,0);
             }

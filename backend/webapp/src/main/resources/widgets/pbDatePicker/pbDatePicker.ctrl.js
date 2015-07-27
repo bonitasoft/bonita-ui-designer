@@ -11,7 +11,8 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
 
   this.today = function() {
     var date = new Date();
-    $scope.properties.value = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    $scope.properties.value = date;
+    $scope.properties.value.setUTCDate(date.getDate());
   };
 
   this.open = function ($event) {
@@ -26,3 +27,4 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
     $log.error('the pbDatepicker property named "value" need to be bound to a variable');
   }
 }
+
