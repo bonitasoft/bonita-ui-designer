@@ -13,9 +13,9 @@
             <p class="input-group">
                 <input type="text" class="form-control"
                        datepicker-popup="{{ properties.dateFormat }}"
-                       pb-datepicker-utc
                        name="{{ctrl.name}}"
                        ng-model="properties.value"
+                       ng-change="ctrl.floorDate()"
                        is-open="ctrl.opened"
                        datepicker-options="ctrl.datepickerOptions"
                        placeholder="{{properties.placeholder}}"

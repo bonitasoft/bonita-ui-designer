@@ -149,4 +149,20 @@ describe('pbDatePicker', function () {
       expect(button.attr('disabled')).toBe('disabled');
     });
   });
+  describe('floorDate', function() {
+    it('should set date as the one seen', function() {
+      var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
+      scope.$apply();
+      scope.properties.value = new Date(1438011476419);
+      scope.ctrl.floorDate();
+      expect(scope.properties.value.getTime()).toEqual(1437955200000);
+    });
+    it('should set date as the one seen even when UTC is one day behind', function() {
+      var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
+      scope.$apply();
+      scope.properties.value = new Date(2013,0,1,0,30); // Tue Jan 01 2013 00:30:00 GMT+0100 (CET)
+      scope.ctrl.floorDate();
+      expect(scope.properties.value.getTime()).toEqual(1356998400000); //Tue Jan 01 2013 00:00:00 GMT+0100 (CET)
+    });
+  });
 });
