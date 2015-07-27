@@ -19,19 +19,22 @@ var utils = require('gulp-util');
 var del = require('del');
 var ddescriber = require('./ddescriber.js');
 var header = require('gulp-header');
+var iconfont = require('gulp-iconfont');
+var iconfontCss = require('gulp-iconfont-css');
+var base64 = require('gulp-base64');
 
-module.exports = function(gulp, config) {
+module.exports = function (gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
 
   gulp.task('build', ['jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
 
-  gulp.task('bundle', ['bundle:vendors', 'bundle:js', 'bundle:css']);
+  gulp.task('bundle', ['bundle:vendors', 'bundle:js', 'bundle:css', 'bundle:icons']);
 
   /**
    * Clean the directories created by tasks in this file
    */
-  gulp.task('clean', function(done){
+  gulp.task('clean', function (done) {
     return del('build', done);
   });
 
@@ -78,9 +81,9 @@ module.exports = function(gulp, config) {
    */
 
   gulp.task('pot', function () {
-    var files = [paths.templates, paths.js].reduce(function(files, arr) {
+    var files = [paths.templates, paths.js].reduce(function (files, arr) {
       return files.concat(arr);
-    }, [] );
+    }, []);
     return gulp.src(files)
       .pipe(gettext.extract('lang-template.pot', {}))
       .pipe(gulp.dest('build/po'));
@@ -89,6 +92,23 @@ module.exports = function(gulp, config) {
   /**
    * Compile css
    */
+  gulp.task('bundle:icons', function () {
+    return gulp.src(paths.assets.icons)
+      .pipe(iconfontCss({
+        fontName: 'bonita-ui-designer',
+        path: paths.assets.fontIconTemplate,
+        targetPath: '../css/icons.css',
+        fontPath: '../font/'
+      }))
+      .pipe(iconfont({
+        fontName: 'bonita-ui-designer',
+        centerHorizontally: true,
+        normalize: true,
+        appendUnicode: true
+      }))
+      .pipe(gulp.dest(paths.dev + '/font'));
+  });
+
   gulp.task('bundle:css', function () {
     return gulp.src('app/less/main.less')
       .pipe(plumber())
@@ -100,8 +120,10 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dev + '/css'));
   });
 
-  gulp.task('dist:css', ['bundle:css'], function(){
-    return gulp.src(paths.dev + '/css/main.css')
+  gulp.task('dist:css', ['bundle:icons', 'bundle:css'], function () {
+    return gulp.src(paths.dev + '/css/*.css')
+      .pipe(base64())
+      .pipe(concat('page-builder.css'))
       .pipe(csso())
       .pipe(rename('page-builder-' + timestamp + '.min.css'))
       .pipe(gulp.dest(paths.dist + '/css'));
@@ -111,7 +133,7 @@ module.exports = function(gulp, config) {
    * bundle JS
    * concat generated templates and javascript files
    */
-  gulp.task('bundle:js', function() {
+  gulp.task('bundle:js', function () {
     var tpl = gulp.src(paths.templates)
       .pipe(plumber())
       .pipe(html2js({
@@ -137,18 +159,18 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dev + '/js'));
   });
 
-  gulp.task('jshint', function(){
+  gulp.task('jshint', function () {
     return gulp.src(paths.js)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
       .pipe(jshint.reporter('fail'));
   });
 
-  gulp.task('dist:js', ['bundle:js'], function(){
+  gulp.task('dist:js', ['bundle:js'], function () {
     return gulp.src(paths.dev + '/js/app.js')
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
-      .pipe(uglify({output: { 'ascii_only': true }}))   // preserve ascii unicode characters such as \u226E
+      .pipe(uglify({output: {'ascii_only': true}}))   // preserve ascii unicode characters such as \u226E
       .pipe(header(config.banner))
       .pipe(gulp.dest(paths.dist + '/js'));
   });
@@ -160,6 +182,7 @@ module.exports = function(gulp, config) {
     function notMinified(file) {
       return !/(src-min|\.min\.js)/.test(file.path);
     }
+
     return gulp.src(paths.vendor)
       .pipe(plumber())
       .pipe(sourcemaps.init())
@@ -169,7 +192,7 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dev + '/js'));
   });
 
-  gulp.task('dist:vendors', ['bundle:vendors'], function(){
+  gulp.task('dist:vendors', ['bundle:vendors'], function () {
 
     return gulp.src(paths.dev + '/js/vendors.js')
       .pipe(rename('vendors-' + timestamp + '.min.js'))
