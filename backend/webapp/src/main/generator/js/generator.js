@@ -15,7 +15,7 @@
   angular.module('pb.generator', []);
 
 
-  angular.module('bonitasoft.ui.generator', [
+  angular.module('bonitasoft.ui', [
     'ngSanitize',
     'ngMessages',
     'ngUpload',
