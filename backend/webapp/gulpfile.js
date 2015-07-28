@@ -37,7 +37,8 @@ var paths = {
 };
 
 var config = {
-  paths: paths
+  paths: paths,
+  javaArgs : ''
 };
 
 require('./gulp/build.js')(gulp, config);
