@@ -56,6 +56,10 @@ var paths = {
     images: [
       'app/img/*.*'
     ],
+    icons: [
+      'app/img/*.svg'
+    ],
+    fontIconTemplate: 'app/css/icons.css',
     favicon: [
       'app/favicon.ico'
     ]
