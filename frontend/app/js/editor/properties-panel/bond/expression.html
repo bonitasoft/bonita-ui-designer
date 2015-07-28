@@ -16,7 +16,8 @@
                 type="button"
                 ng-click="propertyField.toggleExpressionEditor()">
 
-            <i class="ui-icon ui-expression"></i>
+            <i ng-if="!propertyField.isExpression()" class="ui-icon ui-expression"></i>
+            <i ng-if="propertyField.isExpression()" class="fa fa-times"></i>
         </button>
     </span>
 </div>
