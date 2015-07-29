@@ -21,11 +21,13 @@ import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -45,12 +47,14 @@ public class ImportController {
         this.widgetImporter = widgetImporter;
     }
 
-    @RequestMapping(value="/import/page", method= RequestMethod.POST)
+    @RequestMapping(value="/import/page", method= RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
     public ResponseEntity<ErrorMessage> importPage(@RequestParam("file") MultipartFile file){
         return multipartFileImporter.importFile(file, pageImporter);
     }
 
-    @RequestMapping(value="/import/widget", method= RequestMethod.POST)
+    @RequestMapping(value="/import/widget", method= RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
     public ResponseEntity<ErrorMessage> importWidget(@RequestParam("file") MultipartFile file){
         return multipartFileImporter.importFile(file, widgetImporter);
     }

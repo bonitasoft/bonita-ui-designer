@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.config;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -55,6 +57,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     /**
      * Jackson object mapper used to serialize or deserialize Json objects
+     *
      * @see DesignerConfig#objectMapper()
      */
     @Inject
@@ -83,6 +86,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     /**
      * In Internet Explorer http requests are cached by default. It's a problem when we want to provide a REST API. This interceptor
      * adds headers in the responses to desactivate the cache. NB :  static resources are cached but managed by the resource handlers
+     *
      * @param registry
      */
     @Override
@@ -125,8 +129,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
             try {
                 logger.info("Adding welcome page: " + this.resourceLoader.getResource(FRONTEND_RESOURCES + "index.html").getURL());
                 registry.addViewController("/").setViewName("forward:/index.html");
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 logger.error("The home page index.html was not found", e);
             }
         }
@@ -136,8 +139,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
      * Spring MVC use a default objectMapper. Objects passed to and returned from the controllers are converted to and from HTTP messages by HttpMessageConverter
      * instances. We must use our {{@link #objectMapper}} because of the subtypes.... So we declare two message converters
      * <ul>
-     *  <li>StringHttpMessageConverter to format the String sent by HTTP like a JSON object representation</li>
-     *  <li>MappingJackson2HttpMessageConverter to use our {{@link #objectMapper}}</li>
+     * <li>StringHttpMessageConverter to format the String sent by HTTP like a JSON object representation</li>
+     * <li>MappingJackson2HttpMessageConverter to use our {{@link #objectMapper}}</li>
      * </ul>To declare a JacksonHttpMessageConvet
      */
     @Override
@@ -148,8 +151,14 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         converters.add(stringConverter);
 
         //Use our custom Jackson serializer
-        converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes());
+        converters.add(mappingJackson2HttpMessageConverter);
 
+    }
+
+    public static List<MediaType> supportedMediaTypes(){
+        return Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")), new MediaType("text", "plain", Charset.forName("UTF-8")));
     }
 
 }
