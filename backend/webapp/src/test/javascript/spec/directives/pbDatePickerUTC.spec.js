@@ -39,4 +39,20 @@ describe('directive pb-datepicker-utc', function(){
     expect($scope.value.getUTCMilliseconds()).toBe(0);
   });
 
+  it('should reset hours, minutes, seconds and milliseconds to 0 managing UTC correctly', function(){
+    var date = new Date();
+    $scope.value = date;
+    date.setUTCDate(date.getDate());
+    date = new Date($scope.value);
+    var element = $compile('<input pb-datepicker-utc ng-model="value" />')($scope);
+    $scope.$apply();
+    expect($scope.value.getUTCDate()).toBe(date.getUTCDate());
+    expect($scope.value.getUTCMonth()).toBe(date.getUTCMonth());
+    expect($scope.value.getUTCFullYear()).toBe(date.getUTCFullYear());
+    expect($scope.value.getUTCHours()).toBe(0);
+    expect($scope.value.getUTCMinutes()).toBe(0);
+    expect($scope.value.getUTCSeconds()).toBe(0);
+    expect($scope.value.getUTCMilliseconds()).toBe(0);
+  });
+
 });
