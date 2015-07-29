@@ -9,8 +9,8 @@
   "properties": [
     {
       "label": "Headers",
-      "caption": "Comma separated",
-      "help": "Column titles",
+      "caption": "Comma-separated list",
+      "help": "If you specify an expression, the result must be an array of strings",
       "name": "headers",
       "type": "collection",
       "defaultValue": ["Id", "Name", "Description", "Date"]
@@ -23,7 +23,7 @@
     },
     {
       "label": "Column keys",
-      "caption": "Comma separated",
+      "caption": "Comma-separated list",
       "help": "When 'Content' is a list of objects, specifies the attributes to display in the table columns",
       "name": "columnsKey",
       "type": "collection"
