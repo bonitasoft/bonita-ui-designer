@@ -15,13 +15,19 @@
 
 package org.bonitasoft.web.designer.migration;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.write;
 import static java.util.Collections.singletonList;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -45,9 +51,6 @@ public class LiveMigrationTest {
     JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
 
     @Mock
-    Migration<Page> migration;
-
-    @Mock
     JsonFileBasedPersister<Page> persister;
 
     JsonFileBasedLoader<Page> loader = new JsonFileBasedLoader<>(objectMapper, Page.class);
@@ -60,33 +63,49 @@ public class LiveMigrationTest {
 
     PageRepository repository;
 
-    LiveMigration<Page> liveMigration;
-
     @Before
     public void setUp() throws Exception {
         repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, new Watcher());
-        liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
     }
 
     @Test
     public void should_migrate_a_page() throws Exception {
-        folder.newFolder("pageJson");
-        File pageJson = folder.newFile("pageJson/pageJson.json");
-        write(pageJson.toPath(), "{ \"id\": \"pageJson\", \"designerVersion\": \"1.0.1\" }".getBytes());
-        Page page = loader.load(pageJson.getParentFile().toPath(), pageJson.getName());
+        Migration<Page> migration = new Migration<>("1.0.2", Collections.<MigrationStep<Page>>emptyList());
+        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        Page page = createPage("1.0.1");
 
         liveMigration.start();
 
-        verify(migration).migrate(page);
-        verify(persister).save(pageJson.getParentFile().toPath(), "pageJson", page);
+        page.setDesignerVersion("1.0.2");
+        verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), "pageJson", page);
     }
 
     @Test
     public void should_not_migrate_file_which_are_not_json() throws Exception {
+        Migration<Page> migration = mock(Migration.class);
+        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
         folder.newFile("whatever");
 
         liveMigration.start();
 
         verify(migration, never()).migrate(any(Page.class));
+    }
+
+    @Test
+    public void should_not_save_an_artifact_already_migrated() throws Exception {
+        Migration<Page> migration = new Migration<>("1.0.2", Collections.<MigrationStep<Page>>emptyList());
+        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        createPage("1.0.2");
+
+        liveMigration.start();
+
+        verify(persister, never()).save(any(Path.class), anyString(), any(Page.class));
+    }
+
+    private Page createPage(String version) throws IOException {
+        folder.newFolder("pageJson");
+        File pageJson = folder.newFile("pageJson/pageJson.json");
+        write(pageJson.toPath(), format("{ \"id\": \"pageJson\", \"designerVersion\": \"%s\" }", version).getBytes());
+        return loader.load(pageJson.getParentFile().toPath(), pageJson.getName());
     }
 }
