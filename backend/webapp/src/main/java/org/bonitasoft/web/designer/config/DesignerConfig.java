@@ -268,17 +268,14 @@ public class DesignerConfig {
 
     @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository, BondMigrationStep bondMigrationStep) {
-        return new LiveMigration<>(pageRepository, pageFileBasedLoader, singletonList(
-
-                new Migration<>("1.0.2", asList(
-                        new AssetIdMigrationStep<Page>(), bondMigrationStep))));
+        return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
+                new Migration<>("1.0.2", Collections.<MigrationStep<Page>>singletonList(new AssetIdMigrationStep<Page>())),
+                new Migration<>("1.0.3", Collections.<MigrationStep<Page>>singletonList(bondMigrationStep))));
     }
 
     @Bean
     public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
         return new LiveMigration<>(widgetRepository, widgetLoader, singletonList(
-
-                new Migration<>("1.0.2", Collections.<MigrationStep<Widget>>singletonList(
-                        new AssetIdMigrationStep<Widget>()))));
+                new Migration<>("1.0.2", Collections.<MigrationStep<Widget>>singletonList(new AssetIdMigrationStep<Widget>()))));
     }
 }
