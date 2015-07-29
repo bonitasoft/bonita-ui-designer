@@ -27,7 +27,7 @@ angular.module('bonitasoft.designer.services').factory('componentScopeBuilder', 
 
     componentScope.environment = {};
     componentScope.environment.editor = {
-      pageId: scope.editor.page.id
+      pageId: scope.editor && scope.editor.page && scope.editor.page.id
     };
 
     // Keep in sync propertyValues and injected properties in widget
