@@ -22,7 +22,7 @@ angular.module('bonitasoft.designer.factories')
     var common = [
       {
         label: gettext('CSS classes'),
-        caption: gettext('Space separated'),
+        caption: gettext('Space-separated list'),
         name: 'cssClasses',
         type: 'string',
         defaultValue: '',

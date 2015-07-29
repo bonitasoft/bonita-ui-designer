@@ -8,16 +8,17 @@
            class="form-control PropertyPanel-expression"
            ng-if="propertyField.isExpression()"
            typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
-           placeholder="{{ propertyField.getBindingPlaceholder(property) }}"/>
+           placeholder="{{ 'expression or variable' | translate }}"/>
 
     <span class="input-group-btn">
         <button class="btn btn-bonita-property"
-                title="{{ 'Bind to a dynamic value' | translate }}"
                 type="button"
                 ng-click="propertyField.toggleExpressionEditor()">
 
-            <i ng-if="!propertyField.isExpression()" class="ui-icon ui-expression"></i>
-            <i ng-if="propertyField.isExpression()" class="fa fa-times"></i>
+            <i ng-if="!propertyField.isExpression()" class="ui-icon ui-expression"
+               title="{{ 'Click to bind to an expression' | translate }}"></i>
+            <i ng-if="propertyField.isExpression()" class="fa fa-times"
+               title="{{ 'Click to bind to a constant' | translate }}"></i>
         </button>
     </span>
 </div>

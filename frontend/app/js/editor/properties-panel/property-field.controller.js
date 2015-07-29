@@ -49,10 +49,6 @@ angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirect
     return $scope.propertyValue.type === 'expression';
   };
 
-  this.getBindingPlaceholder = function (property) {
-    return property.type === 'boolean' ? 'variableName === true' : 'variableName';
-  };
-
   // should be shared with widget editor
   var supportedTypes = ['boolean', 'choice', 'collection', 'float', 'html', 'integer'];
 

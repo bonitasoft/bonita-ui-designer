@@ -11,25 +11,31 @@
 
             <p translate>Once you select an element, edit its properties in the properties panel on the right.</p>
 
-            <p translate>Create variables in the Variables panel at the bottom, and use them to edit the widget properties.</p>
+            <p translate>Create variables in the Variables panel at the bottom, and use them to edit the widget
+                properties.</p>
 
-            <p ng-if="pageEdition" translate>Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom.</p>
+            <p ng-if="pageEdition" translate>Add images, CSS or JavaScript resources to your pages in the Assets panel
+                at the bottom.</p>
 
         </tab>
 
         <tab heading="{{ 'Rows' | translate }}">
             <p>
-                <translate>The whiteboard is organized in <b>rows</b> that you can move up and down, or delete.</translate>
+                <translate>The whiteboard is organized in <b>rows</b> that you can move up and down, or delete.
+                </translate>
             <ul>
                 <li translate>Drag and drop widgets or containers in rows</li>
                 <li translate>When you delete a row, the following rows move up</li>
-                <li translate>Within a row, when you delete a widget or a container, the following elements move to the left</li>
+                <li translate>Within a row, when you delete a widget or a container, the following elements move to the
+                    left
+                </li>
             </ul>
             </p>
         </tab>
 
         <tab heading="{{ 'Widgets' | translate }}">
-            <p translate>Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users.</p>
+            <p translate>Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather
+                information from</b> the end users.</p>
 
             <p translate>Configure widgets using the <b>properties panel</b> on the right.</p>
 
@@ -38,7 +44,8 @@
 
         <tab heading="{{ 'Containers' | translate }}">
             <p translate>
-                You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers.
+                You can group widgets into a container to define the arrangement of widgets in a form or a page. A
+                container can contain other containers.
             </p>
 
             <p>
@@ -60,21 +67,74 @@
 
         <tab heading="{{ 'Variables' | translate }}">
             <p translate>
-                In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information
+                In the scope of a page, form, or layout, a variable can be used to handle business data or process data,
+                or can contain structural information
                 that determines how page elements behave.
             </p>
 
             <p translate>
-                Create a variable in the bottom panel. To bind it to a widget property, click on the “Bind” button in the property field and then type the
+                Create a variable in the bottom panel. To bind it to a widget property, click on the “Bind” button in
+                the property field and then type the
                 variable name.
             </p>
 
             <p class="CalloutSubscription">
                 <span class="CalloutSubscription--title" translate>Subscription edition</span>
                 <translate>
-                    In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>.
+                    In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or
+                    to <i>exposed to the page</i>.
                 </translate>
             </p>
+        </tab>
+
+        <tab heading="{{ 'Properties' | translate }}">
+            <p translate>
+                There are several types of property value: Constant, dynamic value, bidirectional bond, and
+                interpolation.
+            </p>
+
+            <dl class="Guidance-definitionList">
+                <dt translate>Constant</dt>
+                <dd translate>A property that requires a constant value is presented in the Properties panel as a radio
+                    button
+                    set,
+                    drop-down list, or number selector (for the Width property). Select the required value.
+                </dd>
+
+                <dt translate>Dynamic value - <i class="ui-icon ui-expression"></i></dt>
+                <dd translate>Use a dynamic value field to specify a constant (the default) or an expression. Click the
+                    expression
+                    icon fx to switch from constant to expression. Click the constant icon X to switch from expression
+                    to
+                    constant. An expression can include a variable to make the property value dynamic, or can simply be
+                    the
+                    name of a variable. You can apply a filter to a variable value using a pipe. The binding to the
+                    variable
+                    is a read. If you want to write to the variable, use a bidirectional bond.
+                    Examples:
+                    <ul>
+                        <li translate>Define a condition for widget visibility, <em>userAge > 18</em></li>
+                        <li translate>Define table headers as the value of a variable: <em>myArrayVariable</em></li>
+                        <li translate>Apply a filter to the value of a variable: <em>selectedUser | json</em></li>
+                    </ul>
+                </dd>
+
+                <dt translate>Bidirectional bond - <i class="fa fa-link"></i></dt>
+                <dd translate>Use a bidirectional field to specify a read-write binding between the
+                    property value and a variable.
+                </dd>
+
+                <dt translate>Interpolation - <i class="fa fa-paragraph"></i></dt>
+                <dd ng-non-bindable translate>Use an interpolation field to enter text to display in the widget. The
+                    text can include variables that
+                    are interpreted using AngularJS interpolation. When the page is displayed, the variables are
+                    replaced by
+                    the interpolated values. Specify a variable as a simple expression enclosed in double braces, using
+                    the
+                    same format as for a dynamic value field.
+                    Example: I'm sorry, <em>{{ user.name | uppercase }}</em>. I'm afraid I can't do that.
+                </dd>
+            </dl>
         </tab>
     </tabset>
 </div>
