@@ -64,18 +64,6 @@ describe('widget property field controller', function () {
     expect(controller.isExpression()).toBe(true);
   });
 
-  it('should return generic placeholder when property type is not a boolean', function() {
-    expect(controller.getBindingPlaceholder({
-      type: 'whatever'
-    })).toBe('variableName');
-  });
-
-  it('should return boolean placeholder when property type is a boolean', function() {
-    expect(controller.getBindingPlaceholder({
-      type: 'boolean'
-    })).toBe('variableName === true');
-  });
-
   it('should trigger a call to the right field template', function() {
     expect(controller.getFieldTemplate({
       type: 'integer'
