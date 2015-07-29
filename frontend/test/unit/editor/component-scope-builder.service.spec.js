@@ -50,4 +50,19 @@ describe('componentScopeBuilder', function() {
 
     expect(directiveScope.properties.text).toBe('new value');
   });
+
+  it('should not break when editor does not exists', function() {
+    var scope = $rootScope.$new();
+    scope.component = {
+      $$widget: {
+        properties: []
+      },
+      propertyValues: {
+        text: { value: 'hello' }
+      }
+    };
+
+    var directiveScope = componentScopeBuilder.build(scope);
+
+  });
 });
