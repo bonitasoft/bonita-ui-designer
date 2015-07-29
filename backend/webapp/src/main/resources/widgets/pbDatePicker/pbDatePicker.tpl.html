@@ -20,14 +20,10 @@
                        datepicker-options="ctrl.datepickerOptions"
                        placeholder="{{properties.placeholder}}"
                        ng-required="properties.required"
-                       ng-readonly="properties.readOnly"/>
+                       ng-readonly="properties.readOnly"
+                       show-button-bar="false"/>
 
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"
-                            ng-click="ctrl.today()"
-                            ng-disabled="properties.readOnly">
-                            Today
-                    </button>
                     <button type="button" class="btn btn-default"
                               ng-click="ctrl.open($event)"
                               ng-disabled="properties.readOnly">

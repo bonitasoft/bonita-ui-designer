@@ -136,7 +136,7 @@ describe('pbDatePicker', function () {
     it('should be displayed by default', function () {
       var element = $compile('<pb-date-picker></pb-date-picker>')(scope);
       scope.$apply();
-      expect(element.find('button').length).toBe(2);
+      expect(element.find('button').length).toBe(1);
     });
 
     it('should be disabled if date picker disabled', function () {
