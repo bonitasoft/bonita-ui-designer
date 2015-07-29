@@ -71,7 +71,7 @@
       "name": "availableValues",
       "type": "collection",
       "defaultValue": ["yes", "no"],
-      "caption": "Comma separated list or bound an array data"
+      "caption": "Comma-separated list or bound an array data"
     },
     {
       "label": "Selected Value",
