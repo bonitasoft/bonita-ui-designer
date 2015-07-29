@@ -25,6 +25,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.Versioned;
 import org.bonitasoft.web.designer.repository.AbstractLoader;
 import org.bonitasoft.web.designer.repository.PathListener;
@@ -76,10 +77,13 @@ public class LiveMigration<A extends Versioned> {
     private void migrate(Repository<A> repository, Path path) {
         if (path.toString().endsWith(".json")) {
             final A artifact = loader.load(path.getParent(), valueOf(path.getFileName()));
+            String formerArtifactVersion = artifact.getDesignerVersion();
             for (Migration<A> migration : migrationList) {
                 migration.migrate(artifact);
             }
-            repository.save(artifact);
+            if(!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
+                repository.save(artifact);
+            }
         }
     }
 }
