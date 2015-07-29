@@ -55,7 +55,9 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String HIGHER_MIGRATION_VERSION = "1.0.2";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.0.3";
+
+    String WIDGET_HIGHER_MIGRATION_VERSION = "1.0.2";
 
     @Before
     public void setUp() throws Exception {
@@ -67,7 +69,7 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("page_1_0_0");
 
-        assertThat(page.getDesignerVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
         assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
             @Override
@@ -97,7 +99,7 @@ public class WorkspaceMigrationTest {
 
         Widget widget = widgetRepository.get("widget_1_0_0");
 
-        assertThat(widget.getDesignerVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(widget.getDesignerVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
         assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
 
             @Override
