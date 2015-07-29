@@ -11,6 +11,7 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
 
   this.today = function() {
     $scope.properties.value = new Date();
+    this.floorDate();
   };
 
   this.open = function($event) {
