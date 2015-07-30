@@ -205,27 +205,35 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
     rows.splice(rowIndex + 1, 0, []);
   };
 
+  function removeRow(container, row) {
+    var rows = container.rows;
+    if (rows.length > 1) {
+      var rowIndex = rows.indexOf(row);
+      rows.splice(rowIndex, 1);
+    }
+  }
+
   /**
    * Removes the currently selected row from its container. A row must be selected before calling this function,
    * and it should not be the only one in its container, because a container must always contain at least one row.
    */
   $scope.removeCurrentRow = function() {
-    var rows = $scope.currentContainerRow.container.rows;
-    var rowIndex = rows.indexOf($scope.currentContainerRow.row);
-    rows.splice(rowIndex, 1);
+    removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
     $scope.currentContainerRow = null;
   };
 
   /**
    * Removes the currently selected component (widget or container) from its parent row. A component must be selected
    * before calling this function.
-   * @todo refactor, it's the same code replaceCurrentComponent you can use third arg in splice to replace cf https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/splice
    */
   $scope.removeCurrentComponent = function(item) {
     var component = $scope.currentComponent || item;
     var row = component.$$parentContainerRow.row;
     var componentIndex = row.indexOf(component);
     row.splice(componentIndex, 1);
+    if (row.length === 0) {
+      removeRow(component.$$parentContainerRow.container, row);
+    }
     $scope.currentComponent = null;
   };
 
