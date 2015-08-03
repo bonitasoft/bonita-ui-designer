@@ -92,7 +92,7 @@ angular.module('bonitasoft.designer.services')
       // editor, but must not and can not be serialized (cyclic reference)
       angular.extend(item, {
         $$id:  getNextId('component'),
-        $$widget: widget,
+        $$widget: angular.copy(widget), // make sure to render all properties every time we select a component
         $$templateUrl: 'js/editor/workspace/component-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow

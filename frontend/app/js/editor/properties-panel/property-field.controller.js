@@ -20,7 +20,7 @@ angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirect
   'use strict';
 
   $scope.propertyValue = $scope.propertyValue || {
-      type: $scope.property.bond,
+      type: $scope.property.bond === 'expression' ? 'constant' : $scope.property.bond,
       value: $scope.property.defaultValue
     };
 
@@ -39,9 +39,9 @@ angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirect
 
   var valuesMemory = {};
   this.toggleExpressionEditor = function () {
-    valuesMemory.constant = valuesMemory.constant || $scope.property.defaultValue;
+    valuesMemory.constant = valuesMemory.constant || $scope.property.defaultValue;
     valuesMemory[$scope.propertyValue.type] = $scope.propertyValue.value;
-    $scope.propertyValue.type = $scope.propertyValue.type === 'expression' ? 'constant': 'expression';
+    $scope.propertyValue.type = $scope.propertyValue.type === 'expression' ? 'constant' : 'expression';
     $scope.propertyValue.value = valuesMemory[$scope.propertyValue.type];
   };
 
