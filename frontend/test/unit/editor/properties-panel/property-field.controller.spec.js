@@ -33,6 +33,15 @@ describe('widget property field controller', function () {
     expect(names[1]).toBe('robert');
   });
 
+  it('should create a constant property value when there is none for an expression bond', function () {
+    delete $scope.propertyValue;
+    $scope.property.bond = 'expression';
+
+    createController($scope);
+
+    expect($scope.propertyValue.type).toBe('constant');
+  });
+
   it('should toggle the expression editor by changing parameter value type', function() {
     $scope.propertyValue.type = 'constant';
 

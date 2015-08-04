@@ -76,7 +76,7 @@ describe('componentFactory', function() {
   it('should initialize a widget', function(){
     service.initializeWidget(widget, item, parentRow);
     expect(item.$$id).toBe('component-0');
-    expect(item.$$widget).toBe(widget);
+    expect(item.$$widget).toEqual(widget);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
   });

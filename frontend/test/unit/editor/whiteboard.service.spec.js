@@ -143,7 +143,7 @@ describe('whiteboard', function() {
     expect(page.rows[0][0].$$id).toBe('container-0');
     expect(page.rows[0][0].$$widget.name).toBe('Container');
     expect(page.rows[0][0].rows[0][0].$$id).toBe('component-0');
-    expect(page.rows[0][0].rows[0][0].$$widget).toBe(labelWidget);
+    expect(page.rows[0][0].rows[0][0].$$widget).toEqual(labelWidget);
     expect(page.rows[0][0].rows[0][0].$$parentContainerRow.container).toBe(page.rows[0][0]);
     expect(page.rows[0][0].rows[0][0].$$parentContainerRow.row).toBe(page.rows[0][0].rows[0]);
     expect(page.rows[0][0].rows[1][0].$$parentContainerRow.container).toBe(page.rows[0][0]);
