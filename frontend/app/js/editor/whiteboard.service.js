@@ -67,7 +67,7 @@ angular.module('bonitasoft.designer.services')
         .map(componentFactory.paletteWrapper.bind(null, gettext('widgets'), 1));
 
       var customWidgets = widgets.filter(isCustomWidget)
-        .map(componentFactory.paletteWrapper.bind(null, gettext('customwidgets'), 2));
+        .map(componentFactory.paletteWrapper.bind(null, gettext('custom widgets'), 2));
       // reset the components map
       paletteService.reset();
       paletteService.register(containerWidgets);

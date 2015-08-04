@@ -125,5 +125,11 @@
       controller.currentSection = undefined;
       expect(controller.isClosed()).toBe(true);
     });
+
+    it('should get section icon class name', function() {
+      var className = controller.getIconClassName({ name: 'custom widget'});
+
+      expect(className).toBe('ui-customwidget');
+    });
   })
 });
