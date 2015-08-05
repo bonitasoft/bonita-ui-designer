@@ -1,10 +1,10 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('bonitasoft.ui.constants', []);
   angular.module('bonitasoft.ui.services', []);
   angular.module('bonitasoft.ui.directives', []);
-  angular.module('bonitasoft.ui.widgets', []);
+  angular.module('bonitasoft.ui.widgets', ['gettext']);
   angular.module('bonitasoft.ui.extensions', []);
 
   /* keep the former main module name for backward compatibility reasons*/
@@ -24,8 +24,8 @@
     'pb.widgets',
     'pb.generator'
   ])
-  .config(function($httpProvider) {
-    $httpProvider.interceptors.push('httpActivityInterceptor');
-  });
+    .config(function ($httpProvider) {
+      $httpProvider.interceptors.push('httpActivityInterceptor');
+    });
 })();
 

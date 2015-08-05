@@ -13,6 +13,7 @@ var paths = {
     'bower_components/ngUpload/ng-upload.min.js',
     'bower_components/angular-messages/angular-messages.min.js',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    'bower_components/angular-gettext/dist/angular-gettext.min.js',
   ],
   fonts: [
     'bower_components/bootstrap/dist/fonts/*.*'
