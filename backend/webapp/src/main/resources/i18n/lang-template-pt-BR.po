@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2015-07-31 06:21-0400\n"
+"PO-Revision-Date: 2015-08-05 09:54-0400\n"
 
 #: editor/data-panel/data-popup.html:12
 msgid "'{{newData.$$name}}' already exists"
@@ -130,7 +130,7 @@ msgstr "URL da API"
 
 #: editor/help-popup.html:56
 msgid "Access to $form capabilities for form container"
-msgstr "Acesso aos recursos de $form para o container de formulário"
+msgstr "Acesso aos recursos de $form para o contêiner de formulário"
 
 #: assets/page-assets.html:20
 msgid "Active"
@@ -147,7 +147,7 @@ msgstr "Adicione assets CSS no nível da página e use-as para editar as proprie
 
 #: assets/help-popup.html:22
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
-msgstr "Adicione assets JavaScript em scripts personalizados. Eles serão carregados e colocados à disposição no nível de página. Você pode usá-los em variáveis do tipo expressão JavaScript. No campo do valor da variável, basta chamar a função e passar os parâmetros necessários."
+msgstr "Adicione assets JavaScript em scripts personalizados. Eles serão carregados e colocados à disposição no nível da página. Você pode usá-los em variáveis do tipo expressão JavaScript. No campo do valor da variável, basta chamar a função e passar os parâmetros necessários."
 
 #: assets/asset-popup.html:4 assets/page-assets.html:3
 msgid "Add a new asset"
@@ -173,7 +173,7 @@ msgstr "Quaisquer classes CSS acessíveis. Por padrão, o UI Designer vem com Bo
 
 #: editor/help-popup.html:117
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
-msgstr "Aplica um filtro ao valor de uma variável: <em>selectedUser | json</em>"
+msgstr "Aplique um filtro ao valor de uma variável: <em>selectedUser | json</em>"
 
 #: home/confirm-deletion-popup.html:5
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -209,7 +209,7 @@ msgstr "Os tipos de variáveis disponíveis são String e JSON (tipos estáticos
 
 #: editor/help-popup.html:121
 msgid "Bidirectional bond - <i class=\"fa fa-link\"></i>"
-msgstr "Bidirectional bond - <i class=\"fa fa-link\"></i>"
+msgstr "Ligação bidirecional - <i class=\"fa fa-link\"></i>"
 
 #: editor/widget-factory.service.js:34
 msgid "Bind this property to a variable of type array. For each iteration, a widget property can be bound to $item to access the current JavaScript object"
@@ -274,11 +274,11 @@ msgstr "Constante"
 
 #: editor/widget-factory.service.js:65
 msgid "Container used for a form. Eases validation"
-msgstr "Container utilizado para um formulário. Facilita a validação"
+msgstr "Contêiner utilizado para um formulário. Facilita a validação"
 
 #: editor/help-popup.html:44
 msgid "Containers"
-msgstr "Containers"
+msgstr "Contêiners"
 
 #: custom-widget/custom-widget-editor.html:51
 msgid "Controller"
@@ -372,11 +372,11 @@ msgstr "Variáveis padrão"
 
 #: editor/help-popup.html:115
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
-msgstr "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
+msgstr "Defina uma condição para a visibilidade da widget, <em>userAge &gt; 18</em>"
 
 #: editor/help-popup.html:116
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
-msgstr "Define os cabeçalhos de tabela como o valor de uma variável: <em>myArrayVariable</em>"
+msgstr "Defina os cabeçalhos de tabela como o valor de uma variável: <em>myArrayVariable</em>"
 
 #: home/confirm-deletion-popup.html:9
 msgid "Delete"
@@ -409,15 +409,15 @@ msgstr "Descrição"
 
 #: editor/help-popup.html:26
 msgid "Drag and drop widgets or containers in rows"
-msgstr "Arraste e solte as widgets ou containers nas linhas"
+msgstr "Arraste e solte as widgets ou contêiners nas linhas"
 
 #: editor/help-popup.html:103
 msgid "Dynamic value - <i class=\"ui-icon ui-expression\"></i>"
-msgstr "Dynamic value - <i class=\"ui-icon ui-expression\"></i>"
+msgstr "Valor dinâmico - <i class=\"ui-icon ui-expression\"></i>"
 
 #: editor/help-popup.html:51
 msgid "Each type or container has sepcific behaviors"
-msgstr "Cada tipo de container tem comportamentos específicos"
+msgstr "Cada tipo de contêiner tem comportamentos específicos"
 
 #: assets/asset-popup.html:6
 msgid "Edit asset"
@@ -445,7 +445,7 @@ msgstr "Digite ' + mode + ' nome"
 
 #: assets/help-popup.html:72
 msgid "Example: relative time filter"
-msgstr "Example: relative time filter"
+msgstr "Exemplo: filtro de tempo relativo"
 
 #: custom-widget/custom-widget-editor.html:27 editor/editor.html:37
 msgid "Export"
@@ -559,8 +559,8 @@ msgstr "Em um asset JavaScript, é possível definir uma dependência a um módu
 #: editor/help-popup.html:82
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or\n"
 "                    to <i>exposed to the page</i>."
-msgstr "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or\n"
-"                    to <i>exposed to the page</i>."
+msgstr "No editor de fragmento, é possível definir o escopo de uma variável como <i>específico a este fragmento</i>\n"
+" ou como <i>exposto à página</i>."
 
 #: assets/help-popup.html:50
 msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
@@ -570,13 +570,14 @@ msgstr "Na lista, é possível excluir os assets da página, ver os assets locai
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data,\n"
 "                or can contain structural information\n"
 "                that determines how page elements behave."
-msgstr "No escopo de uma página, um formulário ou um layout, uma variável pode ser usada para manipular dados de negócios ou dados de processo, \n"
+msgstr "No escopo de uma página, de um formulário ou de um layout, uma variável pode ser usada para manipular dados\n"
+" de negócios ou dados de processo, \n"
 " ou pode conter informações estruturais que determina como os elementos da página se comportam."
 
 #: editor/data-panel/help-popup.html:9
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information\n"
 "                that determines how page elements behave."
-msgstr "No escopo de uma página, um formulário ou um layout, uma variável pode ser usada para manipular dados de negócios ou dados de processo, \n"
+msgstr "No escopo de uma página, de um formulário ou de um layout, uma variável pode ser usada para manipular dados de negócios ou dados de processo, \n"
 " ou pode conter informações estruturais que determina como os elementos da página se comportam."
 
 #: assets/help-popup.html:62
@@ -589,7 +590,7 @@ msgstr "Integração com a plataforma Bonita BPM"
 
 #: editor/help-popup.html:126
 msgid "Interpolation - <i class=\"fa fa-paragraph\"></i>"
-msgstr "Interpolation - <i class=\"fa fa-paragraph\"></i>"
+msgstr "Interpolação - <i class=\"fa fa-paragraph\"></i>"
 
 #: assets/asset-popup.html:30
 msgid "Invalid URL\n"
@@ -650,7 +651,7 @@ msgstr "Mover a linha para cima"
 
 #: editor/help-popup.html:55
 msgid "Multiple content for tabs container"
-msgstr "Conteúdos múltiplos para o container de abas"
+msgstr "Conteúdos múltiplos para o contêiner de abas"
 
 #: editor/widget-factory.service.js:51
 msgid "Multiple groups of widgets, each group in a tab"
@@ -750,7 +751,7 @@ msgstr "Renomear a página"
 
 #: editor/help-popup.html:54
 msgid "Repeat content for the plain container"
-msgstr "Repetir o conteúdo para o container genérico"
+msgstr "Repetir o conteúdo para o contêiner genérico"
 
 #: editor/widget-factory.service.js:32
 msgid "Repeat contents"
@@ -792,7 +793,7 @@ msgstr "Procurar uma lista de casos com base nos índices de busca"
 
 #: editor/properties-panel/properties-panel.html:18
 msgid "Select an element on the whiteboard, then set its properties here"
-msgstr "Select an element on the whiteboard, then set its properties here"
+msgstr "Selecione um elemento no quadro e, em seguida, defina suas propriedades aqui"
 
 #: home/import-artifact.html:10
 msgid "Select your .zip file"
@@ -808,11 +809,11 @@ msgstr "Origem"
 
 #: editor/common-params.service.js:25
 msgid "Space-separated list"
-msgstr "Space-separated list"
+msgstr "Lista separada por espaços"
 
 #: editor/properties-panel/component-properties-template.html:4
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
-msgstr "Especifique o número de colunas do elemento. Todos os elementos podem ter até 12 colunas."
+msgstr "Especifica o número de colunas do elemento. Todos os elementos podem ter até 12 colunas."
 
 #: home/help-popup.html:14
 msgid "Start <b>form</b> design in Bonita BPM Studio from the appropriate contract"
@@ -852,8 +853,8 @@ msgstr "O {{ artifact.type }} não pode ser excluído porque é usado em:"
 #: editor/help-popup.html:90
 msgid "There are several types of property value: Constant, dynamic value, bidirectional bond, and\n"
 "                interpolation."
-msgstr "There are several types of property value: Constant, dynamic value, bidirectional bond, and\n"
-"                interpolation."
+msgstr "Existem vários tipos de valores de propriedades: constante, valor dinâmico, ligação bidirecional, e\n"
+" interpolação."
 
 #: home/help-popup.html:20
 msgid "There is a set of <b>standard widgets</b> for displaying information to and for gathering information from the end users. You can also create\n"
@@ -892,7 +893,7 @@ msgstr "Para exibir a data em uma propriedade de widget avaliada como uma expres
 
 #: assets/help-popup.html:72
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
-msgstr "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
+msgstr "Para estender um formulário ou uma página com serviços personalizados AngularJS (tais como filtros, constantes ou fábricas), use o módulo <code>bonitasoft.ui.extensions</code>."
 
 #: assets/help-popup.html:41
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
@@ -958,14 +959,14 @@ msgstr "Use $item como a iteração atual."
 #: editor/help-popup.html:36
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather\n"
 "                information from</b> the end users."
-msgstr "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather\n"
-"                information from</b> the end users."
+msgstr "Utilize <b>widgets</b> da paleta do lado esquerdo para <b>exibir informações</b> e <b>recuperar\n"
+" informações</b> dos usuários finais."
 
 #: editor/help-popup.html:122
 msgid "Use a bidirectional field to specify a read-write binding between the\n"
 "                    property value and a variable."
-msgstr "Use a bidirectional field to specify a read-write binding between the\n"
-"                    property value and a variable."
+msgstr "Use um campo bidirecional para especificar uma associação de leitura e escritura entre \n"
+" o valor da propriedade e uma variável."
 
 #: editor/help-popup.html:104
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the\n"
@@ -978,16 +979,16 @@ msgid "Use a dynamic value field to specify a constant (the default) or an expre
 "                    variable\n"
 "                    is a read. If you want to write to the variable, use a bidirectional bond.\n"
 "                    Examples:"
-msgstr "Use a dynamic value field to specify a constant (the default) or an expression. Click the\n"
-"                    expression\n"
-"                    icon fx to switch from constant to expression. Click the constant icon X to switch from expression\n"
-"                    to\n"
-"                    constant. An expression can include a variable to make the property value dynamic, or can simply be\n"
-"                    the\n"
-"                    name of a variable. You can apply a filter to a variable value using a pipe. The binding to the\n"
-"                    variable\n"
-"                    is a read. If you want to write to the variable, use a bidirectional bond.\n"
-"                    Examples:"
+msgstr "Use um campo de valor dinâmico para especificar uma constante (padrão) ou uma expressão. Clique no ícone de \n"
+" expressão\n"
+" fx para comutar de constante para expressão. Clique no ícone de constante X para comutar de expressão\n"
+" para\n"
+" constante. Uma expressão pode incluir uma variável para que o valor da propriedade seja dinâmico, ou pode ser simplesmente \n"
+" o \n"
+" nome de uma variável. É possível aplicar um filtro ao valor de variável utilizando uma barra vertical. A ligação com a \n"
+" variável\n"
+" é do tipo somente leitura.  Caso queira escrever na variável, use uma ligação bidirecional. \n"
+" Exemplos:"
 
 #: editor/help-popup.html:127
 msgid "Use an interpolation field to enter text to display in the widget. The\n"
@@ -998,14 +999,14 @@ msgid "Use an interpolation field to enter text to display in the widget. The\n"
 "                    the\n"
 "                    same format as for a dynamic value field.\n"
 "                    Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
-msgstr "Use an interpolation field to enter text to display in the widget. The\n"
-"                    text can include variables that\n"
-"                    are interpreted using AngularJS interpolation. When the page is displayed, the variables are\n"
-"                    replaced by\n"
-"                    the interpolated values. Specify a variable as a simple expression enclosed in double braces, using\n"
-"                    the\n"
-"                    same format as for a dynamic value field.\n"
-"                    Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
+msgstr "Use um campo de interpolação para digitar o texto a ser exibido na widget. \n"
+" O texto pode incluir variáveis que\n"
+" são interpretados usando interpolação de AngularJS. Quando a página é exibida, as variáveis são\n"
+" substituídas pelos\n"
+" valores interpolados. Especifique uma variável como uma simples expressão entre chaves duplas, usando\n"
+" o\n"
+" mesmo formato do valor de um campo dinâmico. \n"
+" Exemplo: Desculpe,  <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. Não é possível fazer esta ação."
 
 #: home/help-popup.html:10
 msgid "Use the UI Designer to build <b>pages</b> for your business applications, <b>forms</b> to start process instances or execute human\n"
@@ -1015,7 +1016,7 @@ msgstr "Use o UI Designer para construir <b>páginas</b> para aplicações de ne
 
 #: editor/help-popup.html:9
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
-msgstr "Utilize a paleta do lado esquerdo para arrastar e soltar containers e widgets no quadro."
+msgstr "Utilize a paleta do lado esquerdo para arrastar e soltar contêiners e widgets no quadro."
 
 #: editor/data-panel/api-examples.service.js:22
 msgid "User id could then be obtained by using {{youVar.user_id}}"
@@ -1036,7 +1037,7 @@ msgstr "Valor"
 
 #: editor/properties-panel/bond/variable.html:8
 msgid "Variable in read-write binding with the property value"
-msgstr "Variable in read-write binding with the property value"
+msgstr "Variável com ligação do tipo leitura e escritura com o valor da propriedade"
 
 #: editor/data-panel/data-popup.html:17
 msgid "Variable names\n"
@@ -1067,7 +1068,7 @@ msgstr "Quando uma linha é excluída, as linhas seguintes são movidas para cim
 #: editor/data-panel/help-popup.html:27
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>,\n"
 "                <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
-msgstr "Quando um formulário é gerado a partir de um contrato no Studio, o formulário contém um botão de envio e algumas variáveis padrão: \n"
+msgstr "Quando um formulário é gerado a partir de um contrato, no Studio, o formulário contém um botão de envio e algumas variáveis padrão: \n"
 " <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> e <code>context</code>"
 
 #: editor/data-panel/api-examples.service.js:72
@@ -1105,8 +1106,8 @@ msgstr "Largura"
 #: editor/help-popup.html:28
 msgid "Within a row, when you delete a widget or a container, the following elements move to the\n"
 "                    left"
-msgstr "Within a row, when you delete a widget or a container, the following elements move to the\n"
-"                    left"
+msgstr "Dentro de uma linha, quando você exclui uma widget ou um contêiner, os elementos seguintes são movidos para a\n"
+" esquerda"
 
 #: editor/help-popup.html:41
 msgid "You can also create <b>custom widgets</b> from the home page."
@@ -1115,8 +1116,8 @@ msgstr "Também é possível criar <b>widgets personalizadas</b> a partir da pá
 #: editor/help-popup.html:45
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A\n"
 "                container can contain other containers."
-msgstr "You can group widgets into a container to define the arrangement of widgets in a form or a page. A\n"
-"                container can contain other containers."
+msgstr "É possível agrupar widgets em um contêiner para definir a disposição dos widgets em um formulário ou página. Um\n"
+" contêiner pode conter outros contêiners."
 
 #: home/help-popup.html:16
 msgid "You can import an existing page, form, or layout to edit, or duplicate existing ones"
@@ -1124,7 +1125,7 @@ msgstr "Você pode importar uma página , um formulário ou um layout existente 
 
 #: editor/help-popup.html:62
 msgid "You can save the content of a plain container as a reusable fragment."
-msgstr "É possível salvar o conteúdo de um container simples como um fragmento reutilizável."
+msgstr "É possível salvar o conteúdo de um contêiner simples como um fragmento reutilizável."
 
 #: assets/help-popup.html:53
 msgid "You can’t manually change the order of assets in a page."
@@ -1150,7 +1151,7 @@ msgstr "erro"
 
 #: editor/properties-panel/bond/expression.html:11
 msgid "expression or variable"
-msgstr "expression or variable"
+msgstr "expressão ou variável"
 
 #: assets/page-assets.html:8 editor/data-panel/data.html:7
 msgid "filter:"
@@ -1249,7 +1250,7 @@ msgstr "Obrigatório"
 #: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:17
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:16
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
-msgstr "No contexto de um container de formulário, use $form.$invalid em uma propriedade de widget como um valor booleano para verificar a validade do formulário"
+msgstr "No contexto de um contêiner de formulário, use $form.$invalid em uma propriedade de widget como um valor booleano para verificar a validade do formulário"
 
 #: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:12
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:15
@@ -1301,7 +1302,7 @@ msgstr "Posição da etiqueta"
 #: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:8
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
 msgid "top"
-msgstr "topo"
+msgstr "Em cima"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:12
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:13
@@ -1316,7 +1317,7 @@ msgstr "topo"
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
 #: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:14
 msgid "left"
-msgstr "esquerda"
+msgstr "À esquerda"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:1
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
@@ -1513,11 +1514,11 @@ msgstr "Captura a resposta quando a requisição for bem sucedida"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
 msgid "Failed response value"
-msgstr "Valor da resposta em caso de falha"
+msgstr "Valor da resposta em caso de erro"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Holds the response when the request has failed"
-msgstr "Captura a resposta quando a requisição falhou"
+msgstr "Captura a resposta quando a requisição falhar"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
 msgid "Target URL on success"
@@ -1684,7 +1685,7 @@ msgstr "Cabeçalhos"
 
 #: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:14
 msgid "If you specify an expression, the result must be an array of strings"
-msgstr "If you specify an expression, the result must be an array of strings"
+msgstr "Caso escolha uma expressão, o resultado de ser um array de strings"
 
 #: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
 msgid "Id,Name,Description,Date"
