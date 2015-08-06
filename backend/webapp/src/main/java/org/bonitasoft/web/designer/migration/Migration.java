@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 public class Migration<A extends Versioned> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(Migration.class);
+    private static final Logger logger = LoggerFactory.getLogger(Migration.class);
     private final String version;
     private final MigrationStep<A>[] migrationSteps;
 
@@ -37,7 +37,8 @@ public class Migration<A extends Versioned> {
     public void migrate(A artifact) {
         if (artifact.getDesignerVersion() == null || version.compareTo(artifact.getDesignerVersion()) > 0) {
 
-            logger.info(format("Migrate <%s> with id <%s> from %s to %s...",
+            logger.info(format("%s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
+                    artifact.getClass().getSimpleName(),
                     artifact.getName(),
                     artifact.getId(),
                     artifact.getDesignerVersion(), version));
@@ -47,6 +48,10 @@ public class Migration<A extends Versioned> {
             }
 
             artifact.setDesignerVersion(version);
+            logger.info(format("%s <%s> version is now <%s>",
+                    artifact.getClass().getSimpleName(),
+                    artifact.getName(),
+                    version));
         }
     }
 }
