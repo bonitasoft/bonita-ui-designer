@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class AssetIdMigrationStep<A extends Identifiable & Assetable> implements MigrationStep<A> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(AssetIdMigrationStep.class);
+    private static final Logger logger = LoggerFactory.getLogger(AssetIdMigrationStep.class);
 
     @Override
     public void migrate(A artifact) {
@@ -35,7 +35,7 @@ public class AssetIdMigrationStep<A extends Identifiable & Assetable> implements
         for (Asset asset : artifact.getAssets()) {
             if (asset.getId() == null) {
                 asset.setId(UUID.randomUUID().toString());
-                logger.info(format("An uuid %s has been added to asset %s (Id was introduced in 1.0.0)", asset.getId(), asset.getName()));
+                logger.info(format("A uuid <%s> has been added to asset <%s> (Id was introduced in 1.0.2)", asset.getId(), asset.getName()));
             }
         }
     }

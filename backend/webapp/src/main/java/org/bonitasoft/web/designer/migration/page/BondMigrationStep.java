@@ -15,7 +15,10 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import static java.lang.String.format;
+
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -31,10 +34,14 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Named
 public class BondMigrationStep implements MigrationStep<Page> {
 
+    private static final Logger logger = LoggerFactory.getLogger(BondMigrationStep.class);
     private ComponentVisitor componentVisitor;
     private WidgetRepository widgetRepository;
     private VisitorFactory visitorFactory;
@@ -55,13 +62,18 @@ public class BondMigrationStep implements MigrationStep<Page> {
 
     @Override
     public void migrate(Page page) {
-        for (Component component :  page.accept(componentVisitor)) {
+
+        for (Component component : page.accept(componentVisitor)) {
             Widget widget = widgetRepository.get(component.getId());
-            for (Map.Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
+            for (Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
                 Property property = widget.getProperty(entry.getKey());
+                String formerType = entry.getValue().getType();
+
                 migrationStrategies
                         .get(property != null ? property.getBond() : BondType.EXPRESSION)
                         .migrate(property, entry.getValue());
+
+                logTypeChange(component.getId(), formerType, entry);
             }
         }
 
@@ -70,7 +82,20 @@ public class BondMigrationStep implements MigrationStep<Page> {
                 migrationStrategies
                         .get(BondType.EXPRESSION)
                         .migrate(new Property(), entry.getValue());
+
+                logTypeChange(element.getClass().getSimpleName(), entry.getValue().getType(), entry);
             }
+        }
+    }
+
+    private void logTypeChange(String name, String formerType, Entry<String, PropertyValue> entry) {
+        String currentType = entry.getValue().getType();
+        if (!formerType.equals(currentType)) {
+            logger.info(format("%s <%s> property value type has been changed from <%s> to <%s>",
+                    name,
+                    entry.getKey(),
+                    formerType,
+                    currentType));
         }
     }
 }
