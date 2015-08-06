@@ -15,6 +15,8 @@
 package org.bonitasoft.web.designer.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Sets.filter;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 
@@ -23,10 +25,13 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.base.Predicate;
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -95,10 +100,18 @@ public class PageResource extends AssetResource<Page>{
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)
-    public void save(@PathVariable("pageId") String pageId, @RequestBody Page content) throws RepositoryException {
+    public void save(@PathVariable("pageId") String pageId, @RequestBody Page page) throws RepositoryException {
         // the page should have the same ID as pageId.
-        content.setId(pageId);
-        pageRepository.save(content);
+        page.setId(pageId);
+        page.setAssets(filter(page.getAssets(), new Predicate<Asset>() {
+
+            @Override
+            public boolean apply(Asset asset) {
+            // filtering only page assets because we don't want to save widget assets that are attached to this page
+                return isBlank(asset.getComponentId());
+            }
+        }));
+        pageRepository.save(page);
         // send notification of update
         messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
     }
@@ -112,7 +125,9 @@ public class PageResource extends AssetResource<Page>{
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
     public Page get(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
-        return pageRepository.get(pageId);
+        Page page = pageRepository.get(pageId);
+        page.setAssets(assetVisitor.visit(page));
+        return page;
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)

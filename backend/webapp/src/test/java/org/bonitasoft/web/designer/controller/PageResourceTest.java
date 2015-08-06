@@ -108,7 +108,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_list() throws Exception {
+    public void should_list_pages() throws Exception {
         Page page = new Page();
         page.setId("id");
         page.setName("name");
@@ -217,6 +217,31 @@ public class PageResourceTest {
 
         verify(pageRepository).save(pageToBeSaved);
         verify(messagingTemplate).convertAndSend("/previewableUpdates", "my-page");
+    }
+
+    @Test
+    public void should_not_save_widget_assets_while_saving_a_page() throws Exception {
+        Page pageToBeSaved = aPage().withId("my-page").withAsset(
+                aWidgetAsset(),
+                aPageAsset()).build();
+        Page expectedPage = aPage().withId("my-page").withAsset(
+                aPageAsset()).build();
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
+                                convertObjectToJsonBytes(pageToBeSaved)))
+                .andExpect(status().isOk());
+
+        verify(pageRepository).save(expectedPage);
+    }
+
+    private Asset aPageAsset() {
+        return anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build();
+    }
+
+    private Asset aWidgetAsset() {
+        return anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build();
     }
 
     @Test
@@ -392,6 +417,27 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$[*].scope", Matchers.containsInAnyOrder("PAGE", "PAGE", "WIDGET")))
                 .andExpect(jsonPath("$[*].componentId", Matchers.containsInAnyOrder("widget-id")));
 
+    }
+
+    @Test
+    public void should_list_page_assets_while_getting_a_page() throws Exception {
+        Page page = aPage().withId("my-page").build();
+        Asset[] assets = new Asset[]{
+                anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
+                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
+        };
+
+        when(pageRepository.get("my-page")).thenReturn(page);
+        when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(assets));
+
+        mockMvc.perform(get("/rest/pages/my-page"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.assets", hasSize(3)))
+                .andExpect(jsonPath("$.assets[*].name", Matchers.containsInAnyOrder("https://mycdn.com/myExternalJs.js", "myJs.js", "myCss.css")))
+                .andExpect(jsonPath("$.assets[*].type", Matchers.containsInAnyOrder("js", "js", "css")))
+                .andExpect(jsonPath("$.assets[*].scope", Matchers.containsInAnyOrder("PAGE", "PAGE", "WIDGET")))
+                .andExpect(jsonPath("$.assets[*].componentId", Matchers.containsInAnyOrder("widget-id")));
     }
 
     @Test
