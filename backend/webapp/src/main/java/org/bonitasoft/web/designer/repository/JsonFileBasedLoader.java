@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
                 //We consider only another objects
                 if (objectPath == null || !objectPath.equals(componentFile)) {
                     byte[] content = readAllBytes(componentFile);
-                    if (indexOf(content, objectId.getBytes()) >= 0) {
+                    if (indexOf(content, format("\"id\":\"%s\"", objectId).getBytes()) >= 0) {
                         objects.add(objectMapper.fromJson(content, type));
                     }
                 }
