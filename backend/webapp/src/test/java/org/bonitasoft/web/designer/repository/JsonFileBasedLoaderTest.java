@@ -150,6 +150,15 @@ public class JsonFileBasedLoaderTest {
     }
 
     @Test
+    public void should_not_find_an_object_even_if_id_start_the_same_as_the_one_looking_for() throws Exception {
+        addToRepository(SimpleObjectBuilder.aSimpleObjectBuilder().id("abcd").build());
+
+        List<SimpleObject> objects = loader.findByObjectId(repoDirectory, "abc");
+
+        assertThat(objects).isEmpty();
+    }
+
+    @Test
     public void should_not_find_object_included_in_another() throws Exception {
         SimpleObject object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
