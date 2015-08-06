@@ -46,8 +46,7 @@ public class WatcherTest {
     }
 
     @Test
-    @Ignore
-    //we ignore this test until we decide to support path with URI-not-supported characters other than spaces
+    @Ignore("Test ignored until we decide to support path with URI-not-supported characters other than spaces")
     public void should_resolve_file_path_with_utf8_chars() throws Exception {
         folder.newFolder("répertoire vers un");
         File file = folder.newFile("répertoire vers un/fichier quelconque.txt");
