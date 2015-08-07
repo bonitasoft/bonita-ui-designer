@@ -1,7 +1,7 @@
 describe('data-type', function() {
   var service, DATA_TYPES;
 
-  beforeEach(module('bonitasoft.designer.common.services', 'gettext'));
+  beforeEach(module('bonitasoft.designer.data-panel'));
   beforeEach(inject(function($injector) {
     service = $injector.get('dataTypeService');
   }));
