@@ -2,8 +2,7 @@ describe('DataCtrl', function() {
 
   var $scope, repository, $q, $location, $modal;
 
-  beforeEach(module('bonitasoft.designer.controllers', 'bonitasoft.designer.common.repositories', 'ui.bootstrap'));
-  beforeEach(module('bonitasoft.designer.common.services', 'gettext'));
+  beforeEach(module('bonitasoft.designer.data-panel'));
 
   beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$modal_) {
     $scope = $rootScope.$new();
