@@ -12,19 +12,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
+package org.bonitasoft.web.designer.utils;
 
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-import java.util.Set;
+import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 
-import org.bonitasoft.web.designer.model.asset.Asset;
+public class UIDesignerMockMvcBuilder {
 
-public interface Assetable extends Identifiable {
-
-    Set<Asset> getAssets();
-
-    void addAsset(Asset asset);
-
-    void setAssets(Set<Asset> assets);
-
+    public static MockMvcBuilder mockServer(Object... controllers) {
+        TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport(new DesignerConfig());
+        return standaloneSetup(controllers)
+                .setMessageConverters(configuration.createMessageConverters())
+                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver());
+    }
 }

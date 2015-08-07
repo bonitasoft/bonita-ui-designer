@@ -70,7 +70,7 @@ public class AssetService<T extends Assetable> {
     /**
      * Upload a local asset
      */
-    public void upload(MultipartFile file, T component, String type) {
+    public Asset upload(MultipartFile file, T component, String type) {
         AssetType assetType = AssetType.getAsset(type);
 
         checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
@@ -79,8 +79,6 @@ public class AssetService<T extends Assetable> {
         final Asset asset = new Asset()
                 .setId(randomUUID().toString())
                 .setName(getOriginalFilename(file.getOriginalFilename()))
-                .setComponentId(component.getId())
-                .setScope(component instanceof Widget ? AssetScope.WIDGET : AssetScope.PAGE)
                 .setType(assetType)
                 .setOrder(getNextOrder(component));
 
@@ -92,10 +90,11 @@ public class AssetService<T extends Assetable> {
         });
 
         try {
-            assetRepository.save(asset, file.getBytes());
+            assetRepository.save(component.getId(), asset, file.getBytes());
             //The component is updated
-            component.getAssets().add(asset);
+            component.addAsset(asset);
             repository.save(component);
+            return asset;
 
         } catch (IOException e) {
             logger.error("Asset creation" + e);
@@ -123,7 +122,7 @@ public class AssetService<T extends Assetable> {
     /**
      * Save an external asset
      */
-    public void save(T component, final Asset asset) {
+    public Asset save(T component, final Asset asset) {
         checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
         checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
@@ -141,6 +140,7 @@ public class AssetService<T extends Assetable> {
             component.getAssets().add(asset);
         }
         repository.save(component);
+        return asset;
     }
 
     /**

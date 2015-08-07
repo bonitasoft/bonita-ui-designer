@@ -17,7 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import static org.bonitasoft.web.designer.builder.ImportReportBuilder.anImportReportFor;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,7 +34,6 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
@@ -56,7 +55,7 @@ public class ImportControllerTest {
     @Before
     public void setUp() {
         ImportController importController = new ImportController(multipartFileImporter, pageImporter, widgetImporter);
-        mockMvc = uiDesignerStandaloneSetup(importController).build();
+        mockMvc = mockServer(importController).build();
     }
 
     @Test

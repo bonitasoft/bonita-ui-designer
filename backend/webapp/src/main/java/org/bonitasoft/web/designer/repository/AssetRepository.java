@@ -94,6 +94,22 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     }
 
     /**
+     * Add a file asset to a component
+     */
+    public void save(String componentId, Asset asset, byte[] content) throws IOException {
+        Path assetDirectory = resolveAssetDirectory(componentId, asset);
+        if (!exists(assetDirectory)) {
+            createDirectories(assetDirectory);
+        }
+        write(assetDirectory.resolve(asset.getName()), content);
+    }
+
+
+    private Path resolveAssetDirectory(String componentId, Asset asset) {
+        return repository.resolvePathFolder(componentId).resolve("assets").resolve(asset.getType().getPrefix());
+    }
+
+    /**
      * Remove an asset
      */
     public void delete(Asset asset) throws IOException {
