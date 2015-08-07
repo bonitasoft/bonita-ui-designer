@@ -49,11 +49,4 @@ public class RestControllerUtil {
         return mapper.toJson(object);
     }
 
-    public static MockMvcBuilder uiDesignerStandaloneSetup(Object... controllers) {
-        TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport(new DesignerConfig());
-        return standaloneSetup(controllers)
-                .setMessageConverters(configuration.createMessageConverters())
-                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver());
-    }
-
 }

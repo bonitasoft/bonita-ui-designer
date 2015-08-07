@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -53,7 +53,7 @@ public class ResourceControllerAdviceTest {
 
     @Before
     public void setUp() {
-        mockMvc = uiDesignerStandaloneSetup(fakeResource).build();
+        mockMvc = mockServer(fakeResource).build();
     }
 
     @Test

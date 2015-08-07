@@ -33,6 +33,7 @@ import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,23 +58,18 @@ public abstract class AssetResource<T extends Assetable> {
 
     protected abstract void checkArtifactId(String artifactId);
 
-    @RequestMapping(value = "/{artifactId}/assets/{type}", method = RequestMethod.POST)
-    public ResponseEntity<ErrorMessage> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
+    // produces = MediaType.TEXT_PLAIN_VALUE to avoid some internet explorer issues
+    @RequestMapping(value = "/{artifactId}/assets/{type}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<Asset> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
         checkArtifactId(id);
-        try {
-            assetService.upload(file, repository.get(id), type);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (RepositoryException | IllegalArgumentException e) {
-            logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Asset asset = assetService.upload(file, repository.get(id), type);
+        return new ResponseEntity<>(asset, HttpStatus.CREATED);
     }
 
-
     @RequestMapping(value = "/{artifactId}/assets", method = RequestMethod.POST)
-    public void saveAsset(@RequestBody Asset asset, @PathVariable("artifactId") String id) {
+    public Asset saveAsset(@RequestBody Asset asset, @PathVariable("artifactId") String id) {
         checkArtifactId(id);
-        assetService.save(repository.get(id), asset);
+        return assetService.save(repository.get(id), asset);
     }
 
     @RequestMapping(value = "/{artifactId}/assets/{assetId}", method = RequestMethod.DELETE)

@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -47,7 +47,7 @@ public class ExportControllerTest {
     @Before
     public void setUp() {
         exportController = new ExportController(pageExporter, widgetExporter);
-        mockMvc = uiDesignerStandaloneSetup(exportController).build();
+        mockMvc = mockServer(exportController).build();
     }
 
     @Test

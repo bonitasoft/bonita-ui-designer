@@ -176,6 +176,14 @@ public class Widget extends Versioned implements Identifiable, Assetable {
         return assets;
     }
 
+    @Override
+    public void addAsset(Asset asset) {
+        if (assets == null) {
+            assets = new HashSet<>();
+        }
+        assets.add(asset);
+    }
+
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
     }

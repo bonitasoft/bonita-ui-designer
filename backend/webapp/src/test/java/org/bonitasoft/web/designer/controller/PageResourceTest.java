@@ -19,12 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -101,7 +102,7 @@ public class PageResourceTest {
 
     @Before
     public void setUp() {
-        mockMvc = uiDesignerStandaloneSetup(pageResource).build();
+        mockMvc = mockServer(pageResource).build();
     }
 
     @Test
@@ -142,7 +143,8 @@ public class PageResourceTest {
     @Test
     public void should_duplicate_a_page_from_a_Page() throws Exception {
         Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(anAsset().withName("myfile.js")).build();
-        when(pageRepository.get("my-page-source")).thenReturn(aPage().withId("my-page-source").withName("test").withAsset(anAsset().withName("myfile.js")).build());
+        when(pageRepository.get("my-page-source"))
+                .thenReturn(aPage().withId("my-page-source").withName("test").withAsset(anAsset().withName("myfile.js")).build());
 
         mockMvc
                 .perform(post("/rest/pages?duplicata=my-page-source")
@@ -345,10 +347,19 @@ public class PageResourceTest {
     public void should_upload_a_local_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
-        Page page = aFilledPage("my-page");
+        Page page = aPage().withId("my-page").build();
+        Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withScope(PAGE)
+                .withType(AssetType.JAVASCRIPT).build();
         when(pageRepository.get("my-page")).thenReturn(page);
+        when(pageAssetService.upload(file, page, "js")).thenReturn(expectedAsset);
 
-        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isCreated());
+        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value("assetId"))
+                .andExpect(jsonPath("$.name").value("myfile.js"))
+                .andExpect(jsonPath("$.scope").value(PAGE.toString()))
+                .andExpect(jsonPath("$.type").value("js"))
+                .andExpect(jsonPath("$.order").value(2));
 
         verify(pageAssetService).upload(file, page, "js");
     }
@@ -361,24 +372,32 @@ public class PageResourceTest {
         when(pageRepository.get("my-page")).thenReturn(page);
         doThrow(IllegalArgumentException.class).when(pageAssetService).upload(file, page, "js");
 
-        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file)).andExpect(status().isInternalServerError());
+        mockMvc.perform(fileUpload("/rest/pages/my-page/assets/js").file(file))
+                .andExpect(status().isBadRequest());
 
         verify(pageAssetService).upload(file, page, "js");
     }
 
     @Test
     public void should_save_an_external_asset() throws Exception {
-        Page page = aFilledPage("my-page");
-        Asset asset = anAsset().build();
+        Page page = aPage().withId("my-page").build();
+        Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withScope(PAGE)
+                .withType(AssetType.JAVASCRIPT).build();
         when(pageRepository.get("my-page")).thenReturn(page);
+        when(pageAssetService.save(page, expectedAsset)).thenReturn(expectedAsset);
 
         mockMvc.perform(
                 post("/rest/pages/my-page/assets")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(asset)))
-                .andExpect(status().isOk());
+                        .content(convertObjectToJsonBytes(expectedAsset)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("assetId"))
+                .andExpect(jsonPath("$.name").value("myfile.js"))
+                .andExpect(jsonPath("$.scope").value(PAGE.toString()))
+                .andExpect(jsonPath("$.type").value("js"))
+                .andExpect(jsonPath("$.order").value(2));
 
-        verify(pageAssetService).save(page, asset);
+        verify(pageAssetService).save(page, expectedAsset);
     }
 
     @Test
@@ -398,10 +417,10 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset[] assets = new Asset[]{
+        Asset[] assets = new Asset[] {
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
-                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
-                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
+                anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(AssetScope.PAGE).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withScope(AssetScope.PAGE).withType(JAVASCRIPT).build()
         };
 
         when(pageRepository.get("my-page")).thenReturn(page);
@@ -422,8 +441,8 @@ public class PageResourceTest {
         Page page = aPage().withId("my-page").build();
         Asset[] assets = new Asset[]{
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
-                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).build(),
-                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).build()
+                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build()
         };
 
         when(pageRepository.get("my-page")).thenReturn(page);
