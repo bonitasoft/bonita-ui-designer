@@ -62,7 +62,8 @@
     "test": "gulp test",
     "test-watch": "gulp test-watch",
     "pree2e": "webdriver-manager update",
-    "e2e": "gulp e2e"
+    "e2e": "gulp e2e",
+    "pot": "gulp pot"
   },
   "repository": {
     "type": "git",
