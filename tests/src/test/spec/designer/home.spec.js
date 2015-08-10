@@ -15,7 +15,7 @@ describe('UI designer: home', function () {
 
 
   it('should import a page', function(){
-    var button = $('#pages .btn[title="Import a page"]');
+    var button = $('#pages .btn[title="Import a page or a form"]');
     var input = $('.file-upload-input');
     var upload = element(by.partialButtonText('Import'));
     var modal  = $('.modal');
