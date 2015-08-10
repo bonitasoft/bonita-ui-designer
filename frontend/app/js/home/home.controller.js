@@ -126,7 +126,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     return widgetRepo.exportUrl(widget);
   };
 
-  $scope.importElement = function(type){
+  $scope.importElement = function(type, title){
     var modalInstance = $modal.open({
       templateUrl: 'js/home/import-artifact.html',
       backdrop: 'static',
@@ -135,6 +135,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
         $scope.importUrl = 'import/' + type;
         $scope.filename = '';
         $scope.importType = type;
+        $scope.popupTitle = title;
 
         $scope.onSuccess = function(response) {
           //Even if a problem occurs in the backend a response is sent with a message
