@@ -10,7 +10,7 @@ module.exports = function(gulp, config) {
    */
   gulp.task('test', ['bundle:js', 'bundle:vendors'], function (done) {
     return karma.start({
-      configFile: __dirname + '/../test/karma.conf.js',
+      configFile: config.paths.karma,
       singleRun: true
     }, done);
   });
@@ -20,7 +20,7 @@ module.exports = function(gulp, config) {
    */
   gulp.task('test:watch', ['bundle:js', 'bundle:vendors'], function (done) {
     return karma.start({
-      configFile: __dirname + '/../test/karma.conf.js',
+      configFile: config.paths.karma,
       singleRun: false
     }, done);
   });

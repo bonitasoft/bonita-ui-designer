@@ -41,6 +41,7 @@ var paths = {
     'test/e2e/polyfill/dnd.js'
   ],
   tests: 'test/**/*.spec.js',
+  karma: __dirname + '/test/karma.conf.js',
   assets: {
     fonts: [
       'app/fonts/*.*',
@@ -81,7 +82,7 @@ var banner = [
   ' * You should have received a copy of the GNU General Public License',
   ' * along with this program. If not, see <http://www.gnu.org/licenses/>.',
   ' */',
-''].join('\n');
+  ''].join('\n');
 
 var config = {
   paths: paths,
@@ -98,11 +99,11 @@ require('./gulp/serve.js')(gulp, config);
 /**
  * Aliasing dev task
  */
-gulp.task('serve', function() {
+gulp.task('serve', function () {
   gulp.start('dev');
 });
 
-gulp.task('default', ['clean', 'ddescriber'], function() {
+gulp.task('default', ['clean', 'ddescriber'], function () {
   gulp.start(['test', 'build']);
 });
 
