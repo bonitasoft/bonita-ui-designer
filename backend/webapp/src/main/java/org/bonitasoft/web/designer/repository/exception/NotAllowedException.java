@@ -20,4 +20,9 @@ public class NotAllowedException extends RuntimeException {
         super(message);
     }
 
+    public static void checkNotAllowed(boolean isNotAllowed, String message) {
+        if(isNotAllowed) {
+            throw new NotAllowedException(message);
+        }
+    }
 }

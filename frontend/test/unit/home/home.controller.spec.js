@@ -171,6 +171,19 @@ describe('HomeCtrl', function () {
     expect($scope.refreshAll).toHaveBeenCalled();
   });
 
+  it('should revert the name if the rename of the page has failed', function () {
+    var page = {name: 'hello', oldName: 'oldHello'};
+    spyOn(pageRepo, 'rename').and.returnValue($q.reject());
+    spyOn($scope, 'refreshAll').and.returnValue($q.when());
+
+    $scope.renameItem(page);
+    $scope.$apply();
+
+    expect(page.name).toBe('oldHello');
+    expect(pageRepo.rename).toHaveBeenCalled();
+    expect($scope.refreshAll).toHaveBeenCalled();
+  });
+
   it('should not rename a page if the name has not changed', function () {
     // given a page with the same name as a new name
     var page = {name: 'hello', oldName: 'hello'};
