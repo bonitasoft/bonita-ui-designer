@@ -93,7 +93,7 @@ var AssetPanel = require('./asset-panel.page');
     },
     addCustomWidget: function(widgetId) {
       var editor = this;
-      var btn = $('.Palette-section[aria-label=customwidgets]');
+      var btn = $('.Palette-section[aria-label="custom widgets"]');
       btn.getAttribute('class').then(function(className){
         if(!/.Palette-section--active/.test(className)) {
           btn.click();

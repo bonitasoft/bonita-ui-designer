@@ -31,6 +31,7 @@ angular
     this.isActiveSection = isActiveSection;
     this.isNarrow = isNarrow;
     this.isClosed = isClosed;
+    this.getIconClassName = getIconClassName;
 
     resize();
 
@@ -55,6 +56,10 @@ angular
     }
     function isClosed() {
       return palette.currentSection === undefined;
+    }
+
+    function getIconClassName(section) {
+      return 'ui-' + section.name.replace(/ /g,'');   // remove white spaces
     }
   })
   .directive('editorPalette', function() {
