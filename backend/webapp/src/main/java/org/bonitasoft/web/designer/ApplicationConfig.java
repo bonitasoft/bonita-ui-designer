@@ -39,7 +39,7 @@ public class ApplicationConfig {
      * load property file described in @PropertySource
      */
     @Bean
-    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
