@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.valueOf;
 import static java.nio.file.FileVisitResult.CONTINUE;
+import static org.apache.commons.lang3.StringUtils.contains;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -75,7 +76,7 @@ public class LiveMigration<A extends Versioned> {
     }
 
     private void migrate(Repository<A> repository, Path path) {
-        if (path.toString().endsWith(".json")) {
+        if (isMigrable(path)) {
             final A artifact = loader.load(path.getParent(), valueOf(path.getFileName()));
             String formerArtifactVersion = artifact.getDesignerVersion();
             for (Migration<A> migration : migrationList) {
@@ -85,5 +86,9 @@ public class LiveMigration<A extends Versioned> {
                 repository.save(artifact);
             }
         }
+    }
+
+    private boolean isMigrable(Path path) {
+        return path.toString().endsWith(".json") && !contains(path.toString(), "/assets/");
     }
 }

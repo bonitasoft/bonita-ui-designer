@@ -21,7 +21,8 @@ public enum AssetType {
 
     CSS("css"),
     JAVASCRIPT("js"),
-    IMAGE("img");
+    IMAGE("img"),
+    JSON("json");
 
     private String prefix;
 
