@@ -81,9 +81,10 @@
     },
     {
       "label": "Returned key",
-      "help": "Object key to store in value",
+      "help": "The name of the key to use as value. Leave it empty for whole object",
       "type": "text",
-      "name": "returnedKey"
+      "name": "returnedKey",
+      "caption": "Value must be unique"
     },
     {
       "label": "Value",
