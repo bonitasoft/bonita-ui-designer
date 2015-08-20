@@ -70,26 +70,30 @@
       "label": "Available values",
       "name": "availableValues",
       "type": "collection",
-      "defaultValue": ["yes", "no"],
+      "defaultValue": [
+        "yes",
+        "no"
+      ],
       "caption": "Comma-separated list or bound an array data"
+    },
+    {
+      "label": "Displayed key",
+      "name": "displayedKey",
+      "type": "text",
+      "help": "The name of the key to use as label. Can be empty"
+    },
+    {
+      "label": "Returned key",
+      "name": "returnedKey",
+      "type": "text",
+      "help": "The name of the key to use as value. Leave it empty for whole object",
+      "caption": "Value must be unique"
     },
     {
       "label": "Selected Value",
       "name": "selectedValue",
       "type": "text",
       "bond": "variable"
-    },
-    {
-      "label": "Displayed key",
-      "name": "displayedKey",
-      "type": "text",
-      "caption": "The name of the key to use as label. Can be empty"
-    },
-    {
-      "label": "Returned key",
-      "name": "returnedKey",
-      "type": "text",
-      "caption": "The name of the key to use as value. Can be empty"
     }
   ]
 }

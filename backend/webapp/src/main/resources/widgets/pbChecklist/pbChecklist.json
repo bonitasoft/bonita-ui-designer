@@ -72,14 +72,15 @@
       "name": "displayedKey",
       "help": "Object's key to display",
       "type": "text",
-      "caption": "The name of the key to use as label. Can be empty"
+      "help": "The name of the key to use as label. Can be empty"
     },
     {
       "label": "Returned key",
       "name": "returnedKey",
       "help": "Object key to store",
       "type": "text",
-      "caption": "The name of the key to use as value. Can be empty"
+      "help": "The name of the key to use as value. Leave it empty for whole object",
+      "caption": "Value must be unique"
     },
     {
       "label": "Selected values",
