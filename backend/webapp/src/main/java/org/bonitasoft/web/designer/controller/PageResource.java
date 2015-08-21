@@ -38,11 +38,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/pages")
-public class PageResource extends AssetResource<Page>{
+public class PageResource extends AssetResource<Page> {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
     private PageRepository pageRepository;
@@ -82,8 +87,10 @@ public class PageResource extends AssetResource<Page>{
         String pageId = UUID.randomUUID().toString();
         content.setId(pageId);
         pageRepository.save(content);
-        if(isNotEmpty(sourcePageId)) {
+        if (isNotEmpty(sourcePageId)) {
             assetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
+        } else {
+            assetService.loadDefaultAssets(content);
         }
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }

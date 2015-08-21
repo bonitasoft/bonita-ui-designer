@@ -99,7 +99,7 @@ public class AssetService<T extends Assetable> {
 
         } catch (IOException e) {
             logger.error("Asset creation" + e);
-            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName(), component.getId()), e);
+            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()), e);
         }
     }
 
@@ -115,8 +115,7 @@ public class AssetService<T extends Assetable> {
                 }
             }
             component.getAssets().remove(existingAsset);
-        }
-        catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             //For a creation component does not contain the asset
         }
     }
@@ -128,7 +127,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
         checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
 
-        if(asset.getId()!=null){
+        if (asset.getId() != null) {
             //We find the existing asset and change the name and the type
             Iterables.<Asset>find(component.getAssets(), new Predicate<Asset>() {
                 @Override
@@ -136,8 +135,7 @@ public class AssetService<T extends Assetable> {
                     return asset.getId().equals(element.getId());
                 }
             }).setName(asset.getName()).setType(asset.getType()).setActive(asset.isActive());
-        }
-        else {
+        } else {
             asset.setId(randomUUID().toString());
             asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
@@ -148,21 +146,20 @@ public class AssetService<T extends Assetable> {
     /**
      * Duplicate assets when an artifact is duplicated
      */
-    public void duplicateAsset(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId){
+    public void duplicateAsset(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId) {
         checkArgument(isNotEmpty(sourceArtifactId), String.format("source %s id is required", repository.getComponentName()));
         checkArgument(isNotEmpty(targetArtifactId), String.format("target %s id is required", repository.getComponentName()));
-        checkArgument(artifactSourcePath !=null && exists(artifactSourcePath), String.format("source %s path is required", repository.getComponentName()));
+        checkArgument(artifactSourcePath != null && exists(artifactSourcePath), String.format("source %s path is required", repository.getComponentName()));
         checkArgument(artifactTargetPath != null && exists(artifactTargetPath), String.format("target %s path is required", repository.getComponentName()));
 
         try {
             List<Asset> assets = assetImporter.load(repository.get(sourceArtifactId), artifactSourcePath);
-            for(Asset asset: assets){
+            for (Asset asset : assets) {
                 asset.setScope(null);
                 asset.setComponentId(targetArtifactId);
             }
-            assetImporter.save(assets,artifactTargetPath);
-        }
-        catch(IOException e){
+            assetImporter.save(assets, artifactTargetPath);
+        } catch (IOException e) {
             throw new RepositoryException("Error on assets duplication", e);
         }
     }
@@ -257,4 +254,7 @@ public class AssetService<T extends Assetable> {
         }
     }
 
+    public void loadDefaultAssets(T content) {
+        assetRepository.refreshAssets(content);
+    }
 }
