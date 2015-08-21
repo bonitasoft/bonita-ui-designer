@@ -417,4 +417,13 @@ public class AssetServiceTest {
         assertThat(page.getInactiveAssets()).isEmpty();
         verify(repository).save(page);
     }
+
+    @Test
+    public void should_load_default_assets() {
+        Page page = aPage().build();
+
+        assetService.loadDefaultAssets(page);
+
+        verify(assetRepository).refreshAssets(page);
+    }
 }

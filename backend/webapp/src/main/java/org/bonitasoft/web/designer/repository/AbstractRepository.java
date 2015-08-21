@@ -14,10 +14,15 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.walkFileTree;
+import static org.apache.commons.io.FileUtils.copyDirectory;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -63,9 +68,9 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             return loader.get(path, id);
         } catch (NoSuchFileException e) {
-            throw new NotFoundException(String.format("Non existing %s [%s]", getComponentName(), id));
+            throw new NotFoundException(format("Non existing %s [%s]", getComponentName(), id));
         } catch (IOException e) {
-            throw new RepositoryException(String.format("Error while getting %s [%s]", getComponentName(), id), e);
+            throw new RepositoryException(format("Error while getting %s [%s]", getComponentName(), id), e);
         }
     }
 
@@ -74,7 +79,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             return loader.getAll(path);
         } catch (IOException e) {
-            throw new RepositoryException(String.format("Error while getting %ss",getComponentName()), e);
+            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
         }
     }
 
@@ -83,14 +88,14 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             return loader.contains(path, id);
         } catch (IOException e) {
-            throw new RepositoryException(String.format("Error while searching %ss which used an object", getComponentName()), e);
+            throw new RepositoryException(format("Error while searching %ss which used an object", getComponentName()), e);
         }
     }
 
     @Override
     public void save(T component) throws RepositoryException {
         if (StringUtils.isBlank(component.getId())) {
-            throw new IllegalArgumentException(String.format("Error while saving %s: No id set.", getComponentName()));
+            throw new IllegalArgumentException(format("Error while saving %s: No id set.", getComponentName()));
         }
 
         component.setLastUpdate(Instant.now());
@@ -100,13 +105,13 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             persister.save(resolvePathFolder(component.getId()), component.getId(), component);
         } catch (IOException e) {
-            throw new RepositoryException(String.format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
+            throw new RepositoryException(format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
         }
     }
 
     @Override
     public void saveAll(List<T> toBeSaved) throws RepositoryException {
-        if(toBeSaved!=null) {
+        if (toBeSaved != null) {
             for (T component : toBeSaved) {
                 save(component);
             }
@@ -118,7 +123,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             return loader.findByObjectId(path, id);
         } catch (IOException e) {
-            throw new RepositoryException(String.format("Error while searching %ss which used an object", getComponentName()), e);
+            throw new RepositoryException(format("Error while searching %ss which used an object", getComponentName()), e);
         }
     }
 
@@ -132,9 +137,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         T component = get(id);
         try {
             FileUtils.deleteDirectory(path.resolve(component.getId()).toFile());
-        }
-        catch (IOException e) {
-            throw new RepositoryException(String.format("Error while deleting %s [%s]", getComponentName(), id), e);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while deleting %s [%s]", getComponentName(), id), e);
         }
     }
 
@@ -145,12 +149,12 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public void createComponentDirectory(T component) {
         try {
             Path componentDirectory = path.resolve(component.getId());
-            if(!Files.exists(componentDirectory)) {
+            if (!Files.exists(componentDirectory)) {
                 createDirectories(componentDirectory);
+                copyTemplate(component, this.getClass().getResource(format("/templates/%s", getComponentName())));
             }
-        }
-        catch (IOException ex){
-            throw new RepositoryException(String.format("Impossible to create the folder to save the component [ %s ] : %s", component.getId(), path), ex);
+        } catch (IOException ex) {
+            throw new RepositoryException(format("Impossible to create the folder to save the component [ %s ] : %s", component.getId(), path), ex);
         }
     }
 
@@ -181,5 +185,21 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
                 pathListener.pathChanged(watcher.resolve(fileChangeEvent));
             }
         });
+    }
+
+    /**
+     * Copy template found at templateUrl into component
+     *
+     * @param component to update with template
+     * @param templateUrl point at component template directory
+     */
+    private void copyTemplate(T component, URL templateUrl) {
+        try {
+            if (templateUrl != null) {
+                copyDirectory(new File(templateUrl.toURI()), resolvePath(component.getId()).toFile());
+            }
+        } catch (IOException | URISyntaxException e) {
+            throw new RepositoryException(format("Failed to initialize %s [%s] from template\"", getComponentName(), component.getId()), e);
+        }
     }
 }

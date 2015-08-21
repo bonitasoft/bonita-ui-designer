@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.nio.file.Files.exists;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -23,7 +24,6 @@ import static org.mockito.Mockito.spy;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.validation.Validation;
@@ -116,20 +116,21 @@ public class PageRepositoryTest {
 
     @Test
     public void should_save_a_page_in_a_json_file_repository() throws Exception {
-        Page expectedPage = aFilledPage("page-id");
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
+        Page page = aFilledPage("page-id");
+        assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).doesNotExist();
 
-        repository.save(expectedPage);
+        repository.save(page);
 
         //A json file has to be created in the repository
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
-        assertThat(expectedPage.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).exists();
+        assertThat(page.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        assertThat(exists(Paths.get(repository.resolvePath(page.getId()).toString(), "assets", "css", "style.css"))).isTrue();
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_while_saving_a_page() throws Exception {
         Page expectedPage = aFilledPage("page-id");
-        doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage.getId() , expectedPage);
+        doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage.getId(), expectedPage);
 
         repository.save(expectedPage);
     }
@@ -191,5 +192,4 @@ public class PageRepositoryTest {
 
         repository.findByObjectId(expectedPage.getId());
     }
-
 }
