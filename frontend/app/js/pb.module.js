@@ -31,6 +31,7 @@
     'bonitasoft.designer.common.repositories',
     'bonitasoft.designer.common.services',
     'bonitasoft.designer.common.directives',
+    'bonitasoft.designer.data-panel',
     'bonitasoft.designer.controllers',
     'bonitasoft.designer.factories',
     'bonitasoft.designer.services',
