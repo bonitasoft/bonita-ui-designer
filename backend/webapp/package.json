@@ -16,7 +16,8 @@
     "test": "gulp test",
     "test-watch": "gulp test-watch",
     "prebuild": "bower install",
-    "build": "gulp"
+    "build": "gulp",
+    "pot": "gulp pot"
   },
   "engine": {
     "npm": ">=2.0.0"
