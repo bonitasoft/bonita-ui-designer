@@ -7,7 +7,7 @@
             ng-if="!properties.labelHidden"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
-            {{ properties.label }}
+            {{ properties.label | uiTranslate }}
         </label>
         <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}" >
             <select
@@ -18,7 +18,7 @@
                 ng-required="properties.required"
                 ng-disabled="properties.disabled">
                 <option style="display:none" value="">
-                    {{properties.placeholder}}
+                    {{ properties.placeholder | uiTranslate }}
                 </option>
             </select>
             <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>

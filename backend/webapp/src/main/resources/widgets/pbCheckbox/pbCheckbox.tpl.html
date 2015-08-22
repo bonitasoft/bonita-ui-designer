@@ -1,6 +1,6 @@
 <div class="checkbox">
     <label>
-        <input type="checkbox" name="{{ctrl.name}}" ng-model="properties.value" ng-required="properties.required" ng-disabled="properties.disabled"> {{ properties.label }}
+        <input type="checkbox" name="{{ctrl.name}}" ng-model="properties.value" ng-required="properties.required" ng-disabled="properties.disabled"> {{ properties.label | uiTranslate }}
     </label>
     <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
 </div>
