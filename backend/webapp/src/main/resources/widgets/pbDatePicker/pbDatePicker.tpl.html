@@ -7,31 +7,34 @@
             ng-if="!properties.labelHidden"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
-            {{ properties.label }}
+            {{ properties.label | uiTranslate }}
         </label>
-        <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+
+        <div
+            class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
                 <input type="text" class="form-control"
-                       datepicker-popup="{{ properties.dateFormat }}"
+                       datepicker-popup="{{ properties.dateFormat | uiTranslate }}"
                        name="{{ctrl.name}}"
                        ng-model="properties.value"
                        ng-change="ctrl.floorDate()"
                        is-open="ctrl.opened"
                        datepicker-options="ctrl.datepickerOptions"
-                       placeholder="{{properties.placeholder}}"
+                       placeholder="{{ properties.placeholder | uiTranslate }}"
                        ng-required="properties.required"
                        ng-readonly="properties.readOnly"
                        show-button-bar="false"/>
 
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default"
-                              ng-click="ctrl.open($event)"
-                              ng-disabled="properties.readOnly">
-                              <i class="glyphicon glyphicon-calendar"></i>
+                            ng-click="ctrl.open($event)"
+                            ng-disabled="properties.readOnly">
+                        <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                 </span>
             </p>
-            <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
+            <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error "
+                 ng-messages-include="forms-generic-errors.html" role="alert"></div>
         </div>
     </div>
 </div>

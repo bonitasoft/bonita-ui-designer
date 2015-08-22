@@ -7,7 +7,7 @@
             ng-if="!properties.labelHidden"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
-        {{ properties.label }}
+        {{ properties.label | uiTranslate }}
         </label>
         <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <label ng-if="properties.inline" class="radio-inline" ng-repeat="option in properties.availableValues track by $index">
@@ -18,7 +18,7 @@
                     ng-value="ctrl.getValue(option)"
                     ng-required="properties.required"
                     ng-disabled="properties.disabled">
-                {{ ctrl.getLabel(option) || option }}
+                {{ (ctrl.getLabel(option) || option) | uiTranslate }}
             </label>
 
             <div ng-if="!properties.inline" class="radio" ng-repeat="option in properties.availableValues track by $index">
@@ -30,7 +30,7 @@
                         ng-value="ctrl.getValue(option)"
                         ng-required="properties.required"
                         ng-disabled="properties.disabled">
-                    {{ ctrl.getLabel(option) || option }}
+                    {{ (ctrl.getLabel(option) || option) | uiTranslate }}
                 </label>
             </div>
         </div>
