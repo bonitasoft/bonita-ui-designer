@@ -34,7 +34,7 @@
               'it': {lang: 'it', file: 'lang-template-it-IT.json'},
               'pt': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
               'pt-BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
-              'jp': {lang: 'jp', file: 'lang-template-ja-JP.json'},
+              'ja': {lang: 'ja', file: 'lang-template-ja-JP.json'},
               'ru': {lang: 'ru', file: 'lang-template-ru-RU.json'}
             };
             // narrow down which language is used or use en
