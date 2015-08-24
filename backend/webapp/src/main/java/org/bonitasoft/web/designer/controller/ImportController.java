@@ -47,6 +47,11 @@ public class ImportController {
         this.widgetImporter = widgetImporter;
     }
 
+    /*
+     * BS-14106: In IE, json data is not handle properly by browser when content-type is set to application/json.
+     * We need to force it to text/plain for browser not trying to save it and pass it correctly to application.
+     * Using text/plain as content-type header in response doesn't affect other browsers.
+     */
     @RequestMapping(value="/import/page", method= RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public ResponseEntity<ErrorMessage> importPage(@RequestParam("file") MultipartFile file){
