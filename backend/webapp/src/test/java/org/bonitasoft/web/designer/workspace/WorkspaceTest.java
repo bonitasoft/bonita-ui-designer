@@ -38,6 +38,7 @@ import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.codehaus.plexus.util.FileUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -74,6 +75,8 @@ public class WorkspaceTest {
 
     private Workspace workspace;
 
+    private WidgetRepository widgetRepository;
+
     @Before
     public void setUp() throws URISyntaxException {
         MockitoAnnotations.initMocks(this);
@@ -82,7 +85,7 @@ public class WorkspaceTest {
         when(pathResolver.getPagesRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "pages"));
         when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgets"));
 
-        WidgetRepository widgetRepository = new WidgetRepository(
+        widgetRepository = new WidgetRepository(
                 pathResolver.getWidgetsRepositoryPath(),
                 widgetPersister,
                 new WidgetLoader(jacksonObjectMapper),
@@ -148,6 +151,22 @@ public class WorkspaceTest {
 
         assertThat(readAllBytes(labelFile)).isEqualTo(fileContent);
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+    }
+
+    @Test
+    public void should_copy_widget_file_if_it_is_already_in_widget_repository_folder_with_a_former_version() throws Exception {
+        when(resource.getURI()).thenReturn(new File("target/test-classes/workspace/widgets").toURI());
+        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+
+        //We create the widget files
+        Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
+        Path labelFile = labelDir.resolve("pbLabel.json");
+        byte[] fileContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"1.0.1\"}".getBytes(StandardCharsets.UTF_8);
+        write(labelFile, fileContent, StandardOpenOption.CREATE);
+
+        workspace.initialize();
+
+        assertThat(new String(readAllBytes(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")))).isNotEqualTo(FileUtils.fileRead("target/test-classes/workspace/widgets/pbLabel/pbLabel.json"));
     }
 
 }
