@@ -1,21 +1,22 @@
 {
-  "name": "page-builder-backend",
+  "name": "ui-designer-backend",
   "version": "1.0.0",
-  "description": "Bonitasoft page builder backend",
+  "description": "Bonitasoft UI Designer backend",
   "repository": {
     "type": "git",
     "url": "https://github.com/bonitasoft/bonita-ui-designer"
   },
-  "author": "",
+  "author": "Bonitasoft",
   "license": "proprietary",
   "bugs": {
-    "url": "https://github.com/bonitasoft/bonita-form-builder/issues"
+    "url": "https://github.com/bonitasoft/bonita-ui-designer/issues"
   },
   "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
   "scripts": {
     "test": "gulp test",
     "test-watch": "gulp test-watch",
-    "prebuild": "bower install",
+    "postinstall": "bower install",
+    "prebuild": "npm install",
     "build": "gulp",
     "pot": "gulp pot"
   },
@@ -24,7 +25,7 @@
   },
   "devDependencies": {
     "angular-mocks": "1.3.11",
-    "bower": "^1.3.12",
+    "bower": "1.3.12",
     "gulp": "~3.8.9",
     "gulp-concat": "~2.4.2",
     "gulp-include": "^1.1.0",
