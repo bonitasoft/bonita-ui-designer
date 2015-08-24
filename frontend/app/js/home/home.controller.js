@@ -183,10 +183,15 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
     var repository = $injector.get( (type || 'page') + 'Repo' );
 
+    function revertItemName(item) {
+      item.name = item.oldName;
+      $scope.refreshAll();
+    }
+
     if (item.name !== item.oldName) {
       repository
         .rename(item.id, item.name)
-        .then($scope.refreshAll);
+        .then($scope.refreshAll, revertItemName.bind(null, item));
     } else {
 
       /**
