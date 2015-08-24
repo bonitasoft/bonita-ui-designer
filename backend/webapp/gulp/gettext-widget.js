@@ -19,7 +19,7 @@ function prepare() {
       '{',
       '  "__file" : "' + escape(normalizedPath) +'",',
       '  "__data" : ' + file.contents.toString(),
-      '}',
+      '}'
     ];
 
     file.contents = new Buffer( newfile.join(os.EOL) );
@@ -89,10 +89,11 @@ function extract() {
       return;
     }
 
-    widgets.forEach(function(widget){
-      var fileName = widget.__file;
-      var properties = widget.__data.properties;
-      i18n = properties.reduce(function(acc, property){
+    widgets.forEach(function(widgetFile){
+      var fileName = widgetFile.__file;
+      var widget = widgetFile.__data;
+
+      i18n = widget.properties.reduce(function(acc, property){
         var value;
         if(property.hasOwnProperty('label')) {
           value = property.label;
@@ -120,6 +121,10 @@ function extract() {
 
         return acc;
       }, i18n);
+
+      if (widget.hasOwnProperty('description')) {
+        i18n[widget.description] = (i18n[widget.description] || []).concat( getInfo('description',fileName));
+      }
     });
 
     file.path = gutil.replaceExtension(file.path, '.pot');
