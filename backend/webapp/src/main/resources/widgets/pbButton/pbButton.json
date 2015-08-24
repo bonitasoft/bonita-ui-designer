@@ -136,7 +136,7 @@
       "help": "Use $item to remove the current item in a repeated collection",
       "type": "text",
       "bond": "variable",
-      "showFor": "properties.collectionPosition.value === 'Item'"
+      "showFor": "properties.action.value === 'Remove from collection' && properties.collectionPosition.value === 'Item'"
     }
   ]
 }
