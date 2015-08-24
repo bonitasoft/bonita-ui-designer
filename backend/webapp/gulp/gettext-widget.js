@@ -11,18 +11,18 @@ function prepare() {
 
     try {
       widget = JSON.parse(file.contents.toString());
-    } catch(err) {
+    } catch (err) {
       cb(err, file);
       return;
     }
     var newfile = [
       '{',
-      '  "__file" : "' + escape(normalizedPath) +'",',
+      '  "__file" : "' + escape(normalizedPath) + '",',
       '  "__data" : ' + file.contents.toString(),
       '}'
     ];
 
-    file.contents = new Buffer( newfile.join(os.EOL) );
+    file.contents = new Buffer(newfile.join(os.EOL));
     cb(undefined, file);
   });
 
@@ -44,7 +44,7 @@ function extract() {
      */
     function getLine(lines, pattern) {
       var pos = 0;
-      lines.some(function(line, index){
+      lines.some(function (line, index) {
         if (new RegExp(pattern).test(line)) {
           pos = index;
           return true;
@@ -53,6 +53,7 @@ function extract() {
       });
       return pos;
     }
+
     /**
      * Return comment information for a given key
      * @param  {String} key  the pattern to find
@@ -62,7 +63,7 @@ function extract() {
     function getInfo(key, path) {
       var start = getLine(lines.slice(lineNumber), key);
       lineNumber = start + 1;
-      return '#: '+ unescape(path )+':' + lineNumber;
+      return '#: ' + unescape(path) + ':' + lineNumber;
     }
 
     /**
@@ -71,50 +72,50 @@ function extract() {
      * @return String}       a pot string
      */
     function transform(data) {
-      return Object.keys(data).map(function(key){
+      return Object.keys(data).map(function (key) {
         return data[key]
-          .concat('msgid  "'+key+'"')
+          .concat('msgid  "' + key + '"')
           .concat('msgstr ""')
           .concat('')
           .join(os.EOL);
       })
-      .join(os.EOL);
+        .join(os.EOL);
     }
 
 
     try {
-      widgets = JSON.parse('[' + file.contents.toString()+ ']');
-    } catch(err) {
+      widgets = JSON.parse('[' + file.contents.toString() + ']');
+    } catch (err) {
       cb(err, file);
       return;
     }
 
-    widgets.forEach(function(widgetFile){
+    widgets.forEach(function (widgetFile) {
       var fileName = widgetFile.__file;
       var widget = widgetFile.__data;
 
-      i18n = widget.properties.reduce(function(acc, property){
+      i18n = widget.properties.reduce(function (acc, property) {
         var value;
-        if(property.hasOwnProperty('label')) {
+        if (property.hasOwnProperty('label')) {
           value = property.label;
-          acc[value] = (acc[value] || []).concat( getInfo('label',fileName ));
+          acc[value] = (acc[value] || []).concat(getInfo('label', fileName));
         }
 
-        if(property.hasOwnProperty('help')) {
+        if (property.hasOwnProperty('help')) {
           value = property.help;
-          acc[value] = (acc[value] || []).concat( getInfo('help', fileName ));
+          acc[value] = (acc[value] || []).concat(getInfo('help', fileName));
         }
-        if(property.hasOwnProperty('defaultValue')) {
-          if ( !isNaN(property.defaultValue)) {
+        if (property.hasOwnProperty('defaultValue')) {
+          if (!isNaN(property.defaultValue)) {
             return acc;
           }
           value = property.defaultValue;
-          acc[value] = (acc[value] || []).concat( getInfo('defaultValue', fileName ));
+          acc[value] = (acc[value] || []).concat(getInfo('defaultValue', fileName));
         }
-        if(property.hasOwnProperty('choiceValues')) {
+        if (property.hasOwnProperty('choiceValues')) {
           value = property.choiceValues;
-          acc = value.reduce(function(dict, choice) {
-            dict[choice] = (acc[choice] || []).concat( '#: '+ unescape(fileName) +':' + lineNumber );
+          acc = value.reduce(function (dict, choice) {
+            dict[choice] = (acc[choice] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
             return dict;
           }, acc);
         }
@@ -123,12 +124,12 @@ function extract() {
       }, i18n);
 
       if (widget.hasOwnProperty('description')) {
-        i18n[widget.description] = (i18n[widget.description] || []).concat( getInfo('description',fileName));
+        i18n[widget.description] = (i18n[widget.description] || []).concat(getInfo('description', fileName));
       }
     });
 
     file.path = gutil.replaceExtension(file.path, '.pot');
-    file.contents = new Buffer( transform(i18n) );
+    file.contents = new Buffer(transform(i18n));
 
     cb(undefined, file);
 
