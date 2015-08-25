@@ -14,16 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.importer.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.bonitasoft.web.designer.controller.importer.dependencies.ComponentDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JsonViewLight;
+
+import java.util.List;
+import java.util.Map;
 
 public class ImportReport {
 
