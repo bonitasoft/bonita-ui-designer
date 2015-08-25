@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.workspace;
 
 import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.deleteIfExists;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -70,25 +73,35 @@ public class Workspace {
     }
 
     private void ensureWidgetRepositoryFilled() throws IOException {
-        Path widgetRepositorySourcePah = Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI());
-        List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePah);
+        Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI());
+        List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePath);
 
         for (Widget widget : widgets) {
             if (!widgetRepository.exists(widget.getId())) {
-                createDirectories(widgetRepository.resolvePath(widget.getId()));
-                widgetRepository.save(widget);
-                //Widget assets are copied if they exist
-                try {
-                    List<Asset> assets = widgetAssetImporter.load(widget, widgetRepositorySourcePah);
-                    widgetAssetImporter.save(assets, widgetRepositorySourcePah);
-                } catch (IOException e) {
-                    String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
-                    logger.error(error, e);
-                    throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
+                createWidget(widgetRepositorySourcePath, widget);
+            } else {
+                Widget repoWidget = widgetRepository.get(widget.getId());
+                if(!StringUtils.equals(repoWidget.getDesignerVersion(), widget.getDesignerVersion())){
+                    FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
+                    createWidget(widgetRepositorySourcePath, widget);
                 }
             }
         }
         widgetDirectiveBuilder.start(workspacePathResolver.getWidgetsRepositoryPath());
+    }
+
+    private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
+        createDirectories(widgetRepository.resolvePath(widget.getId()));
+        widgetRepository.save(widget);
+        //Widget assets are copied if they exist
+        try {
+            List<Asset> assets = widgetAssetImporter.load(widget, widgetRepositorySourcePath);
+            widgetAssetImporter.save(assets, widgetRepositorySourcePath);
+        } catch (IOException e) {
+            String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
+            logger.error(error, e);
+            throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
+        }
     }
 
 }
