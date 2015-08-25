@@ -23,10 +23,7 @@ import static org.bonitasoft.web.designer.controller.importer.exception.ImportEx
 import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +39,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyIm
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.mocks.PageImportMock;
 import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -51,6 +49,7 @@ import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -101,7 +100,7 @@ public class PageArtefactImporterTest {
 
     @Test
     public void should_unzip_stream_then_import_artefacts_for_a_page() throws Exception {
-        List<Widget> widgets = wMocks.mockWidgetsAsDependencies();
+        List<Widget> widgets = wMocks.mockWidgetsAsAddedDependencies();
         Page page = pMocks.mockPageToBeImported();
 
         importer.execute(aStream());
@@ -112,13 +111,37 @@ public class PageArtefactImporterTest {
 
     @Test
     public void should_return_an_import_report_containing_imported_element_and_imported_dependencies() throws Exception {
-        List<Widget> widgets = wMocks.mockWidgetsAsDependencies();
+        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
 
         ImportReport report = importer.execute(aStream());
 
-        assertThat(report.getDependencies().get("widget")).isEqualTo(widgets);
+        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
+        assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
         assertThat(report.getElement()).isEqualTo(page);
+    }
+
+    @Test
+    public void should_return_an_import_report_saying_that_element_has_been_overridden_when_element_already_exists_in_repository() throws Exception {
+        Page page = pMocks.mockPageToBeImported();
+        when(pageRepository.exists(page.getId())).thenReturn(true);
+
+        ImportReport report = importer.execute(aStream());
+
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.isOverridden()).isTrue();
+    }
+
+    @Test
+    public void should_return_an_import_report_saying_that_element_has_not_been_overridden_when_element_does_not_exists_in_repository() throws Exception {
+        Page page = pMocks.mockPageToBeImported();
+        when(pageRepository.exists(page.getId())).thenReturn(false);
+
+        ImportReport report = importer.execute(aStream());
+
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.isOverridden()).isFalse();
     }
 
     @Test
@@ -183,6 +206,7 @@ public class PageArtefactImporterTest {
     public void should_throw_import_exception_when_an_error_occurs_while_getting_widgets() throws Exception {
         tempDir.newFolderPath("resources",  WIDGETS_FOLDER);
         when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
+
         importer.execute(aStream());
     }
 

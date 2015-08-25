@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.controller.importer;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
 
@@ -30,8 +32,10 @@ import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,20 +56,46 @@ public class ImportReportTest {
     }
 
     @Test
-    public void should_create_a_new_report() throws Exception {
-        Page page = PageBuilder.aPage().build();
-        List<Identifiable> widgets = Arrays.<Identifiable>asList(
-                aWidget().id("first").build(),
-                aWidget().id("second").build());
+    public void should_report_imported_element_when_it_is_a_page() throws Exception {
+        Page importedPage = aPage().build();
+
+        ImportReport report = ImportReport.from(importedPage, new HashMap());
+
+        assertThat(report.getElement()).isEqualTo(importedPage);
+    }
+
+    @Test
+    public void should_report_imported_element_when_it_is_a_widget() throws Exception {
+        Widget importedWidget = aWidget().build();
+
+        ImportReport report = ImportReport.from(importedWidget, new HashMap());
+
+        assertThat(report.getElement()).isEqualTo(importedWidget);
+    }
+
+    @Test
+    public void should_include_added_and_overriden_widget_in_imported_dependencies() throws Exception {
+        Widget newWidget = aWidget().id("newOne").build();
+        Widget existingWidget = aWidget().id("existing").build();
         Map<DependencyImporter, List<?>> dependencies = new HashMap<>();
-        dependencies.put(widgetImporter, widgets);
-        dependencies.put(assetImporter, asList(AssetBuilder.anAsset().build()));
+        dependencies.put(widgetImporter, asList(newWidget, existingWidget));
+        when(widgetImporter.exists(newWidget)).thenReturn(false);   // new widget
+        when(widgetImporter.exists(existingWidget)).thenReturn(true); // already existing widget
 
-        ImportReport report = ImportReport.from(page, dependencies);
+        ImportReport report = ImportReport.from(aPage().build(), dependencies);
 
-        // asset dependencies should not be included
-        assertThat(report.getElement()).isEqualTo(page);
-        assertThat(report.getDependencies().size()).isEqualTo(1);
-        assertThat(report.getDependencies().get("widget")).isEqualTo(widgets);
+        assertThat(report.getDependencies().getAdded().get("widget")).containsOnly(newWidget);
+        assertThat(report.getDependencies().getOverridden().get("widget")).containsOnly(existingWidget);
+    }
+
+    @Test
+    public void should_not_include_assets_in_imported_dependencies() throws Exception {
+        Map<DependencyImporter, List<?>> dependencies = new HashMap<>();
+        dependencies.put(assetImporter, asList(anAsset().build()));
+
+        ImportReport report = ImportReport.from(aPage().build(), dependencies);
+
+        assertThat(report.getDependencies().getAdded()).isNull();
+        assertThat(report.getDependencies().getOverridden()).isNull();
     }
 }

@@ -40,6 +40,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;

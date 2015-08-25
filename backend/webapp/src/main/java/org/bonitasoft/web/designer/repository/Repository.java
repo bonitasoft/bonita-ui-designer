@@ -78,6 +78,11 @@ public interface Repository<T extends Identifiable> {
      */
     Path resolvePathFolder(String id);
 
+    /**
+     * Return true if a component with provided id already exists in repository. False otherwise
+     */
+    boolean exists(String id);
+
     void walk(FileVisitor<? super Path> visitor) throws IOException;
 
     void watch(PathListener pathListener) throws FileSystemException;

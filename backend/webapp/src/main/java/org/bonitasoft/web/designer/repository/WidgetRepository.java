@@ -120,12 +120,4 @@ public class WidgetRepository extends AbstractRepository<Widget> {
         return widget.getProperties();
      }
 
-    /**
-     * Verify that a widget exists in repository
-     *
-     * @return true if the widget exists, false otherwise
-     */
-    public boolean exists(String widgetId) {
-        return Files.exists(resolvePath(widgetId).resolve(widgetId + ".json"));
-    }
 }
