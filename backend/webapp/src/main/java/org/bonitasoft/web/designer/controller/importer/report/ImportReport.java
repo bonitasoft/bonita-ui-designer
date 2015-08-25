@@ -12,50 +12,56 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.controller.importer;
+package org.bonitasoft.web.designer.controller.importer.report;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.bonitasoft.web.designer.controller.importer.dependencies.ComponentDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JsonViewLight;
 
 public class ImportReport {
 
     private Identifiable element;
-    private Map<String, List<?>> dependencies;
+    private Boolean overridden = false;
+    private Dependencies dependencies;
+
+    public ImportReport(Identifiable element, Dependencies dependencies) {
+        this.element = element;
+        this.dependencies = dependencies;
+    }
 
     public static ImportReport from(Identifiable element, Map<DependencyImporter, List<?>> dependencies) {
-        ImportReport report = new ImportReport();
-        report.setElement(element);
-        for (Map.Entry<DependencyImporter, List<?>> entry : dependencies.entrySet()) {
-            DependencyImporter importer = entry.getKey();
-            List<?> l = entry.getValue();
-            if (importer instanceof ComponentDependencyImporter && !l.isEmpty()) {
-                report.addDependency(((ComponentDependencyImporter) entry.getKey()).getComponentName(), l);
-            }
-        }
-        return report;
+        return new ImportReport(element, Dependencies.from(dependencies));
     }
+
 
     public void setElement(Identifiable element) {
         this.element = element;
-    }
-
-    public void addDependency(String componentName, List<?> dependencies) {
-        if (this.dependencies == null) {
-            this.dependencies = new HashMap<>();
-        }
-        this.dependencies.put(componentName, dependencies);
     }
 
     public Identifiable getElement() {
         return element;
     }
 
-    public Map<String, List<?>> getDependencies() {
+    public Boolean isOverridden() {
+        return overridden;
+    }
+
+    public void setOverridden(Boolean overridden) {
+        this.overridden = overridden;
+    }
+
+    public Dependencies getDependencies() {
         return dependencies;
+    }
+
+    public void setDependencies(Dependencies dependencies) {
+        this.dependencies = dependencies;
     }
 }

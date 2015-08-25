@@ -154,6 +154,10 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         }
     }
 
+    public boolean exists(String id) {
+        return Files.exists(resolvePath(id).resolve(id + ".json"));
+    }
+
     @Override
     public void walk(FileVisitor<? super Path> visitor) throws IOException {
         walkFileTree(path, visitor);

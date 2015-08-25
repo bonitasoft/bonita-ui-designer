@@ -31,6 +31,7 @@ import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
@@ -69,11 +70,13 @@ public class ArtefactImporter<T extends Identifiable> {
             T element = loader.load(resources, repository.getComponentName() + ".json");
             Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
+            ImportReport report = buildReport(element, dependencies);
+
             // then save them
             saveArtefactDependencies(resources, dependencies);
             repository.save(element);
 
-            return ImportReport.from(element, dependencies);
+            return report;
         } catch (IOException e) {
             logger.error("Error while getting artefacts, verify the zip content", e);
             throw new ServerImportException("Error while getting artefacts", e);
@@ -83,6 +86,14 @@ public class ArtefactImporter<T extends Identifiable> {
         } finally {
             deleteQuietly(extractDir.toFile());
         }
+    }
+
+    private ImportReport buildReport(T element, Map<DependencyImporter, List<?>> dependencies) {
+        ImportReport report = ImportReport.from(element, dependencies);
+        if (repository.exists(element.getId())) {
+            report.setOverridden(true);
+        }
+        return report;
     }
 
     private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<?>> map) {
