@@ -79,6 +79,13 @@ describe('widget property field controller', function () {
     })).toBe('js/editor/properties-panel/field/integer.html');
   });
 
+  it('should trigger a call to choice-grouped field template when type is choice and choice values are objects', function() {
+    expect(controller.getFieldTemplate({
+      type: 'choice',
+      choiceValues: [{group: 'aGroup', value: 'aValue'}]
+    })).toBe('js/editor/properties-panel/field/choice-grouped.html');
+  });
+
   it('should trigger a call to text field template if type is not supported', function() {
     expect(controller.getFieldTemplate({
       type: 'whatever'

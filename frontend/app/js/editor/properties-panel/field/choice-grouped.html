@@ -1,0 +1,3 @@
+<select ng-model="propertyValue.value"
+        ng-options="choiceValue.value as choiceValue.value  group by choiceValue.group for choiceValue in property.choiceValues"
+        class="form-control"></select>
