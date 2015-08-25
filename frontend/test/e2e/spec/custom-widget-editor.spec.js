@@ -75,6 +75,33 @@ describe('custom widget editor', function() {
     $('#label').sendKeys('updated property');
     $('#default').clear().sendKeys('Default value');
 
+    element.all(by.css('#type option')).then(function(options){
+      options[1].click();
+    });
+    var choices = 'red, green, blue';
+    $('#choices').sendKeys(choices);
+
+    element.all(by.css('#bond option')).then(function(options){
+      options[0].click();
+    });
+
+    expect(element.all(by.css('#choices'))).toEqual([]);
+    expect(element.all(by.css('#default'))).toEqual([]);
+
+    element.all(by.css('#bond option')).then(function(options){
+      options[3].click();
+    });
+
+    element.all(by.css('#type option')).then(function(options){
+      options[1].click();
+    });
+
+    expect($('#choices').getAttribute('value')).toEqual(choices);
+    element.all(by.css('#default option')).then(function(options){
+      options[1].click();
+    });
+    expect($('#default option[selected]').getText()).toEqual('red');
+
     $('button[type="submit"]').click();
 
     var properties = getPropertyNamesInList();
