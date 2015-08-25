@@ -83,10 +83,12 @@
                             <strong class="property-name">{{ property.name }}</strong><br/>
                             <small translate>Label</small>:
                             {{ property.label }}<br/>
-                            <small translate>Type</small>:
-                            {{property.type}}<br/>
+                            <small translate>Bond</small>:
+                            {{property.bond}}<br/>
+                            <span ng-if="property.bond !== 'variable' &amp;&amp; property.bond !== 'interpolation'"><small translate>Type</small>:
+                            {{property.type}}<br/></span>
                             <span ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}<br/></span>
-                            <span><small translate>Default value</small>: {{ property.defaultValue }}</span>
+                            <span ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</span>
                         </td>
                         <td class="col-xs-2 Property-actions">
                             <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
@@ -115,27 +117,34 @@
                     <input id="label" class="form-control" name="label" ng-model="currentParam.label" required>
                 </div>
                 <div class="form-group">
+                    <label for="bond" class="control-label control-label--required" translate>Bond</label>
+                    <select id="bond" class="form-control" name="bond" ng-model="selectedBond"
+                            ng-options="bond.name for bond in bonds track by bond.name" ng-change="updateType()" required></select>
+                </div>
+                <div class="form-group" ng-if="selectedBond.name === 'constant' || selectedBond.name === 'expression'">
                     <label for="type" class="control-label control-label--required" translate>Type</label>
                     <select id="type" class="form-control" name="type" ng-model="currentParam.type"
                             ng-options="type for type in types" ng-change="currentParam.defaultValue = null" required></select>
                 </div>
-                <div class="form-group" ng-if="currentParam.type === 'choice'">
+                <div class="form-group" ng-if="currentParam.type === 'choice' && selectedBond.name !== 'variable' && selectedBond.name !== 'interpolation'">
                     <label for="choices" class="control-label control-label--required" translate>Choices (comma separated)</label>
                     <input id="choices" class="form-control" name="choices" ng-model="currentParam.choiceValues" ng-list required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-if="selectedBond.name !== 'variable'">
+                    <div ng-switch="currentParam.type">
                     <label for="default" class="control-label" translate>Default</label>
                     <input id="default" class="form-control" name="default" ng-model="currentParam.defaultValue"
-                           ng-if="currentParam.type === 'text' || currentParam.type === 'html'">
+                           ng-switch-default>
                     <input id="default" type="number" class="form-control" name="default"
-                           ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'integer'">
+                           ng-model="currentParam.defaultValue" ng-switch-when="integer">
                     <select id="default" class="form-control" name="default" ng-init="currentParam.defaultValue = true"
-                           ng-model="currentParam.defaultValue" ng-options="key for key in [true, false]" ng-if="currentParam.type === 'boolean'">
+                           ng-model="currentParam.defaultValue" ng-options="key for key in [true, false]" ng-switch-when="boolean">
                     <input id="default" type="text" class="form-control" name="default" ng-list
-                           ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'collection'">
+                           ng-model="currentParam.defaultValue" ng-switch-when="collection">
                     <select id="default" class="form-control" name="default"
-                            ng-model="currentParam.defaultValue" ng-if="currentParam.type === 'choice'"
+                            ng-model="currentParam.defaultValue" ng-switch-when="choice"
                             ng-options="choice for choice in currentParam.choiceValues"></select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -23,12 +23,45 @@ angular.module('bonitasoft.designer.custom-widget').controller('PropertyEditorPo
    * @type {Array}
    */
   $scope.types = ['text', 'choice', 'html', 'integer', 'boolean', 'collection'];
+  /**
+   * All bonds available for the properties
+   * @type {Array}
+   */
+  $scope.selectedBond = {
+    name: 'expression'
+  };
+  $scope.bonds = [{
+    name: 'variable',
+    type: 'text'
+  }, {
+    name: 'expression'
+  }, {
+    name: 'interpolation',
+    type: 'text'
+  }, {
+    name: 'constant'
+  }];
 
   // default type is text
-  $scope.currentParam = $scope.paramToUpdate ? angular.copy(param) : {type: 'text'};
+  $scope.currentParam = $scope.paramToUpdate ? angular.copy(param) : {
+    type: 'text'
+  };
+
+  $scope.updateType = function() {
+    if ($scope.selectedBond && $scope.selectedBond.type) {
+      $scope.currentParam.type = $scope.selectedBond.type;
+    }
+  };
 
   $scope.ok = function() {
-    $modalInstance.close({param: $scope.currentParam, paramToUpdate: $scope.paramToUpdate});
+    if ($scope.selectedBond.name === 'variable') {
+      $scope.currentParam.defaultValue = null;
+    }
+    $scope.currentParam.bond = $scope.selectedBond.name;
+    $modalInstance.close({
+      param: $scope.currentParam,
+      paramToUpdate: $scope.paramToUpdate
+    });
   };
 
   $scope.cancel = function() {
