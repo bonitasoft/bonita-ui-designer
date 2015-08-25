@@ -54,6 +54,11 @@ angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirect
 
   this.getFieldTemplate = function (property) {
     var type = supportedTypes.indexOf(property.type) >= 0 ? property.type : 'text';
+
+    if (type === 'choice' && angular.isObject(property.choiceValues[0])) {
+      type = 'choice-grouped';
+    }
+
     return 'js/editor/properties-panel/field/' + type + '.html';
   };
 
