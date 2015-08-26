@@ -27,9 +27,9 @@ public class Migration<A extends Versioned> {
 
     protected static final Logger logger = LoggerFactory.getLogger(Migration.class);
     private final String version;
-    private final List<MigrationStep<A>> migrationSteps;
+    private final MigrationStep<A>[] migrationSteps;
 
-    public Migration(String version, List<MigrationStep<A>> migrationSteps) {
+    public Migration(String version, MigrationStep<A>... migrationSteps) {
         this.version = version;
         this.migrationSteps = migrationSteps;
     }

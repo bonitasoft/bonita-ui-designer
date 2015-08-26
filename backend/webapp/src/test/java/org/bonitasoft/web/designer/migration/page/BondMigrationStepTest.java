@@ -34,6 +34,7 @@ import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +65,7 @@ public class BondMigrationStepTest {
 
     @Before
     public void setUp() throws Exception {
-        bondMigrationStep = new BondMigrationStep(new ComponentVisitor(), widgetRepository);
+        bondMigrationStep = new BondMigrationStep(new ComponentVisitor(), widgetRepository, new VisitorFactory());
 
         when(widgetRepository.get("widgetId")).thenReturn(
                 aWidget().property(property).build());
