@@ -26,7 +26,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
-import org.bonitasoft.web.designer.visitor.AnyContainerVisitor;
+import org.bonitasoft.web.designer.visitor.AnyLocalContainerVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,10 +34,10 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AnyContainerVisitorTest {
+public class AnyLocalContainerVisitorTest {
 
     @InjectMocks
-    private AnyContainerVisitor anyContainerVisitor;
+    private AnyLocalContainerVisitor anyLocalContainerVisitor;
 
     private Component component;
 
@@ -48,7 +48,7 @@ public class AnyContainerVisitorTest {
 
     @Test
     public void should_not_collect_components() throws Exception {
-        assertThat(anyContainerVisitor.visit(component)).isEmpty();
+        assertThat(anyLocalContainerVisitor.visit(component)).isEmpty();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class AnyContainerVisitorTest {
                 .with(component)
                 .build();
 
-        assertThat(anyContainerVisitor.visit(container)).containsExactly(container);
+        assertThat(anyLocalContainerVisitor.visit(container)).containsExactly(container);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class AnyContainerVisitorTest {
                         .with(container))
                 .build();
 
-        assertThat(anyContainerVisitor.visit(tabsContainer)).containsExactly(tabsContainer, container);
+        assertThat(anyLocalContainerVisitor.visit(tabsContainer)).containsExactly(tabsContainer, container);
     }
 
     @Test
@@ -76,14 +76,14 @@ public class AnyContainerVisitorTest {
         Container container = aContainer().build();
         FormContainer formContainer = aFormContainer().with(container).build();
 
-        assertThat(anyContainerVisitor.visit(formContainer)).containsExactly(formContainer, container);
+        assertThat(anyLocalContainerVisitor.visit(formContainer)).containsExactly(formContainer, container);
     }
 
     @Test
     public void should_collect_container_within_previewable() throws Exception {
         Container container = aContainer().build();
 
-        assertThat(anyContainerVisitor.visit(aPage()
+        assertThat(anyLocalContainerVisitor.visit(aPage()
                 .with(container)
                 .build())).containsExactly(container);
     }

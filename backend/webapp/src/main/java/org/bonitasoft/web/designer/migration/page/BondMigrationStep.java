@@ -30,13 +30,14 @@ import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.bonitasoft.web.designer.visitor.AnyContainerVisitor;
+import org.bonitasoft.web.designer.visitor.VisitorFactory;
 
 @Named
 public class BondMigrationStep implements MigrationStep<Page> {
 
     private ComponentVisitor componentVisitor;
     private WidgetRepository widgetRepository;
+    private VisitorFactory visitorFactory;
 
     private Map<BondType, BondMigrationStrategy> migrationStrategies = ImmutableMap.<BondType, BondMigrationStrategy>builder()
             .put(BondType.CONSTANT, new ConstantBondMigrationStrategy())
@@ -46,9 +47,10 @@ public class BondMigrationStep implements MigrationStep<Page> {
             .build();
 
     @Inject
-    public BondMigrationStep(ComponentVisitor componentVisitor, WidgetRepository widgetRepository) {
+    public BondMigrationStep(ComponentVisitor componentVisitor, WidgetRepository widgetRepository, VisitorFactory visitorFactory) {
         this.componentVisitor = componentVisitor;
         this.widgetRepository = widgetRepository;
+        this.visitorFactory = visitorFactory;
     }
 
     @Override
@@ -63,7 +65,7 @@ public class BondMigrationStep implements MigrationStep<Page> {
             }
         }
 
-        for(Element element: page.accept(new AnyContainerVisitor())) {
+        for(Element element: page.accept(visitorFactory.createAnyContainerVisitor())) {
             for (Map.Entry<String, PropertyValue> entry : element.getPropertyValues().entrySet()) {
                 migrationStrategies
                         .get(BondType.EXPRESSION)

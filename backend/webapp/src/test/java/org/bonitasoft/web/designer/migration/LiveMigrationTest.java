@@ -70,7 +70,7 @@ public class LiveMigrationTest {
 
     @Test
     public void should_migrate_a_page() throws Exception {
-        Migration<Page> migration = new Migration<>("1.0.2", Collections.<MigrationStep<Page>>emptyList());
+        Migration<Page> migration = new Migration<>("1.0.2", mock(MigrationStep.class));
         LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
         Page page = createPage("1.0.1");
 
@@ -93,7 +93,7 @@ public class LiveMigrationTest {
 
     @Test
     public void should_not_save_an_artifact_already_migrated() throws Exception {
-        Migration<Page> migration = new Migration<>("1.0.2", Collections.<MigrationStep<Page>>emptyList());
+        Migration<Page> migration = new Migration<>("1.0.2", mock(MigrationStep.class));
         LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
         createPage("1.0.2");
 

@@ -70,6 +70,7 @@ import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
+import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.fedorahosted.tennera.jgettext.PoParser;
@@ -269,13 +270,18 @@ public class DesignerConfig {
     @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository, BondMigrationStep bondMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
-                new Migration<>("1.0.2", Collections.<MigrationStep<Page>>singletonList(new AssetIdMigrationStep<Page>())),
-                new Migration<>("1.0.3", Collections.<MigrationStep<Page>>singletonList(bondMigrationStep))));
+                new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
+                new Migration<>("1.0.3", bondMigrationStep)));
     }
 
     @Bean
     public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
         return new LiveMigration<>(widgetRepository, widgetLoader, singletonList(
-                new Migration<>("1.0.2", Collections.<MigrationStep<Widget>>singletonList(new AssetIdMigrationStep<Widget>()))));
+                new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>())));
+    }
+
+    @Bean
+    public VisitorFactory visitorFactory() {
+        return new VisitorFactory();
     }
 }
