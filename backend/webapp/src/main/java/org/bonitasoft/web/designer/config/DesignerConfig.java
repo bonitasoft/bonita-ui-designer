@@ -18,6 +18,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.validation.Validation;
@@ -47,6 +48,7 @@ import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.Versioned;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -278,6 +280,11 @@ public class DesignerConfig {
     public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
         return new LiveMigration<>(widgetRepository, widgetLoader, singletonList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>())));
+    }
+
+    @Bean
+    public List<LiveMigration> liveMigrations(LiveMigration<Page> pageLiveMigration, LiveMigration<Widget> widgetLiveMigration) {
+        return Lists.<LiveMigration>newArrayList(pageLiveMigration, widgetLiveMigration);
     }
 
     @Bean

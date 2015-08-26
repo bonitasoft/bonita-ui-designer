@@ -15,7 +15,9 @@
 package org.bonitasoft.web.designer.workspace;
 
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
@@ -24,6 +26,7 @@ import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.Repository;
 import org.springframework.web.context.ServletContextAware;
 
 /**
@@ -37,20 +40,25 @@ public class WorkspaceInitializer implements ServletContextAware {
     @Inject
     private Workspace workspace;
 
-    @Inject
-    private LiveMigration<Page> pageLiveMigration;
-
-    @Inject
-    private LiveMigration<Widget> widgetLiveMigration;
+    private List<LiveMigration> migrations;
 
     private ServletContext servletContext;
+
+    /**
+     * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
+     */
+    @Resource(name = "liveMigrations")
+    public void setMigrations(List<LiveMigration> migrations) {
+        this.migrations = migrations;
+    }
 
     @PostConstruct
     public void contextInitialized() {
         try {
             workspace.initialize();
-            pageLiveMigration.start();
-            widgetLiveMigration.start();
+            for (LiveMigration migration : migrations) {
+                migration.start();
+            }
         } catch (IOException e) {
             throw new DesignerInitializerException("Unable to initialize workspace", e);
         }
