@@ -87,53 +87,7 @@
         </tab>
 
         <tab heading="{{ 'Properties' | translate }}">
-            <p translate>
-                There are several types of property value: Constant, dynamic value, bidirectional bond, and
-                interpolation.
-            </p>
-
-            <dl class="Guidance-definitionList">
-                <dt translate>Constant</dt>
-                <dd translate>A property that requires a constant value is presented in the Properties panel as a radio
-                    button
-                    set,
-                    drop-down list, or number selector (for the Width property). Select the required value.
-                </dd>
-
-                <dt translate>Dynamic value - <i class="ui-icon ui-expression"></i></dt>
-                <dd><translate> Use a dynamic value field to specify a constant (the default) or an expression. Click the
-                    expression
-                    icon fx to switch from constant to expression. Click the constant icon X to switch from expression
-                    to
-                    constant. An expression can include a variable to make the property value dynamic, or can simply be
-                    the
-                    name of a variable. You can apply a filter to a variable value using a pipe. The binding to the
-                    variable
-                    is a read. If you want to write to the variable, use a bidirectional bond.
-                    Examples:</translate>
-                    <ul>
-                        <li translate>Define a condition for widget visibility, <em>userAge &gt; 18</em></li>
-                        <li translate>Define table headers as the value of a variable: <em>myArrayVariable</em></li>
-                        <li translate>Apply a filter to the value of a variable: <em>selectedUser | json</em></li>
-                    </ul>
-                </dd>
-
-                <dt translate>Bidirectional bond - <i class="fa fa-link"></i></dt>
-                <dd translate>Use a bidirectional field to specify a read-write binding between the
-                    property value and a variable.
-                </dd>
-
-                <dt translate>Interpolation - <i class="fa fa-paragraph"></i></dt>
-                <dd translate>Use an interpolation field to enter text to display in the widget. The
-                    text can include variables that
-                    are interpreted using AngularJS interpolation. When the page is displayed, the variables are
-                    replaced by
-                    the interpolated values. Specify a variable as a simple expression enclosed in double braces, using
-                    the
-                    same format as for a dynamic value field.
-                    Example: I'm sorry, <em ng-non-bindable="">{{ user.name | uppercase }}</em>. I'm afraid I can't do that.
-                </dd>
-            </dl>
+            <ng-include src="'js/editor/help/property-bond-help.html'"/>
         </tab>
     </tabset>
 </div>
