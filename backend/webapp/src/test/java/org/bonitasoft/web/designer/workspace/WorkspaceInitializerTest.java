@@ -16,40 +16,43 @@ package org.bonitasoft.web.designer.workspace;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
 
+@RunWith(MockitoJUnitRunner.class)
 public class WorkspaceInitializerTest {
 
     private static final String WAR_BASE_PATH = "src/main/webapp";
 
     @Mock
+    private LiveMigration<Page> pageLiveMigration;
+
+    @Mock
+    private LiveMigration<Widget> widgetLiveMigration;
+
+    @Mock
     private Workspace workspace;
-
-    @Mock
-    LiveMigration<Page> pageLiveMigration;
-
-    @Mock
-    LiveMigration<Widget> widgetLiveMigration;
 
     @InjectMocks
     private WorkspaceInitializer workspaceInitializer;
 
     @Before
     public void initializeWorkspaceInitializer() {
-        initMocks(this);
         workspaceInitializer.setServletContext(new MockServletContext(WAR_BASE_PATH, new FileSystemResourceLoader()));
+        workspaceInitializer.setMigrations(Arrays.<LiveMigration>asList(pageLiveMigration, widgetLiveMigration));
     }
 
     @Test
