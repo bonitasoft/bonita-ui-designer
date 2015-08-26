@@ -76,24 +76,24 @@ describe('custom widget editor', function() {
     $('#default').clear().sendKeys('Default value');
 
     element.all(by.css('#type option')).then(function(options){
-      options[1].click();
+      options[1].click(); //expression
     });
     var choices = 'red, green, blue';
     $('#choices').sendKeys(choices);
 
     element.all(by.css('#bond option')).then(function(options){
-      options[0].click();
+      options[3].click(); //variable
     });
 
     expect(element.all(by.css('#choices'))).toEqual([]);
     expect(element.all(by.css('#default'))).toEqual([]);
 
     element.all(by.css('#bond option')).then(function(options){
-      options[3].click();
+      options[0].click(); //constant
     });
 
     element.all(by.css('#type option')).then(function(options){
-      options[1].click();
+      options[1].click(); //choice
     });
 
     expect($('#choices').getAttribute('value')).toEqual(choices);
