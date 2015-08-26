@@ -11,10 +11,8 @@ describe('PropertyEditorPopupCtrl', function() {
     $controller('PropertyEditorPopupCtrl', {
       $scope: $scope,
       $modalInstance:  modalInstance,
-      param: {type: 'page'},
-      $timeout: $timeout
+      param: {type: 'page'}
     });
-    $timeout.flush();
   }));
 
   it('should close the popup and pass params', function() {

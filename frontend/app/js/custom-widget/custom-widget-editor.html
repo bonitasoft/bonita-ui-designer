@@ -107,7 +107,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="name" class="control-label control-label--required" translate>Name</label> &nbsp;<small class="text-muted" translate>(used in your template and controller)</small>
-                    <input id="name" class="form-control" name="name" ng-model="currentParam.name" ng-pattern="'[a-zA-Z0-9]*$'" required autofocus="animationFinished">
+                    <input id="name" class="form-control" name="name" ng-model="currentParam.name" ng-pattern="'[a-zA-Z0-9]*$'" required autofocus>
                     <span ng-if="propertyForm.name.$error.pattern" class="text-danger" translate>Property names must start with a letter and contain only alphanumeric characters</span>
                 </div>
                 <div class="form-group">

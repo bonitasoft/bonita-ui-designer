@@ -29,7 +29,7 @@
     .config(configureModule);
 
     /* @ngInject */
-    function configureModule($compileProvider, boDraggableItemProvider, $tooltipProvider, $stateProvider, $urlRouterProvider, appStates) {
+    function configureModule($compileProvider, boDraggableItemProvider, $tooltipProvider, $stateProvider, $urlRouterProvider, appStates, $modalProvider ) {
 
       /**
        * For the build, gulp replaces '%debugMode%' by false. For the dev no need to replace, it's eval to true.
@@ -51,6 +51,11 @@
       /* create ui-router states */
       Object.keys(appStates).forEach(function(stateName){
         $stateProvider.state(stateName, appStates[stateName]);
+      });
+
+      angular.extend($modalProvider.options, {
+        //BS-14199 : change modal appearance animation for IE not to put cursor anywhere during animation
+        windowClass: 'modal fade in'
       });
 
     }

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.custom-widget').controller('PropertyEditorPopupCtrl', function($scope, param, $modalInstance, $timeout) {
+angular.module('bonitasoft.designer.custom-widget').controller('PropertyEditorPopupCtrl', function($scope, param, $modalInstance) {
 
   'use strict';
 
@@ -34,12 +34,4 @@ angular.module('bonitasoft.designer.custom-widget').controller('PropertyEditorPo
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-
-  // Delay autofocus once modal is fully appeared
-  // FIX IE bug on focus position
-  $scope.animationFinished = false;
-  $timeout(function() {
-    $scope.animationFinished = true;
-  }, 300);
-
 });
