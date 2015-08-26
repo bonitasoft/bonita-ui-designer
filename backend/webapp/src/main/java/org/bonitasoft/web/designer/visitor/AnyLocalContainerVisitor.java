@@ -31,7 +31,7 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 /**
  * A visitor
  */
-public class AnyContainerVisitor implements ElementVisitor<Iterable<Element>> {
+public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element>> {
 
     @Override
     public Iterable<Element> visit(Container container) {
@@ -52,7 +52,7 @@ public class AnyContainerVisitor implements ElementVisitor<Iterable<Element>> {
 
                     @Override
                     public Iterable<Element> apply(Tab tab) {
-                        return tab.getContainer().accept(AnyContainerVisitor.this);
+                        return tab.getContainer().accept(AnyLocalContainerVisitor.this);
                     }
                 })));
     }
@@ -72,7 +72,7 @@ public class AnyContainerVisitor implements ElementVisitor<Iterable<Element>> {
 
             @Override
             public Iterable<Element> apply(Element element) {
-                return element.accept(AnyContainerVisitor.this);
+                return element.accept(AnyLocalContainerVisitor.this);
             }
         }));
     }

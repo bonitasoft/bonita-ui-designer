@@ -39,7 +39,7 @@ public class MigrationTest {
 
     @Before
     public void setUp() throws Exception {
-        migration = new Migration<>("1.0.1", singletonList(migrationStep));
+        migration = new Migration<>("1.0.1", migrationStep);
     }
 
     @Test
