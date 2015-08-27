@@ -225,14 +225,15 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
   /**
    * Removes the currently selected component (widget or container) from its parent row. A component must be selected
    * before calling this function.
+   * If a destinationRow is given, it means the component is moved so current row may not have to be deleted
    */
-  $scope.removeCurrentComponent = function(item) {
+  $scope.removeCurrentComponent = function(item, destinationRow) {
     var component = $scope.currentComponent || item;
-    var row = component.$$parentContainerRow.row;
-    var componentIndex = row.indexOf(component);
-    row.splice(componentIndex, 1);
-    if (row.length === 0) {
-      removeRow(component.$$parentContainerRow.container, row);
+    var currentRow = component.$$parentContainerRow.row;
+    var componentIndex = currentRow.indexOf(component);
+    currentRow.splice(componentIndex, 1);
+    if (currentRow.length === 0 && destinationRow !== currentRow) {
+      removeRow(component.$$parentContainerRow.container, currentRow);
     }
     $scope.currentComponent = null;
   };
