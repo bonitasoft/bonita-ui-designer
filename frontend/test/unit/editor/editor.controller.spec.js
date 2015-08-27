@@ -439,10 +439,46 @@ describe('EditorCtrl', function() {
     };
 
     $scope.addComponent(dragData, 0);
+    var component = $scope.currentComponent;
+    $scope.deselectComponent();
 
-    $scope.removeCurrentComponent();
+    $scope.removeCurrentComponent(component);
 
     expect(container.rows[1]).toBeUndefined();
+    expect($scope.currentComponent).toBeNull();
+  });
+
+  it('should not remove row when moving component in the same row', function() {
+
+    var container = {
+      rows: [
+        [], []
+      ]
+    };
+
+    $scope.currentContainerRow = {
+      container: container,
+      row: container.rows[1]
+    };
+
+    var dragData = {
+      create: function() {
+        return {
+          item: 'foo',
+          $$parentContainerRow: $scope.currentContainerRow,
+          dimension: {
+            xs: 12
+          }
+        };
+      }
+    };
+
+    $scope.addComponent(dragData, 0);
+    var component = $scope.currentComponent;
+
+    $scope.removeCurrentComponent(component, component.$$parentContainerRow.row);
+
+    expect(container.rows[1]).toEqual([]);
     expect($scope.currentComponent).toBeNull();
   });
 
