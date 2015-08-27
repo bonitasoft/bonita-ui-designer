@@ -17,9 +17,8 @@ module.exports = function (config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'bower_components/angular-gettext/dist/angular-gettext.min.js',
 
-      'src/main/generator/js/generator.js',
-      'src/main/generator/js/services/*.js',
-      'src/main/generator/js/directives/*.js',
+      'src/main/generator/js/generator.module.js',
+      'src/main/generator/js/**/*.js',
       'target/widget-directives/**/*.js',
       'src/test/javascript/**/!(karma.conf).js'
     ],

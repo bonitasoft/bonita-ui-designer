@@ -24,8 +24,5 @@
     'pb.widgets',
     'pb.generator'
   ])
-    .config(function ($httpProvider) {
-      $httpProvider.interceptors.push('httpActivityInterceptor');
-    });
 })();
 
