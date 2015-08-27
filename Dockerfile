@@ -15,7 +15,7 @@ EXPOSE 8080
 CMD java -jar ui-designer-standalone.jar
 
 # add build jar in the current directory of the image (/data)
-ADD ./backend/webapp/target/ui-designer-1.0.5-standalone.jar /data/ui-designer-standalone.jar
+ADD ./backend/webapp/target/ui-designer-1.0.7-standalone.jar /data/ui-designer-standalone.jar
 
 
 
