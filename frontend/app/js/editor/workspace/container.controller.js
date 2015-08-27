@@ -53,7 +53,7 @@ angular.module('bonitasoft.designer.directives').controller('ContainerDirectiveC
     }
 
     $scope.editor.selectRow($scope.container, row);
-    $scope.editor.removeCurrentComponent(data);
+    $scope.editor.removeCurrentComponent(data, row);
   };
 
   $scope.removeRow = function (row) {
