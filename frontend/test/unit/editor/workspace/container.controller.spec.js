@@ -168,7 +168,7 @@ describe('ContainerDirectiveCtrl', function() {
       it('should remove the current item on drop', function() {
         spyOn(componentUtils, 'isMovable').and.returnValue(true);
         $scope.dropItem(dataWidget, []);
-        expect(mockEditor.removeCurrentComponent).toHaveBeenCalledWith(dataWidget);
+        expect(mockEditor.removeCurrentComponent).toHaveBeenCalledWith(dataWidget, []);
       });
 
     });
