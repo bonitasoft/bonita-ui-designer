@@ -6,6 +6,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var html2js = require('gulp-ng-html2js');
 var merge = require('merge-stream');
 var gulpIf = require('gulp-if');
+var order = require('gulp-order');
 
 var inlineJSON = require('./utils.js').inlineJSON;
 var gettextWidget = require('./gettext-widget.js');
@@ -83,6 +84,10 @@ module.exports = function(gulp, config) {
       }));
 
     return merge(app, tpl)
+      .pipe(order([
+        '**/*.module.js',
+        '**/*.js'
+      ]))
       .pipe(sourcemaps.init())
       .pipe(concat('generator.min.js'))
       .pipe(uglify())
