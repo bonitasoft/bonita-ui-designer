@@ -272,7 +272,6 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
   $scope.saveAs = function(page) {
     var modalInstance = $modal.open({
       templateUrl: 'js/editor/save-as-popup.html',
-      backdrop: 'static',
       controller: function($scope, $modalInstance, page) {
         $scope.page = page;
         $scope.newName = page.name;
@@ -356,7 +355,6 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
   $scope.openHelp = function() {
     $modal.open({
       templateUrl: 'js/editor/help-popup.html',
-      backdrop: 'static',
       size: 'lg',
       resolve: {
         pageEdition: function(){

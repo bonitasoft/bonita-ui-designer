@@ -48,7 +48,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   $scope.deletePage = function(page) {
     var modalInstance = $modal.open({
       templateUrl: 'js/home/confirm-deletion-popup.html',
-      backdrop: 'static',
       windowClass: 'modal-centered',
       controller: 'DeletionPopUpController',
       resolve: {
@@ -104,7 +103,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
     var modalInstance = $modal.open({
       templateUrl: template,
-      backdrop: 'static',
       windowClass: 'modal-centered',
       controller: 'DeletionPopUpController',
       resolve: {
@@ -129,7 +127,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   $scope.importElement = function(type, title){
     var modalInstance = $modal.open({
       templateUrl: 'js/home/import-artifact.html',
-      backdrop: 'static',
       windowClass: 'modal-centered',
       controller: function($scope, $modalInstance, alerts) {
         $scope.importUrl = 'import/' + type;
@@ -210,7 +207,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   $scope.openHelp = function() {
     $modal.open({
       templateUrl: 'js/home/help-popup.html',
-      backdrop: 'static',
       size: 'lg',
       controller: function($scope, $modalInstance) {
         $scope.cancel = function() {

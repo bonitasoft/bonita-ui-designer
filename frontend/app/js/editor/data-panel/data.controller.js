@@ -62,7 +62,6 @@ angular.module('bonitasoft.designer.data-panel').controller('DataCtrl', function
   $scope.openDataPopup = function(key) {
     var modalInstance = $modal.open({
       templateUrl: 'js/editor/data-panel/data-popup.html',
-      backdrop: 'static',
       controller: 'DataPopupController',
       resolve: {
         mode: function() {
@@ -84,7 +83,6 @@ angular.module('bonitasoft.designer.data-panel').controller('DataCtrl', function
   $scope.openHelp = function() {
     $modal.open({
       templateUrl: 'js/editor/data-panel/help-popup.html',
-      backdrop: 'static',
       size: 'lg',
       controller: function($scope, $modalInstance) {
         $scope.cancel = function() {

@@ -57,7 +57,6 @@
 
       $modal.open({
         templateUrl: 'js/assets/asset-preview-popup.html',
-        backdrop: 'static',
         controller: 'AssetPreviewPopupCtrl',
         resolve: {
           asset: function () {
@@ -88,7 +87,6 @@
 
       var modalInstance = $modal.open({
         templateUrl: 'js/assets/asset-popup.html',
-        backdrop: 'static',
         controller: 'AssetPopupCtrl',
         resolve: {
           asset: function () {
@@ -130,7 +128,6 @@
     $scope.openHelp = function(elm) {
       $modal.open({
         templateUrl: 'js/assets/help-popup.html',
-        backdrop: 'static',
         size: 'lg',
         controller: function($scope, $modalInstance) {
           $scope.isPage = (elm !== 'widget');
