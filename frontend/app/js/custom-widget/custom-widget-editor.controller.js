@@ -79,7 +79,6 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
   $scope.saveAs = function(widget) {
     var modalInstance = $modal.open({
       templateUrl: 'js/custom-widget/save-as-popup.html',
-      backdrop: 'static',
       controller: function($scope, $modalInstance, widget) {
         $scope.widget = widget;
         $scope.newName = widget.name;
@@ -117,7 +116,6 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
 
     var modalInstance = $modal.open({
       templateUrl: 'createProperty.html',
-      backdrop: 'static',
       controller: 'PropertyEditorPopupCtrl',
       resolve: {
         param: function() {

@@ -54,6 +54,7 @@
       });
 
       angular.extend($modalProvider.options, {
+        backdrop: 'static',
         //BS-14199 : change modal appearance animation for IE not to put cursor anywhere during animation
         windowClass: 'modal fade in'
       });
