@@ -1,7 +1,7 @@
 <div class="ui-alert-wrapper" ng-show="alerts.length > 0">
     <div class="ui-alert ui-alert-{{alert.type}}" ng-repeat="alert in alerts">
         <button type="button" class="close" ng-click="remove($index)" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 translate>{{ alert.title || alert.type }}</h4>
-        <p ng-bind-html="alert.content"></p></div>
+        <h4>{{ alert.title || alert.type | translate }}</h4>
+        <p alert-content="alert"></p>
     </div>
 </div>
