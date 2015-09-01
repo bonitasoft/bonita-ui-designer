@@ -14,7 +14,7 @@ describe('UI designer: home', function () {
   });
 
 
-  it('should import a page', function(){
+  it('should import a page and display import report', function(){
     var button = $('#pages .btn[title="Import a page or a form"]');
     var input = $('.file-upload-input');
     var upload = element(by.partialButtonText('Import'));
@@ -34,6 +34,8 @@ describe('UI designer: home', function () {
     pages.count().then(function(nb){
       expect(nb).toEqual(nbPages + 1);
     });
+
+    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Page testImport successfully added')
   });
 
   it('should list widgets', function(){
@@ -42,7 +44,7 @@ describe('UI designer: home', function () {
   });
 
 
-  it('should import a custom widget', function(){
+  it('should import a custom widget and display an import report', function(){
     var button = $('#widgets .btn[title="Import a widget"]');
     var input = $('.file-upload-input');
     var upload = element(by.partialButtonText('Import'));
@@ -62,6 +64,8 @@ describe('UI designer: home', function () {
     widgets.count().then(function(nb){
       expect(nb).toEqual(nbWidgets + 1);
     });
+
+    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Widget testImport successfully added')
   });
 
 });
