@@ -30,7 +30,7 @@ describe('alerts', function () {
 
     expect(element.find('div.ui-alert').hasClass('ui-alert-error')).toBeTruthy();
     expect(element.find('h4').text()).toBe('there was an error');
-    expect(element.find('p').html()).toBe('<ul><li>too bad</li><li>nop</li></ul>');
+    expect(element.find('p ul').html()).toBe('<li>too bad</li><li>nop</li>');
   });
 
   it('should display a success message', function () {
@@ -48,7 +48,7 @@ describe('alerts', function () {
 
     expect(element.find('div.ui-alert').hasClass('ui-alert-success')).toBeTruthy();
     expect(element.find('h4').text()).toBe('You rocks');
-    expect(element.find('p').html()).toBe('<ul><li>yep</li><li>that is true</li></ul>');
+    expect(element.find('p ul').html()).toBe('<li>yep</li><li>that is true</li>');
   });
 
   it('should display a warning message', function () {
@@ -66,7 +66,7 @@ describe('alerts', function () {
 
     expect(element.find('div.ui-alert').hasClass('ui-alert-warning')).toBeTruthy();
     expect(element.find('h4').text()).toBe('Winter is coming');
-    expect(element.find('p').html()).toBe('<b>Keep your eyes open</b>');
+    expect(element.find('p b').text()).toBe('Keep your eyes open');
   });
 
   it('should disappear', function () {

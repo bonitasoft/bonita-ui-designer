@@ -30,6 +30,6 @@ angular.module('bonitasoft.designer.common.directives').directive('alerts', func
         alerts.remove(index);
       };
     },
-    templateUrl: 'js/common/directives/alert.html'
+    templateUrl: 'js/common/directives/alerts.html'
   };
 });
