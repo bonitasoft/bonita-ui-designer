@@ -128,30 +128,15 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     var modalInstance = $modal.open({
       templateUrl: 'js/home/import-artifact.html',
       windowClass: 'modal-centered',
-      controller: function($scope, $modalInstance, alerts) {
-        $scope.importUrl = 'import/' + type;
-        $scope.filename = '';
-        $scope.importType = type;
-        $scope.popupTitle = title;
-
-        $scope.onSuccess = function(response) {
-          //Even if a problem occurs in the backend a response is sent with a message
-          //If the message has a type and a message this an error
-          if(response && response.type && response.message){
-            alerts.addError(response.message);
-          }
-          $modalInstance.close();
-        };
-
-        $scope.onError = function(error) {
-          alerts.addError(error.message);
-          $modalInstance.dismiss('cancel');
-        };
-
-
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
+      controller: 'ImportArtifactController',
+      controllerAs: 'import',
+      resolve: {
+        type: function() {
+          return type;
+        },
+        title: function() {
+          return title;
+        }
       }
     });
 
