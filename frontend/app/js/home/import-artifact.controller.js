@@ -4,9 +4,10 @@
     .module('bonitasoft.designer.home')
     .controller('ImportArtifactController', ImportArtifactController);
 
-  function ImportArtifactController($modalInstance, alerts, type, title) {
+  function ImportArtifactController($modalInstance, alerts, gettextCatalog, type, title) {
 
     var vm = this;
+    vm.type = type;
     vm.url = 'import/' + type;
     vm.filename = '';
     vm.popupTitle = title;
@@ -25,6 +26,11 @@
         alerts.addError(response.message);
         $modalInstance.dismiss('cancel');
       } else {
+        alerts.addSuccess({
+          title: gettextCatalog.getString('Successful import'),
+          contentUrl: 'js/home/import-artifact-success-message.html',
+          context: angular.extend(response, { type: vm.type })
+        }, 15000);
         $modalInstance.close();
       }
     }

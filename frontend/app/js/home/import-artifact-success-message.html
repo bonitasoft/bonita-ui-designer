@@ -1,0 +1,35 @@
+<div class="ImportReport" ng-controller="ImportArtifactSuccessMessageController as import">
+    <p><span class="ImportReport-type">{{ type | translate }}</span> <strong>{{ element.name }}</strong>
+        <translate>successfully</translate> {{ import.getState() }}
+    </p>
+    <section class="ImportReport-added" ng-if="dependencies.added">
+        <translate>Added artifacts</translate>:
+        <ul>
+            <li ng-repeat="(artifactType, artifacts) in dependencies.added">
+                <span class="text-muted">
+                    <i class="ui-icon ui-{{artifactType}}s"></i>&nbsp;
+                    <translate translate-n="artifacts.length"
+                               translate-plural="{{ artifactType }}s"
+                               class="ImportReport-type">{{ artifactType }}
+                    </translate>
+                </span>
+                {{ import.joinOnNames(artifacts) }}
+            </li>
+        </ul>
+    </section>
+    <section class="ImportReport-overridden" ng-if="dependencies.overridden">
+        <translate>Overridden artifacts</translate>:
+        <ul>
+            <li ng-repeat="(artifactType, artifacts) in dependencies.overridden">
+                <span class="text-muted">
+                    <i class="ui-icon ui-{{artifactType}}s"></i>&nbsp;
+                    <translate translate-n="artifacts.length"
+                               translate-plural="{{ artifactType }}s"
+                               class="ImportReport-type">{{ artifactType }}
+                    </translate>
+                </span>
+                {{ import.joinOnNames(artifacts) }}
+            </li>
+        </ul>
+    </section>
+</div>
