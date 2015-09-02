@@ -31,7 +31,7 @@
                     <span class="sr-only" translate>Save</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a id="saveAs" href="#"  ng-click="saveAs(page)" ng-disabled="!formName.$valid" translate>Save as ...</a></li>
+                    <li><a id="saveAs" class="clickable"  ng-click="saveAs(page)" ng-disabled="!formName.$valid" translate>Save as ...</a></li>
                 </ul>
             </div>
             <button type="button" id="export" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="saveAndExport()" title="{{ 'Export' | translate }}">
