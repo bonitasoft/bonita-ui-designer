@@ -100,10 +100,13 @@ function extract() {
           value = property.label;
           acc[value] = (acc[value] || []).concat(getInfo('label', fileName));
         }
-
         if (property.hasOwnProperty('help')) {
           value = property.help;
           acc[value] = (acc[value] || []).concat(getInfo('help', fileName));
+        }
+        if (property.hasOwnProperty('caption')) {
+          value = property.caption;
+          acc[value] = (acc[value] || []).concat(getInfo('caption', fileName));
         }
         if (property.hasOwnProperty('defaultValue')) {
           if (!isNaN(property.defaultValue)) {
