@@ -85,49 +85,49 @@ public class MultipartFileImportTest {
     }
 
     @Test
-    public void should_return_error_response_when_file_part_is_not_present_in_request() throws Exception {
+    public void should_return_error_response_with_ok_http_code_when_file_part_is_not_present_in_request() throws Exception {
         //The file sent is empty
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "".getBytes());
 
         ResponseEntity<ErrorMessage> response = multipartFileImporter.importFile(file, importer);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
         assertThat(response.getBody().getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
-        assertThat(response.getBody().getType()).isEqualTo("Argument");
+        assertThat(response.getBody().getType()).isEqualTo("IllegalArgumentException");
     }
 
     @Test
-    public void should_return_error_response_when_file_content_type_is_not_supported() throws Exception {
+    public void should_return_error_response_with_ok_http_code_when_file_content_type_is_not_supported() throws Exception {
         //The file sent is not a zio
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "text/html", "foo".getBytes());
 
         ResponseEntity<ErrorMessage> response = multipartFileImporter.importFile(file, importer);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
         assertThat(response.getBody().getMessage()).isEqualTo("Only zip files are allowed when importing a component");
-        assertThat(response.getBody().getType()).isEqualTo("File content");
+        assertThat(response.getBody().getType()).isEqualTo("IllegalArgumentException");
     }
 
     @Test
-    public void should_return_error_response_when_file_is_not_a_zip_file_but_has_content_type_octetstream() throws Exception {
+    public void should_return_error_response_with_ok_http_code_when_file_is_not_a_zip_file_but_has_content_type_octetstream() throws Exception {
         //The file sent is not a zio
         MockMultipartFile file = new MockMultipartFile("file", "myfile.png", "application/octet-stream", "foo".getBytes());
 
         ResponseEntity<ErrorMessage> response = multipartFileImporter.importFile(file, importer);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
         assertThat(response.getBody().getMessage()).isEqualTo("Only zip files are allowed when importing a component");
-        assertThat(response.getBody().getType()).isEqualTo("File content");
+        assertThat(response.getBody().getType()).isEqualTo("IllegalArgumentException");
     }
 
     @Test
-    public void should_return_error_response_when_an_import_error_occurs() throws Exception {
+    public void should_return_error_response_with_ok_http_code_when_an_import_error_occurs() throws Exception {
         doThrow(new ImportException(ImportException.Type.PAGE_NOT_FOUND, "an Error message")).when(importer).execute(any(InputStream.class));
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
 
         ResponseEntity<ErrorMessage> response = multipartFileImporter.importFile(file, importer);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
         assertThat(response.getBody().getMessage()).isEqualTo("an Error message");
         assertThat(response.getBody().getType()).isEqualTo("PAGE_NOT_FOUND");
     }
