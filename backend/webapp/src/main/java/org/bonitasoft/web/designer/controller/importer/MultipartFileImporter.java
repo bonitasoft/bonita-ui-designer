@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -33,26 +33,32 @@ public class MultipartFileImporter {
 
     private static final Logger logger = LoggerFactory.getLogger(MultipartFileImporter.class);
 
-    public ResponseEntity importFile(MultipartFile file, ArtefactImporter importer){
+    public ResponseEntity importFile(MultipartFile file, ArtefactImporter importer) {
+        try {
+            ImportReport report = doImport(file, importer);
+            return new ResponseEntity<>(report, HttpStatus.CREATED);
+        } catch (ImportException e) {
+            logger.error("Technical error when importing a component", e);
+            // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
+            return new ResponseEntity<>(new ErrorMessage(e.getType().toString(), e.getMessage()), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            logger.error("Technical error when importing a component", e);
+            // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
+            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.ACCEPTED);
+        }
+    }
+
+    private ImportReport doImport(MultipartFile file, ArtefactImporter importer) throws IOException {
         if (file == null || file.isEmpty()) {
-            return new ResponseEntity<>(new ErrorMessage("Argument", "Part named [file] is needed to successfully import a component"), HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new IllegalArgumentException("Part named [file] is needed to successfully import a component");
         }
 
         if (isNotZipFile(file)) {
-            return new ResponseEntity<>(new ErrorMessage("File content", "Only zip files are allowed when importing a component"), HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new IllegalArgumentException("Only zip files are allowed when importing a component");
         }
 
-        try (InputStream is = file.getInputStream()){
-            ImportReport report = importer.execute(is);
-            return new ResponseEntity<>(report, HttpStatus.CREATED);
-        }
-        catch (ImportException e) {
-            logger.error("Technical error when importing a component", e);
-            return new ResponseEntity<>(new ErrorMessage(e.getType().toString(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        catch (IOException e) {
-            logger.error("Technical error when importing a component", e);
-            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.INTERNAL_SERVER_ERROR);
+        try (InputStream is = file.getInputStream()) {
+            return importer.execute(is);
         }
     }
 
