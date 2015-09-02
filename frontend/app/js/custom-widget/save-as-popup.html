@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Save {{widget.name}} as...</h3>
+    <h3 class="modal-title" translate>Save {{widget.name}} as...</h3>
 </div>
 <form class="form" name="newWidget" ng-submit="create(widget)">
     <div class="modal-body" id="modal-save-widget-as">
@@ -13,10 +13,10 @@
                 placeholder="Widget Name"
                 required>
         </div>
-        <span ng-if="newWidget.name.$error.pattern" class="text-danger">Widget names must start with a letter and contain only alphanumeric characters</span>
+        <span ng-if="newWidget.name.$error.pattern" class="text-danger" translate>Widget names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-widget-controls">
-        <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || newName == widget.name">Save</button>
-        <button class="btn btn-link" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || newName == widget.name" translate>Save</button>
+        <button class="btn btn-link" ng-click="cancel()" translate>Cancel</button>
     </div>
 </form>
