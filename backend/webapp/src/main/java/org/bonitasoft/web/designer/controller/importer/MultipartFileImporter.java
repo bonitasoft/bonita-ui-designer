@@ -14,16 +14,14 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.inject.Named;
 
-import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
+import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,20 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Named
 public class MultipartFileImporter {
 
-    private static final Logger logger = LoggerFactory.getLogger(MultipartFileImporter.class);
-
-    public ResponseEntity importFile(MultipartFile file, ArtefactImporter importer) {
+    public ImportReport importFile(MultipartFile file, ArtefactImporter importer) {
         try {
-            ImportReport report = doImport(file, importer);
-            return new ResponseEntity<>(report, HttpStatus.CREATED);
-        } catch (ImportException e) {
-            logger.error("Technical error when importing a component", e);
-            // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
-            return new ResponseEntity<>(new ErrorMessage(e.getType().toString(), e.getMessage()), HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            logger.error("Technical error when importing a component", e);
-            // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
-            return new ResponseEntity<>(new ErrorMessage(e), HttpStatus.ACCEPTED);
+            return doImport(file, importer);
+        } catch (IOException | IllegalArgumentException e) {
+            throw new ImportException(Type.SERVER_ERROR, e.getMessage(), e);
         }
     }
 
