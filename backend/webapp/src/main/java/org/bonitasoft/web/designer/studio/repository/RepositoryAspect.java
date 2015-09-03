@@ -47,7 +47,13 @@ public class RepositoryAspect {
         this.handler = handler;
     }
 
-    @Before("execution(* org.bonitasoft.web.designer.repository.Repository+.get(String))")
+    /*
+     * BS-14120
+     * Useless numerous notfications may lead to a localized studio crash,
+     * we decided to deactivate them until we find a proper solution for
+     * workspace management shared between studio and UIDesigner
+     */
+    //@Before("execution(* org.bonitasoft.web.designer.repository.Repository+.get(String))")
     public void preOpen(JoinPoint joinPoint) {
         try {
             handler.preOpen(filePath(joinPoint));
