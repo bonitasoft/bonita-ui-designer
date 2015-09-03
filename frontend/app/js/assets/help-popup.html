@@ -27,6 +27,9 @@
                 Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)
             </p>
             <p translate>
+                To manage multiple version of dependencies, make sure only one version of an asset is active inside a page.
+            </p>
+            <p translate>
                 To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>.
             </p>
             <p translate>
@@ -67,7 +70,7 @@
             </p>
         </tab>
 
-       <tab heading="{{ 'Custom services' | translate }}" ng-if="isPage">
+       <tab heading="{{ 'Custom services' | translate }}">
             <p>
                 <translate>To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module.</translate> <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link" translate>Example: relative time filter</button>
             </p>
