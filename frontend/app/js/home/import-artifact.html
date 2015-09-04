@@ -1,7 +1,6 @@
 <form action="{{ import.url }}"
       name="uploadForm"
-      error-catcher="import.onError"
-      ng-upload="import.onSuccess(content)">
+      ng-upload="import.onComplete(content)">
     <div class="modal-header">
         <h3 class="modal-title">{{ import.popupTitle | translate }}</h3>
     </div>
