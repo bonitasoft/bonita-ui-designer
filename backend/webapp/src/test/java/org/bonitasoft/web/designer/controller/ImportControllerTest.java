@@ -17,14 +17,15 @@ package org.bonitasoft.web.designer.controller;
 import static org.bonitasoft.web.designer.builder.ImportReportBuilder.anImportReportFor;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.exception.ImportException;
+import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
@@ -33,12 +34,10 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -49,7 +48,6 @@ public class ImportControllerTest {
 
     @Mock
     private ArtefactImporter<Page> pageImporter;
-
     @Mock
     private ArtefactImporter<Widget> widgetImporter;
     @Mock
@@ -58,9 +56,7 @@ public class ImportControllerTest {
     @Before
     public void setUp() {
         ImportController importController = new ImportController(multipartFileImporter, pageImporter, widgetImporter);
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(new DesignerConfig().objectMapper());
-        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes());
-        mockMvc = standaloneSetup(importController).setMessageConverters(mappingJackson2HttpMessageConverter).build();
+        mockMvc = uiDesignerStandaloneSetup(importController).build();
     }
 
     @Test
@@ -71,10 +67,11 @@ public class ImportControllerTest {
                 anImportReportFor(aPage().withId("aPage").withName("thePage"))
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
                         .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
-        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
+        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aPage"))
                 .andExpect(jsonPath("element.name").value("thePage"))
                 .andExpect(jsonPath("dependencies.added.widget[0].id").value("addedWidget"))
@@ -84,15 +81,40 @@ public class ImportControllerTest {
     }
 
     @Test
+    public void should_respond_an_error_with_ok_code_when_import_exception_occurs_while_importing_a_page() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        when(multipartFileImporter.importFile(file, pageImporter)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
+
+        mockMvc.perform(fileUpload("/import/page").file(file))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("type").value("SERVER_ERROR"))
+                .andExpect(jsonPath("message").value("an error messge"));
+    }
+
+    @Test
     public void should_import_a_widget() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
         ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).build() ;
-        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(new ResponseEntity<>(expectedReport, HttpStatus.CREATED));
+        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/widget").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
+    }
+
+    @Test
+    public void should_respond_an_error_with_ok_code_when_import_exception_occurs_while_importing_a_widget() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        when(multipartFileImporter.importFile(file, widgetImporter)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
+
+        mockMvc.perform(fileUpload("/import/widget").file(file))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("type").value("SERVER_ERROR"))
+                .andExpect(jsonPath("message").value("an error messge"));
     }
 }

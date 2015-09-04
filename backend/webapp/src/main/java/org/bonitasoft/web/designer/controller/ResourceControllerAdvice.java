@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
@@ -27,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -88,5 +90,12 @@ public class ResourceControllerAdvice {
     public ResponseEntity<ErrorMessage> handleRepositoryException(RuntimeException exception) {
         logger.error("Internal Exception", exception);
         return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ImportException.class)
+    public ResponseEntity<ErrorMessage> handleImportException(ImportException exception) {
+        logger.error("Technical error when importing a component", exception);
+        // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
+        return new ResponseEntity<>(new ErrorMessage(exception.getType().toString(), exception.getMessage()), HttpStatus.ACCEPTED);
     }
 }

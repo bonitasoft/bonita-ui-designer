@@ -11,26 +11,22 @@
     vm.filename = '';
     vm.popupTitle = title;
 
-    vm.onSuccess = onSuccess;
-    vm.onError = onError;
+    vm.onComplete = onComplete;
     vm.cancel = cancel;
 
     function isErrorResponse(response) {
       return response && response.type && response.message;
     }
 
-    function onSuccess(response) {
+    function onComplete(response) {
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this an error
       if (isErrorResponse(response)) {
         alerts.addError(response.message);
+        $modalInstance.dismiss('cancel');
+      } else {
+        $modalInstance.close();
       }
-      $modalInstance.close();
-    }
-
-    function onError(error) {
-      alerts.addError(error.message);
-      $modalInstance.dismiss('cancel');
     }
 
     function cancel() {
