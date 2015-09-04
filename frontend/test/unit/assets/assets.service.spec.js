@@ -20,7 +20,7 @@ describe('utils', function () {
 
       assetsServiceProvider.registerType(newDataType);
 
-      expect(assetsServiceProvider.$get(gettextCatalog).getType()['foo']).toEqual(newDataType);
+      expect(assetsServiceProvider.$get(gettextCatalog).getTypes()).toContain(newDataType);
     });
 
   });
@@ -29,19 +29,19 @@ describe('utils', function () {
 
 
     it('getSources should return a table containing Local and External', function () {
-      expect(assetsService.getSource()).toEqual({
+      expect(assetsService.getSources()).toEqual({
         external: {key: 'external', value: 'External'},
         local: {key: 'local', value: 'Local'}
       });
     });
 
     it('getTypes should return a table with all the types ', function () {
-      expect(assetsService.getType()).toEqual(
-        {
-          js: {key: 'js', value: 'JavaScript', filter: true, template: 'js/assets/generic-asset-form.html'},
-          css: {key: 'css', value: 'CSS', filter: true, template: 'js/assets/generic-asset-form.html'},
-          img: {key: 'img', value: 'Image', filter: true, template: 'js/assets/generic-asset-form.html'}
-        });
+      expect(assetsService.getTypes()).toEqual(
+        [
+          {key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+          {key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+          {key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'}
+        ]);
     });
   });
 

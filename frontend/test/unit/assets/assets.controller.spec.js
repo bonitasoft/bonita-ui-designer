@@ -11,7 +11,7 @@
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
       $modal = $injector.get('$modal');
-      component = { id: 12};
+      component = {id: 12};
       artifactRepo = {
         loadAssets: function () {
           return $q.when([
@@ -31,7 +31,7 @@
     describe('Page editor', function () {
 
       beforeEach(inject(function ($injector) {
-        $scope.page= {};
+        $scope.page = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           $modal: $modal,
@@ -56,6 +56,15 @@
         ]);
         expect(component.inactiveAssets).toEqual(['456', '321'
         ]);
+      });
+
+      it('should put filters in $scope', function () {
+        $scope.$digest();
+        expect($scope.filters).toEqual({
+          js: {label: 'JavaScript', value: true},
+          css: {label: 'CSS', value: true},
+          img: {label: 'Image', value: true}
+        });
       });
 
       it('should open a data popup for asset preview', function () {
@@ -86,7 +95,7 @@
       });
 
       it('should return an empty promise when arg datas is undefined in createOrUpdate', function () {
-        expect(controller.createOrUpdate()).toEqual( $q.when({}));
+        expect(controller.createOrUpdate()).toEqual($q.when({}));
       });
 
       it('should save an external asset', function () {
@@ -104,7 +113,7 @@
     describe('Widget editor', function () {
 
       beforeEach(inject(function ($injector) {
-        $scope.widget= {};
+        $scope.widget = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: {},
@@ -150,7 +159,6 @@
 
 
     });
-
 
 
   });

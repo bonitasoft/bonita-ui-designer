@@ -48,7 +48,7 @@
 
     filters: {
       get: function(){
-        return this.sidebar.all(by.repeater('(key, search) in searchedAsset'));
+        return this.sidebar.all(by.repeater('(key, filter) in filters'));
       }
     },
 
