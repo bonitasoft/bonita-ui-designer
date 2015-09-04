@@ -17,15 +17,15 @@
   angular.module('bonitasoft.designer.assets')
     .provider('assetsService', function () {
 
-      var types = {
-        js: {key: 'js', value: 'JavaScript', filter: true, template: 'js/assets/generic-asset-form.html'},
-        css: {key: 'css', value: 'CSS', filter: true, template: 'js/assets/generic-asset-form.html'},
-        img: {key: 'img', value: 'Image', filter: true, template: 'js/assets/generic-asset-form.html'}
-      };
+      var types = [
+        {key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+        {key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+        {key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'}
+      ];
 
       return {
         registerType: function (type) {
-          types[type.key] = type;
+          types.push(type);
         },
 
         $get: function (gettextCatalog) {
@@ -39,14 +39,14 @@
           /**
            * Asset types
            */
-          function getType() {
+          function getTypes() {
             return types;
           }
 
           /**
            * Asset sources
            */
-          function getSource() {
+          function getSources() {
             return source;
           }
 
@@ -56,7 +56,7 @@
           function assetToForm(asset) {
             if (!asset) {
               return {
-                type: types.js.key,
+                type: types[0].key,
                 source: source.external.key
               };
             }
@@ -103,8 +103,8 @@
           return {
             isExternal: isExternal,
             isPageAsset: isPageAsset,
-            getSource: getSource,
-            getType: getType,
+            getSources: getSources,
+            getTypes: getTypes,
             assetToForm: assetToForm,
             formToAsset: formToAsset
           };

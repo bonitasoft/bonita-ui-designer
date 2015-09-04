@@ -26,7 +26,7 @@
         return assets;
       }
       return assets.filter(function(asset){
-        return filters[asset.type].filter;
+        return filters[asset.type].value;
       });
     };
   });

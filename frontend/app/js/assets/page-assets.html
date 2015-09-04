@@ -8,8 +8,8 @@
         <label class="sr-only" translate> filter: </label>
 
         <div class="search-filter">
-            <label class="checkbox-inline" ng-repeat="(key, search) in searchedAsset">
-                <input type="checkbox" ng-model="search.filter"> {{search.value}}
+            <label class="checkbox-inline" ng-repeat="(key, filter) in filters">
+                <input type="checkbox" ng-model="filter.value"> {{filter.label}}
             </label>
         </div>
     </div>
@@ -24,7 +24,7 @@
     <th class="col-xs-2">&nbsp;</th>
     </thead>
     <tbody>
-    <tr ng-class="{'text-muted':!asset.active}" ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:searchedAsset as results">
+    <tr ng-class="{'text-muted':!asset.active}" ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:filters as results">
         <td><input type="checkbox" ng-model="asset.active" ng-click="desactivateAsset(asset)"></td>
         <td>{{asset.name}}</td>
         <td>{{asset.componentId}}<span ng-if="isPageAsset(asset)" translate>Page level</span></td>

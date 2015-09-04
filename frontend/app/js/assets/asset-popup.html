@@ -10,10 +10,10 @@
         <div class="form-group">
             <label class="control-label control-label--required" for="type" translate>Type</label>
             <select name="type" ng-model="newAsset.type" class="form-control"
-                    ng-options="k as v.value for (k, v) in assetType"
+                    ng-options="type.key as type.value for type in assetTypes"
                     ng-change="updateSavingAction(newAsset.type)"></select>
         </div>
-        <ng-include src="assetType[newAsset.type].template"></ng-include>
+        <ng-include src="templates[newAsset.type]"></ng-include>
     </div>
 
     <div class="modal-footer">

@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in assets | orderBy:'order' | filter:filterBySearchedAsset as results">
+    <tr ng-repeat="asset in assets | orderBy:'order' as results">
         <td>
             <a ng-click="decrementOrderAsset(asset)" ng-if="!$first"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
             <a ng-click="incrementOrderAsset(asset)" ng-if="!$last"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
