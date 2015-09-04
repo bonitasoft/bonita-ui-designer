@@ -1,13 +1,13 @@
 describe('alerts', function () {
-  var $compile, $rootScope, element, alerts, $timeout;
+  var $compile, $rootScope, element, alerts, $interval;
 
   beforeEach(module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_, _alerts_, _$timeout_) {
+  beforeEach(inject(function (_$compile_, _$rootScope_, _alerts_, _$interval_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     alerts = _alerts_;
-    $timeout = _$timeout_;
+    $interval = _$interval_;
 
     // given an element containing the directive
     var template = '<alerts></alerts>';
@@ -73,7 +73,7 @@ describe('alerts', function () {
     alerts.addError('Houston, we have a problem');
     $rootScope.$digest();
 
-    $timeout.flush();
+    $interval.flush(8000);
 
     expect(element.find('div.ui-alert').length).toBe(0);
   });

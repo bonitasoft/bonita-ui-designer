@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.common.services').factory('alerts', function($timeout, gettext) {
+angular.module('bonitasoft.designer.common.services').factory('alerts', function($interval, gettext) {
 
   'use strict';
 
@@ -26,9 +26,13 @@ angular.module('bonitasoft.designer.common.services').factory('alerts', function
    */
   var add = function(alert, delay) {
     alerts.push(alert);
-    $timeout(function() {
+    // we use $interval here instead of $timeout to be testable with protractor.
+    // Protractor is waiting for $timeout to be over so for alert with delay > ptor timeout, test will fail. Moreover this slow down our test suite
+    // Protractor is not waiting for $interval to be over so we make an interval being executed one time
+    // see https://github.com/angular/protractor/issues/169
+    $interval(function() {
       remove(0);
-    }, delay || defaultDelay);
+    }, delay || defaultDelay, 1);
   };
 
   /**
