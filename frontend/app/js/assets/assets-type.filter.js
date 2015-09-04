@@ -18,10 +18,12 @@
 
     'use strict';
 
-    var type = assetsService.getType();
+    var types = assetsService.getTypes();
 
     return function(key){
-      return type[key] ? type[key].value : '';
+      return types.reduce(function(acc, type) {
+        return type.key === key ? type.value : acc;
+      }, '');
     };
   });
 

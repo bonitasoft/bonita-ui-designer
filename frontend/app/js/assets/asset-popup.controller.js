@@ -24,8 +24,9 @@
     $scope.isNewAsset = asset === undefined;
 
     //All datas (type, sources) are defined in the assets service.
-    $scope.assetType = assetsService.getType();
-    $scope.assetSource = assetsService.getSource();
+    $scope.assetTypes = getAssetTypes();
+    $scope.assetSources = assetsService.getSources();
+    $scope.templates = createFormAssetTemplates();
 
     //Asset is converted in another object for the html form
     $scope.newAsset = assetsService.assetToForm(asset);
@@ -78,6 +79,30 @@
      */
     function updateSavingAction(type) {
       $scope.assetSavingAction = urlPrefixForLocalAsset + type;
+    }
+
+    function getAssetTypes() {
+      var types = assetsService.getTypes();
+      if (mode === 'widget') {
+        return types.filter(function filterWidgetOnly(type) {
+          return type.widget;
+        });
+      }
+      return types;
+    }
+
+    function createFormAssetTemplates() {
+      return $scope.assetTypes
+        .map(function transformToTemplate(type) {
+          return {
+            key: type.key,
+            value: type.template
+          };
+        })
+        .reduce(function createObject(templates, template) {
+          templates[template.key] = template.value;
+          return templates;
+        }, {});
     }
   });
 
