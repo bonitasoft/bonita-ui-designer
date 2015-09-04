@@ -20,22 +20,22 @@
 
     var ctrl = this;
     var component = artifact;
-    $scope.searchedAsset = assetsService.getType();
+    $scope.filters = createFilters();
     $scope.isExternal = assetsService.isExternal;
     $scope.isPageAsset = assetsService.isPageAsset;
     $scope.desactivateAsset = desactivateAsset;
     $scope.incrementOrderAsset = incrementOrderAsset;
     $scope.decrementOrderAsset = decrementOrderAsset;
 
-    function incrementOrderAsset(asset){
+    function incrementOrderAsset(asset) {
       return artifactRepo.incrementOrderAsset(component.id, asset).then(refresh);
     }
 
-    function decrementOrderAsset(asset){
+    function decrementOrderAsset(asset) {
       return artifactRepo.decrementOrderAsset(component.id, asset).then(refresh);
     }
 
-    function desactivateAsset(asset){
+    function desactivateAsset(asset) {
       return artifactRepo.desactivateAsset(component.id, asset).then(refresh);
     }
 
@@ -65,11 +65,11 @@
           url: function () {
             //Url depends on the nature of component
             //In custom widget editor, component is a widget
-            if(mode==='widget'){
+            if (mode === 'widget') {
               return 'preview/widget/' + component.id + '/assets/' + asset.type + '/' + asset.name + '?format=text';
             }
             //In page editor widget id is stored in asset.componentId if the asset scope is WIDGET
-            else if(asset.scope==='WIDGET'){
+            else if (asset.scope === 'WIDGET') {
               return 'preview/widget/' + asset.componentId + '/assets/' + asset.type + '/' + asset.name + '?format=text';
             }
             //The last case is to see a page asset
@@ -82,7 +82,7 @@
     /**
      * Popup to add or update assets
      */
-    $scope.openAssetPopup = function(element) {
+    $scope.openAssetPopup = function (element) {
       var asset = element;
 
       var modalInstance = $modal.open({
@@ -107,31 +107,31 @@
     /**
      * Refresh assets in scope
      */
-    function refresh(){
+    function refresh() {
       artifactRepo.loadAssets(component)
-        .then(function(response){
+        .then(function (response) {
           $scope.assets = response;
-          component.assets = response.filter(function(asset){
+          component.assets = response.filter(function (asset) {
             //In the page editor, we filter on the assets linked to the page
-            return asset.scope!=='WIDGET';
+            return asset.scope !== 'WIDGET';
           });
-          var inactiveAssets = response.filter(function(asset){
+          var inactiveAssets = response.filter(function (asset) {
             return !asset.active;
           }).map(function (asset) {
             return asset.id;
           });
-          component.inactiveAssets = (inactiveAssets.length)?inactiveAssets: undefined;
+          component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
         }
       );
     }
 
-    $scope.openHelp = function(elm) {
+    $scope.openHelp = function (elm) {
       $modal.open({
         templateUrl: 'js/assets/help-popup.html',
         size: 'lg',
-        controller: function($scope, $modalInstance) {
+        controller: function ($scope, $modalInstance) {
           $scope.isPage = (elm !== 'widget');
-          $scope.cancel = function() {
+          $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
           };
         }
@@ -141,16 +141,32 @@
     /**
      * Create or update an asset
      */
-    this.createOrUpdate = function (data){
-      if(data){
+    this.createOrUpdate = function (data) {
+      if (data) {
         return artifactRepo.createAsset(component.id, assetsService.formToAsset(data));
       }
-      else{
+      else {
         //A local asset is created via a form send in the popup. We just have to return a promise
         return $q.when({});
       }
     };
-  });
 
+    function createFilters() {
+      return assetsService.getTypes()
+        .map(function transformToFilter(type) {
+          return {
+            key: type.key,
+            value: {
+              label: type.value,
+              value: type.filter
+            }
+          };
+        })
+        .reduce(function createObject(filters, filter) {
+          filters[filter.key] = filter.value;
+          return filters;
+        }, {});
+    }
+  });
 })
 ();

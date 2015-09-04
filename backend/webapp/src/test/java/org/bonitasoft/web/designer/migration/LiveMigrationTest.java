@@ -22,6 +22,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
@@ -100,6 +101,19 @@ public class LiveMigrationTest {
         liveMigration.start();
 
         verify(persister, never()).save(any(Path.class), anyString(), any(Page.class));
+    }
+
+    @Test
+    public void should_exclude_assets() throws Exception {
+        Migration<Page> migration = mock(Migration.class);
+        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        createPage("1.0.0");
+        folder.newFolder("pageJson/assets");
+        folder.newFile("pageJson/assets/whatever.json");
+
+        liveMigration.start();
+
+        verify(migration, only()).migrate(any(Page.class));
     }
 
     private Page createPage(String version) throws IOException {

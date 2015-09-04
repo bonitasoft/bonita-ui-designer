@@ -14,93 +14,101 @@
  */
 (function () {
 
-  angular.module('bonitasoft.designer.assets').service('assetsService', function (gettextCatalog) {
+  angular.module('bonitasoft.designer.assets')
+    .provider('assetsService', function () {
 
-    'use strict';
+      var types = [
+        {key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+        {key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
+        {key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'}
+      ];
 
-    var type = {
-      js : {key : 'js', value: 'JavaScript', filter:true },
-      css : {key : 'css', value: 'CSS', filter:true},
-      img : {key : 'img', value: 'Image', filter:true}
-    };
-
-    var source = {
-      external : {key : 'external', value: gettextCatalog.getString('External')},
-      local : {key : 'local', value: gettextCatalog.getString('Local')}
-    };
-
-    /**
-     * Asset types
-     */
-    function getType() {
-      return type;
-    }
-
-    /**
-     * Asset sources
-     */
-    function getSource() {
-      return source;
-    }
-
-    /**
-     * Convert asset object in object for the html form
-     */
-    function assetToForm(asset) {
-      if (!asset) {
-        return {
-          type: type.js.key,
-          source: source.external.key
-        };
-      }
-      //An asset is identified by name and type. If user choose to change them we need to delete
-      //the old asset and we need the old name and type
       return {
-        id: asset.id,
-        name: asset.name,
-        type: asset.type,
-        source: isExternal(asset) ? source.external.key : source.local.key,
-        oldname: asset.name,
-        oldtype: asset.type
+        registerType: function (type) {
+          types.push(type);
+        },
+
+        $get: function (gettextCatalog) {
+          'use strict';
+
+          var source = {
+            external: {key: 'external', value: gettextCatalog.getString('External')},
+            local: {key: 'local', value: gettextCatalog.getString('Local')}
+          };
+
+          /**
+           * Asset types
+           */
+          function getTypes() {
+            return types;
+          }
+
+          /**
+           * Asset sources
+           */
+          function getSources() {
+            return source;
+          }
+
+          /**
+           * Convert asset object in object for the html form
+           */
+          function assetToForm(asset) {
+            if (!asset) {
+              return {
+                type: types[0].key,
+                source: source.external.key
+              };
+            }
+            //An asset is identified by name and type. If user choose to change them we need to delete
+            //the old asset and we need the old name and type
+            return {
+              id: asset.id,
+              name: asset.name,
+              type: asset.type,
+              source: isExternal(asset) ? source.external.key : source.local.key,
+              oldname: asset.name,
+              oldtype: asset.type
+            };
+          }
+
+          /**
+           * Convert html form asset in business object which can be sent to the backend
+           */
+          function formToAsset(formAsset) {
+            var asset = {
+              id: formAsset.id,
+              type: formAsset.type
+            };
+            if (formAsset.source === source.external.key) {
+              asset.name = formAsset.name;
+            }
+            return asset;
+          }
+
+          /**
+           * External asset are URL
+           */
+          function isExternal(asset) {
+            return asset.source === source.external.key || (asset.name && (asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0));
+          }
+
+          /**
+           * Page asset
+           */
+          function isPageAsset(asset) {
+            return !asset.componentId;
+          }
+
+          return {
+            isExternal: isExternal,
+            isPageAsset: isPageAsset,
+            getSources: getSources,
+            getTypes: getTypes,
+            assetToForm: assetToForm,
+            formToAsset: formToAsset
+          };
+        }
       };
-    }
-
-    /**
-     * Convert html form asset in business object which can be sent to the backend
-     */
-    function formToAsset(formAsset) {
-      var asset = {
-        id: formAsset.id,
-        type: formAsset.type
-      };
-      if (formAsset.source === source.external.key) {
-        asset.name = formAsset.name;
-      }
-      return asset;
-    }
-
-    /**
-     * External asset are URL
-     */
-    function isExternal(asset) {
-      return asset.source === source.external.key || (asset.name && (asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0));
-    }
-
-    /**
-     * Page asset
-     */
-    function isPageAsset(asset) {
-      return !asset.componentId;
-    }
-
-    return {
-      isExternal: isExternal,
-      isPageAsset: isPageAsset,
-      getSource: getSource,
-      getType: getType,
-      assetToForm: assetToForm,
-      formToAsset: formToAsset
-    };
-  });
-
+    });
 })();
