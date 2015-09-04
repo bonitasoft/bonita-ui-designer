@@ -118,7 +118,13 @@ function extract() {
         if (property.hasOwnProperty('choiceValues')) {
           value = property.choiceValues;
           acc = value.reduce(function (dict, choice) {
-            dict[choice] = (acc[choice] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+            // grouped choice values
+            if (typeof choice == "object") {
+              dict[choice.value] = (acc[choice.value] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+              dict[choice.group] = (acc[choice.group] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+            } else {
+              dict[choice] = (acc[choice] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+            }
             return dict;
           }, acc);
         }
