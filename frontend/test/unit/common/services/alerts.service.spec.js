@@ -1,10 +1,10 @@
 describe('alerts', function() {
-  var alerts, $timeout;
+  var alerts, $interval;
 
   beforeEach(module('bonitasoft.designer.common.services'));
-  beforeEach(inject(function(_alerts_, _$timeout_) {
+  beforeEach(inject(function(_alerts_, _$interval_) {
     alerts = _alerts_;
-    $timeout = _$timeout_;
+    $interval = _$interval_;
   }));
 
   describe('success', function() {
@@ -34,10 +34,10 @@ describe('alerts', function() {
       expect(alerts.alerts.length).toBe(0);
     });
 
-    it('should be removed after a few seconds', function() {
+    it('should be removed after a 8 seconds', function() {
       alerts.addSuccess('Well done');
 
-      $timeout.flush();
+      $interval.flush(8000);
 
       expect(alerts.alerts.length).toBe(0);
     });
@@ -71,10 +71,10 @@ describe('alerts', function() {
       expect(alerts.alerts.length).toBe(0);
     });
 
-    it('should be removed after a few seconds', function() {
+    it('should be removed after 8 seconds', function() {
       alerts.addError('Well done');
 
-      $timeout.flush();
+      $interval.flush(8000);
 
       expect(alerts.alerts.length).toBe(0);
     });
@@ -111,7 +111,7 @@ describe('alerts', function() {
     it('should be removed after a few seconds', function() {
       alerts.addWarning('Well done');
 
-      $timeout.flush();
+      $interval.flush(8000);
 
       expect(alerts.alerts.length).toBe(0);
     });
