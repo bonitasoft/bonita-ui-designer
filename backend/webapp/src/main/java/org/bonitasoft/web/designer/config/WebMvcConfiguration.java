@@ -50,8 +50,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public final static String WIDGETS_RESOURCES = "classpath:/widgets/";
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {BACKEND_RESOURCES, FRONTEND_RESOURCES};
-
-
+    
     @Autowired
     private ResourceLoader resourceLoader;
 
