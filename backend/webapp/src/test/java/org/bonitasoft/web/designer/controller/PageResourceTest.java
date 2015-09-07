@@ -24,26 +24,20 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.uiDesignerStandaloneSetup;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -51,7 +45,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Sets;
-import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
@@ -69,12 +62,13 @@ import org.hamcrest.Matchers;
 import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -82,6 +76,7 @@ import org.springframework.test.web.servlet.MockMvc;
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PageResourceTest {
 
     private MockMvc mockMvc;
@@ -106,13 +101,7 @@ public class PageResourceTest {
 
     @Before
     public void setUp() {
-        initMocks(this);
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(new DesignerConfig().objectMapper());
-        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes());
-        mockMvc = standaloneSetup(pageResource)
-                .setMessageConverters(mappingJackson2HttpMessageConverter)
-                .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
-                .build();
+        mockMvc = uiDesignerStandaloneSetup(pageResource).build();
     }
 
     @Test
@@ -322,7 +311,7 @@ public class PageResourceTest {
 
         mockMvc
                 .perform(
-                        put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(convertObjectToJsonBytes(newName)))
+                        put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(newName))
                 .andDo(print())
                 .andExpect(status().isOk());
 

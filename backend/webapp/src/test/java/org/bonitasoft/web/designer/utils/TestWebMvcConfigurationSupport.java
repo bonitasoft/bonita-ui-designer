@@ -14,19 +14,40 @@
  */
 package org.bonitasoft.web.designer.utils;
 
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.WebMvcConfiguration;
+import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 public class TestWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
 
+    private DesignerConfig config;
+
+    public TestWebMvcConfigurationSupport(DesignerConfig config) {
+        this.config = config;
+        StaticApplicationContext applicationContext = new StaticApplicationContext();
+        applicationContext.registerSingleton("resourceControllerAdvice", ResourceControllerAdvice.class);
+        setApplicationContext(applicationContext);
+    }
+
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(RestControllerUtil.createMessageConverter());
+        Collections.addAll(converters, createMessageConverters());
+    }
+
+    public HttpMessageConverter<?>[] createMessageConverters() {
+        WebMvcConfiguration webMvcConfiguration = new WebMvcConfiguration();
+        ReflectionTestUtils.setField(webMvcConfiguration, "objectMapper", config.objectMapper());
+
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+        webMvcConfiguration.configureMessageConverters(converters);
+        return converters.toArray(new HttpMessageConverter<?>[converters.size()]);
     }
 }
