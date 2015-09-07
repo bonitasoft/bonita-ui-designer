@@ -15,28 +15,38 @@
 package org.bonitasoft.web.designer.repository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.find;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.write;
+import static java.util.Collections.emptyList;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.inject.Inject;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
-
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 /**
  * This Persister is used to attach assets to a component. Each of them are serialized in the same directory
@@ -134,12 +144,31 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                         .setName(path.getFileName().toString())
                         .setType(type)
                         .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
-                        .setComponentId(component.getId()
-                        ));
+                        .setComponentId(component.getId())
+                        .setId(UUID.randomUUID().toString()));
             }
         }
 
         return objects;
     }
 
+    public void refreshAssets(final T component) {
+
+        component.getAssets().addAll(newHashSet(concat(transform(newArrayList(AssetType.values()), new Function<AssetType, List<Asset>>() {
+
+            @Override
+            public List<Asset> apply(AssetType type) {
+                try {
+                    Path assetTypePath = repository.resolvePath(component.getId()).resolve(Paths.get("assets", type.getPrefix()));
+                    if (exists(assetTypePath)) {
+                        return findAssetInPath(component, type, assetTypePath);
+                    }
+                } catch (IOException e) {
+                    throw new RepositoryException(format("Failed to initialized assets for %s %s", repository.getComponentName(), component.getId()), e);
+                }
+                return emptyList();
+            }
+        }))));
+        repository.save(component);
+    }
 }

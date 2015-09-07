@@ -23,4 +23,6 @@ public interface Assetable extends Identifiable {
 
     Set<Asset> getAssets();
 
+    void setAssets(Set<Asset> assets);
+
 }

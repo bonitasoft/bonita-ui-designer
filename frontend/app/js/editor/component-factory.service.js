@@ -68,7 +68,7 @@ angular.module('bonitasoft.designer.services')
         propertyValues: (widget.properties || []).reduce(function(props, property) {
           props[property.name] = {
             type: property.bond === 'expression' ? 'constant' : property.bond,
-            value: (property.type === 'text' ? gettextCatalog.getString( property.defaultValue ) : property.defaultValue)
+            value: property.defaultValue
           };
           return props;
         }, {})

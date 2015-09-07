@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
@@ -28,14 +29,22 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,7 +52,6 @@ import java.util.List;
 
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
@@ -139,6 +147,7 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$.id", notNullValue()));
 
         verify(pageRepository).save(notNull(Page.class));
+        verify(pageAssetService).loadDefaultAssets(any(Page.class));
     }
 
     @Test
