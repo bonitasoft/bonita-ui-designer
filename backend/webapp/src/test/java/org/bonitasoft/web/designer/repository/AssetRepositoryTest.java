@@ -14,13 +14,14 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.charset.Charset;
@@ -31,6 +32,7 @@ import java.util.NoSuchElementException;
 
 import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -137,7 +139,6 @@ public class AssetRepositoryTest {
         assetRepository.delete(asset);
     }
 
-
     @Test
     public void should_readAllBytes_asset() throws Exception {
         Page page = aPage().withId("page-id").build();
@@ -166,7 +167,6 @@ public class AssetRepositoryTest {
 
         assetRepository.readAllBytes(asset);
     }
-
 
     @Test
     public void should_find_asset_path_used_by_a_component() throws Exception {
@@ -233,7 +233,7 @@ public class AssetRepositoryTest {
         write(pagesPath.resolve("file1.css"), "<style>.maclass1{}</style>".getBytes());
         write(pagesPath.resolve("file2.css"), "<style>.maclass2{}</style>".getBytes());
 
-        List<Asset> assets = assetRepository.findAssetInPath(page, AssetType.CSS,  pagesPath);
+        List<Asset> assets = assetRepository.findAssetInPath(page, AssetType.CSS, pagesPath);
 
         assertThat(assets).hasSize(2);
         assertThat(assets).extracting("name").contains("file1.css", "file2.css");
@@ -248,5 +248,19 @@ public class AssetRepositoryTest {
         assertThat(assets).isEmpty();
     }
 
+    @Test
+    public void should_refresh_component_assets_from_disk() throws Exception {
+        Page page = aPage().withId("page-id")
+                .withAsset(anAsset().withName("existing-asset.js")).build();
+        temporaryFolder.newFolder("page-id", "assets", "css");
+        write(pagesPath.resolve("page-id/assets/css/file1.css"), "<style>.maclass1{}</style>".getBytes());
+        write(pagesPath.resolve("page-id/assets/css/file2.css"), "<style>.maclass2{}</style>".getBytes());
+        when(pageRepository.resolvePath("page-id")).thenReturn(pagesPath.resolve("page-id"));
 
+        assetRepository.refreshAssets(page);
+
+        assertThat(page.getAssets()).hasSize(3);
+        assertThat(page.getAssets()).extracting("name").contains("file1.css", "file2.css", "existing-asset.js");
+        verify(pageRepository).save(page);
+    }
 }
