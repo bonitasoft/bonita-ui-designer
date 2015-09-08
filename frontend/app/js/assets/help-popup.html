@@ -6,8 +6,12 @@
     <tabset class="tabs-left">
         <tab heading="{{ 'General' | translate }}">
             <p translate>
-                Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, and <strong>Image</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL).
+                Assets enable you to add web resources to pages and forms. Available asset types are
+                <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions)
+                <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact)
+                or External (URL). The Localization asset is always local.
             </p>
+
             <p translate>
                 A local asset name must not contain special characters or spaces. An external asset name must be a standard URL.
             </p>
@@ -26,14 +30,37 @@
             <p translate >
                 Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)
             </p>
+
             <p translate>
                 To manage multiple version of dependencies, make sure only one version of an asset is active inside a page.
             </p>
+
             <p translate>
                 To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>.
             </p>
+
             <p translate>
                 To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field.
+            </p>
+
+            <p translate>
+                To use a localization asset, replace the default localization.json file with a file of the same format
+                containing all the keys in the page and the translations into the target languages. The localization
+                asset is at page level. The format of the file must be:
+                <pre><code>{
+    "language-A with the format ISO 639-1 code": {
+        "english key":"translated key for language-A",
+        "english key2":"translated key2 for language-A",
+        ...
+    },
+    "language-B with the format ISO 639-1 code": {
+        "english key":"translated key for language-B",
+        "english key2":"translated key2 for language-B",
+        ...
+    }
+    ...
+}</code></pre>
+                See the default localization asset for an example.
             </p>
         </tab>
 
@@ -41,36 +68,47 @@
             <p translate>
                 In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href="http://ngmodules.org/">http://ngmodules.org/</a>.
             </p>
+
             <p translate>
                 To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src="widgets/[custom widget id]/assets/img/[image name]"&gt;</code>
             </p>
         </tab>
 
         <tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
-            <p translate >
+            <p translate>
                 The list contains both page assets and the assets of the custom widgets used in this page.
             </p>
             <p translate >
                 In the list, you can delete page assets only, view local assets, and edit external assets of a page.
             </p>
-            <p translate >
+
+            <p translate>
                 You can’t manually change the order of assets in a page.
             </p>
+
             <p translate >
                 At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header.
             </p>
+
+            <p translate>
+                You cannot have more than one localization asset. When you upload a new asset file, it overwrites the
+                existing one.
+            </p>
+
+
         </tab>
 
         <tab heading="{{ 'Asset list' | translate }}" ng-if="!isPage">
             <p translate >
                 In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any.
             </p>
-            <p translate >
+
+            <p translate>
                 At runtime, assets of a custom widget are loaded in the order defined.
             </p>
         </tab>
 
-       <tab heading="{{ 'Custom services' | translate }}">
+        <tab heading="{{ 'Custom services' | translate }}">
             <p>
                 <translate>To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module.</translate> <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link" translate>Example: relative time filter</button>
             </p>
@@ -79,9 +117,11 @@
                 <div class="well" collapse="!extensionsExamplesCollapsed">
                     <div>
                         <h4 translate>Relative time filter</h4>
+
                         <p translate>
                             This filter uses the <a href="http://momentjs.com/">moment.js</a> library to transform the display of a relative time. For example, it transforms   '01/01/2011' to '4 years ago'.
                         </p>
+
                         <p>
                             <ul>
                                 <li translate>Import the moment.js library as an external asset.</li>
@@ -99,7 +139,6 @@
                                 <li translate>To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code></li>
                             </ul>
                         </p>
-                </ul>
                     </div>
                 </div>
             </section>
