@@ -12,11 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state) {
+angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS) {
 
   'use strict';
 
   $scope.widget = artifact;
+  $scope.bonds = BONDS;
 
   var saveSuccessMsg = gettextCatalog.getString('Custom widget [ {{name}} ] successfully saved', { name: $scope.widget.name });
   var widgetRepo = artifactRepo;
@@ -28,6 +29,10 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
     // prevent default browser action
     return false;
   });
+
+  $scope.isTypeSelectable = function(propertyBond) {
+    return propertyBond !== 'variable' && propertyBond !== 'interpolation';
+  };
 
   /**
    * Updates the property
@@ -115,7 +120,7 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
   $scope.createOrUpdate = function(param) {
 
     var modalInstance = $modal.open({
-      templateUrl: 'createProperty.html',
+      templateUrl: 'js/custom-widget/create-property.html',
       controller: 'PropertyEditorPopupCtrl',
       resolve: {
         param: function() {

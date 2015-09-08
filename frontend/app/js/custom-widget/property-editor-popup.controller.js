@@ -12,26 +12,75 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.custom-widget').controller('PropertyEditorPopupCtrl', function($scope, param, $modalInstance) {
+angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
+  'variable': {
+    type: 'text',
+    name: 'Bidirectional bond',
+    template: 'js/editor/help/bidirectional-bond-help.html'
+  },
+  'expression': {
+    name: 'Dynamic value',
+    template: 'js/editor/help/dynamic-bond-help.html'
+  },
+  'interpolation': {
+    type: 'text',
+    name: 'Interpolation',
+    template: 'js/editor/help/interpolation-bond-help.html'
+  },
+  'constant': {
+    name: 'Constant',
+    template: 'js/editor/help/constant-bond-help.html'
+  }
+})
+  .controller('PropertyEditorPopupCtrl', function($scope, param, $modalInstance, BONDS) {
 
-  'use strict';
+    'use strict';
 
-  $scope.paramToUpdate = param;
+    $scope.paramToUpdate = param;
 
-  /**
-   * All types available for the properties
-   * @type {Array}
-   */
-  $scope.types = ['text', 'choice', 'html', 'integer', 'boolean', 'collection'];
+    /**
+     * All types available for the properties
+     * @type {Array}
+     */
+    $scope.types = ['text', 'choice', 'html', 'integer', 'boolean', 'collection'];
+    /**
+     * All bonds available for the properties
+     * @type {Array}
+     */
+    $scope.selectedBond = ($scope.paramToUpdate && $scope.paramToUpdate.bond) || 'expression';
+    $scope.bonds = BONDS;
 
-  // default type is text
-  $scope.currentParam = $scope.paramToUpdate ? angular.copy(param) : {type: 'text'};
+    $scope.isTypeChoicable = function() {
+      return $scope.currentParam.type === 'choice' && ($scope.selectedBond === 'constant' || $scope.selectedBond === 'expression');
+    };
 
-  $scope.ok = function() {
-    $modalInstance.close({param: $scope.currentParam, paramToUpdate: $scope.paramToUpdate});
-  };
+    $scope.isTypeSelectable = function() {
+      return $scope.selectedBond === 'constant' || $scope.selectedBond === 'expression';
+    };
 
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
-});
+    // default type is text
+    $scope.currentParam = $scope.paramToUpdate ? angular.copy(param) : {
+      type: 'text'
+    };
+
+    $scope.updateType = function() {
+      if ($scope.selectedBond && $scope.bonds[$scope.selectedBond] && $scope.bonds[$scope.selectedBond].type) {
+        $scope.currentParam.type = $scope.bonds[$scope.selectedBond].type;
+      }
+      $scope.currentParam.bond = $scope.selectedBond;
+    };
+
+    $scope.ok = function() {
+      if ($scope.selectedBond === 'variable') {
+        $scope.currentParam.defaultValue = null;
+      }
+      $modalInstance.close({
+        param: $scope.currentParam,
+        paramToUpdate: $scope.paramToUpdate
+      });
+    };
+
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel');
+    };
+  });

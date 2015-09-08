@@ -119,4 +119,19 @@ describe('CustomWidgetEditorCtrl', function() {
     $scope.saveAs({ id: 'customOldName', name: 'oldName'});
     expect($modal.open).toHaveBeenCalled();
   });
+
+  describe('isTypeSelectable', function() {
+    it('should return false when selected bond is variable or interpolation', function() {
+      var propertyBond = 'variable';
+      expect($scope.isTypeSelectable(propertyBond)).toBeFalsy();
+      propertyBond = 'interpolation';
+      expect($scope.isTypeSelectable(propertyBond)).toBeFalsy();
+    });
+    it('should return true when selected bond is expression or constant', function () {
+      var propertyBond = 'expression';
+      expect($scope.isTypeSelectable(propertyBond)).toBeTruthy();
+      propertyBond = 'constant';
+      expect($scope.isTypeSelectable(propertyBond)).toBeTruthy();
+    });
+  });
 });
