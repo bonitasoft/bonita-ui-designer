@@ -16,7 +16,7 @@ describe('PropertyEditorPopupCtrl', function() {
   }));
 
   it('should close the popup and pass params', function() {
-    $scope.currentParam = {name: "toto"};
+    $scope.currentParam = {name: "toto", defaultValue: 'default value'};
     $scope.paramToUpdate = {name: "titi"};
     var params = {
       param: $scope.currentParam,
@@ -24,12 +24,40 @@ describe('PropertyEditorPopupCtrl', function() {
     };
 
     $scope.ok();
+    expect($scope.currentParam.defaultValue).toEqual('default value');
+    expect(modalInstance.close).toHaveBeenCalledWith(params);
+  });
+
+  it('should close the popup and pass params and reset default value', function() {
+    $scope.selectedBond = 'variable';
+    $scope.currentParam = {name: 'toto', defaultValue: 'default value'};
+    $scope.paramToUpdate = {name: 'titi'};
+    var params = {
+      param: $scope.currentParam,
+      paramToUpdate: $scope.paramToUpdate
+    };
+
+    $scope.ok();
+    expect($scope.currentParam.defaultValue).toBeFalsy();
     expect(modalInstance.close).toHaveBeenCalledWith(params);
   });
 
   it('should dismiss the popup', function() {
     $scope.cancel();
     expect(modalInstance.dismiss).toHaveBeenCalledWith('cancel');
+  });
+
+  it('should update type accordingly to selected bond', function() {
+    $scope.currentParam.type = 'choice';
+    $scope.selectedBond = 'interpolation';
+    $scope.updateType();
+    expect($scope.currentParam.bond).toEqual('interpolation');
+    expect($scope.currentParam.type).toEqual('text');
+    $scope.currentParam.type = 'choice';
+    $scope.selectedBond = 'expression';
+    $scope.updateType();
+    expect($scope.currentParam.bond).toEqual('expression');
+    expect($scope.currentParam.type).toEqual('choice');
   });
 
   it('should expose popup types to scope', function() {
@@ -39,4 +67,41 @@ describe('PropertyEditorPopupCtrl', function() {
   it('should expose currentParam to scope', function() {
     expect(angular.isObject($scope.currentParam)).toBe(true);
   });
+
+  describe('isTypeChoicable', function() {
+    it('should return false when type is not choice', function() {
+      $scope.currentParam.type = 'bonita';
+      expect($scope.isTypeChoicable()).toBeFalsy();
+    });
+    it('should return false when type is choice and selected bond is variable or interpolation', function() {
+      $scope.selectedBond = 'variable';
+      $scope.currentParam.type = 'choice';
+      expect($scope.isTypeChoicable()).toBeFalsy();
+      $scope.selectedBond = 'interpolation';
+      expect($scope.isTypeChoicable()).toBeFalsy();
+    });
+    it('should return true when selected bond is expression or constant and choice is type', function () {
+      $scope.selectedBond = 'expression';
+      $scope.currentParam.type = 'choice';
+      expect($scope.isTypeChoicable()).toBeTruthy();
+      $scope.selectedBond = 'constant';
+      expect($scope.isTypeChoicable()).toBeTruthy();
+    });
+  });
+
+  describe('isTypeSelectable', function() {
+    it('should return false when selected bond is variable or interpolation', function() {
+      $scope.selectedBond = 'variable';
+      expect($scope.isTypeSelectable()).toBeFalsy();
+      $scope.selectedBond = 'interpolation';
+      expect($scope.isTypeSelectable()).toBeFalsy();
+    });
+    it('should return true when selected bond is expression or constant', function () {
+      $scope.selectedBond = 'expression';
+      expect($scope.isTypeSelectable()).toBeTruthy();
+      $scope.selectedBond = 'constant';
+      expect($scope.isTypeSelectable()).toBeTruthy();
+    });
+  });
+
 });
