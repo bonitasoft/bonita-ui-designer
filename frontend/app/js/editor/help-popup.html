@@ -135,6 +135,29 @@
                 </dd>
             </dl>
         </tab>
+
+        <tab heading="{{ 'Localization' | translate }}">
+            <h4 translate>Subscription edition</h4>
+            <p translate>UI designer includes a mechanism to add translations for page elements, to support multi-language
+                pages. The text displayed in the preview and at runtime adapts to the locale or browser language
+                automatically.</p>
+
+            <p translate>You can translate all the text displayed on a page or form: the labels, the placeholders, the
+                available values of a list, but also the date format of the DatePicker widget. The base language
+                is en_US. The phrases in English are used as the keys to the translated phrases. This means that
+                in the Page editor whiteboard, any default text that is created is in English. The rest of the
+                UI designer, including properties, is in the language of your Bonita BPM Studio. When you
+                preview a page that has translated keys, the language of your browser is used.</p>
+
+            <p translate>Each page has a localization asset that contains the keys and the translations for all phrases
+                and all languages that the page supports. The asset is a file, localization.json. Each language
+                is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). Open the default
+                localization.json asset to see how this file must be formatted. You can modify the default asset
+                for your page, or import a new asset to replace the default one.</p>
+
+            <p translate>In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language
+                selected by the user, or in the default Portal language.</p>
+        </tab>
     </tabset>
 </div>
 <div class="modal-footer">
