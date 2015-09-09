@@ -1,7 +1,7 @@
 describe('data-type', function() {
   var service;
 
-  beforeEach(module('bonitasoft.designer.data-panel'));
+  beforeEach(angular.mock.module('bonitasoft.designer.data-panel'));
   beforeEach(inject(function($injector) {
     service = $injector.get('dataTypeService');
   }));

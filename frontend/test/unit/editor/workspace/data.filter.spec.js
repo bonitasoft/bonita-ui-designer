@@ -2,7 +2,7 @@ describe('data filters', function() {
 
   var data;
 
-  beforeEach(module('bonitasoft.designer.filters'));
+  beforeEach(angular.mock.module('bonitasoft.designer.filters'));
 
   beforeEach(inject(function($filter) {
     data = $filter('data');

@@ -1,7 +1,7 @@
 describe('alerts', function() {
   var alerts, $interval;
 
-  beforeEach(module('bonitasoft.designer.common.services'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
   beforeEach(inject(function(_alerts_, _$interval_) {
     alerts = _alerts_;
     $interval = _$interval_;

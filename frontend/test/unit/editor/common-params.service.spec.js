@@ -2,7 +2,7 @@ describe('factory commonParams', function() {
 
   var commonParams;
 
-  beforeEach(module('bonitasoft.designer.factories', 'gettext'));
+  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'gettext'));
   beforeEach(inject(function ($injector) {
     commonParams = $injector.get('commonParams');
   }));

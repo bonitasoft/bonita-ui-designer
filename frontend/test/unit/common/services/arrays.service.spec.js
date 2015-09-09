@@ -1,7 +1,7 @@
 describe('arrays', function() {
   var arrays;
 
-  beforeEach(module('bonitasoft.designer.common.services'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
   beforeEach(inject(function(_arrays_) {
     arrays = _arrays_;
   }));

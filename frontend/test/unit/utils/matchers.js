@@ -1,20 +1,19 @@
-(function (global) {
+function pass(message) {
+  return  {
+    pass: true,
+    message: message
+  };
+}
 
-  function pass(message) {
-    return  {
-      pass: true,
-      message: message
-    };
-  }
+function fail(message) {
+  return  {
+    pass: false,
+    message: message
+  };
+}
 
-  function fail(message) {
-    return  {
-      pass: false,
-      message: message
-    };
-  }
-
-  var elementMatchers = {
+export default {
+  elementMatchers: {
 
     toHaveClass: function() {
       return {
@@ -28,10 +27,5 @@
         }
       };
     }
-  };
-
-  global.CustomMatcher = {
-    elementMatchers: elementMatchers
-  };
-
-})(this);
+  }
+};

@@ -64,13 +64,13 @@ angular.module('bonitasoft.designer.data-panel').controller('DataCtrl', function
       templateUrl: 'js/editor/data-panel/data-popup.html',
       controller: 'DataPopupController',
       resolve: {
-        mode: function() {
+        mode: function () {
           return mode;
         },
-        pageData: function() {
+        pageData: function () {
           return artifact.data;
         },
-        data: function() {
+        data: function () {
           return key && angular.extend({}, artifact.data[key], {$$name: key});
         }
       }

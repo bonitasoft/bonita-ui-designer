@@ -2,7 +2,7 @@ describe('ImportArtifactSuccessMessageController', function () {
 
   var controller, scope;
 
-  beforeEach(module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home'));
   beforeEach(inject(function ($controller, $rootScope, gettextCatalog) {
     scope = $rootScope.$new();
 

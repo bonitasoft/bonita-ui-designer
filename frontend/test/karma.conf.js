@@ -7,7 +7,7 @@ module.exports = function (config) {
     basePath: '..',
 
     // frameworks to use
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'commonjs'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -51,7 +51,11 @@ module.exports = function (config) {
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
       'app/js/**/*.js': ['coverage'],
+      'test/unit/**/*.js': ['babel', 'commonjs'],
       'app/js/**/*.html': ['ng-html2js']
+    },
+
+    'babelPreprocessor': {
     },
 
     ngHtml2JsPreprocessor: {

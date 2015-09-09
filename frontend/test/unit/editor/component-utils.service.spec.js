@@ -4,7 +4,7 @@ describe('ComponentUtils Service', function() {
 
   var service, tabsContainerStructureMockJSON, pageJson, resolutions, $stateParams;
 
-  beforeEach( module('bonitasoft.designer.common.services', function(resolutionsProvider){
+  beforeEach(angular.mock.module('bonitasoft.designer.common.services', function(resolutionsProvider){
     resolutionsProvider.registerResolutions([
       {
         key: 'xs',
@@ -22,8 +22,8 @@ describe('ComponentUtils Service', function() {
     resolutionsProvider.setDefaultResolution('foo');
   }));
 
-  beforeEach(module('bonitasoft.designer.factories', 'bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
-  beforeEach(module('ui.router'));
+  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
+  beforeEach(angular.mock.module('ui.router'));
 
   beforeEach(inject(function ($injector) {
     service = $injector.get('componentUtils');

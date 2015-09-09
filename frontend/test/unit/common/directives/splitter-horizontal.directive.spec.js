@@ -1,4 +1,5 @@
-var CustomMatcher = this.CustomMatcher;  // CustomMatcher is registered in global object, TODO use commonjs or equivalent
+/* globals xit */
+import CustomMatcher from '../../utils/matchers';
 
 describe('splitter horizontal directive', function() {
   var $compile, $rootScope, element, doc, scope, controller, $window, $state;
@@ -16,10 +17,11 @@ describe('splitter horizontal directive', function() {
   bottom.appendTo(document.body);
 
   beforeEach(function() {
+
     jasmine.addMatchers(CustomMatcher.elementMatchers);
   });
 
-  beforeEach(module('bonitasoft.designer.common.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$window_, _$state_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

@@ -2,7 +2,7 @@ describe('splitter container directive', function() {
   var $compile, element, scope, controller,$state;
 
 
-  beforeEach(module('bonitasoft.designer.common.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$state_) {
     $compile = _$compile_;
     $state = _$state_;

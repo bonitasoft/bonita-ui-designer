@@ -1,7 +1,7 @@
 describe('ace-editor directive', function () {
   var $compile, element, template, scope, directiveScope;
 
-  beforeEach(module('bonitasoft.designer.common.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;

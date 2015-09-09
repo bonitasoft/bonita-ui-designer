@@ -1,7 +1,7 @@
 describe('Resolution service', function() {
   var resolutions;
 
-  beforeEach( module('bonitasoft.designer.common.services', function(resolutionsProvider){
+  beforeEach(angular.mock.module('bonitasoft.designer.common.services', function(resolutionsProvider){
     resolutionsProvider.registerResolutions([
       {
         key: 'xs',

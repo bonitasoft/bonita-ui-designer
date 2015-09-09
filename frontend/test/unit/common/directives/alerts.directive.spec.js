@@ -1,7 +1,7 @@
 describe('alerts', function () {
   var $compile, $rootScope, element, alerts, $interval;
 
-  beforeEach(module('bonitasoft.designer.common.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_, _alerts_, _$interval_) {
     $compile = _$compile_;

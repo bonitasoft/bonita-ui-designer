@@ -2,7 +2,7 @@ describe('directive autofocus', function() {
 
   var $document, rootScope, compile, scope, timeout, dom;
 
-  beforeEach(module('bonitasoft.designer.common.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
   beforeEach(inject(function ($injector) {
 

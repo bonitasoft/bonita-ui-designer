@@ -18,9 +18,7 @@ describe('asset panel', function() {
     it('should display 3 checked checkboxes to filter the asset list', function() {
       var filters = assetPanel.filters;
       expect(filters.getText()).toEqual([ 'CSS', 'Image', 'JavaScript' ]);
-      for (var i in [0, 1, 2]) {
-        expect(filters.get(i).element(by.tagName('input')).getAttribute('checked')).toBeTruthy();
-      }
+      Array.from(filters).forEach((item) => expect(item.element(by.tagName('input')).getAttribute('checked')).toBeTruthy());
     });
 
     it('should display a help button', function() {

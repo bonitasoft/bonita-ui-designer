@@ -1,7 +1,7 @@
 describe('widget property field controller', function () {
   var $scope, $rootScope, createController, controller;
 
-  beforeEach(module('bonitasoft.designer.directives'));
+  beforeEach(angular.mock.module('bonitasoft.designer.directives'));
   beforeEach(inject(function (_$rootScope_, $controller) {
     $rootScope = _$rootScope_;
 

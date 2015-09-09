@@ -15,7 +15,7 @@ describe('AssetPopupCtrl', function () {
     });
   }
 
-  beforeEach(module('bonitasoft.designer.assets', function (_assetsServiceProvider_) {
+  beforeEach(angular.mock.module('bonitasoft.designer.assets', function (_assetsServiceProvider_) {
     assetsServiceProvider = _assetsServiceProvider_;
   }));
 

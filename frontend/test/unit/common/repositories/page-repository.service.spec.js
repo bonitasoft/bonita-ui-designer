@@ -5,7 +5,7 @@ describe('pageRepo', function() {
     'rows': []
   };
 
-  beforeEach(module('bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
   beforeEach(inject(function(_$rootScope_, $q, _pageRepo_, _$httpBackend_) {
     $rootScope = _$rootScope_;
     pageRepo = _pageRepo_;

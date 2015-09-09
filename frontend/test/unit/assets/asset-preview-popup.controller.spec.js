@@ -2,7 +2,7 @@ describe('AssetPreviewPopupCtrl', function () {
 
   var $modalInstance, $controller, $rootScope;
 
-  beforeEach(module('bonitasoft.designer.assets'));
+  beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
   beforeEach(inject(function (_$controller_, _$rootScope_) {
     $controller = _$controller_;
