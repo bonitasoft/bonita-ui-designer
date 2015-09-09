@@ -1,9 +1,9 @@
 describe('formContainer', function() {
   var $compile, $rootScope, $document, element;
 
-  beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.services', 'bonitasoft.designer.common.services', 'bonitasoft.designer.factories', 'RecursionHelper', 'bonitasoft.designer.common.repositories'));
-  beforeEach(module('ui.router', 'gettext'));
-  beforeEach(module('bonitasoft.designer.templates'));
+  beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.services', 'bonitasoft.designer.common.services', 'bonitasoft.designer.factories', 'RecursionHelper', 'bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('ui.router', 'gettext'));
+  beforeEach(angular.mock.module('bonitasoft.designer.templates'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_ ) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

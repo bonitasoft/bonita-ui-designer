@@ -1,7 +1,7 @@
 describe('DeletionPopController', function () {
   var page, modalInstance, $scope;
 
-  beforeEach(module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home'));
   beforeEach(inject(function ($controller, $rootScope) {
     $scope = $rootScope.$new();
 

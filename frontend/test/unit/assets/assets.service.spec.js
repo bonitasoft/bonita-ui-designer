@@ -1,11 +1,11 @@
 describe('utils', function () {
   var assetsService, gettextCatalog, assetsServiceProvider;
 
-  beforeEach(module('bonitasoft.designer.assets', function (_assetsServiceProvider_) {
+  beforeEach(angular.mock.module('bonitasoft.designer.assets', function (_assetsServiceProvider_) {
     assetsServiceProvider = _assetsServiceProvider_;
   }));
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(angular.mock.inject(function ($injector) {
     assetsService = $injector.get('assetsService');
     gettextCatalog = $injector.get('gettextCatalog');
   }));

@@ -41,7 +41,7 @@
       }]
     }];
 
-    beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.services', 'bonitasoft.designer.templates', 'gettext'));
+    beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.services', 'bonitasoft.designer.templates', 'gettext'));
     beforeEach(inject(function($injector) {
       $compile = $injector.get('$compile');
       $controller = $injector.get('$controller');

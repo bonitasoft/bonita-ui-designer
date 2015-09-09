@@ -4,7 +4,7 @@
 
     var $scope, repository, $q, $location, $modal;
 
-    beforeEach(module('bonitasoft.designer.data-panel'));
+    beforeEach(angular.mock.module('bonitasoft.designer.data-panel'));
 
     beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$modal_) {
       $scope = $rootScope.$new();

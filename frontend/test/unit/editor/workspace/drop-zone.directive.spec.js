@@ -4,8 +4,8 @@ describe('dropZone directive', function () {
 
   var $compile, element, container, row, template, scope, directiveScope, componentUtils;
 
-  beforeEach(module('ui.router'));
-  beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('ui.router'));
+  beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories'));
   beforeEach(inject(function ($injector) {
 
     var $rootScope = $injector.get('$rootScope');

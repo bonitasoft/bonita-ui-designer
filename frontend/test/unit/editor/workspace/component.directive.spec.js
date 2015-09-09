@@ -1,11 +1,11 @@
 describe('component', function () {
   var $compile, $rootScope, element, directiveScope;
 
-  beforeEach(module('bonitasoft.designer.templates'));
-  beforeEach(module('ui.router'));
-  beforeEach(module('RecursionHelper'));
-  beforeEach(module('bonitasoft.designer.directives', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services'));
-  beforeEach(module('bonitasoft.designer.factories', function ($provide) {
+  beforeEach(angular.mock.module('bonitasoft.designer.templates'));
+  beforeEach(angular.mock.module('ui.router'));
+  beforeEach(angular.mock.module('RecursionHelper'));
+  beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services'));
+  beforeEach(angular.mock.module('bonitasoft.designer.factories', function ($provide) {
     $provide.factory('componentResizerModel', function() {
       return {
         set: angular.noop,

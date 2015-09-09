@@ -1,7 +1,7 @@
 describe('widgetRepo', function() {
   var widgetRepo, $httpBackend;
 
-  beforeEach(module('bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
   beforeEach(inject(function(_$httpBackend_, _widgetRepo_) {
     widgetRepo = _widgetRepo_;
     $httpBackend = _$httpBackend_;

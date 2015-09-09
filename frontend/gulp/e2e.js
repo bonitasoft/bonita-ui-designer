@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var mkdirp = require('mkdirp');
+var babel = require('gulp-babel');
 var protractor = require('gulp-protractor').protractor;
 
 module.exports = function(gulp, config) {
@@ -19,6 +20,7 @@ module.exports = function(gulp, config) {
   gulp.task('bundle:e2e', function () {
     return gulp.src(paths.e2e)
       .pipe(plumber())
+      .pipe(babel())
       .pipe(concat('e2e.js'))
       .pipe(gulp.dest(paths.test + '/js'));
   });
