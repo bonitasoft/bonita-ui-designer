@@ -62,7 +62,7 @@ describe('componentScopeBuilder', function() {
       }
     };
 
-    var directiveScope = componentScopeBuilder.build(scope);
+    componentScopeBuilder.build(scope);
 
   });
 });

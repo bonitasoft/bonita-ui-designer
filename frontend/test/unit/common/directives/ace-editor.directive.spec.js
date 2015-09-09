@@ -10,7 +10,7 @@ describe('ace-editor directive', function () {
     scope = $rootScope.$new();
     scope.property = {};
 
-    template = '<ace-editor ng-model="toto" mode="javascript"></ace-editor>';
+    template = '<ace-editor ng-model=\'toto\' mode=\'javascript\'></ace-editor>';
     element = $compile(template)(scope);
     scope.$apply();
 
@@ -43,8 +43,8 @@ describe('ace-editor directive', function () {
       }
     };
 
-    scope.data = {name:"bob"} ;
-    template = '<ace-editor mode="javascript" ng-model="toto" auto-completion="{{data}}"></ace-editor>';
+    scope.data = {name:'bob'} ;
+    template = '<ace-editor mode=\'javascript\' ng-model=\'toto\' auto-completion=\'{{data}}\'></ace-editor>';
     element = $compile(template)(scope);
     scope.$apply();
 

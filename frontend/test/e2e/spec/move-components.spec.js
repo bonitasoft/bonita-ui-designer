@@ -60,7 +60,6 @@ describe('moving components test', function() {
   });
 
   it('should not allow moving an existing component on #editor', function() {
-    var component = editor.components.first();
     // element is necessary to force the promise resolution
     var workspace = $('#editor');
     var height;

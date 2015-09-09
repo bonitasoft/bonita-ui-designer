@@ -8,7 +8,7 @@ describe('ace-data-completer', function() {
 
   it('should return an object with getCompletions ', function() {
     var completer = service();
-    expect(completer.getCompletions).toBeDefined()
+    expect(completer.getCompletions).toBeDefined();
   });
 
   describe('getCompletions', function() {
@@ -19,8 +19,8 @@ describe('ace-data-completer', function() {
       var completer = service(data);
       completer.getCompletions(null, null, 0, '' ,function(err, results){
         expect(results.length).toBe(1);
-        expect(results).toEqual([{name: '$data.users', value: '$data.users', score: 2, meta: 'data'}])
-      })
+        expect(results).toEqual([{name: '$data.users', value: '$data.users', score: 2, meta: 'data'}]);
+      });
     });
-  })
+  });
 });

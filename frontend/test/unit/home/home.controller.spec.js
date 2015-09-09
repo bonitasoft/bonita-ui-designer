@@ -60,7 +60,7 @@ describe('HomeCtrl', function () {
     spyOn(widgetRepo, 'create').and.returnValue($q.when(createdWidget));
     spyOn($state, 'go');
 
-    $scope.createWidget("foo");
+    $scope.createWidget('foo');
     $scope.$apply();
     expect($state.go).toHaveBeenCalledWith('designer.widget', {widgetId: 'foo'});
   });

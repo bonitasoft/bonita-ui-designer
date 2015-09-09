@@ -1,6 +1,6 @@
 
 describe('EditorCtrl', function() {
-  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON;
+  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils;
 
   beforeEach(module('ui.bootstrap'));
   beforeEach(module('bonitasoft.designer.controllers', 'bonitasoft.designer.common.repositories'));
@@ -98,7 +98,7 @@ describe('EditorCtrl', function() {
     };
 
     beforeEach(function() {
-      spyOn(componentUtils.column, 'computeSizeItemInRow')
+      spyOn(componentUtils.column, 'computeSizeItemInRow');
       $scope.currentContainerRow = {
         container: 'toto',
         row: [{
@@ -211,7 +211,7 @@ describe('EditorCtrl', function() {
 
   describe('Add a widget', function() {
 
-    var widget, dragData, row, container;
+    var widget, dragData, container;
 
     beforeEach(function() {
       // given a page with 1 row, which is the current row
@@ -252,7 +252,7 @@ describe('EditorCtrl', function() {
     });
 
     it('should append a component and create a new row at the end', function(){
-      $scope.page.rows = [[{"name": "titi"}]];
+      $scope.page.rows = [[{'name': 'titi'}]];
       var nbRow = $scope.page.rows.length;
       $scope.appendComponent(null, dragData);
 
@@ -573,16 +573,16 @@ describe('EditorCtrl', function() {
     $scope.page = {id: 'person'};
 
     document.addEventListener('keydown', function(e){
-      console.log(e.type, e.ctrlKey, e.shiftKey)
-    })
+      console.log(e.type, e.ctrlKey, e.shiftKey);
+    });
 
 
-    var event = document.createEvent("Event");
+    var event = document.createEvent('Event');
     event.initEvent('keydown', true, true);
     event.ctrlKey = true;
     event.shiftKey = true;
-    event.keyCode = "S".charCodeAt(0);
-    event.which = "s".charCodeAt(0);
+    event.keyCode = 'S'.charCodeAt(0);
+    event.which = 's'.charCodeAt(0);
     document.dispatchEvent(event);
 
     expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);

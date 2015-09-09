@@ -49,7 +49,7 @@ describe('tabs test', function() {
     var firstTab = $$('tabs-container li a').first();
     firstTab.click();
 
-    firstTab.element(By.css('.fa-times-circle')).click();
+    firstTab.element(by.css('.fa-times-circle')).click();
 
     expect($$('tabs-container li a').count()).toBe(2);
   });

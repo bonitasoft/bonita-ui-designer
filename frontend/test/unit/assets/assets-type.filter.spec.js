@@ -1,5 +1,5 @@
 (function () {
-  'use strict'
+  'use strict';
 
   describe('assetType filter', function(){
     var $filter;

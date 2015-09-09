@@ -1,3 +1,5 @@
+var CustomMatcher = this.CustomMatcher;  // CustomMatcher is registered in global object, TODO use commonjs or equivalent
+
 describe('splitter horizontal directive', function() {
   var $compile, $rootScope, element, doc, scope, controller, $window, $state;
 

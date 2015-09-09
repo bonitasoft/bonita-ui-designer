@@ -16,8 +16,8 @@ describe('PropertyEditorPopupCtrl', function() {
   }));
 
   it('should close the popup and pass params', function() {
-    $scope.currentParam = {name: "toto", defaultValue: 'default value'};
-    $scope.paramToUpdate = {name: "titi"};
+    $scope.currentParam = {name: 'toto', defaultValue: 'default value'};
+    $scope.paramToUpdate = {name: 'titi'};
     var params = {
       param: $scope.currentParam,
       paramToUpdate: $scope.paramToUpdate

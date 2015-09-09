@@ -18,6 +18,7 @@
   "strict": false,
   "trailing": true,
   "smarttabs": true,
+  "esnext": true,
   "globals": {
     "angular": false,
     "ace": false,
@@ -35,11 +36,18 @@
     "inject": false,
     "afterEach": false,
     "it": false,
+    "xit": false,
     "expect": false,
     "jasmine": false,
     "spyOn": false,
     "$$": false,
     "$": false,
+
+    //protractor
+    "browser": false,
+    "by": false,
+    "element": false,
+    "protractor": false,
 
     "require": false
   }

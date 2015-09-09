@@ -1,5 +1,5 @@
 describe('splitter container directive', function() {
-  var $compile, $rootScope, element, scope, controller,$state;
+  var $compile, element, scope, controller,$state;
 
 
   beforeEach(module('bonitasoft.designer.common.directives'));
@@ -15,7 +15,7 @@ describe('splitter container directive', function() {
     spyOn($state, 'go');
     $state.current = {
       name: 'stateTest'
-    }
+    };
   }));
 
   describe('controller', function() {
@@ -37,7 +37,7 @@ describe('splitter container directive', function() {
 
       controller.register(splitter);
       controller.toggle('stateTest');
-      expect(splitter.closeBottom).toHaveBeenCalled()
+      expect(splitter.closeBottom).toHaveBeenCalled();
     });
 
     it('should toggle a splitter-horizontal', function(){
@@ -48,11 +48,11 @@ describe('splitter container directive', function() {
 
       controller.register(splitter);
       controller.toggle('stateTest');
-      expect(splitter.closeBottom).toHaveBeenCalled()
+      expect(splitter.closeBottom).toHaveBeenCalled();
       controller.toggle('stateTest');
-      expect(splitter.openBottom).toHaveBeenCalled()
-      expect($state.go.calls.count()).toBe(2)
-    })
+      expect(splitter.openBottom).toHaveBeenCalled();
+      expect($state.go.calls.count()).toBe(2);
+    });
 
   });
 
