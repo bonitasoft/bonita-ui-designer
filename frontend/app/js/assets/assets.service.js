@@ -100,11 +100,29 @@
             return !asset.componentId;
           }
 
+          function createFilters() {
+            return getTypes()
+              .map(function transformToFilter(type) {
+                return {
+                  key: type.key,
+                  value: {
+                    label: type.value,
+                    value: type.filter
+                  }
+                };
+              })
+              .reduce(function createObject(filters, filter) {
+                filters[filter.key] = filter.value;
+                return filters;
+              }, {});
+          }
+
           return {
             isExternal: isExternal,
             isPageAsset: isPageAsset,
             getSources: getSources,
             getTypes: getTypes,
+            getFilters: createFilters,
             assetToForm: assetToForm,
             formToAsset: formToAsset
           };
