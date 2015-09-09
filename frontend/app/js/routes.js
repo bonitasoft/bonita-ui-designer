@@ -91,6 +91,7 @@
           //  sub view named in editor.html
           'data@designer.page': {
             controller: 'AssetCtrl',
+            controllerAs: 'vm',
             templateUrl: 'js/assets/page-assets.html'
           }
         }
@@ -145,6 +146,7 @@
           //  sub view named in editor.html
           'asset@designer.widget': {
             controller: 'AssetCtrl',
+            controllerAs: 'vm',
             templateUrl: 'js/assets/widget-assets.html'
           }
         }

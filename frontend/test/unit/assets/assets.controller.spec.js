@@ -44,7 +44,7 @@
 
       it('should put assets in $scope', function () {
         $scope.$digest();
-        expect($scope.assets).toEqual([
+        expect(controller.assets).toEqual([
           {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
           {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
           {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
@@ -58,9 +58,9 @@
         ]);
       });
 
-      it('should put filters in $scope', function () {
+      it('should expose filters', function () {
         $scope.$digest();
-        expect($scope.filters).toEqual({
+        expect(controller.filters).toEqual({
           js: {label: 'JavaScript', value: true},
           css: {label: 'CSS', value: true},
           img: {label: 'Image', value: true}
@@ -71,7 +71,7 @@
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
-        $scope.openAssetPreviewPopup();
+        controller.openAssetPreviewPopup();
         expect($modal.open).toHaveBeenCalled();
       });
 
@@ -79,7 +79,7 @@
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
-        $scope.openAssetPopup();
+        controller.openAssetPopup();
         expect($modal.open).toHaveBeenCalled();
       });
 
@@ -88,7 +88,7 @@
 
         spyOn(artifactRepo, 'deleteAsset').and.returnValue($q.when({}));
 
-        $scope.delete(asset);
+        controller.delete(asset);
         $scope.$apply();
 
         expect(artifactRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
@@ -125,7 +125,7 @@
 
       it('should put assets in $scope', function () {
         $scope.$digest();
-        expect($scope.assets).toEqual([
+        expect(controller.assets).toEqual([
           {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
           {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
           {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
@@ -137,7 +137,7 @@
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
-        $scope.openAssetPreviewPopup();
+        controller.openAssetPreviewPopup();
         expect($modal.open).toHaveBeenCalled();
       });
 
@@ -145,7 +145,7 @@
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
-        $scope.openAssetPopup();
+        controller.openAssetPopup();
         expect($modal.open).toHaveBeenCalled();
       });
 
@@ -153,7 +153,7 @@
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
-        $scope.openAssetPreviewPopup();
+        controller.openAssetPreviewPopup();
         expect($modal.open).toHaveBeenCalled();
       });
 

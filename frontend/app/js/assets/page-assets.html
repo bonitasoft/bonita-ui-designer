@@ -1,14 +1,14 @@
 <div class="DataHeader">
     <div class="DataHeader-action">
-        <button class="btn btn-default" ng-click="openAssetPopup()" translate>Add a new asset</button>
-        <button class="btn btn-default btn-asset--help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+        <button class="btn btn-default" ng-click="vm.openAssetPopup()" translate>Add a new asset</button>
+        <button class="btn btn-default btn-asset--help" ng-click="vm.openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
     </div>
 
     <div class="DataHeader-filter">
         <label class="sr-only" translate> filter: </label>
 
         <div class="search-filter">
-            <label class="checkbox-inline" ng-repeat="(key, filter) in filters">
+            <label class="checkbox-inline" ng-repeat="(key, filter) in vm.filters">
                 <input type="checkbox" ng-model="filter.value"> {{filter.label}}
             </label>
         </div>
@@ -24,23 +24,23 @@
     <th class="col-xs-2">&nbsp;</th>
     </thead>
     <tbody>
-    <tr ng-class="{'text-muted':!asset.active}" ng-repeat="asset in assets | orderBy:['componentId','order'] | assetFilter:filters as results">
-        <td><input type="checkbox" ng-model="asset.active" ng-click="desactivateAsset(asset)"></td>
+    <tr ng-class="{'text-muted':!asset.active}" ng-repeat="asset in vm.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
+        <td><input type="checkbox" ng-model="asset.active" ng-click="vm.desactivateAsset(asset)"></td>
         <td>{{asset.name}}</td>
-        <td>{{asset.componentId}}<span ng-if="isPageAsset(asset)" translate>Page level</span></td>
+        <td>{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
         <td>{{asset.type | assetType}}</td>
         <td class="text-right">
             <div class="btn-group link-group btn-group-sm">
-                <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup(asset)"
-                        title="{{ 'View asset content' | translate }}" ng-if="!isExternal(asset)">
+                <button class="btn btn-bonita-asset" ng-click="vm.openAssetPreviewPopup(asset)"
+                        title="{{ 'View asset content' | translate }}" ng-if="!vm.isExternal(asset)">
                     <i class="fa fa-search"></i>
                 </button>
-                <button class="btn btn-bonita-asset" ng-click="openAssetPopup(asset)"
-                        title="{{ 'Update asset' | translate }}" ng-if="isPageAsset(asset) && isExternal(asset)">
+                <button class="btn btn-bonita-asset" ng-click="vm.openAssetPopup(asset)"
+                        title="{{ 'Update asset' | translate }}" ng-if="vm.isPageAsset(asset) && vm.isExternal(asset)">
                     <i class="fa fa-pencil"></i>
                 </button>
-                <button class="btn btn-bonita-asset" ng-click="delete(asset)"
-                        title="{{ 'Delete asset' | translate }}" ng-if="isPageAsset(asset)">
+                <button class="btn btn-bonita-asset" ng-click="vm.delete(asset)"
+                        title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)">
                     <i class="fa fa-trash"></i>
                 </button>
             </div>
