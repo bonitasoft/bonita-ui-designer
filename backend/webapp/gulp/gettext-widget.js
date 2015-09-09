@@ -73,13 +73,19 @@ function extract() {
      */
     function transform(data) {
       return Object.keys(data).map(function (key) {
-        return data[key]
-          .concat('msgid  "' + key + '"')
-          .concat('msgstr ""')
-          .concat('')
-          .join(os.EOL);
+        if (key.length > 0) {
+          return data[key]
+            .concat('msgid  "' + escapeQuote(key) + '"')
+            .concat('msgstr ""')
+            .concat('')
+            .join(os.EOL);
+        }
       })
         .join(os.EOL);
+    }
+
+    function escapeQuote(string) {
+      return string.replace(/"/g, '\\"');
     }
 
 
