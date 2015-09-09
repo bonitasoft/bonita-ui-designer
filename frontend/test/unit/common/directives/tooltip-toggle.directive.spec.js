@@ -1,5 +1,5 @@
 describe('tooltip toggle', function() {
-  var c, element, $scope, $compile, $timeout,  handlers;
+  var element, $scope, $compile, $timeout,  handlers, rootScope;
 
   beforeEach(module('bonitasoft.designer.common.directives'));
   beforeEach(inject(function ($injector) {

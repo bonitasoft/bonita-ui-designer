@@ -1,8 +1,8 @@
 describe('DeletionPopController', function () {
-  var page, modalInstance;
+  var page, modalInstance, $scope;
 
   beforeEach(module('bonitasoft.designer.home'));
-  beforeEach(inject(function ($controller, $rootScope, $injector) {
+  beforeEach(inject(function ($controller, $rootScope) {
     $scope = $rootScope.$new();
 
     page = {id: 'page1', name: 'page1'};
@@ -32,7 +32,7 @@ describe('DeletionPopController', function () {
 
   it('should populate artifact and his type', function () {
     expect($scope.artifact).toEqual(page);
-    expect($scope.artifact.type).toBe('page')
+    expect($scope.artifact.type).toBe('page');
   });
 
 });

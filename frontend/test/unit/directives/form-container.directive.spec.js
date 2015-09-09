@@ -13,9 +13,6 @@ describe('formContainer', function() {
     var template = '<form-container id="{{ id }}" form-container="formContainer" editor="editor"></form-container>';
     // when compiling with tabs container containing 2 tabs
     var row = [];
-    var parentContainerRow = {
-      row: row
-    };
 
     $rootScope.formContainer = {
       type: 'formContainer',

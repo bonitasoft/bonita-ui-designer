@@ -6,7 +6,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
 
   // remove double space, \t, \n etc ...
   function hardTrim(string) {
-    return string.replace(/(\r\n|\n|\r|\t)/gm,"").replace(/ +(?= )/g,'').trim();
+    return string.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/ +(?= )/g,'').trim();
   }
 
   beforeEach(inject(function ($controller, $rootScope, gettextCatalog, $compile, $templateCache) {

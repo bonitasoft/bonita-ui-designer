@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $modal, modalScope, modalInstance;
+  var $scope, alerts, $q, widgetRepo, $modal, modalInstance;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -82,7 +82,7 @@ describe('CustomWidgetEditorCtrl', function() {
       type: 'text',
       defaultValue: 'This is the initial value'
     }];
-    spyOn(widgetRepo, 'deleteProperty').and.returnValue($q.when({data: properties}));;
+    spyOn(widgetRepo, 'deleteProperty').and.returnValue($q.when({data: properties}));
 
     // when the param is deleted
     $scope.deleteParam({ name: 'toBeDeleted'});

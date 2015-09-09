@@ -18,7 +18,7 @@ describe('ComponentUtils Service', function() {
         width: 1337,
         tooltip: 'foo bar quux'
       }
-    ])
+    ]);
     resolutionsProvider.setDefaultResolution('foo');
   }));
 
@@ -233,7 +233,6 @@ describe('ComponentUtils Service', function() {
         var currentRow = rows.cas1;
         currentRow.push(component);
         service.column.computeSizeItemInRow(currentRow);
-        var lastItem = currentRow[currentRow.length -1];
 
         rows.cas1.forEach(function(compo){
           expect(compo.dimension.xs).toBe(12);
@@ -314,7 +313,7 @@ describe('ComponentUtils Service', function() {
 
     it('should return false if a container is not empty', function() {
       var container = {
-        rows: [[],[{"name": "titi"}]]
+        rows: [[],[{'name': 'titi'}]]
       };
       expect(service.isEmpty(container)).toBe(false);
     });
@@ -327,6 +326,6 @@ describe('ComponentUtils Service', function() {
 
       tabContainer.$$openedTab = tabContainer.tabs[1];
       expect(service.getVisibleComponents(pageJson).length).toBe(10);
-    })
-  })
+    });
+  });
 });

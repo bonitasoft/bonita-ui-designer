@@ -73,9 +73,9 @@ describe('home page', function() {
     //A modal is opened and I click on Cancel
 
     //Disable animation for modal
-    $$('#confirm-delete-popup').allowAnimations(false)
+    $$('#confirm-delete-popup').allowAnimations(false);
 
-    $$('#confirm-delete-popup .modal-footer button').get(0).click()
+    $$('#confirm-delete-popup .modal-footer button').get(0).click();
     expect($$('#confirm-delete-popup').count()).toBe(0);
       //and the page is not deleted
     expect(element.all(by.repeater('page in pages')).count()).toBe(numberOfPages);
@@ -113,7 +113,7 @@ describe('home page', function() {
   });
 
   it('should not rename a page with space or special characters in name', function() {
-    var btnRenamePage = $$('.btn-page-rename').first().click();
+    $$('.btn-page-rename').first().click();
 
     //The link should now be a visible input with the page name
     $('#page-name-input-0').clear();
@@ -141,7 +141,7 @@ describe('home page', function() {
     expect(nameInput.isPresent()).toBe(true);
 
     browser
-      .executeScript("$('#page-name-input-0').blur();")
+      .executeScript('$(\'#page-name-input-0\').blur();')
       .then(function() {
         expect(nameInput.isPresent()).toBe(false);
       });

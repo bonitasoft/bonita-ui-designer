@@ -10,9 +10,9 @@
       $filter = _$filter_;
 
       assets = [
-        {"name": "MyAbcExample.js", "type": "js"},
-        {"name": "MyAbcExample.css", "type": "css"},
-        {"name": "MyAbcExample.png", "type": "img"}
+        {'name': 'MyAbcExample.js', 'type': 'js'},
+        {'name': 'MyAbcExample.css', 'type': 'css'},
+        {'name': 'MyAbcExample.png', 'type': 'img'}
       ];
 
       filters = {
@@ -35,8 +35,8 @@
       filters.css.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
-        {"name": "MyAbcExample.js", "type": "js"},
-        {"name": "MyAbcExample.png", "type": "img"}
+        {'name': 'MyAbcExample.js', 'type': 'js'},
+        {'name': 'MyAbcExample.png', 'type': 'img'}
       ]);
     });
 
@@ -44,8 +44,8 @@
       filters.img.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
-        {"name": "MyAbcExample.js", "type": "js"},
-        {"name": "MyAbcExample.css", "type": "css"}
+        {'name': 'MyAbcExample.js', 'type': 'js'},
+        {'name': 'MyAbcExample.css', 'type': 'css'}
       ]);
     });
 
@@ -53,8 +53,8 @@
       filters.js.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
-        {"name": "MyAbcExample.css", "type": "css"},
-        {"name": "MyAbcExample.png", "type": "img"}
+        {'name': 'MyAbcExample.css', 'type': 'css'},
+        {'name': 'MyAbcExample.png', 'type': 'img'}
       ]);
     });
   });

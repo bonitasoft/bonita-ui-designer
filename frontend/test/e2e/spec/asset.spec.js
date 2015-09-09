@@ -18,8 +18,8 @@ describe('asset panel', function() {
     it('should display 3 checked checkboxes to filter the asset list', function() {
       var filters = assetPanel.filters;
       expect(filters.getText()).toEqual([ 'CSS', 'Image', 'JavaScript' ]);
-      for(i in [0,1,2]){
-        expect(filters.get(0).element(by.tagName('input')).getAttribute('checked')).toBeTruthy();
+      for (var i in [0, 1, 2]) {
+        expect(filters.get(i).element(by.tagName('input')).getAttribute('checked')).toBeTruthy();
       }
     });
 
@@ -75,7 +75,6 @@ describe('asset panel', function() {
       });
 
       it('should display the widget name in the table', function() {
-        var buttons = widgetAsset.all(by.className('btn'));
         expect(widgetAsset.all(by.tagName('td')).get(2).getText()).toBe('customWidget');
       });
 

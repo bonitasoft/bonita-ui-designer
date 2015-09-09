@@ -1,18 +1,5 @@
 describe('widgetRepo', function() {
-  var widgetRepo, $httpBackend, widgets;
-
-  // just a label and an input.
-  var widgetsJson = [
-    {
-      id: 'label',
-      name: 'Label'
-    },
-    {
-      id: 'input',
-      name: 'Input',
-      properties: ['property']
-    }
-  ];
+  var widgetRepo, $httpBackend;
 
   beforeEach(module('bonitasoft.designer.common.repositories'));
   beforeEach(inject(function(_$httpBackend_, _widgetRepo_) {
@@ -146,7 +133,6 @@ describe('widgetRepo', function() {
   });
 
   it('should delete a property of a widget', function() {
-    var property = { name: 'value', label: 'Value', type: 'text'};
     $httpBackend.expectDELETE('rest/widgets/awesome-custom-widget/properties/toBeDeleted').respond(200);
 
     widgetRepo.deleteProperty('awesome-custom-widget', 'toBeDeleted');

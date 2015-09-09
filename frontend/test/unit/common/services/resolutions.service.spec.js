@@ -15,7 +15,7 @@ describe('Resolution service', function() {
         width: 1337,
         tooltip: 'foo bar quux'
       }
-    ])
+    ]);
   }));
 
   beforeEach(inject(function ($injector) {
@@ -41,7 +41,7 @@ describe('Resolution service', function() {
     expect(res.key).toBe('xs');
 
     // when we load a wrong key
-    resolution = resolutions.get();
+    var resolution = resolutions.get();
 
     // then we should have desktop
     expect(resolution.key).toBe('xs');

@@ -4,15 +4,15 @@ describe('directive fileInputChange', function() {
 
   beforeEach(module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
     var rootScope = $injector.get('$rootScope');
     var compile = $injector.get('$compile');
     $document = $injector.get('$document');
 
     scope = rootScope.$new();
-    scope.filename = "";
+    scope.filename = '';
 
-    element = compile('<input type="file" id="myinput" file-input-change ng-model="filename">')(scope);
+    element = compile('<input type=\'file\' id=\'myinput\' file-input-change ng-model=\'filename\'>')(scope);
     $document.find('body').append(element);
     scope.$digest();
   }));
@@ -23,15 +23,13 @@ describe('directive fileInputChange', function() {
 
   it('should update ', function() {
     var event = {
-      type:'change',
+      type: 'change',
       target: {
-        files: [
-          {
-            name: "filename.jpg"
-          }
-        ]
+        files: [{
+          name: 'filename.jpg'
+        }]
       }
-    }
+    };
     element.triggerHandler(event);
     expect(scope.filename).toBe('filename.jpg');
   });

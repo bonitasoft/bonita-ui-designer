@@ -2,7 +2,7 @@ describe('pageRepo', function() {
   var $rootScope, pageRepo, $httpBackend;
 
   var json = {
-    "rows": []
+    'rows': []
   };
 
   beforeEach(module('bonitasoft.designer.common.repositories'));
@@ -133,7 +133,7 @@ describe('pageRepo', function() {
     ];
     $httpBackend.expectGET('rest/pages/1/assets').respond(expectedAssets);
 
-    var pages;
+    var assets;
     pageRepo.loadAssets({id : 1}).then(function(data) {
       assets = data;
     });

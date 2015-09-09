@@ -53,7 +53,7 @@ describe('properties panel test', function () {
     // Click on the first widget
     $('#component-0').click();
 
-    var type = element(by.css('[data-property=type] select'));
+    type = element(by.css('[data-property=type] select'));
     expect(type.$('option:checked').getText()).toBe('number');
   });
 

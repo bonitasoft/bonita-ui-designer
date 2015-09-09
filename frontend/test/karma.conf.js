@@ -1,6 +1,6 @@
-'use strict';
-
 module.exports = function (config) {
+
+  'use strict';
 
   config.set({
     // base path, that will be used to resolve files and exclude
@@ -44,6 +44,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress', 'junit', 'coverage'],
+
 
     preprocessors: {
       // source files, that you wanna generate coverage for

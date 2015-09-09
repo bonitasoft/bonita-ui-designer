@@ -1,6 +1,6 @@
 describe('AssetPreviewPopupCtrl', function () {
 
-  var $scope, $modalInstance, $controller, $rootScope;
+  var $modalInstance, $controller, $rootScope;
 
   beforeEach(module('bonitasoft.designer.assets'));
 
@@ -21,7 +21,7 @@ describe('AssetPreviewPopupCtrl', function () {
         type: 'js'
       },
       component: {id: 1234},
-      mode: "page"
+      mode: 'page'
     });
 
     scope.cancel();
@@ -39,7 +39,7 @@ describe('AssetPreviewPopupCtrl', function () {
         type: 'js'
       },
       component: {id: 1234},
-      mode: "widget"
+      mode: 'widget'
     });
 
     expect(scope.url).toBe('preview/widget/1234/assets/js/myasset.js?format=text');
@@ -51,13 +51,13 @@ describe('AssetPreviewPopupCtrl', function () {
       $scope: scope,
       $modalInstance: $modalInstance,
       asset: {
-        scope: "WIDGET",
+        scope: 'WIDGET',
         componentId: 4321,
         name: 'myasset.js',
         type: 'js'
       },
       component: {id: 56},
-      mode: "page"
+      mode: 'page'
     });
 
     expect(scope.url).toBe('preview/widget/4321/assets/js/myasset.js?format=text');
@@ -73,7 +73,7 @@ describe('AssetPreviewPopupCtrl', function () {
         type: 'js'
       },
       component: {id: 1234},
-      mode: "page"
+      mode: 'page'
     });
 
     expect(scope.url).toBe('preview/page/1234/assets/js/myasset.js?format=text');

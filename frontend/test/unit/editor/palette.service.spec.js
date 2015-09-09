@@ -28,7 +28,7 @@ describe('paletteService', function() {
       sectionName:'bar',
       sectionOrder: 1,
     }]);
-    var section = paletteService.getSections()[0]
+    var section = paletteService.getSections()[0];
     expect(section.name).toBe('bar');
     expect(section.order).toBe(1);
     expect(section.widgets.length).toBe(1);
@@ -44,7 +44,7 @@ describe('paletteService', function() {
       sectionOrder: 1,
       init: spy
     }]);
-    var row = {}
+    var row = {};
     var component = {id: 'foo' };
     paletteService.init(component, row);
     expect(spy).toHaveBeenCalled();
@@ -52,8 +52,8 @@ describe('paletteService', function() {
 
   it('throw an error when trying to init an unregistered component', function() {
     function test(){
-      paletteService.init({id: 'foo' }, row);
+      paletteService.init({id: 'foo' });
     }
-    expect(test).toThrow()
+    expect(test).toThrow();
   });
 });

@@ -39,9 +39,9 @@ describe('directive autofocus', function() {
 
   it('should set the focus on an ace-editor', function() {
     dom = compile('<ace-editor id="editor" ng-model="toto" mode="javascript" autofocus ></ace-editor>')(scope);
-    var controller = dom.controller('aceEditor')
+    var controller = dom.controller('aceEditor');
 
-    spyOn(controller.editor, "focus")
+    spyOn(controller.editor, 'focus');
 
     scope.$digest();
     timeout.flush();

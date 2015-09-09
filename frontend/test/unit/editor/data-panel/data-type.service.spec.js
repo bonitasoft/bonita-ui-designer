@@ -1,5 +1,5 @@
 describe('data-type', function() {
-  var service, DATA_TYPES;
+  var service;
 
   beforeEach(module('bonitasoft.designer.data-panel'));
   beforeEach(inject(function($injector) {
@@ -28,7 +28,7 @@ describe('data-type', function() {
     });
 
     it('should return undefined for unknown types', function() {
-      expect(service.getDataLabel("foo")).not.toBeDefined();
+      expect(service.getDataLabel('foo')).not.toBeDefined();
     });
   });
 
@@ -40,7 +40,7 @@ describe('data-type', function() {
     });
 
     it('should return undefined for unknown types', function() {
-      expect(service.getDataDefaultValue("foo")).not.toBeDefined();
+      expect(service.getDataDefaultValue('foo')).not.toBeDefined();
     });
   });
 

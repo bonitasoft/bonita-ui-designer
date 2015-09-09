@@ -117,8 +117,7 @@ describe('componentFactory', function() {
   });
 
   it('should create a new tab', function() {
-    var parentRow = {};
-    var title = "tab";
+    var title = 'tab';
     var tab = service.createNewTab(title);
     expect(tab.title).toEqual(title);
     expect(Object.keys(tab.container.propertyValues).length).toBeGreaterThan(0);
@@ -142,7 +141,7 @@ describe('componentFactory', function() {
     });
 
     it('should return the incremented id', function() {
-      service.getNextId('toto')
+      service.getNextId('toto');
       expect(service.getNextId('toto')).toEqual('toto-1');
     });
   });

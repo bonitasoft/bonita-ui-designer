@@ -53,31 +53,31 @@ describe('editor test', function() {
   it('should move selection to the next component using RIGHT', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
-    editor.components.first().click()
+    editor.components.first().click();
     browser.actions().sendKeys(protractor.Key.RIGHT).perform();
-    expect(editor.components.last().getAttribute('class')).toContain('component-element--selected')
+    expect(editor.components.last().getAttribute('class')).toContain('component-element--selected');
   });
 
   it('should leave selection using RIGHT to the last component if is already selected', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     browser.actions().sendKeys(protractor.Key.RIGHT).perform();
-    expect(editor.components.last().getAttribute('class')).toContain('component-element--selected')
+    expect(editor.components.last().getAttribute('class')).toContain('component-element--selected');
   });
 
   it('should move selection to the previous component using LEFT', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     browser.actions().sendKeys( protractor.Key.LEFT ).perform();
-    expect(editor.components.first().getAttribute('class')).toContain('component-element--selected')
+    expect(editor.components.first().getAttribute('class')).toContain('component-element--selected');
   });
 
   it('should leave selection using LEFT to the last component if is already selected', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
-    editor.components.first().click()
+    editor.components.first().click();
     browser.actions().sendKeys( protractor.Key.LEFT ).perform();
-    expect(editor.components.first().getAttribute('class')).toContain('component-element--selected')
+    expect(editor.components.first().getAttribute('class')).toContain('component-element--selected');
   });
 
 
@@ -106,7 +106,7 @@ describe('editor test', function() {
     editor.addElement('pbParagraph').to('.dropRow--last');
 
     browser
-      .executeScript("$('.row-builder .fa-times-circle').first().click();")
+      .executeScript('$(\'.row-builder .fa-times-circle\').first().click();')
       .then(function() {
         expect(editor.rows.count()).toBe(1);
       });
