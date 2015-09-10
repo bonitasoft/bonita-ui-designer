@@ -15,24 +15,29 @@
 /**
  * Listen to an input file and assign the selected file to a scope variable
  */
-angular.module('bonitasoft.designer.home')
-  .directive('fileInputChange', function(){
+(function () {
 
-    'use strict';
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.common.directives')
+    .directive('fileInputChange', fileInputChange);
+
+  function fileInputChange() {
 
     return {
       require: 'ngModel',
-      link: function(scope, elem, attr, ngModel) {
+      link: function (scope, elem, attr, ngModel) {
 
         function update(event) {
           var filename = '';
           if (event.target.files && event.target.files.length > 0) {
             filename = event.target.files[0].name;
           } else {
-            filename = event.target.value.match(/([^\\|\/]*)$/)[0] ;
+            filename = event.target.value.match(/([^\\|\/]*)$/)[0];
           }
 
-          scope.$apply(function(){
+          scope.$apply(function () {
             ngModel.$setViewValue(filename);
             ngModel.$render();
           });
@@ -40,10 +45,11 @@ angular.module('bonitasoft.designer.home')
 
         elem.on('change', update);
 
-        scope.$on('$destroy', function() {
+        scope.$on('$destroy', function () {
           elem.off('change', update);
         });
 
       }
     };
-  });
+  }
+})();
