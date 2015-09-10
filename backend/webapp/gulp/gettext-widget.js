@@ -126,7 +126,7 @@ function extract() {
           acc = value.reduce(function (dict, choice) {
             // grouped choice values
             if (typeof choice == "object") {
-              dict[choice.value] = (acc[choice.value] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+              dict[choice.label] = (acc[choice.label] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
               dict[choice.group] = (acc[choice.group] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
             } else {
               dict[choice] = (acc[choice] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
