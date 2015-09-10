@@ -52,9 +52,9 @@
                 <br/>It is the id of the current BPM task. You can use it as a BPM API parameter.
             </p>
 
-            <p ng-non-bindable translate><code>context</code> is an External API.
+            <p translate><code>context</code> is an External API.
                 <br/>It provides references to all business variables and documents in the process instance.
-                To retrieve a business variable instance, create an External API variable with value ../{{context.myBusinessData_ref.link}}
+                To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>
             </p>
 
         </tab>
