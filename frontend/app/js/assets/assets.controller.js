@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($modal, $q, artifact, artifactRepo, mode, assetsService) {
+  function AssetCtrl($modal, artifact, artifactRepo, mode, assetsService) {
 
     var vm = this;
     vm.component = artifact;
@@ -34,7 +34,6 @@
     vm.openAssetPreviewPopup = openAssetPreviewPopup;
     vm.openAssetPopup = openAddUpdateAssetPopup;
     vm.openHelp = openHelp;
-    vm.createOrUpdate = createOrUpdate;
 
     //Load assets
     refresh();
@@ -77,6 +76,7 @@
       var modalInstance = $modal.open({
         templateUrl: 'js/assets/asset-popup.html',
         controller: 'AssetPopupCtrl',
+        controllerAs: 'vm',
         resolve: {
           asset: function () {
             return asset;
@@ -86,24 +86,13 @@
           },
           artifact: function () {
             return artifact;
+          },
+          artifactRepo: function() {
+            return artifactRepo;
           }
         }
       });
-      //Action launched after a local asset upload or an external asset creation
-      modalInstance.result.then(vm.createOrUpdate).then(refresh);
-    }
-
-    /**
-     * Create or update an asset
-     */
-    function createOrUpdate(data) {
-      if (data) {
-        return artifactRepo.createAsset(vm.component.id, assetsService.formToAsset(data));
-      }
-      else {
-        //A local asset is created via a form send in the popup. We just have to return a promise
-        return $q.when({});
-      }
+      modalInstance.result.then(refresh);
     }
 
     /**

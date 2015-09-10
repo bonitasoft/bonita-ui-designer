@@ -94,19 +94,6 @@
         expect(artifactRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
       });
 
-      it('should return an empty promise when arg datas is undefined in createOrUpdate', function () {
-        expect(controller.createOrUpdate()).toEqual($q.when({}));
-      });
-
-      it('should save an external asset', function () {
-        var asset = {name: 'myasset.js', isNew: true};
-        spyOn(artifactRepo, 'createAsset').and.returnValue($q.when({}));
-
-        controller.createOrUpdate(asset);
-
-        expect(artifactRepo.createAsset).toHaveBeenCalled();
-      });
-
     });
 
 

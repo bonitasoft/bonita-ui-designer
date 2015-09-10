@@ -1,16 +1,30 @@
 describe('AssetPopupCtrl', function () {
 
-  var $rootScope, $scope, asset, $modalInstance, assetsService, alerts, assetsServiceProvider, createController;
+  var $rootScope, $scope, asset, $modalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector;
+
+  function createController(mode) {
+    return injector.get('$controller')('AssetPopupCtrl', {
+      $scope: $rootScope.$new(),
+      $modalInstance: $modalInstance,
+      asset: asset,
+      assetsService: assetsService,
+      alerts: alerts,
+      mode: mode,
+      artifact: {id: 12},
+      artifactRepo: artifactRepo
+    });
+  }
 
   beforeEach(module('bonitasoft.designer.assets', function (_assetsServiceProvider_) {
     assetsServiceProvider = _assetsServiceProvider_;
   }));
 
   beforeEach(inject(function ($injector) {
+    $q = $injector.get('$q');
     $rootScope = $injector.get('$rootScope');
     $scope = $rootScope.$new();
     assetsService = $injector.get('assetsService');
-
+    injector = $injector;
     $modalInstance = jasmine.createSpyObj('$modalInstance', ['dismiss', 'close']);
     alerts = jasmine.createSpyObj('alerts', ['addError']);
 
@@ -19,51 +33,51 @@ describe('AssetPopupCtrl', function () {
       type: 'js'
     };
 
-    createController = function (scope, mode) {
-      $injector.get('$controller')('AssetPopupCtrl', {
-        $scope: scope,
-        $modalInstance: $modalInstance,
-        asset: asset,
-        assetsService: assetsService,
-        alerts: alerts,
-        mode: mode,
-        artifact: {id: 12}
-      });
+    artifactRepo = {
+      loadAssets: function () {
+        return $q.when([
+          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
+          {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
+          {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
+        ]);
+      },
+      deleteAsset: function () {
+      },
+      createAsset: function () {
+        return $q.when({});
+      }
     };
 
-    createController($scope, 'page');
+    controller = createController('page');
+
   }));
 
-
   it('should close modal', function () {
-    $scope.cancel();
-    expect($modalInstance.dismiss).toHaveBeenCalled();
-  });
-
-  it('should diplay error and dismiss modal onError after form submit', function () {
-    var error = {error: 'error', message: 'an error occured'};
-
-    $scope.onError(error);
-
-    expect(alerts.addError).toHaveBeenCalledWith(error.message);
+    controller.cancel();
     expect($modalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should diplay error and close modal when response contains error after form submit', function () {
     var response = {type: 'error', message: 'an error occured'};
-    $scope.onSuccess(response);
+
+    controller.onComplete(response);
+
     expect(alerts.addError).toHaveBeenCalledWith(response.message);
     expect($modalInstance.close).toHaveBeenCalled();
   });
 
   it('should send external data to the caller when user want to save it', function () {
     var data = {name: 'myasset.js'};
-    $scope.saveExternalAsset(data);
-    expect($modalInstance.close).toHaveBeenCalledWith(data);
+    spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
+
+    controller.saveExternalAsset(data);
+
+    expect(artifactRepo.createAsset).toHaveBeenCalled();
   });
 
   it('should expose asset types to the scope', function () {
-    expect($scope.assetTypes.map(function (type) {
+    expect(controller.assetTypes.map(function (type) {
       return type.key;
     })).toEqual(['js', 'css', 'img']);
   });
@@ -73,16 +87,15 @@ describe('AssetPopupCtrl', function () {
       key: 'foo',
       widget: false
     });
-    var $scope = $rootScope.$new();
-    createController($scope, 'widget');
+    controller = createController('widget');
 
-    expect($scope.assetTypes.map(function (type) {
+    expect(controller.assetTypes.map(function (type) {
       return type.key;
     })).toEqual(['js', 'css', 'img']);
   });
 
   it('should expose form templates to the scope', function () {
-    expect($scope.templates).toEqual({
+    expect(controller.templates).toEqual({
       js: 'js/assets/generic-asset-form.html',
       css: 'js/assets/generic-asset-form.html',
       img: 'js/assets/generic-asset-form.html'
