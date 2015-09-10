@@ -117,6 +117,30 @@
               }, {});
           }
 
+          function getAssetTypesByMode(mode) {
+            var types = getTypes();
+            if (mode === 'widget') {
+              return types.filter(function filterWidgetOnly(type) {
+                return type.widget;
+              });
+            }
+            return types;
+          }
+
+          function createFormAssetTemplates() {
+            return getTypes()
+              .map(function transformToTemplate(type) {
+                return {
+                  key: type.key,
+                  value: type.template
+                };
+              })
+              .reduce(function createObject(templates, template) {
+                templates[template.key] = template.value;
+                return templates;
+              }, {});
+          }
+
           return {
             isExternal: isExternal,
             isPageAsset: isPageAsset,
@@ -124,7 +148,9 @@
             getTypes: getTypes,
             getFilters: createFilters,
             assetToForm: assetToForm,
-            formToAsset: formToAsset
+            formToAsset: formToAsset,
+            getAssetTypesByMode: getAssetTypesByMode,
+            getFormTemplates: createFormAssetTemplates
           };
         }
       };

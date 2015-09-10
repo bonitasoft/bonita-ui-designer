@@ -1,29 +1,29 @@
-<form action="{{assetSavingAction}}" novalidate name="addAsset" error-catcher="onError(error)"
-      ng-upload="onSuccess(content)">
+<form action="{{vm.assetSavingAction}}" novalidate name="addAsset"
+      ng-upload="vm.onComplete(content)">
     <div class="modal-header">
         <h3 class="modal-title" ng-if="isNewAsset" translate>Add a new asset</h3>
 
         <h3 class="modal-title" ng-if="!isNewAsset"><span translate>Edit asset</span>
-            <strong>{{asset.name}}</strong></h3>
+            <strong>{{vm.asset.name}}</strong></h3>
     </div>
     <div class="modal-body">
         <div class="form-group">
             <label class="control-label control-label--required" for="type" translate>Type</label>
-            <select name="type" ng-model="newAsset.type" class="form-control"
-                    ng-options="type.key as type.value for type in assetTypes"
-                    ng-change="updateSavingAction(newAsset.type)"></select>
+            <select name="type" ng-model="vm.newAsset.type" class="form-control"
+                    ng-options="type.key as type.value for type in vm.assetTypes"
+                    ng-change="vm.updateSavingAction(vm.newAsset.type)"></select>
         </div>
-        <ng-include src="templates[newAsset.type]"></ng-include>
+        <ng-include src="vm.templates[vm.newAsset.type]"></ng-include>
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-if="!isExternalAsset(newAsset)" ng-disabled="!addAsset.$valid">{{ isNewAsset
+        <button class="btn btn-primary" ng-if="!vm.isExternalAsset(vm.newAsset)" ng-disabled="!addAsset.$valid">{{ vm.isNewAsset
             ? 'Add': 'Save' | translate }}
         </button>
-        <button class="btn btn-primary" type="button" ng-if="isExternalAsset(newAsset)"
-                ng-click="saveExternalAsset(newAsset)" ng-disabled="!addAsset.$valid">{{ isNewAsset ? 'Add': 'Save' |
+        <button class="btn btn-primary" type="button" ng-if="vm.isExternalAsset(vm.newAsset)"
+                ng-click="vm.saveExternalAsset(vm.newAsset)" ng-disabled="!addAsset.$valid">{{ vm.isNewAsset ? 'Add': 'Save' |
             translate }}
         </button>
-        <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
+        <button class="btn btn-link" type="button" ng-click="vm.cancel()" translate>Cancel</button>
     </div>
 </form>

@@ -14,57 +14,53 @@
  */
 (function () {
 
-  angular.module('bonitasoft.designer.assets').controller('AssetPopupCtrl', function ($scope, $modalInstance, alerts, assetsService, asset, mode, artifact) {
+  'use strict';
 
-    'use strict';
+  angular
+    .module('bonitasoft.designer.assets')
+    .controller('AssetPopupCtrl', AssetPopupCtrl);
+
+  function AssetPopupCtrl($modalInstance, alerts, assetsService, artifactRepo, asset, mode, artifact) {
 
     var urlPrefixForLocalAsset = 'rest/' + mode + 's/' + artifact.id + '/assets/';
 
-    $scope.asset = asset;
-    $scope.isNewAsset = asset === undefined;
+    var vm = this;
+    vm.asset = asset;
+    vm.isNewAsset = asset === undefined;
 
     //All datas (type, sources) are defined in the assets service.
-    $scope.assetTypes = getAssetTypes();
-    $scope.assetSources = assetsService.getSources();
-    $scope.templates = createFormAssetTemplates();
+    vm.assetTypes = assetsService.getAssetTypesByMode(mode);
+    vm.assetSources = assetsService.getSources();
+    vm.templates = assetsService.getFormTemplates();
 
     //Asset is converted in another object for the html form
-    $scope.newAsset = assetsService.assetToForm(asset);
+    vm.newAsset = assetsService.assetToForm(asset);
 
-    $scope.cancel = cancel;
-    $scope.isExternalAsset = assetsService.isExternal;
-    $scope.onSuccess = onSuccess;
-    $scope.onError = onError;
-    $scope.saveExternalAsset = saveExternalAsset;
-    $scope.updateSavingAction = updateSavingAction;
-    $scope.assetSavingAction = urlPrefixForLocalAsset + 'js';
+    vm.cancel = cancel;
+    vm.isExternalAsset = assetsService.isExternal;
+    vm.onComplete = onComplete;
+    vm.saveExternalAsset = saveExternalAsset;
+    vm.updateSavingAction = updateSavingAction;
+    vm.assetSavingAction = urlPrefixForLocalAsset + 'js';
 
     /**
      * An external asset is saved by a $http call
      */
     function saveExternalAsset(data) {
-      data.isNew = $scope.isNewAsset;
-      $modalInstance.close(data);
+      artifactRepo.createAsset(artifact.id, assetsService.formToAsset(data)).then($modalInstance.close);
     }
 
     /**
      * A local asset (file) is saved by the submit of the html form
      */
-    function onSuccess(response) {
+    function onComplete(response) {
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this an error
       if (response && response.type && response.message) {
         alerts.addError(response.message);
+        cancel();
       }
-      $modalInstance.close();
-    }
-
-    /**
-     * If an error occurred on saving, the message is displayed in alerts area
-     */
-    function onError(error) {
-      alerts.addError(error.message);
-      $modalInstance.dismiss('cancel');
+      $modalInstance.close(response);
     }
 
     /**
@@ -78,32 +74,9 @@
      * The form action target is not the same according to the asset type : css, js or img
      */
     function updateSavingAction(type) {
-      $scope.assetSavingAction = urlPrefixForLocalAsset + type;
+      vm.assetSavingAction = urlPrefixForLocalAsset + type;
     }
 
-    function getAssetTypes() {
-      var types = assetsService.getTypes();
-      if (mode === 'widget') {
-        return types.filter(function filterWidgetOnly(type) {
-          return type.widget;
-        });
-      }
-      return types;
-    }
-
-    function createFormAssetTemplates() {
-      return $scope.assetTypes
-        .map(function transformToTemplate(type) {
-          return {
-            key: type.key,
-            value: type.template
-          };
-        })
-        .reduce(function createObject(templates, template) {
-          templates[template.key] = template.value;
-          return templates;
-        }, {});
-    }
-  });
+  }
 
 })();
