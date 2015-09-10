@@ -61,17 +61,11 @@
         url: '/pages/:id',
         resolve: {
           /* @ngInject */
-          artifact: function(editorService, pageRepo, $stateParams) {
-            return editorService.initialize(pageRepo, $stateParams.id);
-          },
+          artifact: (editorService, pageRepo, $stateParams) => editorService.initialize(pageRepo, $stateParams.id),
           /* @ngInject */
-          artifactRepo: function(pageRepo) {
-            return pageRepo;
-          },
+          artifactRepo: pageRepo => pageRepo,
           /* @ngInject */
-          mode: function() {
-            return 'page';
-          }
+          mode: () => 'page'
         },
         views: {
           // main view (ui-view in index.html)

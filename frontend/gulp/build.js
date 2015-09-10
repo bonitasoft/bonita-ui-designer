@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var less = require('gulp-less');
 var autoPrefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
+var babel = require('gulp-babel');
 var jshint = require('gulp-jshint');
 var html2js = require('gulp-ng-html2js');
 var minifyHTML = require('gulp-minify-html');
@@ -152,19 +153,19 @@ module.exports = function (gulp, config) {
         prefix: 'js/'
       }));
 
-    var app = gulp.src(paths.js)
-      .pipe(plumber())
-      .pipe(ngAnnotate({
-        'single_quotes': true,
-        add: true
-      }));
-
-    return merge(app, tpl)
+    var js = gulp.src(paths.js)
       .pipe(order([
         '**/*.module.js',
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
+      .pipe(babel({blacklist: ['spec.functionName']}))
+      .pipe(ngAnnotate({
+          'single_quotes': true,
+          add: true
+        }));
+
+    return merge(js, tpl)
       .pipe(concat('app.js'))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(paths.dev + '/js'));
