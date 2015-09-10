@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -59,15 +59,9 @@
         templateUrl: 'js/assets/asset-preview-popup.html',
         controller: 'AssetPreviewPopupCtrl',
         resolve: {
-          asset: function () {
-            return asset;
-          },
-          component: function () {
-            return vm.component;
-          },
-          mode: function() {
-            return mode;
-          }
+          asset: () => asset,
+          component: () => vm.component,
+          mode: () => mode
         }
       });
     }
@@ -78,18 +72,10 @@
         controller: 'AssetPopupCtrl',
         controllerAs: 'vm',
         resolve: {
-          asset: function () {
-            return asset;
-          },
-          mode: function () {
-            return mode;
-          },
-          artifact: function () {
-            return artifact;
-          },
-          artifactRepo: function() {
-            return artifactRepo;
-          }
+          asset: () =>  asset,
+          mode: () => mode,
+          artifact: () => artifact,
+          artifactRepo: () => artifactRepo
         }
       });
       modalInstance.result.then(refresh);
@@ -100,29 +86,28 @@
      */
     function refresh() {
       artifactRepo.loadAssets(vm.component)
-        .then(function (response) {
+        .then(function(response) {
           vm.assets = response;
-          vm.component.assets = response.filter(function (asset) {
+          vm.component.assets = response.filter(function(asset) {
             //In the page editor, we filter on the assets linked to the page
             return asset.scope !== 'WIDGET';
           });
-          var inactiveAssets = response.filter(function (asset) {
+          var inactiveAssets = response.filter(function(asset) {
             return !asset.active;
-          }).map(function (asset) {
+          }).map(function(asset) {
             return asset.id;
           });
           vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
-        }
-      );
+        });
     }
 
     function openHelp(elm) {
       $modal.open({
         templateUrl: 'js/assets/help-popup.html',
         size: 'lg',
-        controller: function ($scope, $modalInstance) {
+        controller: function($scope, $modalInstance) {
           $scope.isPage = (elm !== 'widget');
-          $scope.cancel = function () {
+          $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
           };
         }

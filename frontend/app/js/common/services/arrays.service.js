@@ -130,12 +130,12 @@ angular.module('bonitasoft.designer.common.services').factory('arrays', function
   }
 
   return {
-    moveLeft: moveLeft,
-    moveRight: moveRight,
-    moveAtPosition: moveAtPosition,
-    moveLeftPossible: moveLeftPossible,
-    moveRightPossible: moveRightPossible,
-    remove: remove,
-    insertAtPosition: insertAtPosition
+    moveLeft,
+    moveRight,
+    moveAtPosition,
+    moveLeftPossible,
+    moveRightPossible,
+    remove,
+    insertAtPosition
   };
 });
