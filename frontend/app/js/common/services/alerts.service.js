@@ -12,82 +12,67 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.common.services').factory('alerts', function($interval, gettext) {
+(function () {
 
   'use strict';
 
-  var alerts = [];
+  angular
+    .module('bonitasoft.designer.common.services')
+    .factory('alerts', alertsService);
 
-  var defaultDelay = 8000;
+  function alertsService($interval, gettext) {
 
-  /**
-   * Adds an alert and removes it a few seconds later
-   * @param error
-   */
-  var add = function(alert, delay) {
-    alerts.push(alert);
-    // we use $interval here instead of $timeout to be testable with protractor.
-    // Protractor is waiting for $timeout to be over so for alert with delay > ptor timeout, test will fail. Moreover this slow down our test suite
-    // Protractor is not waiting for $interval to be over so we make an interval being executed one time
-    // see https://github.com/angular/protractor/issues/169
-    $interval(function() {
-      remove(0);
-    }, delay || defaultDelay, 1);
-  };
+    var alerts = [];
+    var defaultDelay = 8000;
 
-  /**
-   * Removes the alert at the given index
-   * @param index
-   */
-  var remove = function(index) {
-    alerts.splice(index, 1);
-  };
+    return {
+      alerts: alerts,
+      remove: remove,
+      addError: addAlert.bind(null, gettext('error')),
+      addSuccess: addAlert.bind(null, gettext('success')),
+      addWarning: addAlert.bind(null, gettext('warning'))
+    };
 
-  /**
-   * An alert could be a message or an object
-   * @param alert
-   */
-  var getAlert = function(alert, type) {
-    if (typeof alert === 'string') {
-      return {type: type, content: alert};
-    } else {
-      alert.type = type;
-      return alert;
+    /**
+     * Adds an alert and removes it a few seconds later
+     * @param error
+     */
+    function add(alert, delay) {
+      alerts.push(alert);
+      // we use $interval here instead of $timeout to be testable with protractor.
+      // Protractor is waiting for $timeout to be over so for alert with delay > ptor timeout, test will fail. Moreover this slow down our test suite
+      // Protractor is not waiting for $interval to be over so we make an interval being executed one time
+      // see https://github.com/angular/protractor/issues/169
+      $interval(function () {
+        remove(0);
+      }, delay || defaultDelay, 1);
     }
-  };
 
-  /**
-   * Adds a success message and removes it a few seconds later
-   * @param message
-   */
-  var addSuccess = function(alert, delay) {
-    var a = getAlert(alert, gettext('success')); // gettext, add success to pot file
-    add(a, delay);
-  };
+    /**
+     * Removes the alert at the given index
+     * @param index
+     */
+    function remove(index) {
+      alerts.splice(index, 1);
+    }
 
-  /**
-   * Adds an error and removes it a few seconds later
-   * @param error
-   */
-  var addError = function(alert, delay) {
-    var a = getAlert(alert, gettext('error')); // gettext, add error to pot file
-    add(a, delay);
-  };
+    /**
+     * An alert could be a message or an object
+     * @param alert
+     */
+    function getAlert(alert, type) {
+      if (typeof alert === 'string') {
+        return {type: type, content: alert};
+      } else {
+        alert.type = type;
+        return alert;
+      }
+    }
 
-  /**
-   * Adds a warning message and removes it a few seconds later
-   * @param error
-   */
-  var addWarning = function(alert, delay) {
-    var a = getAlert(alert, gettext('warning')); // gettext, add warning to pot file
-    add(a, delay);
-  };
+    function addAlert(type, alert, delay) {
+      var a = getAlert(alert, type);
+      add(a, delay);
+    }
+  }
 
-  return {
-    alerts: alerts,
-    addError: addError,
-    addSuccess: addSuccess,
-    remove: remove,
-    addWarning: addWarning
-  };
-});
+})();
