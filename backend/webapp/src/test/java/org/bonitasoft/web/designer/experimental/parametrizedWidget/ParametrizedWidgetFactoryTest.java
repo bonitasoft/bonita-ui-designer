@@ -308,6 +308,15 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(button.getDimension()).isEqualTo(2);
     }
 
+    @Test
+    public void create_remove_button_which_remove_last_item() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        ButtonWidget button = elementFactory.createRemoveButton();
+
+        assertThat(button.getCollectionPosition()).isEqualTo("Last");
+    }
+
     private ParametrizedWidgetFactory createFactory() {
         return new ParametrizedWidgetFactory();
     }

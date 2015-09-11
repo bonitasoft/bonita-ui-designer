@@ -152,6 +152,7 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setLabel("Remove");
         buttonComponent.setButtonStyle(ButtonStyle.DANGER);
         buttonComponent.setAction(ButtonAction.REMOVE_FROM_COLLECTION);
+        buttonComponent.setCollectionPosition("Last");
         buttonComponent.setDimension(2);
         return buttonComponent;
     }
