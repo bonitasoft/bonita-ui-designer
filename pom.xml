@@ -3,7 +3,7 @@
 
     <groupId>org.bonitasoft.web</groupId>
     <artifactId>ui-designer</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9</version>
 
     <packaging>pom</packaging>
 
