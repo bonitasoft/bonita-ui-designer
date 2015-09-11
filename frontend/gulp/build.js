@@ -27,7 +27,7 @@ module.exports = function (gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
 
-  gulp.task('build', ['jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
+  gulp.task('build', ['assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
 
   gulp.task('bundle', ['bundle:vendors', 'bundle:js', 'bundle:css', 'bundle:icons']);
 
