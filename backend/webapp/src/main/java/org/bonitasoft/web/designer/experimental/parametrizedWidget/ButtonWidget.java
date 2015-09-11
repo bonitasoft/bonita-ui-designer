@@ -23,6 +23,7 @@ public class ButtonWidget extends AbstractParametrizedWidget {
     private String dataToSend;
     private String collectionToModify;
     private String targetUrlOnSuccess;
+    private String collectionPosition;
 
     public ButtonWidget() {
         super(BUTTON_WIDGET_ID);
@@ -74,5 +75,13 @@ public class ButtonWidget extends AbstractParametrizedWidget {
 
     public void setTargetUrlOnSuccess(String targetUrlOnSuccess) {
         this.targetUrlOnSuccess = targetUrlOnSuccess;
+    }
+
+    public void setCollectionPosition(String collectionPosition) {
+        this.collectionPosition = collectionPosition;
+    }
+
+    public String getCollectionPosition() {
+        return collectionPosition;
     }
 }
