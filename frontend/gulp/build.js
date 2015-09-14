@@ -10,6 +10,7 @@ var autoPrefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
 var jshint = require('gulp-jshint');
 var html2js = require('gulp-ng-html2js');
+var minifyHTML = require('gulp-minify-html');
 var sourcemaps = require('gulp-sourcemaps');
 var gettext = require('gulp-angular-gettext');
 var concat = require('gulp-concat');
@@ -80,8 +81,8 @@ module.exports = function (gulp, config) {
    * Translate application
    */
 
-  gulp.task('pot', function () {
-    var files = [paths.templates, paths.js].reduce(function (files, arr) {
+  gulp.task('pot', ['bundle:html'], function () {
+    var files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
       return files.concat(arr);
     }, []);
     return gulp.src(files)
@@ -129,12 +130,22 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.dist + '/css'));
   });
 
+  gulp.task('bundle:html', function () {
+    var options = {
+      loose: true //preserve one whitespace, otherwise that breaks the UI
+    };
+
+    return gulp.src(paths.templates)
+      .pipe(minifyHTML(options))
+      .pipe(gulp.dest(paths.dev + '/html'));
+  });
+
   /**
    * bundle JS
    * concat generated templates and javascript files
    */
-  gulp.task('bundle:js', function () {
-    var tpl = gulp.src(paths.templates)
+  gulp.task('bundle:js', ['bundle:html'], function () {
+    var tpl = gulp.src(paths.dev + '/html/**/*.html')
       .pipe(plumber())
       .pipe(html2js({
         moduleName: 'bonitasoft.designer.templates',
