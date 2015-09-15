@@ -19,6 +19,7 @@ import static java.lang.String.valueOf;
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static org.apache.commons.lang3.StringUtils.contains;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -89,6 +90,7 @@ public class LiveMigration<A extends Versioned> {
     }
 
     private boolean isMigrable(Path path) {
-        return path.toString().endsWith(".json") && !contains(path.toString(), "/assets/");
+        return path.toString().endsWith(".json")
+                && !contains(path.toString(), File.separator + "assets" + File.separator);
     }
 }
