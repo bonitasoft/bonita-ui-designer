@@ -8,8 +8,8 @@ var merge = require('merge-stream');
 var gulpIf = require('gulp-if');
 var order = require('gulp-order');
 
-var inlineJSON = require('./utils.js').inlineJSON;
 var gettextWidget = require('./gettext-widget.js');
+var buildWidget = require('./widget-builder/src/index.js');
 
 module.exports = function(gulp, config) {
 
@@ -29,8 +29,8 @@ module.exports = function(gulp, config) {
    * Task to inline add widgets to the webapp for production and inline templates in json file
    */
   gulp.task('widgets', function () {
-    return gulp.src(paths.widgets.concat('!**/*.ctrl.js', '!**/*.tpl.html'))
-      .pipe(inlineJSON())
+    return gulp.src(paths.widgetsJson)
+      .pipe(buildWidget())
       .pipe(gulp.dest(paths.dest.json));
   });
 

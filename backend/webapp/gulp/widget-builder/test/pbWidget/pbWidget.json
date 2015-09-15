@@ -1,0 +1,7 @@
+{
+  "id": "pbWidget",
+  "name": "Widget",
+  "template": "@pbWidget.tpl.html",
+  "controller": "@pbWidget.ctrl.js",
+  "properties": []
+}
