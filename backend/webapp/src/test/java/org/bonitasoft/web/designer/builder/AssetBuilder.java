@@ -23,12 +23,13 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 
 public class AssetBuilder {
 
-    private String id = "UUID";
+    private String id;
     private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
-    private AssetScope scope = AssetScope.PAGE;
+    private AssetScope scope;
     private String componentId;
     private int order = 1;
+    private boolean active = true;
 
     public static AssetBuilder anAsset() {
         return new AssetBuilder();
@@ -68,8 +69,18 @@ public class AssetBuilder {
         return this;
     }
 
+    public AssetBuilder active() {
+        this.active = true;
+        return this;
+    }
+
+    public AssetBuilder unactive() {
+        this.active = false;
+        return this;
+    }
+
     public Asset build() {
-        return new Asset().setId(id).setName(name).setType(type).setScope(scope).setOrder(order).setComponentId(componentId);
+        return new Asset().setId(id).setName(name).setType(type).setScope(scope).setOrder(order).setComponentId(componentId).setActive(active);
     }
 
 }

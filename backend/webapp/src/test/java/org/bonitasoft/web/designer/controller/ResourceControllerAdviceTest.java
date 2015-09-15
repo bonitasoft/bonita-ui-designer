@@ -14,13 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,13 +31,16 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.ResourceControllerAdvice}
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ResourceControllerAdviceTest {
 
     private MockMvc mockMvc;
@@ -52,11 +53,7 @@ public class ResourceControllerAdviceTest {
 
     @Before
     public void setUp() {
-
-        initMocks(this);
-        mockMvc = standaloneSetup(fakeResource)
-                .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
-                .build();
+        mockMvc = mockServer(fakeResource).build();
     }
 
     @Test

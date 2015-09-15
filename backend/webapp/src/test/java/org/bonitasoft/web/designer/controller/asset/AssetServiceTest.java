@@ -21,6 +21,8 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Matchers.any;
@@ -37,6 +39,8 @@ import junitparams.Parameters;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -73,7 +77,7 @@ public class AssetServiceTest {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is("Part named [file] is needed to successfully import a component"));
 
-        assetService.upload(null, aPage().withId("page-id").build(), "js");
+        assetService.upload(null, aPage().build(), "js");
     }
 
     @Test
@@ -84,7 +88,7 @@ public class AssetServiceTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
-        assetService.upload(file, aPage().withId("page-id").build(), "js");
+        assetService.upload(file, aPage().build(), "js");
     }
 
     @Test
@@ -95,18 +99,26 @@ public class AssetServiceTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
-        assetService.upload(file, aPage().withId("page-id").build(), "INVALID");
+        assetService.upload(file, aPage().build(), "INVALID");
     }
 
     @Test
-    public void should_upload_newfile() throws Exception {
-        Page page = aFilledPage("page-id");
-        MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
+    public void should_upload_newfile_and_save_new_asset() throws Exception {
+        Page page = aPage().withId("aPage").build();
+        byte[] fileContent = "function(){}".getBytes();
+        MockMultipartFile file = new MockMultipartFile("fileName.js", "originalFileName.js", "application/javascript", fileContent);
+        Asset expectedAsset = anAsset()
+                .withName("originalFileName.js")
+                .withType(AssetType.JAVASCRIPT)
+                .withOrder(1).build();
 
-        assetService.upload(file, page, "js");
+        Asset asset = assetService.upload(file, page, "js");
 
-        verify(assetRepository).save(any(Asset.class), (byte[]) any());
+        verify(assetRepository).save("aPage", asset, fileContent);
         verify(repository).save(page);
+        assertThat(page.getAssets()).contains(asset);
+        assertThat(asset.getId()).isNotNull();
+        assertThat(asset).isEqualToIgnoringGivenFields(expectedAsset, "id");
     }
 
     @Test
@@ -114,22 +126,22 @@ public class AssetServiceTest {
         expectedException.expect(ServerImportException.class);
         expectedException.expectMessage(is("Error while uploading asset in myfile.inv [null]"));
 
-        Page page = aFilledPage("page-id");
+        Page page = aPage().build();
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
         doThrow(IOException.class).when(repository).save(page);
-        assetService.upload(file, page, "js");
 
+        assetService.upload(file, page, "js");
     }
 
     @Test
     public void should_upload_existing_file() throws Exception {
-        Page page = aPage().withId("page-id").withName("my-page").withAsset(anAsset().withId("UIID").withName("asset.js").withComponentId("page-id")).build();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(anAsset().withId("UIID").withName("asset.js")).build();
         MockMultipartFile file = new MockMultipartFile("asset.js", "asset.js", "application/javascript", "function(){}".getBytes());
 
         assetService.upload(file, page, "js");
 
         verify(assetRepository).delete(any(Asset.class));
-        verify(assetRepository).save(page.getAssets().iterator().next(), "function(){}".getBytes());
+        verify(assetRepository).save("page-id", page.getAssets().iterator().next(), "function(){}".getBytes());
         verify(repository).save(page);
     }
 
@@ -137,6 +149,7 @@ public class AssetServiceTest {
     public void should_return_error_when_adding_asset_with_name_null() {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is("Asset URL is required"));
+
         assetService.save(aPage().withId("page-id").build(), anAsset().withName(null).build());
     }
 
@@ -144,6 +157,7 @@ public class AssetServiceTest {
     public void should_return_error_when_adding_asset_with_name_empty() {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is("Asset URL is required"));
+
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         assetService.save(aPage().withId("page-id").build(), anAsset().withName("").build());
     }
@@ -152,46 +166,62 @@ public class AssetServiceTest {
     public void should_return_error_when_adding_asset_with_type_invalid() {
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is("Asset type is required"));
-        assetService.save(aPage().withId("page-id").build(), anAsset().withName("http://mycdn.com/myasset.js").withType(null).build());
 
+        assetService.save(aPage().withId("page-id").build(), anAsset().withName("http://mycdn.com/myasset.js").withType(null).build());
     }
 
     @Test
-    public void should_add_new_asset() throws Exception {
-        Page page = aFilledPage("page-id");
-        assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
+    public void should_save_new_asset_and_populate_its_id() throws Exception {
+        Page page = aPage().build();
+
+        Asset asset = assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
 
         verify(repository).save(page);
+        assertThat(page.getAssets()).contains(asset);
+        assertThat(asset.getId()).isNotNull();
+    }
+
+    @Test
+    public void should_compute_order_while_saving_a_new_asset() throws Exception {
+        Page page = aPage().build();
+
+        Asset firstAsset = assetService.save(page, anAsset().withName("http://mycdn.com/first.js").build());
+        Asset secondtAsset = assetService.save(page, anAsset().withName("http://mycdn.com/second.js").build());
+
+        assertThat(firstAsset.getOrder()).isEqualTo(1);
+        assertThat(secondtAsset.getOrder()).isEqualTo(2);
+    }
+
+    @Test
+    public void should_update_existing_local_asset() throws Exception {
+        Asset existingAsset = anAsset().withId("existingAsset").withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).active().build();
+        Asset updatedAsset = anAsset().withId("existingAsset").withName("http://mycdn.com/newName.js").withType(CSS).unactive().build();
+
+        Page page = aPage().withAsset(existingAsset).build();
+
+        assetService.save(page, updatedAsset);
+
+        verify(repository).save(page);
+        assertThat(page.getAssets().iterator().next()).isEqualTo(updatedAsset);
     }
 
     @Test
     public void should_return_error_when_error_onsave() throws Exception {
         expectedException.expect(RepositoryException.class);
-        Page page = aFilledPage("page-id");
+        Page page = aPage().build();
         doThrow(RepositoryException.class).when(repository).save(page);
+
         assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
-    }
-
-    @Test
-    public void should_add_existing_asset() throws Exception {
-        Page page = aFilledPage("page-id");
-        Asset asset = anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
-        page.getAssets().add(asset);
-
-        assetService.save(page, asset);
-
-        verify(repository).save(page);
     }
 
     @Test
     public void should_not_return_error_when_adding_existing_asset_witherror_on_delete() throws Exception {
-        Page page = aFilledPage("page-id");
-        doThrow(IOException.class).when(assetRepository).delete(page.getAssets().iterator().next());
+        Asset asset = anAsset().withId("anAsset").build();
+        Page page = aPage().withAsset(asset).build();
+        doThrow(IOException.class).when(assetRepository).delete(asset);
 
-        assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
+        assetService.save(page, asset);
     }
-
-
 
     protected Object[] invalidArgsForDuplicate() throws Exception{
         Path tempPath = Files.createTempDirectory("test");
@@ -209,6 +239,7 @@ public class AssetServiceTest {
         when(repository.getComponentName()).thenReturn("page");
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is(expectedErrorMessage));
+
         assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId);
     }
 

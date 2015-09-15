@@ -23,7 +23,6 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.joda.time.Instant.parse;
@@ -35,7 +34,6 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -46,6 +44,7 @@ import java.util.List;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -54,6 +53,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -91,9 +91,7 @@ public class WidgetResourceTest {
         initMocks(this);
         WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService, tempDir.toPath());
         widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
-        mockMvc = standaloneSetup(widgetResource)
-                .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
-                .build();
+        mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(pageRepository.getComponentName()).thenReturn("page");
     }
@@ -460,9 +458,16 @@ public class WidgetResourceTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Widget widget = aWidget().id("my-widget").custom().build();
+        Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withType(AssetType.JAVASCRIPT).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetAssetService.upload(file, widget, "js")).thenReturn(expectedAsset);
 
-        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isCreated());
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value("assetId"))
+                .andExpect(jsonPath("$.name").value("myfile.js"))
+                .andExpect(jsonPath("$.type").value("js"))
+                .andExpect(jsonPath("$.order").value(2));
 
         verify(widgetAssetService).upload(file, widget, "js");
     }
@@ -475,7 +480,8 @@ public class WidgetResourceTest {
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         doThrow(IllegalArgumentException.class).when(widgetAssetService).upload(file, widget, "js");
 
-        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isInternalServerError());
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file))
+                .andExpect(status().isBadRequest());
 
         verify(widgetAssetService).upload(file, widget, "js");
     }
@@ -488,23 +494,28 @@ public class WidgetResourceTest {
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         doThrow(IllegalArgumentException.class).when(widgetAssetService).upload(file, widget, "js");
 
-        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file)).andExpect(status().isInternalServerError());
-
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
     public void should_save_an_external_asset() throws Exception {
         Widget widget = aWidget().id("my-widget").custom().build();
-        Asset asset = anAsset().build();
+        Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withType(AssetType.JAVASCRIPT).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetAssetService.save(widget, expectedAsset)).thenReturn(expectedAsset);
 
         mockMvc.perform(
                 post("/rest/widgets/my-widget/assets")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(asset)))
-                .andExpect(status().isOk());
+                        .content(convertObjectToJsonBytes(expectedAsset)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("assetId"))
+                .andExpect(jsonPath("$.name").value("myfile.js"))
+                .andExpect(jsonPath("$.type").value("js"))
+                .andExpect(jsonPath("$.order").value(2));
 
-        verify(widgetAssetService).save(widget, asset);
+        verify(widgetAssetService).save(widget, expectedAsset);
     }
 
     @Test
