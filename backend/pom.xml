@@ -167,6 +167,11 @@
                 <artifactId>aspectjweaver</artifactId>
                 <version>${aspectj.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-artifact</artifactId>
+                <version>3.3.3</version>
+            </dependency>
 
             <!-- Tests dependencies -->
             <dependency>
