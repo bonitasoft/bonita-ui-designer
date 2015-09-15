@@ -14,12 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.createContextForTest;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,9 +47,7 @@ public class ExportControllerTest {
     @Before
     public void setUp() {
         exportController = new ExportController(pageExporter, widgetExporter);
-        mockMvc = standaloneSetup(exportController)
-                .setHandlerExceptionResolvers(createContextForTest().handlerExceptionResolver())
-                .build();
+        mockMvc = mockServer(exportController).build();
     }
 
     @Test
