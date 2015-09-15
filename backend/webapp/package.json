@@ -13,9 +13,11 @@
   },
   "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
   "scripts": {
+    "pretest": "npm test --prefix ./gulp/widget-builder",
     "test": "gulp test",
     "test-watch": "gulp test-watch",
     "postinstall": "bower install",
+    "prebuild": "npm install && npm install --prefix ./gulp/widget-builder",
     "build": "gulp",
     "pot": "gulp pot",
     "serve": "gulp serve"

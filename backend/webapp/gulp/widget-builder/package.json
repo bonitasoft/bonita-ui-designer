@@ -1,0 +1,26 @@
+{
+  "name": "widget-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel/register"
+  },
+  "author": "",
+  "license": "proprietary",
+  "dependencies": {
+    "handlebars": "4.0.2",
+    "jsesc": "0.5.0",
+    "through2": "2.0.0",
+    "vinyl": "0.5.3",
+    "vinyl-fs": "1.0.0"
+  },
+  "devDependencies": {
+    "babel": "5.8.23",
+    "chai": "3.2.0",
+    "mocha": "2.3.2"
+  }
+}

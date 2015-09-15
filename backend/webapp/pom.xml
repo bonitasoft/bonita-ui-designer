@@ -205,6 +205,13 @@
                     <exclude>application.properties</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>gulp/widget-builder/src</directory>
+                <includes>
+                    <include>widgetDirectiveTemplate.hbs.js</include>
+                </includes>
+                <targetPath>templates</targetPath>
+            </resource>
         </resources>
 
         <!-- the properties files are filtered -->
@@ -330,6 +337,16 @@
                              <arguments>run build</arguments>
                          </configuration>
                      </execution>
+                    <execution>
+                        <id>npm test</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <arguments>test</arguments>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>npm test</id>
                         <goals>
