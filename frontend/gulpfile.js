@@ -41,6 +41,7 @@ var paths = {
     'test/e2e/polyfill/dnd.js'
   ],
   tests: 'test/**/*.spec.js',
+  testFiles: 'test/**/*.js',
   karma: __dirname + '/test/karma.conf.js',
   assets: {
     fonts: [

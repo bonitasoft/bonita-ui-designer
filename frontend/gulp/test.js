@@ -7,7 +7,7 @@ module.exports = function(gulp, config) {
   var paths = config.paths;
 
   gulp.task('jshint:test', function () {
-    return gulp.src(paths.tests)
+    return gulp.src(paths.testFiles)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
       .pipe(jshint.reporter('fail'));
