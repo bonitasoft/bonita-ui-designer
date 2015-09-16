@@ -14,47 +14,48 @@
  */
 (function () {
 
-  angular.module('bonitasoft.designer.assets').controller('AssetCtrl', function ($scope, $modal, $q, artifact, artifactRepo, mode, assetsService) {
+  'use strict';
 
-    'use strict';
+  angular
+    .module('bonitasoft.designer.assets')
+    .controller('AssetCtrl', AssetCtrl);
 
-    var ctrl = this;
-    var component = artifact;
-    $scope.filters = createFilters();
-    $scope.isExternal = assetsService.isExternal;
-    $scope.isPageAsset = assetsService.isPageAsset;
-    $scope.desactivateAsset = desactivateAsset;
-    $scope.incrementOrderAsset = incrementOrderAsset;
-    $scope.decrementOrderAsset = decrementOrderAsset;
+  function AssetCtrl($modal, $q, artifact, artifactRepo, mode, assetsService) {
 
-    function incrementOrderAsset(asset) {
-      return artifactRepo.incrementOrderAsset(component.id, asset).then(refresh);
-    }
-
-    function decrementOrderAsset(asset) {
-      return artifactRepo.decrementOrderAsset(component.id, asset).then(refresh);
-    }
-
-    function desactivateAsset(asset) {
-      return artifactRepo.desactivateAsset(component.id, asset).then(refresh);
-    }
+    var vm = this;
+    vm.component = artifact;
+    vm.filters = assetsService.getFilters();
+    vm.isExternal = assetsService.isExternal;
+    vm.isPageAsset = assetsService.isPageAsset;
+    vm.desactivateAsset = desactivateAsset;
+    vm.incrementOrderAsset = incrementOrderAsset;
+    vm.decrementOrderAsset = decrementOrderAsset;
+    vm.delete = deleteAsset;
+    vm.openAssetPreviewPopup = openAssetPreviewPopup;
+    vm.openAssetPopup = openAddUpdateAssetPopup;
+    vm.openHelp = openHelp;
+    vm.createOrUpdate = createOrUpdate;
 
     //Load assets
     refresh();
 
-    /**
-     * Delete an asset
-     */
-    $scope.delete = function (asset) {
-      artifactRepo.deleteAsset(component.id, asset).then(refresh);
-    };
+    function incrementOrderAsset(asset) {
+      return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refresh);
+    }
 
-    /**
-     * Popup to see the content of the asset file
-     */
-    $scope.openAssetPreviewPopup = function (element) {
-      var asset = element;
+    function decrementOrderAsset(asset) {
+      return artifactRepo.decrementOrderAsset(vm.component.id, asset).then(refresh);
+    }
 
+    function desactivateAsset(asset) {
+      return artifactRepo.desactivateAsset(vm.component.id, asset).then(refresh);
+    }
+
+    function deleteAsset(asset) {
+      artifactRepo.deleteAsset(vm.component.id, asset).then(refresh);
+    }
+
+    function openAssetPreviewPopup(asset) {
       $modal.open({
         templateUrl: 'js/assets/asset-preview-popup.html',
         controller: 'AssetPreviewPopupCtrl',
@@ -62,29 +63,17 @@
           asset: function () {
             return asset;
           },
-          url: function () {
-            //Url depends on the nature of component
-            //In custom widget editor, component is a widget
-            if (mode === 'widget') {
-              return 'preview/widget/' + component.id + '/assets/' + asset.type + '/' + asset.name + '?format=text';
-            }
-            //In page editor widget id is stored in asset.componentId if the asset scope is WIDGET
-            else if (asset.scope === 'WIDGET') {
-              return 'preview/widget/' + asset.componentId + '/assets/' + asset.type + '/' + asset.name + '?format=text';
-            }
-            //The last case is to see a page asset
-            return 'preview/page/' + component.id + '/assets/' + asset.type + '/' + asset.name + '?format=text';
+          component: function () {
+            return vm.component;
+          },
+          mode: function() {
+            return mode;
           }
         }
       });
-    };
+    }
 
-    /**
-     * Popup to add or update assets
-     */
-    $scope.openAssetPopup = function (element) {
-      var asset = element;
-
+    function openAddUpdateAssetPopup(asset) {
       var modalInstance = $modal.open({
         templateUrl: 'js/assets/asset-popup.html',
         controller: 'AssetPopupCtrl',
@@ -101,17 +90,30 @@
         }
       });
       //Action launched after a local asset upload or an external asset creation
-      modalInstance.result.then(ctrl.createOrUpdate).then(refresh);
-    };
+      modalInstance.result.then(vm.createOrUpdate).then(refresh);
+    }
+
+    /**
+     * Create or update an asset
+     */
+    function createOrUpdate(data) {
+      if (data) {
+        return artifactRepo.createAsset(vm.component.id, assetsService.formToAsset(data));
+      }
+      else {
+        //A local asset is created via a form send in the popup. We just have to return a promise
+        return $q.when({});
+      }
+    }
 
     /**
      * Refresh assets in scope
      */
     function refresh() {
-      artifactRepo.loadAssets(component)
+      artifactRepo.loadAssets(vm.component)
         .then(function (response) {
-          $scope.assets = response;
-          component.assets = response.filter(function (asset) {
+          vm.assets = response;
+          vm.component.assets = response.filter(function (asset) {
             //In the page editor, we filter on the assets linked to the page
             return asset.scope !== 'WIDGET';
           });
@@ -120,12 +122,12 @@
           }).map(function (asset) {
             return asset.id;
           });
-          component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
+          vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
         }
       );
     }
 
-    $scope.openHelp = function (elm) {
+    function openHelp(elm) {
       $modal.open({
         templateUrl: 'js/assets/help-popup.html',
         size: 'lg',
@@ -136,37 +138,8 @@
           };
         }
       });
-    };
-
-    /**
-     * Create or update an asset
-     */
-    this.createOrUpdate = function (data) {
-      if (data) {
-        return artifactRepo.createAsset(component.id, assetsService.formToAsset(data));
-      }
-      else {
-        //A local asset is created via a form send in the popup. We just have to return a promise
-        return $q.when({});
-      }
-    };
-
-    function createFilters() {
-      return assetsService.getTypes()
-        .map(function transformToFilter(type) {
-          return {
-            key: type.key,
-            value: {
-              label: type.value,
-              value: type.filter
-            }
-          };
-        })
-        .reduce(function createObject(filters, filter) {
-          filters[filter.key] = filter.value;
-          return filters;
-        }, {});
     }
-  });
-})
-();
+
+  }
+
+})();
