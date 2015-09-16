@@ -5,8 +5,8 @@
             <h4 class="CustomEditor-section" translate>Assets</h4>
         </th>
         <th class="col-xs-4 Property-actions" colspan="2">
-            <button class="btn btn-default btn-data--help" ng-click="openHelp('widget')" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
-            <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="openAssetPopup()">
+            <button class="btn btn-default btn-data--help" ng-click="vm.openHelp('widget')" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+            <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="vm.openAssetPopup()">
                 <i class="fa fa-plus"></i>
                 <span translate>Add</span>
             </button>
@@ -21,21 +21,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in assets | orderBy:'order' as results">
+    <tr ng-repeat="asset in vm.assets | orderBy:'order' as results">
         <td>
-            <a ng-click="decrementOrderAsset(asset)" ng-if="!$first"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
-            <a ng-click="incrementOrderAsset(asset)" ng-if="!$last"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
+            <a ng-click="vm.decrementOrderAsset(asset)" ng-if="!$first"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
+            <a ng-click="vm.incrementOrderAsset(asset)" ng-if="!$last"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
         </td>
         <td>{{asset.name}}</td>
         <td>{{asset.type | assetType}}</td>
         <td class="col-xs-2 Property-actions">
             <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
-                    ng-if="!isExternal(asset)" ng-click="openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
-            <button class="btn btn-bonita-default" ng-click="openAssetPopup(asset)"
-                    title="{{ 'Update asset' | translate }}" ng-if="isExternal(asset)">
+                    ng-if="!vm.isExternal(asset)" ng-click="vm.openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
+            <button class="btn btn-bonita-default" ng-click="vm.openAssetPopup(asset)"
+                    title="{{ 'Update asset' | translate }}" ng-if="vm.isExternal(asset)">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-bonita-default" ng-click="delete(asset)" title="{{ 'Delete asset' | translate }}">
+            <button class="btn btn-bonita-default" ng-click="vm.delete(asset)" title="{{ 'Delete asset' | translate }}">
                 <i class="fa fa-trash"></i>
             </button>
         </td>

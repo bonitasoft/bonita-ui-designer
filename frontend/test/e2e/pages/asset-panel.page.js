@@ -35,7 +35,7 @@
 
       $('.modal-footer').element(by.buttonText('Add')).click();
 
-    },
+    }
   };
 
   AssetPanel.prototype = Object.create(assetMethod, {
@@ -48,13 +48,13 @@
 
     filters: {
       get: function(){
-        return this.sidebar.all(by.repeater('(key, filter) in filters'));
+        return this.sidebar.all(by.repeater('(key, filter) in vm.filters'));
       }
     },
 
     lines: {
       get: function() {
-        return this.sidebar.all(by.repeater('asset in assets'));
+        return this.sidebar.all(by.repeater('asset in vm.assets'));
       }
     }
 
