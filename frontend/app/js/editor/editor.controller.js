@@ -265,46 +265,6 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
     return size;
   };
 
-  $scope.save = function() {
-    return artifactRepo.save($scope.page.id, $scope.page);
-  };
-
-  $scope.saveAs = function(page) {
-    var modalInstance = $modal.open({
-      templateUrl: 'js/editor/save-as-popup.html',
-      controller: function($scope, $modalInstance, page) {
-        $scope.page = page;
-        $scope.newName = page.name;
-
-        $scope.ok = function() {
-          $scope.page.name = $scope.newName;
-          $modalInstance.close($scope.page);
-        };
-
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
-      },
-      resolve: {
-        page: function () {
-          return page;
-        }
-      }
-    });
-    modalInstance.result
-      .then(saveAs)
-      .then(function (data) {
-        $stateParams.id = data.id;
-        $state.go($state.current, $stateParams, {
-          reload: true
-        });
-      });
-
-    function saveAs(data){
-      return artifactRepo.create(data, page.id);
-    }
-  };
-
   $scope.saveAndEditCustomWidget = function(widgetId) {
     artifactRepo.save($scope.page.id, $scope.page)
       .then(function() {
@@ -314,13 +274,13 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
       });
   };
 
-  $scope.saveAndExport = function() {
-    artifactRepo.save($scope.page.id, $scope.page)
-      .then(function() {
-        $window.location = artifactRepo.exportUrl($scope.page);
-      });
+  $scope.save = function () {
+    return artifactRepo.save($scope.page.id, $scope.page);
   };
 
+  $scope.canBeSaved = function (page) {
+    return !!page.name;
+  };
 
   /**
    * Create a nex row at the bottom and add a component
@@ -351,25 +311,6 @@ angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', funct
     $scope.addComponent(data, index);
 
   };
-
-  $scope.openHelp = function() {
-    $modal.open({
-      templateUrl: 'js/editor/help-popup.html',
-      size: 'lg',
-      resolve: {
-        pageEdition: function(){
-          return 'page' === $scope.mode;
-        }
-      },
-      controller: function($scope, $modalInstance, pageEdition) {
-        $scope.pageEdition = pageEdition;
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
-      }
-    });
-  };
-
 
   $scope.resizePaletteHandler = function(isClosed, isNarrow) {
     $scope.isPaletteClosed = isClosed;

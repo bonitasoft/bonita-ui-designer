@@ -83,6 +83,11 @@
           'data@designer.page': {
             controller: 'DataCtrl',
             templateUrl: 'js/editor/data-panel/data.html'
+          },
+          'menubar@designer.page': {
+            controller: 'MenuBarCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/editor/menu-bar/menu-bar.html'
           }
         }
       },

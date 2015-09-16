@@ -32,6 +32,7 @@
     'bonitasoft.designer.common.services',
     'bonitasoft.designer.common.directives',
     'bonitasoft.designer.data-panel',
+    'bonitasoft.designer.editor.menu-bar',
     'bonitasoft.designer.controllers',
     'bonitasoft.designer.factories',
     'bonitasoft.designer.services',
