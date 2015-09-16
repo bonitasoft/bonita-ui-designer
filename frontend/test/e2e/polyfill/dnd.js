@@ -1,9 +1,10 @@
+/* globals jQuery */
 /**
  * From https://gist.github.com/rcorreia/2362544
  * Selenium does not provide HTML5 DragAndDrop API support
  * cf https://code.google.com/p/selenium/issues/detail?id=3604
  */
-(function( $ ) {
+(function($) {
   $.fn.simulateDragDrop = function(options) {
     return this.each(function() {
       new $.simulateDragDrop(this, options);
@@ -33,24 +34,24 @@
       this.dispatchEvent(elem, type, dragEndEvent);
     },
     createEvent: function(type) {
-      var event = document.createEvent("CustomEvent");
+      var event = document.createEvent('CustomEvent');
       event.initCustomEvent(type, true, true, null);
       event.dataTransfer = {
         data: {},
-        setData: function(type, val){
+        setData: function(type, val) {
           this.data[type] = val;
         },
-        getData: function(type){
+        getData: function(type) {
           return this.data[type];
         }
       };
       return event;
     },
     dispatchEvent: function(elem, type, event) {
-      if(elem.dispatchEvent) {
+      if (elem.dispatchEvent) {
         elem.dispatchEvent(event);
-      }else if( elem.fireEvent ) {
-        elem.fireEvent("on"+type, event);
+      } else if (elem.fireEvent) {
+        elem.fireEvent('on' + type, event);
       }
     }
   });

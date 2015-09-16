@@ -4,14 +4,14 @@
     return  {
       pass: true,
       message: message
-    }
+    };
   }
 
   function fail(message) {
     return  {
       pass: false,
       message: message
-    }
+    };
   }
 
   var elementMatchers = {
@@ -26,7 +26,7 @@
             return fail('expected to have class [' + expected + '] but got [' + actual[0].classList.toString() + ']');
           }
         }
-      }
+      };
     }
   };
 

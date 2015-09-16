@@ -13,13 +13,13 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     return {
       getById: function (array, elementId) {
         return array.filter(function (elem) {
-          return elem.id === elementId
+          return elem.id === elementId;
         })[0];
       },
       lastChunk: function (url) {
         return url.match(/([^\/]*)\/*$/)[1];
       }
-    }
+    };
   })
 
   .run(function ($httpBackend, e2ehelper) {
@@ -55,128 +55,128 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         id: 'pbInput',
         name: 'Input',
         lastUpdate: 1430212276119,
-        template: '<div class="row">\r\n    <label\r\n        ng-if="!properties.labelHidden"\r\n        ng-class="{ \'widget-label-horizontal\': !properties.labelHidden && properties.labelPosition === \'left\'}"\r\n        class="col-xs-{{ !properties.labelHidden && properties.labelPosition === \'left\' ? properties.labelWidth : 12 }}">\r\n        {{ properties.label }}\r\n    </label>\r\n\r\n    <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === \'left\' ? properties.labelWidth : 0) }}">\r\n        <input\r\n            type="{{properties.type}}"\r\n            class="form-control"\r\n            placeholder="{{ properties.placeholder }}"\r\n            ng-model="properties.value"\r\n            ng-readonly="properties.readOnly">\r\n    </div>\r\n\r\n</div>\r\n',
+        template: '<div class="row">\r\n    <label\r\n        ng-if="!properties.labelHidden"\r\n        ng-class="{ \"widget-label-horizontal\": !properties.labelHidden && properties.labelPosition === \"left\"}"\r\n        class="col-xs-{{ !properties.labelHidden && properties.labelPosition === \"left\" ? properties.labelWidth : 12 }}">\r\n        {{ properties.label }}\r\n    </label>\r\n\r\n    <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === \"left\" ? properties.labelWidth : 0) }}">\r\n        <input\r\n            type="{{properties.type}}"\r\n            class="form-control"\r\n            placeholder="{{ properties.placeholder }}"\r\n            ng-model="properties.value"\r\n            ng-readonly="properties.readOnly">\r\n    </div>\r\n\r\n</div>\r\n',
         icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 20"><g><path fill="#424251" d="M1,19V1h48v18H1z M0,0v20h50V0H0z M6,18v-1H5v1H6z M8,17H7v1h1V17z M7,2v1h1V2H7z M5,3h1V2H5V3z M6,3v14h1 V3H6z "/></g></svg>',
         custom: false,
         order: 2,
-        "properties": [
+        'properties': [
           {
-            "label": "Required",
-            "name": "required",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "boolean",
-            "defaultValue": false,
+            'label': 'Required',
+            'name': 'required',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'boolean',
+            'defaultValue': false,
             bond: 'expression'
           },
           {
-            "label": "Value min length",
-            "name": "minLength",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "integer",
-            "defaultValue": "",
-            "constraints": {
-              "min": "0"
+            'label': 'Value min length',
+            'name': 'minLength',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'integer',
+            'defaultValue': '',
+            'constraints': {
+              'min': '0'
             },
             bond: 'expression'
           },
           {
-            "label": "Value max length",
-            "name": "maxLength",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "integer",
-            "defaultValue": "",
-            "constraints": {
-              "min": "1"
+            'label': 'Value max length',
+            'name': 'maxLength',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'integer',
+            'defaultValue': '',
+            'constraints': {
+              'min': '1'
             },
             bond: 'expression'
           },
           {
-            "label": "Read-only",
-            "name": "readOnly",
-            "type": "boolean",
-            "defaultValue": false,
+            'label': 'Read-only',
+            'name': 'readOnly',
+            'type': 'boolean',
+            'defaultValue': false,
             bond: 'expression'
           },
           {
-            "label": "Label hidden",
-            "name": "labelHidden",
-            "type": "boolean",
-            "bond": "constant",
-            "defaultValue": false
+            'label': 'Label hidden',
+            'name': 'labelHidden',
+            'type': 'boolean',
+            'bond': 'constant',
+            'defaultValue': false
           },
           {
-            "label": "Label",
-            "name": "label",
-            "type": "text",
-            "defaultValue": "Default label",
-            "showFor": "properties.labelHidden.value === false",
-            "bond": "interpolation"
+            'label': 'Label',
+            'name': 'label',
+            'type': 'text',
+            'defaultValue': 'Default label',
+            'showFor': 'properties.labelHidden.value === false',
+            'bond': 'interpolation'
           },
           {
-            "label": "Label position",
-            "name": "labelPosition",
-            "type": "choice",
-            "choiceValues": [
-              "left",
-              "top"
+            'label': 'Label position',
+            'name': 'labelPosition',
+            'type': 'choice',
+            'choiceValues': [
+              'left',
+              'top'
             ],
-            "defaultValue": "top",
-            "bond": "constant",
-            "showFor": "properties.labelHidden.value === false"
+            'defaultValue': 'top',
+            'bond': 'constant',
+            'showFor': 'properties.labelHidden.value === false'
           },
           {
-            "label": "Label width",
-            "name": "labelWidth",
-            "type": "integer",
-            "defaultValue": 4,
-            "showFor": "properties.labelHidden.value === false",
-            "bond": "constant",
-            "constraints": {
-              "min": "1",
-              "max": "12"
+            'label': 'Label width',
+            'name': 'labelWidth',
+            'type': 'integer',
+            'defaultValue': 4,
+            'showFor': 'properties.labelHidden.value === false',
+            'bond': 'constant',
+            'constraints': {
+              'min': '1',
+              'max': '12'
             }
           },
           {
-            "label": "Placeholder",
-            "name": "placeholder",
-            "help": "Short hint that describes the expected value",
-            "type": "text",
-            "bond": "interpolation"
+            'label': 'Placeholder',
+            'name': 'placeholder',
+            'help': 'Short hint that describes the expected value',
+            'type': 'text',
+            'bond': 'interpolation'
           },
           {
-            "label": "Value",
-            "name": "value",
-            "type": "text",
-            "bond": "variable"
+            'label': 'Value',
+            'name': 'value',
+            'type': 'text',
+            'bond': 'variable'
           },
           {
-            "label": "Type",
-            "name": "type",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "choice",
-            "choiceValues": [
-              "text",
-              "number",
-              "email",
-              "password"
+            'label': 'Type',
+            'name': 'type',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'choice',
+            'choiceValues': [
+              'text',
+              'number',
+              'email',
+              'password'
             ],
-            "bond": "constant",
-            "defaultValue": "text"
+            'bond': 'constant',
+            'defaultValue': 'text'
           },
           {
-            "label": "Min value",
-            "name": "min",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "integer",
-            "showFor": "properties.type.value === 'number'",
+            'label': 'Min value',
+            'name': 'min',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'integer',
+            'showFor': 'properties.type.value === "number"',
             bond: 'expression'
           },
           {
-            "label": "Max value",
-            "name": "max",
-            "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
-            "type": "integer",
-            "showFor": "properties.type.value === 'number'",
+            'label': 'Max value',
+            'name': 'max',
+            'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
+            'type': 'integer',
+            'showFor': 'properties.type.value === "number"',
             bond: 'expression'
           }
         ]
@@ -430,33 +430,33 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
 
     var personAssets = [
       {
-        "id": "9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3",
-        "name": "myStyle.css",
-        "type": "css",
-        "order": 1,
-        "active": true,
-        "componentId": "customWidget"
+        'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
+        'name': 'myStyle.css',
+        'type': 'css',
+        'order': 1,
+        'active': true,
+        'componentId': 'customWidget'
       },
       {
-        "id": "5aa4fe10-bd31-44e6-a5e6-39fc8a961691",
-        "name": "https://github.myfile.js",
-        "type": "js",
-        "order": 2,
-        "active": true
+        'id': '5aa4fe10-bd31-44e6-a5e6-39fc8a961691',
+        'name': 'https://github.myfile.js',
+        'type': 'js',
+        'order': 2,
+        'active': true
       },
       {
-        "id": "0401a807-db07-4204-af8b-340078e6ee46",
-        "name": "protractor.png",
-        "type": "img",
-        "order": 3,
-        "active": true
+        'id': '0401a807-db07-4204-af8b-340078e6ee46',
+        'name': 'protractor.png',
+        'type': 'img',
+        'order': 3,
+        'active': true
       },
       {
-        "id": "79555334-8f48-4f43-9291-0c82b6c94b1b",
-        "name": "myStyle.css",
-        "type": "css",
-        "order": 4,
-        "active": true
+        'id': '79555334-8f48-4f43-9291-0c82b6c94b1b',
+        'name': 'myStyle.css',
+        'type': 'css',
+        'order': 4,
+        'active': true
       }
     ];
 
@@ -508,8 +508,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // delete widget property
-    $httpBackend.whenDELETE(/rest\/widgets\/.*\/properties\/.*/).respond(function (method, url, data) {
-      var updatedProperty = angular.fromJson(data);
+    $httpBackend.whenDELETE(/rest\/widgets\/.*\/properties\/.*/).respond(function (method, url) {
       var urlMatches = url.match(/rest\/widgets\/(.*)\/properties\/(.*)/);
       var widgetId = urlMatches[1];
       var propertyName = urlMatches[2];
@@ -524,13 +523,13 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     $httpBackend.whenGET('rest/widgets').respond(widgets);
 
     // get all light representation
-    $httpBackend.whenGET('rest/widgets?view=light').respond(function (method, url) {
+    $httpBackend.whenGET('rest/widgets?view=light').respond(function () {
       var response = widgets.map(function (elem) {
         return {
           id: elem.id,
           name: elem.name,
           custom: elem.custom
-        }
+        };
       });
       return [200, response, {}];
     });
@@ -566,12 +565,12 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
      *                                            PAGES
      * ******************************************************************************************************/
       // get all (light representation)
-    $httpBackend.whenGET('rest/pages').respond(function (method, url) {
+    $httpBackend.whenGET('rest/pages').respond(function () {
       var response = pages.map(function (page) {
         return {
           id: page.id,
           name: page.name
-        }
+        };
       });
       return [200, response, {}];
     });
@@ -581,7 +580,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     $httpBackend.whenGET(/rest\/pages\/person\/assets/).respond(personAssets);
 
     // get by id
-    $httpBackend.whenGET(/rest\/pages\/.*/).respond(function (method, url, data) {
+    $httpBackend.whenGET(/rest\/pages\/.*/).respond(function (method, url) {
       var pageId = e2ehelper.lastChunk(url);
       var page = e2ehelper.getById(pages, pageId);
       return [200, page, {}];
