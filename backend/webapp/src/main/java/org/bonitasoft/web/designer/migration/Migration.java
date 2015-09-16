@@ -26,16 +26,16 @@ import org.slf4j.LoggerFactory;
 public class Migration<A extends Versioned> {
 
     private static final Logger logger = LoggerFactory.getLogger(Migration.class);
-    private final String version;
+    private final Version version;
     private final MigrationStep<A>[] migrationSteps;
 
     public Migration(String version, MigrationStep<A>... migrationSteps) {
-        this.version = version;
+        this.version = new Version(version);
         this.migrationSteps = migrationSteps;
     }
 
     public void migrate(A artifact) {
-        if (artifact.getDesignerVersion() == null || version.compareTo(artifact.getDesignerVersion()) > 0) {
+        if (artifact.getDesignerVersion() == null || version.isGreaterThan(artifact.getDesignerVersion())) {
 
             logger.info(format("%s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
                     artifact.getClass().getSimpleName(),
@@ -47,7 +47,7 @@ public class Migration<A extends Versioned> {
                 migrationStep.migrate(artifact);
             }
 
-            artifact.setDesignerVersion(version);
+            artifact.setDesignerVersion(version.toString());
             logger.info(format("%s <%s> version is now <%s>",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
