@@ -5,7 +5,7 @@ describe('EditorCtrl', function() {
   beforeEach(angular.mock.module('ui.bootstrap'));
   beforeEach(angular.mock.module('bonitasoft.designer.controllers', 'bonitasoft.designer.common.repositories'));
   beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
-  beforeEach(angular.mock.module('bonitasoft.designer.factories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.editor.common'));
   beforeEach(angular.mock.module('tabsContainerStructureMock'));
   beforeEach(angular.mock.module('ui.router'));
 

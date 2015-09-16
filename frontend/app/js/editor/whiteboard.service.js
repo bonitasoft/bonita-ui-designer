@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.services')
     .service('whiteboard', whiteboardService);
 
-  function whiteboardService($q, widgetRepo, paletteService, componentFactory, commonParams, alerts, gettext) {
+  function whiteboardService($q, widgetRepo, paletteService, componentFactory, alerts, gettext) {
 
     var paletteItems = {};
     return {
@@ -58,10 +58,7 @@
         return item.custom === val;
       }
 
-      var widgets = response.data.map(function (widget) {
-        widget.properties = commonParams.getDefinitions().concat(widget.properties || []);
-        return widget;
-      });
+      var widgets = response.data;
 
       var coreWidgets = widgets.filter(filterCustoms.bind(null, false))
         .map(componentFactory.paletteWrapper.bind(null, gettext('widgets'), 1));

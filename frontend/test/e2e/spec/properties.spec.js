@@ -10,7 +10,16 @@ describe('properties panel test', function () {
 
   });
 
+  it('should display default properties on container', function() {
+    editor.addWidget('container');
+    editor.setWidth(12);
+    expect(element(by.cssContainingText('.property-label label', 'CSS classes')).isPresent()).toBe(true);
+    expect(element(by.cssContainingText('.property-label label', 'Hidden')).isPresent()).toBe(true);
+  });
+
   it('should display properties for label', function () {
+    expect(element(by.cssContainingText('.property-label label', 'CSS classes')).isPresent()).toBe(true);
+    expect(element(by.cssContainingText('.property-label label', 'Hidden')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Label')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Label position')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Label width')).isPresent()).toBe(true);

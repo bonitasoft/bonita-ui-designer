@@ -17,12 +17,12 @@
   'use strict';
 
   angular
-    .module('bonitasoft.designer.factories')
-    .factory('commonParams', commonParamsService);
+    .module('bonitasoft.designer.editor.common')
+    .factory('properties', propertiesService);
 
-  function commonParamsService(gettext) {
+  function propertiesService(gettext) {
 
-    var common = [
+    var commonProperties = [
       {
         label: gettext('CSS classes'),
         caption: gettext('Space-separated list'),
@@ -42,40 +42,28 @@
     ];
 
     return {
-      getDefinitions: getDefinitions,
-      getDefaultValues: getDefaultValues
+      computeValues: computeValues,
+      computeValue: computeValue,
+      addCommonPropertiesTo: addCommonPropertiesTo
     };
 
-    /**
-     * Return custom params for a container or commons params for all
-     * @return {Object}
-     */
-    function getDefinitions() {
-      return common;
+    function computeValues(properties) {
+      return (properties || []).reduce(function (props, property) {
+        props[property.name] = computeValue(property);
+        return props;
+      }, {});
     }
 
-    /**
-     * Return custom properties as a container or global:
-     * {
-       *   type: 'constant',
-       *   value: item.defaultValue
-       * }
-     *
-     * @return {Object}
-     */
-    function getDefaultValues() {
-      var propertyValues = {},
-        data = getDefinitions();
-
-      data.forEach(function (property) {
-        propertyValues[property.name] = {
-          type: property.bond === 'expression' ? 'constant' : property.bond,
-          value: property.defaultValue
-        };
-      });
-
-      return propertyValues;
+    function computeValue(property) {
+      return {
+        type: property.bond === 'expression' ? 'constant' : property.bond,
+        value: property.defaultValue
+      };
     }
 
+    function addCommonPropertiesTo(component) {
+      component.properties = commonProperties.concat(component.properties || []);
+      return component;
+    }
   }
 })();

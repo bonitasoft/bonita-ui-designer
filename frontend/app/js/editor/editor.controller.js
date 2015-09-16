@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, paletteService, resolutions, artifact, mode, arrays, componentUtils, commonParams, componentFactory, keymaster, $modal, utils) {
+angular.module('bonitasoft.designer.controllers').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, paletteService, resolutions, artifact, mode, arrays, componentUtils, componentFactory, keymaster, $modal, utils) {
 
   'use strict';
 

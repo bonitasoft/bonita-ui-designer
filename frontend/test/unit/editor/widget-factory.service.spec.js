@@ -11,7 +11,7 @@ describe('widgetFactory', function() {
     expect(widget.id).toBe( 'container');
     expect(widget.name.length).toBeGreaterThan(0);
     expect(widget.order).toBeDefined();
-    expect(widget.properties.length).toBeGreaterThan(1);
+    expect(widget.properties.length).toBe(1);
     expect(widget.icon).toMatch('<svg');
     expect(widget.custom).toBe(false);
   });
@@ -21,7 +21,7 @@ describe('widgetFactory', function() {
     expect(widget.id).toBe( 'tabsContainer');
     expect(widget.name.length).toBeGreaterThan(0);
     expect(widget.order).toBeDefined();
-    expect(widget.properties.length).toBeGreaterThan(0);
+    expect(widget.properties).toBeUndefined();
     expect(widget.icon).toMatch('<svg');
     expect(widget.custom).toBe(false);
   });
@@ -31,7 +31,7 @@ describe('widgetFactory', function() {
     expect(widget.id).toBe( 'formContainer');
     expect(widget.name.length).toBeGreaterThan(0);
     expect(widget.order).toBeDefined();
-    expect(widget.properties.length).toBe(2);
+    expect(widget.properties).toBeUndefined();
     expect(widget.icon).toMatch('<svg');
     expect(widget.custom).toBe(false);
   });
