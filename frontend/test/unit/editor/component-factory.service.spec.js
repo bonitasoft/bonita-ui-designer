@@ -1,12 +1,13 @@
 describe('componentFactory', function() {
 
-  var service, item, widget, parentRow ;
+  var service, item, widget, parentRow, widgetFactory;
 
   beforeEach(angular.mock.module('bonitasoft.designer.services', 'bonitasoft.designer.common.services'));
-  beforeEach(angular.mock.module('bonitasoft.designer.factories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.editor.common'));
 
   beforeEach(inject(function ($injector){
     service = $injector.get('componentFactory');
+    widgetFactory = $injector.get('widgetFactory');
   }));
 
   beforeEach(function(){
@@ -40,11 +41,10 @@ describe('componentFactory', function() {
 
   it('should create a new container', function() {
     spyOn(service, 'initializeContainer');
-    var newCompo = service.createContainer(parentRow);
+    var newCompo = service.createContainer(widgetFactory.createContainerWidget(), parentRow);
 
     expect(newCompo.type).toBe('container');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.propertyValues.hasOwnProperty('repeatedCollection')).toBe(true);
     expect(newCompo.propertyValues.hasOwnProperty('repeatedCollection')).toBe(true);
     expect(newCompo.rows.length).toBe(1);
     expect(service.initializeContainer).toHaveBeenCalled();
@@ -52,12 +52,10 @@ describe('componentFactory', function() {
 
   it('should create a new formContainer', function() {
     spyOn(service, 'initializeFormContainer');
-    var newCompo = service.createFormContainer(parentRow);
+    var newCompo = service.createFormContainer(widgetFactory.createFormContainerWidget(), parentRow);
 
     expect(newCompo.type).toBe('formContainer');
     expect(newCompo.dimension.xs).toBe(12);
-    expect(newCompo.propertyValues.hasOwnProperty('url')).toBe(true);
-    expect(newCompo.propertyValues.hasOwnProperty('method')).toBe(true);
     expect(newCompo.container).toBeDefined();
     expect(newCompo.container.rows.length).toBe(1);
     expect(service.initializeFormContainer).toHaveBeenCalled();
@@ -65,7 +63,7 @@ describe('componentFactory', function() {
 
   it('should create a new tabsContainer', function() {
     spyOn(service, 'initializeTabsContainer');
-    var newCompo = service.createTabsContainer(parentRow);
+    var newCompo = service.createTabsContainer(widgetFactory.createTabsContainerWidget(), parentRow);
 
     expect(newCompo.type).toBe('tabsContainer');
     expect(newCompo.dimension.xs).toBe(12);
@@ -120,7 +118,6 @@ describe('componentFactory', function() {
     var title = 'tab';
     var tab = service.createNewTab(title);
     expect(tab.title).toEqual(title);
-    expect(Object.keys(tab.container.propertyValues).length).toBeGreaterThan(0);
     expect(tab.container.rows.length).toBe(1);
   });
 

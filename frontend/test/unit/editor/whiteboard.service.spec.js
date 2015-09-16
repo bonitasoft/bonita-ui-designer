@@ -114,7 +114,7 @@
       }
     };
 
-    beforeEach(angular.mock.module('bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.services', 'bonitasoft.designer.factories'));
+    beforeEach(angular.mock.module('bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.services', 'bonitasoft.designer.factories', 'bonitasoft.designer.editor.common'));
     beforeEach(inject(function($injector) {
       $rootScope = $injector.get('$rootScope');
       $httpBackend = $injector.get('$httpBackend');

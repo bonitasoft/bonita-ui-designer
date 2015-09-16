@@ -15,14 +15,11 @@
 /**
  * Controller of the componentMover directive
  */
-angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirectiveCtrl', function ($scope) {
+angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirectiveCtrl', function ($scope, properties) {
 
   'use strict';
 
-  $scope.propertyValue = $scope.propertyValue || {
-      type: $scope.property.bond === 'expression' ? 'constant' : $scope.property.bond,
-      value: $scope.property.defaultValue
-    };
+  $scope.propertyValue = $scope.propertyValue || properties.computeValue($scope.property);
 
   $scope.isDisplayed = function () {
 

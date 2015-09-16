@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.services')
     .service('componentFactory', componentFactory);
 
-  function componentFactory(paletteService, widgetFactory, commonParams, resolutions, gettextCatalog, gettext) {
+  function componentFactory(paletteService, widgetFactory, properties, resolutions, gettextCatalog, gettext) {
 
     var counters = {};
     var service = {
@@ -91,13 +91,7 @@
         id: widget.id,
         type: 'component',
         dimension: resolutions.getDefaultDimension(),
-        propertyValues: (widget.properties || []).reduce(function (props, property) {
-          props[property.name] = {
-            type: property.bond === 'expression' ? 'constant' : property.bond,
-            value: property.defaultValue
-          };
-          return props;
-        }, {})
+        propertyValues: properties.computeValues(widget.properties)
       };
       service.initializeWidget(widget, item, parentRow);
       return item;
@@ -127,29 +121,24 @@
     }
 
 
-    function createContainer(parentRow) {
-      var container = {
+    function createContainer(container, parentRow) {
+      var item = {
         type: 'container',
         dimension: resolutions.getDefaultDimension(),
-        propertyValues: angular.extend(commonParams.getDefaultValues(), {
-          'repeatedCollection': {
-            type: 'variable',
-            value: ''
-          }
-        }),
+        propertyValues: properties.computeValues(container.properties),
         rows: [
           []
         ]
       };
 
-      service.initializeContainer(container, parentRow);
-      return container;
+      service.initializeContainer(item, parentRow);
+      return item;
     }
 
     function initializeContainer(container, parentRow) {
       angular.extend(container, {
         $$id: getNextId('container'),
-        $$widget: widgetFactory.createContainerWidget(),
+        $$widget: properties.addCommonPropertiesTo(widgetFactory.createContainerWidget()),
         $$templateUrl: 'js/editor/workspace/container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/container-properties-template.html',
         $$parentContainerRow: parentRow
@@ -158,11 +147,11 @@
       container.rows.forEach(initializeRow.bind(null, container));
     }
 
-    function createTabsContainer(parentRow) {
+    function createTabsContainer(tabsContainer, parentRow) {
       var container = {
         type: 'tabsContainer',
         dimension: resolutions.getDefaultDimension(),
-        propertyValues: commonParams.getDefaultValues()
+        propertyValues: properties.computeValues(tabsContainer.properties)
       };
       container.tabs = ['Tab 1', 'Tab 2'].map(createNewTab);
 
@@ -173,7 +162,7 @@
     function initializeTabsContainer(container, parentRow) {
       angular.extend(container, {
         $$id: getNextId('tabsContainer'),
-        $$widget: widgetFactory.createTabsContainerWidget(),
+        $$widget: properties.addCommonPropertiesTo(widgetFactory.createTabsContainerWidget()),
         $$templateUrl: 'js/editor/workspace/tabs-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
@@ -204,7 +193,6 @@
         title: title,
         container: {
           type: 'container',
-          propertyValues: commonParams.getDefaultValues(),
           rows: [
             []
           ]
@@ -212,23 +200,13 @@
       };
     }
 
-    function createFormContainer(parentRow) {
+    function createFormContainer(formContainer, parentRow) {
       var container = {
         type: 'formContainer',
         dimension: resolutions.getDefaultDimension(),
-        propertyValues: angular.extend(commonParams.getDefaultValues(), {
-          'url': {
-            type: 'constant',
-            value: ''
-          },
-          'method': {
-            type: 'constant',
-            value: ''
-          }
-        }),
+        propertyValues: properties.computeValues(formContainer.properties),
         container: {
           type: 'container',
-          propertyValues: commonParams.getDefaultValues(),
           rows: [
             []
           ]
@@ -243,7 +221,7 @@
     function initializeFormContainer(formContainer, parentRow) {
       angular.extend(formContainer, {
         $$id: getNextId('formContainer'),
-        $$widget: widgetFactory.createFormContainerWidget(),
+        $$widget: properties.addCommonPropertiesTo(widgetFactory.createFormContainerWidget()),
         $$templateUrl: 'js/editor/workspace/form-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
@@ -254,37 +232,40 @@
 
 
     function getPaletteContainers() {
-      // using gettext to add key to catalog that will be later translated in a template
+      var container = properties.addCommonPropertiesTo(widgetFactory.createContainerWidget());
+      var tabsContainer = properties.addCommonPropertiesTo(widgetFactory.createTabsContainerWidget());
+      var formContainer = properties.addCommonPropertiesTo(widgetFactory.createFormContainerWidget());
       return [
         {
           sectionName: gettext('widgets'),
           sectionOrder: 1,
-          component: widgetFactory.createContainerWidget(),
+          component: container,
           init: initializeContainer,
-          create: createContainer
+          create: createContainer.bind(null, container)
         }, {
           sectionName: gettext('widgets'),
           sectionOrder: 1,
-          component: widgetFactory.createTabsContainerWidget(),
+          component: tabsContainer,
           init: initializeTabsContainer,
-          create: createTabsContainer
+          create: createTabsContainer.bind(null, tabsContainer)
         }, {
           sectionName: gettext('widgets'),
           sectionOrder: 1,
-          component: widgetFactory.createFormContainerWidget(),
+          component: formContainer,
           init: initializeFormContainer,
-          create: createFormContainer
+          create: createFormContainer.bind(null, formContainer)
         }
       ];
     }
 
     function paletteWrapper(name, order, component) {
+      var extended = properties.addCommonPropertiesTo(component);
       return {
-        component: component,
+        component: extended,
         sectionName: name,
         sectionOrder: order,
-        init: initializeWidget.bind(null, component),
-        create: createWidget.bind(null, component)
+        init: initializeWidget.bind(null, extended),
+        create: createWidget.bind(null, extended)
       };
     }
 

@@ -40,6 +40,7 @@
     'bonitasoft.designer.filters',
     'bonitasoft.designer.templates',
     'bonitasoft.designer.assets',
+    'bonitasoft.designer.editor.common',
     'ngSanitize',
     'ngAnimate',
     'ui.router',

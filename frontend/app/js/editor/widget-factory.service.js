@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.services')
     .factory('widgetFactory', widgetFactory);
 
-  function widgetFactory(commonParams, gettext) {
+  function widgetFactory(gettext) {
 
     return {
       createTabsContainerWidget: createTabsContainerWidget,
@@ -39,7 +39,7 @@
         name: 'Container',
         description: gettext('Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array'),
         order: -2,
-        properties: commonParams.getDefinitions().concat([
+        properties: [
           {
             name: 'repeatedCollection',
             label: gettext('Repeat contents'),
@@ -48,7 +48,7 @@
             type: 'string',
             bond: 'variable'
           }
-        ])
+        ]
       };
     }
 
@@ -62,7 +62,6 @@
         order: -1,
         name: 'Tabs container',
         description: gettext('Multiple groups of widgets, each group in a tab'),
-        properties: commonParams.getDefinitions()
       };
     }
 
@@ -76,7 +75,6 @@
         name: 'Form container',
         order: 0,
         description: gettext('Container used for a form. Eases validation'),
-        properties: commonParams.getDefinitions()
       };
     }
   }
