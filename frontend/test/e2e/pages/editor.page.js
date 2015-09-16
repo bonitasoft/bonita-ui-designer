@@ -1,6 +1,5 @@
 /* global browser, by, element */
 
-var Preview = require('./preview.page.js');
 var DataPanel = require('./data-panel.page');
 var AssetPanel = require('./asset-panel.page');
 

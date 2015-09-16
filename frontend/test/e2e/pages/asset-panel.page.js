@@ -17,7 +17,7 @@
       return this.sidebar.element(selector);
     },
 
-    addAsset: function (id, type, name, componentId) {
+    addAsset: function (id, type, name) {
 
       this.addButton.click();
 

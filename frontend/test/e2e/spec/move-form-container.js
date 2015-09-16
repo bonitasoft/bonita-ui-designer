@@ -2,8 +2,6 @@ var PageEditor = require('../pages/editor.page.js');
 
 describe('moving form container', function() {
 
-  var rootContainer;
-
   var editor;
   beforeEach(function() {
     editor = PageEditor.get('empty');

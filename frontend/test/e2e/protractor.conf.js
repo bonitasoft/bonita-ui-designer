@@ -1,3 +1,4 @@
+/* globals exports */
 exports.config = {
   // ---------------------------------------------------------------------------
   // ----- How to setup Selenium -----------------------------------------------
@@ -167,8 +168,8 @@ exports.config = {
   // A callback function called once the tests have finished running and
   // the WebDriver instance has been shut down. It is passed the exit code
   // (0 if the tests passed or 1 if not). This is called once per capability.
-  onCleanUp: function(exitCode) {
-  },
+  // onCleanUp: function(exitCode) {
+  // },
 
   // The params object will be passed directly to the Protractor instance,
   // and can be accessed from your test as browser.params. It is an arbitrary
