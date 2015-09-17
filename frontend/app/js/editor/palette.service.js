@@ -12,26 +12,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Components Service manage ui-designer components
- * handle registration and initialisation.
- *
- * Create a new scope with a properties object derived from user entered propertyValues.
- * This allow to bind propertyValues to widget properties and keep a WYSWYG approach in editor while editing widget properties
- */
-angular.module('bonitasoft.designer.services')
-  .service('paletteService', function() {
+(function () {
 
-    'use strict';
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.services')
+    .service('paletteService', paletteService);
+
+  /**
+   * Components Service manage ui-designer components
+   * handle registration and initialisation.
+   *
+   * Create a new scope with a properties object derived from user entered propertyValues.
+   * This allow to bind propertyValues to widget properties and keep a WYSWYG approach in editor while editing widget properties
+   */
+  function paletteService() {
 
     var componentsMap = {};
-
-    this.reset = function() {
-      componentsMap = {};
+    return {
+      reset: reset,
+      getSections: getSections,
+      register: register,
+      init: init
     };
 
-    this.getSections = function() {
-      var sections = Object.keys(componentsMap).reduce(function(sections, item){
+    function reset() {
+      componentsMap = {};
+    }
+
+    function getSections() {
+      var sections = Object.keys(componentsMap).reduce(function (sections, item) {
         var sectionName = componentsMap[item].sectionName;
         sections[sectionName] = sections[sectionName] || {
           name: sectionName,
@@ -46,16 +57,16 @@ angular.module('bonitasoft.designer.services')
       return Object.keys(sections).map(function (key) {
         return sections[key];
       });
-    };
+    }
 
-    this.register = function(items) {
-      componentsMap = items.reduce(function(components, item){
+    function register(items) {
+      componentsMap = items.reduce(function (components, item) {
         components[item.component.id] = item;
         return components;
       }, componentsMap);
-    };
+    }
 
-    this.init = function(component, parentRow) {
+    function init(component, parentRow) {
       // container have no id, only a type
       var id = component.id || component.type;
 
@@ -64,6 +75,7 @@ angular.module('bonitasoft.designer.services')
       }
       var fnInit = componentsMap[id].init;
       fnInit(component, parentRow);
-    };
+    }
 
-  });
+  }
+})();
