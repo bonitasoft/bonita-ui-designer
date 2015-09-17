@@ -12,21 +12,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.services')
-  .service('componentFactory', function (paletteService, widgetFactory, commonParams, resolutions, gettextCatalog, gettext) {
+(function () {
 
-    'use strict';
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.services')
+    .service('componentFactory', componentFactory);
+
+  function componentFactory(paletteService, widgetFactory, commonParams, resolutions, gettextCatalog, gettext) {
 
     var counters = {};
-    var service = this;
+    var service = {
+      getNextId: getNextId,
+      initializePage: initializePage,
+
+      createWidget: createWidget,
+      initializeWidget: initializeWidget,
+
+      createContainer: createContainer,
+      initializeContainer: initializeContainer,
+
+      createTabsContainer: createTabsContainer,
+      initializeTabsContainer: initializeTabsContainer,
+      createNewTab: createNewTab,
+      initializeTab: initializeTab,
+
+      createFormContainer: createFormContainer,
+      initializeFormContainer: initializeFormContainer,
+
+      getPaletteContainers: getPaletteContainers,
+      paletteWrapper: paletteWrapper
+    };
+    return service;
 
     /**
      * [getNextId description]
      * @param  {[type]} type [description]
      * @return {[type]}      [description]
      */
-    function getNextId (type) {
-      if (counters.hasOwnProperty(type)){
+    function getNextId(type) {
+      if (counters.hasOwnProperty(type)) {
         counters[type] += 1;
       } else {
         counters[type] = 0;
@@ -43,7 +69,7 @@ angular.module('bonitasoft.designer.services')
         container: container,
         row: row
       };
-      angular.forEach(row, function(component) {
+      angular.forEach(row, function (component) {
         paletteService.init(component, parentContainerRow);
       });
     }
@@ -65,7 +91,7 @@ angular.module('bonitasoft.designer.services')
         id: widget.id,
         type: 'component',
         dimension: resolutions.getDefaultDimension(),
-        propertyValues: (widget.properties || []).reduce(function(props, property) {
+        propertyValues: (widget.properties || []).reduce(function (props, property) {
           props[property.name] = {
             type: property.bond === 'expression' ? 'constant' : property.bond,
             value: property.defaultValue
@@ -76,6 +102,7 @@ angular.module('bonitasoft.designer.services')
       service.initializeWidget(widget, item, parentRow);
       return item;
     }
+
     /**
      * Initialize (mutate) a component to be used in whiteboard
      * component can come from a page definition or from createWidget
@@ -91,14 +118,13 @@ angular.module('bonitasoft.designer.services')
       // $$parentContainerRow is a backward reference to the containing container and row, which is only useful in the
       // editor, but must not and can not be serialized (cyclic reference)
       angular.extend(item, {
-        $$id:  getNextId('component'),
+        $$id: getNextId('component'),
         $$widget: angular.copy(widget), // make sure to render all properties every time we select a component
         $$templateUrl: 'js/editor/workspace/component-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
       });
     }
-
 
 
     function createContainer(parentRow) {
@@ -121,7 +147,7 @@ angular.module('bonitasoft.designer.services')
     }
 
     function initializeContainer(container, parentRow) {
-      angular.extend( container, {
+      angular.extend(container, {
         $$id: getNextId('container'),
         $$widget: widgetFactory.createContainerWidget(),
         $$templateUrl: 'js/editor/workspace/container-template.html',
@@ -135,7 +161,7 @@ angular.module('bonitasoft.designer.services')
     function createTabsContainer(parentRow) {
       var container = {
         type: 'tabsContainer',
-        dimension:  resolutions.getDefaultDimension(),
+        dimension: resolutions.getDefaultDimension(),
         propertyValues: commonParams.getDefaultValues()
       };
       container.tabs = ['Tab 1', 'Tab 2'].map(createNewTab);
@@ -145,7 +171,7 @@ angular.module('bonitasoft.designer.services')
     }
 
     function initializeTabsContainer(container, parentRow) {
-      angular.extend( container, {
+      angular.extend(container, {
         $$id: getNextId('tabsContainer'),
         $$widget: widgetFactory.createTabsContainerWidget(),
         $$templateUrl: 'js/editor/workspace/tabs-container-template.html',
@@ -153,7 +179,7 @@ angular.module('bonitasoft.designer.services')
         $$parentContainerRow: parentRow
       });
 
-      container.tabs.forEach( function(tab) {
+      container.tabs.forEach(function (tab) {
         service.initializeTab(tab, container);
         service.initializeContainer(tab.container);
       });
@@ -262,23 +288,6 @@ angular.module('bonitasoft.designer.services')
       };
     }
 
-    this.getNextId = getNextId;
-    this.initializePage = initializePage;
-
-    this.createWidget = createWidget;
-    this.initializeWidget = initializeWidget;
-
-    this.createContainer = createContainer;
-    this.initializeContainer = initializeContainer;
-
-    this.createTabsContainer = createTabsContainer;
-    this.initializeTabsContainer = initializeTabsContainer;
-    this.createNewTab = createNewTab;
-    this.initializeTab = initializeTab;
-
-    this.createFormContainer = createFormContainer;
-    this.initializeFormContainer = initializeFormContainer;
-
-    this.getPaletteContainers = getPaletteContainers;
-    this.paletteWrapper = paletteWrapper;
-  });
+  }
+})
+();
