@@ -12,67 +12,69 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Repo to save or load a page.
- */
-angular.module('bonitasoft.designer.services')
-  .service('whiteboard', function ($q, widgetRepo, paletteService, componentFactory, commonParams, alerts, gettext) {
+(function () {
 
-    'use strict';
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.services')
+    .service('whiteboard', whiteboardService);
+
+  function whiteboardService($q, widgetRepo, paletteService, componentFactory, commonParams, alerts, gettext) {
 
     var paletteItems = {};
-
-    this.addPalette = function(key, repository) {
-      paletteItems[key] = repository;
+    return {
+      addPalette: addPalette,
+      initialize: initialize
     };
 
-    this.initialize = function(repo, id) {
+    function addPalette(key, repository) {
+      paletteItems[key] = repository;
+    }
+
+    function initialize(repo, id) {
       return widgetRepo.all()
         .then(initializePalette)
-        .then( function() {
+        .then(function () {
           var promises = Object.keys(paletteItems)
-            .reduce(function(promises, key) {
+            .reduce(function (promises, key) {
               return promises.concat(paletteItems[key](id));
             }, []);
-          return $q.all( promises );
+          return $q.all(promises);
         })
-        .then( repo.load.bind(null, id) )
-        .catch(function(error){
+        .then(repo.load.bind(null, id))
+        .catch(function (error) {
           alerts.addError(error.message);
           return $q.reject(error);
         })
-        .then( function(response) {
+        .then(function (response) {
           componentFactory.initializePage(response.data);
           return response.data;
         });
-    };
+    }
 
     function initializePalette(response) {
       function filterCustoms(val, item) {
         return item.custom === val;
       }
-      var widgets = response.data.map(function(widget) {
+
+      var widgets = response.data.map(function (widget) {
         widget.properties = commonParams.getDefinitions().concat(widget.properties || []);
         return widget;
       });
 
-      var isCoreWidget = filterCustoms.bind(null, false);
-      var isCustomWidget = filterCustoms.bind(null, true);
-
-      var containerWidgets = componentFactory.getPaletteContainers();
-
-      // using gettext to add key to catalog that will be later translated in a template
-
-      var coreWidgets = widgets.filter(isCoreWidget)
+      var coreWidgets = widgets.filter(filterCustoms.bind(null, false))
         .map(componentFactory.paletteWrapper.bind(null, gettext('widgets'), 1));
 
-      var customWidgets = widgets.filter(isCustomWidget)
+      var customWidgets = widgets.filter(filterCustoms.bind(null, true))
         .map(componentFactory.paletteWrapper.bind(null, gettext('custom widgets'), 2));
+
       // reset the components map
       paletteService.reset();
-      paletteService.register(containerWidgets);
+      paletteService.register(componentFactory.getPaletteContainers());
       paletteService.register(coreWidgets);
       paletteService.register(customWidgets);
     }
+  }
 
-  });
+})();
