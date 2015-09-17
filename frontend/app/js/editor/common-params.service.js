@@ -12,12 +12,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.factories')
-  .factory('commonParams', function(gettext) {
+(function () {
 
-    'use strict';
+  'use strict';
 
-    // using gettext to add key to catalog that will be later translated in a template
+  angular
+    .module('bonitasoft.designer.factories')
+    .factory('commonParams', commonParamsService);
+
+  function commonParamsService(gettext) {
 
     var common = [
       {
@@ -38,6 +41,11 @@ angular.module('bonitasoft.designer.factories')
       }
     ];
 
+    return {
+      getDefinitions: getDefinitions,
+      getDefaultValues: getDefaultValues
+    };
+
     /**
      * Return custom params for a container or commons params for all
      * @return {Object}
@@ -49,15 +57,15 @@ angular.module('bonitasoft.designer.factories')
     /**
      * Return custom properties as a container or global:
      * {
-     *   type: 'constant',
-     *   value: item.defaultValue
-     * }
+       *   type: 'constant',
+       *   value: item.defaultValue
+       * }
      *
      * @return {Object}
      */
     function getDefaultValues() {
       var propertyValues = {},
-          data = getDefinitions();
+        data = getDefinitions();
 
       data.forEach(function (property) {
         propertyValues[property.name] = {
@@ -69,9 +77,5 @@ angular.module('bonitasoft.designer.factories')
       return propertyValues;
     }
 
-    return {
-      getDefinitions: getDefinitions,
-      getDefaultValues: getDefaultValues
-    };
-
-  });
+  }
+})();
