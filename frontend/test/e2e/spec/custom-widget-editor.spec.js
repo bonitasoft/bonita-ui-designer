@@ -11,7 +11,7 @@ describe('custom widget editor', function() {
   var clearAndFillAceEditor = function(elementId, text) {
     browser.actions().doubleClick($('#' + elementId + ' .ace_content')).perform();
     var area = $('#' + elementId + ' textarea');
-    area.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, protractor.Key.ALT, protractor.Key.SHIFT,  'd'));
+    area.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, protractor.Key.ALT, protractor.Key.SHIFT, 'd'));
     area.sendKeys(text);
   };
 
@@ -35,7 +35,6 @@ describe('custom widget editor', function() {
     dialog.accept();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
-
   it('should open a confirm dialog and stay on the same page if dismiss', function() {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
@@ -75,29 +74,28 @@ describe('custom widget editor', function() {
     $('#label').sendKeys('updated property');
     $('#default').clear().sendKeys('Default value');
 
-    element.all(by.css('#type option')).then(function(options){
-      options[1].click(); //expression
-    });
+    element.all(by.css('#typeButton')).click();
+    element.all(by.css('#type li')).then((items) => items[1].click()); //variable
+
+    //expression
     var choices = 'red, green, blue';
     $('#choices').sendKeys(choices);
 
-    element.all(by.css('#bond option')).then(function(options){
-      options[3].click(); //variable
-    });
+    element.all(by.css('#bondButton')).click();
+    element.all(by.css('#bond li')).then((items) => items[3].click()); //variable
+
 
     expect(element.all(by.css('#choices'))).toEqual([]);
     expect(element.all(by.css('#default'))).toEqual([]);
 
-    element.all(by.css('#bond option')).then(function(options){
-      options[0].click(); //constant
-    });
+    element.all(by.css('#bondButton')).click();
+    element.all(by.css('#bond li')).then((items) => items[0].click()); //constant
 
-    element.all(by.css('#type option')).then(function(options){
-      options[1].click(); //choice
-    });
+    element.all(by.css('#typeButton')).click();
+    element.all(by.css('#type li')).then((items) => items[1].click()); //variable
 
     expect($('#choices').getAttribute('value')).toEqual(choices);
-    element.all(by.css('#default option')).then(function(options){
+      element.all(by.css('#default option')).then(function(options) {
       options[1].click();
     });
     expect($('#default option[selected]').getText()).toEqual('red');
@@ -153,7 +151,7 @@ describe('custom widget editor', function() {
     newName.clear();
     newName.sendKeys('GoodNewName');
     submitButton.click();
-    expect(browser.getCurrentUrl()).toMatch(/.*\/widget\/customGoodNewName/);   // http://host:port/#/en/widget/GoodNewName
+    expect(browser.getCurrentUrl()).toMatch(/.*\/widget\/customGoodNewName/); // http://host:port/#/en/widget/GoodNewName
   });
 
 });
