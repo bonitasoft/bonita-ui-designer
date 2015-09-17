@@ -49,13 +49,11 @@ describe('PropertyEditorPopupCtrl', function() {
 
   it('should update type accordingly to selected bond', function() {
     $scope.currentParam.type = 'choice';
-    $scope.selectedBond = 'interpolation';
-    $scope.updateType();
+    $scope.updateBond('interpolation');
     expect($scope.currentParam.bond).toEqual('interpolation');
     expect($scope.currentParam.type).toEqual('text');
     $scope.currentParam.type = 'choice';
-    $scope.selectedBond = 'expression';
-    $scope.updateType();
+    $scope.updateBond('expression');
     expect($scope.currentParam.bond).toEqual('expression');
     expect($scope.currentParam.type).toEqual('choice');
   });
@@ -74,32 +72,32 @@ describe('PropertyEditorPopupCtrl', function() {
       expect($scope.isTypeChoicable()).toBeFalsy();
     });
     it('should return false when type is choice and selected bond is variable or interpolation', function() {
-      $scope.selectedBond = 'variable';
+      $scope.currentParam.bond = 'variable';
       $scope.currentParam.type = 'choice';
       expect($scope.isTypeChoicable()).toBeFalsy();
-      $scope.selectedBond = 'interpolation';
+      $scope.currentParam.bond = 'interpolation';
       expect($scope.isTypeChoicable()).toBeFalsy();
     });
     it('should return true when selected bond is expression or constant and choice is type', function () {
-      $scope.selectedBond = 'expression';
+      $scope.currentParam.bond = 'expression';
       $scope.currentParam.type = 'choice';
       expect($scope.isTypeChoicable()).toBeTruthy();
-      $scope.selectedBond = 'constant';
+      $scope.currentParam.bond = 'constant';
       expect($scope.isTypeChoicable()).toBeTruthy();
     });
   });
 
   describe('isTypeSelectable', function() {
     it('should return false when selected bond is variable or interpolation', function() {
-      $scope.selectedBond = 'variable';
+      $scope.currentParam.bond = 'variable';
       expect($scope.isTypeSelectable()).toBeFalsy();
-      $scope.selectedBond = 'interpolation';
+      $scope.currentParam.bond = 'interpolation';
       expect($scope.isTypeSelectable()).toBeFalsy();
     });
     it('should return true when selected bond is expression or constant', function () {
-      $scope.selectedBond = 'expression';
+      $scope.currentParam.bond = 'expression';
       expect($scope.isTypeSelectable()).toBeTruthy();
-      $scope.selectedBond = 'constant';
+      $scope.currentParam.bond = 'constant';
       expect($scope.isTypeSelectable()).toBeTruthy();
     });
   });

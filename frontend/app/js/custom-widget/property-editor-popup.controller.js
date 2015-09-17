@@ -20,7 +20,7 @@ angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
   },
   'expression': {
     name: 'Dynamic value',
-    template: 'js/editor/help/dynamic-bond-help.html'
+    template: 'js/editor/help/dynamic-bond-help.html',
   },
   'interpolation': {
     type: 'text',
@@ -47,27 +47,27 @@ angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
      * All bonds available for the properties
      * @type {Array}
      */
-    $scope.selectedBond = ($scope.paramToUpdate && $scope.paramToUpdate.bond) || 'expression';
     $scope.bonds = BONDS;
 
     $scope.isTypeChoicable = function() {
-      return $scope.currentParam.type === 'choice' && ($scope.selectedBond === 'constant' || $scope.selectedBond === 'expression');
+      return $scope.currentParam.type === 'choice' && ($scope.currentParam.bond === 'constant' || $scope.currentParam.bond === 'expression');
     };
 
     $scope.isTypeSelectable = function() {
-      return $scope.selectedBond === 'constant' || $scope.selectedBond === 'expression';
+      return $scope.currentParam.bond === 'constant' || $scope.currentParam.bond === 'expression';
     };
 
     // default type is text
     $scope.currentParam = $scope.paramToUpdate ? angular.copy(param) : {
-      type: 'text'
+      type: 'text',
+      bond: ($scope.paramToUpdate && $scope.paramToUpdate.bond) || 'expression'
     };
 
-    $scope.updateType = function() {
-      if ($scope.selectedBond && $scope.bonds[$scope.selectedBond] && $scope.bonds[$scope.selectedBond].type) {
-        $scope.currentParam.type = $scope.bonds[$scope.selectedBond].type;
+    $scope.updateBond = function(bond) {
+      if (bond && $scope.bonds[bond] && $scope.bonds[bond].type) {
+        $scope.currentParam.type = $scope.bonds[bond].type;
       }
-      $scope.currentParam.bond = $scope.selectedBond;
+      $scope.currentParam.bond = bond;
     };
 
     $scope.ok = function() {

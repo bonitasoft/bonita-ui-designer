@@ -88,6 +88,21 @@ html, body {
   content: @fa-var-upload;
 }
 
+.ui-icon {
+  &.ui-variable{
+    .fa-icon();
+    &:before{
+      content: @fa-var-link;
+    }
+  }
+  &.ui-interpolation{
+    .fa-icon();
+    &:before{
+      content: @fa-var-paragraph;
+    }
+  }
+}
+
 .fa[tooltip] {
   cursor: default;
 }
