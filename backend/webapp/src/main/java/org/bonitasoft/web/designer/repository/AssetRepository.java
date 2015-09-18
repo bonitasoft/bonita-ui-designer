@@ -44,6 +44,7 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -144,7 +145,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                         .setName(path.getFileName().toString())
                         .setType(type)
                         .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
-                        .setComponentId(component.getId())
+                        .setComponentId(component instanceof Widget ? component.getId() : null)
                         .setId(UUID.randomUUID().toString()));
             }
         }
