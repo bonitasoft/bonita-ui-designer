@@ -49,6 +49,13 @@ describe('pbLink', function() {
     expect(dom.find('div').find('a').attr('href')).toBe('http://google.fr');
   });
 
+  it('should set a target', function() {
+    expect(dom.find('div').find('a').attr('target')).toBe('');
+    scope.properties.target = '_blank';
+    scope.$apply();
+    expect(dom.find('div').find('a').attr('target')).toBe('_blank');
+  });
+
   it('should set a text', function() {
     expect(dom.find('div').find('a').text()).toBe('');
     scope.properties.text = 'yolo';
