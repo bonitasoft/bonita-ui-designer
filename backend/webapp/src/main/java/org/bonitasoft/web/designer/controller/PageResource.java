@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -87,17 +88,18 @@ public class PageResource extends AssetResource<Page> {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Page> create(@RequestBody Page content, @RequestParam(value = "duplicata", required = false) String sourcePageId) throws RepositoryException {
+    public ResponseEntity<Page> create(@RequestBody Page page, @RequestParam(value = "duplicata", required = false) String sourcePageId) throws RepositoryException {
         // the page should not have an ID. If it has one, we ignore it and generate one
         String pageId = UUID.randomUUID().toString();
-        content.setId(pageId);
-        pageRepository.save(content);
+        page.setId(pageId);
+        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
+        pageRepository.save(page);
         if (isNotEmpty(sourcePageId)) {
             assetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
         } else {
-            assetService.loadDefaultAssets(content);
+            assetService.loadDefaultAssets(page);
         }
-        return new ResponseEntity<>(content, HttpStatus.CREATED);
+        return new ResponseEntity<>(page, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
@@ -110,14 +112,7 @@ public class PageResource extends AssetResource<Page> {
     public void save(@PathVariable("pageId") String pageId, @RequestBody Page page) throws RepositoryException {
         // the page should have the same ID as pageId.
         page.setId(pageId);
-        page.setAssets(filter(page.getAssets(), new Predicate<Asset>() {
-
-            @Override
-            public boolean apply(Asset asset) {
-            // filtering only page assets because we don't want to save widget assets that are attached to this page
-                return isBlank(asset.getComponentId());
-            }
-        }));
+        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.save(page);
         // send notification of update
         messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
