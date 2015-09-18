@@ -170,7 +170,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
 
     public void refreshAssets(final T component) {
 
-        component.getAssets().addAll(newHashSet(concat(transform(newArrayList(AssetType.values()), new Function<AssetType, List<Asset>>() {
+        component.addAssets(newHashSet(concat(transform(newArrayList(AssetType.values()), new Function<AssetType, List<Asset>>() {
 
             @Override
             public List<Asset> apply(AssetType type) {

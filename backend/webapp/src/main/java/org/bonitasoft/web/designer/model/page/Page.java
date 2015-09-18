@@ -113,6 +113,14 @@ public class Page extends Versioned implements Previewable, Identifiable, Elemen
         assets.add(asset);
     }
 
+    @Override
+    public void addAssets(Set<Asset> assets) {
+        if (this.assets == null) {
+            this.assets = new HashSet<>();
+        }
+        this.assets.addAll(assets);
+    }
+
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
     }

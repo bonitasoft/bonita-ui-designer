@@ -142,9 +142,11 @@ public class PageResourceTest {
 
     @Test
     public void should_duplicate_a_page_from_a_Page() throws Exception {
-        Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(anAsset().withName("myfile.js")).build();
+        Asset pageAsset = aPageAsset();
+        Asset widgetAsset = aWidgetAsset();
+        Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(pageAsset, widgetAsset).build();
         when(pageRepository.get("my-page-source"))
-                .thenReturn(aPage().withId("my-page-source").withName("test").withAsset(anAsset().withName("myfile.js")).build());
+                .thenReturn(aPage().withId("my-page-source").withName("test").withAsset(pageAsset, widgetAsset).build());
 
         mockMvc
                 .perform(post("/rest/pages?duplicata=my-page-source")
@@ -153,7 +155,10 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
 
-        verify(pageRepository).save(notNull(Page.class));
+        ArgumentCaptor<Page> argument = ArgumentCaptor.forClass(Page.class);
+        verify(pageRepository).save(argument.capture());
+        assertThat(argument.getValue().getName()).isEqualTo(pageToBeSaved.getName());
+        assertThat(argument.getValue().getAssets()).containsOnly(pageAsset);
         verify(pageAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-page-source"), anyString());
     }
 
