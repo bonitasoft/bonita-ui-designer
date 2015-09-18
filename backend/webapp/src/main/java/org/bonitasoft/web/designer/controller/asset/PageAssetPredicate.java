@@ -12,19 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
+package org.bonitasoft.web.designer.controller.asset;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import java.util.Set;
-
+import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.asset.Asset;
 
-public interface Assetable extends Identifiable {
+/**
+ * Predicate that return only page assets (i.e. not widget assets)
+ */
+public class PageAssetPredicate implements Predicate<Asset> {
 
-    Set<Asset> getAssets();
-
-    void addAssets(Set<Asset> assets);
-
-    void setAssets(Set<Asset> assets);
-
+    @Override
+    public boolean apply(Asset asset) {
+        return isBlank(asset.getComponentId());
+    }
 }
