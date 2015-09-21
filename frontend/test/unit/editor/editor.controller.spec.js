@@ -2,12 +2,7 @@
 describe('EditorCtrl', function() {
   var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils;
 
-  beforeEach(angular.mock.module('ui.bootstrap'));
-  beforeEach(angular.mock.module('bonitasoft.designer.controllers', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.editor.palette'));
-  beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
-  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.editor.common'));
-  beforeEach(angular.mock.module('tabsContainerStructureMock'));
-  beforeEach(angular.mock.module('ui.router'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor', 'tabsContainerStructureMock'));
 
   beforeEach(inject(function($rootScope, $controller, $injector) {
 

@@ -2,8 +2,7 @@ describe('componentFactory', function() {
 
   var service, item, widget, parentRow, widgetFactory;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.services', 'bonitasoft.designer.common.services', 'bonitasoft.designer.editor.palette'));
-  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.editor.common'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor'));
 
   beforeEach(inject(function ($injector){
     service = $injector.get('componentFactory');

@@ -23,7 +23,7 @@ describe('ComponentUtils Service', function() {
   }));
 
   beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
-  beforeEach(angular.mock.module('ui.router'));
+  beforeEach(angular.mock.module('ui.router', 'bonitasoft.designer.editor'));
 
   beforeEach(inject(function ($injector) {
     service = $injector.get('componentUtils');

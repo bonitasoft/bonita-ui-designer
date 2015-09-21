@@ -17,7 +17,7 @@
   'use strict';
 
   angular
-    .module('bonitasoft.designer.services')
+    .module('bonitasoft.designer.editor')
     .service('whiteboard', whiteboardService);
 
   function whiteboardService($q, widgetRepo, paletteService, componentFactory, alerts, gettext) {

@@ -12,7 +12,7 @@
       });
     });
 
-    beforeEach(angular.mock.module('bonitasoft.designer.templates'));
+    beforeEach(angular.mock.module('bonitasoft.designer.templates', 'bonitasoft.designer.editor'));
     beforeEach(angular.mock.module('bonitasoft.designer.directives'));
     beforeEach(angular.mock.module('RecursionHelper'));
     beforeEach(angular.mock.module('bonitasoft.designer.common.services'));

@@ -12,31 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * directive used to validate that a page control contains valid JSON.
- * Usage: <textarea ng-model="some.property" valid-json></textarea>
- */
-angular.module('bonitasoft.designer.editor.data-panel').directive('validJson', function() {
+(function() {
 
   'use strict';
 
-  return {
-    require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-      ctrl.$validators.validJson = function(modelValue, viewValue) {
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty models to be valid
-          return true;
-        }
+  angular.module('bonitasoft.designer.editor', [
+    'bonitasoft.designer.editor.common',
+    'bonitasoft.designer.editor.data-panel',
+    'bonitasoft.designer.editor.palette',
+    'bonitasoft.designer.editor.properties-panel',
+    'bonitasoft.designer.editor.menu-bar',
+    'gettext',
 
-        try {
-          var val = angular.fromJson(viewValue);
-          return angular.isObject(val) || angular.isArray(val);
-        }
-        catch (error) {
-          return false;
-        }
-      };
-    }
-  };
-});
+    'bonitasoft.designer.directives',
+    'bonitasoft.designer.services'
+  ]);
+
+})();
