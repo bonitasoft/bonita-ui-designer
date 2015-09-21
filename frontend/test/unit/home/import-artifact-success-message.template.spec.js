@@ -2,7 +2,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
 
   var element, scope;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home', 'bonitasoft.designer.templates'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home'));
 
   // remove double space, \t, \n etc ...
   function hardTrim(string) {

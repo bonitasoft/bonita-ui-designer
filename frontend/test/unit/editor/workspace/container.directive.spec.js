@@ -16,7 +16,6 @@
     beforeEach(angular.mock.module('bonitasoft.designer.directives'));
     beforeEach(angular.mock.module('RecursionHelper'));
     beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
-    beforeEach(angular.mock.module('bonitasoft.designer.factories'));
     beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
     beforeEach(angular.mock.module('ui.router', 'gettext'));
 

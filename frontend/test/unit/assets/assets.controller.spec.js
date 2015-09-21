@@ -4,7 +4,7 @@
   describe('AssetCtrl', function () {
     var $scope, $q, $modal, assetsService, artifactRepo, controller, component;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.assets', 'ui.bootstrap'));
+    beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
     beforeEach(inject(function ($injector) {
       $scope = $injector.get('$rootScope').$new();

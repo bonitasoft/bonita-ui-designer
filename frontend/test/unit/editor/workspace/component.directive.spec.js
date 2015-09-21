@@ -5,7 +5,7 @@ describe('component', function () {
   beforeEach(angular.mock.module('ui.router'));
   beforeEach(angular.mock.module('RecursionHelper', 'bonitasoft.designer.editor'));
   beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services'));
-  beforeEach(angular.mock.module('bonitasoft.designer.factories', function ($provide) {
+  beforeEach(angular.mock.module(function ($provide) {
     $provide.factory('componentResizerModel', function() {
       return {
         set: angular.noop,

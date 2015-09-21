@@ -25,7 +25,8 @@
     'gettext',
 
     'bonitasoft.designer.directives',
-    'bonitasoft.designer.services'
+    'bonitasoft.designer.services',
+    'bonitasoft.designer.filters'
   ]);
 
 })();

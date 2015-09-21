@@ -22,7 +22,7 @@ describe('ComponentUtils Service', function() {
     resolutionsProvider.setDefaultResolution('foo');
   }));
 
-  beforeEach(angular.mock.module('bonitasoft.designer.factories', 'bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
   beforeEach(angular.mock.module('ui.router', 'bonitasoft.designer.editor'));
 
   beforeEach(inject(function ($injector) {
