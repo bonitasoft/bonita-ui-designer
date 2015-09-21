@@ -1,7 +1,7 @@
 describe('paletteService', function() {
   var paletteService;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.services'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
   beforeEach(inject(function(_paletteService_) {
     paletteService= _paletteService_;
   }));
