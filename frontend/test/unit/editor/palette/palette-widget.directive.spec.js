@@ -1,7 +1,7 @@
 describe('paletteWidget', function() {
   var $compile, $rootScope, element, directiveScope;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.templates', 'gettext'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
   beforeEach(inject(function(_$compile_, _$rootScope_ ) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

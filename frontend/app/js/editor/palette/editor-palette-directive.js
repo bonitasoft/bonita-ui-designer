@@ -12,13 +12,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Element directive displaying a widget in the palette, with just its label for now.
- */
-angular
-  .module('bonitasoft.designer.directives')
-  .controller('EditorPaletteCtrl', function($scope, paletteService){
-    'use strict';
+(function () {
+
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.editor.palette')
+    .controller('EditorPaletteCtrl', EditorPaletteCtrl)
+    .directive('editorPalette', editorPaletteDirective);
+
+  /**
+   * Element directive displaying a widget in the palette, with just its label for now.
+   */
+  function editorPaletteDirective() {
+    return {
+      restrict: 'A',
+      scope: {
+        onResize: '&'
+      },
+      controller: 'EditorPaletteCtrl',
+      controllerAs: 'palette',
+      templateUrl: 'js/editor/palette/editor-palette.html'
+    };
+  }
+
+  function EditorPaletteCtrl($scope, paletteService) {
+
 
     var palette = this;
 
@@ -35,16 +54,16 @@ angular
 
     resize();
 
-    function toggleSection(section){
-      palette.currentSection = palette.currentSection === section ? undefined : section ;
+    function toggleSection(section) {
+      palette.currentSection = palette.currentSection === section ? undefined : section;
       resize();
     }
 
-    function isActiveSection(section){
+    function isActiveSection(section) {
       return palette.currentSection === section;
     }
 
-    function resize(){
+    function resize() {
       $scope.onResize({
         isClosed: isClosed(),
         isNarrow: isNarrow()
@@ -54,24 +73,14 @@ angular
     function isNarrow() {
       return !!(palette.currentSection && palette.currentSection.widgets.length < 10);
     }
+
     function isClosed() {
       return palette.currentSection === undefined;
     }
 
     function getIconClassName(section) {
-      return 'ui-' + section.name.replace(/ /g,'');   // remove white spaces
+      return 'ui-' + section.name.replace(/ /g, '');   // remove white spaces
     }
-  })
-  .directive('editorPalette', function() {
-    'use strict';
+  }
 
-    return {
-      restrict: 'A',
-      scope: {
-        onResize:'&'
-      },
-      controller:'EditorPaletteCtrl',
-      controllerAs: 'palette',
-      templateUrl: 'js/editor/palette/editor-palette.html',
-    };
-});
+})();

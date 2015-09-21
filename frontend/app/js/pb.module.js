@@ -41,6 +41,7 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.assets',
     'bonitasoft.designer.editor.common',
+    'bonitasoft.designer.editor.palette',
     'ngSanitize',
     'ngAnimate',
     'ui.router',
