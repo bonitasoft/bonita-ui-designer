@@ -553,19 +553,6 @@ describe('EditorCtrl', function() {
     expect($scope.isCurrentComponent(component)).toBe(false);
   });
 
-  it('should save a page', function() {
-    spyOn(pageRepo, 'save');
-
-    // given a page
-    $scope.page = {id: 'person'};
-
-    // when we save
-    $scope.save();
-
-    // then it should call the service
-    expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
-  });
-
   xit('should save a page using CTRL+s', function() {
     spyOn(pageRepo, 'save');
     //$scope.save();
@@ -588,24 +575,6 @@ describe('EditorCtrl', function() {
     expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
   });
 
-  it('should save and export page', function() {
-    spyOn(pageRepo, 'save').and.callFake(function() {
-      return $q.when({});
-    });
-
-    // given a page
-    $scope.page = {id: 'person'};
-
-    // when we go to preview
-    $scope.saveAndExport('preview');
-    $scope.$apply();
-
-    // then it should call the service to save
-    expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
-    // and set the path and search
-    expect($window.location).toBe('export/page/person');
-  });
-
   it('should save and edit a custom widget', function() {
     spyOn(pageRepo, 'save').and.callFake(function() {
       return $q.when({});
@@ -623,5 +592,10 @@ describe('EditorCtrl', function() {
     expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
     // and set the path and search
     expect($state.go).toHaveBeenCalledWith('designer.widget', {widgetId: 'widgetId'});
+  });
+
+  it('should check that a page can be saved', function() {
+    expect($scope.canBeSaved({ name: ''})).toBeFalsy();
+    expect($scope.canBeSaved({ name: 'pageName'})).toBeTruthy();
   });
 });
