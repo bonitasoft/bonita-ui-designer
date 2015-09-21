@@ -17,7 +17,7 @@
   'use strict';
 
   angular
-    .module('bonitasoft.designer.services')
+    .module('bonitasoft.designer.editor')
     .service('componentFactory', componentFactory);
 
   function componentFactory(paletteService, widgetFactory, properties, resolutions, gettextCatalog, gettext) {

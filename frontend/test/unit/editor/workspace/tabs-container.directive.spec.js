@@ -4,7 +4,7 @@ describe('tabsContainer', function() {
   beforeEach(angular.mock.module('ui.router'));
   beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services', 'bonitasoft.designer.factories', 'RecursionHelper', 'bonitasoft.designer.editor.common'));
   beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.factories', 'RecursionHelper'));
-  beforeEach(angular.mock.module('bonitasoft.designer.templates', 'gettext', 'bonitasoft.designer.editor.palette'));
+  beforeEach(angular.mock.module('bonitasoft.designer.templates', 'bonitasoft.designer.editor', 'gettext', 'bonitasoft.designer.editor.palette'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;

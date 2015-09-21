@@ -16,6 +16,11 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.data-panel', ['bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.directives', 'gettext', 'ui.bootstrap']);
+  angular.module('bonitasoft.designer.editor.data-panel', [
+    'bonitasoft.designer.common.repositories',
+    'bonitasoft.designer.common.directives',
+    'gettext',
+    'ui.bootstrap'
+  ]);
 
 })();

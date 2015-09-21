@@ -4,7 +4,7 @@
 
     var $scope, $location, $modalInstance, getController;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.data-panel', 'mock.modal'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel', 'mock.modal'));
 
     beforeEach(inject(function($injector) {
       $scope = $injector.get('$rootScope').$new();

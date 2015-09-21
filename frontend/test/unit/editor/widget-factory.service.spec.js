@@ -1,7 +1,8 @@
 describe('widgetFactory', function() {
   var service;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.services', 'bonitasoft.designer.factories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor'));
+
   beforeEach(inject(function($injector){
     service = $injector.get('widgetFactory');
   }));
