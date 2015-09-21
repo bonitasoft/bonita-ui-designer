@@ -4,7 +4,7 @@
     <div class="PropertyPanel-content">
         <div class="row">
             <div class="col-xs-12" ng-if="currentComponent.$$widget.custom">
-                <button class="btn btn-bonita-property" id="edit-custom-widget" ng-disabled="!formName.$valid"
+                <button class="btn btn-bonita-property" id="edit-custom-widget" ng-disabled="!canBeSaved(page)"
                         ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>Edit the custom widget
                 </button>
             </div>
