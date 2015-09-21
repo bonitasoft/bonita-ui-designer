@@ -1,7 +1,7 @@
 describe('widget property field', function () {
   var $compile, element, scope;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.templates', 'bonitasoft.designer.directives', 'gettext', 'bonitasoft.designer.editor.common'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel'));
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
 

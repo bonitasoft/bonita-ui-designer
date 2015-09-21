@@ -15,7 +15,7 @@
 /**
  * Controller of the componentMover directive
  */
-angular.module('bonitasoft.designer.directives').controller('PropertyFieldDirectiveCtrl', function ($scope, properties) {
+angular.module('bonitasoft.designer.editor.properties-panel').controller('PropertyFieldDirectiveCtrl', function ($scope, properties) {
 
   'use strict';
 
