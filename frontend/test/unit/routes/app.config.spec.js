@@ -2,7 +2,7 @@ describe('The route config', function() {
 
   var $rootScope, $location, $state, widgetRepo, pageRepo, whiteboard, $httpBackend, $q;
 
-  beforeEach(angular.mock.module('uidesigner', 'ui.router', 'bonitasoft.designer.templates'));
+  beforeEach(angular.mock.module('uidesigner'));
 
   beforeEach(inject(function($injector) {
     $rootScope = $injector.get('$rootScope');

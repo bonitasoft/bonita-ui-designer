@@ -19,6 +19,7 @@
   angular.module('bonitasoft.designer.home', [
     'bonitasoft.designer.common.repositories',
     'bonitasoft.designer.common.directives',
+    'bonitasoft.designer.templates',
     'ui.bootstrap',
     'ui.router'
   ]);

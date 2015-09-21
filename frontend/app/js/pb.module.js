@@ -17,11 +17,8 @@
   'use strict';
 
   angular.module('bonitasoft.designer.filters', []);
-  angular.module('bonitasoft.designer.controllers', ['bonitasoft.designer.filters']);
   angular.module('bonitasoft.designer.services', ['bonitasoft.designer.filters', 'gettext']);
-  angular.module('bonitasoft.designer.factories', ['bonitasoft.designer.filters']);
   angular.module('bonitasoft.designer.directives', ['bonitasoft.designer.filters']);
-  angular.module('bonitasoft.designer.widgets', []);
 
   angular.module('bonitasoft.designer', [
     'app.route',
@@ -32,11 +29,6 @@
     'bonitasoft.designer.common.services',
     'bonitasoft.designer.common.directives',
     'bonitasoft.designer.editor',
-    'bonitasoft.designer.controllers',
-    'bonitasoft.designer.factories',
-    'bonitasoft.designer.services',
-    'bonitasoft.designer.directives',
-    'bonitasoft.designer.filters',
     'bonitasoft.designer.templates',
     'bonitasoft.designer.assets',
     'ngSanitize',
@@ -45,7 +37,6 @@
     'RecursionHelper',
     'ui.bootstrap',
     'ui.ace',
-    'bonitasoft.designer.widgets',
     'org.bonitasoft.dragAndDrop',
     'gettext',
     'ngUpload',
