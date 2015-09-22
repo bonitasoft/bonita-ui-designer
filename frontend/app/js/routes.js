@@ -61,8 +61,8 @@
         url: '/pages/:id',
         resolve: {
           /* @ngInject */
-          artifact: function(whiteboard, pageRepo, $stateParams) {
-            return whiteboard.initialize(pageRepo, $stateParams.id);
+          artifact: function(editorService, pageRepo, $stateParams) {
+            return editorService.initialize(pageRepo, $stateParams.id);
           },
           /* @ngInject */
           artifactRepo: function(pageRepo) {

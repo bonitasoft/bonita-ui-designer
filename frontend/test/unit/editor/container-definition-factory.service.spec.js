@@ -1,10 +1,10 @@
-describe('widgetFactory', function() {
+describe('container definition factory', function() {
   var service;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor'));
 
   beforeEach(inject(function($injector){
-    service = $injector.get('widgetFactory');
+    service = $injector.get('containerDefinitionFactory');
   }));
 
   it('should create a containerWidget', function(){
