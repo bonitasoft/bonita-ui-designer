@@ -14,10 +14,32 @@
       "bond": "interpolation"
     },
     {
-      "label": "Target Url",
+      "label": "URL",
       "name": "targetUrl",
       "type": "text",
       "defaultValue": "http://"
+    },
+    {
+      "label": "Frame",
+      "name": "target",
+      "type": "choice",
+      "help": "Specifies where to open the linked document",
+      "defaultValue": "_self",
+      "choiceValues": [
+        {
+          "value": "_self",
+          "label": "Current frame (_self)"
+        },{
+          "value": "_parent",
+          "label": "Parent frame (_parent)"
+        },{
+          "value": "_top",
+          "label": "Top frame (_top)"
+        },{
+          "value": "_blank",
+          "label": "New window (_blank)"
+        }],
+      "bond": "constant"
     },
     {
       "label": "Alignment",
