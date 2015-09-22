@@ -18,9 +18,9 @@
 
   angular
     .module('bonitasoft.designer.editor')
-    .factory('widgetFactory', widgetFactory);
+    .factory('containerDefinitionFactory', containerDefinitionFactory);
 
-  function widgetFactory(gettext) {
+  function containerDefinitionFactory(gettext) {
 
     return {
       createTabsContainerWidget: createTabsContainerWidget,

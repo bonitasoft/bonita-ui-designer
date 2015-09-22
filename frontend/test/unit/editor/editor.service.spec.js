@@ -1,8 +1,8 @@
 (function () {
    'use strict';
 
-    describe('whiteboard', function() {
-    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, whiteboard, alerts, paletteService, componentFactory;
+    describe('editor service', function() {
+    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper;
 
     var labelWidget = {
       id: 'label',
@@ -124,9 +124,9 @@
       widgetRepo = $injector.get('widgetRepo');
       pageRepo = $injector.get('pageRepo');
 
-      whiteboard = $injector.get('whiteboard');
-      paletteService = $injector.get('paletteService');
-      componentFactory = $injector.get('componentFactory');
+      editorService = $injector.get('editorService');
+      components = $injector.get('components');
+      whiteboardComponentWrapper = $injector.get('whiteboardComponentWrapper');
       alerts = $injector.get('alerts');
 
       spyOn(widgetRepo, 'all').and.returnValue($q.when({ data: [labelWidget] }));
@@ -137,7 +137,7 @@
     it('should initialize a page', function() {
       var page = {};
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
-      whiteboard.initialize(pageRepo, 'person')
+      editorService.initialize(pageRepo, 'person')
         .then(function(data) {
           page = data;
         });
@@ -170,34 +170,34 @@
       var spy = jasmine.createSpy('bar');
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
-      whiteboard.addPalette('foo', spy);
-      whiteboard.initialize(pageRepo, 'person');
+      editorService.addPalette('foo', spy);
+      editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
       expect(spy).toHaveBeenCalled();
     });
 
-    it('should init palette', function() {
+    it('should init components', function() {
 
-      spyOn(paletteService, 'register');
-      spyOn(paletteService, 'reset');
-      spyOn(componentFactory, 'initializePage').and.returnValue({});
+      spyOn(components, 'register');
+      spyOn(components, 'reset');
+      spyOn(whiteboardComponentWrapper, 'wrapPage').and.returnValue({});
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
-      whiteboard.initialize(pageRepo, 'person');
+      editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
-      expect(paletteService.reset).toHaveBeenCalled();
-      expect(paletteService.reset.calls.count()).toBe(1);
+      expect(components.reset).toHaveBeenCalled();
+      expect(components.reset.calls.count()).toBe(1);
 
-      expect(paletteService.register).toHaveBeenCalled();
-      expect(paletteService.register.calls.count()).toBe(3);
+      expect(components.register).toHaveBeenCalled();
+      expect(components.register.calls.count()).toBe(3);
     });
 
     it('should add an alert if initialize failed', function() {
       spyOn(pageRepo, 'load').and.returnValue($q.reject('load failed'));
 
-      whiteboard.initialize(pageRepo, 'person');
+      editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
       expect(alerts.addError).toHaveBeenCalled();
