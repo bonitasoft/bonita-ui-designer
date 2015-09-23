@@ -24,6 +24,6 @@ angular.module('bonitasoft.designer.editor.whiteboard')
         formContainer: '=',
         editor: '='
       },
-      templateUrl: 'js/editor/workspace/form-container.html'
+      templateUrl: 'js/editor/whiteboard/form-container.html'
     };
 });

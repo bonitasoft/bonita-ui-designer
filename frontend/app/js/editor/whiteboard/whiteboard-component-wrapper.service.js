@@ -69,7 +69,7 @@
       return angular.extend(element, {
         $$id: componentId.getNextId('component'),
         $$widget: angular.copy(widget), // make sure to render all properties every time we select a component
-        $$templateUrl: 'js/editor/workspace/component-template.html',
+        $$templateUrl: 'js/editor/whiteboard/component-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
       });
@@ -79,7 +79,7 @@
       var component = angular.extend(element, {
         $$id: componentId.getNextId('container'),
         $$widget: angular.copy(container),
-        $$templateUrl: 'js/editor/workspace/container-template.html',
+        $$templateUrl: 'js/editor/whiteboard/container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/container-properties-template.html',
         $$parentContainerRow: parentRow
       });
@@ -92,7 +92,7 @@
       var component = angular.extend(element, {
         $$id: componentId.getNextId('tabsContainer'),
         $$widget: angular.copy(tabContainer),
-        $$templateUrl: 'js/editor/workspace/tabs-container-template.html',
+        $$templateUrl: 'js/editor/whiteboard/tabs-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
       });
@@ -120,7 +120,7 @@
       var component = angular.extend(element, {
         $$id: componentId.getNextId('formContainer'),
         $$widget: angular.copy(formContainer),
-        $$templateUrl: 'js/editor/workspace/form-container-template.html',
+        $$templateUrl: 'js/editor/whiteboard/form-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow
       });
