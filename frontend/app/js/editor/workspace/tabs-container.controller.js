@@ -15,7 +15,7 @@
 /**
  * Controller of the tabsContainer directive
  */
-angular.module('bonitasoft.designer.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, whiteboardComponentWrapper, pageElementFactory) {
+angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContainerDirectiveCtrl', function($scope, arrays, whiteboardComponentWrapper, pageElementFactory) {
 
   'use strict';
 

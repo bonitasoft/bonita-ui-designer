@@ -17,7 +17,7 @@
   'use strict';
 
   angular
-    .module('bonitasoft.designer.services')
+    .module('bonitasoft.designer.editor.whiteboard')
     .service('componentUtils', componentUtilsService);
 
   function componentUtilsService(resolutions) {

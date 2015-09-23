@@ -7,7 +7,8 @@
     var component3;
     var row;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
+
     beforeEach(inject(function($rootScope, $controller) {
       $scope = $rootScope.$new();
 

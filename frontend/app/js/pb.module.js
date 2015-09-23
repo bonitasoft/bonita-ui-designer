@@ -16,10 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.filters', []);
-  angular.module('bonitasoft.designer.services', ['bonitasoft.designer.filters', 'gettext']);
-  angular.module('bonitasoft.designer.directives', ['bonitasoft.designer.filters']);
-
   angular.module('bonitasoft.designer', [
     'app.route',
     'bonitasoft.designer.preview',
@@ -34,7 +30,6 @@
     'ngSanitize',
     'ngAnimate',
     'ui.router',
-    'RecursionHelper',
     'ui.bootstrap',
     'ui.ace',
     'org.bonitasoft.dragAndDrop',

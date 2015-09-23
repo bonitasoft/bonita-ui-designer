@@ -12,18 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.whiteboard').directive('componentMover', function() {
+(function() {
 
   'use strict';
 
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      component: '=',
-      onDelete: '&'
-    },
-    templateUrl: 'js/editor/workspace/component-mover.html',
-    controller: 'ComponentMoverDirectiveCtrl'
-  };
-});
+  angular.module('bonitasoft.designer.editor.whiteboard', [
+    'bonitasoft.designer.templates',
+    'bonitasoft.designer.editor.common',
+    'bonitasoft.designer.common.services',
+    'gettext',
+    'RecursionHelper'
+  ]);
+
+})();

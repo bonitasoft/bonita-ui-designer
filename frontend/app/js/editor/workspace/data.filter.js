@@ -16,7 +16,7 @@
  * Filter a data value to print data:{{data.value}} when data type is data
  * Just a reminder to the user in the editor that he has linked a field to a data
  */
-angular.module('bonitasoft.designer.filters').filter('data', function () {
+angular.module('bonitasoft.designer.editor.whiteboard').filter('data', function () {
 
   'use strict';
 

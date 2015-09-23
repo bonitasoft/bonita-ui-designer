@@ -18,7 +18,7 @@
  * Create a new scope with a properties object derived from user entered propertyValues.
  * This allow to bind propertyValues to widget properties and keep a WYSWYG approach in editor while editing widget properties
  */
-angular.module('bonitasoft.designer.services').factory('componentScopeBuilder', function(dataFilter) {
+angular.module('bonitasoft.designer.editor.whiteboard').factory('componentScopeBuilder', function(dataFilter) {
 
   'use strict';
 

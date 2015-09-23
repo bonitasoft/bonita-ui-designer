@@ -1,19 +1,17 @@
-describe('whiteboard component wrapper', function() {
+describe('whiteboard component wrapper', function () {
 
-  var service, item, widget, parentRow, containerDefinitionFactory, pageElementFactory;
+  var service, item, widget, parentRow;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.editor'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function ($injector){
+  beforeEach(inject(function ($injector) {
     service = $injector.get('whiteboardComponentWrapper');
-    containerDefinitionFactory = $injector.get('containerDefinitionFactory');
-    pageElementFactory = $injector.get('pageElementFactory');
   }));
 
-  beforeEach(function(){
+  beforeEach(function () {
     parentRow = {};
     item = {
-      rows:[]
+      rows: []
     };
     widget = {
       id: 'pbJeanne',
@@ -27,7 +25,7 @@ describe('whiteboard component wrapper', function() {
     };
   });
 
-  it('should initialize a widget', function(){
+  it('should initialize a widget', function () {
     service.wrapWidget(widget, item, parentRow);
     expect(item.$$id).toBe('component-0');
     expect(item.$$widget).toEqual(widget);
@@ -35,7 +33,7 @@ describe('whiteboard component wrapper', function() {
     expect(item.$$parentContainerRow).toBe(parentRow);
   });
 
-  it('should init a container', function() {
+  it('should init a container', function () {
     var containerDefinition = {
       type: 'container'
     };
@@ -49,7 +47,7 @@ describe('whiteboard component wrapper', function() {
     expect(item.$$parentContainerRow).toBe(parentRow);
   });
 
-  it('should init a formContainer', function() {
+  it('should init a formContainer', function () {
     spyOn(service, 'wrapContainer');
     var formContainerDefinition = {
       id: 'formContainer',
@@ -66,9 +64,25 @@ describe('whiteboard component wrapper', function() {
     expect(service.wrapContainer).toHaveBeenCalled();
   });
 
-  it('should init a tabsContainer and its tabs', function() {
+  it('should init a tabsContainer and its tabs', function () {
     spyOn(service, 'wrapContainer');
-    item.tabs = ['tab1', 'tab2'].map(pageElementFactory.createTabElement);
+    item.tabs = [{
+      title: 'tab1',
+      container: {
+        type: 'container',
+        rows: [
+          []
+        ]
+      }
+    }, {
+      title: 'tab2',
+      container: {
+        type: 'container',
+        rows: [
+          []
+        ]
+      }
+    }];
     var tabsContainerDefinition = {
       id: 'tabsContainer',
       type: 'tabsContainer'
@@ -83,16 +97,16 @@ describe('whiteboard component wrapper', function() {
     expect(item.$$parentContainerRow).toBe(parentRow);
     expect(service.wrapContainer.calls.count()).toBe(2);
 
-    item.tabs.forEach(function(tab) {
+    item.tabs.forEach(function (tab) {
       expect(tab.$$parentTabsContainer).toBe(item);
       expect(tab.$$widget.name).toBe('Tab');
       expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
     });
   });
 
-  it('should initialize a tab', function() {
-    var tab = { title: 'aTab'};
-    var tabContainer = { type: 'tabsContainer' };
+  it('should initialize a tab', function () {
+    var tab = {title: 'aTab'};
+    var tabContainer = {type: 'tabsContainer'};
 
     service.wrapTab(tab, tabContainer);
 
