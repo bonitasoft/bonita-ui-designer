@@ -148,9 +148,36 @@ describe('pbUpload', function() {
     it('should set a message when upload start', function() {
       var element = $compile('<pb-upload></pb-upload>')(scope);
       var controller = element.controller('pbUpload');
+
       controller.startUploading();
       scope.$apply();
+      
       expect(element.find('input').val()).toMatch(/uploading/i);
     });
-  })
+
+    it('should set a message when upload fails', function() {
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+      var errorBody = 'upload failed because of FileTooBigException';
+      
+      controller.uploadComplete(errorBody);
+      scope.$apply();
+      
+      expect(element.find('input').val()).toMatch(/Upload failed/i);
+      expect(scope.properties.errorContent).toEqual(errorBody);
+    });
+
+    it('should set a message when upload fails with a Json object', function() {
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+      var error = {
+        type: 'FileTooBigException',
+        message: 'The given file is too big to be stored or processed'
+      };
+      controller.uploadComplete(error);
+      scope.$apply();
+      expect(element.find('input').val()).toMatch(/Upload failed/i);
+      expect(scope.properties.errorContent).toEqual(error.message);
+    });
+  });
 });
