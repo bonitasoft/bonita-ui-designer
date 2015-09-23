@@ -86,6 +86,16 @@ describe('pbTable', function() {
     expect(element.find('tbody').find('tr')[1].className).toContain('info');
   });
 
+  it('should give feedback when initial value is provided for selected row', function() {
+    scope.properties.content = [{id: '1'}, {id: '2'}, {id: '3'}];
+    scope.properties.selectedRow =  {id: '2'};
+
+    var element = $compile('<pb-table></pb-table>')(scope);
+    scope.$apply();
+
+    expect(element.find('tbody').find('tr')[1].className).toContain('info');
+  });
+
   function clickOn(row) {
     angular.element(row).triggerHandler('click');
   }
