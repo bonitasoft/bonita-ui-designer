@@ -8,14 +8,14 @@
             </tr>
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
-            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                 <td ng-repeat="column in properties.columnsKey track by $index">
                     {{ $eval(column, row) | uiTranslate }}
                 </td>
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
-            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': row === properties.selectedRow}">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                 <td> {{ row | uiTranslate }} </td>
             </tr>
         </tbody>
