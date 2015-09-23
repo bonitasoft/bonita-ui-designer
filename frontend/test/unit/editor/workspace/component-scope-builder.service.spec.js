@@ -1,7 +1,8 @@
 describe('componentScopeBuilder', function() {
   var $rootScope, componentScopeBuilder;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.services', 'bonitasoft.designer.services', 'bonitasoft.designer.filters'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
+
   beforeEach(inject(function(_componentScopeBuilder_, _$rootScope_) {
     $rootScope = _$rootScope_;
     componentScopeBuilder = _componentScopeBuilder_;

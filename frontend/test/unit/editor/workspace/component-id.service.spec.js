@@ -2,7 +2,7 @@ describe('componentFactory', function () {
 
   var componentId;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.editor'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function (_componentId_) {
     componentId = _componentId_;

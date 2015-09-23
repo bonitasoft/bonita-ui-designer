@@ -17,7 +17,7 @@
   'use strict';
 
   angular
-    .module('bonitasoft.designer.editor')
+    .module('bonitasoft.designer.editor.whiteboard')
     .service('whiteboardComponentWrapper', whiteboardComponentWrapper);
 
   function whiteboardComponentWrapper(components, componentId) {

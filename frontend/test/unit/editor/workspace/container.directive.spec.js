@@ -12,12 +12,7 @@
       });
     });
 
-    beforeEach(angular.mock.module('bonitasoft.designer.templates', 'bonitasoft.designer.editor'));
-    beforeEach(angular.mock.module('bonitasoft.designer.directives'));
-    beforeEach(angular.mock.module('RecursionHelper'));
-    beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
-    beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
-    beforeEach(angular.mock.module('ui.router', 'gettext'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
     beforeEach(inject(function(_$compile_, _$rootScope_) {
       $compile = _$compile_;

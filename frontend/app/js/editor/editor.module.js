@@ -22,11 +22,8 @@
     'bonitasoft.designer.editor.palette',
     'bonitasoft.designer.editor.properties-panel',
     'bonitasoft.designer.editor.menu-bar',
-    'gettext',
-
-    'bonitasoft.designer.directives',
-    'bonitasoft.designer.services',
-    'bonitasoft.designer.filters'
+    'bonitasoft.designer.editor.whiteboard',
+    'gettext'
   ]);
 
 })();

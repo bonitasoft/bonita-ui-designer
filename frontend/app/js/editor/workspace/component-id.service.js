@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-      .module('bonitasoft.designer.editor')
+      .module('bonitasoft.designer.editor.whiteboard')
       .service('componentId', componentIdService);
 
   function componentIdService() {

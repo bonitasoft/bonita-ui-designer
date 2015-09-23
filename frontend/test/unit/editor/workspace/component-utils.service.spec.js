@@ -4,7 +4,7 @@ describe('ComponentUtils Service', function() {
 
   var service, tabsContainerStructureMockJSON, pageJson, resolutions, $stateParams;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.services', function(resolutionsProvider){
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', function(resolutionsProvider){
     resolutionsProvider.registerResolutions([
       {
         key: 'xs',

@@ -16,7 +16,7 @@
  * Container is an element directive allowing to display a container in the page editor. The container is either
  * the top-lever one, or a sub-container contained in a parent container cell.
  */
-angular.module('bonitasoft.designer.directives').directive('container', function(RecursionHelper) {
+angular.module('bonitasoft.designer.editor.whiteboard').directive('container', function(RecursionHelper) {
 
   'use strict';
 

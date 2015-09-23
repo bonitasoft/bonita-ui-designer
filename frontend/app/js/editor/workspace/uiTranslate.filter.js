@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('bonitasoft.designer.filters')
+  angular.module('bonitasoft.designer.editor.whiteboard')
 
     // Disable widget internationalization whenever we are in the whiteboard
     .filter('uiTranslate', function () {

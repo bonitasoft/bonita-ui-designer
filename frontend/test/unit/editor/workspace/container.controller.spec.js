@@ -3,8 +3,7 @@ describe('ContainerDirectiveCtrl', function() {
 
   var $scope, componentUtils,  $element, rootScope, init;
 
-  beforeEach(angular.mock.module('ui.router', 'bonitasoft.designer.editor'));
-  beforeEach(angular.mock.module('bonitasoft.designer.directives', 'bonitasoft.designer.common.services', 'bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function ($rootScope, $controller, $injector) {
 
