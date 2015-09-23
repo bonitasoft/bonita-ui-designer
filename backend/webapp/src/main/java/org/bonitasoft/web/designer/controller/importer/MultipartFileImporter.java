@@ -14,22 +14,21 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 @Named
 public class MultipartFileImporter {
 
-    public ImportReport importFile(MultipartFile file, ArtefactImporter importer) {
+    public ImportReport importFile(MultipartFile file, ArtifactImporter importer) {
         try {
             return doImport(file, importer);
         } catch (IOException | IllegalArgumentException e) {
@@ -37,7 +36,7 @@ public class MultipartFileImporter {
         }
     }
 
-    private ImportReport doImport(MultipartFile file, ArtefactImporter importer) throws IOException {
+    private ImportReport doImport(MultipartFile file, ArtifactImporter importer) throws IOException {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Part named [file] is needed to successfully import a component");
         }

@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.zip.ZipException;
 
+import org.assertj.core.util.Lists;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
@@ -49,7 +50,6 @@ import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,7 +59,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PageArtefactImporterTest {
+public class PageArtifactImporterTest {
 
     private static final String WIDGETS_FOLDER = "widgets";
 
@@ -67,6 +67,7 @@ public class PageArtefactImporterTest {
     public ExpectedException exception = ExpectedException.none();
     @Rule
     public TemporaryFolder tempDir = new TemporaryFolder();
+
     @Mock
     private Unzipper unzip;
     @Mock
@@ -79,19 +80,21 @@ public class PageArtefactImporterTest {
     private WidgetRepository widgetRepository;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
+    private ArtifactImporter<Page> importer;
 
-    private ArtefactImporter<Page> importer;
-
+    private Path pageImportPath;
     private Path unzippedPath;
     private WidgetImportMock wMocks;
     private PageImportMock pMocks;
 
     @Before
     public void setUp() throws IOException {
+        pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
-        importer = new ArtefactImporter<>(unzip, pageRepository, pageLoader, widgetImporter);
-        when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
-        unzippedPath = tempDir.newFolderPath("resources");
+        importer = new ArtifactImporter<>(unzip, pageRepository, pageLoader, widgetImporter);
+        when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(pageImportPath);
+        unzippedPath = pageImportPath.resolve("resources");
+        Files.createDirectory(unzippedPath);
         when(pageRepository.getComponentName()).thenReturn("page");
 
         wMocks = new WidgetImportMock(unzippedPath, widgetLoader, widgetRepository);
@@ -103,7 +106,7 @@ public class PageArtefactImporterTest {
         List<Widget> widgets = wMocks.mockWidgetsAsAddedDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        importer.execute(aStream());
+        importer.importFromPath(pageImportPath);
 
         verify(widgetRepository).saveAll(widgets);
         verify(pageRepository).save(page);
@@ -115,7 +118,7 @@ public class PageArtefactImporterTest {
         List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        ImportReport report = importer.execute(aStream());
+        ImportReport report = importer.importFromPath(pageImportPath);
 
         assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
         assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
@@ -127,7 +130,7 @@ public class PageArtefactImporterTest {
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.exists(page.getId())).thenReturn(true);
 
-        ImportReport report = importer.execute(aStream());
+        ImportReport report = importer.importFromPath(pageImportPath);
 
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.isOverridden()).isTrue();
@@ -138,7 +141,7 @@ public class PageArtefactImporterTest {
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.exists(page.getId())).thenReturn(false);
 
-        ImportReport report = importer.execute(aStream());
+        ImportReport report = importer.importFromPath(pageImportPath);
 
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.isOverridden()).isFalse();
@@ -148,20 +151,20 @@ public class PageArtefactImporterTest {
     public void should_delete_created_folder_after_import() throws Exception {
         when(pageLoader.load(any(Path.class), eq("page.json"))).thenReturn(aPage().withId("page-id").build());
 
-        importer.execute(aStream());
+        importer.importFromPath(pageImportPath);
 
-        assertThat(Files.exists(tempDir.toPath())).isFalse();
+        assertThat(Files.exists(pageImportPath)).isFalse();
     }
 
     @Test
     public void should_delete_created_folder_even_if_an_exception_occurs_when_importing() throws Exception {
-        when(pageLoader.load(any(Path.class),eq("page.json"))).thenThrow(ImportException.class);
+        when(pageLoader.load(any(Path.class), eq("page.json"))).thenThrow(ImportException.class);
 
         try {
-            importer.execute(aStream());
+            importer.importFromPath(pageImportPath);
             failBecauseExceptionWasNotThrown(ImportException.class);
         } catch (ImportException e) {
-            assertThat(Files.exists(tempDir.toPath())).isFalse();
+            assertThat(Files.exists(pageImportPath)).isFalse();
         }
     }
 
@@ -199,15 +202,80 @@ public class PageArtefactImporterTest {
         when(pageLoader.load(any(Path.class), eq("page.json"))).thenReturn(page);
         doThrow(RepositoryException.class).when(pageRepository).save(page);
 
-        importer.execute(aStream());
+        importer.importFromPath(pageImportPath);
     }
 
     @Test(expected = ServerImportException.class)
     public void should_throw_import_exception_when_an_error_occurs_while_getting_widgets() throws Exception {
-        tempDir.newFolderPath("resources",  WIDGETS_FOLDER);
+        Files.createDirectory(unzippedPath.resolve(WIDGETS_FOLDER));
         when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
 
-        importer.execute(aStream());
+        importer.importFromPath(pageImportPath);
+    }
+
+    @Test
+    public void should_return_an_import_report_containing_imported_element_and_imported_dependencies_and_a_extractedDirName_and_force_import_afterwards()
+            throws Exception {
+        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
+        Page page = pMocks.mockPageToBeImported();
+        when(pageRepository.exists(page.getId())).thenReturn(false);
+        when(unzip.getTemporaryZipPath()).thenReturn(tempDir.toPath());
+
+        ImportReport report = importer.importFromPath(pageImportPath);
+
+        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
+        assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.getUUID()).isNotEmpty();
+        verify(pageRepository, never()).save(any(Page.class));
+
+        importer.forceExecution(report.getUUID());
+
+        verify(pageRepository).save(any(Page.class));
+    }
+
+    @Test
+    public void should_return_an_import_report_containing_imported_element_and_some_overridden_dependencies_and_UUID_and_then_force_save() throws Exception {
+        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        List<Widget> overridenWidgets = Lists.emptyList();
+        Page page = pMocks.mockPageToBeImported();
+
+        when(pageRepository.exists(page.getId())).thenReturn(true);
+        when(unzip.getTemporaryZipPath()).thenReturn(tempDir.toPath());
+
+        ImportReport report = importer.importFromPath(pageImportPath);
+
+        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
+        assertThat(report.getDependencies().getOverridden()).isNullOrEmpty();
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.getUUID()).isNotEmpty();
+        verify(pageRepository, never()).save(any(Page.class));
+
+        importer.forceExecution(report.getUUID());
+        verify(pageRepository).save(any(Page.class));
+    }
+
+    @Test
+    public void should_return_an_import_report_containing_imported_element_and_some_overridden_dependencies_and_UUID_and_cancel() throws Exception {
+        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        List<Widget> overridenWidgets = Lists.emptyList();
+        Page page = pMocks.mockPageToBeImported();
+
+        when(pageRepository.exists(page.getId())).thenReturn(true);
+        when(unzip.getTemporaryZipPath()).thenReturn(tempDir.toPath());
+
+        ImportReport report = importer.importFromPath(pageImportPath);
+
+        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
+        assertThat(report.getDependencies().getOverridden()).isNullOrEmpty();
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.getUUID()).isNotEmpty();
+        verify(pageRepository, never()).save(any(Page.class));
+
+        importer.cancelImport(report.getUUID());
+        verify(pageRepository, never()).save(any(Page.class));
+        assertThat(Files.exists(pageImportPath)).isFalse();
     }
 
 }

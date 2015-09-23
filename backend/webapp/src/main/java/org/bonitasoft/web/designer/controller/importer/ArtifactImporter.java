@@ -25,8 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
 import org.bonitasoft.web.designer.controller.exception.ServerImportException;
@@ -40,31 +43,72 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ArtefactImporter<T extends Identifiable> {
+public class ArtifactImporter<T extends Identifiable> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(ArtefactImporter.class);
+    protected static final Logger logger = LoggerFactory.getLogger(ArtifactImporter.class);
 
     private Unzipper unzip;
     private Repository<T> repository;
     private Loader<T> loader;
     private DependencyImporter[] dependencyImporters;
+    private Map<String, String> extractedDirPathMap = new ConcurrentHashMap<>();
 
-    public ArtefactImporter(Unzipper unzip, Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
+    public ArtifactImporter(Unzipper unzip, Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
         this.loader = loader;
         this.repository = repository;
         this.unzip = unzip;
         this.dependencyImporters = dependencyImporters;
     }
 
+    public void cancelImport(String uuid) {
+        String dir = extractedDirPathMap.remove(uuid);
+        if (StringUtils.isNotBlank(dir)) {
+            deleteQuietly(unzip.getTemporaryZipPath().resolve(dir).toFile());
+        }
+    }
+
     public ImportReport execute(InputStream is) {
         Path extractDir = unzip(is);
+        return importFromPath(extractDir);
+    }
 
-        Path resources = extractDir.resolve("resources");
-        if (notExists(resources)) {
-            logger.error("Incorrect zip structure, a resources folder is needed");
-            throw new ImportException(Type.UNEXPECTED_ZIP_STRUCTURE, "Incorrect zip structure");
+    public ImportReport forceExecution(String uuid) {
+        if (extractedDirPathMap.get(uuid) != null) {
+            Path extractDir = unzip.getTemporaryZipPath().resolve(extractedDirPathMap.get(uuid));
+            return forceImportFromPath(extractDir);
         }
+        throw new UnsupportedOperationException("Cannot forceExecution import with null UUID");
+    }
 
+    public ImportReport forceImportFromPath(Path extractDir) {
+        Path resources = getPath(extractDir);
+        try {
+            return tryToImportAndGenerateReport(resources, null);
+        } finally {
+            deleteQuietly(extractDir.toFile());
+        }
+    }
+
+    public ImportReport importFromPath(Path extractDir) {
+        Path resources = getPath(extractDir);
+
+        ImportReport importReport = null;
+        try {
+            importReport = tryToImportAndGenerateReport(resources, extractDir);
+            return importReport;
+        } finally {
+            if (importReport == null || StringUtils.isBlank(importReport.getUUID())) {
+                deleteQuietly(extractDir.toFile());
+            } else {
+                extractDir.toFile().deleteOnExit();
+            }
+        }
+    }
+
+    /*
+     * if uploadedFileDirectory is null, the import is forced
+     */
+    private ImportReport tryToImportAndGenerateReport(Path resources, Path uploadedFileDirectory) {
         try {
             // first load everything
             T element = loader.load(resources, repository.getComponentName() + ".json");
@@ -72,20 +116,32 @@ public class ArtefactImporter<T extends Identifiable> {
 
             ImportReport report = buildReport(element, dependencies);
 
-            // then save them
-            saveArtefactDependencies(resources, dependencies);
-            repository.save(element);
+            if (uploadedFileDirectory == null
+                    || (report.doesNotOverrideElements())) {
+                // then save them
+                saveArtefactDependencies(resources, dependencies);
+                repository.save(element);
+            } else {
+                String uuid = UUID.randomUUID().toString();
+                extractedDirPathMap.put(uuid, uploadedFileDirectory.getFileName().toFile().getName());
+                report.setUUID(uuid);
+            };
 
             return report;
-        } catch (IOException e) {
-            logger.error("Error while getting artefacts, verify the zip content", e);
-            throw new ServerImportException("Error while getting artefacts", e);
-        } catch (RepositoryException e) {
-            logger.error("Error while saving artefacts, verify the zip content", e);
-            throw new ServerImportException("Error while saving artefacts", e);
-        } finally {
-            deleteQuietly(extractDir.toFile());
+        } catch (IOException | RepositoryException e) {
+            String errorMessage = "Error while " + ((e instanceof IOException) ? "unzipping" : "saving") + " artefacts";
+            logger.error(errorMessage + ", check uploaded content", e);
+            throw new ServerImportException(errorMessage, e);
         }
+    }
+
+    private Path getPath(Path extractDir) {
+        Path resources = extractDir.resolve("resources");
+        if (notExists(resources)) {
+            logger.error("Incorrect zip structure, a resources folder is needed");
+            throw new ImportException(Type.UNEXPECTED_ZIP_STRUCTURE, "Incorrect zip structure");
+        }
+        return resources;
     }
 
     private ImportReport buildReport(T element, Map<DependencyImporter, List<?>> dependencies) {
