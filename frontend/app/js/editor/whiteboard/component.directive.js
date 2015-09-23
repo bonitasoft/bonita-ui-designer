@@ -42,6 +42,6 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('component', f
       }
 
     },
-    templateUrl: 'js/editor/workspace/component.html'
+    templateUrl: 'js/editor/whiteboard/component.html'
   };
 });

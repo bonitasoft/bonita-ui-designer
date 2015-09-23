@@ -120,7 +120,7 @@
       $rootScope.container.rows[0].push({
         $$id: 'container-1',
         type: 'container',
-        $$templateUrl: 'js/editor/workspace/container-template.html',
+        $$templateUrl: 'js/editor/whiteboard/container-template.html',
         $$widget: {
           name: 'Container'
         },

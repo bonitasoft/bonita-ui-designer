@@ -28,7 +28,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('container', f
       editor: '=',
       component: '='
     },
-    templateUrl: 'js/editor/workspace/container.html',
+    templateUrl: 'js/editor/whiteboard/container.html',
     controller: 'ContainerDirectiveCtrl',
     compile: function(element) {
       return RecursionHelper.compile(element, function() {

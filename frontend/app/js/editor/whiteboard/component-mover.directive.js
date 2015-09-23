@@ -23,7 +23,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('componentMove
       component: '=',
       onDelete: '&'
     },
-    templateUrl: 'js/editor/workspace/component-mover.html',
+    templateUrl: 'js/editor/whiteboard/component-mover.html',
     controller: 'ComponentMoverDirectiveCtrl'
   };
 });

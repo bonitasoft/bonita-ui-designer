@@ -26,6 +26,6 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('tabsContainer
       editor: '='
     },
     controller: 'TabsContainerDirectiveCtrl',
-    templateUrl: 'js/editor/workspace/tabs-container.html'
+    templateUrl: 'js/editor/whiteboard/tabs-container.html'
   };
 });
