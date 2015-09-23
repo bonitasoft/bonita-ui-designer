@@ -11,4 +11,8 @@ function PbTableCtrl($scope) {
       $scope.properties.selectedRow = row;
     }
   };
+
+  this.isSelected = function(row) {
+    return angular.equals(row, $scope.properties.selectedRow);
+  }
 }
