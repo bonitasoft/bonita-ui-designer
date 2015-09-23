@@ -12,20 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.properties-panel').directive('propertyField', function() {
+(function() {
 
   'use strict';
 
-  return {
-    restrict: 'E',
-    scope: {
-      property: '=',
-      propertyValue: '=',
-      properties: '=',
-      pageData: '='
-    },
-    templateUrl: 'js/editor/properties-panel/property-field.html',
-    controller: 'PropertyFieldDirectiveCtrl',
-    controllerAs: 'propertyField'
-  };
-});
+  angular.module('bonitasoft.designer.editor.properties-panel', [
+    'bonitasoft.designer.templates',
+    'bonitasoft.designer.editor.common',
+    'gettext'
+  ]);
+
+})();
