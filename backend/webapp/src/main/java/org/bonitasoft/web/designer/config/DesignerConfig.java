@@ -35,7 +35,7 @@ import org.bonitasoft.web.designer.controller.export.steps.HtmlExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
-import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
+import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
@@ -176,13 +176,13 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtefactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
-        return new ArtefactImporter<>(unzip, pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
+    public ArtifactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
+        return new ArtifactImporter<>(unzip, pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
     }
 
     @Bean
-    public ArtefactImporter<Widget> widgetImporter(Unzipper unzip, WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtefactImporter<>(unzip, widgetRepository, widgetLoader, widgetAssetImporter);
+    public ArtifactImporter<Widget> widgetImporter(Unzipper unzip, WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        return new ArtifactImporter<>(unzip, widgetRepository, widgetLoader, widgetAssetImporter);
     }
 
     @Bean

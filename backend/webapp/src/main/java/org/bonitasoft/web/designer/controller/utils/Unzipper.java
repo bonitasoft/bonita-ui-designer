@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.zip.ZipException;
+
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
@@ -29,8 +30,18 @@ import org.zeroturnaround.zip.ZipUtil;
 @Named
 public class Unzipper {
 
+    private Path temporaryZipPath;
+
+    public Unzipper() throws IOException {
+        temporaryZipPath = Files.createTempDirectory("uid-tmp");
+    }
+
+    public Path getTemporaryZipPath() {
+        return temporaryZipPath;
+    }
+
     public Path unzipInTempDir(InputStream is, String tempDirPrefix) throws IOException {
-        Path tempDirectory = Files.createTempDirectory(tempDirPrefix);
+        Path tempDirectory = Files.createTempDirectory(temporaryZipPath, tempDirPrefix);
         Path zipFile = writeInDir(is, tempDirectory);
         try {
             ZipUtil.unpack(zipFile.toFile(), tempDirectory.toFile());

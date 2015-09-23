@@ -20,13 +20,12 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
-import org.bonitasoft.web.designer.controller.importer.ArtefactImporter;
+import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -46,9 +45,9 @@ public class ImportControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private ArtefactImporter<Page> pageImporter;
+    private ArtifactImporter<Page> pageImporter;
     @Mock
-    private ArtefactImporter<Widget> widgetImporter;
+    private ArtifactImporter<Widget> widgetImporter;
     @Mock
     private MultipartFileImporter multipartFileImporter;
 
@@ -63,7 +62,7 @@ public class ImportControllerTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
         ImportReport expectedReport =
-                anImportReportFor(aPage().withId("aPage").withName("thePage"))
+                anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID("UUIDZipFile")
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
                         .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
         when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(expectedReport);
@@ -71,12 +70,32 @@ public class ImportControllerTest {
         mockMvc.perform(fileUpload("/import/page").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("uuid").value("UUIDZipFile"))
+                .andExpect(jsonPath("extractedDirName").doesNotExist())
                 .andExpect(jsonPath("element.id").value("aPage"))
                 .andExpect(jsonPath("element.name").value("thePage"))
                 .andExpect(jsonPath("dependencies.added.widget[0].id").value("addedWidget"))
                 .andExpect(jsonPath("dependencies.added.widget[0].name").value("newWidget"))
                 .andExpect(jsonPath("dependencies.overridden.widget[0].id").value("overriddenWidget"))
                 .andExpect(jsonPath("dependencies.overridden.widget[0].name").value("oldWidget"));
+    }
+
+    @Test
+    public void should_try_to_import_a_page_with_its_dependencies_and_cancel_it() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        String uuid = "UUIDZipFile";
+        ImportReport expectedReport =
+                anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID(uuid)
+                        .withAdded(aWidget().id("addedWidget").name("newWidget"))
+                        .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
+        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(expectedReport);
+
+        mockMvc.perform(fileUpload("/import/page").file(file))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("uuid").value(uuid));
+        mockMvc.perform(get("/import/page/cancel/" + uuid)).andExpect(status().isOk());
     }
 
     @Test
@@ -95,7 +114,7 @@ public class ImportControllerTest {
     public void should_import_a_widget() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
-        ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).build() ;
+        ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).build();
         when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/widget").file(file))
@@ -103,6 +122,23 @@ public class ImportControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
+    }
+
+    @Test
+    public void should_import_a_widget_and_cancel() throws Exception {
+        //We construct a mockfile (the first arg is the name of the property expected in the controller
+        MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
+        String uuid = "UUID";
+        ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).withUUID(uuid).withOverride(true).build();
+        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(expectedReport);
+
+        mockMvc.perform(fileUpload("/import/widget").file(file))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("uuid").value(uuid))
+                .andExpect(jsonPath("element.id").value("aWidget"))
+                .andExpect(jsonPath("element.name").value("myWidgetName"));
+        mockMvc.perform(get("/import/page/cancel/" + uuid)).andExpect(status().isOk());
     }
 
     @Test

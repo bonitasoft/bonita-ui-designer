@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.zip.ZipException;
@@ -29,7 +30,7 @@ public class UnzipperTest {
     private Unzipper unzipper;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         unzipper = new Unzipper();
     }
 
