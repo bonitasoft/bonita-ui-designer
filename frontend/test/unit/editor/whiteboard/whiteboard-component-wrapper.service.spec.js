@@ -31,6 +31,8 @@ describe('whiteboard component wrapper', function () {
     expect(item.$$widget).toEqual(widget);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(item.triggerRemoved).toBeDefined();
+    expect(item.triggerAdded).toBeDefined();
   });
 
   it('should init a container', function () {
@@ -45,6 +47,8 @@ describe('whiteboard component wrapper', function () {
     expect(item.$$widget).not.toBe(containerDefinition);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(item.triggerRemoved).toBeDefined();
+    expect(item.triggerAdded).toBeDefined();
   });
 
   it('should init a formContainer', function () {
@@ -61,6 +65,8 @@ describe('whiteboard component wrapper', function () {
     expect(item.$$widget).not.toBe(formContainerDefinition);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(item.triggerRemoved).toBeDefined();
+    expect(item.triggerAdded).toBeDefined();
     expect(service.wrapContainer).toHaveBeenCalled();
   });
 
@@ -95,12 +101,16 @@ describe('whiteboard component wrapper', function () {
     expect(item.$$widget).not.toBe(tabsContainerDefinition);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(item.triggerRemoved).toBeDefined();
+    expect(item.triggerAdded).toBeDefined();
     expect(service.wrapContainer.calls.count()).toBe(2);
 
     item.tabs.forEach(function (tab) {
       expect(tab.$$parentTabsContainer).toBe(item);
       expect(tab.$$widget.name).toBe('Tab');
       expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
+      expect(tab.triggerRemoved).toBeDefined();
+      expect(tab.triggerAdded).toBeDefined();
     });
   });
 
@@ -113,6 +123,8 @@ describe('whiteboard component wrapper', function () {
     expect(tab.$$parentTabsContainer).toBe(tabContainer);
     expect(tab.$$widget.name).toBe('Tab');
     expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
+    expect(tab.triggerRemoved).toBeDefined();
+    expect(tab.triggerAdded).toBeDefined();
   });
 
 });

@@ -1,6 +1,7 @@
+import { aWidget } from  '../utils/builders/WidgetElementBuilder';
 
 describe('EditorCtrl', function() {
-  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils;
+  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor', 'tabsContainerStructureMock'));
 
@@ -14,6 +15,7 @@ describe('EditorCtrl', function() {
     pageRepo = $injector.get('pageRepo');
     tabsContainerStructureMockJSON = $injector.get('tabsContainerStructureMockJSON');
     componentUtils = $injector.get('componentUtils');
+    whiteboardService = $injector.get('whiteboardService');
 
     $controller('EditorCtrl', {
       $scope: $scope,
@@ -215,12 +217,7 @@ describe('EditorCtrl', function() {
           []
         ]
       };
-      widget = {
-            item: 'foo',
-            dimension: {
-              xs: 12
-            }
-          };
+      widget = aWidget();
       dragData = {
         create: function() {
           return angular.copy(widget);
@@ -244,6 +241,7 @@ describe('EditorCtrl', function() {
       var lastRow = $scope.page.rows.slice(-1)[0];
       expect(lastRow.length).toBe(1);
       expect($scope.currentComponent).toEqual(widget);
+      expect(widget.triggerAdded).toHaveBeenCalled();
     });
 
     it('should append a component and create a new row at the end', function(){
@@ -256,6 +254,7 @@ describe('EditorCtrl', function() {
       var lastRow = $scope.page.rows.slice(-1)[0];
       expect(lastRow.length).toBe(1);
       expect($scope.currentComponent).toEqual(widget);
+      expect(widget.triggerAdded).toHaveBeenCalled();
     });
 
     it('should add a component to a row', function(){
@@ -264,6 +263,7 @@ describe('EditorCtrl', function() {
 
       expect(container.rows[0].length).toBe(1);
       expect($scope.currentComponent).toEqual(widget);
+      expect(widget.triggerAdded).toHaveBeenCalled();
     });
 
     it('it should resize the last widget of a row if row is not full', function() {
@@ -308,12 +308,14 @@ describe('EditorCtrl', function() {
       container: container,
       row: row1
     };
+    spyOn(whiteboardService, 'triggerRowRemoved');
 
     $scope.removeCurrentRow();
 
     expect(container.rows.length).toBe(1);
     expect(container.rows[0]).toBe(row2);
     expect($scope.currentContainerRow).toBeNull();
+    expect(whiteboardService.triggerRowRemoved).toHaveBeenCalled();
   });
 
   it('should not remove row when there is only one in a container', function() {
@@ -326,14 +328,16 @@ describe('EditorCtrl', function() {
       container: container,
       row: row1
     };
+    spyOn(whiteboardService, 'triggerRowRemoved');
 
     $scope.removeCurrentRow();
 
     expect(container.rows.length).toBe(1);
     expect(container.rows[0]).toBe(row1);
+    expect(whiteboardService.triggerRowRemoved).not.toHaveBeenCalled();
   });
 
-  it('should remove the current component', function() {
+  it('should remove the current component and trigger "removed" while removing it', function() {
 
     var container = {
       rows: [
@@ -346,15 +350,11 @@ describe('EditorCtrl', function() {
       row: container.rows[0]
     };
 
+    var component = aWidget().withParentContainerRow($scope.currentContainerRow);
+
     var dragData = {
       create: function() {
-        return {
-          item: 'foo',
-          $$parentContainerRow: $scope.currentContainerRow,
-          dimension: {
-            xs: 12
-          }
-        };
+        return component;
       }
     };
 
@@ -364,6 +364,29 @@ describe('EditorCtrl', function() {
 
     expect(container.rows[0].length).toBe(0);
     expect($scope.currentComponent).toBeNull();
+    expect(component.triggerRemoved).toHaveBeenCalled();
+  });
+
+  it('should not trigger "removed" while moving a component from a row to another', function() {
+
+    var container = {
+      rows: [
+        []
+      ]
+    };
+
+    $scope.currentContainerRow = {
+      container: container,
+      row: container.rows[0]
+    };
+
+    var component = aWidget().withParentContainerRow($scope.currentContainerRow);
+
+    $scope.removeCurrentComponent(component, {});
+
+    expect(container.rows[0].length).toBe(0);
+    expect($scope.currentComponent).toBeNull();
+    expect(component.triggerRemoved).not.toHaveBeenCalled();
   });
 
   it('should remove row when removing last component of a row', function() {
@@ -381,13 +404,7 @@ describe('EditorCtrl', function() {
 
     var dragData = {
       create: function() {
-        return {
-          item: 'foo',
-          $$parentContainerRow: $scope.currentContainerRow,
-          dimension: {
-            xs: 12
-          }
-        };
+        return aWidget().withParentContainerRow($scope.currentContainerRow);
       }
     };
 
@@ -416,13 +433,7 @@ describe('EditorCtrl', function() {
 
     var dragData = {
       create: function() {
-        return {
-          item: 'foo',
-          $$parentContainerRow: $scope.currentContainerRow,
-          dimension: {
-            xs: 12
-          }
-        };
+        return aWidget().withParentContainerRow($scope.currentContainerRow);
       }
     };
 

@@ -65,5 +65,6 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
     var previousTabIndex = index === 0 ? 0 : index - 1;
     tabs.splice(index, 1);
     $scope.openTab(tabs[previousTabIndex], event);
+    tab.triggerRemoved();
   };
 });
