@@ -27,21 +27,15 @@
    * Create a new scope with a properties object derived from user entered propertyValues.
    * This allow to bind propertyValues to widget properties and keep a WYSWYG approach in editor while editing widget properties
    */
-  function paletteService() {
+  function paletteService(components) {
 
-    var componentsMap = {};
     return {
-      reset: reset,
-      getSections: getSections,
-      register: register,
-      init: init
+      getSections: getSections
     };
 
-    function reset() {
-      componentsMap = {};
-    }
 
     function getSections() {
+      var componentsMap = components.get();
       var sections = Object.keys(componentsMap).reduce(function (sections, item) {
         var sectionName = componentsMap[item].sectionName;
         sections[sectionName] = sections[sectionName] || {
@@ -59,23 +53,6 @@
       });
     }
 
-    function register(items) {
-      componentsMap = items.reduce(function (components, item) {
-        components[item.component.id] = item;
-        return components;
-      }, componentsMap);
-    }
-
-    function init(component, parentRow) {
-      // container have no id, only a type
-      var id = component.id || component.type;
-
-      if (!componentsMap.hasOwnProperty(id)) {
-        throw new Error('Component ' + id + ' has not been registered');
-      }
-      var fnInit = componentsMap[id].init;
-      fnInit(component, parentRow);
-    }
 
   }
 })();

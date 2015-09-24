@@ -15,7 +15,7 @@
 /**
  * Controller of the tabsContainer directive
  */
-angular.module('bonitasoft.designer.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, componentFactory) {
+angular.module('bonitasoft.designer.directives').controller('TabsContainerDirectiveCtrl', function($scope, arrays, whiteboardComponentWrapper, pageElementFactory) {
 
   'use strict';
 
@@ -48,8 +48,8 @@ angular.module('bonitasoft.designer.directives').controller('TabsContainerDirect
 
   $scope.addTab = function (event) {
     var tabs = $scope.tabsContainer.tabs;
-    var newTab = componentFactory.createNewTab('Tab ' + (tabs.length + 1));
-    componentFactory.initializeTab(newTab, $scope.tabsContainer);
+    var newTab = pageElementFactory.createTabElement('Tab ' + (tabs.length + 1));
+    whiteboardComponentWrapper.wrapTab(newTab, $scope.tabsContainer);
     tabs.push(newTab);
     $scope.openTab(newTab, event);
   };

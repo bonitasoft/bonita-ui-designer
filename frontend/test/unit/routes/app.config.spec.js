@@ -1,6 +1,6 @@
 describe('The route config', function() {
 
-  var $rootScope, $location, $state, widgetRepo, pageRepo, whiteboard, $httpBackend, $q;
+  var $rootScope, $location, $state, widgetRepo, pageRepo, editorService, $httpBackend, $q;
 
   beforeEach(angular.mock.module('uidesigner'));
 
@@ -10,11 +10,11 @@ describe('The route config', function() {
     $state = $injector.get('$state');
     widgetRepo = $injector.get('widgetRepo');
     pageRepo = $injector.get('pageRepo');
-    whiteboard = $injector.get('whiteboard');
+    editorService = $injector.get('editorService');
     $httpBackend = $injector.get('$httpBackend');
     $q = $injector.get('$q');
 
-    spyOn(whiteboard, 'initialize').and.returnValue({});
+    spyOn(editorService, 'initialize').and.returnValue({});
   }));
 
   it('should resolve the necessary for the page editor', function() {
@@ -24,7 +24,7 @@ describe('The route config', function() {
 
     // then we should call the resolve
     // a page as there is a name in URL
-    expect(whiteboard.initialize).toHaveBeenCalledWith(pageRepo, 'person');
+    expect(editorService.initialize).toHaveBeenCalledWith(pageRepo, 'person');
 
     // a controller
     expect($state.current.views['@designer'].controller).toBe('EditorCtrl');
