@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keymaster, $modal, utils) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keymaster, $modal, utils, whiteboardService) {
 
   'use strict';
 
@@ -182,6 +182,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     arrays.insertAtPosition(newComponent, index, $scope.currentContainerRow.row);
     componentUtils.column.computeSizeItemInRow($scope.currentContainerRow.row);
     $scope.selectComponent(newComponent);
+    newComponent.triggerAdded();
   };
 
   function removeRow(container, row) {
@@ -189,6 +190,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     if (rows.length > 1) {
       var rowIndex = rows.indexOf(row);
       rows.splice(rowIndex, 1);
+      whiteboardService.triggerRowRemoved(row);
     }
   }
 
@@ -213,6 +215,9 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     currentRow.splice(componentIndex, 1);
     if (currentRow.length === 0 && destinationRow !== currentRow) {
       removeRow(component.$$parentContainerRow.container, currentRow);
+    }
+    if (!destinationRow) {
+      component.triggerRemoved();
     }
     $scope.currentComponent = null;
   };

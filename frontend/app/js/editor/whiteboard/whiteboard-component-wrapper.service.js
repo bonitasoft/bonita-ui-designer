@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.editor.whiteboard')
     .service('whiteboardComponentWrapper', whiteboardComponentWrapper);
 
-  function whiteboardComponentWrapper(components, componentId) {
+  function whiteboardComponentWrapper(whiteboardService, components, componentId) {
 
     var service = {
       wrapPage: wrapPage,
@@ -71,7 +71,9 @@
         $$widget: angular.copy(widget), // make sure to render all properties every time we select a component
         $$templateUrl: 'js/editor/whiteboard/component-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
-        $$parentContainerRow: parentRow
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveWidget.bind(null, element),
+        triggerAdded: whiteboardService.onAddWidget.bind(null, element)
       });
     }
 
@@ -81,7 +83,9 @@
         $$widget: angular.copy(container),
         $$templateUrl: 'js/editor/whiteboard/container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/container-properties-template.html',
-        $$parentContainerRow: parentRow
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveContainer.bind(null, element),
+        triggerAdded: angular.noop
       });
 
       component.rows.forEach(wrapRow.bind(null, element));
@@ -94,7 +98,9 @@
         $$widget: angular.copy(tabContainer),
         $$templateUrl: 'js/editor/whiteboard/tabs-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
-        $$parentContainerRow: parentRow
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveTabsContainer.bind(null, element),
+        triggerAdded: angular.noop
       });
 
       element.tabs.forEach(function (tab) {
@@ -111,7 +117,9 @@
           $$widget: {
             name: 'Tab'
           },
-          $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html'
+          $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html',
+          triggerRemoved: whiteboardService.onRemoveTab.bind(null, tab),
+          triggerAdded: angular.noop
         }
       );
     }
@@ -122,7 +130,9 @@
         $$widget: angular.copy(formContainer),
         $$templateUrl: 'js/editor/whiteboard/form-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
-        $$parentContainerRow: parentRow
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveFormContainer.bind(null, element),
+        triggerAdded: angular.noop
       });
 
       service.wrapContainer({}, element.container);

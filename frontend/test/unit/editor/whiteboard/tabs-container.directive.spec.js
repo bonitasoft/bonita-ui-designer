@@ -1,3 +1,5 @@
+import { aTab } from '../../utils/builders/TabElementBuilder';
+
 describe('tabsContainer', function() {
   var $compile, $rootScope, element;
 
@@ -61,8 +63,8 @@ describe('tabsContainer', function() {
   it('should add a new tab', function () {
     $rootScope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'}
+        aTab().title('tab-1'),
+        aTab().title('tab-2')
       ]
     };
     $rootScope.$apply();
@@ -75,8 +77,8 @@ describe('tabsContainer', function() {
   it('should remove a tab', function () {
     $rootScope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'}
+        aTab().title('tab-1'),
+        aTab().title('tab-2')
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
@@ -90,8 +92,8 @@ describe('tabsContainer', function() {
   it('should show remove button when there is more than one tab', function () {
     $rootScope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'}
+        aTab().title('tab-1'),
+        aTab().title('tab-2')
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
@@ -103,7 +105,7 @@ describe('tabsContainer', function() {
   it('should hide remove button when there is only one tab', function () {
     $rootScope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'}
+        aTab().title('tab-1'),
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);

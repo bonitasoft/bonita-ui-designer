@@ -1,3 +1,5 @@
+import { aTab } from '../../utils/builders/TabElementBuilder';
+
 describe('TabsContainerDirectiveCtrl', function() {
   var $scope;
 
@@ -87,35 +89,41 @@ describe('TabsContainerDirectiveCtrl', function() {
   });
 
   it('should remove current tab and select previous one', function () {
+    var toBeRemoved = aTab().title('tab-2');
+    var nextSelected = aTab().title('tab-1');
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'},
-        {name: 'tab-3'}
+        nextSelected,
+        toBeRemoved,
+        aTab().title('tab-3')
       ]
     };
 
-    $scope.removeTab($scope.tabsContainer.tabs[1]);
+    $scope.removeTab(toBeRemoved);
 
     expect($scope.tabsContainer.tabs.length).toBe(2);
-    expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-1'});
-    expect($scope.editor.selectComponent).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+    expect($scope.tabsContainer.$$openedTab).toEqual(nextSelected);
+    expect($scope.editor.selectComponent).toHaveBeenCalledWith(nextSelected, undefined);
+    expect(toBeRemoved.triggerRemoved).toHaveBeenCalled();
   });
 
   it('should remove current tab and select first when deleting first tab', function () {
+    var toBeRemoved = aTab().title('tab-1');
+    var nextSelected = aTab().title('tab-2');
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'},
-        {name: 'tab-3'}
+        toBeRemoved,
+        nextSelected,
+        aTab().title('tab-3')
       ]
     };
 
-    $scope.removeTab($scope.tabsContainer.tabs[0]);
+    $scope.removeTab(toBeRemoved);
 
     expect($scope.tabsContainer.tabs.length).toBe(2);
-    expect($scope.tabsContainer.$$openedTab).toEqual({name: 'tab-2'});
-    expect($scope.editor.selectComponent).toHaveBeenCalledWith($scope.tabsContainer.tabs[0], undefined);
+    expect($scope.tabsContainer.$$openedTab).toEqual(nextSelected);
+    expect($scope.editor.selectComponent).toHaveBeenCalledWith(nextSelected, undefined);
+    expect(toBeRemoved.triggerRemoved).toHaveBeenCalled();
   });
 
   it('should hide remove button when there is only one tab', function () {
