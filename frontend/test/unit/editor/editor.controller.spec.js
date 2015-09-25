@@ -297,48 +297,6 @@ describe('EditorCtrl', function() {
 
   });
 
-
-  it('should add row before current', function() {
-    var row1 = [];
-    var row2 = [];
-
-    var container = {
-      rows: [row1, row2]
-    };
-
-    $scope.currentContainerRow = {
-      container: container,
-      row: row2
-    };
-
-    $scope.addRowBeforeCurrent();
-    expect(container.rows.length).toBe(3);
-    expect(container.rows[1]).toEqual([]);
-    expect(container.rows[1]).not.toBe(row1);
-    expect(container.rows[1]).not.toBe(row2);
-    expect(container.rows[2]).toBe(row2);
-  });
-
-  it('should add row after current', function() {
-    var row1 = [];
-    var row2 = [];
-
-    var container = {
-      rows: [row1, row2]
-    };
-    $scope.currentContainerRow = {
-      container: container,
-      row: row2
-    };
-
-    $scope.addRowAfterCurrent();
-    expect(container.rows.length).toBe(3);
-    expect(container.rows[2]).toEqual([]);
-    expect(container.rows[2]).not.toBe(row1);
-    expect(container.rows[2]).not.toBe(row2);
-    expect(container.rows[1]).toBe(row2);
-  });
-
   it('should remove the current row', function() {
     var row1 = [];
     var row2 = [];
