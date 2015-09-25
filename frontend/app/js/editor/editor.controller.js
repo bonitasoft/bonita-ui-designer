@@ -184,27 +184,6 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     $scope.selectComponent(newComponent);
   };
 
-  /**
-   * Adds a new row before the currently selected one. A row must be selected before calling this function.
-   *
-   * TODO remove as not used anywhere but in test
-   */
-  $scope.addRowBeforeCurrent = function() {
-    var rows = $scope.currentContainerRow.container.rows;
-    var rowIndex = rows.indexOf($scope.currentContainerRow.row);
-    rows.splice(rowIndex, 0, []);
-  };
-
-  /**
-   * Adds a new row after the currently selected one. A row must be selected before calling this function.
-   * TODO remove as not used anywhere but in test
-   */
-  $scope.addRowAfterCurrent = function() {
-    var rows = $scope.currentContainerRow.container.rows;
-    var rowIndex = rows.indexOf($scope.currentContainerRow.row);
-    rows.splice(rowIndex + 1, 0, []);
-  };
-
   function removeRow(container, row) {
     var rows = container.rows;
     if (rows.length > 1) {
