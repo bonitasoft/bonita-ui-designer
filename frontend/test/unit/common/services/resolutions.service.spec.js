@@ -1,8 +1,11 @@
 describe('Resolution service', function() {
   var resolutions;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.services', function(resolutionsProvider){
-    resolutionsProvider.registerResolutions([
+  beforeEach(angular.mock.module('bonitasoft.designer.common.services'));
+
+  beforeEach(inject(function(_resolutions_) {
+    resolutions = _resolutions_;
+    resolutions.registerResolutions([
       {
         key: 'xs',
         icon: 'laptop',
@@ -16,10 +19,6 @@ describe('Resolution service', function() {
         tooltip: 'foo bar quux'
       }
     ]);
-  }));
-
-  beforeEach(inject(function ($injector) {
-    resolutions = $injector.get('resolutions');
   }));
 
   it('should give all resolution in the right order', function() {
