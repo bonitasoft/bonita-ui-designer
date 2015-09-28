@@ -35,7 +35,7 @@ describe('UI designer: home', function () {
       expect(nb).toEqual(nbPages + 1);
     });
 
-    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Page testImport successfully added')
+    expect($$('alerts .ui-alert-success p').first().getText()).toContain('Page testImport successfully added')
   });
 
   it('should list widgets', function(){
