@@ -145,6 +145,29 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                         .setName(path.getFileName().toString())
                         .setType(type)
                         .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
+                        .setComponentId(component.getId())
+                        .setId(UUID.randomUUID().toString()));
+            }
+        }
+
+        return objects;
+    }
+
+    /**
+     *  {@linkplain AssetRepository<T>.refreshAssets} need to not set componentId for asset otherwise it makes page creation failing
+     *  {@linkplain AssetImporter} need it
+     *
+     *  // TODO : to be refactored
+     */
+    public List<Asset> findAssetInPathWhithoutComponentId(T component, AssetType type, Path directory) throws IOException {
+        List<Asset> objects = new ArrayList<>();
+
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
+            for (Path path : directoryStream) {
+                objects.add(new Asset()
+                        .setName(path.getFileName().toString())
+                        .setType(type)
+                        .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
                         .setComponentId(component instanceof Widget ? component.getId() : null)
                         .setId(UUID.randomUUID().toString()));
             }
@@ -162,7 +185,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                 try {
                     Path assetTypePath = repository.resolvePath(component.getId()).resolve(Paths.get("assets", type.getPrefix()));
                     if (exists(assetTypePath)) {
-                        return findAssetInPath(component, type, assetTypePath);
+                        return findAssetInPathWhithoutComponentId(component, type, assetTypePath);
                     }
                 } catch (IOException e) {
                     throw new RepositoryException(format("Failed to initialized assets for %s %s", repository.getComponentName(), component.getId()), e);
