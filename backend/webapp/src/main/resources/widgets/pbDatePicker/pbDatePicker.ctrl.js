@@ -22,10 +22,7 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
 
   this.floorDate = function() {
     if (angular.isDate($scope.properties.value)) {
-      $scope.properties.value.setUTCFullYear($scope.properties.value.getFullYear());
-      $scope.properties.value.setUTCMonth($scope.properties.value.getMonth());
-      $scope.properties.value.setUTCDate($scope.properties.value.getDate());
-      $scope.properties.value.setUTCHours(0, 0, 0, 0);
+      $scope.properties.value.setTime(Date.UTC($scope.properties.value.getFullYear(), $scope.properties.value.getMonth(), $scope.properties.value.getDate(), 0, 0, 0, 0));
     }
   };
 
