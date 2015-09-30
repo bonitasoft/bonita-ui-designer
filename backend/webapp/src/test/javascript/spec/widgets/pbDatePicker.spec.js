@@ -163,6 +163,9 @@ describe('pbDatePicker', function () {
       scope.properties.value = new Date(2013,0,1,0,30); // Tue Jan 01 2013 00:30:00 GMT+0100 (CET)
       scope.ctrl.floorDate();
       expect(scope.properties.value.getTime()).toEqual(1356998400000); //Tue Jan 01 2013 00:00:00 GMT+0100 (CET)
+      scope.properties.value = new Date(2013,8,1,0,30); // Tue Jan 01 2013 00:30:00 GMT+0100 (CET)
+      scope.ctrl.floorDate();
+      expect(scope.properties.value.getTime()).toEqual(1377993600000); //Sun Sep 01 2013 02:00:00 GMT+0200 (CEST)
     });
   });
 });
