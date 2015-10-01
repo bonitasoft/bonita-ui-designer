@@ -17,7 +17,9 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
   this.open = function($event) {
     $event.preventDefault();
     $event.stopPropagation();
-    this.opened = true;
+    if (!$scope.properties.readOnly) {
+      this.opened = true;
+    }
   };
 
   this.floorDate = function() {
@@ -31,4 +33,6 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory) {
   if (!$scope.properties.isBound('value')) {
     $log.error('the pbDatepicker property named "value" need to be bound to a variable');
   }
+
+
 }

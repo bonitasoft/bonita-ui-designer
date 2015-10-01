@@ -14,6 +14,7 @@
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
                 <input type="text" class="form-control"
+                       ng-click="ctrl.open($event)"
                        datepicker-popup="{{ properties.dateFormat | uiTranslate }}"
                        name="{{ctrl.name}}"
                        ng-model="properties.value"
@@ -22,8 +23,9 @@
                        datepicker-options="ctrl.datepickerOptions"
                        placeholder="{{ properties.placeholder | uiTranslate }}"
                        ng-required="properties.required"
-                       ng-readonly="properties.readOnly"
-                       show-button-bar="false"/>
+                       show-button-bar="false"
+                       ng-class="{ 'Datepicker--enabled': !properties.readOnly}"
+                       readonly />
 
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default"
