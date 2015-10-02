@@ -24,10 +24,11 @@
 
     var vm = this;
     vm.component = artifact;
+    vm.component.assets = vm.component.assets || [];
     vm.filters = assetsService.getFilters();
     vm.isExternal = assetsService.isExternal;
     vm.isPageAsset = assetsService.isPageAsset;
-    vm.desactivateAsset = desactivateAsset;
+    vm.deactivateAsset = deactivateAsset;
     vm.incrementOrderAsset = incrementOrderAsset;
     vm.decrementOrderAsset = decrementOrderAsset;
     vm.delete = deleteAsset;
@@ -35,23 +36,40 @@
     vm.openAssetPopup = openAddUpdateAssetPopup;
     vm.openHelp = openHelp;
 
-    //Load assets
-    refresh();
-
     function incrementOrderAsset(asset) {
-      return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refresh);
+      return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
     }
 
     function decrementOrderAsset(asset) {
-      return artifactRepo.decrementOrderAsset(vm.component.id, asset).then(refresh);
+      return artifactRepo.decrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
     }
 
-    function desactivateAsset(asset) {
-      return artifactRepo.desactivateAsset(vm.component.id, asset).then(refresh);
+    function refreshComponentAssets() {
+      artifactRepo.loadAssets(vm.component).then(function (response) {
+          vm.component.assets = response;
+        }
+      );
+    }
+
+    function deactivateAsset(asset) {
+      return artifactRepo.desactivateAsset(vm.component.id, asset).then(updateInactiveAssetsList);
+    }
+
+    function updateInactiveAssetsList() {
+      var inactiveAssets = vm.component.assets.filter(function (asset) {
+        return !asset.active;
+      }).map(function (asset) {
+        return asset.id;
+      });
+      vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
     }
 
     function deleteAsset(asset) {
-      artifactRepo.deleteAsset(vm.component.id, asset).then(refresh);
+      artifactRepo.deleteAsset(vm.component.id, asset).then(function() {
+        vm.component.assets = vm.component.assets.filter(function (actual) {
+          return actual.id !== asset.id;
+        });
+      });
     }
 
     function openAssetPreviewPopup(asset) {
@@ -78,27 +96,21 @@
           artifactRepo: () => artifactRepo
         }
       });
-      modalInstance.result.then(refresh);
+      modalInstance.result.then(updateList);
     }
 
-    /**
-     * Refresh assets in scope
-     */
-    function refresh() {
-      artifactRepo.loadAssets(vm.component)
-        .then(function(response) {
-          vm.assets = response;
-          vm.component.assets = response.filter(function(asset) {
-            //In the page editor, we filter on the assets linked to the page
-            return asset.scope !== 'WIDGET';
-          });
-          var inactiveAssets = response.filter(function(asset) {
-            return !asset.active;
-          }).map(function(asset) {
-            return asset.id;
-          });
-          vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
-        });
+    function updateList(asset) {
+      var replaced = false;
+      vm.component.assets = vm.component.assets.map(function(item) {
+        if (item.id === asset.id) {
+          replaced = true;
+          return asset;
+        }
+        return item;
+      });
+      if (!replaced) {
+        vm.component.assets.push(asset);
+      }
     }
 
     function openHelp(elm) {

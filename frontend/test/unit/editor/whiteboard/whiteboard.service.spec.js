@@ -15,6 +15,38 @@ describe('whiteboard service', function () {
     $timeout = _$timeout_;
   }));
 
+  it('should add widget to whiteboard widget list while initializing a widget', function() {
+    var aWidget = {id: 'aWidget'};
+    var anotherWidget = {id: 'anotherWidget'};
+
+    whiteboardService.triggerInitWidget(aWidget);
+
+    expect(whiteboardService.contains(aWidget)).toBeTruthy();
+    expect(whiteboardService.contains(anotherWidget)).toBeFalsy();
+  });
+
+  it('should remove widget from whiteboard widget list while removing a widget', function() {
+    var aWidget = {id: 'aWidget'};
+    var anotherWidget = {id: 'anotherWidget'};
+    whiteboardService.triggerInitWidget(aWidget);
+    whiteboardService.triggerInitWidget(anotherWidget);
+
+    whiteboardService.onRemoveWidget(anotherWidget);
+
+    expect(whiteboardService.contains(aWidget)).toBeTruthy();
+    expect(whiteboardService.contains(anotherWidget)).toBeFalsy();
+  });
+
+  it('should not remove widget from whiteboard widget list while removing a widget but not last', function() {
+    var aWidget = {id: 'aWidget'};
+    whiteboardService.triggerInitWidget(aWidget);
+    whiteboardService.triggerInitWidget(aWidget);
+
+    whiteboardService.onRemoveWidget(aWidget);
+
+    expect(whiteboardService.contains(aWidget)).toBeTruthy();
+  });
+
   it('should call registered functions while removing a widget', () => {
     var fnOne = jasmine.createSpy('fnOne');
     var fnTwo = jasmine.createSpy('fnTwo');
@@ -23,8 +55,10 @@ describe('whiteboard service', function () {
     var aWidget = {id: 'aWidget'};
 
     whiteboardService.onRemoveWidget(aWidget);
-    $timeout.flush();
 
+    // order matter, widget should be removed from list before function calls
+    expect(whiteboardService.contains(aWidget)).toBeFalsy();
+    $timeout.flush();
     expect(fnOne).toHaveBeenCalledWith(aWidget);
     expect(fnTwo).toHaveBeenCalledWith(aWidget);
   });

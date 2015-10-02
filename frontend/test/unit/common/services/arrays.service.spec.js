@@ -193,6 +193,22 @@ describe('arrays', function() {
     expect(array).toEqual([2, 6]);
   });
 
+  it('should remove first element of an array', function() {
+    var array = [ 1, 1, 2, 3];
+
+    array = arrays.removeFirst(1, array);
+
+    expect(array).toEqual([1, 2, 3]);
+  });
+
+  it('should do nothing when removing first element of an array that is not in array', function() {
+    var array = [ 1, 1, 2, 3];
+
+    array = arrays.removeFirst(4, array);
+
+    expect(array).toEqual([1, 1, 2, 3]);
+  });
+
   it('should insert an element in an array of integer at correct position', function() {
     var array = [2, 1, 6, 1];
     arrays.insertAtPosition(3, 1, array);

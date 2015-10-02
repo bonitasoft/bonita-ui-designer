@@ -57,7 +57,8 @@ describe('utils', function () {
       var asset = {
         id: 'UIID',
         name: 'http://asset.css',
-        type: 'css'
+        type: 'css',
+        order: 2
       };
       expect(assetsService.assetToForm(asset)).toEqual({
         id: 'UIID',
@@ -65,7 +66,8 @@ describe('utils', function () {
         type: 'css',
         source: 'external',
         oldname: 'http://asset.css',
-        oldtype: 'css'
+        oldtype: 'css',
+        order: 2
       });
     });
 
@@ -73,7 +75,8 @@ describe('utils', function () {
       var asset = {
         id: 'UIID',
         name: 'asset.css',
-        type: 'css'
+        type: 'css',
+        order: 2
       };
       expect(assetsService.assetToForm(asset)).toEqual({
         id: 'UIID',
@@ -81,7 +84,8 @@ describe('utils', function () {
         type: 'css',
         source: 'local',
         oldname: 'asset.css',
-        oldtype: 'css'
+        oldtype: 'css',
+        order: 2
       });
     });
   });
@@ -92,14 +96,98 @@ describe('utils', function () {
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
-        source: 'external'
+        source: 'external',
+        order: 2
       };
       expect(assetsService.formToAsset(formasset)).toEqual({
         id: 'UIID',
         name: 'http://asset.css',
-        type: 'css'
+        type: 'css',
+        order: 2
       });
     });
+  });
+
+  it('should add widget asset before page assets if not already added', function () {
+    var page = {
+      assets: [{id: 'anAsset', componentId: '1234'}]
+    };
+    var widget = {
+      $$widget: {
+        assets: [
+          {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
+          {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'}]
+      }
+    };
+
+    assetsService.addWidgetAssetsToPage(widget, page);
+
+    expect(page.assets).toEqual([
+      {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'anAsset', componentId: '1234'}
+    ]);
+  });
+
+  it('should not add widget asset to page if already added', function () {
+    var page = {
+      assets: [
+        {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
+        {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+        {id: 'anAsset', componentId: '1234'}]
+    };
+    var widget = {
+      $$widget: {
+        assets: [
+          {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
+          {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'}]
+      }
+    };
+
+    assetsService.addWidgetAssetsToPage(widget, page);
+
+    expect(page.assets).toEqual([
+      {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'anAsset', componentId: '1234'}
+    ]);
+  });
+
+  it('should populate asset scope and componentId if not set while adding asset to page', function() {
+    var page = {
+      assets: []
+    };
+    var widget = {
+      id: 'widgetId',
+      $$widget: {
+        assets: [
+          {id: 'widgetAsset'},
+          {id: 'otherWidgetAsset'}]
+      }
+    };
+
+    assetsService.addWidgetAssetsToPage(widget, page);
+
+    expect(page.assets).toEqual([
+      {id: 'widgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
+      {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'WIDGET'}
+    ]);
+  });
+
+  it('should remove widget assets from page', function() {
+    var page = {
+      assets: [
+        {id: 'widgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
+        {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
+        {id: 'anAsset', componentId: '1234'}]
+    };
+    var widget = {
+      id: 'widgetId'
+    };
+
+    assetsService.removeAssetsFromPage(widget, page);
+
+    expect(page.assets).toEqual([{id: 'anAsset', componentId: '1234'}]);
   });
 
 });

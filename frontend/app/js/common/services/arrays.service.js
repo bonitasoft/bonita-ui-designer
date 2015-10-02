@@ -115,6 +115,14 @@ angular.module('bonitasoft.designer.common.services').factory('arrays', function
     return array;
   }
 
+  function removeFirst(element, array) {
+    var idx = array.indexOf(element);
+    if (idx > -1) {
+      array.splice(idx, 1);
+    }
+    return array;
+  }
+
   /**
    * Inserts the element in the current row at the position provided, or at the end if incorrect.
    * @param element - the element to insert
@@ -136,6 +144,7 @@ angular.module('bonitasoft.designer.common.services').factory('arrays', function
     moveLeftPossible,
     moveRightPossible,
     remove,
+    removeFirst,
     insertAtPosition
   };
 });

@@ -6,21 +6,34 @@
       .module('bonitasoft.designer.editor.whiteboard')
       .service('whiteboardService', whiteboardService);
 
-  function whiteboardService($timeout) {
+  function whiteboardService($timeout, arrays) {
     var onWidgetRemoveFunctions = [];
     var onWidgetAddFunctions = [];
+
+    var widgetIds = [];
 
     return {
       registerOnWidgetRemoveFunction: registerOnWidgetRemoveFunction,
       registerOnWidgetAddFunction: registerOnWidgetAddFunction,
       triggerRowRemoved: onRemoveRow,
+      triggerInitWidget: onInitWidget,
       onAddWidget: onAddWidget,
       onRemoveWidget: onRemoveWidget,
       onRemoveContainer: onRemoveContainer,
       onRemoveTabsContainer: onRemoveTabsContainer,
       onRemoveTab: onRemoveTab,
-      onRemoveFormContainer: onRemoveFormContainer
+      onRemoveFormContainer: onRemoveFormContainer,
+      contains,
+      reset
     };
+
+    function reset() {
+      widgetIds = [];
+    }
+
+    function contains(widget) {
+      return widgetIds.indexOf(widget.id) > -1;
+    }
 
     function registerOnWidgetRemoveFunction(fn) {
       onWidgetRemoveFunctions.push(fn);
@@ -31,11 +44,16 @@
     }
 
     function onRemoveWidget(widget) {
+      arrays.removeFirst(widget.id, widgetIds);
       executeFunctionsForComponent(onWidgetRemoveFunctions, widget);
     }
 
     function onAddWidget(widget) {
       executeFunctionsForComponent(onWidgetAddFunctions, widget);
+    }
+
+    function onInitWidget(widget) {
+      widgetIds.push(widget.id);
     }
 
     /**
