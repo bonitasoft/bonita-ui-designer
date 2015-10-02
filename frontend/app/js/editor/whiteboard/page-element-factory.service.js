@@ -31,7 +31,7 @@
      * @return {Object}           New component to add to the whiteboard
      */
     function createWidgetElement(widget) {
-      var element = createElement('component', widget);
+      var element = createElement(widget.type || 'component', widget);
       return angular.extend(element, {
         id: widget.id
       });
