@@ -54,7 +54,15 @@
 
     lines: {
       get: function() {
-        return this.sidebar.all(by.repeater('asset in vm.assets'));
+        return this.sidebar.all(by.repeater('asset in vm.component.assets'));
+      }
+    },
+
+    names: {
+      get: function() {
+        return this.lines.map(function (line) {
+          return line.all(by.tagName('td')).get(1).getText();
+        });
       }
     }
 

@@ -42,22 +42,6 @@
         });
       }));
 
-      it('should put assets in $scope', function () {
-        $scope.$digest();
-        expect(controller.assets).toEqual([
-          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
-          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
-          {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
-          {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
-        ]);
-        expect(component.assets).toEqual([
-          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
-          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false}
-        ]);
-        expect(component.inactiveAssets).toEqual(['456', '321'
-        ]);
-      });
-
       it('should expose filters', function () {
         $scope.$digest();
         expect(controller.filters).toEqual({
@@ -109,16 +93,6 @@
           assetsService: assetsService
         });
       }));
-
-      it('should put assets in $scope', function () {
-        $scope.$digest();
-        expect(controller.assets).toEqual([
-          {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
-          {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
-          {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
-          {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
-        ]);
-      });
 
       it('should open a data popup for asset preview', function () {
         spyOn($modal, 'open').and.returnValue({

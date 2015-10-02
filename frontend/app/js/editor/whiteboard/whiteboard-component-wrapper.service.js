@@ -66,7 +66,7 @@
       // $$templateUrl is  used in container.html to display the component
       // $$parentContainerRow is a backward reference to the containing container and row, which is only useful in the
       // editor, but must not and can not be serialized (cyclic reference)
-      return angular.extend(element, {
+      var w = angular.extend(element, {
         $$id: componentId.getNextId('component'),
         $$widget: angular.copy(widget), // make sure to render all properties every time we select a component
         $$templateUrl: 'js/editor/whiteboard/component-template.html',
@@ -75,6 +75,8 @@
         triggerRemoved: whiteboardService.onRemoveWidget.bind(null, element),
         triggerAdded: whiteboardService.onAddWidget.bind(null, element)
       });
+      whiteboardService.triggerInitWidget(w);
+      return w;
     }
 
     function wrapContainer(container, element, parentRow) {

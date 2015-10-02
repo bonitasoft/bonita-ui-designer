@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="asset in vm.assets | orderBy:'order' as results">
+    <tr ng-repeat="asset in vm.component.assets | orderBy:'order' as results">
         <td>
             <a ng-click="vm.decrementOrderAsset(asset)" ng-if="!$first"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
             <a ng-click="vm.incrementOrderAsset(asset)" ng-if="!$last"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>

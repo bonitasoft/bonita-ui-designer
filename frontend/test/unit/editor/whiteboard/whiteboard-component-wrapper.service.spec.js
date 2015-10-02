@@ -1,11 +1,12 @@
 describe('whiteboard component wrapper', function () {
 
-  var service, item, widget, parentRow;
+  var service, item, widget, parentRow, whiteboardService;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function ($injector) {
     service = $injector.get('whiteboardComponentWrapper');
+    whiteboardService = $injector.get('whiteboardService');
   }));
 
   beforeEach(function () {
@@ -26,13 +27,17 @@ describe('whiteboard component wrapper', function () {
   });
 
   it('should initialize a widget', function () {
+    spyOn(whiteboardService, 'triggerInitWidget');
+
     service.wrapWidget(widget, item, parentRow);
+
     expect(item.$$id).toBe('component-0');
     expect(item.$$widget).toEqual(widget);
     expect(item.$$templateUrl).toBeDefined();
     expect(item.$$parentContainerRow).toBe(parentRow);
     expect(item.triggerRemoved).toBeDefined();
     expect(item.triggerAdded).toBeDefined();
+    expect(whiteboardService.triggerInitWidget).toHaveBeenCalled();
   });
 
   it('should init a container', function () {

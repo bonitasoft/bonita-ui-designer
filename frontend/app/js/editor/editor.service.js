@@ -20,12 +20,16 @@
     .module('bonitasoft.designer.editor')
     .service('editorService', editorService);
 
-  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, containerDefinitionFactory, properties, alerts, gettext) {
+  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, containerDefinitionFactory, properties, alerts, gettext, whiteboardService, assetsService) {
 
     var paletteItems = {};
+    var page;
+
     return {
       addPalette: addPalette,
-      initialize: initialize
+      initialize: initialize,
+      addWidgetAssetsToPage,
+      removeAssetsFromPage
     };
 
     function addPalette(key, repository) {
@@ -48,8 +52,10 @@
           return $q.reject(error);
         })
         .then(function (response) {
-          whiteboardComponentWrapper.wrapPage(response.data);
-          return response.data;
+          whiteboardService.reset();
+          page = response.data;
+          whiteboardComponentWrapper.wrapPage(page);
+          return page;
         });
     }
 
@@ -111,8 +117,6 @@
       ];
     }
 
-
-
     function createWidget(widget, parentRow) {
       var element = pageElementFactory.createWidgetElement(widget);
       return whiteboardComponentWrapper.wrapWidget(widget, element, parentRow);
@@ -131,6 +135,16 @@
     function createFormContainer(formContainer, parentRow) {
       var element = pageElementFactory.createFormContainerElement(formContainer);
       return whiteboardComponentWrapper.wrapFormContainer(formContainer, element, parentRow);
+    }
+
+    function addWidgetAssetsToPage(widget) {
+      assetsService.addWidgetAssetsToPage(widget, page);
+    }
+
+    function removeAssetsFromPage(widget) {
+      if (!whiteboardService.contains(widget)) {
+        assetsService.removeAssetsFromPage(widget, page);
+      }
     }
   }
 })();

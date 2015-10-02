@@ -1,11 +1,12 @@
 var PageEditor = require('../pages/editor.page.js');
 
 describe('asset panel', function() {
-  var assetPanel;
+  var assetPanel, editor;
 
   beforeEach(function() {
+    editor = PageEditor.get('person');
+    assetPanel = editor.assetPanel();
     //The asset panel is not opened by default
-    assetPanel = PageEditor.get('person').assetPanel();
     assetPanel.open();
   });
 
@@ -130,6 +131,22 @@ describe('asset panel', function() {
       });
 
     });
+  });
 
+  it('should be updated while adding/removing widgets with assets', function() {
+    // adding two custom widget with assets
+    editor.addCustomWidget('customAwesomeWidget');
+    editor.addCustomWidget('customAwesomeWidget');
+
+    // asset panel should list  customAwesomeWidget's assets
+    expect(assetPanel.names).toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
+
+    // removing one customAwesomeWidget, asset panel should still list customAwesomeWidget's assets
+    editor.removeWidget();
+    expect(assetPanel.names).toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
+
+    // removing last customAwesomeWidget, asset panel should not list customAwesomeWidget's assets anymore
+    editor.removeWidget();
+    expect(assetPanel.names).not.toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
   });
 });

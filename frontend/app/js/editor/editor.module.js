@@ -23,6 +23,7 @@
     'bonitasoft.designer.editor.properties-panel',
     'bonitasoft.designer.editor.menu-bar',
     'bonitasoft.designer.editor.whiteboard',
+    'bonitasoft.designer.assets',
     'gettext'
   ]);
 

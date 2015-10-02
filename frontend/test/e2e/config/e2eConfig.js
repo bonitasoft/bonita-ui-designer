@@ -201,6 +201,20 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
             defaultValue: 'rocks',
             bond: 'expression'
           }
+        ],
+        assets: [
+          {
+            'name': 'awesome-gif.gif',
+            'type': 'img',
+            'order': 3,
+            'active': true
+          },
+          {
+            'name': 'https://awesome.cdn.com/cool.js',
+            'type': 'js',
+            'order': 2,
+            'active': true
+          }
         ]
       }
     ];
@@ -213,6 +227,37 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         jsonExample: {type: 'json', value: {}},
         urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
       },
+      assets: [
+        {
+          'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
+          'name': 'myStyle.css',
+          'type': 'css',
+          'order': 1,
+          'active': true,
+          'componentId': 'customWidget'
+        },
+        {
+          'id': '5aa4fe10-bd31-44e6-a5e6-39fc8a961691',
+          'name': 'https://github.myfile.js',
+          'type': 'js',
+          'order': 2,
+          'active': true
+        },
+        {
+          'id': '0401a807-db07-4204-af8b-340078e6ee46',
+          'name': 'protractor.png',
+          'type': 'img',
+          'order': 3,
+          'active': true
+        },
+        {
+          'id': '79555334-8f48-4f43-9291-0c82b6c94b1b',
+          'name': 'myStyle.css',
+          'type': 'css',
+          'order': 4,
+          'active': true
+        }
+      ],
       rows: [
         [{
           type: 'container',
@@ -428,38 +473,6 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
       ]
     };
 
-    var personAssets = [
-      {
-        'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
-        'name': 'myStyle.css',
-        'type': 'css',
-        'order': 1,
-        'active': true,
-        'componentId': 'customWidget'
-      },
-      {
-        'id': '5aa4fe10-bd31-44e6-a5e6-39fc8a961691',
-        'name': 'https://github.myfile.js',
-        'type': 'js',
-        'order': 2,
-        'active': true
-      },
-      {
-        'id': '0401a807-db07-4204-af8b-340078e6ee46',
-        'name': 'protractor.png',
-        'type': 'img',
-        'order': 3,
-        'active': true
-      },
-      {
-        'id': '79555334-8f48-4f43-9291-0c82b6c94b1b',
-        'name': 'myStyle.css',
-        'type': 'css',
-        'order': 4,
-        'active': true
-      }
-    ];
-
     var pages = [
       personPage,
       {
@@ -545,6 +558,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     $httpBackend.whenPOST('rest/widgets').respond(function (method, url, data) {
       var widget = angular.fromJson(data);
       widget.id = 'custom' + widget.name;
+      widget.assets = [];
       widgets.push(widget);
       return [200, widget, {}];
     });
@@ -574,10 +588,6 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
       });
       return [200, response, {}];
     });
-
-    //Gets all the assets used by the page (this sentence has to be defined before the getter for a page because
-    // the regular expression used can percuss with this one)
-    $httpBackend.whenGET(/rest\/pages\/person\/assets/).respond(personAssets);
 
     // get by id
     $httpBackend.whenGET(/rest\/pages\/.*/).respond(function (method, url) {
