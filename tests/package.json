@@ -7,10 +7,10 @@
     "npm": ">=2.0.0"
   },
   "devDependencies": {
-    "protractor": "2.1.0",
-    "jasmine-reporters": "~1.0.1",
     "gulp": "~3.8.8",
-    "gulp-protractor": "0.0.11"
+    "gulp-protractor": "1.0.0",
+    "jasmine-reporters": "~1.0.1",
+    "protractor": "2.4.0"
   },
   "scripts": {
     "pretest": "npm install && webdriver-manager update",
