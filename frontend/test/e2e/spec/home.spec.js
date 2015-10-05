@@ -109,7 +109,7 @@ describe('home page', function() {
     nameInput.sendKeys('2');
     // It should remove the input
     btnRenamePage.click();
-    expect(nameInput.isElementPresent()).toBe(false);
+    expect(nameInput.isPresent()).toBe(false);
   });
 
   it('should not rename a page with space or special characters in name', function() {
