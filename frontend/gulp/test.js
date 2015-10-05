@@ -3,7 +3,6 @@ var karma = require('karma').server;
 
 module.exports = function(gulp, config) {
 
-  require('./build.js')(gulp, config);
   var paths = config.paths;
 
   gulp.task('jshint:test', function () {
@@ -16,7 +15,7 @@ module.exports = function(gulp, config) {
   /**
    * unit tests once and exit
    */
-  gulp.task('test', ['jshint:test', 'bundle:js', 'bundle:vendors'], function (done) {
+  gulp.task('test', ['jshint:test'], function (done) {
     return karma.start({
       configFile: config.paths.karma,
       singleRun: true
@@ -26,7 +25,7 @@ module.exports = function(gulp, config) {
   /**
    * unit tests in autowatch mode
    */
-  gulp.task('test:watch', ['jshint:test', 'bundle:js', 'bundle:vendors'], function (done) {
+  gulp.task('test:watch', ['jshint:test'], function (done) {
     return karma.start({
       configFile: config.paths.karma,
       singleRun: false
