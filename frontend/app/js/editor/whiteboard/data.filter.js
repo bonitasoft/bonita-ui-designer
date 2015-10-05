@@ -24,23 +24,23 @@
    * Filter a data value to print data:{{data.value}} when data type is data
    * Just a reminder to the user in the editor that he has linked a field to a data
    */
-  function dataFilter() {
+  function dataFilter(properties) {
 
-    return function (param, paramType) {
-      if (!param || !param.value) {
+    return function (propertyValue, propertyType) {
+      if (!propertyValue || !propertyValue.value) {
         return '';
-      } else if (param.type === 'data') {
-        var value = 'data:' + param.value;
+      } else if (properties.isBound(propertyValue)) {
+        var value = 'data:' + propertyValue.value;
 
         // In case of collection property type, we force the property to Array
         // so it plays well with editor render
-        if (paramType === 'collection') {
+        if (propertyType === 'collection') {
           return [value];
         }
 
         return value;
       } else {
-        return param.value;
+        return propertyValue.value;
       }
     };
   }

@@ -71,4 +71,22 @@ describe('properties service', function () {
         }]);
     });
   });
+
+  it('should say that a property value with type expression is bound', function() {
+    expect(service.isBound({type: 'expression'})).toBeTruthy();
+  });
+
+  it('should say that a property value with type variable is bound', function() {
+    expect(service.isBound({type: 'variable'})).toBeTruthy();
+  });
+
+  it('should say that a property value with type constant is not bound', function() {
+    expect(service.isBound({type: 'constant'})).toBeFalsy();
+  });
+
+  it('should say that a property value with type interpolation is not bound', function() {
+    expect(service.isBound({type: 'interpolation'})).toBeFalsy();
+  });
+
+
 });
