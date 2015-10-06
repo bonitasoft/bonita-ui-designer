@@ -21,7 +21,8 @@
     'bonitasoft.designer.editor.common',
     'bonitasoft.designer.common.services',
     'gettext',
-    'RecursionHelper'
+    'RecursionHelper',
+    'ui.router'
   ]);
 
 })();

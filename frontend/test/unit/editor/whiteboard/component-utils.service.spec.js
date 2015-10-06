@@ -4,8 +4,15 @@ describe('ComponentUtils Service', function() {
 
   var service, tabsContainerStructureMockJSON, pageJson, resolutions, $stateParams;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', function(resolutionsProvider){
-    resolutionsProvider.registerResolutions([
+  beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', 'tabsContainerStructureMock', 'pageDataMock'));
+
+  beforeEach(inject(function ($injector) {
+    service = $injector.get('componentUtils');
+    resolutions = $injector.get('resolutions');
+    $stateParams = $injector.get('$stateParams');
+    tabsContainerStructureMockJSON = $injector.get('tabsContainerStructureMockJSON');
+    pageJson = $injector.get('pageJson');
+    resolutions.registerResolutions([
       {
         key: 'xs',
         icon: 'laptop',
@@ -19,18 +26,7 @@ describe('ComponentUtils Service', function() {
         tooltip: 'foo bar quux'
       }
     ]);
-    resolutionsProvider.setDefaultResolution('foo');
-  }));
-
-  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'tabsContainerStructureMock', 'pageDataMock'));
-  beforeEach(angular.mock.module('ui.router', 'bonitasoft.designer.editor'));
-
-  beforeEach(inject(function ($injector) {
-    service = $injector.get('componentUtils');
-    resolutions = $injector.get('resolutions');
-    $stateParams = $injector.get('$stateParams');
-    tabsContainerStructureMockJSON = $injector.get('tabsContainerStructureMockJSON');
-    pageJson = $injector.get('pageJson');
+    resolutions.setDefaultResolution('foo');
   }));
 
   describe('test if we are the child of a container', function() {

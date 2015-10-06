@@ -12,13 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Repo containing all our palette widgets.
- */
-angular.module('bonitasoft.designer.common.services')
-  .provider('resolutions', function () {
+(function () {
 
-    'use strict';
+  'use strict';
+
+  angular
+    .module('bonitasoft.designer.common.services')
+    .service('resolutions', resolutionsService);
+
+  function resolutionsService() {
+
 
     var resolutions = [
       {
@@ -36,30 +39,29 @@ angular.module('bonitasoft.designer.common.services')
     };
 
     return {
-      registerResolutions: function(newResolutions) {
-         resolutions =  newResolutions;
-      },
-
-      setDefaultResolution: function(resolutionKey) {
-        defaultResolution =  get(resolutionKey);
-        currentResolution =  defaultResolution;
-      },
-
-      setDefaultDimension: function(dimension) {
-        defaultDimension = dimension || defaultDimension;
-      },
-
-      $get: function() {
-        return {
-          all: all,
-          get: get,
-          selected: selected,
-          select: select,
-          getDefaultResolution: getDefaultResolution,
-          getDefaultDimension: getDefaultDimension
-        };
-      }
+      registerResolutions: registerResolutions,
+      setDefaultResolution: setDefaultResolution,
+      setDefaultDimension: setDefaultDimension,
+      all: all,
+      get: get,
+      selected: selected,
+      select: select,
+      getDefaultResolution: getDefaultResolution,
+      getDefaultDimension: getDefaultDimension
     };
+
+    function registerResolutions(newResolutions) {
+      resolutions = newResolutions;
+    }
+
+    function setDefaultResolution(resolutionKey) {
+      defaultResolution = get(resolutionKey);
+      currentResolution = defaultResolution;
+    }
+
+    function setDefaultDimension(dimension) {
+      defaultDimension = dimension || defaultDimension;
+    }
 
     /**
      * Returns the default dimension object
@@ -108,11 +110,12 @@ angular.module('bonitasoft.designer.common.services')
      * @param {String} resolutionKey - the resolution key to look for
      * @returns {Object}
      */
-    function get(resolutionKey){
-      return resolutions.filter(function(resolution){
-        return resolution.key === resolutionKey;
-      })[0] || defaultResolution;
+    function get(resolutionKey) {
+      return resolutions.filter(function (resolution) {
+          return resolution.key === resolutionKey;
+        })[0] || defaultResolution;
     }
 
 
-  });
+  }
+})();
