@@ -20,12 +20,21 @@ describe('data filters', function() {
     expect(data({type: 'constant', value: 'aValue'})).toBe('aValue');
   });
 
-  it('should return prefixed data value when data type is data', function () {
-    expect(data({type: 'data', value: 'aValue'})).toBe('data:aValue');
+  it('should return data value when data type is interpolation', function () {
+    expect(data({type: 'interpolation', value: 'aValue'})).toBe('aValue');
   });
 
-  it('should return prefixed data value wrap in an array for collection or choice type', function () {
-    expect(data({type: 'data', value: 'aValue'}, 'collection')).toEqual(['data:aValue']);
+  it('should return prefixed data value when data type is expression', function () {
+    expect(data({type: 'expression', value: 'aValue'})).toBe('data:aValue');
+  });
+
+  it('should return prefixed data value when data type is variable', function () {
+    expect(data({type: 'variable', value: 'aValue'})).toBe('data:aValue');
+  });
+
+
+  it('should return prefixed data value wrapped in an array for collection or choice type', function () {
+    expect(data({type: 'expression', value: 'aValue'}, 'collection')).toEqual(['data:aValue']);
   });
 
 });

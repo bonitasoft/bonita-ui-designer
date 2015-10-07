@@ -44,7 +44,8 @@
     return {
       computeValues: computeValues,
       computeValue: computeValue,
-      addCommonPropertiesTo: addCommonPropertiesTo
+      addCommonPropertiesTo: addCommonPropertiesTo,
+      isBound
     };
 
     function computeValues(properties) {
@@ -64,6 +65,10 @@
     function addCommonPropertiesTo(component) {
       component.properties = commonProperties.concat(component.properties || []);
       return component;
+    }
+
+    function isBound(propertyValue) {
+      return propertyValue.type === 'expression' || propertyValue.type === 'variable';
     }
   }
 })();
