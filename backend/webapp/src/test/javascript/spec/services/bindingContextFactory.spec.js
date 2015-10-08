@@ -29,6 +29,14 @@ describe('Service: bindingContextFactory', function () {
     expect(context.$item).toEqual({"foo": "bar"});
   });
 
+  it('should expose $collection when defined', function () {
+    var scope = {$collection: [{ item: 1 }, { item: 2 }]};
+
+    var context = bindingContextFactory.create(modelCtrl, scope);
+
+    expect(context.$collection).toEqual([ { item: 1 }, { item: 2 }]);
+  });
+
   it('should update $collection when setting $item value', function () {
     var scope = {$collection: [{"foo": "bar"}], $index: 0};
 
