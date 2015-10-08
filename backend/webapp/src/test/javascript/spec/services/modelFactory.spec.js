@@ -2,10 +2,14 @@ describe('Service: modelFactory', function () {
 
   beforeEach(module('bonitasoft.ui.services'));
 
-  var dataModel, template, scope, $httpBackend, $compile, $location, data = {
+  var dataModel, template, scope, $httpBackend, $compile, $location, $browser, data = {
     foo: {
       type: 'variable',
       value: 'bar'
+    },
+    localBar: {
+      type: 'url',
+      value: '/bonita/{{ foo }}/foo'
     },
     bar: {
       type: 'url',
@@ -44,13 +48,14 @@ describe('Service: modelFactory', function () {
     'X-Bonita-API-Token': 'CSRF_Generated_Token'
   };
 
-  beforeEach(inject(function(modelFactory, $rootScope, _$compile_, _$httpBackend_, _$location_) {
+  beforeEach(inject(function(modelFactory, $rootScope, _$compile_, _$httpBackend_, _$location_, _$browser_) {
     dataModel = modelFactory.create(data);
     scope = $rootScope.$new();
     scope.properties = dataModel;
     $httpBackend = _$httpBackend_;
     $compile = _$compile_;
     $location = _$location_;
+    $browser = _$browser_;
     template = $compile('<div>{{ properties.qux }}</div>')(scope);
   }));
 
@@ -94,15 +99,28 @@ describe('Service: modelFactory', function () {
     expect(dataModel.bar).toEqual(['foo', 'bar', 'baz']);
   });
 
-  it('should make a call to the url when url change', function () {
-    $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '', {'X-Bonita-API-Token': 'CSRF_Generated_Token'});
-    $httpBackend.expectGET('https://some.url.com/rest/bar/foo', expectedHeaders).respond(200, "foobar");
+  it('should make a call to the url when url change with bonita CSRF Token', function () {
+    $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
+    //setting the cookie this way will set on default page which is on localhost:90XX/
+    $browser.cookies()['X-Bonita-API-Token'] = 'CSRF_Generated_Token'; 
+    $httpBackend.expectGET('/bonita/bar/foo', expectedHeaders).respond(200, "foobar");
+    expect(dataModel.localBar).toBeUndefined();
+    $httpBackend.flush();
+    expect(dataModel.localBar).toEqual('foobar');
+  });  
+  it('should make a call to the url when url change without CSRF Token', function () {
+    $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
+    //setting the cookie this way will set on default page which is on localhost:90XX/
+    $browser.cookies()['X-Bonita-API-Token'] = 'CSRF_Generated_Token'; 
+    //CSRF Header should not be inserted because we are not on the same domain
+    $httpBackend.expectGET('https://some.url.com/rest/bar/foo', {'Accept': expectedHeaders.Accept}).respond(200, "foobar");
     expect(dataModel.bar).toBeUndefined();
     $httpBackend.flush();
 
-    $httpBackend.expectGET('https://some.url.com/rest/baz/foo', expectedHeaders).respond(200, "foobaz");
+
+    $httpBackend.expectGET('https://some.url.com/rest/baz/foo', {'Accept': expectedHeaders.Accept}).respond(200, "foobaz");
     dataModel.foo = 'baz';
-    expect(dataModel.bar).toEqual("foobar");
+    expect(dataModel.bar).toEqual('foobar');
     $httpBackend.flush();
 
     expect(dataModel.bar).toEqual("foobaz");
@@ -145,8 +163,8 @@ describe('Service: modelFactory', function () {
 
   it('should evaluate an urlparameter', function () {
     $location.absUrl = function(){
-      return "http://domain.tld?toto=bob&time=123"
-    }
+      return "http://domain.tld?toto=bob&time=123";
+    };
     expect(dataModel.urlParamTime).toBe('123');
     expect(dataModel.urlParamToto).toBe('bob');
     expect(dataModel.failingUrlParam).toBe('');

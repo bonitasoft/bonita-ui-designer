@@ -41,7 +41,7 @@
             method: 'GET',
             url: '../API/system/session/unusedId'
           }).success(function(data, status, headers) {
-            $http.defaults.headers.common['X-Bonita-API-Token'] = headers('X-Bonita-API-Token');
+            $http.defaults.xsrfHeaderName = $http.defaults.xsrfCookieName = 'X-Bonita-API-Token';
           }));
         }
       };
