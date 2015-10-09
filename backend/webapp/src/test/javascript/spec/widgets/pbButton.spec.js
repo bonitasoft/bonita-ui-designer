@@ -15,6 +15,7 @@ describe('pbButton', function () {
     $location = $injector.get('$location');
     $window = $injector.get('$window');
     spyOn($window.top.location, 'assign');
+    spyOn($window.parent, 'postMessage');
 
     scope = $rootScope.$new();
     // set the default value for property method
@@ -433,6 +434,96 @@ describe('pbButton', function () {
 
       $timeout.flush();
       $httpBackend.verifyNoOutstandingRequest();
+    });
+  });
+
+  describe('postMessage', function () {
+
+    var currentWindow;
+
+    var stringifiedJSONArgsMatcher = function(actualArgs, expectedArgs) {
+      for (i= 0; i < actualArgs.length; i++) {
+        var argBeforeStringify;
+        try {
+          argBeforeStringify = JSON.parse(actualArgs[i]);
+        } catch (e) {
+          argBeforeStringify = actualArgs[i];
+        }
+        if (!jasmine.matchersUtil.equals(argBeforeStringify, expectedArgs[i])) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    beforeEach(function () {
+      currentWindow = $window.self;
+    });
+
+    afterEach(function () {
+      $window.self = currentWindow;
+      $httpBackend.verifyNoOutstandingRequest();
+      $httpBackend.verifyNoOutstandingExpectation();
+
+    });
+
+    it('should be sent on success', function () {
+      jasmine.addCustomEqualityTester(stringifiedJSONArgsMatcher);
+      $window.self = null;
+      var responseStatus = 200;
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      scope.properties.targetUrlOnSuccess = '/new/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(responseStatus, {case: 2});
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect($window.parent.postMessage).toHaveBeenCalledWith(jasmine.objectContaining(
+        {
+          message: 'success',
+          status: responseStatus,
+          dataFromSuccess: scope.properties.dataFromSuccess,
+          targetUrlOnSuccess: scope.properties.targetUrlOnSuccess
+        }), '*');
+    });
+
+    it('should be sent on error', function () {
+      jasmine.addCustomEqualityTester(stringifiedJSONArgsMatcher);
+      $window.self = null;
+      var responseStatus = 500;
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      scope.properties.targetUrlOnSuccess = '/new/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(responseStatus, 'fileTooBig');
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect($window.parent.postMessage).toHaveBeenCalledWith(jasmine.objectContaining(
+        {
+          message: 'error',
+          status: responseStatus,
+          dataFromError: scope.properties.dataFromError,
+          targetUrlOnSuccess: scope.properties.targetUrlOnSuccess
+        }), '*');
+    });
+
+    it('should not be sent if not in an iframe', function () {
+      $window.self = $window.parent;
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(200, {caseId:1});
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+      expect($window.parent.postMessage).not.toHaveBeenCalled();
     });
   });
 });
