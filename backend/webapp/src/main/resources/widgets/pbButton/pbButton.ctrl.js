@@ -79,7 +79,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
    * @return {void}
    */
   function doRequest(method, url, params) {
-     var req = {
+    var req = {
       method: method,
       url: url,
       data: angular.copy($scope.properties.dataToSend),
@@ -87,15 +87,24 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
     };
 
     return $http(req)
-      .success(function (data) {
-        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+      .success(function (data, status) {
+        $scope.properties.dataFromSuccess = data;
+        notifyParentFrame('success', status);
+        if($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           $window.top.location.assign($scope.properties.targetUrlOnSuccess);
         }
-        $scope.properties.dataFromSuccess = data;
       })
-      .error(function (data) {
+      .error(function (data, status) {
         $scope.properties.dataFromError = data;
+        notifyParentFrame('error', status);
       });
+  }
+
+  function notifyParentFrame(message, status) {
+    if ($window.parent !== $window.self) {
+      var dataToSend = angular.extend($scope.properties, { message: message, status: status })
+      $window.parent.postMessage(JSON.stringify(dataToSend), '*');
+    }
   }
 
   function getUserParam() {
