@@ -15,7 +15,6 @@
   angular.module('bonitasoft.ui', [
     'ngSanitize',
     'ngMessages',
-    'ngUpload',
     'bonitasoft.ui.templates',
     'bonitasoft.ui.constants',
     'bonitasoft.ui.services',
