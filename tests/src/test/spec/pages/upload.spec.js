@@ -5,7 +5,7 @@ describe('upload', function() {
   var filePath =  path.resolve(__dirname, '../../fixtures/greeeen.jpg');
 
   beforeEach(function() {
-    browser.get('/designer/preview/page/upload');
+    browser.get('/designer/preview/page/upload/');
   });
 
   it('should upload a file', function() {
