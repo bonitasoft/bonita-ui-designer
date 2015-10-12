@@ -51,7 +51,7 @@ public class PreviewerTest extends TestCase {
     @Test
     public void should_generate_html_and_print_it_in_response() throws Exception {
         when(pageRepository.get(page.getId())).thenReturn(page);
-        when(generator.generateHtml("/generator/", page)).thenReturn("foobar");
+        when(generator.generateHtml("/runtime/", page)).thenReturn("foobar");
 
         ResponseEntity<String> response = previewer.render(page.getId(), pageRepository, request);
 
@@ -62,7 +62,7 @@ public class PreviewerTest extends TestCase {
     @Test
     public void should_return_error_response_when_error_occur_on_generation() throws Exception {
         when(pageRepository.get(page.getId())).thenReturn(page);
-        when(generator.generateHtml("/generator/", page)).thenThrow(new GenerationException("error", new Exception()));
+        when(generator.generateHtml("/runtime/", page)).thenThrow(new GenerationException("error", new Exception()));
 
         ResponseEntity<String> response = previewer.render(page.getId(), pageRepository, request);
 

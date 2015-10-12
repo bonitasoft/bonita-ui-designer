@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['generator', 'widgets', 'pot']);
+  gulp.task('build', ['runtime', 'widgets', 'pot']);
 
   /**
    * Check for ddescribe and iit
@@ -46,7 +46,7 @@ module.exports = function(gulp, config) {
   /**
    * js task, concatenate and minimify vendor js files
    */
-  gulp.task('generator', ['generator:js', 'generator:css', 'generator:fonts', 'vendor']);
+  gulp.task('runtime', ['runtime:js', 'runtime:css', 'runtime:fonts', 'vendor']);
 
   gulp.task('vendor', function () {
     function notMinified(file) {
@@ -58,12 +58,12 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dest.vendors));
   });
 
-  gulp.task('generator:css', function () {
+  gulp.task('runtime:css', function () {
     return gulp.src(paths.css)
       .pipe(gulp.dest(paths.dest.css));
   });
 
-  gulp.task('generator:fonts', function () {
+  gulp.task('runtime:fonts', function () {
     return gulp.src(paths.fonts)
       .pipe(gulp.dest(paths.dest.fonts));
   });
@@ -71,13 +71,13 @@ module.exports = function(gulp, config) {
   /**
    * js task, concatenate and minimify js files
    */
-  gulp.task('generator:js', function () {
+  gulp.task('runtime:js', function () {
     var tpl = gulp.src(paths.templates)
       .pipe(html2js({
         moduleName: 'bonitasoft.ui.templates'
       }));
 
-    var app = gulp.src(paths.generator)
+    var app = gulp.src(paths.runtime)
       .pipe(ngAnnotate({
         single_quotes: true,
         add: true
@@ -89,7 +89,7 @@ module.exports = function(gulp, config) {
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
-      .pipe(concat('generator.min.js'))
+      .pipe(concat('runtime.min.js'))
       .pipe(uglify())
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(paths.dest.js));

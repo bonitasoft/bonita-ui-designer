@@ -45,7 +45,7 @@ public class WidgetDirectiveLoaderControllerTest {
     public void should_load_files_on_disk_according_to_asked_path() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
 
-        mockMvc.perform(get("/generator/widgets/pbLabel/pbLabel.js"))
+        mockMvc.perform(get("/runtime/widgets/pbLabel/pbLabel.js"))
 
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
@@ -57,7 +57,7 @@ public class WidgetDirectiveLoaderControllerTest {
     @Test
     public void should_respond_404_not_found_when_file_is_not_found() throws Exception {
 
-        mockMvc.perform(get("/generator/widgets/unknownWidget/unknownWidget.js"))
+        mockMvc.perform(get("/runtime/widgets/unknownWidget/unknownWidget.js"))
 
                 .andExpect(status().isNotFound());
 

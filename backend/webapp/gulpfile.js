@@ -4,9 +4,9 @@ var gulp = require('gulp');
 
 var paths = {
   templates: [
-    'src/main/generator/templates/*.html'
+    'src/main/runtime/templates/*.html'
   ],
-  generator: ['src/main/generator/**/*.js'],
+  runtime: ['src/main/runtime/**/*.js'],
   vendor: [
     'bower_components/angular/angular.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
@@ -19,7 +19,7 @@ var paths = {
   ],
   css: [
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'src/main/generator/css/**.css'
+    'src/main/runtime/css/**.css'
   ],
   widgets: ['src/main/resources/widgets/**/*.*'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
@@ -27,10 +27,10 @@ var paths = {
   tests: ['src/test/**/*.spec.js'],
 
   dest: {
-    vendors: 'target/classes/META-INF/resources/generator/js',
-    css: 'target/classes/META-INF/resources/generator/css',
-    fonts: 'target/classes/META-INF/resources/generator/fonts',
-    js: 'target/classes/META-INF/resources/generator/js',
+    vendors: 'target/classes/META-INF/resources/runtime/js',
+    css: 'target/classes/META-INF/resources/runtime/css',
+    fonts: 'target/classes/META-INF/resources/runtime/fonts',
+    js: 'target/classes/META-INF/resources/runtime/js',
     json: 'target/classes/widgets'
   }
 };
