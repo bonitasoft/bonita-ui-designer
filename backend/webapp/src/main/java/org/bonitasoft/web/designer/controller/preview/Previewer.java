@@ -64,7 +64,7 @@ public class Previewer {
      * Determines the resourceContext if it isn't defined
      */
     private String getResourceContext(HttpServletRequest httpServletRequest) {
-        return StringUtils.isEmpty(httpServletRequest.getContextPath()) ? "/generator/" : httpServletRequest.getContextPath() + "/generator/";
+        return StringUtils.isEmpty(httpServletRequest.getContextPath()) ? "/runtime/" : httpServletRequest.getContextPath() + "/runtime/";
     }
 
 }

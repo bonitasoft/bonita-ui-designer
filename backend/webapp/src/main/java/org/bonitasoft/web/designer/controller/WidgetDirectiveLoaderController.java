@@ -48,7 +48,7 @@ public class WidgetDirectiveLoaderController {
         this.widgetRepositoryPath = widgetRepositoryPath;
     }
 
-    @RequestMapping("generator/widgets/**")
+    @RequestMapping("runtime/widgets/**")
     public void serveWidgetDirective(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Path filePath = extractPathWithinPattern(request);
 

@@ -41,7 +41,7 @@ public class HtmlExportStep implements ExportStep<Page> {
 
     @Override
     public void execute(Zipper zipper, Page page) throws IOException {
-        zipper.addDirectoryToZip(Paths.get(resourceLoader.getResource(BACKEND_RESOURCES + "generator").getURI()), RESOURCES);
+        zipper.addDirectoryToZip(Paths.get(resourceLoader.getResource(BACKEND_RESOURCES + "runtime").getURI()), RESOURCES);
 
         byte[] html = generator.generateHtml(page).getBytes(StandardCharsets.UTF_8);
         zipper.addToZip(html, RESOURCES + "/index.html");

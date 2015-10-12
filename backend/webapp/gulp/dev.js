@@ -12,14 +12,14 @@ module.exports = function(gulp, config) {
    * dev task
    * Watch js and html files and launch jetty, without automatic reloading
    */
-  gulp.task('dev', ['widgets', 'generator', 'dev:html', 'dev:watch'], shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
+  gulp.task('dev', ['widgets', 'runtime', 'dev:html', 'dev:watch'], shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
 
   /**
    * Watch task.
    */
   gulp.task('dev:watch', function() {
-    gulp.watch(paths.css, ['generator:css']);
-    gulp.watch(paths.generator, ['generator:js']);
+    gulp.watch(paths.css, ['runtime:css']);
+    gulp.watch(paths.runtime, ['runtime:js']);
     gulp.watch(paths.widgets, ['dev:widgets']);
     gulp.watch(paths.templates, ['dev:html']);
   });
