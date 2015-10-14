@@ -120,9 +120,9 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
   $scope.importElement = function(type, title){
     var modalInstance = $modal.open({
-      templateUrl: 'js/home/import-artifact.html',
+      templateUrl: 'js/home/import/import-popup.html',
       windowClass: 'modal-centered',
-      controller: 'ImportArtifactController',
+      controller: 'ImportPopupController',
       controllerAs: 'import',
       resolve: {
         type: () => type,
@@ -135,9 +135,9 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
   $scope.manageImportReport = function(title, type, importReport){
     return $modal.open({
-      templateUrl: 'js/home/import-artifact-report.html',
+      templateUrl: 'js/home/import/import-report-popup.html',
       windowClass: 'modal-centered',
-      controller: 'ImportArtifactReportController',
+      controller: 'ImportReportPopupController',
       controllerAs: 'importReport',
       resolve: {
         importReport: () => importReport,

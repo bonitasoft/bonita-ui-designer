@@ -1,12 +1,12 @@
-describe('ImportArtifactSuccessMessageController', function () {
+describe('Import Success Message Controller', function () {
 
   var controller, scope;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home.import'));
   beforeEach(inject(function ($controller, $rootScope, gettextCatalog) {
     scope = $rootScope.$new();
 
-    controller = $controller('ImportArtifactSuccessMessageController', {
+    controller = $controller('ImportSuccessMessageController', {
       $scope: scope,
       gettextCatalog: gettextCatalog
     });

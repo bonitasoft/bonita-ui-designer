@@ -16,13 +16,24 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.home', [
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.home.import',
-    'bonitasoft.designer.templates',
-    'ui.bootstrap',
-    'ui.router'
-  ]);
+  angular
+    .module('bonitasoft.designer.home.import')
+    .controller('ImportPopupController', ImportPopupController);
+
+  function ImportPopupController($modalInstance, type, title, importArtifactService) {
+
+    var vm = this;
+    vm.type = type;
+    vm.url = 'import/' + type;
+    vm.filename = '';
+    vm.popupTitle = title;
+
+    vm.onComplete = onComplete;
+
+    function onComplete(response) {
+
+      importArtifactService.manageImportResponse(type, true, response).then($modalInstance.close, $modalInstance.dismiss);
+    }
+  }
 
 })();
