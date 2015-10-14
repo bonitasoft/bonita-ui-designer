@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.workspace;
 
 import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.deleteIfExists;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 import java.io.IOException;
@@ -27,7 +26,6 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -100,7 +98,7 @@ public class Workspace {
         } catch (IOException e) {
             String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
             logger.error(error, e);
-            throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
+            throw new RuntimeException(error, e);
         }
     }
 

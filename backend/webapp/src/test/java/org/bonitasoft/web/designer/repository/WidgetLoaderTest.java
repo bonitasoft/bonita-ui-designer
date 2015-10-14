@@ -15,9 +15,11 @@
 package org.bonitasoft.web.designer.repository;
 
 import static java.nio.file.Files.createDirectory;
+import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -26,21 +28,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.exception.ImportException;
-import org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.exception.JsonReadException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 public class WidgetLoaderTest {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     private Path widgetDirectory;
     private WidgetLoader widgetLoader;
@@ -127,11 +126,15 @@ public class WidgetLoaderTest {
         assertThat(widget).isEqualTo(input);
     }
 
-    @Test
-    public void should_throw_import_exception_when_there_are_no_pages_in_import_folder() throws Exception {
-        exception.expect(ImportException.class);
-        exception.expect(ImportExceptionMatcher.hasType(ImportException.Type.PAGE_NOT_FOUND));
-
+    @Test(expected = NotFoundException.class)
+    public void should_throw_notfound_exception_when_there_are_no_pages_in_folder() throws Exception {
         widgetLoader.load(widgetDirectory, "test");
+    }
+
+    @Test(expected = JsonReadException.class)
+    public void should_throw_json_read_exception_when_loaded_file_is_not_valid_json() throws Exception {
+        write(widgetDirectory.resolve("wrongjson.json"), "notJson".getBytes());
+
+        widgetLoader.load(widgetDirectory, "wrongjson.json");
     }
 }

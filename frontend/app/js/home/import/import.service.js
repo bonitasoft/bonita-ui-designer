@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.home.import')
     .service('importArtifactService', importArtifactService);
 
-  function importArtifactService(alerts, gettextCatalog, $q, pageRepo, widgetRepo) {
+  function importArtifactService(alerts, gettextCatalog, $q, pageRepo, widgetRepo, importErrorMessagesService) {
     var forceImportRepoFns = {};
     registerForceImportFn('page', pageRepo.forceImport);
     registerForceImportFn('widget', widgetRepo.forceImport);
@@ -48,7 +48,12 @@
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this is an error
       if (service.isErrorResponse(response)) {
-        alerts.addError(response.message);
+
+        alerts.addError({
+          title: gettextCatalog.getString('Import error'),
+          contentUrl: 'js/home/import/import-error-message.html',
+          context: importErrorMessagesService.getErrorContext(response, type)
+        });
         deferred.reject();
       } else {
         var importReportContext = angular.extend(response, {

@@ -12,11 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.controller.exception;
+package org.bonitasoft.web.designer.repository.exception;
 
-public class ExportException extends RuntimeException {
+public class JsonReadException extends RuntimeException {
 
-    public ExportException(Throwable e) {
-        super(e);
+    public JsonReadException(String message, Exception e) {
+        super(message, e);
     }
 }

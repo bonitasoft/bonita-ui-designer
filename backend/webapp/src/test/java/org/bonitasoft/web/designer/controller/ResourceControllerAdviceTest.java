@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 
+import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
@@ -122,5 +123,30 @@ public class ResourceControllerAdviceTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isConflict())
                 .andExpect(content().string("{\"type\":\"InUseException\",\"message\":\"conflict\"}"));
+    }
+
+    @Test
+    public void should_respond_accepted_with_json_error_on_ImportException() throws Exception {
+        ImportException exception = new ImportException(ImportException.Type.CANNOT_OPEN_ZIP, "an error occurs");
+        doThrow(exception).when(fakeService).doSomething();
+
+        mockMvc.perform(get("/fake/resource"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(status().isAccepted())
+                .andExpect(content().json(
+                        "{\"type\":\"CANNOT_OPEN_ZIP\",\"message\":\"an error occurs\"}"));
+    }
+
+    @Test
+    public void should_respond_accepted_with_json_error_containing_additionnal_infos_on_ImportExceptio() throws Exception {
+        ImportException exception = new ImportException(ImportException.Type.CANNOT_OPEN_ZIP, "an error occurs");
+        exception.addInfo("additionnalInfo", "here is something");
+        doThrow(exception).when(fakeService).doSomething();
+
+        mockMvc.perform(get("/fake/resource"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(status().isAccepted())
+                .andExpect(
+                        content().json("{\"type\":\"CANNOT_OPEN_ZIP\",\"message\":\"an error occurs\",\"infos\":{\"additionnalInfo\":\"here is something\"}}"));
     }
 }

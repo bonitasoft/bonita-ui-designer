@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Representation of error messages, part of the response when exception occurs
  *
@@ -23,6 +26,7 @@ public class ErrorMessage {
 
     private String type;
     private String message;
+    private Map<String, Object> infos;
 
     public ErrorMessage(Exception exception) {
         this.type = exception.getClass().getSimpleName();
@@ -40,5 +44,18 @@ public class ErrorMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public void addInfos(Map<String, Object> infos) {
+        if (infos != null) {
+            if (this.infos == null) {
+                this.infos = new HashMap<>();
+            }
+            this.infos.putAll(infos);
+        }
+    }
+
+    public Map<String, Object> getInfos() {
+        return infos;
     }
 }
