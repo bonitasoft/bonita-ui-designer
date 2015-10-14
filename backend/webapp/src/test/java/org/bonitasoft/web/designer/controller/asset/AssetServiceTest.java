@@ -35,7 +35,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.bonitasoft.web.designer.controller.exception.ServerImportException;
+import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;

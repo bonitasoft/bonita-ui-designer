@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aFilledSimpleObject;
-import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
@@ -30,14 +29,14 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.builder.SimpleObjectBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.SimpleObject;
+import org.bonitasoft.web.designer.repository.exception.JsonReadException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -45,8 +44,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedLoaderTest {
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -203,7 +200,6 @@ public class JsonFileBasedLoaderTest {
 
         addToRepository(object1, object2);
 
-
         //In this test we see the object id in the file not in the name of the file. So we
         //consider that our id is object1
         assertThat(loader.contains(repoDirectory, "object2")).isFalse();
@@ -219,12 +215,16 @@ public class JsonFileBasedLoaderTest {
         assertThat(loadedSimpleObject).isEqualTo(object1);
     }
 
-    @Test
-    public void should_throw_import_exception_when_there_are_no_pages_in_import_folder() throws Exception {
-        exception.expect(ImportException.class);
-        exception.expect(hasType(ImportException.Type.PAGE_NOT_FOUND));
-
+    @Test(expected = NotFoundException.class)
+    public void should_throw_notfound_exception_when_there_are_no_pages_in_folder() throws Exception {
         loader.load(repoDirectory, "test");
+    }
+
+    @Test(expected = JsonReadException.class)
+    public void should_throw_json_read_exception_when_loaded_file_is_not_valid_json() throws Exception {
+        write(repoDirectory.resolve("wrongjson.json"), "notJson".getBytes());
+
+        loader.load(repoDirectory, "wrongjson.json");
     }
 
 }

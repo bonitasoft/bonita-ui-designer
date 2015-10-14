@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.importer.exception;
 
-import org.bonitasoft.web.designer.controller.exception.ImportException;
-import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
+import org.bonitasoft.web.designer.controller.importer.ImportException;
+import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 

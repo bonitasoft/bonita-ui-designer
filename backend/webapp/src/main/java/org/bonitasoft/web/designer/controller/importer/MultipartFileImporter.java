@@ -19,8 +19,7 @@ import java.io.InputStream;
 
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.controller.exception.ImportException;
-import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
+import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.springframework.web.multipart.MultipartFile;

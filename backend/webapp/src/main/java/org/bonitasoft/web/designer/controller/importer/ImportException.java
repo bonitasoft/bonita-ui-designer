@@ -12,7 +12,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.controller.exception;
+package org.bonitasoft.web.designer.controller.importer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ImportException extends RuntimeException {
 
@@ -25,6 +28,7 @@ public class ImportException extends RuntimeException {
     }
 
     private Type type;
+    private Map<String, Object> infos;
 
     public ImportException(Type type, String msg) {
         super(msg);
@@ -40,4 +44,14 @@ public class ImportException extends RuntimeException {
         return type;
     }
 
+    public Map<String, Object> getInfos() {
+        return infos;
+    }
+
+    public void addInfo(String name, Object value) {
+        if (infos == null) {
+            infos = new HashMap<>();
+        }
+        infos.put(name, value);
+    }
 }

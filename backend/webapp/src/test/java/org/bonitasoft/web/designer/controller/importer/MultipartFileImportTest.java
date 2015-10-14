@@ -20,7 +20,6 @@ import static org.mockito.Mockito.verify;
 
 import java.io.InputStream;
 
-import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Rule;
 import org.junit.Test;

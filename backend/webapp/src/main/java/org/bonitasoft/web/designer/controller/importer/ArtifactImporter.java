@@ -14,9 +14,12 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.notExists;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
-import static org.bonitasoft.web.designer.controller.exception.ImportException.Type.CANNOT_OPEN_ZIP;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,16 +32,17 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipException;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.controller.exception.ImportException;
-import org.bonitasoft.web.designer.controller.exception.ImportException.Type;
-import org.bonitasoft.web.designer.controller.exception.ServerImportException;
+import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.exception.JsonReadException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,9 +113,10 @@ public class ArtifactImporter<T extends Identifiable> {
      * if uploadedFileDirectory is null, the import is forced
      */
     private ImportReport tryToImportAndGenerateReport(Path resources, Path uploadedFileDirectory) {
+        String modelFile = repository.getComponentName() + ".json";
         try {
             // first load everything
-            T element = loader.load(resources, repository.getComponentName() + ".json");
+            T element = loader.load(resources, modelFile);
             Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
             ImportReport report = buildReport(element, dependencies);
@@ -125,13 +130,21 @@ public class ArtifactImporter<T extends Identifiable> {
                 String uuid = UUID.randomUUID().toString();
                 extractedDirPathMap.put(uuid, uploadedFileDirectory.getFileName().toFile().getName());
                 report.setUUID(uuid);
-            };
-
+            }
             return report;
         } catch (IOException | RepositoryException e) {
             String errorMessage = "Error while " + ((e instanceof IOException) ? "unzipping" : "saving") + " artefacts";
             logger.error(errorMessage + ", check uploaded content", e);
             throw new ServerImportException(errorMessage, e);
+        } catch (NotFoundException e) {
+            ImportException importException = new ImportException(PAGE_NOT_FOUND,
+                    format("Could not load component, unexpected structure in the file [%s]", modelFile), e);
+            importException.addInfo("modelfile", modelFile);
+            throw importException;
+        } catch (JsonReadException e) {
+            ImportException importException = new ImportException(JSON_STRUCTURE, format("Could not read json file [%s]", modelFile), e);
+            importException.addInfo("modelfile", modelFile);
+            throw importException;
         }
     }
 
