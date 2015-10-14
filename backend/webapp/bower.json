@@ -21,7 +21,6 @@
     "angular-bootstrap": "0.13.0",
     "bootstrap": "3.3.2",
     "angular-messages": "1.3.18",
-    "ngUpload": "0.5.16",
     "angular-gettext": "2.1.0"
   },
   "resolutions": {
