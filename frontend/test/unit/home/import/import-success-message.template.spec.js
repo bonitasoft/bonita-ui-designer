@@ -2,7 +2,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
 
   var element, scope;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home.import'));
 
   // remove double space, \t, \n etc ...
   function hardTrim(string) {
@@ -12,7 +12,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
   beforeEach(inject(function ($controller, $rootScope, gettextCatalog, $compile, $templateCache) {
     scope = $rootScope.$new();
 
-    var template = $templateCache.get('js/home/import-artifact-success-message.html');
+    var template = $templateCache.get('js/home/import/import-success-message.html');
     element = $compile(template)(scope);
   }));
 

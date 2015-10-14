@@ -16,13 +16,11 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.home', [
+  angular.module('bonitasoft.designer.home.import', [
     'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.home.import',
+    'bonitasoft.designer.common.services',
     'bonitasoft.designer.templates',
-    'ui.bootstrap',
-    'ui.router'
+    'gettext'
   ]);
 
 })();

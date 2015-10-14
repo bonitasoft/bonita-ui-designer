@@ -12,17 +12,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(function () {
 
   'use strict';
 
-  angular.module('bonitasoft.designer.home', [
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.home.import',
-    'bonitasoft.designer.templates',
-    'ui.bootstrap',
-    'ui.router'
-  ]);
+  angular
+    .module('bonitasoft.designer.home.import')
+    .controller('ImportReportPopupController', ImportReportPopupController);
+
+  function ImportReportPopupController($modalInstance, importReport, title, type, importArtifactService) {
+
+    var vm = this;
+    vm.popupTitle = title;
+    vm.report = importReport;
+    vm.joinOnNames = joinOnNames;
+
+    vm.forceImport = forceImport;
+
+
+    function joinOnNames(artifacts) {
+      return artifacts.map(function (item) {
+        return item.name;
+      }).join(', ');
+    }
+
+    function forceImport() {
+      importArtifactService.forceImport(importReport, type, $modalInstance.close, $modalInstance.dismiss);
+    }
+  }
 
 })();

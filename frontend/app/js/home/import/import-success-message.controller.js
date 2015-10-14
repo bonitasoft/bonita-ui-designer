@@ -12,17 +12,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(function () {
 
-  'use strict';
+  angular
+    .module('bonitasoft.designer.home.import')
+    .controller('ImportSuccessMessageController', ImportSuccessMessageController);
 
-  angular.module('bonitasoft.designer.home', [
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.home.import',
-    'bonitasoft.designer.templates',
-    'ui.bootstrap',
-    'ui.router'
-  ]);
+  function ImportSuccessMessageController($scope, gettextCatalog) {
+
+    var vm = this;
+
+    vm.joinOnNames = joinOnNames;
+    vm.getState = getState;
+
+    function joinOnNames(artifacts) {
+      return artifacts.map(function(item) {
+        return item.name;
+      }).join(', ');
+    }
+
+    function getState() {
+      if ($scope.overridden) {
+        return gettextCatalog.getString('overridden');
+      }
+      return gettextCatalog.getString('added');
+    }
+  }
 
 })();
