@@ -26,6 +26,9 @@ public class ImportReportBuilder {
     private Identifiable element;
     List<Identifiable> added = new ArrayList<>();
     List<Identifiable> overridden = new ArrayList<>();
+    private String uuid;
+
+    private boolean override;
 
     public ImportReportBuilder(Identifiable element) {
         this.element = element;
@@ -49,6 +52,16 @@ public class ImportReportBuilder {
         return this;
     }
 
+    public ImportReportBuilder withUUID(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    public ImportReportBuilder withOverride(boolean override) {
+        this.override = override;
+        return this;
+    }
+
     public ImportReport build() {
         Dependencies dependencies = new Dependencies();
         for (Identifiable identifiable : added) {
@@ -57,6 +70,9 @@ public class ImportReportBuilder {
         for (Identifiable identifiable : overridden) {
             dependencies.addOverriddenDependency(identifiable.getClass().getSimpleName().toLowerCase(), identifiable);
         }
-        return new ImportReport(element, dependencies);
+        ImportReport importReport = new ImportReport(element, dependencies);
+        importReport.setUUID(uuid);
+        importReport.setOverridden(override);
+        return importReport;
     }
 }

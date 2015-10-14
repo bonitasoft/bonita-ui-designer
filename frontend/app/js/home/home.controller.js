@@ -106,12 +106,8 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       windowClass: 'modal-centered',
       controller: 'DeletionPopUpController',
       resolve: {
-        artifact: function() {
-          return customWidget;
-        },
-        type: function() {
-          return 'custom widget';
-        }
+        artifact: () => customWidget,
+        type: () => 'custom widget'
       }
     });
 
@@ -120,9 +116,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       .then($scope.refreshAll);
   };
 
-  $scope.exportWidgetUrl = function(widget) {
-    return widgetRepo.exportUrl(widget);
-  };
+  $scope.exportWidgetUrl = (widget) => widgetRepo.exportUrl(widget);
 
   $scope.importElement = function(type, title){
     var modalInstance = $modal.open({
@@ -131,16 +125,26 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       controller: 'ImportArtifactController',
       controllerAs: 'import',
       resolve: {
-        type: function() {
-          return type;
-        },
-        title: function() {
-          return title;
-        }
-      }
+        type: () => type,
+        title: () => title
+       }
     });
 
-    modalInstance.result.then($scope.refreshAll);
+    modalInstance.result.then((importReport) => (!!importReport) && $scope.manageImportReport(title, type, importReport)).then($scope.refreshAll);
+  };
+
+  $scope.manageImportReport = function(title, type, importReport){
+    return $modal.open({
+      templateUrl: 'js/home/import-artifact-report.html',
+      windowClass: 'modal-centered',
+      controller: 'ImportArtifactReportController',
+      controllerAs: 'importReport',
+      resolve: {
+        importReport: () => importReport,
+        type: () => type,
+        title: () => title
+       }
+    }).result;
   };
 
   /**
