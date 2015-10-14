@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -23,15 +22,12 @@ import java.io.InputStream;
 
 import org.bonitasoft.web.designer.controller.exception.ImportException;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -41,7 +37,7 @@ public class MultipartFileImportTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Mock
-    private ArtefactImporter<Page> importer;
+    private ArtifactImporter<Page> importer;
 
     private MultipartFileImporter multipartFileImporter = new MultipartFileImporter();
 

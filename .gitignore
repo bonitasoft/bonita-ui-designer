@@ -18,3 +18,4 @@ frontend/node/
 frontend/build/
 
 tests/node/
+*.swp

@@ -23,10 +23,7 @@ import static org.bonitasoft.web.designer.controller.importer.exception.ImportEx
 import static org.bonitasoft.web.designer.controller.importer.mocks.StreamMock.aStream;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +53,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WidgetArtefactImporterTest {
+public class WidgetArtifactImporterTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -71,7 +68,7 @@ public class WidgetArtefactImporterTest {
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
 
-    private ArtefactImporter<Widget> importer;
+    private ArtifactImporter<Widget> importer;
 
     private Path unzippedPath;
     private WidgetImportMock wMocks;
@@ -79,7 +76,7 @@ public class WidgetArtefactImporterTest {
     @Before
     public void setUp() throws IOException {
         DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
-        importer = new ArtefactImporter(unzip, widgetRepository, widgetLoader, widgetImporter);
+        importer = new ArtifactImporter(unzip, widgetRepository, widgetLoader, widgetImporter);
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(tempDir.toPath());
         unzippedPath = tempDir.newFolderPath("resources");
         when(widgetRepository.getComponentName()).thenReturn("widget");
@@ -107,7 +104,7 @@ public class WidgetArtefactImporterTest {
 
     @Test
     public void should_delete_created_folder_after_import() throws Exception {
-        when(widgetLoader.load(any(Path.class),eq("widget.json"))).thenReturn(aWidget().id("aWidget").build());
+        when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(aWidget().id("aWidget").build());
 
         importer.execute(aStream());
 
@@ -116,7 +113,7 @@ public class WidgetArtefactImporterTest {
 
     @Test
     public void should_delete_created_folder_even_if_an_exception_occurs_when_importing() throws Exception {
-        when(widgetLoader.load(any(Path.class),eq("widget.json"))).thenThrow(ImportException.class);
+        when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenThrow(ImportException.class);
 
         try {
             importer.execute(aStream());
@@ -157,7 +154,7 @@ public class WidgetArtefactImporterTest {
     @Test(expected = ServerImportException.class)
     public void should_throw_server_import_exception_when_error_occurs_while_saving_files_in_repository() throws Exception {
         Widget widget = aWidget().id("aWidget").build();
-        when(widgetLoader.load(any(Path.class),eq("widget.json"))).thenReturn(widget);
+        when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(widget);
         doThrow(RepositoryException.class).when(widgetRepository).save(widget);
 
         importer.execute(aStream());

@@ -67,7 +67,7 @@ public class Exporter<T extends Identifiable> {
 
             // add json model
             zipper.addToZip(objectMapper.toJson(identifiable), String.format("%s/%s.json", RESOURCES, repository.getComponentName()));
-            // execute export steps
+            // forceExecution export steps
             for (ExportStep exporter : exportSteps) {
                 exporter.execute(zipper, identifiable);
             }

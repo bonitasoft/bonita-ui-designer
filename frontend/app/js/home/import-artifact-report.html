@@ -1,0 +1,33 @@
+<div class="ImportReport">
+    <div class="modal-header">
+        <h3 class="modal-title" translate>Import {{ importReport.report.element.name }}</h3>
+    </div>
+    <div class="modal-body">
+        <translate>The import will override the following existing elements based on their names:</translate>
+        <ul>
+            <li ng-if="importReport.report.overridden" class="ImportReport-pageOverridden">
+                <span class="text-muted">
+                    <i class="ui-icon ui-pages"></i>
+                    <translate class="ImportReport-type">{{ importReport.report.type }}</translate>
+                </span>
+                {{ importReport.report.element.name }}
+            </li>
+            <li ng-repeat="(artifactType, artifacts) in importReport.report.dependencies.overridden">
+                <span class="text-muted">
+                    <i class="ui-icon ui-{{artifactType}}s"></i>
+                    <translate translate-n="artifacts.length"
+                               translate-plural="{{ artifactType }}s"
+                               class="ImportReport-type">{{ artifactType }}
+                    </translate>
+                </span>
+                {{ importReport.joinOnNames(artifacts) }}
+            </li>
+        </ul>
+        <p translate>The other elements will be imported.</p>
+        <p translate>Do you want to continue?</p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Continue</button>
+    <button type="button" class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
+</div>

@@ -152,6 +152,7 @@ angular.module('bonitasoft.designer.common.repositories').factory('pageRepo', fu
     deleteAsset: deleteAsset,
     load: load,
     loadAssets: loadAssets,
-    exportUrl: exportUrl
+    exportUrl: exportUrl,
+    forceImport: (uuid) => $http.get('import/page/' + uuid)
   };
 });

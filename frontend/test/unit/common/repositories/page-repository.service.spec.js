@@ -193,4 +193,10 @@ describe('pageRepo', function() {
     pageRepo.createAsset('my-page', asset);
     $httpBackend.flush();
   });
+  it('should call import/page/uuid when forceImport is called', () => {
+    var uuid = 'zezaerze-zerz-zer-zer';
+    $httpBackend.expectGET('import/page/'+uuid).respond('');
+    pageRepo.forceImport(uuid);
+    $httpBackend.flush();
+  });
 });

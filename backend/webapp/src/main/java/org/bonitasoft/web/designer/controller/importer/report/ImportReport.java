@@ -14,17 +14,20 @@
  */
 package org.bonitasoft.web.designer.controller.importer.report;
 
+import java.util.List;
+import java.util.Map;
+
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.model.Identifiable;
 
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ImportReport {
 
     private Identifiable element;
     private Boolean overridden = false;
     private Dependencies dependencies;
+    private String uuid;
 
     public ImportReport(Identifiable element, Dependencies dependencies) {
         this.element = element;
@@ -34,7 +37,6 @@ public class ImportReport {
     public static ImportReport from(Identifiable element, Map<DependencyImporter, List<?>> dependencies) {
         return new ImportReport(element, Dependencies.from(dependencies));
     }
-
 
     public void setElement(Identifiable element) {
         this.element = element;
@@ -58,5 +60,18 @@ public class ImportReport {
 
     public void setDependencies(Dependencies dependencies) {
         this.dependencies = dependencies;
+    }
+
+    public String getUUID() {
+        return uuid;
+    }
+
+    public void setUUID(String uuid) {
+        this.uuid = uuid;
+    }
+
+    @JsonIgnore
+    public boolean doesNotOverrideElements() {
+        return !this.isOverridden() && (this.getDependencies().getOverridden() == null || this.getDependencies().getOverridden().isEmpty());
     }
 }
