@@ -1,0 +1,19 @@
+<ul>
+  <li ng-if="displayPage" class="ImportReport-page">
+      <span class="text-muted">
+          <i class="ui-icon ui-pages"></i>
+          <translate class="ImportReport-type">{{ type }}</translate>
+      </span>
+      {{ pageName }}
+  </li>
+  <li ng-repeat="(artifactType, artifacts) in dependencies">
+    <span class="text-muted">
+        <i class="ui-icon ui-{{artifactType}}s"></i>
+        <translate translate-n="artifacts.length"
+                   translate-plural="{{ artifactType }}s"
+                   class="ImportReport-type">{{ artifactType }}
+        </translate>
+    </span>
+    {{ joinOnNames(artifacts) }}
+  </li>
+</ul>
