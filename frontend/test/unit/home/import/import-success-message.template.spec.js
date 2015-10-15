@@ -26,7 +26,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     });
     scope.$apply();
 
-    expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully added');
+    expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully imported.');
   });
 
   it('should print to user that element has been overridden', function () {
@@ -39,7 +39,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     });
     scope.$apply();
 
-    expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully overridden');
+    expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully imported.');
   });
 
   it('should not display added dependencies section when no dependencies are added', function () {
@@ -55,9 +55,11 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
 
   it('should display added dependencies', function () {
     angular.extend(scope, {
+      element:{ name: 'aPage' },
+      overridden: false,
       dependencies: {
         added: {
-          page: [ { name: 'aPage' }, { name: 'anotherPage' }],
+          page: [ { name: 'anotherPage' }],
           widget: [ { name: 'aWidget' }]
         }
       }
@@ -65,8 +67,9 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     scope.$apply();
 
     expect(element.find('section.ImportReport-added').length).toBe(1);
-    expect(hardTrim(element.find('section.ImportReport-added ul li').first().text())).toBe('pages aPage, anotherPage');
-    expect(hardTrim(element.find('section.ImportReport-added ul li').next().text())).toBe('widget aWidget');
+    expect(hardTrim(element.find('section.ImportReport-added ul li').first().text())).toBe('aPage');
+    expect(hardTrim(element.find('section.ImportReport-added ul li').next().first().text())).toBe('page anotherPage');
+    expect(hardTrim(element.find('section.ImportReport-added ul li').next().next().text())).toBe('widget aWidget');
   });
 
   it('should not display overridden dependencies section when no dependencies are overridden', function () {
