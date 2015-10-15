@@ -88,7 +88,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
 
     return $http(req)
       .success(function (data) {
-        if ($scope.properties.targetUrlOnSuccess) {
+        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           $window.top.location.assign($scope.properties.targetUrlOnSuccess);
         }
         $scope.properties.dataFromSuccess = data;
