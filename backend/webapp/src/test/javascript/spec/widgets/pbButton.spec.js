@@ -219,7 +219,7 @@ describe('pbButton', function () {
 
     it('should bind error data when POST fail', function () {
       var data = {'name': 'toto'};
-      var url = '/toto'
+      var url = '/toto';
       $httpBackend.expectPOST(url, data).respond(404, 'not found');
 
       scope.properties.dataToSend = data;
@@ -233,6 +233,46 @@ describe('pbButton', function () {
     });
 
     it('should bind success data when GET succeed', function () {
+      var url = '/toto';
+
+      $httpBackend.expectGET(url).respond("success");
+      scope.properties.url = url;
+      scope.properties.action = 'GET';
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect(scope.properties.dataFromSuccess).toBe('success');
+    });
+
+    it('should bind error data when GET fail', function () {
+      var url = '/toto';
+      $httpBackend.expectGET(url).respond(404, 'not found');
+
+      scope.properties.action = 'GET';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.dataFromError).toBe('not found');
+    });
+
+    it('should not change location on GET success', function () {
+      scope.properties.action = 'GET';
+      scope.properties.url = '/some/location';
+      scope.properties.targetUrlOnSuccess = '/new/location';
+      $httpBackend.expectGET('/some/location').respond(200, '');
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+      expect($window.top.location.assign).not.toHaveBeenCalledWith('/new/location');
+    });
+
+    it('should bind success data when PUT succeed', function () {
       var data = {'name': 'toto'};
       var url = '/toto/1';
 

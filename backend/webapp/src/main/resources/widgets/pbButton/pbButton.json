@@ -45,6 +45,7 @@
         "Start process",
         "POST",
         "PUT",
+        "GET",
         "Add to collection",
         "Remove from collection"
       ],
@@ -57,7 +58,7 @@
       "help": "URL used to perform the HTTP request when this button is clicked.",
       "type": "text",
       "name": "url",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT'",
+      "showFor": "['POST', 'PUT', 'GET'].indexOf(properties.action.value) > -1",
       "bond": "interpolation"
     },
     {
@@ -72,7 +73,7 @@
       "help": "Holds the response when the request is successful",
       "name": "dataFromSuccess",
       "type": "text",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
+      "showFor": "['POST', 'PUT', 'GET', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "variable"
     },
     {
@@ -80,7 +81,7 @@
       "help": "Holds the response when the request has failed",
       "name": "dataFromError",
       "type": "text",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
+      "showFor": "['POST', 'PUT', 'GET', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "variable"
     },
     {
