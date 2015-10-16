@@ -1,3 +1,5 @@
+var switchToAlert = require('../pages/utils.js').switchToAlert;
+
 describe('custom widget editor', function() {
 
   beforeEach(function() {
@@ -30,7 +32,7 @@ describe('custom widget editor', function() {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
-    var dialog = browser.switchTo().alert();
+    var dialog = switchToAlert();
     expect(dialog.accept).toBeDefined();
     dialog.accept();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
@@ -39,7 +41,7 @@ describe('custom widget editor', function() {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
-    var dialog = browser.switchTo().alert();
+    var dialog = switchToAlert();
     expect(dialog.dismiss).toBeDefined();
     dialog.dismiss();
     expect(browser.getCurrentUrl()).toMatch(/\/customAwesomeWidget/);
