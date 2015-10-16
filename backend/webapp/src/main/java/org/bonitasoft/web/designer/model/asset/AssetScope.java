@@ -14,8 +14,21 @@
  */
 package org.bonitasoft.web.designer.model.asset;
 
-public enum AssetScope {
+import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 
-    PAGE,
-    WIDGET
+public abstract class AssetScope {
+    public static String WIDGET = "widget";
+    public static String PAGE = "page";
+
+    public static String forComponent(Assetable assetable) {
+        if (assetable instanceof Page) {
+            return PAGE;
+        }
+        if (assetable instanceof Widget) {
+            return WIDGET;
+        }
+        throw new IllegalArgumentException("Unknown assetable type");
+    }
 }

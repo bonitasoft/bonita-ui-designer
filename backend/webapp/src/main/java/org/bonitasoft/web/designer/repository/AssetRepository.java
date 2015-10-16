@@ -160,7 +160,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                 objects.add(new Asset()
                         .setName(path.getFileName().toString())
                         .setType(type)
-                        .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
+                        .setScope(AssetScope.forComponent(component))
                         .setComponentId(component.getId())
                         .setId(UUID.randomUUID().toString()));
             }
@@ -171,7 +171,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
 
     /**
      *  {@linkplain AssetRepository<T>.refreshAssets} need to not set componentId for asset otherwise it makes page creation failing
-     *  {@linkplain AssetImporter} need it
+     *  AssetImporter need it
      *
      *  // TODO : to be refactored
      */
@@ -183,7 +183,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                 objects.add(new Asset()
                         .setName(path.getFileName().toString())
                         .setType(type)
-                        .setScope(component instanceof Page ? AssetScope.PAGE : AssetScope.WIDGET)
+                        .setScope(AssetScope.forComponent(component))
                         .setComponentId(component instanceof Widget ? component.getId() : null)
                         .setId(UUID.randomUUID().toString()));
             }

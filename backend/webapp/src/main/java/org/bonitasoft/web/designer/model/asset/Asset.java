@@ -57,7 +57,7 @@ public class Asset {
     /**
      * An asset can belong to a widget or a page
      */
-    private AssetScope scope;
+    private String scope;
     /**
      * Asset order is important. User or the system has to define it
      */
@@ -113,11 +113,11 @@ public class Asset {
     }
 
     @JsonView({JsonViewAsset.class})
-    public AssetScope getScope() {
+    public String getScope() {
         return scope;
     }
 
-    public Asset setScope(AssetScope scope) {
+    public Asset setScope(String scope) {
         this.scope = scope;
         return this;
     }

@@ -115,16 +115,16 @@ describe('utils', function () {
     var widget = {
       $$widget: {
         assets: [
-          {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
-          {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'}]
+          {id: 'widgetAsset', componentId: '4321', scope: 'widget'},
+          {id: 'otherWidgetAsset', componentId: '4321', scope: 'widget'}]
       }
     };
 
     assetsService.addWidgetAssetsToPage(widget, page);
 
     expect(page.assets).toEqual([
-      {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
-      {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'widgetAsset', componentId: '4321', scope: 'widget'},
+      {id: 'otherWidgetAsset', componentId: '4321', scope: 'widget'},
       {id: 'anAsset', componentId: '1234'}
     ]);
   });
@@ -132,23 +132,23 @@ describe('utils', function () {
   it('should not add widget asset to page if already added', function () {
     var page = {
       assets: [
-        {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
-        {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+        {id: 'widgetAsset', componentId: '4321', scope: 'widget'},
+        {id: 'otherWidgetAsset', componentId: '4321', scope: 'widget'},
         {id: 'anAsset', componentId: '1234'}]
     };
     var widget = {
       $$widget: {
         assets: [
-          {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
-          {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'}]
+          {id: 'widgetAsset', componentId: '4321', scope: 'widget'},
+          {id: 'otherWidgetAsset', componentId: '4321', scope: 'widget'}]
       }
     };
 
     assetsService.addWidgetAssetsToPage(widget, page);
 
     expect(page.assets).toEqual([
-      {id: 'widgetAsset', componentId: '4321', scope: 'WIDGET'},
-      {id: 'otherWidgetAsset', componentId: '4321', scope: 'WIDGET'},
+      {id: 'widgetAsset', componentId: '4321', scope: 'widget'},
+      {id: 'otherWidgetAsset', componentId: '4321', scope: 'widget'},
       {id: 'anAsset', componentId: '1234'}
     ]);
   });
@@ -169,16 +169,16 @@ describe('utils', function () {
     assetsService.addWidgetAssetsToPage(widget, page);
 
     expect(page.assets).toEqual([
-      {id: 'widgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
-      {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'WIDGET'}
+      {id: 'widgetAsset', componentId: 'widgetId', scope: 'widget'},
+      {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'widget'}
     ]);
   });
 
   it('should remove widget assets from page', function() {
     var page = {
       assets: [
-        {id: 'widgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
-        {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'WIDGET'},
+        {id: 'widgetAsset', componentId: 'widgetId', scope: 'widget'},
+        {id: 'otherWidgetAsset', componentId: 'widgetId', scope: 'widget'},
         {id: 'anAsset', componentId: '1234'}]
     };
     var widget = {
