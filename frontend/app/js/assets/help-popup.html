@@ -43,24 +43,24 @@
                 To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field.
             </p>
 
-            <p translate>
-                To use a localization asset, replace the default localization.json file with a file of the same format
+            <p>
+                <translate>To use a localization asset, replace the default localization.json file with a file of the same format
                 containing all the keys in the page and the translations into the target languages. The localization
-                asset is at page level. The format of the file must be:
+                asset is at page level. The format of the file must be:</translate>
                 <pre><code>{
-    "language-A with the format ISO 639-1 code": {
-        "english key":"translated key for language-A",
-        "english key2":"translated key2 for language-A",
+    "fr-FR": {
+        "Title": "Titre",
+        "Default label": "Libellé par défaut",
         ...
     },
-    "language-B with the format ISO 639-1 code": {
-        "english key":"translated key for language-B",
-        "english key2":"translated key2 for language-B",
+    "es-ES": {
+        "Title": "Título",
+        "Default label": "Etiqueta por defecto",
         ...
     }
     ...
 }</code></pre>
-                See the default localization asset for an example.
+                <translate>See the default localization asset for an example.</translate>
             </p>
         </tab>
 
