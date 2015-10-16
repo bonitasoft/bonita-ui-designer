@@ -51,7 +51,7 @@ describe('AssetPreviewPopupCtrl', function () {
       $scope: scope,
       $modalInstance: $modalInstance,
       asset: {
-        scope: 'WIDGET',
+        scope: 'widget',
         componentId: 4321,
         name: 'myasset.js',
         type: 'js'

@@ -436,7 +436,7 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[*].name", Matchers.containsInAnyOrder("https://mycdn.com/myExternalJs.js", "myJs.js", "myCss.css")))
                 .andExpect(jsonPath("$[*].type", Matchers.containsInAnyOrder("js", "js", "css")))
-                .andExpect(jsonPath("$[*].scope", Matchers.containsInAnyOrder("PAGE", "PAGE", "WIDGET")))
+                .andExpect(jsonPath("$[*].scope", Matchers.containsInAnyOrder("page", "page", "widget")))
                 .andExpect(jsonPath("$[*].componentId", Matchers.containsInAnyOrder("widget-id")));
 
     }
@@ -458,7 +458,7 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$.assets", hasSize(3)))
                 .andExpect(jsonPath("$.assets[*].name", Matchers.containsInAnyOrder("https://mycdn.com/myExternalJs.js", "myJs.js", "myCss.css")))
                 .andExpect(jsonPath("$.assets[*].type", Matchers.containsInAnyOrder("js", "js", "css")))
-                .andExpect(jsonPath("$.assets[*].scope", Matchers.containsInAnyOrder("PAGE", "PAGE", "WIDGET")))
+                .andExpect(jsonPath("$.assets[*].scope", Matchers.containsInAnyOrder("page", "page", "widget")))
                 .andExpect(jsonPath("$.assets[*].componentId", Matchers.containsInAnyOrder("widget-id")));
     }
 

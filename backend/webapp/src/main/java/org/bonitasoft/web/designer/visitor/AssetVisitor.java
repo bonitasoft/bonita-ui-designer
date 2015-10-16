@@ -18,6 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -75,7 +78,14 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
         Set<Asset> assets = new HashSet<>();
 
         if (previewable instanceof Assetable) {
-            assets.addAll(((Assetable) previewable).getAssets());
+            Set<Asset> pageAssets = ((Assetable) previewable).getAssets();
+            assets.addAll(Collections2.transform(pageAssets, new Function<Asset, Asset>() {
+
+                @Override
+                public Asset apply(Asset asset) {
+                    return asset.setScope(AssetScope.PAGE);
+                }
+            }));
             assets.addAll(visitRows(previewable.getRows()));
 
             //User can exclude assets or specify a specific order in the page
