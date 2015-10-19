@@ -12,46 +12,53 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * The preview controller. It handles the loading of the page model, the resolution changes and provides
- * common functions to the directives used inside the page.
- */
-angular.module('bonitasoft.designer.preview').controller('PreviewCtrl', function($scope, $sce, $stateParams, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+(function() {
 
   'use strict';
 
-  artifactRepo
-    .load(iframeParameters.id)
-    .then(function(response) {
-      $scope.pageName = response.data.name;
+  angular
+    .module('bonitasoft.designer.preview')
+    .controller('PreviewCtrl', PreviewCtrl);
+
+  /**
+   * The preview controller. It handles the loading of the page model, the resolution changes and provides
+   * common functions to the directives used inside the page.
+   */
+  function PreviewCtrl($scope, $sce, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+
+    $scope.iframe = {};
+    $scope.refreshIframe = refreshIframe;
+    $scope.buildIframeSrc = buildIframeSrc;
+    $scope.iframeWidth = iframeWidth;
+
+    artifactRepo
+      .load(iframeParameters.id)
+      .then(function(response) {
+        $scope.pageName = response.data.name;
+      });
+
+    refreshIframe();
+    webSocket.listen('/previewableUpdates', (id) => {
+      if (id === iframeParameters.id) {
+        refreshIframe();
+      }
     });
 
-  /**
-   * The iframe source has to be a trusted url for Angular, hence the use of the $sce service.
-   * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
-   */
-  $scope.buildIframeSrc = function() {
-    return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '/?time=' + clock.now());
-  };
-
-  $scope.iframeWidth = function() {
-    return resolutions.selected().width;
-  };
-
-  $scope.iframe = {
-    src: $scope.buildIframeSrc()
-  };
-
-  /**
-   * Refreshes the iframe if it's the current preview
-   * @param id - the id of updated artifact
-   */
-  this.wsCallback = function(id) {
-    if (id === iframeParameters.id) {
-      $scope.iframe.src = $scope.buildIframeSrc();
+    /**
+     * The iframe source has to be a trusted url for Angular, hence the use of the $sce service.
+     * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
+     */
+    function buildIframeSrc() {
+      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '/?time=' + clock.now());
     }
-  };
 
-  webSocket.listen('/previewableUpdates', this.wsCallback);
+    function iframeWidth() {
+      return resolutions.selected().width;
+    }
 
-});
+    function refreshIframe() {
+      $scope.iframe.src = buildIframeSrc();
+    }
+  }
+
+})();
