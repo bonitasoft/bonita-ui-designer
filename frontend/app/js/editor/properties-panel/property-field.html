@@ -1,7 +1,7 @@
 <div class="form-group" ng-if="isDisplayed()" data-property="{{ property.name }}">
 
     <div class="property-label">
-        <label>{{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help"
+        <label><i ng-if="property.icon" class="PropertyPanel-PropertyIcon" ng-class="property.icon.className"></i> {{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help"
                                                    tooltip="{{property.help | translate}}"
                                                    tooltip-append-to-body="true"></i></label>
         <small class="help-block" ng-bind-html="property.caption | translate"></small>

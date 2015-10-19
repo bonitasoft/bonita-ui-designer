@@ -3,6 +3,7 @@
 @widget-active-background: #ecf7ff;
 @row-border-color: #aaa;
 @row-border-active-color: #888;
+@widget-placeholder-color: #aaa;
 
 /**
  * Caption
@@ -27,7 +28,7 @@
 .component-caption--row {
   left: -5px;
   background-color: @row-border-color;
-  box-shadow: 0 0 4px #aaa;
+  box-shadow: 0 0 4px @row-border-color;
   top: -1.85em;
 }
 
@@ -191,7 +192,7 @@
 .bo-dropzone-hover.widget-placeholder::before {
   background-color: #ddd;
   border-color: #999;
-  color: #aaa;
+  color: @widget-placeholder-color;
   left: 15px;
   right: 15px;
 }
@@ -213,9 +214,9 @@
 .Component-marker {
   position: absolute;
   z-index: 99;
-  right: 1.4em;
-  top: 0.5em;
-  color: #aaa;;
+  right: 18px;
+  top: 6px;
+  color: @widget-placeholder-color;
   background-color: transparent;
 }
 
