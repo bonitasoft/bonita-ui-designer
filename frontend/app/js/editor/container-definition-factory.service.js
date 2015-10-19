@@ -45,6 +45,9 @@
             label: gettext('Collection'),
             help: gettext('Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container'),
             caption: gettext('Repeat container content. Variable of type array'),
+            icon: {
+              className: 'fa fa-list-ul'
+            },
             type: 'string',
             bond: 'variable'
           }
