@@ -101,4 +101,8 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
   $scope.isEmpty = function(container) {
     return componentUtils.isEmpty(container);
   };
+
+  $scope.isRepeated = function(container) {
+    return container && container.propertyValues && container.propertyValues.repeatedCollection && container.propertyValues.repeatedCollection.value;
+  };
 });
