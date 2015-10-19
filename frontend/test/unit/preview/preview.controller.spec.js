@@ -1,22 +1,23 @@
 describe('PreviewCtrl', function() {
-  var ctrl, $scope, $q, $location, $stateParams, iframeParameters, webSocket, pageRequest, pageRepo;
+  var ctrl, $scope, $q, $location, $stateParams, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.preview'));
+  beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket'));
 
-  beforeEach(inject(function($injector) {
+  beforeEach(inject(function($injector, _webSocket_) {
 
     $q = $injector.get('$q');
     $scope = $injector.get('$rootScope').$new();
     $location = $injector.get('$location');
     $stateParams = $injector.get('$stateParams');
+    $timeout = $injector.get('$timeout');
 
     pageRequest = $q.defer();
 
     pageRepo = { load: angular.noop };
     spyOn(pageRepo, 'load').and.returnValue(pageRequest.promise);
 
-    webSocket = jasmine.createSpyObj('webSocket', ['listen']);
-    var clock = {
+    webSocket = _webSocket_;
+    clock = {
       now: function() {
         return 'now';
       }
@@ -45,19 +46,31 @@ describe('PreviewCtrl', function() {
   });
 
   it('should update the iframe src when a notification is received', function() {
-    $scope.iframe.src = '';
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
+    spyOn(clock, 'now').and.returnValue('newNow');
 
-    ctrl.wsCallback(iframeParameters.id);
+    webSocket.send('/previewableUpdates', '1337');
+    $scope.$apply();
+
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=newNow');
+  });
+
+  it('should not update the iframe src when a notification is received for another id', function() {
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
+
+    webSocket.send('/previewableUpdates', 'notgoodid');
+    $scope.$apply();
 
     expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
   });
 
-  it('should not update the iframe src when a notification is received for another id', function() {
-    $scope.iframe.src = '';
+  it('should refresh preview iframe', function() {
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
+    spyOn(clock, 'now').and.returnValue('newNow');
 
-    ctrl.wsCallback('person');
+    $scope.refreshIframe();
 
-    expect($scope.iframe.src).toBe('');
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=newNow');
   });
 
   it('should load the page name onLoad', function() {
