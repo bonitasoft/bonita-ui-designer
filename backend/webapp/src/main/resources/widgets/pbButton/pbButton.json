@@ -41,13 +41,41 @@
       "name": "action",
       "type": "choice",
       "choiceValues": [
-        "Submit task",
-        "Start process",
-        "POST",
-        "PUT",
-        "GET",
-        "Add to collection",
-        "Remove from collection"
+        {
+          "value": "Submit task",
+          "label": "Submit task",
+          "group": "Bonita BPM"
+        },
+        {
+          "value": "Start process",
+          "label": "Start process",
+          "group": "Bonita BPM"
+        },
+        {
+          "value": "POST",
+          "label": "POST",
+          "group": "HTTP request"
+        },
+        {
+          "value": "PUT",
+          "label": "PUT",
+          "group": "HTTP request"
+        },
+        {
+          "value": "GET",
+          "label": "GET",
+          "group": "HTTP request"
+        },
+        {
+          "value": "Add to collection",
+          "label": "Add to collection",
+          "group": "Collection"
+        },
+        {
+          "value": "Remove from collection",
+          "label": "Remove from collection",
+          "group": "Collection"
+        }
       ],
       "defaultValue": "Submit task",
       "bond": "constant"
