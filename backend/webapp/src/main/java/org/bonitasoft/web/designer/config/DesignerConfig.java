@@ -257,12 +257,12 @@ public class DesignerConfig {
 
     @Bean
     public AssetService<Page> pageAssetService(PageRepository pageRepository) {
-        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository), pageAssetImporter(pageAssetRepository(pageRepository)));
+        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository), pageAssetImporter(pageAssetRepository(pageRepository)), objectMapperWrapper());
     }
 
     @Bean
     public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository) {
-        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository), widgetAssetImporter(widgetAssetRepository(widgetRepository)));
+        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository), widgetAssetImporter(widgetAssetRepository(widgetRepository)), objectMapperWrapper());
     }
 
     @Bean

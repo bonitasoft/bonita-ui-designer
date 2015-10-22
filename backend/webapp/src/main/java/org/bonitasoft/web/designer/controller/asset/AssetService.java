@@ -26,14 +26,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 
-
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Previewable;
@@ -44,7 +45,6 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
-
 
 public class AssetService<T extends Assetable> {
 
@@ -58,11 +58,13 @@ public class AssetService<T extends Assetable> {
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
     private AssetImporter<T> assetImporter;
+    private JacksonObjectMapper mapper;
 
-    public AssetService(Repository<T> repository, AssetRepository<T> assetRepository, AssetImporter<T> assetImporter) {
+    public AssetService(Repository<T> repository, AssetRepository<T> assetRepository, AssetImporter<T> assetImporter, JacksonObjectMapper mapper) {
         this.repository = repository;
         this.assetRepository = assetRepository;
         this.assetImporter = assetImporter;
+        this.mapper = mapper;
     }
 
     /**
@@ -74,20 +76,27 @@ public class AssetService<T extends Assetable> {
         checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
         checkArgument(assetType != null, ASSET_TYPE_IS_REQUIRED);
 
-        final Asset asset = new Asset()
-                .setId(randomUUID().toString())
-                .setName(getOriginalFilename(file.getOriginalFilename()))
-                .setType(assetType)
-                .setOrder(getNextOrder(component));
-
-        deleteComponentAsset(component, new Predicate<Asset>() {
-            @Override
-            public boolean apply(Asset element) {
-                return asset.equalsWithoutComponentId(element);
-            }
-        });
 
         try {
+
+            if (AssetType.JSON.getPrefix().equals(type)) {
+                checkWellFormedJson(file.getBytes());
+            }
+
+            final Asset asset = new Asset()
+                    .setId(randomUUID().toString())
+                    .setName(getOriginalFilename(file.getOriginalFilename()))
+                    .setType(assetType)
+                    .setOrder(getNextOrder(component));
+
+            deleteComponentAsset(component, new Predicate<Asset>() {
+
+                @Override
+                public boolean apply(Asset element) {
+                    return asset.equalsWithoutComponentId(element);
+                }
+            });
+
             assetRepository.save(component.getId(), asset, file.getBytes());
             //The component is updated
             component.addAsset(asset);
@@ -96,7 +105,16 @@ public class AssetService<T extends Assetable> {
 
         } catch (IOException e) {
             logger.error("Asset creation" + e);
-            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()), e);
+            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()),
+                    e);
+        }
+    }
+
+    private void checkWellFormedJson(byte[] bytes) throws IOException {
+        try {
+            mapper.checkValidJson(bytes);
+        } catch (JsonProcessingException e) {
+            throw new MalformedJsonException(e);
         }
     }
 
@@ -127,6 +145,7 @@ public class AssetService<T extends Assetable> {
         if (asset.getId() != null) {
             //We find the existing asset and change the name and the type
             Iterables.<Asset>find(component.getAssets(), new Predicate<Asset>() {
+
                 @Override
                 public boolean apply(Asset element) {
                     return asset.getId().equals(element.getId());
@@ -169,6 +188,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
         deleteComponentAsset(component, new Predicate<Asset>() {
+
             @Override
             public boolean apply(Asset asset) {
                 return assetId.equals(asset.getId());

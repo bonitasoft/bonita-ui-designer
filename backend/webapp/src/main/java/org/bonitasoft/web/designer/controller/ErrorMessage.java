@@ -55,6 +55,13 @@ public class ErrorMessage {
         }
     }
 
+    public void addInfo(String key, Object value) {
+        if (this.infos == null) {
+            this.infos = new HashMap<>();
+        }
+        this.infos.put(key, value);
+    }
+
     public Map<String, Object> getInfos() {
         return infos;
     }

@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.model;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -50,5 +51,9 @@ public class JacksonObjectMapper {
 
     public String prettyPrint(String json) throws IOException {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(fromJson(json.getBytes(StandardCharsets.UTF_8), Object.class));
+    }
+
+    public void checkValidJson(byte[] bytes) throws IOException, JsonProcessingException {
+        objectMapper.readTree(bytes);
     }
 }

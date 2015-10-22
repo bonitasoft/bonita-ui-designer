@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
@@ -98,5 +99,14 @@ public class ResourceControllerAdvice {
         ErrorMessage errorMessage = new ErrorMessage(exception.getType().toString(), exception.getMessage());
         errorMessage.addInfos(exception.getInfos());
         return new ResponseEntity<>(errorMessage, HttpStatus.ACCEPTED);
+    }
+
+    @ExceptionHandler(MalformedJsonException.class)
+    public ResponseEntity<ErrorMessage> handleJsonProcessingException(MalformedJsonException exception) {
+        logger.error("Error while uploading a json file "  + exception.getMessage());
+        // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
+        ErrorMessage message = new ErrorMessage(exception);
+        message.addInfo("location", exception.getLocation());
+        return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
     }
 }

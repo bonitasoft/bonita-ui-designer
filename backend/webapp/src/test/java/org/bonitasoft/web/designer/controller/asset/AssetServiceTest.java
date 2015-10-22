@@ -35,6 +35,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -43,11 +44,11 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -57,18 +58,24 @@ import org.springframework.mock.web.MockMultipartFile;
 @RunWith(JUnitParamsRunner.class)
 public class AssetServiceTest {
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     @Mock
     private Repository<Page> repository;
     @Mock
     private AssetRepository<Page> assetRepository;
     @Mock
     private AssetImporter<Page> assetImporter;
-    @InjectMocks
+
     private AssetService assetService;
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    @Before
+    public void setUp() throws Exception {
+        assetService = new AssetService(repository, assetRepository, assetImporter, new DesignerConfig().objectMapperWrapper());
+    }
 
     @Test
     public void should_return_error_when_uploading_file_null() {
@@ -141,6 +148,13 @@ public class AssetServiceTest {
         verify(assetRepository).delete(any(Asset.class));
         verify(assetRepository).save("page-id", page.getAssets().iterator().next(), "function(){}".getBytes());
         verify(repository).updateLastUpdateAndSave(page);
+    }
+
+    @Test(expected = MalformedJsonException.class)
+    public void should_check_that_json_is_well_formed_while_uploading_a_json_asset() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("asset.json", "asset.json", "application/javascript", "{ not json }".getBytes());
+
+        assetService.upload(file, aPage().build(), "json");
     }
 
     @Test
