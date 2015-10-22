@@ -317,6 +317,33 @@ describe('pbButton', function () {
       expect($window.top.location.assign).not.toHaveBeenCalled();
     });
 
+    it('should bind success data when DELETE succeed', function () {
+      var url = '/toto';
+
+      $httpBackend.expectDELETE(url).respond("success");
+      scope.properties.url = url;
+      scope.properties.action = 'DELETE';
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect(scope.properties.dataFromSuccess).toBe('success');
+    });
+
+    it('should bind error data when DELETE fail', function () {
+      var url = '/toto';
+      $httpBackend.expectDELETE(url).respond(404, 'not found');
+
+      scope.properties.action = 'DELETE';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.dataFromError).toBe('not found');
+    });
+
     it('should throw error when trying to remove from collection that is not an array', function () {
       scope.properties.action = 'Remove from collection';
       scope.properties.collectionToModify = {"an": "object"};
