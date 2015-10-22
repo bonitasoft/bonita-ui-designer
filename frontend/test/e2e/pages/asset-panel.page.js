@@ -15,27 +15,8 @@
 
     element: function(selector) {
       return this.sidebar.element(selector);
-    },
-
-    addAsset: function (id, type, name) {
-
-      this.addButton.click();
-
-      var form = element(by.name('addAsset'));
-
-      form.element(by.model('newAsset.type')).element(by.cssContainingText('option', type)).click();
-      if(name.indexOf('http')===0){
-        form.element(by.model('newAsset.source')).element(by.cssContainingText('option', 'External')).click();
-        form.element(by.model('newAsset.name')).sendKeys(name);
-      }
-      else{
-        form.element(by.model('newAsset.source')).element(by.cssContainingText('option', 'Local')).click();
-        form.element(by.model('newAsset.name')).sendKeys(name);
-      }
-
-      $('.modal-footer').element(by.buttonText('Add')).click();
-
     }
+
   };
 
   AssetPanel.prototype = Object.create(assetMethod, {
