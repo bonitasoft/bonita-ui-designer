@@ -18,8 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runners.JUnit4;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class JacksonObjectMapperTest {
@@ -66,5 +69,16 @@ public class JacksonObjectMapperTest {
         assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{" + System.lineSeparator() +
                 "  \"foo\" : \"bar\"" + System.lineSeparator() +
                 "}");
+    }
+
+    @Test(expected = JsonProcessingException.class)
+    public void should_check_that_json_is_invalid() throws Exception {
+        objectMapper.checkValidJson("{ not json }".getBytes());
+    }
+
+    @Test
+    public void should_check_that_json_is_valid() throws Exception {
+        objectMapper.checkValidJson("{ \"collection\": [\n] }".getBytes());
+        // ok - no exception expected
     }
 }

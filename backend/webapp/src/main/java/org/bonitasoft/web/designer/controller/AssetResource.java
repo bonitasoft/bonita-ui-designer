@@ -21,6 +21,7 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Preconditions;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.Assetable;
