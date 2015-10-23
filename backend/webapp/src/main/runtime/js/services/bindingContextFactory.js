@@ -29,6 +29,12 @@
           }
         })
 
+        .with('$collection', {
+          get: function () {
+            return scope.$collection;
+          }
+        })
+
         .with('$index', {
           get: function () {
             return scope.$index;
