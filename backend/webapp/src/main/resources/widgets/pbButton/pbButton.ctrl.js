@@ -91,7 +91,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
         $scope.properties.dataFromSuccess = data;
         notifyParentFrame('success', status);
         if($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-          $window.top.location.assign($scope.properties.targetUrlOnSuccess);
+          $window.location.assign($scope.properties.targetUrlOnSuccess);
         }
       })
       .error(function (data, status) {
