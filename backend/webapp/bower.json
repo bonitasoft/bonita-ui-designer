@@ -19,7 +19,7 @@
     "angular": "1.3.18",
     "angular-sanitize": "1.3.18",
     "angular-bootstrap": "0.13.0",
-    "bootstrap": "3.3.2",
+    "bootstrap": "3.3.5",
     "angular-messages": "1.3.18",
     "angular-gettext": "2.1.0"
   },
