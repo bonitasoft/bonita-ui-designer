@@ -133,7 +133,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      */
     public Path findAssetPath(String componentId, final String filename, final AssetType assetType) throws IOException {
         checkNotNull(filename, "Filename is required");
-        checkNotNull(assetType, "Asset type is required");
+        checkNotNull(assetType, format("Asset type is required (filename: %s)", filename));
 
         T component = repository.get(componentId);
         Asset asset = (Asset) find(component.getAssets(), new Predicate<Asset>() {
