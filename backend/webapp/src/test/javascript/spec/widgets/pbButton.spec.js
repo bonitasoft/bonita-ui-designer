@@ -14,7 +14,7 @@ describe('pbButton', function () {
     $parse = $injector.get('$parse');
     $location = $injector.get('$location');
     $window = $injector.get('$window');
-    spyOn($window.top.location, 'assign');
+    spyOn($window.location, 'assign');
     spyOn($window.parent, 'postMessage');
 
     scope = $rootScope.$new();
@@ -270,7 +270,7 @@ describe('pbButton', function () {
 
       $timeout.flush();
       $httpBackend.flush();
-      expect($window.top.location.assign).not.toHaveBeenCalledWith('/new/location');
+      expect($window.location.assign).not.toHaveBeenCalledWith('/new/location');
     });
 
     it('should bind success data when PUT succeed', function () {
@@ -299,7 +299,7 @@ describe('pbButton', function () {
 
       $timeout.flush();
       $httpBackend.flush();
-      expect($window.top.location.assign).toHaveBeenCalledWith('/new/location');
+      expect($window.location.assign).toHaveBeenCalledWith('/new/location');
     });
 
     it('should bind error data when PUT fail', function () {
@@ -315,7 +315,7 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect(scope.properties.dataFromError).toBe('not found');
-      expect($window.top.location.assign).not.toHaveBeenCalled();
+      expect($window.location.assign).not.toHaveBeenCalled();
     });
 
     it('should bind success data when DELETE succeed', function () {
