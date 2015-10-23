@@ -41,13 +41,46 @@
       "name": "action",
       "type": "choice",
       "choiceValues": [
-        "Submit task",
-        "Start process",
-        "POST",
-        "PUT",
-        "GET",
-        "Add to collection",
-        "Remove from collection"
+        {
+          "value": "Submit task",
+          "label": "Submit task",
+          "group": "Bonita BPM"
+        },
+        {
+          "value": "Start process",
+          "label": "Start process",
+          "group": "Bonita BPM"
+        },
+        {
+          "value": "POST",
+          "label": "POST",
+          "group": "HTTP request"
+        },
+        {
+          "value": "PUT",
+          "label": "PUT",
+          "group": "HTTP request"
+        },
+        {
+          "value": "GET",
+          "label": "GET",
+          "group": "HTTP request"
+        },
+        {
+          "value": "DELETE",
+          "label": "DELETE",
+          "group": "HTTP request"
+        },
+        {
+          "value": "Add to collection",
+          "label": "Add to collection",
+          "group": "Collection"
+        },
+        {
+          "value": "Remove from collection",
+          "label": "Remove from collection",
+          "group": "Collection"
+        }
       ],
       "defaultValue": "Submit task",
       "bond": "constant"
@@ -58,7 +91,7 @@
       "help": "URL used to perform the HTTP request when this button is clicked.",
       "type": "text",
       "name": "url",
-      "showFor": "['POST', 'PUT', 'GET'].indexOf(properties.action.value) > -1",
+      "showFor": "['POST', 'PUT', 'GET', 'DELETE'].indexOf(properties.action.value) > -1",
       "bond": "interpolation"
     },
     {
@@ -73,7 +106,7 @@
       "help": "Holds the response when the request is successful",
       "name": "dataFromSuccess",
       "type": "text",
-      "showFor": "['POST', 'PUT', 'GET', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
+      "showFor": "['POST', 'PUT', 'GET', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "variable"
     },
     {
@@ -81,7 +114,7 @@
       "help": "Holds the response when the request has failed",
       "name": "dataFromError",
       "type": "text",
-      "showFor": "['POST', 'PUT', 'GET', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
+      "showFor": "['POST', 'PUT', 'GET', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "variable"
     },
     {
@@ -89,7 +122,7 @@
       "type": "text",
       "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
       "name": "targetUrlOnSuccess",
-      "showFor": "properties.action.value === 'POST' || properties.action.value === 'PUT' || properties.action.value === 'Submit task' || properties.action.value ===  'Start process'",
+      "showFor": "['POST', 'PUT', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "interpolation"
     },
     {
