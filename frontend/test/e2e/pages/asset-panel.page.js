@@ -15,6 +15,10 @@
 
     element: function(selector) {
       return this.sidebar.element(selector);
+    },
+
+    filter: function(name) {
+      return this.sidebar.element(by.cssContainingText('.search-filter label', name));
     }
 
   };
@@ -39,10 +43,20 @@
       }
     },
 
+    // asset names in asset list
     names: {
       get: function() {
         return this.lines.map(function (line) {
           return line.all(by.tagName('td')).get(1).getText();
+        });
+      }
+    },
+
+    // asset types in asset list
+    types: {
+      get: function() {
+        return this.lines.map(function (line) {
+          return line.all(by.tagName('td')).get(3).getText();
         });
       }
     }
