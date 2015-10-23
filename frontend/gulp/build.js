@@ -154,6 +154,7 @@ module.exports = function (gulp, config) {
       }));
 
     var js = gulp.src(paths.js)
+      .pipe(plumber())
       .pipe(order([
         '**/*.module.js',
         '**/*.js'
