@@ -19,9 +19,10 @@ import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -29,6 +30,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -64,8 +66,6 @@ public class WorkspaceTest {
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
     @Mock
-    private Resource resource;
-    @Mock
     private BeanValidator validator;
     //We use the real instance because we want to verify the folder and the directive files
     private JsonFileBasedPersister<Widget> widgetPersister = new DesignerConfig().widgetFileBasedPersister();
@@ -95,10 +95,15 @@ public class WorkspaceTest {
         workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
     }
 
+    private void mockWidgetsBasePath(Path path) throws IOException {
+        Resource resource = mock(Resource.class);
+        when(resource.getURI()).thenReturn(path.toUri());
+        when(resourceLoader.getResource(WebMvcConfiguration.WIDGETS_RESOURCES)).thenReturn(resource);
+    }
+
     @Test
     public void should_ensure_that_folders_page_and_widgets_are_created() throws Exception {
-        when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        mockWidgetsBasePath(temporaryFolder.toPath().resolve("widgets"));
 
         workspace.initialize();
 
@@ -112,9 +117,7 @@ public class WorkspaceTest {
         //Folder creation
         temporaryFolder.newFolderPath("pages");
         Path widgetFolder = temporaryFolder.newFolderPath("widgets");
-
-        when(resource.getURI()).thenReturn(widgetFolder.toUri());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        mockWidgetsBasePath(widgetFolder);
 
         workspace.initialize();
 
@@ -126,20 +129,17 @@ public class WorkspaceTest {
 
     @Test
     public void should_copy_widget_to_widget_repository_folder() throws Exception {
-        when(resource.getURI()).thenReturn(new File("target/test-classes/workspace/widgets").toURI());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
 
         workspace.initialize();
 
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbInput/pbInput.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
     }
 
     @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_folder() throws Exception {
-        when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        mockWidgetsBasePath(temporaryFolder.toPath().resolve("widgets"));
 
         //We create the widget files
         Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
@@ -155,8 +155,7 @@ public class WorkspaceTest {
 
     @Test
     public void should_copy_widget_file_if_it_is_already_in_widget_repository_folder_with_a_former_version() throws Exception {
-        when(resource.getURI()).thenReturn(new File("target/test-classes/workspace/widgets").toURI());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
 
         //We create the widget files
         Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
@@ -166,7 +165,9 @@ public class WorkspaceTest {
 
         workspace.initialize();
 
-        assertThat(new String(readAllBytes(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")))).isNotEqualTo(FileUtils.fileRead("target/test-classes/workspace/widgets/pbLabel/pbLabel.json"));
+        String newLabelContent = new String(readAllBytes(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")));
+        String oldLabelContent = new String(readAllBytes(Paths.get("src/test/resources/workspace/widgets/pbLabel/pbLabel.json")));
+        assertThat(newLabelContent).isNotEqualTo(oldLabelContent);
     }
 
 }
