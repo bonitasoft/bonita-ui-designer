@@ -17,9 +17,14 @@ describe('asset panel', function() {
     });
 
     it('should display 3 checked checkboxes to filter the asset list', function() {
-      var filters = assetPanel.filters;
-      expect(filters.getText()).toEqual([ 'CSS', 'Image', 'JavaScript' ]);
-      Array.from(filters).forEach((item) => expect(item.element(by.tagName('input')).getAttribute('checked')).toBeTruthy());
+      var filters = assetPanel.filters.map((filter) => filter.getText());
+      expect(filters).toContain('CSS');
+      expect(filters).toContain('Image');
+      expect(filters).toContain('JavaScript');
+
+      assetPanel.filters.each((item) =>
+        expect(item.element(by.tagName('input')).getAttribute('checked')).toBeTruthy()
+      );
     });
 
     it('should display a help button', function() {
@@ -37,20 +42,30 @@ describe('asset panel', function() {
     });
 
     it('should filter assets which have a js type', function() {
-      var filters = assetPanel.filters;
-      filters.last().element(by.tagName('input')).click();
+      assetPanel.filter('JavaScript').click();
 
-      expect(assetPanel.lines.first().all(by.tagName('td')).get(3).getText()).toBe('CSS');
-      expect(assetPanel.lines.get(1).all(by.tagName('td')).get(3).getText()).toBe('Image');
-      expect(assetPanel.lines.last().all(by.tagName('td')).get(3).getText()).toBe('CSS');
+      var types = assetPanel.types;
+      expect(types).not.toContain('JavaScript');
+      expect(types).toContain('CSS');
+      expect(types).toContain('Image');
     });
 
     it('should filter assets which have a css type', function() {
-      var filters = assetPanel.filters;
-      filters.first().element(by.tagName('input')).click();
+      assetPanel.filter('CSS').click();
 
-      expect(assetPanel.lines.first().all(by.tagName('td')).get(3).getText()).toBe('JavaScript');
-      expect(assetPanel.lines.last().all(by.tagName('td')).get(3).getText()).toBe('Image');
+      var types = assetPanel.types;
+      expect(types).not.toContain('CSS');
+      expect(types).toContain('JavaScript');
+      expect(types).toContain('Image');
+    });
+
+    it('should filter assets which have an image type', function() {
+      assetPanel.filter('Image').click();
+
+      var types = assetPanel.types;
+      expect(types).not.toContain('Image');
+      expect(types).toContain('JavaScript');
+      expect(types).toContain('CSS');
     });
 
   });
