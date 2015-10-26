@@ -16,7 +16,6 @@
     "test": "gulp test",
     "test-watch": "gulp test-watch",
     "postinstall": "bower install",
-    "prebuild": "npm install",
     "build": "gulp",
     "pot": "gulp pot",
     "serve": "gulp serve"
