@@ -147,14 +147,16 @@ module.exports = function (gulp, config) {
    */
   gulp.task('bundle:js', ['bundle:html'], function () {
     var tpl = gulp.src(paths.dev + '/html/**/*.html')
-      .pipe(plumber())
+      //if errorHandler set to true, on error, pipe will not break
+      .pipe(plumber({errorHandler: config.devMode}))
       .pipe(html2js({
         moduleName: 'bonitasoft.designer.templates',
         prefix: 'js/'
       }));
 
     var js = gulp.src(paths.js)
-      .pipe(plumber())
+      //if errorHandler set to true, on error, pipe will not break
+      .pipe(plumber({errorHandler: config.devMode}))
       .pipe(order([
         '**/*.module.js',
         '**/*.js'
