@@ -13,7 +13,7 @@
         <div
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
-                <input type="text" class="form-control"
+                <input pb-date-picker-utc type="text" class="form-control"
                        ng-click="ctrl.open($event)"
                        datepicker-popup="{{ properties.dateFormat | uiTranslate }}"
                        name="{{ctrl.name}}"

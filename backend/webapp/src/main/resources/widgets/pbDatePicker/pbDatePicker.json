@@ -82,5 +82,12 @@
       "help": "Specify your own format",
       "caption": "y: year, M: month, d: day, h: hour, m: minute, s: second"
     }
+  ],
+  "assets": [
+    {
+      "name": "pb-date-picker-utc.directive.js",
+      "type": "js",
+      "order": 1
+    }
   ]
 }
