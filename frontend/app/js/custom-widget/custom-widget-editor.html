@@ -79,17 +79,13 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="property in widget.properties">
-                        <td class="col-xs-10">
-                            <strong class="property-name">{{ property.name }}</strong><br/>
-                            <small translate>Label</small>:
-                            {{ property.label }}<br/>
-                            <small translate>Treat as </small>
-                            <span>{{ bonds[property.bond].name | translate }}</span>
-                            <br/>
-                            <span ng-if="isTypeSelectable(property.bond)"><small translate>Type</small>:
-                            {{property.type}}<br/></span>
-                            <span ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}<br/></span>
-                            <span ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</span>
+                        <td class="col-xs-10 PropertyDescription">
+                            <div class="PropertyName"><strong>{{ property.name }}</strong></div>
+                            <div><small translate>Label</small>: {{ property.label }}</div>
+                            <div><small translate>Treat as </small><span> {{ bonds[property.bond].name | translate }}</span></div>
+                            <div><span ng-if="isTypeSelectable(property.bond)"><small translate>Type</small>: {{property.type}}</span></div>
+                            <div ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}</div>
+                            <div ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</div>
                         </td>
                         <td class="col-xs-2 Property-actions">
                             <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>

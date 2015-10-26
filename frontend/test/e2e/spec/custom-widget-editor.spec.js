@@ -1,8 +1,9 @@
 var switchToAlert = require('../pages/utils.js').switchToAlert;
+var clearAndFillAceEditor = require('../pages/utils.js').clearAndFillAceEditor;
 
-describe('custom widget editor', function() {
+describe('custom widget editor', function () {
 
-  beforeEach(function() {
+  beforeEach(function () {
     browser.get('#/en/widget/customAwesomeWidget');
 
     //prevent onbeforeunload event to avoid blocking protractor when running tests
@@ -10,25 +11,28 @@ describe('custom widget editor', function() {
     browser.executeScript('window.onbeforeunload = function(){};');
   });
 
-  var clearAndFillAceEditor = function(elementId, text) {
-    browser.actions().doubleClick($('#' + elementId + ' .ace_content')).perform();
-    var area = $('#' + elementId + ' textarea');
-    area.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, protractor.Key.ALT, protractor.Key.SHIFT, 'd'));
-    area.sendKeys(text);
-  };
-
   function getPropertyNamesInList() {
-    return element.all(by.css('.property-name')).map(function(elm) {
-      return elm.getText();
+    return element.all(by.css('.PropertyDescription')).map(function (elm) {
+      return elm.all(by.tagName('div')).get(0).getText();
     });
   }
 
-  it('should not open a confirm dialog if there is no modification', function() {
+  function selectBond(bondName) {
+    $('#bondButton').click();
+    element(by.cssContainingText('#bond li', bondName)).click();
+  }
+
+  function selectType(typeName) {
+    $('#typeButton').click();
+    element(by.cssContainingText('#type li', typeName)).click();
+  }
+
+  it('should not open a confirm dialog if there is no modification', function () {
     $('.EditorHeader-back').click();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
 
-  it('should open a confirm dialog before going home', function() {
+  it('should open a confirm dialog before going home', function () {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
@@ -37,7 +41,8 @@ describe('custom widget editor', function() {
     dialog.accept();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
-  it('should open a confirm dialog and stay on the same page if dismiss', function() {
+
+  it('should open a confirm dialog and stay on the same page if dismiss', function () {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
@@ -47,12 +52,12 @@ describe('custom widget editor', function() {
     expect(browser.getCurrentUrl()).toMatch(/\/customAwesomeWidget/);
   });
 
-  it('should display custom widget properties', function() {
+  it('should display custom widget properties', function () {
     var properties = getPropertyNamesInList();
     expect(properties).toEqual(['qualifier', 'verb']);
   });
 
-  it('should allow to add a property', function() {
+  it('should allow to add a property', function () {
     $('#create').click();
 
     $('#name').sendKeys('newProperty');
@@ -65,53 +70,77 @@ describe('custom widget editor', function() {
     expect(properties).toContain('newProperty');
   });
 
-  it('should allow to update a property', function() {
-    var editButton = element.all(by.repeater('property in widget.properties')).first().element(by.css('i.fa-pencil'));
+  it('should allow to update a property', function () {
+    var property = element.all(by.repeater('property in widget.properties')).first();
+    var editButton = property.element(by.css('i.fa-pencil'));
     editButton.click();
 
     var oldParamName = $('#name').getAttribute('value');
-    $('#name').clear();
-    $('#name').sendKeys('updatedProperty');
-    $('#label').clear();
-    $('#label').sendKeys('updated property');
-    $('#default').clear().sendKeys('Default value');
+    $('#name').clear().sendKeys('updatedProperty');
+    $('#label').clear().sendKeys('updated property');
 
-    element.all(by.css('#typeButton')).click();
-    element.all(by.css('#type li')).then((items) => items[1].click()); //variable
-
-    //expression
-    var choices = 'red, green, blue';
-    $('#choices').sendKeys(choices);
-
-    element.all(by.css('#bondButton')).click();
-    element.all(by.css('#bond li')).then((items) => items[3].click()); //variable
-
-
-    expect(element.all(by.css('#choices'))).toEqual([]);
-    expect(element.all(by.css('#default'))).toEqual([]);
-
-    element.all(by.css('#bondButton')).click();
-    element.all(by.css('#bond li')).then((items) => items[0].click()); //constant
-
-    element.all(by.css('#typeButton')).click();
-    element.all(by.css('#type li')).then((items) => items[1].click()); //variable
-
-    expect($('#choices').getAttribute('value')).toEqual(choices);
-      element.all(by.css('#default option')).then(function(options) {
-      options[1].click();
-    });
-    expect($('#default option[selected]').getText()).toEqual('red');
+    // change bond to 'Dynamic value'
+    selectBond('Dynamic value');
+    selectType('choice');
+    $('#choices').sendKeys('red, green, blue');
+    element(by.cssContainingText('#default option', 'red')).click();
 
     $('button[type="submit"]').click();
-
     var properties = getPropertyNamesInList();
     expect(properties).not.toContain(oldParamName);
     expect(properties).toContain('updatedProperty');
+
+    var updated = element.all(by.repeater('property in widget.properties')).first();
+    expect(updated.all(by.tagName('div')).get(0).getText()).toBe('updatedProperty');
+    expect(updated.all(by.tagName('div')).get(1).getText()).toBe('Label: updated property');
+    expect(updated.all(by.tagName('div')).get(2).getText()).toBe('Treat as Dynamic value');
+    expect(updated.all(by.tagName('div')).get(3).getText()).toBe('Type: choice');
+    expect(updated.all(by.tagName('div')).get(4).getText()).toBe('Choices: red, green, blue');
+    expect(updated.all(by.tagName('div')).get(5).getText()).toBe('Default value: red');
   });
 
-  it('should allow to delete a property', function() {
+
+  it('should allow to choose property type only with some bond type while creating/updating a property', function () {
+    $('#create').click();
+
+    selectBond('Constant');
+    expect($('#type').isPresent()).toBeTruthy();
+    expect($('#default').isPresent()).toBeTruthy();
+
+    selectBond('Dynamic value');
+    expect($('#type').isPresent()).toBeTruthy();
+    expect($('#default').isPresent()).toBeTruthy();
+
+    selectBond('Interpolation');
+    expect($('#type').isPresent()).toBeFalsy();
+    expect($('#default').isPresent()).toBeTruthy();
+
+    selectBond('Bidirectional bond');
+    expect($('#type').isPresent()).toBeFalsy();
+    expect($('#default').isPresent()).toBeFalsy();
+  });
+
+  it('should allow to enter choices while choosing choice type', function() {
+    $('#create').click();
+
+    selectBond('Constant');
+    selectType('choice');
+    expect($('#choices').isPresent()).toBeTruthy();
+
+    // choices should still be there when changing to 'Dynamic value'
+    $('#choices').sendKeys('red, blue, green');
+    selectBond('Dynamic value');
+    expect($('#choices').isPresent()).toBeTruthy();
+    expect($('#choices').getAttribute('value')).toEqual('red, blue, green');
+
+    // not now
+    selectBond('Interpolation');
+    expect($('#choices').isPresent()).toBeFalsy();
+  });
+
+  it('should allow to delete a property', function () {
     var firstParam = element.all(by.repeater('property in widget.properties')).first();
-    var firstParamName = firstParam.element(by.css('.property-name')).getText();
+    var firstParamName = firstParam.element(by.css('.PropertyName')).getText();
 
     firstParam.element(by.css('i.fa-trash')).click();
 
@@ -119,7 +148,7 @@ describe('custom widget editor', function() {
     expect(properties).not.toContain(firstParamName);
   });
 
-  it('should allow to edit a widget template and controller', function() {
+  it('should allow to edit a widget template and controller', function () {
     // change template
     clearAndFillAceEditor('template', '<div ng-click="sayHello()">My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>');
 
@@ -134,7 +163,7 @@ describe('custom widget editor', function() {
   });
 
 
-  it('should save a widget as', function() {
+  it('should save a widget as', function () {
     $('button.dropdown-toggle').click();
     $('#saveAs').click();
 
