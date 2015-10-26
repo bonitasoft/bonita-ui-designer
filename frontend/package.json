@@ -61,7 +61,6 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "prebuild": "npm install",
     "build": "gulp --dist",
     "test": "gulp test",
     "test-watch": "gulp test-watch",
