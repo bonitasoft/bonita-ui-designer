@@ -21,6 +21,7 @@ module.exports = function(gulp, config) {
   });
 
   gulp.task('dev', ['clean', 'watch'], function() {
+    config.devMode = true;
     return gulp.start('serve:dev');
   });
 
