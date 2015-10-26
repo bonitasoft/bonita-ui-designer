@@ -30,7 +30,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>compile</phase>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
