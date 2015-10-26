@@ -108,8 +108,8 @@ exports.config = {
       prefs: {
         'download': {
           'prompt_for_download': false
-        },
-      },
+        }
+      }
     }
 
     // Additional spec files to be run on this capability only.
@@ -180,7 +180,7 @@ exports.config = {
   // Jasmine is fully supported as a test and assertion framework.
   // Mocha and Cucumber have limited beta support. You will need to include your
   // own assertion framework (such as Chai) if working with Mocha.
-  framework: 'jasmine',
+  framework: 'jasmine2',
 
   // Options to be passed to Jasmine-node.
   onPrepare: function() {
