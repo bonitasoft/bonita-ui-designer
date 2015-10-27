@@ -78,6 +78,12 @@
                         <artifactId>frontend-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>install node and npm</id>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                            </execution>
+                            <execution>
                                 <id>e2e tests</id>
                                 <goals>
                                     <goal>npm</goal>
