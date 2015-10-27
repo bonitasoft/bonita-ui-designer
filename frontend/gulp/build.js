@@ -24,6 +24,7 @@ var header = require('gulp-header');
 var iconfont = require('gulp-iconfont');
 var iconfontCss = require('gulp-iconfont-css');
 var base64 = require('gulp-base64');
+const jscs = require('gulp-jscs');
 
 module.exports = function (gulp, config) {
   var paths = config.paths;
@@ -178,7 +179,26 @@ module.exports = function (gulp, config) {
     return gulp.src(paths.js)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
-      .pipe(jshint.reporter('fail'));
+      .pipe(jshint.reporter('fail'))
+      .pipe(jscs())
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'));
+  });
+
+  gulp.task('jscs', function () {
+    return gulp.src(paths.jsFolder + '/**/*.js')
+      .pipe(jscs({fix: true}))
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'))
+      .pipe(gulp.dest(paths.jsFolder));
+  });
+
+  gulp.task('jscs:test', function () {
+    return gulp.src(paths.testFiles)
+      .pipe(jscs({fix: true}))
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'))
+      .pipe(gulp.dest(paths.testFolder));
   });
 
   gulp.task('dist:js', ['bundle:js'], function () {
