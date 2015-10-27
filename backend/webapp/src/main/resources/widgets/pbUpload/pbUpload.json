@@ -74,6 +74,13 @@
       "help": "Holds the response from the upload endpoint. That value can be used to fulfill a contract",
       "type": "text",
       "bond": "variable"
+    },
+    {
+      "label": "Error on upload holder",
+      "name": "errorContent",
+      "help": "Holds the response content from the upload error endpoint. That value can be used to guidance purpose",
+      "type": "text",
+      "bond": "variable"
     }
   ],
   "assets": [
