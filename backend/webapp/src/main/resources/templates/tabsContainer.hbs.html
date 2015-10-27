@@ -2,7 +2,8 @@
     <div class="{{ dimensionAsCssClasses }}" ng-class="properties.cssClasses" ng-if="!properties.hidden">
         <tabset>
             {{#each tabTemplates}}
-                <tab heading="{{ title }}">
+                <tab>
+                    <tab-heading ui-translate>{{ title }}</tab-heading>
                     {{{ content }}}
                 </tab>
             {{/each}}
