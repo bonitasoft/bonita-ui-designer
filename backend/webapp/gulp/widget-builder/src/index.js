@@ -61,6 +61,7 @@
   function buildWidget() {
 
     return through2.obj(function (file, enc, callback) {
+      var base = {base: file.base};
       var parentDir = getParentDir(file);
       inline(file, '.tpl.html');
       inline(file, '.ctrl.js');
@@ -71,7 +72,7 @@
           callback();
           return;
         }
-        vfs.src(path.join(parentDir, '/assets/**/*.*'), {base: file.base})
+        vfs.src(path.join(parentDir, '/assets/**/*.*'), base)
           .pipe(pushTo(this))
           .on('finish', function () {
             callback();

@@ -4,6 +4,7 @@ import vfs from 'vinyl-fs';
 import jsesc from 'jsesc';
 import {Writable} from 'stream';
 import {should} from 'chai';
+import through2 from 'through2';
 should();
 
 let resources = {
@@ -71,10 +72,17 @@ describe('buildWidget', () => {
       }));
   });
 
-  it('should keep base file when listing assets', (done) => {
+  it('should preserve base file when listing assets', (done) => {
 
     vfs.src(__dirname + '/pbWidget/*.json')
       .pipe(buildWidget())
+      .pipe(through2.obj(function (file, enc, callback) {
+        if (file.path.endsWith('.json')) {
+          file.base = 'foobar';
+        }
+        this.push(file);
+        callback();
+      }))
       .pipe(assertThat({
         when: (file) => file.path.indexOf('assets') > 0,
         then: (file) => file.base.should.equal(__dirname + '/pbWidget/'),
