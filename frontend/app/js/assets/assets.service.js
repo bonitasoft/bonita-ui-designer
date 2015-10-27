@@ -150,7 +150,7 @@
           .map((asset) => {
             // these operations should be done on backend side. to be deleted while backend side is homogeneous
             asset.componentId = asset.componentId || widget.id;
-            asset.scope = asset.scope || 'WIDGET';
+            asset.scope = asset.scope || 'widget';
             return asset;
           })
           .concat(page.assets);

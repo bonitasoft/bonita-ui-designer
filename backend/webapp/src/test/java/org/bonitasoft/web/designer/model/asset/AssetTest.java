@@ -139,7 +139,7 @@ public class AssetTest {
                         .setActive(true)
                         .setScope(AssetScope.PAGE));
 
-        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"componentId\":\"page-id\",\"scope\":\"PAGE\",\"order\":1,\"active\":true}");
+        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"componentId\":\"page-id\",\"scope\":\"page\",\"order\":1,\"active\":true}");
     }
 
     @Test

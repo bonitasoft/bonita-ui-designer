@@ -26,7 +26,7 @@ public class AssetBuilder {
     private String id;
     private String name = "myasset.js";
     private AssetType type = AssetType.JAVASCRIPT;
-    private AssetScope scope;
+    private String scope;
     private String componentId;
     private int order = 1;
     private boolean active = true;
@@ -59,7 +59,7 @@ public class AssetBuilder {
         return this;
     }
 
-    public AssetBuilder withScope(AssetScope scope) {
+    public AssetBuilder withScope(String scope) {
         this.scope = scope;
         return this;
     }
