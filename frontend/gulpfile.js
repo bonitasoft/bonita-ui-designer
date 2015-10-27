@@ -26,6 +26,7 @@ var paths = {
     'app/bower_components/keymaster/keymaster.js',
     'app/bower_components/angular-moment/angular-moment.min.js'
   ],
+  jsFolder: 'app/js',
   js: [
     'app/js/**/*.js'
   ],
@@ -42,6 +43,7 @@ var paths = {
   ],
   tests: 'test/**/*.spec.js',
   testFiles: 'test/**/*.js',
+  testFolder: 'test',
   karma: __dirname + '/test/karma.conf.js',
   assets: {
     fonts: [

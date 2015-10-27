@@ -63,8 +63,8 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
   function save(widget) {
     return $http.put('rest/widgets/' + widget.id, widget)
       .success(function() {
-        lastSavedState = widget;
-      });
+       lastSavedState = widget;
+     });
   }
 
   function createAsset(id, asset) {
