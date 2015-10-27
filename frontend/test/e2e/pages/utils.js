@@ -3,7 +3,8 @@
 
   module.exports = {
     mouseOver,
-    switchToAlert
+    switchToAlert,
+    clearAndFillAceEditor
   };
 
   /**
@@ -21,5 +22,12 @@
   function switchToAlert() {
     browser.wait(protractor.ExpectedConditions.alertIsPresent(), 1000);
     return browser.switchTo().alert();
+  }
+
+  function clearAndFillAceEditor(elementId, text) {
+    browser.actions().doubleClick($('#' + elementId + ' .ace_content')).perform();
+    var area = $('#' + elementId + ' textarea');
+    area.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, protractor.Key.ALT, protractor.Key.SHIFT, 'd'));
+    area.sendKeys(text);
   }
 })();
