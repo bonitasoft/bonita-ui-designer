@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log) {
+function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog) {
   var ctrl = this;
   this.name = widgetNameFactory.getName('pbInput');
   this.filename = '';
@@ -39,19 +39,22 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log)
   function uploadError(error) {
     $log.warn('upload fails too', error);
     ctrl.filemodel = '';
-    ctrl.filename = 'Upload failed';
+    ctrl.filename = gettextCatalog.getString('Upload failed');
   }
 
   function startUploading() {
     ctrl.filemodel = '';
-    ctrl.filename  = 'Uploading...';
+    ctrl.filename  = gettextCatalog.getString('Uploading...');
   }
 
   function uploadComplete(response) {
-    if(response && response.type && response.message){
+    //when the upload widget return a String, it means an error has occurred (with a html document as a response)
+    //if it's not a string, we test if it contains some error message
+    if(angular.isString(response) || (response && response.type && response.message)){
       $log.warn('upload fails');
       ctrl.filemodel = '';
-      ctrl.filename = 'Upload failed';
+      ctrl.filename = gettextCatalog.getString('Upload failed');
+      $scope.properties.errorContent = angular.isString(response) ? response : response.message;
       return;
     }
 
