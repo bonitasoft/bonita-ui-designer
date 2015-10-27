@@ -73,7 +73,9 @@ public class PreviewController {
 
         try {
             String queryString = isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString();
-            response.sendRedirect("/bonita/API/" + requestMappingUtils.extractPathWithinPattern(request) + queryString);
+            response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+            response.addHeader("Location", "/bonita/API/" + requestMappingUtils.extractPathWithinPattern(request) + queryString);
+            response.flushBuffer();
         } catch (IOException e) {
             String message = "Error while redirecting API call";
             logger.error(message, e);
