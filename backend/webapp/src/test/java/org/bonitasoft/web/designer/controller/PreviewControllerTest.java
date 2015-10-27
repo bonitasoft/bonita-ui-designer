@@ -15,11 +15,17 @@
 package org.bonitasoft.web.designer.controller;
 
 import static java.nio.file.Files.readAllBytes;
+import static javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.nio.file.Path;
@@ -41,6 +47,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PreviewControllerTest {
@@ -199,5 +207,18 @@ public class PreviewControllerTest {
         mockMvc
                 .perform(get("/preview/page/API/portal/page?p=0&c=1"))
                 .andExpect(redirectedUrl("/bonita/API/portal/page?p=0&c=1"));
+    }
+
+    @Test
+    public void should_temporarily_redirect_ADI_post_to_the_real_API() throws Exception {
+        mockMvc
+                .perform(post("/preview/page/API/portal/page?id=123"))
+                .andExpect(new ResultMatcher() {
+                    @Override
+                    public void match(MvcResult result) throws Exception {
+                        assertEquals(result.getResponse().getStatus(), SC_TEMPORARY_REDIRECT);
+                        assertEquals(result.getResponse().getRedirectedUrl(), "/bonita/API/portal/page?id=123");
+                    }
+                });
     }
 }
