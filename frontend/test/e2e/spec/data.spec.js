@@ -38,7 +38,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toBe('{"key": "foo"}');
+      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('{"key": "foo"}');
     });
 
     it('should add an Url data', function() {
@@ -53,7 +53,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toBe('{{base}}/bonita/test');
+      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('{{base}}/bonita/test');
     });
 
     it('should add a Javascript expression data', function() {
@@ -68,7 +68,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.get(1).element(by.exactBinding('data.value')).getText()).toBe('return "test";');
+      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('return "test";');
     });
 
     it('should delete a data', function() {
