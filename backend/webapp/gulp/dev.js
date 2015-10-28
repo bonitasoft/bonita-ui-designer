@@ -1,5 +1,5 @@
 var fs = require('fs');
-var inlineJSON = require('./utils.js').inlineJSON;
+var buildWidget = require('./widget-builder/src/index');
 var shell = require('gulp-shell');
 
 module.exports = function(gulp, config) {
@@ -38,8 +38,8 @@ module.exports = function(gulp, config) {
     // only copy widgets if the repository exist to let
     // the application create and build them the first time.
     if (fs.existsSync('target/widgets-repository')) {
-      gulp.src(paths.widgets)
-        .pipe(inlineJSON())
+      gulp.src(paths.widgetsJson)
+        .pipe(buildWidget())
         .pipe(gulp.dest('target/widgets-repository'));
     }
   });

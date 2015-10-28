@@ -1,5 +1,4 @@
-var inlineJSON = require('./utils.js').inlineJSON;
-var buildDirective = require('./utils.js').buildDirective;
+var buildWidget = require('./widget-builder/src/index');
 var karma = require('karma').server;
 
 module.exports = function(gulp, config) {
@@ -30,9 +29,8 @@ module.exports = function(gulp, config) {
    * Task to build widget directives for tests.
    */
   gulp.task('test:widgets', function () {
-    return gulp.src(paths.widgets)
-      .pipe(inlineJSON())
-      .pipe(buildDirective(__dirname + '/../src/main/resources/templates/widgetDirectiveTemplate.hbs.js'))
+    return gulp.src(paths.widgetsJson)
+      .pipe(buildWidget())
       .pipe(gulp.dest('target/widget-directives'));
   });
 

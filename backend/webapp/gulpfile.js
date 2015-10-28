@@ -55,7 +55,7 @@ gulp.task('serve', function() {
  * Default task
  * Run by 'npm run build' called by maven build
  */
-gulp.task('default', ['ddescriber', 'test'], function() {
+gulp.task('default', ['ddescriber'], function() {
   return gulp.start('build');
 });
 
