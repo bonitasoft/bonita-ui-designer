@@ -1,3 +1,7 @@
+/* globals exports */
+// needed for ES6 to work in protractor <_<
+require('gulp-babel/node_modules/babel-core/register');
+
 exports.config = {
   // ---------------------------------------------------------------------------
   // ----- How to setup Selenium -----------------------------------------------
