@@ -128,7 +128,8 @@
     {
       "label": "Collection",
       "name": "collectionToModify",
-      "caption": "Must be an array",
+      "caption": "Variable of type array",
+      "help": "Use $collection to act on the collection of a repeated content",
       "type": "collection",
       "showFor": "properties.action.value === 'Remove from collection' || properties.action.value === 'Add to collection'",
       "bond": "variable"
