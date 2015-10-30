@@ -37,7 +37,7 @@ describe('UI designer: home', function() {
       expect(nb).toEqual(nbPages + 1);
     });
 
-    expect($$('alerts .ui-alert-success p').first().getText()).toContain('Page testImport successfully added');
+    expect($$('alerts .ui-alert-success p').first().getText()).toContain('Page testImport successfully imported.');
 
     pages.count().then(function(nb) {
       nbPages = nb;
@@ -50,7 +50,7 @@ describe('UI designer: home', function() {
     //try to reimport expecting a confirmation message on overridden elements
     expect(modal.isPresent()).toBe(true);
     expect($('.modal-title').getText()).toEqual('Import testImport');
-    expect($('.ImportReport-pageOverridden').getText()).toContain('testImport');
+    expect($('.ImportReport-page').getText()).toContain('testImport');
 
     $('button.btn-primary').click();
     //modal dismiss too slowly for test to execute
@@ -65,7 +65,7 @@ describe('UI designer: home', function() {
     var successText = $$('alerts .ui-alert-success p').get(2).getText();
     expect(successText).toContain('Overridden artifacts:');
     expect(successText).toContain('Widget testWidgetImport');
-    expect(successText).toContain('Page testImport successfully overridden');
+    expect(successText).toContain('Page testImport successfully imported.');
 
   });
 
@@ -96,7 +96,7 @@ describe('UI designer: home', function() {
       expect(nb).toEqual(nbWidgets + 1);
     });
 
-    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Widget testImport successfully added');
+    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Widget testImport successfully imported.');
   });
 
 });
