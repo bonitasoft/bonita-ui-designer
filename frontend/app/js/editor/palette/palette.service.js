@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -33,10 +33,9 @@
       getSections: getSections
     };
 
-
     function getSections() {
       var componentsMap = components.get();
-      var sections = Object.keys(componentsMap).reduce(function (sections, item) {
+      var sections = Object.keys(componentsMap).reduce(function(sections, item) {
         var sectionName = componentsMap[item].sectionName;
         sections[sectionName] = sections[sectionName] || {
           name: sectionName,
@@ -48,11 +47,10 @@
         return sections;
       }, {});
 
-      return Object.keys(sections).map(function (key) {
+      return Object.keys(sections).map(function(key) {
         return sections[key];
       });
     }
-
 
   }
 })();

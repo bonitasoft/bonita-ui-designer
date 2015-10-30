@@ -36,21 +36,15 @@ angular.module('bonitasoft.designer.editor.whiteboard').factory('componentScopeB
       scope.$watch('component.propertyValues["' + key + '"].value', function() {
         // we extract the corresponding property descriptor from widget (using filter)
         // in order to get its type  (using map)
-        var propertyType = scope.component.$$widget.properties.filter(function(param){
-            return param.name === key;
-          })
-          .map( function(param) {
-            return param.type;
-          }).pop() || 'text';
+        var propertyType = scope.component.$$widget.properties.filter((param) => param.name === key)
+          .map((param) => param.type).pop() || 'text';
 
         componentScope.properties[key] = dataFilter(scope.component.propertyValues[key],  propertyType);
       });
     });
 
     // utility function, available in widget's template, to iterate over a range
-    componentScope.range = function(size) {
-      return new Array(size);
-    };
+    componentScope.range = (size) => new Array(size);
 
     return componentScope;
   };

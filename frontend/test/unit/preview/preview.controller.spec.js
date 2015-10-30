@@ -1,10 +1,9 @@
 describe('PreviewCtrl', function() {
   var ctrl, $scope, $q, $location, $stateParams, iframeParameters, webSocket, pageRequest, pageRepo;
 
-
   beforeEach(angular.mock.module('bonitasoft.designer.preview'));
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
 
     $q = $injector.get('$q');
     $scope = $injector.get('$rootScope').$new();
@@ -13,7 +12,7 @@ describe('PreviewCtrl', function() {
 
     pageRequest = $q.defer();
 
-    pageRepo = {load: angular.noop};
+    pageRepo = { load: angular.noop };
     spyOn(pageRepo, 'load').and.returnValue(pageRequest.promise);
 
     webSocket = jasmine.createSpyObj('webSocket', ['listen']);

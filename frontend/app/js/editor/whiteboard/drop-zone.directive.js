@@ -138,7 +138,7 @@ angular.module('bonitasoft.designer.editor.whiteboard')
          * @return {void}
          */
         function dropAtPosition(data, index) {
-          index = ('undefined' === typeof index) ? scope.componentIndex : index;
+          index = (typeof index === 'undefined') ? scope.componentIndex : index;
           scope.editor.addComponentToRow(data, scope.container, scope.row, index);
         }
 

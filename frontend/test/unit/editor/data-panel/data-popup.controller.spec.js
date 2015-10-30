@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   describe('DataPopupController', function() {
 
@@ -14,7 +14,6 @@
       $location = $injector.get('$location');
       var $controller = $injector.get('$controller');
 
-
       getController = function(pageData, data) {
         return $controller('DataPopupController', {
           $scope: $scope,
@@ -26,8 +25,8 @@
       };
     }));
 
-    describe('Variable creation', function(){
-      var pageData = {users:{value: []}};
+    describe('Variable creation', function() {
+      var pageData = { users: { value: [] } };
       var data;
       var controller;
 
@@ -35,16 +34,16 @@
         controller = getController(pageData, data);
       });
 
-      it('should init scope data', function(){
+      it('should init scope data', function() {
 
         expect($scope.pageData).toBe(pageData);
-        expect($scope.newData).toEqual({type: 'constant', exposed: false});
+        expect($scope.newData).toEqual({ type: 'constant', exposed: false });
         expect($scope.isNewData).toBe(true);
       });
 
       it('should check variable name uniqness', function() {
-         expect($scope.isDataNameUnique('users')).toBe(false);
-         expect($scope.isDataNameUnique('toto')).toBe(true);
+        expect($scope.isDataNameUnique('users')).toBe(false);
+        expect($scope.isDataNameUnique('toto')).toBe(true);
       });
 
       it('should init newData.value depending on the selectedType', function() {
@@ -55,16 +54,16 @@
       });
     });
 
-    describe('Edit variable', function(){
-      var data = {$$name: 'users', value: '4', type: 'constant'};
-      var pageData = {users:{value: '4'}};
+    describe('Edit variable', function() {
+      var data = { $$name: 'users', value: '4', type: 'constant' };
+      var pageData = { users: { value: '4' } };
       var controller;
 
       beforeEach(function() {
         controller = getController(pageData, data);
       });
 
-      it('should init scope data', function(){
+      it('should init scope data', function() {
 
         expect($scope.pageData).toBe(pageData);
         expect($scope.newData).toEqual(data);
@@ -72,8 +71,8 @@
       });
     });
 
-    describe('save variable', function(){
-      var pageData = {users:{value: '4'}};
+    describe('save variable', function() {
+      var pageData = { users: { value: '4' } };
       var data;
       var controller;
 

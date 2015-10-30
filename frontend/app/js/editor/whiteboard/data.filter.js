@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -26,7 +26,7 @@
    */
   function dataFilter(properties) {
 
-    return function (propertyValue, propertyType) {
+    return function(propertyValue, propertyType) {
       if (!propertyValue || !propertyValue.value) {
         return '';
       } else if (properties.isBound(propertyValue)) {

@@ -5,7 +5,7 @@ describe('ContainerDirectiveCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function ($rootScope, $controller, $injector) {
+  beforeEach(inject(function($rootScope, $controller, $injector) {
 
     componentUtils = $injector.get('componentUtils');
 
@@ -25,7 +25,6 @@ describe('ContainerDirectiveCtrl', function() {
       });
     };
   }));
-
 
   var mockEditor = {};
 
@@ -62,7 +61,7 @@ describe('ContainerDirectiveCtrl', function() {
   it('should verify that a container is not empty', function() {
     init();
     var container = {
-      rows: [[{name: 'test'}]]
+      rows: [[{ name: 'test' }]]
     };
 
     $scope.isEmpty(container);
@@ -126,13 +125,13 @@ describe('ContainerDirectiveCtrl', function() {
       init();
     });
     it('should select the currrent row when we remove a row', function() {
-      var row = [{name: 'test'}];
+      var row = [{ name: 'test' }];
       $scope.removeRow(row);
       expect(mockEditor.selectRow).toHaveBeenCalledWith({},row);
     });
 
     it('should select remove a row', function() {
-      var row = [{name: 'test'}];
+      var row = [{ name: 'test' }];
       $scope.removeRow(row);
       expect(mockEditor.removeCurrentRow).toHaveBeenCalledWith();
     });
@@ -227,14 +226,12 @@ describe('ContainerDirectiveCtrl', function() {
         });
       });
 
-
       describe('We can drop before or after a position', function() {
 
         beforeEach(function() {
           $scope.dropAtEndOfTheRow = angular.noop;
           spyOn($scope,'dropAtEndOfTheRow');
         });
-
 
         it('should not create a new row before if we push a non-movable container', function() {
           var rows = ['name','test','toto'];
@@ -288,7 +285,7 @@ describe('ContainerDirectiveCtrl', function() {
 
         it('should update the array if the currentComponent has an ID. - after:component', function() {
 
-          $scope.component = {id: 'test'};
+          $scope.component = { id: 'test' };
           var rows = ['name','test','toto'];
           spyOn(componentUtils, 'isMovable').and.returnValue(true);
           $scope.dropAfterRow({},{},1,rows);
@@ -297,7 +294,7 @@ describe('ContainerDirectiveCtrl', function() {
 
         it('should update the array if the currentComponent has an ID. - before:component', function() {
 
-          $scope.component = {id: 'test'};
+          $scope.component = { id: 'test' };
           var rows = ['name','test','toto'];
           spyOn(componentUtils, 'isMovable').and.returnValue(true);
           $scope.dropBeforeRow({},{},1,rows);
@@ -306,7 +303,7 @@ describe('ContainerDirectiveCtrl', function() {
 
         it('should update the array if the currentComponent has an ID. - after:container', function() {
 
-          $scope.container = {id: 'test'};
+          $scope.container = { id: 'test' };
           var rows = ['name','test','toto'];
           spyOn(componentUtils, 'isMovable').and.returnValue(true);
           $scope.dropAfterRow({},{},1,rows);
@@ -315,7 +312,7 @@ describe('ContainerDirectiveCtrl', function() {
 
         it('should update the array if the currentComponent has an ID. - before:container', function() {
 
-          $scope.container = {id: 'test'};
+          $scope.container = { id: 'test' };
           var rows = ['name','test','toto'];
           spyOn(componentUtils, 'isMovable').and.returnValue(true);
           $scope.dropBeforeRow({},{},1,rows);
@@ -325,7 +322,6 @@ describe('ContainerDirectiveCtrl', function() {
       });
 
     });
-
 
   });
 

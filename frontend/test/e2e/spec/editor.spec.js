@@ -33,7 +33,7 @@ describe('editor test', function() {
     expect(editor.components.get(0).element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-6');
   });
 
- it('should allow removing a widget using DEL keyboard shortcut', function() {
+  it('should allow removing a widget using DEL keyboard shortcut', function() {
     editor.addWidget('pbParagraph');
 
     expect(editor.components.count()).toBe(1);
@@ -68,7 +68,7 @@ describe('editor test', function() {
   it('should move selection to the previous component using LEFT', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
-    browser.actions().sendKeys( protractor.Key.LEFT ).perform();
+    browser.actions().sendKeys(protractor.Key.LEFT).perform();
     expect(editor.components.first().getAttribute('class')).toContain('component-element--selected');
   });
 
@@ -76,10 +76,9 @@ describe('editor test', function() {
     editor.addWidget('pbParagraph');
     editor.addElement('pbParagraph').to('.dropRow--last');
     editor.components.first().click();
-    browser.actions().sendKeys( protractor.Key.LEFT ).perform();
+    browser.actions().sendKeys(protractor.Key.LEFT).perform();
     expect(editor.components.first().getAttribute('class')).toContain('component-element--selected');
   });
-
 
   it('should allow removing a widget', function() {
     editor.addWidget('pbParagraph');

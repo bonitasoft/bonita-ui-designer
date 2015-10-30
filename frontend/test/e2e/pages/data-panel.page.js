@@ -34,7 +34,7 @@
 
     setAceValue: function(value) {
       var formGroup = $('.modal-dialog .form-group--data');
-      browser.actions().click( formGroup.element(by.css('.ace_content')) ).perform();
+      browser.actions().click(formGroup.element(by.css('.ace_content'))).perform();
 
       var textarea = formGroup.element(by.css('textarea'));
       textarea.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, protractor.Key.ALT, protractor.Key.SHIFT,  'd'));

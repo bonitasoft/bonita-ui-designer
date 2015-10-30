@@ -12,9 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- (function () {
+ (function() {
    'use strict';
-   angular.module('bonitasoft.designer.home').directive('homePages', function(){
+   angular.module('bonitasoft.designer.home').directive('homePages', function() {
      return {
        restrict: 'E',
        templateUrl: 'js/home/home-pages.html'

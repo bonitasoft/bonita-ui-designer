@@ -27,13 +27,12 @@ describe('EditorCtrl', function() {
           []
         ],
         data: {
-          hello: {value: 4, type: 'constant'}
+          hello: { value: 4, type: 'constant' }
         }
       },
       mode: 'page'
     });
   }));
-
 
   it('should get the right element classes', function() {
     var component = {
@@ -122,7 +121,6 @@ describe('EditorCtrl', function() {
       expect($scope.currentContainerRow.row.length).toBe(2);
     });
   });
-
 
   it('should select the component, and unselect the current row', function() {
     // given a page with 2 rows
@@ -232,7 +230,7 @@ describe('EditorCtrl', function() {
       $scope.$apply();
     });
 
-    it('should append a component to first row if page is empty', function(){
+    it('should append a component to first row if page is empty', function() {
       $scope.page.rows = [[]];
       $scope.appendComponent(null, dragData);
 
@@ -244,8 +242,8 @@ describe('EditorCtrl', function() {
       expect(widget.triggerAdded).toHaveBeenCalled();
     });
 
-    it('should append a component and create a new row at the end', function(){
-      $scope.page.rows = [[{'name': 'titi'}]];
+    it('should append a component and create a new row at the end', function() {
+      $scope.page.rows = [[{ 'name': 'titi' }]];
       var nbRow = $scope.page.rows.length;
       $scope.appendComponent(null, dragData);
 
@@ -257,7 +255,7 @@ describe('EditorCtrl', function() {
       expect(widget.triggerAdded).toHaveBeenCalled();
     });
 
-    it('should add a component to a row', function(){
+    it('should add a component to a row', function() {
       expect(container.rows[0].length).toBe(0);
       $scope.addComponentToRow(dragData, container, container.rows[0], 0);
 
@@ -288,7 +286,6 @@ describe('EditorCtrl', function() {
       expect(container.rows[0][0].dimension.xs).toBe(6);
       expect(container.rows[0][1].dimension.xs).toBe(6);
     });
-
 
     it('should add a widget and do not change the length if we already have 12 col', function() {
       $scope.addComponent(dragData,  0);
@@ -500,7 +497,7 @@ describe('EditorCtrl', function() {
     expect($scope.isCurrentComponent(component)).toBe(true);
   });
 
-  it('should deselect a component', function(){
+  it('should deselect a component', function() {
     // given a component
     var component = {
       dimension: {
@@ -521,12 +518,11 @@ describe('EditorCtrl', function() {
     spyOn(pageRepo, 'save');
     //$scope.save();
     // given a page
-    $scope.page = {id: 'person'};
+    $scope.page = { id: 'person' };
 
-    document.addEventListener('keydown', function(e){
+    document.addEventListener('keydown', function(e) {
       console.log(e.type, e.ctrlKey, e.shiftKey);
     });
-
 
     var event = document.createEvent('Event');
     event.initEvent('keydown', true, true);
@@ -546,7 +542,7 @@ describe('EditorCtrl', function() {
     spyOn($state, 'go');
 
     // given a page
-    $scope.page = {id: 'person'};
+    $scope.page = { id: 'person' };
 
     // when we go to preview
     $scope.saveAndEditCustomWidget('widgetId');
@@ -555,11 +551,11 @@ describe('EditorCtrl', function() {
     // then it should call the service to save
     expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
     // and set the path and search
-    expect($state.go).toHaveBeenCalledWith('designer.widget', {widgetId: 'widgetId'});
+    expect($state.go).toHaveBeenCalledWith('designer.widget', { widgetId: 'widgetId' });
   });
 
   it('should check that a page can be saved', function() {
-    expect($scope.canBeSaved({ name: ''})).toBeFalsy();
-    expect($scope.canBeSaved({ name: 'pageName'})).toBeTruthy();
+    expect($scope.canBeSaved({ name: '' })).toBeFalsy();
+    expect($scope.canBeSaved({ name: 'pageName' })).toBeTruthy();
   });
 });

@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.common.directives')
-  .directive('confirmOnExit', function($rootScope, $stateParams, $state, $injector, $window, gettextCatalog){
+  .directive('confirmOnExit', function($rootScope, $stateParams, $state, $injector, $window, gettextCatalog) {
 
     'use strict';
 
@@ -25,7 +25,7 @@ angular.module('bonitasoft.designer.common.directives')
       },
       link: function($scope) {
         // get the service from resolve parameter
-        if( !$state.current.resolve || !$state.current.resolve.artifactRepo) {
+        if (!$state.current.resolve || !$state.current.resolve.artifactRepo) {
           return;
         }
 
@@ -50,9 +50,8 @@ angular.module('bonitasoft.designer.common.directives')
           }
         }
 
-
         // remove route event listener
-        $scope.$on('$destroy', function(){
+        $scope.$on('$destroy', function() {
           $window.onbeforeunload = undefined;
           onRouteChangeOff();
         });

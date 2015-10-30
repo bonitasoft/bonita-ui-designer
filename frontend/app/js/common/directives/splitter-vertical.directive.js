@@ -45,14 +45,14 @@ angular.module('bonitasoft.designer.common.directives')
           this.xPosition = rightBounds.right - rightBounds.left;
 
           this.rightElem.addClass('splitter-pane-closed');
-          this.leftElem.css({right: 0}).addClass('splitter-closed-right');
+          this.leftElem.css({ right: 0 }).addClass('splitter-closed-right');
         };
 
         /**
          * Open the right pane
          */
         this.openRight = function() {
-          this.leftElem.css({right: this.xPosition + 'px'}).removeClass('splitter-closed-right');
+          this.leftElem.css({ right: this.xPosition + 'px' }).removeClass('splitter-closed-right');
           this.rightElem.removeClass('splitter-pane-closed');
         };
 
@@ -63,7 +63,7 @@ angular.module('bonitasoft.designer.common.directives')
           var leftBounds = this.leftElem[0].getBoundingClientRect();
           this.xPosition = leftBounds.right;
 
-          this.rightElem.css({left: 0}).addClass('splitter-closed-left');
+          this.rightElem.css({ left: 0 }).addClass('splitter-closed-left');
           this.leftElem.addClass('splitter-pane-closed');
         };
 
@@ -71,7 +71,7 @@ angular.module('bonitasoft.designer.common.directives')
          * Open the left pane
          */
         this.openLeft = function() {
-          this.rightElem.css({left: this.xPosition + 'px'}).removeClass('splitter-closed-left');
+          this.rightElem.css({ left: this.xPosition + 'px' }).removeClass('splitter-closed-left');
           this.leftElem.removeClass('splitter-pane-closed');
         };
 
@@ -99,7 +99,7 @@ angular.module('bonitasoft.designer.common.directives')
          * @param {number} pointerX  current pointer x position
          * @returns {number}
          */
-        function computeX (pointerX) {
+        function computeX(pointerX) {
           var x = pointerX;
           if ($window.innerWidth - x > $scope.paneRightMax) {
             x = $window.innerWidth - $scope.paneRightMax;
@@ -116,8 +116,8 @@ angular.module('bonitasoft.designer.common.directives')
          */
         this.resize = function(pointerX) {
           this.xPosition = computeX(pointerX);
-          this.rightElem.css({left: this.xPosition + 'px'});
-          this.leftElem.css({right: ($window.innerWidth - this.xPosition) + 'px'});
+          this.rightElem.css({ left: this.xPosition + 'px' });
+          this.leftElem.css({ right: ($window.innerWidth - this.xPosition) + 'px' });
         };
       },
       link: function($scope, $element, $attrs, $ctrl) {
@@ -146,14 +146,14 @@ angular.module('bonitasoft.designer.common.directives')
           $ctrl.toggleLeft();
         });
 
-        function mousemove (event) {
+        function mousemove(event) {
           paneLeft.addClass('splitter-onmove');
           paneRight.addClass('splitter-onmove');
           $ctrl.resize(event.pageX);
         }
 
         // unbind events
-        function mouseup () {
+        function mouseup() {
           paneLeft.removeClass('splitter-onmove');
           paneRight.removeClass('splitter-onmove');
           $document.unbind('mousemove', mousemove);

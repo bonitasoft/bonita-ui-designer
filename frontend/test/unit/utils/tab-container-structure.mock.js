@@ -28,7 +28,7 @@ angular.module('tabsContainerStructureMock',[])
                                                 rows: [[]]
                                               }
                                             }]
-                                        },
+                                          },
                                           {
                                             $$id: 'tab-12',
                                             type: 'container',

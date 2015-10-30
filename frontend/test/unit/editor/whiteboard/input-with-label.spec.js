@@ -1,9 +1,9 @@
-describe('input with label', function () {
+describe('input with label', function() {
   var $compile, $rootScope, element, directiveScope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
 
@@ -20,16 +20,16 @@ describe('input with label', function () {
     $rootScope.$digest();
   }));
 
-  it('should display the input with label on the left', function () {
-    $rootScope.propertyValues = { labelPosition: 'left', labelWidth: 4};
+  it('should display the input with label on the left', function() {
+    $rootScope.propertyValues = { labelPosition: 'left', labelWidth: 4 };
     $rootScope.$apply();
 
     expect(element.find('label').hasClass('widget-label-horizontal col-xs-4')).toBeTruthy();
     expect(element.find('div').hasClass('col-xs-8')).toBeTruthy();
   });
 
-  it('should display the input with label on the left with a different width', function () {
-    $rootScope.propertyValues = { labelPosition: 'left', labelWidth: 6};
+  it('should display the input with label on the left with a different width', function() {
+    $rootScope.propertyValues = { labelPosition: 'left', labelWidth: 6 };
     $rootScope.$apply();
 
     // then we should have
@@ -37,15 +37,15 @@ describe('input with label', function () {
     expect(element.find('div').hasClass('col-xs-6')).toBeTruthy();
   });
 
-  it('should display the input with label on the left with a different label', function () {
-    $rootScope.propertyValues = {label: 'Last name', labelPosition: 'left', labelWidth: 6};
+  it('should display the input with label on the left with a different label', function() {
+    $rootScope.propertyValues = { label: 'Last name', labelPosition: 'left', labelWidth: 6 };
     $rootScope.$apply();
 
     // then we should have
     expect(element.find('label').html()).toContain('Last name');
   });
 
-  it('should display the input with label on the top', function () {
+  it('should display the input with label on the top', function() {
     $rootScope.propertyValues = { labelPosition: 'top', labelWidth: 6 };
     $rootScope.$apply();
 

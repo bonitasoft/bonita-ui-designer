@@ -1,9 +1,9 @@
 var PageEditor = require('../pages/editor.page.js');
 
-describe('properties panel test', function () {
+describe('properties panel test', function() {
 
   var editor;
-  beforeEach(function () {
+  beforeEach(function() {
     editor = PageEditor.get('empty');
     editor.addWidget('pbInput');
     editor.setWidth(6);
@@ -17,7 +17,7 @@ describe('properties panel test', function () {
     expect(element(by.cssContainingText('.property-label label', 'Hidden')).isPresent()).toBe(true);
   });
 
-  it('should display properties for label', function () {
+  it('should display properties for label', function() {
     expect(element(by.cssContainingText('.property-label label', 'CSS classes')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Hidden')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Label')).isPresent()).toBe(true);
@@ -28,7 +28,7 @@ describe('properties panel test', function () {
     expect(element(by.cssContainingText('.property-label label', 'Type')).isPresent()).toBe(true);
   });
 
-  it('should hide properties for label if we choose to hide it', function () {
+  it('should hide properties for label if we choose to hide it', function() {
 
     // Change the value of a radio button as Angular does not understand when we change prop :/
     var labelHidden = $$('[data-property=labelHidden] input[type=radio]').last();
@@ -39,8 +39,7 @@ describe('properties panel test', function () {
     expect(propertyLabel.count()).toBe(10);
   });
 
-
-  it('should add a component set a type then add a new one and get default config', function () {
+  it('should add a component set a type then add a new one and get default config', function() {
     // Select option number
     element(by.css('[data-property=type] option[label="number"]')).click();
 
@@ -50,7 +49,7 @@ describe('properties panel test', function () {
     expect(type.$('option:checked').getText()).toBe('text');
   });
 
-  it('should reload the config for properties', function () {
+  it('should reload the config for properties', function() {
     // Select option number
     element(by.css('[data-property=type] option[label="number"]')).click();
 
@@ -65,6 +64,5 @@ describe('properties panel test', function () {
     type = element(by.css('[data-property=type] select'));
     expect(type.$('option:checked').getText()).toBe('number');
   });
-
 
 });

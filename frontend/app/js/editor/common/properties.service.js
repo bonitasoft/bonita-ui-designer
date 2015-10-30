@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -49,7 +49,7 @@
     };
 
     function computeValues(properties) {
-      return (properties || []).reduce(function (props, property) {
+      return (properties || []).reduce(function(props, property) {
         props[property.name] = computeValue(property);
         return props;
       }, {});

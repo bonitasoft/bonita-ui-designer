@@ -46,7 +46,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
     arrays.moveRight(tab, $scope.tabsContainer.tabs);
   };
 
-  $scope.addTab = function (event) {
+  $scope.addTab = function(event) {
     var tabs = $scope.tabsContainer.tabs;
     var newTab = pageElementFactory.createTabElement('Tab ' + (tabs.length + 1));
     whiteboardComponentWrapper.wrapTab(newTab, $scope.tabsContainer);
@@ -54,14 +54,14 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
     $scope.openTab(newTab, event);
   };
 
-  $scope.isRemoveTabVisible = function (tab) {
+  $scope.isRemoveTabVisible = function(tab) {
     return $scope.editor.isCurrentComponent(tab) && $scope.tabsContainer.tabs.length > 1;
   };
 
-  $scope.removeTab = function (tab, event) {
+  $scope.removeTab = function(tab, event) {
     var tabs = $scope.tabsContainer.tabs;
     var index = tabs.indexOf(tab);
-    index = index >= tabs.length ? tabs.length - 1: index;
+    index = index >= tabs.length ? tabs.length - 1 : index;
     var previousTabIndex = index === 0 ? 0 : index - 1;
     tabs.splice(index, 1);
     $scope.openTab(tabs[previousTabIndex], event);

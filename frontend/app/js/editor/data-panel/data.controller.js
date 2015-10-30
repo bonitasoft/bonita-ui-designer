@@ -37,12 +37,12 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
     $scope.filterPageData();
   };
 
-  $scope.filterPageData = function () {
-    function matchData(pattern, key, data ) {
-      return key.indexOf(pattern.trim()) !== -1 || angular.toJson(data || {}).indexOf(pattern.trim()) !== -1 ;
+  $scope.filterPageData = function() {
+    function matchData(pattern, key, data) {
+      return key.indexOf(pattern.trim()) !== -1 || angular.toJson(data || {}).indexOf(pattern.trim()) !== -1;
     }
 
-    $scope.pageData = Object.keys($scope.page.data).reduce(function(data, key){
+    $scope.pageData = Object.keys($scope.page.data).reduce(function(data, key) {
       if (matchData($scope.searchedData, key, artifact.data[key].value)) {
         data[key] = artifact.data[key];
       }
@@ -56,7 +56,7 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
   };
 
   $scope.clearFilterVisible = function(search) {
-    return (search||'').trim().length > 0;
+    return (search || '').trim().length > 0;
   };
 
   $scope.openDataPopup = function(key) {
@@ -66,7 +66,7 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
       resolve: {
         mode: () => mode,
         pageData: () => artifact.data,
-        data: () => key && angular.extend({}, artifact.data[key], {$$name: key})
+        data: () => key && angular.extend({}, artifact.data[key], { $$name: key })
       }
     });
 

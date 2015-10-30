@@ -8,10 +8,10 @@ describe('components service', function() {
 
   it('should reset registered components', function() {
     components.register([{
-      component:{
-        id:'foo'
+      component: {
+        id: 'foo'
       },
-      sectionName:'bar',
+      sectionName: 'bar',
       sectionOrder: 1
     }]);
     expect(Object.keys(components.get()).length).toBe(1);
@@ -24,10 +24,10 @@ describe('components service', function() {
   it('should register components', function() {
 
     components.register([{
-      component:{
-        id:'foo'
+      component: {
+        id: 'foo'
       },
-      sectionName:'bar',
+      sectionName: 'bar',
       sectionOrder: 1
     }]);
 
@@ -43,15 +43,15 @@ describe('components service', function() {
   it('should init a widget', function() {
     var spy = jasmine.createSpy('init');
     components.register([{
-      component:{
-        id:'foo'
+      component: {
+        id: 'foo'
       },
-      sectionName:'bar',
+      sectionName: 'bar',
       sectionOrder: 1,
       init: spy
     }]);
     var row = {};
-    var component = {id: 'foo' };
+    var component = { id: 'foo' };
 
     components.init(component, row);
 
@@ -59,8 +59,8 @@ describe('components service', function() {
   });
 
   it('throw an error when trying to init an unregistered component', function() {
-    function test(){
-      components.init({id: 'foo' });
+    function test() {
+      components.init({ id: 'foo' });
     }
     expect(test).toThrow();
   });

@@ -41,7 +41,7 @@ describe('The route config', function() {
   });
 
   it('should redirect to custom widget editor', function() {
-    spyOn(widgetRepo, 'getById').and.returnValue($q.when({id: 'customLabel', label: 'Label'}));
+    spyOn(widgetRepo, 'getById').and.returnValue($q.when({ id: 'customLabel', label: 'Label' }));
 
     // when we go to the custom widget editor
     $location.path('en/widget/customLabel');

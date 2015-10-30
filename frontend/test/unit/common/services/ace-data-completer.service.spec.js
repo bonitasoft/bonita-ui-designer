@@ -14,12 +14,12 @@ describe('ace-data-completer', function() {
   describe('getCompletions', function() {
     it('should return an of completions ', function() {
       var data = {
-        'users': { value: []}
+        'users': { value: [] }
       };
       var completer = service(data);
-      completer.getCompletions(null, null, 0, '' ,function(err, results){
+      completer.getCompletions(null, null, 0, '' ,function(err, results) {
         expect(results.length).toBe(1);
-        expect(results).toEqual([{name: '$data.users', value: '$data.users', score: 2, meta: 'data'}]);
+        expect(results).toEqual([{ name: '$data.users', value: '$data.users', score: 2, meta: 'data' }]);
       });
     });
   });

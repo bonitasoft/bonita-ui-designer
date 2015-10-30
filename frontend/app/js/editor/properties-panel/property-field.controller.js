@@ -15,13 +15,13 @@
 /**
  * Controller of the componentMover directive
  */
-angular.module('bonitasoft.designer.editor.properties-panel').controller('PropertyFieldDirectiveCtrl', function ($scope, properties) {
+angular.module('bonitasoft.designer.editor.properties-panel').controller('PropertyFieldDirectiveCtrl', function($scope, properties) {
 
   'use strict';
 
   $scope.propertyValue = $scope.propertyValue || properties.computeValue($scope.property);
 
-  $scope.isDisplayed = function () {
+  $scope.isDisplayed = function() {
 
     // If there is no expression we will always display the option
     if (!$scope.property.showFor) {
@@ -30,26 +30,26 @@ angular.module('bonitasoft.designer.editor.properties-panel').controller('Proper
     return $scope.$eval($scope.property.showFor);
   };
 
-  $scope.getDataNames = function () {
+  $scope.getDataNames = function() {
     return Object.keys($scope.pageData);
   };
 
   var valuesMemory = {};
-  this.toggleExpressionEditor = function () {
+  this.toggleExpressionEditor = function() {
     valuesMemory.constant = valuesMemory.constant || $scope.property.defaultValue;
     valuesMemory[$scope.propertyValue.type] = $scope.propertyValue.value;
     $scope.propertyValue.type = $scope.propertyValue.type === 'expression' ? 'constant' : 'expression';
     $scope.propertyValue.value = valuesMemory[$scope.propertyValue.type];
   };
 
-  this.isExpression = function () {
+  this.isExpression = function() {
     return $scope.propertyValue.type === 'expression';
   };
 
   // should be shared with widget editor
   var supportedTypes = ['boolean', 'choice', 'collection', 'float', 'html', 'integer'];
 
-  this.getFieldTemplate = function (property) {
+  this.getFieldTemplate = function(property) {
     var type = supportedTypes.indexOf(property.type) >= 0 ? property.type : 'text';
 
     if (type === 'choice' && angular.isObject(property.choiceValues[0])) {
@@ -59,7 +59,7 @@ angular.module('bonitasoft.designer.editor.properties-panel').controller('Proper
     return 'js/editor/properties-panel/field/' + type + '.html';
   };
 
-  this.getBondTemplate = function (property) {
+  this.getBondTemplate = function(property) {
     return 'js/editor/properties-panel/bond/' + property.bond + '.html';
   };
 });

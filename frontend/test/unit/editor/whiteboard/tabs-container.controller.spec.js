@@ -9,8 +9,8 @@ describe('TabsContainerDirectiveCtrl', function() {
 
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-0'},
-        {name: 'tab-1'}
+        { name: 'tab-0' },
+        { name: 'tab-1' }
       ]
     };
     $scope.editor = {
@@ -72,11 +72,11 @@ describe('TabsContainerDirectiveCtrl', function() {
 
   });
 
-  it('should add tab at the end', function () {
+  it('should add tab at the end', function() {
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-0'},
-        {name: 'tab-1'}
+        { name: 'tab-0' },
+        { name: 'tab-1' }
       ]
     };
 
@@ -88,7 +88,7 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect($scope.tabsContainer.tabs[2].container.rows).toEqual([[]]);
   });
 
-  it('should remove current tab and select previous one', function () {
+  it('should remove current tab and select previous one', function() {
     var toBeRemoved = aTab().title('tab-2');
     var nextSelected = aTab().title('tab-1');
     $scope.tabsContainer = {
@@ -107,7 +107,7 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect(toBeRemoved.triggerRemoved).toHaveBeenCalled();
   });
 
-  it('should remove current tab and select first when deleting first tab', function () {
+  it('should remove current tab and select first when deleting first tab', function() {
     var toBeRemoved = aTab().title('tab-1');
     var nextSelected = aTab().title('tab-2');
     $scope.tabsContainer = {
@@ -126,10 +126,10 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect(toBeRemoved.triggerRemoved).toHaveBeenCalled();
   });
 
-  it('should hide remove button when there is only one tab', function () {
+  it('should hide remove button when there is only one tab', function() {
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'}
+        { name: 'tab-1' }
       ]
     };
     spyOn($scope.editor, 'isCurrentComponent').and.returnValue(true);
@@ -139,11 +139,11 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect(visible).toBeFalsy();
   });
 
-  it('should show remove button when there is more than one tab', function () {
+  it('should show remove button when there is more than one tab', function() {
     $scope.tabsContainer = {
       tabs: [
-        {name: 'tab-1'},
-        {name: 'tab-2'}
+        { name: 'tab-1' },
+        { name: 'tab-2' }
       ]
     };
     spyOn($scope.editor, 'isCurrentComponent').and.returnValue(true);
