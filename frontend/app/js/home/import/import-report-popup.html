@@ -1,33 +1,22 @@
 <div class="ImportReport">
     <div class="modal-header">
-        <h3 class="modal-title" translate>Import {{ importReport.report.element.name }}</h3>
+      <h3 class="modal-title"><i class="fa fa-exclamation-triangle text-warning "></i><translate>Import {{ importReport.report.element.name }}</translate></h3>
     </div>
     <div class="modal-body">
-        <translate>The import will override the following existing elements based on their names:</translate>
-        <ul>
-            <li ng-if="importReport.report.overridden" class="ImportReport-pageOverridden">
-                <span class="text-muted">
-                    <i class="ui-icon ui-pages"></i>
-                    <translate class="ImportReport-type">{{ importReport.report.type }}</translate>
-                </span>
-                {{ importReport.report.element.name }}
-            </li>
-            <li ng-repeat="(artifactType, artifacts) in importReport.report.dependencies.overridden">
-                <span class="text-muted">
-                    <i class="ui-icon ui-{{artifactType}}s"></i>
-                    <translate translate-n="artifacts.length"
-                               translate-plural="{{ artifactType }}s"
-                               class="ImportReport-type">{{ artifactType }}
-                    </translate>
-                </span>
-                {{ importReport.joinOnNames(artifacts) }}
-            </li>
-        </ul>
-        <p translate>The other elements will be imported.</p>
-        <p translate>Do you want to continue?</p>
+        <translate>The imported zip file contains elements with the same name as some existing elements. These existing elements will be overwritten:</translate>
+        <import-report-item-list page-name="importReport.report.element.name" type="importReport.report.type" display-page="importReport.report.overridden" dependencies="importReport.report.dependencies.overridden"></import-report-item-list>
+        <div ng-if="!importReport.report.overridden || importReport.report.dependencies.added">
+         <p> <translate>The zip file also contains new elements.</translate>
+          <span ng-click="showDetails = !showDetails" class="clickable ImportReport--smallAndUnderlined"><span ng-if="showDetails" class="fa fa-caret-down"></span><span ng-if="!showDetails" class="fa fa-caret-right"></span><translate>Details</translate></span>
+          </p>
+          <div collapse="!showDetails">
+              <import-report-item-list page-name="importReport.report.element.name" type="importReport.report.type" display-page="!importReport.report.overridden" dependencies="importReport.report.dependencies.added"></import-report-item-list>
+          </div>
+        </div>
+        <p translate>Do you want to import this zip file?</p>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Continue</button>
+    <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Import</button>
     <button type="button" class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
 </div>
