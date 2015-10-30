@@ -42,9 +42,9 @@
         properties: [
           {
             name: 'repeatedCollection',
-            label: gettext('Repeat contents'),
-            caption: gettext('Use $item as the current iteration.'),
-            help: gettext('Bind this property to a variable of type array. For each iteration, a widget property can be bound to $item to access the current JavaScript object'),
+            label: gettext('Collection'),
+            help: gettext('Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container'),
+            caption: gettext('Repeat container content. Variable of type array'),
             type: 'string',
             bond: 'variable'
           }
