@@ -12,119 +12,93 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2015-09-11 02:52-0400\n"
+"PO-Revision-Date: 2015-10-30 07:00-0400\n"
 
-#: editor/data-panel/data-popup.html:12
+#: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
 
-#: custom-widget/create-property.html:13
+#: custom-widget/create-property.html:1
 msgid "(displayed in editor's property panel)"
-msgstr "（エディタのプロパティ パネルに表示済み）"
+msgstr "（エディタのプロパティ パネルで表示される）"
 
-#: custom-widget/create-property.html:8
+#: custom-widget/create-property.html:1
 msgid "(used in your template and controller)"
-msgstr "（あなたのテンプレートとコントローラで使用済み）"
+msgstr "（テンプレートとコントローラーで使用される）"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:3
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
-#: home/help-popup.html:42
-msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the\n"
-"                .bar archive ready to deploy in the portal."
-msgstr "<b>プロセスのフォームとして使用するには</b>、Studioで関連するプロセスまたはヒューマンタスクにそれをマップします。\n"
-"ポータルへのデプロイ時には、 .bar アーカイブ ファイルの中に自動的にパッケージ化されます。"
+#: home/help-popup.html:1
+msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
+msgstr "<b>プロセスのフォームとして使用するには</b>、Studioで関連するプロセス、またはヒューマン タスクにそれをマップします。それはポータルへのデプロイ時に、 .bar アーカイブ ファイル内に自動的にパッケージ化されます。"
 
-#: home/help-popup.html:52
-msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the\n"
-"                layout of the relevant application."
-msgstr "<b>業務アプリケーションのレイアウトとして使用するには</b>、UI デザイナーからそれをエクスポートし、 Bonita BPM ポータルにリソースとしてインポート後、関連するアプリケーションのレイアウトとしてマップします。"
+#: home/help-popup.html:1
+msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
+msgstr "<b>業務アプリケーションのレイアウトとして使用するには</b>、UI デザイナーからそれをエクスポートし、 Bonita BPM ポータルにリソースとしてインポートします。そして関連するアプリケーションのレイアウトとしてマップします。"
 
-#: home/help-popup.html:37
-msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the\n"
-"                relevant application, add it to the list of pages and to a navigation menu."
-msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーから該当ページをエクスポートし Bonita BPM ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
+#: home/help-popup.html:1
+msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
+msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita BPM ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
 
-#: editor/data-panel/help-popup.html:55
-msgid "<code>context</code> is an External API.\n"
-"                <br>It provides references to all business variables and documents in the process instance.\n"
-"                To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
-msgstr "<code>context</code> は、External API です。インスタンスのすべてのビジネス変数およびドキュメントへの参照を提供します。インスタンスのビジネス変数を取得するには、<ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable> の値を使ってExternal API 変数を作成します。"
+#: editor/data-panel/help-popup.html:1
+msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
+msgstr "<code>コンテキスト</code> は、External API です。<br>それはプロセス インスタンス内のすべてのビジネス変数とドキュメントの参照を提供します。ビジネス変数のインスタンスを取得するには、<ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable> の値を持つExternal API 変数を作成します。"
 
-#: editor/data-panel/help-popup.html:32
-msgid "<code>formInput</code> is a JSON object.\n"
-"                <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial\n"
-"                values for form fields.\n"
-"                <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with\n"
-"                values from an object in an external source that has the same model (such as with a BDM external API).\n"
-"                <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to\n"
-"                edit <code>formOutput</code> manually."
-msgstr "<code>formInput</code> は JSON オブジェクトです。\n"
-"                <br>このデータ構造は入力コントラクトによって定義され、その属性はデフォルト値で初期化されます。デフォルト値はフォームフィールドの初期値設定に使用されます。\n"
-"                <br>コンスタントを使ってデフォルト値を編集する（テストやデバックに有効）、あるいは同じデータモデルを持つ外部ソース内のオブジェクト値を使ってデフォルト値を編集する（ビジネス データモデルの外部 API を使用する例）、いずれかの方法でも <code>formInput</code> 内の値をセットすることができます。\n"
-"                <br><code>formInput</code>  を使用せずに、他のソースからフォームの初期値をセットすることも可能ですが、この場合は <code>formOutput</code> を手作業で編集する必要があります。"
+#: editor/data-panel/help-popup.html:1
+msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
+msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
-#: editor/data-panel/help-popup.html:42
-msgid "<code>formOutput</code> is a JavaScript expression returning an object.\n"
-"                <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields\n"
-"                from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and\n"
-"                aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) and submitted to\n"
-"                the process or task"
-msgstr "<code>formOutput</code> は、オブジェクトを返すJavaScript式です。\n"
-"                <br>戻り値のデータ構造はコントラクトの要求仕様と一致し、<code>formInput</code>のデータ値がデフォルトで埋められます。その目的は、フォーム内のフィールド情報を集約し、他のタスクやプロセスがそれらのコントラクトに情報を埋めるために送信することです。送信時にエンドユーザーによって入力または変更された値が（送信ボタンの <i>クリックで送られるデータ</i> プロパティで定義された）<code>formOutput</code> オブジェクトに集約され、プロセスやタスクに送信されます。"
+#: editor/data-panel/help-popup.html:1
+msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) and submitted to the process or task"
+msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、既定によって <code>\"forminput\"</code> のデータが埋められます。その目標は、フォームのフィールドを集約して、コントラクトのデータを埋めるためにタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
 
-#: editor/data-panel/help-popup.html:50
-msgid "<code>taskId</code> is a URL Parameter.\n"
-"                <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
-msgstr "<code>taskId</code> は、URL パラメータです。\n"
-"                <br>現在のBPMタスクのIDです。BPM API パラメータとして使用できます。"
+#: editor/data-panel/help-popup.html:1
+msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
+msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM タスクの id です。BPM API のパラメータとして使用できます。"
 
-#: editor/data-panel/data-popup.html:70
+#: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"値2\"]、オブジェクトの文法：{\"キー1\": \"値1\", \"キー2\": \"値2\"}"
 
-#: editor/data-panel/data-popup.html:104
+#: editor/data-panel/data-popup.html:10
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<span class=\"key\">$</span> キーを押します。オートコンプリートを使用するには、Ctrl+スペースキーを使用します。"
 
-#: editor/data-panel/data-popup.html:39
+#: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
-#: editor/data-panel/data-popup.html:47
+#: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em>"
 msgstr "<span class=\"tip\">ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> の文法を使用してURL内のデータを使用できます。"
 
-#: editor/editor.html:7
-msgid "<span>{{ mode }}</span> editor"
-msgstr "<span>{{ mode }}</span> エディタ"
+#: editor/menu-bar/menu-bar.html:1
+msgid "<span>{{ vm.mode }}</span> editor"
+msgstr "<span>{{ vm.mode }}</span> エディタ"
 
-#: editor/data-panel/help-popup.html:23
+#: editor/data-panel/help-popup.html:1
 msgid "A binding is dynamic, so every time data changes, the whole data model is re-evaluated and the UI is updated."
-msgstr "バインディングは動的で、いつでもデータは変化します。データモデル全体が再評価され、UI は更新されます。"
+msgstr "バインディングは動的でデータは常時変化します。データモデル全体が再評価され、UI が動的に更新されます。"
 
-#: assets/help-popup.html:15
+#: assets/help-popup.html:1
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "ローカルアセット名に特殊文字やスペースを含めることはできません。 外部アセットは標準的なURLでなければなりません。"
 
 #: editor/help/constant-bond-help.html:1
-msgid "A property that requires a constant value is presented in the Properties panel as a radio\n"
-"                    button\n"
-"                    set,\n"
-"                    drop-down list, or number selector (for the Width property). Select the required value."
-msgstr "コンスタントの値を要求するプロパティです。ラジオボタン、ドロップダウンリスト、数値セレクター（幅プロパティに使用）などとしてプロパティ パネルに表示されます。必要な値を選択します。"
+msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
+msgstr "コンスタント値を要求するプロパティが、ラジオ ボタンのセット、ドロップ ダウン リスト、または （幅プロパティ）の数値セレクターとして [プロパティ] パネルに表示されます。必要な値を選択します。"
 
 #: editor/help/description-bond-help.html:1
-msgid "A property value is constant, dynamic, a bidirectional bond, or\n"
-"                an interpolation."
-msgstr "プロパティ値には、「コンスタント」、「動的な値」、「双方向バインド」、「補完」の4つのタイプがあります。"
+msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
+msgstr "プロパティの値は、コンスタント、動的な値、双方向バインド、または補完です。"
 
-#: editor/data-panel/data-popup.html:43
+#: editor/data-panel/data-popup.html:1
 msgid "API URL"
 msgstr "API の URL"
 
-#: editor/help-popup.html:56
+#: editor/menu-bar/help-popup.html:1
 msgid "Access to $form capabilities for form container"
 msgstr "フォーム コンテナ： $form の機能にアクセスできます"
 
@@ -132,72 +106,73 @@ msgstr "フォーム コンテナ： $form の機能にアクセスできます"
 msgid "Action"
 msgstr "アクション"
 
-#: assets/page-assets.html:20
+#: assets/page-assets.html:1
 msgid "Active"
-msgstr "アクティブです"
+msgstr "アクティブ"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
-#: assets/widget-assets.html:11
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
+#: assets/widget-assets.html:1
 msgid "Add"
 msgstr "追加"
 
-#: assets/help-popup.html:30
+#: assets/help-popup.html:1
 msgid "Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)"
 msgstr "CSS アセットをページレベルで追加し、それらをあらゆるウィジェットの CSS クラス プロパティを編集するために使用します（UI デザイナーはデフォルトの Bootstrap スタイルを取り入れています）。"
 
-#: assets/help-popup.html:26
+#: assets/help-popup.html:1
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
 msgstr "カスタムスクリプトに JavaScript アセットを追加します。それらはページレベルでロードされ利用可能になります。JavaScript 式タイプの変数でそれらを使用できます。 変数の値フィールドでその関数をコールし必要なパラメータを渡します。"
 
-#: assets/asset-popup.html:4 assets/page-assets.html:3
+#: assets/asset-popup.html:1 assets/page-assets.html:1
 msgid "Add a new asset"
 msgstr "新規アセットを追加"
 
-#: editor/workspace/tabs-container.html:13
+#: editor/whiteboard/tabs-container.html:1
+#: editor/workspace/tabs-container.html:1
 msgid "Add a new tab"
 msgstr "新規タブを追加"
 
-#: editor/help-popup.html:16
-msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel\n"
-"                at the bottom."
-msgstr "下のアセットパネルであなたのページに Image、CSS または JavaScript のリソースを追加します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
+msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Add to collection"
 msgstr "コレクションに追加"
 
-#: home/import-artifact-success-message.html:6
+#: home/import-artifact-success-message.html:1
+#: home/import/import-success-message.html:1
 msgid "Added artifacts"
 msgstr "追加されたアーティファクト"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:1
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:7
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:11
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:5
 msgid "Alignment"
 msgstr "配置"
 
 #: editor/data-panel/api-examples.service.js:40
 msgid "All process data of a case: Search for a list of case variables"
-msgstr "案件の全プロセスデータ: 案件リストの変数を検索する"
+msgstr "案件の全プロセスデータ: 案件リストの変数を検索します"
 
 #: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:13
 msgid "Alternate text"
 msgstr "代替テキスト"
 
-#: editor/common-params.service.js:30
+#: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
 
-#: editor/help/dynamic-bond-help.html:14
+#: editor/help/dynamic-bond-help.html:1
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "変数の値にフィルターを適用する例: <em>selectedUser | json</em>"
 
-#: home/confirm-deletion-popup.html:5
+#: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:19
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:18
 msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
 msgstr "テーブルを埋め込むために使用される配列（Array）。オブジェクトの配列（リスト）を指定することもできます。この場合、各列に表示する項目名のリストを「列を示すキー」に指定します。"
 
@@ -209,53 +184,54 @@ msgstr "アセット"
 msgid "Asset Name"
 msgstr "アセット名"
 
-#: assets/help-popup.html:101 assets/help-popup.html:77
+#: assets/help-popup.html:13
 msgid "Asset list"
 msgstr "アセット リスト"
 
-#: assets/help-popup.html:25 assets/help-popup.html:67
+#: assets/help-popup.html:1 assets/help-popup.html:13
 msgid "Asset use"
 msgstr "アセットの使用"
 
-#: assets/widget-assets.html:5 editor/editor.html:95
+#: assets/widget-assets.html:1 editor/editor.html:1
 msgid "Assets"
 msgstr "アセット"
 
-#: assets/help-popup.html:8
-msgid "Assets enable you to add web resources to pages and forms. Available asset types are\n"
-"                <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions)\n"
-"                <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact)\n"
-"                or External (URL). The Localization asset is always local."
-msgstr "アセットはページとフォームにWebリソースを追加できるようにします。可能なアセットのタイプは<strong>JavaScript</strong>、<strong>CSS</strong> 、<strong>Image</strong> および<strong>ローカライゼーション</strong>（Subscription editionのみ）です。アセットは<strong>ローカル</strong>（ファイルはそのページの artifact にストアされる）、または外部 (URL) に所在させることができます。"
+#: assets/help-popup.html:1
+msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
+msgstr "アセットで、ページおよびフォームに web リソースを追加することができます。使用可能なアセットのタイプは、<strong>JavaScript</strong>、<strong>CSS</strong>、<strong>Image</strong>、および<strong>Localization</strong>（サブスクリプション版のみ）です。アセットは、<strong>ローカル</strong>（ページ アイテムに格納されているファイル） または外部（URL）に置くことができます。Localizationのアセットは常にローカルです。"
 
-#: assets/help-popup.html:106
+#: assets/help-popup.html:13
 msgid "At runtime, assets of a custom widget are loaded in the order defined."
 msgstr "カスタム ウィジェットのアセットは実行時に定義した順番でロードされます。"
 
-#: assets/help-popup.html:89
+#: assets/help-popup.html:13
 msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
 msgstr "カスタム ウィジェットのアセットは実行時にカスタム ウィジェット名のアルファベット順にロードされます。各カスタム ウィジェットのアセットはそれらがリストされている順にロードされ、その後、ページのアセットがロードされます。JavaScript と CSS のアセットはページヘッダー順にロードされます。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
 msgid "Available values"
 msgstr "使用可能な値"
 
-#: editor/data-panel/help-popup.html:17
+#: editor/data-panel/help-popup.html:1
 msgid "Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic)."
-msgstr "使用可能な変数のタイプは、string と JSON (静的)、および外部 API 、JavaScript 式、URL パラメータ (動的) です。"
+msgstr "使用可能な変数のタイプは、string と JSON (静的)、およびExternal API 、Javascript expression、URL parameter(動的) です。"
 
-#: editor/help/property-bond-help.html:11
+#: editor/help/property-bond-help.html:1
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
 
-#: editor/widget-factory.service.js:34
+#: editor/container-definition-factory.service.js:47
 msgid "Bind this property to a variable of type array. For each iteration, a widget property can be bound to $item to access the current JavaScript object"
 msgstr "この変数を配列型の変数にバインドします。各繰返し項目には、現在の JavaScript オブジェクトをアクセスするために、$item をウィジェットのプロパティにバインドします。"
 
-#: editor/common-params.service.js:24
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+msgid "Bonita BPM"
+msgstr "Bonita BPM"
+
+#: editor/common/properties.service.js:27
 msgid "CSS classes"
 msgstr "CSS クラス"
 
@@ -267,7 +243,7 @@ msgstr "日付を選択するカレンダー"
 msgid "Call a business data (custom) query"
 msgstr "ビジネスデータの（カスタム）クエリをコールする"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:14
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:12
 msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
 msgstr "オブジェクトのリストを使用できます。表示したい選択オプション項目を「表示するキー」に指定し、選択された行の中の取得したい項目を「返されるキー」に指定します。"
 
@@ -275,18 +251,19 @@ msgstr "オブジェクトのリストを使用できます。表示したい選
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
 msgstr "オブジェクトのリストをすることができます。「表示されるキー」を使用して候補を絞り込みます。"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "オブジェクトのリストを使用できます。表示したい選択オプション項目を「表示するキー」に指定し、選択された行の中の取得したい項目を「返されるキー」に指定します。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:18
 msgid "Can be used to fulfill a contract"
-msgstr "後続のステップでコントラクトを埋めるために使用されます。"
+msgstr "後続のタスクでコントラクトを埋めるために使用されます。"
 
-#: assets/asset-popup.html:27 assets/asset-preview-popup.html:11
-#: custom-widget/create-property.html:62 custom-widget/save-as-popup.html:20
-#: editor/data-panel/data-popup.html:128 editor/save-as-popup.html:20
-#: home/confirm-deletion-popup.html:10 home/import-artifact.html:25
+#: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
+#: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
+#: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/import-artifact.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -294,139 +271,144 @@ msgstr "キャンセル"
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr "案件のIDは、{{myVar.rootCaseId}} によって取得できます。"
 
-#: custom-widget/custom-widget-editor.html:91
+#: custom-widget/custom-widget-editor.html:1
 msgid "Choices"
 msgstr "選択肢"
 
-#: custom-widget/create-property.html:37
+#: custom-widget/create-property.html:1
 msgid "Choices (comma separated)"
 msgstr "選択肢 (カンマで区切る)"
 
-#: editor/data-panel/data.html:14
+#: editor/data-panel/data.html:1
 msgid "Clear filter"
 msgstr "フィルターをクリア"
 
-#: editor/properties-panel/bond/expression.html:21
+#: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to a constant"
 msgstr "クリックしてコンスタントにバインド"
 
-#: editor/properties-panel/bond/expression.html:19
+#: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to an expression"
 msgstr "クリックして式にバインド"
 
-#: assets/help-popup.html:151 editor/data-panel/help-popup.html:65
-#: editor/help-popup.html:118 home/alert-deletion-notpossible-popup.html:16
-#: home/help-popup.html:60
+#: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
+#: editor/menu-bar/help-popup.html:1
+#: home/alert-deletion-notpossible-popup.html:1 home/help-popup.html:1
 msgid "Close"
 msgstr "閉じる"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
 msgid "Collection"
 msgstr "コレクション"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:1
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
 msgid "Column keys"
 msgstr "列を示すキー"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:137
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:130
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:172
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:165
 msgid "Comma-separated list"
 msgstr "カンマ区切りのリスト"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:138
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:150
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:174
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:183
 msgid "Comma-separated list or bound an array data"
 msgstr "コンマで区切られたリストまたはバインド配列データ"
 
-#: editor/help-popup.html:39
+#: editor/menu-bar/help-popup.html:1
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "右の<b>プロパティ パネル</b>を使用してウィジェットを構成設定します。"
 
-#: home/confirm-deletion-popup.html:3
+#: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "削除の確認"
 
-#: editor/help/property-bond-help.html:4
+#: editor/help/property-bond-help.html:1
 msgid "Constant"
-msgstr "定数"
+msgstr "コンスタント"
 
-#: editor/widget-factory.service.js:65
+#: editor/container-definition-factory.service.js:77
 msgid "Container used for a form. Eases validation"
 msgstr "フォームに使用するコンテナ。 検証は削除されます。"
 
-#: editor/help-popup.html:44
+#: editor/menu-bar/help-popup.html:1
 msgid "Containers"
 msgstr "コンテナ"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:4
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:5
 msgid "Content"
-msgstr "内容"
+msgstr "コンテンツ"
 
-#: custom-widget/custom-widget-editor.html:51
+#: home/import/import-report-popup.html:1
+msgid "Continue"
+msgstr "続行"
+
+#: custom-widget/custom-widget-editor.html:1
 msgid "Controller"
-msgstr "コントローラ"
+msgstr "コントローラー"
 
-#: custom-widget/custom-widget-editor.html:76
+#: custom-widget/custom-widget-editor.html:1
 msgid "Create"
 msgstr "新規作成"
 
-#: home/help-popup.html:13
+#: home/help-popup.html:1
 msgid "Create <b>pages</b> directly in the UI Designer"
 msgstr "UI デザイナーで直接、<b>ページ</b>を作成します。"
 
-#: assets/help-popup.html:138
+#: assets/help-popup.html:19
 msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
 msgstr "<code>updateDate</code>と命名した JSON 変数を作成し、数値としてタイムスタンプを保持します。"
 
-#: assets/help-popup.html:129
+#: assets/help-popup.html:13
 msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
 msgstr "<code>date-ago-filter.js</code> と命名した JavaScript を作成し、フィルターを使って <code>bonitasoft.ui.extensions</code> モジュールを更新します："
 
-#: home/help-popup.html:27
+#: home/help-popup.html:1
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "ウィジェットを同一のグループにまとめて部品化し、他のページまたはフォームの再利用するフラグメントを作成します。"
 
-#: editor/data-panel/data-popup.html:3 editor/data-panel/data.html:3
+#: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "新規変数を作成"
 
-#: editor/data-panel/help-popup.html:14
-msgid "Create a variable here. To bind it to a widget property, first click on the <i>Bind</i> button in the property field and then type the variable\n"
-"                name."
-msgstr "ここで変数を作成します。その変数をウィジェット プロパティにバインドするには、最初にプロパティ フィールド内の<i>バインド</i>ボダンをクリックしてからその変数名を入力します。"
+#: editor/data-panel/help-popup.html:1
+msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
+msgstr "ここで変数を作成します。ウィジェット プロパティ内での変数の使用は、このページ エディタの全般ヘルプ、<b>プロパティ</b> セクションで説明されているように、プロパティ値のタイプに依存します。"
 
-#: editor/help-popup.html:74
-msgid "Create a variable in the bottom panel. To bind it to a widget property, click on the “Bind” button in\n"
-"                the property field and then type the\n"
-"                variable name."
-msgstr "下のパネルで変数を作成します。その変数をウィジェットのプロセスにバインドするには、プロパティ フィールド内の<0>バインド</0> ボダンをクリックしてその変数名を入力します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
+msgstr "下部のパネルで変数を作成します。ウィジェット プロパティ内での変数の使用は、次のセクションで説明されているように、プロパティ値のタイプに依存します。"
 
-#: home/help-popup.html:15
+#: home/help-popup.html:1
 msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
 msgstr "Bonita BPM ポータルのリソースの中で使用可能なデフォルト レイアウトを複製してレイアウトを作成します。"
 
-#: home/home-pages.html:26
+#: home/home-pages.html:1
 msgid "Create new page"
 msgstr "新規ページを作成"
 
-#: custom-widget/create-property.html:2
+#: custom-widget/create-property.html:1
 msgid "Create new property"
 msgstr "新規プロパティを作成"
 
-#: home/home-widgets.html:20
+#: home/home-widgets.html:1
 msgid "Create new widget"
 msgstr "新規ウィジェットを作成"
 
-#: editor/help-popup.html:13
-msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget\n"
-"                properties."
-msgstr "下の変数パネル内に変数を作成し、それらをウィジェット プロパティの編集に使用します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
+msgstr "下部の変数パネルで変数を作成し、それらを使用してウィジェットのプロパティを編集します。"
 
-#: home/home-widgets.html:5
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "Current frame (_self)"
+msgstr "現在のフレーム (_self)"
+
+#: home/home-widgets.html:1
 msgid "Custom Widgets"
 msgstr "カスタム ウィジェット"
 
-#: assets/help-popup.html:111
+#: assets/help-popup.html:13
 msgid "Custom services"
 msgstr "カスタム サービス"
 
@@ -434,11 +416,15 @@ msgstr "カスタム サービス"
 msgid "Custom widget [ {{name}} ] successfully saved"
 msgstr "カスタム ウィジェット [ {{name}} ] は、問題なく保存されました。"
 
-#: custom-widget/custom-widget-editor.html:7
+#: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
 msgstr "カスタム ウィジェット エディタ"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+msgid "DELETE"
+msgstr "削除"
+
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
 msgid "Data sent on click"
 msgstr "クリックで送られるデータ"
 
@@ -450,16 +436,16 @@ msgstr "Date"
 msgid "Date format"
 msgstr "日付フォーマット"
 
-#: custom-widget/create-property.html:42
+#: custom-widget/create-property.html:1
 msgid "Default"
 msgstr "デフォルト"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:11
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:12
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:13
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:14
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:9
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:10
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
 msgid "Default label"
 msgstr "デフォルト ラベル"
 
@@ -467,58 +453,58 @@ msgstr "デフォルト ラベル"
 msgid "Default name"
 msgstr "デフォルト名"
 
-#: custom-widget/custom-widget-editor.html:92
+#: custom-widget/custom-widget-editor.html:1
 msgid "Default value"
 msgstr "デフォルト値"
 
-#: editor/data-panel/help-popup.html:26
+#: editor/data-panel/help-popup.html:1
 msgid "Default variables"
 msgstr "デフォルト変数"
 
-#: editor/help/dynamic-bond-help.html:12
+#: editor/help/dynamic-bond-help.html:1
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "ウィジェットを表示する条件を定義する例： <em>userAge &gt; 18</em>"
 
-#: editor/help/dynamic-bond-help.html:13
+#: editor/help/dynamic-bond-help.html:1
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myArrayVariable</em>"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:21
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:18
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "ファイルがアップロードされる場所を示すエンドポイントURLを定義します。"
 
-#: home/confirm-deletion-popup.html:9
+#: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "削除"
 
-#: assets/page-assets.html:43 assets/widget-assets.html:38
+#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "Delete asset"
 msgstr "アセットを削除"
 
-#: home/home-pages.html:73
+#: home/home-pages.html:1
 msgid "Delete page"
 msgstr "プロファイル ページを削除"
 
-#: editor/data-panel/data.html:43
+#: editor/data-panel/data.html:1
 msgid "Delete variable"
 msgstr "変数を削除"
 
-#: home/home-widgets.html:51
+#: home/home-widgets.html:1
 msgid "Delete widget"
 msgstr "ウィジェットを削除"
 
-#: home/alert-deletion-notpossible-popup.html:4
+#: home/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "削除はできません。"
 
-#: custom-widget/custom-widget-editor.html:41
-#: editor/palette/palette-widget.html:10
+#: custom-widget/custom-widget-editor.html:1
+#: editor/palette/palette-widget.html:1
 msgid "Description"
-msgstr "定義"
+msgstr "説明"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
 msgid "Disabled"
 msgstr "無効"
 
@@ -527,93 +513,97 @@ msgid "Display an image from assets or from a URL"
 msgstr "アセットまたは URL からイメージを表示します。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:7
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
 msgid "Displayed key"
 msgstr "表示するキー"
 
-#: editor/help-popup.html:26
+#: home/import/import-report-popup.html:1
+msgid "Do you want to continue?"
+msgstr "続行しますか？"
+
+#: editor/menu-bar/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
 msgstr "行内にウィジェットまたはコンテナをドラック＆ドロップします。"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:5
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1 つの値を選択します。"
 
-#: editor/help/property-bond-help.html:7
+#: editor/help/property-bond-help.html:1
 msgid "Dynamic value"
 msgstr "動的な値"
 
-#: editor/help-popup.html:106
-msgid "Each page has a localization asset that contains the keys and the translations for all phrases\n"
-"                and all languages that the page supports. The asset is a file, localization.json. Each language\n"
-"                is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). Open the default\n"
-"                localization.json asset to see how this file must be formatted. You can modify the default asset\n"
-"                for your page, or import a new asset to replace the default one."
-msgstr "各ページは、そのページをサポートするすべてのフレーズの翻訳と翻訳参照キーからなるローカライゼーション アセットを持ちます。アセットは、 localization.json ファイルです。各言語は、ISO 639 言語属性（たとえば、EN、FR）によって識別されます。このファイルがどのような書式で設定する必要があるか確認するには、デフォルトの localization.json アセットを開いてください。ページのデフォルト アセットを変更したり、新しいアセットをインポートしてデフォルト アセットを置き換えることができます。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Each page has a localization asset that contains the keys and the translations for all phrases and all languages that the page supports. The asset is a file, localization.json. Each language is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). Open the default localization.json asset to see how this file must be formatted. You can modify the default asset for your page, or import a new asset to replace the default one."
+msgstr "各ページには、そのページがサポートするすべてのフレーズとすべての言語のキーと翻訳を含むローカライゼーションのアセットを持っています。このアセットは、 localization.json ファイルです。各言語は、ISO 639 言語属性 (たとえば、ja_JP、en_US) によって識別されます。デフォルトの localization.json アセットを開き、どのように形式でこのファイルを作成する必要があるか確認してください。あなたのページのデフォルトのアセットを変更したり、新しいアセットをインポートしてデフォルトのアセットを置き換えることができます。"
 
-#: editor/help-popup.html:51
+#: editor/menu-bar/help-popup.html:1
 msgid "Each type or container has sepcific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
 
-#: assets/asset-popup.html:6
+#: assets/asset-popup.html:1
 msgid "Edit asset"
 msgstr "アセットを編集"
 
-#: custom-widget/create-property.html:3
+#: custom-widget/create-property.html:1
 msgid "Edit property"
 msgstr "プロパティを編集"
 
-#: editor/properties-panel/properties-panel.html:7
+#: editor/properties-panel/properties-panel.html:1
 msgid "Edit the custom widget"
 msgstr "カスタム ウィジェットを編集"
 
-#: editor/data-panel/data-popup.html:5 editor/data-panel/data.html:40
+#: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Edit variable"
 msgstr "変数を編集"
 
-#: editor/help-popup.html:7
+#: editor/menu-bar/help-popup.html:1
 msgid "Editor organization"
-msgstr "エディタの構成"
+msgstr "エディタの構成設定"
 
-#: editor/editor.html:20
-msgid "Enter ' +  mode + ' name"
-msgstr "入力 '+ モード +' 名"
+#: editor/menu-bar/menu-bar.html:1
+msgid "Enter ' + vm.mode + ' name"
+msgstr "vm.mode + ' 名を入力します"
 
-#: assets/help-popup.html:113
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
+msgid "Error on upload holder"
+msgstr "アップロード ホルダーのエラー"
+
+#: assets/help-popup.html:13
 msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
-#: custom-widget/custom-widget-editor.html:27 editor/editor.html:37
+#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
 msgid "Export"
 msgstr "エクスポート"
 
-#: home/home-pages.html:69
+#: home/home-pages.html:1
 msgid "Export page"
 msgstr "ページをエクスポート"
 
-#: home/home-widgets.html:47
+#: home/home-widgets.html:1
 msgid "Export widget"
 msgstr "ウィジェットをエクスポート"
 
-#: editor/data-panel/data.html:26
+#: editor/data-panel/data.html:1
 msgid "Exposed"
-msgstr "全体に有効"
+msgstr "公開"
 
-#: assets/assets.service.js:35
+#: assets/assets.service.js:37
 msgid "External"
 msgstr "外部"
 
 #: editor/data-panel/data-type.service.js:32
 msgid "External API"
-msgstr "外部 API "
+msgstr "External API"
 
-#: custom-widget/custom-widget-editor.html:63
+#: custom-widget/custom-widget-editor.html:1
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジュール (カンマで区切る)"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "Failed response value"
 msgstr "失敗時のレスポンス値"
 
@@ -621,20 +611,28 @@ msgstr "失敗時のレスポンス値"
 msgid "Field where the user can enter information"
 msgstr "ユーザーが情報を入力できるフィールド"
 
-#: assets/generic-asset-form.html:20
+#: assets/generic-asset-form.html:1
 msgid "File"
 msgstr "File"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:90
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:84
 msgid "File chooser for uploading a document to a form"
 msgstr "フォームにドキュメントをアップロードするためのファイル選択ダイアログ"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "First"
 msgstr "第1"
 
-#: assets/help-popup.html:7 editor/data-panel/help-popup.html:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
+msgid "Frame"
+msgstr "フレーム"
+
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+msgid "GET"
+msgstr "GET"
+
+#: assets/help-popup.html:1 editor/data-panel/help-popup.html:1
 msgid "General"
 msgstr "全般"
 
@@ -644,7 +642,7 @@ msgstr "案件IDで案件を取得する"
 
 #: editor/data-panel/api-examples.service.js:27
 msgid "Get a human task by its identifier"
-msgstr "ヒューマンタスクIDでヒューマンタスクを取得する"
+msgstr "ヒューマン タスクIDでヒューマン タスクを取得する"
 
 #: editor/data-panel/api-examples.service.js:70
 msgid "Get a named business data reference defined in a case"
@@ -666,119 +664,126 @@ msgstr "ユーザーのカスタム情報を取得する"
 msgid "Get professional details of a user"
 msgstr "ユーザーの仕事上のコンタクト情報を取得する"
 
-#: editor/widget-factory.service.js:27
+#: editor/container-definition-factory.service.js:40
 msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
 msgstr "ページ要素の配列定義に使用されるウィジェットのグループ。このコンテンツは配列で繰り返されます。"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:8
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+msgid "HTTP request"
+msgstr "HTTP リクエスト"
+
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:9
 msgid "Headers"
 msgstr "ヘッダー"
 
-#: assets/help-popup.html:3 editor/data-panel/help-popup.html:3
-#: editor/help-popup.html:3 home/help-popup.html:3
+#: assets/help-popup.html:1 editor/data-panel/help-popup.html:1
+#: editor/menu-bar/help-popup.html:1 home/help-popup.html:1
 msgid "Help"
 msgstr "ヘルプ"
 
-#: editor/common-params.service.js:33
+#: editor/common/properties.service.js:36
 msgid "Hidden"
-msgstr "無視されたもの"
+msgstr "非表示"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:12
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:18
+msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
+msgstr "アップロード エラー エンドポイントからの応答内容を保持します。その値はガイダンス目的に使用することができます。"
+
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
-msgstr "アップロードのエンドポイントからのレスポンスを保持します。この値はコントラクトの内容を埋めるために使用することができます。"
+msgstr "アップロードのエンドポイントからのレスポンスを保持します。この値はコントラクトのコンテンツを埋めるために使用することができます。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:19
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:17
 msgid "Holds the response when the request has failed"
 msgstr "リクエストが失敗した時、そのレスポンスを保持します。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
 msgid "Holds the response when the request is successful"
 msgstr "リクエストが成功した時、そのレスポンスを保持します。"
 
-#: custom-widget/custom-widget-editor.html:3 editor/editor.html:3
+#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
 msgid "Home page"
 msgstr "ホームページ"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:10
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:9
 msgid "Id,Name,Description,Date"
 msgstr "Id, 名前, 説明, 日付"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:15
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:14
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
-#: home/import-artifact.html:24
+#: home/import-artifact.html:1 home/import/import-popup.html:1
 msgid "Import"
 msgstr "インポート"
 
-#: home/home-pages.html:12
+#: home/home-pages.html:1
 msgid "Import a page or a form"
 msgstr "ページまたはフォームをインポート"
 
-#: home/home-widgets.html:13
+#: home/home-widgets.html:1
 msgid "Import a widget"
 msgstr "ウィジェットをインポート"
 
-#: assets/help-popup.html:127
+#: assets/help-popup.html:13
 msgid "Import the moment.js library as an external asset."
 msgstr "外部アセットとして moment.js ライブラリをインポートします。"
 
-#: assets/help-popup.html:137
+#: assets/help-popup.html:19
 msgid "Import this JavaScript file as a local page asset."
 msgstr "ローカルなページアセットとして JavaScript ファイルをインポートします。"
 
-#: assets/help-popup.html:68
-msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
-msgstr "JavaScript アセットの中で、AngularJS モジュールの依存性を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。あなたは、<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
+#: home/import/import-report-popup.html:1
+msgid "Import {{ importReport.report.element.name }}"
+msgstr "{{ importReport.report.element.name }} をインポート"
 
-#: editor/help-popup.html:112
-msgid "In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language\n"
-"                selected by the user, or in the default Portal language."
-msgstr "プロダクションでは、ユーザーが Bonita BPM にログインする場合、ユーザーが選択したポータル 言語またはデフォルトのポータル言語でページが表示されます。"
+#: assets/help-popup.html:13
+msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
+msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関係を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
+
+#: editor/menu-bar/help-popup.html:1
+msgid "In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language selected by the user, or in the default Portal language."
+msgstr "運用時、ユーザーが Bonita BPM にログインする場合、ユーザーが選択したポータル言語、またはデフォルトのポータル言語でページが表示されます。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:17
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:21
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:16
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:20
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:8
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:17
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:20
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:22
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:21
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:16
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:18
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:22
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:19
 #: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:21
 #: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:17
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:20
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "フォーム コンテナのコンテンツの中で $form.$invalid をウィジェット プロパティ内のブーリアン変数として使用し、フォームの妥当性をチェックします。"
 
-#: editor/help-popup.html:82
-msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or\n"
-"                    to <i>exposed to the page</i>."
-msgstr "フラグメント エディタの中で、変数の有効範囲を<i>このフラグメントに限定</i> または <i>ページ全体に有効</i> にセットできます。"
+#: editor/menu-bar/help-popup.html:1
+msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
+msgstr "フラグメント エディタで、変数の有効範囲を「このフラグメントに固有」、または 「ページに公開」 に設定できます。"
 
-#: assets/help-popup.html:81
+#: assets/help-popup.html:13
 msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "このリストの中で、ページ アセットのみの削除、ローカル アセットの表示、およびページ外部アセットの編集ができます。"
 
-#: editor/help-popup.html:68
-msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data,\n"
-"                or can contain structural information\n"
-"                that determines how page elements behave."
-msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲内で、ビジネスデータまたはプロセスデータの操作に使用できます。またページ要素の挙動を決定付けるデータ構造情報を持つこともできます。"
+#: editor/data-panel/help-popup.html:1
+msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information that determines how page elements behave."
+msgstr "変数はページ、フォーム、またはレイアウトの有効範囲において、ビジネス データやプロセス データを処理するために使用したり、あるいはページ要素の動作方法を決定する構造的な情報を含めることができます。"
 
-#: editor/data-panel/help-popup.html:9
-msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information\n"
-"                that determines how page elements behave."
-msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲内で、ビジネスデータまたはプロセスデータの操作に使用できます。またページ要素の挙動を決定付けるデータ構造情報を持つこともできます。"
+#: editor/menu-bar/help-popup.html:1
+msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
+msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲において、ビジネス データを取り扱うために使用したり、あるいはページ要素の動作方法を決定付ける構造化情報を含めることができます。"
 
-#: assets/help-popup.html:102
+#: assets/help-popup.html:13
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:12
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
 msgid "Inline"
 msgstr "オンライン"
 
@@ -786,24 +791,23 @@ msgstr "オンライン"
 msgid "Input field with content completion from a given list"
 msgstr "指定したリストでオートコンプリートする入力フィールド"
 
-#: home/help-popup.html:36
+#: home/help-popup.html:1
 msgid "Integration with Bonita BPM platform"
 msgstr "Bonita BPM プラットフォームへの移植"
 
-#: editor/help/property-bond-help.html:14
+#: editor/help/property-bond-help.html:1
 msgid "Interpolation"
 msgstr "補完（Interpolation）"
 
-#: assets/generic-asset-form.html:14
-msgid "Invalid URL\n"
-"        (must start by http:// or https://)!"
-msgstr "無効なURLです（http:// または https:// で開始する必要があります）。"
+#: assets/generic-asset-form.html:1
+msgid "Invalid URL (must start by http:// or https://)!"
+msgstr "無効な URL（http://または https://によって開始する必要があります）です！"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "Item"
 msgstr "項目"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Item to remove"
 msgstr "削除する項目"
 
@@ -811,7 +815,7 @@ msgstr "削除する項目"
 msgid "JSON"
 msgstr "JSON"
 
-#: editor/data-panel/data-popup.html:93
+#: editor/data-panel/data-popup.html:10
 msgid "JSON specifications can be found on the"
 msgstr "JSONの仕様が見つかりません："
 
@@ -821,76 +825,76 @@ msgstr "JavaScript 式"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:11
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:6
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:4
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:11
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
-#: custom-widget/create-property.html:13
-#: custom-widget/custom-widget-editor.html:84
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:9
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:7
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: custom-widget/create-property.html:1
+#: custom-widget/custom-widget-editor.html:1
 msgid "Label"
 msgstr "ラベル"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:6
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:3
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:7
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
 msgid "Label hidden"
 msgstr "ラベルを非表示"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:8
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:2
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:6
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:8
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:6
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:4
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:3
 msgid "Label position"
 msgstr "ラベルの位置"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:5
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:1
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:5
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:3
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:1
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
 msgid "Label width"
 msgstr "ラベル幅"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "Last"
 msgstr "最後"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 1"
 msgstr "レベル 1"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 2"
 msgstr "レベル 2"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 3"
 msgstr "レベル 3"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 4"
 msgstr "レベル 4"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 5"
 msgstr "レベル 5"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 6"
 msgstr "レベル 6"
 
@@ -904,17 +908,17 @@ msgstr "プロセス定義ID（processDefinitionId）でオープンする案件
 
 #: editor/data-panel/api-examples.service.js:32
 msgid "List of human task in ready state for current user (pending + assigned)"
-msgstr "ユーザーがアサイン済みで現在待機状態にあるヒューマンタスクのリスト"
+msgstr "ユーザーがアサイン済みで現在待機状態にあるヒューマン タスクのリスト"
 
-#: editor/data-panel/help-popup.html:20
+#: editor/data-panel/help-popup.html:1
 msgid "Living data"
 msgstr "リビング データ"
 
-#: assets/assets.service.js:36
+#: assets/assets.service.js:38
 msgid "Local"
 msgstr "ローカル"
 
-#: editor/help-popup.html:93
+#: editor/menu-bar/help-popup.html:1
 msgid "Localization"
 msgstr "ローカライゼーション"
 
@@ -935,93 +939,99 @@ msgstr "最大値"
 msgid "Min value"
 msgstr "最小値"
 
-#: editor/workspace/container.html:12
+#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
 msgid "Move the row down"
 msgstr "行を下に移動"
 
-#: editor/workspace/container.html:11
+#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
 msgid "Move the row up"
 msgstr "行を上に移動"
 
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:93
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:89
 msgid "Multi-line, expandable, text input field"
 msgstr "拡張可能な複数行のテキスト入力フィールド"
 
-#: editor/help-popup.html:55
+#: editor/menu-bar/help-popup.html:1
 msgid "Multiple content for tabs container"
 msgstr "タブ コンテナ： 複数のコンテンツ"
 
-#: editor/widget-factory.service.js:51
+#: editor/container-definition-factory.service.js:64
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "複数のウィジェットグループ、タブ内の各グループ"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:149
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:185
 msgid "Must be a Boolean"
-msgstr "ブーリアンである必要があります。"
+msgstr "ブーリアンである必要があります"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:147
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:179
 msgid "Must be an array"
 msgstr "配列でなければなりません。"
 
-#: assets/page-assets.html:21 assets/widget-assets.html:18
-#: custom-widget/create-property.html:8 editor/data-panel/data-popup.html:11
-#: editor/data-panel/data-popup.html:14 editor/data-panel/data.html:23
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+#: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
+#: editor/data-panel/data.html:1
 msgid "Name"
 msgstr "名前"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:89
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
 msgid "Navigation link to another page or form"
 msgstr "別のページやフォームへのナビゲーション リンク"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:7
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:3
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
 
-#: home/home-pages.html:11
+#: home/home-pages.html:1
 msgid "New page"
 msgstr "新規ページ"
 
-#: home/home-widgets.html:12
+#: home/home-widgets.html:1
 msgid "New widget"
 msgstr "新規ウィジェット"
 
-#: assets/page-assets.html:50
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "New window (_blank)"
+msgstr "新しいウィンドウ (_blank)"
+
+#: assets/page-assets.html:1
 msgid "No asset"
 msgstr "アセットはありません"
 
-#: home/home-widgets.html:32
+#: home/home-widgets.html:1
 msgid "No custom widget"
 msgstr "カスタム ウィジェットはありません"
 
-#: home/home-pages.html:38
+#: home/home-pages.html:1
 msgid "No page or form"
 msgstr "ページまたはフォームはありません"
 
-#: editor/data-panel/data.html:50
+#: editor/data-panel/data.html:1
 msgid "No variable"
 msgstr "変数はありません"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:16
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:22
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:19
 msgid "Object key to display"
 msgstr "表示するオブジェクトのキー"
 
-#: editor/help-popup.html:11
+#: editor/menu-bar/help-popup.html:1
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "１つの要素を１回選択し、右のプロパティパネルでそのプロパティを編集します。"
 
-#: assets/page-assets.html:4 assets/widget-assets.html:8
-#: editor/data-panel/data.html:4 editor/editor.html:55 home/home-header.html:8
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+#: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
+#: home/home-header.html:1
 msgid "Open help"
 msgstr "ヘルプを開く"
 
-#: home/import-artifact-success-message.html:21
+#: home/import-artifact-success-message.html:1
+#: home/import/import-success-message.html:1
 msgid "Overridden artifacts"
 msgstr "オーバーライドされたアーティファクト"
 
-#: home/help-popup.html:8
+#: home/help-popup.html:1
 msgid "Overview"
-msgstr "オーバービュー"
+msgstr "案件概況"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "POST"
@@ -1031,64 +1041,68 @@ msgstr "POST"
 msgid "PUT"
 msgstr "PUT"
 
-#: editor/save-as-popup.html:13 home/home-pages.html:22
+#: editor/menu-bar/save-as-popup.html:1 home/home-pages.html:1
 msgid "Page Name"
 msgstr "ページ名"
 
-#: assets/page-assets.html:30
+#: assets/page-assets.html:1
 msgid "Page level"
 msgstr "ページ レベル"
 
-#: home/home-pages.html:34 home/home-pages.html:59
+#: home/home-pages.html:1
 msgid "Page name should contains only alphanumeric characters with no space"
 msgstr "ページ名は、スペースを含まない英数字のみで命名します 。"
 
-#: editor/save-as-popup.html:16
+#: editor/menu-bar/save-as-popup.html:1
 msgid "Page names must start with a letter and contain only alphanumeric characters"
 msgstr "ページ名は、英文字で始まり英数字のみで命名する必要があります。"
 
-#: home/home-pages.html:5
+#: home/home-pages.html:1
 msgid "Pages &amp; Forms"
 msgstr "ページ &amp; フォーム"
+
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "Parent frame (_parent)"
+msgstr "親フレーム (_parent)"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
 msgid "Placeholder"
 msgstr "プレースホルダ"
 
-#: editor/editor.html:43 editor/editor.html:48
+#: editor/menu-bar/menu-bar.html:1
 msgid "Preview"
 msgstr "プレビュー"
 
-#: preview/preview.html:3
+#: preview/preview.html:1
 msgid "Preview - {{pageName}}"
 msgstr "プレビュー - {{pageName}}"
 
-#: custom-widget/custom-widget-editor.html:71 editor/help-popup.html:89
+#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/help-popup.html:1
 msgid "Properties"
 msgstr "プロパティ"
 
-#: custom-widget/create-property.html:10
+#: custom-widget/create-property.html:1
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "プロパティ名は、英文字で始まり英数字のみで命名する必要があります。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:14
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:18
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:20
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:11
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:18
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:15
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
 msgid "Read-only"
 msgstr "読み取り専用"
 
-#: assets/help-popup.html:119
+#: assets/help-popup.html:13
 msgid "Relative time filter"
 msgstr "例: 相対時間フィルター"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
 msgid "Remove"
 msgstr "削除"
 
@@ -1096,71 +1110,71 @@ msgstr "削除"
 msgid "Remove from collection"
 msgstr "コレクションから削除"
 
-#: editor/workspace/tabs-container.html:9
+#: editor/whiteboard/tabs-container.html:1
+#: editor/workspace/tabs-container.html:1
 msgid "Remove tab"
 msgstr "タブを削除"
 
-#: home/home-pages.html:66
+#: home/home-pages.html:1
 msgid "Rename page"
 msgstr "ページ名を変更"
 
-#: editor/help-popup.html:54
+#: editor/menu-bar/help-popup.html:1
 msgid "Repeat content for the plain container"
-msgstr "プレイン コンテナ： コンテンツを繰り返し配列処理が可能です"
+msgstr "プレイン コンテナ： コンテンツを繰り返す配列処理が可能です"
 
-#: editor/widget-factory.service.js:32
+#: editor/container-definition-factory.service.js:45
 msgid "Repeat contents"
 msgstr "コンテンツを繰り返す"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:2
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:7
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:3
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:15
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:5
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:17
 msgid "Required"
 msgstr "必須"
 
-#: custom-widget/custom-widget-editor.html:62
+#: custom-widget/custom-widget-editor.html:1
 msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:2
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:6
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:5
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:4
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
 msgid "Returned key"
 msgstr "返されるキー"
 
-#: editor/workspace/container.html:10
+#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
 msgid "Row"
 msgstr "行"
 
-#: editor/help-popup.html:21
+#: editor/menu-bar/help-popup.html:1
 msgid "Rows"
 msgstr "行"
 
-#: custom-widget/custom-widget-editor.html:14
-#: custom-widget/save-as-popup.html:19 editor/data-panel/data-popup.html:124
-#: editor/data-panel/data-popup.html:127 editor/editor.html:26
-#: editor/editor.html:31 editor/save-as-popup.html:19
+#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/save-as-popup.html:1 editor/data-panel/data-popup.html:12
+#: editor/menu-bar/menu-bar.html:1 editor/menu-bar/save-as-popup.html:1
 msgid "Save"
 msgstr "保存"
 
-#: custom-widget/custom-widget-editor.html:20 editor/editor.html:34
+#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
 msgid "Save as ..."
 msgstr "別名で保存..."
 
-#: editor/save-as-popup.html:2
+#: editor/menu-bar/save-as-popup.html:1
 msgid "Save {{page.name}} as..."
 msgstr "{{page.name}} として保存..."
 
-#: custom-widget/save-as-popup.html:2
+#: custom-widget/save-as-popup.html:1
 msgid "Save {{widget.name}} as..."
 msgstr "{{widget.name}} を別名で保存..."
 
-#: editor/data-panel/data.html:11
+#: editor/data-panel/data.html:1
 msgid "Search"
 msgstr "検索"
 
@@ -1168,31 +1182,35 @@ msgstr "検索"
 msgid "Search a list of cases based on search indexes"
 msgstr "検索キーで案件リストを検索する"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: assets/help-popup.html:13
+msgid "See the default localization asset for an example."
+msgstr "デフォルト ローカライゼーション アセットの例を参照してください。"
+
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
 msgid "Select"
 msgstr "選択"
 
-#: editor/properties-panel/properties-panel.html:18
+#: editor/properties-panel/properties-panel.html:1
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "ホワイトボードの要素を選択し、ここでその要素のプロパティを設定します"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
 msgid "Select an option"
 msgstr "オプションを選択してください"
 
-#: home/import-artifact.html:9
+#: home/import-artifact.html:1 home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr "あなたの.zip ファイルを選択します"
 
-#: assets/generic-asset-form.html:24
+#: assets/generic-asset-form.html:1
 msgid "Select your file"
 msgstr "あなたのファイルを選択します"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:6
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
 msgid "Selected Row"
 msgstr "選択された行"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
 msgid "Selected Value"
 msgstr "選択した値"
 
@@ -1200,11 +1218,11 @@ msgstr "選択した値"
 msgid "Selected values"
 msgstr "選択された値"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:133
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:167
 msgid "Send data to this URL when the button is clicked"
 msgstr "ボタンがクリックされたときに、この URL にデータを送信します。"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:7
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "相互に排他的なオプションのボタンのセットです。ユーザーは 1 つのオプションを選択します。"
 
@@ -1215,16 +1233,16 @@ msgstr "オプションのチェック ボックスのセットです。ユー�
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:14
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:12
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:16
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
 msgid "Short hint that describes the expected value"
 msgstr "期待値を説明するショートヒント"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:92
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:2
 msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "表示されるテキストの段落または短い文字列です。HTML タグを含めることができます。"
 
-#: assets/generic-asset-form.html:2
+#: assets/generic-asset-form.html:1
 msgid "Source"
 msgstr "ソース"
 
@@ -1232,7 +1250,7 @@ msgstr "ソース"
 msgid "Source Type"
 msgstr "ソースのタイプ"
 
-#: editor/common-params.service.js:25
+#: editor/common/properties.service.js:28
 msgid "Space-separated list"
 msgstr "スペースで区切られたリスト"
 
@@ -1240,7 +1258,11 @@ msgstr "スペースで区切られたリスト"
 msgid "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration"
 msgstr "イメージの代替テキストを指定します。このテキストは、イメージが情報を含む場合は。その情報を記述すべきです。装飾のためだけにイメージを使用する場合は、空のままにすべきです。"
 
-#: editor/properties-panel/component-properties-template.html:4
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:22
+msgid "Specifies where to open the linked document"
+msgstr "リンクされたドキュメントを開く場所を指定します"
+
+#: editor/properties-panel/component-properties-template.html:1
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
 
@@ -1248,7 +1270,7 @@ msgstr "要素のカラム数を指定します。すべての要素は 12 カ�
 msgid "Specify your own format"
 msgstr "あなた独自のフォーマットを指定します"
 
-#: home/help-popup.html:14
+#: home/help-popup.html:1
 msgid "Start <b>form</b> design in Bonita BPM Studio from the appropriate contract"
 msgstr "適切なコントラクトをベースにBonita BPM Studioで<b>フォーム</b>設計を開始します。"
 
@@ -1261,7 +1283,7 @@ msgid "String"
 msgstr "文字列"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:9
 msgid "Style"
 msgstr "スタイル"
 
@@ -1273,218 +1295,189 @@ msgstr "送信"
 msgid "Submit task"
 msgstr "タスクを送信"
 
-#: editor/help-popup.html:61 editor/help-popup.html:81
-#: editor/help-popup.html:94 home/help-popup.html:26 home/help-popup.html:47
+#: editor/menu-bar/help-popup.html:1 home/help-popup.html:1
 msgid "Subscription edition"
 msgstr "サブスクリプション版"
 
-#: home/import-artifact.controller.js:30
+#: home/import/import.service.js:60
 msgid "Successful import"
 msgstr "インポートが成功しました。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:2
 msgid "Successful response value"
 msgstr "成功時のレスポンス値"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:6
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:1
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
 msgid "Target URL on success"
 msgstr "成功時のターゲットURL"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
-msgid "Target Url"
-msgstr "ターゲットURL"
-
-#: custom-widget/custom-widget-editor.html:47
+#: custom-widget/custom-widget-editor.html:1
 msgid "Template"
 msgstr "テンプレート"
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:7
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:12
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:14
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:8
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:18
 msgid "Text"
 msgstr "Text"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:93
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:90
 msgid "Text used to structure the page or form content"
-msgstr "ページまたはフォームの内容の構造化に使用されるテキスト"
+msgstr "ページまたはフォームのコンテンツの構造化に使用されるテキスト"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:22
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
-msgstr "次に進む場所です。Bonita BPM Portalを使用してビルドされているアプリケーションの場合は、このページトークンを使ってあなたのアプリケーションURLを結び付けます。"
+msgstr "次に進む場所です。Bonita BPM ポータルを使用してビルドされているアプリケーションの場合は、このページトークンを使ってあなたのアプリケーションURLを結び付けます。"
 
-#: home/help-popup.html:30
-msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a\n"
-"                different favorite web development environment."
-msgstr "UI デザイナーは、<b>AngularJS をベースに標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
+#: home/help-popup.html:1
+msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
+msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
 
-#: assets/help-popup.html:78
+#: home/import/import-report-popup.html:1
+msgid "The import will override the following existing elements based on their names:"
+msgstr "インポートはそれらの名前を基に次の既存要素を上書きします："
+
+#: assets/help-popup.html:13
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:18
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:21
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:16
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:22
 msgid "The name of the key to use as label. Can be empty"
 msgstr "ラベルとして使用するキーの名前。空にすることができます。"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:21
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:17
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:18
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:19
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:18
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:22
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "値として使用するキーの名前。オブジェクト全体の場合は、空のままにします。"
 
-#: editor/help-popup.html:23
+#: home/import/import-report-popup.html:1
+msgid "The other elements will be imported."
+msgstr "他の要素はインポートされます。"
+
+#: editor/menu-bar/help-popup.html:1
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
 
-#: home/alert-deletion-notpossible-popup.html:8
+#: home/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
 
-#: home/help-popup.html:20
-msgid "There is a set of <b>standard widgets</b> for displaying information to and for gathering information from the end users. You can also create\n"
-"                <b>custom widgets</b>."
-msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示するために使用する一連の<b>標準ウィジェット</b>があります。さらに標準外の<b>カスタム ウィジェット</b>も作成できます。"
+#: home/help-popup.html:1
+msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
-#: custom-widget/custom-widget-editor.html:42
+#: custom-widget/custom-widget-editor.html:1
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "この説明はパレット内のツールチップとして表示されます。"
 
-#: editor/data-panel/data-popup.html:112
+#: editor/data-panel/data-popup.html:10
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "この例は、JSONをタイプに選択した場合は、提供済みの JSON 例を使用します。<br>この例では、JSONオブジェクト：<code>supportTicket</code>の<code>environment</code> 配列内の文字<0>列：'Linux'を探します。"
 
-#: assets/help-popup.html:121
-msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms   '01/01/2011' to '4 years ago'."
-msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。例えば、'01/01/2011' は、'4年前' に変換されます。"
+#: assets/help-popup.html:13
+msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
+msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-#: editor/editor.html:72
+#: editor/editor.html:1
 msgid "This page is empty."
 msgstr "このページは空白です。"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:3
-#: editor/properties-panel/tab-properties-template.html:2
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: editor/properties-panel/tab-properties-template.html:1
 msgid "Title"
 msgstr "タイトル"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:11
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:8
 msgid "Title level"
 msgstr "タイトル レベル"
 
-#: editor/editor.html:73
+#: editor/editor.html:1
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "コンテンツを追加するには、コンポーネントをパレットからホワイトボードの上にドラッグ＆ドロップします。"
 
-#: assets/help-popup.html:139
+#: assets/help-popup.html:19
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
-msgstr "式として評価されたウィジェット プロパティで日付を表示するには、例えば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
+msgstr "式として評価されたウィジェット プロパティで日付を表示するには、たとえば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
 
-#: assets/help-popup.html:113
+#: assets/help-popup.html:13
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
 
-#: assets/help-popup.html:72
+#: assets/help-popup.html:13
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 msgstr "カスタム ウィジェットでローカルの image アセットをロードするには、<br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[カスタム ウィジェットID]/assets/img/[イメージ名]\"&gt;</code>の相対パスを使って<code>&lt;img&gt;</code> タグ内の image を参照する必要があります。"
 
-#: assets/help-popup.html:38
+#: assets/help-popup.html:1
 msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
 msgstr "カスタム ウィジェットにイメージをロードするには、ページレベルでイメージのアセットを追加します。<code>asset/img/[イメージ名]</code>でそれにアクセスします。"
 
-#: assets/help-popup.html:34
+#: assets/help-popup.html:1
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "複数バージョンの依存関係を管理するには、1 つの アセット バージョン だけがページの内部でアクティブであるようにします。"
 
-#: home/help-popup.html:48
-msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and\n"
-"                    then map it to the relevant task or process start event."
-msgstr "運用中のフォームを更新するには、UI デザイナーからフォームをエクスポートし、ポータル内の関連するプロセスにそれをインポートします。そして関連するタスクまたはプロセス開始イベントにそれをマップします。"
+#: home/help-popup.html:1
+msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
+msgstr "運用中のフォームを更新するには、UI デザイナーからフォームをエクスポートし、ポータルの関連するプロセスにインポートし、関連するタスクまたはプロセス開始イベントにマップします。"
 
-#: assets/help-popup.html:46
-msgid "To use a localization asset, replace the default localization.json file with a file of the same format\n"
-"                containing all the keys in the page and the translations into the target languages. The localization\n"
-"                asset is at page level. The format of the file must be:\n"
-"                <pre><code>{\n"
-"    \"language-A with the format ISO 639-1 code\": {\n"
-"        \"english key\":\"translated key for language-A\",\n"
-"        \"english key2\":\"translated key2 for language-A\",\n"
-"        ...\n"
-"    },\n"
-"    \"language-B with the format ISO 639-1 code\": {\n"
-"        \"english key\":\"translated key for language-B\",\n"
-"        \"english key2\":\"translated key2 for language-B\",\n"
-"        ...\n"
-"    }\n"
-"    ...\n"
-"}</code></pre>\n"
-"                See the default localization asset for an example."
-msgstr "ローカライゼーション アセットを使用するには、そのページ内のすべてのキーとターゲット言語への翻訳を含むファイルでデフォルトを置き換えます（形式はデフォルトの localization.json と同じ）。ローカライゼーション アセットは、ページ レベルです。ファイルの形式は、\n"
-"                <pre><code>{\n"
-"    \"language-A with the format ISO 639-1 code\": {\n"
-"        \"english key\":\"translated key for language-A\",\n"
-"        \"english key2\":\"translated key2 for language-A\",\n"
-"        ...\n"
-"    },\n"
-"    \"language-B with the format ISO 639-1 code\": {\n"
-"        \"english key\":\"translated key for language-B\",\n"
-"        \"english key2\":\"translated key2 for language-B\",\n"
-"        ...\n"
-"    }\n"
-"    ...\n"
-"}</code></pre>\n"
-" である必要があります。 例として、デフォルトのローカリゼーション アセットを参照してください。"
+#: assets/help-popup.html:1
+msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
+msgstr "ローカライゼーション アセットを使用するには、ページ内のすべてのキーとそのキーのターゲット言語への翻訳に含むデフォルトの localization.json ファイルと同じ形式のファイルで localization.json ファイルを置き換えます。ローカライゼーション アセットは、ページ レベルです。ファイルの形式は次のようにする必要があります。"
 
-#: assets/help-popup.html:42
+#: assets/help-popup.html:1
 msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
-msgstr "イメージ  ウィジェットでイメージのアセットを使用するには、<code>アセット</code>に<code>ソースのタイプ</code> プロパティを設定し、<0>アセット名</0> の入力フィールドにそのイメージ名を入力します。"
+msgstr "イメージ  ウィジェットでイメージのアセットを使用するには、<code>アセット</code>に<code>ソースのタイプ</code> プロパティを設定し、<code>アセット名</code> の入力フィールドにそのイメージ名を入力します。"
 
-#: assets/help-popup.html:19
+#: assets/help-popup.html:1
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "いくつかのページで同じアセットを使用するには、そのアセットをカスタム ウィジェットに追加することで、アプリケーションページまたはフォームでそのカスタム ウィジェットを使用できます。あるページにアセットを持つ追加する場合は、それらのアセットはそのページに自動でリンクされます。"
 
-#: editor/editor.html:113
+#: editor/editor.html:1
 msgid "Toggle properties panel"
 msgstr "プロパティ パネルの表示"
 
-#: custom-widget/custom-widget-editor.html:86
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "Top frame (_top)"
+msgstr "トップ フレーム (_top)"
+
+#: custom-widget/custom-widget-editor.html:1
 msgid "Treat as"
-msgstr "次としてを扱う："
+msgstr "値の取り扱い: "
 
-#: custom-widget/create-property.html:17
-msgid "Treat value as\n"
-"            <span tooltip-template=\"'js/editor/help/description-bond-help.html'\" class=\"fa fa-info-circle\"></span>"
-msgstr "次として扱う値：\n"
-"            <span tooltip-template=\"'js/editor/help/description-bond-help.html'\" class=\"fa fa-info-circle\"></span>"
+#: custom-widget/create-property.html:1
+msgid "Treat value as"
+msgstr "値の取り扱い:"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:89
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:87
 msgid "Trigger for an action in a page or form"
 msgstr "ページまたはフォームのアクションのトリガー"
 
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: assets/asset-popup.html:11 assets/page-assets.html:23
-#: assets/widget-assets.html:19 custom-widget/create-property.html:32
-#: custom-widget/custom-widget-editor.html:89
-#: editor/data-panel/data-popup.html:21 editor/data-panel/data.html:25
+#: assets/asset-popup.html:1 assets/page-assets.html:1
+#: assets/widget-assets.html:1 custom-widget/create-property.html:1
+#: custom-widget/custom-widget-editor.html:1
+#: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Type"
 msgstr "タイプ"
 
-#: home/home-header.html:6
+#: home/home-header.html:1
 msgid "UI Designer"
 msgstr "UI デザイナー"
 
-#: editor/help-popup.html:95
-msgid "UI designer includes a mechanism to add translations for page elements, to support multi-language\n"
-"                pages. The text displayed in the preview and at runtime adapts to the locale or browser language\n"
-"                automatically."
-msgstr "UI デザイナーには、複数の言語ページをサポートするためにページ要素の翻訳を追加するメカニズムが含まれています。プレビューで表示されるテキストは、実行時に自動的にロケールまたはブラウザの言語に適応します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "UI designer includes a mechanism to add translations for page elements, to support multi-language pages. The text displayed in the preview and at runtime adapts to the locale or browser language automatically."
+msgstr "UI デザイナーには、複数の言語ページをサポートするため、ページ要素の翻訳を追加するメカニズムが含まれています。プレビューおよび実行時に表示されるテキストは、ロケールまたはブラウザの言語を自動的に適応します。"
 
 #: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
 #: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:13
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:2
-#: assets/generic-asset-form.html:9
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
+#: assets/generic-asset-form.html:1
 msgid "URL"
 msgstr "URL"
 
@@ -1492,7 +1485,7 @@ msgstr "URL"
 msgid "URL parameter"
 msgstr "URL パラメータ"
 
-#: editor/data-panel/data-popup.html:35
+#: editor/data-panel/data-popup.html:1
 msgid "URL parameter name"
 msgstr "URL パラメータ名"
 
@@ -1504,67 +1497,47 @@ msgstr "コールするURL"
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "クリックされた時にHTTPリクエストを実行するために使用するURL"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:98
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:96
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "ユニークなオプションのチェック ボックス。ユーザーはチェックオンまたはオフにします。"
 
-#: assets/page-assets.html:39 assets/widget-assets.html:35
+#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "Update asset"
 msgstr "アセットを更新"
 
-#: editor/widget-factory.service.js:33
+#: editor/container-definition-factory.service.js:46
 msgid "Use $item as the current iteration."
 msgstr "現在のイテレータとして $item を使用します。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
 msgid "Use $item to remove the current item in a repeated collection"
 msgstr "繰返しコレクション内の現在項目を削除するには、$item を使用します。"
 
-#: editor/help-popup.html:36
-msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather\n"
-"                information from</b> the end users."
-msgstr "エンドユーザーから<b>情報を収集</b>したり、エンドユーザーに<b>情報を表示する</b>には、左のパレットにある<b>ウィジェット</b>を使用します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
+msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情報収集</b>には、左側のパレットの<b>ウィジェット</b>を使用します。"
 
 #: editor/help/bidirectional-bond-help.html:1
-msgid "Use a bidirectional field to specify a read-write binding between the\n"
-"                    property value and a variable."
-msgstr "プロパティ値と変数をread-write双方向でバインディングするには、双方向フィールドを使用します。"
+msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
+msgstr "双方向フィールドを使用し、プロパティの値と変数間の双方向で読み書きできるバインドを指定します。"
 
 #: editor/help/dynamic-bond-help.html:1
-msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the\n"
-"                    expression\n"
-"                    icon fx to switch from constant to expression. Click the constant icon X to switch from expression\n"
-"                    to\n"
-"                    constant. An expression can include a variable to make the property value dynamic, or can simply be\n"
-"                    the\n"
-"                    name of a variable. You can apply a filter to a variable value using a pipe. The binding to the\n"
-"                    variable\n"
-"                    is a read. If you want to write to the variable, use a bidirectional bond.\n"
-"                    Examples:"
-msgstr "コンスタント（デフォルト）または式を指定するには、動的な値を使用します。コンスタントから式に切り替えるには、式アイコンの fx をクリックします。式から変数名に切り替えるには、コンスタント アイコンの X をクリックします。パイプを使用して変数の値にフィルターを適用することができます。変数へのバインディングは read です。変数に write したい場合は、read-write 双方向バインドを使用します。"
+msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
+msgstr "動的な値フィールドを使用し、コンスタント（デフォルト）または式を指定します。式のアイコン fx をクリックしてコンスタントから式に切り替えます。式からコンスタントに切り替えるには、コンスタントのアイコン X をクリックします。式はプロパティの値を動的にする変数を含めるか、または単に変数名だけにすることができます。パイプを使用して変数の値にフィルターを適用することができます。変数へのバインディングは、読み取り専用です。変数に書き込みをしたい場合は、双方向バインドを使用します。例:"
 
 #: editor/help/interpolation-bond-help.html:1
-msgid "Use an interpolation field to enter text to display in the widget. The\n"
-"                    text can include variables that\n"
-"                    are interpreted using AngularJS interpolation. When the page is displayed, the variables are\n"
-"                    replaced by\n"
-"                    the interpolated values. Specify a variable as a simple expression enclosed in double braces, using\n"
-"                    the\n"
-"                    same format as for a dynamic value field.\n"
-"                    Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
-msgstr "ウィジェットの表示テキスト中に変数を埋め込み可能にしたい場合、この補完フィールドを使用します。この補完フィールドのテキストには、AngularJS の補完 (interpolation) で解釈される変数を含むことができ、ページが表示された時にその変数は補完された値で置き換えられます。 変数は、ダブル中括弧 <span ng-non-bindable=\"\">{{式}}</span> で囲んだ単純な式で指定します。\n"
-"                   例: <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em> さん、ごめんなさい！  残念ながら、それはできません。"
+msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
+msgstr "ウィジェットの表示テキスト中に変数を埋め込み可能にしたい場合、この補完フィールドを使用します。この補完フィールドのテキストには、AngularJS の補完 (interpolation) で解釈される変数を含むことができます。その変数はページが表示されたとき、補完された値に置き換えられます。 二重の中かっこで囲まれた簡単な式として変数を指定します。 例: <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em> さん、申し訳ありませんが、それを行うことはできません。"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:140
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:178
 msgid "Use basic html tags and {{ dataVariable }} to access data"
-msgstr "基本的な html タグとデータにアクセスする {{ dataVariable }} を使用します。"
+msgstr "基本的な html タグやデータにアクセスするには {{ dataVariable }} を使用"
 
-#: home/help-popup.html:10
-msgid "Use the UI Designer to build <b>pages</b> for your business applications, <b>forms</b> to start process instances or execute human\n"
-"                tasks, and <b>application layouts</b> that apply to all pages of an application."
-msgstr "業務アプリケーションの<b>ページ</b>、プロセスインスタンスを開始するためやヒューマンタスクを実行するための<b>フォーム</b>、および アプリケーションのすべてのページに適用する<b>アプリケーション・レイアウト</b>をビルドするために UI デザイナーを使用します。"
+#: home/help-popup.html:1
+msgid "Use the UI Designer to build <b>pages</b> for your business applications, <b>forms</b> to start process instances or execute human tasks, and <b>application layouts</b> that apply to all pages of an application."
+msgstr "業務アプリケーションの<b>ページ</b>、プロセスの起案を開始するためやヒューマンタスクを実行するための<b>フォーム</b>、および アプリケーションのすべてのページに適用する<b>アプリケーション・レイアウト</b>をビルドするために UI デザイナーを使用します。"
 
-#: editor/help-popup.html:9
+#: editor/menu-bar/help-popup.html:1
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
@@ -1573,74 +1546,71 @@ msgid "User id could then be obtained by using {{youVar.user_id}}"
 msgstr "User id は、 {{あなたが指定した変数名.user_id}}を使用することによって取得できます"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:4
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:3
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:1
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:2
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
-#: editor/data-panel/data-popup.html:100 editor/data-panel/data-popup.html:30
-#: editor/data-panel/data-popup.html:31 editor/data-panel/data-popup.html:66
-#: editor/data-panel/data.html:24
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
+#: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
+#: editor/data-panel/data.html:1
 msgid "Value"
 msgstr "値"
 
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:3
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:3
 msgid "Value max length"
 msgstr "値の最大文字数"
 
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:6
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
 msgid "Value min length"
 msgstr "値の最小文字数"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:131
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:135
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:134
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:167
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:168
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:164
 msgid "Value must be unique"
 msgstr "値はユニークである必要があります。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:1
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
 msgid "Value to add"
 msgstr "追加する値"
 
-#: editor/properties-panel/bond/variable.html:8
+#: editor/properties-panel/bond/variable.html:1
 msgid "Variable in read-write binding with the property value"
 msgstr "プロパティ値と read-write 双方向でバインディングする変数"
 
-#: editor/data-panel/data-popup.html:17
-msgid "Variable names\n"
-"                must start with a letter and contain only alphanumeric characters"
+#: editor/data-panel/data-popup.html:1
+msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "変数名は、英文字で始まり英数字のみで命名する必要があります。"
 
-#: editor/editor.html:83 editor/help-popup.html:67
+#: editor/editor.html:1 editor/menu-bar/help-popup.html:1
 msgid "Variables"
 msgstr "変数"
 
-#: editor/data-panel/help-popup.html:21
+#: editor/data-panel/help-popup.html:1
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
 
-#: assets/page-assets.html:35 assets/widget-assets.html:32
+#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "View asset content"
 msgstr "アセットのコンテンツを表示"
 
-#: editor/data-panel/data-popup.html:94
+#: editor/data-panel/data-popup.html:10
 msgid "W3C website"
-msgstr "W3C web サイト"
+msgstr "W3C webサイト"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:22
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:21
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
 
-#: editor/help-popup.html:27
+#: editor/menu-bar/help-popup.html:1
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
 
-#: editor/data-panel/help-popup.html:27
-msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>,\n"
-"                <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
+#: editor/data-panel/help-popup.html:1
+msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Studio内のコントラクトをベースにフォームを生成した場合は、そのフォームには送信ボタンといくつかのデフォルト変数： <code>formInput</code>、 <code>formOutput</code>、 <code>taskId</code>、 および <code>context</code> が含まれます。"
 
 #: editor/data-panel/api-examples.service.js:72
@@ -1651,100 +1621,96 @@ msgstr "ここの businessDataName はプールで定義したビジネス変数
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "ここの businessDataType は com.company.model.MyData、 queryName は BDM クエリ名、 filter は \"myParam=myValue\" です。"
 
-#: assets/page-assets.html:22
+#: assets/page-assets.html:1
 msgid "Widget"
 msgstr "ウィジェット"
 
-#: home/home-widgets.html:17
+#: home/home-widgets.html:1
 msgid "Widget Name"
 msgstr "ウィジェット名"
 
-#: custom-widget/custom-widget-editor.html:44
+#: custom-widget/custom-widget-editor.html:1
 msgid "Widget description"
 msgstr "ウィジェットの説明"
 
-#: home/home-widgets.html:28
+#: home/home-widgets.html:1
 msgid "Widget name should contains only alphanumeric characters with no space"
 msgstr "ウィジェット名は、スペースを含まない英数字のみで命名します"
 
-#: custom-widget/save-as-popup.html:16
+#: custom-widget/save-as-popup.html:1
 msgid "Widget names must start with a letter and contain only alphanumeric characters"
 msgstr "ウィジェット名は、英文字で始まり英数字のみで命名する必要があります。"
 
-#: editor/help-popup.html:35
+#: editor/menu-bar/help-popup.html:1
 msgid "Widgets"
 msgstr "ウィジェット"
 
-#: editor/properties-panel/component-properties-template.html:3
+#: editor/properties-panel/component-properties-template.html:1
 msgid "Width"
 msgstr "幅"
 
-#: editor/help-popup.html:28
-msgid "Within a row, when you delete a widget or a container, the following elements move to the\n"
-"                    left"
-msgstr "行内のウィジェットまたはコンテナを削除すると、それに続く要素は左に移動します。"
+#: editor/menu-bar/help-popup.html:1
+msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
+msgstr "行の内部のウィジェットまたはコンテナーを削除すると、次に続く要素は左に移動します。"
 
-#: editor/help-popup.html:41
+#: editor/menu-bar/help-popup.html:1
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
 
-#: editor/help-popup.html:45
-msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A\n"
-"                container can contain other containers."
-msgstr "コンテナ内に複数のウィジェットをグループ化してフォームまたはページ内にウィジェットの配列を定義できます。１つのコンテナには他のコンテナを含めることができます。"
+#: editor/menu-bar/help-popup.html:1
+msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
+msgstr "フォームまたはページのコンテナ内にウィジェットをきれいに配置して、それらのウィジェットをグループ化できます。コンテナは、別のコンテナを含めることができます。"
 
-#: home/help-popup.html:16
+#: home/help-popup.html:1
 msgid "You can import an existing page, form, or layout to edit, or duplicate existing ones"
 msgstr "既存のページ、フォームまたはレイアウトをインポートし、編集または複製することができます。"
 
-#: editor/help-popup.html:62
+#: editor/menu-bar/help-popup.html:1
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
 
-#: editor/help-popup.html:99
-msgid "You can translate all the text displayed on a page or form: the labels, the placeholders, the\n"
-"                available values of a list, but also the date format of the DatePicker widget. The base language\n"
-"                is en_US. The phrases in English are used as the keys to the translated phrases. This means that\n"
-"                in the Page editor whiteboard, any default text that is created is in English. The rest of the\n"
-"                UI designer, including properties, is in the language of your Bonita BPM Studio. When you\n"
-"                preview a page that has translated keys, the language of your browser is used."
-msgstr "ページまたはフォーム上に表示されるすべてのテキストを翻訳することができます: ラベル、プレース ホルダ、リストの使用可能な値だけでなく、DatePicker ウィジェットの日付形式。基本言語は en_US です。英語のフレーズは、フレーズを翻訳するキーとして使用されます。これは、ページ エディタのホワイト ボードで作成されるデフォルトのテキストは英語であることを意味します。UI デザイナー、プロパティなどの残りの部分は、Bonita BPM Studio の言語です。 翻訳されたキーを持つページをプレビューすると、お使いのブラウザの言語が使用されます。"
+#: editor/menu-bar/help-popup.html:1
+msgid "You can translate all the text displayed on a page or form: the labels, the placeholders, the available values of a list, but also the date format of the DatePicker widget. The base language is en_US. The phrases in English are used as the keys to the translated phrases. This means that in the Page editor whiteboard, any default text that is created is in English. The rest of the UI designer, including properties, is in the language of your Bonita BPM Studio. When you preview a page that has translated keys, the language of your browser is used."
+msgstr "ページまたはフォーム上に表示されるすべてのテキストを翻訳することができます。ラベル、プレース ホルダ、使用可能な値のリストだけでなく、日付ウィジェットの日付フォーマットもです。基本言語は、en_US です。英語のフレーズは、フレーズを翻訳するキーとして使用されます。つまり、ページ エディタのホワイト ボードで作成されるデフォルトのテキストは英語になります。プロパティを含む UI デザイナーの残りの部分は、Bonita BPM Studio の言語になります。翻訳されたキーを持つページをプレビューする場合は、ブラウザの言語が使用されます。"
 
-#: assets/help-popup.html:93
-msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the\n"
-"                existing one."
-msgstr "1 つ以上のローカライゼーション アセットを持つことはできません。新しいアセット ファイルをアップロードすると 既存のものを上書きします。"
+#: assets/help-popup.html:13
+msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
+msgstr "1 つ以上のローカライゼーションのアセットを持つことはできません。新しいアセット ファイルをアップロードすると、既存のものが上書きされます。"
 
-#: assets/help-popup.html:85
+#: assets/help-popup.html:13
 msgid "You can’t manually change the order of assets in a page."
-msgstr "ページ内のアセットの順番は手作業では変更できません。"
+msgstr "ページ内のアセットの順番は手動では変更できません。"
 
 #: common/directives/confirm-on-exit.js:20
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
 
-#: home/import-artifact-success-message.controller.js:24
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "_self"
+msgstr "_self"
+
+#: home/import/import-success-message.controller.js:38
 msgid "added"
 msgstr "追加済み"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:16
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:10
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
 msgid "center"
 msgstr "中央"
 
-#: editor/properties-panel/component-properties-template.html:9
+#: editor/properties-panel/component-properties-template.html:1
 msgid "column"
 msgid_plural "columns"
 msgstr[0] "カラム"
 
-#: editor/whiteboard.service.js:70
+#: editor/editor.service.js:73
 msgid "custom widgets"
 msgstr "カスタム ウィジェット"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
 msgid "danger"
 msgstr "danger"
 
@@ -1756,23 +1722,23 @@ msgstr "default"
 msgid "email"
 msgstr "電子メール"
 
-#: common/services/alerts.service.js:73
+#: common/services/alerts.service.js:31
 msgid "error"
 msgstr "エラー"
 
-#: editor/properties-panel/bond/expression.html:11
+#: editor/properties-panel/bond/expression.html:1
 msgid "expression or variable"
 msgstr "式または変数"
 
-#: assets/page-assets.html:8 editor/data-panel/data.html:7
+#: assets/page-assets.html:1 editor/data-panel/data.html:1
 msgid "filter:"
 msgstr "フィルター:"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
 msgid "green,red,blue"
 msgstr "緑, 赤, 青"
 
-#: editor/common-params.service.js:34
+#: editor/common/properties.service.js:37
 msgid "hidden"
 msgstr "非表示"
 
@@ -1781,7 +1747,7 @@ msgid "http://"
 msgstr "http://"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
 msgid "info"
 msgstr "info"
 
@@ -1795,29 +1761,29 @@ msgstr "ラベル幅"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:15
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:16
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:12
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:10
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "left"
 msgstr "左へ"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
 msgid "link"
 msgstr "link"
 
-#: editor/data-panel/data-popup.html:36
+#: editor/data-panel/data-popup.html:1
 msgid "name"
 msgstr "名前"
 
-#: editor/properties-panel/field/boolean.html:4
+#: editor/properties-panel/field/boolean.html:1
 msgid "no"
 msgstr "いいえ"
 
@@ -1825,7 +1791,7 @@ msgstr "いいえ"
 msgid "number"
 msgstr "数値"
 
-#: home/import-artifact-success-message.controller.js:22
+#: home/import/import-success-message.controller.js:36
 msgid "overridden"
 msgstr "オーバーライド"
 
@@ -1834,30 +1800,30 @@ msgid "password"
 msgstr "パスワード"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
 msgid "primary"
 msgstr "primary"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:16
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:10
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
 msgid "right"
 msgstr "右"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
-#: common/services/alerts.service.js:64
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: common/services/alerts.service.js:32
 msgid "success"
 msgstr "success"
 
-#: home/import-artifact-success-message.html:3
+#: home/import-artifact-success-message.html:1
+#: home/import/import-success-message.html:1
 msgid "successfully"
 msgstr "正常"
 
-#: editor/data-panel/data-popup.html:77
-msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level,\n"
-"                        user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
+#: editor/data-panel/data-popup.html:1
+msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
 
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
@@ -1865,56 +1831,64 @@ msgid "text"
 msgstr "テキスト"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:15
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:12
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "top"
 msgstr "トップへ"
 
-#: editor/data-panel/data-popup.html:94
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+msgid "undefined"
+msgstr "未定義"
+
+#: editor/data-panel/data-popup.html:10
 msgid "view W3C's Json specification"
 msgstr "W3C の JSON 仕様を表示"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
-#: common/services/alerts.service.js:82
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: common/services/alerts.service.js:33
 msgid "warning"
 msgstr "warning"
 
-#: editor/component-factory.service.js:234
-#: editor/component-factory.service.js:240
-#: editor/component-factory.service.js:246 editor/whiteboard.service.js:67
+#: editor/editor.service.js:105 editor/editor.service.js:111
+#: editor/editor.service.js:70 editor/editor.service.js:99
 msgid "widgets"
 msgstr "ウィジェット"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:136
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:170
 msgid "y: year, M: month, d: day, h: hour, m: minute, s: second"
-msgstr "y: 年、M: 月、d: 日、h: 時間、m: 分、s: 秒"
+msgstr "y: 年, M: 月, d: 日, h: 時間, m: 分, s: 秒"
 
-#: editor/properties-panel/field/boolean.html:8
+#: editor/properties-panel/field/boolean.html:1
 msgid "yes"
 msgstr "はい"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:56
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:57
 msgid "yes,no"
 msgstr "はい, いいえ"
 
-#: home/import-artifact-success-message.html:11
-#: home/import-artifact-success-message.html:26
+#: home/import-artifact-success-message.html:1
+#: home/import/import-report-popup.html:1
+#: home/import/import-success-message.html:1
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 
-#: home/alert-deletion-notpossible-popup.html:11
+#: home/import/import-report-popup.html:1
+msgid "{{ importReport.report.type }}"
+msgstr "{{ importReport.report.type }}"
+
+#: home/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] "{{ key }}"
 
-#: assets/asset-preview-popup.html:3
+#: assets/asset-preview-popup.html:1
 msgid "{{asset.name}} content"
 msgstr "{{asset.name}} のコンテンツ"
 
