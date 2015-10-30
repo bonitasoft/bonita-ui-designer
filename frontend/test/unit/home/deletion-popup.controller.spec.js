@@ -1,11 +1,11 @@
-describe('DeletionPopController', function () {
+describe('DeletionPopController', function() {
   var page, modalInstance, $scope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope) {
     $scope = $rootScope.$new();
 
-    page = {id: 'page1', name: 'page1'};
+    page = { id: 'page1', name: 'page1' };
     modalInstance = jasmine.createSpyObj('modalInstance', ['close', 'dismiss']);
 
     $controller('DeletionPopUpController', {
@@ -18,19 +18,19 @@ describe('DeletionPopController', function () {
     $scope.$apply();
   }));
 
-  it('should close the modal instance', function () {
+  it('should close the modal instance', function() {
     $scope.ok();
 
     expect(modalInstance.close).toHaveBeenCalledWith(page.id);
   });
 
-  it('should dismiss the modal instance', function () {
+  it('should dismiss the modal instance', function() {
     $scope.cancel();
 
     expect(modalInstance.dismiss).toHaveBeenCalledWith('cancel');
   });
 
-  it('should populate artifact and his type', function () {
+  it('should populate artifact and his type', function() {
     expect($scope.artifact).toEqual(page);
     expect($scope.artifact.type).toBe('page');
   });

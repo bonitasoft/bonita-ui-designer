@@ -12,12 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
- 'use strict';
-  
+(function() {
+  'use strict';
+
   angular.module('bonitasoft.designer.home.import')
     .directive('importReportItemList', importReportItemList);
-  
+
   function importReportItemList() {
     return {
       templateUrl: 'js/home/import/import-report-item-list.html',
@@ -27,9 +27,9 @@
         displayPage: '=',
         dependencies: '='
       },
-      controller: function($scope){
-        $scope.joinOnNames = function (artifacts) {
-          return artifacts && artifacts.map(function (item) {
+      controller: function($scope) {
+        $scope.joinOnNames = function(artifacts) {
+          return artifacts && artifacts.map(function(item) {
             return item.name;
           }).join(', ');
         };

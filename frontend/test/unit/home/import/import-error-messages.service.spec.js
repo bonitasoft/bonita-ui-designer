@@ -1,14 +1,14 @@
-describe('Import error messages service', function () {
+describe('Import error messages service', function() {
 
   var importErrorMessagesService;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home.import'));
-  beforeEach(inject(function (_importErrorMessagesService_) {
+  beforeEach(inject(function(_importErrorMessagesService_) {
     importErrorMessagesService = _importErrorMessagesService_;
   }));
 
   it('should get error message for SERVER_ERROR error', () => {
-    var error = {message: 'Some error appears', type: 'SERVER_ERROR'};
+    var error = { message: 'Some error appears', type: 'SERVER_ERROR' };
 
     var context = importErrorMessagesService.getErrorContext(error, 'page');
 
@@ -20,7 +20,7 @@ describe('Import error messages service', function () {
   });
 
   it('should get error message for PAGE_NOT_FOUND error', () => {
-    var error = {message: 'Some error appears', type: 'PAGE_NOT_FOUND', infos: {modelfile: 'thefile.json'}};
+    var error = { message: 'Some error appears', type: 'PAGE_NOT_FOUND', infos: { modelfile: 'thefile.json' } };
 
     var context = importErrorMessagesService.getErrorContext(error, 'page');
 
@@ -32,7 +32,7 @@ describe('Import error messages service', function () {
   });
 
   it('should get error message for UNEXPECTED_ZIP_STRUCTURE error', () => {
-    var error = {message: 'Some error appears', type: 'UNEXPECTED_ZIP_STRUCTURE'};
+    var error = { message: 'Some error appears', type: 'UNEXPECTED_ZIP_STRUCTURE' };
 
     var context = importErrorMessagesService.getErrorContext(error, 'widget');
 
@@ -44,7 +44,7 @@ describe('Import error messages service', function () {
   });
 
   it('should get error message for CANNOT_OPEN_ZIP error', () => {
-    var error = {message: 'Some error appears', type: 'CANNOT_OPEN_ZIP'};
+    var error = { message: 'Some error appears', type: 'CANNOT_OPEN_ZIP' };
 
     var context = importErrorMessagesService.getErrorContext(error, 'widget');
 
@@ -55,7 +55,7 @@ describe('Import error messages service', function () {
   });
 
   it('should get error to display object for JSON_STRUCTURE error', () => {
-    var error = {message: 'Some error appears', type: 'JSON_STRUCTURE', infos: {modelfile: 'thefile.json'}};
+    var error = { message: 'Some error appears', type: 'JSON_STRUCTURE', infos: { modelfile: 'thefile.json' } };
 
     var context = importErrorMessagesService.getErrorContext(error, 'page');
 
@@ -67,7 +67,7 @@ describe('Import error messages service', function () {
   });
 
   it('should get error response message when type is unknown', () => {
-    var error = {message: 'Some error appears', type: 'unknown'};
+    var error = { message: 'Some error appears', type: 'unknown' };
 
     var context = importErrorMessagesService.getErrorContext(error, 'page');
 
@@ -78,7 +78,7 @@ describe('Import error messages service', function () {
   });
 
   it('should compute consequence according to artefact type', function() {
-    var error = {message: 'Some error appears', type: 'unknown'};
+    var error = { message: 'Some error appears', type: 'unknown' };
 
     var context = importErrorMessagesService.getErrorContext(error, 'page');
     expect(context.consequence).toEqual('The page has not been imported.');

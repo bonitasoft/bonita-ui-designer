@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -29,9 +29,8 @@
 
     vm.forceImport = forceImport;
 
-
     function joinOnNames(artifacts) {
-      return artifacts.map(function (item) {
+      return artifacts.map(function(item) {
         return item.name;
       }).join(', ');
     }

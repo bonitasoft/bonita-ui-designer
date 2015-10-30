@@ -2,7 +2,7 @@ import CustomMatcher from '../../utils/matchers';
 describe('splitter vertical directive', function() {
   var $compile, $rootScope, element, doc, scope, controller, $window;
 
-  function triggerEvent (event, opt) {
+  function triggerEvent(event, opt) {
     var e = angular.element.Event(event);
     angular.extend(e, opt);
     doc.triggerHandler(e);
@@ -94,12 +94,12 @@ describe('splitter vertical directive', function() {
     var splitter = angular.element(element.find('.splitter').get(0));
 
     splitter.triggerHandler('mousedown');
-    triggerEvent('mousemove', {target: document, pageX: 100});
+    triggerEvent('mousemove', { target: document, pageX: 100 });
 
     expect(left).toHaveClass('splitter-onmove');
     expect(right).toHaveClass('splitter-onmove');
 
-    triggerEvent('mouseup', {target: document});
+    triggerEvent('mouseup', { target: document });
 
     expect(controller.resize).toHaveBeenCalledWith(100);
     expect(left).not.toHaveClass('splitter-onmove');

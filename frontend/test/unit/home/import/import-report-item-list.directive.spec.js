@@ -11,7 +11,7 @@ describe('importReportItemList directive', () => {
   it('should join artifact names',() => {
     expect(scope.joinOnNames()).toBeUndefined();
     expect(scope.joinOnNames([])).toEqual('');
-    var artifacts = [{name:'widget1'}, {name: 'widget3'}];
+    var artifacts = [{ name: 'widget1' }, { name: 'widget3' }];
     expect(scope.joinOnNames(artifacts)).toEqual('widget1, widget3');
   });
 

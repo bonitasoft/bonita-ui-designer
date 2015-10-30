@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -41,16 +41,14 @@
         container: container,
         row: row
       };
-      angular.forEach(row, function (component) {
+      angular.forEach(row, function(component) {
         components.init(component, parentContainerRow);
       });
     }
 
-
     function wrapPage(page) {
       page.rows.forEach(wrapRow.bind(null, page));
     }
-
 
     /**
      * Initialize (mutate) a component to be used in whiteboard
@@ -105,7 +103,7 @@
         triggerAdded: angular.noop
       });
 
-      element.tabs.forEach(function (tab) {
+      element.tabs.forEach(function(tab) {
         service.wrapTab(tab, element);
         service.wrapContainer({}, tab.container);
       });
@@ -115,15 +113,14 @@
 
     function wrapTab(tab, tabsContainer) {
       angular.extend(tab, {
-          $$parentTabsContainer: tabsContainer,
-          $$widget: {
-            name: 'Tab'
-          },
-          $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html',
-          triggerRemoved: whiteboardService.onRemoveTab.bind(null, tab),
-          triggerAdded: angular.noop
-        }
-      );
+        $$parentTabsContainer: tabsContainer,
+        $$widget: {
+          name: 'Tab'
+        },
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html',
+        triggerRemoved: whiteboardService.onRemoveTab.bind(null, tab),
+        triggerAdded: angular.noop
+      });
     }
 
     function wrapFormContainer(formContainer, element, parentRow) {

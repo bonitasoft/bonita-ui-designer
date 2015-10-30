@@ -1,8 +1,8 @@
-describe('validJSon', function () {
+describe('validJSon', function() {
   var $compile, $rootScope, element;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel'));
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
 

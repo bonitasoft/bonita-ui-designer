@@ -1,36 +1,36 @@
-(function () {
+(function() {
   'use strict';
 
-  describe('AssetCtrl', function () {
+  describe('AssetCtrl', function() {
     var $scope, $q, $modal, assetsService, artifactRepo, controller, component;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
-    beforeEach(inject(function ($injector) {
+    beforeEach(inject(function($injector) {
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
       $modal = $injector.get('$modal');
-      component = {id: 12};
+      component = { id: 12 };
       artifactRepo = {
-        loadAssets: function () {
+        loadAssets: function() {
           return $q.when([
-            {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
-            {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
-            {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
-            {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
+            { id: '123', name: 'myAsset', scope: 'PAGE', active: true },
+            { id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false },
+            { id: '789', name: 'publicAsset', scope: 'WIDGET', active: true },
+            { id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false }
           ]);
         },
-        deleteAsset: function () {
+        deleteAsset: function() {
         },
-        createAsset: function () {
+        createAsset: function() {
         }
       };
     }));
 
-    describe('Page editor', function () {
+    describe('Page editor', function() {
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function($injector) {
         $scope.page = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
@@ -42,16 +42,16 @@
         });
       }));
 
-      it('should expose filters', function () {
+      it('should expose filters', function() {
         $scope.$digest();
         expect(controller.filters).toEqual({
-          js: {label: 'JavaScript', value: true},
-          css: {label: 'CSS', value: true},
-          img: {label: 'Image', value: true}
+          js: { label: 'JavaScript', value: true },
+          css: { label: 'CSS', value: true },
+          img: { label: 'Image', value: true }
         });
       });
 
-      it('should open a data popup for asset preview', function () {
+      it('should open a data popup for asset preview', function() {
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -59,7 +59,7 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset management', function () {
+      it('should open a data popup for asset management', function() {
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -67,8 +67,8 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
-      it('should delete an asset', function () {
-        var asset = {name: 'myasset.js'};
+      it('should delete an asset', function() {
+        var asset = { name: 'myasset.js' };
 
         spyOn(artifactRepo, 'deleteAsset').and.returnValue($q.when({}));
 
@@ -80,10 +80,9 @@
 
     });
 
+    describe('Widget editor', function() {
 
-    describe('Widget editor', function () {
-
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function($injector) {
         $scope.widget = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
@@ -94,7 +93,7 @@
         });
       }));
 
-      it('should open a data popup for asset preview', function () {
+      it('should open a data popup for asset preview', function() {
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -102,7 +101,7 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset management', function () {
+      it('should open a data popup for asset management', function() {
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -110,7 +109,7 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset preview', function () {
+      it('should open a data popup for asset preview', function() {
         spyOn($modal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -118,9 +117,7 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
-
     });
-
 
   });
 })();

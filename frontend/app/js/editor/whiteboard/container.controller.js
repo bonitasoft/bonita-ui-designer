@@ -15,27 +15,27 @@
 /**
  * Controller of the container directive
  */
-angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDirectiveCtrl', function ($scope, $rootScope, arrays, componentUtils) {
+angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDirectiveCtrl', function($scope, $rootScope, arrays, componentUtils) {
 
   'use strict';
 
   $scope.resizable = true;
 
-  $scope.moveRowUp = function (row, event) {
+  $scope.moveRowUp = function(row, event) {
     arrays.moveLeft(row, $scope.container.rows);
     event.stopPropagation();
   };
 
-  $scope.moveRowDown = function (row, event) {
+  $scope.moveRowDown = function(row, event) {
     arrays.moveRight(row, $scope.container.rows);
     event.stopPropagation();
   };
 
-  $scope.moveRowUpVisible = function (row) {
+  $scope.moveRowUpVisible = function(row) {
     return arrays.moveLeftPossible(row, $scope.container.rows);
   };
 
-  $scope.moveRowDownVisible = function (row) {
+  $scope.moveRowDownVisible = function(row) {
     return arrays.moveRightPossible(row, $scope.container.rows);
   };
 
@@ -48,7 +48,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
   $scope.dropItem = function(data, row) {
 
     // You cannot drop a container inside itself, nor in its children
-    if(!componentUtils.isMovable(data, $scope.component || $scope.container)) {
+    if (!componentUtils.isMovable(data, $scope.component || $scope.container)) {
       return;
     }
 
@@ -56,18 +56,18 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
     $scope.editor.removeCurrentComponent(data, row);
   };
 
-  $scope.removeRow = function (row) {
+  $scope.removeRow = function(row) {
     $scope.editor.selectRow($scope.container, row);
     $scope.editor.removeCurrentRow();
   };
 
-  $scope.dropAtEndOfTheRow = function (data, event, row) {
+  $scope.dropAtEndOfTheRow = function(data, event, row) {
 
     row = row || [];
     // If you are trying to dragAndDrop a widget already defined
-    if(data.$$widget) {
+    if (data.$$widget) {
 
-      if(!componentUtils.isMovable(data, $scope.component || $scope.container))  {
+      if (!componentUtils.isMovable(data, $scope.component || $scope.container))  {
         return;
       }
       $scope.editor.selectRow($scope.container, row);
@@ -78,20 +78,20 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
     $scope.editor.addComponentToRow(data, $scope.container, row);
   };
 
-  $scope.dropBeforeRow = function (data, event, rowIndex, rows) {
+  $scope.dropBeforeRow = function(data, event, rowIndex, rows) {
     var currentComponent = $scope.component || $scope.container;
     // Do not add a row if the container is not movable
-    if(currentComponent.id || componentUtils.isMovable(data, currentComponent)) {
+    if (currentComponent.id || componentUtils.isMovable(data, currentComponent)) {
       rows.splice(rowIndex, 0, []);
     }
     $scope.dropAtEndOfTheRow(data, event, rows[rowIndex]);
   };
 
-  $scope.dropAfterRow = function (data, event, rowIndex, rows) {
+  $scope.dropAfterRow = function(data, event, rowIndex, rows) {
     var currentComponent = $scope.component || $scope.container;
 
     // Do not add a row if the container is not movable
-    if(currentComponent.id || componentUtils.isMovable(data, currentComponent)) {
+    if (currentComponent.id || componentUtils.isMovable(data, currentComponent)) {
       rowIndex = rowIndex + 1;
       rows.splice(rowIndex, 0, []);
     }

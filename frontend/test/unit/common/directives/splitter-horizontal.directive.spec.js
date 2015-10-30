@@ -4,7 +4,7 @@ import CustomMatcher from '../../utils/matchers';
 describe('splitter horizontal directive', function() {
   var $compile, $rootScope, element, doc, scope, controller, $window, $state;
 
-  function triggerEvent (event, opt) {
+  function triggerEvent(event, opt) {
     var e = angular.element.Event(event);
     angular.extend(e, opt);
     doc.triggerHandler(e);
@@ -55,12 +55,12 @@ describe('splitter horizontal directive', function() {
     var splitter = angular.element(element.find('.BottomPanel-splitter').get(0));
 
     splitter.triggerHandler('mousedown');
-    triggerEvent('mousemove', {target: document, pageY: 100});
+    triggerEvent('mousemove', { target: document, pageY: 100 });
 
     expect(top).toHaveClass('splitter-onmove');
     expect(bottom).toHaveClass('splitter-onmove');
 
-    triggerEvent('mouseup', {target: document});
+    triggerEvent('mouseup', { target: document });
 
     expect(controller.resize).toHaveBeenCalledWith(100);
     expect(top).not.toHaveClass('splitter-onmove');
@@ -101,7 +101,7 @@ describe('splitter horizontal directive', function() {
 
     // should work but don't
     xit('should not resize right pane to a width greater than max', function() {
-     $window.innerHeight = 1000;
+      $window.innerHeight = 1000;
       scope.paneBottomMax = 200;
 
       controller.resize(700); // < 1000-200

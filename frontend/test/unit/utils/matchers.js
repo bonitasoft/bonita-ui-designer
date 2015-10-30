@@ -1,12 +1,12 @@
 function pass(message) {
-  return  {
+  return {
     pass: true,
     message: message
   };
 }
 
 function fail(message) {
-  return  {
+  return {
     pass: false,
     message: message
   };

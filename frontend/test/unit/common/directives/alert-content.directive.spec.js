@@ -1,10 +1,10 @@
-describe('alert-content directive', function () {
+describe('alert-content directive', function() {
 
   var element, scope, templateCache;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function ($compile, $rootScope, $templateCache) {
+  beforeEach(inject(function($compile, $rootScope, $templateCache) {
     templateCache = $templateCache;
     scope = $rootScope.$new();
     scope.alert = {};

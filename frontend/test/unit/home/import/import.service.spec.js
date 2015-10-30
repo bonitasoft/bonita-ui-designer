@@ -17,46 +17,46 @@ describe('Import service', () => {
   it('should check error message', () => {
     expect(importArtifactService.isErrorResponse()).toBeFalsy();
     expect(importArtifactService.isErrorResponse({})).toBeFalsy();
-    expect(importArtifactService.isErrorResponse({type: ''})).toBeFalsy();
-    expect(importArtifactService.isErrorResponse({message: 'an Error'})).toBeFalsy();
-    expect(importArtifactService.isErrorResponse({type: 'error', message: 'an Error'})).toBeTruthy();
+    expect(importArtifactService.isErrorResponse({ type: '' })).toBeFalsy();
+    expect(importArtifactService.isErrorResponse({ message: 'an Error' })).toBeFalsy();
+    expect(importArtifactService.isErrorResponse({ type: 'error', message: 'an Error' })).toBeTruthy();
   });
 
   describe('when managing import response', () => {
 
-    beforeEach(function () {
+    beforeEach(function() {
       spyOn(alerts, 'addError');
       spyOn(alerts, 'addSuccess');
     });
 
-    it('should reject response processing when it is an error', function () {
+    it('should reject response processing when it is an error', function() {
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(true);
       var message = 'error';
 
-      importArtifactService.manageImportResponse('page', true, {message: message}).then(successFn, angular.noop);
+      importArtifactService.manageImportResponse('page', true, { message: message }).then(successFn, angular.noop);
       scope.$apply();
 
       expect(alerts.addError).toHaveBeenCalled();
       expect(successFn).not.toHaveBeenCalled();
     });
 
-    it('should get message from error message service when it is an error', function () {
+    it('should get message from error message service when it is an error', function() {
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(true);
-      var errorToDisplay = { cause: 'a cause', consequence: 'a consequence', additionalInfos: 'some aditional infos'};
+      var errorToDisplay = { cause: 'a cause', consequence: 'a consequence', additionalInfos: 'some aditional infos' };
       spyOn(importErrorMessagesService, 'getErrorContext').and.returnValue(errorToDisplay);
 
-      importArtifactService.manageImportResponse('page', true, {message: 'Message from backend'}).then(successFn, angular.noop);
+      importArtifactService.manageImportResponse('page', true, { message: 'Message from backend' }).then(successFn, angular.noop);
       scope.$apply();
 
       expect(alerts.addError).toHaveBeenCalledWith({
         title: 'Import error',
         contentUrl: 'js/home/import/import-error-message.html',
-        context: errorToDisplay});
+        context: errorToDisplay });
     });
 
-    it('should resolve response processing when override is false ', function () {
-      var report = {overriden: false};
-      var expectedReport = angular.extend(report, {type: 'page'});
+    it('should resolve response processing when override is false ', function() {
+      var report = { overriden: false };
+      var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
       importArtifactService.manageImportResponse('page', true, report).then((report) => expect(report).toEqual(expectedReport), errorFn);
@@ -70,9 +70,9 @@ describe('Import service', () => {
       expect(errorFn).not.toHaveBeenCalled();
     });
 
-    it('should resolve response processing when checkOverride is false ', function () {
-      var report = {overriden: true};
-      var expectedReport = angular.extend(report, {type: 'page'});
+    it('should resolve response processing when checkOverride is false ', function() {
+      var report = { overriden: true };
+      var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
       importArtifactService.manageImportResponse('page', false, report).then((report) => expect(report).toBeUndefined(), errorFn);
@@ -87,9 +87,9 @@ describe('Import service', () => {
       expect(errorFn).not.toHaveBeenCalled();
     });
 
-    it('should resolve response processing when checkOverride is true and overriden is true ', function () {
-      var report = {overridden: true};
-      var expectedReport = angular.extend(report, {type: 'page'});
+    it('should resolve response processing when checkOverride is true and overriden is true ', function() {
+      var report = { overridden: true };
+      var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
       importArtifactService.manageImportResponse('page', true, report).then((report) => expect(report).toEqual(expectedReport), errorFn);
@@ -101,7 +101,7 @@ describe('Import service', () => {
     });
   });
 
-  describe('when forcing import', function () {
+  describe('when forcing import', function() {
     var deferredPageRepo, deferredWidgetRepo, $q;
 
     beforeEach(inject((_$q_) => {
@@ -112,14 +112,14 @@ describe('Import service', () => {
       spyOn(importArtifactService.forceImportRepoFns, 'widget').and.returnValue(deferredWidgetRepo.promise);
     }));
 
-    it('should force import and call error callback on error', function () {
+    it('should force import and call error callback on error', function() {
       var deferred = $q.defer();
       var report = {};
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
 
-      importArtifactService.forceImport({uuid: 'tmpFileName.zip'}, 'page', successFn, errorFn);
+      importArtifactService.forceImport({ uuid: 'tmpFileName.zip' }, 'page', successFn, errorFn);
       deferred.reject();
-      deferredPageRepo.resolve({data: report});
+      deferredPageRepo.resolve({ data: report });
       scope.$apply();
 
       expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('page', false, report);
@@ -127,7 +127,7 @@ describe('Import service', () => {
       expect(errorFn).toHaveBeenCalled();
     });
 
-    it('should force import and call succes callback', function () {
+    it('should force import and call succes callback', function() {
       var deferred = $q.defer();
       var report = {};
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
@@ -136,7 +136,7 @@ describe('Import service', () => {
         uuid: 'tmpFileName.zip'
       }, 'widget', successFn, errorFn);
       deferred.resolve();
-      deferredWidgetRepo.resolve({data: report});
+      deferredWidgetRepo.resolve({ data: report });
       scope.$apply();
 
       expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('widget', false, report);

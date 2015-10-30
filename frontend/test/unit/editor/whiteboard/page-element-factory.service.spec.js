@@ -1,18 +1,18 @@
-(function () {
+(function() {
 
   'use strict';
 
-  describe('page element factory', function () {
+  describe('page element factory', function() {
 
     var service;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor'));
 
-    beforeEach(inject(function (pageElementFactory) {
+    beforeEach(inject(function(pageElementFactory) {
       service = pageElementFactory;
     }));
 
-    it('should create a page element for a widget', function () {
+    it('should create a page element for a widget', function() {
       var widget = {
         id: 'aWidget',
         properties: [
@@ -29,14 +29,14 @@
       expect(element).toEqual({
         id: 'aWidget',
         type: 'component',
-        dimension: {xs: 12},
+        dimension: { xs: 12 },
         propertyValues: {
-          robert: {type: 'constant', value: 'manger'}
+          robert: { type: 'constant', value: 'manger' }
         }
       });
     });
 
-    it('should create a page element for a container', function () {
+    it('should create a page element for a container', function() {
       var container = {
         properties: [
           {
@@ -51,15 +51,15 @@
 
       expect(element).toEqual({
         type: 'container',
-        dimension: {xs: 12},
+        dimension: { xs: 12 },
         propertyValues: {
-          robert: {type: 'constant', value: 'manger'}
+          robert: { type: 'constant', value: 'manger' }
         },
         rows: [[]]
       });
     });
 
-    it('should create a page element for a tabsContainer', function () {
+    it('should create a page element for a tabsContainer', function() {
       var tabsContainer = {
         properties: [
           {
@@ -74,9 +74,9 @@
 
       expect(element).toEqual({
         type: 'tabsContainer',
-        dimension: {xs: 12},
+        dimension: { xs: 12 },
         propertyValues: {
-          robert: {type: 'constant', value: 'manger'}
+          robert: { type: 'constant', value: 'manger' }
         },
         tabs: [
           {
@@ -101,7 +101,7 @@
       });
     });
 
-    it('should create a page element for a tab', function () {
+    it('should create a page element for a tab', function() {
       var title = 'tab';
 
       var tab = service.createTabElement(title);
@@ -117,7 +117,7 @@
       });
     });
 
-    it('should create a page element for a form container', function () {
+    it('should create a page element for a form container', function() {
       var formContainer = {
         properties: [
           {
@@ -132,9 +132,9 @@
 
       expect(element).toEqual({
         type: 'formContainer',
-        dimension: {xs: 12},
+        dimension: { xs: 12 },
         propertyValues: {
-          robert: {type: 'constant', value: 'manger'}
+          robert: { type: 'constant', value: 'manger' }
         },
         container: {
           type: 'container',

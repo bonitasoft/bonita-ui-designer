@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -79,7 +79,7 @@
     }
 
     function forceImport(report, type, success, error) {
-      forceImportRepoFns[type](report.uuid).then(function (response) {
+      forceImportRepoFns[type](report.uuid).then(function(response) {
         return response.data;
       }).then(service.manageImportResponse.bind(service, type, false)).then(success, error);
     }

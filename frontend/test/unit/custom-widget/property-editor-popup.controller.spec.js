@@ -11,13 +11,13 @@ describe('PropertyEditorPopupCtrl', function() {
     $controller('PropertyEditorPopupCtrl', {
       $scope: $scope,
       $modalInstance:  modalInstance,
-      param: {type: 'page'}
+      param: { type: 'page' }
     });
   }));
 
   it('should close the popup and pass params', function() {
-    $scope.currentParam = {name: 'toto', defaultValue: 'default value'};
-    $scope.paramToUpdate = {name: 'titi'};
+    $scope.currentParam = { name: 'toto', defaultValue: 'default value' };
+    $scope.paramToUpdate = { name: 'titi' };
     var params = {
       param: $scope.currentParam,
       paramToUpdate: $scope.paramToUpdate
@@ -30,8 +30,8 @@ describe('PropertyEditorPopupCtrl', function() {
 
   it('should close the popup and pass params and reset default value', function() {
     $scope.selectedBond = 'variable';
-    $scope.currentParam = {name: 'toto', defaultValue: 'default value'};
-    $scope.paramToUpdate = {name: 'titi'};
+    $scope.currentParam = { name: 'toto', defaultValue: 'default value' };
+    $scope.paramToUpdate = { name: 'titi' };
     var params = {
       param: $scope.currentParam,
       paramToUpdate: $scope.paramToUpdate
@@ -78,7 +78,7 @@ describe('PropertyEditorPopupCtrl', function() {
       $scope.currentParam.bond = 'interpolation';
       expect($scope.isTypeChoicable()).toBeFalsy();
     });
-    it('should return true when selected bond is expression or constant and choice is type', function () {
+    it('should return true when selected bond is expression or constant and choice is type', function() {
       $scope.currentParam.bond = 'expression';
       $scope.currentParam.type = 'choice';
       expect($scope.isTypeChoicable()).toBeTruthy();
@@ -94,7 +94,7 @@ describe('PropertyEditorPopupCtrl', function() {
       $scope.currentParam.bond = 'interpolation';
       expect($scope.isTypeSelectable()).toBeFalsy();
     });
-    it('should return true when selected bond is expression or constant', function () {
+    it('should return true when selected bond is expression or constant', function() {
       $scope.currentParam.bond = 'expression';
       expect($scope.isTypeSelectable()).toBeTruthy();
       $scope.currentParam.bond = 'constant';

@@ -5,7 +5,7 @@ describe('directive openPreview', function() {
   var scope, $window, $state, resolutions, dom, $compile;
 
   beforeEach(angular.mock.module('bonitasoft.designer.preview'));
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
 
     $window = $injector.get('$window');
     $state = $injector.get('$state');

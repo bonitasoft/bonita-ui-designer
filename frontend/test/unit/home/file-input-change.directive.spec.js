@@ -34,6 +34,4 @@ describe('directive fileInputChange', function() {
     expect(scope.filename).toBe('filename.jpg');
   });
 
-
-
 });

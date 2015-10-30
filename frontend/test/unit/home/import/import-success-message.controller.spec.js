@@ -1,9 +1,9 @@
-describe('Import Success Message Controller', function () {
+describe('Import Success Message Controller', function() {
 
   var controller, scope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home.import'));
-  beforeEach(inject(function ($controller, $rootScope, gettextCatalog) {
+  beforeEach(inject(function($controller, $rootScope, gettextCatalog) {
     scope = $rootScope.$new();
 
     controller = $controller('ImportSuccessMessageController', {
@@ -12,10 +12,10 @@ describe('Import Success Message Controller', function () {
     });
   }));
 
-  it('should join artifacts on names', function () {
+  it('should join artifacts on names', function() {
     var artifacts = [
-      {name: 'first'},
-      {name: 'second'}
+      { name: 'first' },
+      { name: 'second' }
     ];
 
     var names = controller.joinOnNames(artifacts);

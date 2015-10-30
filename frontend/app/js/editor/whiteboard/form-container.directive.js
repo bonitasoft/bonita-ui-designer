@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.whiteboard')
-  .directive('formContainer', function(){
+  .directive('formContainer', function() {
 
     'use strict';
 
@@ -26,4 +26,4 @@ angular.module('bonitasoft.designer.editor.whiteboard')
       },
       templateUrl: 'js/editor/whiteboard/form-container.html'
     };
-});
+  });

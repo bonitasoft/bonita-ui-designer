@@ -4,20 +4,20 @@ import { aTabsContainer } from  '../../utils/builders/TabsContainerElementBuilde
 import { aContainer } from  '../../utils/builders/ContainerElementBuilder';
 import { aWidget } from  '../../utils/builders/WidgetElementBuilder';
 
-describe('whiteboard service', function () {
+describe('whiteboard service', function() {
 
   var whiteboardService, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function (_whiteboardService_, _$timeout_) {
+  beforeEach(inject(function(_whiteboardService_, _$timeout_) {
     whiteboardService = _whiteboardService_;
     $timeout = _$timeout_;
   }));
 
   it('should add widget to whiteboard widget list while initializing a widget', function() {
-    var aWidget = {id: 'aWidget'};
-    var anotherWidget = {id: 'anotherWidget'};
+    var aWidget = { id: 'aWidget' };
+    var anotherWidget = { id: 'anotherWidget' };
 
     whiteboardService.triggerInitWidget(aWidget);
 
@@ -26,8 +26,8 @@ describe('whiteboard service', function () {
   });
 
   it('should remove widget from whiteboard widget list while removing a widget', function() {
-    var aWidget = {id: 'aWidget'};
-    var anotherWidget = {id: 'anotherWidget'};
+    var aWidget = { id: 'aWidget' };
+    var anotherWidget = { id: 'anotherWidget' };
     whiteboardService.triggerInitWidget(aWidget);
     whiteboardService.triggerInitWidget(anotherWidget);
 
@@ -38,7 +38,7 @@ describe('whiteboard service', function () {
   });
 
   it('should not remove widget from whiteboard widget list while removing a widget but not last', function() {
-    var aWidget = {id: 'aWidget'};
+    var aWidget = { id: 'aWidget' };
     whiteboardService.triggerInitWidget(aWidget);
     whiteboardService.triggerInitWidget(aWidget);
 
@@ -52,7 +52,7 @@ describe('whiteboard service', function () {
     var fnTwo = jasmine.createSpy('fnTwo');
     whiteboardService.registerOnWidgetRemoveFunction(fnOne);
     whiteboardService.registerOnWidgetRemoveFunction(fnTwo);
-    var aWidget = {id: 'aWidget'};
+    var aWidget = { id: 'aWidget' };
 
     whiteboardService.onRemoveWidget(aWidget);
 
@@ -68,7 +68,7 @@ describe('whiteboard service', function () {
     var fnTwo = jasmine.createSpy('fnTwo');
     whiteboardService.registerOnWidgetAddFunction(fnOne);
     whiteboardService.registerOnWidgetAddFunction(fnTwo);
-    var aWidget = {id: 'aWidget'};
+    var aWidget = { id: 'aWidget' };
 
     whiteboardService.onAddWidget(aWidget);
     $timeout.flush();
@@ -81,7 +81,7 @@ describe('whiteboard service', function () {
     var aComponent = aWidget().id('aComponent');
     var anotherComponent = aWidget().id('anotherComponent');
 
-    whiteboardService.triggerRowRemoved([ aComponent, anotherComponent ]);
+    whiteboardService.triggerRowRemoved([aComponent, anotherComponent]);
 
     expect(aComponent.triggerRemoved).toHaveBeenCalled();
     expect(anotherComponent.triggerRemoved).toHaveBeenCalled();
@@ -112,7 +112,6 @@ describe('whiteboard service', function () {
     expect(anotherComponent.triggerRemoved).toHaveBeenCalled();
     expect(aComponentAgain.triggerRemoved).toHaveBeenCalled();
   });
-
 
   it('should trigger onRemove on tabs containers components while removing a tabs container', () => {
     var aTab1Component = aWidget().id('aTab1Component');

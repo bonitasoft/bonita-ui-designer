@@ -77,7 +77,7 @@ describe('home page', function() {
 
     $$('#confirm-delete-popup .modal-footer button').get(0).click();
     expect($$('#confirm-delete-popup').count()).toBe(0);
-      //and the page is not deleted
+    //and the page is not deleted
     expect(element.all(by.repeater('page in pages')).count()).toBe(numberOfPages);
 
   });

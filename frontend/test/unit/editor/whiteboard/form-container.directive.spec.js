@@ -3,7 +3,7 @@ describe('formContainer', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_ ) {
+  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     $document = _$document_;
@@ -23,10 +23,10 @@ describe('formContainer', function() {
     row.push($rootScope.container);
     $rootScope.id = 'formContainer-1';
     $rootScope.editor = {
-      isCurrentComponent: function () {
+      isCurrentComponent: function() {
         return false;
       },
-      isCurrentRow: function () {
+      isCurrentRow: function() {
         return false;
       }
     };

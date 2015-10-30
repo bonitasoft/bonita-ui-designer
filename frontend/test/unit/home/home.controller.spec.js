@@ -1,8 +1,8 @@
-describe('HomeCtrl', function () {
+describe('HomeCtrl', function() {
   var $scope, $q, $modal, pageRepo, widgetRepo, pages, widgets, $state, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
-  beforeEach(inject(function ($controller, $rootScope, $injector) {
+  beforeEach(inject(function($controller, $rootScope, $injector) {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');
     $modal = $injector.get('$modal');
@@ -36,12 +36,12 @@ describe('HomeCtrl', function () {
     $scope.$digest();
   }));
 
-  it('should expose a new empty page in the scope', function () {
+  it('should expose a new empty page in the scope', function() {
     expect($scope.page.name).toBe('');
     expect($scope.page.rows).toEqual([[]]);
   });
 
-  it('should create a page and navigate to the page editor', function () {
+  it('should create a page and navigate to the page editor', function() {
     var createdPage = {
       id: 'foo'
     };
@@ -50,10 +50,10 @@ describe('HomeCtrl', function () {
 
     $scope.createPage($scope.page);
     $scope.$apply();
-    expect($state.go).toHaveBeenCalledWith('designer.page', {id: 'foo'});
+    expect($state.go).toHaveBeenCalledWith('designer.page', { id: 'foo' });
   });
 
-  it('should create a widget and navigate to the widget editor', function () {
+  it('should create a widget and navigate to the widget editor', function() {
     var createdWidget = {
       id: 'foo'
     };
@@ -62,10 +62,10 @@ describe('HomeCtrl', function () {
 
     $scope.createWidget('foo');
     $scope.$apply();
-    expect($state.go).toHaveBeenCalledWith('designer.widget', {widgetId: 'foo'});
+    expect($state.go).toHaveBeenCalledWith('designer.widget', { widgetId: 'foo' });
   });
 
-  it('should open a confirmation dialog to confirm page deletion', function () {
+  it('should open a confirmation dialog to confirm page deletion', function() {
     // given a fake modal service
     spyOn(pageRepo, 'delete').and.returnValue($q.when());
     spyOn($scope, 'refreshAll');
@@ -87,8 +87,8 @@ describe('HomeCtrl', function () {
 
   });
 
-  it('should export a page', function () {
-    var page = {id: 'aPage'};
+  it('should export a page', function() {
+    var page = { id: 'aPage' };
     spyOn(pageRepo, 'exportUrl');
 
     $scope.exportPageUrl(page);
@@ -97,8 +97,8 @@ describe('HomeCtrl', function () {
     expect(pageRepo.exportUrl).toHaveBeenCalledWith(page);
   });
 
-  it('should export a widget', function () {
-    var widget = {id: 'idWidget'};
+  it('should export a widget', function() {
+    var widget = { id: 'idWidget' };
     spyOn(widgetRepo, 'exportUrl');
 
     $scope.exportWidgetUrl(widget);
@@ -107,7 +107,7 @@ describe('HomeCtrl', function () {
     expect(widgetRepo.exportUrl).toHaveBeenCalledWith(widget);
   });
 
-  it('should open a confirmation dialog to confirm widget deletion', function () {
+  it('should open a confirmation dialog to confirm widget deletion', function() {
     // given a fake modal service
     spyOn(widgetRepo, 'delete').and.returnValue($q.when());
     spyOn($scope, 'refreshAll');
@@ -130,7 +130,7 @@ describe('HomeCtrl', function () {
     expect($scope.refreshAll).toHaveBeenCalled();
   });
 
-  it('should refresh everything', function () {
+  it('should refresh everything', function() {
 
     $scope.refreshAll();
     $scope.$apply();
@@ -141,8 +141,8 @@ describe('HomeCtrl', function () {
     expect($scope.widgets).toEqual(widgets);
   });
 
-  it('should toggle to edit a page name', function () {
-    var page = {name: 'hello'};
+  it('should toggle to edit a page name', function() {
+    var page = { name: 'hello' };
 
     $scope.toggleItemEdition(page);
 
@@ -154,9 +154,9 @@ describe('HomeCtrl', function () {
     expect(page.isEditingName).toBe(false);
   });
 
-  it('should rename a page if the name has changed', function () {
+  it('should rename a page if the name has changed', function() {
     // given a page with a new name
-    var page = {name: 'hello', oldName: 'oldHello'};
+    var page = { name: 'hello', oldName: 'oldHello' };
     spyOn(pageRepo, 'rename').and.returnValue($q.when());
     spyOn($scope, 'refreshAll').and.returnValue($q.when());
 
@@ -171,8 +171,8 @@ describe('HomeCtrl', function () {
     expect($scope.refreshAll).toHaveBeenCalled();
   });
 
-  it('should revert the name if the rename of the page has failed', function () {
-    var page = {name: 'hello', oldName: 'oldHello'};
+  it('should revert the name if the rename of the page has failed', function() {
+    var page = { name: 'hello', oldName: 'oldHello' };
     spyOn(pageRepo, 'rename').and.returnValue($q.reject());
     spyOn($scope, 'refreshAll').and.returnValue($q.when());
 
@@ -184,9 +184,9 @@ describe('HomeCtrl', function () {
     expect($scope.refreshAll).toHaveBeenCalled();
   });
 
-  it('should not rename a page if the name has not changed', function () {
+  it('should not rename a page if the name has not changed', function() {
     // given a page with the same name as a new name
-    var page = {name: 'hello', oldName: 'hello'};
+    var page = { name: 'hello', oldName: 'hello' };
     spyOn(pageRepo, 'rename').and.returnValue($q.when());
     spyOn($scope, 'toggleItemEdition');
 
@@ -204,7 +204,7 @@ describe('HomeCtrl', function () {
   describe('manageImportReport', () => {
     it('should open modal for file selection ', () => {
       var result = {}, title = 'Import a page', type = 'page', report = {};
-      spyOn($modal, 'open').and.returnValue({result});
+      spyOn($modal, 'open').and.returnValue({ result });
 
       expect($scope.manageImportReport(title, type, report)).toEqual(result);
 
@@ -218,16 +218,16 @@ describe('HomeCtrl', function () {
   describe('importElement', () => {
     it('should open modal and call manage report when report is returned and import is forced', function() {
       var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page', report = {}, deferredManageImport = $q.defer();
-      spyOn($modal, 'open').and.returnValue({result});
+      spyOn($modal, 'open').and.returnValue({ result });
       spyOn($scope, 'refreshAll');
       spyOn($scope, 'manageImportReport').and.returnValue(deferredManageImport.promise);
       deferredManageImport.resolve();
       deferredModal.resolve(report);
-      
+
       $scope.importElement(type, title);
       $scope.$apply();
       var [[args]] = $modal.open.calls.allArgs();
-      
+
       expect(args.windowClass).toEqual('modal-centered');
       expect(args.resolve.type()).toEqual(type);
       expect(args.resolve.title()).toEqual(title);
@@ -236,7 +236,7 @@ describe('HomeCtrl', function () {
     });
     it('should open modal and call manage report when report is returned and forced import is cancelled', function() {
       var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page', report = {}, deferredManageImport = $q.defer();
-      spyOn($modal, 'open').and.returnValue({result});
+      spyOn($modal, 'open').and.returnValue({ result });
       spyOn($scope, 'refreshAll');
       spyOn($scope, 'manageImportReport').and.returnValue(deferredManageImport.promise);
       deferredModal.resolve(report);
@@ -244,20 +244,20 @@ describe('HomeCtrl', function () {
 
       $scope.importElement(type, title);
       $scope.$apply();
-      
+
       expect($scope.refreshAll).not.toHaveBeenCalled();
       expect($scope.manageImportReport).toHaveBeenCalled();
     });
     it('should open modal and don\'t call manage report when no report is returned', function() {
       var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page';
-      spyOn($modal, 'open').and.returnValue({result});
+      spyOn($modal, 'open').and.returnValue({ result });
       spyOn($scope, 'refreshAll');
       spyOn($scope, 'manageImportReport');
       deferredModal.resolve();
 
       $scope.importElement(type, title);
       $scope.$apply();
-      
+
       expect($scope.refreshAll).toHaveBeenCalled();
       expect($scope.manageImportReport).not.toHaveBeenCalled();
     });

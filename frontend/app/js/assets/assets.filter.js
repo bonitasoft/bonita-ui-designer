@@ -21,11 +21,11 @@
 
     'use strict';
 
-    return function(assets, filters){
-      if(!assets || !filters){
+    return function(assets, filters) {
+      if (!assets || !filters) {
         return assets;
       }
-      return assets.filter(function(asset){
+      return assets.filter(function(asset) {
         return filters[asset.type].value;
       });
     };

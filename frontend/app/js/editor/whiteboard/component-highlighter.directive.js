@@ -12,20 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function(){
+(function() {
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.whiteboard').directive('componentHighlighter', function(){
+  angular.module('bonitasoft.designer.editor.whiteboard').directive('componentHighlighter', function() {
     return {
-      restrict:'A',
+      restrict: 'A',
       link: function($scope, elem, attrs) {
-        var cssClassName=attrs.componentHighlighter;
+        var cssClassName = attrs.componentHighlighter;
         var node;
 
         function onMouseOver(event) {
           var currentNode = event.target;
-          while(currentNode.parentNode) {
-            if (/\w-element/.test(currentNode.className)){
+          while (currentNode.parentNode) {
+            if (/\w-element/.test(currentNode.className)) {
               if (node === currentNode) {
                 return;
               }
@@ -47,7 +47,7 @@
           }
         }
 
-        var wrapper = angular.element( elem[0].querySelector('.widget-wrapper'));
+        var wrapper = angular.element(elem[0].querySelector('.widget-wrapper'));
 
         elem.on('mouseover', onMouseOver);
         wrapper.on('mouseleave', onMouseLeave);
