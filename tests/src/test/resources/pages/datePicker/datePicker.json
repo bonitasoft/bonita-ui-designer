@@ -1,0 +1,297 @@
+{
+  "designerVersion": "1.2.2-SNAPSHOT",
+  "id": "datePicker",
+  "name": "datePicker",
+  "type": "page",
+  "lastUpdate": 1446710080675,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "interpolation",
+            "value": "Date"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "top"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {
+            "type": "interpolation",
+            "value": "MM/dd/yyyy"
+          },
+          "value": {
+            "type": "variable",
+            "value": "aDate"
+          },
+          "dateFormat": {
+            "type": "constant",
+            "value": "MM/dd/yyyy"
+          }
+        },
+        "reference": "a6d2e1d5-a3df-4fbe-8a47-7c0f94d690a6",
+        "id": "pbDatePicker"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "text": {
+            "type": "interpolation",
+            "value": "{{ aDate }}"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          }
+        },
+        "reference": "026fe4d4-ad81-4a92-8f91-7f8ab553a2fe",
+        "id": "pbText"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "interpolation",
+            "value": "Date with format"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "top"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {
+            "type": "interpolation",
+            "value": "MM/dd/yyyy"
+          },
+          "value": {
+            "type": "variable",
+            "value": "aDate"
+          },
+          "dateFormat": {
+            "type": "constant",
+            "value": "yyyy/MM/dd"
+          }
+        },
+        "reference": "c76a626d-5d5c-42a9-ae39-cdf0ed5f449c",
+        "id": "pbDatePicker"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "interpolation",
+            "value": "Date initialized (timemillis)"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "top"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {
+            "type": "interpolation",
+            "value": "MM/dd/yyyy"
+          },
+          "value": {
+            "type": "variable",
+            "value": "init.dateMillis"
+          },
+          "dateFormat": {
+            "type": "constant",
+            "value": "MM/dd/yyyy"
+          }
+        },
+        "reference": "0255cd72-6557-42b5-bcaa-0ced5d9d6a34",
+        "id": "pbDatePicker"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "readOnly": {
+            "type": "constant",
+            "value": false
+          },
+          "required": {
+            "type": "constant",
+            "value": false
+          },
+          "labelHidden": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "interpolation",
+            "value": "Date initialized (ISO)"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "top"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {
+            "type": "interpolation",
+            "value": "MM/dd/yyyy"
+          },
+          "value": {
+            "type": "variable",
+            "value": "init.dateISO"
+          },
+          "dateFormat": {
+            "type": "constant",
+            "value": "MM/dd/yyyy"
+          }
+        },
+        "reference": "9a0297c0-be67-4b59-8677-b1978ea97b46",
+        "id": "pbDatePicker"
+      }
+    ]
+  ],
+  "assets": [
+    {
+      "id": "edf56398-2f1f-400e-9e1c-230de5be6d95",
+      "name": "localization.json",
+      "type": "json",
+      "order": 0,
+      "active": true
+    }
+  ],
+  "inactiveAssets": [],
+  "data": {
+    "aDate": {
+      "type": "constant",
+      "exposed": false
+    },
+    "init": {
+      "type": "json",
+      "value": "{\n    \"dateMillis\": 1446708126923,\n    \"dateISO\": \"2015-09-30T00:00:00.000Z\"\n}",
+      "exposed": false
+    }
+  }
+}

@@ -2,7 +2,7 @@ describe('pbDatePicker', function () {
 
   var $compile, scope, element;
 
-  beforeEach(module('bonitasoft.ui.widgets', 'ui.bootstrap', 'bonitasoft.ui.extensions'));
+  beforeEach(module('bonitasoft.ui.widgets', 'mgcrea.ngStrap.datepicker'));
 
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
@@ -20,10 +20,11 @@ describe('pbDatePicker', function () {
     scope.$apply();
   }));
 
-  describe('calendar', function() {
+
+   describe('calendar', function() {
 
     it('should not be displayed by default', function() {
-      expect(element.find('ul.dropdown-menu').attr('style')).toContain('display: none');
+      expect(element.find('div.dropdown-menu.datepicker').length).toBe(0);
     });
 
     it('should be displayed while clicking on button', function() {
@@ -31,7 +32,7 @@ describe('pbDatePicker', function () {
 
       button.triggerHandler('click');
 
-      expect(element.find('ul.dropdown-menu').attr('style')).toContain('display: block');
+      expect(element.find('div.dropdown-menu.datepicker').length).toBe(1);
     });
 
     it('should be displayed while clicking on input', function() {
@@ -39,7 +40,7 @@ describe('pbDatePicker', function () {
 
       input.triggerHandler('click');
 
-      expect(element.find('ul.dropdown-menu').attr('style')).toContain('display: block');
+      expect(element.find('div.dropdown-menu.datepicker').length).toBe(1);
     });
   });
 
@@ -118,6 +119,14 @@ describe('pbDatePicker', function () {
 
     });
 
+    it('should be required when requested', function () {
+      scope.properties.required = true;
+      scope.$apply();
+
+      var input = element.find('input');
+      expect(input.attr('required')).toBe('required');
+    });
+
     it('should display date passed as time millis', function() {
       scope.properties.value = 1438011476419;
       scope.$apply();
@@ -125,7 +134,8 @@ describe('pbDatePicker', function () {
       expect(element.find('input').val()).toBe('27/07/2015');
     });
 
-    it('should display date passed as string time millis', function() {
+    // Not supported anymore with new date picker
+    xit('should display date passed as string time millis', function() {
       scope.properties.value = '1356998400000';
       scope.$apply();
 
@@ -156,19 +166,13 @@ describe('pbDatePicker', function () {
 
     it('should parse correctly date according to date format', function() {
       scope.properties.dateFormat = 'yyyy/MM/dd';
+      scope.$apply();
 
       element.find('input').val('2015/09/01').triggerHandler('input');
 
       expect(scope.properties.value).toEqual(new Date('2015-09-01T00:00:00.000Z'));
     });
 
-    it('should be required when requested', function () {
-      scope.properties.required = true;
-      scope.$apply();
-
-      var input = element.find('input');
-      expect(input.attr('required')).toBe('required');
-    });
   });
 
   describe('button', function() {

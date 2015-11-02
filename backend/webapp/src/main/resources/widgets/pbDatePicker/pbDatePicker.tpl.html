@@ -13,23 +13,23 @@
         <div
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
-                <input pb-date-picker-utc type="text" class="form-control"
-                       ng-click="ctrl.open($event)"
-                       datepicker-popup="{{ properties.dateFormat | uiTranslate }}"
+                <input class="form-control"
                        name="{{ctrl.name}}"
-                       ng-model="properties.value"
-                       ng-change="ctrl.floorDate()"
-                       is-open="ctrl.opened"
-                       datepicker-options="ctrl.datepickerOptions"
+                       type="text"
                        placeholder="{{ properties.placeholder | uiTranslate }}"
+                       ng-model="properties.value"
+                       ng-readonly="properties.readOnly"
                        ng-required="properties.required"
-                       show-button-bar="false"
-                       ng-class="{ 'Datepicker--enabled': !properties.readOnly}"
-                       readonly />
+                       bs-datepicker
+                       data-autoclose="1"
+                       data-timezone="UTC"
+                       date-format="{{properties.dateFormat | uiTranslate}}"
+                       data-trigger="click"
+                       onkeydown="return false">
 
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default"
-                            ng-click="ctrl.open($event)"
+                            ng-click="ctrl.open()"
                             ng-disabled="properties.readOnly">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </button>

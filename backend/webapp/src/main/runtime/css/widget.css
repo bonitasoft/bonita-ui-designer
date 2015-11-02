@@ -91,9 +91,3 @@ input[type=text|email|number|password].ng-invalid.ng-dirty {
 .file-upload-clear:hover {
   color: #333;
 }
-
-.form-control.Datepicker--enabled {
-    cursor: pointer;
-    background-color: white;
-}
-
