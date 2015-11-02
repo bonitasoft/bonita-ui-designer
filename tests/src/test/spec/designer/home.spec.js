@@ -91,6 +91,8 @@ describe('UI designer: home', function() {
     button.click();
     input.sendKeys(widgetPath);
     upload.click();
+    //we need to wait for angular to finish processing modal
+    browser.waitForAngular();
     expect(modal.isPresent()).toBe(false);
     widgets.count().then(function(nb) {
       expect(nb).toEqual(nbWidgets + 1);
