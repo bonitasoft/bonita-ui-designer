@@ -158,8 +158,17 @@ exports.config = {
       new jasmine.JUnitXmlReporter('build/reports/e2e-tests/')
     );
 
-    // maximize window
-    browser.driver.manage().window().maximize();
+    // maximize window - xvnc approved
+    setTimeout(function() {
+      browser.driver.executeScript(function() {
+        return {
+          width: window.screen.availWidth,
+          height: window.screen.availHeight
+        };
+      }).then(function(result) {
+        browser.driver.manage().window().setSize(result.width, result.height);
+      });
+    });
   },
 
   // A callback function called once tests are finished.
