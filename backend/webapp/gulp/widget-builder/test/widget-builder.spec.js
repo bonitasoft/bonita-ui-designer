@@ -16,8 +16,13 @@ let resources = {
 
 let controller = jsesc(fs.readFileSync(resources.controller));
 let template = jsesc(fs.readFileSync(resources.template));
-let directive = `angular.module('bonitasoft.ui.widgets')
-  .directive('pbWidget', function() {
+let directive = `(function () {
+  try {
+    return angular.module('bonitasoft.ui.widgets');
+  } catch(e) {
+    return angular.module('bonitasoft.ui.widgets', []);
+  }
+})().directive('pbWidget', function() {
     return {
       controllerAs: 'ctrl',
       controller: ${controller},
