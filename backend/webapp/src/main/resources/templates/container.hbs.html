@@ -1,7 +1,6 @@
 <div pb-property-values='{{reference}}'>
     <div class="{{ dimensionAsCssClasses }}" ng-class="properties.cssClasses"
-         ng-if="!properties.hidden" {{#repeated}}ng-repeat="$item in properties.repeatedCollection track by $index"
-         ng-init="$collection = properties.repeatedCollection"{{/repeated}}>
+         ng-if="!properties.hidden" {{#repeated}}ng-repeat="$item in ($collection = properties.repeatedCollection) track by $index"{{/repeated}}>
         {{{rowsHtml}}}
     </div>
 </div>

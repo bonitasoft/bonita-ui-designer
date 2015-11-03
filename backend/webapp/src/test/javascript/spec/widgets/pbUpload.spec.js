@@ -179,5 +179,21 @@ describe('pbUpload', function() {
       expect(element.find('input').val()).toMatch(/Upload failed/i);
       expect(scope.properties.errorContent).toEqual(error.message);
     });
+    it('should update the filename if the value changes (on deletion for intance)', function () {
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+       
+      scope.$apply();
+      expect(controller.filename).toBe('');
+
+      var filename = 'myFile.txt';
+      scope.properties.value = {filename: filename};
+      scope.$apply();
+      expect(controller.filename).toBe(filename);
+
+      scope.properties.value = undefined;
+      scope.$apply();
+      expect(controller.filename).toBeUndefined();
+    });
   });
 });

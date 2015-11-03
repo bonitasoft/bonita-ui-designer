@@ -26,6 +26,20 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     }
   });
 
+  //the filename displayed is not bound to the value as a bidirectionnal
+  //bond, thus, in case the value is updated, it is not reflected
+  //to the filename (example with the BS-14498)
+  //we watch the value to update the filename and the upload widget state
+  $scope.$watch(function(){return $scope.properties.value;}, function(newValue){
+    if (newValue && newValue.filename) {
+      ctrl.filemodel = true;
+      ctrl.filename = newValue.filename;
+    } else if (!angular.isDefined(newValue)) {
+      delete ctrl.filemodel;
+      delete ctrl.filename;
+    }
+  });
+
   if (!$scope.properties.isBound('value')) {
     $log.error('the pbUpload property named "value" need to be bound to a variable');
   }
@@ -57,12 +71,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
       $scope.properties.errorContent = angular.isString(response) ? response : response.message;
       return;
     }
-
-    if (response.filename) {
-      ctrl.filemodel = true;
-      ctrl.filename = response.filename;
-    }
-
     $scope.properties.value = response;
   }
 
