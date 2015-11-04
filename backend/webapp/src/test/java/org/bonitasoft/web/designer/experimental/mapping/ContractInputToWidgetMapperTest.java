@@ -16,10 +16,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,7 +118,7 @@ public class ContractInputToWidgetMapperTest {
         Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("targetUrlOnSuccess");
-        assertThat(PropertyValue.getType()).isEqualTo("constant");
+        assertThat(PropertyValue.getType()).isEqualTo("interpolation");
         assertThat(PropertyValue.getValue()).isEqualTo("/bonita");
     }
 

@@ -36,5 +36,6 @@ public interface ParameterConstants {
     static final String DISABLED_PARAMETER = "isDisabled";
     static final String COLLECTION_PARAMETER = "collectionToModify";
     static final String FORCE_UTC_PARAMETER = "forceUTC";
+    static final String TARGET_URL_ON_SUCCESS_PARAMETER = "targetUrlOnSuccess";
 
 }
