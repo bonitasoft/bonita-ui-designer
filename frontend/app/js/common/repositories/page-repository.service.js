@@ -121,7 +121,6 @@ angular.module('bonitasoft.designer.common.repositories').factory('pageRepo', fu
     return 'export/page/' + page.id;
   };
 
-
   /**
    * Initialise lastSavedState to track update from editor
    * @param  {Object} widget  the current widget being edited

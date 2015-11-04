@@ -60,7 +60,7 @@ describe('tabsContainer', function() {
     expect(element.find('container').length).toBe(2);
   });
 
-  it('should add a new tab', function () {
+  it('should add a new tab', function() {
     $rootScope.tabsContainer = {
       tabs: [
         aTab().title('tab-1'),
@@ -69,12 +69,12 @@ describe('tabsContainer', function() {
     };
     $rootScope.$apply();
 
-    element.find('ul.nav.nav-tabs li:nth(2) a').triggerHandler({type: 'click'});
+    element.find('ul.nav.nav-tabs li:nth(2) a').triggerHandler({ type: 'click' });
 
     expect($rootScope.tabsContainer.tabs.length).toBe(3);
   });
 
-  it('should remove a tab', function () {
+  it('should remove a tab', function() {
     $rootScope.tabsContainer = {
       tabs: [
         aTab().title('tab-1'),
@@ -84,12 +84,12 @@ describe('tabsContainer', function() {
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
     $rootScope.$apply();
 
-    element.find('button.btn-tab.fa-times-circle').first().triggerHandler({type: 'click'});
+    element.find('button.btn-tab.fa-times-circle').first().triggerHandler({ type: 'click' });
 
     expect($rootScope.tabsContainer.tabs.length).toBe(1);
   });
 
-  it('should show remove button when there is more than one tab', function () {
+  it('should show remove button when there is more than one tab', function() {
     $rootScope.tabsContainer = {
       tabs: [
         aTab().title('tab-1'),
@@ -102,7 +102,7 @@ describe('tabsContainer', function() {
     expect(element.find('button.btn-tab.fa-times-circle').length).toBe(2); // two tabs
   });
 
-  it('should hide remove button when there is only one tab', function () {
+  it('should hide remove button when there is only one tab', function() {
     $rootScope.tabsContainer = {
       tabs: [
         aTab().title('tab-1'),

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', function (gettextCatalog) {
+angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', function(gettextCatalog) {
 
   var examples = {
     'System API': [
@@ -80,12 +80,12 @@ angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', f
   };
 
   function flatten(arrayOfArray) {
-    return [].concat.apply([], arrayOfArray);
+    return [].concat(...arrayOfArray);
   }
 
-  var transformExamplesToFlatList = function () {
-    return flatten(Object.keys(examples).map(function (category) {
-      return examples[category].map(function (api) {
+  var transformExamplesToFlatList = function() {
+    return flatten(Object.keys(examples).map(function(category) {
+      return examples[category].map(function(api) {
         api.category = category;
         return api;
       });

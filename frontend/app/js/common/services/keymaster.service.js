@@ -12,13 +12,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function(){
+(function() {
   'use strict';
   /**
    * This modules wrap the keymaster library (available in window.key)
    * into an angular service
    */
-  angular.module('bonitasoft.designer.common.services').service('keymaster', function($window){
+  angular.module('bonitasoft.designer.common.services').service('keymaster', function($window) {
     // key is library name taht handle keyboard shortcuts
     return $window.key;
   });

@@ -4,7 +4,7 @@ describe('Import popup controller', () => {
 
   beforeEach(angular.mock.module('bonitasoft.designer.home.import', 'mock.modal'));
 
-  beforeEach(inject(function (_$modalInstance_, $controller, _$q_, _importArtifactService_, $rootScope) {
+  beforeEach(inject(function(_$modalInstance_, $controller, _$q_, _importArtifactService_, $rootScope) {
     scope = $rootScope.$new();
     importArtifactService = _importArtifactService_;
     modalInstance = _$modalInstance_.create();

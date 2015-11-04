@@ -2,7 +2,7 @@ describe('tooltip toggle', function() {
   var element, $scope, $compile, $timeout,  handlers, rootScope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
     rootScope = $injector.get('$rootScope');
     $compile = $injector.get('$compile');
     $timeout = $injector.get('$timeout');

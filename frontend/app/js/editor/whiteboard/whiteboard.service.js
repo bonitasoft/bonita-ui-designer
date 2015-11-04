@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   'use strict';
 
@@ -61,13 +61,13 @@
      * Functions are executed in $timeout to be non blocking for UI
      */
     function executeFunctionsForComponent(functions, component) {
-      functions.forEach(function (fn) {
+      functions.forEach(function(fn) {
         $timeout(fn.bind(null, component), 0);
       });
     }
 
     function onRemoveRow(row) {
-      angular.forEach(row, function (component) {
+      angular.forEach(row, function(component) {
         component.triggerRemoved();
       });
     }

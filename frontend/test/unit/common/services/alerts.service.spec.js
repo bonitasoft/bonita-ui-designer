@@ -18,7 +18,7 @@ describe('alerts', function() {
     });
 
     it('can be added as object', function() {
-      alerts.addSuccess({title: 'a title', content: 'a content'});
+      alerts.addSuccess({ title: 'a title', content: 'a content' });
 
       expect(alerts.alerts.length).toBe(1);
       expect(alerts.alerts[0].type).toBe('success');
@@ -27,7 +27,7 @@ describe('alerts', function() {
     });
 
     it('can be removed', function() {
-      alerts.addSuccess({title: 'a title', content: 'a content'});
+      alerts.addSuccess({ title: 'a title', content: 'a content' });
 
       alerts.remove(0);
 
@@ -55,7 +55,7 @@ describe('alerts', function() {
     });
 
     it('can be added as object', function() {
-      alerts.addError({title: 'a title', content: 'a content'});
+      alerts.addError({ title: 'a title', content: 'a content' });
 
       expect(alerts.alerts.length).toBe(1);
       expect(alerts.alerts[0].type).toBe('error');
@@ -64,7 +64,7 @@ describe('alerts', function() {
     });
 
     it('can be removed', function() {
-      alerts.addError({title: 'a title', content: 'a content'});
+      alerts.addError({ title: 'a title', content: 'a content' });
 
       alerts.remove(0);
 
@@ -92,7 +92,7 @@ describe('alerts', function() {
     });
 
     it('can be added as object', function() {
-      alerts.addWarning({title: 'a title', content: 'a content'});
+      alerts.addWarning({ title: 'a title', content: 'a content' });
 
       expect(alerts.alerts.length).toBe(1);
       expect(alerts.alerts[0].type).toBe('warning');
@@ -101,7 +101,7 @@ describe('alerts', function() {
     });
 
     it('can be removed', function() {
-      alerts.addWarning({title: 'a title', content: 'a content'});
+      alerts.addWarning({ title: 'a title', content: 'a content' });
 
       alerts.remove(0);
 

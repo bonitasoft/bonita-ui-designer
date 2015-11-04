@@ -1,12 +1,12 @@
-(function () {
+(function() {
   'use strict';
 
-  describe('assetType filter', function(){
+  describe('assetType filter', function() {
     var $filter;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
-    beforeEach(inject(function(_$filter_){
+    beforeEach(inject(function(_$filter_) {
       $filter = _$filter_;
     }));
 

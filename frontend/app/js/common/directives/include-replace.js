@@ -15,10 +15,10 @@
 
 angular
   .module('bonitasoft.designer.common.directives')
-  .directive('includeReplace', function () {
+  .directive('includeReplace', function() {
     return {
       require: 'ngInclude',
-      link: function (scope, element) {
+      link: function(scope, element) {
         element.replaceWith(element.children());
       }
     };

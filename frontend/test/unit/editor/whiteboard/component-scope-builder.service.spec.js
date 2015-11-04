@@ -19,7 +19,7 @@ describe('componentScopeBuilder', function() {
         text: { value: 'hello' }
       }
     };
-    scope.editor = { page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898'}};
+    scope.editor = { page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898' } };
 
     // when building a scope
     var directiveScope = componentScopeBuilder.build(scope);
@@ -39,7 +39,7 @@ describe('componentScopeBuilder', function() {
         text: { value: 'hello' }
       }
     };
-    scope.editor = { page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898'}};
+    scope.editor = { page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898' } };
 
     var directiveScope = componentScopeBuilder.build(scope);
     scope.$digest();

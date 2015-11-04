@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   describe('ComponentMoverDirectiveCtrl', function() {
     var $scope;
@@ -12,9 +12,9 @@
     beforeEach(inject(function($rootScope, $controller) {
       $scope = $rootScope.$new();
 
-      component1 = {c1: true};
-      component2 = {c2: true};
-      component3 = {c3: true};
+      component1 = { c1: true };
+      component2 = { c2: true };
+      component3 = { c3: true };
       $scope.component = component2;
       row = [component1, component2, component3];
       angular.forEach(row, function(component) {

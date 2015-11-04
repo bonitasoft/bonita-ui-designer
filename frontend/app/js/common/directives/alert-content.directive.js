@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   angular
     .module('bonitasoft.designer.common.directives')
@@ -27,12 +27,12 @@
    *  - context: context for interpolation (will extends directive scope)
    */
   function alertContent($compile, $templateCache) {
-    return function (scope, element, attrs) {
+    return function(scope, element, attrs) {
       scope.$watch(
-        function (scope) {
+        function(scope) {
           return scope.$eval(attrs.alertContent);
         },
-        function (alert) {
+        function(alert) {
           if (alert.contentUrl) {
             alert.content = $templateCache.get(alert.contentUrl);
           }

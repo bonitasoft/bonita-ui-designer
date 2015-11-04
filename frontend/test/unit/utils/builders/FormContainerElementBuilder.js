@@ -2,7 +2,7 @@ export default class FormContainerElementBuilder {
 
   constructor() {
     this.container = {
-        rows: []
+      rows: []
     };
   }
 

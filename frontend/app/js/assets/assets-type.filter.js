@@ -20,7 +20,7 @@
 
     var types = assetsService.getTypes();
 
-    return function(key){
+    return function(key) {
       return types.reduce(function(acc, type) {
         return type.key === key ? type.value : acc;
       }, '');

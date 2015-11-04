@@ -19,12 +19,11 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   $scope.pages = [];
   $scope.widgets = [];
 
-
-  pageRepo.all().then(function(pages){
+  pageRepo.all().then(function(pages) {
     $scope.pages = pages;
   });
 
-  widgetRepo.customs().then(function(widgets){
+  widgetRepo.customs().then(function(widgets) {
     $scope.widgets = widgets;
   });
 
@@ -69,7 +68,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     return pageRepo.exportUrl(page);
   };
 
-
   /**
    * When something is deleted, we need to refresh every collection,
    * because we can maybe delete a component we couldn't previously
@@ -87,7 +85,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       $scope.widgets = response.widgets;
     });
   };
-
 
   $scope.createWidget = function(widgetName) {
     var widget = customWidgetFactory.createCustomWidget(widgetName);
@@ -118,7 +115,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
   $scope.exportWidgetUrl = (widget) => widgetRepo.exportUrl(widget);
 
-  $scope.importElement = function(type, title){
+  $scope.importElement = function(type, title) {
     var modalInstance = $modal.open({
       templateUrl: 'js/home/import/import-popup.html',
       windowClass: 'modal-centered',
@@ -127,13 +124,13 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       resolve: {
         type: () => type,
         title: () => title
-       }
+      }
     });
 
     modalInstance.result.then((importReport) => (!!importReport) && $scope.manageImportReport(title, type, importReport)).then($scope.refreshAll);
   };
 
-  $scope.manageImportReport = function(title, type, importReport){
+  $scope.manageImportReport = function(title, type, importReport) {
     return $modal.open({
       templateUrl: 'js/home/import/import-report-popup.html',
       windowClass: 'modal-centered',
@@ -143,7 +140,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
         importReport: () => importReport,
         type: () => type,
         title: () => title
-       }
+      }
     }).result;
   };
 
@@ -167,7 +164,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
    */
   $scope.renameItem = function(item, type) {
 
-    var repository = $injector.get( (type || 'page') + 'Repo' );
+    var repository = $injector.get((type || 'page') + 'Repo');
 
     function revertItemName(item) {
       item.name = item.oldName;

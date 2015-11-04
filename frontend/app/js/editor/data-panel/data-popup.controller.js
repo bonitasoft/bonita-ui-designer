@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.data-panel')
-  .controller('DataPopupController', function ($scope, dataTypeService, $modalInstance, mode, pageData, data, apiExamples) {
+  .controller('DataPopupController', function($scope, dataTypeService, $modalInstance, mode, pageData, data, apiExamples) {
 
     'use strict';
 
@@ -29,19 +29,19 @@ angular.module('bonitasoft.designer.editor.data-panel')
     $scope.newData = data || dataTypeService.createData();
     $scope.exposableData = mode !== 'page';
 
-    $scope.isDataNameUnique = function (dataName) {
+    $scope.isDataNameUnique = function(dataName) {
       return !dataName || !pageData[dataName];
     };
 
-    $scope.updateValue = function (dataType) {
+    $scope.updateValue = function(dataType) {
       $scope.newData.value = dataTypeService.getDataDefaultValue(dataType);
     };
 
-    $scope.save = function (data) {
+    $scope.save = function(data) {
       $modalInstance.close(data);
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $modalInstance.dismiss();
     };
   });

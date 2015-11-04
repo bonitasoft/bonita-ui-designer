@@ -23,7 +23,7 @@ describe('CustomWidgetEditorCtrl', function() {
       $scope: $scope,
       $modal:  _$modal_,
       artifact: awesomeWidget,
-      artifactRepo : widgetRepo,
+      artifactRepo: widgetRepo,
       $timeout: $timeout
     });
 
@@ -39,7 +39,7 @@ describe('CustomWidgetEditorCtrl', function() {
     };
 
     var expectedProperties = [property];
-    spyOn(widgetRepo, 'updateProperty').and.returnValue($q.when({data: expectedProperties}));
+    spyOn(widgetRepo, 'updateProperty').and.returnValue($q.when({ data: expectedProperties }));
 
     $scope.updateParam('aParam', property);
     $scope.$apply();
@@ -62,9 +62,9 @@ describe('CustomWidgetEditorCtrl', function() {
       defaultValue: 'This is the initial value'
     };
     var expectedProperties = [property];
-    spyOn(widgetRepo, 'addProperty').and.returnValue($q.when({data: expectedProperties}));
+    spyOn(widgetRepo, 'addProperty').and.returnValue($q.when({ data: expectedProperties }));
 
-    $scope.addParam( property);
+    $scope.addParam(property);
     $scope.$apply();
 
     // then we should have updated the param in the repo
@@ -82,10 +82,10 @@ describe('CustomWidgetEditorCtrl', function() {
       type: 'text',
       defaultValue: 'This is the initial value'
     }];
-    spyOn(widgetRepo, 'deleteProperty').and.returnValue($q.when({data: properties}));
+    spyOn(widgetRepo, 'deleteProperty').and.returnValue($q.when({ data: properties }));
 
     // when the param is deleted
-    $scope.deleteParam({ name: 'toBeDeleted'});
+    $scope.deleteParam({ name: 'toBeDeleted' });
 
     expect(widgetRepo.deleteProperty).toHaveBeenCalledWith($scope.widget.id, 'toBeDeleted');
   });
@@ -101,7 +101,7 @@ describe('CustomWidgetEditorCtrl', function() {
 
     // then we should have called the repo
     var savedWidget = widgetRepo.save.calls.mostRecent().args[0];
-    expect(savedWidget.id).toBe( awesomeWidget.id );
+    expect(savedWidget.id).toBe(awesomeWidget.id);
     expect(savedWidget.template).toBe(awesomeWidget.template);
     expect(alerts.addSuccess).toHaveBeenCalledWith('Custom widget [ ' + awesomeWidget.name + ' ] successfully saved', 2000);
   });
@@ -114,9 +114,9 @@ describe('CustomWidgetEditorCtrl', function() {
 
   it('should open a dialog to save a widget as ..', function() {
     spyOn($modal, 'open').and.returnValue(modalInstance);
-    spyOn(widgetRepo, 'create').and.returnValue($q.when({ data: {id: 'customNewName', name: 'newName'}}));
+    spyOn(widgetRepo, 'create').and.returnValue($q.when({ data: { id: 'customNewName', name: 'newName' } }));
 
-    $scope.saveAs({ id: 'customOldName', name: 'oldName'});
+    $scope.saveAs({ id: 'customOldName', name: 'oldName' });
     expect($modal.open).toHaveBeenCalled();
   });
 
@@ -127,7 +127,7 @@ describe('CustomWidgetEditorCtrl', function() {
       propertyBond = 'interpolation';
       expect($scope.isTypeSelectable(propertyBond)).toBeFalsy();
     });
-    it('should return true when selected bond is expression or constant', function () {
+    it('should return true when selected bond is expression or constant', function() {
       var propertyBond = 'expression';
       expect($scope.isTypeSelectable(propertyBond)).toBeTruthy();
       propertyBond = 'constant';

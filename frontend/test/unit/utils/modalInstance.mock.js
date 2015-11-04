@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   'use strict';
 
@@ -22,7 +22,7 @@
         close: jasmine.createSpy('modalInstance.close'),
         dismiss: jasmine.createSpy('modalInstance.dismiss'),
         result: {
-          then: function (data) {
+          then: function(data) {
             return $q.when(data);
           }
         }
@@ -36,10 +36,10 @@
     function fake() {
       var deferred = $q.defer();
       return {
-        close: function (data) {
+        close: function(data) {
           return deferred.resolve(data);
         },
-        dismiss: function (data) {
+        dismiss: function(data) {
           return deferred.reject(data);
         },
         result: deferred.promise

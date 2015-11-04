@@ -136,40 +136,40 @@ describe('arrays', function() {
 
   it('should remove one element in an array of Objects', function() {
     var array = [
-      {code: 'c1', label:'l1'},
-      {code: 'c2', label:'l2'},
-      {code: 'c3', label:'l3'}];
+      { code: 'c1', label: 'l1' },
+      { code: 'c2', label: 'l2' },
+      { code: 'c3', label: 'l3' }];
 
-    arrays.remove({code: 'c2', label:'l2'}, array, function(elt1, elt2){
-      if((!elt1 && elt2) || (elt1 && !elt2)){
+    arrays.remove({ code: 'c2', label: 'l2' }, array, function(elt1, elt2) {
+      if ((!elt1 && elt2) || (elt1 && !elt2)) {
         return false;
       }
-      return elt1.code===elt2.code;
+      return elt1.code === elt2.code;
     });
 
     expect(array.length).toBe(2);
     expect(array).toEqual([
-      {code: 'c1', label:'l1'},
-      {code: 'c3', label:'l3'}]);
+      { code: 'c1', label: 'l1' },
+      { code: 'c3', label: 'l3' }]);
   });
 
   it('should not remove element in an empty array', function() {
     var array = [];
-    arrays.remove({code: 'c2', label:'l2'}, array);
+    arrays.remove({ code: 'c2', label: 'l2' }, array);
     expect(array.length).toBe(0);
   });
 
   it('should not remove an empty element in an array of Objects', function() {
     var array = [
-      {code: 'c1', label:'l1'},
-      {code: 'c2', label:'l2'},
-      {code: 'c3', label:'l3'}];
+      { code: 'c1', label: 'l1' },
+      { code: 'c2', label: 'l2' },
+      { code: 'c3', label: 'l3' }];
 
-    arrays.remove({}, array, function(elt1, elt2){
-      if((!elt1 && elt2) || (elt1 && !elt2)){
+    arrays.remove({}, array, function(elt1, elt2) {
+      if ((!elt1 && elt2) || (elt1 && !elt2)) {
         return false;
       }
-      return elt1.code===elt2.code;
+      return elt1.code === elt2.code;
     });
 
     expect(array.length).toBe(3);
@@ -177,11 +177,11 @@ describe('arrays', function() {
 
   it('should not remove an element when equalityTester not defined', function() {
     var array = [
-      {code: 'c1', label:'l1'},
-      {code: 'c2', label:'l2'},
-      {code: 'c3', label:'l3'}];
+      { code: 'c1', label: 'l1' },
+      { code: 'c2', label: 'l2' },
+      { code: 'c3', label: 'l3' }];
 
-    arrays.remove({code: 'c2', label:'l2'}, array);
+    arrays.remove({ code: 'c2', label: 'l2' }, array);
 
     expect(array.length).toBe(3);
   });
@@ -194,7 +194,7 @@ describe('arrays', function() {
   });
 
   it('should remove first element of an array', function() {
-    var array = [ 1, 1, 2, 3];
+    var array = [1, 1, 2, 3];
 
     array = arrays.removeFirst(1, array);
 
@@ -202,7 +202,7 @@ describe('arrays', function() {
   });
 
   it('should do nothing when removing first element of an array that is not in array', function() {
-    var array = [ 1, 1, 2, 3];
+    var array = [1, 1, 2, 3];
 
     array = arrays.removeFirst(4, array);
 

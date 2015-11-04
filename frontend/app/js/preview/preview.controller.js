@@ -22,7 +22,7 @@ angular.module('bonitasoft.designer.preview').controller('PreviewCtrl', function
 
   artifactRepo
     .load(iframeParameters.id)
-    .then(function (response) {
+    .then(function(response) {
       $scope.pageName = response.data.name;
     });
 

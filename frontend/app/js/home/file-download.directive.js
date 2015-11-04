@@ -16,25 +16,25 @@
  * Listen to an input file and assign the selected file to a scope variable
  */
 angular.module('bonitasoft.designer.home')
-  .directive('fileDownload', function($document, $http){
+  .directive('fileDownload', function($document, $http) {
     'use strict';
 
     $document.find('body').append('<iframe class="ExportArtifact" src=""></iframe>');
     var iframe = $document[0].querySelector('.ExportArtifact');
 
     return {
-      templateUrl : 'js/home/file-download.html',
-      scope : {
+      templateUrl: 'js/home/file-download.html',
+      scope: {
         href: '=',
         class: '@',
         title: '@'
       },
-      link : function(scope) {
-        scope.download = function(){
+      link: function(scope) {
+        scope.download = function() {
           //We need to intercept errorr when we change the iframe src
           $http
             .get(scope.href)
-            .success(function(){
+            .success(function() {
               iframe.setAttribute('src', scope.href);
             });
         };

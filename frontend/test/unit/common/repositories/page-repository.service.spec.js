@@ -114,7 +114,7 @@ describe('pageRepo', function() {
   });
 
   it('should compute page export url', function() {
-    var page = {id: 'aPageId'};
+    var page = { id: 'aPageId' };
 
     var url = pageRepo.exportUrl(page);
 
@@ -134,7 +134,7 @@ describe('pageRepo', function() {
     $httpBackend.expectGET('rest/pages/1/assets').respond(expectedAssets);
 
     var assets;
-    pageRepo.loadAssets({id : 1}).then(function(data) {
+    pageRepo.loadAssets({ id: 1 }).then(function(data) {
       assets = data;
     });
 
@@ -145,8 +145,8 @@ describe('pageRepo', function() {
   it('should delete a local asset', function() {
     var asset = {
       id: 'UIID',
-      name : 'myfile.js',
-      type : 'js'
+      name: 'myfile.js',
+      type: 'js'
     };
     $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
 
@@ -157,8 +157,8 @@ describe('pageRepo', function() {
   it('should delete an external asset', function() {
     var asset = {
       id: 'UIID',
-      name : 'http://mycdn.com/myfile.js',
-      type : 'js'
+      name: 'http://mycdn.com/myfile.js',
+      type: 'js'
     };
     $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
 
@@ -169,8 +169,8 @@ describe('pageRepo', function() {
   it('should deactivate an asset', function() {
     var asset = {
       id: 'UIID',
-      name : 'http://mycdn.com/myfile.js',
-      type : 'js',
+      name: 'http://mycdn.com/myfile.js',
+      type: 'js',
       active: false
     };
     $httpBackend.expectPUT('rest/pages/page1/assets/UIID?active=false').respond(200);
@@ -183,11 +183,10 @@ describe('pageRepo', function() {
     $httpBackend.flush();
   });
 
-
   it('should save an asset', function() {
     var asset = {
-      name : 'http://mycdn.com/myfile.js',
-      type : 'js'
+      name: 'http://mycdn.com/myfile.js',
+      type: 'js'
     };
     $httpBackend.expectPOST('rest/pages/my-page/assets').respond(200);
     pageRepo.createAsset('my-page', asset);
@@ -195,7 +194,7 @@ describe('pageRepo', function() {
   });
   it('should call import/page/uuid when forceImport is called', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectGET('import/page/'+uuid).respond('');
+    $httpBackend.expectGET('import/page/' + uuid).respond('');
     pageRepo.forceImport(uuid);
     $httpBackend.flush();
   });

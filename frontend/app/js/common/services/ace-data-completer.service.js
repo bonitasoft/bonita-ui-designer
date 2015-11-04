@@ -12,22 +12,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.common.services').service('aceDataCompleter', function(){
-  return function(data){
-     return {
+angular.module('bonitasoft.designer.common.services').service('aceDataCompleter', function() {
+  return function(data) {
+    return {
       getCompletions: function(editor, session, pos, prefix, callback) {
 
         function getPrefixedKeys(key) {
-          return '$data.'+key;
+          return '$data.' + key;
         }
 
-        function filterKeys (match, key) {
+        function filterKeys(match, key) {
           return key.indexOf(match) === 0;
         }
 
         var completions = Object.keys(data)
           .map(getPrefixedKeys)
-          .filter( filterKeys.bind(null, prefix) )
+          .filter(filterKeys.bind(null, prefix))
           .map(function(data) {
             return {
               name: data,

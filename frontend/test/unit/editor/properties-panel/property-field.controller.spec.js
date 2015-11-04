@@ -1,17 +1,17 @@
-describe('widget property field controller', function () {
+describe('widget property field controller', function() {
   var $scope, $rootScope, createController, controller;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel'));
-  beforeEach(inject(function (_$rootScope_, $controller) {
+  beforeEach(inject(function(_$rootScope_, $controller) {
     $rootScope = _$rootScope_;
 
     $scope = $rootScope.$new();
     $scope.propertyValue = {
       type: 'constant'
     };
-    $scope.property = {label: 'aLabel', name: 'aName'};
+    $scope.property = { label: 'aLabel', name: 'aName' };
 
-    createController = function ($scope) {
+    createController = function($scope) {
       return $controller('PropertyFieldDirectiveCtrl', {
         $scope: $scope
       });
@@ -20,7 +20,7 @@ describe('widget property field controller', function () {
     $scope.$apply();
   }));
 
-  it('should return the list of dataNames', function () {
+  it('should return the list of dataNames', function() {
     $scope.pageData = {
       jeanne: {},
       robert: {}
@@ -33,7 +33,7 @@ describe('widget property field controller', function () {
     expect(names[1]).toBe('robert');
   });
 
-  it('should create a constant property value when there is none for an expression bond', function () {
+  it('should create a constant property value when there is none for an expression bond', function() {
     delete $scope.propertyValue;
     $scope.property.bond = 'expression';
 
@@ -82,7 +82,7 @@ describe('widget property field controller', function () {
   it('should trigger a call to choice-grouped field template when type is choice and choice values are objects', function() {
     expect(controller.getFieldTemplate({
       type: 'choice',
-      choiceValues: [{group: 'aGroup', value: 'aValue'}]
+      choiceValues: [{ group: 'aGroup', value: 'aValue' }]
     })).toBe('js/editor/properties-panel/field/choice-grouped.html');
   });
 
@@ -103,17 +103,17 @@ describe('widget property field controller', function () {
     expect(controller.isExpression()).toBe(false);
   });
 
-  describe('check if we have a condition to display', function () {
+  describe('check if we have a condition to display', function() {
 
-    beforeEach(function () {
+    beforeEach(function() {
       $scope.property = {};
     });
 
-    it('should return true if there is no condition', function () {
+    it('should return true if there is no condition', function() {
       expect($scope.isDisplayed()).toBe(true);
     });
 
-    it('should true if the condition is valid', function () {
+    it('should true if the condition is valid', function() {
       $scope.property.showFor = 'properties.displayLabel.value === true';
       $scope.properties = {
         displayLabel: {
@@ -123,7 +123,7 @@ describe('widget property field controller', function () {
       expect($scope.isDisplayed()).toBe(true);
     });
 
-    it('should false if the condition is not valid', function () {
+    it('should false if the condition is not valid', function() {
       $scope.property.showFor = 'properties.displayLabel.value === true';
       $scope.properties = {
         displayLabel: {

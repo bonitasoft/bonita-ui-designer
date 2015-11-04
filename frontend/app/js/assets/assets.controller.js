@@ -45,10 +45,9 @@
     }
 
     function refreshComponentAssets() {
-      artifactRepo.loadAssets(vm.component).then(function (response) {
-          vm.component.assets = response;
-        }
-      );
+      artifactRepo.loadAssets(vm.component).then(function(response) {
+        vm.component.assets = response;
+      });
     }
 
     function deactivateAsset(asset) {
@@ -56,9 +55,9 @@
     }
 
     function updateInactiveAssetsList() {
-      var inactiveAssets = vm.component.assets.filter(function (asset) {
+      var inactiveAssets = vm.component.assets.filter(function(asset) {
         return !asset.active;
-      }).map(function (asset) {
+      }).map(function(asset) {
         return asset.id;
       });
       vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
@@ -66,7 +65,7 @@
 
     function deleteAsset(asset) {
       artifactRepo.deleteAsset(vm.component.id, asset).then(function() {
-        vm.component.assets = vm.component.assets.filter(function (actual) {
+        vm.component.assets = vm.component.assets.filter(function(actual) {
           return actual.id !== asset.id;
         });
       });

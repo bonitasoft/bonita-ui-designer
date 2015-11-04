@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   'use strict';
 
@@ -35,8 +35,8 @@
     };
 
     function getErrorContext(error, artifactType) {
-      var errorInfos = ERRORS[error.type] || {cause: error.message};
-      var errorContext = {consequence: getConsequence(artifactType)};
+      var errorInfos = ERRORS[error.type] || { cause: error.message };
+      var errorContext = { consequence: getConsequence(artifactType) };
       Object.keys(errorInfos)
         .forEach((name) => errorContext[name] = gettextCatalog.getString(errorInfos[name], error));
       return errorContext;
@@ -55,7 +55,7 @@
         return gettext('The widget has not been imported.');
       }
 
-      return gettextCatalog.getString('The {{ artifactType }} has not been imported.', {artifactType: gettextCatalog.getString(artifactType)});
+      return gettextCatalog.getString('The {{ artifactType }} has not been imported.', { artifactType: gettextCatalog.getString(artifactType) });
     }
   }
 })();

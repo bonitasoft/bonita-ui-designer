@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.preview')
-  .directive('openPreview', function ($window, $state, resolutions) {
+  .directive('openPreview', function($window, $state, resolutions) {
 
     'use strict';
 
@@ -32,7 +32,7 @@ angular.module('bonitasoft.designer.preview')
                             .replace(/pWidth/, attr.popupWidth || 1024)
                             .replace(/pHeight/, attr.popupHeight || 768);
 
-        var stateName =  'designer.'  + (attr.openPreview || 'page' ) + '.preview';
+        var stateName =  'designer.'  + (attr.openPreview || 'page') + '.preview';
 
         function clickHandler() {
           $window.open($state.href(stateName, {
@@ -43,7 +43,7 @@ angular.module('bonitasoft.designer.preview')
         el.on('click', clickHandler);
 
         // remove click handler on destroy
-        scope.$on('$destroy', function(){
+        scope.$on('$destroy', function() {
           el.off('click', clickHandler);
         });
       }

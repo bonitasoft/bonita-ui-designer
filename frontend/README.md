@@ -26,6 +26,19 @@ $ ./node_modules/protractor/bin/webdriver-manager update
 $ gulp serve
 ```
 
+## Format code
+
+During build, a gulp task based on [JSCS](http://jscs.info/) is used to check the code is formatted properly.
+It is based on the [BonitaBPM jscs preset](https://github.com/bonitasoft/jscs-preset-bonita).
+
+Use the gulp task to format code :
+
+```shell
+$gulp jscs jscs:test
+```
+
+Fix code format issues by hand if the format error report shows any error.
+
 ## Build
 
 ```shell

@@ -26,19 +26,19 @@ angular.module('bonitasoft.designer.common.services').factory('arrays', function
    */
   function moveTo(element, array, right) {
     var index = array.indexOf(element);
-    var newIndex = (0 !== index) ? index - 1 : 0;
+    var newIndex = (index !== 0) ? index - 1 : 0;
 
-    if(right) {
-      newIndex = (-1 !== index) ? index + 1 : 1;
+    if (right) {
+      newIndex = (index !== -1) ? index + 1 : 1;
     }
 
     // We already have the item and it's the only one, do nothing
-    if(!index && 1 === array.length) {
+    if (!index && array.length === 1) {
       return;
     }
 
     // Remove an item only if the length is > 1
-    if(array.length > 1) {
+    if (array.length > 1) {
       array.splice(index, 1);
     }
 
@@ -100,14 +100,13 @@ angular.module('bonitasoft.designer.common.services').factory('arrays', function
   function remove(element, array, equalityTester) {
 
     var length = array.length;
-    if(length > 0) {
+    if (length > 0) {
       for (var i = length - 1; i >= 0; i--) {
         if (equalityTester) {
           if (equalityTester(array[i], element)) {
             array.splice(i, 1);
           }
-        }
-        else if (array[i] === element) {
+        } else if (array[i] === element) {
           array.splice(i, 1);
         }
       }

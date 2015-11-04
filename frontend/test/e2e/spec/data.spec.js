@@ -158,14 +158,14 @@ describe('data panel', function() {
     it('should not allow confirming invalid URL', function() {
       dataPanel.editData(2);
       dataPanel.value = '';
-      expect( dataPanel.popupSaveBtn.isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow confirming invalid Json', function() {
       dataPanel.editData(1);
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('');
-      expect( dataPanel.popupSaveBtn.isEnabled()).toBe(false);
+      expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should open help popup',  function() {

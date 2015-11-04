@@ -1,9 +1,9 @@
 var switchToAlert = require('../pages/utils.js').switchToAlert;
 var clearAndFillAceEditor = require('../pages/utils.js').clearAndFillAceEditor;
 
-describe('custom widget editor', function () {
+describe('custom widget editor', function() {
 
-  beforeEach(function () {
+  beforeEach(function() {
     browser.get('#/en/widget/customAwesomeWidget');
 
     //prevent onbeforeunload event to avoid blocking protractor when running tests
@@ -12,7 +12,7 @@ describe('custom widget editor', function () {
   });
 
   function getPropertyNamesInList() {
-    return element.all(by.css('.PropertyDescription')).map(function (elm) {
+    return element.all(by.css('.PropertyDescription')).map(function(elm) {
       return elm.all(by.tagName('div')).get(0).getText();
     });
   }
@@ -27,12 +27,12 @@ describe('custom widget editor', function () {
     element(by.cssContainingText('#type li', typeName)).click();
   }
 
-  it('should not open a confirm dialog if there is no modification', function () {
+  it('should not open a confirm dialog if there is no modification', function() {
     $('.EditorHeader-back').click();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
 
-  it('should open a confirm dialog before going home', function () {
+  it('should open a confirm dialog before going home', function() {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
@@ -42,7 +42,7 @@ describe('custom widget editor', function () {
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
 
-  it('should open a confirm dialog and stay on the same page if dismiss', function () {
+  it('should open a confirm dialog and stay on the same page if dismiss', function() {
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-back').click();
 
@@ -52,12 +52,12 @@ describe('custom widget editor', function () {
     expect(browser.getCurrentUrl()).toMatch(/\/customAwesomeWidget/);
   });
 
-  it('should display custom widget properties', function () {
+  it('should display custom widget properties', function() {
     var properties = getPropertyNamesInList();
     expect(properties).toEqual(['qualifier', 'verb']);
   });
 
-  it('should allow to add a property', function () {
+  it('should allow to add a property', function() {
     $('#create').click();
 
     $('#name').sendKeys('newProperty');
@@ -70,7 +70,7 @@ describe('custom widget editor', function () {
     expect(properties).toContain('newProperty');
   });
 
-  it('should allow to update a property', function () {
+  it('should allow to update a property', function() {
     var property = element.all(by.repeater('property in widget.properties')).first();
     var editButton = property.element(by.css('i.fa-pencil'));
     editButton.click();
@@ -99,8 +99,7 @@ describe('custom widget editor', function () {
     expect(updated.all(by.tagName('div')).get(5).getText()).toBe('Default value: red');
   });
 
-
-  it('should allow to choose property type only with some bond type while creating/updating a property', function () {
+  it('should allow to choose property type only with some bond type while creating/updating a property', function() {
     $('#create').click();
 
     selectBond('Constant');
@@ -138,7 +137,7 @@ describe('custom widget editor', function () {
     expect($('#choices').isPresent()).toBeFalsy();
   });
 
-  it('should allow to delete a property', function () {
+  it('should allow to delete a property', function() {
     var firstParam = element.all(by.repeater('property in widget.properties')).first();
     var firstParamName = firstParam.element(by.css('.PropertyName')).getText();
 
@@ -148,7 +147,7 @@ describe('custom widget editor', function () {
     expect(properties).not.toContain(firstParamName);
   });
 
-  it('should allow to edit a widget template and controller', function () {
+  it('should allow to edit a widget template and controller', function() {
     // change template
     clearAndFillAceEditor('template', '<div ng-click="sayHello()">My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>');
 
@@ -162,8 +161,7 @@ describe('custom widget editor', function () {
     expect(browser.getCurrentUrl()).toMatch(/.*#\//);
   });
 
-
-  it('should save a widget as', function () {
+  it('should save a widget as', function() {
     $('button.dropdown-toggle').click();
     $('#saveAs').click();
 

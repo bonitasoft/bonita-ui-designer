@@ -43,7 +43,7 @@ angular
                     { type: 'component', widgetId: 'pbInput' }
                   ]
                 ]
-               }
+              }
             },
             {
               container: {

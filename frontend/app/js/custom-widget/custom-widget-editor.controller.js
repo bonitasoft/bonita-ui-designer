@@ -98,21 +98,21 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
         };
       },
       resolve: {
-        widget: function () {
+        widget: function() {
           return widget;
         }
       }
     });
     modalInstance.result
       .then(saveAs)
-      .then(function (data) {
+      .then(function(data) {
         $stateParams.widgetId = data.id;
         $state.go($state.current, $stateParams, {
           reload: true
         });
       });
 
-    function saveAs(data){
+    function saveAs(data) {
       return widgetRepo.create(data, widget.id);
     }
   };

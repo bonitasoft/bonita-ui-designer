@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -39,19 +39,19 @@
     function initialize(repo, id) {
       return widgetRepo.all()
         .then(initializePalette)
-        .then(function () {
+        .then(function() {
           var promises = Object.keys(paletteItems)
-            .reduce(function (promises, key) {
+            .reduce(function(promises, key) {
               return promises.concat(paletteItems[key](id));
             }, []);
           return $q.all(promises);
         })
         .then(repo.load.bind(null, id))
-        .catch(function (error) {
+        .catch(function(error) {
           alerts.addError(error.message);
           return $q.reject(error);
         })
-        .then(function (response) {
+        .then(function(response) {
           whiteboardService.reset();
           page = response.data;
           whiteboardComponentWrapper.wrapPage(page);

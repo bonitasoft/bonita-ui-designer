@@ -1,9 +1,9 @@
-describe('component', function () {
+describe('component', function() {
   var $compile, $rootScope, element, directiveScope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(angular.mock.module(function ($provide) {
+  beforeEach(angular.mock.module(function($provide) {
     $provide.factory('componentResizerModel', function() {
       return {
         set: angular.noop,
@@ -15,7 +15,7 @@ describe('component', function () {
     });
   }));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
 
@@ -46,10 +46,10 @@ describe('component', function () {
     row.push($rootScope.component);
 
     $rootScope.editor = {
-      isCurrentComponent: function () {
+      isCurrentComponent: function() {
         return false;
       },
-      page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898'}
+      page: { id: 'c0eae20f-14dd-4312-a678-2f1fab0a3898' }
     };
 
     element = $compile(template)($rootScope);
@@ -57,13 +57,13 @@ describe('component', function () {
     $rootScope.$digest();
   }));
 
-  it('should display the component in page', function () {
+  it('should display the component in page', function() {
     // then we should have
     expect(element.find('.widget-wrapper').length).toBe(1);
     expect(element.find('.widget-wrapper .widget-content').length).toBe(1);
   });
 
-  it('should display the component text property value when it is set', function () {
+  it('should display the component text property value when it is set', function() {
     // then we should have
     expect(element.html()).toContain('foobar');
   });
