@@ -34,7 +34,6 @@ describe('componentMover', function() {
 
     };
 
-
     element = $compile(template)($rootScope);
     $rootScope.$digest();
   }));

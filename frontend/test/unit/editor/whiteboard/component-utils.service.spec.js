@@ -6,7 +6,7 @@ describe('ComponentUtils Service', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', 'tabsContainerStructureMock', 'pageDataMock'));
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
     service = $injector.get('componentUtils');
     resolutions = $injector.get('resolutions');
     $stateParams = $injector.get('$stateParams');
@@ -35,8 +35,8 @@ describe('ComponentUtils Service', function() {
     });
 
     it('should not break if the item is a container without rows and return false', function() {
-      expect(service.isChildOf('tab-1',{type: 'container'})).toBe(false);
-      expect(service.isChildOf('tab-1',{type: 'container', rows: []})).toBe(false);
+      expect(service.isChildOf('tab-1',{ type: 'container' })).toBe(false);
+      expect(service.isChildOf('tab-1',{ type: 'container', rows: [] })).toBe(false);
     });
 
     it('should return false if a rows is undefined or a falsy value', function() {
@@ -70,8 +70,8 @@ describe('ComponentUtils Service', function() {
     var componentItem, componentItem2;
 
     beforeEach(function() {
-      componentItem = {$$id: 1337, type: 'component'};
-      componentItem2 = {$$id: 42, type: 'component'};
+      componentItem = { $$id: 1337, type: 'component' };
+      componentItem2 = { $$id: 42, type: 'component' };
     });
 
     it('should call the isChildOf method', function() {
@@ -109,8 +109,8 @@ describe('ComponentUtils Service', function() {
 
   describe('find the width of a component', function() {
     it('should get the width of a component for the current resolution', function() {
-      spyOn(resolutions, 'selected').and.returnValue({key: 'foo'});
-      expect(service.width.get({dimension: {foo: 6}})).toBe(6);
+      spyOn(resolutions, 'selected').and.returnValue({ key: 'foo' });
+      expect(service.width.get({ dimension: { foo: 6 } })).toBe(6);
     });
 
     it('should get the width 1 if no component is passed as an argument', function() {
@@ -118,9 +118,9 @@ describe('ComponentUtils Service', function() {
     });
 
     it('should set the size', function() {
-      var component = {dimension: {foo: 6}};
+      var component = { dimension: { foo: 6 } };
 
-      spyOn(resolutions, 'selected').and.returnValue({key: 'foo'});
+      spyOn(resolutions, 'selected').and.returnValue({ key: 'foo' });
       expect(service.width.get(component)).toBe(6);
       service.width.set(component, 8);
       expect(service.width.get(component)).toBe(8);
@@ -166,7 +166,7 @@ describe('ComponentUtils Service', function() {
       });
 
       it('should return defaultResolution resolution if no resolution is set', function() {
-        component.dimension = {foo: 9};
+        component.dimension = { foo: 9 };
         expect(service.column.width(component)).toBe(9);
       });
 
@@ -187,40 +187,38 @@ describe('ComponentUtils Service', function() {
       beforeEach(function() {
 
         component = {
-          dimension: {xs: 12, foo: 12}
+          dimension: { xs: 12, foo: 12 }
         };
 
         rows.cas1 = [
           {
-            dimension: {xs: 12, foo: 6}
+            dimension: { xs: 12, foo: 6 }
           },
           {
-            dimension: {xs: 12, foo: 6}
+            dimension: { xs: 12, foo: 6 }
           }
         ];
 
         rows.cas2 = [
           {
-            dimension: {xs: 12, foo: 4}
+            dimension: { xs: 12, foo: 4 }
           },
           {
-            dimension: {xs: 12, foo: 3}
+            dimension: { xs: 12, foo: 3 }
           },
           {
-            dimension: {xs: 12, foo: 3}
+            dimension: { xs: 12, foo: 3 }
           },
           {
-            dimension: {xs: 12, foo: 3}
+            dimension: { xs: 12, foo: 3 }
           }
         ];
 
         rows.cas3 = [
           {
-            dimension: {xs: 12, foo: 8}
+            dimension: { xs: 12, foo: 8 }
           }
         ];
-
-
 
         rows.cas6 = [];
       });
@@ -230,7 +228,7 @@ describe('ComponentUtils Service', function() {
         currentRow.push(component);
         service.column.computeSizeItemInRow(currentRow);
 
-        rows.cas1.forEach(function(compo){
+        rows.cas1.forEach(function(compo) {
           expect(compo.dimension.xs).toBe(12);
           expect(compo.dimension.foo).toBe(4);
         });
@@ -258,7 +256,7 @@ describe('ComponentUtils Service', function() {
         currentRow.push(component);
         service.column.computeSizeItemInRow(currentRow);
 
-        var lastItem = currentRow[currentRow.length -1];
+        var lastItem = currentRow[currentRow.length - 1];
         var firstItem = currentRow[0];
 
         expect(firstItem.dimension.xs).toBe(12);
@@ -309,14 +307,14 @@ describe('ComponentUtils Service', function() {
 
     it('should return false if a container is not empty', function() {
       var container = {
-        rows: [[],[{'name': 'titi'}]]
+        rows: [[],[{ 'name': 'titi' }]]
       };
       expect(service.isEmpty(container)).toBe(false);
     });
   });
 
   describe('getVisibleComponents', function() {
-    it ('should return a flat array of child components', function() {
+    it('should return a flat array of child components', function() {
       expect(service.getVisibleComponents(pageJson).length).toBe(8);
       var tabContainer = pageJson.rows[3][0];
 

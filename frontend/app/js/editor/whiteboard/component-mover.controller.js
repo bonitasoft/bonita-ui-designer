@@ -21,11 +21,11 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ComponentMov
   };
 
   function hasParent() {
-    return  $scope.component && $scope.component.hasOwnProperty('$$parentContainerRow');
+    return $scope.component && $scope.component.hasOwnProperty('$$parentContainerRow');
   }
 
   $scope.moveLeftVisible = function() {
-    return  hasParent() && arrays.moveLeftPossible($scope.component, componentRow());
+    return hasParent() && arrays.moveLeftPossible($scope.component, componentRow());
   };
 
   $scope.moveRightVisible = function() {

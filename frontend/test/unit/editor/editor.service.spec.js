@@ -1,7 +1,7 @@
-(function () {
+(function() {
   'use strict';
 
-  describe('editor service', function () {
+  describe('editor service', function() {
     var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService;
 
     var labelWidget = {
@@ -22,28 +22,28 @@
           [
             {
               'type': 'container',
-              'dimension': {'xs': 12},
+              'dimension': { 'xs': 12 },
               'rows': [
                 [
                   {
                     'type': 'component',
                     'id': 'label',
-                    'dimension': {'xs': 12},
-                    'propertyValues': {'text': 'label 1', 'alignment': 'left'}
+                    'dimension': { 'xs': 12 },
+                    'propertyValues': { 'text': 'label 1', 'alignment': 'left' }
                   }
                 ],
                 [
                   {
                     'type': 'component',
                     'id': 'label',
-                    'dimension': {'xs': 12},
-                    'propertyValues': {'text': 'label 2', 'alignment': 'left'}
+                    'dimension': { 'xs': 12 },
+                    'propertyValues': { 'text': 'label 2', 'alignment': 'left' }
                   }
                 ],
                 [
                   {
                     'type': 'tabsContainer',
-                    'dimension': {'xs': 12},
+                    'dimension': { 'xs': 12 },
                     'tabs': [
                       {
                         'title': 'Tab 1',
@@ -115,7 +115,7 @@
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor'));
 
-    beforeEach(inject(function ($injector) {
+    beforeEach(inject(function($injector) {
       $rootScope = $injector.get('$rootScope');
       $httpBackend = $injector.get('$httpBackend');
       $q = $injector.get('$q');
@@ -129,16 +129,15 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
 
-      spyOn(widgetRepo, 'all').and.returnValue($q.when({data: [labelWidget]}));
+      spyOn(widgetRepo, 'all').and.returnValue($q.when({ data: [labelWidget] }));
       spyOn(alerts, 'addError');
     }));
 
-
-    it('should initialize a page', function () {
+    it('should initialize a page', function() {
       var page = {};
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
       editorService.initialize(pageRepo, 'person')
-        .then(function (data) {
+        .then(function(data) {
           page = data;
         });
 
@@ -159,14 +158,13 @@
       expect(tabsContainer.$$widget.name).toBe('Tabs container');
       expect(tabsContainer.tabs[0].$$parentTabsContainer).toBe(tabsContainer);
 
-
       var formContainer = page.rows[1][0];
       expect(formContainer.$$id).toBe('formContainer-0');
       expect(formContainer.$$widget.name).toBe('Form container');
       expect(formContainer.$$parentContainerRow.container).toBe(page);
     });
 
-    it('should add palette', function () {
+    it('should add palette', function() {
       var spy = jasmine.createSpy('bar');
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
@@ -177,7 +175,7 @@
       expect(spy).toHaveBeenCalled();
     });
 
-    it('should init components', function () {
+    it('should init components', function() {
 
       spyOn(components, 'register');
       spyOn(components, 'reset');
@@ -194,7 +192,7 @@
       expect(components.register.calls.count()).toBe(3);
     });
 
-    it('should add an alert if initialize failed', function () {
+    it('should add an alert if initialize failed', function() {
       spyOn(pageRepo, 'load').and.returnValue($q.reject('load failed'));
 
       editorService.initialize(pageRepo, 'person');
@@ -203,34 +201,34 @@
       expect(alerts.addError).toHaveBeenCalled();
     });
 
-    it('should remove widget assets from page when widget is not in page anymore', function () {
+    it('should remove widget assets from page when widget is not in page anymore', function() {
       var page = {
-        assets: [ {id: 'anAsset', componentId: 'aWidgget'} ],
+        assets: [{ id: 'anAsset', componentId: 'aWidgget' }],
         rows: []
       };
       spyOn(whiteboardService, 'contains').and.returnValue(false);
-      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page}));
+      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page }));
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
-      editorService.removeAssetsFromPage( {id: 'aWidgget' });
+      editorService.removeAssetsFromPage({ id: 'aWidgget' });
 
       expect(page.assets).toEqual([]);
     });
 
-    it('should not remove widget assets from page when widget still exists in page', function () {
+    it('should not remove widget assets from page when widget still exists in page', function() {
       var page = {
-        assets: [ {id: 'anAsset', componentId: 'aWidgget'} ],
+        assets: [{ id: 'anAsset', componentId: 'aWidgget' }],
         rows: []
       };
       spyOn(whiteboardService, 'contains').and.returnValue(true);
-      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page}));
+      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page }));
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
-      editorService.removeAssetsFromPage( {id: 'aWidgget' });
+      editorService.removeAssetsFromPage({ id: 'aWidgget' });
 
-      expect(page.assets).toContain({id: 'anAsset', componentId: 'aWidgget'});
+      expect(page.assets).toContain({ id: 'anAsset', componentId: 'aWidgget' });
     });
   });
 })();

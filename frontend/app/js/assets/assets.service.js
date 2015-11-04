@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   angular
     .module('bonitasoft.designer.assets')
@@ -21,9 +21,9 @@
   function assetsServiceProvider() {
 
     var types = [
-      {key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
-      {key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'},
-      {key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html'}
+      { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' },
+      { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' },
+      { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' }
     ];
 
     return {
@@ -34,8 +34,8 @@
     function assetsService(gettextCatalog) {
 
       var sources = {
-        external: {key: 'external', value: gettextCatalog.getString('External')},
-        local: {key: 'local', value: gettextCatalog.getString('Local')}
+        external: { key: 'external', value: gettextCatalog.getString('External') },
+        local: { key: 'local', value: gettextCatalog.getString('Local') }
       };
 
       return {

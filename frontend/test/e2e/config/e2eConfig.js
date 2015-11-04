@@ -3,26 +3,26 @@ angular.module('uidesigner').requires.push('bonitasoft.designer.e2e');
 
 angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
 
-  .config(function ($compileProvider) {
+  .config(function($compileProvider) {
     // the 1.3 optimization needs to be disable for the e2e tests
     $compileProvider.debugInfoEnabled(true);
   })
 
-  .service('e2ehelper', function () {
+  .service('e2ehelper', function() {
 
     return {
-      getById: function (array, elementId) {
-        return array.filter(function (elem) {
+      getById: function(array, elementId) {
+        return array.filter(function(elem) {
           return elem.id === elementId;
         })[0];
       },
-      lastChunk: function (url) {
+      lastChunk: function(url) {
         return url.match(/([^\/]*)\/*$/)[1];
       }
     };
   })
 
-  .run(function ($httpBackend, e2ehelper) {
+  .run(function($httpBackend, e2ehelper) {
 
     var widgets = [
       {
@@ -223,9 +223,9 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
       id: 'person',
       name: 'Person',
       data: {
-        alreadyExistsData: {type: 'constant', value: 'aValue'},
-        jsonExample: {type: 'json', value: {}},
-        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
+        alreadyExistsData: { type: 'constant', value: 'aValue' },
+        jsonExample: { type: 'json', value: {} },
+        urlExample: { type: 'url', value: 'https://api.github.com/users/jnizet' }
       },
       assets: [
         {
@@ -449,7 +449,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
           type: 'component',
           id: 'pbParagraph',
           dimension: {
-            xs:4
+            xs: 4
           },
           propertyValues: {
             cssClasses: {
@@ -489,14 +489,13 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     $httpBackend.whenGET(/^partials\//).passThrough();
 
     // I18n
-    $httpBackend.whenGET(/i18n\/.*-fr-FR.json/).respond({'fr': {'New page': 'Nouvelle page'}});
-
+    $httpBackend.whenGET(/i18n\/.*-fr-FR.json/).respond({ 'fr': { 'New page': 'Nouvelle page' } });
 
     /********************************************************************************************************
      *                                            WIDGETS
      * ******************************************************************************************************/
-      // create new widget property
-    $httpBackend.whenPOST(/rest\/widgets\/.*\/properties/).respond(function (method, url, data) {
+    // create new widget property
+    $httpBackend.whenPOST(/rest\/widgets\/.*\/properties/).respond(function(method, url, data) {
       var property = angular.fromJson(data);
       var widgetId = url.match(/rest\/widgets\/(.*)\/properties/)[1];
       var widget = e2ehelper.getById(widgets, widgetId);
@@ -505,13 +504,13 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // update widget property
-    $httpBackend.whenPUT(/rest\/widgets\/.*\/properties\/.*/).respond(function (method, url, data) {
+    $httpBackend.whenPUT(/rest\/widgets\/.*\/properties\/.*/).respond(function(method, url, data) {
       var updatedProperty = angular.fromJson(data);
       var urlMatches = url.match(/rest\/widgets\/(.*)\/properties\/(.*)/);
       var widgetId = urlMatches[1];
       var propertyName = urlMatches[2];
       var widget = e2ehelper.getById(widgets, widgetId);
-      widget.properties = widget.properties.map(function (property) {
+      widget.properties = widget.properties.map(function(property) {
         if (property.name === propertyName) {
           return updatedProperty;
         }
@@ -521,12 +520,12 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // delete widget property
-    $httpBackend.whenDELETE(/rest\/widgets\/.*\/properties\/.*/).respond(function (method, url) {
+    $httpBackend.whenDELETE(/rest\/widgets\/.*\/properties\/.*/).respond(function(method, url) {
       var urlMatches = url.match(/rest\/widgets\/(.*)\/properties\/(.*)/);
       var widgetId = urlMatches[1];
       var propertyName = urlMatches[2];
       var widget = e2ehelper.getById(widgets, widgetId);
-      widget.properties = widget.properties.filter(function (property) {
+      widget.properties = widget.properties.filter(function(property) {
         return property.name !== propertyName;
       });
       return [200, widget.properties, {}];
@@ -536,8 +535,8 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     $httpBackend.whenGET('rest/widgets').respond(widgets);
 
     // get all light representation
-    $httpBackend.whenGET('rest/widgets?view=light').respond(function () {
-      var response = widgets.map(function (elem) {
+    $httpBackend.whenGET('rest/widgets?view=light').respond(function() {
+      var response = widgets.map(function(elem) {
         return {
           id: elem.id,
           name: elem.name,
@@ -548,14 +547,14 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // get by id
-    $httpBackend.whenGET(/rest\/widgets\/.*/).respond(function (method, url) {
+    $httpBackend.whenGET(/rest\/widgets\/.*/).respond(function(method, url) {
       var widgetId = e2ehelper.lastChunk(url);
       var widget = e2ehelper.getById(widgets, widgetId);
       return [200, widget, {}];
     });
 
     // create new widget
-    $httpBackend.whenPOST('rest/widgets').respond(function (method, url, data) {
+    $httpBackend.whenPOST('rest/widgets').respond(function(method, url, data) {
       var widget = angular.fromJson(data);
       widget.id = 'custom' + widget.name;
       widget.assets = [];
@@ -564,7 +563,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // duplicate widget
-    $httpBackend.whenPOST('rest/widgets?duplicata=customAwesomeWidget').respond(function (method, url, data) {
+    $httpBackend.whenPOST('rest/widgets?duplicata=customAwesomeWidget').respond(function(method, url, data) {
       var widget = angular.fromJson(data);
       widget.id = 'custom' + widget.name;
       widgets.push(widget);
@@ -574,13 +573,12 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     // update widget
     $httpBackend.whenPUT(/rest\/widgets\/.*/).respond(200);
 
-
     /********************************************************************************************************
      *                                            PAGES
      * ******************************************************************************************************/
-      // get all (light representation)
-    $httpBackend.whenGET('rest/pages').respond(function () {
-      var response = pages.map(function (page) {
+    // get all (light representation)
+    $httpBackend.whenGET('rest/pages').respond(function() {
+      var response = pages.map(function(page) {
         return {
           id: page.id,
           name: page.name
@@ -590,14 +588,14 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // get by id
-    $httpBackend.whenGET(/rest\/pages\/.*/).respond(function (method, url) {
+    $httpBackend.whenGET(/rest\/pages\/.*/).respond(function(method, url) {
       var pageId = e2ehelper.lastChunk(url);
       var page = e2ehelper.getById(pages, pageId);
       return [200, page, {}];
     });
 
     // create new page
-    $httpBackend.whenPOST('rest/pages?duplicata=person').respond(function (method, url, data) {
+    $httpBackend.whenPOST('rest/pages?duplicata=person').respond(function(method, url, data) {
       var page = angular.fromJson(data);
       page.id = page.name;
       pages.push(page);
@@ -605,7 +603,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
     });
 
     // duplicate page
-    $httpBackend.whenPOST('rest/pages').respond(function (method, url, data) {
+    $httpBackend.whenPOST('rest/pages').respond(function(method, url, data) {
       var page = angular.fromJson(data);
       page.id = page.name;
       pages.push(page);
@@ -621,6 +619,5 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
      *                                            EXPORT
      * ******************************************************************************************************/
     $httpBackend.whenGET('export/page/person').respond(200);
-
 
   });

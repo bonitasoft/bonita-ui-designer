@@ -1,7 +1,7 @@
-(function () {
+(function() {
   'use strict';
 
-  var AssetPanel = function () {
+  var AssetPanel = function() {
     this.sidebar = element(by.id('data-sidebar'));
   };
 
@@ -9,7 +9,7 @@
 
   var assetMethod = {
 
-    open: function () {
+    open: function() {
       browser.actions().click(element.all(by.className('BottomPanel-toggle')).last()).perform();
     },
 
@@ -26,13 +26,13 @@
   AssetPanel.prototype = Object.create(assetMethod, {
 
     addButton: {
-      get: function () {
+      get: function() {
         return this.sidebar.element(by.buttonText('Add a new asset'));
       }
     },
 
     filters: {
-      get: function(){
+      get: function() {
         return this.sidebar.all(by.repeater('(key, filter) in vm.filters'));
       }
     },
@@ -46,7 +46,7 @@
     // asset names in asset list
     names: {
       get: function() {
-        return this.lines.map(function (line) {
+        return this.lines.map(function(line) {
           return line.all(by.tagName('td')).get(1).getText();
         });
       }
@@ -55,7 +55,7 @@
     // asset types in asset list
     types: {
       get: function() {
-        return this.lines.map(function (line) {
+        return this.lines.map(function(line) {
           return line.all(by.tagName('td')).get(3).getText();
         });
       }

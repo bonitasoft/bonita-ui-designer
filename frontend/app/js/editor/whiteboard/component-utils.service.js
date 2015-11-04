@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -41,7 +41,6 @@
 
     return service;
 
-
     /**
      * Return the rows of a tab element
      * @param  {Object} element a tab object
@@ -62,7 +61,6 @@
       return result.concat(item);
     }
 
-
     /**
      * Check if a component is a container
      * @param  {Object}  component
@@ -80,11 +78,11 @@
      */
     function getVisibleComponents(container) {
       // get the rows of the container
-      var rows = container.rows || ( container.$$openedTab && container.$$openedTab.container.rows);
+      var rows = container.rows || (container.$$openedTab && container.$$openedTab.container.rows);
 
       return rows
         .reduce(flattenReducer, [])
-        .reduce(function (components, item) {
+        .reduce(function(components, item) {
           components = components.concat(item);
           if (isContainer(item)) {
             return components.concat(getVisibleComponents(item));
@@ -116,7 +114,7 @@
       // using some to stop when we found the widget
       return rows
         .reduce(flattenReducer, [])
-        .some(function (widget) {
+        .some(function(widget) {
           return isChildOf(id, widget);
         });
     }
@@ -130,7 +128,7 @@
     function isMovable(data, item) {
       var isTheChild = service.isChildOf(item.$$id, data);
 
-      if (!isTheChild || 'component' === data.type) {
+      if (!isTheChild || data.type === 'component') {
         return !(item.$$id === data.$$id || item === data);
       }
 
@@ -160,7 +158,6 @@
       return 'col-xs-' + columnWidth(component);
     }
 
-
     /**
      * distribute the column size for each component in a row
      * only if row is full
@@ -168,14 +165,14 @@
      */
     function distributeComponentSize(row) {
       var index = resolutions.all().indexOf(resolutions.getDefaultResolution());
-      var dimensions = resolutions.all().slice(index).map(function (item) {
+      var dimensions = resolutions.all().slice(index).map(function(item) {
         return item.key;
       });
       var colSize = Math.floor(12 / row.length);
       var lastColSize = 12 % row.length;
 
-      dimensions.forEach(function (dimension) {
-        var rowSize = row.slice(0, -1).reduce(function (colsize, component) {
+      dimensions.forEach(function(dimension) {
+        var rowSize = row.slice(0, -1).reduce(function(colsize, component) {
           return colsize + component.dimension[dimension];
         }, 0);
         var lastComponent = row[row.length - 1];
@@ -183,10 +180,9 @@
           // last component will fill remaining space
           lastComponent.dimension[dimension] = 12 - rowSize;
           return;
-        }
-        else {
+        } else {
           //we iterate over the component to resize  them
-          row.forEach(function (component) {
+          row.forEach(function(component) {
             component.dimension[dimension] = colSize;
           });
 
@@ -197,14 +193,13 @@
 
           // we distribute the rest of number-of-components / 12 to
           // columns starting from the end
-          row.slice(-lastColSize).forEach(function (component) {
+          row.slice(-lastColSize).forEach(function(component) {
             component.dimension[dimension] += 1;
           });
 
         }
       });
     }
-
 
     function getWidth(component) {
       if (!component) {
@@ -219,7 +214,7 @@
     }
 
     function isEmpty(container) {
-      return !(container.rows || []).some(function (row) {
+      return !(container.rows || []).some(function(row) {
         return row.length > 0;
       });
     }

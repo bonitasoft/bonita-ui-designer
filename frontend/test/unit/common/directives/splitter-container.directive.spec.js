@@ -1,7 +1,6 @@
 describe('splitter container directive', function() {
   var $compile, element, scope, controller,$state;
 
-
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$state_) {
     $compile = _$compile_;
@@ -29,7 +28,7 @@ describe('splitter container directive', function() {
       expect(controller.isActive('toto')).toBe(false);
       expect(controller.isActive('stateTest')).toBe(true);
     });
-    it('should register a splitter-horizontal', function(){
+    it('should register a splitter-horizontal', function() {
       var splitter = {
         openBottom: jasmine.createSpy('openBottom'),
         closeBottom: jasmine.createSpy('closeBottom')
@@ -40,7 +39,7 @@ describe('splitter container directive', function() {
       expect(splitter.closeBottom).toHaveBeenCalled();
     });
 
-    it('should toggle a splitter-horizontal', function(){
+    it('should toggle a splitter-horizontal', function() {
       var splitter = {
         openBottom: jasmine.createSpy('openBottom'),
         closeBottom: jasmine.createSpy('closeBottom')

@@ -43,8 +43,8 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   /**
    * Adding DEL keyboard shortcut
    */
-  keymaster('del', function(){
-    if ( !$scope.currentComponent ) {
+  keymaster('del', function() {
+    if (!$scope.currentComponent) {
       return;
     }
 
@@ -53,11 +53,11 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     });
   });
 
-  keymaster('right', function(){
+  keymaster('right', function() {
     moveSelection(+1);
   });
 
-  keymaster('left', function(){
+  keymaster('left', function() {
     moveSelection(-1);
   });
 
@@ -80,7 +80,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     });
   }
 
-  $scope.$on('$destroy', function(){
+  $scope.$on('$destroy', function() {
     keymaster.unbind('del');
     keymaster.unbind('right');
     keymaster.unbind('left');
@@ -124,7 +124,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    * @param  {Object} element Widget already configured
    * @return {void}
    */
-  $scope.dropElement = function (element) {
+  $scope.dropElement = function(element) {
     $scope.currentComponent = element;
     element.$$parentContainerRow = $scope.currentContainerRow;
     $scope.currentContainerRow.row.push(element);
@@ -140,7 +140,6 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     arrays.moveAtPosition(component, componentIndex, $scope.currentContainerRow.row);
     $scope.selectComponent(component);
   };
-
 
   /**
    * Function called when we want the current selection to be a widget component or a container component. Selecting
@@ -168,7 +167,6 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       event.stopPropagation();
     }
   };
-
 
   /**
    * Function used to create a widget component for the given widget and add it to the currently selected container
@@ -258,11 +256,11 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       });
   };
 
-  $scope.save = function () {
+  $scope.save = function() {
     return artifactRepo.save($scope.page.id, $scope.page);
   };
 
-  $scope.canBeSaved = function (page) {
+  $scope.canBeSaved = function(page) {
     return !!page.name;
   };
 
@@ -275,7 +273,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     if (data.$$widget) {
       return;
     }
-    if (!componentUtils.isEmpty( $scope.page)) {
+    if (!componentUtils.isEmpty($scope.page)) {
       $scope.page.rows.push([]);
     }
     var lastRow = $scope.page.rows[$scope.page.rows.length - 1];
@@ -300,8 +298,6 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     $scope.isPaletteClosed = isClosed;
     $scope.isPaletteNarrow = isNarrow;
   };
-
-
 
   /**
    * Object containing methods helpful for the component and container directives of the editor, and which is passed

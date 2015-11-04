@@ -25,7 +25,7 @@ describe('moving form container', function() {
 
     firstContainer.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( firstContainer ).perform();
+    browser.actions().mouseMove(firstContainer).perform();
     expect(firstContainer.element(by.css('.move-left')).isPresent()).toBe(false);
     expect(firstContainer.element(by.css('.move-right')).isPresent()).toBe(true);
   });
@@ -35,7 +35,7 @@ describe('moving form container', function() {
 
     lastContainer.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( lastContainer ).perform();
+    browser.actions().mouseMove(lastContainer).perform();
     expect(lastContainer.element(by.css('.move-left')).isPresent()).toBe(true);
     expect(lastContainer.element(by.css('.move-right')).isPresent()).toBe(false);
   });
@@ -46,7 +46,7 @@ describe('moving form container', function() {
 
     secondContainer.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( secondContainer ).perform();
+    browser.actions().mouseMove(secondContainer).perform();
     secondContainer.element(by.css('.move-left')).click();
     expect(editor.formContainers.first().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
   });
@@ -57,7 +57,7 @@ describe('moving form container', function() {
 
     secondContainer.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( secondContainer ).perform();
+    browser.actions().mouseMove(secondContainer).perform();
     secondContainer.element(by.css('.move-right')).click();
     expect(editor.formContainers.last().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
   });

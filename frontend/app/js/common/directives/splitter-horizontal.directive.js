@@ -40,7 +40,7 @@ angular.module('bonitasoft.designer.common.directives')
          * @param {number} pointerY  current pointer y position
          * @returns {number}
          */
-        function computeY (bottom, pointerY) {
+        function computeY(bottom, pointerY) {
           var y = bottom - pointerY;
           if (y > $scope.paneBottomMax) {
             y = $scope.paneBottomMax;
@@ -57,15 +57,15 @@ angular.module('bonitasoft.designer.common.directives')
          */
         this.resize = function(pointerY) {
           var y = computeY(this.bottomElem[0].getBoundingClientRect().bottom, pointerY);
-          this.topElem.css({bottom: y + 'px'});
-          this.bottomElem.css({height: y + 'px'});
+          this.topElem.css({ bottom: y + 'px' });
+          this.bottomElem.css({ height: y + 'px' });
         };
 
         /**
          * Close the bottom pane
          */
         this.closeBottom = function() {
-          this.topElem.css({bottom: 0});
+          this.topElem.css({ bottom: 0 });
           this.bottomElem.addClass('splitter-pane-closed');
         };
 
@@ -74,7 +74,7 @@ angular.module('bonitasoft.designer.common.directives')
          */
         this.openBottom = function() {
           this.bottomElem.removeClass('splitter-pane-closed');
-          this.topElem.css({bottom: this.bottomElem[0].getBoundingClientRect().height + 'px'});
+          this.topElem.css({ bottom: this.bottomElem[0].getBoundingClientRect().height + 'px' });
         };
 
       },
@@ -99,14 +99,14 @@ angular.module('bonitasoft.designer.common.directives')
         });
 
         // unbind events
-        function mouseup () {
+        function mouseup() {
           paneTop.removeClass('splitter-onmove');
           paneBottom.removeClass('splitter-onmove');
           $document.unbind('mousemove', mousemove);
           $document.unbind('mouseup', mouseup);
         }
 
-        function mousemove (event) {
+        function mousemove(event) {
           paneTop.addClass('splitter-onmove');
           paneBottom.addClass('splitter-onmove');
           controller.resize(event.pageY);

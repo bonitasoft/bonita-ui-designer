@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.data-panel')
-  .service('dataTypeService', function (gettext){
+  .service('dataTypeService', function(gettext) {
 
     function compareType(type, item) {
       return type === item.type;
@@ -27,11 +27,11 @@ angular.module('bonitasoft.designer.editor.data-panel')
       return item.defaultValue;
     }
     var dataTypes = [
-      { label: gettext('String'), type: 'constant', group: ' ', defaultValue: ''},
-      { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: '{}'},
-      { label: gettext('External API'), type: 'url', group: '--', defaultValue: ''},
-      { label: gettext('Javascript expression'), type: 'expression', group: '--', defaultValue: 'return "hello";'},
-      { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: ''}
+      { label: gettext('String'), type: 'constant', group: ' ', defaultValue: '' },
+      { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: '{}' },
+      { label: gettext('External API'), type: 'url', group: '--', defaultValue: '' },
+      { label: gettext('Javascript expression'), type: 'expression', group: '--', defaultValue: 'return "hello";' },
+      { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: '' }
     ];
 
     this.getDataTypes = function() {
@@ -56,4 +56,4 @@ angular.module('bonitasoft.designer.editor.data-panel')
         exposed: false
       };
     };
-});
+  });

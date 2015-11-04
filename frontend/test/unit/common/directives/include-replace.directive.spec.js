@@ -4,7 +4,7 @@ describe('directive includeReplace', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function ($injector, $rootScope) {
+  beforeEach(inject(function($injector, $rootScope) {
     templateCache = $injector.get('$templateCache');
     compile = $injector.get('$compile');
     scope = $rootScope.$new();

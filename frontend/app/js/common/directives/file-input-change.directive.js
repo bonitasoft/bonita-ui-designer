@@ -15,7 +15,7 @@
 /**
  * Listen to an input file and assign the selected file to a scope variable
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -27,7 +27,7 @@
 
     return {
       require: 'ngModel',
-      link: function (scope, elem, attr, ngModel) {
+      link: function(scope, elem, attr, ngModel) {
 
         function update(event) {
           var filename = '';
@@ -37,7 +37,7 @@
             filename = event.target.value.match(/([^\\|\/]*)$/)[0];
           }
 
-          scope.$apply(function () {
+          scope.$apply(function() {
             ngModel.$setViewValue(filename);
             ngModel.$render();
           });
@@ -45,7 +45,7 @@
 
         elem.on('change', update);
 
-        scope.$on('$destroy', function () {
+        scope.$on('$destroy', function() {
           elem.off('change', update);
         });
 

@@ -12,16 +12,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
-  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function ($scope, $modalInstance, asset, component, mode) {
+  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function($scope, $modalInstance, asset, component, mode) {
 
     'use strict';
 
     $scope.url = getUrl();
     $scope.asset = asset;
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
       $modalInstance.dismiss();
     };
 

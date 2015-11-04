@@ -26,8 +26,7 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
           rejection.headers('Content-Type').indexOf('application/json') === 0 &&
           angular.isDefined(rejection.data.message)) {
         alerts.addError(rejection.data.message);
-      }
-      else {
+      } else {
         alerts.addError('Unexpected server error');
       }
       return $q.reject(rejection);

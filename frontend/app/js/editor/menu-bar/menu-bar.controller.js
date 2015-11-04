@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   'use strict';
 
@@ -25,7 +25,7 @@
         templateUrl: 'js/editor/menu-bar/save-as-popup.html',
         controller: 'SaveAsPopUpController',
         resolve: {
-          page: function () {
+          page: function() {
             return page;
           }
         }
@@ -40,7 +40,7 @@
         });
       }
 
-      function saveDataAs(data){
+      function saveDataAs(data) {
         return artifactRepo.create(data, page.id);
       }
     }
@@ -57,9 +57,7 @@
         templateUrl: 'js/editor/menu-bar/help-popup.html',
         size: 'lg',
         resolve: {
-          pageEdition: function(){
-            return 'page' === vm.mode;
-          }
+          pageEdition: () => vm.mode === 'page'
         },
         controller: function($scope, $modalInstance, pageEdition) {
           $scope.pageEdition = pageEdition;

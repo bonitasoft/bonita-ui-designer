@@ -3,11 +3,11 @@ describe('paletteService', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
   beforeEach(inject(function(_paletteService_, _components_) {
-    paletteService= _paletteService_;
+    paletteService = _paletteService_;
     components = _components_;
   }));
 
-   it('should get palette sections', function() {
+  it('should get palette sections', function() {
     spyOn(components, 'get').and.returnValue({
       foo: {
         component: { id: 'foo' },

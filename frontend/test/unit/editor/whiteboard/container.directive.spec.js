@@ -1,9 +1,9 @@
-(function () {
+(function() {
   'use strict';
-  describe('container', function () {
+  describe('container', function() {
     var $compile, $rootScope, element, directiveScope;
 
-    beforeEach(function () {
+    beforeEach(function() {
       jasmine.addMatchers({
         toHaveMoveUpHandle: isPresent('.move-row-up'),
         toHaveMoveDownHandle: isPresent('.move-row-down'),
@@ -42,10 +42,10 @@
       row.push($rootScope.container);
 
       $rootScope.editor = {
-        isCurrentComponent: function () {
+        isCurrentComponent: function() {
           return false;
         },
-        isCurrentRow: function () {
+        isCurrentRow: function() {
           return false;
         }
       };
@@ -56,7 +56,7 @@
     }));
 
     // test for moving row buttons and visibility
-    it('should not show a movable row when there is only one', function () {
+    it('should not show a movable row when there is only one', function() {
       $rootScope.container.rows.splice(0, 1, [{}]);
       $rootScope.$apply();
 
@@ -66,7 +66,7 @@
       expect(row).not.toHaveMoveDownHandle();
     });
 
-    it('should only show move down handle on the first row', function () {
+    it('should only show move down handle on the first row', function() {
       $rootScope.container.rows.splice(0, 1, [{}], [{}]);
       $rootScope.$apply();
 
@@ -76,7 +76,7 @@
       expect(row).toHaveMoveDownHandle();
     });
 
-    it('should only show move up handle on the last row', function () {
+    it('should only show move up handle on the last row', function() {
       $rootScope.container.rows.splice(0, 1, [{}], [{}]);
       $rootScope.$apply();
 
@@ -86,7 +86,7 @@
       expect(row).not.toHaveMoveDownHandle();
     });
 
-    it('should show both move handles on a middle row', function () {
+    it('should show both move handles on a middle row', function() {
       $rootScope.container.rows.splice(0, 1, [{}], [{}], [{}]);
       $rootScope.$apply();
 
@@ -96,7 +96,7 @@
       expect(row).toHaveMoveDownHandle();
     });
 
-    it('should show drop zones before and after the first row', function () {
+    it('should show drop zones before and after the first row', function() {
       $rootScope.container.rows.splice(0, 1, [{}]);
       $rootScope.$apply();
 
@@ -106,7 +106,7 @@
       expect(row).toHaveDropRowAfter();
     });
 
-    it('should show 1 drop zones all rows but the first', function () {
+    it('should show 1 drop zones all rows but the first', function() {
       $rootScope.container.rows.splice(0, 1, [{}], [{}]);
       $rootScope.$apply();
 
@@ -116,7 +116,7 @@
       expect(row).toHaveDropRowAfter();
     });
 
-    it('should display a container in a container', function () {
+    it('should display a container in a container', function() {
       $rootScope.container.rows[0].push({
         $$id: 'container-1',
         type: 'container',
@@ -140,9 +140,9 @@
     });
 
     function createMatcher(matcher) {
-      return function () {
+      return function() {
         return {
-          compare: function (actual, expected) {
+          compare: function(actual, expected) {
             var result = {
               pass: matcher.match(actual, expected)
             };
@@ -156,7 +156,7 @@
     function isPresent(elementSelector) {
       var success = 'Expected element ' + elementSelector + ' to be present';
       return createMatcher({
-        match: function (element) {
+        match: function(element) {
           return element.find(elementSelector).length >  0;
         },
         success: success,
@@ -167,7 +167,7 @@
     function checkDropRowVisibility(position) {
       var success = 'Expected drop row to be visible' + position === 'prev' ? 'before' : 'after';
       return createMatcher({
-        match: function (element) {
+        match: function(element) {
           return element[position]() && angular.element(element[position]()[0]).hasClass('dropRow');
         },
         success: success,

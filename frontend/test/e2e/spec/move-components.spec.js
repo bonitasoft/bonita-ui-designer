@@ -25,7 +25,7 @@ describe('moving components test', function() {
     var firstComponent = editor.components.first();
     firstComponent.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( firstComponent ).perform();
+    browser.actions().mouseMove(firstComponent).perform();
     expect(firstComponent.element(by.css('.move-left')).isPresent()).toBe(false);
     expect(firstComponent.element(by.css('.move-right')).isPresent()).toBe(true);
   });
@@ -34,7 +34,7 @@ describe('moving components test', function() {
     var lastComponent = editor.components.last();
     lastComponent.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( lastComponent ).perform();
+    browser.actions().mouseMove(lastComponent).perform();
     expect(lastComponent.element(by.css('.move-left')).isPresent()).toBe(true);
     expect(lastComponent.element(by.css('.move-right')).isPresent()).toBe(false);
   });
@@ -45,7 +45,7 @@ describe('moving components test', function() {
     secondComponent.click();
 
     //simulate mouseover to display the component toolbars
-    browser.actions().mouseMove( secondComponent.element(by.css('.move-left')) ).click().perform();
+    browser.actions().mouseMove(secondComponent.element(by.css('.move-left'))).click().perform();
     expect(editor.components.first().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-2');
   });
 
@@ -55,7 +55,7 @@ describe('moving components test', function() {
 
     secondComponent.click();
     //simulate mouseover to display the component toolbar
-    browser.actions().mouseMove( secondComponent.element(by.css('.move-right')) ).click().perform();
+    browser.actions().mouseMove(secondComponent.element(by.css('.move-right'))).click().perform();
     expect(editor.components.last().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-2');
   });
 

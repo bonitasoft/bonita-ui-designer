@@ -1,13 +1,13 @@
-(function () {
+(function() {
 
   'use strict';
 
-  describe('Menu bar controller', function () {
+  describe('Menu bar controller', function() {
     var pageRepo, scope, controller, $q, $window, $modal, modalInstance, $stateParams, $state;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.menu-bar', 'mock.modal'));
 
-    beforeEach(inject(function ($rootScope, $controller, _pageRepo_, _$q_, _$modal_, $modalInstance, _$state_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$modal_, $modalInstance, _$state_) {
       pageRepo = _pageRepo_;
       $q = _$q_;
       $window = {};
@@ -29,20 +29,19 @@
       });
     }));
 
-    it('should save a page', function () {
+    it('should save a page', function() {
       spyOn(pageRepo, 'save');
-      var page = {id: 'person'};
+      var page = { id: 'person' };
 
       controller.save(page);
 
       expect(pageRepo.save).toHaveBeenCalledWith('person', page);
     });
 
-
-    it('should save and export page', function () {
+    it('should save and export page', function() {
       spyOn(pageRepo, 'save').and.returnValue($q.when({}));
       spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
-      var page = {id: 'person'};
+      var page = { id: 'person' };
 
       controller.saveAndExport(page);
       scope.$apply();
@@ -65,7 +64,7 @@
       spyOn($modal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
       spyOn($state, 'go');
-      var page = {id: 'person'};
+      var page = { id: 'person' };
 
       controller.saveAs(page);
 

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   describe('DataCtrl', function() {
 
@@ -42,7 +42,7 @@
     });
 
     it('should delete a data', function() {
-      $scope.page.data = {name: 'colin', value: 4};
+      $scope.page.data = { name: 'colin', value: 4 };
 
       $scope.delete('colin');
       $scope.$apply();
@@ -60,13 +60,13 @@
       $scope.filterPageData();
       $scope.$apply();
 
-      expect($scope.pageData).toEqual({'colin': { value: 4 }});
+      expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
     });
 
     it('should filter a data that match a data value', function() {
       var data = {
         'colin': { value: 4 },
-        'api': { value: {'user': 'toto'} }
+        'api': { value: { 'user': 'toto' } }
       };
 
       $scope.page.data = data;
@@ -74,7 +74,7 @@
       $scope.filterPageData();
       $scope.$apply();
 
-      expect($scope.pageData).toEqual({ 'api': { value: {'user': 'toto'} } });
+      expect($scope.pageData).toEqual({ 'api': { value: { 'user': 'toto' } } });
     });
 
     it('should reset filter for data', function() {
@@ -88,13 +88,13 @@
       $scope.filterPageData();
       $scope.$apply();
 
-      expect($scope.pageData).toEqual({'colin': { value: 4 }});
+      expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
       $scope.clearFilter();
-      expect($scope.pageData).toEqual( data );
+      expect($scope.pageData).toEqual(data);
     });
 
-    it('should open a data popup', function(){
-      spyOn($modal, 'open').and.returnValue( {
+    it('should open a data popup', function() {
+      spyOn($modal, 'open').and.returnValue({
         result: $q.when({})
       });
       $scope.openDataPopup();

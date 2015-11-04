@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.common.directives')
-  .directive('autofocus', function ($timeout) {
+  .directive('autofocus', function($timeout) {
 
     'use strict';
 
@@ -23,14 +23,14 @@ angular.module('bonitasoft.designer.common.directives')
       require: '?aceEditor',
       link: function(scope, element, attr, ctrl) {
         var input = element.get(0);
-        if(attr.autofocus) {
+        if (attr.autofocus) {
           // If the previous state was false and new one is true focus dat input
-          scope.$watch(attr.autofocus, function (newVal, oldVal) {
-            if(!oldVal && newVal) {
+          scope.$watch(attr.autofocus, function(newVal, oldVal) {
+            if (!oldVal && newVal) {
               // To be trigger after the watch...
               $timeout(function() {
                 input.focus();
-                if (input.type === 'text' && input.value.length > 0 ) {
+                if (input.type === 'text' && input.value.length > 0) {
                   input.select();
                 }
               });
@@ -38,16 +38,15 @@ angular.module('bonitasoft.designer.common.directives')
           });
         }
 
-
         // If you do not depend of a property to watch as the defautl autofocus works only once with angular
-        if(!attr.autofocus) {
+        if (!attr.autofocus) {
 
           $timeout(function() {
             if (ctrl) {
               ctrl.editor.focus();
             } else {
               input.focus();
-              if (input.type === 'text' && input.value.length > 0 ) {
+              if (input.type === 'text' && input.value.length > 0) {
                 input.select();
               }
             }

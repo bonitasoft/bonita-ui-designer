@@ -27,12 +27,12 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
    */
   function customs() {
     return $http.get('rest/widgets?view=light')
-      .then(function (response) {
+      .then(function(response) {
         return response.data;
       })
-      .then(function (widgets) {
+      .then(function(widgets) {
         return widgets.filter(
-          function (widget) {
+          function(widget) {
             return widget.custom;
           });
       });
@@ -55,16 +55,16 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
   }
 
   function create(widget, sourceWidgetId) {
-    return $http.post('rest/widgets' + (sourceWidgetId ? '?duplicata=' + sourceWidgetId : ''), widget).then(function (response) {
+    return $http.post('rest/widgets' + (sourceWidgetId ? '?duplicata=' + sourceWidgetId : ''), widget).then(function(response) {
       return response.data;
     });
   }
 
   function save(widget) {
     return $http.put('rest/widgets/' + widget.id, widget)
-     .success(function(){
-        lastSavedState = widget;
-      });
+      .success(function() {
+       lastSavedState = widget;
+     });
   }
 
   function createAsset(id, asset) {
@@ -78,11 +78,11 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
     return $http.delete('rest/widgets/' + id + '/assets/' + asset.id);
   }
 
-  function incrementOrderAsset(widgetId, asset){
+  function incrementOrderAsset(widgetId, asset) {
     return $http.put('rest/widgets/' + widgetId + '/assets/' + asset.id + '?increment=true', asset);
   }
 
-  function decrementOrderAsset(widgetId, asset){
+  function decrementOrderAsset(widgetId, asset) {
     return $http.put('rest/widgets/' + widgetId + '/assets/' + asset.id + '?decrement=true', asset);
   }
 
@@ -114,12 +114,11 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
     return 'export/widget/' + widget.id;
   };
 
-
   /**
    * Initialise lastSavedState to track update from editor
    * @param  {Object} widget  the current widget being edited
    */
-  function initLastSavedState(widget){
+  function initLastSavedState(widget) {
     lastSavedState = angular.copy(widget);
   }
 
@@ -128,7 +127,7 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
    * @param  {Object} widget the widget being updated
    * @return {Boolean}
    */
-  function needSave(widget){
+  function needSave(widget) {
     return !angular.equals(widget, lastSavedState);
   }
 
@@ -149,7 +148,7 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
     addProperty: addProperty,
     updateProperty: updateProperty,
     deleteProperty: deleteProperty,
-    exportUrl:exportUrl,
+    exportUrl: exportUrl,
     forceImport: (uuid) => $http.get('import/widget/' + uuid)
   };
 });

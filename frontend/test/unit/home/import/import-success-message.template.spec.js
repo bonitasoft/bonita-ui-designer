@@ -1,4 +1,4 @@
-describe('ImportArtifactSuccessMessageTemplate', function () {
+describe('ImportArtifactSuccessMessageTemplate', function() {
 
   var element, scope;
 
@@ -9,14 +9,14 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     return string.replace(/(\r\n|\n|\r|\t)/gm,'').replace(/ +(?= )/g,'').trim();
   }
 
-  beforeEach(inject(function ($controller, $rootScope, gettextCatalog, $compile, $templateCache) {
+  beforeEach(inject(function($controller, $rootScope, gettextCatalog, $compile, $templateCache) {
     scope = $rootScope.$new();
 
     var template = $templateCache.get('js/home/import/import-success-message.html');
     element = $compile(template)(scope);
   }));
 
-  it('should print to user that element has been added', function () {
+  it('should print to user that element has been added', function() {
     angular.extend(scope, {
       type: 'page',
       element: {
@@ -29,7 +29,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully imported.');
   });
 
-  it('should print to user that element has been overridden', function () {
+  it('should print to user that element has been overridden', function() {
     angular.extend(scope, {
       type: 'page',
       element: {
@@ -42,7 +42,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully imported.');
   });
 
-  it('should not display added dependencies section when no dependencies are added', function () {
+  it('should not display added dependencies section when no dependencies are added', function() {
     angular.extend(scope, {
       dependencies: {
 
@@ -53,14 +53,14 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     expect(element.find('section.ImportReport-added').length).toBe(0);
   });
 
-  it('should display added dependencies', function () {
+  it('should display added dependencies', function() {
     angular.extend(scope, {
-      element:{ name: 'aPage' },
+      element: { name: 'aPage' },
       overridden: false,
       dependencies: {
         added: {
-          page: [ { name: 'anotherPage' }],
-          widget: [ { name: 'aWidget' }]
+          page: [{ name: 'anotherPage' }],
+          widget: [{ name: 'aWidget' }]
         }
       }
     });
@@ -72,7 +72,7 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     expect(hardTrim(element.find('section.ImportReport-added ul li').next().next().text())).toBe('widget aWidget');
   });
 
-  it('should not display overridden dependencies section when no dependencies are overridden', function () {
+  it('should not display overridden dependencies section when no dependencies are overridden', function() {
     angular.extend(scope, {
       dependencies: {
 
@@ -83,12 +83,12 @@ describe('ImportArtifactSuccessMessageTemplate', function () {
     expect(element.find('section.ImportReport-overridden').length).toBe(0);
   });
 
-  it('should display overridden dependencies', function () {
+  it('should display overridden dependencies', function() {
     angular.extend(scope, {
       dependencies: {
         overridden: {
-          page: [ { name: 'aPage' }, { name: 'anotherPage' }],
-          widget: [ { name: 'aWidget' }]
+          page: [{ name: 'aPage' }, { name: 'anotherPage' }],
+          widget: [{ name: 'aWidget' }]
         }
       }
     });

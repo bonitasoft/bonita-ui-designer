@@ -10,12 +10,12 @@ describe('data-type', function() {
     it('should return an object of dataTypes', function() {
       var dataTypes = service.getDataTypes();
       var TYPES = ['constant', 'url', 'expression', 'json', 'urlparameter'];
-      expect(Array.isArray(dataTypes)).toBe( true );
+      expect(Array.isArray(dataTypes)).toBe(true);
       dataTypes.forEach(function(dataType) {
-        expect(dataType.hasOwnProperty('type')).toBe( true );
+        expect(dataType.hasOwnProperty('type')).toBe(true);
         expect(TYPES.indexOf(dataType.type)).toBeGreaterThan(-1);
-        expect(dataType.hasOwnProperty('label')).toBe( true );
-        expect(dataType.hasOwnProperty('defaultValue')).toBe( true );
+        expect(dataType.hasOwnProperty('label')).toBe(true);
+        expect(dataType.hasOwnProperty('defaultValue')).toBe(true);
       });
     });
   });
@@ -23,7 +23,7 @@ describe('data-type', function() {
   describe('getDataLabel', function() {
     it('should return label for known types', function() {
       service.getDataTypes().forEach(function(dataType) {
-        expect( service.getDataLabel(dataType.type) ).toEqual( dataType.label );
+        expect(service.getDataLabel(dataType.type)).toEqual(dataType.label);
       });
     });
 
@@ -35,7 +35,7 @@ describe('data-type', function() {
   describe('getDataDefaultValue', function() {
     it('should return label for known types', function() {
       service.getDataTypes().forEach(function(dataType) {
-        expect( service.getDataDefaultValue(dataType.type) ).toEqual( dataType.defaultValue );
+        expect(service.getDataDefaultValue(dataType.type)).toEqual(dataType.defaultValue);
       });
     });
 
@@ -46,9 +46,9 @@ describe('data-type', function() {
 
   describe('createData', function() {
     it('should return a new object for data', function() {
-       expect(service.createData()).toBeDefined();
-       expect(service.createData().hasOwnProperty('type')).toBe( true );
-       expect(service.createData().hasOwnProperty('exposed')).toBe( true );
+      expect(service.createData()).toBeDefined();
+      expect(service.createData().hasOwnProperty('type')).toBe(true);
+      expect(service.createData().hasOwnProperty('exposed')).toBe(true);
     });
   });
 

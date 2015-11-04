@@ -1,4 +1,4 @@
-describe('dropZone directive', function () {
+describe('dropZone directive', function() {
 
   'use strict';
 
@@ -6,7 +6,7 @@ describe('dropZone directive', function () {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function ($injector) {
+  beforeEach(inject(function($injector) {
 
     var $rootScope = $injector.get('$rootScope');
     $compile = $injector.get('$compile');
@@ -23,7 +23,7 @@ describe('dropZone directive', function () {
 
     row = [];
     container = {
-      rows:[row]
+      rows: [row]
     };
     scope.container = container;
     scope.row = row;
@@ -37,54 +37,54 @@ describe('dropZone directive', function () {
     directiveScope = element.scope();
   }));
 
-  it('should contains 2 drop zones', function () {
+  it('should contains 2 drop zones', function() {
     expect(element.find('.dropZone').length).toBe(2);
   });
 
-  it('should put right modifier on the second drop zone', function () {
+  it('should put right modifier on the second drop zone', function() {
     expect(element.find('.dropZone').last().hasClass('dropZone--right')).toBeTruthy();
   });
 
-  it('should add a widget when the element is dropped before', function () {
-    var data = {type: 'widget', widget: 'widget'};
+  it('should add a widget when the element is dropped before', function() {
+    var data = { type: 'widget', widget: 'widget' };
     directiveScope.componentIndex = 1;
     directiveScope.dropBefore(data);
 
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 1);
   });
 
-  it('should add a widget when the element is dropped after', function () {
-    var data = {type: 'widget', widget: 'widget'};
+  it('should add a widget when the element is dropped after', function() {
+    var data = { type: 'widget', widget: 'widget' };
     directiveScope.componentIndex = 2;
     directiveScope.dropAfter(data);
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 3);
   });
 
-  it('should add a container when the element is dropped before', function () {
-    var data = {type: 'container'};
+  it('should add a container when the element is dropped before', function() {
+    var data = { type: 'container' };
     directiveScope.componentIndex = 1;
     directiveScope.dropBefore(data);
 
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 1);
   });
 
-  it('should add a container when the element is dropped after', function () {
-    var data = {type: 'container'};
+  it('should add a container when the element is dropped after', function() {
+    var data = { type: 'container' };
     directiveScope.componentIndex = 4;
     directiveScope.dropAfter(data);
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 5);
   });
 
-  it('should add a tabs container when the element is dropped before', function () {
-    var data = {type: 'tabsContainer'};
+  it('should add a tabs container when the element is dropped before', function() {
+    var data = { type: 'tabsContainer' };
     directiveScope.componentIndex = 2;
     directiveScope.dropBefore(data);
 
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 2);
   });
 
-  it('should add a tabs container when the element is dropped after', function () {
-    var data = {type: 'tabsContainer'};
+  it('should add a tabs container when the element is dropped after', function() {
+    var data = { type: 'tabsContainer' };
     directiveScope.componentIndex = 2;
     directiveScope.dropAfter(data);
 
@@ -95,7 +95,7 @@ describe('dropZone directive', function () {
 
     var widgetConfig = {
       $$id: Date.now(),
-      $$widget: {name: 'widget'},
+      $$widget: { name: 'widget' },
       $$parentContainerRow: {
         row: []
       }
@@ -115,7 +115,6 @@ describe('dropZone directive', function () {
       expect(scope.editor.removeCurrentComponent).toHaveBeenCalledWith(widgetConfig);
     });
 
-
     it('should drop the current item in the row', function() {
       directiveScope.dropBefore(widgetConfig);
       expect(scope.editor.dropElement).toHaveBeenCalledWith(widgetConfig);
@@ -134,14 +133,12 @@ describe('dropZone directive', function () {
 
     describe('change the position inside a row', function() {
 
-
       var widgetConfig2 = angular.copy(widgetConfig);
       var widgetConfig3 = angular.copy(widgetConfig);
 
       widgetConfig.$$widget.name = 'test-1';
       widgetConfig2.$$widget.name = 'test-2';
       widgetConfig3.$$widget.name = 'test-3';
-
 
       beforeEach(function() {
         directiveScope.row = [widgetConfig,widgetConfig2,widgetConfig3];
@@ -153,7 +150,6 @@ describe('dropZone directive', function () {
         expect(scope.editor.moveAtPosition).not.toHaveBeenCalled();
         isMovableBoolean = true;
       });
-
 
       describe('Item will not move', function() {
 
@@ -193,7 +189,6 @@ describe('dropZone directive', function () {
             expect(scope.editor.moveAtPosition).not.toHaveBeenCalled();
           });
 
-
           it('should not move on after sur the first item', function() {
             directiveScope.componentIndex = 0;
             directiveScope.dropAfter(widgetConfig2);
@@ -205,7 +200,6 @@ describe('dropZone directive', function () {
             directiveScope.dropBefore(widgetConfig2);
             expect(scope.editor.moveAtPosition).not.toHaveBeenCalled();
           });
-
 
         });
 
@@ -297,7 +291,6 @@ describe('dropZone directive', function () {
       });
 
     });
-
 
   });
 

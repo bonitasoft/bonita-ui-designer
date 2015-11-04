@@ -1,9 +1,9 @@
-describe('ace-editor directive', function () {
+describe('ace-editor directive', function() {
   var $compile, element, template, scope, directiveScope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     var $rootScope = _$rootScope_;
 
@@ -34,7 +34,7 @@ describe('ace-editor directive', function () {
     expect(editor.setShowPrintMargin).toHaveBeenCalledWith(false);
   });
 
-  it('should enable auto-complete if auto-completion data object is provided', function(){
+  it('should enable auto-complete if auto-completion data object is provided', function() {
     var editor = {
       setOptions: function() {},
       setShowPrintMargin: function() {},
@@ -43,7 +43,7 @@ describe('ace-editor directive', function () {
       }
     };
 
-    scope.data = {name:'bob'} ;
+    scope.data = { name: 'bob' };
     template = '<ace-editor mode=\'javascript\' ng-model=\'toto\' auto-completion=\'{{data}}\'></ace-editor>';
     element = $compile(template)(scope);
     scope.$apply();

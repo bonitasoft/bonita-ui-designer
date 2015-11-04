@@ -12,9 +12,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
-    'use strict';
+  'use strict';
 
   angular
     .module('bonitasoft.designer.editor.palette')
@@ -30,8 +30,8 @@
         widget: '='
       },
       templateUrl: 'js/editor/palette/palette-widget.html',
-      link: function (scope) {
-        scope.$watch('widget.component.icon', function (icon) {
+      link: function(scope) {
+        scope.$watch('widget.component.icon', function(icon) {
           var blankIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 20"></svg>';
           scope.iconData = 'data:image/svg+xml,' + encodeURIComponent(icon || blankIcon);
         });

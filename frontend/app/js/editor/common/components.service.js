@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -32,7 +32,7 @@
     };
 
     function register(items) {
-      componentsMap = items.reduce(function (components, item) {
+      componentsMap = items.reduce(function(components, item) {
         components[item.component.id] = item;
         return components;
       }, componentsMap);

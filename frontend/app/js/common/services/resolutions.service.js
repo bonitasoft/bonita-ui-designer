@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+(function() {
 
   'use strict';
 
@@ -22,17 +22,9 @@
 
   function resolutionsService() {
 
+    var defaultResolution = { key: 'xs', icon: 'laptop', width: '100%' }, currentResolution = defaultResolution;
 
-    var resolutions = [
-      {
-        key: 'xs',
-        icon: 'laptop',
-        width: '100%'
-      }
-    ];
-
-    var defaultResolution = resolutions[0];
-    var currentResolution = resolutions[0];
+    var resolutions = [defaultResolution];
 
     var defaultDimension = {
       xs: 12
@@ -79,7 +71,6 @@
       return defaultResolution;
     }
 
-
     /**
      * Returns all resolutions ordered by size
      * @returns {Array}
@@ -111,11 +102,8 @@
      * @returns {Object}
      */
     function get(resolutionKey) {
-      return resolutions.filter(function (resolution) {
-          return resolution.key === resolutionKey;
-        })[0] || defaultResolution;
+      return resolutions.filter((resolution) => resolution.key === resolutionKey).pop() || defaultResolution;
     }
-
 
   }
 })();

@@ -34,7 +34,6 @@ describe('asset panel', function() {
 
   });
 
-
   describe('on filtering', function() {
 
     it('should display a table with 4 assets', function() {
@@ -70,8 +69,7 @@ describe('asset panel', function() {
 
   });
 
-
-  describe('for an asset', function(){
+  describe('for an asset', function() {
 
     describe('stored locally in a widget', function() {
 
@@ -110,7 +108,6 @@ describe('asset panel', function() {
         expect(buttons.last().getAttribute('title')).toBe('Delete asset');
       });
 
-
       it('should display "Page level" like asset type and the name asset is "myStyle.css"', function() {
         var tds = localAsset.all(by.tagName('td'));
 
@@ -135,7 +132,6 @@ describe('asset panel', function() {
         expect(buttons.first().getAttribute('title')).toBe('Update asset');
         expect(buttons.last().getAttribute('title')).toBe('Delete asset');
       });
-
 
       it('should has a name with a prefix http', function() {
         var tds = localAsset.all(by.tagName('td'));

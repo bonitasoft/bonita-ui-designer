@@ -16,7 +16,7 @@ describe('errorInterceptor', function() {
       type: 'SomeException',
       message: 'functional error'
     };
-    $httpBackend.expectPUT('/foo').respond(400, data, {'Content-Type': 'application/json'});
+    $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'application/json' });
     $http.put('/foo');
     $httpBackend.flush();
 
@@ -25,7 +25,7 @@ describe('errorInterceptor', function() {
 
   it('should add a generic error if non-JSON error response', function() {
     var data = 'Houston, we have a problem';
-    $httpBackend.expectPUT('/foo').respond(400, data, {'Content-Type': 'text/plain'});
+    $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'text/plain' });
     $http.put('/foo');
     $httpBackend.flush();
 
@@ -36,7 +36,7 @@ describe('errorInterceptor', function() {
     var data = {
       error: 'Houston, we have a problem'
     };
-    $httpBackend.expectPUT('/foo').respond(400, data, {'Content-Type': 'application/json'});
+    $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'application/json' });
     $http.put('/foo');
     $httpBackend.flush();
 
