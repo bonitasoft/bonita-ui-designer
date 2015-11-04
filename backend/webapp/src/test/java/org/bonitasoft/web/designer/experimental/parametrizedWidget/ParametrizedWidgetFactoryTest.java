@@ -16,11 +16,7 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;

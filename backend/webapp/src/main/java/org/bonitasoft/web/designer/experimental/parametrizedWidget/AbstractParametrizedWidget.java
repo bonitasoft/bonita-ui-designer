@@ -24,15 +24,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Maps.EntryTransformer;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+
+import com.google.common.collect.ImmutableSortedMap;
+import com.google.common.collect.Maps.EntryTransformer;
 
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
@@ -45,12 +44,14 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     private String alignment = Alignment.LEFT.getValue();
     private String cssClasses = "";
 
-    private static final Set<String> dataParameters = new HashSet<>();
+    private static final Map<String, ParameterType> propertyParameters = new HashMap<>();
     static {
-        dataParameters.add(COLLECTION_PARAMETER);
-        dataParameters.add(VALUE_PARAMETER);
-        dataParameters.add(DATA_TO_SEND_PARAMETER);
-        dataParameters.add(REPEATED_COLLECTION_PARAMETER);
+        propertyParameters.put(COLLECTION_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(VALUE_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(DATA_TO_SEND_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
     }
 
     public AbstractParametrizedWidget(String widgetId) {
@@ -158,13 +159,13 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
             @Override
             public PropertyValue transformEntry(String paramName, Object value) {
-                return isDataParameter(paramName) ? createPropertyValue(ParameterType.VARIABLE, value) : createPropertyValue(ParameterType.CONSTANT, value);
+                return createPropertyValue(getParameterType(paramName), value);
             }
         };
     }
 
-    private boolean isDataParameter(String paramName) {
-        return dataParameters.contains(paramName);
+    private ParameterType getParameterType(String paramName) {
+        return propertyParameters.containsKey(paramName) ? propertyParameters.get(paramName) : ParameterType.CONSTANT;
     }
 
     private PropertyValue createPropertyValue(ParameterType type, Object value) {

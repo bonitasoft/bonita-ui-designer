@@ -16,17 +16,10 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aJSONData;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aUrlParameterData;
-import static org.bonitasoft.web.designer.builder.DataBuilder.anExpressionData;
-import static org.bonitasoft.web.designer.builder.DataBuilder.anURLData;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.builder.DataBuilder.*;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -36,6 +29,8 @@ import org.bonitasoft.web.designer.model.page.PageType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {
@@ -139,6 +134,7 @@ public class ContractToPageMapperTest {
         assertThat(submitButon.getId()).isEqualTo("pbButton");
         assertThat(submitButon.getPropertyValues()).contains(
                 entry(ParameterConstants.DATA_TO_SEND_PARAMETER, aDataPropertyValue("formOutput")),
-                entry(ParameterConstants.ACTION_PARAMETER, aConstantPropertyValue(ButtonAction.SUBMIT_TASK.getValue())));
+                entry(ParameterConstants.ACTION_PARAMETER, aConstantPropertyValue(ButtonAction.SUBMIT_TASK.getValue())),
+                entry(ParameterConstants.TARGET_URL_ON_SUCCESS_PARAMETER, aInterpolationPropertyValue("/bonita")));
     }
 }
