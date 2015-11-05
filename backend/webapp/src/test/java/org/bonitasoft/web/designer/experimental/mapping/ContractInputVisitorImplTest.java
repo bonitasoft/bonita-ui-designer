@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
-        assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
+        assertThat(firstRow.get(0).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Names")));
 
         List<Element> secondRow = page.getRows().get(1);
@@ -100,7 +101,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
-        assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
+        assertThat(firstRow.get(0).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
 
         List<Element> secondRow = page.getRows().get(1);
@@ -125,9 +126,10 @@ public class ContractInputVisitorImplTest {
     public void add_a_children_components_embedded_in_a_container_with_buttons_when_visiting_a_multiple_node_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit((NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
-                ContractInputBuilder.aStringContractInput("firstName"),
-                ContractInputBuilder.aStringContractInput("lastName")).mulitple().build());
+        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit(
+                (NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
+                        ContractInputBuilder.aStringContractInput("firstName"),
+                        ContractInputBuilder.aStringContractInput("lastName")).mulitple().build());
 
         assertThat(page.getRows()).hasSize(3);//one for the container label, one for the container,one for the button bar
 
@@ -135,7 +137,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow).hasSize(1);
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
-        assertThat(((Component) firstRow.get(0)).getPropertyValues()).contains(
+        assertThat(firstRow.get(0).getPropertyValues()).contains(
                 entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
 
         List<Element> secondRow = page.getRows().get(1);
@@ -154,6 +156,62 @@ public class ContractInputVisitorImplTest {
         assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
+
+        List<Element> thirdRow = page.getRows().get(2);
+        assertThat(thirdRow).hasSize(2);
+        Component addButton = (Component) thirdRow.get(0);
+        assertThat(addButton.getId()).isEqualTo("pbButton");
+        Component removeButton = (Component) thirdRow.get(1);
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
+    }
+
+    @Test
+    public void add_a_complex_children_components_embedded_in_a_container_when_visiting_a_multiple_complex_node_contract_input() throws Exception {
+        Page page = new Page();
+
+        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit(
+                (NodeContractInput) ContractInputBuilder.aNodeContractInput("complex").mulitple().withInput(
+                        ContractInputBuilder.aNodeContractInput("subcomplex")
+                                .withInput(ContractInputBuilder.aStringContractInput("lastName")).build()).build());
+
+        assertThat(page.getRows()).hasSize(3);//one for the container label, one for the container,one for the button bar
+
+        List<Element> complexFirstRow = page.getRows().get(0);
+        assertThat(complexFirstRow).hasSize(1);
+        assertThat(((Component) complexFirstRow.get(0)).getId()).isEqualTo("pbTitle");
+        assertThat(complexFirstRow.get(0).getPropertyValues()).contains(
+                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Complex")));
+
+        List<Element> complexSecondRow = page.getRows().get(1);
+        assertThat(complexSecondRow).hasSize(1);
+        assertThat(complexSecondRow.get(0)).isInstanceOf(Container.class);
+
+        Container complexContainer = (Container) complexSecondRow.get(0);
+        assertThat(complexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
+                aDataPropertyValue("formInput.complex")));
+        assertThat(complexContainer.getRows()).hasSize(2);
+        assertThat(complexContainer.getRows().get(0)).hasSize(1);
+
+        Component subcomplexComponent = (Component) complexContainer.getRows().get(0).get(0);
+        assertThat(subcomplexComponent.getId()).isEqualTo("pbTitle");
+        assertThat(subcomplexComponent.getPropertyValues()).contains(
+                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Subcomplex")));
+
+        List<Element> subcomplexSecondRow = complexContainer.getRows().get(1);
+        assertThat(subcomplexSecondRow).hasSize(1);
+        assertThat(subcomplexSecondRow.get(0)).isInstanceOf(Container.class);
+
+        Container subComplexContainer = (Container) subcomplexSecondRow.get(0);
+        assertThat(subComplexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
+                aDataPropertyValue(null)));
+        assertThat(subComplexContainer.getRows()).hasSize(1);
+        assertThat(subComplexContainer.getRows().get(0)).hasSize(1);
+
+        Component lastnameInputComponent = (Component) subComplexContainer.getRows().get(0).get(0);
+        assertThat(lastnameInputComponent.getId()).isEqualTo("pbInput");
+        assertThat(lastnameInputComponent.getPropertyValues()).contains(
+                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")),
+                entry(ParameterConstants.VALUE_PARAMETER, aDataPropertyValue("$item.subcomplex.lastName")));
 
         List<Element> thirdRow = page.getRows().get(2);
         assertThat(thirdRow).hasSize(2);

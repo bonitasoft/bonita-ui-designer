@@ -32,8 +32,6 @@ public interface ContractInput extends ContractInputContainer {
 
     void setParent(ContractInput parentInput);
 
-    String path();
-
     void setType(String classname);
 
     void setDescription(String description);
