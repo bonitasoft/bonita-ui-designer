@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.contract;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
-
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class AbstractContractInput implements ContractInput {
@@ -75,17 +69,5 @@ public abstract class AbstractContractInput implements ContractInput {
     @JsonIgnore
     public void setParent(ContractInput parentInput) {
         this.parentInput = parentInput;
-    }
-
-    @Override
-    public String path() {
-        List<String> pathNames = newArrayList();
-        pathNames.add(getName());
-        ContractInput pInput = getParent();
-        while (pInput != null) {
-            pathNames.add(pInput.getName());
-            pInput = pInput.getParent();
-        }
-        return pathNames.isEmpty() ? null : on(".").join(reverse(pathNames));
     }
 }
