@@ -28,8 +28,8 @@ describe('utils', function() {
 
     it('getSources should return a table containing Local and External', function() {
       expect(assetsService.getSources()).toEqual({
-        external: { key: 'external', value: 'External' },
-        local: { key: 'local', value: 'Local' }
+        external: { key: true, value: 'External' },
+        local: { key: false, value: 'Local' }
       });
     });
 
@@ -47,7 +47,7 @@ describe('utils', function() {
     it('should return an object with default value for type and source', function() {
       expect(assetsService.assetToForm()).toEqual({
         type: 'js',
-        source: 'external'
+        external: true
       });
     });
 
@@ -56,13 +56,14 @@ describe('utils', function() {
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
-        order: 2
+        order: 2,
+        external: true
       };
       expect(assetsService.assetToForm(asset)).toEqual({
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
-        source: 'external',
+        external: true,
         oldname: 'http://asset.css',
         oldtype: 'css',
         order: 2
@@ -80,7 +81,7 @@ describe('utils', function() {
         id: 'UIID',
         name: 'asset.css',
         type: 'css',
-        source: 'local',
+        external: undefined,
         oldname: 'asset.css',
         oldtype: 'css',
         order: 2
@@ -94,14 +95,15 @@ describe('utils', function() {
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
-        source: 'external',
+        external: true,
         order: 2
       };
       expect(assetsService.formToAsset(formasset)).toEqual({
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
-        order: 2
+        order: 2,
+        external: true
       });
     });
   });

@@ -1,18 +1,18 @@
 <div class="form-group">
     <label class="control-label control-label--required" for="source" translate>Source</label>
     <select id="source" name="source" class="form-control"
-            ng-model="vm.newAsset.source"
+            ng-model="vm.newAsset.external"
             ng-disabled="!vm.isNewAsset"
-            ng-options="k as v.value for (k, v) in vm.assetSources"></select>
+            ng-options="v.key as v.value for (k, v) in vm.assetSources"></select>
 </div>
 
 <div class="form-group" ng-if="vm.isExternalAsset(vm.newAsset)">
     <label class="control-label control-label--required" for="name">
         <span translate>URL</span>
     </label>
-    <input type="url" id="name" name="name" ng-model="vm.newAsset.name" class="form-control" autofocus  placeholder="http://...." required>
-    <div class="text-danger" ng-if="addAsset.name.$dirty && addAsset.name.$error.url">
-        <i class="fa fa-warning">&nbsp;</i><translate>Invalid URL (must start by http:// or https://)</translate>
+    <input type="text" name="url" ng-model="vm.newAsset.name" class="form-control" autofocus  placeholder="http://...." required ng-pattern="vm.urlPattern">
+    <div class="text-danger" ng-if="addAsset.url.$dirty && addAsset.url.$error.pattern">
+        <i class="fa fa-warning">&nbsp;</i><translate>Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/</translate>
     </div>
     <div class="text-danger" ng-if="addAsset.$dirty && vm.isExisting(vm.newAsset)">
         <i class="fa fa-warning">&nbsp;</i><span ng-bind-html="vm.getWarningMessage(vm.newAsset)"></span>

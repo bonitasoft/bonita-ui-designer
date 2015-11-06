@@ -45,9 +45,12 @@
     vm.isExisting = isExisting;
     vm.getWarningMessage = getWarningMessage;
 
+    //pattern support relative URL
+    vm.urlPattern = /^[\w#!:.?+=&%@\-\/]+$/;
+
     // When source change, we reset name to avoid collision,
     // expecially with `assetsService.isExternalAsset` which is not accurate until asset have type returned by backend
-    $scope.$watch(() => vm.newAsset.source, (old, newValue) => old !== newValue && delete vm.newAsset.name);
+    $scope.$watch(() => vm.newAsset.external, (old, newValue) => old !== newValue && delete vm.newAsset.name);
 
     /**
      * An external asset is saved by a $http call

@@ -20,9 +20,9 @@ import static com.google.common.collect.Iterables.transform;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
+
 import javax.inject.Inject;
 
-import com.google.common.base.Function;
 import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -38,8 +38,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.google.common.base.Function;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationConfig.class})
+@ContextConfiguration(classes = { ApplicationConfig.class })
 @WebAppConfiguration("file:target/test-classes")
 public class WorkspaceMigrationTest {
 
@@ -55,9 +57,9 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.0.3";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.2.9";
 
-    String WIDGET_HIGHER_MIGRATION_VERSION = "1.0.2";
+    String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
 
     @Before
     public void setUp() throws Exception {
@@ -87,6 +89,7 @@ public class WorkspaceMigrationTest {
         Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
 
         assertThat(transform(propertyValues.values(), new Function<PropertyValue, String>() {
+
             @Override
             public String apply(PropertyValue value) {
                 return value.getType();

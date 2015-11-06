@@ -194,7 +194,8 @@
             'name': 'https://awesome.cdn.com/cool.js',
             'type': 'js',
             'order': 2,
-            'active': true
+            'active': true,
+            'external': true
           }
         ]
       },

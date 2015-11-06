@@ -14,16 +14,14 @@
  */
 package org.bonitasoft.web.designer.model.asset;
 
-
 import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -32,6 +30,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(JUnitParamsRunner.class)
 public class AssetTest {
@@ -82,14 +82,13 @@ public class AssetTest {
                 //Special character
                 $("myé&name.js.js"),
                 //Local asset with name starting by http
-                $("http_test.js")
-        );
+                $("http_test.js"));
     }
 
     /**
      * AssetNames injected in the test {@link #should_be_invalid_when_name_is_invalid(String, String)}
      * <ul>
-     * <li>The  value is the asset name (example jquery-1.11.3.min.js)</li>
+     * <li>The value is the asset name (example jquery-1.11.3.min.js)</li>
      * <li>Second value is the expected error message</li>
      * </ul>
      */
@@ -97,8 +96,7 @@ public class AssetTest {
         String errorMessage = "Asset name should be a filename containing only alphanumeric characters and no space or an external URL";
         return $(
                 //Not null
-                $(null, "Asset name should not be blank")
-        );
+                $(null, "Asset name should not be blank"));
     }
 
     @Test
@@ -139,7 +137,7 @@ public class AssetTest {
                         .setActive(true)
                         .setScope(AssetScope.PAGE));
 
-        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"componentId\":\"page-id\",\"scope\":\"page\",\"order\":1,\"active\":true}");
+        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"componentId\":\"page-id\",\"scope\":\"page\",\"order\":1,\"active\":true,\"external\":false}");
     }
 
     @Test
@@ -155,6 +153,6 @@ public class AssetTest {
                         .setScope(AssetScope.PAGE));
 
         //should only persist id, name, type and order
-        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"order\":1}");
+        assertThat(json).isEqualTo("{\"id\":\"UIID\",\"name\":\"file.js\",\"type\":\"js\",\"order\":1,\"external\":false}");
     }
 }

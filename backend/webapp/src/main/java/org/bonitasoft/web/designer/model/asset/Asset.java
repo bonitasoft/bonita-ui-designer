@@ -17,17 +17,18 @@ package org.bonitasoft.web.designer.model.asset;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 import java.util.Comparator;
+
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.primitives.Ints;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.primitives.Ints;
 
 /**
  * A web resource can be attached to a component
@@ -42,7 +43,6 @@ public class Asset {
      * An asset is identified by its name
      */
     @NotBlank(message = "Asset name should not be blank")
-    @CheckAssetName(message = "Asset name should be a filename containing only alphanumeric characters and no space or an external URL")
     private String name;
     /**
      * AssetType correspond to the file type
@@ -67,6 +67,8 @@ public class Asset {
      */
     private boolean active = true;
 
+    private boolean external = false;
+
     @JsonView({ JsonViewAsset.class, JsonViewPersistence.class })
     public String getId() {
         return id;
@@ -77,12 +79,17 @@ public class Asset {
         return this;
     }
 
-    @JsonIgnore
+    @JsonView({ JsonViewAsset.class, JsonViewPersistence.class })
     public boolean isExternal() {
-        return CheckAssetNameValidator.isAssetexternal(name);
+        return external;
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
+    public Asset setExternal(boolean external) {
+        this.external = external;
+        return this;
+    }
+
+    @JsonView({ JsonViewPersistence.class, JsonViewAsset.class })
     public String getName() {
         return name;
     }
@@ -92,7 +99,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
+    @JsonView({ JsonViewPersistence.class, JsonViewAsset.class })
     public AssetType getType() {
         return type;
     }
@@ -102,7 +109,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewAsset.class})
+    @JsonView({ JsonViewAsset.class })
     public String getComponentId() {
         return componentId;
     }
@@ -112,7 +119,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewAsset.class})
+    @JsonView({ JsonViewAsset.class })
     public String getScope() {
         return scope;
     }
@@ -122,7 +129,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewPersistence.class, JsonViewAsset.class})
+    @JsonView({ JsonViewPersistence.class, JsonViewAsset.class })
     public int getOrder() {
         return order;
     }
@@ -132,7 +139,7 @@ public class Asset {
         return this;
     }
 
-    @JsonView({JsonViewAsset.class})
+    @JsonView({ JsonViewAsset.class })
     public boolean isActive() {
         return active;
     }
@@ -192,6 +199,7 @@ public class Asset {
 
     public static Comparator<Asset> getComparatorByOrder() {
         return new Comparator<Asset>() {
+
             @Override
             public int compare(Asset asset1, Asset asset2) {
                 return Ints.compare(asset1.getOrder(), asset2.getOrder());
@@ -201,6 +209,7 @@ public class Asset {
 
     public static Comparator<Asset> getComparatorByComponentId() {
         return new Comparator<Asset>() {
+
             @Override
             public int compare(Asset asset1, Asset asset2) {
                 return ObjectUtils.compare(asset1.getComponentId(), asset2.getComponentId(), true);

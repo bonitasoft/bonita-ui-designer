@@ -14,12 +14,10 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
 
 public class AssetBuilder {
 
@@ -28,6 +26,7 @@ public class AssetBuilder {
     private AssetType type = AssetType.JAVASCRIPT;
     private String scope;
     private String componentId;
+    private Boolean external = false;
     private int order = 1;
     private boolean active = true;
 
@@ -69,6 +68,11 @@ public class AssetBuilder {
         return this;
     }
 
+    public AssetBuilder withExternal(boolean external) {
+        this.external = external;
+        return this;
+    }
+
     public AssetBuilder active() {
         this.active = true;
         return this;
@@ -80,7 +84,8 @@ public class AssetBuilder {
     }
 
     public Asset build() {
-        return new Asset().setId(id).setName(name).setType(type).setScope(scope).setOrder(order).setComponentId(componentId).setActive(active);
+        return new Asset().setId(id).setName(name).setType(type).setScope(scope).setOrder(order).setComponentId(componentId).setActive(active)
+                .setExternal(external);
     }
 
 }
