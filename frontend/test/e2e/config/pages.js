@@ -30,7 +30,8 @@
             'name': 'https://github.myfile.js',
             'type': 'js',
             'order': 2,
-            'active': true
+            'active': true,
+            'external': true
           },
           {
             'id': '0401a807-db07-4204-af8b-340078e6ee46',

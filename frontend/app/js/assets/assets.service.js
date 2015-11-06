@@ -34,8 +34,8 @@
     function assetsService(gettextCatalog) {
 
       var sources = {
-        external: { key: 'external', value: gettextCatalog.getString('External') },
-        local: { key: 'local', value: gettextCatalog.getString('Local') }
+        external: { key: true, value: gettextCatalog.getString('External') },
+        local: { key: false, value: gettextCatalog.getString('Local') }
       };
 
       return {
@@ -61,7 +61,7 @@
         if (!asset) {
           return {
             type: types[0].key,
-            source: sources.external.key
+            external: true
           };
         }
         //An asset is identified by name and type. If user choose to change them we need to delete
@@ -70,7 +70,7 @@
           id: asset.id,
           name: asset.name,
           type: asset.type,
-          source: isExternal(asset) ? sources.external.key : sources.local.key,
+          external: isExternal(asset),
           order: asset.order,
           oldname: asset.name,
           oldtype: asset.type
@@ -86,8 +86,9 @@
           type: formAsset.type,
           order: formAsset.order
         };
-        if (formAsset.source === sources.external.key) {
+        if (formAsset.external) {
           asset.name = formAsset.name;
+          asset.external = true;
         }
         return asset;
       }
@@ -96,7 +97,7 @@
        * External asset are URL
        */
       function isExternal(asset) {
-        return asset.source === sources.external.key || (asset.name && (asset.name.indexOf('http:') === 0 || asset.name.indexOf('https:') === 0));
+        return asset.external;
       }
 
       /**

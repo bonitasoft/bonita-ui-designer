@@ -16,16 +16,17 @@ package org.bonitasoft.web.designer.rendering;
 
 import java.io.IOException;
 
-import com.github.jknack.handlebars.Helper;
-import com.github.jknack.handlebars.Options;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 
+import com.github.jknack.handlebars.Helper;
+import com.github.jknack.handlebars.Options;
 
 /**
  * Helper used to display the asset src
  */
 public class AssetHelper implements Helper<Object> {
+
     /**
      * A singleton instance of this helper.
      */
@@ -39,7 +40,7 @@ public class AssetHelper implements Helper<Object> {
             Asset asset = (Asset) context;
             String widgetPrefix = "";
 
-            if (asset.getName().startsWith("http")) {
+            if (asset.isExternal()) {
                 return asset.getName();
             }
             if (AssetScope.WIDGET.equals(asset.getScope())) {

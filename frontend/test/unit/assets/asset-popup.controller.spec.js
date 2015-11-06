@@ -82,7 +82,7 @@ describe('AssetPopupCtrl', function() {
   });
 
   it('should send external data to the caller when user want to save it', function() {
-    var data = { name: 'myasset.js', source: 'external'};
+    var data = { name: 'myasset.js', external: true};
     spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
     let event = jasmine.createSpyObj('event', ['preventDefault']);
 
@@ -120,6 +120,18 @@ describe('AssetPopupCtrl', function() {
       return type.key;
     })).toEqual(['js', 'css', 'img']);
   });
+  it('should validate url', function() {
+    expect(controller.urlPattern.test('http://server:123/path')).toBe(true);
+    expect(controller.urlPattern.test('https://server:123/path')).toBe(true);
+    expect(controller.urlPattern.test('//server:123/path')).toBe(true);
+
+    expect(controller.urlPattern.test('/foo')).toBe(true);
+    expect(controller.urlPattern.test('../../foo')).toBe(true);
+    expect(controller.urlPattern.test('foo.txt')).toBe(true);
+
+    expect(controller.urlPattern.test('../../foo test')).toBe(false);
+    expect(controller.urlPattern.test('http://example.com:9999/~~``')).toBe(false);
+  });
 
   it('should expose form templates to the scope', function() {
     expect(controller.templates).toEqual({
@@ -148,7 +160,7 @@ describe('AssetPopupCtrl', function() {
     $scope.$apply();
     expect(controller.newAsset.name).toBe('anAsset');
 
-    controller.newAsset.source = 'external';
+    controller.newAsset.external = true;
     $scope.$apply();
     expect(controller.newAsset.name).toBeUndefined();
   });

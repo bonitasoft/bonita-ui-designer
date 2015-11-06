@@ -26,12 +26,20 @@ import org.jsoup.nodes.Element;
  */
 public class CustomAssertions extends Assertions {
 
-    public static Element toElement(String html) {
-        return HtmlAssert.toElement(html);
+    public static Element toBody(String html) {
+        return HtmlAssert.toBody(html);
     }
 
-    public static HtmlAssert assertThatHtml(String html) {
-        return new HtmlAssert(toElement(html));
+    public static Element toHead(String html) {
+        return HtmlAssert.toHead(html);
+    }
+
+    public static HtmlAssert assertThatHtmlBody(String html) {
+        return new HtmlAssert(toBody(html));
+    }
+
+    public static HtmlAssert assertThatHtmlHead(String html) {
+        return new HtmlAssert(toHead(html));
     }
 
     public static HtmlAssert assertThat(Element element) {

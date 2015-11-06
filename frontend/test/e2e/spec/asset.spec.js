@@ -203,17 +203,17 @@ describe('asset panel', function() {
       popup.source = 'External';
 
       // invalid URL
-      popup.url = 'notAnUrl';
-      expect($('input[type="url"] + div.text-danger').getText()).toBe(' Invalid URL (must start by http:// or https://)');
+      popup.url = 'notAnUrl ezr';
+      expect($('input[name="url"] + div.text-danger').getText()).toBe(' Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/');
       expect(popup.addBtn.isEnabled()).toBeFalsy();
 
       // already existing asset
       popup.url = 'https://github.myfile.js';
-      expect($('input[type="url"] + div.text-danger').getText()).toBe(' A JavaScript asset named https://github.myfile.js is already added to assets.');
+      expect($('input[name="url"] + div.text-danger').getText()).toBe(' A JavaScript asset named https://github.myfile.js is already added to assets.');
       expect(popup.addBtn.isEnabled()).toBeFalsy();
 
       popup.type = 'CSS';
-      expect($('input[type="url"] + div.text-danger').isPresent()).toBeFalsy();
+      expect($('input[name="url"] + div.text-danger').isPresent()).toBeFalsy();
       popup.addBtn.click();
 
       expect(assetPanel.assets).toContain({ type: 'JavaScript', name: 'https://github.myfile.js'});

@@ -24,21 +24,19 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtml;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.toElement;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Collections;
 
-import com.google.common.collect.Sets;
+import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
@@ -57,6 +55,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.google.common.collect.Sets;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlBuilderVisitorTest {
@@ -82,70 +82,70 @@ public class HtmlBuilderVisitorTest {
     public void setUp() throws Exception {
         initMocks(this);
         visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, directivesCollector, assetVisitor);
-        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String>emptySet());
+        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
     }
 
     @Test
     public void should_build_a_component_html_when_visiting_a_component() throws Exception {
-        assertThatHtml(visitor.visit(aComponent("pbWidget")
+        assertThatHtmlBody(visitor.visit(aComponent("pbWidget")
                 .withReference("component-reference")
                 .withPropertyValue("property", "value")
-                .build())).isEqualTo(testResource.load("component.html"));
+                .build())).isEqualToBody(testResource.load("component.html"));
     }
 
     @Test
     public void should_add_dimension_to_component() throws Exception {
-        Element element = CustomAssertions.toElement(visitor.visit(aComponent("pbWidget")
+        Element element = CustomAssertions.toBody(visitor.visit(aComponent("pbWidget")
                 .withDimension(3)
                 .build()));
 
-        assertThatHtml(element.childNode(1).outerHtml()).hasClass("col-xs-3");
+        assertThatHtmlBody(element.childNode(1).outerHtml()).hasClass("col-xs-3");
     }
 
     @Test
     public void should_build_a_container() throws GenerationException {
 
-        assertThatHtml(visitor.visit(aContainer()
+        assertThatHtmlBody(visitor.visit(aContainer()
                 .withReference("container-reference")
                 .withPropertyValue("property", "value")
-                .build())).isEqualTo(testResource.load("simplecontainer.html"));
+                .build())).isEqualToBody(testResource.load("simplecontainer.html"));
     }
 
     @Test
     public void should_add_rows_to_the_container() throws Exception {
 
-        assertThatHtml(visitor.visit(aContainer().with(aRow()).withReference("container-reference").build()))
-                .isEqualTo(testResource.load("containerWithRow.html"));
+        assertThatHtmlBody(visitor.visit(aContainer().with(aRow()).withReference("container-reference").build()))
+                .isEqualToBody(testResource.load("containerWithRow.html"));
     }
 
     @Test
     public void should_build_a_repeatable_container() throws GenerationException {
 
-        assertThatHtml(visitor.visit(aContainer().withReference("container-reference")
+        assertThatHtmlBody(visitor.visit(aContainer().withReference("container-reference")
                 .withPropertyValue("repeatedCollection", "json", "[\"foo\",\"bar\"]")
-                .build())).isEqualTo(testResource.load("repeatedContainer.html"));
+                .build())).isEqualToBody(testResource.load("repeatedContainer.html"));
     }
 
     @Test
     public void should_not_build_a_repeatable_container_if_repeated_collection_is_an_empty_string() throws GenerationException {
 
-        assertThatHtml(visitor.visit(aContainer().withReference("container-reference")
+        assertThatHtmlBody(visitor.visit(aContainer().withReference("container-reference")
                 .withPropertyValue("repeatedCollection", "json", "")
-                .build())).isEqualTo(testResource.load("notRepeatedContainer.html"));
+                .build())).isEqualToBody(testResource.load("notRepeatedContainer.html"));
     }
 
     @Test
     public void should_add_dimension_to_the_container() throws GenerationException {
 
-        assertThatHtml(visitor.visit(aContainer().withDimension(7).withReference("container-reference").build()))
-                .isEqualTo(testResource.load("containerWithDimension.html"));
+        assertThatHtmlBody(visitor.visit(aContainer().withDimension(7).withReference("container-reference").build()))
+                .isEqualToBody(testResource.load("containerWithDimension.html"));
     }
 
     @Test
     public void should_add_elements_to_the_container_rows() throws Exception {
 
         // we should have two div.col-xs-12 with two div.row containing added components
-        Elements rows = toElement(visitor.visit(aContainer().with(
+        Elements rows = toBody(visitor.visit(aContainer().with(
                 aRow().with(
                         aComponent().withWidgetId("pbLabel").build()),
                 aRow().with(
@@ -160,35 +160,34 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_build_a_tabsContainer_html_when_visiting_a_tabsContainer() throws Exception {
 
-        assertThatHtml(visitor.visit(aTabsContainer().
-                with(
-                        aTab().withId("1").withTitle("First").with(aContainer().withReference("first-container")),
-                        aTab().withId("2").withTitle("Last").with(aContainer().withReference("last-container")))
+        assertThatHtmlBody(visitor.visit(aTabsContainer().with(
+                aTab().withId("1").withTitle("First").with(aContainer().withReference("first-container")),
+                aTab().withId("2").withTitle("Last").with(aContainer().withReference("last-container")))
                 .withReference("tabs-container-reference")
-                .build())).isEqualTo(testResource.load("tabsContainerWithTwoTabs.html"));
+                .build())).isEqualToBody(testResource.load("tabsContainerWithTwoTabs.html"));
     }
 
     @Test
     public void should_build_a_tab_container_bootstrap_like() throws Exception {
 
-        assertThatHtml(visitor.visit(aTabsContainer()
+        assertThatHtmlBody(visitor.visit(aTabsContainer()
                 .withReference("tabs-container-reference")
                 .withDimension(4)
                 .withPropertyValue("property", "value")
-                .build())).isEqualTo(testResource.load("simpleTabContainer.html"));
+                .build())).isEqualToBody(testResource.load("simpleTabContainer.html"));
     }
 
     @Test
     public void should_add_elements_to_the_tab_container_tabs() throws Exception {
 
-        assertThatHtml(visitor.visit(aTabsContainer()
+        assertThatHtmlBody(visitor.visit(aTabsContainer()
                 .with(aTab()
                         .withId("1")
                         .with(aContainer()
                                 .with(aRow().with(aParagraph().withReference("paragraph-reference")))
                                 .withReference("container-reference")))
                 .withReference("tabs-container-reference")
-                .build())).isEqualTo(testResource.load("tabsContainerWithContent.html"));
+                .build())).isEqualToBody(testResource.load("tabsContainerWithContent.html"));
     }
 
     @Test
@@ -196,7 +195,7 @@ public class HtmlBuilderVisitorTest {
         Page page = aPage().build();
         when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
 
-        assertThatHtml(visitor.build(page, "mycontext/")).hasElement("div.container-fluid");
+        assertThatHtmlBody(visitor.build(page, "mycontext/")).hasElement("div.container-fluid");
     }
 
     @Test
@@ -221,29 +220,37 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_generate_html_for_a_page() throws Exception {
-        Page page = aPage().withId("page-id").with(
-                aContainer().with(
+        Asset assetJquery = AssetBuilder.anAsset().withName("//code.jquery.com/jquery-2.1.4.min.js").withExternal(true).build();
+        Asset assetRelative = AssetBuilder.anAsset().withName("bonita.min.js").withExternal(true).build();
+        Asset assetLocal = AssetBuilder.anAsset().withName("bonita.vendors.js").withExternal(false).build();
+        Page page = aPage().withId("page-id")
+                .withAsset(assetRelative, assetJquery)
+                .with(aContainer().with(
                         aRow().with(
                                 anInput().withReference("input-reference"),
-                                aParagraph().withReference("paragraph-reference"))).withReference("container-reference")).build();
+                                aParagraph().withReference("paragraph-reference")))
+                        .withReference("container-reference"))
+                .build();
         when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
         when(directivesCollector.collect(page)).thenReturn(asList(
                 "widgets/input/input.js",
                 "widgets/paragraph/paragraph.js"));
+        when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(assetRelative, assetJquery, assetLocal));
 
         String html = visitor.build(page, "mycontext/");
 
-        assertThatHtml(html).isEqualTo(testResource.load("page.html"));
+        assertThatHtmlBody(html).isEqualToBody(testResource.load("page.html"));
+        assertThatHtmlHead(html).isEqualToHead(testResource.load("page.html"));
     }
 
     @Test
     public void should_generate_html_for_a_formcontainer() throws GenerationException {
-        assertThatHtml(
+        assertThatHtmlBody(
                 visitor.visit(aFormContainer()
                         .with(aContainer().withReference("container-reference").build())
                         .withReference("formcontainer-reference")
                         .build()))
-                .isEqualTo(testResource.load("formContainerSimple.html"));
+                                .isEqualToBody(testResource.load("formContainerSimple.html"));
     }
 
     @Test
@@ -254,22 +261,21 @@ public class HtmlBuilderVisitorTest {
 
         String html = visitor.visit(formContainer);
 
-        assertThatHtml(html).isEqualTo(testResource.load("formContainerWithDimension.html"));
+        assertThatHtmlBody(html).isEqualToBody(testResource.load("formContainerWithDimension.html"));
     }
 
     @Test
     public void should_add_container_to_the_formcontainer() throws Exception {
-        FormContainer formContainer =
-                aFormContainer()
-                        .method("POST")
-                        .action("/action.do")
-                        .with(aContainer().with(aRow().with(
-                                aComponent().withWidgetId("pbLabel").withReference("component-reference").build()))
-                                .withReference("container-reference").build())
-                        .withReference("formcontainer-reference")
-                        .build();
+        FormContainer formContainer = aFormContainer()
+                .method("POST")
+                .action("/action.do")
+                .with(aContainer().with(aRow().with(
+                        aComponent().withWidgetId("pbLabel").withReference("component-reference").build()))
+                        .withReference("container-reference").build())
+                .withReference("formcontainer-reference")
+                .build();
 
-        assertThatHtml(visitor.visit(formContainer)).isEqualTo(testResource.load("formContainerWithContainer.html"));
+        assertThatHtmlBody(visitor.visit(formContainer)).isEqualToBody(testResource.load("formContainerWithContainer.html"));
     }
 
     @Test
@@ -286,7 +292,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_not_add_extra_modules_when_no_widgets_needs_them() throws Exception {
         Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String>emptySet());
+        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String> emptySet());
 
         String html = visitor.build(page, "");
 
@@ -302,12 +308,10 @@ public class HtmlBuilderVisitorTest {
                 Sets.newHashSet(
                         //A css file in the page
                         new Asset().setName("myfile.css").setType(AssetType.CSS),
+                        new Asset().setName("http://moncdn/myfile.css").setExternal(true).setType(AssetType.CSS),
                         //An external css file in the page
-                        new Asset().setName("http://moncdn/myfile.css").setType(AssetType.CSS),
                         //A js file in a widget
-                        new Asset().setName("myfile.js").setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id")
-                )
-        );
+                        new Asset().setName("myfile.js").setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id")));
 
         String html = visitor.build(page, "mycontext/");
 
@@ -324,7 +328,7 @@ public class HtmlBuilderVisitorTest {
                 aRow().with(aParagraph().withReference("1")).build(),
                 aRow().with(anInput().withReference("2"), aParagraph().withReference("3")).build()));
 
-        assertThatHtml(html).isEqualTo(testResource.load("rowsWithComponents.html"));
+        assertThatHtmlBody(html).isEqualToBody(testResource.load("rowsWithComponents.html"));
     }
 
     @Test
@@ -336,13 +340,12 @@ public class HtmlBuilderVisitorTest {
                         //Widgets assets
                         new Asset().setName("myfile3.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
                         new Asset().setName("myfile2.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile99.js").setOrder(99).setActive(false).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile99.js").setOrder(99).setActive(false).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET)
+                                .setComponentId("widget-id"),
                         //Another widget but with a name starting with z
                         new Asset().setName("myfile4.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"),
                         //Page asset
-                        new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT)
-                )
-        );
+                        new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT)));
 
         String html = visitor.build(page, "mycontext/");
 

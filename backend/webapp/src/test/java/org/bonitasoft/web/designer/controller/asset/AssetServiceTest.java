@@ -32,7 +32,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.bonitasoft.web.designer.builder.AssetBuilder;
@@ -55,6 +54,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.google.common.collect.Lists;
 
 @RunWith(JUnitParamsRunner.class)
 public class AssetServiceTest {
@@ -253,30 +253,27 @@ public class AssetServiceTest {
         Asset asset = anAsset().withId("anAsset").build();
         Page page = aPage().withAsset(asset).build();
         doThrow(IOException.class).when(assetRepository).delete(asset);
-
         assetService.save(page, asset);
     }
-
-    protected Object[] invalidArgsForDuplicate() throws Exception{
+    protected Object[] invalidArgsForDuplicate() throws Exception {
         Path tempPath = Files.createTempDirectory("test");
         return $(
                 $(null, tempPath, "src-page-id", "page-id", "source page path is required"),
                 $(tempPath, null, "src-page-id", "page-id", "target page path is required"),
                 $(tempPath, tempPath, null, "page-id", "source page id is required"),
-                $(tempPath, tempPath, "src-page-id", null, "target page id is required")
-        );
+                $(tempPath, tempPath, "src-page-id", null, "target page id is required"));
     }
 
     @Parameters(method = "invalidArgsForDuplicate")
     @Test
-    public void should_not_duplicate_asset_when_arg_invalid(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId, String expectedErrorMessage) throws Exception {
+    public void should_not_duplicate_asset_when_arg_invalid(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId,
+            String expectedErrorMessage) throws Exception {
         when(repository.getComponentName()).thenReturn("page");
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage(is(expectedErrorMessage));
 
         assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId);
     }
-
 
     @Test
     public void should_duplicate_asset() throws Exception {
@@ -313,7 +310,7 @@ public class AssetServiceTest {
     @Test
     public void should_not_delete_file_for_existing_external_asset() throws Exception {
         Page page = aFilledPage("page-id");
-        Asset asset = anAsset().withId("UIID").withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build();
+        Asset asset = anAsset().withId("UIID").withName("http://mycdn.com/myasset.js").withExternal(true).withType(JAVASCRIPT).build();
         page.getAssets().add(asset);
 
         assetService.delete(page, "UIID");
@@ -329,9 +326,8 @@ public class AssetServiceTest {
         assetService.changeAssetOrderInComponent(aPage().build(), null, DECREMENT);
     }
 
-
     private Asset[] getSortedAssets() {
-        return new Asset[]{
+        return new Asset[] {
                 anAsset().withId("asset1").withName("asset1").withOrder(1).build(),
                 anAsset().withId("asset2").withName("asset2").withOrder(2).build(),
                 anAsset().withId("asset3").withName("asset3").withOrder(3).build()

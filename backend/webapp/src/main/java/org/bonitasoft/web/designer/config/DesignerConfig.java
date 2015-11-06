@@ -15,21 +15,14 @@
 package org.bonitasoft.web.designer.config;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -41,7 +34,7 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.controller.utils.Unzipper;
+import org.bonitasoft.web.designer.migration.AssetExternalMigrationStep;
 import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
 import org.bonitasoft.web.designer.migration.LiveMigration;
@@ -80,6 +73,13 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+
 /**
  * @author Guillaume EHRET
  */
@@ -89,7 +89,7 @@ public class DesignerConfig {
 
     @Bean
     public Class[] jacksonSubTypes() {
-        return new Class[]{Component.class, Container.class, FormContainer.class, TabsContainer.class};
+        return new Class[] { Component.class, Container.class, FormContainer.class, TabsContainer.class };
     }
 
     @Bean
@@ -197,8 +197,9 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep, PagePropertiesExportStep pagePropertiesExportStep, HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
-        return new ExportStep[]{htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
+    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep, PagePropertiesExportStep pagePropertiesExportStep,
+            HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
+        return new ExportStep[] { htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep };
     }
 
     @Bean
@@ -247,7 +248,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories, RequiredModulesVisitor requiredModulesVisitor, DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
+    public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories, RequiredModulesVisitor requiredModulesVisitor,
+            DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
         return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, directivesCollector, assetVisitor);
     }
 
@@ -268,25 +270,30 @@ public class DesignerConfig {
 
     @Bean
     public AssetService<Page> pageAssetService(PageRepository pageRepository) {
-        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository), pageAssetImporter(pageAssetRepository(pageRepository)), objectMapperWrapper());
+        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository), pageAssetImporter(pageAssetRepository(pageRepository)),
+                objectMapperWrapper());
     }
 
     @Bean
     public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository) {
-        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository), widgetAssetImporter(widgetAssetRepository(widgetRepository)), objectMapperWrapper());
+        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository), widgetAssetImporter(widgetAssetRepository(widgetRepository)),
+                objectMapperWrapper());
     }
 
     @Bean
-    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository, BondMigrationStep bondMigrationStep) {
+    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository,
+            BondMigrationStep bondMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
-                new Migration<>("1.0.3", bondMigrationStep)));
+                new Migration<>("1.0.3", bondMigrationStep),
+                new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>())));
     }
 
     @Bean
     public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
-        return new LiveMigration<>(widgetRepository, widgetLoader, singletonList(
-                new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>())));
+        return new LiveMigration<>(widgetRepository, widgetLoader, asList(
+                new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
+                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
     }
 
     @Bean

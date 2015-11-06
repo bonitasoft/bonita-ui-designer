@@ -15,11 +15,11 @@
     }
 
     set url(value) {
-      $('.modal-content input[type="url"]').clear().sendKeys(value);
+      $('.modal-content input[name="url"]').clear().sendKeys(value);
     }
 
     get url() {
-      return $('input[type="url"]').getAttribute('value');
+      return $('input[name="url"]').getAttribute('value');
     }
 
     set file(path) {

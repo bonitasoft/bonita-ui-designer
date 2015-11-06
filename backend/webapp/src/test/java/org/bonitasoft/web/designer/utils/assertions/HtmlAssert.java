@@ -24,7 +24,7 @@ import org.jsoup.select.Elements;
 
 /**
  * Custom assertj assert to compare html strings using jsoup
- * Also add helper method {@link #toElement(String)} to transform html string into jsoup element
+ * Also add helper method {@link #toBody(String)} to transform html string into jsoup element
  *
  * @author Colin PUY
  */
@@ -36,12 +36,21 @@ public class HtmlAssert extends AbstractAssert<HtmlAssert, Element> {
         super(actual, HtmlAssert.class);
     }
 
-    protected static Element toElement(String html) {
+    protected static Element toHead(String html) {
+        return Jsoup.parse(html).head();
+    }
+
+    protected static Element toBody(String html) {
         return Jsoup.parse(html).body().child(0);
     }
 
-    public HtmlAssert isEqualTo(String html) {
-        objects.assertEqual(info, normalize(actual), normalize(toElement(html)));
+    public HtmlAssert isEqualToBody(String html) {
+        objects.assertEqual(info, normalize(actual), normalize(toBody(html)));
+        return this;
+    }
+
+    public HtmlAssert isEqualToHead(String html) {
+        objects.assertEqual(info, normalize(actual), normalize(toHead(html)));
         return this;
     }
 
@@ -86,7 +95,7 @@ public class HtmlAssert extends AbstractAssert<HtmlAssert, Element> {
     public HtmlAssert hasChild(String html) {
         Elements children = actual.children();
         for (Element element : children) {
-            if (normalize(element).equals(normalize(toElement(html)))) {
+            if (normalize(element).equals(normalize(toBody(html)))) {
                 return this;
             }
         }

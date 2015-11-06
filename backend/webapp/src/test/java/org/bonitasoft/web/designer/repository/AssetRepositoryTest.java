@@ -20,9 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -30,7 +28,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -47,6 +44,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.google.common.io.Files;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AssetRepositoryTest {
@@ -171,7 +170,9 @@ public class AssetRepositoryTest {
     public void should_find_asset_path_used_by_a_component() throws Exception {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
+        System.out.println(asset.getName());
         pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
+
         createDirectories(pagesPath.resolve("assets").resolve("js"));
         temporaryFolder.newFilePath("assets/js/" + asset.getName());
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
@@ -189,13 +190,14 @@ public class AssetRepositoryTest {
 
         Asset asset = aFilledAsset(page);
         asset.setName("http://mycdnserver.myasset.js");
+        asset.setExternal(true);
 
         when(pageRepository.get("page-id")).thenReturn(
                 aPage().withAsset(asset).build());
 
         assetRepository.findAssetPath(
 
-                "page-id", "http://mycdnserver.myasset.js", AssetType.JAVASCRIPT);
+        "page-id", "http://mycdnserver.myasset.js", AssetType.JAVASCRIPT);
     }
 
     @Test
