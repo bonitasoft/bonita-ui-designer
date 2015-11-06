@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp test && gulp test:datepicker --timezone='America/Los_Angeles' && gulp test:datepicker --timezone='Asia/Bangkok'",
     "test-watch": "gulp test-watch",
     "postinstall": "bower install",
     "build": "gulp",
@@ -51,6 +51,8 @@
     "karma-jasmine": "~0.3.0",
     "karma-junit-reporter": "0.2.2",
     "karma-phantomjs-launcher": "~0.1.4",
+    "log4js": "0.6.27",
+    "optimist": "0.6.1",
     "through": "^2.3.6",
     "through2": "^0.6.5"
   },

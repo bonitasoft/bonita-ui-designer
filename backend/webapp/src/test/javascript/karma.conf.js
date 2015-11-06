@@ -1,5 +1,13 @@
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
+var argv = require('optimist').argv;
+var logger = require('log4js').getLogger();
+
+// changing timezone if set in arguments
+if (argv.timezone) {
+  process.env.TZ = argv.timezone;
+  logger.warn('Running tests using timezone [' + argv.timezone + ']');
+}
 
 module.exports = function (config) {
   config.set({
@@ -20,7 +28,7 @@ module.exports = function (config) {
       'src/main/runtime/js/**/*.module.js',
       'src/main/runtime/js/**/*.js',
       'target/widget-directives/**/*.js',
-      'src/test/javascript/**/!(karma.conf).js'
+      argv.specs || 'src/test/javascript/**/!(karma.conf).js'
     ],
 
     // list of files / patterns to exclude
