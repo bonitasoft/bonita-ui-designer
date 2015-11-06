@@ -80,7 +80,7 @@
       "type": "text",
       "defaultValue": "MM/dd/yyyy",
       "help": "Specify your own format",
-      "caption": "y: year, M: month, d: day, h: hour, m: minute, s: second"
+      "caption": "y: year, M: month, d: day"
     }
   ],
   "assets": [
