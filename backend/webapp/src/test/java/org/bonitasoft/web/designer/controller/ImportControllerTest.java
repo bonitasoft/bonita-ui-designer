@@ -23,9 +23,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
-import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -65,7 +65,7 @@ public class ImportControllerTest {
                 anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID("UUIDZipFile")
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
                         .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
-        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(expectedReport);
+        when(multipartFileImporter.importFile(file, pageImporter, false)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
@@ -89,9 +89,9 @@ public class ImportControllerTest {
                 anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID(uuid)
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
                         .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
-        when(multipartFileImporter.importFile(file, pageImporter)).thenReturn(expectedReport);
+        when(multipartFileImporter.importFile(file, pageImporter, true)).thenReturn(expectedReport);
 
-        mockMvc.perform(fileUpload("/import/page").file(file))
+        mockMvc.perform(fileUpload("/import/page?force=true").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value(uuid));
@@ -101,7 +101,7 @@ public class ImportControllerTest {
     @Test
     public void should_respond_an_error_with_ok_code_when_import_exception_occurs_while_importing_a_page() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
-        when(multipartFileImporter.importFile(file, pageImporter)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
+        when(multipartFileImporter.importFile(file, pageImporter, false)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
 
         mockMvc.perform(fileUpload("/import/page").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
@@ -115,9 +115,9 @@ public class ImportControllerTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
         ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).build();
-        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(expectedReport);
+        when(multipartFileImporter.importFile(file, widgetImporter, true)).thenReturn(expectedReport);
 
-        mockMvc.perform(fileUpload("/import/widget").file(file))
+        mockMvc.perform(fileUpload("/import/widget?force=true").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
@@ -130,9 +130,9 @@ public class ImportControllerTest {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
         String uuid = "UUID";
         ImportReport expectedReport = anImportReportFor(aWidget().id("aWidget").name("myWidgetName")).withUUID(uuid).withOverride(true).build();
-        when(multipartFileImporter.importFile(file, widgetImporter)).thenReturn(expectedReport);
+        when(multipartFileImporter.importFile(file, widgetImporter, true)).thenReturn(expectedReport);
 
-        mockMvc.perform(fileUpload("/import/widget").file(file))
+        mockMvc.perform(fileUpload("/import/widget?force=true").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value(uuid))
@@ -144,7 +144,7 @@ public class ImportControllerTest {
     @Test
     public void should_respond_an_error_with_ok_code_when_import_exception_occurs_while_importing_a_widget() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
-        when(multipartFileImporter.importFile(file, widgetImporter)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
+        when(multipartFileImporter.importFile(file, widgetImporter, false)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
 
         mockMvc.perform(fileUpload("/import/widget").file(file))
                 .andExpect(content().contentType(MediaType.TEXT_PLAIN))

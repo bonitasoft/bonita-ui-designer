@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller.importer;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
@@ -45,9 +46,9 @@ public class MultipartFileImportTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, false);
 
-        verify(importer).execute(any(InputStream.class));
+        verify(importer).execute(any(InputStream.class), eq(false));
     }
 
     @Test
@@ -55,9 +56,9 @@ public class MultipartFileImportTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/x-zip-compressed", "foo".getBytes());
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, true);
 
-        verify(importer).execute(any(InputStream.class));
+        verify(importer).execute(any(InputStream.class), eq(true));
     }
 
     @Test
@@ -65,9 +66,9 @@ public class MultipartFileImportTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/x-zip", "foo".getBytes());
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, false);
 
-        verify(importer).execute(any(InputStream.class));
+        verify(importer).execute(any(InputStream.class), eq(false));
     }
 
     @Test
@@ -75,9 +76,9 @@ public class MultipartFileImportTest {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/octet-stream", "foo".getBytes());
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, false);
 
-        verify(importer).execute(any(InputStream.class));
+        verify(importer).execute(any(InputStream.class), eq(false));
     }
 
     @Test
@@ -88,7 +89,7 @@ public class MultipartFileImportTest {
         exception.expect(ImportException.class);
         exception.expectMessage("Part named [file] is needed to successfully import a component");
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, true);
     }
 
     @Test
@@ -99,7 +100,7 @@ public class MultipartFileImportTest {
         exception.expect(ImportException.class);
         exception.expectMessage("Only zip files are allowed when importing a component");
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, false);
     }
 
     @Test
@@ -110,17 +111,17 @@ public class MultipartFileImportTest {
         exception.expect(ImportException.class);
         exception.expectMessage("Only zip files are allowed when importing a component");
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, false);
     }
 
     @Test
     public void should_throw_import_exception_when_an_import_error_occurs() throws Exception {
-        doThrow(new ImportException(ImportException.Type.PAGE_NOT_FOUND, "an Error message")).when(importer).execute(any(InputStream.class));
+        doThrow(new ImportException(ImportException.Type.PAGE_NOT_FOUND, "an Error message")).when(importer).execute(any(InputStream.class), eq(true));
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
 
         exception.expect(ImportException.class);
         exception.expectMessage("an Error message");
 
-        multipartFileImporter.importFile(file, importer);
+        multipartFileImporter.importFile(file, importer, true);
     }
 }
