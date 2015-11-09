@@ -194,7 +194,7 @@ describe('pageRepo', function() {
   });
   it('should call import/page/uuid when forceImport is called', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectGET('import/page/' + uuid).respond('');
+    $httpBackend.expectPOST('import/page/' + uuid).respond('');
     pageRepo.forceImport(uuid);
     $httpBackend.flush();
   });

@@ -173,7 +173,7 @@ public class PageArtifactImporterTest {
         exception.expect(ImportException.class);
         exception.expect(hasType(CANNOT_OPEN_ZIP));
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test
@@ -184,14 +184,14 @@ public class PageArtifactImporterTest {
         exception.expect(ImportException.class);
         exception.expect(hasType(UNEXPECTED_ZIP_STRUCTURE));
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test(expected = ServerImportException.class)
     public void should_throw_server_import_exception_when_error_occurs_while_unzipping_zip_file() throws Exception {
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenThrow(IOException.class);
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test(expected = ServerImportException.class)

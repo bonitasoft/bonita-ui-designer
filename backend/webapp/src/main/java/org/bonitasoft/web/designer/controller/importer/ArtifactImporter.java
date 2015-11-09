@@ -17,9 +17,7 @@ package org.bonitasoft.web.designer.controller.importer;
 import static java.lang.String.format;
 import static java.nio.file.Files.notExists;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +30,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipException;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
@@ -71,9 +68,9 @@ public class ArtifactImporter<T extends Identifiable> {
         }
     }
 
-    public ImportReport execute(InputStream is) {
+    public ImportReport execute(InputStream is, boolean force) {
         Path extractDir = unzip(is);
-        return importFromPath(extractDir);
+        return (force) ? forceImportFromPath(extractDir) : importFromPath(extractDir);
     }
 
     public ImportReport forceExecution(String uuid) {
