@@ -223,6 +223,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         name: 'favoriteWidget',
         custom: true,
         lastUpdate: 1447891242960,
+        favorite: true,
         template: '<div>My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>',
         properties: [
           {
@@ -249,6 +250,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
       name: 'Person',
       type: 'page',
       lastUpdate: 1447944407862,
+      favorite: true,
       data: {
         alreadyExistsData: { type: 'constant', value: 'aValue' },
         jsonExample: { type: 'json', value: {} },
@@ -565,7 +567,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
 
     // get all light representation
     $httpBackend.whenGET('rest/widgets?view=light').respond(function() {
-      var response = widgets.map(({id, name, custom, lastUpdate}) => ({id, name, custom, lastUpdate}));
+      var response = widgets.map(({id, name, custom, lastUpdate, favorite}) => ({id, name, custom, lastUpdate, favorite}));
       return [200, response, {}];
     });
 
@@ -601,7 +603,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
      * ******************************************************************************************************/
     // get all (light representation)
     $httpBackend.whenGET('rest/pages').respond(function() {
-      var response = pages.map(({id, name, type, lastUpdate}) => ({id, name, type, lastUpdate}));
+      var response = pages.map(({id, name, type, lastUpdate, favorite}) => ({id, name, type, lastUpdate, favorite}));
       return [200, response, {}];
     });
 

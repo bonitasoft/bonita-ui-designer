@@ -14,10 +14,11 @@
  */
  (function() {
    'use strict';
-   angular.module('bonitasoft.designer.home').directive('homeWidgets', function() {
+   angular.module('bonitasoft.designer.home').directive('homeWidgets', function(widgetRepo) {
      return {
        restrict: 'E',
-       templateUrl: 'js/home/home-widgets.html'
+       templateUrl: 'js/home/home-widgets.html',
+       link: (scope) => scope.widgetRepo = widgetRepo
      };
    });
  })();

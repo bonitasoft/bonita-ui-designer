@@ -4,7 +4,6 @@ describe('home page', function() {
 
   let ALL_PAGE_NAMES = ['Person', 'empty'];
   let ALL_WIDGET_NAMES = ['awesomeWidget', 'favoriteWidget'];
-
   var home;
 
   beforeEach(function() {
@@ -184,6 +183,16 @@ describe('home page', function() {
     expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
 
     home.search('');
+    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
+    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
+  });
+
+  it('should filter favorite widgets and pages', function() {
+    home.filterFavorites();
+    expect(home.getListedPageNames()).toEqual(['Person']);
+    expect(home.getListedWidgetNames()).toEqual(['favoriteWidget']);
+
+    home.unfilterFavorites();
     expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
     expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
   });

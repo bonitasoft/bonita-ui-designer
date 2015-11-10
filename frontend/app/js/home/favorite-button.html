@@ -1,0 +1,8 @@
+<button class="Artifact-button Artifact-button-favorite"
+        ng-class="{'Artifact-button-favorite--checked': vm.isFavorite()}"
+        ng-click="vm.toggleFavorite()"
+        type="button"
+        title="{{vm.getTitle()}}">
+    <i class="fa"
+       ng-class="{'fa-star-o': !vm.isFavorite(), 'fa-star': vm.isFavorite()}"></i>
+</button>

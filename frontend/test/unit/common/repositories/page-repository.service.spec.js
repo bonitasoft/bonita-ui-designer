@@ -193,10 +193,27 @@ describe('pageRepo', function() {
     pageRepo.createAsset('my-page', asset);
     $httpBackend.flush();
   });
+
   it('should call import/page/uuid when forceImport is called', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
     $httpBackend.expectPOST('import/page/' + uuid).respond('');
     pageRepo.forceImport(uuid);
+    $httpBackend.flush();
+  });
+
+  it('should mark a page as favorite', function() {
+    $httpBackend.expectPUT('rest/pages/page-id/favorite', true).respond('');
+
+    pageRepo.markAsFavorite('page-id');
+
+    $httpBackend.flush();
+  });
+
+  it('should unmark a page as favorite', function() {
+    $httpBackend.expectPUT('rest/pages/page-id/favorite', false).respond('');
+
+    pageRepo.unmarkAsFavorite('page-id');
+
     $httpBackend.flush();
   });
 });
