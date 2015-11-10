@@ -64,7 +64,6 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.runtimeFolder));
   });
 
-
   /**
    * js task, concatenate and minimify vendor js files
    */

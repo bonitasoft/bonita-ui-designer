@@ -75,11 +75,13 @@ describe('Service: bindingsFactory', function () {
     }
   };
 
-  var componentModel, model;
+  var componentModel, model, rootScope;
 
-  beforeEach(inject(function (bindingsFactory, modelFactory) {
+  beforeEach(inject(function (bindingsFactory, modelFactory, $rootScope) {
     model = modelFactory.create(data);
+    rootScope = $rootScope;
     bindingsFactory.create(properties, model, componentModel = {});
+    rootScope.$apply();
   }));
 
   it('should allow to retrieve a data value', function () {
