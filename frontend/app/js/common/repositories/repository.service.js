@@ -83,7 +83,16 @@
       forceImport(uuid) {
         return this.$http.post(`import/${this.type}/${uuid}`);
       }
+
+      markAsFavorite(artifactId) {
+        return this.$http.put(`${this.baseUrl}/${artifactId}/favorite`, true);
+      }
+
+      unmarkAsFavorite(artifactId) {
+        return this.$http.put(`${this.baseUrl}/${artifactId}/favorite`, false);
+      }
     }
+
     return Repository;
   }
 

@@ -202,10 +202,27 @@ describe('widgetRepo', function() {
     widgetRepo.incrementOrderAsset('my-widget', asset);
     $httpBackend.flush();
   });
+
   it('should call import/widget/uuid when forceImport is called', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
     $httpBackend.expectPOST('import/widget/' + uuid).respond('');
     widgetRepo.forceImport(uuid);
+    $httpBackend.flush();
+  });
+
+  it('should mark a widget as favorite', function() {
+    $httpBackend.expectPUT('rest/widgets/widget-id/favorite', true).respond('');
+
+    widgetRepo.markAsFavorite('widget-id');
+
+    $httpBackend.flush();
+  });
+
+  it('should unmark a widget as favorite', function() {
+    $httpBackend.expectPUT('rest/widgets/widget-id/favorite', false).respond('');
+
+    widgetRepo.unmarkAsFavorite('widget-id');
+
     $httpBackend.flush();
   });
 });

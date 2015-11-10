@@ -10,7 +10,7 @@
 }
 
 .HomeHeader:before {
-  content:"";
+  content: "";
   display: inline-block;
   vertical-align: middle;
   width: 1px;
@@ -18,7 +18,7 @@
 }
 
 .HomeHeader-logo {
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 3.6em;
   transform: translate(0, -50%);
@@ -43,7 +43,7 @@
 }
 
 .HomeHeader-help {
-  position:absolute;
+  position: absolute;
   top: 50%;
   right: 3.6em;
   transform: translate(0, -50%);
@@ -67,9 +67,10 @@
   height: calc(~"100% - 100px");
   padding: 1.5em;
 }
- .row--Home, .col--Home {
+
+.row--Home, .col--Home {
   height: 100%;
- }
+}
 
 .Panel {
   height: 100%;
@@ -78,7 +79,7 @@
   overflow: auto;
 }
 
-.Panel-heading{
+.Panel-heading {
   color: @color-default-panel-header-title;
   background-color: @color-default-panel-header-bg;
   display: table;
@@ -86,18 +87,18 @@
   font-size: 1.1em
 }
 
-.Panel-heading--primary{
+.Panel-heading--primary {
   color: @color-primary-panel-header-title;
   background-color: @color-primary-panel-header-bg;
 }
 
-.Panel-icon{
+.Panel-icon {
   margin-right: .5em;
 }
 
-.Panel-title{
+.Panel-title {
   margin: 0;
-  padding:.8em;
+  padding: .8em;
   font-size: 1.15em;
   text-transform: uppercase;
   font-weight: normal;
@@ -131,7 +132,6 @@
   background-color: saturate(lighten(@color-default-panel-header-button-bg, 10%), 10%);
 }
 
-
 .PanelButton--primary {
   background-color: @color-primary-panel-header-button-bg;
 }
@@ -140,7 +140,6 @@
 .PanelButton--primary:active {
   background-color: saturate(lighten(@color-primary-panel-header-button-bg, 10%), 10%);
 }
-
 
 .ArtifactList {
   margin-top: 1em;
@@ -181,7 +180,7 @@
 .Artifact-link span {
   padding: .7em;
   font-size: 1.2em;
-  width:100%;
+  width: 100%;
   display: table-cell;
   white-space: nowrap;
   overflow: hidden;
@@ -243,7 +242,7 @@
 .Artifact-button {
   border: none;
   background: none;
-   color: @color-default-panel-item-action-icon;
+  color: @color-default-panel-item-action-icon;
 }
 
 .Artifact-button:hover {
@@ -256,6 +255,18 @@
 
 .Artifact-button--primary:hover {
   color: @color-primary-panel-item-active;
+}
+
+.Artifact-button-favorite:hover {
+  color: @Artifact-button--favorite-color;
+}
+
+.Artifact-button-favorite--checked {
+  color: @Artifact-button--favorite-color;
+
+  &:hover {
+    color: darken(@Artifact-button--favorite-color, 5%);
+  }
 }
 
 .CreateArtifact {
@@ -288,7 +299,7 @@
   color: @color-primary-panel-create;
 }
 
-.CreateArtifact-label::after{
+.CreateArtifact-label::after {
   content: "";
   position: absolute;
   width: 115px;
@@ -321,8 +332,21 @@
     padding-left: 0.8em;
     list-style: none;
   }
-  .ImportReport--smallAndUnderlined{
+  .ImportReport--smallAndUnderlined {
     text-decoration: underline;
     font-size: 0.8em;
   }
+}
+
+.HomeFilters-form {
+  padding-bottom: 0.5em;
+}
+
+.form-control.Home-SearchBox {
+  width: 25em;
+  margin-right: 1em;
+}
+
+.HomeFilters-form .radio label {
+  padding-left: 8px;
 }
