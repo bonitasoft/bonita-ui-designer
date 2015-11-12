@@ -15,10 +15,11 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.reverse;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
@@ -53,7 +54,7 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
         Container container = toMultipleContainer(contractInput);
-        rows.add(Collections.<Element> singletonList(parametrizedWidgetFactory.createTitle(contractInput).getAdapter(Component.class)));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).getAdapter(Component.class)));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             ((Labeled) component).setLabel("");
@@ -62,7 +63,7 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ITEM_ITERATOR);
         }
-        container.getRows().add(Collections.<Element> singletonList(component.getAdapter(Component.class)));
+        container.getRows().add(Collections.<Element>singletonList(component.getAdapter(Component.class)));
         return container;
     }
 
@@ -72,7 +73,7 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
-        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
+        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         return multipleContainer.getAdapter(Container.class);
     }
 
@@ -87,13 +88,13 @@ public class ContractInputToWidgetMapper {
     private Component toSimpleComponent(ContractInput contractInput) {
         AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (widget instanceof Valuable) {
-            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
+            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         }
         return widget.getAdapter(Component.class);
     }
 
     public Container toContainer(NodeContractInput nodeContractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element> singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).getAdapter(Component.class)));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).getAdapter(Component.class)));
         return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput) : toSimpleContainer(nodeContractInput);
     }
 
@@ -104,8 +105,25 @@ public class ContractInputToWidgetMapper {
         return submitButton.getAdapter(Component.class);
     }
 
-    private String inputValue(ContractInput contractInput) {
-        return on(".").join(FORM_INPUT_DATA, contractInput.path());
+    private String buildPathForInputValue(ContractInput contractInput) {
+        List<String> pathNames = newArrayList();
+        pathNames.add(contractInput.getName());
+        ContractInput pInput = contractInput.getParent();
+        while (pInput != null) {
+            if (pInput.isMultiple()) {
+                pathNames.add(ITEM_ITERATOR);
+                break;
+            } else {
+                pathNames.add(pInput.getName());
+                pInput = pInput.getParent();
+            }
+        }
+        if (pathNames.isEmpty()) {
+            return null;
+        } else if (pInput == null) {
+            pathNames.add(FORM_INPUT_DATA);
+        }
+        return on(".").join(reverse(pathNames));
     }
 
     public boolean canCreateComponent(ContractInput contractInput) {
@@ -114,13 +132,13 @@ public class ContractInputToWidgetMapper {
 
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
-        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
+        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         return addButton.getAdapter(Component.class);
     }
 
     public Component createRemoveButton(ContractInput contractInput) {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
-        removeButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : inputValue(contractInput));
+        removeButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         return removeButton.getAdapter(Component.class);
     }
 
