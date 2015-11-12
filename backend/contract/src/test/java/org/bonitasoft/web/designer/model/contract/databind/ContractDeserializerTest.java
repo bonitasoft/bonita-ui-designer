@@ -25,12 +25,11 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 
 import java.util.Date;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.junit.Test;
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContractDeserializerTest {
 
@@ -50,8 +49,6 @@ public class ContractDeserializerTest {
                 tuple("title", String.class.getName()),
                 tuple("creationDate", Date.class.getName()),
                 tuple("updateTime", Long.class.getName()));
-
-        assertThat(find(contract.getInput(), instanceOf(NodeContractInput.class)).getInput().get(0).path()).isEqualTo("ticket.title");
     }
 
     @Test
