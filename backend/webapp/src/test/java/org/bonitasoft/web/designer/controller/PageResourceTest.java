@@ -30,13 +30,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.anyString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,7 +41,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
@@ -73,6 +68,8 @@ import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.google.common.collect.Sets;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -444,7 +441,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets_while_getting_a_page() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Asset[] assets = new Asset[]{
+        Asset[] assets = new Asset[] {
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build()

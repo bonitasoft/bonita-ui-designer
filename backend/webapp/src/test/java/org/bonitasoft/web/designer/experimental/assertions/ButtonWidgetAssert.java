@@ -79,6 +79,29 @@ public class ButtonWidgetAssert extends AbstractAssert<ButtonWidgetAssert, Butto
     }
 
     /**
+     * Verifies that the actual ButtonWidget's targetUrlOnSuccess is equal to the given one.
+     *
+     * @param targetUrlOnSuccess the given targetUrlOnSuccess to compare the actual ButtonWidget's targetUrlOnSuccess to.
+     * @return this assertion object.
+     * @throws AssertionError - if the actual ButtonWidget's targetUrlOnSuccess is not equal to the given one.
+     */
+    public ButtonWidgetAssert hasTargetUrlOnSuccess(String targetUrlOnSuccess) {
+        // check that actual ButtonWidget we want to make assertions on is not null.
+        isNotNull();
+
+        // we overrides the default error message with a more explicit one
+        String errorMessage = format("\nExpected <%s> targetUrlOnSuccess to be:\n  <%s>\n but was:\n  <%s>", actual, targetUrlOnSuccess, actual.getAction());
+
+        // check
+        if (!actual.getTargetUrlOnSuccess().equals(targetUrlOnSuccess)) {
+            throw new AssertionError(errorMessage);
+        }
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
      * Verifies that the actual ButtonWidget's buttonStyle is equal to the given one.
      *
      * @param buttonStyle the given buttonStyle to compare the actual ButtonWidget's buttonStyle to.
