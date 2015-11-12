@@ -170,7 +170,7 @@ public class WidgetResourceTest {
                 .content(convertObjectToJsonBytes(customLabel)))
                 .andExpect(status().isOk());
 
-        verify(widgetRepository).save(customLabel);
+        verify(widgetRepository).updateLastUpdateAndSave(customLabel);
     }
 
     @Test
@@ -195,7 +195,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_internal_server_error_if_an_error_occurs_while_saving_a_widget() throws Exception {
-        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetRepository).save(any(Widget.class));
+        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetRepository).updateLastUpdateAndSave(any(Widget.class));
         Widget customLabel = aWidget().id("customLabel").custom().build();
 
         mockMvc.perform(put("/rest/widgets/customLabel")
@@ -587,6 +587,28 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk());
 
         verify(widgetAssetService).changeAssetOrderInComponent(widget, "UIID", DECREMENT);
+    }
+
+    @Test
+    public void should_mark_a_page_as_favorite() throws Exception {
+
+        mockMvc
+                .perform(
+                        put("/rest/widgets/my-widget/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("true"))
+                .andExpect(status().isOk());
+
+        verify(widgetRepository).markAsFavorite("my-widget");
+    }
+
+    @Test
+    public void should_unmark_a_page_as_favorite() throws Exception {
+
+        mockMvc
+                .perform(
+                        put("/rest/widgets/my-widget/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("false"))
+                .andExpect(status().isOk());
+
+        verify(widgetRepository).unmarkAsFavorite("my-widget");
     }
 
     private String toJson(Object o) throws IOException {

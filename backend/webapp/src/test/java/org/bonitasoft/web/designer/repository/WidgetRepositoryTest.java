@@ -41,6 +41,7 @@ import javax.validation.ValidatorFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Sets;
+import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.LiveMigration;
@@ -150,11 +151,24 @@ public class WidgetRepositoryTest {
         Widget customLabel = aWidget().custom().id("customLabel").build();
 
         createDirectories(widgetDirectory.resolve("customLabel"));
-        widgetRepository.save(customLabel);
+        widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(jsonFile(customLabel)).exists();
         // last update field should be the current time
         assertThat(customLabel.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+    }
+
+    @Test
+    public void should_save_a_page_without_updating_last_update_date() throws Exception {
+        Widget widget = widgetRepository.updateLastUpdateAndSave(aWidget().id("customLabel").name("theWidgetName").build());
+        Instant lastUpdate = widget.getLastUpdate();
+
+        widget.setName("newName");
+        widgetRepository.save(widget);
+
+        Widget fetchedWidget = widgetRepository.get(widget.getId());
+        assertThat(fetchedWidget.getLastUpdate()).isEqualTo(lastUpdate);
+        assertThat(fetchedWidget.getName()).isEqualTo("newName");
     }
 
     @Test
@@ -175,7 +189,7 @@ public class WidgetRepositoryTest {
         Widget customLabel = aWidget().custom().id("customLabel").build();
 
         createDirectories(widgetDirectory.resolve("customLabel"));
-        widgetRepository.save(customLabel);
+        widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(customLabel.getDesignerVersion()).isEqualTo(DESIGNER_VERSION);
     }
@@ -185,7 +199,7 @@ public class WidgetRepositoryTest {
         Widget customLabel = aWidget().custom().id("customLabel").build();
         customLabel.setDesignerVersion("alreadySetVersion");
         createDirectories(widgetDirectory.resolve("customLabel"));
-        widgetRepository.save(customLabel);
+        widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(customLabel.getDesignerVersion()).isEqualTo("alreadySetVersion");
     }
@@ -194,14 +208,14 @@ public class WidgetRepositoryTest {
     public void should_throw_IllegalArgumentException_while_saving_a_custom_widget_with_no_id_set() throws Exception {
         Widget aWidget = aWidget().id(null).custom().build();
 
-        widgetRepository.save(aWidget);
+        widgetRepository.updateLastUpdateAndSave(aWidget);
     }
 
     @Test(expected = ConstraintValidationException.class)
     public void should_not_allow_to_save_a_widget_without_name() throws Exception {
         Widget widget = aWidget().name(" ").build();
 
-        widgetRepository.save(widget);
+        widgetRepository.updateLastUpdateAndSave(widget);
     }
 
     @Test(expected = ConstraintValidationException.class)
@@ -229,7 +243,7 @@ public class WidgetRepositoryTest {
     public void should_allow_to_save_a_widget_with_name_containing_space() throws Exception {
         Widget widget = aWidget().name("hello world").build();
         createDirectories(widgetDirectory.resolve("anId"));
-        widgetRepository.save(widget);
+        widgetRepository.updateLastUpdateAndSave(widget);
     }
 
     @Test
@@ -239,7 +253,7 @@ public class WidgetRepositoryTest {
         customLabel.setTemplate("<div>{{ hello + 'there'}}</div>");
         customLabel.setCustom(true);
         createDirectories(widgetDirectory.resolve("customLabel"));
-        widgetRepository.save(customLabel);
+        widgetRepository.updateLastUpdateAndSave(customLabel);
         // emulate js generation
         write(widgetDirectory.resolve("customLabel").resolve("customLabel.js"), objectMapper.toJson(""));
 
@@ -413,6 +427,7 @@ public class WidgetRepositoryTest {
         final List<Path> visitedPaths = new ArrayList<>();
 
         widgetRepository.walk(new SimpleFileVisitor<Path>() {
+
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 visitedPaths.add(file);
@@ -451,10 +466,35 @@ public class WidgetRepositoryTest {
         assertThat(createdPaths).containsExactly(file.toPath());
     }
 
+    @Test
+    public void should_mark_a_widget_as_favorite() throws Exception {
+        Widget widget = addToRepository(aWidget().notFavorite());
+
+        widgetRepository.markAsFavorite(widget.getId());
+
+        Widget fetchedWidget = getFromRepository(widget.getId());
+        assertThat(fetchedWidget.isFavorite()).isTrue();
+
+    }
+
+    @Test
+    public void should_unmark_a_widget_as_favorite() throws Exception {
+        Widget widget = addToRepository(aWidget().favorite());
+
+        widgetRepository.unmarkAsFavorite(widget.getId());
+
+        Widget fetchedWidget = getFromRepository(widget.getId());
+        assertThat(fetchedWidget.isFavorite()).isFalse();
+    }
+
     private void addToRepository(Widget... widgets) throws Exception {
         for (Widget widget : widgets) {
             addToRepository(widget);
         }
+    }
+
+    private Widget addToRepository(WidgetBuilder widget) throws Exception {
+        return addToRepository(widget.build());
     }
 
     private Widget addToRepository(Widget widget) throws Exception {

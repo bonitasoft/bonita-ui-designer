@@ -12,23 +12,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.model;
+package org.bonitasoft.web.designer.repository;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.joda.time.Instant;
 
-public final class SimpleObject {
+public final class SimpleDesignerArtifact extends DesignerArtifact {
     private String id;
     private String name;
     private int number;
-    private SimpleObject another;
+    private SimpleDesignerArtifact another;
 
-    public SimpleObject() {
+    public SimpleDesignerArtifact() {
     }
 
-    public SimpleObject(String id, String name, int number) {
+    public SimpleDesignerArtifact(String id, String name, int number) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -52,18 +54,18 @@ public final class SimpleObject {
         this.number = number;
     }
 
-    public SimpleObject getAnother() {
+    public SimpleDesignerArtifact getAnother() {
         return another;
     }
 
-    public void setAnother(SimpleObject another) {
+    public void setAnother(SimpleDesignerArtifact another) {
         this.another = another;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof SimpleObject) {
-            final SimpleObject other = (SimpleObject) obj;
+        if (obj instanceof SimpleDesignerArtifact) {
+            final SimpleDesignerArtifact other = (SimpleDesignerArtifact) obj;
             return new EqualsBuilder()
                     .append(name, other.name)
                     .append(number, other.number)
@@ -81,10 +83,12 @@ public final class SimpleObject {
                 .toHashCode();
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setLastUpdate(Instant lastUpdate) {
 
     }

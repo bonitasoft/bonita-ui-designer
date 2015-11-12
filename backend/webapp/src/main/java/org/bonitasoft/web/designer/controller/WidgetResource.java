@@ -121,7 +121,7 @@ public class WidgetResource extends AssetResource<Widget>{
             throw new NotAllowedException("We can only save a custom widget");
         }
         widget.setId(widgetId);
-        repository.save(widget);
+        repository.updateLastUpdateAndSave(widget);
     }
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.DELETE)
@@ -172,6 +172,15 @@ public class WidgetResource extends AssetResource<Widget>{
     public List<Property> deleteProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
         return repository.deleteProperty(widgetId, propertyName);
+    }
+
+    @RequestMapping(value = "/{widgetId}/favorite", method = RequestMethod.PUT)
+    public void favorite(@PathVariable("widgetId") String pageId, @RequestBody Boolean favorite) throws RepositoryException {
+        if (favorite) {
+            repository.markAsFavorite(pageId);
+        } else {
+            repository.unmarkAsFavorite(pageId);
+        }
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

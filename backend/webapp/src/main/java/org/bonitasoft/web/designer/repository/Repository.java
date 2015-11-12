@@ -26,6 +26,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 public interface Repository<T extends Identifiable> {
 
+
     /**
      * Gets component by its id
      */
@@ -39,7 +40,12 @@ public interface Repository<T extends Identifiable> {
     /**
      * Save a component
      */
-    void save(T toBeSaved) throws RepositoryException;
+    T updateLastUpdateAndSave(T toBeSaved) throws RepositoryException;
+
+    /**
+     * Save a component but without updating last update date
+     */
+    T save(T toBeSaved) throws RepositoryException;
 
     /**
      * Save a list of component
@@ -86,4 +92,8 @@ public interface Repository<T extends Identifiable> {
     void walk(FileVisitor<? super Path> visitor) throws IOException;
 
     void watch(PathListener pathListener) throws FileSystemException;
+
+    T markAsFavorite(String id);
+
+    T unmarkAsFavorite(String id);
 }

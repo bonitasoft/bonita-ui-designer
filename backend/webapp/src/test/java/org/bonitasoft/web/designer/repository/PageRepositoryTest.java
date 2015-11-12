@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.validation.Validation;
 
+import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.LiveMigration;
@@ -76,12 +77,14 @@ public class PageRepositoryTest {
                 new Watcher());
     }
 
-    private void addToRepository(Page... pages) throws Exception {
-        for (Page page : pages) {
-            //A page is in its own folder
-            Path repo = temporaryFolder.newFolderPath(page.getId());
-            persister.save(repo, page.getId(), page);
-        }
+    private Page addToRepository(PageBuilder page) throws Exception {
+        return addToRepository(page.build());
+    }
+
+    private Page addToRepository(Page page) throws Exception {
+        Path repo = temporaryFolder.newFolderPath(page.getId());
+        persister.save(repo, page.getId(), page);
+        return page;
     }
 
     @Test
@@ -89,7 +92,7 @@ public class PageRepositoryTest {
         Page expectedPage = aFilledPage("page-id");
         addToRepository(expectedPage);
 
-        Page fetchedPage =  repository.get(expectedPage.getId());
+        Page fetchedPage = repository.get(expectedPage.getId());
 
         assertThat(fetchedPage).isEqualTo(expectedPage);
     }
@@ -101,7 +104,7 @@ public class PageRepositoryTest {
 
     @Test
     public void should_get_all_page_from_repository_empty() throws Exception {
-       assertThat(repository.getAll()).isEmpty();
+        assertThat(repository.getAll()).isEmpty();
     }
 
     @Test
@@ -119,7 +122,7 @@ public class PageRepositoryTest {
         Page page = aFilledPage("page-id");
         assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).doesNotExist();
 
-        repository.save(page);
+        repository.updateLastUpdateAndSave(page);
 
         //A json file has to be created in the repository
         assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).exists();
@@ -132,21 +135,34 @@ public class PageRepositoryTest {
         Page expectedPage = aFilledPage("page-id");
         doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage.getId(), expectedPage);
 
-        repository.save(expectedPage);
+        repository.updateLastUpdateAndSave(expectedPage);
+    }
+
+    @Test
+    public void should_save_a_page_without_updating_last_update_date() throws Exception {
+        Page page = repository.updateLastUpdateAndSave(aPage().withId("page-id").withName("thePageName").build());
+        Instant lastUpdate = page.getLastUpdate();
+
+        page.setName("newName");
+        repository.save(page);
+
+        Page fetchedPage = repository.get(page.getId());
+        assertThat(fetchedPage.getLastUpdate()).isEqualTo(lastUpdate);
+        assertThat(fetchedPage.getName()).isEqualTo("newName");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void should_throw_IllegalArgumentException_while_saving_a_page_with_no_id_set() throws Exception {
-        Page expectedPage = aPage().build();
+        Page expectedPage = aPage().withId(null).build();
 
-        repository.save(expectedPage);
+        repository.updateLastUpdateAndSave(expectedPage);
     }
 
     @Test(expected = ConstraintValidationException.class)
     public void should_throw_ConstraintValidationException_while_saving_a_page_with_bad_name() throws Exception {
         Page expectedPage = aPage().withId("page-id").withName("éé&é&z").build();
 
-        repository.save(expectedPage);
+        repository.updateLastUpdateAndSave(expectedPage);
     }
 
     @Test
@@ -160,7 +176,6 @@ public class PageRepositoryTest {
         assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
         assertThat(expectedPage.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
     }
-
 
     @Test
     public void should_delete_a_page_with_his_json_file_repository() throws Exception {
@@ -192,4 +207,26 @@ public class PageRepositoryTest {
 
         repository.findByObjectId(expectedPage.getId());
     }
+
+    @Test
+    public void should_mark_a_page_as_favorite() throws Exception {
+        Page page = addToRepository(aPage().notFavorite());
+
+        repository.markAsFavorite(page.getId());
+
+        Page fetchedPage = repository.get(page.getId());
+        assertThat(fetchedPage.isFavorite()).isTrue();
+
+    }
+
+    @Test
+    public void should_unmark_a_page_as_favorite() throws Exception {
+        Page page = addToRepository(aPage().favorite());
+
+        repository.unmarkAsFavorite(page.getId());
+
+        Page fetchedPage = repository.get(page.getId());
+        assertThat(fetchedPage.isFavorite()).isFalse();
+    }
+
 }

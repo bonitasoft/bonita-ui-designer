@@ -18,7 +18,6 @@ import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             widget.setCustom(true);
             widget.setId(id);
             createComponentDirectory(widget);
-            save(widget);
+            updateLastUpdateAndSave(widget);
             return widget;
         }
 
@@ -94,7 +93,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             throw new NotAllowedException(format("Widget [ %s ] has already a property named %s", widgetId, property.getName()));
         }
         widget.addProperty(property);
-        save(widget);
+        updateLastUpdateAndSave(widget);
         return widget.getProperties();
     }
 
@@ -105,7 +104,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
         }
         widget.replaceProperty(existingProperty, property);
-        save(widget);
+        updateLastUpdateAndSave(widget);
         return widget.getProperties();
      }
 
@@ -116,7 +115,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
         }
         widget.deleteProperty(param);
-        save(widget);
+        updateLastUpdateAndSave(widget);
         return widget.getProperties();
      }
 

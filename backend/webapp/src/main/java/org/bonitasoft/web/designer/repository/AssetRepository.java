@@ -43,7 +43,6 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -209,6 +208,6 @@ public class AssetRepository<T extends Identifiable & Assetable> {
                 return emptyList();
             }
         }))));
-        repository.save(component);
+        repository.updateLastUpdateAndSave(component);
     }
 }

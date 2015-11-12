@@ -46,4 +46,8 @@ public interface Identifiable {
      */
     void setLastUpdate(Instant lastUpdate);
 
+    boolean isFavorite();
+
+    void setFavorite(boolean favorite);
+
 }

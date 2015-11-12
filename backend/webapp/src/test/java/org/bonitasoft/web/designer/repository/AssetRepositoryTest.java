@@ -32,7 +32,6 @@ import java.util.NoSuchElementException;
 
 import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
-import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -261,6 +260,6 @@ public class AssetRepositoryTest {
 
         assertThat(page.getAssets()).hasSize(3);
         assertThat(page.getAssets()).extracting("name").contains("file1.css", "file2.css", "existing-asset.js");
-        verify(pageRepository).save(page);
+        verify(pageRepository).updateLastUpdateAndSave(page);
     }
 }

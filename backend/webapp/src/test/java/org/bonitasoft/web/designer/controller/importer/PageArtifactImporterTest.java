@@ -107,7 +107,7 @@ public class PageArtifactImporterTest {
         importer.importFromPath(pageImportPath);
 
         verify(widgetRepository).saveAll(widgets);
-        verify(pageRepository).save(page);
+        verify(pageRepository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -198,7 +198,7 @@ public class PageArtifactImporterTest {
     public void should_throw_server_import_exception_when_error_occurs_while_saving_files_in_repository() throws Exception {
         Page page = aPage().withId("aPage").build();
         when(pageLoader.load(any(Path.class), eq("page.json"))).thenReturn(page);
-        doThrow(RepositoryException.class).when(pageRepository).save(page);
+        doThrow(RepositoryException.class).when(pageRepository).updateLastUpdateAndSave(page);
 
         importer.importFromPath(pageImportPath);
     }
@@ -226,11 +226,11 @@ public class PageArtifactImporterTest {
         assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.getUUID()).isNotEmpty();
-        verify(pageRepository, never()).save(any(Page.class));
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
 
         importer.forceExecution(report.getUUID());
 
-        verify(pageRepository).save(any(Page.class));
+        verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
     }
 
     @Test
@@ -248,10 +248,10 @@ public class PageArtifactImporterTest {
         assertThat(report.getDependencies().getOverridden()).isNullOrEmpty();
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.getUUID()).isNotEmpty();
-        verify(pageRepository, never()).save(any(Page.class));
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
 
         importer.forceExecution(report.getUUID());
-        verify(pageRepository).save(any(Page.class));
+        verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
     }
 
     @Test
@@ -269,10 +269,10 @@ public class PageArtifactImporterTest {
         assertThat(report.getDependencies().getOverridden()).isNullOrEmpty();
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.getUUID()).isNotEmpty();
-        verify(pageRepository, never()).save(any(Page.class));
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
 
         importer.cancelImport(report.getUUID());
-        verify(pageRepository, never()).save(any(Page.class));
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
         assertThat(Files.exists(pageImportPath)).isFalse();
     }
 

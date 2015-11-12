@@ -30,7 +30,6 @@ import java.nio.file.Path;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.SimpleObject;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +46,7 @@ public class JsonFileBasedPersisterTest {
 
     private Path repoDirectory;
     private JacksonObjectMapper objectMapper;
-    private JsonFileBasedPersister<SimpleObject> repository;
+    private JsonFileBasedPersister<SimpleDesignerArtifact> repository;
 
     @Mock
     private BeanValidator validator;
@@ -66,44 +65,44 @@ public class JsonFileBasedPersisterTest {
         deleteQuietly(repoDirectory.toFile());
     }
 
-    private SimpleObject getFromRepository(String id) throws IOException {
+    private SimpleDesignerArtifact getFromRepository(String id) throws IOException {
         byte[] json = readAllBytes(repoDirectory.resolve(id + ".json"));
-        return objectMapper.fromJson(json, SimpleObject.class);
+        return objectMapper.fromJson(json, SimpleDesignerArtifact.class);
     }
 
-    private void addToRepository(String id, SimpleObject o) throws IOException {
+    private void addToRepository(String id, SimpleDesignerArtifact o) throws IOException {
         byte[] json = objectMapper.toJson(o);
         write(repoDirectory.resolve(id + ".json"), json);
     }
 
     @Test
     public void should_serialize_an_object_and_save_it_to_a_file() throws Exception {
-        SimpleObject expectedObject = new SimpleObject("id", "aName", 2);
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
 
         repository.save(repoDirectory, "foo", expectedObject);
 
-        SimpleObject savedObject = getFromRepository("foo");
+        SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject).isEqualTo(expectedObject);
     }
 
     @Test
     public void should_set_designer_version_while_saving_if_not_already_set() throws Exception {
-        SimpleObject expectedObject = new SimpleObject("id", "aName", 2);
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
 
         repository.save(repoDirectory, "foo", expectedObject);
 
-        SimpleObject savedObject = getFromRepository("foo");
+        SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject.getDesignerVersion()).isEqualTo(DESIGNER_VERSION);
     }
 
     @Test
     public void should_not_set_designer_version_while_saving_if_already_set() throws Exception {
-        SimpleObject expectedObject = new SimpleObject("id", "aName", 2);
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
         expectedObject.setDesignerVersion("alreadySetVerion");
 
         repository.save(repoDirectory, "foo", expectedObject);
 
-        SimpleObject savedObject = getFromRepository("foo");
+        SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject.getDesignerVersion()).isEqualTo("alreadySetVerion");
     }
 
@@ -111,7 +110,7 @@ public class JsonFileBasedPersisterTest {
     public void should_throw_IOException_when_error_occurs_while_saving_a_object() throws Exception {
         doThrow(new RuntimeException()).when(objectMapper).toJson(anyObject(), any(Class.class));
 
-        repository.save(repoDirectory, "foo", new SimpleObject());
+        repository.save(repoDirectory, "foo", new SimpleDesignerArtifact());
     }
 
     @Test
@@ -119,7 +118,7 @@ public class JsonFileBasedPersisterTest {
         doThrow(ConstraintValidationException.class).when(validator).validate(any(Object.class));
 
         try {
-            repository.save(repoDirectory, "object1", new SimpleObject("object1", "object1", 1));
+            repository.save(repoDirectory, "object1", new SimpleDesignerArtifact("object1", "object1", 1));
             failBecauseExceptionWasNotThrown(ConstraintValidationException.class);
         } catch (ConstraintValidationException e) {
             // should not have saved object1

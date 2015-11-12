@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -46,8 +47,9 @@ public class PageBuilder {
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String version;
+    private boolean favorite = false;
 
     private PageBuilder() {
     }
@@ -111,6 +113,17 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder favorite() {
+        this.favorite = true;
+        return this;
+    }
+
+    public PageBuilder notFavorite() {
+        this.favorite = false;
+        return this;
+    }
+
+
     public Page build() {
         Page page = new Page();
         page.setName(name);
@@ -120,6 +133,7 @@ public class PageBuilder {
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
         page.setDesignerVersion(version);
+        page.setFavorite(favorite);
         return page;
     }
 

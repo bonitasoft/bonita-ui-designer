@@ -44,11 +44,25 @@ public class WidgetTest {
     public void jsonview_light_should_only_manage_id_name_and_light_page() throws Exception {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledWidget());
 
-        assertEquals(json,
-                "{\"id\":\"UUID2\",\"name\":\"aName\",\"custom\":false,"
-                        + "\"usedBy\":{"
-                        + "\"page\":[{\"id\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\"}],"
-                        + "\"widget\":[{\"id\":\"UUID\",\"name\":\"aName\",\"custom\":false}]}}", true);
+        assertEquals(json, "{"
+                + "\"id\":\"UUID2\","
+                + "\"name\":\"aName\","
+                + "\"custom\":false,"
+                + "\"favorite\": true,"
+                + "\"usedBy\":{"
+                    + "\"page\":[{"
+                        + "\"id\":\"UUID\","
+                        + "\"name\":\"myPage\","
+                        + "\"type\":\"page\","
+                        + "\"favorite\": false"
+                    + "}],"
+                    + "\"widget\":[{"
+                        + "\"id\":\"UUID\","
+                        + "\"name\":\"aName\","
+                        + "\"custom\":false,"
+                        + "\"favorite\": false"
+                    + "}]"
+                + "}}", true);
     }
 
     @Test
@@ -63,6 +77,7 @@ public class WidgetTest {
         assertThat(widgetAfterJsonProcessing.getDescription()).isEqualTo("#widget fils d'son père!");
         assertThat(widgetAfterJsonProcessing.getId()).isNotNull();
         assertThat(widgetAfterJsonProcessing.getUsedBy()).isNull();
+        assertThat(widgetAfterJsonProcessing.isFavorite()).isTrue();
     }
 
     @Test
@@ -109,6 +124,7 @@ public class WidgetTest {
         widgetSon.addUsedBy("page", asList(page));
         widgetSon.addUsedBy("widget", asList(widget));
         widgetSon.setDescription("#widget fils d'son père!");
+        widgetSon.setFavorite(true);
         return widgetSon;
     }
 

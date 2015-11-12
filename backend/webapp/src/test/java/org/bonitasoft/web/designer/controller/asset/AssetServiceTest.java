@@ -113,7 +113,7 @@ public class AssetServiceTest {
         Asset asset = assetService.upload(file, page, "js");
 
         verify(assetRepository).save("aPage", asset, fileContent);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
         assertThat(page.getAssets()).contains(asset);
         assertThat(asset.getId()).isNotNull();
         assertThat(asset).isEqualToIgnoringGivenFields(expectedAsset, "id");
@@ -126,7 +126,7 @@ public class AssetServiceTest {
 
         Page page = aPage().build();
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
-        doThrow(IOException.class).when(repository).save(page);
+        doThrow(IOException.class).when(repository).updateLastUpdateAndSave(page);
 
         assetService.upload(file, page, "js");
     }
@@ -140,7 +140,7 @@ public class AssetServiceTest {
 
         verify(assetRepository).delete(any(Asset.class));
         verify(assetRepository).save("page-id", page.getAssets().iterator().next(), "function(){}".getBytes());
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -174,7 +174,7 @@ public class AssetServiceTest {
 
         Asset asset = assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
 
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
         assertThat(page.getAssets()).contains(asset);
         assertThat(asset.getId()).isNotNull();
     }
@@ -199,7 +199,7 @@ public class AssetServiceTest {
 
         assetService.save(page, updatedAsset);
 
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
         assertThat(page.getAssets().iterator().next()).isEqualTo(updatedAsset);
     }
 
@@ -207,7 +207,7 @@ public class AssetServiceTest {
     public void should_return_error_when_error_onsave() throws Exception {
         expectedException.expect(RepositoryException.class);
         Page page = aPage().build();
-        doThrow(RepositoryException.class).when(repository).save(page);
+        doThrow(RepositoryException.class).when(repository).updateLastUpdateAndSave(page);
 
         assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
     }
@@ -315,7 +315,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(1);
         assertThat(assets[1].getOrder()).isEqualTo(3);
         assertThat(assets[2].getOrder()).isEqualTo(2);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -331,7 +331,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(2);
         assertThat(assets[1].getOrder()).isEqualTo(1);
         assertThat(assets[2].getOrder()).isEqualTo(3);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -347,7 +347,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(1);
         assertThat(assets[1].getOrder()).isEqualTo(2);
         assertThat(assets[2].getOrder()).isEqualTo(3);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -363,7 +363,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(1);
         assertThat(assets[1].getOrder()).isEqualTo(3);
         assertThat(assets[2].getOrder()).isEqualTo(2);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -379,7 +379,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(1);
         assertThat(assets[1].getOrder()).isEqualTo(2);
         assertThat(assets[2].getOrder()).isEqualTo(3);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -395,7 +395,7 @@ public class AssetServiceTest {
         assertThat(assets[0].getOrder()).isEqualTo(2);
         assertThat(assets[1].getOrder()).isEqualTo(1);
         assertThat(assets[2].getOrder()).isEqualTo(3);
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -427,7 +427,7 @@ public class AssetServiceTest {
         assetService.changeAssetStateInPreviewable(page, "assetUIID", false);
 
         assertThat(page.getInactiveAssets()).isNotEmpty().contains("assetUIID");
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test
@@ -444,7 +444,7 @@ public class AssetServiceTest {
         assetService.changeAssetStateInPreviewable(page, "assetUIID", true);
 
         assertThat(page.getInactiveAssets()).isEmpty();
-        verify(repository).save(page);
+        verify(repository).updateLastUpdateAndSave(page);
     }
 
     @Test

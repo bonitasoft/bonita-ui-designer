@@ -91,7 +91,7 @@ public class PageResource extends AssetResource<Page> {
         String pageId = UUID.randomUUID().toString();
         page.setId(pageId);
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
-        pageRepository.save(page);
+        pageRepository.updateLastUpdateAndSave(page);
         if (isNotEmpty(sourcePageId)) {
             assetService.duplicateAsset(pageRepository.resolvePath(sourcePageId), pageRepository.resolvePath(sourcePageId), sourcePageId, pageId);
         } else {
@@ -111,7 +111,7 @@ public class PageResource extends AssetResource<Page> {
         // the page should have the same ID as pageId.
         page.setId(pageId);
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
-        pageRepository.save(page);
+        pageRepository.updateLastUpdateAndSave(page);
         // send notification of update
         messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
     }
@@ -120,7 +120,16 @@ public class PageResource extends AssetResource<Page> {
     public void rename(@PathVariable("pageId") String pageId, @RequestBody String name) throws RepositoryException {
         Page page = pageRepository.get(pageId);
         page.setName(name);
-        pageRepository.save(page);
+        pageRepository.updateLastUpdateAndSave(page);
+    }
+
+    @RequestMapping(value = "/{pageId}/favorite", method = RequestMethod.PUT)
+    public void favorite(@PathVariable("pageId") String pageId, @RequestBody Boolean favorite) throws RepositoryException {
+        if (favorite) {
+            pageRepository.markAsFavorite(pageId);
+        } else {
+            pageRepository.unmarkAsFavorite(pageId);
+        }
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)

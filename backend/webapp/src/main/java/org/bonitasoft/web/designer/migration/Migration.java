@@ -17,13 +17,11 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
 
-import java.util.List;
-
-import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Migration<A extends Versioned> {
+public class Migration<A extends DesignerArtifact> {
 
     private static final Logger logger = LoggerFactory.getLogger(Migration.class);
     private final Version version;

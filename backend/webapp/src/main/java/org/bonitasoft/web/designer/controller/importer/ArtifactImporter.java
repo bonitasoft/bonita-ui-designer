@@ -122,7 +122,7 @@ public class ArtifactImporter<T extends Identifiable> {
                     || (report.doesNotOverrideElements())) {
                 // then save them
                 saveArtefactDependencies(resources, dependencies);
-                repository.save(element);
+                repository.updateLastUpdateAndSave(element);
             } else {
                 String uuid = UUID.randomUUID().toString();
                 extractedDirPathMap.put(uuid, uploadedFileDirectory.getFileName().toFile().getName());

@@ -26,6 +26,7 @@ import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.junit.Before;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class PageTest {
 
@@ -40,14 +41,21 @@ public class PageTest {
     }
 
     @Test
-    public void jsonview_light_should_only_manage_id_and_name() throws Exception {
+    public void jsonview_light_should_only_manage_id_name_and_favorite() throws Exception {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledPage());
-        assertThat(json).isEqualTo("{\"id\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\"}");
+
+        JSONAssert.assertEquals(json, "{"
+                + "\"id\":\"UUID\","
+                + "\"name\":\"myPage\","
+                + "\"type\":\"page\","
+                + "\"favorite\": true"
+                + "}", false);
     }
 
     @Test
     public void jsonview_persistence_should_manage_all_properties() throws Exception {
         Page myPage = createAFilledPage();
+        myPage.setFavorite(true);
 
         //We serialize and deserialize our object
         Page pageAfterJsonProcessing = objectMapper.readValue(
@@ -58,6 +66,7 @@ public class PageTest {
         assertThat(pageAfterJsonProcessing.getId()).isEqualTo(myPage.getId());
         assertThat(pageAfterJsonProcessing.getData()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.getRows()).isNotEmpty();
+        assertThat(pageAfterJsonProcessing.isFavorite()).isTrue();
 
         //A rows contains a list of elements. We verify the first
         Element element = pageAfterJsonProcessing.getRows().get(0).get(0);
@@ -99,6 +108,7 @@ public class PageTest {
      */
     private Page createAFilledPage() throws Exception {
         Page page = PageBuilder.aFilledPage("UUID");
+        page.setFavorite(true);
         page.setName("myPage");
         return page;
     }
