@@ -34,7 +34,7 @@ var paths = {
     'app/js/**/*.html'
   ],
   less: [
-    'app/less/**/*.less'
+    'app/**/*.less'
   ],
   e2e: [
     'app/bower_components/angular-mocks/angular-mocks.js',
