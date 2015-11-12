@@ -90,7 +90,7 @@ public class Workspace {
 
     private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
         createDirectories(widgetRepository.resolvePath(widget.getId()));
-        widgetRepository.save(widget);
+        widgetRepository.updateLastUpdateAndSave(widget);
         //Widget assets are copied if they exist
         try {
             List<Asset> assets = widgetAssetImporter.load(widget, widgetRepositorySourcePath);

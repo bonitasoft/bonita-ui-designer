@@ -38,13 +38,13 @@ import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
 
-public class Widget extends Versioned implements Identifiable, Assetable {
+public class Widget extends DesignerArtifact implements Identifiable, Assetable {
 
     private static final Pattern PATTERN_DATE_VALIDATION = Pattern.compile("[a-zA-Z0-9]*$");
 

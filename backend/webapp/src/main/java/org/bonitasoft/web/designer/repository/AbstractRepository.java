@@ -93,17 +93,23 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
-    public void save(T component) throws RepositoryException {
+    public T updateLastUpdateAndSave(T component) throws RepositoryException {
+        component.setLastUpdate(Instant.now());
+        return save(component);
+    }
+
+    @Override
+    public T save(T component) throws RepositoryException {
         if (StringUtils.isBlank(component.getId())) {
             throw new IllegalArgumentException(format("Error while saving %s: No id set.", getComponentName()));
         }
 
-        component.setLastUpdate(Instant.now());
         validator.validate(component);
         createComponentDirectory(component);
 
         try {
             persister.save(resolvePathFolder(component.getId()), component.getId(), component);
+            return component;
         } catch (IOException e) {
             throw new RepositoryException(format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
         }
@@ -113,7 +119,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public void saveAll(List<T> toBeSaved) throws RepositoryException {
         if (toBeSaved != null) {
             for (T component : toBeSaved) {
-                save(component);
+                updateLastUpdateAndSave(component);
             }
         }
     }
@@ -201,5 +207,19 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         } catch (IOException | URISyntaxException e) {
             throw new RepositoryException(format("Failed to initialize %s [%s] from template\"", getComponentName(), component.getId()), e);
         }
+    }
+
+    @Override
+    public T markAsFavorite(String id) {
+        T component = get(id);
+        component.setFavorite(true);
+        return save(component);
+    }
+
+    @Override
+    public T unmarkAsFavorite(String id) {
+        T component = get(id);
+        component.setFavorite(false);
+        return save(component);
     }
 }

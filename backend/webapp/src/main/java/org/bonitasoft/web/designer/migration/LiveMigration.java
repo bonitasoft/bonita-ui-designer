@@ -28,12 +28,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.model.Versioned;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.repository.AbstractLoader;
 import org.bonitasoft.web.designer.repository.PathListener;
 import org.bonitasoft.web.designer.repository.Repository;
 
-public class LiveMigration<A extends Versioned> {
+public class LiveMigration<A extends DesignerArtifact> {
 
     private AbstractLoader<A> loader;
     private Repository<A> repository;
@@ -84,7 +84,7 @@ public class LiveMigration<A extends Versioned> {
                 migration.migrate(artifact);
             }
             if(!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
-                repository.save(artifact);
+                repository.updateLastUpdateAndSave(artifact);
             }
         }
     }

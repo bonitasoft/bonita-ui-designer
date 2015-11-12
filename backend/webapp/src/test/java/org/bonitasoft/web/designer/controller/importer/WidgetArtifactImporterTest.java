@@ -88,7 +88,7 @@ public class WidgetArtifactImporterTest {
 
         importer.execute(aStream(), false);
 
-        verify(widgetRepository).save(widget);
+        verify(widgetRepository).updateLastUpdateAndSave(widget);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class WidgetArtifactImporterTest {
         importer.execute(aStream(), false);
 
         assertThat(Files.exists(tempDir.toPath())).isTrue();
-        verify(widgetRepository, never()).save(widget);
+        verify(widgetRepository, never()).updateLastUpdateAndSave(widget);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class WidgetArtifactImporterTest {
         importer.execute(aStream(), true);
 
         assertThat(Files.exists(tempDir.toPath())).isFalse();
-        verify(widgetRepository).save(widget);
+        verify(widgetRepository).updateLastUpdateAndSave(widget);
     }
 
     @Test
@@ -177,7 +177,7 @@ public class WidgetArtifactImporterTest {
     public void should_throw_server_import_exception_when_error_occurs_while_saving_files_in_repository() throws Exception {
         Widget widget = aWidget().id("aWidget").build();
         when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(widget);
-        doThrow(RepositoryException.class).when(widgetRepository).save(widget);
+        doThrow(RepositoryException.class).when(widgetRepository).updateLastUpdateAndSave(widget);
 
         importer.execute(aStream(), false);
     }

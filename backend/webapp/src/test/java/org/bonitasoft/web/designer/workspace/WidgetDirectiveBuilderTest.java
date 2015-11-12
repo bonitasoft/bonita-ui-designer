@@ -83,12 +83,12 @@ public class WidgetDirectiveBuilderTest {
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);
         createDirectories(repository.resolvePath(pbInput.getId()));
-        repository.save(pbInput);
+        repository.updateLastUpdateAndSave(pbInput);
 
         pbButton = aWidget().id("pbButton").build();
         pbButton.setCustom(true);
         createDirectories(repository.resolvePath(pbButton.getId()));
-        repository.save(pbButton);
+        repository.updateLastUpdateAndSave(pbButton);
     }
 
     @Test

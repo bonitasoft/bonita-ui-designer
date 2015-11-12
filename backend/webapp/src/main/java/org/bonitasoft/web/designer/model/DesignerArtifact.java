@@ -18,9 +18,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-public abstract class Versioned implements Identifiable{
+public abstract class DesignerArtifact implements Identifiable {
 
     private String designerVersion;
+    private boolean favorite = false;
 
     @JsonView({ JsonViewPersistence.class })
     public String getDesignerVersion() {
@@ -37,4 +38,13 @@ public abstract class Versioned implements Identifiable{
         }
     }
 
+    @Override
+    @JsonView({ JsonViewPersistence.class, JsonViewLight.class })
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 }

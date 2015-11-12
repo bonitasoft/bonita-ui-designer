@@ -95,7 +95,7 @@ public class RepositoryAspectTest {
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_widget_on_widgetRepository() throws Exception {
         widgetRepository.save(
                 aWidget().id("widgetId1").build()
-                );
+        );
 
         verify(workspaceResourceHandler).postSave(any(Path.class));
     }

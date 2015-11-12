@@ -91,7 +91,7 @@ public class AssetService<T extends Assetable> {
             assetRepository.save(component.getId(), asset, file.getBytes());
             //The component is updated
             component.addAsset(asset);
-            repository.save(component);
+            repository.updateLastUpdateAndSave(component);
             return asset;
 
         } catch (IOException e) {
@@ -137,7 +137,7 @@ public class AssetService<T extends Assetable> {
             asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
         }
-        repository.save(component);
+        repository.updateLastUpdateAndSave(component);
         return asset;
     }
 
@@ -174,7 +174,7 @@ public class AssetService<T extends Assetable> {
                 return assetId.equals(asset.getId());
             }
         });
-        repository.save(component);
+        repository.updateLastUpdateAndSave(component);
     }
 
     /**
@@ -229,7 +229,7 @@ public class AssetService<T extends Assetable> {
             }
             i++;
         }
-        repository.save(component);
+        repository.updateLastUpdateAndSave(component);
         return actual;
     }
 
@@ -244,10 +244,10 @@ public class AssetService<T extends Assetable> {
 
             if (previewable.getInactiveAssets().contains(assetId) && active) {
                 previewable.getInactiveAssets().remove(assetId);
-                repository.save(component);
+                repository.updateLastUpdateAndSave(component);
             } else if (!previewable.getInactiveAssets().contains(assetId) && !active) {
                 previewable.getInactiveAssets().add(assetId);
-                repository.save(component);
+                repository.updateLastUpdateAndSave(component);
             }
         }
     }

@@ -133,7 +133,7 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
 
-        verify(pageRepository).save(notNull(Page.class));
+        verify(pageRepository).updateLastUpdateAndSave(notNull(Page.class));
         verify(pageAssetService).loadDefaultAssets(any(Page.class));
     }
 
@@ -153,7 +153,7 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$.id", notNullValue()));
 
         ArgumentCaptor<Page> argument = ArgumentCaptor.forClass(Page.class);
-        verify(pageRepository).save(argument.capture());
+        verify(pageRepository).updateLastUpdateAndSave(argument.capture());
         assertThat(argument.getValue().getName()).isEqualTo(pageToBeSaved.getName());
         assertThat(argument.getValue().getAssets()).containsOnly(pageAsset);
         verify(pageAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-page-source"), anyString());
@@ -172,7 +172,7 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
 
-        verify(pageRepository).save(newPage);
+        verify(pageRepository).updateLastUpdateAndSave(newPage);
     }
 
     @Test
@@ -188,7 +188,7 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
 
-        verify(pageRepository).save(newPage);
+        verify(pageRepository).updateLastUpdateAndSave(newPage);
     }
 
     @Test
@@ -204,7 +204,7 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
 
-        verify(pageRepository).save(newPage);
+        verify(pageRepository).updateLastUpdateAndSave(newPage);
     }
 
     @Test
@@ -217,7 +217,7 @@ public class PageResourceTest {
                                 convertObjectToJsonBytes(pageToBeSaved)))
                 .andExpect(status().isOk());
 
-        verify(pageRepository).save(pageToBeSaved);
+        verify(pageRepository).updateLastUpdateAndSave(pageToBeSaved);
         verify(messagingTemplate).convertAndSend("/previewableUpdates", "my-page");
     }
 
@@ -235,7 +235,7 @@ public class PageResourceTest {
                                 convertObjectToJsonBytes(pageToBeSaved)))
                 .andExpect(status().isOk());
 
-        verify(pageRepository).save(expectedPage);
+        verify(pageRepository).updateLastUpdateAndSave(expectedPage);
     }
 
     private Asset aPageAsset() {
@@ -257,7 +257,7 @@ public class PageResourceTest {
     @Test
     public void should_respond_500_internal_error_if_error_occurs_while_saving_a_page() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Mockito.doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).save(page);
+        Mockito.doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).updateLastUpdateAndSave(page);
 
         mockMvc
                 .perform(
@@ -316,11 +316,10 @@ public class PageResourceTest {
         mockMvc
                 .perform(
                         put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(newName))
-                .andDo(print())
                 .andExpect(status().isOk());
 
         ArgumentCaptor<Page> pageArgumentCaptor = ArgumentCaptor.forClass(Page.class);
-        verify(pageRepository).save(pageArgumentCaptor.capture());
+        verify(pageRepository).updateLastUpdateAndSave(pageArgumentCaptor.capture());
 
         assertThat(pageArgumentCaptor.getValue().getName()).isEqualTo(newName);
     }
@@ -336,7 +335,7 @@ public class PageResourceTest {
 
     @Test
     public void should_respond_500_internal_error_if_error_occurs_while_renaming_a_page() throws Exception {
-        doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).save(any(Page.class));
+        doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).updateLastUpdateAndSave(any(Page.class));
         Page page = aFilledPage("my-page");
         when(pageRepository.get("my-page")).thenReturn(page);
 
@@ -516,5 +515,27 @@ public class PageResourceTest {
                 .andExpect(status().isOk());
 
         verify(pageAssetService).changeAssetStateInPreviewable(page, "UIID", false);
+    }
+
+    @Test
+    public void should_mark_a_page_as_favorite() throws Exception {
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("true"))
+                .andExpect(status().isOk());
+
+        verify(pageRepository).markAsFavorite("my-page");
+    }
+
+    @Test
+    public void should_unmark_a_page_as_favorite() throws Exception {
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("false"))
+                .andExpect(status().isOk());
+
+        verify(pageRepository).unmarkAsFavorite("my-page");
     }
 }

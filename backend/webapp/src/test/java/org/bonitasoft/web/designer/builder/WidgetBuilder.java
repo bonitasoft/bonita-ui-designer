@@ -35,6 +35,7 @@ public class WidgetBuilder {
     private Instant lastUpdate;
     private HashSet<String> modules;
     private String version;
+    private boolean favorite = false;
 
     public static WidgetBuilder aWidget() {
         return new WidgetBuilder();
@@ -89,6 +90,16 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder favorite() {
+        this.favorite = true;
+        return this;
+    }
+
+    public WidgetBuilder notFavorite() {
+        this.favorite = false;
+        return this;
+    }
+
     public Widget build() {
         Widget widget = new Widget();
         widget.setId(id);
@@ -97,6 +108,7 @@ public class WidgetBuilder {
         widget.setTemplate(template);
         widget.setLastUpdate(lastUpdate);
         widget.setDesignerVersion(version);
+        widget.setFavorite(favorite);
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {

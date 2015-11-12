@@ -14,13 +14,13 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import org.bonitasoft.web.designer.model.SimpleObject;
+import org.bonitasoft.web.designer.repository.SimpleDesignerArtifact;
 
 public class SimpleObjectBuilder {
 
     private String name = "objectName";
     private String id;
-    private SimpleObject newObject;
+    private SimpleDesignerArtifact newObject;
 
     private SimpleObjectBuilder() {
     }
@@ -40,18 +40,18 @@ public class SimpleObjectBuilder {
         return this;
     }
 
-    public SimpleObjectBuilder another(SimpleObject newObject) {
+    public SimpleObjectBuilder another(SimpleDesignerArtifact newObject) {
         this.newObject = newObject;
         return this;
     }
 
-    public SimpleObject build() {
-        SimpleObject myObject = new SimpleObject(id, name, 1);
+    public SimpleDesignerArtifact build() {
+        SimpleDesignerArtifact myObject = new SimpleDesignerArtifact(id, name, 1);
         myObject.setAnother(newObject);
         return myObject;
     }
 
-    public static SimpleObject aFilledSimpleObject(String id) throws Exception {
+    public static SimpleDesignerArtifact aFilledSimpleObject(String id) throws Exception {
         return new SimpleObjectBuilder()
                 .id(id)
                 .build();
