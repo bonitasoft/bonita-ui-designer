@@ -123,7 +123,7 @@
         resolve: {
           /* @ngInject */
           artifact: function(widgetRepo, $stateParams) {
-            return widgetRepo.getById($stateParams.widgetId).then(function(response) {
+            return widgetRepo.load($stateParams.widgetId).then(function(response) {
               return response.data;
             });
           },

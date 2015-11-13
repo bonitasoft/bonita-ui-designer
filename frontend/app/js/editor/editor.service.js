@@ -46,7 +46,9 @@
             }, []);
           return $q.all(promises);
         })
-        .then(repo.load.bind(null, id))
+        .then(function() {
+          return repo.load(id);
+        })
         .catch(function(error) {
           alerts.addError(error.message);
           return $q.reject(error);
@@ -59,12 +61,10 @@
         });
     }
 
-    function initializePalette(response) {
+    function initializePalette(widgets) {
       function filterCustoms(val, item) {
         return item.custom === val;
       }
-
-      var widgets = response.data;
 
       var coreWidgets = widgets.filter(filterCustoms.bind(null, false))
         .map(paletteWrapper.bind(null, gettext('widgets'), 1));

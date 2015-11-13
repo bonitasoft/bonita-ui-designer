@@ -24,11 +24,11 @@ describe('widgetRepo', function() {
   });
 
   it('should get all widgets', function() {
-    var widgets = [{ id: 'label', name: 'Label' }, { id: 'input', name: 'Input' }];
-    $httpBackend.expectGET('rest/widgets').respond(widgets);
+    var expectedWidgets = [{ id: 'label', name: 'Label' }, { id: 'input', name: 'Input' }];
+    $httpBackend.expectGET('rest/widgets').respond(expectedWidgets);
 
-    widgetRepo.all().then(function(response) {
-      expect(response.data).toEqual(widgets);
+    widgetRepo.all().then(function(widgets) {
+      expect(widgets).toEqual(expectedWidgets);
     });
 
     $httpBackend.flush();
@@ -38,7 +38,7 @@ describe('widgetRepo', function() {
     var widget;
     $httpBackend.expectGET('rest/widgets/label').respond({ id: 'label', name: 'Label' });
 
-    widgetRepo.getById('label').then(function(response) {
+    widgetRepo.load('label').then(function(response) {
       widget = response.data;
     });
 

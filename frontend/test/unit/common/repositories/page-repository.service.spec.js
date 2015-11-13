@@ -2,6 +2,7 @@ describe('pageRepo', function() {
   var $rootScope, pageRepo, $httpBackend;
 
   var json = {
+    id: 'person',
     'rows': []
   };
 
@@ -81,7 +82,7 @@ describe('pageRepo', function() {
     $httpBackend.expectPUT('rest/pages/person').respond(204);
 
     // when we save it
-    pageRepo.save('person', json);
+    pageRepo.save(json);
 
     // then we should have called the backend
     $httpBackend.flush();

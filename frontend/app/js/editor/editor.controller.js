@@ -248,7 +248,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   };
 
   $scope.saveAndEditCustomWidget = function(widgetId) {
-    artifactRepo.save($scope.page.id, $scope.page)
+    artifactRepo.save($scope.page)
       .then(function() {
         $state.go('designer.widget', {
           widgetId: widgetId
@@ -257,7 +257,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   };
 
   $scope.save = function() {
-    return artifactRepo.save($scope.page.id, $scope.page);
+    return artifactRepo.save($scope.page);
   };
 
   $scope.canBeSaved = function(page) {

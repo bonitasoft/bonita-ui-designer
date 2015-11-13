@@ -104,12 +104,12 @@ describe('Import service', () => {
   describe('when forcing import', function() {
     var deferredPageRepo, deferredWidgetRepo, $q;
 
-    beforeEach(inject((_$q_) => {
+    beforeEach(inject((_$q_, widgetRepo, pageRepo) => {
       $q = _$q_;
       deferredPageRepo = $q.defer();
       deferredWidgetRepo = $q.defer();
-      spyOn(importArtifactService.forceImportRepoFns, 'page').and.returnValue(deferredPageRepo.promise);
-      spyOn(importArtifactService.forceImportRepoFns, 'widget').and.returnValue(deferredWidgetRepo.promise);
+      spyOn(pageRepo, 'forceImport').and.returnValue(deferredPageRepo.promise);
+      spyOn(widgetRepo,'forceImport').and.returnValue(deferredWidgetRepo.promise);
     }));
 
     it('should force import and call error callback on error', function() {
