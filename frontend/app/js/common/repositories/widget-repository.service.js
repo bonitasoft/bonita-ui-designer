@@ -149,6 +149,6 @@ angular.module('bonitasoft.designer.common.repositories').factory('widgetRepo', 
     updateProperty: updateProperty,
     deleteProperty: deleteProperty,
     exportUrl: exportUrl,
-    forceImport: (uuid) => $http.get('import/widget/' + uuid)
+    forceImport: (uuid) => $http.post('import/widget/' + uuid)
   };
 });
