@@ -20,24 +20,15 @@
     .module('bonitasoft.designer.home.import')
     .service('importArtifactService', importArtifactService);
 
-  function importArtifactService(alerts, gettextCatalog, $q, pageRepo, widgetRepo, importErrorMessagesService) {
-    var forceImportRepoFns = {};
-    registerForceImportFn('page', pageRepo.forceImport);
-    registerForceImportFn('widget', widgetRepo.forceImport);
+  function importArtifactService(alerts, gettextCatalog, $q, pageRepo, widgetRepo, importErrorMessagesService, repositories) {
 
     var service = {
       forceImport,
       isErrorResponse,
       manageImportResponse,
-      doesImportOverrideExistingContent,
-      registerForceImportFn,
-      forceImportRepoFns
+      doesImportOverrideExistingContent
     };
     return service;
-
-    function registerForceImportFn(name, fn) {
-      forceImportRepoFns[name] = fn;
-    }
 
     function isErrorResponse(response) {
       return response && response.type && response.message;
@@ -79,7 +70,7 @@
     }
 
     function forceImport(report, type, success, error) {
-      forceImportRepoFns[type](report.uuid).then(function(response) {
+      repositories.get(type).forceImport(report.uuid).then(function(response) {
         return response.data;
       }).then(service.manageImportResponse.bind(service, type, false)).then(success, error);
     }

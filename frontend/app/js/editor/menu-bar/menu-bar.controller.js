@@ -17,7 +17,7 @@
     vm.openHelp = openHelp;
 
     function save(page) {
-      return artifactRepo.save(page.id, page);
+      return artifactRepo.save(page);
     }
 
     function saveAs(page) {
@@ -46,7 +46,7 @@
     }
 
     function saveAndExport(page) {
-      artifactRepo.save(page.id, page)
+      artifactRepo.save(page)
         .then(function() {
           $window.location = artifactRepo.exportUrl(page);
         });

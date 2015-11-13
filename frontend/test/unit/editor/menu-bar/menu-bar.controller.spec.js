@@ -35,7 +35,7 @@
 
       controller.save(page);
 
-      expect(pageRepo.save).toHaveBeenCalledWith('person', page);
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
     });
 
     it('should save and export page', function() {
@@ -46,7 +46,7 @@
       controller.saveAndExport(page);
       scope.$apply();
 
-      expect(pageRepo.save).toHaveBeenCalledWith('person', page);
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
       expect($window.location).toBe('export/page/person');
     });
 
