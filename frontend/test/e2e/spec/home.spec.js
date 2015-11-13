@@ -1,7 +1,16 @@
+var HomePage = require('../pages/home.page.js');
+
 describe('home page', function() {
 
+  var home;
+
   beforeEach(function() {
-    browser.get('#/');
+    home = HomePage.get();
+  });
+
+  it('should list pages and widgets', function() {
+    expect(home.getListedPageNames()).toEqual(['Person', 'empty']);
+    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
   });
 
   it('should navigate to a page', function() {
@@ -158,5 +167,19 @@ describe('home page', function() {
     $('.btn-bonita-help').click();
 
     expect($('.modal-header .modal-title').getText()).toBe('Help');
+  });
+
+  it('should filter widgets and pages by name', function() {
+    home.search('nowidgetAndnopagesHasANameLikeThat');
+    expect(home.getListedPageNames()).toEqual([]);
+    expect(home.getListedWidgetNames()).toEqual([]);
+
+    home.search('so');   // 'so' is contained by 'PerSOn' and 'aweSOmeWidget'
+    expect(home.getListedPageNames()).toEqual(['Person']);
+    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+
+    home.search('');
+    expect(home.getListedPageNames()).toEqual(['Person', 'empty']);
+    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
   });
 });

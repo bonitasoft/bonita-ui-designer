@@ -40,7 +40,7 @@
         </p>
 
         <ul class="ArtifactList">
-            <li class="ArtifactList-item ArtifactList-item--primary" ng-repeat="page in pages | orderBy:'-lastUpdate'">
+            <li class="ArtifactList-item ArtifactList-item--primary" ng-repeat="page in pages | filter:filters | orderBy:'-lastUpdate'">
                 <div class="Artifact-info">
                     <a ng-if="!page.isEditingName" ui-sref="designer.page({id: page.id})" class="Artifact-link Artifact-link--primary">
                         <span title="{{ page.name }}">
