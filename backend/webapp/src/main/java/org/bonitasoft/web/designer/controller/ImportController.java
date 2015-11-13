@@ -58,11 +58,11 @@ public class ImportController {
     @RequestMapping(value = "/import/page", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ImportReport importPage(@RequestParam("file") MultipartFile file) {
-        return multipartFileImporter.importFile(file, pageImporter);
+    public ImportReport importPage(@RequestParam("file") MultipartFile file, @RequestParam(value = "force", defaultValue = "false", required = false) boolean force) {
+        return multipartFileImporter.importFile(file, pageImporter, force);
     }
 
-    @RequestMapping(value = "/import/page/{uuid}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/import/page/{uuid}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ImportReport importPage(@PathVariable("uuid") String uuid) {
@@ -77,11 +77,11 @@ public class ImportController {
     @RequestMapping(value = "/import/widget", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ImportReport importWidget(@RequestParam("file") MultipartFile file) {
-        return multipartFileImporter.importFile(file, widgetImporter);
+    public ImportReport importWidget(@RequestParam("file") MultipartFile file, @RequestParam(value = "force", defaultValue = "false", required = false) boolean force) {
+        return multipartFileImporter.importFile(file, widgetImporter, force);
     }
 
-    @RequestMapping(value = "/import/widget/{uuid}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/import/widget/{uuid}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ImportReport importWidget(@PathVariable("uuid") String uuid) {

@@ -86,7 +86,7 @@ public class WidgetArtifactImporterTest {
     public void should_unzip_stream_then_import_artefacts_for_a_widget() throws Exception {
         Widget widget = wMocks.mockWidgetToBeImported();
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
 
         verify(widgetRepository).save(widget);
     }
@@ -95,7 +95,7 @@ public class WidgetArtifactImporterTest {
     public void should_return_an_import_report_containing_imported_element() throws Exception {
         Widget widget = wMocks.mockWidgetToBeImported();
 
-        ImportReport report = importer.execute(aStream());
+        ImportReport report = importer.execute(aStream(), false);
 
         assertThat(report.getElement()).isEqualTo(widget);
     }
@@ -104,9 +104,33 @@ public class WidgetArtifactImporterTest {
     public void should_delete_created_folder_after_import() throws Exception {
         when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(aWidget().id("aWidget").build());
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
 
         assertThat(Files.exists(tempDir.toPath())).isFalse();
+    }
+
+    @Test
+    public void should_leave_created_folder_after_import() throws Exception {
+        Widget widget = wMocks.mockWidgetToBeImported();
+        when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(aWidget().id("aWidget").build());
+        when(widgetRepository.exists(widget.getId())).thenReturn(true);
+
+        importer.execute(aStream(), false);
+
+        assertThat(Files.exists(tempDir.toPath())).isTrue();
+        verify(widgetRepository, never()).save(widget);
+    }
+
+    @Test
+    public void should_delete_created_folder_after_forced_import() throws Exception {
+        Widget widget = wMocks.mockWidgetToBeImported();
+        when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(aWidget().id("aWidget").build());
+        when(widgetRepository.exists(widget.getId())).thenReturn(true);
+
+        importer.execute(aStream(), true);
+
+        assertThat(Files.exists(tempDir.toPath())).isFalse();
+        verify(widgetRepository).save(widget);
     }
 
     @Test
@@ -114,7 +138,7 @@ public class WidgetArtifactImporterTest {
         when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenThrow(ImportException.class);
 
         try {
-            importer.execute(aStream());
+            importer.execute(aStream(), false);
             failBecauseExceptionWasNotThrown(ImportException.class);
         } catch (ImportException e) {
             assertThat(Files.exists(tempDir.toPath())).isFalse();
@@ -128,7 +152,7 @@ public class WidgetArtifactImporterTest {
         exception.expect(ImportException.class);
         exception.expect(hasType(CANNOT_OPEN_ZIP));
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test
@@ -139,14 +163,14 @@ public class WidgetArtifactImporterTest {
         exception.expect(ImportException.class);
         exception.expect(hasType(UNEXPECTED_ZIP_STRUCTURE));
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test(expected = ServerImportException.class)
     public void should_throw_server_import_exception_when_error_occurs_while_unzipping_zip_file() throws Exception {
         when(unzip.unzipInTempDir(any(InputStream.class), anyString())).thenThrow(IOException.class);
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 
     @Test(expected = ServerImportException.class)
@@ -155,6 +179,6 @@ public class WidgetArtifactImporterTest {
         when(widgetLoader.load(any(Path.class), eq("widget.json"))).thenReturn(widget);
         doThrow(RepositoryException.class).when(widgetRepository).save(widget);
 
-        importer.execute(aStream());
+        importer.execute(aStream(), false);
     }
 }

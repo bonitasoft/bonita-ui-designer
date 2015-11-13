@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.controller.importer;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
@@ -27,15 +26,15 @@ import org.springframework.web.multipart.MultipartFile;
 @Named
 public class MultipartFileImporter {
 
-    public ImportReport importFile(MultipartFile file, ArtifactImporter importer) {
+    public ImportReport importFile(MultipartFile file, ArtifactImporter importer, boolean force) {
         try {
-            return doImport(file, importer);
+            return doImport(file, importer, force);
         } catch (IOException | IllegalArgumentException e) {
             throw new ImportException(Type.SERVER_ERROR, e.getMessage(), e);
         }
     }
 
-    private ImportReport doImport(MultipartFile file, ArtifactImporter importer) throws IOException {
+    private ImportReport doImport(MultipartFile file, ArtifactImporter importer, boolean force) throws IOException {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("Part named [file] is needed to successfully import a component");
         }
@@ -45,7 +44,7 @@ public class MultipartFileImporter {
         }
 
         try (InputStream is = file.getInputStream()) {
-            return importer.execute(is);
+            return importer.execute(is, force);
         }
     }
 

@@ -204,7 +204,7 @@ describe('widgetRepo', function() {
   });
   it('should call import/widget/uuid when forceImport is called', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectGET('import/widget/' + uuid).respond('');
+    $httpBackend.expectPOST('import/widget/' + uuid).respond('');
     widgetRepo.forceImport(uuid);
     $httpBackend.flush();
   });
