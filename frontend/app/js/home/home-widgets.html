@@ -34,7 +34,7 @@
         </p>
 
         <ul class="ArtifactList">
-            <li class="ArtifactList-item" ng-repeat="widget in widgets | orderBy:'name'">
+            <li class="ArtifactList-item" ng-repeat="widget in widgets | filter:filters | orderBy:'name'">
                 <div class="Artifact-info">
                     <a ui-sref="designer.widget({ widgetId: widget.id })" class="Artifact-link ">
                         <span title="{{ widget.name }}">

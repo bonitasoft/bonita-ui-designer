@@ -18,6 +18,7 @@
 angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $state, $modal, $q, $timeout, $injector, pageRepo, widgetRepo, customWidgetFactory) {
   $scope.pages = [];
   $scope.widgets = [];
+  $scope.filters = {};
 
   pageRepo.all().then(function(pages) {
     $scope.pages = pages;
