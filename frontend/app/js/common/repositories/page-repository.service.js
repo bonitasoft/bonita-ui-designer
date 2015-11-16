@@ -20,56 +20,53 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('pageRepo', pageRepository);
 
-  function pageRepository($http, repositories) {
+  function pageRepository(Repository, repositories) {
 
-    var repository = repositories.create('page', 'rest/pages');
-    repository.rename = rename;
-    repository.createAsset = createAsset;
-    repository.desactivateAsset = deactivateAsset;
-    repository.deleteAsset = deleteAsset;
-    repository.loadAssets = loadAssets;
-    return repository;
+    class PageRepository extends Repository {
+      constructor() {
+        super('page', 'rest/pages');
+      }
+      /**
+       * Renames a page and returns a promise
+       * @param id - the page's id
+       * @param newName - the page's new name
+       */
+      rename(id, newName) {
+        return this.$http.put(`${this.baseUrl}/${id}/name`, newName);
+      }
 
-    /**
-     * Renames a page and returns a promise
-     * @param id - the page's id
-     * @param newName - the page's new name
-     */
-    function rename(id, newName) {
-      return $http.put(`${repository.baseUrl}/${id}/name`, newName);
+      /**
+       * Creates a new asset
+       * @param id - the page's id
+       * @param asset
+       */
+      createAsset(id, asset) {
+        return this.$http.post(`${this.baseUrl}/${id}/assets`, asset)
+          .then((response) => response.data);
+      }
+
+      desactivateAsset(pageId, asset) {
+        return this.$http.put(`${this.baseUrl}/${pageId}/assets/${asset.id}?active=${asset.active}`, asset);
+      }
+
+      /**
+       * Loads assets used by the page and by the widgets
+       * Returns a promise
+       * @param page
+       */
+      loadAssets(page) {
+        return this.$http.get(`${this.baseUrl}/${page.id}/assets`)
+          .then((response) => response.data);
+      }
+
+      /**
+       * Delete an asset
+       * Returns a promise
+       */
+      deleteAsset(id, asset) {
+        return this.$http.delete(`${this.baseUrl}/${id}/assets/${ asset.id}`);
+      }
     }
-
-    /**
-     * Creates a new asset
-     * @param id - the page's id
-     * @param asset
-     */
-    function createAsset(id, asset) {
-      return $http.post(`${repository.baseUrl}/${id}/assets`, asset)
-        .then((response) => response.data);
-    }
-
-    function deactivateAsset(pageId, asset) {
-      return $http.put(`${repository.baseUrl}/${pageId}/assets/${asset.id}?active=${asset.active}`, asset);
-    }
-
-    /**
-     * Loads assets used by the page and by the widgets
-     * Returns a promise
-     * @param page
-     */
-    function loadAssets(page) {
-      return $http.get(`${repository.baseUrl}/${page.id}/assets`)
-        .then((response) => response.data);
-    }
-
-    /**
-     * Delete an asset
-     * Returns a promise
-     */
-    function deleteAsset(id, asset) {
-      return $http.delete(`${repository.baseUrl}/${id}/assets/${ asset.id}`);
-    }
+    return repositories.add('page', new PageRepository());
   }
-
 })();

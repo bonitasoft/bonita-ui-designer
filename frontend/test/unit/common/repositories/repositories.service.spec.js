@@ -9,16 +9,8 @@ describe('repositories service', () => {
   }));
 
   it('should create a repository', function() {
-
-    var repository = repositories.create('aType', 'aBaseUrl');
-
-    expect(repository.type).toBe('aType');
-    expect(repository.baseUrl).toBe('aBaseUrl');
-  });
-
-  it('should retrieve a created repository by type', function() {
-
-    var repository = repositories.create('aType', 'aBaseUrl');
+    var repository = {};
+    expect(repositories.add('aType', repository)).toBe(repository);
 
     expect(repositories.get('aType')).toBe(repository);
   });

@@ -20,83 +20,18 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('repositories', repositoriesService);
 
-  function repositoriesService($http) {
+  function repositoriesService() {
 
     var repositories = {};
 
     return {
-      create,
+      add,
       get: (type) => repositories[type]
     };
 
-    function create(type, baseUrl) {
-      var repository = new Repository($http, type, baseUrl);
+    function add(type, repository) {
       repositories[type] = repository;
       return repository;
     }
   }
-
-  class Repository {
-    constructor($http, type, baseUrl) {
-      this.type = type;
-      this.baseUrl = baseUrl;
-      this.lastSavedState = {};
-      this.$http = $http;
-    }
-
-    save(artifact) {
-      return this.$http.put(`${this.baseUrl}/${artifact.id}`, artifact)
-        .success(() => {
-          this.lastSavedState = artifact;
-        });
-    }
-
-    /**
-     * Initialise lastSavedState to track update from editor
-     * @param  {Object} artifact  the current artifact being edited
-     */
-    initLastSavedState(artifact) {
-      this.lastSavedState = angular.copy(artifact);
-    }
-
-    /**
-     * Utility function to track if a artifact being updated, need to be saved
-     * @param  {Object} artifact the artifact being updated
-     * @return {Boolean}
-     */
-    needSave(artifact) {
-      return !angular.equals(artifact, this.lastSavedState);
-    }
-
-    delete(id) {
-      return this.$http.delete(`${this.baseUrl}/${id}`);
-    }
-
-    create(artifact, sourceArtifactId) {
-      return this.$http.post(this.baseUrl + (sourceArtifactId ? '?duplicata=' + sourceArtifactId : ''), artifact)
-        .then((response) => response.data);
-    }
-
-    load(id) {
-      return this.$http.get(`${this.baseUrl}/${id}`);
-    }
-
-    all() {
-      return this.$http.get(this.baseUrl)
-        .then((response) => response.data);
-    }
-
-    /**
-     * Return export url of a artifact
-     * @param artifact - the artifact to be exported
-     */
-    exportUrl(artifact) {
-      return `export/${this.type}/${artifact.id}`;
-    }
-
-    forceImport(uuid) {
-      return this.$http.post(`import/${this.type}/${uuid}`);
-    }
-  }
-
 })();

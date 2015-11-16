@@ -20,67 +20,60 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('widgetRepo', widgetRepository);
 
-  function widgetRepository($http, repositories) {
+  function widgetRepository(Repository, repositories) {
 
-    var repository = repositories.create('widget', 'rest/widgets');
-    repository.customs = customs;
-    repository.loadAssets = loadAssets;
-    repository.createAsset = createAsset;
-    repository.deleteAsset = deleteAsset;
-    repository.incrementOrderAsset = incrementOrderAsset;
-    repository.decrementOrderAsset = decrementOrderAsset;
-    repository.addProperty = addProperty;
-    repository.updateProperty = updateProperty;
-    repository.deleteProperty = deleteProperty;
-    return repository;
+    class WidgetRepository extends Repository {
+      constructor() {
+        super('widget', 'rest/widgets');
+      }
+      /**
+       * Returns all the custom widgets by fetching all of them and filtering the custom ones.
+       * @returns {*}
+       */
+      customs() {
+        return this.$http.get(`${this.baseUrl}?view=light`)
+          .then((response) => response.data.filter((widget) => widget.custom));
+      }
 
-    /**
-     * Returns all the custom widgets by fetching all of them and filtering the custom ones.
-     * @returns {*}
-     */
-    function customs() {
-      return $http.get(`${repository.baseUrl}?view=light`)
-        .then((response) => response.data.filter((widget) => widget.custom));
+      /**
+       * Loads assets used by the widgets and by the widgets
+       * Returns a promise
+       * @param widget
+       */
+      loadAssets(widget) {
+        return this.load(widget.id)
+          .then((response) => response.data.assets);
+      }
+
+      createAsset(id, asset) {
+        return this.$http.post(`${this.baseUrl}/${id}/assets`, asset)
+          .then((response) => response.data);
+      }
+
+      deleteAsset(id, asset) {
+        return this.$http.delete(`${this.baseUrl}/${id}/assets/${asset.id}`);
+      }
+
+      incrementOrderAsset(widgetId, asset) {
+        return this.$http.put(`${this.baseUrl}/${widgetId}/assets/${asset.id}?increment=true`, asset);
+      }
+
+      decrementOrderAsset(widgetId, asset) {
+        return this.$http.put(`${this.baseUrl}/${widgetId}/assets/${asset.id}?decrement=true`, asset);
+      }
+
+      addProperty(widgetId, property) {
+        return this.$http.post(`${this.baseUrl}/${widgetId}/properties`, property);
+      }
+
+      updateProperty(widgetId, propertyName, propertyUpdated) {
+        return this.$http.put(`${this.baseUrl}/${widgetId}/properties/${propertyName}`, propertyUpdated);
+      }
+
+      deleteProperty(widgetId, propertyName) {
+        return this.$http.delete(`${this.baseUrl}/${widgetId}/properties/${propertyName}`);
+      }
     }
-
-    /**
-     * Loads assets used by the widgets and by the widgets
-     * Returns a promise
-     * @param widget
-     */
-    function loadAssets(widget) {
-      return repository.load(widget.id)
-        .then((response) => response.data.assets);
-    }
-
-    function createAsset(id, asset) {
-      return $http.post(`${repository.baseUrl}/${id}/assets`, asset)
-        .then((response) => response.data);
-    }
-
-    function deleteAsset(id, asset) {
-      return $http.delete(`${repository.baseUrl}/${id}/assets/${asset.id}`);
-    }
-
-    function incrementOrderAsset(widgetId, asset) {
-      return $http.put(`${repository.baseUrl}/${widgetId}/assets/${asset.id}?increment=true`, asset);
-    }
-
-    function decrementOrderAsset(widgetId, asset) {
-      return $http.put(`${repository.baseUrl}/${widgetId}/assets/${asset.id}?decrement=true`, asset);
-    }
-
-    function addProperty(widgetId, property) {
-      return $http.post(`${repository.baseUrl}/${widgetId}/properties`, property);
-    }
-
-    function updateProperty(widgetId, propertyName, propertyUpdated) {
-      return $http.put(`${repository.baseUrl}/${widgetId}/properties/${propertyName}`, propertyUpdated);
-    }
-
-    function deleteProperty(widgetId, propertyName) {
-      return $http.delete(`${repository.baseUrl}/${widgetId}/properties/${propertyName}`);
-    }
+    return repositories.add('widget', new WidgetRepository());
   }
-
 })();
