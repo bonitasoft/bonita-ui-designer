@@ -10,7 +10,7 @@
         priority: 1000, // make sure we run first
         compile: function (tElement, tAttrs) {
           tAttrs.$set('translate', '');
-          tElement.removeAttr("ui-translate");
+          tElement.removeAttr('ui-translate');
           return {
             post: function (scope, element) {
               $compile(element)(scope);

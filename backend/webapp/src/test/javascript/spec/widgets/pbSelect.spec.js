@@ -1,6 +1,6 @@
 describe('pbSelect', function () {
 
-  var $compile, scope, $rootScope;
+  var $compile, scope, $rootScope, $timeout;
 
   var collection = [{name: 'foo', value: 'baz'}, {name: 'bar', value: 'qux'}];
 
@@ -57,7 +57,7 @@ describe('pbSelect', function () {
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
-    element.find('select').val("1");
+    element.find('select').val('1');
     element.find('select').triggerHandler('change');
 
     expect(scope.properties.value).toBe(collection[1]);
@@ -96,14 +96,14 @@ describe('pbSelect', function () {
   it('should set a placeholder', function () {
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
-    expect(element[0].querySelector('[style="display:none"]')).toBeDefined();
+    expect(element[0].querySelector('[style=\'display:none\']')).toBeDefined();
   });
 
   it('should customize the placeholder', function () {
     scope.properties.placeholder = 'jeanne';
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
-    expect(element[0].querySelector('[style="display:none"]').innerText.trim()).toBe('jeanne');
+    expect(element[0].querySelector('[style=\'display:none\']').innerText.trim()).toBe('jeanne');
   });
 
   it('should generates option form a list', function () {
@@ -148,7 +148,7 @@ describe('pbSelect', function () {
     var element = $compile('<pb-select></pb-select>')(scope);
     scope.$apply();
 
-    element.find('select').val("0");
+    element.find('select').val('0');
     element.find('select').triggerHandler('change');
 
     expect(scope.properties.value).toBe('baz');
@@ -160,14 +160,14 @@ describe('pbSelect', function () {
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
     $timeout.flush();
-    var selectedIndex = widget.find("select")[0].value;
+    var selectedIndex = widget.find('select')[0].value;
 
     expect(scope.properties.availableValues[selectedIndex]).toBe('serge');
   });
 
   it('should select the correct option if value is not null, depending of returnedKey', function(){
     scope.properties = angular.extend(scope.properties, {
-      availableValues: [{"name": 'jeanne'}, {"name": 'serge'}, {"name": 'bob'}],
+      availableValues: [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}],
       value: 'serge',
       displayedKey: 'name',
       returnedKey: 'name'
@@ -176,8 +176,8 @@ describe('pbSelect', function () {
     scope.$digest();
     $timeout.flush();
 
-    var selectedIndex = widget.find("select")[0].value;
+    var selectedIndex = widget.find('select')[0].value;
 
-    expect(scope.properties.availableValues[selectedIndex]).toEqual({"name": 'serge'});
+    expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
   });
 });

@@ -26,11 +26,24 @@ module.exports = function (config) {
     // list of files / patterns to exclude
     exclude: [],
 
-    reporters: ['progress', 'junit'],
+    reporters: ['progress', 'junit', 'coverage'],
 
     junitReporter: {
       outputFile: 'target/reports/unit-tests/test-results.xml',
       suite: 'JavaScript unit tests'
+    },
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'src/main/runtime/js/**/*.js': ['babel', 'coverage'],
+      'src/test/javascript/**/*.js': ['babel']
+    },
+
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'target/reports/coverage/'
     },
 
     // web server port
