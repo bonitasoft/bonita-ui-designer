@@ -76,9 +76,13 @@
     "url": "https://github.com/bonitasoft/bonita-form-builder.git"
   },
   "author": "",
-  "license": "proprietary",
+  "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/bonitasoft/bonita-form-builder/issues"
   },
-  "homepage": "https://github.com/bonitasoft/bonita-form-builder"
+  "homepage": "https://github.com/bonitasoft/bonita-form-builder",
+  "jscsConfig": {
+    "preset": "bonita",
+    "jsDoc": false
+  }
 }

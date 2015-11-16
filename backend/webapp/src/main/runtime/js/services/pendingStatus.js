@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function pendingStatus($timeout) {
+  function PendingStatus($timeout) {
     var pendingRequests = 0;
     var listenners  = [];
 
@@ -42,7 +42,7 @@
       return function(){
         var index = listenners.indexOf(handler);
         listenners = listenners.filter(function(fn, i){
-          return index != i;
+          return index !== i;
         });
       };
     }
@@ -86,7 +86,7 @@
 
   angular
     .module('bonitasoft.ui.services')
-    .service('pendingStatus', pendingStatus)
+    .service('pendingStatus', PendingStatus)
     .service('httpActivityInterceptor', httpActivityInterceptor);
 
 })();

@@ -23,9 +23,7 @@
       function createVariable(propertyValue) {
         var getter = $parse(propertyValue);
         return {
-          get: function () {
-            return getter(context);
-          },
+          get: () => getter(context),
           set: function (value) {
             if (getter.assign) {
               getter.assign(context, value);
@@ -38,29 +36,23 @@
       function createExpression(propertyValue) {
         var getter = $parse(propertyValue);
         return {
-          get: function () {
-            return getter(context);
-          },
+          get: () => getter(context),
           enumerable: true
-        }
+        };
       }
 
       function createInterpolation(propertyValue) {
         return {
-          get: function () {
-            return $interpolate(propertyValue || '')(context);
-          },
+          get: () => $interpolate(propertyValue || '')(context),
           enumerable: true
         };
       }
 
       function createConstant(propertyValue) {
         return {
-          get: function () {
-            return propertyValue;
-          },
+          get: () => propertyValue,
           enumerable: true
-        }
+        };
       }
 
       var bonds = {
@@ -78,7 +70,7 @@
 
     return {
       create: createBindings
-    }
+    };
   }
 
   angular.module('bonitasoft.ui.services')

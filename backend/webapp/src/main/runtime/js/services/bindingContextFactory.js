@@ -5,7 +5,7 @@
 
     function expand(context) {
       return {
-        "with": function (name, accessors) {
+        'with': function (name, accessors) {
           accessors.enumerable = true;
           Object.defineProperty(context, name, accessors);
           return this;
@@ -19,9 +19,7 @@
       expand(context)
 
         .with('$item', {
-          get: function () {
-            return scope.$item;
-          },
+          get: () => scope.$item,
           set: function (value) {
             if (scope.$collection) {
               scope.$collection[scope.$index] = value;
@@ -30,28 +28,22 @@
         })
 
         .with('$collection', {
-          get: function () {
-            return scope.$collection;
-          }
+          get: () => scope.$collection,
         })
 
         .with('$index', {
-          get: function () {
-            return scope.$index;
-          }
+          get: () => scope.$index,
         })
 
         .with('$form', {
-          get: function () {
-            return scope.$form;
-          }
+          get: () => scope.$form,
         });
       return context;
     }
 
     return {
       create: createContext
-    }
+    };
   }
 
   angular

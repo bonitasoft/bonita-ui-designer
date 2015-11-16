@@ -1,4 +1,5 @@
-var ddescriber = require("../../../frontend/gulp/ddescriber.js");
+var ddescriber = require('../../../frontend/gulp/ddescriber.js');
+var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
@@ -7,6 +8,9 @@ var html2js = require('gulp-ng-html2js');
 var merge = require('merge-stream');
 var gulpIf = require('gulp-if');
 var order = require('gulp-order');
+var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
+var babel = require('gulp-babel');
 
 var gettextWidget = require('./gettext-widget.js');
 var buildWidget = require('./widget-builder/src/index.js');
@@ -40,6 +44,24 @@ module.exports = function(gulp, config) {
       .pipe(concat('widgets.json', {newLine: ','}))
       .pipe( gettextWidget.extract() )
       .pipe(gulp.dest('target/po'));
+  });
+
+  gulp.task('jshint', function () {
+    return gulp.src(paths.runtime)
+      .pipe(jshint())
+      .pipe(jshint.reporter('jshint-stylish'))
+      .pipe(jshint.reporter('fail'))
+      .pipe(jscs())
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'));
+  });
+
+  gulp.task('jscs', function () {
+    return gulp.src(paths.runtime + '/**/*.js')
+      .pipe(jscs({fix: true}))
+      .pipe(jscs.reporter())
+      .pipe(jscs.reporter('fail'))
+      .pipe(gulp.dest(paths.runtimeFolder));
   });
 
 
@@ -78,17 +100,19 @@ module.exports = function(gulp, config) {
       }));
 
     var app = gulp.src(paths.runtime)
-      .pipe(ngAnnotate({
-        single_quotes: true,
-        add: true
-      }));
-
-    return merge(app, tpl)
+      .pipe(plumber())
       .pipe(order([
         '**/*.module.js',
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
+      .pipe(babel({blacklist: ['spec.functionName']}))
+      .pipe(ngAnnotate({
+        'single_quotes': true,
+        add: true
+      }));
+
+    return merge(app, tpl)
       .pipe(concat('runtime.min.js'))
       .pipe(uglify())
       .pipe(sourcemaps.write('.'))

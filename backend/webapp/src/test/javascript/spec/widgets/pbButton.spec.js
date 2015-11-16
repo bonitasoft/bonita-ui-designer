@@ -1,6 +1,6 @@
 describe('pbButton', function () {
 
-  var $compile, scope, element, $timeout, $parse, $q, $location, $window;
+  var $compile, scope, element, $timeout, $parse, $q, $location, $window, $httpBackend;
 
   beforeEach(module('bonitasoft.ui.services'));
   beforeEach(module('bonitasoft.ui.widgets'));
@@ -20,7 +20,7 @@ describe('pbButton', function () {
     scope = $rootScope.$new();
     // set the default value for property method
     scope.properties = {
-      method: "Submit task",
+      method: 'Submit task',
       waitFor: function(){
         return $q.when(true);
       }
@@ -32,26 +32,26 @@ describe('pbButton', function () {
 
 
   it('should have specified label', function () {
-    scope.properties.label = "foobar";
+    scope.properties.label = 'foobar';
     scope.$apply();
 
-    expect(element.find('button').text()).toBe("foobar");
+    expect(element.find('button').text()).toBe('foobar');
   });
 
   it('should support changing text alignment', function () {
-    scope.properties.alignment = "right";
+    scope.properties.alignment = 'right';
     scope.$apply();
 
     element.find('button').triggerHandler('click');
 
-    expect(element.find('div').hasClass("text-right")).toBeTruthy();
+    expect(element.find('div').hasClass('text-right')).toBeTruthy();
   });
 
   it('should be disablable', function () {
     scope.properties.disabled = true;
     scope.$apply();
 
-    expect(element.find('button').attr('disabled')).toBe("disabled");
+    expect(element.find('button').attr('disabled')).toBe('disabled');
   });
 
   describe('remove from collection action', function () {
@@ -61,23 +61,23 @@ describe('pbButton', function () {
     });
 
     it('should remove last element from collection', function () {
-      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionToModify = ['apple', 'banana'];
       scope.properties.collectionPosition = 'Last';
       scope.$apply();
 
       element.find('button').triggerHandler('click');
 
-      expect(scope.properties.collectionToModify).toEqual(["apple"]);
+      expect(scope.properties.collectionToModify).toEqual(['apple']);
     });
 
     it('should remove first element from collection', function () {
-      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionToModify = ['apple', 'banana'];
       scope.properties.collectionPosition = 'First';
       scope.$apply();
 
       element.find('button').triggerHandler('click');
 
-      expect(scope.properties.collectionToModify).toEqual(["banana"]);
+      expect(scope.properties.collectionToModify).toEqual(['banana']);
     });
 
     it('should do nothing when removing last of an empty collection', function () {
@@ -111,25 +111,25 @@ describe('pbButton', function () {
     });
 
     it('should remove $item element from collection when current item is selected', function () {
-      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionToModify = ['apple', 'banana'];
       scope.properties.collectionPosition = 'Item';
-      scope.properties.removeItem = "apple";
+      scope.properties.removeItem = 'apple';
       scope.$apply();
 
       element.find('button').triggerHandler('click');
 
-      expect(scope.properties.collectionToModify).toEqual(["banana"]);
+      expect(scope.properties.collectionToModify).toEqual(['banana']);
     });
 
     it('should do nothing when removing unknow item', function () {
-      scope.properties.collectionToModify = ["apple", "banana"];
+      scope.properties.collectionToModify = ['apple', 'banana'];
       scope.properties.collectionPosition = 'Item';
-      scope.properties.removeItem = "lemon";
+      scope.properties.removeItem = 'lemon';
       scope.$apply();
 
       element.find('button').triggerHandler('click');
 
-      expect(scope.properties.collectionToModify).toEqual(["apple", "banana"]);
+      expect(scope.properties.collectionToModify).toEqual(['apple', 'banana']);
     });
   });
 
@@ -190,7 +190,7 @@ describe('pbButton', function () {
       var data = {'name': 'toto'};
       var url = '/toto';
 
-      $httpBackend.expectPOST(url, data).respond("yes");
+      $httpBackend.expectPOST(url, data).respond('yes');
       scope.properties.url = url;
       scope.properties.dataToSend = data;
       scope.properties.action = 'POST';
@@ -206,7 +206,7 @@ describe('pbButton', function () {
       var data = {'name': 'toto'};
       var url = '/toto';
 
-      $httpBackend.expectPOST(url, data).respond("success");
+      $httpBackend.expectPOST(url, data).respond('success');
       scope.properties.url = url;
       scope.properties.dataToSend = data;
       scope.properties.action = 'POST';
@@ -236,7 +236,7 @@ describe('pbButton', function () {
     it('should bind success data when GET succeed', function () {
       var url = '/toto';
 
-      $httpBackend.expectGET(url).respond("success");
+      $httpBackend.expectGET(url).respond('success');
       scope.properties.url = url;
       scope.properties.action = 'GET';
 
@@ -277,7 +277,7 @@ describe('pbButton', function () {
       var data = {'name': 'toto'};
       var url = '/toto/1';
 
-      $httpBackend.expectPUT(url, data).respond("success");
+      $httpBackend.expectPUT(url, data).respond('success');
       scope.properties.dataToSend = data;
       scope.properties.action = 'PUT';
       scope.properties.url = url;
@@ -321,7 +321,7 @@ describe('pbButton', function () {
     it('should bind success data when DELETE succeed', function () {
       var url = '/toto';
 
-      $httpBackend.expectDELETE(url).respond("success");
+      $httpBackend.expectDELETE(url).respond('success');
       scope.properties.url = url;
       scope.properties.action = 'DELETE';
 
@@ -347,7 +347,7 @@ describe('pbButton', function () {
 
     it('should throw error when trying to remove from collection that is not an array', function () {
       scope.properties.action = 'Remove from collection';
-      scope.properties.collectionToModify = {"an": "object"};
+      scope.properties.collectionToModify = {'an': 'object'};
       scope.$apply();
 
       expect(scope.ctrl.action).toThrow('Collection property for widget button should be an array, but was [object Object]');
@@ -355,7 +355,7 @@ describe('pbButton', function () {
 
     it('shoud throw error when trying to add to a collection that is not an array', function () {
       scope.properties.action = 'Add to collection';
-      scope.properties.collectionToModify = {"an": "object"};
+      scope.properties.collectionToModify = {'an': 'object'};
       scope.$apply();
 
       expect(scope.ctrl.action).toThrow('Collection property for widget button should be an array, but was [object Object]');
@@ -379,7 +379,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('../API/bpm/userTask/42/execution', scope.properties.dataToSend).respond("success");
+      $httpBackend.expectPOST('../API/bpm/userTask/42/execution', scope.properties.dataToSend).respond('success');
 
       element.find('button').triggerHandler('click');
 
@@ -393,7 +393,7 @@ describe('pbButton', function () {
       };
 
       scope.properties.dataToSend = {'name': 'toto'};
-      $httpBackend.expectPOST('../API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond("success");
+      $httpBackend.expectPOST('../API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond('success');
 
       element.find('button').triggerHandler('click');
 
@@ -469,7 +469,7 @@ describe('pbButton', function () {
     var currentWindow;
 
     var stringifiedJSONArgsMatcher = function(actualArgs, expectedArgs) {
-      for (i= 0; i < actualArgs.length; i++) {
+      for (var i= 0; i < actualArgs.length; i++) {
         var argBeforeStringify;
         try {
           argBeforeStringify = JSON.parse(actualArgs[i]);
