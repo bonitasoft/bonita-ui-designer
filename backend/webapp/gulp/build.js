@@ -19,7 +19,7 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['runtime', 'widgets', 'pot']);
+  gulp.task('build', ['jshint', 'runtime', 'widgets', 'pot']);
 
   /**
    * Check for ddescribe and iit
@@ -57,7 +57,7 @@ module.exports = function(gulp, config) {
   });
 
   gulp.task('jscs', function () {
-    return gulp.src(paths.runtime + '/**/*.js')
+    return gulp.src(paths.runtimeFolder + '/**/*.js')
       .pipe(jscs({fix: true}))
       .pipe(jscs.reporter())
       .pipe(jscs.reporter('fail'))
