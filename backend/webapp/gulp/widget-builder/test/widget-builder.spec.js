@@ -5,13 +5,15 @@ import jsesc from 'jsesc';
 import {Writable} from 'stream';
 import {should} from 'chai';
 import through2 from 'through2';
+import path from 'path';
+import eol from 'eol';
 should();
 
 let resources = {
-  controller: __dirname + '/pbWidget/pbWidget.ctrl.js',
-  template: __dirname + '/pbWidget/pbWidget.tpl.html',
-  json: __dirname + '/pbWidget/pbWidget.json',
-  directive: __dirname + '/pbWidget/pbWidget.js'
+  controller: path.join(__dirname , '/pbWidget/pbWidget.ctrl.js'),
+  template: path.join(__dirname , '/pbWidget/pbWidget.tpl.html'),
+  json: path.join(__dirname , '/pbWidget/pbWidget.json'),
+  directive: path.join(__dirname , '/pbWidget/pbWidget.js')
 };
 
 let controller = jsesc(fs.readFileSync(resources.controller));
@@ -26,7 +28,7 @@ let directive = `(function () {
     return {
       controllerAs: 'ctrl',
       controller: ${controller},
-      template: '${jsesc(template)}'
+      template: '${ jsesc(template)}'
     };
   });
 `;
@@ -39,7 +41,7 @@ describe('buildWidget', () => {
       .pipe(buildWidget())
       .pipe(assertThat({
         when: (file) => file.path === resources.directive,
-        then: (file) => String(file.contents).should.equal(directive),
+        then: (file) => eol.auto(String(file.contents)).should.equal(eol.auto(directive)),
         done
       }));
   });
@@ -90,7 +92,7 @@ describe('buildWidget', () => {
       }))
       .pipe(assertThat({
         when: (file) => file.path.indexOf('assets') > 0,
-        then: (file) => file.base.should.equal(__dirname + '/pbWidget/'),
+        then: (file) => file.base.should.equal(path.join(__dirname, 'pbWidget/')),
         done
       }));
   });
