@@ -24,7 +24,6 @@ var header = require('gulp-header');
 var iconfont = require('gulp-iconfont');
 var iconfontCss = require('gulp-iconfont-css');
 var base64 = require('gulp-base64');
-var packageJSON  = require('../package');
 const jscs = require('gulp-jscs');
 
 module.exports = function (gulp, config) {

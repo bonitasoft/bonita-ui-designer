@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   function PendingStatus($timeout) {
@@ -20,7 +20,7 @@
 
       if (pendingRequests === 0) {
         listenners.forEach(function(handler) {
-           handler();
+          handler();
         });
       }
     }
@@ -33,25 +33,23 @@
 
       listenners = listenners.concat(handler);
 
-        $timeout(function(){
-          if(pendingRequests === 0) {
+      $timeout(function() {
+          if (pendingRequests === 0) {
             handler();
           }
         }, 0, false);
 
-      return function(){
+      return function() {
         var index = listenners.indexOf(handler);
-        listenners = listenners.filter(function(fn, i){
+        listenners = listenners.filter(function(fn, i) {
           return index !== i;
         });
       };
     }
 
-
   }
 
-
-  function httpActivityInterceptor($q, pendingStatus){
+  function httpActivityInterceptor($q, pendingStatus) {
     return {
       request: requestHandler,
       response: responseHandler,
@@ -59,7 +57,7 @@
     };
 
     function requestHandler(config) {
-      if( config.method === 'GET') {
+      if (config.method === 'GET') {
         pendingStatus.addPendingRequest();
       }
       return config;
@@ -69,18 +67,18 @@
       if (shouldRemovePendingRequest(response)) {
         pendingStatus.removePendingRequest();
       }
-      return(response);
+      return (response);
     }
 
-    function responseErrorHandler(response){
-     if (shouldRemovePendingRequest(response)) {
-      pendingStatus.removePendingRequest();
-     }
-     return $q.reject( response ) ;
+    function responseErrorHandler(response) {
+      if (shouldRemovePendingRequest(response)) {
+        pendingStatus.removePendingRequest();
+      }
+      return $q.reject(response);
     }
 
-    function shouldRemovePendingRequest(response){
-      return  response.config && response.config.method === 'GET';
+    function shouldRemovePendingRequest(response) {
+      return response.config && response.config.method === 'GET';
     }
   }
 

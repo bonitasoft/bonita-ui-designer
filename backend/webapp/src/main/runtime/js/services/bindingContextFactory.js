@@ -1,11 +1,11 @@
-(function () {
+(function() {
   'use strict';
 
   function bindingContextFactory() {
 
     function expand(context) {
       return {
-        'with': function (name, accessors) {
+        'with': function(name, accessors) {
           accessors.enumerable = true;
           Object.defineProperty(context, name, accessors);
           return this;
@@ -20,7 +20,7 @@
 
         .with('$item', {
           get: () => scope.$item,
-          set: function (value) {
+          set: function(value) {
             if (scope.$collection) {
               scope.$collection[scope.$index] = value;
             }

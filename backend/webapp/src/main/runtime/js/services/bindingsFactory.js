@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   /**
@@ -24,7 +24,7 @@
         var getter = $parse(propertyValue);
         return {
           get: () => getter(context),
-          set: function (value) {
+          set: function(value) {
             if (getter.assign) {
               getter.assign(context, value);
             }
@@ -62,7 +62,7 @@
         'constant': createConstant
       };
 
-      Object.keys(properties).forEach(function (name) {
+      Object.keys(properties).forEach(function(name) {
         var property = properties[name];
         Object.defineProperty(destination, name, bonds[property.type](property.value, name));
       });

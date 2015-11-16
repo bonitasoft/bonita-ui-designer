@@ -73,16 +73,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bonitasoft/bonita-form-builder.git"
+    "url": "https://github.com/bonitasoft/bonita-ui-designer.git"
   },
   "author": "",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/bonitasoft/bonita-form-builder/issues"
+    "url": "https://github.com/bonitasoft/bonita-ui-designer/issues"
   },
-  "homepage": "https://github.com/bonitasoft/bonita-form-builder",
+  "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
   "jscsConfig": {
     "preset": "bonita",
-    "jsDoc": false
+    "jsDoc": false,
+    "disallowUnusedParams": false
   }
 }

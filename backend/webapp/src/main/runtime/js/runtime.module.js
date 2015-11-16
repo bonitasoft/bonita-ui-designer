@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('bonitasoft.ui.constants', []);
@@ -23,6 +23,6 @@
     'bonitasoft.ui.extensions',
     'pb.widgets',
     'pb.generator'
-  ])
+  ]);
 })();
 

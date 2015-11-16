@@ -1,11 +1,11 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('bonitasoft.ui.directives')
-    .directive('pbModel', function ($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory, bindingContextFactory) {
+    .directive('pbModel', function($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory, bindingContextFactory) {
 
       function PbModelCtrl() {}
-      PbModelCtrl.prototype.fill = function (rawData) {
+      PbModelCtrl.prototype.fill = function(rawData) {
         var model = modelFactory.create(rawData);
         this.createGateway = model.createGateway;
         this.getModel = function() {
@@ -15,17 +15,17 @@
 
       function pbModelCompile(tElement, tAttributes) {
         return {
-          pre: function (scope, element, attrs, pbModelCtrl) {
+          pre: function(scope, element, attrs, pbModelCtrl) {
             pbModelCtrl.fill(dataModelFactory.get(tAttributes.pbModel));
             var pbModelProperties = modelPropertiesFactory.get(tAttributes.pbModelProperties);
-            if(pbModelProperties && scope.$parent.pbModelCtrl) {
+            if (pbModelProperties && scope.$parent.pbModelCtrl) {
               bindingsFactory.create(
                 pbModelProperties,
                 bindingContextFactory.create(scope.$parent.pbModelCtrl, scope),
                 pbModelCtrl.getModel());
             }
           }
-        }
+        };
       }
 
       return {
@@ -38,6 +38,6 @@
         // This is why we use a new scope. To avoid overriding parent modelCtrl.
         scope: true,
         compile: pbModelCompile
-      }
+      };
     });
 })();
