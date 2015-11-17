@@ -20,18 +20,9 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('repositories', repositoriesService);
 
-  function repositoriesService() {
-
-    var repositories = {};
-
+  function repositoriesService($injector) {
     return {
-      add,
-      get: (type) => repositories[type]
+      get: (type) => $injector.get(`${type}Repo`)
     };
-
-    function add(type, repository) {
-      repositories[type] = repository;
-      return repository;
-    }
   }
 })();
