@@ -19,7 +19,7 @@ module.exports = function (config) {
 
     files: [
       'node_modules/jquery/dist/jquery.js',
-      'bower_components/angular/angular.js',
+      'bower_components/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
