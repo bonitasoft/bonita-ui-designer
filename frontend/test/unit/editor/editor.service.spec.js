@@ -129,7 +129,7 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
 
-      spyOn(widgetRepo, 'all').and.returnValue($q.when({ data: [labelWidget] }));
+      spyOn(widgetRepo, 'all').and.returnValue($q.when([labelWidget]));
       spyOn(alerts, 'addError');
     }));
 
