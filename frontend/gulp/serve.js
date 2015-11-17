@@ -106,13 +106,13 @@ module.exports = function (gulp, config) {
   function serveE2e() {
     var app = connect();
     app.use(serveStatic(paths.test, {
-      index: 'index-e2e.html'
+      index: 'index.html'
     }));
 
     app.use(uploadMiddleware);
     app.use(serveStatic(paths.dist));
     app.use(function (req, res, next) {
-      req.url = '/index-e2e.html';
+      req.url = '/index.html';
       next();
     });
 
@@ -132,7 +132,7 @@ module.exports = function (gulp, config) {
     browserSyncInit(paths.dev, [
       paths.dev + '/**/*.js',
       paths.dev + '/**/*.css'
-    ], 'index-dev.html');
+    ], 'index.html');
   });
 
   gulp.task('serve:dist', function () {
