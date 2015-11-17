@@ -549,7 +549,7 @@ describe('EditorCtrl', function() {
     $scope.$apply();
 
     // then it should call the service to save
-    expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
+    expect(pageRepo.save).toHaveBeenCalledWith( $scope.page);
     // and set the path and search
     expect($state.go).toHaveBeenCalledWith('designer.widget', { widgetId: 'widgetId' });
   });

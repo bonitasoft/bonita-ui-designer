@@ -1,4 +1,5 @@
 {
   "preset": "bonita",
-  "jsDoc": false
+  "jsDoc": false,
+  "disallowUnusedParams": false
 }
