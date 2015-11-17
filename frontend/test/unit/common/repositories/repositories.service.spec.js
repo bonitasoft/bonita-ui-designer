@@ -1,17 +1,20 @@
 describe('repositories service', () => {
 
-  var repositories;
+  var repositories, pageRepo, widgetRepo;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
 
-  beforeEach(inject(function(_repositories_) {
+  beforeEach(inject(function(_repositories_, _pageRepo_, _widgetRepo_) {
     repositories = _repositories_;
+    pageRepo = _pageRepo_;
+    widgetRepo = _widgetRepo_;
   }));
 
-  it('should create a repository', function() {
-    var repository = {};
-    expect(repositories.add('aType', repository)).toBe(repository);
+  it('should get page repository', function() {
+    expect(repositories.get('page')).toBe(pageRepo);
+  });
 
-    expect(repositories.get('aType')).toBe(repository);
+  it('should get widget repository', function() {
+    expect(repositories.get('widget')).toBe(widgetRepo);
   });
 });

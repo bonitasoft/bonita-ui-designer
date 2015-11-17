@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('widgetRepo', widgetRepository);
 
-  function widgetRepository(Repository, repositories) {
+  function widgetRepository(Repository) {
 
     class WidgetRepository extends Repository {
       constructor() {
@@ -74,6 +74,6 @@
         return this.$http.delete(`${this.baseUrl}/${widgetId}/properties/${propertyName}`);
       }
     }
-    return repositories.add('widget', new WidgetRepository());
+    return new WidgetRepository();
   }
 })();

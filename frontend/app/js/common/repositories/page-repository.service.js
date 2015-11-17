@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('pageRepo', pageRepository);
 
-  function pageRepository(Repository, repositories) {
+  function pageRepository(Repository) {
 
     class PageRepository extends Repository {
       constructor() {
@@ -67,6 +67,6 @@
         return this.$http.delete(`${this.baseUrl}/${id}/assets/${ asset.id}`);
       }
     }
-    return repositories.add('page', new PageRepository());
+    return new PageRepository();
   }
 })();
