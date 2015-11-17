@@ -59,7 +59,7 @@ $ gulp [default] --dist
 $ gulp [default] serve
 ```
 
-This starts a server on port 3000 which allows serving the development page (index-dev.html)
+This starts a server on port 3000 which allows serving the development page (index.html)
 
 ## Start built files
 
