@@ -67,7 +67,7 @@ describe('Directive: propertyValues', function () {
     }
   };
 
-  var $scope, modelFactory, $compile, $timout, pendingStatus;
+  var $scope, modelFactory, $compile, $timeout, pendingStatus;
 
   beforeEach(inject(function ($rootScope, _$compile_, _modelFactory_, _$timeout_, _pendingStatus_) {
     $compile = _$compile_;
@@ -153,7 +153,7 @@ describe('Directive: propertyValues', function () {
 
       var handler = jasmine.createSpy('handler');
 
-      var promise = scope.properties.waitFor('baz').then(handler);
+      scope.properties.waitFor('baz').then(handler);
       $timeout.flush();
       expect(handler).toHaveBeenCalled();
 
@@ -167,7 +167,7 @@ describe('Directive: propertyValues', function () {
       var handler = jasmine.createSpy('handler');
 
       pendingStatus.addPendingRequest();
-      var promise = scope.properties.waitFor('baz').then(handler);
+      scope.properties.waitFor('baz').then(handler);
       expect(handler).not.toHaveBeenCalled();
       pendingStatus.removePendingRequest();
       $timeout.flush();

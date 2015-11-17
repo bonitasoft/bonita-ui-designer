@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   function modelFactory($interpolate, $http, $log, $location) {
@@ -14,18 +14,19 @@
     function resolveExpression(dataModel, descriptor, name) {
 
       // use strict. Avoid pollution of the global object.
+      /* jshint evil:true*/
       var expression = new Function('$data', '"use strict";' + descriptor.value), currentValue;
 
       Object.defineProperty(dataModel, name, {
-        get: function () {
+        get: function() {
           try {
             var value = expression(dataModel);
-            if(!angular.equals(currentValue, value)) {
+            if (!angular.equals(currentValue, value)) {
               currentValue = value;
             }
             return currentValue;
           } catch (e) {
-            $log.warn("Error evaluating <", name, "> data: ", e.message);
+            $log.warn('Error evaluating <', name, '> data: ', e.message);
           }
         },
         enumerable: true
@@ -40,20 +41,20 @@
           return this.$promise || (this.$promise = $http({
             method: 'GET',
             url: '../API/system/session/unusedId'
-          }).success(function(data, status, headers) {
+          }).success(function() {
             $http.defaults.xsrfHeaderName = $http.defaults.xsrfCookieName = 'X-Bonita-API-Token';
           }));
         }
       };
 
       Object.defineProperty(dataModel, name, {
-        get: function () {
+        get: function() {
           var currentUrl = $interpolate(descriptor.value, false, null, true)(dataModel);
 
           if (currentUrl !== url && currentUrl !== undefined) {
             url = currentUrl;
             csrf.promise.finally(function() {
-              $http.get(url).success(function (data) {
+              $http.get(url).success(function(data) {
                 value = data;
               });
             });
@@ -66,11 +67,11 @@
 
     function resolveUrlParameter(dataModel, descriptor, name) {
       function extractUrlParameter(param, str) {
-        return decodeURI(str.replace(new RegExp("^(?:.*[&\\?]" + encodeURI(param).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        return decodeURI(str.replace(new RegExp('^(?:.*[&\\?]' + encodeURI(param).replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'));
       }
 
       Object.defineProperty(dataModel, name, {
-        get: function () {
+        get: function() {
           return extractUrlParameter(descriptor.value || '', $location.absUrl());
         },
         enumerable: true
@@ -87,7 +88,7 @@
     };
 
     return {
-      create: function (data) {
+      create: function(data) {
 
         var model = Object.keys(data).reduce(function(acc, name) {
           var descriptor = data[name];
@@ -95,14 +96,14 @@
           return acc;
         }, {});
 
-        model.createGateway = function () {
+        model.createGateway = function() {
           var context = {};
-          Object.keys(model).forEach(function (property) {
+          Object.keys(model).forEach(function(property) {
             Object.defineProperty(context, property, {
-              get: function () {
+              get: function() {
                 return model[property];
               },
-              set: function (value) {
+              set: function(value) {
                 model[property] = value;
               },
               enumerable: true

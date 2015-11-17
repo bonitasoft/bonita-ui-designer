@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   function widgetNameFactory() {
@@ -8,13 +8,12 @@
       getName: getName
     };
 
-
     function getName(widget) {
       if (!widgetsName.hasOwnProperty(widget)) {
         widgetsName[widget] = -1;
       }
 
-      widgetsName[widget] += 1 ;
+      widgetsName[widget] += 1;
 
       return widget + widgetsName[widget];
     }

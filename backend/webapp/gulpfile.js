@@ -7,6 +7,7 @@ var paths = {
     'src/main/runtime/templates/*.html'
   ],
   runtime: ['src/main/runtime/**/*.js'],
+  runtimeFolder: 'src/main/runtime',
   vendor: [
     'bower_components/angular/angular.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
