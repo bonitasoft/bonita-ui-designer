@@ -29,14 +29,13 @@ module.exports = function(gulp, config) {
    * index file
    */
   gulp.task('index:e2e', function () {
-    return gulp.src('app/index-dev.html')
+    return gulp.src('app/index.html')
       .pipe(htmlreplace({
         'js': 'js/page-builder-' + timestamp + '.min.js',
         'vendors': 'js/vendors-' + timestamp + '.min.js',
         'css': 'css/page-builder-' + timestamp + '.min.css',
         'e2e': 'js/e2e.js'
       }))
-      .pipe(rename('index-e2e.html'))
       .pipe(gulp.dest(paths.test));
   });
 

@@ -8,7 +8,7 @@ module.exports = function(gulp, config) {
    * Index file
    */
   gulp.task('index:dev', function () {
-    return gulp.src('app/index-dev.html')
+    return gulp.src('app/index.html')
       .pipe(gulp.dest(config.paths.dev));
   });
 
