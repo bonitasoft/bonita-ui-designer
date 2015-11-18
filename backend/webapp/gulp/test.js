@@ -5,30 +5,30 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  function test(watch) {
+  function test(done, watch) {
     return karma.start({
       configFile: paths.karma.configFile,
       singleRun: !watch
-    });
+    }, done);
   }
 
   /**
    * Task to run unit tests.
    */
-  gulp.task('test', ['test:widgets'], function() {
-    return test();
+  gulp.task('test', ['test:widgets'], function(done) {
+    return test(done);
   });
 
-  gulp.task('test:datepicker', ['test:widgets'], function() {
-    process.argv.push("--specs=src/test/javascript/spec/widgets/pbDatePicker.spec.js");
-    return test();
+  gulp.task('test:datepicker', ['test:widgets'], function(done) {
+    process.argv.push('--specs=src/test/javascript/spec/widgets/pbDatePicker.spec.js');
+    return test(done);
   });
 
   /**
    * Task to run unit tests TDD style.
    */
-  gulp.task('test:watch', ['test:widgets', 'test:watch:widgets'], function() {
-    return test(true);
+  gulp.task('test:watch', ['test:widgets', 'test:watch:widgets'], function(done) {
+    return test(done, true);
   });
 
   /**

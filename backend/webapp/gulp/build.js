@@ -19,7 +19,8 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['jshint', 'runtime', 'widgets', 'pot']);
+  gulp.task('build', ['runtime', 'widgets', 'pot']);
+  gulp.task('lint', ['jshint', 'jscs:lint']);
 
   /**
    * Check for ddescribe and iit
@@ -50,13 +51,17 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.runtime)
       .pipe(jshint())
       .pipe(jshint.reporter('jshint-stylish'))
-      .pipe(jshint.reporter('fail'))
+      .pipe(jshint.reporter('fail'));
+  });
+
+  gulp.task('jscs:lint', function() {
+    return gulp.src(paths.runtimeFolder + '/**/*.js')
       .pipe(jscs())
       .pipe(jscs.reporter())
       .pipe(jscs.reporter('fail'));
   });
 
-  gulp.task('jscs', function () {
+  gulp.task('jscs:format', function () {
     return gulp.src(paths.runtimeFolder + '/**/*.js')
       .pipe(jscs({fix: true}))
       .pipe(jscs.reporter())
