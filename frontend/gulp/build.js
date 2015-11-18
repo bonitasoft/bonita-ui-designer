@@ -238,13 +238,12 @@ module.exports = function (gulp, config) {
    * Index
    */
   gulp.task('index:dist', function () {
-    return gulp.src('app/index-dev.html')
+    return gulp.src('app/index.html')
       .pipe(htmlreplace({
         'js': 'js/page-builder-' + timestamp + '.min.js',
         'vendors': 'js/vendors-' + timestamp + '.min.js',
         'css': 'css/page-builder-' + timestamp + '.min.css'
       }))
-      .pipe(rename('index.html'))
       .pipe(gulp.dest(paths.dist));
   });
 };
