@@ -318,16 +318,6 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>npm install widget-builder</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <arguments>install --prefix ./gulp/widget-builder</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>npm test widget-builder</id>
                         <goals>
                             <goal>npm</goal>
