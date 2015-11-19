@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('bonitasoft.ui.directives')
-    .directive('pbPropertyValues', function($parse, $q, $timeout, $log, bindingsFactory, propertyValuesFactory, bindingContextFactory, pendingStatus) {
+    .directive('pbPropertyValues', function($parse, $q, $timeout, $log, bindingsFactory, propertyValuesFactory, bindingContextFactory) {
 
       function pbPropertyValuesCompile(tElement, tAttributes) {
         return {
@@ -17,18 +17,6 @@
               return !!pbPropertyValues[propertyName] &&
                 pbPropertyValues[propertyName].type === 'variable' &&
                 !!pbPropertyValues[propertyName].value;
-            };
-
-            $scope.properties.waitFor = function(propertyName) {
-              // This comment is mandatory to force variable resolution
-              $log.log('resolving property ', propertyName,' Current value: ', $scope.properties[propertyName]);
-
-              var defer = $q.defer();
-              var removeFn = pendingStatus.listen(function() {
-                defer.resolve();
-              });
-
-              return defer.promise.then(removeFn);
             };
           }
         };
