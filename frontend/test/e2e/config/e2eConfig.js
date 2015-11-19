@@ -185,6 +185,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         id: 'customAwesomeWidget',
         name: 'awesomeWidget',
         custom: true,
+        lastUpdate: 1447944407862,
         template: '<div>My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>',
         properties: [
           {
@@ -216,12 +217,38 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
             'active': true
           }
         ]
+      },
+      {
+        id: 'customFavoriteWidget',
+        name: 'favoriteWidget',
+        custom: true,
+        lastUpdate: 1447891242960,
+        template: '<div>My {{ properties.qualifier }} widget just {{ properties.verb }}!</div>',
+        properties: [
+          {
+            label: 'Qualifier',
+            name: 'qualifier',
+            type: 'text',
+            defaultValue: 'awesome',
+            bond: 'expression'
+          },
+          {
+            label: 'Verb',
+            name: 'verb',
+            type: 'text',
+            defaultValue: 'rocks',
+            bond: 'expression'
+          }
+        ],
+        assets: []
       }
     ];
 
     var personPage = {
       id: 'person',
       name: 'Person',
+      type: 'page',
+      lastUpdate: 1447944407862,
       data: {
         alreadyExistsData: { type: 'constant', value: 'aValue' },
         jsonExample: { type: 'json', value: {} },
@@ -478,6 +505,8 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
       {
         id: 'empty',
         name: 'empty',
+        type: 'page',
+        lastUpdate: 1447891242960,
         rows: [[]],
         data: {}
       }
@@ -536,13 +565,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
 
     // get all light representation
     $httpBackend.whenGET('rest/widgets?view=light').respond(function() {
-      var response = widgets.map(function(elem) {
-        return {
-          id: elem.id,
-          name: elem.name,
-          custom: elem.custom
-        };
-      });
+      var response = widgets.map(({id, name, custom, lastUpdate}) => ({id, name, custom, lastUpdate}));
       return [200, response, {}];
     });
 
@@ -578,12 +601,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
      * ******************************************************************************************************/
     // get all (light representation)
     $httpBackend.whenGET('rest/pages').respond(function() {
-      var response = pages.map(function(page) {
-        return {
-          id: page.id,
-          name: page.name
-        };
-      });
+      var response = pages.map(({id, name, type, lastUpdate}) => ({id, name, type, lastUpdate}));
       return [200, response, {}];
     });
 
