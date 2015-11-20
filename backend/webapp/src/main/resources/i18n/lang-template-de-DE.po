@@ -1842,9 +1842,6 @@ msgstr "text"
 msgid "top"
 msgstr "top"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
-msgid "undefined"
-msgstr "undefined"
 
 #: editor/data-panel/data-popup.html:10
 msgid "view W3C's Json specification"
