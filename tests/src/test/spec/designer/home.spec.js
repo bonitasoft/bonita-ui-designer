@@ -1,3 +1,4 @@
+/* globals __dirname */
 var path = require('path');
 
 describe('UI designer: home', function() {
@@ -47,6 +48,8 @@ describe('UI designer: home', function() {
 
     expect($$('alerts .ui-alert-success p').first().getText()).toContain('Page testImport successfully imported.');
 
+    $('.ui-alert .close').click();
+
     pages.count().then(function(nb) {
       nbPages = nb;
     });
@@ -70,11 +73,24 @@ describe('UI designer: home', function() {
     pages.count().then(function(nb) {
       expect(nb).toEqual(nbPages);
     });
-    var successText = $$('alerts .ui-alert-success p').get(2).getText();
+    var successText = $$('alerts .ui-alert-success p').first().getText();
     expect(successText).toContain('Overridden artifacts:');
     expect(successText).toContain('Widget testWidgetImport');
     expect(successText).toContain('Page testImport successfully imported.');
 
+    $('.ui-alert .close').click();
+
+    var nbElements;
+    $$('home-pages .ArtifactList-item').count().then(function(nb) {
+      nbElements = nb;
+    });
+    $$('.btn-page-delete').first().click();
+    $('.modal-footer .btn-primary').click();
+    //we need to wait for angular to finish processing modal
+    browser.waitForAngular();
+    $$('home-pages .ArtifactList-item').count().then(function(nb) {
+      expect(nb).toBe(nbElements -1 );
+    });
   });
 
   it('should list widgets', function() {
@@ -107,6 +123,18 @@ describe('UI designer: home', function() {
     });
 
     expect($$('alerts .ui-alert-success p').first().getText()).toBe('Widget testImport successfully imported.');
+
+    var nbElements = 0;
+    $$('home-widgets .ArtifactList-item').count().then(function(nb) {
+      nbElements = nb;
+    });
+    $$('.btn-widget-delete').first().click();
+    $('.modal-footer .btn-primary').click();
+    //we need to wait for angular to finish processing modal
+    browser.waitForAngular();
+    $$('home-widgets .ArtifactList-item').count().then(function(nb) {
+      expect(nb).toBe(nbElements -1 );
+    });
   });
 
 });
