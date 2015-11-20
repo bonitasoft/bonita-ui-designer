@@ -60,7 +60,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     });
 
     modalInstance.result
-      .then(pageRepo.delete)
+      .then((pageId) => pageRepo.delete(pageId))
       .then($scope.refreshAll);
   };
 
@@ -109,7 +109,7 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     });
 
     modalInstance.result
-      .then(widgetRepo.delete)
+      .then((widgetId) => widgetRepo.delete(widgetId))
       .then($scope.refreshAll);
   };
 
