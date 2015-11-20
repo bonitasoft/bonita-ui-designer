@@ -1,14 +1,7 @@
-(function() {
+(function () {
   'use strict';
 
-  /**
-   * Factory to create bindings associating properties (also known as properties) to the model.
-   *
-   * @param $interpolate
-   * @param $parse
-   * @returns {{create: createBindings}}
-   */
-  function bindingsFactory($interpolate, $parse) {
+  angular.module('bonitasoft.ui.services').factory('bindingsFactory', (bindingService) => ({
 
     /**
      * Define destination properties allowing to
@@ -18,61 +11,20 @@
      * @param context - against which property.value expression will be executed.
      * @param destination - object where to bind the resulting properties.
      */
-    function createBindings(properties, context, destination) {
+    create(properties, context, destination) {
 
-      function createVariable(propertyValue) {
-        var getter = $parse(propertyValue);
-        return {
-          get: () => getter(context),
-          set: function(value) {
-            if (getter.assign) {
-              getter.assign(context, value);
-            }
+      Object.keys(properties).forEach(function (name) {
+        var binding = bindingService.create(properties[name], context);
+        Object.defineProperty(destination, name, {
+          get: function () {
+            return binding.getValue();
           },
-          enumerable: true
-        };
-      }
-
-      function createExpression(propertyValue) {
-        var getter = $parse(propertyValue);
-        return {
-          get: () => getter(context),
-          enumerable: true
-        };
-      }
-
-      function createInterpolation(propertyValue) {
-        return {
-          get: () => $interpolate(propertyValue || '')(context),
-          enumerable: true
-        };
-      }
-
-      function createConstant(propertyValue) {
-        return {
-          get: () => propertyValue,
-          enumerable: true
-        };
-      }
-
-      var bonds = {
-        'variable': createVariable,
-        'expression': createExpression,
-        'interpolation': createInterpolation,
-        'constant': createConstant
-      };
-
-      Object.keys(properties).forEach(function(name) {
-        var property = properties[name];
-        Object.defineProperty(destination, name, bonds[property.type](property.value, name));
+          set: function (value) {
+            return binding.setValue && binding.setValue(value);
+          },
+          enumarable: true
+        });
       });
     }
-
-    return {
-      create: createBindings
-    };
-  }
-
-  angular.module('bonitasoft.ui.services')
-    .factory('bindingsFactory', bindingsFactory);
+  }));
 })();
