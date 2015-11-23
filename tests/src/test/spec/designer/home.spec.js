@@ -4,12 +4,20 @@ describe('UI designer: home', function() {
   var pagePath = path.resolve(__dirname, '../../fixtures/page-testImport.zip');
   var widgetPath = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
 
+  function getListedPages() {
+    return element.all(by.css('home-pages .Artifact-info'));
+  }
+
+  function getListedWidgets() {
+    return element.all(by.css('home-widgets .Artifact-info'));
+  }
+
   beforeEach(function() {
     browser.get('/designer/#/en/home');
   });
 
   it('should list pages', function() {
-    var elements = element.all(by.repeater("page in pages | orderBy:'-lastUpdate'"));
+    var elements = getListedPages();
     expect(elements.count()).toBeGreaterThan(0);
   });
 
@@ -18,7 +26,7 @@ describe('UI designer: home', function() {
     var input = $('.file-upload-input');
     var upload = element(by.partialButtonText('Import'));
     var modal = $('.modal');
-    var pages = element.all(by.repeater("page in pages | orderBy:'-lastUpdate'"));
+    var pages = getListedPages();
 
     var nbPages;
 
@@ -58,7 +66,7 @@ describe('UI designer: home', function() {
     browser.waitForAngular();
 
     expect(modal.isPresent()).toBe(false);
-    pages = element.all(by.repeater("page in pages | orderBy:'-lastUpdate'"));
+    pages = getListedPages();
     pages.count().then(function(nb) {
       expect(nb).toEqual(nbPages);
     });
@@ -70,7 +78,7 @@ describe('UI designer: home', function() {
   });
 
   it('should list widgets', function() {
-    var elements = element.all(by.repeater("widget in widgets | orderBy:'name'"));
+    var elements = getListedWidgets();
     expect(elements.count()).toBeGreaterThan(0);
   });
 
@@ -80,7 +88,7 @@ describe('UI designer: home', function() {
     var input = $('.file-upload-input');
     var upload = element(by.partialButtonText('Import'));
     var modal = $('.modal');
-    var widgets = element.all(by.repeater("widget in widgets | orderBy:'name'"));
+    var widgets = getListedWidgets();
 
     var nbWidgets;
 
