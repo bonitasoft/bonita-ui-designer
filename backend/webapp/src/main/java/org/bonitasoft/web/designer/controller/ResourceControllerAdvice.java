@@ -106,7 +106,7 @@ public class ResourceControllerAdvice {
         logger.error("Error while uploading a json file "  + exception.getMessage());
         // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
         ErrorMessage message = new ErrorMessage(exception);
-        message.addInfo("location", exception.getLocation());
+        message.addInfo("location", exception.getLocationInfos());
         return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
     }
 }

@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.model;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -54,6 +55,9 @@ public class JacksonObjectMapper {
     }
 
     public void checkValidJson(byte[] bytes) throws IOException, JsonProcessingException {
-        objectMapper.readTree(bytes);
+        JsonParser parser = objectMapper.getFactory().createParser(bytes);
+        while (parser.nextToken() != null) {
+            // do nothing, will throw JsonProcessingException if error occurs
+        }
     }
 }

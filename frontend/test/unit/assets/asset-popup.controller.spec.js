@@ -67,6 +67,18 @@ describe('AssetPopupCtrl', function() {
     expect($modalInstance.close).toHaveBeenCalled();
   });
 
+  it('should display a specific error while uploading a malformed json file for json asset', function() {
+    var response = { type: 'MalformedJsonException', message: 'an error occured', infos: { location: {column: 65, line: 12}} };
+
+    controller.onComplete(response);
+
+    expect(alerts.addError).toHaveBeenCalledWith({
+        contentUrl: 'js/assets/malformed-json-error-message.html',
+        context: response
+      }, 12000);
+    expect($modalInstance.close).toHaveBeenCalled();
+  });
+
   it('should send external data to the caller when user want to save it', function() {
     var data = { name: 'myasset.js' };
     spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));

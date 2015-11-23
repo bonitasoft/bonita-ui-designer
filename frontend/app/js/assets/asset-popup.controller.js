@@ -50,14 +50,25 @@
       artifactRepo.createAsset(artifact.id, assetsService.formToAsset(data)).then($modalInstance.close);
     }
 
+    function hasError(response) {
+      return response && response.type && response.message;
+    }
+
     /**
      * A local asset (file) is saved by the submit of the html form
      */
     function onComplete(response) {
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this an error
-      if (response && response.type && response.message) {
-        alerts.addError(response.message);
+      if (hasError(response)) {
+        if (response.type === 'MalformedJsonException') {
+          alerts.addError({
+            contentUrl: 'js/assets/malformed-json-error-message.html',
+            context: response
+          }, 12000);
+        } else {
+          alerts.addError(response.message);
+        }
         cancel();
       }
       $modalInstance.close(response);

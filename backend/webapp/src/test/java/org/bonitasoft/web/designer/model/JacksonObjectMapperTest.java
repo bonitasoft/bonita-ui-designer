@@ -73,12 +73,35 @@ public class JacksonObjectMapperTest {
 
     @Test(expected = JsonProcessingException.class)
     public void should_check_that_json_is_invalid() throws Exception {
-        objectMapper.checkValidJson("{ not json }".getBytes());
+        String notjson = "\n"
+                + "    \"fr-FR\": {\n"
+                + "        \"Default name\": \"Nom par défaut\",\n"
+                + "        \"Hello boys\": \"Coucou les garçooonns\"\n"
+                + "    },\n"
+                + "    \"ru-RU\": {\n"
+                + "        \"Default label\": \"Etiqueta por defecto\",\n"
+                + "        \"Hello boys\": \"Bonjourno los garçones\"\n"
+                + "    }\n"
+                + "}";
+        objectMapper.checkValidJson(notjson.getBytes(StandardCharsets.UTF_8));
     }
 
     @Test
     public void should_check_that_json_is_valid() throws Exception {
-        objectMapper.checkValidJson("{ \"collection\": [\n] }".getBytes());
+        objectMapper.checkValidJson("{ \"collection\": [\n] }".getBytes(StandardCharsets.UTF_8));
+        objectMapper.checkValidJson("[1, 2, 3, 4]".getBytes(StandardCharsets.UTF_8));
+
+        String json = "{\n"
+                + "    \"fr-FR\": {\n"
+                + "        \"Default name\": \"Nom par défaut\",\n"
+                + "        \"Hello boys\": \"Coucou les garçooonns\"\n"
+                + "    },\n"
+                + "    \"ru-RU\": {\n"
+                + "        \"Default label\": \"Etiqueta por defecto\",\n"
+                + "        \"Hello boys\": \"Bonjourno los garçones\"\n"
+                + "    }\n"
+                + "}";
+        objectMapper.checkValidJson(json.getBytes(StandardCharsets.UTF_8));
         // ok - no exception expected
     }
 }
