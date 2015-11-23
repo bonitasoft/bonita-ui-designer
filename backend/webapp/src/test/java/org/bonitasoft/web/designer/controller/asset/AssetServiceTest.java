@@ -127,6 +127,25 @@ public class AssetServiceTest {
     }
 
     @Test
+    public void should_upload_a_json_asset() throws Exception {
+        Page page = aPage().withId("page-id").build();
+        byte[] fileContent = "{ \"some\": \"json\" }".getBytes();
+        MockMultipartFile file = new MockMultipartFile("asset.json", "asset.json", "application/javascript", fileContent);
+        Asset expectedAsset = anAsset()
+                .withName("asset.json")
+                .withType(AssetType.JSON)
+                .withOrder(1).build();
+
+        Asset asset = assetService.upload(file, page, "json");
+
+        verify(assetRepository).save("page-id", asset, fileContent);
+        verify(repository).updateLastUpdateAndSave(page);
+        assertThat(page.getAssets()).contains(asset);
+        assertThat(asset.getId()).isNotNull();
+        assertThat(asset).isEqualToIgnoringGivenFields(expectedAsset, "id");
+    }
+
+    @Test
     public void should_return_error_when_uploading_with_error_onsave() throws Exception {
         expectedException.expect(ServerImportException.class);
         expectedException.expectMessage(is("Error while uploading asset in myfile.inv [null]"));
