@@ -127,7 +127,9 @@ function extract() {
             // grouped choice values
             if (typeof choice == "object") {
               dict[choice.label] = (acc[choice.label] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
-              dict[choice.group] = (acc[choice.group] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+              if (choice.group) {
+                dict[choice.group] = (acc[choice.group] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
+              }
             } else {
               dict[choice] = (acc[choice] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
             }
