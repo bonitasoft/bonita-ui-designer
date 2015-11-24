@@ -2,15 +2,18 @@ var HomePage = require('../pages/home.page.js');
 
 describe('home page', function() {
 
+  let ALL_PAGE_NAMES = ['Person', 'empty'];
+  let ALL_WIDGET_NAMES = ['awesomeWidget', 'favoriteWidget'];
+
   var home;
 
   beforeEach(function() {
     home = HomePage.get();
   });
 
-  it('should list pages and widgets', function() {
-    expect(home.getListedPageNames()).toEqual(['Person', 'empty']);
-    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+  it('should list pages and widgets ordered by last update date descendant', function() {
+    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
+    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
   });
 
   it('should navigate to a page', function() {
@@ -181,7 +184,7 @@ describe('home page', function() {
     expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
 
     home.search('');
-    expect(home.getListedPageNames()).toEqual(['Person', 'empty']);
-    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
+    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
   });
 });
