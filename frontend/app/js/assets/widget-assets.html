@@ -29,6 +29,9 @@
         <td>{{asset.name}}</td>
         <td>{{asset.type | assetType}}</td>
         <td class="col-xs-2 Property-actions">
+            <button file-download class="btn btn-bonita-default" href="{{vm.getAssetUrl(asset)}}" title="{{'Download asset' | translate }}"  ng-if="!vm.isExternal(asset)">
+                <i class="fa fa-alias-import"></i>
+            </button>
             <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
                     ng-if="!vm.isExternal(asset)" ng-click="vm.openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
             <button class="btn btn-bonita-default" ng-click="vm.openAssetPopup(asset)"

@@ -47,6 +47,7 @@
         assetToForm: assetToForm,
         formToAsset: formToAsset,
         getAssetTypesByMode: getAssetTypesByMode,
+        getAssetUrl: getAssetUrl,
         getFormTemplates: createFormAssetTemplates,
         addWidgetAssetsToPage,
         removeAssetsFromPage
@@ -163,6 +164,22 @@
       function removeAssetsFromPage(widget, page) {
         page.assets = page.assets.filter((asset) =>  asset.componentId !== widget.id);
       }
+
+      function getAssetUrl(asset, mode, component) {
+        //Url depends on the nature of component
+        //In custom widget editor, component is a widget
+        if (mode === 'widget') {
+          return `rest/widgets/${component.id}/assets/${asset.type}/${asset.name}`;
+        }
+        //In page editor widget id is stored in asset.componentId if the asset scope is WIDGET
+        else if (asset.scope === 'widget') {
+          return `rest/widgets/${asset.componentId}/assets/${asset.type}/${asset.name}`;
+        }
+        //The last case is to see a page asset
+        return `rest/pages/${component.id}/assets/${asset.type}/${asset.name}`;
+
+      }
+
     }
   }
 

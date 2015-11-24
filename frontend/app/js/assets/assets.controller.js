@@ -33,6 +33,7 @@
     vm.decrementOrderAsset = decrementOrderAsset;
     vm.delete = deleteAsset;
     vm.openAssetPreviewPopup = openAssetPreviewPopup;
+    vm.getAssetUrl = getAssetUrl;
     vm.openAssetPopup = openAddUpdateAssetPopup;
     vm.openHelp = openHelp;
 
@@ -81,6 +82,10 @@
           mode: () => mode
         }
       });
+    }
+
+    function getAssetUrl(asset) {
+      return assetsService.getAssetUrl(asset, mode, vm.component);
     }
 
     function openAddUpdateAssetPopup(asset) {

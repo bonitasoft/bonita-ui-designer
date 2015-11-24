@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -75,6 +76,16 @@ public class ResourceControllerAdviceTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"type\":\"NotFoundException\",\"message\":\"not found\"}"));
+    }
+
+    @Test
+    public void should_respond_server_error_with_json_error_on_IOException() throws Exception {
+        doThrow(new IOException("Can't read file")).when(fakeService).doSomething();
+
+        mockMvc.perform(get("/fake/resource"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("{\"type\":\"IOException\",\"message\":\"Can't read file\"}"));
     }
 
     @Test

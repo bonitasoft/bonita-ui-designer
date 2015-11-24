@@ -14,52 +14,60 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.base.Preconditions;
 import org.springframework.http.MediaType;
+
+import com.google.common.base.Preconditions;
 
 public class HttpFile {
 
-
     public static void writeFileInResponseForVisualization(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (filePath == null || Files.notExists(filePath)) {
+        if (!isExistingFilePath(response, filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
         String mimeType = request.getServletContext().getMimeType(filePath.getFileName().toString());
-        if(mimeType==null || !mimeType.contains("image")) {
+        if (mimeType == null || !mimeType.contains("image")) {
             mimeType = MediaType.TEXT_PLAIN_VALUE;
         }
-        writeFileInResponse(request, response, filePath, mimeType);
+        writeFileInResponse(response, filePath, mimeType, "inline");
     }
 
-    public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (filePath == null || Files.notExists(filePath)) {
+    public static void writeFileInResponseForDownload(HttpServletResponse response, Path filePath) throws IOException {
+        if (!isExistingFilePath(response, filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        writeFileInResponse(request, response, filePath, request.getServletContext().getMimeType(filePath.getFileName().toString()));
+        writeFileInResponse(response, filePath, MediaType.APPLICATION_OCTET_STREAM_VALUE, "attachment");
+    }
+
+    public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
+        if (!isExistingFilePath(response, filePath)){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        writeFileInResponse(response, filePath, request.getServletContext().getMimeType(filePath.getFileName().toString()), "inline");
     }
 
     /**
      * Write headers and content in the response
      */
-    private static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath, String mimeType) throws IOException {
-        if (filePath == null || Files.notExists(filePath)) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
+    private static void writeFileInResponse(HttpServletResponse response, Path filePath, String mimeType,
+            String contentDispositionType) throws IOException {
         response.setHeader("Content-Type", mimeType);
         response.setHeader("Content-Length", String.valueOf(filePath.toFile().length()));
-        response.setHeader("Content-Disposition", "inline; filename=\"" + filePath.getFileName() + "\"");
+        response.setHeader("Content-Disposition", new StringBuilder().append(contentDispositionType)
+                .append("; filename=\"")
+                .append(filePath.getFileName())
+                .append("\"").toString());
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         try (OutputStream out = response.getOutputStream()) {
             Files.copy(filePath, out);
@@ -77,7 +85,7 @@ public class HttpFile {
             // check for Windows-style path
             pos = filename.lastIndexOf("\\");
         }
-        if (pos != -1)  {
+        if (pos != -1) {
             // any sort of path separator found
             return filename.substring(pos + 1);
         }
@@ -85,6 +93,13 @@ public class HttpFile {
             // plain name
             return filename;
         }
+    }
+
+    private static boolean isExistingFilePath(HttpServletResponse response, Path filePath) throws IOException {
+        if (filePath == null || Files.notExists(filePath)) {
+            return false;
+        }
+        return true;
     }
 
 }

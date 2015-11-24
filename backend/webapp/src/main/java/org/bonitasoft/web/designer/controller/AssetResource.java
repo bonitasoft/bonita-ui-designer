@@ -18,16 +18,23 @@ import static java.lang.Boolean.TRUE;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Set;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Preconditions;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
@@ -64,6 +71,25 @@ public abstract class AssetResource<T extends Assetable> {
         checkArtifactId(id);
         Asset asset = assetService.upload(file, repository.get(id), type);
         return new ResponseEntity<>(asset, HttpStatus.CREATED);
+    }
+
+    @RequestMapping("/{artifactId}/assets/{type}/{filename:.*}")
+    public void downloadAsset(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable("artifactId") String id,
+            @PathVariable("type") String type,
+            @PathVariable("filename") String filename,
+            @RequestParam(value = "format", required = false) String format) throws IOException {
+
+            Path filePath = assetService.findAssetPath(id, filename, type);
+
+            if("text".equals(format)){
+                HttpFile.writeFileInResponseForVisualization(request, response, filePath);
+            }else {
+                HttpFile.writeFileInResponseForDownload(response, filePath);
+            }
+
     }
 
     @RequestMapping(value = "/{artifactId}/assets", method = RequestMethod.POST)
