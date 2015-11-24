@@ -12,19 +12,19 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
     } else if ($scope.properties.action === "Start process") {
       id = getUrlParam('id');
       if (id) {
-        doRequestDelayed('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
+        doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
       } else {
         $log.log('Impossible to retrieve the process definition id value from the URL');
       }
     } else if ($scope.properties.action === 'Submit task') {
       id = getUrlParam('id');
       if (id) {
-        doRequestDelayed('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
+        doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
       } else {
         $log.log('Impossible to retrieve the task id value from the URL');
       }
     } else if ($scope.properties.url) {
-      doRequestDelayed($scope.properties.action, $scope.properties.url);
+      doRequest($scope.properties.action, $scope.properties.url);
     }
   };
 
@@ -63,14 +63,6 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
     } else {
       $scope.properties.collectionToModify.push(item);
     }
-  }
-
-  // we delayed the doRequest to ensure dataToSend is updated
-  // this usefull when copy() update the dataToSend object.
-  function doRequestDelayed(method, url, params) {
-    $scope.properties
-      .waitFor('dataToSend')
-      .then(doRequest.bind(null, method, url, params));
   }
 
   /**

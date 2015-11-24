@@ -20,10 +20,7 @@ describe('pbButton', function () {
     scope = $rootScope.$new();
     // set the default value for property method
     scope.properties = {
-      method: 'Submit task',
-      waitFor: function(){
-        return $q.when(true);
-      }
+      method: 'Submit task'
     };
 
     element = $compile('<pb-button></pb-button>')(scope);
