@@ -45,7 +45,9 @@
                 </div>
                 <div class="Artifact-actions">
                     <favorite-button artifact-repository="widgetRepo" artifact="widget"></favorite-button>
-                    <file-download class="Artifact-button Artifact-button--primary btn-widget-export" href="exportWidgetUrl(widget)" title="{{'Export widget' | translate }}"></file-download>
+                    <button file-download class="Artifact-button Artifact-button--primary btn-widget-export" href="{{exportWidgetUrl(widget)}}" title="{{'Export widget' | translate }}">
+                        <i class="fa fa-alias-export"></i>
+                    </button>
                     <button class="Artifact-button btn-widget-delete"
                             type="button"
                             ng-click="deleteCustomWidget(widget)"

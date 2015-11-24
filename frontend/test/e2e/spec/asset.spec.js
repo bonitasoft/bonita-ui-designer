@@ -79,11 +79,19 @@ describe('asset panel', function() {
         widgetAsset = assetPanel.lines.first();
       });
 
-      it('should display 1 button to view the content', function() {
-        var buttons = widgetAsset.all(by.className('btn'));
+      it('should display button to dowload/view the content', function() {
+        let downloadButton = widgetAsset.element(by.css('button i.fa-alias-import'));
+        expect(downloadButton.isPresent()).toBeTruthy();
 
-        expect(buttons.count()).toBe(1);
-        expect(buttons.first().getAttribute('title')).toBe('View asset content');
+        let viewButton = widgetAsset.element(by.css('button i.fa-search'));
+        expect(viewButton.isPresent()).toBeTruthy();
+
+        let editButton = widgetAsset.element(by.css('button i.fa-pencil'));
+        expect(editButton.isPresent()).toBeFalsy();
+
+        let deleteButton = widgetAsset.element(by.css('button i.fa-trash'));
+        expect(deleteButton.isPresent()).toBeFalsy();
+
       });
 
       it('should display the widget name in the table', function() {
@@ -100,12 +108,19 @@ describe('asset panel', function() {
         localAsset = assetPanel.lines.last();
       });
 
-      it('should display 2 buttons one to delete an asset and another to view asset', function() {
-        var buttons = localAsset.all(by.className('btn'));
+      it('should display button to dowload/view/delete the content', function() {
 
-        expect(buttons.count()).toBe(2);
-        expect(buttons.first().getAttribute('title')).toBe('View asset content');
-        expect(buttons.last().getAttribute('title')).toBe('Delete asset');
+        let downloadButton = localAsset.element(by.css('button i.fa-alias-import'));
+        expect(downloadButton.isPresent()).toBeTruthy();
+
+        let viewButton = localAsset.element(by.css('button i.fa-search'));
+        expect(viewButton.isPresent()).toBeTruthy();
+
+        let editButton = localAsset.element(by.css('button i.fa-pencil'));
+        expect(editButton.isPresent()).toBeFalsy();
+
+        let deleteButton = localAsset.element(by.css('button i.fa-trash'));
+        expect(deleteButton.isPresent()).toBeTruthy();
       });
 
       it('should display "Page level" like asset type and the name asset is "myStyle.css"', function() {
@@ -113,6 +128,13 @@ describe('asset panel', function() {
 
         expect(tds.get(2).getText()).toBe('Page level');
         expect(tds.get(1).getText()).toBe('myStyle.css');
+      });
+
+      it('should export an asset', function() {
+        var btn = $$('.btn-bonita-asset').first();
+        var iframe = $$('.ExportArtifact').first();
+        btn.click();
+        expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/person\/assets\/css\/myStyle.css$/);
       });
 
     });
@@ -126,11 +148,19 @@ describe('asset panel', function() {
       });
 
       it('should display 2 buttons one to edit asset and another to remove it', function() {
-        var buttons = localAsset.all(by.className('btn'));
 
-        expect(buttons.count()).toBe(2);
-        expect(buttons.first().getAttribute('title')).toBe('Update asset');
-        expect(buttons.last().getAttribute('title')).toBe('Delete asset');
+        let downloadButton = localAsset.element(by.css('button i.fa-alias-import'));
+        expect(downloadButton.isPresent()).toBeFalsy();
+
+        let viewButton = localAsset.element(by.css('button i.fa-search'));
+        expect(viewButton.isPresent()).toBeFalsy();
+
+        let editButton = localAsset.element(by.css('button i.fa-pencil'));
+        expect(editButton.isPresent()).toBeTruthy();
+
+        let deleteButton = localAsset.element(by.css('button i.fa-trash'));
+        expect(deleteButton.isPresent()).toBeTruthy();
+
       });
 
       it('should has a name with a prefix http', function() {

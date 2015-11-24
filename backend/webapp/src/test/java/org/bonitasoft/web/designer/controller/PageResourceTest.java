@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
+import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
@@ -30,13 +31,18 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +77,6 @@ import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-
 import com.google.common.collect.Sets;
 
 /**
@@ -100,11 +105,13 @@ public class PageResourceTest {
     @InjectMocks
     private PageResource pageResource;
 
-    @Before
-    public void setUp() {
-        mockMvc = mockServer(pageResource).build();
-    }
+    private Path widgetRepositoryPath;
 
+    @Before
+    public void setUp() throws URISyntaxException {
+        mockMvc = mockServer(pageResource).build();
+        widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
+    }
 
     private Page mockPageOfId(String id) {
         Page page = aPage().withId(id).build();
@@ -555,4 +562,51 @@ public class PageResourceTest {
 
         verify(pageRepository).unmarkAsFavorite("my-page");
     }
+
+    @Test
+    public void should_load_page_asset_on_disk_with_content_type_text() throws Exception {
+        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        when(pageAssetService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+
+        mockMvc
+                .perform(get("/rest/pages/page-id/assets/js/asset.js?format=text"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_download_page_asset() throws Exception {
+        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        when(pageAssetService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+
+        mockMvc
+                .perform(get("/rest/pages/page-id/assets/js/asset.js"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "attachment; filename=\"pbLabel.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
+        when(pageAssetService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(null);
+
+        mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js?format=text")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
+        when(pageAssetService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenThrow(new IOException("can't read file"));
+
+        mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js?format=text")).andExpect(status().isInternalServerError());
+        mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
+    }
+
 }

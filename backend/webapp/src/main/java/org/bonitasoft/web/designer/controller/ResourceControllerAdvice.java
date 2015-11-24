@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.IOException;
+
 /**
  * Definition of the exception handlers
  */
@@ -72,6 +74,12 @@ public class ResourceControllerAdvice {
     public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException exception) {
         logger.error("Element Not Found Exception", exception);
         return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ErrorMessage> handleIOException(IOException exception) {
+        logger.error("Internal Server Error Exception", exception);
+        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RepositoryException.class)

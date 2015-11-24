@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
+import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -36,7 +37,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +57,6 @@ import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,16 +82,16 @@ public class WidgetResourceTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Rule
-    public TemporaryFolder tempDir = new TemporaryFolder();
-
     @Mock
     private AssetService<Widget> widgetAssetService;
 
+    private Path widgetRepositoryPath;
+
     @Before
-    public void setUp() {
+    public void setUp() throws URISyntaxException {
         initMocks(this);
-        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService, tempDir.toPath());
+        widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
+        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService, widgetRepositoryPath);
         widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
         mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
@@ -614,4 +616,51 @@ public class WidgetResourceTest {
     private String toJson(Object o) throws IOException {
         return new String(convertObjectToJsonBytes(o));
     }
+
+    @Test
+    public void should_load_widget_asset_on_disk_with_content_type_text() throws Exception {
+        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+
+        mockMvc
+                .perform(get("/rest/widgets/widget-id/assets/js/asset.js?format=text"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_download_widget_asset() throws Exception {
+        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+
+        mockMvc
+                .perform(get("/rest/widgets/widget-id/assets/js/asset.js"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "attachment; filename=\"pbLabel.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
+        when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(null);
+
+        mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js?format=text")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js")).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
+        when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenThrow(new IOException("can't read file"));
+
+        mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js?format=text")).andExpect(status().isInternalServerError());
+        mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
+    }
+
 }

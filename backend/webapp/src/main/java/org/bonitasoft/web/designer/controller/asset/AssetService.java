@@ -14,24 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.nio.file.Files.exists;
-import static java.util.UUID.randomUUID;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.importer.ServerImportException;
-
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -46,6 +33,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.nio.file.Files.exists;
+import static java.util.UUID.randomUUID;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
+
 public class AssetService<T extends Assetable> {
 
     protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
@@ -53,7 +52,9 @@ public class AssetService<T extends Assetable> {
     public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
     public static final String ASSET_ID_IS_REQUIRED = "Asset id is required";
 
-    public enum OrderType {INCREMENT, DECREMENT}
+    public enum OrderType {
+        INCREMENT, DECREMENT
+    }
 
     private Repository<T> repository;
     private AssetRepository<T> assetRepository;
@@ -110,6 +111,10 @@ public class AssetService<T extends Assetable> {
         }
     }
 
+    public Path findAssetPath(String id, String filename, String type) throws IOException {
+        return assetRepository.findAssetPath(id, filename, AssetType.getAsset(type));
+    }
+
     private void checkWellFormedJson(byte[] bytes) throws IOException {
         try {
             mapper.checkValidJson(bytes);
@@ -145,6 +150,7 @@ public class AssetService<T extends Assetable> {
         if (asset.getId() != null) {
             //We find the existing asset and change the name and the type
             Iterables.<Asset>find(component.getAssets(), new Predicate<Asset>() {
+
 
                 @Override
                 public boolean apply(Asset element) {

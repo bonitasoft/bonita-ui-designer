@@ -23,21 +23,17 @@ angular.module('bonitasoft.designer.home')
     var iframe = $document[0].querySelector('.ExportArtifact');
 
     return {
-      templateUrl: 'js/home/file-download.html',
-      scope: {
-        href: '=',
-        class: '@',
-        title: '@'
-      },
-      link: function(scope) {
-        scope.download = function() {
-          //We need to intercept errorr when we change the iframe src
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        element.on('click', function() {
+          //We need to intercept error when we change the iframe src
           $http
-            .get(scope.href)
+            .get(attrs.href)
             .success(function() {
-              iframe.setAttribute('src', scope.href);
+              iframe.setAttribute('src', attrs.href);
             });
-        };
+        });
+        scope.$on('$destroy', () => element.off('click'));
       }
     };
   });

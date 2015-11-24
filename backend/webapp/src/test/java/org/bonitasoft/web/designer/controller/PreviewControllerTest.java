@@ -22,10 +22,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import java.nio.file.Path;
@@ -44,7 +41,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -102,21 +98,6 @@ public class PreviewControllerTest {
     }
 
     @Test
-    public void should_load_page_asset_on_disk_with_content_type_text() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(pageAssetRepository.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
-
-        mockMvc
-                .perform(get("/preview/page/page-id/assets/js/asset.js?format=text"))
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
-                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
-                .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
-                .andExpect(content().encoding("UTF-8"));
-    }
-
-    @Test
     public void should_respond_404_when_page_asset_is_not_found() throws Exception {
         when(pageAssetRepository.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(null);
 
@@ -132,21 +113,6 @@ public class PreviewControllerTest {
                 .perform(get("/preview/widget/widget-id/assets/js/asset.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
-                .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
-                .andExpect(content().encoding("UTF-8"));
-    }
-
-    @Test
-    public void should_load_widget_asset_on_disk_with_content_type_text() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(widgetAssetRepository.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT)).thenReturn(expectedFile);
-
-        mockMvc
-                .perform(get("/preview/widget/widget-id/assets/js/asset.js?format=text"))
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
                 .andExpect(content().encoding("UTF-8"));

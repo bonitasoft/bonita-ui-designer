@@ -78,6 +78,20 @@
         expect(artifactRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
       });
 
+      it('should get url for widget asset in page mode', function() {
+        var asset = { name: 'myasset.js', scope: 'widget', type: 'js', componentId: '11' };
+        var assetUrl = controller.getAssetUrl(asset);
+
+        expect(assetUrl).toBe('rest/widgets/11/assets/js/myasset.js');
+      });
+
+      it('should get page asset url', function() {
+        var asset = { name: 'myasset.js', scope: 'page', type: 'js' };
+        var assetUrl = controller.getAssetUrl(asset);
+
+        expect(assetUrl).toBe('rest/pages/12/assets/js/myasset.js');
+      });
+
     });
 
     describe('Widget editor', function() {
@@ -86,7 +100,7 @@
         $scope.widget = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
-          artifact: {},
+          artifact: component,
           artifactRepo: artifactRepo,
           mode: 'widget',
           assetsService: assetsService
@@ -117,6 +131,12 @@
         expect($modal.open).toHaveBeenCalled();
       });
 
+      it('should get url for widget mode', function() {
+        var asset = { name: 'myasset.js', scope: 'page', type: 'js' };
+        var assetUrl = controller.getAssetUrl(asset);
+
+        expect(assetUrl).toBe('rest/widgets/12/assets/js/myasset.js');
+      });
     });
 
   });
