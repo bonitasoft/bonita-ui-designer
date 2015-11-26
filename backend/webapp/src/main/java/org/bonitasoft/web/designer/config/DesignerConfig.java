@@ -18,7 +18,9 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -26,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
@@ -176,13 +179,21 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtifactImporter<Page> pageImporter(Unzipper unzip, PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
-        return new ArtifactImporter<>(unzip, pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
+    public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
+        return new ArtifactImporter<>(pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
     }
 
     @Bean
-    public ArtifactImporter<Widget> widgetImporter(Unzipper unzip, WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtifactImporter<>(unzip, widgetRepository, widgetLoader, widgetAssetImporter);
+    public ArtifactImporter<Widget> widgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        return new ArtifactImporter<>(widgetRepository, widgetLoader, widgetAssetImporter);
+    }
+
+    @Bean
+    public Map<String, ArtifactImporter> artifactImporters(ArtifactImporter<Page> pageImporter, ArtifactImporter<Widget> widgetImporter) {
+        return ImmutableMap.<String, ArtifactImporter>builder()
+                .put("page", pageImporter)
+                .put("widget", widgetImporter)
+                .build();
     }
 
     @Bean

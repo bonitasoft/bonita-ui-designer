@@ -203,10 +203,17 @@ describe('widgetRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should call import/widget/uuid when forceImport is called', () => {
+  it('should force a widget import based on a uuid', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST('import/widget/' + uuid).respond('');
+    $httpBackend.expectPOST(`import/${uuid}/force`).respond('');
     widgetRepo.forceImport(uuid);
+    $httpBackend.flush();
+  });
+
+  it('should cancel a widget import based on a uuid', () => {
+    var uuid = 'zezaerze-zerz-zer-zer';
+    $httpBackend.expectPOST(`import/${uuid}/cancel`).respond('');
+    widgetRepo.cancelImport(uuid);
     $httpBackend.flush();
   });
 

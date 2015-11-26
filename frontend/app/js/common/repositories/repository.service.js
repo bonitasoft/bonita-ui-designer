@@ -81,7 +81,11 @@
       }
 
       forceImport(uuid) {
-        return this.$http.post(`import/${this.type}/${uuid}`);
+        return this.$http.post(`import/${uuid}/force`);
+      }
+
+      cancelImport(uuid) {
+        return this.$http.post(`import/${uuid}/cancel`);
       }
 
       markAsFavorite(artifactId) {

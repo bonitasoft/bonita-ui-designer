@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller.importer.report;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.model.Identifiable;
 
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ImportReport {
 
+    private Status status;
     private Identifiable element;
     private Boolean overridden = false;
     private Dependencies dependencies;
@@ -73,5 +75,22 @@ public class ImportReport {
     @JsonIgnore
     public boolean doesNotOverrideElements() {
         return !this.isOverridden() && (this.getDependencies().getOverridden() == null || this.getDependencies().getOverridden().isEmpty());
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public enum Status {
+        IMPORTED, CONFLICT;
+
+        @JsonValue
+        public String toString() {
+            return name().toLowerCase();
+        }
     }
 }
