@@ -14,14 +14,17 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import java.util.Map;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
+import org.bonitasoft.web.designer.controller.importer.Import;
+import org.bonitasoft.web.designer.controller.importer.ImportStore;
 import org.bonitasoft.web.designer.controller.importer.MultipartFileImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.controller.utils.MimeType;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,17 +40,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImportController {
 
     private MultipartFileImporter multipartFileImporter;
-    private ArtifactImporter<Page> pageImporter;
-    private ArtifactImporter<Widget> widgetImporter;
+    private Map<String, ArtifactImporter> artifactImporters;
+    private ImportStore importStore;
 
     @Inject
     public ImportController(
             MultipartFileImporter multipartFileImporter,
-            @Named("pageImporter") ArtifactImporter<Page> pageImporter,
-            @Named("widgetImporter") ArtifactImporter<Widget> widgetImporter) {
+            @Value("#{artifactImporters}") Map<String, ArtifactImporter> artifactImporters,
+            ImportStore importStore) {
         this.multipartFileImporter = multipartFileImporter;
-        this.pageImporter = pageImporter;
-        this.widgetImporter = widgetImporter;
+        this.artifactImporters = artifactImporters;
+        this.importStore = importStore;
     }
 
     /*
@@ -55,42 +58,55 @@ public class ImportController {
      * We need to force it to text/plain for browser not trying to save it and pass it correctly to application.
      * Using text/plain as content-type header in response doesn't affect other browsers.
      */
-    @RequestMapping(value = "/import/page", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/import/{artifactType}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ImportReport importPage(@RequestParam("file") MultipartFile file, @RequestParam(value = "force", defaultValue = "false", required = false) boolean force) {
-        return multipartFileImporter.importFile(file, pageImporter, force);
+    public ImportReport importArtifact(@RequestParam("file") MultipartFile file,
+            @RequestParam(value = "force", defaultValue = "false", required = false) boolean force,
+            @PathVariable(value = "artifactType") String artifactType) {
+        checkFilePartIsPresent(file);
+        checkFileIsZip(file);
+        ArtifactImporter importer = getArtifactImporter(artifactType);
+        return multipartFileImporter.importFile(file, importer, force);
     }
 
-    @RequestMapping(value = "/import/page/{uuid}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/import/{uuid}/force", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ImportReport importPage(@PathVariable("uuid") String uuid) {
-        return pageImporter.forceExecution(uuid);
+        Import anImport = importStore.get(uuid);
+        return anImport.getImporter().forceImport(anImport);
     }
 
-    @RequestMapping(value = "/import/page/cancel/{uuid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/import/{uuid}/cancel", method = RequestMethod.POST)
     public void cancelPageImport(@PathVariable("uuid") String uuid) {
-        pageImporter.cancelImport(uuid);
+        importStore.remove(uuid);
     }
 
-    @RequestMapping(value = "/import/widget", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public ImportReport importWidget(@RequestParam("file") MultipartFile file, @RequestParam(value = "force", defaultValue = "false", required = false) boolean force) {
-        return multipartFileImporter.importFile(file, widgetImporter, force);
+    private ArtifactImporter getArtifactImporter(String artifactType) {
+        ArtifactImporter importer = artifactImporters.get(artifactType);
+        if (importer == null) {
+            throw new NotFoundException();
+        }
+        return importer;
     }
 
-    @RequestMapping(value = "/import/widget/{uuid}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public ImportReport importWidget(@PathVariable("uuid") String uuid) {
-        return widgetImporter.forceExecution(uuid);
+    private void checkFilePartIsPresent(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("Part named [file] is needed to successfully import a component");
+        }
     }
 
-    @RequestMapping(value = "/import/widget/cancel/{uuid}", method = RequestMethod.GET)
-    public void cancelWidgetImport(@PathVariable("uuid") String uuid) {
-        widgetImporter.cancelImport(uuid);
+    private void checkFileIsZip(MultipartFile file) {
+        if (isNotZipFile(file)) {
+            throw new IllegalArgumentException("Only zip files are allowed when importing a component");
+        }
     }
 
+    // some browsers send application/octet-stream for zip files
+    // so we check that mimeType is application/zip or application/octet-stream and filename ends with .zip
+    private boolean isNotZipFile(MultipartFile file) {
+        return !MimeType.APPLICATION_ZIP.matches(file.getContentType())
+                && !(MimeType.APPLICATION_OCTETSTREAM.matches(file.getContentType()) && file.getOriginalFilename().endsWith(".zip"));
+    }
 }

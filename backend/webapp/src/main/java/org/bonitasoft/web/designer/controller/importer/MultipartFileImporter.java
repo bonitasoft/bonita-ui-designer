@@ -14,44 +14,80 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
+import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.zip.ZipException;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
+import com.google.common.base.Function;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.controller.utils.MimeType;
+import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.springframework.web.multipart.MultipartFile;
 
 @Named
 public class MultipartFileImporter {
 
-    public ImportReport importFile(MultipartFile file, ArtifactImporter importer, boolean force) {
+    private Unzipper unzip;
+    private ImportStore importStore;
+
+    @Inject
+    public MultipartFileImporter(Unzipper unzip, ImportStore importStore) {
+        this.unzip = unzip;
+        this.importStore = importStore;
+    }
+
+    public ImportReport importFile(MultipartFile file, final ArtifactImporter importer, boolean force) {
+        Path extractDir = unzip(file);
+        Function importFn = getImportFunction(importer, force);
+        return importFromPath(extractDir, importer, importFn);
+    }
+
+    private Function getImportFunction(final ArtifactImporter importer, boolean force) {
+        if (force) {
+            return new Function<Import, ImportReport>() {
+
+                @Override
+                public ImportReport apply(Import anImport) {
+                    return importer.forceImport(anImport);
+                }
+            };
+        } else {
+            return new Function<Import, ImportReport>() {
+
+                @Override
+                public ImportReport apply(Import anImport) {
+                    return importer.doImport(anImport);
+                }
+            };
+        }
+    }
+
+    private ImportReport importFromPath(Path extractDir, ArtifactImporter importer, Function<Import, ImportReport> importFn) {
+        Import anImport = importStore.store(importer, extractDir);
+        ImportReport report = null;
         try {
-            return doImport(file, importer, force);
-        } catch (IOException | IllegalArgumentException e) {
-            throw new ImportException(Type.SERVER_ERROR, e.getMessage(), e);
+            report = importFn.apply(anImport);
+        } finally {
+            if (report == null || IMPORTED.equals(report.getStatus())) {
+                importStore.remove(anImport.getUuid());
+            }
         }
+        return report;
     }
 
-    private ImportReport doImport(MultipartFile file, ArtifactImporter importer, boolean force) throws IOException {
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("Part named [file] is needed to successfully import a component");
-        }
-
-        if (isNotZipFile(file)) {
-            throw new IllegalArgumentException("Only zip files are allowed when importing a component");
-        }
-
+    private Path unzip(MultipartFile file) {
         try (InputStream is = file.getInputStream()) {
-            return importer.execute(is, force);
+            return unzip.unzipInTempDir(is, "pageDesignerImport");
+        } catch (ZipException e) {
+            throw new ImportException(CANNOT_OPEN_ZIP, "Cannot open zip file", e);
+        } catch (IOException e) {
+            throw new ServerImportException("Error while unzipping zip file", e);
         }
     }
 
-    // some browsers send application/octet-stream for zip files
-    // so we check that mimeType is application/zip or application/octet-stream and filename ends with .zip
-    private boolean isNotZipFile(MultipartFile file) {
-        return !MimeType.APPLICATION_ZIP.matches(file.getContentType())
-                && !(MimeType.APPLICATION_OCTETSTREAM.matches(file.getContentType()) && file.getOriginalFilename().endsWith(".zip"));
-    }
 }
