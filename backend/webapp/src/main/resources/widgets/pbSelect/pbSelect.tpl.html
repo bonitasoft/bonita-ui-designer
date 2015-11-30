@@ -14,7 +14,7 @@
                 class="form-control"
                 name="{{ctrl.name}}"
                 ng-model="properties.value"
-                ng-options="ctrl.getValue(option) as ctrl.getLabel(option) for option in properties.availableValues"
+                ng-options="ctrl.getValue(option) as (ctrl.getLabel(option) | uiTranslate) for option in properties.availableValues"
                 ng-required="properties.required"
                 ng-disabled="properties.disabled">
                 <option style="display:none" value="">
