@@ -11,8 +11,9 @@
         <form name="formName" class="form-inline EditorHeader-form" autocomplete="off">
             <div class="form-group tooltip-error"
                  tooltip="{{ vm.mode + ' name should contains only alphanumeric characters with no space' | translate }} "
-                 tooltip-toggle="formName.name.$error.pattern"
-                 tooltip-placement="bottom">
+                 tooltip-is-open="formName.name.$error.pattern"
+                 tooltip-placement="bottom"
+                 tooltip-trigger="none">
                 <input type="text" name="name"
                        class="form-control EditorHeader-name"
                        ng-pattern="'[a-zA-Z0-9]*$'"
