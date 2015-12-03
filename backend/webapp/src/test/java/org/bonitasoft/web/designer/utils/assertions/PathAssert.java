@@ -50,4 +50,11 @@ public class PathAssert extends AbstractAssert<PathAssert, Path> {
         return this;
     }
 
+    public PathAssert doesNotExists() {
+        if (Files.exists(actual)) {
+            failWithMessage("Expected path %s to not exists on file system", actual);
+        }
+        return this;
+    }
+
 }

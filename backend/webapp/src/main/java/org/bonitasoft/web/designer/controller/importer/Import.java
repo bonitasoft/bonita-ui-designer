@@ -12,14 +12,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.repository.exception;
+package org.bonitasoft.web.designer.controller.importer;
 
-public class NotFoundException extends RuntimeException {
+import java.nio.file.Path;
 
-    public NotFoundException(String message) {
-        super(message);
+public class Import {
+
+    private ArtifactImporter importer;
+    private String uuid;
+    private Path path;
+
+    public Import(ArtifactImporter importer, String uuid, Path path) {
+        this.importer = importer;
+        this.uuid = uuid;
+        this.path = path;
     }
 
-    public NotFoundException() {
+    public ArtifactImporter getImporter() {
+        return importer;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Path getPath() {
+        return path;
     }
 }
