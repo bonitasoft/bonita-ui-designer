@@ -69,6 +69,33 @@ describe('ContainerDirectiveCtrl', function() {
     expect($scope.isEmpty(container)).toBeFalsy();
   });
 
+  it('should verify that a container is repeated when property value repeatedCollection has a value', function() {
+    init();
+    var container = {
+      propertyValues: {
+        repeatedCollection: {
+          value: 'aValue'
+        }
+      }
+    };
+
+    expect($scope.isRepeated(container)).toBeTruthy();
+  });
+
+  it('should verify that a container is not repeated otherwise', function() {
+    init();
+    var container = {
+      propertyValues: {
+        repeatedCollection: {
+          value: ''
+        }
+      }
+    };
+
+    expect($scope.isRepeated(container)).toBeFalsy();
+    expect($scope.isRepeated({})).toBeFalsy();
+  });
+
   describe('We can move rows', function() {
 
     beforeEach(function() {

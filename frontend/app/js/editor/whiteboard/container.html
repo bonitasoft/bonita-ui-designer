@@ -1,4 +1,5 @@
 <div class="widget-wrapper">
+    <i ng-if="isRepeated(container)" class="fa fa-list-ul Component-marker" title="{{ 'Repeated container' | translate }}"></i>
     <component-mover component="container" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(container)"></component-mover>
     <div ng-repeat="row in container.rows" ng-init="rowIndex = $index" >
 
