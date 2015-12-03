@@ -1,0 +1,17 @@
+<div class="Search">
+    <i class="Search-icon fa fa-search" aria-hidden="true"></i>
+
+    <input class="form-control Search-input"
+           name="search"
+           ng-model="search.value"
+           placeholder="{{ search.placeholder }}"
+           type="search">
+
+    <button type="button" ng-if="search.isClearButtonVisible()"
+            ng-click="search.clearValue()"
+            class="Search-clearButton"
+            title="{{ 'Clear search' | translate }}"
+            aria-label="{{ 'Clear search' | translate }}">
+        <i aria-hidden="true" class="fa fa-times"></i>
+    </button>
+</div>

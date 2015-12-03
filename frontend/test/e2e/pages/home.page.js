@@ -14,14 +14,14 @@ export default class Home {
   }
 
   search(term) {
-    $('input.Home-SearchBox').clear().sendKeys(term);
+    $('.Search-input').clear().sendKeys(term);
   }
 
   filterFavorites() {
-    element(by.cssContainingText('home-filters label', 'Favorites')).click();
+    $('input[name="favorites"]').click();
   }
 
   unfilterFavorites() {
-    element(by.cssContainingText('home-filters label', 'All')).click();
+    $('input[name="all"]').click();
   }
 }

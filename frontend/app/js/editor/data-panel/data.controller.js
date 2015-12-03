@@ -50,14 +50,9 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
     }, {});
   };
 
-  $scope.clearFilter = function() {
-    $scope.searchedData = '';
+  $scope.$watch('searchedData', () => {
     $scope.filterPageData();
-  };
-
-  $scope.clearFilterVisible = function(search) {
-    return (search || '').trim().length > 0;
-  };
+  });
 
   $scope.openDataPopup = function(key) {
     var modalInstance = $modal.open({
