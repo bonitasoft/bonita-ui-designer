@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 
 import java.nio.file.Path;
 
+import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 
@@ -33,7 +34,11 @@ public class PageImportMock {
     }
 
     public Page mockPageToBeImported() {
-        Page page = aPage().withId("id").build();
+        return mockPageToBeImported(aPage().withId("id"));
+    }
+
+    public Page mockPageToBeImported(PageBuilder pageBuilder) {
+        Page page = pageBuilder.build();
         when(pageLoader.load(unzippedPath, "page.json")).thenReturn(page);
         return page;
     }

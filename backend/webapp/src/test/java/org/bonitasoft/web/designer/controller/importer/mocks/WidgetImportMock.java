@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.importer.mocks;
 
+import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
@@ -22,8 +23,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -44,10 +49,20 @@ public class WidgetImportMock {
     }
 
     public List<Widget> mockWidgetsAsAddedDependencies() throws IOException {
+        return mockWidgetsAsAddedDependencies(
+                aWidget().id("aWidget").custom(),
+                aWidget().id("anotherWidget").custom());
+    }
+
+    public List<Widget> mockWidgetsAsAddedDependencies(WidgetBuilder... widgetBuilders) throws IOException {
+        List<Widget> widgets = transform(asList(widgetBuilders), new Function<WidgetBuilder, Widget>() {
+
+            @Override
+            public Widget apply(WidgetBuilder builder) {
+                return builder.build();
+            }
+        });
         Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
-        List<Widget> widgets = asList(
-                aWidget().id("aWidget").custom().build(),
-                aWidget().id("anotherWidget").custom().build());
         this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
@@ -65,12 +80,6 @@ public class WidgetImportMock {
         when(widgetRepository.exists("alreadyThereWidget")).thenReturn(true);
         when(widgetRepository.exists("anotherExistingWidget")).thenReturn(true);
         return widgets;
-    }
-
-    public Widget mockWidgetToBeImported() {
-        Widget widget = aWidget().id("aWidget").build();
-        when(widgetLoader.load(unzippedPath,"widget.json")).thenReturn(widget);
-        return widget;
     }
 
 }

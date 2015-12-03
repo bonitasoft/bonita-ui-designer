@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import static com.google.common.collect.Lists.transform;
 import static java.lang.String.format;
-import static java.nio.file.Files.notExists;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
 import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
+import org.bonitasoft.web.designer.controller.importer.dependencies.ComponentDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -38,6 +38,8 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Function;
 
 public class ArtifactImporter<T extends Identifiable> {
 
@@ -78,6 +80,7 @@ public class ArtifactImporter<T extends Identifiable> {
             if (force || report.doesNotOverrideElements()) {
                 // then save them
                 saveArtefactDependencies(resources, dependencies);
+                prepareForImport(element);
                 repository.updateLastUpdateAndSave(element);
                 report.setStatus(ImportReport.Status.IMPORTED);
             } else {
@@ -110,8 +113,30 @@ public class ArtifactImporter<T extends Identifiable> {
 
     private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<?>> map) {
         for (Entry<DependencyImporter, List<?>> entry : map.entrySet()) {
-            entry.getKey().save(entry.getValue(), resources);
+            DependencyImporter importer = entry.getKey();
+            List<?> elements = entry.getValue();
+            if (importer instanceof ComponentDependencyImporter) {
+                elements = prepareForImport((List<? extends Identifiable>) elements);
+            }
+            importer.save(elements, resources);
         }
+    }
+
+    private List<? extends Identifiable> prepareForImport(List<? extends Identifiable> list) {
+        return transform(list, new Function<Identifiable, Identifiable>() {
+
+            @Override
+            public Identifiable apply(Identifiable input) {
+                return prepareForImport(input);
+            }
+        });
+    }
+
+    private Identifiable prepareForImport(Identifiable element) {
+        if (element instanceof ResetOnImport) {
+            ((ResetOnImport) element).prepareForImport();
+        }
+        return element;
     }
 
     private Map<DependencyImporter, List<?>> loadArtefactDependencies(T element, Path resources) throws IOException {

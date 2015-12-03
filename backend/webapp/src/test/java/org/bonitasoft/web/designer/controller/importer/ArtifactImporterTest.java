@@ -14,8 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
 import static org.mockito.Matchers.any;
@@ -45,6 +48,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -95,6 +99,26 @@ public class ArtifactImporterTest {
 
         verify(widgetRepository).saveAll(widgets);
         verify(pageRepository).updateLastUpdateAndSave(page);
+    }
+
+    @Test
+    public void should_reset_favorite_information_for_imported_element_and_its_dependencies() throws Exception {
+        wMocks.mockWidgetsAsAddedDependencies(
+                aWidget().id("aWidget").favorite(),
+                aWidget().id("anotherWidget").favorite());
+        pMocks.mockPageToBeImported(
+                aPage().withId("id").favorite());
+
+        importer.doImport(anImport(pageImportPath));
+
+        ArgumentCaptor<List> widgetCaptor = ArgumentCaptor.forClass(List.class);
+        verify(widgetRepository).saveAll(widgetCaptor.capture());
+        for (Widget widget : (List<Widget>) widgetCaptor.getValue()) {
+            assertThat(widget.isFavorite()).isFalse();
+        }
+        ArgumentCaptor<Page> pageCaptor = ArgumentCaptor.forClass(Page.class);
+        verify(pageRepository).updateLastUpdateAndSave(pageCaptor.capture());
+        assertThat(pageCaptor.getValue().isFavorite()).isFalse();
     }
 
     @Test
