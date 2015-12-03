@@ -5,16 +5,7 @@
     </div>
     <div class="DataHeader-filter">
         <label class="sr-only" translate> filter: </label>
-
-        <div class="search-filter">
-            <i class="fa fa-search search-filter-icon" aria-hidden="true"></i>
-            <input class="form-control search-filter-input" ng-model="searchedData" placeholder="{{ 'Search' | translate }}"
-                   ng-change="filterPageData()" type="search">
-            <button type="button" ng-if="clearFilterVisible(searchedData)" ng-click="clearFilter()"
-                    class="search-filter-button" title="{{ 'Clear filter' | translate }}" aria-label="{{ 'Clear filter' | translate }}">
-                <i aria-hidden="true" class="fa fa-times"></i>
-            </button>
-        </div>
+        <search value="searchedData" placeholder="{{ 'Search' | translate }}"></search>
     </div>
 </div>
 

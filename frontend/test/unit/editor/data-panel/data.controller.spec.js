@@ -57,7 +57,6 @@
 
       $scope.page.data = data;
       $scope.searchedData = 'colin';
-      $scope.filterPageData();
       $scope.$apply();
 
       expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
@@ -71,7 +70,6 @@
 
       $scope.page.data = data;
       $scope.searchedData = 'use';
-      $scope.filterPageData();
       $scope.$apply();
 
       expect($scope.pageData).toEqual({ 'api': { value: { 'user': 'toto' } } });
@@ -85,11 +83,11 @@
 
       $scope.page.data = data;
       $scope.searchedData = 'colin';
-      $scope.filterPageData();
       $scope.$apply();
 
       expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
-      $scope.clearFilter();
+      $scope.searchedData = '';
+      $scope.$apply();
       expect($scope.pageData).toEqual(data);
     });
 

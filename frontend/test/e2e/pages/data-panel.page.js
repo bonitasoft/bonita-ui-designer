@@ -9,11 +9,11 @@
 
   var dataMethod = {
     filter: function(filterPattern) {
-      this.sidebar.element(by.model('searchedData')).clear().sendKeys(filterPattern);
+      this.sidebar.element(by.model('search.value')).clear().sendKeys(filterPattern);
     },
 
     clearFilter: function() {
-      this.sidebar.element(by.css('.search-filter button')).click();
+      this.sidebar.element(by.css('.Search-clearButton')).click();
     },
 
     addData: function(name, type, value) {

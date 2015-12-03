@@ -2,7 +2,24 @@
 
 <div class="container container--Home">
     <div class="row">
-        <home-filters class="col-xs-12" filters="filters"></home-filters>
+        <div class="col-xs-12">
+            <form class="HomeFilters-form" role="search">
+                <div class="form-group">
+                    <search value="filters.name" placeholder="{{ 'Search on name' | translate }}"></search>
+                </div>
+
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="all" ng-model="filters.favorite" ng-value="undefined">
+                        <translate>All</translate>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="favorites" ng-model="filters.favorite" ng-value="true">
+                        <translate>Favorites</translate>
+                    </label>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="row row--Home">
         <section class="col-sm-7 col--Home" id="pages">
