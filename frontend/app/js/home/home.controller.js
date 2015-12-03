@@ -116,34 +116,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
 
   $scope.exportWidgetUrl = (widget) => widgetRepo.exportUrl(widget);
 
-  $scope.importElement = function(type, title) {
-    var modalInstance = $modal.open({
-      templateUrl: 'js/home/import/import-popup.html',
-      windowClass: 'modal-centered',
-      controller: 'ImportPopupController',
-      controllerAs: 'import',
-      resolve: {
-        type: () => type,
-        title: () => title
-      }
-    });
-
-    modalInstance.result.then((importReport) => (!!importReport) && $scope.manageImportReport(title, type, importReport)).then($scope.refreshAll);
-  };
-
-  $scope.manageImportReport = function(title, type, importReport) {
-    return $modal.open({
-      templateUrl: 'js/home/import/import-report-popup.html',
-      windowClass: 'modal-centered',
-      controller: 'ImportReportPopupController',
-      controllerAs: 'importReport',
-      resolve: {
-        importReport: () => importReport,
-        title: () => title
-      }
-    }).result;
-  };
-
   /**
    * Toggles the name edition, to allow editing the name
    * or cancel the edition, and just display it

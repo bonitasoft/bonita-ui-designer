@@ -23,9 +23,9 @@ describe('UI designer: home', function() {
   });
 
   it('should import a page and display import report', function() {
-    var button = $('#pages .btn[title="Import a page or a form"]');
+    var button = $('.HomeImport');
     var input = $('.file-upload-input');
-    var upload = element(by.partialButtonText('Import'));
+    var upload = element(by.cssContainingText('.modal-footer .btn', 'Import'));
     var modal = $('.modal');
     var pages = getListedPages();
 
@@ -100,9 +100,9 @@ describe('UI designer: home', function() {
 
 
   it('should import a custom widget and display an import report', function() {
-    var button = $('#widgets .btn[title="Import a widget"]');
+    var button = $('.HomeImport');
     var input = $('.file-upload-input');
-    var upload = element(by.partialButtonText('Import'));
+    var upload = element(by.cssContainingText('.modal-footer .btn', 'Import'));
     var modal = $('.modal');
     var widgets = getListedWidgets();
 

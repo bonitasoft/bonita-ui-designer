@@ -24,15 +24,15 @@
 
     var vm = this;
     vm.type = type;
-    vm.url = 'import/' + type;
+    vm.url = 'import/artifact';
     vm.filename = '';
     vm.popupTitle = title;
 
     vm.onComplete = onComplete;
 
     function onComplete(response) {
-
-      importArtifactService.manageImportResponse(type, true, response).then($modalInstance.close, $modalInstance.dismiss);
+      importArtifactService.manageImportResponse(type, true, response)
+        .then($modalInstance.close, $modalInstance.dismiss);
     }
   }
 

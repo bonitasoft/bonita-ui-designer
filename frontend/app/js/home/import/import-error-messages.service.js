@@ -17,6 +17,10 @@
         cause: gettext('Incorrect zip structure.'),
         additionalInfos: gettext('Check that the zip archive contains the file {{ infos.modelfile }}.')
       },
+      'MODEL_NOT_FOUND': {
+        cause: gettext('Incorrect zip structure.'),
+        additionalInfos: gettext('Check that the zip archive contains on of following file {{ infos.modelfiles }}.')
+      },
       'UNEXPECTED_ZIP_STRUCTURE': {
         cause: gettext('Incorrect zip structure.'),
         additionalInfos: gettext('Check that the zip file structure matches a standard UI Designer export.')
