@@ -194,10 +194,17 @@ describe('pageRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should call import/page/uuid when forceImport is called', () => {
+  it('should force a page import based on a uuid', () => {
     var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST('import/page/' + uuid).respond('');
+    $httpBackend.expectPOST(`import/${uuid}/force`).respond('');
     pageRepo.forceImport(uuid);
+    $httpBackend.flush();
+  });
+
+  it('should cancel a page import based on a uuid', () => {
+    var uuid = 'zezaerze-zerz-zer-zer';
+    $httpBackend.expectPOST(`import/${uuid}/cancel`).respond('');
+    pageRepo.cancelImport(uuid);
     $httpBackend.flush();
   });
 

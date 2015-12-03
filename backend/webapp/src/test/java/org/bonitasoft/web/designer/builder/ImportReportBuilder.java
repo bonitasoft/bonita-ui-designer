@@ -27,6 +27,7 @@ public class ImportReportBuilder {
     List<Identifiable> added = new ArrayList<>();
     List<Identifiable> overridden = new ArrayList<>();
     private String uuid;
+    private ImportReport.Status status;
 
     private boolean override;
 
@@ -62,6 +63,11 @@ public class ImportReportBuilder {
         return this;
     }
 
+    public ImportReportBuilder withStatus(ImportReport.Status status) {
+        this.status = status;
+        return this;
+    }
+
     public ImportReport build() {
         Dependencies dependencies = new Dependencies();
         for (Identifiable identifiable : added) {
@@ -73,6 +79,7 @@ public class ImportReportBuilder {
         ImportReport importReport = new ImportReport(element, dependencies);
         importReport.setUUID(uuid);
         importReport.setOverridden(override);
+        importReport.setStatus(status);
         return importReport;
     }
 }

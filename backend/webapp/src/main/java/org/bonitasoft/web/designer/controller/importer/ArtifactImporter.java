@@ -16,25 +16,19 @@ package org.bonitasoft.web.designer.controller.importer;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.notExists;
-import static org.apache.commons.io.FileUtils.deleteQuietly;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.*;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.zip.ZipException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -48,68 +42,29 @@ public class ArtifactImporter<T extends Identifiable> {
 
     protected static final Logger logger = LoggerFactory.getLogger(ArtifactImporter.class);
 
-    private Unzipper unzip;
     private Repository<T> repository;
     private Loader<T> loader;
     private DependencyImporter[] dependencyImporters;
-    private Map<String, String> extractedDirPathMap = new ConcurrentHashMap<>();
 
-    public ArtifactImporter(Unzipper unzip, Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
+    public ArtifactImporter(Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
         this.loader = loader;
         this.repository = repository;
-        this.unzip = unzip;
         this.dependencyImporters = dependencyImporters;
     }
 
-    public void cancelImport(String uuid) {
-        String dir = extractedDirPathMap.remove(uuid);
-        if (StringUtils.isNotBlank(dir)) {
-            deleteQuietly(unzip.getTemporaryZipPath().resolve(dir).toFile());
-        }
+    public ImportReport forceImport(Import anImport) {
+        return tryToImportAndGenerateReport(anImport, true);
     }
 
-    public ImportReport execute(InputStream is, boolean force) {
-        Path extractDir = unzip(is);
-        return (force) ? forceImportFromPath(extractDir) : importFromPath(extractDir);
-    }
-
-    public ImportReport forceExecution(String uuid) {
-        if (extractedDirPathMap.get(uuid) != null) {
-            Path extractDir = unzip.getTemporaryZipPath().resolve(extractedDirPathMap.get(uuid));
-            return forceImportFromPath(extractDir);
-        }
-        throw new UnsupportedOperationException("Cannot forceExecution import with null UUID");
-    }
-
-    public ImportReport forceImportFromPath(Path extractDir) {
-        Path resources = getPath(extractDir);
-        try {
-            return tryToImportAndGenerateReport(resources, null);
-        } finally {
-            deleteQuietly(extractDir.toFile());
-        }
-    }
-
-    public ImportReport importFromPath(Path extractDir) {
-        Path resources = getPath(extractDir);
-
-        ImportReport importReport = null;
-        try {
-            importReport = tryToImportAndGenerateReport(resources, extractDir);
-            return importReport;
-        } finally {
-            if (importReport == null || StringUtils.isBlank(importReport.getUUID())) {
-                deleteQuietly(extractDir.toFile());
-            } else {
-                extractDir.toFile().deleteOnExit();
-            }
-        }
+    public ImportReport doImport(Import anImport) {
+        return tryToImportAndGenerateReport(anImport, false);
     }
 
     /*
      * if uploadedFileDirectory is null, the import is forced
      */
-    private ImportReport tryToImportAndGenerateReport(Path resources, Path uploadedFileDirectory) {
+    private ImportReport tryToImportAndGenerateReport(Import anImport, boolean force) {
+        Path resources = getPath(anImport.getPath());
         String modelFile = repository.getComponentName() + ".json";
         try {
             // first load everything
@@ -117,16 +72,15 @@ public class ArtifactImporter<T extends Identifiable> {
             Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
             ImportReport report = buildReport(element, dependencies);
+            report.setUUID(anImport.getUuid());
 
-            if (uploadedFileDirectory == null
-                    || (report.doesNotOverrideElements())) {
+            if (force || report.doesNotOverrideElements()) {
                 // then save them
                 saveArtefactDependencies(resources, dependencies);
                 repository.updateLastUpdateAndSave(element);
+                report.setStatus(ImportReport.Status.IMPORTED);
             } else {
-                String uuid = UUID.randomUUID().toString();
-                extractedDirPathMap.put(uuid, uploadedFileDirectory.getFileName().toFile().getName());
-                report.setUUID(uuid);
+                report.setStatus(ImportReport.Status.CONFLICT);
             }
             return report;
         } catch (IOException | RepositoryException e) {
@@ -174,17 +128,6 @@ public class ArtifactImporter<T extends Identifiable> {
             map.put(importer, importer.load(element, resources));
         }
         return map;
-    }
-
-    private Path unzip(InputStream is) {
-        try {
-            return unzip.unzipInTempDir(is, "pageDesignerImport");
-        } catch (ZipException e) {
-            logger.error("Cannot open zip file", e);
-            throw new ImportException(CANNOT_OPEN_ZIP, "Cannot open zip file", e);
-        } catch (IOException e) {
-            throw new ServerImportException("Error while unzipping zip file", e);
-        }
     }
 
 }
