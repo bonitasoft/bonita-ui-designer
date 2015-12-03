@@ -19,7 +19,7 @@ describe('Import popup controller', () => {
 
   it('should expose data for view', () => {
     expect(importArtifactCtrl.type).toEqual('page');
-    expect(importArtifactCtrl.url).toEqual('import/page');
+    expect(importArtifactCtrl.url).toEqual('import/artifact');
     expect(importArtifactCtrl.filename).toEqual('');
     expect(importArtifactCtrl.popupTitle).toEqual('Import a new page');
   });

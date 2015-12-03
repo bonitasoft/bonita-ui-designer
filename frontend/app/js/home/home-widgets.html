@@ -10,9 +10,6 @@
         <form name="newWidget" ng-submit="createWidget(widget.name)">
             <fieldset class="CreateArtifact">
                 <legend class="CreateArtifact-label" translate>New widget</legend>
-                <button class="btn btn-bonita-default CreateArtifact-import" title="{{'Import a widget' | translate}}" type="button" ng-click="importElement('widget', 'Import a widget')">
-                    <i class="fa fa-alias-import"></i>
-                </button>
                 <div class="input-group CreateArtifact-form">
                     <input name="name" ng-model="widget.name" type="text" class="form-control" id="widget-name" placeholder="{{'Widget Name' | translate}}" ng-pattern="'[a-zA-Z0-9]*$'" required>
                     <span class="input-group-btn">

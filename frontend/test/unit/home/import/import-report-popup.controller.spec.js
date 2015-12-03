@@ -19,7 +19,6 @@ describe('Import artifact report controller', () => {
 
   it('should expose data for view', () => {
     expect(importArtifactReportCtrl.report).toEqual(report);
-    expect(importArtifactReportCtrl.popupTitle).toEqual('Import a new page');
   });
 
   it('should force import', () => {

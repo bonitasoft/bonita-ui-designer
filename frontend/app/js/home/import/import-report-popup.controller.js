@@ -20,10 +20,9 @@
     .module('bonitasoft.designer.home.import')
     .controller('ImportReportPopupController', ImportReportPopupController);
 
-  function ImportReportPopupController($modalInstance, importReport, title, importArtifactService) {
+  function ImportReportPopupController($modalInstance, importReport, importArtifactService) {
 
     var vm = this;
-    vm.popupTitle = title;
     vm.report = importReport;
     vm.joinOnNames = joinOnNames;
 

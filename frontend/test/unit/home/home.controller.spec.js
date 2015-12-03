@@ -1,5 +1,5 @@
 describe('HomeCtrl', function() {
-  var $scope, $q, $modal, pageRepo, widgetRepo, pages, widgets, $state, $timeout;
+  var $scope, $q, $modal, pageRepo, widgetRepo, pages, widgets, $state, $timeout, controller;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
   beforeEach(inject(function($controller, $rootScope, $injector) {
@@ -28,7 +28,7 @@ describe('HomeCtrl', function() {
     spyOn(pageRepo, 'all').and.returnValue($q.when(pages));
     spyOn(widgetRepo, 'customs').and.returnValue($q.when(widgets));
 
-    $controller('HomeCtrl', {
+    controller = $controller('HomeCtrl', {
       $scope: $scope,
       pageRepo: pageRepo,
       widgetRepo: widgetRepo
@@ -201,65 +201,4 @@ describe('HomeCtrl', function() {
     $timeout.flush();
     expect(page.isEditingName).toBe(false);
   });
-  describe('manageImportReport', () => {
-    it('should open modal for file selection ', () => {
-      var result = {}, title = 'Import a page', type = 'page', report = {};
-      spyOn($modal, 'open').and.returnValue({ result });
-
-      expect($scope.manageImportReport(title, type, report)).toEqual(result);
-
-      var [[args]] = $modal.open.calls.allArgs();
-      expect(args.windowClass).toEqual('modal-centered');
-      expect(args.resolve.importReport()).toEqual(report);
-      expect(args.resolve.title()).toEqual(title);
-    });
-  });
-  describe('importElement', () => {
-    it('should open modal and call manage report when report is returned and import is forced', function() {
-      var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page', report = {}, deferredManageImport = $q.defer();
-      spyOn($modal, 'open').and.returnValue({ result });
-      spyOn($scope, 'refreshAll');
-      spyOn($scope, 'manageImportReport').and.returnValue(deferredManageImport.promise);
-      deferredManageImport.resolve();
-      deferredModal.resolve(report);
-
-      $scope.importElement(type, title);
-      $scope.$apply();
-      var [[args]] = $modal.open.calls.allArgs();
-
-      expect(args.windowClass).toEqual('modal-centered');
-      expect(args.resolve.type()).toEqual(type);
-      expect(args.resolve.title()).toEqual(title);
-      expect($scope.refreshAll).toHaveBeenCalled();
-      expect($scope.manageImportReport).toHaveBeenCalled();
-    });
-    it('should open modal and call manage report when report is returned and forced import is cancelled', function() {
-      var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page', report = {}, deferredManageImport = $q.defer();
-      spyOn($modal, 'open').and.returnValue({ result });
-      spyOn($scope, 'refreshAll');
-      spyOn($scope, 'manageImportReport').and.returnValue(deferredManageImport.promise);
-      deferredModal.resolve(report);
-      deferredManageImport.reject();
-
-      $scope.importElement(type, title);
-      $scope.$apply();
-
-      expect($scope.refreshAll).not.toHaveBeenCalled();
-      expect($scope.manageImportReport).toHaveBeenCalled();
-    });
-    it('should open modal and don\'t call manage report when no report is returned', function() {
-      var deferredModal = $q.defer(), result = deferredModal.promise, title = 'Import a page', type = 'page';
-      spyOn($modal, 'open').and.returnValue({ result });
-      spyOn($scope, 'refreshAll');
-      spyOn($scope, 'manageImportReport');
-      deferredModal.resolve();
-
-      $scope.importElement(type, title);
-      $scope.$apply();
-
-      expect($scope.refreshAll).toHaveBeenCalled();
-      expect($scope.manageImportReport).not.toHaveBeenCalled();
-    });
-  });
-
 });
