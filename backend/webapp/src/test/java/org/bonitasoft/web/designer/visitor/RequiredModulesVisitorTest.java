@@ -95,7 +95,7 @@ public class RequiredModulesVisitorTest {
                 aTab().with(aContainer().with(component1)),
                 aTab().with(aContainer().with(component2))).build());
 
-        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "ui.bootstrap");
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "ui.bootstrap.tabs", "ui.bootstrap.tpls");
     }
 
     @Test

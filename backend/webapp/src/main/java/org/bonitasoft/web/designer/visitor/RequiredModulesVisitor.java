@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
 
 import java.util.HashSet;
@@ -55,7 +56,7 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
         for (Tab tab : tabsContainer.getTabs()) {
             modules.addAll(tab.getContainer().accept(this));
         }
-        modules.add("ui.bootstrap");   // Tabs container need ui.bootstrap
+        modules.addAll(asList("ui.bootstrap.tabs", "ui.bootstrap.tpls"));   // Tabs container need ui.bootstrap.tabs
         return modules;
     }
 
