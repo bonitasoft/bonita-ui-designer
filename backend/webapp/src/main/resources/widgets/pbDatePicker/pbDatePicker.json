@@ -85,7 +85,7 @@
   ],
   "assets": [
     {
-      "name": "angular-strap-2.3.5.min.js",
+      "name": "angular-strap-2.3.5.compat.min.js",
       "type": "js",
       "order": 1
     },
