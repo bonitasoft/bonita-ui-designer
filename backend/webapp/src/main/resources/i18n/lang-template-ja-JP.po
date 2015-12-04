@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2015-11-13 05:46-0500\n"
+"PO-Revision-Date: 2015-12-04 03:34-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -26,7 +26,7 @@ msgstr "（エディタのプロパティ パネルで表示される）"
 msgid "(used in your template and controller)"
 msgstr "（テンプレートとコントローラーで使用される）"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:7
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
@@ -51,8 +51,8 @@ msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by 
 msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) and submitted to the process or task"
-msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、既定によって <code>\"forminput\"</code> のデータが埋められます。その目標は、フォームのフィールドを集約して、コントラクトのデータを埋めるためにタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
+msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
+msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
@@ -78,6 +78,18 @@ msgstr "<span class=\"tip\">ヒント：</span> <em ng-non-bindable=\"\">{{dataN
 msgid "<span>{{ vm.mode }}</span> editor"
 msgstr "<span>{{ vm.mode }}</span> エディタ"
 
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$collection</strong>: the current collection"
+msgstr "<strong>$collection</strong>: 現在のコレクション"
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
+msgstr "<strong>$index</strong>: コレクションの現在の反復処理のインデックス（0 から数える） "
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$item</strong>: the element of the current iteration"
+msgstr "<strong>$item</strong>: 現在の反復処理の要素"
+
 #: editor/data-panel/help-popup.html:1
 msgid "A binding is dynamic, so every time data changes, the whole data model is re-evaluated and the UI is updated."
 msgstr "バインディングは動的でデータは常時変化します。データモデル全体が再評価され、UI が動的に更新されます。"
@@ -93,6 +105,10 @@ msgstr "コンスタント値を要求するプロパティが、ラジオ ボ�
 #: editor/help/description-bond-help.html:1
 msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
 msgstr "プロパティの値は、コンスタント、動的な値、双方向バインド、または補完です。"
+
+#: home/import/import-error-messages.service.js:13
+msgid "A server error occurred."
+msgstr "サーバーエラーが発生しました。"
 
 #: editor/data-panel/data-popup.html:1
 msgid "API URL"
@@ -110,7 +126,7 @@ msgstr "アクション"
 msgid "Active"
 msgstr "アクティブ"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:2
 #: assets/widget-assets.html:1
 msgid "Add"
 msgstr "追加"
@@ -128,7 +144,6 @@ msgid "Add a new asset"
 msgstr "新規アセットを追加"
 
 #: editor/whiteboard/tabs-container.html:1
-#: editor/workspace/tabs-container.html:1
 msgid "Add a new tab"
 msgstr "新規タブを追加"
 
@@ -140,23 +155,26 @@ msgstr "下部にある [アセット] パネルで、画像、CSS または Jav
 msgid "Add to collection"
 msgstr "コレクションに追加"
 
-#: home/import-artifact-success-message.html:1
 #: home/import/import-success-message.html:1
 msgid "Added artifacts"
 msgstr "追加されたアーティファクト"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:1
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:11
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:5
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:10
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:4
 msgid "Alignment"
 msgstr "配置"
+
+#: home/home-filters.html:1
+msgid "All"
+msgstr "すべて"
 
 #: editor/data-panel/api-examples.service.js:40
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "案件の全プロセスデータ: 案件リストの変数を検索します"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:13
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:8
 msgid "Alternate text"
 msgstr "代替テキスト"
 
@@ -172,15 +190,15 @@ msgstr "変数の値にフィルターを適用する例: <em>selectedUser | jso
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:18
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:19
 msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
 msgstr "テーブルを埋め込むために使用される配列（Array）。オブジェクトの配列（リスト）を指定することもできます。この場合、各列に表示する項目名のリストを「列を示すキー」に指定します。"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:6
 msgid "Asset"
 msgstr "アセット"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:6
 msgid "Asset Name"
 msgstr "アセット名"
 
@@ -210,8 +228,8 @@ msgstr "カスタム ウィジェットのアセットは実行時にカスタ�
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:12
 msgid "Available values"
 msgstr "使用可能な値"
 
@@ -223,10 +241,6 @@ msgstr "使用可能な変数のタイプは、string と JSON (静的)、およ
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
 
-#: editor/container-definition-factory.service.js:47
-msgid "Bind this property to a variable of type array. For each iteration, a widget property can be bound to $item to access the current JavaScript object"
-msgstr "この変数を配列型の変数にバインドします。各繰返し項目には、現在の JavaScript オブジェクトをアクセスするために、$item をウィジェットのプロパティにバインドします。"
-
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
@@ -235,7 +249,7 @@ msgstr "Bonita BPM"
 msgid "CSS classes"
 msgstr "CSS クラス"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:91
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:88
 msgid "Calendar for selecting a date"
 msgstr "日付を選択するカレンダー"
 
@@ -251,7 +265,7 @@ msgstr "オブジェクトのリストを使用できます。表示したい選
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
 msgstr "オブジェクトのリストをすることができます。「表示されるキー」を使用して候補を絞り込みます。"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:11
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "オブジェクトのリストを使用できます。表示したい選択オプション項目を「表示するキー」に指定し、選択された行の中の取得したい項目を「返されるキー」に指定します。"
 
@@ -262,14 +276,30 @@ msgstr "後続のタスクでコントラクトを埋めるために使用され
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
 #: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/import-artifact.html:1
-#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/import/import-popup.html:1
+#: home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "キャンセル"
 
 #: editor/data-panel/api-examples.service.js:29
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr "案件のIDは、{{myVar.rootCaseId}} によって取得できます。"
+
+#: home/import/import-error-messages.service.js:29
+msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr "Json ファイル構造が標準 UI デザイナーのエクスポートと一致することを確認します。"
+
+#: home/import/import-error-messages.service.js:18
+msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
+msgstr "Zip アーカイブに、ファイル {{ infos.modelfile }} が含まれていることを確認します。"
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip file structure matches a standard UI Designer export."
+msgstr "Zip ファイルの構造が標準の UI デザイナー エクスポートと一致することを確認します。"
+
+#: home/import/import-error-messages.service.js:14
+msgid "Check the log files"
+msgstr "ログ ファイルを確認してください"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Choices"
@@ -299,20 +329,21 @@ msgstr "閉じる"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
+#: editor/container-definition-factory.service.js:45
 msgid "Collection"
 msgstr "コレクション"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:1
 msgid "Column keys"
 msgstr "列を示すキー"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:172
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:165
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:171
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:164
 msgid "Comma-separated list"
 msgstr "カンマ区切りのリスト"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:174
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:183
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:185
 msgid "Comma-separated list or bound an array data"
 msgstr "コンマで区切られたリストまたはバインド配列データ"
 
@@ -336,17 +367,17 @@ msgstr "フォームに使用するコンテナ。 検証は削除されます�
 msgid "Containers"
 msgstr "コンテナ"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:5
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:4
 msgid "Content"
 msgstr "コンテンツ"
-
-#: home/import/import-report-popup.html:1
-msgid "Continue"
-msgstr "続行"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Controller"
 msgstr "コントローラー"
+
+#: home/import/import-error-messages.service.js:25
+msgid "Corrupted zip archive."
+msgstr "破損した zip アーカイブです。"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Create"
@@ -400,7 +431,7 @@ msgstr "新規ウィジェットを作成"
 msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
 msgstr "下部の変数パネルで変数を作成し、それらを使用してウィジェットのプロパティを編集します。"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "Current frame (_self)"
 msgstr "現在のフレーム (_self)"
 
@@ -428,11 +459,11 @@ msgstr "削除"
 msgid "Data sent on click"
 msgstr "クリックで送られるデータ"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
 msgid "Date"
 msgstr "Date"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
 msgid "Date format"
 msgstr "日付フォーマット"
 
@@ -440,12 +471,12 @@ msgstr "日付フォーマット"
 msgid "Default"
 msgstr "デフォルト"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:13
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:14
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:10
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:14
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:8
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:12
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:10
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:12
 msgid "Default label"
 msgstr "デフォルト ラベル"
 
@@ -469,7 +500,7 @@ msgstr "ウィジェットを表示する条件を定義する例： <em>userAge
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myArrayVariable</em>"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:18
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:17
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "ファイルがアップロードされる場所を示すエンドポイントURLを定義します。"
 
@@ -502,32 +533,36 @@ msgstr "削除はできません。"
 msgid "Description"
 msgstr "説明"
 
+#: home/import/import-report-popup.html:1
+msgid "Details"
+msgstr "詳細情報"
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
 msgid "Disabled"
 msgstr "無効"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:92
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:87
 msgid "Display an image from assets or from a URL"
 msgstr "アセットまたは URL からイメージを表示します。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:7
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
 msgid "Displayed key"
 msgstr "表示するキー"
 
 #: home/import/import-report-popup.html:1
-msgid "Do you want to continue?"
-msgstr "続行しますか？"
+msgid "Do you want to import this zip file?"
+msgstr "この zip ファイルをインポートしますか？"
 
 #: editor/menu-bar/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
 msgstr "行内にウィジェットまたはコンテナをドラック＆ドロップします。"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:5
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1 つの値を選択します。"
 
@@ -567,7 +602,7 @@ msgstr "エディタの構成設定"
 msgid "Enter ' + vm.mode + ' name"
 msgstr "vm.mode + ' 名を入力します"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:4
 msgid "Error on upload holder"
 msgstr "アップロード ホルダーのエラー"
 
@@ -607,7 +642,11 @@ msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジ
 msgid "Failed response value"
 msgstr "失敗時のレスポンス値"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:80
+#: home/home-filters.html:1
+msgid "Favorites"
+msgstr "お気に入り"
+
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:82
 msgid "Field where the user can enter information"
 msgstr "ユーザーが情報を入力できるフィールド"
 
@@ -615,16 +654,16 @@ msgstr "ユーザーが情報を入力できるフィールド"
 msgid "File"
 msgstr "File"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:84
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:83
 msgid "File chooser for uploading a document to a form"
 msgstr "フォームにドキュメントをアップロードするためのファイル選択ダイアログ"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "First"
 msgstr "第1"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
 msgid "Frame"
 msgstr "フレーム"
 
@@ -672,7 +711,7 @@ msgstr "ページ要素の配列定義に使用されるウィジェットのグ
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:9
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:8
 msgid "Headers"
 msgstr "ヘッダー"
 
@@ -685,11 +724,11 @@ msgstr "ヘルプ"
 msgid "Hidden"
 msgstr "非表示"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:18
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:19
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
 msgstr "アップロード エラー エンドポイントからの応答内容を保持します。その値はガイダンス目的に使用することができます。"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:16
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
 msgstr "アップロードのエンドポイントからのレスポンスを保持します。この値はコントラクトのコンテンツを埋めるために使用することができます。"
 
@@ -705,15 +744,15 @@ msgstr "リクエストが成功した時、そのレスポンスを保持しま
 msgid "Home page"
 msgstr "ホームページ"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:9
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:10
 msgid "Id,Name,Description,Date"
 msgstr "Id, 名前, 説明, 日付"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:14
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:15
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
-#: home/import-artifact.html:1 home/import/import-popup.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "インポート"
 
@@ -724,6 +763,10 @@ msgstr "ページまたはフォームをインポート"
 #: home/home-widgets.html:1
 msgid "Import a widget"
 msgstr "ウィジェットをインポート"
+
+#: home/import/import.service.js:44
+msgid "Import error"
+msgstr "インポート エラー"
 
 #: assets/help-popup.html:13
 msgid "Import the moment.js library as an external asset."
@@ -746,19 +789,20 @@ msgid "In production, if the user is logged in to Bonita BPM, pages are displaye
 msgstr "運用時、ユーザーが Bonita BPM にログインする場合、ユーザーが選択したポータル言語、またはデフォルトのポータル言語でページが表示されます。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:17
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:16
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:20
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:8
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:17
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:20
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:11
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:16
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
 #: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:22
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:22
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:19
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:15
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:11
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:20
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:20
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:18
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:22
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:18
 #: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:21
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:17
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:20
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "フォーム コンテナのコンテンツの中で $form.$invalid をウィジェット プロパティ内のブーリアン変数として使用し、フォームの妥当性をチェックします。"
 
@@ -770,11 +814,7 @@ msgstr "フラグメント エディタで、変数の有効範囲を「この�
 msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "このリストの中で、ページ アセットのみの削除、ローカル アセットの表示、およびページ外部アセットの編集ができます。"
 
-#: editor/data-panel/help-popup.html:1
-msgid "In the scope of a page, form, or layout, a variable can be used to handle business data or process data, or can contain structural information that determines how page elements behave."
-msgstr "変数はページ、フォーム、またはレイアウトの有効範囲において、ビジネス データやプロセス データを処理するために使用したり、あるいはページ要素の動作方法を決定する構造的な情報を含めることができます。"
-
-#: editor/menu-bar/help-popup.html:1
+#: editor/data-panel/help-popup.html:1 editor/menu-bar/help-popup.html:1
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲において、ビジネス データを取り扱うために使用したり、あるいはページ要素の動作方法を決定付ける構造化情報を含めることができます。"
 
@@ -782,10 +822,15 @@ msgstr "変数は、ページ、フォーム、またはレイアウトの有効
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
+#: home/import/import-error-messages.service.js:17
+#: home/import/import-error-messages.service.js:21
+msgid "Incorrect zip structure."
+msgstr "不正な zip 構造。"
+
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
 msgid "Inline"
-msgstr "オンライン"
+msgstr "横に並べる"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:4
 msgid "Input field with content completion from a given list"
@@ -803,11 +848,15 @@ msgstr "補完（Interpolation）"
 msgid "Invalid URL (must start by http:// or https://)!"
 msgstr "無効な URL（http://または https://によって開始する必要があります）です！"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
+#: home/import/import-error-messages.service.js:28
+msgid "Invalid {{ infos.modelfile }} json file structure"
+msgstr "{{ infos.modelfile }} は、無効な json ファイル構造です"
+
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Item"
 msgstr "項目"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "Item to remove"
 msgstr "削除する項目"
 
@@ -825,80 +874,80 @@ msgstr "JavaScript 式"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:11
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:4
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:9
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:13
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:7
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:3
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:9
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:5
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:7
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:12
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:8
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
 #: custom-widget/create-property.html:1
 #: custom-widget/custom-widget-editor.html:1
 msgid "Label"
 msgstr "ラベル"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:7
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
+#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:9
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:7
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:2
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
 msgid "Label hidden"
 msgstr "ラベルを非表示"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:8
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:6
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:6
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:10
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:4
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:3
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:5
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:2
 msgid "Label position"
 msgstr "ラベルの位置"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:5
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:3
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:1
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:1
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:5
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
 msgid "Label width"
 msgstr "ラベル幅"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Last"
 msgstr "最後"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 1"
 msgstr "レベル 1"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 2"
 msgstr "レベル 2"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 3"
 msgstr "レベル 3"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 4"
 msgstr "レベル 4"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 5"
 msgstr "レベル 5"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:10
 msgid "Level 6"
 msgstr "レベル 6"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:10
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "Link"
 msgstr "リンク"
 
@@ -926,28 +975,32 @@ msgstr "ローカライゼーション"
 msgid "London,Paris,San Francisco"
 msgstr "大阪, 名古屋, 福岡"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:11
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:14
 msgid "MM/dd/yyyy"
 msgstr "yyyy/MM/dd"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:1
+#: home/favorite-button.directive.js:42
+msgid "Mark as favorite"
+msgstr "お気に入りに登録"
+
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:3
 msgid "Max value"
 msgstr "最大値"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:12
 msgid "Min value"
 msgstr "最小値"
 
-#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
+#: editor/whiteboard/container.html:1
 msgid "Move the row down"
 msgstr "行を下に移動"
 
-#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
+#: editor/whiteboard/container.html:1
 msgid "Move the row up"
 msgstr "行を上に移動"
 
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:89
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:90
 msgid "Multi-line, expandable, text input field"
 msgstr "拡張可能な複数行のテキスト入力フィールド"
 
@@ -959,13 +1012,9 @@ msgstr "タブ コンテナ： 複数のコンテンツ"
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "複数のウィジェットグループ、タブ内の各グループ"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:185
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:180
 msgid "Must be a Boolean"
 msgstr "ブーリアンである必要があります"
-
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:179
-msgid "Must be an array"
-msgstr "配列でなければなりません。"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
@@ -973,11 +1022,11 @@ msgstr "配列でなければなりません。"
 msgid "Name"
 msgstr "名前"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:90
 msgid "Navigation link to another page or form"
 msgstr "別のページやフォームへのナビゲーション リンク"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:3
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:4
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
 
@@ -989,7 +1038,7 @@ msgstr "新規ページ"
 msgid "New widget"
 msgstr "新規ウィジェット"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
 
@@ -1009,8 +1058,12 @@ msgstr "ページまたはフォームはありません"
 msgid "No variable"
 msgstr "変数はありません"
 
+#: editor/container-definition-factory.service.js:46
+msgid "Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container"
+msgstr "配列の要素の数は、コンテナ構造体を繰り返す回数を定義します。配列データは、コンテナ内のウィジェットで使用可能です。"
+
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:16
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:19
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:20
 msgid "Object key to display"
 msgstr "表示するオブジェクトのキー"
 
@@ -1024,7 +1077,6 @@ msgstr "１つの要素を１回選択し、右のプロパティパネルでそ
 msgid "Open help"
 msgstr "ヘルプを開く"
 
-#: home/import-artifact-success-message.html:1
 #: home/import/import-success-message.html:1
 msgid "Overridden artifacts"
 msgstr "オーバーライドされたアーティファクト"
@@ -1061,17 +1113,17 @@ msgstr "ページ名は、英文字で始まり英数字のみで命名する必
 msgid "Pages &amp; Forms"
 msgstr "ページ &amp; フォーム"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "Parent frame (_parent)"
 msgstr "親フレーム (_parent)"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:9
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:8
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:9
 msgid "Placeholder"
-msgstr "プレースホルダ"
+msgstr "プレース ホルダー"
 
 #: editor/menu-bar/menu-bar.html:1
 msgid "Preview"
@@ -1090,11 +1142,11 @@ msgid "Property names must start with a letter and contain only alphanumeric cha
 msgstr "プロパティ名は、英文字で始まり英数字のみで命名する必要があります。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:14
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:20
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:11
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:2
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:20
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:5
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:17
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
 msgid "Read-only"
 msgstr "読み取り専用"
 
@@ -1102,7 +1154,7 @@ msgstr "読み取り専用"
 msgid "Relative time filter"
 msgstr "例: 相対時間フィルター"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:9
 msgid "Remove"
 msgstr "削除"
 
@@ -1111,7 +1163,6 @@ msgid "Remove from collection"
 msgstr "コレクションから削除"
 
 #: editor/whiteboard/tabs-container.html:1
-#: editor/workspace/tabs-container.html:1
 msgid "Remove tab"
 msgstr "タブを削除"
 
@@ -1119,22 +1170,22 @@ msgstr "タブを削除"
 msgid "Rename page"
 msgstr "ページ名を変更"
 
+#: editor/container-definition-factory.service.js:47
+msgid "Repeat container content. Variable of type array"
+msgstr "コンテナの内容を繰り返します。配列型変数"
+
 #: editor/menu-bar/help-popup.html:1
 msgid "Repeat content for the plain container"
 msgstr "プレイン コンテナ： コンテンツを繰り返す配列処理が可能です"
 
-#: editor/container-definition-factory.service.js:45
-msgid "Repeat contents"
-msgstr "コンテンツを繰り返す"
-
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:7
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:3
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:15
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:1
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:17
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:12
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:19
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:5
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:1
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:18
 msgid "Required"
 msgstr "必須"
 
@@ -1143,12 +1194,12 @@ msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:4
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:6
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
 msgid "Returned key"
 msgstr "返されるキー"
 
-#: editor/whiteboard/container.html:1 editor/workspace/container.html:1
+#: editor/whiteboard/container.html:1
 msgid "Row"
 msgstr "行"
 
@@ -1186,7 +1237,7 @@ msgstr "検索キーで案件リストを検索する"
 msgid "See the default localization asset for an example."
 msgstr "デフォルト ローカライゼーション アセットの例を参照してください。"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:4
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:5
 msgid "Select"
 msgstr "選択"
 
@@ -1194,11 +1245,11 @@ msgstr "選択"
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "ホワイトボードの要素を選択し、ここでその要素のプロパティを設定します"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:1
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:2
 msgid "Select an option"
 msgstr "オプションを選択してください"
 
-#: home/import-artifact.html:1 home/import/import-popup.html:1
+#: home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr "あなたの.zip ファイルを選択します"
 
@@ -1206,11 +1257,11 @@ msgstr "あなたの.zip ファイルを選択します"
 msgid "Select your file"
 msgstr "あなたのファイルを選択します"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:3
 msgid "Selected Row"
 msgstr "選択された行"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:3
 msgid "Selected Value"
 msgstr "選択した値"
 
@@ -1222,7 +1273,7 @@ msgstr "選択された値"
 msgid "Send data to this URL when the button is clicked"
 msgstr "ボタンがクリックされたときに、この URL にデータを送信します。"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "相互に排他的なオプションのボタンのセットです。ユーザーは 1 つのオプションを選択します。"
 
@@ -1231,14 +1282,14 @@ msgid "Set of checkboxes for options. The user selects zero or more"
 msgstr "オプションのチェック ボックスのセットです。ユーザーは 0 個、1 個、または複数個を選択できます。"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:14
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:16
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:14
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:15
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "Short hint that describes the expected value"
 msgstr "期待値を説明するショートヒント"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:2
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:1
 msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "表示されるテキストの段落または短い文字列です。HTML タグを含めることができます。"
 
@@ -1246,7 +1297,7 @@ msgstr "表示されるテキストの段落または短い文字列です。HTM
 msgid "Source"
 msgstr "ソース"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:16
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:11
 msgid "Source Type"
 msgstr "ソースのタイプ"
 
@@ -1254,11 +1305,11 @@ msgstr "ソースのタイプ"
 msgid "Space-separated list"
 msgstr "スペースで区切られたリスト"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:10
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:15
 msgid "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration"
 msgstr "イメージの代替テキストを指定します。このテキストは、イメージが情報を含む場合は。その情報を記述すべきです。装飾のためだけにイメージを使用する場合は、空のままにすべきです。"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:22
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:18
 msgid "Specifies where to open the linked document"
 msgstr "リンクされたドキュメントを開く場所を指定します"
 
@@ -1266,7 +1317,7 @@ msgstr "リンクされたドキュメントを開く場所を指定します"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:16
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:19
 msgid "Specify your own format"
 msgstr "あなた独自のフォーマットを指定します"
 
@@ -1283,7 +1334,7 @@ msgid "String"
 msgstr "文字列"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:9
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
 msgid "Style"
 msgstr "スタイル"
 
@@ -1299,7 +1350,7 @@ msgstr "タスクを送信"
 msgid "Subscription edition"
 msgstr "サブスクリプション版"
 
-#: home/import/import.service.js:60
+#: home/import/import.service.js:56
 msgid "Successful import"
 msgstr "インポートが成功しました。"
 
@@ -1307,7 +1358,7 @@ msgstr "インポートが成功しました。"
 msgid "Successful response value"
 msgstr "成功時のレスポンス値"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:6
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:5
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
 
@@ -1319,13 +1370,13 @@ msgstr "成功時のターゲットURL"
 msgid "Template"
 msgstr "テンプレート"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:7
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:8
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:18
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:9
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:17
 msgid "Text"
 msgstr "Text"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:90
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:89
 msgid "Text used to structure the page or form content"
 msgstr "ページまたはフォームのコンテンツの構造化に使用されるテキスト"
 
@@ -1338,35 +1389,47 @@ msgid "The UI Designer generates <b>standard html application code, based on Ang
 msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
 
 #: home/import/import-report-popup.html:1
-msgid "The import will override the following existing elements based on their names:"
-msgstr "インポートはそれらの名前を基に次の既存要素を上書きします："
+msgid "The imported zip file contains elements with the same name as some existing elements. These existing elements will be overwritten:"
+msgstr "インポートした zip ファイルには、いくつかの既存の要素と同じ名前を持つ要素が含まれています。これらの既存の要素は上書きされます。"
 
 #: assets/help-popup.html:13
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:16
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:22
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:21
 msgid "The name of the key to use as label. Can be empty"
 msgstr "ラベルとして使用するキーの名前。空にすることができます。"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:19
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:18
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:22
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:17
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:16
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "値として使用するキーの名前。オブジェクト全体の場合は、空のままにします。"
 
-#: home/import/import-report-popup.html:1
-msgid "The other elements will be imported."
-msgstr "他の要素はインポートされます。"
+#: home/import/import-error-messages.service.js:51
+msgid "The page has not been imported."
+msgstr "ページはインポートされていません。"
 
 #: editor/menu-bar/help-popup.html:1
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
 
+#: home/import/import-error-messages.service.js:55
+msgid "The widget has not been imported."
+msgstr "ウィジェットはインポートされていません。"
+
+#: home/import/import-report-popup.html:1
+msgid "The zip file also contains new elements."
+msgstr "Zip ファイルには、新しい要素も含まれています。"
+
 #: home/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
+
+#: home/import/import-error-messages.service.js:58
+msgid "The {{ artifactType }} has not been imported."
+msgstr "{{ artifactType }} はインポートされていません。"
 
 #: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
@@ -1388,12 +1451,12 @@ msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a
 msgid "This page is empty."
 msgstr "このページは空白です。"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:7
 #: editor/properties-panel/tab-properties-template.html:1
 msgid "Title"
 msgstr "タイトル"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:8
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:7
 msgid "Title level"
 msgstr "タイトル レベル"
 
@@ -1433,6 +1496,10 @@ msgstr "ローカライゼーション アセットを使用するには、ペ�
 msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
 msgstr "イメージ  ウィジェットでイメージのアセットを使用するには、<code>アセット</code>に<code>ソースのタイプ</code> プロパティを設定し、<code>アセット名</code> の入力フィールドにそのイメージ名を入力します。"
 
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "To use the collection data in the widgets of this container, there are contextual variables that you can bind to the widget properties:"
+msgstr "このコンテナのウィジェット内でコレクション データを使用する場合、ウィジェットのプロパティにバインドできるコンテキスト変数があります："
+
 #: assets/help-popup.html:1
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "いくつかのページで同じアセットを使用するには、そのアセットをカスタム ウィジェットに追加することで、アプリケーションページまたはフォームでそのカスタム ウィジェットを使用できます。あるページにアセットを持つ追加する場合は、それらのアセットはそのページに自動でリンクされます。"
@@ -1441,7 +1508,7 @@ msgstr "いくつかのページで同じアセットを使用するには、そ
 msgid "Toggle properties panel"
 msgstr "プロパティ パネルの表示"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "Top frame (_top)"
 msgstr "トップ フレーム (_top)"
 
@@ -1453,11 +1520,11 @@ msgstr "値の取り扱い: "
 msgid "Treat value as"
 msgstr "値の取り扱い:"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:87
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:85
 msgid "Trigger for an action in a page or form"
 msgstr "ページまたはフォームのアクションのトリガー"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:8
 #: assets/asset-popup.html:1 assets/page-assets.html:1
 #: assets/widget-assets.html:1 custom-widget/create-property.html:1
 #: custom-widget/custom-widget-editor.html:1
@@ -1473,10 +1540,10 @@ msgstr "UI デザイナー"
 msgid "UI designer includes a mechanism to add translations for page elements, to support multi-language pages. The text displayed in the preview and at runtime adapts to the locale or browser language automatically."
 msgstr "UI デザイナーには、複数の言語ページをサポートするため、ページ要素の翻訳を追加するメカニズムが含まれています。プレビューおよび実行時に表示されるテキストは、ロケールまたはブラウザの言語を自動的に適応します。"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:6
+#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:6
 #: assets/generic-asset-form.html:1
 msgid "URL"
 msgstr "URL"
@@ -1497,19 +1564,23 @@ msgstr "コールするURL"
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "クリックされた時にHTTPリクエストを実行するために使用するURL"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:96
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:102
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "ユニークなオプションのチェック ボックス。ユーザーはチェックオンまたはオフにします。"
+
+#: home/favorite-button.directive.js:41
+msgid "Unmark as favorite"
+msgstr "お気に入りのマークを解除"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "Update asset"
 msgstr "アセットを更新"
 
-#: editor/container-definition-factory.service.js:46
-msgid "Use $item as the current iteration."
-msgstr "現在のイテレータとして $item を使用します。"
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
+msgid "Use $collection to act on the collection of a repeated content"
+msgstr "繰り返されるコンテンツのコレクションを作動するためには、$collection を使用します。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:17
 msgid "Use $item to remove the current item in a repeated collection"
 msgstr "繰返しコレクション内の現在項目を削除するには、$item を使用します。"
 
@@ -1529,7 +1600,7 @@ msgstr "動的な値フィールドを使用し、コンスタント（デフォ
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr "ウィジェットの表示テキスト中に変数を埋め込み可能にしたい場合、この補完フィールドを使用します。この補完フィールドのテキストには、AngularJS の補完 (interpolation) で解釈される変数を含むことができます。その変数はページが表示されたとき、補完された値に置き換えられます。 二重の中かっこで囲まれた簡単な式として変数を指定します。 例: <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em> さん、申し訳ありませんが、それを行うことはできません。"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:178
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:177
 msgid "Use basic html tags and {{ dataVariable }} to access data"
 msgstr "基本的な html タグやデータにアクセスするには {{ dataVariable }} を使用"
 
@@ -1546,34 +1617,34 @@ msgid "User id could then be obtained by using {{youVar.user_id}}"
 msgstr "User id は、 {{あなたが指定した変数名.user_id}}を使用することによって取得できます"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:4
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:1
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
+#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:6
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:6
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:2
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:7
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
 #: editor/data-panel/data.html:1
 msgid "Value"
 msgstr "値"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:3
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:3
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:1
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
 msgid "Value max length"
 msgstr "値の最大文字数"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:6
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:5
 msgid "Value min length"
 msgstr "値の最小文字数"
 
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:167
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:168
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:164
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:169
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:170
 msgid "Value must be unique"
 msgstr "値はユニークである必要があります。"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
 msgid "Value to add"
 msgstr "追加する値"
 
@@ -1584,6 +1655,10 @@ msgstr "プロパティ値と read-write 双方向でバインディングする
 #: editor/data-panel/data-popup.html:1
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "変数名は、英文字で始まり英数字のみで命名する必要があります。"
+
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:170
+msgid "Variable of type array"
+msgstr "配列型変数"
 
 #: editor/editor.html:1 editor/menu-bar/help-popup.html:1
 msgid "Variables"
@@ -1601,7 +1676,7 @@ msgstr "アセットのコンテンツを表示"
 msgid "W3C website"
 msgstr "W3C webサイト"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:21
+#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:22
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
 
@@ -1685,7 +1760,7 @@ msgstr "ページ内のアセットの順番は手動では変更できません
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "_self"
 msgstr "_self"
 
@@ -1693,10 +1768,14 @@ msgstr "_self"
 msgid "added"
 msgstr "追加済み"
 
+#: home/import/import-error-messages.service.js:49
+msgid "artifact"
+msgstr "アーティファクト"
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:9
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:7
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:13
 msgid "center"
 msgstr "中央"
 
@@ -1710,7 +1789,7 @@ msgid "custom widgets"
 msgstr "カスタム ウィジェット"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "danger"
 msgstr "danger"
 
@@ -1718,7 +1797,7 @@ msgstr "danger"
 msgid "default"
 msgstr "default"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
 msgid "email"
 msgstr "電子メール"
 
@@ -1742,12 +1821,12 @@ msgstr "緑, 赤, 青"
 msgid "hidden"
 msgstr "非表示"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:15
 msgid "http://"
 msgstr "http://"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "info"
 msgstr "info"
 
@@ -1755,27 +1834,27 @@ msgstr "info"
 msgid "label Hidden"
 msgstr "ラベルを非表示"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:1
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:4
 msgid "labelWidth"
 msgstr "ラベル幅"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:15
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:9
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:8
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:7
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:13
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
 msgid "left"
 msgstr "左へ"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "link"
 msgstr "link"
 
@@ -1787,7 +1866,7 @@ msgstr "名前"
 msgid "no"
 msgstr "いいえ"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
 msgid "number"
 msgstr "数値"
 
@@ -1795,59 +1874,57 @@ msgstr "数値"
 msgid "overridden"
 msgstr "オーバーライド"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
 msgid "password"
 msgstr "パスワード"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "primary"
 msgstr "primary"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:6
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:9
+#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:7
+#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:13
 msgid "right"
 msgstr "右"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 #: common/services/alerts.service.js:32
 msgid "success"
 msgstr "success"
 
-#: home/import-artifact-success-message.html:1
 #: home/import/import-success-message.html:1
-msgid "successfully"
-msgstr "正常"
+msgid "successfully imported."
+msgstr "インポートに成功しました。"
 
 #: editor/data-panel/data-popup.html:1
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
 msgid "text"
 msgstr "テキスト"
 
 #: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
 #: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:11
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:13
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
+#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:15
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
+#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:8
+#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
+#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:15
 msgid "top"
 msgstr "トップへ"
-
 
 #: editor/data-panel/data-popup.html:10
 msgid "view W3C's Json specification"
 msgstr "W3C の JSON 仕様を表示"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
+#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 #: common/services/alerts.service.js:33
 msgid "warning"
 msgstr "warning"
@@ -1857,33 +1934,31 @@ msgstr "warning"
 msgid "widgets"
 msgstr "ウィジェット"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:170
-msgid "y: year, M: month, d: day, h: hour, m: minute, s: second"
-msgstr "y: 年, M: 月, d: 日, h: 時間, m: 分, s: 秒"
+#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:167
+msgid "y: year, M: month, d: day"
+msgstr "y: 年、m: 月、d: 日"
 
 #: editor/properties-panel/field/boolean.html:1
 msgid "yes"
 msgstr "はい"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:57
+#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:56
 msgid "yes,no"
 msgstr "はい, いいえ"
 
-#: home/import-artifact-success-message.html:1
-#: home/import/import-report-popup.html:1
-#: home/import/import-success-message.html:1
+#: home/import/import-report-item-list.html:1
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
-
-#: home/import/import-report-popup.html:1
-msgid "{{ importReport.report.type }}"
-msgstr "{{ importReport.report.type }}"
 
 #: home/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] "{{ key }}"
+
+#: home/import/import-report-item-list.html:1
+msgid "{{ type }}"
+msgstr "{{ type }}"
 
 #: assets/asset-preview-popup.html:1
 msgid "{{asset.name}} content"
