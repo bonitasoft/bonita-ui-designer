@@ -22,6 +22,7 @@ public class ImportException extends RuntimeException {
     public enum Type {
         SERVER_ERROR,
         PAGE_NOT_FOUND,
+        MODEL_NOT_FOUND,
         UNEXPECTED_ZIP_STRUCTURE,
         CANNOT_OPEN_ZIP,
         JSON_STRUCTURE
