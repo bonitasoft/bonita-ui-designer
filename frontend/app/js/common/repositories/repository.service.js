@@ -80,14 +80,6 @@
         return `export/${this.type}/${artifact.id}`;
       }
 
-      forceImport(uuid) {
-        return this.$http.post(`import/${uuid}/force`);
-      }
-
-      cancelImport(uuid) {
-        return this.$http.post(`import/${uuid}/cancel`);
-      }
-
       markAsFavorite(artifactId) {
         return this.$http.put(`${this.baseUrl}/${artifactId}/favorite`, true);
       }

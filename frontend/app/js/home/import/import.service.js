@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.home.import')
     .service('importArtifactService', importArtifactService);
 
-  function importArtifactService(alerts, gettextCatalog, $q, pageRepo, widgetRepo, importErrorMessagesService, repositories) {
+  function importArtifactService(alerts, gettextCatalog, $q, importRepo, importErrorMessagesService) {
 
     var service = {
       forceImport,
@@ -70,10 +70,9 @@
     }
 
     function forceImport(report) {
-      var type = report.element.type || 'widget';   // TODO inline this when widget has type
-      return repositories.get(type).forceImport(report.uuid).then(function(response) {
-        return response.data;
-      }).then(service.manageImportResponse.bind(service, type, false));
+      var type = report.element.type || 'widget';   // TODO inline this when widget has type
+      return importRepo.forceImport(report.uuid)
+        .then(service.manageImportResponse.bind(service, type, false));
     }
   }
 

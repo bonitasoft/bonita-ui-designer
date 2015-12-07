@@ -203,20 +203,6 @@ describe('widgetRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should force a widget import based on a uuid', () => {
-    var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST(`import/${uuid}/force`).respond('');
-    widgetRepo.forceImport(uuid);
-    $httpBackend.flush();
-  });
-
-  it('should cancel a widget import based on a uuid', () => {
-    var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST(`import/${uuid}/cancel`).respond('');
-    widgetRepo.cancelImport(uuid);
-    $httpBackend.flush();
-  });
-
   it('should mark a widget as favorite', function() {
     $httpBackend.expectPUT('rest/widgets/widget-id/favorite', true).respond('');
 
