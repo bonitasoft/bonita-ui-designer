@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.home.import')
     .controller('ImportReportPopupController', ImportReportPopupController);
 
-  function ImportReportPopupController($modalInstance, importReport, title, type, importArtifactService) {
+  function ImportReportPopupController($modalInstance, importReport, title, importArtifactService) {
 
     var vm = this;
     vm.popupTitle = title;
@@ -36,7 +36,8 @@
     }
 
     function forceImport() {
-      importArtifactService.forceImport(importReport, type, $modalInstance.close, $modalInstance.dismiss);
+      importArtifactService.forceImport(importReport)
+        .then($modalInstance.close, $modalInstance.dismiss);
     }
   }
 

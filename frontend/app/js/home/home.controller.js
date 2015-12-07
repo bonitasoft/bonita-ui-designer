@@ -139,7 +139,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       controllerAs: 'importReport',
       resolve: {
         importReport: () => importReport,
-        type: () => type,
         title: () => title
       }
     }).result;

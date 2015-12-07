@@ -48,7 +48,7 @@
         deferred.reject();
       } else {
         var importReportContext = angular.extend(response, {
-          type: type
+          type: response.element.type || 'widget'   // TODO remove this when widget has type
         });
         if (!checkForOverrides || service.doesImportOverrideExistingContent(response)) {
           //
@@ -69,10 +69,11 @@
       return !(report.overridden || (report.dependencies && report.dependencies.overridden));
     }
 
-    function forceImport(report, type, success, error) {
-      repositories.get(type).forceImport(report.uuid).then(function(response) {
+    function forceImport(report) {
+      var type = report.element.type || 'widget';   // TODO inline this when widget has type
+      return repositories.get(type).forceImport(report.uuid).then(function(response) {
         return response.data;
-      }).then(service.manageImportResponse.bind(service, type, false)).then(success, error);
+      }).then(service.manageImportResponse.bind(service, type, false));
     }
   }
 

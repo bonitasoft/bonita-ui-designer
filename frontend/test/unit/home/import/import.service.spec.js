@@ -55,7 +55,10 @@ describe('Import service', () => {
     });
 
     it('should resolve response processing when override is false ', function() {
-      var report = { overriden: false };
+      var report = {
+        overridden: false,
+        element: { type: 'page' }
+      };
       var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
@@ -70,8 +73,24 @@ describe('Import service', () => {
       expect(errorFn).not.toHaveBeenCalled();
     });
 
+    // TODO to be removed when widget has type
+    it('should set import report context type to \'widget\' when import report element has no type', function() {
+      var report = {
+        overridden: false,
+        element: {  }
+      };
+      var expectedReport = angular.extend(report, { type: 'widget' });
+      spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
+
+      importArtifactService.manageImportResponse('widget', true, report).then((report) => expect(report).toEqual(expectedReport), errorFn);
+
+    });
+
     it('should resolve response processing when checkOverride is false ', function() {
-      var report = { overriden: true };
+      var report = {
+        overridden: false,
+        element: { type: 'page' }
+      };
       var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
@@ -88,7 +107,9 @@ describe('Import service', () => {
     });
 
     it('should resolve response processing when checkOverride is true and overriden is true ', function() {
-      var report = { overridden: true };
+      var report = { overridden: true,
+          element: { type: 'page' }
+      };
       var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
 
@@ -101,47 +122,4 @@ describe('Import service', () => {
     });
   });
 
-  describe('when forcing import', function() {
-    var deferredPageRepo, deferredWidgetRepo, $q;
-
-    beforeEach(inject((_$q_, widgetRepo, pageRepo) => {
-      $q = _$q_;
-      deferredPageRepo = $q.defer();
-      deferredWidgetRepo = $q.defer();
-      spyOn(pageRepo, 'forceImport').and.returnValue(deferredPageRepo.promise);
-      spyOn(widgetRepo,'forceImport').and.returnValue(deferredWidgetRepo.promise);
-    }));
-
-    it('should force import and call error callback on error', function() {
-      var deferred = $q.defer();
-      var report = {};
-      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
-
-      importArtifactService.forceImport({ uuid: 'tmpFileName.zip' }, 'page', successFn, errorFn);
-      deferred.reject();
-      deferredPageRepo.resolve({ data: report });
-      scope.$apply();
-
-      expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('page', false, report);
-      expect(successFn).not.toHaveBeenCalled();
-      expect(errorFn).toHaveBeenCalled();
-    });
-
-    it('should force import and call succes callback', function() {
-      var deferred = $q.defer();
-      var report = {};
-      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
-
-      importArtifactService.forceImport({
-        uuid: 'tmpFileName.zip'
-      }, 'widget', successFn, errorFn);
-      deferred.resolve();
-      deferredWidgetRepo.resolve({ data: report });
-      scope.$apply();
-
-      expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('widget', false, report);
-      expect(successFn).toHaveBeenCalled();
-      expect(errorFn).not.toHaveBeenCalled();
-    });
-  });
 });
