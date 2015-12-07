@@ -211,7 +211,6 @@ describe('HomeCtrl', function() {
       var [[args]] = $modal.open.calls.allArgs();
       expect(args.windowClass).toEqual('modal-centered');
       expect(args.resolve.importReport()).toEqual(report);
-      expect(args.resolve.type()).toEqual(type);
       expect(args.resolve.title()).toEqual(title);
     });
   });
