@@ -6,32 +6,6 @@
         </h3>
     </div>
     <div class="Panel-body">
-        <form class="form" name="newPage" ng-submit="createPage(page)">
-            <fieldset class="CreateArtifact">
-                <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>New page</legend>
-                <div class="input-group CreateArtifact-form">
-                    <input name="name"
-                           id="page-name"
-                           ng-model="page.name"
-                           type="text"
-                           ng-pattern="'[a-zA-Z0-9]*$'"
-                           class="form-control"
-                           placeholder="{{'Page Name' | translate}}"
-                           required>
-                    <span class="input-group-btn">
-                        <button id="create-page"
-                                title="{{'Create new page' | translate}}"
-                                type="submit"
-                                class="btn btn-bonita-primary"
-                                ng-disabled="!newPage.$valid">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </span>
-                </div>
-                <span ng-if="newPage.name.$error.pattern" class="text-danger CreateArtifact-error" translate>Page name should contains only alphanumeric characters with no space</span>
-            </fieldset>
-        </form>
-
         <p class="Artifact-empty" ng-if="pages.length == 0" translate>
             No page or form
         </p>

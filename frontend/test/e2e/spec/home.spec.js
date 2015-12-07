@@ -28,46 +28,34 @@ describe('home page', function() {
   });
 
   it('should create a page', function() {
-    $('#page-name').sendKeys('test');
-    $('#create-page').click();
+    home.createPage('test');
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
   it('should not create a page with space or special characters in name', function() {
-    $('#page-name').sendKeys('page name');
+    $('.HomeCreate').click();
+    let nameInput = $('.modal-body input[name="name"]');
+    nameInput.sendKeys('page name');
+    let createPageButton = $('.modal-footer button[type="submit"]');
+    expect(createPageButton.isEnabled()).toBeFalsy();
+    expect($('.NewArtifact span.text-danger').isDisplayed()).toBeTruthy();
 
-    expect($('#create-page').isEnabled()).toBeFalsy();
-    expect($('#pages span.text-danger').isDisplayed()).toBeTruthy();
+    nameInput.clear();
+    nameInput.sendKeys('page-name');
 
-    $('#page-name').clear();
-    $('#page-name').sendKeys('page-name');
+    expect(createPageButton.isEnabled()).toBeFalsy();
+    expect($('.NewArtifact span.text-danger').isDisplayed()).toBeTruthy();
 
-    expect($('#create-page').isEnabled()).toBeFalsy();
-    expect($('#pages span.text-danger').isDisplayed()).toBeTruthy();
+    nameInput.clear();
+    nameInput.sendKeys('pageName');
 
-    $('#page-name').clear();
-    $('#page-name').sendKeys('pageName');
-
-    expect($('#create-page').isEnabled()).toBeTruthy();
-    expect($$('#pages span.text-danger').count()).toBe(0);
+    expect(createPageButton.isEnabled()).toBeTruthy();
+    expect($$('.NewArtifact span.text-danger').count()).toBe(0);
   });
 
   it('should create a widget', function() {
-    $('#widget-name').sendKeys('test');
-    $('#create-widget').click();
+    home.createWidget('test');
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
-  });
-
-  it('should not create a widget with non alphanumeric characters', function() {
-    $('#widget-name').sendKeys('testé');
-    expect($('#create-widget').isEnabled()).toBeFalsy();
-    expect($('#widgets form span.text-danger').isDisplayed()).toBeTruthy();
-  });
-
-  it('should not create a widget git swith space in name', function() {
-    $('#widget-name').sendKeys('test widget');
-    expect($('#create-widget').isEnabled()).toBeFalsy();
-    expect($('#widgets form span.text-danger').isDisplayed()).toBeTruthy();
   });
 
   it('should open a modal to confirm page deletion', function() {

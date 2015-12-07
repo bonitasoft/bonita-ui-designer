@@ -119,11 +119,11 @@
         }
       },
       'designer.widget': {
-        url: '/widget/:widgetId',
+        url: '/widget/:id',
         resolve: {
           /* @ngInject */
           artifact: function(widgetRepo, $stateParams) {
-            return widgetRepo.load($stateParams.widgetId).then(function(response) {
+            return widgetRepo.load($stateParams.id).then(function(response) {
               return response.data;
             });
           },

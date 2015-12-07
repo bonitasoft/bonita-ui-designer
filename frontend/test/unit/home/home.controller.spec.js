@@ -36,35 +36,6 @@ describe('HomeCtrl', function() {
     $scope.$digest();
   }));
 
-  it('should expose a new empty page in the scope', function() {
-    expect($scope.page.name).toBe('');
-    expect($scope.page.rows).toEqual([[]]);
-  });
-
-  it('should create a page and navigate to the page editor', function() {
-    var createdPage = {
-      id: 'foo'
-    };
-    spyOn(pageRepo, 'create').and.returnValue($q.when(createdPage));
-    spyOn($state, 'go');
-
-    $scope.createPage($scope.page);
-    $scope.$apply();
-    expect($state.go).toHaveBeenCalledWith('designer.page', { id: 'foo' });
-  });
-
-  it('should create a widget and navigate to the widget editor', function() {
-    var createdWidget = {
-      id: 'foo'
-    };
-    spyOn(widgetRepo, 'create').and.returnValue($q.when(createdWidget));
-    spyOn($state, 'go');
-
-    $scope.createWidget('foo');
-    $scope.$apply();
-    expect($state.go).toHaveBeenCalledWith('designer.widget', { widgetId: 'foo' });
-  });
-
   it('should open a confirmation dialog to confirm page deletion', function() {
     // given a fake modal service
     spyOn(pageRepo, 'delete').and.returnValue($q.when());
