@@ -18,6 +18,7 @@ import static java.lang.String.format;
 import static java.nio.file.Files.notExists;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
+import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -64,7 +65,7 @@ public class ArtifactImporter<T extends Identifiable> {
      * if uploadedFileDirectory is null, the import is forced
      */
     private ImportReport tryToImportAndGenerateReport(Import anImport, boolean force) {
-        Path resources = getPath(anImport.getPath());
+        Path resources = resolveImportPath(anImport.getPath());
         String modelFile = repository.getComponentName() + ".json";
         try {
             // first load everything
@@ -97,15 +98,6 @@ public class ArtifactImporter<T extends Identifiable> {
             importException.addInfo("modelfile", modelFile);
             throw importException;
         }
-    }
-
-    private Path getPath(Path extractDir) {
-        Path resources = extractDir.resolve("resources");
-        if (notExists(resources)) {
-            logger.error("Incorrect zip structure, a resources folder is needed");
-            throw new ImportException(Type.UNEXPECTED_ZIP_STRUCTURE, "Incorrect zip structure");
-        }
-        return resources;
     }
 
     private ImportReport buildReport(T element, Map<DependencyImporter, List<?>> dependencies) {
