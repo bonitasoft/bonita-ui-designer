@@ -551,7 +551,7 @@ describe('EditorCtrl', function() {
     // then it should call the service to save
     expect(pageRepo.save).toHaveBeenCalledWith( $scope.page);
     // and set the path and search
-    expect($state.go).toHaveBeenCalledWith('designer.widget', { widgetId: 'widgetId' });
+    expect($state.go).toHaveBeenCalledWith('designer.widget', { id: 'widgetId' });
   });
 
   it('should check that a page can be saved', function() {

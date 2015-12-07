@@ -15,7 +15,7 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $state, $modal, $q, $timeout, $injector, pageRepo, widgetRepo, customWidgetFactory) {
+angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $state, $modal, $q, $timeout, $injector, pageRepo, widgetRepo) {
   $scope.pages = [];
   $scope.widgets = [];
   $scope.filters = {};
@@ -27,23 +27,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   widgetRepo.customs().then(function(widgets) {
     $scope.widgets = widgets;
   });
-
-  $scope.page = {
-    name: '',
-    rows: [
-      []
-    ]
-  };
-
-  $scope.widget = {};
-
-  $scope.createPage = function(page) {
-    pageRepo.create(page).then(function(data) {
-      $state.go('designer.page', {
-        id: data.id
-      });
-    });
-  };
 
   $scope.deletePage = function(page) {
     var modalInstance = $modal.open({
@@ -84,15 +67,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
     }).then(function(response) {
       $scope.pages = response.pages;
       $scope.widgets = response.widgets;
-    });
-  };
-
-  $scope.createWidget = function(widgetName) {
-    var widget = customWidgetFactory.createCustomWidget(widgetName);
-    widgetRepo.create(widget).then(function(data) {
-      $state.go('designer.widget', {
-        widgetId: data.id
-      });
     });
   };
 

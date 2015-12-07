@@ -7,25 +7,6 @@
     </div>
 
     <div class="Panel-body">
-        <form name="newWidget" ng-submit="createWidget(widget.name)">
-            <fieldset class="CreateArtifact">
-                <legend class="CreateArtifact-label" translate>New widget</legend>
-                <div class="input-group CreateArtifact-form">
-                    <input name="name" ng-model="widget.name" type="text" class="form-control" id="widget-name" placeholder="{{'Widget Name' | translate}}" ng-pattern="'[a-zA-Z0-9]*$'" required>
-                    <span class="input-group-btn">
-                        <button id="create-widget"
-                                title="{{'Create new widget'| translate }}"
-                                type="submit"
-                                class="btn btn-bonita-default"
-                                ng-disabled="!newWidget.$valid">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </span>
-                </div>
-                <span ng-if="newWidget.name.$error.pattern" class="text-danger CreateArtifact-error" translate>Widget name should contains only alphanumeric characters with no space</span>
-            </fieldset>
-        </form>
-
         <p class="Artifact-empty" ng-if="widgets.length == 0" translate>
             No custom widget
         </p>
@@ -33,7 +14,7 @@
         <ul class="ArtifactList">
             <li class="ArtifactList-item" ng-repeat="widget in widgets | filter:filters | orderBy:'-lastUpdate'">
                 <div class="Artifact-info">
-                    <a ui-sref="designer.widget({ widgetId: widget.id })" class="Artifact-link ">
+                    <a ui-sref="designer.widget({ id: widget.id })" class="Artifact-link ">
                         <span title="{{ widget.name }}">
                             <i class="ui-icon ui-customwidgets Artifact-icon"></i>
                             {{ widget.name }}

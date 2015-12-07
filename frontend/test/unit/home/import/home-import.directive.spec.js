@@ -1,4 +1,4 @@
-describe('home toolbar', () => {
+describe('home import', () => {
 
   var element, $scope, controller;
 
@@ -32,6 +32,16 @@ describe('home toolbar', () => {
       $modalInstance = _$modalInstance_;
       $modal= _$modal_;
     }));
+
+    it('should open modal to create an artifact', () => {
+      spyOn($modal, 'open').and.returnValue($modalInstance.create());
+
+      controller.createElement();
+
+      var [[args]] = $modal.open.calls.allArgs();
+      expect(args.templateUrl).toEqual('js/home/create-popup.html');
+      expect(args.controller).toEqual('CreatePopupController');
+    });
 
     it('should open modal to import an artifact', () => {
       spyOn($modal, 'open').and.returnValue($modalInstance.create());
