@@ -194,20 +194,6 @@ describe('pageRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should force a page import based on a uuid', () => {
-    var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST(`import/${uuid}/force`).respond('');
-    pageRepo.forceImport(uuid);
-    $httpBackend.flush();
-  });
-
-  it('should cancel a page import based on a uuid', () => {
-    var uuid = 'zezaerze-zerz-zer-zer';
-    $httpBackend.expectPOST(`import/${uuid}/cancel`).respond('');
-    pageRepo.cancelImport(uuid);
-    $httpBackend.flush();
-  });
-
   it('should mark a page as favorite', function() {
     $httpBackend.expectPUT('rest/pages/page-id/favorite', true).respond('');
 
