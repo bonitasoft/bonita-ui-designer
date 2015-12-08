@@ -46,7 +46,7 @@ module.exports = function(gulp, config) {
   gulp.task('e2e', ['e2e:ReportScafold', 'build', 'bundle:e2e', 'index:e2e'], function () {
     var server = serveE2e(paths);
 
-    return gulp.src(['test/e2e/spec/**/*.js'])
+    return gulp.src([])
       .pipe(protractor({
         configFile: 'test/e2e/protractor.conf.js',
         args: ['--baseUrl', 'http://localhost:12001']

@@ -2,5 +2,5 @@ REM This file is needed by npm-frontend-plugin since due to a bug, this plugin d
 REM https://github.com/eirslett/frontend-maven-plugin/issues/204
 
 @echo off
-%~dp0node/node node/npm/bin/npm-cli.js %*
+%~dp0node/npm %*
 @echo on

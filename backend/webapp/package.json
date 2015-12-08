@@ -15,7 +15,7 @@
   "scripts": {
     "test": "gulp test && gulp test:datepicker --timezone='America/Los_Angeles' && gulp test:datepicker --timezone='Asia/Bangkok'",
     "test-watch": "gulp test-watch",
-    "postinstall": "npm install --prefix gulp/widget-builder && bower install",
+    "postinstall": "npm install --ignore-script --prefix gulp/widget-builder && bower install",
     "build": "gulp",
     "pot": "gulp pot",
     "serve": "gulp serve"
