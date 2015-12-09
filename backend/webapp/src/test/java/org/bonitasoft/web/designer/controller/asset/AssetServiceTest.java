@@ -35,6 +35,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
@@ -159,14 +160,16 @@ public class AssetServiceTest {
 
     @Test
     public void should_upload_existing_file() throws Exception {
-        Page page = aPage().withId("page-id").withName("my-page").withAsset(anAsset().withId("UIID").withName("asset.js")).build();
+        Asset existingAsset = anAsset().withId("UIID").withName("asset.js").build();
+        Page page = aPage().withId("page-id").withName("my-page").withAsset(existingAsset).build();
         MockMultipartFile file = new MockMultipartFile("asset.js", "asset.js", "application/javascript", "function(){}".getBytes());
 
-        assetService.upload(file, page, "js");
+        Asset asset = assetService.upload(file, page, "js");
 
         verify(assetRepository).delete(any(Asset.class));
         verify(assetRepository).save("page-id", page.getAssets().iterator().next(), "function(){}".getBytes());
         verify(repository).updateLastUpdateAndSave(page);
+        assertThat(asset.getId()).isEqualTo(existingAsset.getId());
     }
 
     @Test(expected = MalformedJsonException.class)
