@@ -67,7 +67,7 @@ public abstract class AssetResource<T extends Assetable> {
 
     // produces = MediaType.TEXT_PLAIN_VALUE to avoid some internet explorer issues
     @RequestMapping(value = "/{artifactId}/assets/{type}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<Asset> uploadAsset(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
+    public ResponseEntity<Asset> saveOrUpdate(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
         checkArtifactId(id);
         Asset asset = assetService.upload(file, repository.get(id), type);
         return new ResponseEntity<>(asset, HttpStatus.CREATED);

@@ -90,13 +90,16 @@ public class AssetService<T extends Assetable> {
                     .setType(assetType)
                     .setOrder(getNextOrder(component));
 
-            deleteComponentAsset(component, new Predicate<Asset>() {
+            Asset deletedAsset = deleteComponentAsset(component, new Predicate<Asset>() {
 
                 @Override
                 public boolean apply(Asset element) {
                     return asset.equalsWithoutComponentId(element);
                 }
             });
+            if (deletedAsset != null) {
+                asset.setId(deletedAsset.getId());
+            }
 
             assetRepository.save(component.getId(), asset, file.getBytes());
             //The component is updated
@@ -123,7 +126,7 @@ public class AssetService<T extends Assetable> {
         }
     }
 
-    private void deleteComponentAsset(T component, Predicate<Asset> assetPredicate) {
+    private Asset deleteComponentAsset(T component, Predicate<Asset> assetPredicate) {
         try {
             Asset existingAsset = Iterables.<Asset>find(component.getAssets(), assetPredicate);
             if (!existingAsset.isExternal()) {
@@ -135,9 +138,11 @@ public class AssetService<T extends Assetable> {
                 }
             }
             component.getAssets().remove(existingAsset);
+            return existingAsset;
         } catch (NoSuchElementException e) {
             //For a creation component does not contain the asset
         }
+        return null;
     }
 
     /**
