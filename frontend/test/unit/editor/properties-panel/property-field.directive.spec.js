@@ -66,10 +66,20 @@ describe('widget property field', function() {
   });
 
   it('should display an interpolation property', function() {
+    scope.property.type = 'text';
     scope.property.bond = 'interpolation';
     scope.$digest();
 
     expect(element.find('.property-label label').text().trim()).toBe('foobar');
     expect(element.find('input').attr('type')).toBe('text');
+  });
+
+  it('should display a textarea for interpolation html property', function() {
+    scope.property.type = 'html';
+    scope.property.bond = 'interpolation';
+    scope.$digest();
+
+    expect(element.find('.property-label label').text().trim()).toBe('foobar');
+    expect(element.find('textarea').length).toBe(1);
   });
 });
