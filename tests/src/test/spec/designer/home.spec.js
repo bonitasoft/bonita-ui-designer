@@ -6,11 +6,11 @@ describe('UI designer: home', function() {
   var widgetPath = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
 
   function getListedPages() {
-    return element.all(by.css('home-pages .Artifact-info'));
+    return element.all(by.css('.ArtifactList-page'));
   }
 
   function getListedWidgets() {
-    return element.all(by.css('home-widgets .Artifact-info'));
+    return element.all(by.css('.ArtifactList-widget'));
   }
 
   beforeEach(function() {
@@ -81,14 +81,14 @@ describe('UI designer: home', function() {
     $('.ui-alert .close').click();
 
     var nbElements;
-    $$('home-pages .ArtifactList-item').count().then(function(nb) {
+    getListedPages().count().then(function(nb) {
       nbElements = nb;
     });
-    $$('.btn-page-delete').first().click();
+    $$('.ArtifactList-page .Artifact-delete').first().click();
     $('.modal-footer .btn-primary').click();
     //we need to wait for angular to finish processing modal
     browser.waitForAngular();
-    $$('home-pages .ArtifactList-item').count().then(function(nb) {
+    getListedPages().count().then(function(nb) {
       expect(nb).toBe(nbElements -1 );
     });
   });
@@ -125,14 +125,14 @@ describe('UI designer: home', function() {
     expect($$('alerts .ui-alert-success p').first().getText()).toBe('Widget testImport successfully imported.');
 
     var nbElements = 0;
-    $$('home-widgets .ArtifactList-item').count().then(function(nb) {
+    getListedWidgets().count().then(function(nb) {
       nbElements = nb;
     });
-    $$('.btn-widget-delete').first().click();
+    $$('.ArtifactList-widget .Artifact-delete').first().click();
     $('.modal-footer .btn-primary').click();
     //we need to wait for angular to finish processing modal
     browser.waitForAngular();
-    $$('home-widgets .ArtifactList-item').count().then(function(nb) {
+    getListedWidgets().count().then(function(nb) {
       expect(nb).toBe(nbElements -1 );
     });
   });

@@ -1,0 +1,45 @@
+<ul class="ArtifactList">
+    <li class="ArtifactList-item ArtifactList-item--primary ArtifactList-{{ artifact.type }}"
+        id="{{ artifact.id }}"
+        ng-repeat="artifact in artifactList.all | filter:artifactList.filter | orderBy:artifactList.orderBy">
+        <div class="Artifact-info">
+            <a ng-if="!artifact.isEditingName" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
+               class="Artifact-link Artifact-link--primary">
+                        <span title="{{ artifact.name }}">
+                            <i class="ui-icon ui-{{ artifact.type }}s Artifact-icon"></i>
+                            {{ artifact.name }}
+                        </span>
+            </a>
+
+            <form name="renameArtifact" class="Artifact-form" ng-if="artifact.isEditingName"
+                  ng-submit="artifactList.renameItem(artifact)">
+                <input name="name"
+                       data-autofocus
+                       ng-pattern="'[a-zA-Z0-9]*$'"
+                       id="page-name-input-{{$index}}"
+                       ng-model="artifact.name"
+                       ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
+                       class="form-control" required>
+                <span ng-if="renameArtifact.name.$error.pattern" class="text-danger" translate>Name should contains only alphanumeric characters with no space</span>
+            </form>
+        </div>
+        <div class="Artifact-actions">
+            <favorite-button artifact-repository="artifact.repo" artifact="artifact"></favorite-button>
+            <button class="Artifact-button Artifact-button--primary Artifact-rename"
+                    ng-click="artifactList.toggleItemEdition(artifact)"
+                    type="button"
+                    title="{{'Rename' | translate}}">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <button file-download class="Artifact-button Artifact-button--primary Artifact-export" href="{{ artifact.repo.exportUrl(artifact) }}" title="{{'Export' | translate }}">
+                <i class="fa fa-alias-export"></i>
+            </button>
+            <button class="Artifact-button Artifact-button--primary Artifact-delete"
+                    type="button"
+                    ng-click="artifactList.deleteArtifact(artifact)"
+                    title="{{'Delete' | translate }} {{ artifact.name }}">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
+    </li>
+</ul>
