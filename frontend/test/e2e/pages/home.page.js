@@ -6,11 +6,11 @@ export default class Home {
   }
 
   getListedPageNames() {
-    return $$('home-pages .Artifact-info').map((element) => element.getText());
+    return $$('.ArtifactList-page').map((element) => element.getText());
   }
 
   getListedWidgetNames() {
-    return $$('home-widgets .Artifact-info').map((element) => element.getText());
+    return $$('.ArtifactList-widget').map((element) => element.getText());
   }
 
   search(term) {

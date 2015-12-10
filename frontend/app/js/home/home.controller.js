@@ -15,42 +15,8 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $state, $modal, $q, $timeout, $injector, pageRepo, widgetRepo) {
-  $scope.pages = [];
-  $scope.widgets = [];
+angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, $q, pageRepo, widgetRepo) {
   $scope.filters = {};
-
-  pageRepo.all().then(function(pages) {
-    $scope.pages = pages;
-  });
-
-  widgetRepo.customs().then(function(widgets) {
-    $scope.widgets = widgets;
-  });
-
-  $scope.deletePage = function(page) {
-    var modalInstance = $modal.open({
-      templateUrl: 'js/home/confirm-deletion-popup.html',
-      windowClass: 'modal-centered',
-      controller: 'DeletionPopUpController',
-      resolve: {
-        artifact: function() {
-          return page;
-        },
-        type: function() {
-          return 'page';
-        }
-      }
-    });
-
-    modalInstance.result
-      .then((pageId) => pageRepo.delete(pageId))
-      .then($scope.refreshAll);
-  };
-
-  $scope.exportPageUrl = function(page) {
-    return pageRepo.exportUrl(page);
-  };
 
   /**
    * When something is deleted, we need to refresh every collection,
@@ -60,81 +26,26 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
    *   if <hello> is deleted, now we can delete <person>
    * @returns {Promise}
    */
-  $scope.refreshAll = function() {
+  function refreshAll() {
     return $q.all({
       pages: pageRepo.all(),
       widgets: widgetRepo.customs()
-    }).then(function(response) {
-      $scope.pages = response.pages;
-      $scope.widgets = response.widgets;
+    }).then((response) => {
+      $scope.artifacts = response.pages
+        .map((page) => {
+          page.repo = pageRepo;
+          return page;
+        })
+        .concat(response.widgets
+          .map((widget) => {
+            widget.type = 'widget';
+            widget.repo = widgetRepo;
+            return widget;
+          }));
     });
-  };
+  }
 
-  $scope.deleteCustomWidget = function(customWidget) {
-    var template = !angular.isDefined(customWidget.usedBy) ? 'js/home/confirm-deletion-popup.html' : 'js/home/alert-deletion-notpossible-popup.html';
-
-    var modalInstance = $modal.open({
-      templateUrl: template,
-      windowClass: 'modal-centered',
-      controller: 'DeletionPopUpController',
-      resolve: {
-        artifact: () => customWidget,
-        type: () => 'custom widget'
-      }
-    });
-
-    modalInstance.result
-      .then((widgetId) => widgetRepo.delete(widgetId))
-      .then($scope.refreshAll);
-  };
-
-  $scope.exportWidgetUrl = (widget) => widgetRepo.exportUrl(widget);
-
-  /**
-   * Toggles the name edition, to allow editing the name
-   * or cancel the edition, and just display it
-   * @param {Object} item - the item to rename
-   */
-  $scope.toggleItemEdition = function(item) {
-    if (!item.isEditingName) {
-      // backup old name to check if update is necessary later
-      item.oldName = item.name;
-    }    item.isEditingName = !item.isEditingName;
-  };
-
-  /**
-   * Renames an item with a new name, only if the name has changed.
-   * If it doesn't, than no http call is made, we just toggle the edition
-   * @param {Object} item - the item to rename
-   * @param {String} type Type of item to return (default: page)
-   */
-  $scope.renameItem = function(item, type) {
-
-    var repository = $injector.get((type || 'page') + 'Repo');
-
-    function revertItemName(item) {
-      item.name = item.oldName;
-      $scope.refreshAll();
-    }
-
-    if (item.name !== item.oldName) {
-      repository
-        .rename(item.id, item.name)
-        .then($scope.refreshAll, revertItemName.bind(null, item));
-    } else {
-
-      /**
-       * We need to defer the action of hidding the page because of the click event
-       * When you click it will trigger:
-       *   1. onBlur -> hide input
-       *   2. click -> toggle input -> display input
-       * So with a defferd action, the input is hidden on blur even if we click on da edit button
-       */
-      $timeout(function() {
-        item.isEditingName = false;
-      }, 100);
-    }
-  };
+  $scope.refreshAll = $scope.refreshAll || refreshAll;
 
   $scope.openHelp = function() {
     $modal.open({
@@ -147,4 +58,6 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       }
     });
   };
+
+  $scope.refreshAll();
 });

@@ -25,13 +25,14 @@
             <uid-import-artifact></uid-import-artifact>
         </div>
     </div>
-    <div class="row row--Home">
-        <section class="col-sm-7 col--Home" id="pages">
-            <home-pages></home-pages>
-        </section>
 
-        <section class="col-sm-5 col--Home" id="widgets">
-            <home-widgets></home-widgets>
+    <div class="row row--Home">
+        <section class="col-sm-12 col--Home">
+            <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Artifacts</legend>
+            <p class="Artifact-empty" ng-if="artifacts.length == 0" translate>
+                There is no artifacts yet...
+            </p>
+            <artifact-list artifacts="artifacts" filter="filters" order-by="-lastUpdate" refresh-all="refreshAll"></artifact-list>
         </section>
     </div>
 </div>

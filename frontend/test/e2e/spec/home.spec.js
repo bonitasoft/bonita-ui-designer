@@ -16,13 +16,13 @@ describe('home page', function() {
   });
 
   it('should navigate to a page', function() {
-    $$('#pages a').first().click();
+    $$('.ArtifactList-page a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
   it('should navigate to a widget', function() {
-    $$('#widgets a').first().click();
+    $$('.ArtifactList-widget a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
@@ -60,7 +60,7 @@ describe('home page', function() {
 
   it('should open a modal to confirm page deletion', function() {
     //We want to delete a page
-    $$('.btn-page-delete').first().click();
+    $$('#person .Artifact-delete').first().click();
     //A modal is opened with a confirmation message
     expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the page Person?');
   });
@@ -69,7 +69,7 @@ describe('home page', function() {
   xit('should not delete page if user cancels deletion', function() {
     var numberOfPages = element.all(by.repeater('page in pages')).count();
     //We want to delete a page
-    $$('.btn-page-delete').first().click();
+    $$('#person .Artifact-delete').first().click();
     //A modal is opened and I click on Cancel
 
     //Disable animation for modal
@@ -79,12 +79,12 @@ describe('home page', function() {
     browser.waitForAngular();
     expect($$('#confirm-delete-popup').count()).toBe(0);
     //and the page is not deleted
-    expect(element.all(by.repeater('page in pages')).count()).toBe(numberOfPages);
+    expect(home.getListedPageNames().count()).toBe(numberOfPages);
 
   });
 
   it('should export a page', function() {
-    var btn = $$('.btn-page-export').first();
+    var btn = $$('#person .Artifact-export').first();
     var iframe = $$('.ExportArtifact').first();
     btn.click();
 
@@ -93,14 +93,14 @@ describe('home page', function() {
 
   it('should open a modal to confirm widget deletion', function() {
     //We want to delete a widget
-    $$('.btn-widget-delete').first().click();
+    $$('#customAwesomeWidget .Artifact-delete').first().click();
     //A modal is opened with a confirmation message
-    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the custom widget awesomeWidget?');
+    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the widget awesomeWidget?');
   });
 
   it('should rename a page', function() {
 
-    var btnRenamePage = $$('.btn-page-rename').first();
+    var btnRenamePage = $$('#person .Artifact-rename').first();
     btnRenamePage.click();
 
     //The link should now be a visible input with the page name
@@ -114,28 +114,28 @@ describe('home page', function() {
   });
 
   it('should not rename a page with space or special characters in name', function() {
-    $$('.btn-page-rename').first().click();
+    $$('#person .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('page name');
 
-    expect($('#pages form[name="renamePage"] span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.ArtifactList-page form[name="renameArtifact"] span.text-danger').isDisplayed()).toBeTruthy();
 
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('page-name');
 
-    expect($('#pages form[name="renamePage"] span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.ArtifactList-page form[name="renameArtifact"] span.text-danger').isDisplayed()).toBeTruthy();
 
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('pageName');
 
-    expect($$('#pages form[name="renamePage"] span.text-danger').count()).toBe(0);
+    expect($$('.ArtifactList-page form[name="renameArtifact"] span.text-danger').count()).toBe(0);
   });
 
   it('should remove the input to rename a page on blur', function() {
 
-    $$('.btn-page-rename').first().click();
+    $$('#person .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     var nameInput = $('#page-name-input-0');
@@ -150,7 +150,7 @@ describe('home page', function() {
   });
 
   it('should set autofocus on the input if we edit a page',  function() {
-    $$('.btn-page-rename').first().click();
+    $$('#person .Artifact-rename').first().click();
     var input = $('#page-name-input-0');
     expect(input.getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
   });
