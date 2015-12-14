@@ -1,4 +1,4 @@
-export default class TabElementBuilder {
+class TabElementBuilder {
 
   constructor() {
     this.container = {
@@ -21,3 +21,5 @@ export default class TabElementBuilder {
     return this;
   }
 }
+
+export default TabElementBuilder.aTab;

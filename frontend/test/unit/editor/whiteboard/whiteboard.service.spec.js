@@ -1,8 +1,8 @@
-import { aTab } from '../../utils/builders/TabElementBuilder';
-import { aFormContainer } from '../../utils/builders/FormContainerElementBuilder';
-import { aTabsContainer } from  '../../utils/builders/TabsContainerElementBuilder';
-import { aContainer } from  '../../utils/builders/ContainerElementBuilder';
-import { aWidget } from  '../../utils/builders/WidgetElementBuilder';
+import aTab from '../../utils/builders/TabElementBuilder';
+import aFormContainer from '../../utils/builders/FormContainerElementBuilder';
+import aTabsContainer from  '../../utils/builders/TabsContainerElementBuilder';
+import aContainer from  '../../utils/builders/ContainerElementBuilder';
+import aWidget from  '../../utils/builders/WidgetElementBuilder';
 
 describe('whiteboard service', function() {
 

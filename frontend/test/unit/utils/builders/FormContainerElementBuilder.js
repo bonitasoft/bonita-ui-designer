@@ -1,4 +1,4 @@
-export default class FormContainerElementBuilder {
+class FormContainerElementBuilder {
 
   constructor() {
     this.container = {
@@ -15,3 +15,5 @@ export default class FormContainerElementBuilder {
     return this;
   }
 }
+
+export default FormContainerElementBuilder.aFormContainer;
