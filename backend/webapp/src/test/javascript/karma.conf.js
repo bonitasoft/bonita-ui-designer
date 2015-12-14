@@ -18,6 +18,7 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     files: [
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/jquery/dist/jquery.js',
       'bower_components/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',

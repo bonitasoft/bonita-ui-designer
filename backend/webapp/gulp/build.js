@@ -110,7 +110,7 @@ module.exports = function(gulp, config) {
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
-      .pipe(babel({blacklist: ['spec.functionName']}))
+      .pipe(babel())
       .pipe(ngAnnotate({
         'single_quotes': true,
         add: true

@@ -1,4 +1,4 @@
-var HomePage = require('../pages/home.page.js');
+import { default as HomePage } from '../pages/home.page';
 
 describe('home page', function() {
 
