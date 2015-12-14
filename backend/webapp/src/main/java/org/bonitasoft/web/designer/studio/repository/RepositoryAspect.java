@@ -62,13 +62,18 @@ public class RepositoryAspect {
         }
     }
 
-    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.save(org.bonitasoft.web.designer.model.Identifiable))")
-    public void postSave(JoinPoint joinPoint) {
+    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.updateLastUpdateAndSave(..)) ")
+    public void postSaveAndUpdateDate(JoinPoint joinPoint) {
         try {
             handler.postSave(filePath(joinPoint));
         } catch (ResourceNotFoundException e) {
             throw new RepositoryException("An error occured while proceeding post save action.", e);
         }
+    }
+
+    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.save(..))")
+    public void postSave(JoinPoint joinPoint) {
+        postSaveAndUpdateDate(joinPoint);
     }
 
     @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")

@@ -78,7 +78,14 @@ public class RepositoryAspectTest {
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_on_formRepository() throws Exception {
         formRepository.save(aPage().withId("aPageId").build());
 
-        verify(workspaceResourceHandler).postSave(formRepository.resolvePath("aPageId"));
+        verify(workspaceResourceHandler, times(1)).postSave(formRepository.resolvePath("aPageId"));
+    }
+
+    @Test
+    public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_and_updating_last_update_date_on_formRepository() throws Exception {
+        formRepository.updateLastUpdateAndSave(aPage().withId("aPageId").build());
+
+        verify(workspaceResourceHandler, times(1)).postSave(formRepository.resolvePath("aPageId"));
     }
 
     @Test
@@ -93,7 +100,7 @@ public class RepositoryAspectTest {
 
     @Test
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_widget_on_widgetRepository() throws Exception {
-        widgetRepository.save(
+        widgetRepository.updateLastUpdateAndSave(
                 aWidget().id("widgetId1").build()
         );
 
@@ -102,14 +109,14 @@ public class RepositoryAspectTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void should_throw_an_IllegalArgumentException_when_saving_a_null_reference() throws Exception {
-        formRepository.save((Page) null);
+        formRepository.updateLastUpdateAndSave((Page) null);
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_a_RepositoryException_when_saving_if_resource_is_not_found() throws Exception {
         doThrow(ResourceNotFoundException.class).when(workspaceResourceHandler).postSave(any(Path.class));
 
-        formRepository.save(aPage().withId("a_form_id").build());
+        formRepository.updateLastUpdateAndSave(aPage().withId("a_form_id").build());
     }
 
     @Test
