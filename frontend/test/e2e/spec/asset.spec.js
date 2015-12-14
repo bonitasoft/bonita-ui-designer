@@ -1,4 +1,6 @@
+/* jshint node: true */
 var PageEditor = require('../pages/editor.page.js');
+var path = require('path');
 
 describe('asset panel', function() {
   var assetPanel, editor;
@@ -189,5 +191,64 @@ describe('asset panel', function() {
     // removing last customAwesomeWidget, asset panel should not list customAwesomeWidget's assets anymore
     editor.removeWidget();
     expect(assetPanel.names).not.toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
+  });
+
+  describe('pop-pup', () => {
+
+    it('should add an external asset', function() {
+      let popup = assetPanel.addAsset();
+      expect(popup.title).toBe('Add a new asset');
+
+      popup.type = 'JavaScript';
+      popup.source = 'External';
+
+      // invalid URL
+      popup.url = 'notAnUrl';
+      expect($('input[type="url"] + div.text-danger').getText()).toBe(' Invalid URL (must start by http:// or https://)');
+      expect(popup.addBtn.isEnabled()).toBeFalsy();
+
+      // already existing asset
+      popup.url = 'https://github.myfile.js';
+      expect($('input[type="url"] + div.text-danger').getText()).toBe(' A JavaScript asset named https://github.myfile.js is already added to assets.');
+      expect(popup.addBtn.isEnabled()).toBeFalsy();
+
+      popup.type = 'CSS';
+      expect($('input[type="url"] + div.text-danger').isPresent()).toBeFalsy();
+      popup.addBtn.click();
+
+      expect(assetPanel.assets).toContain({ type: 'JavaScript', name: 'https://github.myfile.js'});
+      expect(assetPanel.assets).toContain({ type: 'CSS', name: 'https://github.myfile.js'});
+    });
+
+    it('should edit an external asset', function() {
+      let popup = assetPanel.editAsset('JavaScript', 'https://github.myfile.js');
+      expect(popup.title).toBe('Edit asset https://github.myfile.js');
+      expect(popup.type).toBe('JavaScript');
+      expect($('select[name="source"]').isEnabled()).toBeFalsy();
+      expect(popup.source).toBe('External');
+      expect(popup.url).toBe('https://github.myfile.js');
+
+      popup.url = 'https://new/file.js';
+      popup.type = 'CSS';
+      popup.saveBtn.click();
+
+      expect(assetPanel.assets).toContain({ type: 'CSS', name: 'https://new/file.js'});
+      expect(assetPanel.assets).not.toContain({ type: 'JavaScript', name: 'https://github.myfile.js'});
+    });
+
+    it('should add a local asset', function() {
+      let popup = assetPanel.addAsset();
+      popup.type = 'Image';
+      popup.source = 'Local';
+
+      popup.file = path.resolve(__dirname, 'protractor.png');
+      expect($('div.file-upload + div.text-warning').getText()).toBe(' An Image asset named protractor.png is already added to assets.\nClick Add to override.');
+      expect(popup.addBtn.isEnabled()).toBeTruthy();
+
+      popup.file = path.resolve(__dirname, 'karma.png');
+      expect($('div.file-upload + div.text-warning').isPresent()).toBeFalsy();
+
+      // Cannot test add button since for now there is no way to mock http calls outside $http service.
+    });
   });
 });

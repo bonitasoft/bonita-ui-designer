@@ -1,11 +1,10 @@
-<form action="{{vm.assetSavingAction}}" novalidate name="addAsset"
-      ng-upload="vm.onComplete(content)">
-    <div class="modal-header">
-        <h3 class="modal-title" ng-if="isNewAsset" translate>Add a new asset</h3>
+<form action="{{vm.assetSavingAction}}" novalidate name="addAsset" ng-upload="vm.onComplete(content)">
 
-        <h3 class="modal-title" ng-if="!isNewAsset"><span translate>Edit asset</span>
-            <strong>{{vm.asset.name}}</strong></h3>
+    <div class="modal-header">
+        <h3 class="modal-title" ng-if="vm.isNewAsset" translate>Add a new asset</h3>
+        <h3 class="modal-title" ng-if="!vm.isNewAsset"><span translate>Edit asset</span><strong> {{vm.asset.name}}</strong></h3>
     </div>
+
     <div class="modal-body">
         <div class="form-group">
             <label class="control-label control-label--required" for="type" translate>Type</label>
@@ -17,12 +16,16 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-if="!vm.isExternalAsset(vm.newAsset)" ng-disabled="!addAsset.$valid">{{ vm.isNewAsset
-            ? 'Add': 'Save' | translate }}
+        <button class="btn btn-primary"
+                ng-if="!vm.isExternalAsset(vm.newAsset)"
+                ng-disabled="!addAsset.$valid">
+            {{ vm.isNewAsset ? 'Add': 'Save' | translate }}
         </button>
-        <button class="btn btn-primary" type="button" ng-if="vm.isExternalAsset(vm.newAsset)"
-                ng-click="vm.saveExternalAsset(vm.newAsset)" ng-disabled="!addAsset.$valid">{{ vm.isNewAsset ? 'Add': 'Save' |
-            translate }}
+        <button class="btn btn-primary" type="button"
+                ng-if="vm.isExternalAsset(vm.newAsset)"
+                ng-click="vm.saveExternalAsset(vm.newAsset)"
+                ng-disabled="!addAsset.$valid || vm.isExisting(vm.newAsset)">
+            {{ vm.isNewAsset ? 'Add': 'Save' | translate }}
         </button>
         <button class="btn btn-link" type="button" ng-click="vm.cancel()" translate>Cancel</button>
     </div>

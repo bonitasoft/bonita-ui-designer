@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetPopupCtrl', AssetPopupCtrl);
 
-  function AssetPopupCtrl($modalInstance, alerts, assetsService, artifactRepo, asset, mode, artifact) {
+  function AssetPopupCtrl($scope, $modalInstance, alerts, assetsService, artifactRepo, asset, assets, mode, artifact, gettextCatalog) {
 
     var urlPrefixForLocalAsset = 'rest/' + mode + 's/' + artifact.id + '/assets/';
 
@@ -36,12 +36,18 @@
     //Asset is converted in another object for the html form
     vm.newAsset = assetsService.assetToForm(asset);
 
-    vm.cancel = cancel;
+    vm.cancel = $modalInstance.dismiss;
     vm.isExternalAsset = assetsService.isExternal;
     vm.onComplete = onComplete;
     vm.saveExternalAsset = saveExternalAsset;
     vm.updateSavingAction = updateSavingAction;
     vm.assetSavingAction = urlPrefixForLocalAsset + 'js';
+    vm.isExisting = isExisting;
+    vm.getWarningMessage = getWarningMessage;
+
+    // When source change, we reset name to avoid collision,
+    // expecially with `assetsService.isExternalAsset` which is not accurate until asset have type returned by backend
+    $scope.$watch(() => vm.newAsset.source, (old, newValue) => old !== newValue && delete vm.newAsset.name);
 
     /**
      * An external asset is saved by a $http call
@@ -69,16 +75,9 @@
         } else {
           alerts.addError(response.message);
         }
-        cancel();
+        vm.cancel();
       }
       $modalInstance.close(response);
-    }
-
-    /**
-     * User clicked on Cancel button
-     */
-    function cancel() {
-      $modalInstance.dismiss();
     }
 
     /**
@@ -88,6 +87,31 @@
       vm.assetSavingAction = urlPrefixForLocalAsset + type;
     }
 
+    function isExisting(asset) {
+      function hasSameTypeAndName(asset, item) {
+        return asset.type === item.type && item.name === asset.name;
+      }
+
+      function onScope(mode, asset) {
+        return !angular.isDefined(asset.scope) || // when scope is not defined, it's the same of current artifact
+          asset.scope === mode;
+      }
+
+      return asset && (assets || [])
+          .filter(onScope.bind(null, mode))
+          .some(hasSameTypeAndName.bind(null, asset));
+    }
+
+    function getWarningMessage(asset) {
+      let display = {
+        name: asset.name,
+        type: assetsService.getType(asset.type).value
+      };
+      if (asset.type === 'img') {
+        return gettextCatalog.getString('An {{type}} asset named <em>{{ name }}</em> is already added to assets.', display);
+      }
+      return gettextCatalog.getString('A {{type}} asset named <em>{{ name }}</em> is already added to assets.', display);
+    }
   }
 
 })();
