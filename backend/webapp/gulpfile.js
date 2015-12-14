@@ -9,6 +9,7 @@ var paths = {
   runtime: ['src/main/runtime/**/*.js'],
   runtimeFolder: 'src/main/runtime',
   vendor: [
+    'node_modules/babel-polyfill/dist/polyfill.min.js',
     'bower_components/angular/angular.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
     'bower_components/angular-messages/angular-messages.min.js',
