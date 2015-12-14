@@ -11,6 +11,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
       'bower_components/jquery/dist/jquery.js',
       'bower_components/ace-builds/src-noconflict/ace.js',
       'bower_components/ace-builds/src-noconflict/ext-language_tools.js',
@@ -43,6 +44,13 @@ module.exports = function(config) {
     exclude: [
     ],
 
+    babelPreprocessor: {
+      options: {
+        presets: ['bonita'],
+        retainLines: true
+      }
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress', 'junit', 'coverage'],
@@ -54,13 +62,6 @@ module.exports = function(config) {
       'app/js/**/*.js': ['babel', 'coverage'],
       'test/unit/**/*.js': ['babel', 'commonjs'],
       'app/js/**/*.html': ['ng-html2js']
-    },
-
-    'babelPreprocessor': {
-      options: {
-        blacklist: ['spec.functionName'],
-        retainLines: true
-      }
     },
 
     ngHtml2JsPreprocessor: {
