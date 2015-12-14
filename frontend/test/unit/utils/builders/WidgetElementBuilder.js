@@ -1,4 +1,4 @@
-export default class WidgetElementBuilder {
+class WidgetElementBuilder {
 
   constructor() {
     this.triggerRemoved = jasmine.createSpy('triggerRemoved');
@@ -20,3 +20,5 @@ export default class WidgetElementBuilder {
     return this;
   }
 }
+
+export default WidgetElementBuilder.aWidget;

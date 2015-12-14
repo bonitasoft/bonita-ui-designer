@@ -1,4 +1,4 @@
-import { aWidget } from  '../utils/builders/WidgetElementBuilder';
+import aWidget from  '../utils/builders/WidgetElementBuilder';
 
 describe('EditorCtrl', function() {
   var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService;

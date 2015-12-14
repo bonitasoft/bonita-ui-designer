@@ -1,4 +1,4 @@
-export default class TabsContainerElementBuilder {
+class TabsContainerElementBuilder {
 
   constructor() {
     this.tabs = [];
@@ -13,3 +13,5 @@ export default class TabsContainerElementBuilder {
     return this;
   }
 }
+
+export default TabsContainerElementBuilder.aTabsContainer;

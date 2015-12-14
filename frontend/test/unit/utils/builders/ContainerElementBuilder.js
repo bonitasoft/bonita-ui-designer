@@ -1,4 +1,4 @@
-export default class ContainerElementBuilder {
+class ContainerElementBuilder {
 
   constructor() {
     this.rows = [];
@@ -13,3 +13,5 @@ export default class ContainerElementBuilder {
     return this;
   }
 }
+
+export default ContainerElementBuilder.aContainer;
