@@ -1,4 +1,4 @@
-import { aTab } from '../../utils/builders/TabElementBuilder';
+import aTab from '../../utils/builders/TabElementBuilder';
 
 describe('TabsContainerDirectiveCtrl', function() {
   var $scope;
