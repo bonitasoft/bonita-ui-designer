@@ -1,12 +1,13 @@
 describe('AssetPopupCtrl', function() {
 
-  var $rootScope, $scope, asset, $modalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector;
+  var $rootScope, $scope, asset, $modalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector, assets;
 
   function createController(mode) {
     return injector.get('$controller')('AssetPopupCtrl', {
       $scope: $rootScope.$new(),
       $modalInstance: $modalInstance,
       asset: asset,
+      assets: assets,
       assetsService: assetsService,
       alerts: alerts,
       mode: mode,
@@ -28,6 +29,7 @@ describe('AssetPopupCtrl', function() {
     $modalInstance = jasmine.createSpyObj('$modalInstance', ['dismiss', 'close']);
     alerts = jasmine.createSpyObj('alerts', ['addError']);
 
+    assets = [];
     asset = {
       name: 'myasset.js',
       type: 'js'
@@ -112,5 +114,38 @@ describe('AssetPopupCtrl', function() {
       css: 'js/assets/generic-asset-form.html',
       img: 'js/assets/generic-asset-form.html'
     });
+  });
+
+  it('should tell that an asset on current scope already exists', function() {
+    assets = [
+      {type: 'js', name: 'myFile.js'},
+      {type: 'css', name: 'asset.css', scope: 'widget'}
+    ];
+    controller = createController('page');
+
+    expect(controller.isExisting({type: 'js', name: 'myFile.js'})).toBeTruthy();
+    expect(controller.isExisting({type: 'js', name: 'myOtherFile.js'})).toBeFalsy();
+    expect(controller.isExisting({type: 'css', name: 'myFile.js'})).toBeFalsy();
+    expect(controller.isExisting({type: 'css', name: 'asset.css'})).toBeFalsy();
+  });
+
+  it('should reset new asset name when new asset source change', function() {
+    asset = {name: 'anAsset', source: 'local'};
+    controller = createController('page');
+    $scope.$apply();
+    expect(controller.newAsset.name).toBe('anAsset');
+
+    controller.newAsset.source = 'external';
+    $scope.$apply();
+    expect(controller.newAsset.name).toBeUndefined();
+  });
+
+  it('should get a warning message for image asset', function() {
+    expect(controller.getWarningMessage({name: 'image.png', type: 'img'})).toBe('An Image asset named <em>image.png</em> is already added to assets.');
+  });
+
+  it('should get a warning message for other asset', function() {
+    expect(controller.getWarningMessage({name: 'file.css', type: 'css'})).toBe('A CSS asset named <em>file.css</em> is already added to assets.');
+    expect(controller.getWarningMessage({name: 'file.js', type: 'js'})).toBe('A JavaScript asset named <em>file.js</em> is already added to assets.');
   });
 });

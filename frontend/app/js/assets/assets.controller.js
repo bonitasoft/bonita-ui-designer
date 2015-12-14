@@ -95,6 +95,7 @@
         controllerAs: 'vm',
         resolve: {
           asset: () =>  asset,
+          assets: () => vm.component.assets,
           mode: () => mode,
           artifact: () => artifact,
           artifactRepo: () => artifactRepo

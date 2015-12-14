@@ -50,7 +50,8 @@
         getAssetUrl: getAssetUrl,
         getFormTemplates: createFormAssetTemplates,
         addWidgetAssetsToPage,
-        removeAssetsFromPage
+        removeAssetsFromPage,
+        getType
       };
 
       /**
@@ -178,6 +179,10 @@
         //The last case is to see a page asset
         return `rest/pages/${component.id}/assets/${asset.type}/${asset.name}`;
 
+      }
+
+      function getType(key) {
+        return types.filter(type =>  type.key === key)[0];
       }
 
     }

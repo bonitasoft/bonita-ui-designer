@@ -188,4 +188,10 @@ describe('utils', function() {
     expect(page.assets).toEqual([{ id: 'anAsset', componentId: '1234' }]);
   });
 
+  it('should get a specific type', function() {
+    expect(assetsService.getType('js')).toBe(assetsService.getTypes()[0]);
+    expect(assetsService.getType('css')).toBe(assetsService.getTypes()[1]);
+    expect(assetsService.getType('img')).toBe(assetsService.getTypes()[2]);
+  });
+
 });

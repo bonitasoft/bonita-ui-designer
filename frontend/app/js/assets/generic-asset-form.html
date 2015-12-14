@@ -1,18 +1,22 @@
 <div class="form-group">
     <label class="control-label control-label--required" for="source" translate>Source</label>
-    <select id="source" class="form-control" ng-model="vm.newAsset.source"
+    <select id="source" name="source" class="form-control"
+            ng-model="vm.newAsset.source"
             ng-disabled="!vm.isNewAsset"
             ng-options="k as v.value for (k, v) in vm.assetSources"></select>
 </div>
+
 <div class="form-group" ng-if="vm.isExternalAsset(vm.newAsset)">
     <label class="control-label control-label--required" for="name">
         <span translate>URL</span>
     </label>
-    <input type="url" id="name" ng-model="vm.newAsset.name" class="form-control" autofocus
-           placeholder="http://...." required>
-
-    <p class="text-danger" ng-show="addAsset.name.$dirty && addAsset.name.$error.url" translate>Invalid URL
-        (must start by http:// or https://)! </p>
+    <input type="url" id="name" name="name" ng-model="vm.newAsset.name" class="form-control" autofocus  placeholder="http://...." required>
+    <div class="text-danger" ng-if="addAsset.name.$dirty && addAsset.name.$error.url">
+        <i class="fa fa-warning">&nbsp;</i><translate>Invalid URL (must start by http:// or https://)</translate>
+    </div>
+    <div class="text-danger" ng-if="addAsset.$dirty && vm.isExisting(vm.newAsset)">
+        <i class="fa fa-warning">&nbsp;</i><span ng-bind-html="vm.getWarningMessage(vm.newAsset)"></span>
+    </div>
 </div>
 
 <div class="form-group" ng-if="!vm.isExternalAsset(vm.newAsset)">
@@ -22,16 +26,20 @@
 
     <div class="input-group file-upload">
         <input id="file" type="text" readonly="" disabled placeholder="{{'Select your file' | translate}}"
-               value="{{vm.newAsset.filename}}" class="form-control">
+               value="{{vm.newAsset.name}}" class="form-control">
                     <span class="input-group-btn">
                 <span class="btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
                     <input class="file-upload-input"
                            ng-class="{'file-upload-input--disabled':$isUploading}"
                            name="file" type="file"
-                           ng-model="vm.newAsset.filename"
+                           ng-model="vm.newAsset.name"
                            required file-input-change/>
                     <i class="fa" ng-class="{'fa fa-spinner fa-pulse':$isUploading, 'fa-folder':!$isUploading}"/>
                 </span>
             </span>
+    </div>
+    <div class="text-warning" ng-if="vm.isExisting(vm.newAsset)">
+        <i class="fa fa-warning">&nbsp;</i><span ng-bind-html="vm.getWarningMessage(vm.newAsset)"></span>
+        <br/><translate>Click <em>Add</em> to override.</translate>
     </div>
 </div>
