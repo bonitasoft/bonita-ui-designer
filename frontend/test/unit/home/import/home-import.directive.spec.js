@@ -1,11 +1,13 @@
 describe('home import', () => {
 
-  var element, $scope, controller;
+  var element, $scope, controller, importArtifactService, q;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'mock.modal'));
 
-  beforeEach(inject(function($compile, $rootScope) {
+  beforeEach(inject(function($compile, $rootScope, $q, _importArtifactService_) {
     $scope = $rootScope.$new();
+    q = $q;
+    importArtifactService = _importArtifactService_;
     $scope.refreshAll = jasmine.createSpy('refreshAll');
     $scope.filters = {};
     element = $compile('<uid-import-artifact></uid-import-artifact>')($scope);
@@ -13,79 +15,51 @@ describe('home import', () => {
     controller = element.controller('uidImportArtifact');
   }));
 
-  describe('directive', () => {
-    it('should import an artifact', function() {
-      spyOn(controller, 'importElement');
-
-      element.find('.HomeImport').click();
-
-      expect(controller.importElement).toHaveBeenCalled();
-    });
-  });
-
-
   describe('controller', () => {
 
     var $modalInstance, $modal;
 
     beforeEach(inject(function(_$modalInstance_, _$modal_) {
       $modalInstance = _$modalInstance_;
-      $modal= _$modal_;
+      $modal = _$modal_;
     }));
 
-    it('should open modal to create an artifact', () => {
-      spyOn($modal, 'open').and.returnValue($modalInstance.create());
+    it('should not open a modal when no report is returned', function() {
+      var deferred = q.defer();
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
 
-      controller.createElement();
 
-      var [[args]] = $modal.open.calls.allArgs();
-      expect(args.templateUrl).toEqual('js/home/create-popup.html');
-      expect(args.controller).toEqual('CreatePopupController');
-    });
-
-    it('should open modal to import an artifact', () => {
-      spyOn($modal, 'open').and.returnValue($modalInstance.create());
-
-      controller.importElement();
-
-      var [[args]] = $modal.open.calls.allArgs();
-      expect(args.templateUrl).toEqual('js/home/import/import-popup.html');
-      expect(args.resolve.type()).toEqual('artifact');
-      expect(args.resolve.title()).toEqual('Import a UI Designer artifact');
-    });
-
-    it('should not open a second modal when no report is returned', function() {
-      var importReport = null, modalInstance = $modalInstance.fake();
-      spyOn($modal, 'open').and.returnValue(modalInstance);
-
-      controller.importElement();
-      modalInstance.close(importReport);
+      controller.onComplete({});
+      deferred.resolve();
       $scope.$apply();
 
-      expect($modal.open.calls.count()).toEqual(1);
       expect($scope.refreshAll).toHaveBeenCalled();
     });
 
-    it('should open a second modal when import report is returned', function() {
-      var importReport = {}, modalInstance = $modalInstance.fake();
-      spyOn($modal, 'open').and.returnValue(modalInstance);
+    it('should open a modal when import report is returned', function() {
+      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
 
-      controller.importElement();
-      modalInstance.close(importReport);
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
+      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      deferred.resolve(importReport);
+
+      controller.onComplete(importReport);
       $scope.$apply();
 
-      expect($modal.open.calls.count()).toEqual(2);
+      expect($modal.open.calls.count()).toEqual(1);
       var [args] = $modal.open.calls.mostRecent().args;
       expect(args.templateUrl).toEqual('js/home/import/import-report-popup.html');
       expect(args.resolve.importReport()).toEqual(importReport);
     });
 
     it('should refresh lists when second pop up is closed', function() {
-      var importReport = {}, importModal = $modalInstance.fake(), forceImportModal = $modalInstance.fake();
-      spyOn($modal, 'open').and.returnValue(importModal).and.returnValue(forceImportModal);
-      controller.importElement();
-      importModal.close(importReport);
-      $scope.$apply();
+      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
+
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
+      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      deferred.resolve(importReport);
+
+      controller.onComplete(importReport);
 
       forceImportModal.close();
       $scope.$apply();
@@ -94,16 +68,51 @@ describe('home import', () => {
     });
 
     it('should not refresh lists when second pop up is canceled', function() {
-      var importReport = {}, importModal = $modalInstance.fake(), forceImportModal = $modalInstance.fake();
-      spyOn($modal, 'open').and.returnValue(importModal).and.returnValue(forceImportModal);
-      controller.importElement();
-      importModal.close(importReport);
-      $scope.$apply();
+      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
+
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
+
+      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      deferred.resolve(importReport);
+
+      controller.onComplete(importReport);
 
       forceImportModal.dismiss();
       $scope.$apply();
 
       expect($scope.refreshAll).not.toHaveBeenCalled();
+    });
+    it('should expose data for view', () => {
+      expect(controller.type).toEqual('artifact');
+      expect(controller.url).toEqual('import/artifact');
+      expect(controller.filename).toEqual('');
+      expect(controller.popupTitle).toEqual('Import a UI Designer artifact');
+    });
+
+    it('should manage importReport and close modal when upload is complete', () => {
+      var deferred = q.defer();
+      var importReport = {};
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
+
+      controller.onComplete(importReport);
+      deferred.resolve();
+      $scope.$apply();
+
+      expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('artifact', true, importReport);
+      expect(controller.isOpen).toBeFalsy();
+    });
+
+    it('should manage importReport and dismiss modal when upload is complete and import management failed', () => {
+      var deferred = q.defer();
+      var importReport = {};
+      spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
+
+      controller.onComplete(importReport);
+      deferred.reject();
+      $scope.$apply();
+
+      expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('artifact', true, importReport);
+      expect(controller.isOpen).toBeFalsy();
     });
   });
 

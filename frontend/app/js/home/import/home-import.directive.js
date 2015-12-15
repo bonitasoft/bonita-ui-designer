@@ -13,49 +13,47 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 (function() {
-
   'use strict';
+
+  let _$modal, _$scope, _importArtifactService;
 
   angular
     .module('bonitasoft.designer.home')
-    .directive('uidImportArtifact', uidImportArtifact);
-
-  function uidImportArtifact() {
-    return {
+    .directive('uidImportArtifact', () => ({
       scope: true,
       templateUrl: 'js/home/import/home-import.html',
       controller: ImportArtifactCtrl,
       controllerAs: 'import'
-    };
-  }
+    }));
 
-  function ImportArtifactCtrl($modal, $scope) {
-    var vm = this;
+  class ImportArtifactCtrl {
+    constructor($modal, $scope, importArtifactService) {
+      _$modal = $modal;
+      _$scope = $scope;
+      _importArtifactService = importArtifactService;
 
-    vm.createElement = () =>
-      $modal.open({
-        templateUrl: 'js/home/create-popup.html',
-        controller: 'CreatePopupController',
-        controllerAs: 'createCtrl',
-        size: 'sm'
-      });
+      this.type = 'artifact';
+      this.url = 'import/artifact';
+      this.filename = '';
+      this.popupTitle = 'Import a UI Designer artifact';
+    }
 
-    vm.importElement = function() {
-      var modalInstance = $modal.open({
-        templateUrl: 'js/home/import/import-popup.html',
-        controller: 'ImportPopupController',
-        controllerAs: 'import',
-        resolve: {
-          type: () => 'artifact',
-          title: () => 'Import a UI Designer artifact'
-        }
-      });
+    close() {
+      this.isOpen = false;
+      this.filename = '';
+    }
 
-      modalInstance.result.then((importReport) => (!!importReport) && manageImportReport(importReport)).then($scope.refreshAll);
-    };
+    onComplete(response) {
+      var importPromise = _importArtifactService
+        .manageImportResponse(this.type, true, response);
 
-    function manageImportReport(importReport) {
-      return $modal.open({
+      importPromise.finally(() => this.close());
+      importPromise.then((importReport) => (!!importReport) && this.manageImportReport(importReport))
+        .then(_$scope.refreshAll);
+    }
+
+    manageImportReport(importReport) {
+      return _$modal.open({
         templateUrl: 'js/home/import/import-report-popup.html',
         controller: 'ImportReportPopupController',
         controllerAs: 'importReport',
