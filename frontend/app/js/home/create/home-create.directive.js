@@ -16,28 +16,35 @@
 
   'use strict';
 
+  let _$scope, _$modal;
+
   angular
     .module('bonitasoft.designer.home')
-    .directive('uidCreateArtifact', uidCreateArtifact);
-
-  function uidCreateArtifact() {
-    return {
+    .directive('uidCreateArtifact', () => ({
       scope: true,
+      require: '^HomeCtrl',
       templateUrl: 'js/home/create/home-create.html',
       controller: CreateArtifactCtrl,
+      bindToController: true,
       controllerAs: 'create'
-    };
-  }
+    }));
 
-  function CreateArtifactCtrl($modal) {
-    var vm = this;
+  class CreateArtifactCtrl {
+    constructor($scope, $modal) {
+      _$scope = $scope;
+      _$modal = $modal;
+    }
 
-    vm.createElement = () =>
-      $modal.open({
+    createElement() {
+      _$modal.open({
         templateUrl: 'js/home/create/create-popup.html',
         controller: 'CreatePopupController',
         controllerAs: 'createCtrl',
-        size: 'sm'
+        size: 'sm',
+        resolve: {
+          artifacts: () => _$scope.artifacts
+        }
       });
+    }
   }
 })();

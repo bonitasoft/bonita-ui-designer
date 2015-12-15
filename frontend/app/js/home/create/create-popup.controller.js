@@ -15,15 +15,23 @@
  (function() {
   'use strict';
 
-  let _repositories, _$state, _$modalInstance;
+  let _repositories, _$state, _$modalInstance, _artifacts;
 
   class CreatePopupController {
-    constructor(repositories, $state, $modalInstance, artifactFactories) {
+    constructor(repositories, $state, $modalInstance, artifactFactories, artifacts) {
       _repositories = repositories;
       _$state = $state;
       _$modalInstance = $modalInstance;
+      _artifacts = artifacts;
       this.types = artifactFactories.getFactories();
       this.type = this.types.page;
+    }
+
+    isNameUniqueIfRelevantForType(name, type) {
+      return type.hasUniqueName &&
+          (_artifacts || [])
+            .filter(item => item.type === type.key)
+            .some(item => item.name === name);
     }
 
     create(type, name) {

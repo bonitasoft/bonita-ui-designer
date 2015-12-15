@@ -58,6 +58,14 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
+  it('should forbid to create a widget with an already existing name', function() {
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
+    element(by.css('#type-widget')).click();
+    expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
+    expect($('.text-danger').getText()).toEqual('A custom widget with this name already exists');
+  });
+
   it('should open a modal to confirm page deletion', function() {
     //We want to delete a page
     $$('#person .Artifact-delete').first().click();
