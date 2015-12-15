@@ -251,7 +251,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     artifactRepo.save($scope.page)
       .then(function() {
         $state.go('designer.widget', {
-          widgetId: widgetId
+          id: widgetId
         });
       });
   };

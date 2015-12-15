@@ -32,6 +32,14 @@
   function ImportArtifactCtrl($modal, $scope) {
     var vm = this;
 
+    vm.createElement = () =>
+      $modal.open({
+        templateUrl: 'js/home/create-popup.html',
+        controller: 'CreatePopupController',
+        controllerAs: 'createCtrl',
+        size: 'sm'
+      });
+
     vm.importElement = function() {
       var modalInstance = $modal.open({
         templateUrl: 'js/home/import/import-popup.html',

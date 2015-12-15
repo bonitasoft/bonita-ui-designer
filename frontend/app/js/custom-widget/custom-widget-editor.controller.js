@@ -106,7 +106,7 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
     modalInstance.result
       .then(saveAs)
       .then(function(data) {
-        $stateParams.widgetId = data.id;
+        $stateParams.id = data.id;
         $state.go($state.current, $stateParams, {
           reload: true
         });
