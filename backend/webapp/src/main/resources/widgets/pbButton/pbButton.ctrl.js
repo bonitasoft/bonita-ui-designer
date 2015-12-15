@@ -1,6 +1,8 @@
-function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
+function PbButtonCtrl($scope, $http, $location, $log, $window) {
 
   'use strict';
+
+  var vm = this;
 
   this.action = function action() {
     var id;
@@ -9,7 +11,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
       removeFromCollection();
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
-    } else if ($scope.properties.action === "Start process") {
+    } else if ($scope.properties.action === 'Start process') {
       id = getUrlParam('id');
       if (id) {
         doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
@@ -37,13 +39,13 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
       if ($scope.properties.collectionPosition === 'First') {
         index = 0;
       } else if ($scope.properties.collectionPosition === 'Last') {
-        index = $scope.properties.collectionToModify.length -1;
+        index = $scope.properties.collectionToModify.length - 1;
       } else if ($scope.properties.collectionPosition === 'Item') {
         index = $scope.properties.collectionToModify.indexOf($scope.properties.removeItem);
       }
 
       // Only remove element for valid index
-      if ( index !== -1) {
+      if (index !== -1) {
         $scope.properties.collectionToModify.splice(index, 1);
       }
     }
@@ -71,6 +73,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
    * @return {void}
    */
   function doRequest(method, url, params) {
+    vm.busy = true;
     var req = {
       method: method,
       url: url,
@@ -79,22 +82,25 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
     };
 
     return $http(req)
-      .success(function (data, status) {
+      .success(function(data, status) {
         $scope.properties.dataFromSuccess = data;
         notifyParentFrame('success', status);
-        if($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           $window.location.assign($scope.properties.targetUrlOnSuccess);
         }
       })
-      .error(function (data, status) {
+      .error(function(data, status) {
         $scope.properties.dataFromError = data;
         notifyParentFrame('error', status);
+      })
+      .finally(function() {
+        vm.busy = false;
       });
   }
 
   function notifyParentFrame(message, status) {
     if ($window.parent !== $window.self) {
-      var dataToSend = angular.extend($scope.properties, { message: message, status: status })
+      var dataToSend = angular.extend($scope.properties, { message: message, status: status });
       $window.parent.postMessage(JSON.stringify(dataToSend), '*');
     }
   }
@@ -102,7 +108,7 @@ function PbButtonCtrl($scope, $http, $timeout, $location, $log, $window) {
   function getUserParam() {
     var userId = getUrlParam('user');
     if (userId) {
-      return {'user': userId};
+      return { 'user': userId };
     }
     return {};
   }
