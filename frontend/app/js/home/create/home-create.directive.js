@@ -16,7 +16,7 @@
 
   'use strict';
 
-  let _$scope, _$modal;
+  let _repositories, _$state, _$scope;
 
   angular
     .module('bonitasoft.designer.home')
@@ -30,21 +30,32 @@
     }));
 
   class CreateArtifactCtrl {
-    constructor($scope, $modal) {
+    constructor($scope, repositories, $state, artifactFactories) {
+      _repositories = repositories;
+      _$state = $state;
       _$scope = $scope;
-      _$modal = $modal;
+      this.types = artifactFactories.getFactories();
+      console.log(this.types);
+      this.type = this.types.page;
     }
 
-    createElement() {
-      _$modal.open({
-        templateUrl: 'js/home/create/create-popup.html',
-        controller: 'CreatePopupController',
-        controllerAs: 'createCtrl',
-        size: 'sm',
-        resolve: {
-          artifacts: () => _$scope.artifacts
-        }
-      });
+    close() {
+      this.isOpen = false;
+    }
+
+    isNameUniqueIfRelevantForType(name, type) {
+      return type.hasUniqueName &&
+          (_$scope.artifacts || [])
+            .filter(item => item.type === type.key)
+            .some(item => item.name === name);
+    }
+
+    create(type, name) {
+      _repositories.get(type.key).create(type.create(name)).then(data =>
+        _$state.go(`designer.${type.key}`, {
+          id: data.id
+        }));
     }
   }
+
 })();
