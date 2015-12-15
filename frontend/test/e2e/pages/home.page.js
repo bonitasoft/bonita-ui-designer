@@ -24,4 +24,17 @@ export default class Home {
   unfilterFavorites() {
     $('input[name="all"]').click();
   }
+
+  createWidget(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    element(by.css('#type-widget')).click();
+    $('.modal-footer button[type="submit"]').click();
+  }
+
+  createPage(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    $('.modal-footer button[type="submit"]').click();
+  }
 }

@@ -1,0 +1,25 @@
+<form class="NewArtifact" name="newArtifactForm" ng-submit="createCtrl.create(createCtrl.type, createCtrl.name)">
+    <div class="modal-header">
+        <h3 class="modal-title" translate>Create new artifact</h3>
+    </div>
+    <div class="modal-body">
+            <div class="form-group NewArtifact-type">
+              <label for="type" tranlate>Type</label>
+                <!--select class="form-control" name="type" id="type" ng-model="createCtrl.type" required ng-options="type as (type.value | translate) for type in createCtrl.types"></select-->
+              <div class="radio" ng-repeat="type in createCtrl.types">
+                <label>
+                <input type="radio" name="type" id="type-{{type.key}}" ng-model="createCtrl.type "ng-value="type">{{type.value | translate}}
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+               <label for="name" translate>Name</label>
+               <input name="name" type="text" class="form-control" id="name" required placeholder="{{ createCtrl.type.value + ' name' | translate }}" ng-model="createCtrl.name" ng-pattern="'[a-zA-Z0-9]*$'">
+            </div>
+            <span ng-if="newArtifactForm.name.$error.pattern" class="text-danger NewArtifact-error" translate>{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space</span>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="newArtifactForm.$invalid" translate>Create</button>
+        <button type="button" class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
+    </div>
+</form>
