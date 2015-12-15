@@ -32,7 +32,9 @@
     "angular-moment": "0.9.0",
     "ngUpload": "0.5.16",
     "keymaster": "~1.6.3",
-    "angular-animate": "1.4.7"
+    "angular-animate": "1.4.7",
+    "angular-ui-validate": "1.2.2",
+    "angular-messages": "1.4.7"
   },
   "resolutions": {
     "bootstrap": "3.3.5",

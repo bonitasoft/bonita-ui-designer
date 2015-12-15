@@ -25,12 +25,14 @@
         page: {
           key: 'page',
           value: 'Page',
-          create: name => this.createPage(name)
+          create: name => this.createPage(name),
+          hasUniqueName: false
         },
         widget: {
           key: 'widget',
           value: 'Custom widget',
-          create: name => this.createWidget(name)
+          create: name => this.createWidget(name),
+          hasUniqueName: true
         }
       };
     }

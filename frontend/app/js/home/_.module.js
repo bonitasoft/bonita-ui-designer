@@ -22,7 +22,9 @@
     'bonitasoft.designer.home.import',
     'bonitasoft.designer.templates',
     'ui.bootstrap',
-    'ui.router'
+    'ui.router',
+    'ui.validate',
+    'ngMessages'
   ]);
 
 })();
