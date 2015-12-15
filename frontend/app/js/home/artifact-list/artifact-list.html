@@ -24,14 +24,16 @@
             </form>
         </div>
         <div class="Artifact-actions">
-            <favorite-button artifact-repository="artifact.repo" artifact="artifact"></favorite-button>
             <button class="Artifact-button Artifact-button--primary Artifact-rename"
                     ng-click="artifactList.toggleItemEdition(artifact)"
                     type="button"
-                    title="{{'Rename' | translate}}">
+                    title="{{'Rename' | translate}}"
+                    ng-if="artifactList.getRepository(artifact.type).rename">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button file-download class="Artifact-button Artifact-button--primary Artifact-export" href="{{ artifact.repo.exportUrl(artifact) }}" title="{{'Export' | translate }}">
+            <favorite-button artifact-repository="artifactList.getRepository(artifact.type)" artifact="artifact"></favorite-button>
+            <button file-download class="Artifact-button Artifact-button--primary Artifact-export"
+                    href="{{ artifactList.getRepository(artifact.type).exportUrl(artifact) }}" title="{{'Export' | translate }}">
                 <i class="fa fa-alias-export"></i>
             </button>
             <button class="Artifact-button Artifact-button--primary Artifact-delete"

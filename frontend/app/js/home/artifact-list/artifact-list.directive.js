@@ -17,9 +17,10 @@
 
   class ArtifactListController {
 
-    constructor($modal, $timeout) {
+    constructor($modal, $timeout, repositories) {
       this.$modal = $modal;
       this.$timeout = $timeout;
+      this.getRepository = (type) => repositories.get(type);
     }
 
     deleteArtifact(artifact) {
@@ -35,7 +36,7 @@
       });
 
       modalInstance.result
-        .then((id) => artifact.repo.delete(id))
+        .then((id) => this.getRepository(artifact.type).delete(id))
         .then(this.refreshAll);
     }
 
@@ -62,7 +63,7 @@
     renameItem(artifact) {
 
       if (artifact.name !== artifact.oldName) {
-        artifact.repo
+        this.getRepository(artifact.type)
           .rename(artifact.id, artifact.name)
           .catch(() => artifact.name = artifact.oldName)
           .finally(this.refreshAll);
