@@ -1,36 +1,16 @@
 describe('HomeCtrl', function() {
-  var $scope, $q, $modal, pageRepo, widgetRepo, pages, widgets, controller;
+  var $scope, $q, artifactStore, controller;
+  var artifacts = [{ id: 'page1', name: 'Page 1' }, { id: 'widget1', name: 'Widget 1', custom: true }];
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
   beforeEach(inject(function($controller, $rootScope, $injector) {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');
-    $modal = $injector.get('$modal');
-    pageRepo = $injector.get('pageRepo');
-    widgetRepo = $injector.get('widgetRepo');
+    artifactStore = $injector.get('artifactStore');
 
-    pages = [
-      {
-        id: 'page1',
-        name: 'Page 1'
-      }
-    ];
-    widgets = [
-      {
-        id: 'widget1',
-        name: 'Widget 1',
-        custom: true
-      }
-    ];
+    spyOn(artifactStore, 'load').and.returnValue($q.when(artifacts));
 
-    spyOn(pageRepo, 'all').and.returnValue($q.when(pages));
-    spyOn(widgetRepo, 'customs').and.returnValue($q.when(widgets));
-
-    controller = $controller('HomeCtrl', {
-      $scope: $scope,
-      pageRepo: pageRepo,
-      widgetRepo: widgetRepo
-    });
+    controller = $controller('HomeCtrl', { $scope, artifactStore });
     $scope.$digest();
   }));
 
@@ -39,8 +19,6 @@ describe('HomeCtrl', function() {
     $scope.refreshAll();
     $scope.$apply();
 
-    expect(pageRepo.all).toHaveBeenCalled();
-    expect(widgetRepo.customs).toHaveBeenCalled();
-    expect($scope.artifacts).toEqual(pages.concat(widgets));
+    expect($scope.artifacts).toEqual(artifacts);
   });
 });

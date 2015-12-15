@@ -32,7 +32,11 @@
        */
       customs() {
         return this.$http.get(`${this.baseUrl}?view=light`)
-          .then((response) => response.data.filter((widget) => widget.custom));
+          .then((response) => response.data.filter((widget) => widget.custom))
+          .then((widgets) => widgets.map((widget) => {
+            widget.type = 'widget';
+            return widget;
+          }));
       }
 
       /**

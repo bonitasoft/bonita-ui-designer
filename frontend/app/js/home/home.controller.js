@@ -15,7 +15,7 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, $q, pageRepo, widgetRepo) {
+angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore) {
   $scope.filters = {};
 
   /**
@@ -26,26 +26,8 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
    *   if <hello> is deleted, now we can delete <person>
    * @returns {Promise}
    */
-  function refreshAll() {
-    return $q.all({
-      pages: pageRepo.all(),
-      widgets: widgetRepo.customs()
-    }).then((response) => {
-      $scope.artifacts = response.pages
-        .map((page) => {
-          page.repo = pageRepo;
-          return page;
-        })
-        .concat(response.widgets
-          .map((widget) => {
-            widget.type = 'widget';
-            widget.repo = widgetRepo;
-            return widget;
-          }));
-    });
-  }
-
-  $scope.refreshAll = $scope.refreshAll || refreshAll;
+  $scope.refreshAll = () => artifactStore.load()
+    .then((artifacts) => $scope.artifacts = artifacts);
 
   $scope.openHelp = function() {
     $modal.open({
