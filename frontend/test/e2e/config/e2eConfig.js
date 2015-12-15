@@ -26,7 +26,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
 
     var widgets = [
       {
-        designerVersion: '1.2.5-SNAPSHOT',
+        designerVersion: '1.2.6',
         id: 'pbParagraph',
         name: 'Paragraph',
         lastUpdate: 1430212276146,
@@ -51,7 +51,7 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         }]
       },
       {
-        designerVersion: '1.2.5-SNAPSHOT',
+        designerVersion: '1.2.6',
         id: 'pbInput',
         name: 'Input',
         lastUpdate: 1430212276119,
