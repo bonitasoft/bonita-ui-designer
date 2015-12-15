@@ -27,13 +27,6 @@
       this.type = this.types.page;
     }
 
-    isNameUniqueIfRelevantForType(name, type) {
-      return type.hasUniqueName &&
-          (_artifacts || [])
-            .filter(item => item.type === type.key)
-            .some(item => item.name === name);
-    }
-
     create(type, name) {
       _repositories.get(type.key).create(type.create(name)).then(data =>
         _$state.go('designer.' + type.key, {
