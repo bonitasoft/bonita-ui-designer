@@ -549,5 +549,18 @@ describe('pbButton', function () {
       $httpBackend.flush();
       expect($window.parent.postMessage).not.toHaveBeenCalled();
     });
+
+    it('should disable the button during request', function () {
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(200);
+
+      element.find('button').click();
+      scope.$apply();
+
+      expect(element.find('button').attr('disabled')).toBeTruthy();
+      $httpBackend.flush();
+      expect(element.find('button').attr('disabled')).toBeFalsy();
+    });
   });
 });

@@ -3,5 +3,5 @@
         ng-class="'btn btn-' + properties.buttonStyle"
         ng-click="ctrl.action()"
         type="button"
-        ng-disabled="properties.disabled">{{ properties.label | uiTranslate }}</button>
+        ng-disabled="properties.disabled || ctrl.busy">{{ properties.label | uiTranslate }}</button>
 </div>
