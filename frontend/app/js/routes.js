@@ -57,6 +57,16 @@
           }
         }
       },
+      'designer.layout': {
+        url: '/layouts/:id',
+        /* @ngInject */
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams)
+      },
+      'designer.form': {
+        url: '/forms/:id',
+        /* @ngInject */
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams)
+      },
       'designer.page': {
         url: '/pages/:id',
         resolve: {

@@ -18,7 +18,9 @@
 
   angular
     .module('bonitasoft.designer.common.repositories')
-    .factory('pageRepo', pageRepository);
+    .factory('pageRepo', pageRepository)
+    .factory('formRepo', pageRepository)
+    .factory('layoutRepo', pageRepository);
 
   function pageRepository(Repository) {
 

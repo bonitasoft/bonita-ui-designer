@@ -289,6 +289,22 @@ angular.module('bonitasoft.designer.e2e', ['ngMockE2E'])
         lastUpdate: 1447891242960,
         rows: [[]],
         data: {}
+      } ,
+      {
+        id: 'emptyForm',
+        name: 'emptyForm',
+        type: 'form',
+        lastUpdate: 1447891242000,
+        rows: [[]],
+        data: {}
+      },
+      {
+        id: 'emptyLayout',
+        name: 'emptyLayout',
+        type: 'layout',
+        lastUpdate: 1447891242444,
+        rows: [[]],
+        data: {}
       }
     ]
   )

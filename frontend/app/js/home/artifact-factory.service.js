@@ -24,12 +24,26 @@
       this.factories = {
         page: {
           key: 'page',
-          value: 'Page',
-          create: name => this.createPage(name),
-          hasUniqueName: false
+          state: 'page',
+          value: 'Application page',
+          create: name => this.createPage(name, 'page'),
+        },
+        form: {
+          key: 'form',
+          state: 'page',
+          value: 'Process form',
+          tooltip: 'Forms should be created from process at pool level (for process instantiation) or human task level.',
+          create: name => this.createPage(name, 'form')
+        },
+        layout: {
+          key: 'layout',
+          state: 'page',
+          value: 'Application layout',
+          create: name => this.createPage(name, 'layout')
         },
         widget: {
           key: 'widget',
+          state: 'widget',
           value: 'Custom widget',
           create: name => this.createWidget(name),
           hasUniqueName: true
@@ -42,8 +56,8 @@
     getFactories() {
       return this.factories;
     }
-    createPage(name) {
-      return { name, rows: [[]] };
+    createPage(name, type) {
+      return { type, name, rows: [[]] };
     }
     createWidget(name) {
       var template = '<!-- The custom widget template is defined here\n   - You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system\n   - Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty\n   - Functions exposed in the controller can be used with ctrl.newFunction()\n -->\n \n<div style="color: {{ properties.color }}; background-color: {{ backgroudColor }}" ng-click="ctrl.toggleBackgroundColor()">\n    Value is:  <i>{{ properties.value }}</i>. Click me to toggle background color\n</div>';
