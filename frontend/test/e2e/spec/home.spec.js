@@ -27,8 +27,26 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
+  it('should create a layout', function() {
+    home.createLayout('testLayout');
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    browser.get('#/');
+    $$('.ArtifactList-layout a').first().click();
+
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+  });
+
+  it('should create a form', function() {
+    home.createForm('testForm');
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    browser.get('#/');
+    $$('.ArtifactList-form a').first().click();
+
+    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+  });
+
   it('should create a page', function() {
-    home.createPage('test');
+    home.createPage('testPage');
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 

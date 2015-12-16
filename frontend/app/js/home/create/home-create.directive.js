@@ -35,7 +35,6 @@
       _$state = $state;
       _$scope = $scope;
       this.types = artifactFactories.getFactories();
-      console.log(this.types);
       this.type = this.types.page;
     }
 

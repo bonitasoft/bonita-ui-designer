@@ -32,6 +32,20 @@ export default class Home {
     $('.modal-footer button[type="submit"]').click();
   }
 
+  createForm(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    element(by.css('#type-form')).click();
+    $('.modal-footer button[type="submit"]').click();
+  }
+
+  createLayout(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    element(by.css('#type-layout')).click();
+    $('.modal-footer button[type="submit"]').click();
+  }
+
   createPage(name){
     $('.HomeCreate').click();
     $('.modal-body input[name="name"]').sendKeys(name);
