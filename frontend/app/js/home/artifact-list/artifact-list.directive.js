@@ -24,7 +24,7 @@
     }
 
     deleteArtifact(artifact) {
-      var template = !angular.isDefined(artifact.usedBy) ? 'js/home/confirm-deletion-popup.html' : 'js/home/alert-deletion-notpossible-popup.html';
+      var template = !angular.isDefined(artifact.usedBy) ? 'js/home/artifact-list/confirm-deletion-popup.html' : 'js/home/artifact-list/alert-deletion-notpossible-popup.html';
       var modalInstance = this.$modal.open({
         templateUrl: template,
         windowClass: 'modal-centered',
