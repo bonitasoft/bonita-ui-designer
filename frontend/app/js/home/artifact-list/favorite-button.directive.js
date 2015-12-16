@@ -16,7 +16,7 @@
       controllerAs: 'vm',
       bindToController: true,
       replace: true,
-      templateUrl: 'js/home/favorite-button.html'
+      templateUrl: 'js/home/artifact-list/favorite-button.html'
     };
   }
 
