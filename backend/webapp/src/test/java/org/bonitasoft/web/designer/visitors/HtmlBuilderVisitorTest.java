@@ -212,8 +212,8 @@ public class HtmlBuilderVisitorTest {
         String generatedHtml = visitor.build(page, "mycontext/");
 
         // then we should have the directive scripts included
-        assertThat(generatedHtml).contains("<script src=\"mycontext/widgets/pbInput/pbInput.js\"></script>");
-        assertThat(generatedHtml).contains("<script src=\"mycontext/widgets/pbLabel/pbLabel.js\"></script>");
+        assertThat(generatedHtml).contains("<script src=\"widgets/pbInput/pbInput.js\"></script>");
+        assertThat(generatedHtml).contains("<script src=\"widgets/pbLabel/pbLabel.js\"></script>");
 
         // and an empty object as constant
         assertThat(generatedHtml).contains("pb-model='page-id'");

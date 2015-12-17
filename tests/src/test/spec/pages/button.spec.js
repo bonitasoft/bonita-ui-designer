@@ -5,7 +5,7 @@ describe('button', function () {
   }
 
   beforeEach(function () {
-    browser.get('/designer/preview/page/buttonAddRemove');
+    browser.get('/designer/preview/page/buttonAddRemove/');
 
     var peoples = getPeoples();
     expect(peoples.count()).toBe(4);
