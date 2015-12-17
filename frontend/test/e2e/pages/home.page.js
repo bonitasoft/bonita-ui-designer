@@ -6,11 +6,19 @@ export default class Home {
   }
 
   getListedPageNames() {
-    return $$('.ArtifactList-page').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-page').map((element) => element.getText());
+  }
+
+  getFavoritePageNames() {
+    return $$('.Favorite-section .ArtifactList-page').map((element) => element.getText());
   }
 
   getListedWidgetNames() {
-    return $$('.ArtifactList-widget').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-widget').map((element) => element.getText());
+  }
+
+  getFavoriteWidgetNames() {
+    return $$('.Favorite-section .ArtifactList-widget').map((element) => element.getText());
   }
 
   search(term) {

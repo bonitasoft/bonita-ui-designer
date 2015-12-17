@@ -2,8 +2,6 @@ var HomePage = require('../pages/home.page.js');
 
 describe('home page', function() {
 
-  let ALL_PAGE_NAMES = ['Person', 'empty'];
-  let ALL_WIDGET_NAMES = ['awesomeWidget', 'favoriteWidget'];
   var home;
 
   beforeEach(function() {
@@ -11,8 +9,13 @@ describe('home page', function() {
   });
 
   it('should list pages and widgets ordered by last update date descendant', function() {
-    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
-    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
+    expect(home.getListedPageNames()).toEqual(['empty']);
+    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+  });
+
+  it('should list favorite pages and widgets ordered by last update date descendant', function() {
+    expect(home.getFavoritePageNames()).toEqual(['Person']);
+    expect(home.getFavoriteWidgetNames()).toEqual(['favoriteWidget']);
   });
 
   it('should navigate to a page', function() {
@@ -187,27 +190,27 @@ describe('home page', function() {
     expect($('.modal-header .modal-title').getText()).toBe('Help');
   });
 
-  it('should filter widgets and pages by name', function() {
-    home.search('nowidgetAndnopagesHasANameLikeThat');
+  it('should filter widgets, pages and fragment by name', function() {
+    home.search('noWidgetNoPagesAndNoFragmentHasANameLikeThat');
     expect(home.getListedPageNames()).toEqual([]);
     expect(home.getListedWidgetNames()).toEqual([]);
+    expect(home.getFavoritePageNames()).toEqual([]);
+    expect(home.getFavoriteWidgetNames()).toEqual([]);
 
     home.search('so');   // 'so' is contained by 'PerSOn' and 'aweSOmeWidget'
-    expect(home.getListedPageNames()).toEqual(['Person']);
+    expect(home.getFavoritePageNames()).toEqual(['Person']);
     expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
-
-    home.search('');
-    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
-    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
   });
 
-  it('should filter favorite widgets and pages', function() {
-    home.filterFavorites();
-    expect(home.getListedPageNames()).toEqual(['Person']);
-    expect(home.getListedWidgetNames()).toEqual(['favoriteWidget']);
+  it('should mark a page as favorite', function() {
+    $('#empty .Artifact-button-favorite').click();
 
-    home.unfilterFavorites();
-    expect(home.getListedPageNames()).toEqual(ALL_PAGE_NAMES);
-    expect(home.getListedWidgetNames()).toEqual(ALL_WIDGET_NAMES);
+    expect(home.getListedPageNames()).toEqual([]);
+    expect(home.getFavoritePageNames()).toEqual(['Person', 'empty']);
+
+    $('#empty .Artifact-button-favorite').click();
+
+    expect(home.getListedPageNames()).toEqual(['empty']);
+    expect(home.getFavoritePageNames()).toEqual(['Person']);
   });
 });
