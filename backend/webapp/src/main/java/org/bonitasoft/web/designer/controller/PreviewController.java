@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +38,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.HandlerMapping;
 
 @Controller
 public class PreviewController {
@@ -47,21 +50,18 @@ public class PreviewController {
 
     private PageRepository pageRepository;
     private Previewer previewer;
-    private AssetRepository<Page> pageAssetService;
-    private AssetRepository<Widget> widgetAssetService;
-    private RequestMappingUtils requestMappingUtils;
+    private Path widgetRepositoryPath;
+    private Path pageRepositoryPath;
 
     @Inject
     public PreviewController(PageRepository pageRepository,
-                             Previewer previewer,
-                             AssetRepository<Page> pageAssetService,
-                             AssetRepository<Widget> widgetAssetService,
-                             RequestMappingUtils requestMappingUtils) {
+            Previewer previewer,
+            @Named("widgetPath") Path widgetRepositoryPath,
+            @Named("pagesPath") Path pageRepositoryPath) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
-        this.pageAssetService = pageAssetService;
-        this.widgetAssetService = widgetAssetService;
-        this.requestMappingUtils = requestMappingUtils;
+        this.widgetRepositoryPath = widgetRepositoryPath;
+        this.pageRepositoryPath = pageRepositoryPath;
     }
 
     /**
@@ -73,7 +73,7 @@ public class PreviewController {
         try {
             String queryString = isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString();
             response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-            response.addHeader("Location", "/bonita/API/" + requestMappingUtils.extractPathWithinPattern(request) + queryString);
+            response.addHeader("Location", "/bonita/API/" + RequestMappingUtils.extractPathWithinPattern(request) + queryString);
             response.flushBuffer();
         } catch (IOException e) {
             String message = "Error while redirecting API call";
@@ -87,62 +87,17 @@ public class PreviewController {
         return previewer.render(id, pageRepository, httpServletRequest);
     }
 
-    /**
-     * A page can serve its own assets or assets linked to its widgets
-     */
-    @RequestMapping("/preview/page/{id}/assets/{type}/{filename:.*}")
-    public void servePageAsset(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("id") String id,
-            @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
-
-        try {
-            Path filePath = pageAssetService.findAssetPath(id, filename, AssetType.getAsset(type));
-            HttpFile.writeFileInResponse(request, response, filePath);
-        } catch (IOException e) {
-            logger.error("Error when loading page asset", e);
-            throw new ServletException("Error when loading page asset", e);
-        }
-
+    @RequestMapping("/preview/page/{id}/assets/**")
+    public void servePageAsset(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
+        Path filePath = pageRepositoryPath.resolve(pageId).resolve("assets").resolve(matchingPath);
+        HttpFile.writeFileInResponse(request, response, filePath);
     }
 
-    /**
-     * A page can serve its own assets or assets linked to its widgets
-     */
-    @RequestMapping("/preview/page/{id}/widgets/{widgetId}/assets/{type}/{filename:.*}")
-    public void serveWidgetAssetIncludedInPage(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("id") String id,
-            @PathVariable("widgetId") String widgetId,
-            @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
-
-        serveWidgetAsset(request, response, widgetId, type, filename);
-    }
-
-    /**
-     * A widget can only serve its own assets
-     */
-    @RequestMapping("/preview/widget/{id}/assets/{type}/{filename:.*}")
-    public void serveWidgetAsset(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @PathVariable("id") String id,
-            @PathVariable("type") String type,
-            @PathVariable("filename") String filename) throws ServletException {
-
-        try {
-            Path filePath = widgetAssetService.findAssetPath(id, filename, AssetType.getAsset(type));
-            HttpFile.writeFileInResponse(request, response, filePath);
-
-        } catch (IOException e) {
-            logger.error("Error when loading widget asset", e);
-            throw new ServletException("Error when loading widget asset", e);
-        }
-
+    @RequestMapping("/preview/{previableType}/{id}/widgets/**")
+    public void serveWidgetFiles(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
+        HttpFile.writeFileInResponse(request, response, widgetRepositoryPath.resolve(matchingPath));
     }
 
     /**
