@@ -23,10 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.AntPathMatcher;
 
-@Named
-public class RequestMappingUtils {
+public abstract class RequestMappingUtils {
 
-    public String extractPathWithinPattern(HttpServletRequest request) {
+    public static String extractPathWithinPattern(HttpServletRequest request) {
         return new AntPathMatcher().extractPathWithinPattern(
                 (String) request.getAttribute(BEST_MATCHING_PATTERN_ATTRIBUTE),
                 (String) request.getAttribute(PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
