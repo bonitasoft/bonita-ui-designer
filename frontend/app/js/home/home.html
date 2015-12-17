@@ -1,22 +1,19 @@
-<home-header></home-header>
-
+<header class="HomeHeader">
+    <div class="HomeHeader-logo">
+        <img src="img/logo.png">
+    </div>
+    <h1 class="HomeHeader-title" translate>UI Designer</h1>
+    <div class="HomeHeader-help">
+        <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i
+            class="fa fa-question-circle"></i></button>
+    </div>
+</header>
 <div class="container container--Home">
     <div class="row">
         <div class="col-xs-12">
             <form class="HomeFilters-form" role="search">
                 <div class="form-group">
-                    <search value="filters.name" placeholder="{{ 'Search on name' | translate }}"></search>
-                </div>
-
-                <div class="form-group">
-                    <label class="radio-inline">
-                        <input type="radio" name="all" ng-model="filters.favorite" ng-value="undefined">
-                        <translate>All</translate>
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="favorites" ng-model="filters.favorite" ng-value="true">
-                        <translate>Favorites</translate>
-                    </label>
+                    <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>
                 </div>
             </form>
         </div>
@@ -27,12 +24,25 @@
     </div>
 
     <div class="row row--Home">
-        <section class="col-sm-12 col--Home">
-            <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Artifacts</legend>
-            <p class="Artifact-empty" ng-if="artifacts.length == 0" translate>
+        <section class="col-sm-5 Favorite-section">
+            <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
+            <p class="Artifact-empty" ng-if="countFavoriteArtifact(artifacts) === 0" translate>
                 There is no artifact yet...
             </p>
-            <artifact-list artifacts="artifacts" filter="filters" order-by="-lastUpdate" refresh-all="refreshAll"></artifact-list>
+            <artifact-list artifacts="artifacts"
+                           filter="filterFavoriteArtifact"
+                           order-by="-lastUpdate"
+                           refresh-all="refreshAll"></artifact-list>
+        </section>
+
+        <section class="col-sm-7 Artifact-section">
+            <p class="Artifact-empty" ng-if="countNotFavoriteArtifact(artifacts) === 0" translate>
+                There is no artifact yet...
+            </p>
+            <artifact-list artifacts="artifacts"
+                           filter="excludeFavoriteArtifact"
+                           order-by="-lastUpdate"
+                           refresh-all="refreshAll"></artifact-list>
         </section>
     </div>
 </div>
