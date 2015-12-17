@@ -5,7 +5,7 @@ describe('input', function() {
    * We can play with its visibility, its value, its label display, etc...
    */
   beforeEach(function() {
-    browser.get('/designer/preview/page/input');
+    browser.get('/designer/preview/page/input/');
   });
 
   it('should display an input if isDisplayed is valued', function() {

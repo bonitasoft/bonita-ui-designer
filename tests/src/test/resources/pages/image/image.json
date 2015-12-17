@@ -28,7 +28,7 @@
         },
         "assetName": {
           "type": "constant",
-          "value": "assets/img/bonitaLogo.png"
+          "value": "bonitaLogo.png"
         },
         "alt": {
           "type": "constant",
@@ -71,7 +71,14 @@
       "id": "pbImage"
     }]
   ],
-  "assets": [],
+  "assets": [
+    {
+      "id": "1631d5d3-e2cf-4fec-8557-04c48c29ec9f",
+      "name": "bonitaLogo.png",
+      "type": "img",
+      "scope": "page"
+    }
+  ],
   "inactiveAssets": [],
   "data": {}
 }
