@@ -1,7 +1,7 @@
 describe('autocomplete', function () {
 
   beforeEach(function () {
-    browser.get('/designer/preview/page/autocomplete');
+    browser.get('/designer/preview/page/autocomplete/');
   });
 
   describe('simple list', function() {

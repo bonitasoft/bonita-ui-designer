@@ -5,7 +5,7 @@ describe('formContainer', function() {
    * We can play with its visibility, its alignment, its text...
    */
   beforeEach(function() {
-    browser.get('/designer/preview/page/formContainer');
+    browser.get('/designer/preview/page/formContainer/');
   });
 
   it('should display the $form name', function() {
