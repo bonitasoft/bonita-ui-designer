@@ -1,7 +1,7 @@
 describe('checkbox', function () {
 
   it('should display checkbox that return a boolean value', function () {
-    browser.get('/designer/preview/page/checkbox');
+    browser.get('/designer/preview/page/checkbox/');
 
     var checkboxes = $$('pb-checkbox');
     expect(checkboxes.count()).toEqual(3); // one is hidden
