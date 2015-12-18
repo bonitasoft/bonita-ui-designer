@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h3 class="modal-title" translate>Save {{widget.name}} as...</h3>
+    <h3 class="modal-title" translate>Save {{ctrl.widget.name}} as...</h3>
 </div>
-<form class="form" name="newWidget" ng-submit="create(widget)">
+<form class="form" name="newWidget">
     <div class="modal-body" id="modal-save-widget-as">
         <div class="form-group">
             <input
                 name="name"
-                ng-model="newName"
+                ng-model="ctrl.newName"
                 ng-pattern="'[a-zA-Z0-9]*$'"
                 class="form-control"
                 id="widget-name"
@@ -16,7 +16,7 @@
         <span ng-if="newWidget.name.$error.pattern" class="text-danger" translate>Widget names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-widget-controls">
-        <button class="btn btn-primary" ng-click="ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || newName == widget.name" translate>Save</button>
-        <button class="btn btn-link" ng-click="cancel()" translate>Cancel</button>
+        <button class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || ctrl.newName == ctrl.widget.name" translate>Save</button>
+        <button class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
     </div>
 </form>

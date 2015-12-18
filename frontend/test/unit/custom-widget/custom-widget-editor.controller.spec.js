@@ -10,18 +10,18 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$modal_, $modalInstance) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $modalInstance) {
     $scope = $rootScope.$new();
 
     $q = _$q_;
     widgetRepo = _widgetRepo_;
     alerts = _alerts_;
-    $modal = _$modal_;
+    $modal = _$uibModal_;
     modalInstance = $modalInstance.create();
 
     $controller('CustomWidgetEditorCtrl', {
       $scope: $scope,
-      $modal:  _$modal_,
+      $modal:  $modal,
       artifact: awesomeWidget,
       artifactRepo: widgetRepo,
       $timeout: $timeout
