@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="name" translate>Name</label>
-            <input ui-validate="{alreadyExists : '!create.isNameUniqueIfRelevantForType($value, create.type)'}" ui-validate-watch="'create.type'" name="name" type="text" class="form-control" id="name" required placeholder="{{ create.type.value + ' name' | translate }}" ng-model="create.name" ng-pattern="'[a-zA-Z0-9]*$'">
+            <input autofocus ui-validate="{alreadyExists : '!create.isNameUniqueIfRelevantForType($value, create.type)'}" ui-validate-watch="'create.type'" name="name" type="text" class="form-control" id="name" required placeholder="{{ create.type.value + ' name' | translate }}" ng-model="create.name" ng-pattern="'[a-zA-Z0-9]*$'">
         </div>
         <div ng-messages="newArtifactForm.name.$error" role="alert">
             <div ng-message="pattern"><span class="text-danger NewArtifact-error" translate>{{ create.type.value }} name should contains only alphanumeric characters with no space</span></div>
