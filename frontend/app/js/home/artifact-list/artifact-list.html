@@ -1,7 +1,11 @@
+<p class="Artifact-empty" ng-if="artifactList.all.length === 0" translate>
+    There is no artifact yet...
+</p>
+
 <ul class="ArtifactList">
     <li class="ArtifactList-item ArtifactList-item--primary ArtifactList-{{ artifact.type }}"
         id="{{ artifact.id }}"
-        ng-repeat="artifact in artifactList.all | filter:artifactList.filter | orderBy:artifactList.orderBy">
+        ng-repeat="artifact in artifactList.all">
         <div class="Artifact-info">
             <a ng-if="!artifact.isEditingName" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
                class="Artifact-link Artifact-link--primary">
@@ -11,20 +15,21 @@
                         </span>
             </a>
 
-            <form name="renameArtifact" class="Artifact-form" ng-if="artifact.isEditingName"
-                  ng-submit="artifactList.renameItem(artifact)">
+            <form name="renameArtifact" class="Artifact-form"
+                  ng-if="artifact.isEditingName"
+                  ng-submit="artifactList.renameItem(artifact)"
+                  ng-init="artifact.newName = artifact.name">
                 <input name="name"
                        data-autofocus
                        ng-pattern="'[a-zA-Z0-9]*$'"
                        id="page-name-input-{{$index}}"
-                       ng-model="artifact.name"
+                       ng-model="artifact.newName"
                        ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
                        class="form-control" required>
                 <span ng-if="renameArtifact.name.$error.pattern" class="text-danger" translate>Name should contains only alphanumeric characters with no space</span>
             </form>
         </div>
         <div class="Artifact-actions">
-            <favorite-button artifact-repository="artifactList.getRepository(artifact.type)" artifact="artifact"></favorite-button>
             <button class="Artifact-button Artifact-button--primary Artifact-rename"
                     ng-click="artifactList.toggleItemEdition(artifact)"
                     type="button"
@@ -32,6 +37,7 @@
                     ng-if="artifactList.getRepository(artifact.type).rename">
                 <i class="fa fa-pencil"></i>
             </button>
+            <favorite-button artifact-repository="artifactList.getRepository(artifact.type)" artifact="artifact"></favorite-button>
             <button file-download class="Artifact-button Artifact-button--primary Artifact-export"
                     href="{{ artifactList.getRepository(artifact.type).exportUrl(artifact) }}" title="{{'Export' | translate }}">
                 <i class="ui-icon ui-export"></i>

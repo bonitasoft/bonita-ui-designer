@@ -15,7 +15,7 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore, $filter) {
+angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore) {
 
   /**
    * When something is deleted, we need to refresh every collection,
@@ -41,15 +41,5 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
   };
 
   $scope.search = '';
-  function isNameFiltered(artifact) {
-    return artifact.name.match(new RegExp($scope.search, 'i'));
-  }
-  $scope.filterFavoriteArtifact = (artifact) => isNameFiltered(artifact) && artifact.favorite;
-  $scope.excludeFavoriteArtifact = (artifact) => isNameFiltered(artifact) && !artifact.favorite;
-
-  let filter = $filter('filter');
-  $scope.countFavoriteArtifact = (artifacts) => artifacts && filter(artifacts, $scope.filterFavoriteArtifact).length;
-  $scope.countNotFavoriteArtifact = (artifacts) => artifacts && filter(artifacts, $scope.excludeFavoriteArtifact).length;
-
   $scope.refreshAll();
 });
