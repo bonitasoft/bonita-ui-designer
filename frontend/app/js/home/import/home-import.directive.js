@@ -17,15 +17,6 @@
 
   let _$modal, _$scope, _importArtifactService;
 
-  angular
-    .module('bonitasoft.designer.home')
-    .directive('uidImportArtifact', () => ({
-      scope: true,
-      templateUrl: 'js/home/import/home-import.html',
-      controller: ImportArtifactCtrl,
-      controllerAs: 'import'
-    }));
-
   class ImportArtifactCtrl {
     constructor($modal, $scope, importArtifactService) {
       _$modal = $modal;
@@ -63,5 +54,14 @@
       }).result;
     }
   }
+
+  angular
+    .module('bonitasoft.designer.home')
+    .directive('uidImportArtifact', () => ({
+      scope: true,
+      templateUrl: 'js/home/import/home-import.html',
+      controller: ImportArtifactCtrl,
+      controllerAs: 'import'
+    }));
 
 })();
