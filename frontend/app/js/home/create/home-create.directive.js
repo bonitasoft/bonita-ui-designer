@@ -18,17 +18,6 @@
 
   let _repositories, _$state, _$scope;
 
-  angular
-    .module('bonitasoft.designer.home')
-    .directive('uidCreateArtifact', () => ({
-      scope: true,
-      require: '^HomeCtrl',
-      templateUrl: 'js/home/create/home-create.html',
-      controller: CreateArtifactCtrl,
-      bindToController: true,
-      controllerAs: 'createCtrl'
-    }));
-
   class CreateArtifactCtrl {
     constructor($scope, repositories, $state, artifactFactories) {
       _repositories = repositories;
@@ -56,5 +45,16 @@
         }));
     }
   }
+
+  angular
+    .module('bonitasoft.designer.home')
+    .directive('uidCreateArtifact', () => ({
+      scope: true,
+      require: '^HomeCtrl',
+      templateUrl: 'js/home/create/home-create.html',
+      controller: CreateArtifactCtrl,
+      bindToController: true,
+      controllerAs: 'createCtrl'
+    }));
 
 })();
