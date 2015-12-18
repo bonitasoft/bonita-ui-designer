@@ -24,6 +24,7 @@
       var modalInstance = $modal.open({
         templateUrl: 'js/editor/menu-bar/save-as-popup.html',
         controller: 'SaveAsPopUpController',
+        controllerAs: 'ctrl',
         resolve: {
           page: function() {
             return page;

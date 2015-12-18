@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $modal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS) {
+angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEditorCtrl', function($scope, artifact, artifactRepo, alerts, $uibModal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS) {
 
   'use strict';
 
@@ -82,35 +82,25 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
   };
 
   $scope.saveAs = function(widget) {
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'js/custom-widget/save-as-popup.html',
-      controller: function($scope, $modalInstance, widget) {
-        $scope.widget = widget;
-        $scope.newName = widget.name;
-
-        $scope.ok = function() {
-          $scope.widget.name = $scope.newName;
-          $modalInstance.close($scope.widget);
-        };
-
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
-      },
+      controller: 'saveWidgetAsPopUpCtrl',
+      controllerAs: 'ctrl',
       resolve: {
-        widget: function() {
-          return widget;
-        }
+        widget: () => widget
       }
     });
+
     modalInstance.result
       .then(saveAs)
-      .then(function(data) {
-        $stateParams.id = data.id;
-        $state.go($state.current, $stateParams, {
-          reload: true
-        });
+      .then(reload);
+
+    function reload(widget) {
+      $stateParams.id = widget.id;
+      $state.go($state.current, $stateParams, {
+        reload: true
       });
+    }
 
     function saveAs(data) {
       return widgetRepo.create(data, widget.id);
@@ -119,7 +109,7 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
 
   $scope.createOrUpdate = function(param) {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'js/custom-widget/create-property.html',
       controller: 'PropertyEditorPopupCtrl',
       resolve: {
