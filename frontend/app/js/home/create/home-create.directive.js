@@ -26,7 +26,7 @@
       templateUrl: 'js/home/create/home-create.html',
       controller: CreateArtifactCtrl,
       bindToController: true,
-      controllerAs: 'create'
+      controllerAs: 'createCtrl'
     }));
 
   class CreateArtifactCtrl {
