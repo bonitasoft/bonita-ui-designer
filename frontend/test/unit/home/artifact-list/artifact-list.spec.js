@@ -100,6 +100,13 @@ describe('artifactListController', function() {
     expect(pageRepo.rename).not.toHaveBeenCalled();
   });
 
+  it('should show a message when there is no artifacts', function() {
+    $scope.artifacts = [];
+    $scope.$apply();
+
+    expect(element.text().trim()).toBe('There is no artifact yet...');
+  });
+
   function rename(id, value) {
     element.find(`${id} .Artifact-rename`).click();
     element.find(`${id} input`).controller('ngModel').$setViewValue(value);

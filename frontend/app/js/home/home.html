@@ -26,22 +26,12 @@
     <div class="row row--Home">
         <section class="col-sm-5 Favorite-section">
             <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
-            <p class="Artifact-empty" ng-if="countFavoriteArtifact(artifacts) === 0" translate>
-                There is no artifact yet...
-            </p>
-            <artifact-list artifacts="artifacts"
-                           filter="filterFavoriteArtifact"
-                           order-by="-lastUpdate"
+            <artifact-list artifacts="artifacts | filter:{name: search, favorite: 'true'} | orderBy:'-lastUpdate'"
                            refresh-all="refreshAll"></artifact-list>
         </section>
 
         <section class="col-sm-7 Artifact-section">
-            <p class="Artifact-empty" ng-if="countNotFavoriteArtifact(artifacts) === 0" translate>
-                There is no artifact yet...
-            </p>
-            <artifact-list artifacts="artifacts"
-                           filter="excludeFavoriteArtifact"
-                           order-by="-lastUpdate"
+            <artifact-list artifacts="artifacts | filter:{name: search, favorite: '!true'} | orderBy:'-lastUpdate'"
                            refresh-all="refreshAll"></artifact-list>
         </section>
     </div>

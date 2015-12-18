@@ -62,10 +62,10 @@
      */
     renameItem(artifact) {
 
-      if (artifact.name !== artifact.oldName) {
+      if (artifact.newName !== artifact.name) {
         this.getRepository(artifact.type)
-          .rename(artifact.id, artifact.name)
-          .catch(() => artifact.name = artifact.oldName)
+          .rename(artifact.id, artifact.newName)
+          .catch(() => artifact.newName = artifact.name)
           .finally(this.refreshAll);
       } else {
 
@@ -88,10 +88,8 @@
     controllerAs: 'artifactList',
     scope: true,
     bindToController: {
-      all: '=artifacts',
-      refreshAll: '=',
-      filter: '=',
-      orderBy: '@'
+      all: '=*artifacts',
+      refreshAll: '='
     },
     templateUrl: 'js/home/artifact-list/artifact-list.html'
   }));
