@@ -40,7 +40,7 @@ var paths = {
   ],
   e2e: [
     'app/bower_components/angular-mocks/angular-mocks.js',
-    'test/e2e/config/e2eConfig.js',
+    'test/e2e/config/*.js',
     'test/e2e/polyfill/dnd.js'
   ],
   tests: 'test/**/*.spec.js',
