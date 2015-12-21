@@ -6,10 +6,12 @@ describe('UI designer: home', function() {
   var widgetPath = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
 
   function getListedPages() {
+    $('.tab-page').click();
     return element.all(by.css('.ArtifactList-page'));
   }
 
   function getListedWidgets() {
+    $('.tab-widget').click();
     return element.all(by.css('.ArtifactList-widget'));
   }
 

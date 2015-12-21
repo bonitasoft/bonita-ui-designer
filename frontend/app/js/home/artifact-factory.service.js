@@ -26,7 +26,7 @@
           key: 'page',
           state: 'page',
           value: 'Application page',
-          create: name => this.createPage(name, 'page'),
+          create: name => this.createPage(name, 'page')
         },
         form: {
           key: 'form',

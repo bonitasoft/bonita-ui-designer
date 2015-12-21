@@ -31,8 +31,14 @@
         </section>
 
         <section class="col-sm-7 Artifact-section">
-            <artifact-list artifacts="artifacts | filter:{name: search, favorite: '!true'} | orderBy:'-lastUpdate'"
-                           refresh-all="refreshAll"></artifact-list>
+            <uib-tabset>
+                <uib-tab ng-repeat="factory in factories">
+                    <uib-tab-heading class="tab-{{factory.key}}">
+                        {{ factory.value | translate }}
+                    </uib-tab-heading>
+                    <artifact-list artifacts="artifacts | filter:{name: search, favorite: '!true', type: factory.key} | orderBy:'-lastUpdate'" refresh-all="refreshAll"></artifact-list>
+                </uib-tab>
+            </uib-tabset>
         </section>
     </div>
 </div>
