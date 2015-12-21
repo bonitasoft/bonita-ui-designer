@@ -8,12 +8,14 @@ describe('home page', function() {
     home = HomePage.get();
   });
 
-  it('should list pages and widgets ordered by last update date descendant', function() {
+  it('should list artifacts ordered by last update date descendant', function() {
     expect(home.getListedPageNames()).toEqual(['empty']);
     expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+    expect(home.getListedFormNames()).toEqual(['emptyForm']);
+    expect(home.getListedLayoutNames()).toEqual(['emptyLayout']);
   });
 
-  it('should list favorite pages and widgets ordered by last update date descendant', function() {
+  it('should list favorite artifacts ordered by last update date descendant', function() {
     expect(home.getFavoritePageNames()).toEqual(['Person']);
     expect(home.getFavoriteWidgetNames()).toEqual(['favoriteWidget']);
   });
@@ -34,6 +36,7 @@ describe('home page', function() {
     home.createLayout('testLayout');
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
     browser.get('#/');
+    home.openTab('layout');
     $$('.ArtifactList-layout a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
@@ -43,6 +46,7 @@ describe('home page', function() {
     home.createForm('testForm');
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
     browser.get('#/');
+    home.openTab('form');
     $$('.ArtifactList-form a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
@@ -121,6 +125,7 @@ describe('home page', function() {
   });
 
   it('should open a modal to confirm widget deletion', function() {
+    home.openTab('widget');
     //We want to delete a widget
     $$('#customAwesomeWidget .Artifact-delete').first().click();
     //A modal is opened with a confirmation message

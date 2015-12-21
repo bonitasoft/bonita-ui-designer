@@ -15,7 +15,7 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore) {
+angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore, artifactFactories) {
 
   /**
    * When something is deleted, we need to refresh every collection,
@@ -39,6 +39,8 @@ angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scop
       }
     });
   };
+
+  $scope.factories = artifactFactories.getFactories();
 
   $scope.search = '';
   $scope.refreshAll();

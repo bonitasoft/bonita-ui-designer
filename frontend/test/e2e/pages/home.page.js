@@ -6,6 +6,7 @@ export default class Home {
   }
 
   getListedPageNames() {
+    this.openTab('page');
     return $$('.Artifact-section .ArtifactList-page').map((element) => element.getText());
   }
 
@@ -14,11 +15,22 @@ export default class Home {
   }
 
   getListedWidgetNames() {
+    this.openTab('widget');
     return $$('.Artifact-section .ArtifactList-widget').map((element) => element.getText());
   }
 
   getFavoriteWidgetNames() {
     return $$('.Favorite-section .ArtifactList-widget').map((element) => element.getText());
+  }
+
+  getListedFormNames() {
+    this.openTab('form');
+    return $$('.Artifact-section .ArtifactList-form').map((element) => element.getText());
+  }
+
+  getListedLayoutNames() {
+    this.openTab('layout');
+    return $$('.Artifact-section .ArtifactList-layout').map((element) => element.getText());
   }
 
   search(term) {
@@ -58,5 +70,9 @@ export default class Home {
     $('.HomeCreate').click();
     $('.modal-body input[name="name"]').sendKeys(name);
     $('.modal-footer button[type="submit"]').click();
+  }
+
+  openTab(type) {
+    $(`.tab-${type}`).click();
   }
 }
