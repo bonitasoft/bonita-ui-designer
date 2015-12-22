@@ -3,14 +3,16 @@ var HomePage = require('../pages/home.page.js');
 describe('home page', function() {
 
   var home;
+  const PAGE_NAMES = [ 'Person', 'empty' ];
+  const WIDGET_NAMES = [ 'awesomeWidget', 'favoriteWidget' ];
 
   beforeEach(function() {
     home = HomePage.get();
   });
 
   it('should list artifacts ordered by last update date descendant', function() {
-    expect(home.getListedPageNames()).toEqual(['empty']);
-    expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+    expect(home.getListedPageNames()).toEqual(PAGE_NAMES);
+    expect(home.getListedWidgetNames()).toEqual(WIDGET_NAMES);
     expect(home.getListedFormNames()).toEqual(['emptyForm']);
     expect(home.getListedLayoutNames()).toEqual(['emptyLayout']);
   });
@@ -209,13 +211,9 @@ describe('home page', function() {
 
   it('should mark a page as favorite', function() {
     $('#empty .Artifact-button-favorite').click();
-
-    expect(home.getListedPageNames()).toEqual([]);
     expect(home.getFavoritePageNames()).toEqual(['Person', 'empty']);
 
     $('#empty .Artifact-button-favorite').click();
-
-    expect(home.getListedPageNames()).toEqual(['empty']);
     expect(home.getFavoritePageNames()).toEqual(['Person']);
   });
 });
