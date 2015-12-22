@@ -121,7 +121,7 @@ module.exports = function (gulp, config) {
     return gulp.src('app/less/main.less')
       .pipe(plumber())
       .pipe(less())
-      .pipe(replace('bower_components/font-awesome/fonts', 'fonts'))
+      .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'))
       .pipe(autoPrefixer({
         browsers: ['ie >= 9', '> 1%']
       }))
