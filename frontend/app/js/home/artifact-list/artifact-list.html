@@ -7,7 +7,7 @@
         id="{{ artifact.id }}"
         ng-repeat="artifact in artifactList.all">
         <div class="Artifact-info">
-            <a ng-if="!artifact.isEditingName" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
+            <a ng-if="!artifactList.isInEditionMode($index)" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
                class="Artifact-link Artifact-link--primary">
                         <span title="{{ artifact.name }}">
                             <i class="ui-icon ui-{{ artifact.type }}s Artifact-icon"></i>
@@ -16,7 +16,7 @@
             </a>
 
             <form name="renameArtifact" class="Artifact-form"
-                  ng-if="artifact.isEditingName"
+                  ng-if="artifactList.isInEditionMode($index)"
                   ng-submit="artifactList.renameItem(artifact)"
                   ng-init="artifact.newName = artifact.name">
                 <input name="name"
@@ -31,7 +31,7 @@
         </div>
         <div class="Artifact-actions">
             <button class="Artifact-button Artifact-button--primary Artifact-rename"
-                    ng-click="artifactList.toggleItemEdition(artifact)"
+                    ng-click="artifactList.toggleItemEdition($index)"
                     type="button"
                     title="{{'Rename' | translate}}"
                     ng-if="artifactList.getRepository(artifact.type).rename">
