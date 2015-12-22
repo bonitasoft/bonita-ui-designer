@@ -46,12 +46,12 @@
      *
      * @param {Object} artifact - the item to rename
      */
-    toggleItemEdition(artifact) {
-      if (!artifact.isEditingName) {
-        // backup old name to check if update is necessary later
-        artifact.oldName = artifact.name;
-      }
-      artifact.isEditingName = !artifact.isEditingName;
+    toggleItemEdition(index) {
+      this.editionIndex = this.editionIndex ? undefined : index;
+    }
+
+    isInEditionMode(index) {
+      return this.editionIndex === index;
     }
 
     /**
@@ -67,19 +67,16 @@
           .rename(artifact.id, artifact.newName)
           .catch(() => artifact.newName = artifact.name)
           .finally(this.refreshAll);
-      } else {
-
-        /**
-         * We need to defer the action of hidding the page because of the click event
-         * When you click it will trigger:
-         *   1. onBlur -> hide input
-         *   2. click -> toggle input -> display input
-         * So with a defferd action, the input is hidden on blur even if we click on da edit button
-         */
-        this.$timeout(function() {
-          artifact.isEditingName = false;
-        }, 100);
       }
+
+      /**
+       * We need to defer the action of hidding the page because of the click event
+       * When you click it will trigger:
+       *   1. onBlur -> hide input
+       *   2. click -> toggle input -> display input
+       * So with a defferd action, the input is hidden on blur even if we click on da edit button
+       */
+      this.$timeout(() => this.editionIndex = undefined, 100);
     }
   }
 
