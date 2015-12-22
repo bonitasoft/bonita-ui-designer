@@ -34,6 +34,10 @@
       _importArtifactService.forceImport(this.report)
         .then(_$modalInstance.close, _$modalInstance.dismiss);
     }
+
+    hasDependencies() {
+      return this.report.dependencies && this.report.dependencies.added || this.report.dependencies.overridden;
+    }
   }
 
   angular
