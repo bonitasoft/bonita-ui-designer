@@ -2,7 +2,7 @@
     <div class="modal-header">
       <h3 class="modal-title"><i class="fa fa-exclamation-triangle text-warning "></i><translate>Import {{ importReport.report.element.name }}</translate></h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" ng-if="importReport.hasDependencies()">
         <translate>The imported zip file contains elements with the same name as some existing elements. These existing elements will be overwritten:</translate>
         <import-report-item-list page-name="importReport.report.element.name" type="importReport.report.type" display-page="importReport.report.overridden" dependencies="importReport.report.dependencies.overridden"></import-report-item-list>
         <div ng-if="!importReport.report.overridden || importReport.report.dependencies.added">
@@ -15,8 +15,11 @@
         </div>
         <p translate>Do you want to import this zip file?</p>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Import</button>
-    <button type="button" class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
+    <div class="modal-body" ng-if="!importReport.hasDependencies()">
+        <p translate>A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br/>Click <em>Import</em> to override.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Import</button>
+        <button type="button" class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
+    </div>
 </div>

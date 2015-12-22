@@ -48,4 +48,21 @@ describe('Import artifact report controller', () => {
 
     expect(modalInstance.close).toHaveBeenCalled();
   });
+
+  it('should say if a report has element with dependencies', () => {
+    importArtifactReportCtrl.report = {
+      dependencies: {}
+    };
+    expect(importArtifactReportCtrl.hasDependencies()).toBeFalsy();
+
+    importArtifactReportCtrl.report = {
+      dependencies: {added: ['anelement']}
+    };
+    expect(importArtifactReportCtrl.hasDependencies()).toBeTruthy();
+
+    importArtifactReportCtrl.report = {
+      dependencies: {overridden: ['anelement']}
+    };
+    expect(importArtifactReportCtrl.hasDependencies()).toBeTruthy();
+  });
 });
