@@ -16,28 +16,28 @@
 
   'use strict';
 
+  let _$modalInstance, _importArtifactService;
+
+  class ImportReportPopupController {
+
+    constructor($modalInstance, importReport, importArtifactService) {
+      _$modalInstance = $modalInstance;
+      _importArtifactService = importArtifactService;
+      this.report = importReport;
+    }
+
+    joinOnNames(artifacts) {
+      return artifacts.map((item) => item.name).join(', ');
+    }
+
+    forceImport() {
+      _importArtifactService.forceImport(this.report)
+        .then(_$modalInstance.close, _$modalInstance.dismiss);
+    }
+  }
+
   angular
     .module('bonitasoft.designer.home.import')
     .controller('ImportReportPopupController', ImportReportPopupController);
-
-  function ImportReportPopupController($modalInstance, importReport, importArtifactService) {
-
-    var vm = this;
-    vm.report = importReport;
-    vm.joinOnNames = joinOnNames;
-
-    vm.forceImport = forceImport;
-
-    function joinOnNames(artifacts) {
-      return artifacts.map(function(item) {
-        return item.name;
-      }).join(', ');
-    }
-
-    function forceImport() {
-      importArtifactService.forceImport(importReport)
-        .then($modalInstance.close, $modalInstance.dismiss);
-    }
-  }
 
 })();
