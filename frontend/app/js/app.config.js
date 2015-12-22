@@ -26,7 +26,12 @@
 
   angular.module('uidesigner', ['bonitasoft.designer'])
     .value('isIE9', isIE9)
-    .config(configureModule);
+    .config(configureModule)
+    .run(($rootScope, $uibModalStack) => {
+
+      // Close modals on location changes
+      $rootScope.$on('$locationChangeStart', () => $uibModalStack.dismissAll());
+    });
 
   /* @ngInject */
   function configureModule($compileProvider, boDraggableItemProvider, $tooltipProvider, $stateProvider, $urlRouterProvider, appStates, $modalProvider) {
