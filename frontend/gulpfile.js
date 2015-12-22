@@ -7,25 +7,25 @@ var paths = {
   test: 'build/test',
   dist: 'build/dist',
   vendor: [
-    'app/bower_components/jquery/dist/jquery.min.js',
-    'app/bower_components/moment/min/moment.min.js',
-    'app/bower_components/ace-builds/src-min-noconflict/ace.js',
-    'app/bower_components/ace-builds/src-min-noconflict/ext-language_tools.js',
-    'app/bower_components/angular/angular.min.js',
-    'app/bower_components/angular-sanitize/angular-sanitize.min.js',
-    'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'app/bower_components/angular-recursion/angular-recursion.min.js',
-    'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-    'app/bower_components/angular-ui-validate/dist/validate.js',
-    'app/bower_components/angular-ui-ace/ui-ace.min.js',
-    'app/bower_components/ngUpload/ng-upload.min.js',
-    'app/bower_components/bonita-js-components/dist/bonita-lib-tpl.min.js',
-    'app/bower_components/angular-gettext/dist/angular-gettext.min.js',
-    'app/bower_components/stomp-websocket/lib/stomp.min.js',
-    'app/bower_components/sockjs/sockjs.min.js',
-    'app/bower_components/keymaster/keymaster.js',
-    'app/bower_components/angular-moment/angular-moment.min.js',
-    'app/bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js'
+    'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/moment/min/moment.min.js',
+    'bower_components/ace-builds/src-min-noconflict/ace.js',
+    'bower_components/ace-builds/src-min-noconflict/ext-language_tools.js',
+    'bower_components/angular/angular.min.js',
+    'bower_components/angular-sanitize/angular-sanitize.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+    'bower_components/angular-recursion/angular-recursion.min.js',
+    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    'bower_components/angular-ui-validate/dist/validate.js',
+    'bower_components/angular-ui-ace/ui-ace.min.js',
+    'bower_components/ngUpload/ng-upload.min.js',
+    'bower_components/bonita-js-components/dist/bonita-lib-tpl.min.js',
+    'bower_components/angular-gettext/dist/angular-gettext.min.js',
+    'bower_components/stomp-websocket/lib/stomp.min.js',
+    'bower_components/sockjs/sockjs.min.js',
+    'bower_components/keymaster/keymaster.js',
+    'bower_components/angular-moment/angular-moment.min.js',
+    'bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js'
   ],
   jsFolder: 'app/js',
   js: [
@@ -38,7 +38,7 @@ var paths = {
     'app/**/*.less'
   ],
   e2e: [
-    'app/bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/angular-mocks/angular-mocks.js',
     'test/e2e/config/*.js',
     'test/e2e/polyfill/dnd.js'
   ],
@@ -49,11 +49,11 @@ var paths = {
   assets: {
     fonts: [
       'app/fonts/*.*',
-      'app/bower_components/font-awesome/fonts/*.*',
-      'app/bower_components/bootstrap/fonts/*.*'
+      'bower_components/font-awesome/fonts/*.*',
+      'bower_components/bootstrap/fonts/*.*'
     ],
     ace: [
-      'app/bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json}.js'
+      'bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json}.js'
     ],
     licences: [
       'licences/**/*.*'
