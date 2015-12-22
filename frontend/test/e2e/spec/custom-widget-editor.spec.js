@@ -183,4 +183,13 @@ describe('custom widget editor', function() {
     expect(browser.getCurrentUrl()).toMatch(/.*\/widget\/customGoodNewName/); // http://host:port/#/en/widget/GoodNewName
   });
 
+  it('should discard save as window on browser navigation', function() {
+    $('button.dropdown-toggle').click();
+    $('#saveAs').click();
+
+    browser.setLocation('/');
+
+    expect($('.modal-footer').isPresent()).toBeFalsy();
+  });
+
 });
