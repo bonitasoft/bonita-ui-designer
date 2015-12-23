@@ -65,19 +65,19 @@ describe('home page', function() {
     nameInput.sendKeys('page name');
     let createPageButton = $('.modal-footer button[type="submit"]');
     expect(createPageButton.isEnabled()).toBeFalsy();
-    expect($('.NewArtifact span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.NewArtifact .tooltip-inner').isDisplayed()).toBeTruthy();
 
     nameInput.clear();
     nameInput.sendKeys('page-name');
 
     expect(createPageButton.isEnabled()).toBeFalsy();
-    expect($('.NewArtifact span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.NewArtifact .tooltip-inner').isDisplayed()).toBeTruthy();
 
     nameInput.clear();
     nameInput.sendKeys('pageName');
 
     expect(createPageButton.isEnabled()).toBeTruthy();
-    expect($$('.NewArtifact span.text-danger').count()).toBe(0);
+    expect($$('.NewArtifact .tooltip-inner').count()).toBe(0);
   });
 
   it('should create a widget', function() {
@@ -90,7 +90,7 @@ describe('home page', function() {
     $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
     element(by.css('#type-widget')).click();
     expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
-    expect($('.text-danger').getText()).toEqual('A custom widget with this name already exists');
+    expect($('.tooltip-inner').getText()).toEqual('A custom widget with this name already exists');
   });
 
   it('should open a modal to confirm page deletion', function() {
@@ -156,17 +156,17 @@ describe('home page', function() {
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('page name');
 
-    expect($('.ArtifactList-page form[name="renameArtifact"] span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.ArtifactList-page form[name="renameArtifact"] .tooltip-inner').isDisplayed()).toBeTruthy();
 
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('page-name');
 
-    expect($('.ArtifactList-page form[name="renameArtifact"] span.text-danger').isDisplayed()).toBeTruthy();
+    expect($('.ArtifactList-page form[name="renameArtifact"] .tooltip-inner').isDisplayed()).toBeTruthy();
 
     $('#page-name-input-0').clear();
     $('#page-name-input-0').sendKeys('pageName');
 
-    expect($$('.ArtifactList-page form[name="renameArtifact"] span.text-danger').count()).toBe(0);
+    expect($$('.ArtifactList-page form[name="renameArtifact"] .tooltip-inner').count()).toBe(0);
   });
 
   it('should remove the input to rename a page on blur', function() {

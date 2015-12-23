@@ -1,0 +1,7 @@
+<input uib-tooltip="{{ name.errorMessage() }}"
+       tooltip-class="tooltip-danger"
+       tooltip-is-open="name.errorMessage()"
+       tooltip-placement="{{ ::name.placement }}"
+       tooltip-trigger="none"
+       ng-maxlength="{{ ::name.maxlength }}"
+       ng-pattern="'[a-zA-Z0-9]*'"/>

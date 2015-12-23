@@ -7,13 +7,12 @@
             <input
                 name="name"
                 ng-model="ctrl.newName"
-                ng-pattern="'[a-zA-Z0-9]*$'"
+                artifact-name-validation="bottom-left"
                 class="form-control"
                 id="widget-name"
                 placeholder="Widget Name"
                 required>
         </div>
-        <span ng-if="newWidget.name.$error.pattern" class="text-danger" translate>Widget names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-widget-controls">
         <button class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || ctrl.newName == ctrl.widget.name" translate>Save</button>

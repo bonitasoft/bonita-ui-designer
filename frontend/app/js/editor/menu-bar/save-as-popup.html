@@ -7,13 +7,12 @@
             <input
                 name="name"
                 ng-model="ctrl.newName"
-                ng-pattern="'[a-zA-Z0-9]*$'"
+                artifact-name-validation="bottom-left"
                 class="form-control"
                 id="page-name"
                 placeholder="{{ 'Page Name' | translate }}"
                 required>
         </div>
-        <span ng-if="newPage.name.$error.pattern" class="text-danger" translate>Page names must start with a letter and contain only alphanumeric characters</span>
     </div>
     <div class="modal-footer" id="modal-delete-page-controls">
         <button class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="!newPage.name.$dirty || newPage.$invalid || ctrl.newName == ctrl.page.name" translate>Save</button>

@@ -9,20 +9,14 @@
         </strong>
 
         <form name="formName" class="form-inline EditorHeader-form" autocomplete="off">
-            <div class="form-group tooltip-error"
-                 tooltip="{{ vm.mode + ' name should contains only alphanumeric characters with no space' | translate }} "
-                 tooltip-is-open="formName.name.$error.pattern"
-                 tooltip-placement="bottom"
-                 tooltip-trigger="none">
-                <input type="text" name="name"
-                       class="form-control EditorHeader-name"
-                       ng-pattern="'[a-zA-Z0-9]*$'"
-                       id="pageName"
-                       placeholder="{{ 'Enter ' +  vm.mode + ' name' | translate }}"
-                       ng-model="vm.page.name"
-                       ng-trim="false"
-                       required>
-            </div>
+            <input type="text" name="name"
+                   artifact-name-validation="bottom"
+                   class="form-control EditorHeader-name"
+                   id="pageName"
+                   placeholder="{{ 'Enter ' +  vm.mode + ' name' | translate }}"
+                   ng-model="vm.page.name"
+                   ng-trim="false"
+                   required>
             <div class="btn-group" dropdown>
                 <button id="save" type="button" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="vm.save(vm.page)" translate>
                     Save

@@ -20,13 +20,12 @@
                   ng-submit="artifactList.renameItem(artifact)"
                   ng-init="artifact.newName = artifact.name">
                 <input name="name"
+                       artifact-name-validation
                        data-autofocus
-                       ng-pattern="'[a-zA-Z0-9]*$'"
                        id="page-name-input-{{$index}}"
                        ng-model="artifact.newName"
                        ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
                        class="form-control" required>
-                <span ng-if="renameArtifact.name.$error.pattern" class="text-danger" translate>Name should contains only alphanumeric characters with no space</span>
             </form>
         </div>
         <div class="Artifact-actions">
