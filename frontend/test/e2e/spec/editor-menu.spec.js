@@ -5,6 +5,7 @@ describe('editor menu', function() {
   'use strict';
 
   var editor;
+
   it('should save a page', function() {
     editor = PageEditor.get('empty');
 

@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help</h3>
+</div>
+<div class="modal-body">
+    <uib-tabset class="tabs-left">
+        <uib-tab id="help-general" heading="{{ 'General' | translate }}">
+            <p translate>If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments.</p>
+            <p translate>Custom widget implementation is based on the AngularJS framework.</p>
+            <p translate>For more information, see the AngularJS guide on
+                <a href="https://docs.angularjs.org/guide/templates">templates</a> and
+                <a href="https://docs.angularjs.org/guide/controller">controllers</a>.</p>
+            <p translate>For the moment, you cannot implement custom widget containers.</p>
+            <p translate>Custom widgets are not clearly visible on the whiteboard but you can see them with the preview.</p>
+        </uib-tab>
+        <uib-tab id="help-template" heading="{{ 'Template' | translate }}">
+
+            <p translate>The custom widget HTML template is defined here.</p>
+
+            <p translate>You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system.</p>
+
+            <p translate>Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty.</p>
+
+            <p translate>Functions exposed in the controller can be used with ctrl.newFunction().</p>
+        </uib-tab>
+        <uib-tab id="help-controller" heading="{{ 'Controller' | translate }}">
+            <p translate>The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template.</p>
+
+            <p translate>Custom widget properties defined on the right can be used as variables in a controller with $scope.properties.</p>
+
+            <p translate>To use AngularJS standard services, you must declare them in the main function arguments.</p>
+
+            <p translate>You can leave the controller empty if you do not need it.</p>
+        </uib-tab>
+        <uid-l10n-help-tab></uid-l10n-help-tab>
+    </uib-tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
+</div>
