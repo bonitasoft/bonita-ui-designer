@@ -27,6 +27,15 @@ describe('custom widget editor', function() {
     element(by.cssContainingText('#type li', typeName)).click();
   }
 
+  it('should display help', function() {
+    $('.EditorHeader-help .btn').click();
+    expect($('li#help-general').isPresent()).toBeTruthy();
+    expect($('li#help-template').isPresent()).toBeTruthy();
+    expect($('li#help-controller').isPresent()).toBeTruthy();
+    $('.modal-header .close').click();
+    expect($('.modal-header').isPresent()).toBeFalsy();
+  });
+
   it('should not open a confirm dialog if there is no modification', function() {
     $('.EditorHeader-icon').click();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);

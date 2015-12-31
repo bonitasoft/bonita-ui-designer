@@ -3,8 +3,8 @@
     <h3 class="modal-title" translate>Help</h3>
 </div>
 <div class="modal-body">
-    <tabset class="tabs-left">
-        <tab heading="{{ 'Editor organization' | translate }}">
+    <uib-tabset class="tabs-left">
+        <uib-tab heading="{{ 'Editor organization' | translate }}">
 
             <p translate>Use the palette on the left to drag and drop containers and widgets in the whiteboard.</p>
 
@@ -16,9 +16,9 @@
             <p ng-if="pageEdition" translate>Add images, CSS or JavaScript resources to your pages in the Assets panel
                 at the bottom.</p>
 
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Rows' | translate }}">
+        <uib-tab heading="{{ 'Rows' | translate }}">
             <p>
                 <translate>The whiteboard is organized in <b>rows</b> that you can move up and down, or delete.
                 </translate>
@@ -30,18 +30,18 @@
                 </li>
             </ul>
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Widgets' | translate }}">
+        <uib-tab heading="{{ 'Widgets' | translate }}">
             <p translate>Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather
                 information from</b> the end users.</p>
 
             <p translate>Configure widgets using the <b>properties panel</b> on the right.</p>
 
             <p translate>You can also create <b>custom widgets</b> from the home page.</p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Containers' | translate }}">
+        <uib-tab heading="{{ 'Containers' | translate }}">
             <p translate>
                 You can group widgets into a container to define the arrangement of widgets in a form or a page. A
                 container can contain other containers.
@@ -62,16 +62,16 @@
                 <translate>You can save the content of a plain container as a reusable fragment.</translate>
             </p>
 
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Variables' | translate }}">
+        <uib-tab heading="{{ 'Variables' | translate }}">
             <p translate>
-                In the scope of a page, form, or layout, a variable can be used to handle business data, 
+                In the scope of a page, form, or layout, a variable can be used to handle business data,
                 or can contain structural information that determines how page elements behave.
             </p>
 
             <p translate>
-                Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, 
+                Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type,
                 described in the next section.
             </p>
 
@@ -82,13 +82,13 @@
                     to <i>exposed to the page</i>.
                 </translate>
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Properties' | translate }}">
+        <uib-tab heading="{{ 'Properties' | translate }}">
             <ng-include src="'js/editor/help/property-bond-help.html'"/>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Localization' | translate }}">
+        <uib-tab heading="{{ 'Localization' | translate }}">
             <h4 translate>Subscription edition</h4>
             <p translate>UI designer includes a mechanism to add translations for page elements, to support multi-language
                 pages. The text displayed in the preview and at runtime adapts to the locale or browser language
@@ -109,9 +109,9 @@
 
             <p translate>In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language
                 selected by the user, or in the default Portal language.</p>
-        </tab>
+        </uib-tab>
         <uid-responsive-help-tab></uid-responsive-help-tab>
-    </tabset>
+    </uib-tabset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
