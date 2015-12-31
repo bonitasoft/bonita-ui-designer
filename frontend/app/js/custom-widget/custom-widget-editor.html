@@ -1,9 +1,11 @@
 <div class="EditorHeader" role="navigation"  confirm-on-exit confirm-data="widget">
     <div class="EditorHeader-menu">
-        <a class="EditorHeader-back" ui-sref="designer.home" tooltip="{{ 'Home page' | translate }} "  tooltip-placement="right" tooltip-popup-delay="300">
+        <a class="EditorHeader-back" ng-click="back()" tooltip="{{ 'Back' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
             <i class="fa fa-chevron-left"></i>
         </a>
-        <i class="EditorHeader-icon ui-icon ui-designer"></i>
+        <a ui-sref="designer.home" class="EditorHeader-icon" tooltip="{{ 'Home page' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
+            <i class="ui-icon ui-designer"></i>
+        </a>
         <strong class="EditorHeader-brand" translate>
             Custom widget editor
         </strong>

@@ -135,7 +135,7 @@ var AssetPanel = require('./asset-panel.page');
     },
 
     back: function() {
-      $('.EditorHeader-back').click();
+      $('.EditorHeader-icon').click();
     }
   };
 

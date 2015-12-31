@@ -2,26 +2,30 @@
 
   'use strict';
 
-  angular
-    .module('bonitasoft.designer.editor.menu-bar')
-    .controller('MenuBarCtrl', MenuBarCtrl);
+  let _artifactRepo, _$uibModal, _$stateParams, _$state, _$window;
 
-  function MenuBarCtrl(mode, artifact, artifactRepo, $modal, $stateParams, $state, $window) {
-
-    var vm = this;
-    vm.mode = mode;
-    vm.page = artifact;
-    vm.save = save;
-    vm.saveAs = saveAs;
-    vm.saveAndExport = saveAndExport;
-    vm.openHelp = openHelp;
-
-    function save(page) {
-      return artifactRepo.save(page);
+  class MenuBarCtrl {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window) {
+      'ngInject';
+      this.mode = mode;
+      this.page = artifact;
+      _artifactRepo = artifactRepo;
+      _$uibModal = $uibModal;
+      _$stateParams = $stateParams;
+      _$state = $state;
+      _$window = $window;
     }
 
-    function saveAs(page) {
-      var modalInstance = $modal.open({
+    back() {
+      _$window.history.back();
+    }
+
+    save(page) {
+      return _artifactRepo.save(page);
+    }
+
+    saveAs(page) {
+      var modalInstance = _$uibModal.open({
         templateUrl: 'js/editor/menu-bar/save-as-popup.html',
         controller: 'SaveAsPopUpController',
         controllerAs: 'ctrl',
@@ -35,32 +39,33 @@
       modalInstance.result.then(saveDataAs).then(reload);
 
       function reload(data) {
-        $stateParams.id = data.id;
-        $state.go($state.current, $stateParams, {
+        _$stateParams.id = data.id;
+        _$state.go(_$state.current, _$stateParams, {
           reload: true
         });
       }
 
       function saveDataAs(data) {
-        return artifactRepo.create(data, page.id);
+        return _artifactRepo.create(data, page.id);
       }
     }
 
-    function saveAndExport(page) {
-      artifactRepo.save(page)
+    saveAndExport(page) {
+      _artifactRepo.save(page)
         .then(function() {
-          $window.location = artifactRepo.exportUrl(page);
+          _$window.location = _artifactRepo.exportUrl(page);
         });
     }
 
-    function openHelp() {
-      $modal.open({
+    openHelp() {
+      _$uibModal.open({
         templateUrl: 'js/editor/menu-bar/help-popup.html',
         size: 'lg',
         resolve: {
-          pageEdition: () => vm.mode === 'page'
+          pageEdition: () => this.mode === 'page'
         },
         controller: function($scope, $modalInstance, pageEdition) {
+          'ngInject';
           $scope.pageEdition = pageEdition;
           $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
@@ -69,5 +74,9 @@
       });
     }
   }
+
+  angular
+    .module('bonitasoft.designer.editor.menu-bar')
+    .controller('MenuBarCtrl', MenuBarCtrl);
 
 })();

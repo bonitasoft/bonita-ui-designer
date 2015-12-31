@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $modal, modalInstance;
+  var $scope, alerts, $q, widgetRepo, $modal, modalInstance, $window;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -12,7 +12,11 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $modalInstance) {
     $scope = $rootScope.$new();
-
+    $window = {
+      history: {
+        back: jasmine.createSpy()
+      }
+    };
     $q = _$q_;
     widgetRepo = _widgetRepo_;
     alerts = _alerts_;
@@ -20,14 +24,20 @@ describe('CustomWidgetEditorCtrl', function() {
     modalInstance = $modalInstance.create();
 
     $controller('CustomWidgetEditorCtrl', {
-      $scope: $scope,
-      $modal:  $modal,
+      $scope,
+      $modal,
       artifact: awesomeWidget,
       artifactRepo: widgetRepo,
-      $timeout: $timeout
+      $timeout,
+      $window
     });
 
   }));
+
+  it('should navigate back', function() {
+    $scope.back();
+    expect($window.history.back).toHaveBeenCalled();
+  });
 
   it('should update a property', function() {
     // given a param in the widget
