@@ -33,6 +33,7 @@
   height: @nav-bar-height;
   line-height: @nav-bar-height;
   width: 50px;
+  cursor: pointer;
 }
 
 .EditorHeader-back:hover {
@@ -48,6 +49,10 @@
   margin: 0 .6em;
   position: relative;
   top: -.08em;
+  &:hover{
+    color: @color-editor-header-text;
+    text-decoration: none;
+  }
 }
 
 .EditorHeader-brand {

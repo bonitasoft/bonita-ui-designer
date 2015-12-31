@@ -28,13 +28,13 @@ describe('custom widget editor', function() {
   }
 
   it('should not open a confirm dialog if there is no modification', function() {
-    $('.EditorHeader-back').click();
+    $('.EditorHeader-icon').click();
     expect(browser.getCurrentUrl()).toMatch(/\/home/);
   });
 
   it('should open a confirm dialog before going home', function() {
     element.all(by.model('widget.description')).sendKeys('update');
-    $('.EditorHeader-back').click();
+    $('.EditorHeader-icon').click();
 
     var dialog = switchToAlert();
     expect(dialog.accept).toBeDefined();
@@ -44,7 +44,7 @@ describe('custom widget editor', function() {
 
   it('should open a confirm dialog and stay on the same page if dismiss', function() {
     element.all(by.model('widget.description')).sendKeys('update');
-    $('.EditorHeader-back').click();
+    $('.EditorHeader-icon').click();
 
     var dialog = switchToAlert();
     expect(dialog.dismiss).toBeDefined();

@@ -3,24 +3,28 @@
   'use strict';
 
   describe('Menu bar controller', function() {
-    var pageRepo, scope, controller, $q, $window, $modal, modalInstance, $stateParams, $state;
+    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.menu-bar', 'mock.modal'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$modal_, $modalInstance, _$state_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $modalInstance, _$state_) {
       pageRepo = _pageRepo_;
       $q = _$q_;
-      $window = {};
+      $window = {
+        history: {
+          back: jasmine.createSpy()
+        }
+      };
       $stateParams = {};
       scope = $rootScope;
-      $modal = _$modal_;
+      $uibModal = _$uibModal_;
       $state = _$state_;
       modalInstance = $modalInstance.fake();
 
       controller = $controller('MenuBarCtrl', {
         $window: $window,
         selectedResolution: {},
-        $modal: $modal,
+        $uibModal: $uibModal,
         $stateParams: $stateParams,
         $state: $state,
         artifactRepo: pageRepo,
@@ -28,6 +32,12 @@
         mode: 'page'
       });
     }));
+
+    it('should navigate back', function() {
+      controller.back();
+
+      expect($window.history.back).toHaveBeenCalled();
+    });
 
     it('should save a page', function() {
       spyOn(pageRepo, 'save');
@@ -51,26 +61,26 @@
     });
 
     it('should open help pop up', function() {
-      spyOn($modal, 'open');
+      spyOn($uibModal, 'open');
 
       controller.openHelp();
 
-      expect($modal.open).toHaveBeenCalled();
-      expect($modal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/menu-bar/help-popup.html');
-      expect($modal.open.calls.mostRecent().args[0].size).toEqual('lg');
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/menu-bar/help-popup.html');
+      expect($uibModal.open.calls.mostRecent().args[0].size).toEqual('lg');
     });
 
     it('should save a page as ...', function() {
-      spyOn($modal, 'open').and.returnValue(modalInstance);
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
       spyOn($state, 'go');
       var page = { id: 'person' };
 
       controller.saveAs(page);
 
-      expect($modal.open).toHaveBeenCalled();
-      expect($modal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/menu-bar/save-as-popup.html');
-      expect($modal.open.calls.mostRecent().args[0].controller).toEqual('SaveAsPopUpController');
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/menu-bar/save-as-popup.html');
+      expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('SaveAsPopUpController');
 
       modalInstance.close(page);
       scope.$apply();

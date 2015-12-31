@@ -34,6 +34,10 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
     return propertyBond !== 'variable' && propertyBond !== 'interpolation';
   };
 
+  $scope.back = function() {
+    $window.history.back();
+  };
+
   /**
    * Updates the property
    * @param paramName the name of the property to update
@@ -113,9 +117,7 @@ angular.module('bonitasoft.designer.custom-widget').controller('CustomWidgetEdit
       templateUrl: 'js/custom-widget/create-property.html',
       controller: 'PropertyEditorPopupCtrl',
       resolve: {
-        param: function() {
-          return param;
-        }
+        param: () => param
       }
     });
 
