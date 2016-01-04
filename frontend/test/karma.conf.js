@@ -57,7 +57,10 @@ module.exports = function(config) {
     },
 
     'babelPreprocessor': {
-      options: { blacklist: ['spec.functionName'] }
+      options: {
+        blacklist: ['spec.functionName'],
+        retainLines: true
+      }
     },
 
     ngHtml2JsPreprocessor: {
