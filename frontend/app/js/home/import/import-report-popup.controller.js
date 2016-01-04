@@ -16,13 +16,11 @@
 
   'use strict';
 
-  let _$modalInstance, _importArtifactService;
-
   class ImportReportPopupController {
 
     constructor($modalInstance, importReport, importArtifactService) {
-      _$modalInstance = $modalInstance;
-      _importArtifactService = importArtifactService;
+      this.$modalInstance = $modalInstance;
+      this.importArtifactService = importArtifactService;
       this.report = importReport;
     }
 
@@ -31,8 +29,8 @@
     }
 
     forceImport() {
-      _importArtifactService.forceImport(this.report)
-        .then(_$modalInstance.close, _$modalInstance.dismiss);
+      this.importArtifactService.forceImport(this.report)
+        .then(this.$modalInstance.close, this.$modalInstance.dismiss);
     }
 
     hasDependencies() {
