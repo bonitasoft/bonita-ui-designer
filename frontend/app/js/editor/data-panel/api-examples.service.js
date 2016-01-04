@@ -73,7 +73,7 @@ angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', f
       },
       {
         description: gettextCatalog.getString('Call a business data (custom) query'),
-        url: '..API/bdm/businessData/<strong>{{businessDataType}}</strong>?q=<strong>{{queryName}}</strong>&p=0&c=10&f=<strong>{{filter}}</strong>',
+        url: '../API/bdm/businessData/<strong>{{businessDataType}}</strong>?q=<strong>{{queryName}}</strong>&p=0&c=10&f=<strong>{{filter}}</strong>',
         more: gettextCatalog.getString('Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = "myParam=myValue"')
       }
     ]
