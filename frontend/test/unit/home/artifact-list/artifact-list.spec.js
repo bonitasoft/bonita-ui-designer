@@ -104,7 +104,7 @@ describe('artifactListController', function() {
     $scope.artifacts = [];
     $scope.$apply();
 
-    expect(element.text().trim()).toBe('There is no artifact yet...');
+    expect(element.text().trim()).toBe('No artifact found.');
   });
 
   function rename(id, value) {
