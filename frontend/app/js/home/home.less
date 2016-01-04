@@ -1,16 +1,14 @@
-@home-header-height: 100px;
-
 body {
   background-color: #fcfcfc;
 }
 
 .HomeHeader {
   width: 100%;
-  height: @home-header-height;
+  height: @nav-bar-height;
   background-color: @color-header-home-bg;
   position: relative;
   text-align: center;
-  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+  box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
 }
 
 .HomeHeader:before {
@@ -26,7 +24,7 @@ body {
   top: 50%;
   left: 3.6em;
   transform: translate(0, -50%);
-  width: 15%;
+  width: 8%;
   max-width: 250px;
   min-width: 80px;
 
@@ -42,7 +40,7 @@ body {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
-  font-size: 2vw;
+  font-size: 1.4em;
   max-width: 50%;
 }
 
@@ -183,7 +181,6 @@ body {
 
 .Artifact-link span {
   padding: .7em;
-  font-size: 1.2em;
   width: 100%;
   display: table-cell;
   white-space: nowrap;
@@ -207,7 +204,6 @@ body {
   padding: 1em;
   color: @gray-light;
   text-align: center;
-  font-size: 1.2em;
 }
 
 .Artifact-link::after {
@@ -319,18 +315,30 @@ body {
   left: -1px;
 }
 
-.HomeFilters-form {
-  padding-bottom: 0.5em;
-  max-width: 30em;
-  margin: 0 auto;
+.Home-search {
+  width: 100%;
+  margin: 1em auto;
+
+  @media (min-width: @screen-sm-min) {
+    margin: 0 auto;
+    width: 35%;
+  }
 }
 
-.HomeFilters-form .radio label {
+.Home-search .radio label {
   padding-left: 8px;
 }
 
+.Home-buttons {
+  @media (min-width: @screen-sm-min) {
+    float: left;
+  }
+}
+
 .Home-toolbar {
-  margin-bottom: 10px;
+  @media (min-width: @screen-sm-min) {
+    margin: 1em 0 2.5em 0;
+  }
 }
 
 .Favorite-section {

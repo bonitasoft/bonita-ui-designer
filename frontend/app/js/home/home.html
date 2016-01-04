@@ -9,18 +9,14 @@
     </div>
 </header>
 <div class="container container--Home">
-    <div class="row">
-        <div class="col-xs-12">
-            <form class="HomeFilters-form" role="search">
-                <div class="form-group">
-                    <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>
-                </div>
-            </form>
-        </div>
-        <div class="col-xs-12 Home-toolbar">
+    <div class="row Home-toolbar">
+        <div class="Home-buttons">
             <uid-create-artifact></uid-create-artifact>
             <uid-import-artifact></uid-import-artifact>
         </div>
+        <form class="Home-search" role="search">
+            <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>
+        </form>
     </div>
 
     <div class="row row--Home">
