@@ -3,6 +3,10 @@ describe('Service: modelFactory', function() {
   beforeEach(module('bonitasoft.ui.services'));
 
   var dataModel, template, scope, $httpBackend, $compile, $location, $browser, modelFactory, data = {
+      william: {
+        type: 'constant',
+        value: 'william'
+      },
       foo: {
         type: 'variable',
         value: 'bar'
@@ -34,6 +38,10 @@ describe('Service: modelFactory', function() {
       arrayExpression: {
         type: 'expression',
         value: 'return ["pierre", "paul", "jack"];'
+      },
+      dateExpressionWithDependencies: {
+        type: 'expression',
+        value: 'return { dob: Date.now(), name: $data.william }'
       }
     },
     expectedHeaders = {
@@ -44,7 +52,7 @@ describe('Service: modelFactory', function() {
   beforeEach(inject(function(_modelFactory_, $rootScope, _$compile_, _$httpBackend_, _$location_, _$browser_) {
     $location = _$location_;
     $location.absUrl = function() {
-      return "http://domain.tld?toto=bob&time=123";
+      return 'http://domain.tld?toto=bob&time=123';
     };
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
@@ -57,7 +65,7 @@ describe('Service: modelFactory', function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
-  describe('sync data', function() {
+  describe('data without dependencies', function() {
     beforeEach(function() {
       dataModel = modelFactory.create(data);
       scope.properties = dataModel;
@@ -112,7 +120,7 @@ describe('Service: modelFactory', function() {
   });
 
 
-  describe('async data', function() {
+  describe('data with dependencies', function() {
     beforeEach(function() {
       data.localBar = {
         type: 'url',
@@ -128,7 +136,7 @@ describe('Service: modelFactory', function() {
     });
     it('should make a call to the url when accessing data for the first time', function() {
       $httpBackend.whenGET('../API/system/session/unusedId').respond(500, '');
-      $httpBackend.whenGET('/bonita/bar/foo').respond(200, "foobar");
+      $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
       $httpBackend.expectGET('https://some.url.com/rest/bar/foo', {
         'Accept': expectedHeaders.Accept
       }).respond(200, ['foo', 'bar', 'baz']);
@@ -141,34 +149,33 @@ describe('Service: modelFactory', function() {
       $httpBackend.whenGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
       //setting the cookie this way will set on default page which is on localhost:90XX/
       $browser.cookies()['X-Bonita-API-Token'] = 'CSRF_Generated_Token';
-      $httpBackend.expectGET('/bonita/bar/foo', expectedHeaders).respond(200, "foobar");
+      $httpBackend.expectGET('/bonita/bar/foo', expectedHeaders).respond(200, 'foobar');
       expect(dataModel.localBar).toBeUndefined();
       $httpBackend.flush();
       expect(dataModel.localBar).toEqual('foobar');
     });
     it('should make a call to the url when url change without CSRF Token', function() {
       $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
-      $httpBackend.whenGET('/bonita/bar/foo').respond(200, "foobar");
+      $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
       //setting the cookie this way will set on default page which is on localhost:90XX/
       $browser.cookies()['X-Bonita-API-Token'] = 'CSRF_Generated_Token';
       //CSRF Header should not be inserted because we are not on the same domain
       $httpBackend.expectGET('https://some.url.com/rest/bar/foo', {
         'Accept': expectedHeaders.Accept
-      }).respond(200, "foobar");
+      }).respond(200, 'foobar');
       expect(dataModel.bar).toBeUndefined();
       $httpBackend.flush();
 
-
       $httpBackend.expectGET('https://some.url.com/rest/baz/foo', {
         'Accept': expectedHeaders.Accept
-      }).respond(200, "foobaz");
-      $httpBackend.whenGET('/bonita/baz/foo').respond(200, "foobar");
+      }).respond(200, 'foobaz');
+      $httpBackend.whenGET('/bonita/baz/foo').respond(200, 'foobar');
 
       dataModel.foo = 'baz';
       expect(dataModel.bar).toEqual('foobar');
       $httpBackend.flush();
 
-      expect(dataModel.bar).toEqual("foobaz");
+      expect(dataModel.bar).toEqual('foobaz');
     });
 
     it('should not make a call to the url when data is undefined', function() {
@@ -179,7 +186,7 @@ describe('Service: modelFactory', function() {
 
     xit('should not make a call to the url when data is null', function() {
       $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
-      $httpBackend.whenGET('/bonita/bar/foo').respond(200, "foobar");
+      $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
       $httpBackend.whenGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
       dataModel.foo = null;
 
@@ -187,11 +194,32 @@ describe('Service: modelFactory', function() {
       $httpBackend.flush();
     });
 
+    describe('date in init', () => {
+      let williamAndDate;
+      beforeEach(() => {
+        $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
+        $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
+        $httpBackend.whenGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
+
+        $httpBackend.flush();
+        scope.$apply();
+        williamAndDate = dataModel.dateExpressionWithDependencies;
+      });
+      beforeEach(done =>
+        setTimeout(() => done(),100)
+      );
+      it('should stay the same since depencencies have not been updated', done => {
+        scope.$apply();
+        expect(dataModel.dateExpressionWithDependencies).toEqual(williamAndDate);
+        done();
+      });
+    });
+
     it('should make a call to the url and update template once fulfilled', function() {
       $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '', {
         'X-Bonita-API-Token': 'CSRF_Generated_Token'
       });
-      $httpBackend.whenGET('/bonita/bar/foo').respond(200, "foobar");
+      $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
       $httpBackend.expectGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
       var template = $compile('<div>{{ properties.bar }}</div>')(scope);
       scope.$apply();

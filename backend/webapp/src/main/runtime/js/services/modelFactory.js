@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function modelFactory($q, $rootScope, ResolverService) {
+  function modelFactory($q, ResolverService) {
 
     return {
       create: function(data) {
