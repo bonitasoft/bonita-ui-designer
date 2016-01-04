@@ -15,13 +15,11 @@
 (function() {
   'use strict';
 
-  let _$modal, _$scope, _importArtifactService;
-
   class ImportArtifactCtrl {
     constructor($modal, $scope, importArtifactService) {
-      _$modal = $modal;
-      _$scope = $scope;
-      _importArtifactService = importArtifactService;
+      this.$modal = $modal;
+      this.$scope = $scope;
+      this.importArtifactService = importArtifactService;
 
       this.type = 'artifact';
       this.url = 'import/artifact';
@@ -35,16 +33,16 @@
     }
 
     onComplete(response) {
-      var importPromise = _importArtifactService
+      var importPromise = this.importArtifactService
         .manageImportResponse(this.type, true, response);
 
       importPromise.finally(() => this.close());
       importPromise.then((importReport) => (!!importReport) && this.manageImportReport(importReport))
-        .then(_$scope.refreshAll);
+        .then(this.$scope.refreshAll);
     }
 
     manageImportReport(importReport) {
-      return _$modal.open({
+      return this.$modal.open({
         templateUrl: 'js/home/import/import-report-popup.html',
         controller: 'ImportReportPopupController',
         controllerAs: 'importReport',

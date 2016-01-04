@@ -16,13 +16,11 @@
 
   'use strict';
 
-  let _repositories, _$state, _$scope;
-
   class CreateArtifactCtrl {
     constructor($scope, repositories, $state, artifactFactories) {
-      _repositories = repositories;
-      _$state = $state;
-      _$scope = $scope;
+      this.repositories = repositories;
+      this.$state = $state;
+      this.$scope = $scope;
       this.types = artifactFactories.getFactories();
       this.type = this.types.page;
     }
@@ -33,14 +31,14 @@
 
     isNameUniqueIfRelevantForType(name, type) {
       return type.hasUniqueName &&
-          (_$scope.artifacts || [])
+          (this.$scope.artifacts || [])
             .filter(item => item.type === type.key)
             .some(item => item.name === name);
     }
 
     create(type, name) {
-      _repositories.get(type.key).create(type.create(name)).then(data =>
-        _$state.go(`designer.${type.key}`, {
+      this.repositories.get(type.key).create(type.create(name)).then(data =>
+        this.$state.go(`designer.${type.key}`, {
           id: data.id
         }));
     }
