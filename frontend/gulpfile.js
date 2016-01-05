@@ -25,7 +25,8 @@ var paths = {
     'app/bower_components/stomp-websocket/lib/stomp.min.js',
     'app/bower_components/sockjs/sockjs.min.js',
     'app/bower_components/keymaster/keymaster.js',
-    'app/bower_components/angular-moment/angular-moment.min.js'
+    'app/bower_components/angular-moment/angular-moment.min.js',
+    'app/bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js'
   ],
   jsFolder: 'app/js',
   js: [
@@ -68,7 +69,17 @@ var paths = {
     favicon: [
       'app/favicon.ico'
     ]
-  }
+  },
+  locales: [
+    'de',
+    'en',
+    'es-ES',
+    'fr',
+    'it',
+    'ja',
+    'pt-BR',
+    'ru'
+  ].map((lang) => `node_modules/angular-i18n/angular-locale_${lang}.js`)
 };
 
 var banner = [
@@ -103,11 +114,11 @@ require('./gulp/serve.js')(gulp, config);
 /**
  * Aliasing dev task
  */
-gulp.task('serve', function () {
+gulp.task('serve', function() {
   gulp.start('dev');
 });
 
-gulp.task('default', ['clean', 'ddescriber'], function () {
+gulp.task('default', ['clean', 'ddescriber'], function() {
   gulp.start(['test', 'build']);
 });
 

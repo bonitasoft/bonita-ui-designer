@@ -52,7 +52,12 @@ module.exports = function (gulp, config) {
   /**
    * Assets
    */
-  gulp.task('assets', ['assets:font', 'assets:ace', 'assets:images', 'assets:licences', 'assets:favicon']);
+  gulp.task('assets', ['assets:font', 'assets:ace', 'assets:images', 'assets:licences', 'assets:favicon', 'assets:locales']);
+
+  gulp.task('assets:locales', function () {
+    return gulp.src(paths.locales)
+      .pipe(gulp.dest(paths.dist + '/locales'));
+  });
 
   gulp.task('assets:font', function () {
     return gulp.src(paths.assets.fonts)

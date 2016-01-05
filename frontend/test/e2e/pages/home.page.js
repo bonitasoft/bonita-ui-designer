@@ -7,30 +7,30 @@ export default class Home {
 
   getListedPageNames() {
     this.openTab('page');
-    return $$('.Artifact-section .ArtifactList-page').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-page .Artifact-name').map((element) => element.getText());
   }
 
   getFavoritePageNames() {
-    return $$('.Favorite-section .ArtifactList-page').map((element) => element.getText());
+    return $$('.Favorite-section .ArtifactList-page .Artifact-name').map((element) => element.getText());
   }
 
   getListedWidgetNames() {
     this.openTab('widget');
-    return $$('.Artifact-section .ArtifactList-widget').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-widget .Artifact-name').map((element) => element.getText());
   }
 
   getFavoriteWidgetNames() {
-    return $$('.Favorite-section .ArtifactList-widget').map((element) => element.getText());
+    return $$('.Favorite-section .ArtifactList-widget .Artifact-name').map((element) => element.getText());
   }
 
   getListedFormNames() {
     this.openTab('form');
-    return $$('.Artifact-section .ArtifactList-form').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-form .Artifact-name').map((element) => element.getText());
   }
 
   getListedLayoutNames() {
     this.openTab('layout');
-    return $$('.Artifact-section .ArtifactList-layout').map((element) => element.getText());
+    return $$('.Artifact-section .ArtifactList-layout .Artifact-name').map((element) => element.getText());
   }
 
   search(term) {

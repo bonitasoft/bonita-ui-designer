@@ -3,16 +3,19 @@
 </p>
 
 <ul class="ArtifactList">
-    <li class="ArtifactList-item ArtifactList-item--primary ArtifactList-{{ artifact.type }}"
-        id="{{ artifact.id }}"
+    <li class="ArtifactList-item ArtifactList-item--primary ArtifactList-{{:: artifact.type }}"
+        id="{{:: artifact.id }}"
         ng-repeat="artifact in artifactList.all">
         <div class="Artifact-info">
-            <a ng-if="!artifactList.isInEditionMode($index)" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
+            <a ng-if="!artifactList.isInEditionMode($index)" ui-sref="designer.{{:: artifact.type }}({id: artifact.id})"
                class="Artifact-link Artifact-link--primary">
-                        <span title="{{ artifact.name }}">
-                            <i class="ui-icon ui-{{ artifact.type }}s Artifact-icon" title="{{ artifact.type | translate }}"></i>
-                            {{ artifact.name }}
-                        </span>
+                <i class="ui-icon ui-{{:: artifact.type }}s Artifact-icon"
+                   title="{{:: artifact.type | translate }}"></i>
+                <span title="{{:: artifact.name }}" class="Artifact-text">
+                    <span class="Artifact-name">{{:: artifact.name }}</span>
+                    <span class="Artifact-metadata"
+                          translate>Last update: {{:: artifact.lastUpdate | date:'short' }}</span>
+                </span>
             </a>
 
             <form name="renameArtifact" class="Artifact-form"
@@ -22,7 +25,7 @@
                 <input name="name"
                        artifact-name-validation
                        data-autofocus
-                       id="page-name-input-{{$index}}"
+                       id="page-name-input-{{:: $index }}"
                        ng-model="artifact.newName"
                        ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
                        class="form-control" required>
@@ -32,19 +35,21 @@
             <button class="Artifact-button Artifact-button--primary Artifact-rename"
                     ng-click="artifactList.toggleItemEdition($index)"
                     type="button"
-                    title="{{'Rename' | translate}}"
+                    title="{{:: 'Rename' | translate}}"
                     ng-if="artifactList.getRepository(artifact.type).rename">
                 <i class="fa fa-pencil"></i>
             </button>
-            <favorite-button artifact-repository="artifactList.getRepository(artifact.type)" artifact="artifact"></favorite-button>
+            <favorite-button artifact-repository="::artifactList.getRepository(artifact.type)"
+                             artifact="artifact"></favorite-button>
             <button file-download class="Artifact-button Artifact-button--primary Artifact-export"
-                    href="{{ artifactList.getRepository(artifact.type).exportUrl(artifact) }}" title="{{'Export' | translate }}">
+                    href="{{:: artifactList.getRepository(artifact.type).exportUrl(artifact) }}"
+                    title="{{:: 'Export' | translate }}">
                 <i class="ui-icon ui-export"></i>
             </button>
             <button class="Artifact-button Artifact-button--primary Artifact-delete"
                     type="button"
                     ng-click="artifactList.deleteArtifact(artifact)"
-                    title="{{'Delete' | translate }}">
+                    title="{{:: 'Delete' | translate }}">
                 <i class="fa fa-trash"></i>
             </button>
         </div>

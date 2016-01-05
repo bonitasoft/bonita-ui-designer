@@ -30,6 +30,7 @@ module.exports = function(config) {
       'app/bower_components/moment/min/moment.min.js',
       'app/bower_components/angular-moment/angular-moment.min.js',
       'app/bower_components/keymaster/keymaster.js',
+      'app/bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js',
 
       'app/js/**/*.module.js',
       'app/js/**/*.js',
