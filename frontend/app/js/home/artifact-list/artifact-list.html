@@ -10,7 +10,7 @@
             <a ng-if="!artifactList.isInEditionMode($index)" ui-sref="designer.{{artifact.type}}({id: artifact.id})"
                class="Artifact-link Artifact-link--primary">
                         <span title="{{ artifact.name }}">
-                            <i class="ui-icon ui-{{ artifact.type }}s Artifact-icon"></i>
+                            <i class="ui-icon ui-{{ artifact.type }}s Artifact-icon" title="{{ artifact.type | translate }}"></i>
                             {{ artifact.name }}
                         </span>
             </a>
@@ -44,7 +44,7 @@
             <button class="Artifact-button Artifact-button--primary Artifact-delete"
                     type="button"
                     ng-click="artifactList.deleteArtifact(artifact)"
-                    title="{{'Delete' | translate }} {{ artifact.name }}">
+                    title="{{'Delete' | translate }}">
                 <i class="fa fa-trash"></i>
             </button>
         </div>
