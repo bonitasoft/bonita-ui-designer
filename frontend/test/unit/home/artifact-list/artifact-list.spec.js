@@ -37,7 +37,7 @@ describe('artifactListController', function() {
   }));
 
   it('should list all artifacts', function() {
-    expect([].map.call(element.find('li span'), (artifact) => artifact.innerText.trim()))
+    expect([].map.call(element.find('li .Artifact-name'), (artifact) => artifact.innerText.trim()))
       .toEqual(['Page 1', 'Widget 1']);
   });
 

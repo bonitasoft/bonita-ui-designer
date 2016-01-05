@@ -17,14 +17,17 @@
   'use strict';
 
   angular
-    .module('app.route', [])
+    .module('app.route', ['tmh.dynamicLocale'])
+    .config((tmhDynamicLocaleProvider) => {
+      tmhDynamicLocaleProvider.localeLocationPattern('/locales/angular-locale_{{locale}}.js');
+    })
     .constant('appStates', {
       'designer': {
         abstract: true,
         url: '/:lang',
         template: '<ui-view></ui-view>',
         resolve: { /* @ngInject */
-          language: function($stateParams, gettextCatalog) {
+          language: function($stateParams, gettextCatalog, tmhDynamicLocale) {
             var languages = {
               'en': { lang: 'en' },
               'fr': { lang: 'fr', file: 'lang-template-fr-FR.json' },
@@ -43,6 +46,7 @@
             })];
             gettextCatalog.setCurrentLanguage(language.lang);
             if (language !== languages.en) {
+              tmhDynamicLocale.set(language.lang);
               return gettextCatalog.loadRemote('i18n/' + language.file);
             }
           }
