@@ -15,33 +15,48 @@
 /**
  * The home page controller, listing the existing pages, widgets
  */
-angular.module('bonitasoft.designer.home').controller('HomeCtrl', function($scope, $modal, artifactStore, artifactFactories) {
+(function() {
+  'use strict';
 
-  /**
-   * When something is deleted, we need to refresh every collection,
-   * because we can maybe delete a component we couldn't previously
-   * example :
-   *   custom widget <hello> was used in page <person>, so we could not delete it.
-   *   if <hello> is deleted, now we can delete <person>
-   * @returns {Promise}
-   */
-  $scope.refreshAll = () => artifactStore.load()
-    .then((artifacts) => $scope.artifacts = artifacts);
+  class HomeCtrl {
+    constructor($scope, $modal, artifactStore, artifactFactories, $filter) {
 
-  $scope.openHelp = function() {
-    $modal.open({
-      templateUrl: 'js/home/help-popup.html',
-      size: 'lg',
-      controller: function($scope, $modalInstance) {
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
+      $scope.artifacts = {};
+
+      /**
+       * When something is deleted, we need to refresh every collection,
+       * because we can maybe delete a component we couldn't previously
+       * example :
+       *   custom widget <hello> was used in page <person>, so we could not delete it.
+       *   if <hello> is deleted, now we can delete <person>
+       * @returns {Promise}
+       */
+      $scope.refreshAll = () => artifactStore.load()
+        .then((artifacts) => $scope.artifacts.all = artifacts)
+        .then(filterArtifacts);
+
+      $scope.openHelp = () => $modal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
+
+      let factories = artifactFactories.getFactories();
+      $scope.types = Object.keys(factories).map((key) => ({
+        id: key,
+        name: factories[key].filterName
+      }));
+
+      $scope.search = '';
+      $scope.$watch('search', () => filterArtifacts($scope.artifacts.all));
+      $scope.refreshAll();
+
+      function filterArtifacts(artifacts) {
+        $scope.types.forEach((type) => $scope.artifacts[type.id] = $filter('filter')(artifacts || [], {
+          name: $scope.search,
+          type: type.id
+        }));
       }
-    });
-  };
+    }
+  }
 
-  $scope.factories = artifactFactories.getFactories();
-
-  $scope.search = '';
-  $scope.refreshAll();
-});
+  angular
+    .module('bonitasoft.designer.home')
+    .controller('HomeCtrl', HomeCtrl);
+})();

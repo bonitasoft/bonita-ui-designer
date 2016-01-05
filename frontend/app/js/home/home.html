@@ -11,7 +11,7 @@
 <div class="container container--Home">
     <div class="row Home-toolbar">
         <div class="Home-buttons">
-            <uid-create-artifact></uid-create-artifact>
+            <uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>
             <uid-import-artifact></uid-import-artifact>
         </div>
         <form class="Home-search" role="search">
@@ -22,17 +22,23 @@
     <div class="row row--Home">
         <section class="col-sm-5 Favorite-section">
             <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
-            <artifact-list artifacts="artifacts | filter:{name: search, favorite: 'true'} | orderBy:'-lastUpdate'"
+            <artifact-list artifacts="artifacts.all | filter:{name: search, favorite: 'true'} | orderBy:'-lastUpdate'"
                            refresh-all="refreshAll"></artifact-list>
         </section>
 
         <section class="col-sm-7 Artifact-section">
             <uib-tabset>
-                <uib-tab ng-repeat="factory in factories">
-                    <uib-tab-heading class="tab-{{factory.key}}">
-                        {{ factory.value | translate }}
+                <uib-tab ng-repeat="type in types">
+                    <uib-tab-heading class="tab-{{type.id}}">
+                        {{ type.name | translate }}
+                        <span class="badge ArtifactSection-badge"
+                              ng-class="{'ArtifactSection-badge--hasResults': search && artifacts[type.id].length}">
+                            {{ artifacts[type.id].length }}
+                        </span>
                     </uib-tab-heading>
-                    <artifact-list artifacts="artifacts | filter:{name: search, type: factory.key} | orderBy:'-lastUpdate'" refresh-all="refreshAll"></artifact-list>
+                    <artifact-list
+                        artifacts="artifacts[type.id] | orderBy:'-lastUpdate'"
+                        refresh-all="refreshAll"></artifact-list>
                 </uib-tab>
             </uib-tabset>
         </section>

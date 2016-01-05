@@ -20,31 +20,35 @@
   'use strict';
 
   class ArtifactFactories {
-    constructor() {
+    constructor(gettext) {
       this.factories = {
         page: {
           key: 'page',
           state: 'page',
-          value: 'Application page',
+          value: gettext('Application page'),
+          filterName: gettext('Pages'),
           create: name => this.createPage(name, 'page')
         },
         form: {
           key: 'form',
           state: 'page',
-          value: 'Process form',
-          tooltip: 'Forms should be created from process at pool level (for process instantiation) or human task level.',
+          value: gettext('Process form'),
+          tooltip: gettext('Forms should be created from process at pool level (for process instantiation) or human task level.'),
+          filterName: gettext('Forms'),
           create: name => this.createPage(name, 'form')
         },
         layout: {
           key: 'layout',
           state: 'page',
-          value: 'Application layout',
+          value: gettext('Application layout'),
+          filterName: gettext('Layouts'),
           create: name => this.createPage(name, 'layout')
         },
         widget: {
           key: 'widget',
           state: 'widget',
-          value: 'Custom widget',
+          value: gettext('Custom widget'),
+          filterName: gettext('Custom widgets'),
           create: name => this.createWidget(name),
           hasUniqueName: true
         }
@@ -103,6 +107,6 @@
   }
   angular
     .module('bonitasoft.designer.home')
-    .factory('artifactFactories', () => new ArtifactFactories());
+    .factory('artifactFactories', (gettext) => new ArtifactFactories(gettext));
 
 })();

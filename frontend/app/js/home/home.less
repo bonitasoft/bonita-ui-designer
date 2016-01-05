@@ -216,6 +216,27 @@ body {
   }
 }
 
+.Artifact-section {
+  .nav-tabs {
+    font-size: 0.9em;
+    li > a {
+      text-decoration: none;
+      color: #333333;
+      padding: 10px;
+    }
+    .ArtifactSection-badge {
+      margin-top: -2px;
+      color: #777;
+      background-color: #EEE;
+    }
+
+    .ArtifactSection-badge--hasResults {
+      color: #fff;
+      background-color: @color-primary-panel-item-action-icon;
+    }
+  }
+}
+
 .Home-toolbar {
   @media (min-width: @screen-sm-min) {
     margin: 1em 0 2.5em 0;

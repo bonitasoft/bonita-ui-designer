@@ -198,15 +198,30 @@ describe('home page', function() {
   });
 
   it('should filter widgets, pages and fragment by name', function() {
+    expect(home.getTabCounter('page')).toEqual('2');
+    expect(home.getTabCounter('widget')).toEqual('2');
+    expect(home.getTabCounter('layout')).toEqual('1');
+    expect(home.getTabCounter('form')).toEqual('1');
     home.search('noWidgetNoPagesAndNoFragmentHasANameLikeThat');
     expect(home.getListedPageNames()).toEqual([]);
     expect(home.getListedWidgetNames()).toEqual([]);
+    expect(home.getListedLayoutNames()).toEqual([]);
+    expect(home.getListedFormNames()).toEqual([]);
     expect(home.getFavoritePageNames()).toEqual([]);
     expect(home.getFavoriteWidgetNames()).toEqual([]);
+    expect(home.getTabCounter('page')).toEqual('0');
+    expect(home.getTabCounter('widget')).toEqual('0');
+    expect(home.getTabCounter('layout')).toEqual('0');
+    expect(home.getTabCounter('form')).toEqual('0');
 
     home.search('so');   // 'so' is contained by 'PerSOn' and 'aweSOmeWidget'
     expect(home.getFavoritePageNames()).toEqual(['Person']);
     expect(home.getListedWidgetNames()).toEqual(['awesomeWidget']);
+    expect(home.getTabCounter('page')).toEqual('1');
+    expect(home.getTabCounter('widget')).toEqual('1');
+    expect(home.getTabCounter('layout')).toEqual('0');
+    expect(home.getTabCounter('form')).toEqual('0');
+
   });
 
   it('should mark a page as favorite', function() {

@@ -1,9 +1,16 @@
 describe('HomeCtrl', function() {
   var $scope, $q, artifactStore, controller, filter;
-  var artifacts = [
-    { id: 'page1', name: 'Page 1' },
-    { id: 'widget1', name: 'Widget 1', custom: true, favorite: false },
-    { id: 'page2', name: 'Page 2', favorite: true }];
+
+  var pages = [
+    { id: 'page1', name: 'Page 1', type: 'page' },
+    { id: 'page2', name: 'Page 2', type: 'page', favorite: true }
+  ];
+
+  var widgets = [
+    { id: 'widget1', name: 'Widget 1', type: 'widget', custom: true, favorite: false }
+  ];
+
+  var artifacts = [...pages, ...widgets];
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
   beforeEach(inject(function($controller, $rootScope, $injector) {
@@ -23,7 +30,12 @@ describe('HomeCtrl', function() {
     $scope.refreshAll();
     $scope.$apply();
 
-    expect($scope.artifacts).toEqual(artifacts);
+    expect($scope.artifacts).toEqual({
+      all: artifacts,
+      page: pages,
+      widget: widgets,
+      form: [],
+      layout: []
+    });
   });
-
 });
