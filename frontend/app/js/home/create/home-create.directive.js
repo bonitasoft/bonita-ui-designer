@@ -31,7 +31,7 @@
 
     isNameUniqueIfRelevantForType(name, type) {
       return type.hasUniqueName &&
-          (this.$scope.artifacts || [])
+          (this.artifacts || [])
             .filter(item => item.type === type.key)
             .some(item => item.name === name);
     }
@@ -51,7 +51,9 @@
       require: '^HomeCtrl',
       templateUrl: 'js/home/create/home-create.html',
       controller: CreateArtifactCtrl,
-      bindToController: true,
+      bindToController: {
+        artifacts: '='
+      },
       controllerAs: 'createCtrl'
     }));
 

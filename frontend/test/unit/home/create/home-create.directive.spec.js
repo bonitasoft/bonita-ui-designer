@@ -13,9 +13,11 @@ describe('home create button', () => {
     $scope = $rootScope.$new();
     $scope.refreshAll = jasmine.createSpy('refreshAll');
     $scope.filters = {};
-    $scope.artifacts = [{ name: 'test', type: 'widget' }, { name: 'bontia', type: 'page' }];
+    $scope.artifacts = {
+      all: [{ name: 'test', type: 'widget' }, { name: 'bontia', type: 'page' }]
+    };
 
-    element = $compile('<uid-create-artifact></uid-create-artifact>')($scope);
+    element = $compile('<uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>')($scope);
     $scope.$apply();
     controller = element.controller('uidCreateArtifact');
   }));
