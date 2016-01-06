@@ -43,7 +43,7 @@
     "jasmine-reporters": "~1.0.1",
     "jscs-preset-bonita": "1.0.2",
     "jshint-stylish": "~1.0.0",
-    "karma": "~0.12.23",
+    "karma": "0.13.19",
     "karma-babel-preprocessor": "5.2.2",
     "karma-chrome-launcher": "~0.1.4",
     "karma-cli": "0.0.4",
