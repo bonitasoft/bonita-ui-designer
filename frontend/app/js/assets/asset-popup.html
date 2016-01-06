@@ -1,4 +1,6 @@
-<form action="{{vm.assetSavingAction}}" novalidate name="addAsset" ng-upload="vm.onComplete(content)">
+<form name="addAsset" action="{{vm.assetSavingAction}}" novalidate
+      ng-submit="vm.saveExternalAsset(vm.newAsset, $event)"
+      ng-upload="vm.onComplete(content)">
 
     <div class="modal-header">
         <h3 class="modal-title" ng-if="vm.isNewAsset" translate>Add a new asset</h3>
@@ -17,14 +19,7 @@
 
     <div class="modal-footer">
         <button class="btn btn-primary"
-                ng-if="!vm.isExternalAsset(vm.newAsset)"
-                ng-disabled="!addAsset.$valid">
-            {{ vm.isNewAsset ? 'Add': 'Save' | translate }}
-        </button>
-        <button class="btn btn-primary" type="button"
-                ng-if="vm.isExternalAsset(vm.newAsset)"
-                ng-click="vm.saveExternalAsset(vm.newAsset)"
-                ng-disabled="!addAsset.$valid || vm.isExisting(vm.newAsset)">
+                ng-disabled="!addAsset.$valid || (vm.isExternalAsset(vm.newAsset) && vm.isExisting(vm.newAsset))">
             {{ vm.isNewAsset ? 'Add': 'Save' | translate }}
         </button>
         <button class="btn btn-link" type="button" ng-click="vm.cancel()" translate>Cancel</button>
