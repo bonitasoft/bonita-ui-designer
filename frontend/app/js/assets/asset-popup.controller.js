@@ -52,8 +52,12 @@
     /**
      * An external asset is saved by a $http call
      */
-    function saveExternalAsset(data) {
-      artifactRepo.createAsset(artifact.id, assetsService.formToAsset(data)).then($modalInstance.close);
+    function saveExternalAsset(formAsset, $event) {
+      if (assetsService.isExternal(formAsset)) {
+        artifactRepo.createAsset(artifact.id, assetsService.formToAsset(formAsset)).then($modalInstance.close);
+        $event.preventDefault(); //preventing native form action execution
+      }
+      // else nothing to do, form will be submitted as standard multipart/form-data form
     }
 
     function hasError(response) {

@@ -82,12 +82,25 @@ describe('AssetPopupCtrl', function() {
   });
 
   it('should send external data to the caller when user want to save it', function() {
-    var data = { name: 'myasset.js' };
+    var data = { name: 'myasset.js', source: 'external'};
     spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
+    let event = jasmine.createSpyObj('event', ['preventDefault']);
 
-    controller.saveExternalAsset(data);
+    controller.saveExternalAsset(data, event);
 
     expect(artifactRepo.createAsset).toHaveBeenCalled();
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should not save a non external asset', function() {
+    var data = { name: 'myasset.js', source: 'local'};
+    spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
+    let event = jasmine.createSpyObj('event', ['preventDefault']);
+
+    controller.saveExternalAsset(data, event);
+
+    expect(artifactRepo.createAsset).not.toHaveBeenCalled();
+    expect(event.preventDefault).not.toHaveBeenCalled();
   });
 
   it('should expose asset types to the scope', function() {
