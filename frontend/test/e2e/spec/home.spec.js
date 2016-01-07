@@ -26,6 +26,8 @@ describe('home page', function() {
     $$('.ArtifactList-page a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    $('.EditorHeader-icon').click();
+    expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
   it('should navigate to a widget', function() {
@@ -40,8 +42,13 @@ describe('home page', function() {
     browser.get('#/');
     home.openTab('layout');
     $$('.ArtifactList-layout a').first().click();
+    $$('.BottomPanel-toggle').last().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+
+    $('#save').click();
+    $('.EditorHeader-back').click();
+    expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
   it('should create a form', function() {
@@ -50,8 +57,13 @@ describe('home page', function() {
     browser.get('#/');
     home.openTab('form');
     $$('.ArtifactList-form a').first().click();
+    $$('.BottomPanel-toggle').last().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+
+    $('#save').click();
+    $('.EditorHeader-back').click();
+    expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
   it('should create a page', function() {

@@ -2,63 +2,51 @@
 
   'use strict';
 
-  let _artifactRepo, _$uibModal, _$stateParams, _$state, _$window;
-
   class MenuBarCtrl {
     constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
-      _artifactRepo = artifactRepo;
-      _$uibModal = $uibModal;
-      _$stateParams = $stateParams;
-      _$state = $state;
-      _$window = $window;
+      this.artifactRepo = artifactRepo;
+      this.$uibModal = $uibModal;
+      this.$stateParams = $stateParams;
+      this.$state = $state;
+      this.$window = $window;
     }
 
     back() {
-      _$window.history.back();
+      this.$window.history.back();
     }
 
     save(page) {
-      return _artifactRepo.save(page);
+      return this.artifactRepo.save(page);
     }
 
     saveAs(page) {
-      var modalInstance = _$uibModal.open({
+      var modalInstance = this.$uibModal.open({
         templateUrl: 'js/editor/menu-bar/save-as-popup.html',
         controller: 'SaveAsPopUpController',
         controllerAs: 'ctrl',
         resolve: {
-          page: function() {
-            return page;
-          }
+          page: () => page
         }
       });
 
-      modalInstance.result.then(saveDataAs).then(reload);
-
-      function reload(data) {
-        _$stateParams.id = data.id;
-        _$state.go(_$state.current, _$stateParams, {
+      modalInstance.result.then(data => this.artifactRepo.create(data, page.id)).then(data => {
+        this.$stateParams.id = data.id;
+        this.$state.go(`designer.${page.type}`, this.$stateParams, {
           reload: true
         });
-      }
-
-      function saveDataAs(data) {
-        return _artifactRepo.create(data, page.id);
-      }
+      });
     }
 
     saveAndExport(page) {
-      _artifactRepo.save(page)
-        .then(function() {
-          _$window.location = _artifactRepo.exportUrl(page);
-        });
+      this.artifactRepo.save(page)
+        .then(() =>this.$window.location = this.artifactRepo.exportUrl(page));
     }
 
     openHelp() {
-      _$uibModal.open({
+      this.$uibModal.open({
         templateUrl: 'js/editor/menu-bar/help-popup.html',
         size: 'lg',
         resolve: {

@@ -74,7 +74,7 @@
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
       spyOn($state, 'go');
-      var page = { id: 'person' };
+      var page = { id: 'person', type: 'page' };
 
       controller.saveAs(page);
 
@@ -86,7 +86,7 @@
       scope.$apply();
 
       expect(pageRepo.create).toHaveBeenCalledWith(page, page.id);
-      expect($state.go).toHaveBeenCalledWith($state.current, $stateParams, {
+      expect($state.go).toHaveBeenCalledWith('designer.page', $stateParams, {
         reload: true
       });
     });
