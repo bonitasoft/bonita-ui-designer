@@ -22,7 +22,7 @@
           set: function (value) {
             return binding.setValue && binding.setValue(value);
           },
-          enumarable: true
+          enumerable: true
         });
       });
     }

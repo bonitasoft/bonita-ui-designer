@@ -113,4 +113,8 @@ describe('Service: bindingsFactory', function () {
   it('should return an expression result', function () {
     expect(componentModel.expression).toEqual('TRUE');
   });
+
+  it('should serialize properties to JSON correctly', () => {
+    expect(JSON.stringify(componentModel)).toEqual('{"foo":5,"bar":"true","baz":"Hello 15","qux":true,"tux":"","position":"left","collection":"[\\"foo\\",\\"bar\\",\\"baz\\",\\"qux\\"]","number":"5","falsy":"false","undefined":"undefined","array":["foo","bar"],"expression":"TRUE"}');
+  });
 });
