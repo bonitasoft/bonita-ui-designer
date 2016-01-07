@@ -19,7 +19,7 @@
   angular
     .module('app.route', ['tmh.dynamicLocale'])
     .config((tmhDynamicLocaleProvider) => {
-      tmhDynamicLocaleProvider.localeLocationPattern('/locales/angular-locale_{{locale}}.js');
+      tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
     })
     .constant('appStates', {
       'designer': {
