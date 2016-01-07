@@ -64,12 +64,12 @@
       'designer.layout': {
         url: '/layouts/:id',
         /* @ngInject */
-        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams)
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
       },
       'designer.form': {
         url: '/forms/:id',
         /* @ngInject */
-        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams)
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
       },
       'designer.page': {
         url: '/pages/:id',

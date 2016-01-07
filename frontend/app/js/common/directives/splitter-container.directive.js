@@ -45,7 +45,7 @@ angular
         isOpen = false;
       }
 
-      $state.go(stateName);
+      $state.go(stateName, undefined, { location: false });
     };
 
     $scope.$on('$destroy', function() {
