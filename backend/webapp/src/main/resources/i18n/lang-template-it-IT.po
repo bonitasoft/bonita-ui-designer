@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2015-12-10 11:21-0500\n"
+"PO-Revision-Date: 2016-01-08 03:52-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -43,7 +43,7 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr ""
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
+msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span>"
 msgstr ""
 
 #: editor/data-panel/help-popup.html:1
@@ -108,6 +108,14 @@ msgstr ""
 
 #: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
+msgstr ""
+
+#: home/import/import-report-popup.html:1
+msgid "A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br>Click <em>Import</em> to override."
+msgstr ""
+
+#: assets/asset-popup.controller.js:113
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr ""
 
 #: editor/data-panel/data-popup.html:1
@@ -178,6 +186,10 @@ msgstr "Tutti i dati di un caso di processo: ricercare una lista di variabili di
 msgid "Alternate text"
 msgstr "Testo Alternativo"
 
+#: assets/asset-popup.controller.js:111
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr ""
+
 #: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Qualsiasi classe CSS accessibile. Come impostazione predefinita l'UI Designer è basato su Bootstrap http://getbootstrap.com/css/#helper-classes"
@@ -186,6 +198,7 @@ msgstr "Qualsiasi classe CSS accessibile. Come impostazione predefinita l'UI Des
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Applicare un filtro per il valore di una variabile: <em>selectedUser | json</em>"
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "Si è sicuri di voler eliminare il {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -280,8 +293,10 @@ msgstr "Può essere utilizzato per soddisfare un contratto"
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
 #: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/import/import-popup.html:1
-#: home/import/import-report-popup.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/import/import-popover.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -289,15 +304,19 @@ msgstr "Annulla"
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr "L'ID di un caso puo' essere ritrovato in seguito da {{myVar.rootCaseId}}"
 
-#: home/import/import-error-messages.service.js:29
+#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr ""
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip archive contains on of following file {{ infos.modelfiles }}."
 msgstr ""
 
 #: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr ""
 
-#: home/import/import-error-messages.service.js:22
+#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr ""
 
@@ -313,9 +332,13 @@ msgstr "Scelte"
 msgid "Choices (comma separated)"
 msgstr "Scelte (separate da delle virgole)"
 
-#: editor/data-panel/data.html:1
-msgid "Clear filter"
-msgstr "Rimuovere il filtro"
+#: common/directives/search/search.html:1
+msgid "Clear search"
+msgstr ""
+
+#: assets/generic-asset-form.html:1
+msgid "Click <em>Add</em> to override."
+msgstr ""
 
 #: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to a constant"
@@ -327,7 +350,9 @@ msgstr "Fare clic per eseguire l'associazione ad un'espressione"
 
 #: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
 #: editor/menu-bar/help-popup.html:1
-#: home/alert-deletion-notpossible-popup.html:1 home/help-popup.html:1
+#: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+#: home/help-popup.html:1
 msgid "Close"
 msgstr "Chiudi"
 
@@ -355,6 +380,7 @@ msgstr "Elenco delimitato da virgole o da associare ai dati di una matrice"
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configurare i widget utilizzando il <b>pannello delle proprietà</b> sulla destra."
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "Conferma l'eliminazione"
@@ -379,11 +405,12 @@ msgstr "Contenuto"
 msgid "Controller"
 msgstr "Controller"
 
-#: home/import/import-error-messages.service.js:25
+#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr ""
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/create/home-create.html:1
 msgid "Create"
 msgstr "Crea"
 
@@ -403,6 +430,10 @@ msgstr "Creare un file JavaScript denominato <code>date-ago-filter.js</code> che
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "Creare un frammento per riutilizzare lo stesso gruppo di widget con lo stesso comportamento in più pagine o form."
 
+#: home/create/home-create.html:1
+msgid "Create a new UI Designer artifact"
+msgstr ""
+
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "Creare una nuova variabile"
@@ -418,6 +449,10 @@ msgstr ""
 #: home/help-popup.html:1
 msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
 msgstr "Creare un layout duplicando il layout di default disponibile nelle risorse del portale"
+
+#: home/create/create-popover.html:1 home/create/create-popup.html:1
+msgid "Create new artifact"
+msgstr ""
 
 #: home/home-pages.html:1
 msgid "Create new page"
@@ -508,6 +543,8 @@ msgstr "Definire le intestazioni della tabella come il valore di una variabile: 
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "Definisce l'URL da cui verrà caricato il file"
 
+#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Cancella"
@@ -529,6 +566,7 @@ msgid "Delete widget"
 msgstr "Eliminare il widget"
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "La cancellazione non è possibile"
 
@@ -560,6 +598,10 @@ msgstr "Chiave visualizzata"
 
 #: home/import/import-report-popup.html:1
 msgid "Do you want to import this zip file?"
+msgstr ""
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+msgid "Download asset"
 msgstr ""
 
 #: editor/menu-bar/help-popup.html:1
@@ -619,6 +661,7 @@ msgid "Example: relative time filter"
 msgstr "Esempio: filtro di tempo relativo"
 
 #: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: home/artifact-list/artifact-list.html:1
 msgid "Export"
 msgstr "Esporta"
 
@@ -650,7 +693,7 @@ msgstr "Moduli esterni ad angular necessari a questo widget personallizzato (sep
 msgid "Failed response value"
 msgstr "Valore della risposta in caso di errore"
 
-#: home/home-filters.html:1
+#: home/home-filters.html:1 home/home.html:1
 msgid "Favorites"
 msgstr ""
 
@@ -760,9 +803,14 @@ msgstr "Id, Nome, Descrizione, Data"
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Se si specifica un'espressione, il risultato deve essere un array di stringhe"
 
+#: home/import/home-import.html:1 home/import/import-popover.html:1
 #: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "Importa"
+
+#: home/import/home-import.html:1
+msgid "Import a UI Designer artifact"
+msgstr ""
 
 #: home/home-pages.html:1
 msgid "Import a page or a form"
@@ -831,6 +879,7 @@ msgstr "In questo elenco, è possibile utilizzare le frecce per riordinare gli a
 
 #: home/import/import-error-messages.service.js:17
 #: home/import/import-error-messages.service.js:21
+#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr ""
 
@@ -852,10 +901,10 @@ msgid "Interpolation"
 msgstr "Interpolazione"
 
 #: assets/generic-asset-form.html:1
-msgid "Invalid URL (must start by http:// or https://)!"
+msgid "Invalid URL (must start by http:// or https://)"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:28
+#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr ""
 
@@ -991,7 +1040,7 @@ msgstr "dd/MM/yyyy"
 msgid "Malformed json file"
 msgstr ""
 
-#: home/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.directive.js:42
 msgid "Mark as favorite"
 msgstr ""
 
@@ -1029,9 +1078,18 @@ msgstr "Deve essere un valore booleano"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
-#: editor/data-panel/data.html:1
+#: editor/data-panel/data.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1
 msgid "Name"
 msgstr "Nome"
+
+#: common/directives/artifact-name-validation.js:11
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr ""
+
+#: common/directives/artifact-name-validation.js:10
+msgid "Name must contains only alphanumeric characters with no space"
+msgstr ""
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
 msgid "Navigation link to another page or form"
@@ -1084,7 +1142,7 @@ msgstr "Una volta che si seleziona un elemento, modificarne le proprietà nel pa
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "Aprire l'aiuto in linea"
 
@@ -1115,10 +1173,6 @@ msgstr "Livello della pagina"
 #: home/home-pages.html:1
 msgid "Page name should contains only alphanumeric characters with no space"
 msgstr "Il nome della pagina deve contiene solo caratteri alfanumerici senza spazi"
-
-#: editor/menu-bar/save-as-popup.html:1
-msgid "Page names must start with a letter and contain only alphanumeric characters"
-msgstr "I nomi delle pagine devono iniziare con una lettera e contenere solo caratteri alfanumerici"
 
 #: home/home-pages.html:1
 msgid "Pages &amp; Forms"
@@ -1177,6 +1231,10 @@ msgstr "Rimuovere dalla collezione"
 msgid "Remove tab"
 msgstr "Rimuovere il tab"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "Rename"
+msgstr ""
+
 #: home/home-pages.html:1
 msgid "Rename page"
 msgstr "Rinominare la pagina"
@@ -1233,12 +1291,12 @@ msgid "Save as ..."
 msgstr "Salva con nome ..."
 
 #: editor/menu-bar/save-as-popup.html:1
-msgid "Save {{page.name}} as..."
-msgstr "Salvare {{page.name}} come..."
+msgid "Save {{ctrl.page.name}} as..."
+msgstr ""
 
 #: custom-widget/save-as-popup.html:1
-msgid "Save {{widget.name}} as..."
-msgstr "Salvare {{widget.name}} come..."
+msgid "Save {{ctrl.widget.name}} as..."
+msgstr ""
 
 #: editor/data-panel/data.html:1
 msgid "Search"
@@ -1247,6 +1305,10 @@ msgstr "Ricerca"
 #: editor/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
 msgstr "Cercare un elenco di casi basati sugli indici di ricerca"
+
+#: home/home.html:1
+msgid "Search on name"
+msgstr ""
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
@@ -1264,7 +1326,7 @@ msgstr "Selezionare un elemento sulla whiteboard, quindi impostarne le propriet�
 msgid "Select an option"
 msgstr "Selezionare un'opzione"
 
-#: home/import/import-popup.html:1
+#: home/import/import-popover.html:1 home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr "Selezionare il file zip"
 
@@ -1395,6 +1457,10 @@ msgstr "Testo"
 msgid "Text used to structure the page or form content"
 msgstr "Testo utilizzato per strutturare il contenuto di una pagina o un form"
 
+#: editor/properties-panel/bond/interpolation.html:1
+msgid "Text, optionally including variables in simple expressions for interpolation using \\{\\{ variableName \\}\\}"
+msgstr ""
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
 msgstr "Indica la pagina che verrà visualizzata al termine dell'operazione. Nel caso di un'applicazione generata tramite il portale, sarà necessario creare tale URL combinando l'URL dell'applicazione con il token della pagina"
@@ -1422,7 +1488,7 @@ msgstr "Il nome della chiave da utilizzare come etichetta. Può essere lasciato 
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "Il nome della chiave da utilizzare come valore. Lasciarlo libero se si utilizza l'intero oggetto"
 
-#: home/import/import-error-messages.service.js:51
+#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr ""
 
@@ -1430,7 +1496,7 @@ msgstr ""
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "Il whiteboard è organizzato in <b>righe</b> che è possibile spostare verso l'alto o verso il basso. Naturalmente ogni riga puo' essere soppressa."
 
-#: home/import/import-error-messages.service.js:55
+#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr ""
 
@@ -1439,15 +1505,20 @@ msgid "The zip file also contains new elements."
 msgstr ""
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "Il {{ artifact.type }} non può essere eliminato perché è usato in:"
 
-#: home/import/import-error-messages.service.js:58
+#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr ""
 
 #: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr ""
+
+#: home/artifact-list/artifact-list.html:1
+msgid "There is no artifact yet..."
 msgstr ""
 
 #: custom-widget/custom-widget-editor.html:1
@@ -1547,7 +1618,7 @@ msgstr "Trigger per un'azione in una pagina o un form"
 msgid "Type"
 msgstr "Tipo"
 
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "UI Designer"
 msgstr "UI Designer"
 
@@ -1583,7 +1654,7 @@ msgstr "URL che verrà utilizzato per eseguire la richiesta HTTP al clic su ques
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Checkbox unico per una sola opzione possibile. L'utente sceglie se selezionarlo oppure no"
 
-#: home/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.directive.js:41
 msgid "Unmark as favorite"
 msgstr ""
 
@@ -1727,10 +1798,6 @@ msgstr "Descrizione del Widget"
 msgid "Widget name should contains only alphanumeric characters with no space"
 msgstr "Il nome della widget deve contiene solo caratteri alfanumerici senza spazi"
 
-#: custom-widget/save-as-popup.html:1
-msgid "Widget names must start with a letter and contain only alphanumeric characters"
-msgstr "I nomi dei widget devono iniziare con una lettera e contenere solo caratteri alfanumerici"
-
 #: editor/menu-bar/help-popup.html:1
 msgid "Widgets"
 msgstr "Widget"
@@ -1783,7 +1850,7 @@ msgstr ""
 msgid "added"
 msgstr "aggiunto"
 
-#: home/import/import-error-messages.service.js:49
+#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr ""
 
@@ -1968,7 +2035,12 @@ msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 msgstr[1] "{{ artifactType }}"
 
+#: home/create/create-popup.html:1
+msgid "{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space"
+msgstr ""
+
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] "{{ key }}"

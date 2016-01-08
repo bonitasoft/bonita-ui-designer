@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2015-12-10 11:09-0500\n"
+"PO-Revision-Date: 2016-01-08 03:38-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -43,8 +43,8 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita BPM Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
-msgstr "<code>context</code> es una API externa. <br>Proporciona referencias a todas las variables de negocio y a los documentos en la instancia de proceso. Para recuperar una instancia de variable de negocio, crea una variable de la API externa con valor <ng-non-bindable>... /{{context.myBusinessData_ref.link}} </ng-non-bindable>"
+msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span>"
+msgstr ""
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -108,6 +108,14 @@ msgstr "Un valor de propiedad es constante, dinámico, de un vínculo bidireccio
 
 #: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
+msgstr ""
+
+#: home/import/import-report-popup.html:1
+msgid "A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br>Click <em>Import</em> to override."
+msgstr ""
+
+#: assets/asset-popup.controller.js:113
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr ""
 
 #: editor/data-panel/data-popup.html:1
@@ -178,6 +186,10 @@ msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
 msgid "Alternate text"
 msgstr "Texto alternativo"
 
+#: assets/asset-popup.controller.js:111
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr ""
+
 #: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Bootstrap http://getbootstrap.com/css/#helper-classes"
@@ -186,6 +198,7 @@ msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Boo
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Aplica un filtro en el valor de una variable: <em>selectedUser | json</em>"
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "¿Estás seguro de eliminar el {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -280,8 +293,10 @@ msgstr "Se puede utilizar para rellenar un contrato"
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
 #: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/import/import-popup.html:1
-#: home/import/import-report-popup.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/import/import-popover.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -289,15 +304,19 @@ msgstr "Cancelar"
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr "El identificador del Caso podría recuperarse con {{myVar.rootCaseId}}"
 
-#: home/import/import-error-messages.service.js:29
+#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr ""
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip archive contains on of following file {{ infos.modelfiles }}."
 msgstr ""
 
 #: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr ""
 
-#: home/import/import-error-messages.service.js:22
+#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr ""
 
@@ -313,9 +332,13 @@ msgstr "opciones"
 msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
-#: editor/data-panel/data.html:1
-msgid "Clear filter"
-msgstr "Limpiar filtro"
+#: common/directives/search/search.html:1
+msgid "Clear search"
+msgstr ""
+
+#: assets/generic-asset-form.html:1
+msgid "Click <em>Add</em> to override."
+msgstr ""
 
 #: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to a constant"
@@ -327,7 +350,9 @@ msgstr "Haga clic para enlazar una expresión"
 
 #: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
 #: editor/menu-bar/help-popup.html:1
-#: home/alert-deletion-notpossible-popup.html:1 home/help-popup.html:1
+#: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+#: home/help-popup.html:1
 msgid "Close"
 msgstr "Cerrar"
 
@@ -355,6 +380,7 @@ msgstr "Lista separada por comas o un array de datos enlazado"
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configura los widgets mediante el <b>panel de propiedades</b> de la derecha."
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "Confirmar eliminación"
@@ -379,11 +405,12 @@ msgstr "Contenido"
 msgid "Controller"
 msgstr "Controller"
 
-#: home/import/import-error-messages.service.js:25
+#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr ""
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/create/home-create.html:1
 msgid "Create"
 msgstr "Crear"
 
@@ -403,6 +430,10 @@ msgstr "Crear un archivo JavaScript denominado <code>date-ago-filter.js</code> q
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "Crea un fragmento para reutilizar el mismo grupo de widgets con el mismo comportamiento en varias páginas o formularios."
 
+#: home/create/home-create.html:1
+msgid "Create a new UI Designer artifact"
+msgstr ""
+
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "Crear una nueva variable"
@@ -418,6 +449,10 @@ msgstr "Cree una variable en el panel inferior. Utilizar una variable en una pro
 #: home/help-popup.html:1
 msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
 msgstr "Crea layouts duplicando el layout por defecto disponible en los recursos del Portal de Bonita BPM"
+
+#: home/create/create-popover.html:1 home/create/create-popup.html:1
+msgid "Create new artifact"
+msgstr ""
 
 #: home/home-pages.html:1
 msgid "Create new page"
@@ -508,6 +543,8 @@ msgstr "Define las cabeceras de la tabla como el valor de una variable: <em>myAr
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "Define la URL destino donde se subirá el archivo"
 
+#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Eliminar"
@@ -529,6 +566,7 @@ msgid "Delete widget"
 msgstr "Eliminar widget"
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "La eliminación no es posible"
 
@@ -560,6 +598,10 @@ msgstr "Clave mostrada"
 
 #: home/import/import-report-popup.html:1
 msgid "Do you want to import this zip file?"
+msgstr ""
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+msgid "Download asset"
 msgstr ""
 
 #: editor/menu-bar/help-popup.html:1
@@ -619,6 +661,7 @@ msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
 
 #: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: home/artifact-list/artifact-list.html:1
 msgid "Export"
 msgstr "Exportar"
 
@@ -650,7 +693,7 @@ msgstr "Este widget personalizado necesita módulos de angular adicionales (sepa
 msgid "Failed response value"
 msgstr "Valor de la respuesta fallida"
 
-#: home/home-filters.html:1
+#: home/home-filters.html:1 home/home.html:1
 msgid "Favorites"
 msgstr ""
 
@@ -760,9 +803,14 @@ msgstr "ID, nombre, descripción, fecha"
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si especificas una expresión, el resultado debe ser un array de strings"
 
+#: home/import/home-import.html:1 home/import/import-popover.html:1
 #: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "Importar"
+
+#: home/import/home-import.html:1
+msgid "Import a UI Designer artifact"
+msgstr ""
 
 #: home/home-pages.html:1
 msgid "Import a page or a form"
@@ -831,6 +879,7 @@ msgstr "En esta lista, puede utilizar las flechas para reordenar los recursos, v
 
 #: home/import/import-error-messages.service.js:17
 #: home/import/import-error-messages.service.js:21
+#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr ""
 
@@ -852,10 +901,10 @@ msgid "Interpolation"
 msgstr "Interpolación"
 
 #: assets/generic-asset-form.html:1
-msgid "Invalid URL (must start by http:// or https://)!"
+msgid "Invalid URL (must start by http:// or https://)"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:28
+#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr ""
 
@@ -991,7 +1040,7 @@ msgstr "dd/MM/yyyy"
 msgid "Malformed json file"
 msgstr ""
 
-#: home/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.directive.js:42
 msgid "Mark as favorite"
 msgstr ""
 
@@ -1029,9 +1078,18 @@ msgstr "Debe ser un valor booleano"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
-#: editor/data-panel/data.html:1
+#: editor/data-panel/data.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1
 msgid "Name"
 msgstr "Nombre"
+
+#: common/directives/artifact-name-validation.js:11
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr ""
+
+#: common/directives/artifact-name-validation.js:10
+msgid "Name must contains only alphanumeric characters with no space"
+msgstr ""
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
 msgid "Navigation link to another page or form"
@@ -1084,7 +1142,7 @@ msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de p
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "Abrir ayuda"
 
@@ -1115,10 +1173,6 @@ msgstr "Nivel de página"
 #: home/home-pages.html:1
 msgid "Page name should contains only alphanumeric characters with no space"
 msgstr "El nombre de la página debe contener solamente caracteres alfanuméricos sin espacios en blanco"
-
-#: editor/menu-bar/save-as-popup.html:1
-msgid "Page names must start with a letter and contain only alphanumeric characters"
-msgstr "Los nombres de página deben empezar con una letra y contener sólo caracteres alfanuméricos"
 
 #: home/home-pages.html:1
 msgid "Pages &amp; Forms"
@@ -1177,6 +1231,10 @@ msgstr "Eliminar de la colección"
 msgid "Remove tab"
 msgstr "Eliminar Pestaña"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "Rename"
+msgstr ""
+
 #: home/home-pages.html:1
 msgid "Rename page"
 msgstr "Cambiar el nombre de la página"
@@ -1233,12 +1291,12 @@ msgid "Save as ..."
 msgstr "Guardar como ..."
 
 #: editor/menu-bar/save-as-popup.html:1
-msgid "Save {{page.name}} as..."
-msgstr "Guardar {{page.name}} como..."
+msgid "Save {{ctrl.page.name}} as..."
+msgstr ""
 
 #: custom-widget/save-as-popup.html:1
-msgid "Save {{widget.name}} as..."
-msgstr "Guardar {{widget.name}} como..."
+msgid "Save {{ctrl.widget.name}} as..."
+msgstr ""
 
 #: editor/data-panel/data.html:1
 msgid "Search"
@@ -1247,6 +1305,10 @@ msgstr "Búsqueda"
 #: editor/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
 msgstr "Busca una lista de casos basándose en índices de búsqueda"
+
+#: home/home.html:1
+msgid "Search on name"
+msgstr ""
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
@@ -1264,7 +1326,7 @@ msgstr "Selecciona un elemento en la pizarra, a continuación, establece allí s
 msgid "Select an option"
 msgstr "Seleccione una opción"
 
-#: home/import/import-popup.html:1
+#: home/import/import-popover.html:1 home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr "Seleccione su archivo .zip"
 
@@ -1395,6 +1457,10 @@ msgstr "Texto"
 msgid "Text used to structure the page or form content"
 msgstr "Texto utilizado para estructurar el contenido de la página o formulario"
 
+#: editor/properties-panel/bond/interpolation.html:1
+msgid "Text, optionally including variables in simple expressions for interpolation using \\{\\{ variableName \\}\\}"
+msgstr ""
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
 msgstr "Esta es la siguiente ubicación. En el caso de una aplicación construida con Bonita BPM Portal, combine la URL de su aplicación con el token de página"
@@ -1422,7 +1488,7 @@ msgstr "El nombre de la clave a utilizar como etiqueta. Puede estar vacío"
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "El nombre de la clave para usar como valor. Dejar vacío para tener todo el objeto"
 
-#: home/import/import-error-messages.service.js:51
+#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr ""
 
@@ -1430,7 +1496,7 @@ msgstr ""
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "El whiteboard está organizado en <b>filas</b> que se pueden mover arriba y abajo, o eliminar."
 
-#: home/import/import-error-messages.service.js:55
+#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr ""
 
@@ -1439,15 +1505,20 @@ msgid "The zip file also contains new elements."
 msgstr ""
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "El {{ artifact.type }} no se puede eliminar porque es utilizado en:"
 
-#: home/import/import-error-messages.service.js:58
+#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr ""
 
 #: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr ""
+
+#: home/artifact-list/artifact-list.html:1
+msgid "There is no artifact yet..."
 msgstr ""
 
 #: custom-widget/custom-widget-editor.html:1
@@ -1548,7 +1619,7 @@ msgstr "Desencadenante de una acción en una página o formulario"
 msgid "Type"
 msgstr "Tipo"
 
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "UI Designer"
 msgstr "UI Designer"
 
@@ -1584,7 +1655,7 @@ msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace 
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Casilla de verificación única. El usuario la marca o no"
 
-#: home/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.directive.js:41
 msgid "Unmark as favorite"
 msgstr ""
 
@@ -1728,10 +1799,6 @@ msgstr "Descripción del widget"
 msgid "Widget name should contains only alphanumeric characters with no space"
 msgstr "El nombre del widget debe contener solamente caracteres alfanuméricos sin espacios en blanco"
 
-#: custom-widget/save-as-popup.html:1
-msgid "Widget names must start with a letter and contain only alphanumeric characters"
-msgstr "Los nombres de los widgets deben empezar con una letra y contener sólo caracteres alfanuméricos"
-
 #: editor/menu-bar/help-popup.html:1
 msgid "Widgets"
 msgstr ""
@@ -1784,7 +1851,7 @@ msgstr "_self"
 msgid "added"
 msgstr "añadido"
 
-#: home/import/import-error-messages.service.js:49
+#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr ""
 
@@ -1868,7 +1935,7 @@ msgstr "labelWidth"
 #: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "left"
-msgstr "Izquierda"
+msgstr "izquierda"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
@@ -1969,7 +2036,12 @@ msgid_plural "{{ artifactType }}s"
 msgstr[0] ""
 msgstr[1] "{{ artifactType }}s"
 
+#: home/create/create-popup.html:1
+msgid "{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space"
+msgstr ""
+
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] "{{ key }}"

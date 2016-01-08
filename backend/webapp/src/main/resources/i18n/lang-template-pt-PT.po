@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
-"PO-Revision-Date: 2015-12-10 11:33-0500\n"
+"PO-Revision-Date: 2016-01-08 04:05-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -43,7 +43,7 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr ""
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
+msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span>"
 msgstr ""
 
 #: editor/data-panel/help-popup.html:1
@@ -108,6 +108,14 @@ msgstr ""
 
 #: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
+msgstr ""
+
+#: home/import/import-report-popup.html:1
+msgid "A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br>Click <em>Import</em> to override."
+msgstr ""
+
+#: assets/asset-popup.controller.js:113
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr ""
 
 #: editor/data-panel/data-popup.html:1
@@ -178,6 +186,10 @@ msgstr ""
 msgid "Alternate text"
 msgstr ""
 
+#: assets/asset-popup.controller.js:111
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr ""
+
 #: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr ""
@@ -186,6 +198,7 @@ msgstr ""
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr ""
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr ""
@@ -280,8 +293,10 @@ msgstr ""
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
 #: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/import/import-popup.html:1
-#: home/import/import-report-popup.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/import/import-popover.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr ""
 
@@ -289,15 +304,19 @@ msgstr ""
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:29
+#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr ""
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip archive contains on of following file {{ infos.modelfiles }}."
 msgstr ""
 
 #: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr ""
 
-#: home/import/import-error-messages.service.js:22
+#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr ""
 
@@ -313,8 +332,12 @@ msgstr "Escolhas"
 msgid "Choices (comma separated)"
 msgstr ""
 
-#: editor/data-panel/data.html:1
-msgid "Clear filter"
+#: common/directives/search/search.html:1
+msgid "Clear search"
+msgstr ""
+
+#: assets/generic-asset-form.html:1
+msgid "Click <em>Add</em> to override."
 msgstr ""
 
 #: editor/properties-panel/bond/expression.html:1
@@ -327,7 +350,9 @@ msgstr ""
 
 #: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
 #: editor/menu-bar/help-popup.html:1
-#: home/alert-deletion-notpossible-popup.html:1 home/help-popup.html:1
+#: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+#: home/help-popup.html:1
 msgid "Close"
 msgstr ""
 
@@ -355,6 +380,7 @@ msgstr ""
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr ""
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr ""
@@ -379,11 +405,12 @@ msgstr ""
 msgid "Controller"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:25
+#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr ""
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/create/home-create.html:1
 msgid "Create"
 msgstr ""
 
@@ -403,6 +430,10 @@ msgstr ""
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr ""
 
+#: home/create/home-create.html:1
+msgid "Create a new UI Designer artifact"
+msgstr ""
+
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr ""
@@ -417,6 +448,10 @@ msgstr ""
 
 #: home/help-popup.html:1
 msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
+msgstr ""
+
+#: home/create/create-popover.html:1 home/create/create-popup.html:1
+msgid "Create new artifact"
 msgstr ""
 
 #: home/home-pages.html:1
@@ -508,6 +543,8 @@ msgstr ""
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr ""
 
+#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr ""
@@ -529,6 +566,7 @@ msgid "Delete widget"
 msgstr ""
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr ""
 
@@ -560,6 +598,10 @@ msgstr ""
 
 #: home/import/import-report-popup.html:1
 msgid "Do you want to import this zip file?"
+msgstr ""
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+msgid "Download asset"
 msgstr ""
 
 #: editor/menu-bar/help-popup.html:1
@@ -619,6 +661,7 @@ msgid "Example: relative time filter"
 msgstr ""
 
 #: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: home/artifact-list/artifact-list.html:1
 msgid "Export"
 msgstr ""
 
@@ -650,7 +693,7 @@ msgstr ""
 msgid "Failed response value"
 msgstr ""
 
-#: home/home-filters.html:1
+#: home/home-filters.html:1 home/home.html:1
 msgid "Favorites"
 msgstr ""
 
@@ -760,8 +803,13 @@ msgstr ""
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr ""
 
+#: home/import/home-import.html:1 home/import/import-popover.html:1
 #: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Import"
+msgstr ""
+
+#: home/import/home-import.html:1
+msgid "Import a UI Designer artifact"
 msgstr ""
 
 #: home/home-pages.html:1
@@ -831,6 +879,7 @@ msgstr ""
 
 #: home/import/import-error-messages.service.js:17
 #: home/import/import-error-messages.service.js:21
+#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr ""
 
@@ -852,10 +901,10 @@ msgid "Interpolation"
 msgstr ""
 
 #: assets/generic-asset-form.html:1
-msgid "Invalid URL (must start by http:// or https://)!"
+msgid "Invalid URL (must start by http:// or https://)"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:28
+#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr ""
 
@@ -991,7 +1040,7 @@ msgstr ""
 msgid "Malformed json file"
 msgstr ""
 
-#: home/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.directive.js:42
 msgid "Mark as favorite"
 msgstr ""
 
@@ -1029,8 +1078,17 @@ msgstr ""
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
-#: editor/data-panel/data.html:1
+#: editor/data-panel/data.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1
 msgid "Name"
+msgstr ""
+
+#: common/directives/artifact-name-validation.js:11
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr ""
+
+#: common/directives/artifact-name-validation.js:10
+msgid "Name must contains only alphanumeric characters with no space"
 msgstr ""
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
@@ -1084,7 +1142,7 @@ msgstr ""
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "Open help"
 msgstr ""
 
@@ -1114,10 +1172,6 @@ msgstr ""
 
 #: home/home-pages.html:1
 msgid "Page name should contains only alphanumeric characters with no space"
-msgstr ""
-
-#: editor/menu-bar/save-as-popup.html:1
-msgid "Page names must start with a letter and contain only alphanumeric characters"
 msgstr ""
 
 #: home/home-pages.html:1
@@ -1177,6 +1231,10 @@ msgstr ""
 msgid "Remove tab"
 msgstr ""
 
+#: home/artifact-list/artifact-list.html:1
+msgid "Rename"
+msgstr ""
+
 #: home/home-pages.html:1
 msgid "Rename page"
 msgstr ""
@@ -1233,11 +1291,11 @@ msgid "Save as ..."
 msgstr ""
 
 #: editor/menu-bar/save-as-popup.html:1
-msgid "Save {{page.name}} as..."
+msgid "Save {{ctrl.page.name}} as..."
 msgstr ""
 
 #: custom-widget/save-as-popup.html:1
-msgid "Save {{widget.name}} as..."
+msgid "Save {{ctrl.widget.name}} as..."
 msgstr ""
 
 #: editor/data-panel/data.html:1
@@ -1246,6 +1304,10 @@ msgstr ""
 
 #: editor/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
+msgstr ""
+
+#: home/home.html:1
+msgid "Search on name"
 msgstr ""
 
 #: assets/help-popup.html:13
@@ -1264,7 +1326,7 @@ msgstr ""
 msgid "Select an option"
 msgstr ""
 
-#: home/import/import-popup.html:1
+#: home/import/import-popover.html:1 home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr ""
 
@@ -1395,6 +1457,10 @@ msgstr "Texto"
 msgid "Text used to structure the page or form content"
 msgstr ""
 
+#: editor/properties-panel/bond/interpolation.html:1
+msgid "Text, optionally including variables in simple expressions for interpolation using \\{\\{ variableName \\}\\}"
+msgstr ""
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
 msgstr ""
@@ -1422,7 +1488,7 @@ msgstr ""
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:51
+#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr ""
 
@@ -1430,7 +1496,7 @@ msgstr ""
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr ""
 
-#: home/import/import-error-messages.service.js:55
+#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr ""
 
@@ -1439,15 +1505,20 @@ msgid "The zip file also contains new elements."
 msgstr ""
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:58
+#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr ""
 
 #: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr ""
+
+#: home/artifact-list/artifact-list.html:1
+msgid "There is no artifact yet..."
 msgstr ""
 
 #: custom-widget/custom-widget-editor.html:1
@@ -1547,7 +1618,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "UI Designer"
 msgstr ""
 
@@ -1583,7 +1654,7 @@ msgstr ""
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr ""
 
-#: home/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.directive.js:41
 msgid "Unmark as favorite"
 msgstr ""
 
@@ -1727,10 +1798,6 @@ msgstr ""
 msgid "Widget name should contains only alphanumeric characters with no space"
 msgstr ""
 
-#: custom-widget/save-as-popup.html:1
-msgid "Widget names must start with a letter and contain only alphanumeric characters"
-msgstr ""
-
 #: editor/menu-bar/help-popup.html:1
 msgid "Widgets"
 msgstr ""
@@ -1783,7 +1850,7 @@ msgstr ""
 msgid "added"
 msgstr ""
 
-#: home/import/import-error-messages.service.js:49
+#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr ""
 
@@ -1968,7 +2035,12 @@ msgid_plural "{{ artifactType }}s"
 msgstr[0] ""
 msgstr[1] ""
 
+#: home/create/create-popup.html:1
+msgid "{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space"
+msgstr ""
+
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] ""

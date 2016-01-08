@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2015-12-11 03:11-0500\n"
+"PO-Revision-Date: 2016-01-08 03:58-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -43,8 +43,8 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita BPM ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable>"
-msgstr "<code>コンテキスト</code> は、External API です。<br>それはプロセス インスタンス内のすべてのビジネス変数とドキュメントの参照を提供します。ビジネス変数のインスタンスを取得するには、<ng-non-bindable>../{{context.myBusinessData_ref.link}}</ng-non-bindable> の値を持つExternal API 変数を作成します。"
+msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span>"
+msgstr "<code>コンテキスト</code> は、外部 API です。<br>それはプロセス インスタンス内のすべてのビジネス変数とドキュメントの参照を提供します。ビジネス変数のインスタンスを取得するには、<span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span> の値を持つ外部 API 変数を作成します。"
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -109,6 +109,14 @@ msgstr "プロパティの値は、コンスタント、動的な値、双方向
 #: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
 msgstr "サーバーエラーが発生しました。"
+
+#: home/import/import-report-popup.html:1
+msgid "A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br>Click <em>Import</em> to override."
+msgstr " <strong>{{ importReport.report.element.name }}</strong> と命名した {{importReport.report.element.type}} が既に存在します。上書きするには、<br><em>インポート</em> をクリックします。"
+
+#: assets/asset-popup.controller.js:113
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
 
 #: editor/data-panel/data-popup.html:1
 msgid "API URL"
@@ -178,6 +186,10 @@ msgstr "案件の全プロセスデータ: 案件リストの変数を検索し�
 msgid "Alternate text"
 msgstr "代替テキスト"
 
+#: assets/asset-popup.controller.js:111
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
+
 #: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
@@ -186,6 +198,7 @@ msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラ
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "変数の値にフィルターを適用する例: <em>selectedUser | json</em>"
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
@@ -280,8 +293,10 @@ msgstr "後続のタスクでコントラクトを埋めるために使用され
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
 #: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/import/import-popup.html:1
-#: home/import/import-report-popup.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
+#: home/confirm-deletion-popup.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/import/import-popover.html:1
+#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -289,15 +304,19 @@ msgstr "キャンセル"
 msgid "Case identifier could then be retrieved by {{myVar.rootCaseId}}"
 msgstr "案件のIDは、{{myVar.rootCaseId}} によって取得できます。"
 
-#: home/import/import-error-messages.service.js:29
+#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
 msgstr "Json ファイル構造が標準 UI デザイナーのエクスポートと一致することを確認します。"
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip archive contains on of following file {{ infos.modelfiles }}."
+msgstr "zip アーカイブが次のファイル: {{ infos.modelfiles }} 上に含まれているか確認してください。"
 
 #: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr "Zip アーカイブに、ファイル {{ infos.modelfile }} が含まれていることを確認します。"
 
-#: home/import/import-error-messages.service.js:22
+#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr "Zip ファイルの構造が標準の UI デザイナー エクスポートと一致することを確認します。"
 
@@ -313,9 +332,13 @@ msgstr "選択肢"
 msgid "Choices (comma separated)"
 msgstr "選択肢 (カンマで区切る)"
 
-#: editor/data-panel/data.html:1
-msgid "Clear filter"
-msgstr "フィルターをクリア"
+#: common/directives/search/search.html:1
+msgid "Clear search"
+msgstr "検索をクリア"
+
+#: assets/generic-asset-form.html:1
+msgid "Click <em>Add</em> to override."
+msgstr "<em>追加</em> をクリックして上書きします。"
 
 #: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to a constant"
@@ -327,7 +350,9 @@ msgstr "クリックして式にバインド"
 
 #: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
 #: editor/menu-bar/help-popup.html:1
-#: home/alert-deletion-notpossible-popup.html:1 home/help-popup.html:1
+#: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+#: home/help-popup.html:1
 msgid "Close"
 msgstr "閉じる"
 
@@ -355,6 +380,7 @@ msgstr "コンマで区切られたリストまたはバインド配列データ
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "右の<b>プロパティ パネル</b>を使用してウィジェットを構成設定します。"
 
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "削除の確認"
@@ -379,11 +405,12 @@ msgstr "コンテンツ"
 msgid "Controller"
 msgstr "コントローラー"
 
-#: home/import/import-error-messages.service.js:25
+#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr "破損した zip アーカイブです。"
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1 home/create/home-create.html:1
 msgid "Create"
 msgstr "新規作成"
 
@@ -403,6 +430,10 @@ msgstr "<code>date-ago-filter.js</code> と命名した JavaScript を作成し�
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "ウィジェットを同一のグループにまとめて部品化し、他のページまたはフォームの再利用するフラグメントを作成します。"
 
+#: home/create/home-create.html:1
+msgid "Create a new UI Designer artifact"
+msgstr "新しい UI デザイナーのアーティファクトを作成します"
+
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "新規変数を作成"
@@ -418,6 +449,10 @@ msgstr "下部のパネルで変数を作成します。ウィジェット プ�
 #: home/help-popup.html:1
 msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
 msgstr "Bonita BPM ポータルのリソースの中で使用可能なデフォルト レイアウトを複製してレイアウトを作成します。"
+
+#: home/create/create-popover.html:1 home/create/create-popup.html:1
+msgid "Create new artifact"
+msgstr "新しいアーティファクトを作成"
 
 #: home/home-pages.html:1
 msgid "Create new page"
@@ -508,6 +543,8 @@ msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myAr
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "ファイルがアップロードされる場所を示すエンドポイントURLを定義します。"
 
+#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
 #: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "削除"
@@ -529,6 +566,7 @@ msgid "Delete widget"
 msgstr "ウィジェットを削除"
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "削除はできません。"
 
@@ -561,6 +599,10 @@ msgstr "表示するキー"
 #: home/import/import-report-popup.html:1
 msgid "Do you want to import this zip file?"
 msgstr "この zip ファイルをインポートしますか？"
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+msgid "Download asset"
+msgstr "アセットをダウンロード"
 
 #: editor/menu-bar/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
@@ -619,6 +661,7 @@ msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
 #: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: home/artifact-list/artifact-list.html:1
 msgid "Export"
 msgstr "エクスポート"
 
@@ -650,7 +693,7 @@ msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジ
 msgid "Failed response value"
 msgstr "失敗時のレスポンス値"
 
-#: home/home-filters.html:1
+#: home/home-filters.html:1 home/home.html:1
 msgid "Favorites"
 msgstr "お気に入り"
 
@@ -760,9 +803,14 @@ msgstr "Id, 名前, 説明, 日付"
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
+#: home/import/home-import.html:1 home/import/import-popover.html:1
 #: home/import/import-popup.html:1 home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "インポート"
+
+#: home/import/home-import.html:1
+msgid "Import a UI Designer artifact"
+msgstr "UI デザイナーのアーティファクトをインポート"
 
 #: home/home-pages.html:1
 msgid "Import a page or a form"
@@ -831,6 +879,7 @@ msgstr "このリストの中で、アセットの並び替え、ローカルア
 
 #: home/import/import-error-messages.service.js:17
 #: home/import/import-error-messages.service.js:21
+#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr "不正な zip 構造。"
 
@@ -852,10 +901,10 @@ msgid "Interpolation"
 msgstr "補完（Interpolation）"
 
 #: assets/generic-asset-form.html:1
-msgid "Invalid URL (must start by http:// or https://)!"
-msgstr "無効な URL（http://または https://によって開始する必要があります）です！"
+msgid "Invalid URL (must start by http:// or https://)"
+msgstr "無効な URL（http:// または https:// で開始する必要があります）"
 
-#: home/import/import-error-messages.service.js:28
+#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "{{ infos.modelfile }} は、無効な json ファイル構造です"
 
@@ -991,7 +1040,7 @@ msgstr "yyyy/MM/dd"
 msgid "Malformed json file"
 msgstr "不正な形式の json ファイル"
 
-#: home/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.directive.js:42
 msgid "Mark as favorite"
 msgstr "お気に入りに登録"
 
@@ -1029,9 +1078,18 @@ msgstr "ブーリアンである必要があります"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
-#: editor/data-panel/data.html:1
+#: editor/data-panel/data.html:1 home/create/create-popover.html:1
+#: home/create/create-popup.html:1
 msgid "Name"
 msgstr "名前"
+
+#: common/directives/artifact-name-validation.js:11
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr "名前は {{maxlength}} 文字未満にする必要があります"
+
+#: common/directives/artifact-name-validation.js:10
+msgid "Name must contains only alphanumeric characters with no space"
+msgstr "名前は、スペースを含まない英数字のみで命名します "
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
 msgid "Navigation link to another page or form"
@@ -1084,7 +1142,7 @@ msgstr "１つの要素を１回選択し、右のプロパティパネルでそ
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "ヘルプを開く"
 
@@ -1094,7 +1152,7 @@ msgstr "オーバーライドされたアーティファクト"
 
 #: home/help-popup.html:1
 msgid "Overview"
-msgstr "案件概況"
+msgstr "オーバービュー"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "POST"
@@ -1115,10 +1173,6 @@ msgstr "ページ レベル"
 #: home/home-pages.html:1
 msgid "Page name should contains only alphanumeric characters with no space"
 msgstr "ページ名は、スペースを含まない英数字のみで命名します 。"
-
-#: editor/menu-bar/save-as-popup.html:1
-msgid "Page names must start with a letter and contain only alphanumeric characters"
-msgstr "ページ名は、英文字で始まり英数字のみで命名する必要があります。"
 
 #: home/home-pages.html:1
 msgid "Pages &amp; Forms"
@@ -1177,6 +1231,10 @@ msgstr "コレクションから削除"
 msgid "Remove tab"
 msgstr "タブを削除"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "Rename"
+msgstr "名前を変更"
+
 #: home/home-pages.html:1
 msgid "Rename page"
 msgstr "ページ名を変更"
@@ -1233,12 +1291,12 @@ msgid "Save as ..."
 msgstr "別名で保存..."
 
 #: editor/menu-bar/save-as-popup.html:1
-msgid "Save {{page.name}} as..."
-msgstr "{{page.name}} として保存..."
+msgid "Save {{ctrl.page.name}} as..."
+msgstr "{{ctrl.page.name}} を別名で保存..."
 
 #: custom-widget/save-as-popup.html:1
-msgid "Save {{widget.name}} as..."
-msgstr "{{widget.name}} を別名で保存..."
+msgid "Save {{ctrl.widget.name}} as..."
+msgstr "{{ctrl.widget.name}} を別名で保存..."
 
 #: editor/data-panel/data.html:1
 msgid "Search"
@@ -1247,6 +1305,10 @@ msgstr "検索"
 #: editor/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
 msgstr "検索キーで案件リストを検索する"
+
+#: home/home.html:1
+msgid "Search on name"
+msgstr "名前で検索"
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
@@ -1264,7 +1326,7 @@ msgstr "ホワイトボードの要素を選択し、ここでその要素のプ
 msgid "Select an option"
 msgstr "オプションを選択してください"
 
-#: home/import/import-popup.html:1
+#: home/import/import-popover.html:1 home/import/import-popup.html:1
 msgid "Select your .zip file"
 msgstr "あなたの.zip ファイルを選択します"
 
@@ -1395,6 +1457,10 @@ msgstr "Text"
 msgid "Text used to structure the page or form content"
 msgstr "ページまたはフォームのコンテンツの構造化に使用されるテキスト"
 
+#: editor/properties-panel/bond/interpolation.html:1
+msgid "Text, optionally including variables in simple expressions for interpolation using \\{\\{ variableName \\}\\}"
+msgstr "テキストは、必要に応じ補完のために \\{\\{ variableName \\}\\} を使用して簡単な式内に変数を含めることができます"
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
 msgstr "次に進む場所です。Bonita BPM ポータルを使用してビルドされているアプリケーションの場合は、このページトークンを使ってあなたのアプリケーションURLを結び付けます。"
@@ -1422,7 +1488,7 @@ msgstr "ラベルとして使用するキーの名前。空にすることがで
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "値として使用するキーの名前。オブジェクト全体の場合は、空のままにします。"
 
-#: home/import/import-error-messages.service.js:51
+#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr "ページはインポートされていません。"
 
@@ -1430,7 +1496,7 @@ msgstr "ページはインポートされていません。"
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
 
-#: home/import/import-error-messages.service.js:55
+#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr "ウィジェットはインポートされていません。"
 
@@ -1439,10 +1505,11 @@ msgid "The zip file also contains new elements."
 msgstr "Zip ファイルには、新しい要素も含まれています。"
 
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
 
-#: home/import/import-error-messages.service.js:58
+#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr "{{ artifactType }} はインポートされていません。"
 
@@ -1450,13 +1517,17 @@ msgstr "{{ artifactType }} はインポートされていません。"
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "There is no artifact yet..."
+msgstr "アーティファクトがまだ存在しません..."
+
 #: custom-widget/custom-widget-editor.html:1
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "この説明はパレット内のツールチップとして表示されます。"
 
 #: editor/data-panel/data-popup.html:10
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
-msgstr "この例は、JSONをタイプに選択した場合は、提供済みの JSON 例を使用します。<br>この例では、JSONオブジェクト：<code>supportTicket</code>の<code>environment</code> 配列内の文字<0>列：'Linux'を探します。"
+msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<br>次の例は、 <code>supportTicket</code> JSON オブジェクトの <code>environment</code> 配列内にある文字列 'Linux' を探すサンプルです。"
 
 #: assets/help-popup.html:13
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
@@ -1547,7 +1618,7 @@ msgstr "ページまたはフォームのアクションのトリガー"
 msgid "Type"
 msgstr "タイプ"
 
-#: home/home-header.html:1
+#: home/home-header.html:1 home/home.html:1
 msgid "UI Designer"
 msgstr "UI デザイナー"
 
@@ -1583,7 +1654,7 @@ msgstr "クリックされた時にHTTPリクエストを実行するために�
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "ユニークなオプションのチェック ボックス。ユーザーはチェックオンまたはオフにします。"
 
-#: home/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.directive.js:41
 msgid "Unmark as favorite"
 msgstr "お気に入りのマークを解除"
 
@@ -1727,10 +1798,6 @@ msgstr "ウィジェットの説明"
 msgid "Widget name should contains only alphanumeric characters with no space"
 msgstr "ウィジェット名は、スペースを含まない英数字のみで命名します"
 
-#: custom-widget/save-as-popup.html:1
-msgid "Widget names must start with a letter and contain only alphanumeric characters"
-msgstr "ウィジェット名は、英文字で始まり英数字のみで命名する必要があります。"
-
 #: editor/menu-bar/help-popup.html:1
 msgid "Widgets"
 msgstr "ウィジェット"
@@ -1783,7 +1850,7 @@ msgstr "_self"
 msgid "added"
 msgstr "追加済み"
 
-#: home/import/import-error-messages.service.js:49
+#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr "アーティファクト"
 
@@ -1866,7 +1933,7 @@ msgstr "ラベル幅"
 #: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "left"
-msgstr "左へ"
+msgstr "左"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
@@ -1966,7 +2033,12 @@ msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 
+#: home/create/create-popup.html:1
+msgid "{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space"
+msgstr "{{ createCtrl.type.value }} 名は、スペースを含まない英数字のみで命名する必要があります"
+
 #: home/alert-deletion-notpossible-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
 msgstr[0] "{{ key }}"
