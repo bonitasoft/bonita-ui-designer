@@ -16,12 +16,10 @@
 package org.bonitasoft.web.designer.migration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
-import java.util.Iterator;
-
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Test;
 
@@ -40,9 +38,11 @@ public class AssetExternalMigrationStepTest {
 
         migrationStep.migrate(page);
 
-        Iterator<Asset> assetIterator = page.getAssets().iterator();
-        assertThat(assetIterator.next().isExternal()).isEqualTo(true);
-        assertThat(assetIterator.next().isExternal()).isEqualTo(false);
+        assertThat(page.getAssets())
+                .extracting("name", "external")
+                .containsOnly(
+                        tuple("bonita.jpg", false),
+                        tuple("http://www.bonitasoft.com", true));
     }
 
     @Test
@@ -58,8 +58,10 @@ public class AssetExternalMigrationStepTest {
 
         migrationStep.migrate(page);
 
-        Iterator<Asset> assetIterator = page.getAssets().iterator();
-        assertThat(assetIterator.next().isExternal()).isEqualTo(true);
-        assertThat(assetIterator.next().isExternal()).isEqualTo(false);
+        assertThat(page.getAssets())
+                .extracting("name", "external")
+                .containsOnly(
+                        tuple("bonita.jpg", false),
+                        tuple("https://www.bonitasoft.com", true));
     }
 }
