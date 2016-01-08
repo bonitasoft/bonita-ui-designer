@@ -16,7 +16,7 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.menu-bar', [
+  angular.module('bonitasoft.designer.editor.header', [
     'bonitasoft.designer.common.repositories',
     'gettext',
     'ui.bootstrap',

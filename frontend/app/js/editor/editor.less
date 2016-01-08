@@ -1,0 +1,50 @@
+.content-wrapper {
+  position: absolute;
+  top: @nav-bar-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.form-control.form-control--pagename {
+  width: 250px;
+}
+
+#editor-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: @sidebar-palette-width;
+  right: @sidebar-properties-default-width;
+}
+
+.Palette--closed + #editor-container{
+  left: @sidebar-palette-section-width;
+}
+
+.Palette--narrow + #editor-container{
+  left: @sidebar-palette-width--narrow;
+}
+
+
+.workspace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+#editor {
+  overflow: auto;
+  background-color: rgba(239, 241, 245, 0.15);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: @sidebar-data-default-height;
+  padding:0 2em;
+
+}

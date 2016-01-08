@@ -92,10 +92,10 @@
             controller: 'DataCtrl',
             templateUrl: 'js/editor/data-panel/data.html'
           },
-          'menubar@designer.page': {
-            controller: 'MenuBarCtrl',
+          'header@designer.page': {
+            controller: 'EditorHeaderCtrl',
             controllerAs: 'vm',
-            templateUrl: 'js/editor/menu-bar/menu-bar.html'
+            templateUrl: 'js/editor/header/header.html'
           }
         }
       },

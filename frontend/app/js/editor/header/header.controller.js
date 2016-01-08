@@ -2,7 +2,7 @@
 
   'use strict';
 
-  class MenuBarCtrl {
+  class EditorHeaderCtrl {
     constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window) {
       'ngInject';
       this.mode = mode;
@@ -24,7 +24,7 @@
 
     saveAs(page) {
       var modalInstance = this.$uibModal.open({
-        templateUrl: 'js/editor/menu-bar/save-as-popup.html',
+        templateUrl: 'js/editor/header/save-as-popup.html',
         controller: 'SaveAsPopUpController',
         controllerAs: 'ctrl',
         resolve: {
@@ -47,7 +47,7 @@
 
     openHelp() {
       this.$uibModal.open({
-        templateUrl: 'js/editor/menu-bar/help-popup.html',
+        templateUrl: 'js/editor/header/help-popup.html',
         size: 'lg',
         resolve: {
           pageEdition: () => this.mode === 'page'
@@ -64,7 +64,7 @@
   }
 
   angular
-    .module('bonitasoft.designer.editor.menu-bar')
-    .controller('MenuBarCtrl', MenuBarCtrl);
+    .module('bonitasoft.designer.editor.header')
+    .controller('EditorHeaderCtrl', EditorHeaderCtrl);
 
 })();

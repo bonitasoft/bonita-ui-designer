@@ -17,6 +17,6 @@
   }
 
   angular
-    .module('bonitasoft.designer.editor.menu-bar')
+    .module('bonitasoft.designer.editor.header')
     .controller('SaveAsPopUpController', SaveAsPopUpController);
 })();
