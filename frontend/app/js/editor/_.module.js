@@ -21,7 +21,7 @@
     'bonitasoft.designer.editor.data-panel',
     'bonitasoft.designer.editor.palette',
     'bonitasoft.designer.editor.properties-panel',
-    'bonitasoft.designer.editor.menu-bar',
+    'bonitasoft.designer.editor.header',
     'bonitasoft.designer.editor.whiteboard',
     'bonitasoft.designer.assets',
     'gettext'
