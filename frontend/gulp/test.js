@@ -1,5 +1,5 @@
 var jshint = require('gulp-jshint');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 
 module.exports = function(gulp, config) {
 
@@ -16,19 +16,19 @@ module.exports = function(gulp, config) {
    * unit tests once and exit
    */
   gulp.task('test', ['jshint:test'], function (done) {
-    return karma.start({
+    return new Server({
       configFile: config.paths.karma,
       singleRun: true
-    }, done);
+    }, done).start();
   });
 
   /**
    * unit tests in autowatch mode
    */
   gulp.task('test:watch', ['jshint:test'], function (done) {
-    return karma.start({
+    return  new Server({
       configFile: config.paths.karma,
       singleRun: false
-    }, done);
+    }, done).start();
   });
 };
