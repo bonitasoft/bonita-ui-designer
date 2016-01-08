@@ -1,15 +1,15 @@
 var buildWidget = require('./widget-builder/src/index');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 
 module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
   function test(done, watch) {
-    return karma.start({
+    return new Server({
       configFile: paths.karma.configFile,
       singleRun: !watch
-    }, done);
+    }, done).start();
   }
 
   /**
