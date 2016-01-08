@@ -20,13 +20,13 @@
     </div>
 
     <div class="row row--Home">
-        <section class="col-sm-5 Favorite-section">
+        <section class="col-xs-5 Favorite-section">
             <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
             <artifact-list artifacts="artifacts.all | filter:{name: search, favorite: 'true'} | orderBy:'-lastUpdate'"
                            refresh-all="refreshAll"></artifact-list>
         </section>
 
-        <section class="col-sm-7 Artifact-section">
+        <section class="col-xs-7 Artifact-section">
             <uib-tabset>
                 <uib-tab ng-repeat="type in types">
                     <uib-tab-heading class="tab-{{type.id}}">
