@@ -19,7 +19,7 @@
       },
       'MODEL_NOT_FOUND': {
         cause: gettext('Incorrect zip structure.'),
-        additionalInfos: gettext('Check that the zip archive contains on of following file {{ infos.modelfiles }}.')
+        additionalInfos: gettext('Check that the zip archive contains one of following files {{ infos.modelfiles }}.')
       },
       'UNEXPECTED_ZIP_STRUCTURE': {
         cause: gettext('Incorrect zip structure.'),
