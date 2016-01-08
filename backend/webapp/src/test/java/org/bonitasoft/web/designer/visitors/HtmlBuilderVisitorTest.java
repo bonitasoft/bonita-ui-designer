@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.visitors;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
@@ -82,7 +83,7 @@ public class HtmlBuilderVisitorTest {
     public void setUp() throws Exception {
         initMocks(this);
         visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, directivesCollector, assetVisitor);
-        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
+        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String>emptySet());
     }
 
     @Test
@@ -220,9 +221,15 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_generate_html_for_a_page() throws Exception {
-        Asset assetJquery = AssetBuilder.anAsset().withName("//code.jquery.com/jquery-2.1.4.min.js").withExternal(true).build();
-        Asset assetRelative = AssetBuilder.anAsset().withName("bonita.min.js").withExternal(true).build();
-        Asset assetLocal = AssetBuilder.anAsset().withName("bonita.vendors.js").withExternal(false).build();
+        Asset assetLocal = anAsset().withOrder(1)
+                .withName("bonita.vendors.js").withExternal(false)
+                .build();
+        Asset assetJquery = anAsset().withOrder(2)
+                .withName("//code.jquery.com/jquery-2.1.4.min.js").withExternal(true)
+                .build();
+        Asset assetRelative = anAsset().withOrder(3)
+                .withName("bonita.min.js").withExternal(true)
+                .build();
         Page page = aPage().withId("page-id")
                 .withAsset(assetRelative, assetJquery)
                 .with(aContainer().with(
@@ -250,7 +257,7 @@ public class HtmlBuilderVisitorTest {
                         .with(aContainer().withReference("container-reference").build())
                         .withReference("formcontainer-reference")
                         .build()))
-                                .isEqualToBody(testResource.load("formContainerSimple.html"));
+                .isEqualToBody(testResource.load("formContainerSimple.html"));
     }
 
     @Test
@@ -292,7 +299,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_not_add_extra_modules_when_no_widgets_needs_them() throws Exception {
         Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String> emptySet());
+        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String>emptySet());
 
         String html = visitor.build(page, "");
 
