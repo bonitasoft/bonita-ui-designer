@@ -56,6 +56,19 @@ html, body {
   height: 100%;
 }
 
+body {
+  min-width: 1024px;
+}
+
+// forcing container width for low screen size
+// => UI Designer min-width 1024
+.container {
+  @media (max-width: @screen-md-min) {
+    min-width: @container-md;
+    width: @container-md;
+  }
+}
+
 #menubar #resolutions .navbar-btn {
   margin-bottom: 0;
   margin-top: 2px
