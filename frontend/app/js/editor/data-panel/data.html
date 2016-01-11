@@ -12,20 +12,20 @@
 <table class="table table-condensed table-ui-designer table-striped table-text-ellipsis">
     <thead>
     <th translate>Name</th>
+    <th ng-if="exposableData" translate>Exposed</th>
     <th translate>Value</th>
     <th translate>Type</th>
-    <th ng-if="exposableData" translate>Exposed</th>
     <th></th>
     </thead>
     <tbody>
     <tr ng-repeat="(key, data) in pageData as results track by key">
         <td class="col-xs-2">{{key}}</td>
-        <td class="col-xs-5"> {{data.value}}
-        </td>
-        <td class="col-xs-1">{{getLabel(data.type)}}</td>
         <td class="col-xs-1" ng-if="exposableData">
             <i class="fa" ng-class="{'fa-check': data.exposed}"></i>
         </td>
+        <td class="col-xs-5"> {{data.value}}
+        </td>
+        <td class="col-xs-1">{{getLabel(data.type)}}</td>
         <td class="col-xs-1">
             <div class="btn-group link-group btn-group-sm pull-right">
                 <button class="btn update-data" ng-click="openDataPopup(key)" title="{{ 'Edit variable' | translate }}">
