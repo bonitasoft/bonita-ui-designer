@@ -65,4 +65,25 @@ describe('Import artifact report controller', () => {
     };
     expect(importArtifactReportCtrl.hasDependencies()).toBeTruthy();
   });
+
+  it('should return imported element type', function() {
+    importArtifactReportCtrl.report = {
+      element: { type: 'page' }
+    };
+    expect(importArtifactReportCtrl.type).toBe('page');
+  });
+
+  it('should return widget when element has no type', function() {
+    importArtifactReportCtrl.report = {
+      element: {  }
+    };
+    expect(importArtifactReportCtrl.type).toBe('widget');
+  });
+
+  it('should return element name', function() {
+    importArtifactReportCtrl.report = {
+      element: { name: 'anElement' }
+    };
+    expect(importArtifactReportCtrl.name).toBe('anElement');
+  });
 });

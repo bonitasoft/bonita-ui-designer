@@ -36,6 +36,14 @@
     hasDependencies() {
       return this.report.dependencies && this.report.dependencies.added || this.report.dependencies.overridden;
     }
+
+    get type() {
+      return this.report.element.type || 'widget';   // to be removed when widget has type
+    }
+
+    get name() {
+      return this.report.element.name;
+    }
   }
 
   angular
