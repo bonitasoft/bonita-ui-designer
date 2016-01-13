@@ -17,15 +17,15 @@
 
   class ArtifactListController {
 
-    constructor($modal, $timeout, repositories) {
-      this.$modal = $modal;
+    constructor($uibModal, $timeout, repositories) {
+      this.$uibModal = $uibModal;
       this.$timeout = $timeout;
       this.getRepository = (type) => repositories.get(type);
     }
 
     deleteArtifact(artifact) {
       var template = !angular.isDefined(artifact.usedBy) ? 'js/home/artifact-list/confirm-deletion-popup.html' : 'js/home/artifact-list/alert-deletion-notpossible-popup.html';
-      var modalInstance = this.$modal.open({
+      var modalInstance = this.$uibModal.open({
         templateUrl: template,
         windowClass: 'modal-centered',
         controller: 'DeletionPopUpController',

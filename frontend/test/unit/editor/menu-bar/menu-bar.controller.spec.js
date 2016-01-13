@@ -7,7 +7,7 @@
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $modalInstance, _$state_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $uibModalInstance, _$state_) {
       pageRepo = _pageRepo_;
       $q = _$q_;
       $window = {
@@ -19,7 +19,7 @@
       scope = $rootScope;
       $uibModal = _$uibModal_;
       $state = _$state_;
-      modalInstance = $modalInstance.fake();
+      modalInstance = $uibModalInstance.fake();
 
       controller = $controller('EditorHeaderCtrl', {
         $window: $window,

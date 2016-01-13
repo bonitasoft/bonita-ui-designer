@@ -2,7 +2,7 @@
   'use strict';
 
   describe('AssetCtrl', function() {
-    var $scope, $q, $modal, assetsService, artifactRepo, controller, component;
+    var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
@@ -10,7 +10,7 @@
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
-      $modal = $injector.get('$modal');
+      $uibModal = $injector.get('$uibModal');
       component = { id: 12 };
       artifactRepo = {
         loadAssets: function() {
@@ -34,7 +34,7 @@
         $scope.page = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
-          $modal: $modal,
+          $uibModal: $uibModal,
           artifact: component,
           artifactRepo: artifactRepo,
           mode: 'page',
@@ -52,19 +52,19 @@
       });
 
       it('should open a data popup for asset preview', function() {
-        spyOn($modal, 'open').and.returnValue({
+        spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
         controller.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled();
+        expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset management', function() {
-        spyOn($modal, 'open').and.returnValue({
+        spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
         controller.openAssetPopup();
-        expect($modal.open).toHaveBeenCalled();
+        expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should delete an asset', function() {
@@ -108,27 +108,27 @@
       }));
 
       it('should open a data popup for asset preview', function() {
-        spyOn($modal, 'open').and.returnValue({
+        spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
         controller.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled();
+        expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset management', function() {
-        spyOn($modal, 'open').and.returnValue({
+        spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
         controller.openAssetPopup();
-        expect($modal.open).toHaveBeenCalled();
+        expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset preview', function() {
-        spyOn($modal, 'open').and.returnValue({
+        spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
         controller.openAssetPreviewPopup();
-        expect($modal.open).toHaveBeenCalled();
+        expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should get url for widget mode', function() {

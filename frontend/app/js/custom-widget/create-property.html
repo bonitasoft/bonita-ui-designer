@@ -15,8 +15,8 @@
         </div>
         <div class="form-group">
             <label for="bond" class="control-label control-label--required" translate>Treat value as</label>
-            <div id="bond" class="btn-group CustomWidgetProperty--fullWidth" dropdown>
-                <button id="bondButton" type="button" class="btn btn-default CustomWidgetProperty--textLeft CustomWidgetProperty--fullWidth" dropdown-toggle>
+            <div id="bond" class="btn-group CustomWidgetProperty--fullWidth" uib-dropdown>
+                <button id="bondButton" type="button" class="btn btn-default CustomWidgetProperty--textLeft CustomWidgetProperty--fullWidth" uib-dropdown-toggle>
                     {{bonds[currentParam.bond].name | translate}} <span ng-show="bond !== 'constant'">-</span> <i class="ui-icon ui-{{currentParam.bond}}"> &nbsp;</i><span class="fa fa-caret-down CustomWidgetProperty-dropdownCaret"></span>
                 </button>
                 <ul class="dropdown-menu CustomWidgetProperty--fullWidth" role="menu" aria-labelledby="bondButton">
@@ -25,7 +25,7 @@
             </div>
             <div class="CustomWidgetProperty-treatAsDescription">
                 <small ng-click="bondHelpToggled = !bondHelpToggled" class="clickable"> <span ng-if="bondHelpToggled" class="fa fa-caret-down"></span><span ng-if="!bondHelpToggled" class="fa fa-caret-right"></span> <u>Description</u></small>
-                <div class="col-md-12 row" collapse="!bondHelpToggled">
+                <div class="col-md-12 row" uib-collapse="!bondHelpToggled">
                     <div><ng-include src="bonds[currentParam.bond].template"/></div>
                 </div>
             </div>
@@ -35,8 +35,8 @@
             <label for="type" class="control-label control-label--required" translate>Type</label>
             <!-- <select id="type" class="form-control" name="type" ng-model="currentParam.type"
                     ng-options="type for type in types" ng-change="currentParam.defaultValue = null" required></select> -->
-            <div id="type" class="btn-group CustomWidgetProperty--fullWidth" dropdown>
-                <button id="typeButton" type="button" class="btn btn-default CustomWidgetProperty--textLeft CustomWidgetProperty--fullWidth" dropdown-toggle>{{currentParam.type | translate}} <span class="fa fa-caret-down CustomWidgetProperty-dropdownCaret"></button>
+            <div id="type" class="btn-group CustomWidgetProperty--fullWidth" uib-dropdown>
+                <button id="typeButton" type="button" class="btn btn-default CustomWidgetProperty--textLeft CustomWidgetProperty--fullWidth" uib-dropdown-toggle>{{currentParam.type | translate}} <span class="fa fa-caret-down CustomWidgetProperty-dropdownCaret"></button>
                 <ul class="dropdown-menu CustomWidgetProperty--fullWidth" role="menu" aria-labelledby="typeButton">
                     <li ng-repeat="type in types" ng-click="currentParam.defaultValue = null" required role="menuitem"><a href="" ng-click="currentParam.type = type">{{type | translate}}</a></li>
                 </ul>

@@ -19,7 +19,7 @@
   'use strict';
 
   class HomeCtrl {
-    constructor($scope, $modal, artifactStore, artifactFactories, $filter) {
+    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter) {
 
       $scope.artifacts = {};
 
@@ -35,7 +35,7 @@
         .then((artifacts) => $scope.artifacts.all = artifacts)
         .then(filterArtifacts);
 
-      $scope.openHelp = () => $modal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
+      $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
 
       let factories = artifactFactories.getFactories();
       $scope.types = Object.keys(factories).map((key) => ({

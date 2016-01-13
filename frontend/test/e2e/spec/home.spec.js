@@ -99,8 +99,8 @@ describe('home page', function() {
 
   it('should forbid to create a widget with an already existing name', function() {
     $('.HomeCreate').click();
-    $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
     element(by.css('#type-widget')).click();
+    $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
     expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
     expect($('.tooltip-inner').getText()).toEqual('A custom widget with this name already exists');
   });
