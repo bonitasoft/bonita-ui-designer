@@ -4,9 +4,9 @@
 
   angular
     .module('mock.modal', [])
-    .service('$modalInstance', $modalInstanceMock);
+    .service('$uibModalInstance', $uibModalInstanceMock);
 
-  function $modalInstanceMock($q) {
+  function $uibModalInstanceMock($q) {
 
     return {
       create: mock,

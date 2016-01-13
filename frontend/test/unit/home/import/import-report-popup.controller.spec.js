@@ -3,14 +3,14 @@ describe('Import artifact report controller', () => {
 
   beforeEach(angular.mock.module('bonitasoft.designer.home.import', 'mock.modal'));
 
-  beforeEach(inject(function($controller, _importArtifactService_, _$modalInstance_, _$q_, _$rootScope_) {
+  beforeEach(inject(function($controller, _importArtifactService_, _$uibModalInstance_, _$q_, _$rootScope_) {
     $q = _$q_;
     $rootScope = _$rootScope_;
     importArtifactService = _importArtifactService_;
-    modalInstance = _$modalInstance_.create();
+    modalInstance = _$uibModalInstance_.create();
     report = {};
     importArtifactReportCtrl = $controller('ImportReportPopupController', {
-      $modalInstance: modalInstance,
+      $uibModalInstance: modalInstance,
       type: 'page',
       title: 'Import a new page',
       importReport: report

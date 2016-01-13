@@ -7,7 +7,7 @@
            type="text"
            class="form-control PropertyPanel-expression"
            ng-if="propertyField.isExpression()"
-           typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
+           uib-typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
            placeholder="{{ 'expression or variable' | translate }}"/>
 
     <span class="input-group-btn">
