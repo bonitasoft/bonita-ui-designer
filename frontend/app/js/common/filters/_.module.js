@@ -16,26 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer', [
-    'app.route',
-    'bonitasoft.designer.preview',
-    'bonitasoft.designer.home',
-    'bonitasoft.designer.custom-widget',
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.common.filters',
-    'bonitasoft.designer.editor',
-    'bonitasoft.designer.templates',
-    'bonitasoft.designer.assets',
-    'ngSanitize',
-    'ngAnimate',
-    'ui.router',
-    'ui.bootstrap',
-    'ui.ace',
-    'org.bonitasoft.dragAndDrop',
-    'gettext',
-    'ngUpload',
-    'angularMoment'
-  ]);
+  angular.module('bonitasoft.designer.common.filters', []);
+
 })();
