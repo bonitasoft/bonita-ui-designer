@@ -2,20 +2,20 @@
 
   'use strict';
 
-  let _$modalInstance;
+  let _$uibModalInstance;
 
   class saveWidgetAsPopUpCtrl {
 
-    constructor($modalInstance, widget) {
+    constructor($uibModalInstance, widget) {
       this.widget = widget;
       this.newName = widget.name;
-      _$modalInstance = $modalInstance;
+      _$uibModalInstance = $uibModalInstance;
     }
 
     ok() {
       let widget = angular.copy(this.widget);   // copy widget to avoid side effects in case of creation error
       widget.name = this.newName;
-      _$modalInstance.close(widget);
+      _$uibModalInstance.close(widget);
     }
   }
 

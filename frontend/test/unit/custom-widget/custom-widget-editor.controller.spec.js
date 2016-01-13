@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $modal, modalInstance, $state, browserHistoryService;
+  var $scope, alerts, $q, widgetRepo, $uibModal, modalInstance, $state, browserHistoryService;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -10,22 +10,22 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $modalInstance, _$state_, _browserHistoryService_) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
     $scope = $rootScope.$new();
     $state = _$state_;
     browserHistoryService = _browserHistoryService_;
     $q = _$q_;
     widgetRepo = _widgetRepo_;
     alerts = _alerts_;
-    $modal = _$uibModal_;
-    modalInstance = $modalInstance.create();
+    $uibModal = _$uibModal_;
+    modalInstance = $uibModalInstance.create();
 
     spyOn($state, 'go');
     spyOn(browserHistoryService, 'back');
 
     $controller('CustomWidgetEditorCtrl', {
       $scope,
-      $modal,
+      $uibModal,
       artifact: awesomeWidget,
       artifactRepo: widgetRepo,
       $timeout
@@ -125,17 +125,17 @@ describe('CustomWidgetEditorCtrl', function() {
   });
 
   it('should open a dialog to create a new property', function() {
-    spyOn($modal, 'open').and.returnValue(modalInstance);
+    spyOn($uibModal, 'open').and.returnValue(modalInstance);
     $scope.createOrUpdate();
-    expect($modal.open).toHaveBeenCalled();
+    expect($uibModal.open).toHaveBeenCalled();
   });
 
   it('should open a dialog to save a widget as ..', function() {
-    spyOn($modal, 'open').and.returnValue(modalInstance);
+    spyOn($uibModal, 'open').and.returnValue(modalInstance);
     spyOn(widgetRepo, 'create').and.returnValue($q.when({ data: { id: 'customNewName', name: 'newName' } }));
 
     $scope.saveAs({ id: 'customOldName', name: 'oldName' });
-    expect($modal.open).toHaveBeenCalled();
+    expect($uibModal.open).toHaveBeenCalled();
   });
 
   describe('isTypeSelectable', function() {

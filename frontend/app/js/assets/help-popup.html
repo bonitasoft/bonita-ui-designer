@@ -1,10 +1,10 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
     <h3 class="modal-title" translate>Help</h3>
 </div>
 <div class="modal-body">
-    <tabset class="tabs-left">
-        <tab heading="{{ 'General' | translate }}">
+    <uib-tabset class="tabs-left">
+        <uib-tab heading="{{ 'General' | translate }}">
             <p translate>
                 Assets enable you to add web resources to pages and forms. Available asset types are
                 <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions)
@@ -20,9 +20,9 @@
                 To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page.
             </p>
 
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Asset use' | translate }}" ng-if="isPage">
+        <uib-tab heading="{{ 'Asset use' | translate }}" ng-if="isPage">
             <p translate>
                 Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters.
             </p>
@@ -62,9 +62,9 @@
 }</code></pre>
                 <translate>See the default localization asset for an example.</translate>
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Asset use' | translate }}" ng-if="!isPage">
+        <uib-tab heading="{{ 'Asset use' | translate }}" ng-if="!isPage">
             <p translate>
                 In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href="http://ngmodules.org/">http://ngmodules.org/</a>.
             </p>
@@ -72,9 +72,9 @@
             <p translate>
                 To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src="widgets/[custom widget id]/assets/img/[image name]"&gt;</code>
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
+        <uib-tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
             <p translate>
                 The list contains both page assets and the assets of the custom widgets used in this page.
             </p>
@@ -96,9 +96,9 @@
             </p>
 
 
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Asset list' | translate }}" ng-if="!isPage">
+        <uib-tab heading="{{ 'Asset list' | translate }}" ng-if="!isPage">
             <p translate >
                 In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any.
             </p>
@@ -106,15 +106,15 @@
             <p translate>
                 At runtime, assets of a custom widget are loaded in the order defined.
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Custom services' | translate }}">
+        <uib-tab heading="{{ 'Custom services' | translate }}">
             <p>
                 <translate>To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module.</translate> <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link" translate>Example: relative time filter</button>
             </p>
 
             <section>
-                <div class="well" collapse="!extensionsExamplesCollapsed">
+                <div class="well" uib-collapse="!extensionsExamplesCollapsed">
                     <div>
                         <h4 translate>Relative time filter</h4>
 
@@ -142,11 +142,11 @@
                     </div>
                 </div>
             </section>
-        </tab>
+        </uib-tab>
 
 
-    </tabset>
+    </uib-tabset>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
+    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
 </div>

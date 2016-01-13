@@ -2,13 +2,13 @@ describe('artifactListController', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home'));
 
-  var $scope, $q, $modal, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
+  var $scope, $q, $uibModal, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
 
   beforeEach(inject(function($rootScope, $compile, $injector) {
 
     $scope = $rootScope.$new();
     $q = $injector.get('$q');
-    $modal = $injector.get('$modal');
+    $uibModal = $injector.get('$uibModal');
     pageRepo = $injector.get('pageRepo');
     widgetRepo = $injector.get('widgetRepo');
     $state = $injector.get('$state');
@@ -47,11 +47,11 @@ describe('artifactListController', function() {
     var fakeModal = {
       result: $q.when('page1')
     };
-    spyOn($modal, 'open').and.returnValue(fakeModal);
+    spyOn($uibModal, 'open').and.returnValue(fakeModal);
 
     element.find('#page1 .Artifact-delete').click();
 
-    expect($modal.open).toHaveBeenCalled();
+    expect($uibModal.open).toHaveBeenCalled();
 
     // then the result callback should have been called
     $scope.$apply();

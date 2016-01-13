@@ -1,11 +1,11 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
     <h3 class="modal-title" translate>Help</h3>
 </div>
 <div class="modal-body">
 
-    <tabset class="tabs-left">
-        <tab heading="{{ 'General' | translate }}">
+    <uib-tabset class="tabs-left">
+        <uib-tab heading="{{ 'General' | translate }}">
             <p translate>
                 In the scope of a page, form, or layout, a variable can be used to handle business data,
                 or can contain structural information that determines how page elements behave.
@@ -19,9 +19,9 @@
 
             <p translate>You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio
                 <i>Development</i> menu and use them as External API variables in the UI Designer.</p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Living data' | translate }}">
+        <uib-tab heading="{{ 'Living data' | translate }}">
             <p translate>Variables can be bound to input fields to create conditional behavior between widget
                 properties.</p>
 
@@ -33,9 +33,9 @@
                 </li>
                 <li translate>A variable initialized with an External API is reloaded every time the URL value changes.</li>
             </ul>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Default variables' | translate }}">
+        <uib-tab heading="{{ 'Default variables' | translate }}">
             <p translate>
                 When you generate a form from a contract in the Studio, the form contains a Submit button and some
                 default variables: <code>formInput</code>,
@@ -84,10 +84,10 @@
                 <translate>To allow your user to download a document add a link widget with its url property bound to</translate><span
                 ng-non-bindable>'../API/' + context.documentData_ref.url</span>
             </p>
-        </tab>
+        </uib-tab>
 
-    </tabset>
+    </uib-tabset>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-link" ng-click="cancel()" translate>Close</button>
+    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
 </div>

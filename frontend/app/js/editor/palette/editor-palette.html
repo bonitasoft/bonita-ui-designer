@@ -4,7 +4,7 @@
             ng-repeat="section in palette.sections track by $index | orderBy:'order'"
             ng-click="palette.toggleSection(section)"
             aria-label="{{section.name | translate}}"
-            tooltip="{{section.name | translate}}"
+            uib-tooltip="{{section.name | translate}}"
             tooltip-placement="right"
             tooltip-popup-delay="500"
             tooltip-append-to-body="true">

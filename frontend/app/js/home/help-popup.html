@@ -4,8 +4,8 @@
 </div>
 <div class="modal-body">
 
-    <tabset class="tabs-left">
-        <tab heading="{{ 'Overview' | translate }}">
+    <uib-tabset class="tabs-left">
+        <uib-tab heading="{{ 'Overview' | translate }}">
             <p translate>
                 Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business
                 applications, <b>process forms</b> linked to process instantiation or human
@@ -47,9 +47,9 @@
                 want to further customize them in a
                 different favorite web development environment.
             </p>
-        </tab>
+        </uib-tab>
 
-        <tab heading="{{ 'Integration with Bonita BPM platform' | translate }}">
+        <uib-tab heading="{{ 'Integration with Bonita BPM platform' | translate }}">
             <p translate>
                 <b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita
                 BPM Portal resources, and from the
@@ -72,8 +72,8 @@
                 portal as a resource and map it as the
                 layout of the relevant application.
             </p>
-        </tab>
-    </tabset>
+        </uib-tab>
+    </uib-tabset>
 </div>
 <div class="modal-footer">
     <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
