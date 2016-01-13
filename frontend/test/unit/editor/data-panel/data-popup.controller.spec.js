@@ -2,14 +2,14 @@
   'use strict';
   describe('DataPopupController', function() {
 
-    var $scope, $location, $modalInstance, getController;
+    var $scope, $location, $uibModalInstance, getController;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel', 'mock.modal'));
 
     beforeEach(inject(function($injector) {
       $scope = $injector.get('$rootScope').$new();
 
-      $modalInstance = $injector.get('$modalInstance').create();
+      $uibModalInstance = $injector.get('$uibModalInstance').create();
 
       $location = $injector.get('$location');
       var $controller = $injector.get('$controller');
@@ -17,7 +17,7 @@
       getController = function(pageData, data) {
         return $controller('DataPopupController', {
           $scope: $scope,
-          $modalInstance: $modalInstance,
+          $uibModalInstance: $uibModalInstance,
           mode: 'page',
           pageData: pageData,
           data: data
@@ -88,7 +88,7 @@
         };
 
         $scope.save(data);
-        expect($modalInstance.close).toHaveBeenCalledWith(data);
+        expect($uibModalInstance.close).toHaveBeenCalledWith(data);
       });
     });
   });

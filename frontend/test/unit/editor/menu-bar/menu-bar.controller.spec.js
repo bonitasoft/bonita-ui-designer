@@ -7,7 +7,7 @@
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $modalInstance, _$state_, _browserHistoryService_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
       pageRepo = _pageRepo_;
       browserHistoryService = _browserHistoryService_;
       $q = _$q_;
@@ -20,7 +20,7 @@
       scope = $rootScope;
       $uibModal = _$uibModal_;
       $state = _$state_;
-      modalInstance = $modalInstance.fake();
+      modalInstance = $uibModalInstance.fake();
 
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');

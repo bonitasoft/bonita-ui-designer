@@ -3,8 +3,8 @@
   'use strict';
 
   class SaveAsPopUpController {
-    constructor($modalInstance, page) {
-      this.$modalInstance = $modalInstance;
+    constructor($uibModalInstance, page) {
+      this.$uibModalInstance = $uibModalInstance;
       this.page = page;
       this.newName = page.name;
     }
@@ -12,7 +12,7 @@
     ok() {
       let page = angular.copy(this.page);     // copy page to avoid side effects in case of creation error
       page.name = this.newName;
-      this.$modalInstance.close(page);
+      this.$uibModalInstance.close(page);
     }
   }
 

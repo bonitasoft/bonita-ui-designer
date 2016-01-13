@@ -2,7 +2,7 @@
     <input name="paramValue"
            ng-model="propertyValue.value"
            type="text"
-           typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
+           uib-typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
            autofocus="linked" class="form-control"/>
 
     <span class="input-group-btn" title="{{ 'Variable in read-write binding with the property value' | translate }}">

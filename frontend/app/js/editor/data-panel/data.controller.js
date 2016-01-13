@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $modal, artifact, mode) {
+angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $uibModal, artifact, mode) {
 
   'use strict';
 
@@ -55,7 +55,7 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
   });
 
   $scope.openDataPopup = function(key) {
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'js/editor/data-panel/data-popup.html',
       controller: 'DataPopupController',
       resolve: {
@@ -69,15 +69,5 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
 
   };
 
-  $scope.openHelp = function() {
-    $modal.open({
-      templateUrl: 'js/editor/data-panel/help-popup.html',
-      size: 'lg',
-      controller: function($scope, $modalInstance) {
-        $scope.cancel = function() {
-          $modalInstance.dismiss('cancel');
-        };
-      }
-    });
-  };
+  $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/editor/data-panel/help-popup.html', size: 'lg' });
 });

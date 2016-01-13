@@ -62,11 +62,11 @@
         resolve: {
           pageEdition: () => this.mode === 'page'
         },
-        controller: function($scope, $modalInstance, pageEdition) {
+        controller: function($scope, $uibModalInstance, pageEdition) {
           'ngInject';
           $scope.pageEdition = pageEdition;
           $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
           };
         }
       });
