@@ -17,11 +17,11 @@ describe('home import', () => {
 
   describe('controller', () => {
 
-    var $modalInstance, $modal;
+    var $uibModalInstance, $uibModal;
 
-    beforeEach(inject(function(_$modalInstance_, _$modal_) {
-      $modalInstance = _$modalInstance_;
-      $modal = _$modal_;
+    beforeEach(inject(function(_$uibModalInstance_, _$uibModal_) {
+      $uibModalInstance = _$uibModalInstance_;
+      $uibModal = _$uibModal_;
     }));
 
     it('should not open a modal when no report is returned', function() {
@@ -37,26 +37,26 @@ describe('home import', () => {
     });
 
     it('should open a modal when import report is returned', function() {
-      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
+      var importReport = {}, forceImportModal = $uibModalInstance.fake(), deferred = q.defer();
 
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
-      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      spyOn($uibModal, 'open').and.returnValue(forceImportModal);
       deferred.resolve(importReport);
 
       controller.onComplete(importReport);
       $scope.$apply();
 
-      expect($modal.open.calls.count()).toEqual(1);
-      var [args] = $modal.open.calls.mostRecent().args;
+      expect($uibModal.open.calls.count()).toEqual(1);
+      var [args] = $uibModal.open.calls.mostRecent().args;
       expect(args.templateUrl).toEqual('js/home/import/import-report-popup.html');
       expect(args.resolve.importReport()).toEqual(importReport);
     });
 
     it('should refresh lists when second pop up is closed', function() {
-      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
+      var importReport = {}, forceImportModal = $uibModalInstance.fake(), deferred = q.defer();
 
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
-      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      spyOn($uibModal, 'open').and.returnValue(forceImportModal);
       deferred.resolve(importReport);
 
       controller.onComplete(importReport);
@@ -68,11 +68,11 @@ describe('home import', () => {
     });
 
     it('should not refresh lists when second pop up is canceled', function() {
-      var importReport = {}, forceImportModal = $modalInstance.fake(), deferred = q.defer();
+      var importReport = {}, forceImportModal = $uibModalInstance.fake(), deferred = q.defer();
 
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
 
-      spyOn($modal, 'open').and.returnValue(forceImportModal);
+      spyOn($uibModal, 'open').and.returnValue(forceImportModal);
       deferred.resolve(importReport);
 
       controller.onComplete(importReport);

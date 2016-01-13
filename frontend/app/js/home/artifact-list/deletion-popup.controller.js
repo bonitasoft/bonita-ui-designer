@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.home').controller('DeletionPopUpController', function($scope, $modalInstance, artifact, type) {
+angular.module('bonitasoft.designer.home').controller('DeletionPopUpController', function($scope, $uibModalInstance, artifact, type) {
 
   'use strict';
 
@@ -23,11 +23,11 @@ angular.module('bonitasoft.designer.home').controller('DeletionPopUpController',
   $scope.artifact.type = type;
 
   $scope.ok = function() {
-    $modalInstance.close($scope.artifact.id);
+    $uibModalInstance.close($scope.artifact.id);
   };
 
   $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
 });

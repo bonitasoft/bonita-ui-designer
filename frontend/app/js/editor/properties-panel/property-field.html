@@ -2,7 +2,7 @@
 
     <div class="property-label">
         <label><i ng-if="property.icon" class="PropertyPanel-PropertyIcon" ng-class="property.icon.className"></i> {{ property.label | translate }} <i class="fa fa-info-circle" ng-if="property.help"
-                                                   tooltip="{{property.help | translate}}"
+                                                   uib-tooltip="{{property.help | translate}}"
                                                    tooltip-append-to-body="true"></i></label>
         <small class="help-block" ng-bind-html="property.caption | translate"></small>
     </div>

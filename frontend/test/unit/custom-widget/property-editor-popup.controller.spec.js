@@ -4,13 +4,13 @@ describe('PropertyEditorPopupCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, $modalInstance) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, $uibModalInstance) {
     $scope = $rootScope.$new();
-    modalInstance = $modalInstance.create();
+    modalInstance = $uibModalInstance.create();
 
     $controller('PropertyEditorPopupCtrl', {
       $scope: $scope,
-      $modalInstance:  modalInstance,
+      $uibModalInstance:  modalInstance,
       param: { type: 'page' }
     });
   }));

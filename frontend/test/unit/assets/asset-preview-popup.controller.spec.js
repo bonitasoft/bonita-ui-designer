@@ -1,13 +1,13 @@
 describe('AssetPreviewPopupCtrl', function() {
 
-  var $modalInstance, $controller, $rootScope, assetsService;
+  var $uibModalInstance, $controller, $rootScope, assetsService;
 
   beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
   beforeEach(inject(function(_$controller_, _$rootScope_, $injector) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
-    $modalInstance = jasmine.createSpyObj('$modalInstance', ['dismiss', 'close']);
+    $uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss', 'close']);
     assetsService = $injector.get('assetsService');
   }));
 
@@ -15,7 +15,7 @@ describe('AssetPreviewPopupCtrl', function() {
     var scope = $rootScope.$new();
     $controller('AssetPreviewPopupCtrl', {
       $scope: scope,
-      $modalInstance: $modalInstance,
+      $uibModalInstance: $uibModalInstance,
       asset: {
         name: 'myasset.js',
         type: 'js'
@@ -26,13 +26,13 @@ describe('AssetPreviewPopupCtrl', function() {
 
     scope.cancel();
 
-    expect($modalInstance.dismiss).toHaveBeenCalled();
+    expect($uibModalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should get url for widget mode', function() {
     var scope = $rootScope.$new();
     $controller('AssetPreviewPopupCtrl', {
-      $modalInstance: $modalInstance,
+      $uibModalInstance: $uibModalInstance,
       $scope: scope,
       asset: {
         name: 'myasset.js',
@@ -50,7 +50,7 @@ describe('AssetPreviewPopupCtrl', function() {
     var scope = $rootScope.$new();
     $controller('AssetPreviewPopupCtrl', {
       $scope: scope,
-      $modalInstance: $modalInstance,
+      $uibModalInstance: $uibModalInstance,
       asset: {
         scope: 'widget',
         componentId: 4321,
@@ -69,7 +69,7 @@ describe('AssetPreviewPopupCtrl', function() {
     var scope = $rootScope.$new();
     $controller('AssetPreviewPopupCtrl', {
       $scope: scope,
-      $modalInstance: $modalInstance,
+      $uibModalInstance: $uibModalInstance,
       asset: {
         name: 'myasset.js',
         type: 'js'

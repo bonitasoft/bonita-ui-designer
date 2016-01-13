@@ -9,7 +9,7 @@
          <p> <translate>The zip file also contains new elements.</translate>
           <span ng-click="showDetails = !showDetails" class="clickable ImportReport--smallAndUnderlined"><span ng-if="showDetails" class="fa fa-caret-down"></span><span ng-if="!showDetails" class="fa fa-caret-right"></span><translate>Details</translate></span>
           </p>
-          <div collapse="!showDetails">
+          <div uib-collapse="!showDetails">
               <import-report-item-list page-name="importReport.name" type="importReport.type" display-page="!importReport.report.overridden" dependencies="importReport.report.dependencies.added"></import-report-item-list>
           </div>
         </div>
