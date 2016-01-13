@@ -18,8 +18,8 @@
 
   class ImportReportPopupController {
 
-    constructor($modalInstance, importReport, importArtifactService) {
-      this.$modalInstance = $modalInstance;
+    constructor($uibModalInstance, importReport, importArtifactService) {
+      this.$uibModalInstance = $uibModalInstance;
       this.importArtifactService = importArtifactService;
       this.report = importReport;
     }
@@ -30,7 +30,7 @@
 
     forceImport() {
       this.importArtifactService.forceImport(this.report)
-        .then(this.$modalInstance.close, this.$modalInstance.dismiss);
+        .then(this.$uibModalInstance.close, this.$uibModalInstance.dismiss);
     }
 
     hasDependencies() {

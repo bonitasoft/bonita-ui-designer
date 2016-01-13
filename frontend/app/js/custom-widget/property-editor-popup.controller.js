@@ -32,7 +32,7 @@ angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
     template: 'js/editor/help/constant-bond-help.html'
   }
 })
-  .controller('PropertyEditorPopupCtrl', function($scope, param, $modalInstance, BONDS) {
+  .controller('PropertyEditorPopupCtrl', function($scope, param, $uibModalInstance, BONDS) {
 
     'use strict';
 
@@ -74,13 +74,13 @@ angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
       if ($scope.selectedBond === 'variable') {
         $scope.currentParam.defaultValue = null;
       }
-      $modalInstance.close({
+      $uibModalInstance.close({
         param: $scope.currentParam,
         paramToUpdate: $scope.paramToUpdate
       });
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
     };
   });

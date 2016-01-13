@@ -10,7 +10,7 @@ describe('DeletionPopController', function() {
 
     $controller('DeletionPopUpController', {
       $scope: $scope,
-      $modalInstance: modalInstance,
+      $uibModalInstance: modalInstance,
       artifact: page,
       type: 'page'
     });

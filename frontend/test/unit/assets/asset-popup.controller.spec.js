@@ -1,11 +1,11 @@
 describe('AssetPopupCtrl', function() {
 
-  var $rootScope, $scope, asset, $modalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector, assets;
+  var $rootScope, $scope, asset, $uibModalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector, assets;
 
   function createController(mode) {
     return injector.get('$controller')('AssetPopupCtrl', {
       $scope: $rootScope.$new(),
-      $modalInstance: $modalInstance,
+      $uibModalInstance: $uibModalInstance,
       asset: asset,
       assets: assets,
       assetsService: assetsService,
@@ -26,7 +26,7 @@ describe('AssetPopupCtrl', function() {
     $scope = $rootScope.$new();
     assetsService = $injector.get('assetsService');
     injector = $injector;
-    $modalInstance = jasmine.createSpyObj('$modalInstance', ['dismiss', 'close']);
+    $uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss', 'close']);
     alerts = jasmine.createSpyObj('alerts', ['addError']);
 
     assets = [];
@@ -57,7 +57,7 @@ describe('AssetPopupCtrl', function() {
 
   it('should close modal', function() {
     controller.cancel();
-    expect($modalInstance.dismiss).toHaveBeenCalled();
+    expect($uibModalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should diplay error and close modal when response contains error after form submit', function() {
@@ -66,7 +66,7 @@ describe('AssetPopupCtrl', function() {
     controller.onComplete(response);
 
     expect(alerts.addError).toHaveBeenCalledWith(response.message);
-    expect($modalInstance.close).toHaveBeenCalled();
+    expect($uibModalInstance.close).toHaveBeenCalled();
   });
 
   it('should display a specific error while uploading a malformed json file for json asset', function() {
@@ -78,7 +78,7 @@ describe('AssetPopupCtrl', function() {
         contentUrl: 'js/assets/malformed-json-error-message.html',
         context: response
       }, 12000);
-    expect($modalInstance.close).toHaveBeenCalled();
+    expect($uibModalInstance.close).toHaveBeenCalled();
   });
 
   it('should send external data to the caller when user want to save it', function() {
