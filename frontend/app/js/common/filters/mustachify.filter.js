@@ -16,26 +16,21 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer', [
-    'app.route',
-    'bonitasoft.designer.preview',
-    'bonitasoft.designer.home',
-    'bonitasoft.designer.custom-widget',
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.common.filters',
-    'bonitasoft.designer.editor',
-    'bonitasoft.designer.templates',
-    'bonitasoft.designer.assets',
-    'ngSanitize',
-    'ngAnimate',
-    'ui.router',
-    'ui.bootstrap',
-    'ui.ace',
-    'org.bonitasoft.dragAndDrop',
-    'gettext',
-    'ngUpload',
-    'angularMoment'
-  ]);
+  angular
+    .module('bonitasoft.designer.common.filters')
+    .filter('mustachify', () => mustachifyFilter);
+
+  function mustachifyFilter(input, openBracket = '[[', closeBracket = ']]') {
+    return input.replace(regexp(openBracket), '{{').replace(regexp(closeBracket), '}}');
+  }
+
+  function regexp(char) {
+    // escape regexp special chars
+    function escapeRegexp(s) {
+      return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    }
+
+    return new RegExp(escapeRegexp(char), 'g');
+  }
+
 })();
