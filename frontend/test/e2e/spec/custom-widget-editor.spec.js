@@ -33,6 +33,7 @@ describe('custom widget editor', function() {
     expect($('li#help-template').isPresent()).toBeTruthy();
     expect($('li#help-controller').isPresent()).toBeTruthy();
     $('.modal-header .close').click();
+    browser.waitForAngular();
     expect($('.modal-header').isPresent()).toBeFalsy();
   });
 

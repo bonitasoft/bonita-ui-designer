@@ -8,7 +8,7 @@
 
             <div class="radio" ng-repeat="type in createCtrl.types">
                 <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="createCtrl.type" ng-value="type">{{type.value | translate}}
-                    <i ng-if="type.tooltip" class="fa fa-info-circle" tooltip="{{type.tooltip}}"></i>
+                    <i ng-if="type.tooltip" class="fa fa-info-circle" uib-tooltip="{{type.tooltip}}" tooltip-placement="top"></i>
                 </label>
             </div>
         </div>

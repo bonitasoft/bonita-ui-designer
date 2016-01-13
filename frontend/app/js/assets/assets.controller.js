@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($modal, artifact, artifactRepo, mode, assetsService) {
+  function AssetCtrl($uibModal, artifact, artifactRepo, mode, assetsService) {
 
     var vm = this;
     vm.component = artifact;
@@ -73,7 +73,7 @@
     }
 
     function openAssetPreviewPopup(asset) {
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'js/assets/asset-preview-popup.html',
         controller: 'AssetPreviewPopupCtrl',
         resolve: {
@@ -89,7 +89,7 @@
     }
 
     function openAddUpdateAssetPopup(asset) {
-      var modalInstance = $modal.open({
+      var modalInstance = $uibModal.open({
         templateUrl: 'js/assets/asset-popup.html',
         controller: 'AssetPopupCtrl',
         controllerAs: 'vm',
@@ -119,14 +119,12 @@
     }
 
     function openHelp(elm) {
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'js/assets/help-popup.html',
         size: 'lg',
-        controller: function($scope, $modalInstance) {
+        controller: function($scope) {
+          'ngInject';
           $scope.isPage = (elm !== 'widget');
-          $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
-          };
         }
       });
     }

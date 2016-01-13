@@ -34,7 +34,7 @@
     });
 
   /* @ngInject */
-  function configureModule($compileProvider, boDraggableItemProvider, $tooltipProvider, $stateProvider, $urlRouterProvider, appStates, $modalProvider) {
+  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $stateProvider, $urlRouterProvider, appStates, $uibModalProvider) {
 
     /**
      * For the build, gulp replaces '%debugMode%' by false. For the dev no need to replace, it's eval to true.
@@ -46,7 +46,7 @@
     boDraggableItemProvider.activeBodyClassName(true);
 
     /* create custom trigger for popover */
-    $tooltipProvider.setTriggers({
+    $uibTooltipProvider.setTriggers({
       'show-tooltip': 'hide-tooltip'
     });
 
@@ -58,7 +58,7 @@
       $stateProvider.state(stateName, appStates[stateName]);
     });
 
-    angular.extend($modalProvider.options, {
+    angular.extend($uibModalProvider.options, {
       backdrop: 'static',
       //BS-14199 : change modal appearance animation for IE not to put cursor anywhere during animation
       windowClass: 'modal fade in'

@@ -2,11 +2,11 @@
   'use strict';
   describe('DataCtrl', function() {
 
-    var $scope, repository, $q, $location, $modal;
+    var $scope, repository, $q, $location, $uibModal;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel'));
 
-    beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$modal_) {
+    beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$uibModal_) {
       $scope = $rootScope.$new();
 
       $scope.addData = {
@@ -16,7 +16,7 @@
       $location = _$location_;
       repository = _pageRepo_;
       $q = _$q_;
-      $modal = _$modal_;
+      $uibModal = _$uibModal_;
 
       $controller('DataCtrl', {
         $scope: $scope,
@@ -92,11 +92,11 @@
     });
 
     it('should open a data popup', function() {
-      spyOn($modal, 'open').and.returnValue({
+      spyOn($uibModal, 'open').and.returnValue({
         result: $q.when({})
       });
       $scope.openDataPopup();
-      expect($modal.open).toHaveBeenCalled();
+      expect($uibModal.open).toHaveBeenCalled();
     });
   });
 })();

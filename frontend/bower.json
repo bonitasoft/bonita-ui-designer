@@ -16,13 +16,13 @@
   "dependencies": {
     "angular": "1.4.7",
     "jquery": "2.1.1",
-    "bootstrap": "3.3.5",
+    "bootstrap": "3.3.6",
     "less.js": "1.7.0",
     "angular-mocks": "1.4.7",
     "angular-sanitize": "1.4.7",
     "font-awesome": "4.3.0",
     "angular-recursion": "1.0.3",
-    "angular-bootstrap": "0.14.3",
+    "angular-bootstrap": "1.1.0",
     "angular-ui-ace": "0.1.1",
     "bonita-js-components": "bonitasoft/bonita-js-components#0.5.3",
     "angular-gettext": "2.0.1",
@@ -37,8 +37,8 @@
     "angular-dynamic-locale": "0.1.29"
   },
   "resolutions": {
-    "bootstrap": "3.3.5",
+    "bootstrap": "3.3.6",
     "angular": "1.4.7",
-    "angular-bootstrap": "0.14.3"
+    "angular-bootstrap": "1.1.0"
   }
 }

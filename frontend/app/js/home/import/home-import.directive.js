@@ -16,8 +16,8 @@
   'use strict';
 
   class ImportArtifactCtrl {
-    constructor($modal, $scope, importArtifactService) {
-      this.$modal = $modal;
+    constructor($uibModal, $scope, importArtifactService) {
+      this.$uibModal = $uibModal;
       this.$scope = $scope;
       this.importArtifactService = importArtifactService;
 
@@ -42,7 +42,7 @@
     }
 
     manageImportReport(importReport) {
-      return this.$modal.open({
+      return this.$uibModal.open({
         templateUrl: 'js/home/import/import-report-popup.html',
         controller: 'ImportReportPopupController',
         controllerAs: 'importReport',
