@@ -63,13 +63,18 @@ angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', f
     ],
     'BDM API': [
       {
-        description: gettextCatalog.getString('Get all business data references defined in a case'),
-        url: '../API/bdm/businessDataReference?f=caseId=<strong>{{caseId}}</strong>&p=0&c=10'
+        description: gettextCatalog.getString('Get all business variables defined in a case'),
+        url: '../API/bdm/businessDataReference?f=caseId=<strong>{{caseId}}</strong>&p=0&c=10',
+        more: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref).')
       },
       {
-        description: gettextCatalog.getString('Get a named business data reference defined in a case'),
-        url: '../API/bdm/businessDataReference/<strong>{{caseId}}</strong>/<strong>{{businessDataName}}</strong>',
-        more: gettextCatalog.getString('Where businessDataName is the name of the data variable defined on the pool.')
+        description: gettextCatalog.getString('Get a named business variable reference defined in a case'),
+        url: '../API/bdm/businessDataReference/<strong>{{caseId}}</strong>/<strong>{{businessVariableName}}</strong>',
+        alternative: {
+          before: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:'),
+          url: '../<strong>{{context.businessVariableName.link}}</strong>',
+          more: gettextCatalog.getString('Where businessVariableName is the name of the business variable defined at pool level.')
+        }
       },
       {
         description: gettextCatalog.getString('Call a business data (custom) query'),
