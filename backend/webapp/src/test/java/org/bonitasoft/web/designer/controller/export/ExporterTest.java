@@ -18,6 +18,7 @@ import static java.nio.file.Files.readAllBytes;
 import static org.apache.commons.io.FileUtils.deleteDirectory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.model.page.PageType.LAYOUT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -30,6 +31,7 @@ import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PageType;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.junit.Before;
@@ -116,7 +118,15 @@ public class ExporterTest {
         exporter.handleFileExport(page.getId(), response);
 
         assertThat(response.getHeader("Content-Disposition")).isEqualTo("inline; filename=page-az-zer.zip;");
+    }
 
+    @Test
+    public void should_set__artifact_type_in_filename() throws Exception {
+        Page page = mockForPage(aPage().withType(LAYOUT).withName("thelayout").build());
+
+        exporter.handleFileExport(page.getId(), response);
+
+        assertThat(response.getHeader("Content-Disposition")).isEqualTo("inline; filename=layout-thelayout.zip;");
     }
 
     @Test

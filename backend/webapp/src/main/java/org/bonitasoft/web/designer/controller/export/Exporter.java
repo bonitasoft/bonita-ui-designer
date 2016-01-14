@@ -28,6 +28,7 @@ import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,7 +95,11 @@ public class Exporter<T extends Identifiable> {
      * Generates the filename. It has to be placed in the header before the first writting in the stream
      */
     private String getFileName(Identifiable identifiable) {
-        return String.format("%s-%s.zip", repository.getComponentName(), escape(identifiable.getName()));
+        String type = repository.getComponentName();
+        if (identifiable instanceof Page) {
+            type = ((Page) identifiable).getType().toJson();
+        }
+        return String.format("%s-%s.zip", type, escape(identifiable.getName()));
     }
 
     private String escape(String s) {
