@@ -7,42 +7,62 @@
     <tabset class="tabs-left">
         <tab heading="{{ 'General' | translate }}">
             <p translate>
-                In the scope of a page, form, or layout, a variable can be used to handle business data, 
+                In the scope of a page, form, or layout, a variable can be used to handle business data,
                 or can contain structural information that determines how page elements behave.
             </p>
 
-            <p translate>Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section.</p>
+            <p translate>Create a variable here. Using the variable in a widget property depends on the property value
+                type, described in the page editor general help, in the <i>Properties</i> section.</p>
 
-            <p translate>Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic).</p>
+            <p translate>Available variables types are string and JSON (static), and External API, JavaScript
+                expression, and URL parameter (dynamic).</p>
+
+            <p translate>You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio
+                <i>Development</i> menu and use them as External API variables in the UI Designer.</p>
         </tab>
 
         <tab heading="{{ 'Living data' | translate }}">
-            <p translate>Variables can be bound to input fields to create conditional behavior between widget properties.</p>
+            <p translate>Variables can be bound to input fields to create conditional behavior between widget
+                properties.</p>
 
-            <p translate>A binding is dynamic, so every time data changes, the whole data model is re-evaluated and the UI is updated.</p>
+            <p translate>A binding is dynamic, so every time data changes, all variables are re-evaluated and the
+                UI is updated. In consequence:</p>
+            <ul>
+                <li>A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when
+                    one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>.
+                </li>
+                <li>A variable initialized with an External API is reloaded every time the URL value changes.</li>
+            </ul>
         </tab>
 
         <tab heading="{{ 'Default variables' | translate }}">
             <p translate>
-                When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>,
+                When you generate a form from a contract in the Studio, the form contains a Submit button and some
+                default variables: <code>formInput</code>,
                 <code>formOutput</code>, <code>taskId</code>, and <code>context</code>
             </p>
 
             <p translate>
                 <code>formInput</code> is a JSON object.
-                <br/>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial
+                <br/>Its structure is defined by the contract inputs and the attributes are initialized with default
+                values. It could be used to set initial
                 values for form fields.
-                <br/>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with
+                <br/>You can set the values in <code>formInput</code> either by editing the default values with
+                constants (useful for test and debug) or with
                 values from an object in an external source that has the same model (such as with a BDM external API).
-                <br/>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to
+                <br/>You can also set the initial values of a form from some other source without using
+                <code>formInput</code>. However, you will then have to
                 edit <code>formOutput</code> manually.
             </p>
 
             <p translate>
                 <code>formOutput</code> is a JavaScript expression returning an object.
-                <br/>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields
-                from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and
-                aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to
+                <br/>Its structure matches the contract requirements and is filled with <code>formInput</code> by
+                default. Its goal is to aggregate the fields
+                from the form and to submit them to the task or process to fulfil the contract. On Submit, values
+                entered or modified by the end-user and
+                aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property
+                of the Submit button) are submitted to
                 the process or task
             </p>
 
@@ -51,11 +71,19 @@
                 <br/>It is the id of the current BPM task. You can use it as a BPM API parameter.
             </p>
 
-            <p translate><code>context</code> is an External API.
+            <p><code>context</code> is an External API.
                 <br/>It provides references to all business variables and documents in the process instance.
-                To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable>../{{context.myBusinessData_ref.link}}</span>
+                To retrieve a business variable instance, create an External API variable with value <span
+                ng-non-bindable>../{{context.myBusinessData_ref.link}}</span>
             </p>
-
+            <p>
+                To retrieve a document instance, create an External API variable with value <span
+                ng-non-bindable>../API/{{context.documentData_ref.url}}</span>
+            </p>
+            <p>
+                To allow your user to download a document add a link widget with its url property bound to<span
+                ng-non-bindable>'../API/' + context.documentData_ref.url</span>
+            </p>
         </tab>
 
     </tabset>

@@ -16,7 +16,7 @@
         <p translate>Do you want to import this zip file?</p>
     </div>
     <div class="modal-body" ng-if="!importReport.hasDependencies()">
-        <p translate>A {{ ::importReport.type }} named <strong>{{ ::importReport.name }}</strong> already exists.<br/>Click <em>Import</em> to override.</p>
+        <p translate>A {{ ::importReport.type }} named <strong>{{ ::importReport.name }}</strong> already exists.<br/>Click <em>Import</em> to overwrite.</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="importReport.forceImport()" translate>Import</button>

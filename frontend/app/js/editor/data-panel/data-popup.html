@@ -44,9 +44,10 @@
             <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="../API" id="value"
                    name="value" ng-model="newData.value" required valid-url>
 
-            <p class="help-block" ng-switch-when="url" translate>
-                <span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em>
-            </p>
+            <div class="help-block" ng-switch-when="url" translate>
+                <p><span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p>
+                <p><span class="tip">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>
+            </div>
 
             <section ng-switch-when="url" >
                 <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
@@ -56,8 +57,14 @@
                                 ng-model="example"></select>
                     </div>
                     <div>
+                        <p>{{ example.before }}</p>
                         <p ng-bind-html="example.url"></p>
                         <p>{{ example.more }}</p>
+                    </div>
+                    <div ng-if="example.alternative">
+                        <p>{{ example.alternative.before }}</p>
+                        <p ng-bind-html="example.alternative.url"></p>
+                        <p>{{ example.alternative.more }}</p>
                     </div>
                 </div>
             </section>

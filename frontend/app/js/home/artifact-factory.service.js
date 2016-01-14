@@ -33,7 +33,7 @@
           key: 'form',
           state: 'page',
           value: gettext('Process form'),
-          tooltip: gettext('Forms should be created from process at pool level (for process instantiation) or human task level.'),
+          tooltip: gettext('You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit.'),
           filterName: gettext('Forms'),
           create: name => this.createPage(name, 'form')
         },
