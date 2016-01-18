@@ -1,6 +1,7 @@
 {
   "id": "pbButton",
   "name": "Button",
+  "type": "widget",
   "template": "@pbButton.tpl.html",
   "controller": "@pbButton.ctrl.js",
   "description": "Trigger for an action in a page or form",

@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
+import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -24,6 +25,7 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -49,6 +51,7 @@ public class WidgetTest {
                 + "\"name\":\"aName\","
                 + "\"custom\":false,"
                 + "\"favorite\": true,"
+                + "\"type\": \"widget\","
                 + "\"usedBy\":{"
                     + "\"page\":[{"
                         + "\"id\":\"UUID\","
@@ -60,6 +63,7 @@ public class WidgetTest {
                         + "\"id\":\"UUID\","
                         + "\"name\":\"aName\","
                         + "\"custom\":false,"
+                        + "\"type\": \"widget\","
                         + "\"favorite\": false"
                     + "}]"
                 + "}}", true);
@@ -110,6 +114,15 @@ public class WidgetTest {
         widget.addUsedBy("component", asList(page));
 
         assertThat(widget.getUsedBy().get("component")).containsOnly(page);
+    }
+
+    @Test
+    public void should_have_a_default_type_on_desieralization() throws Exception {
+        byte[] content = toByteArray(this.getClass().getResourceAsStream("widget-with-no-type.json"));
+
+        Widget widget = objectMapper.readValue(content, Widget.class);
+
+        assertThat(widget.getType()).isEqualTo("widget");
     }
 
     /**

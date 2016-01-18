@@ -47,7 +47,7 @@ public class Page extends DesignerArtifact implements Previewable, Identifiable,
     @NotBlank(message = "Page name should not be blank")
     @Pattern(regexp = "[a-zA-Z0-9]*$", message = "Page name should contains only alphanumeric characters with no space")
     private String name;
-    private PageType type = PageType.PAGE;
+    private String type = "page";
     private Instant lastUpdate;
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
@@ -73,11 +73,11 @@ public class Page extends DesignerArtifact implements Previewable, Identifiable,
     }
 
     @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
-    public PageType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(PageType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

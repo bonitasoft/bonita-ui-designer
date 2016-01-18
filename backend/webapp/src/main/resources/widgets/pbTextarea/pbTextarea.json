@@ -1,6 +1,7 @@
 {
   "id": "pbTextarea",
   "name": "Text Area",
+  "type": "widget",
   "template": "@pbTextarea.tpl.html",
   "controller": "@pbTextarea.ctrl.js",
   "description": "Multi-line, expandable, text input field",

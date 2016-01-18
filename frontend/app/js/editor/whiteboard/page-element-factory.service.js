@@ -31,10 +31,15 @@
      * @return {Object}           New component to add to the whiteboard
      */
     function createWidgetElement(widget) {
-      var element = createElement(widget.type || 'component', widget);
+      var element = createElement(getType(widget), widget);
       return angular.extend(element, {
         id: widget.id
       });
+    }
+
+    function getType(component) {
+      // for now, page widget elements have type 'component'
+      return !component.type || component.type === 'widget' ? 'component' : component.type;
     }
 
     function createContainerElement(container) {
