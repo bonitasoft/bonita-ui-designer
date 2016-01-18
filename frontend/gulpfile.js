@@ -79,7 +79,9 @@ var paths = {
     'ja',
     'pt-BR',
     'ru'
-  ].map((lang) => `node_modules/angular-i18n/angular-locale_${lang}.js`)
+  ].map(function(lang) {
+      return 'node_modules/angular-i18n/angular-locale_' + lang + '.js';
+    })
 };
 
 var banner = [
