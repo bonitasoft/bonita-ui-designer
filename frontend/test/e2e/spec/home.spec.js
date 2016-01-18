@@ -47,7 +47,7 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
 
     $('#save').click();
-    $('.EditorHeader-back').click();
+    $$('.EditorHeader-back').click();
     expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
@@ -62,7 +62,7 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
 
     $('#save').click();
-    $('.EditorHeader-back').click();
+    $('.EditorHeader-icon').click();
     expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
@@ -237,10 +237,10 @@ describe('home page', function() {
   });
 
   it('should mark a page as favorite', function() {
-    $('#empty .Artifact-button-favorite').click();
+    $$('#empty .Artifact-button-favorite').first().click();
     expect(home.getFavoritePageNames()).toEqual(['Person', 'empty']);
 
-    $('#empty .Artifact-button-favorite').click();
+    $$('#empty .Artifact-button-favorite').first().click();
     expect(home.getFavoritePageNames()).toEqual(['Person']);
   });
 });

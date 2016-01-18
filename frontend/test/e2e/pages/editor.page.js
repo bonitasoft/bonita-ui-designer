@@ -104,7 +104,7 @@ var AssetPanel = require('./asset-panel.page');
     removeWidget: function() {
       var selectedItem = element(by.css('.component-element--selected'));
       browser.actions().mouseMove(selectedItem).perform();
-      element(by.css('.component-element--selected .fa.fa-times-circle')).click();
+      $$('.component-element--selected .fa.fa-times-circle').first().click();
     },
 
     // add a container
