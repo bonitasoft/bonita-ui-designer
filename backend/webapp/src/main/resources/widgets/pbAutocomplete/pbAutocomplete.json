@@ -1,6 +1,7 @@
 {
   "id": "pbAutocomplete",
   "name": "Autocomplete",
+  "type": "widget",
   "template": "@pbAutocomplete.tpl.html",
   "controller": "@pbAutocomplete.ctrl.js",
   "description": "Input field with content completion from a given list",

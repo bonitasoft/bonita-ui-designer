@@ -1,6 +1,7 @@
 {
   "id": "pbDatePicker",
   "name": "Date Picker",
+  "type": "widget",
   "template": "@pbDatePicker.tpl.html",
   "controller": "@pbDatePicker.ctrl.js",
   "description": "Calendar for selecting a date",

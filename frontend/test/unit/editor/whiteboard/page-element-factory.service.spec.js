@@ -36,6 +36,22 @@
       });
     });
 
+    it('should create a page element with component type for a widget', function() {
+      var widget = {
+        id: 'aWidget',
+        type: 'widget'
+      };
+
+      var element = service.createWidgetElement(widget);
+
+      expect(element).toEqual({
+        id: 'aWidget',
+        type: 'component',
+        dimension: { xs: 12 },
+        propertyValues: {}
+      });
+    });
+
     it('should create a page element for a container', function() {
       var container = {
         properties: [
