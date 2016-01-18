@@ -34,11 +34,24 @@
   line-height: @nav-bar-height;
   width: 50px;
   cursor: pointer;
+  &:hover{
+    background: lighten(@color-editor-header-back-bg, 5%);
+    color: @color-editor-header-text;
+  }
 }
 
-.EditorHeader-back:hover {
-  background: lighten(@color-editor-header-back-bg, 5%);
-  color: @color-editor-header-text;
+.EditorHeader-homeNav {
+  height: @nav-bar-height;
+  line-height: @nav-bar-height;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: -4px;
+  padding-right: 15px;
+  &:hover{
+    background: lighten(@color-editor-header-back-bg, 5%);
+    color: @color-editor-header-text;
+    text-decoration: none;
+  }
 }
 
 .EditorHeader-icon  {
