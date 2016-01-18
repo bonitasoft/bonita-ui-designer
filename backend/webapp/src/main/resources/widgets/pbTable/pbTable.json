@@ -1,6 +1,7 @@
 {
   "id": "pbTable",
   "name": "Table",
+  "type": "widget",
   "template": "@pbTable.tpl.html",
   "controller": "@pbTable.ctrl.js",
   "description": "Tabular presentation of data from an array",

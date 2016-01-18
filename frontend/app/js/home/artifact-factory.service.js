@@ -69,6 +69,7 @@
 
       return {
         name,
+        type: 'widget',
         template,
         controller,
         custom: true,

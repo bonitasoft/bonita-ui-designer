@@ -1,6 +1,7 @@
 {
   "id": "pbCheckbox",
   "name": "Checkbox",
+  "type": "widget",
   "template": "@pbCheckbox.tpl.html",
   "controller": "@pbCheckbox.ctrl.js",
   "description": "Unique checkbox for an option. The user checks it or not",

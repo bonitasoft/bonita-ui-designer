@@ -1,6 +1,7 @@
 {
   "id": "pbSelect",
   "name": "Select",
+  "type": "widget",
   "template": "@pbSelect.tpl.html",
   "controller": "@pbSelect.ctrl.js",
   "description": "Dropdown list of available values. The user selects one value",

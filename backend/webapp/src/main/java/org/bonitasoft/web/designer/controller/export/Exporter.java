@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
 import static org.springframework.util.FileCopyUtils.copy;
@@ -26,14 +27,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Exporter<T extends Identifiable> {
+public class Exporter<T extends DesignerArtifact> {
 
     private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
 
@@ -66,14 +66,14 @@ public class Exporter<T extends Identifiable> {
             filename = getFileName(identifiable);
 
             // add json model
-            zipper.addToZip(objectMapper.toJson(identifiable), String.format("%s/%s.json", RESOURCES, repository.getComponentName()));
+            zipper.addToZip(objectMapper.toJson(identifiable), format("%s/%s.json", RESOURCES, repository.getComponentName()));
             // forceExecution export steps
             for (ExportStep exporter : exportSteps) {
                 exporter.execute(zipper, identifiable);
             }
 
         } catch (Exception e) {
-            logger.error(String.format("Technical error on zip creation %s with id %s", repository.getComponentName(), id), e);
+            logger.error(format("Technical error on zip creation %s with id %s", repository.getComponentName(), id), e);
             throw new ExportException(e);
         }
 
@@ -82,10 +82,10 @@ public class Exporter<T extends Identifiable> {
         if (zipStream != null) {
             try (ByteArrayInputStream inputStream = new ByteArrayInputStream(zipStream.toByteArray()); ServletOutputStream servletOutputStream = resp.getOutputStream();) {
                 resp.setContentType(MimeType.APPLICATION_ZIP.toString());
-                resp.setHeader("Content-Disposition", String.format("inline; filename=%s;", filename));
+                resp.setHeader("Content-Disposition", format("inline; filename=%s;", filename));
                 copy(inputStream, servletOutputStream);
             } catch (Exception e) {
-                logger.error(String.format("Technical error when exporting %s with id %s", repository.getComponentName(), id), e);
+                logger.error(format("Technical error when exporting %s with id %s", repository.getComponentName(), id), e);
                 throw new ExportException(e);
             }
         }
@@ -94,12 +94,8 @@ public class Exporter<T extends Identifiable> {
     /**
      * Generates the filename. It has to be placed in the header before the first writting in the stream
      */
-    private String getFileName(Identifiable identifiable) {
-        String type = repository.getComponentName();
-        if (identifiable instanceof Page) {
-            type = ((Page) identifiable).getType().toJson();
-        }
-        return String.format("%s-%s.zip", type, escape(identifiable.getName()));
+    private String getFileName(DesignerArtifact artifact) {
+        return format("%s-%s.zip", artifact.getType(), escape(artifact.getName()));
     }
 
     private String escape(String s) {

@@ -20,6 +20,7 @@ import static org.bonitasoft.web.designer.builder.DataBuilder.*;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -27,12 +28,9 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.PageType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {
@@ -58,7 +56,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getType()).isEqualTo(PageType.FORM);
+        assertThat(page.getType()).isEqualTo("form");
     }
 
     @Test

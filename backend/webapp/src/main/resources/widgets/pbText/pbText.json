@@ -1,6 +1,7 @@
 {
   "id": "pbText",
   "name": "Text",
+  "type": "widget",
   "template": "@pbText.tpl.html",
   "description": "Short string or paragraph of text to be displayed. Can include HTML tags",
   "order": "10",
