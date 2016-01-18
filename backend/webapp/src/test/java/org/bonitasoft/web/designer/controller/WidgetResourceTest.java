@@ -24,7 +24,9 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
+import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.joda.time.Instant.parse;
 import static org.mockito.Matchers.any;
@@ -57,6 +59,7 @@ import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -107,7 +110,8 @@ public class WidgetResourceTest {
         mockMvc.perform(get("/rest/widgets"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")));
+                .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
+                .andExpect(jsonPath("$[*].type").value(everyItem(is("widget"))));
     }
 
     @Test
@@ -122,6 +126,7 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
+                .andExpect(jsonPath("$[*].type").value(everyItem(is("widget"))))
                 .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(parse("2015-02-02").getMillis())))
                 .andExpect(jsonPath("$[*].usedBy.widget[*].name").value(hasItems("helloWidget")))
                 .andExpect(jsonPath("$[*].usedBy.page[*].name").value(hasItems("hello")));
