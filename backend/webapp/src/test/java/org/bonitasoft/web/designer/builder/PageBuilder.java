@@ -37,7 +37,6 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.PageType;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
@@ -51,7 +50,7 @@ public class PageBuilder {
     private String id = UUID.randomUUID().toString();
     private String version;
     private boolean favorite = false;
-    private PageType type = PageType.PAGE;
+    private String type;
 
     private PageBuilder() {
     }
@@ -115,7 +114,7 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withType(PageType type) {
+    public PageBuilder withType(String type) {
         this.type = type;
         return this;
     }
@@ -141,7 +140,10 @@ public class PageBuilder {
         page.setInactiveAssets(inactiveAssets);
         page.setDesignerVersion(version);
         page.setFavorite(favorite);
-        page.setType(type);
+
+        if (type != null) {
+            page.setType(type);
+        }
         return page;
     }
 

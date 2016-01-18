@@ -1,0 +1,13 @@
+{
+  "id": "pbWidgetWithNoType",
+  "name": "widgetWithNoType",
+  "template": "<div></div>",
+  "properties": [
+    {
+      "label": "Read-only",
+      "name": "readOnly",
+      "type": "boolean",
+      "defaultValue": false
+    }
+  ]
+}
