@@ -1,6 +1,7 @@
 {
   "id": "pbTitle",
   "name": "Title",
+  "type": "widget",
   "template": "@pbTitle.tpl.html",
   "description": "Text used to structure the page or form content",
   "order": "1",

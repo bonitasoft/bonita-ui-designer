@@ -1,6 +1,7 @@
 {
   "id": "pbLink",
   "name": "Link",
+  "type": "widget",
   "template": "@pbLink.tpl.html",
   "description": "Navigation link to another page or form, or for file download",
   "order": "12",

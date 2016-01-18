@@ -1,6 +1,7 @@
 {
   "id": "pbUpload",
   "name": "Upload",
+  "type": "widget",
   "template": "@pbUpload.tpl.html",
   "controller": "@pbUpload.ctrl.js",
   "description": "File chooser for uploading a document to a form",

@@ -46,6 +46,9 @@ public abstract class DesignerArtifact implements Identifiable, ResetOnImport {
         return favorite;
     }
 
+    @JsonView({ JsonViewPersistence.class, JsonViewLight.class })
+    public abstract String getType();
+
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
     }
