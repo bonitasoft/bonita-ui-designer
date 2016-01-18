@@ -1,6 +1,7 @@
 {
   "id": "pbRadioButtons",
   "name": "Radio Buttons",
+  "type": "widget",
   "template": "@pbRadioButtons.tpl.html",
   "controller": "@pbRadioButtons.ctrl.js",
   "description": "Set of buttons for mutually exclusive options. The user selects one option",

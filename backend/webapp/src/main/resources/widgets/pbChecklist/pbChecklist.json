@@ -1,6 +1,7 @@
 {
   "id": "pbChecklist",
   "name": "Checklist",
+  "type": "widget",
   "template": "@pbChecklist.tpl.html",
   "controller": "@pbChecklist.ctrl.js",
   "description": "Set of checkboxes for options. The user selects zero or more",

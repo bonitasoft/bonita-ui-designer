@@ -64,6 +64,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private Map<String, List<Identifiable>> usedBy; // list of element that use this widget
     private Set<Asset> assets = new HashSet<>();
     private Set<String> requiredModules;
+    private String type = "widget";
 
     /**
      * The validation context can change depending on the nature of a widget. A custom widget name can't contain space but a
@@ -238,6 +239,17 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     }
 
     @Override
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        if (type != null) {         // default type is widget
+            this.type = type;
+        }
+    }
+
+    @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Widget) {
             final Widget other = (Widget) obj;
@@ -282,4 +294,5 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
         char firstLetter = Character.toLowerCase(widgetId.charAt(0));
         return firstLetter + widgetId.substring(1).replaceAll("([A-Z])", "-$1").toLowerCase();
     }
+
 }
