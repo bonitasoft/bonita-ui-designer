@@ -72,15 +72,6 @@ describe('The route config', function() {
     $httpBackend.flush();
   });
 
-  it('should load deutsch translations', function() {
-
-    $httpBackend.expectGET('i18n/lang-template-de-DE.json').respond(200, '');
-
-    $location.url('de/home');
-
-    $httpBackend.flush();
-  });
-
   it('should load spanish translations', function() {
 
     $httpBackend.expectGET('i18n/lang-template-es-ES.json').respond(200, '');
@@ -90,21 +81,4 @@ describe('The route config', function() {
     $httpBackend.flush();
   });
 
-  it('should load italian translations', function() {
-
-    $httpBackend.expectGET('i18n/lang-template-it-IT.json').respond(200, '');
-
-    $location.url('it/home');
-
-    $httpBackend.flush();
-  });
-
-  it('should load portuguese translations', function() {
-
-    $httpBackend.expectGET('i18n/lang-template-pt-BR.json').respond(200, '');
-
-    $location.url('pt/home');
-
-    $httpBackend.flush();
-  });
 });
