@@ -214,7 +214,7 @@ public class ContractInputVisitorImplTest {
 
         Container complexContainer = (Container) complexSecondRow.get(0);
         assertThat(complexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
-                aDataPropertyValue("formInput.complex")));
+                aDataPropertyValue("formOutput.complex")));
         assertThat(complexContainer.getRows()).hasSize(6);
         assertThat(complexContainer.getRows().get(0)).hasSize(1);
 
