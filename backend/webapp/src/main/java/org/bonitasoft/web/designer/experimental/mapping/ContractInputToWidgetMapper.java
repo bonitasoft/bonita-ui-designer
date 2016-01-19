@@ -26,6 +26,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParam
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
@@ -106,6 +107,7 @@ public class ContractInputToWidgetMapper {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FORM_OUTPUT_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
+        submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
         return submitButton.getAdapter(Component.class);
     }
 
