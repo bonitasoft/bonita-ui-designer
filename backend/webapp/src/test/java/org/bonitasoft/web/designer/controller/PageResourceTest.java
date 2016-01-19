@@ -33,8 +33,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -48,7 +46,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.core.FakeJsonProcessingException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
@@ -180,7 +177,7 @@ public class PageResourceTest {
     public void should_create_a_page_from_a_Contract_at_task_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
-        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.TASK))).thenReturn(newPage);
+        when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.TASK))).thenReturn(newPage);
 
         mockMvc
                 .perform(post("/rest/pages/contract/task/myPage")
@@ -196,7 +193,7 @@ public class PageResourceTest {
     public void should_create_a_page_from_a_Contract_at_process_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
-        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.PROCESS))).thenReturn(newPage);
+        when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.PROCESS))).thenReturn(newPage);
 
         mockMvc
                 .perform(post("/rest/pages/contract/process/myPage")
@@ -212,7 +209,7 @@ public class PageResourceTest {
     public void should_create_a_page_from_a_Contract_at_overview_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
-        when(contractToPageMapper.createPage(eq("myPage"), notNull(Contract.class), eq(FormScope.OVERVIEW))).thenReturn(newPage);
+        when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.OVERVIEW))).thenReturn(newPage);
 
         mockMvc
                 .perform(post("/rest/pages/contract/overview/myPage")
