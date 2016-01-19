@@ -57,6 +57,8 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
     }
 
+    private Map<String, PropertyValue> propertyValues = new HashMap<>();
+
     public AbstractParametrizedWidget(String widgetId) {
         this.widgetId = widgetId;
     }
@@ -157,7 +159,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
             @Override
             public PropertyValue transformEntry(String paramName, Object value) {
-                return createPropertyValue(getParameterType(paramName), value);
+                return propertyValues.containsKey(paramName) ? propertyValues.get(paramName) : createPropertyValue(getParameterType(paramName), value);
             }
         };
     }
@@ -173,4 +175,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         return propertyValue;
     }
 
+    public void setPropertyValue(String paramName, ParameterType type, Object value) {
+        propertyValues.put(paramName, createPropertyValue(type, value));
+    }
 }
