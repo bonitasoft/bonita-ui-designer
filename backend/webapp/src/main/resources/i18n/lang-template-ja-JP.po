@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-01-08 03:58-0500\n"
+"PO-Revision-Date: 2016-01-19 06:32-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -43,10 +43,6 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita BPM ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
 
 #: editor/data-panel/help-popup.html:1
-msgid "<code>context</code> is an External API. <br>It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span>"
-msgstr "<code>コンテキスト</code> は、外部 API です。<br>それはプロセス インスタンス内のすべてのビジネス変数とドキュメントの参照を提供します。ビジネス変数のインスタンスを取得するには、<span ng-non-bindable=\"\">../{{context.myBusinessData_ref.link}}</span> の値を持つ外部 API 変数を作成します。"
-
-#: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
@@ -57,6 +53,10 @@ msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式
 #: editor/data-panel/help-popup.html:1
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM タスクの id です。BPM API のパラメータとして使用できます。"
+
+#: editor/data-panel/data-popup.html:1
+msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
+msgstr "<p><span class=\"tip\"> ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> 構文を使用して、URL 内にデータを使用できます。</p><p><span class=\"tip\"> ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大でき、それらをここで使用します。</p>"
 
 #: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -70,11 +70,7 @@ msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<s
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
-#: editor/data-panel/data-popup.html:1
-msgid "<span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em>"
-msgstr "<span class=\"tip\">ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> の文法を使用してURL内のデータを使用できます。"
-
-#: editor/menu-bar/menu-bar.html:1
+#: editor/header/header.html:1
 msgid "<span>{{ vm.mode }}</span> editor"
 msgstr "<span>{{ vm.mode }}</span> エディタ"
 
@@ -91,8 +87,8 @@ msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: 現在の反復処理の要素"
 
 #: editor/data-panel/help-popup.html:1
-msgid "A binding is dynamic, so every time data changes, the whole data model is re-evaluated and the UI is updated."
-msgstr "バインディングは動的でデータは常時変化します。データモデル全体が再評価され、UI が動的に更新されます。"
+msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
+msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
 
 #: assets/help-popup.html:1
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
@@ -110,11 +106,19 @@ msgstr "プロパティの値は、コンスタント、動的な値、双方向
 msgid "A server error occurred."
 msgstr "サーバーエラーが発生しました。"
 
-#: home/import/import-report-popup.html:1
-msgid "A {{importReport.report.element.type}} named <strong>{{ importReport.report.element.name }}</strong> already exists.<br>Click <em>Import</em> to override."
-msgstr " <strong>{{ importReport.report.element.name }}</strong> と命名した {{importReport.report.element.type}} が既に存在します。上書きするには、<br><em>インポート</em> をクリックします。"
+#: editor/data-panel/help-popup.html:1
+msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
+msgstr "JavaScript 式で初期化される変数は、ページが読み込まれたときに実行されます。その後、その依存関係の 1 つが変更されたときは、その値が更新されます。<code>$data.XXX</code> を使用して、依存関係が作成されます。"
 
-#: assets/asset-popup.controller.js:113
+#: editor/data-panel/help-popup.html:1
+msgid "A variable initialized with an External API is reloaded every time the URL value changes."
+msgstr "外部 API で初期化される変数は、URL の値が変更されるたびに再度読み込まれます。"
+
+#: home/import/import-report-popup.html:1
+msgid "A {{ ::importReport.type }} named <strong>{{ ::importReport.name }}</strong> already exists.<br>Click <em>Import</em> to overwrite."
+msgstr "<strong>{{ ::importReport.name }}</strong> という名前の{{ ::importReport.type }} は、既に存在します。<br>上書きするには、<em>インポート</em> をクリックします。"
+
+#: assets/asset-popup.controller.js:120
 msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
 
@@ -122,7 +126,7 @@ msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセッ�
 msgid "API URL"
 msgstr "API の URL"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Access to $form capabilities for form container"
 msgstr "フォーム コンテナ： $form の機能にアクセスできます"
 
@@ -155,7 +159,7 @@ msgstr "新規アセットを追加"
 msgid "Add a new tab"
 msgstr "新規タブを追加"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
 
@@ -174,10 +178,6 @@ msgstr "追加されたアーティファクト"
 msgid "Alignment"
 msgstr "配置"
 
-#: home/home-filters.html:1
-msgid "All"
-msgstr "すべて"
-
 #: editor/data-panel/api-examples.service.js:40
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "案件の全プロセスデータ: 案件リストの変数を検索します"
@@ -186,7 +186,11 @@ msgstr "案件の全プロセスデータ: 案件リストの変数を検索し�
 msgid "Alternate text"
 msgstr "代替テキスト"
 
-#: assets/asset-popup.controller.js:111
+#: home/help-popup.html:1
+msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita BPM Portal)."
+msgstr "UI デザイナーで設計したアーティファクトは、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita BPM ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
+
+#: assets/asset-popup.controller.js:118
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
 
@@ -194,18 +198,29 @@ msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセット
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
 
+#: home/artifact-factory.service.js:43
+msgid "Application layout"
+msgstr "アプリケーション レイアウト"
+
+#: home/artifact-factory.service.js:28
+msgid "Application page"
+msgstr "アプリケーション ページ"
+
 #: editor/help/dynamic-bond-help.html:1
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "変数の値にフィルターを適用する例: <em>selectedUser | json</em>"
 
 #: home/artifact-list/confirm-deletion-popup.html:1
-#: home/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
 
 #: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:18
 msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
 msgstr "テーブルを埋め込むために使用される配列（Array）。オブジェクトの配列（リスト）を指定することもできます。この場合、各列に表示する項目名のリストを「列を示すキー」に指定します。"
+
+#: home/help-popup.html:1
+msgid "Artifact creation:"
+msgstr "アーティファクトの作成："
 
 #: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
 msgid "Asset"
@@ -254,6 +269,10 @@ msgstr "使用可能な値"
 msgid "Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic)."
 msgstr "使用可能な変数のタイプは、string と JSON (静的)、およびExternal API 、Javascript expression、URL parameter(動的) です。"
 
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Back"
+msgstr "戻る"
+
 #: editor/help/property-bond-help.html:1
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
@@ -270,7 +289,7 @@ msgstr "CSS クラス"
 msgid "Calendar for selecting a date"
 msgstr "日付を選択するカレンダー"
 
-#: editor/data-panel/api-examples.service.js:75
+#: editor/data-panel/api-examples.service.js:80
 msgid "Call a business data (custom) query"
 msgstr "ビジネスデータの（カスタム）クエリをコールする"
 
@@ -292,11 +311,10 @@ msgstr "後続のタスクでコントラクトを埋めるために使用され
 
 #: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
 #: custom-widget/create-property.html:1 custom-widget/save-as-popup.html:1
-#: editor/data-panel/data-popup.html:12 editor/menu-bar/save-as-popup.html:1
+#: editor/data-panel/data-popup.html:12 editor/header/save-as-popup.html:1
 #: home/artifact-list/confirm-deletion-popup.html:1
-#: home/confirm-deletion-popup.html:1 home/create/create-popover.html:1
-#: home/create/create-popup.html:1 home/import/import-popover.html:1
-#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
+#: home/create/create-popover.html:1 home/import/import-popover.html:1
+#: home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -309,8 +327,8 @@ msgid "Check that the json file structure matches a standard UI Designer export.
 msgstr "Json ファイル構造が標準 UI デザイナーのエクスポートと一致することを確認します。"
 
 #: home/import/import-error-messages.service.js:22
-msgid "Check that the zip archive contains on of following file {{ infos.modelfiles }}."
-msgstr "zip アーカイブが次のファイル: {{ infos.modelfiles }} 上に含まれているか確認してください。"
+msgid "Check that the zip archive contains one of following files {{ infos.modelfiles }}."
+msgstr "この zip アーカイブが次のファイル: {{ infos.modelfiles }} のどれかを含んでいるか確認してください。"
 
 #: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
@@ -348,9 +366,8 @@ msgstr "クリックしてコンスタントにバインド"
 msgid "Click to bind to an expression"
 msgstr "クリックして式にバインド"
 
-#: assets/help-popup.html:19 editor/data-panel/help-popup.html:1
-#: editor/menu-bar/help-popup.html:1
-#: home/alert-deletion-notpossible-popup.html:1
+#: assets/help-popup.html:19 custom-widget/help-popup.html:1
+#: editor/data-panel/help-popup.html:1 editor/header/help-popup.html:1
 #: home/artifact-list/alert-deletion-notpossible-popup.html:1
 #: home/help-popup.html:1
 msgid "Close"
@@ -376,12 +393,11 @@ msgstr "カンマ区切りのリスト"
 msgid "Comma-separated list or bound an array data"
 msgstr "コンマで区切られたリストまたはバインド配列データ"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "右の<b>プロパティ パネル</b>を使用してウィジェットを構成設定します。"
 
 #: home/artifact-list/confirm-deletion-popup.html:1
-#: home/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "削除の確認"
 
@@ -393,7 +409,7 @@ msgstr "コンスタント"
 msgid "Container used for a form. Eases validation"
 msgstr "フォームに使用するコンテナ。 検証は削除されます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Containers"
 msgstr "コンテナ"
 
@@ -401,7 +417,7 @@ msgstr "コンテナ"
 msgid "Content"
 msgstr "コンテンツ"
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Controller"
 msgstr "コントローラー"
 
@@ -410,13 +426,9 @@ msgid "Corrupted zip archive."
 msgstr "破損した zip アーカイブです。"
 
 #: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
-#: home/create/create-popup.html:1 home/create/home-create.html:1
+#: home/create/home-create.html:1
 msgid "Create"
 msgstr "新規作成"
-
-#: home/help-popup.html:1
-msgid "Create <b>pages</b> directly in the UI Designer"
-msgstr "UI デザイナーで直接、<b>ページ</b>を作成します。"
 
 #: assets/help-popup.html:19
 msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
@@ -442,31 +454,23 @@ msgstr "新規変数を作成"
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr "ここで変数を作成します。ウィジェット プロパティ内での変数の使用は、このページ エディタの全般ヘルプ、<b>プロパティ</b> セクションで説明されているように、プロパティ値のタイプに依存します。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "下部のパネルで変数を作成します。ウィジェット プロパティ内での変数の使用は、次のセクションで説明されているように、プロパティ値のタイプに依存します。"
 
 #: home/help-popup.html:1
-msgid "Create layouts by duplicating the default layout available in the Bonita BPM Portal resources"
-msgstr "Bonita BPM ポータルのリソースの中で使用可能なデフォルト レイアウトを複製してレイアウトを作成します。"
+msgid "Create an <b>application page</b> directly in the UI Designer"
+msgstr "UI デザイナーで直接、<b>アプリケーション ページ</b> を作成します"
 
-#: home/create/create-popover.html:1 home/create/create-popup.html:1
+#: home/create/create-popover.html:1
 msgid "Create new artifact"
 msgstr "新しいアーティファクトを作成"
-
-#: home/home-pages.html:1
-msgid "Create new page"
-msgstr "新規ページを作成"
 
 #: custom-widget/create-property.html:1
 msgid "Create new property"
 msgstr "新規プロパティを作成"
 
-#: home/home-widgets.html:1
-msgid "Create new widget"
-msgstr "新規ウィジェットを作成"
-
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
 msgstr "下部の変数パネルで変数を作成し、それらを使用してウィジェットのプロパティを編集します。"
 
@@ -474,21 +478,41 @@ msgstr "下部の変数パネルで変数を作成し、それらを使用して
 msgid "Current frame (_self)"
 msgstr "現在のフレーム (_self)"
 
-#: home/home-widgets.html:1
-msgid "Custom Widgets"
-msgstr "カスタム ウィジェット"
-
 #: assets/help-popup.html:13
 msgid "Custom services"
 msgstr "カスタム サービス"
 
-#: custom-widget/custom-widget-editor.controller.js:22
+#: home/artifact-factory.service.js:50
+msgid "Custom widget"
+msgstr "カスタム ウィジェット"
+
+#: custom-widget/custom-widget-editor.controller.js:27
 msgid "Custom widget [ {{name}} ] successfully saved"
 msgstr "カスタム ウィジェット [ {{name}} ] は、問題なく保存されました。"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
 msgstr "カスタム ウィジェット エディタ"
+
+#: custom-widget/help-popup.html:1
+msgid "Custom widget implementation is based on the AngularJS framework."
+msgstr "カスタム ウィジェットの実装は、AngularJS フレームワークに基づいています。"
+
+#: custom-widget/help-popup.html:1
+msgid "Custom widget properties defined on the right can be used as variables in a controller with $scope.properties."
+msgstr "右側に定義されているカスタム ウィジェットのプロパティは、コント ローラー内では $scope.properties の変数として使用できます。"
+
+#: custom-widget/help-popup.html:1
+msgid "Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty."
+msgstr "右側に定義されているカスタム ウィジェットのプロパティは、テンプレート内では properties.newProperty の変数として使用できます。"
+
+#: home/artifact-factory.service.js:51
+msgid "Custom widgets"
+msgstr "カスタム ウィジェット"
+
+#: custom-widget/help-popup.html:1
+msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
+msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "DELETE"
@@ -545,7 +569,6 @@ msgstr "ファイルがアップロードされる場所を示すエンドポイ
 
 #: home/artifact-list/artifact-list.html:1
 #: home/artifact-list/confirm-deletion-popup.html:1
-#: home/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "削除"
 
@@ -553,19 +576,10 @@ msgstr "削除"
 msgid "Delete asset"
 msgstr "アセットを削除"
 
-#: home/home-pages.html:1
-msgid "Delete page"
-msgstr "プロファイル ページを削除"
-
 #: editor/data-panel/data.html:1
 msgid "Delete variable"
 msgstr "変数を削除"
 
-#: home/home-widgets.html:1
-msgid "Delete widget"
-msgstr "ウィジェットを削除"
-
-#: home/alert-deletion-notpossible-popup.html:1
 #: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "削除はできません。"
@@ -604,7 +618,7 @@ msgstr "この zip ファイルをインポートしますか？"
 msgid "Download asset"
 msgstr "アセットをダウンロード"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
 msgstr "行内にウィジェットまたはコンテナをドラック＆ドロップします。"
 
@@ -616,11 +630,11 @@ msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1
 msgid "Dynamic value"
 msgstr "動的な値"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Each page has a localization asset that contains the keys and the translations for all phrases and all languages that the page supports. The asset is a file, localization.json. Each language is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). Open the default localization.json asset to see how this file must be formatted. You can modify the default asset for your page, or import a new asset to replace the default one."
 msgstr "各ページには、そのページがサポートするすべてのフレーズとすべての言語のキーと翻訳を含むローカライゼーションのアセットを持っています。このアセットは、 localization.json ファイルです。各言語は、ISO 639 言語属性 (たとえば、ja_JP、en_US) によって識別されます。デフォルトの localization.json アセットを開き、どのように形式でこのファイルを作成する必要があるか確認してください。あなたのページのデフォルトのアセットを変更したり、新しいアセットをインポートしてデフォルトのアセットを置き換えることができます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Each type or container has sepcific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
 
@@ -640,11 +654,11 @@ msgstr "カスタム ウィジェットを編集"
 msgid "Edit variable"
 msgstr "変数を編集"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Editor organization"
 msgstr "エディタの構成設定"
 
-#: editor/menu-bar/menu-bar.html:1
+#: editor/header/header.html:1
 msgid "Enter ' + vm.mode + ' name"
 msgstr "vm.mode + ' 名を入力します"
 
@@ -660,18 +674,10 @@ msgstr "アップロード ホルダーのエラー"
 msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
-#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 #: home/artifact-list/artifact-list.html:1
 msgid "Export"
 msgstr "エクスポート"
-
-#: home/home-pages.html:1
-msgid "Export page"
-msgstr "ページをエクスポート"
-
-#: home/home-widgets.html:1
-msgid "Export widget"
-msgstr "ウィジェットをエクスポート"
 
 #: editor/data-panel/data.html:1
 msgid "Exposed"
@@ -693,7 +699,7 @@ msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジ
 msgid "Failed response value"
 msgstr "失敗時のレスポンス値"
 
-#: home/home-filters.html:1 home/home.html:1
+#: home/home.html:1
 msgid "Favorites"
 msgstr "お気に入り"
 
@@ -714,15 +720,32 @@ msgstr "フォームにドキュメントをアップロードするためのフ
 msgid "First"
 msgstr "第1"
 
+#: custom-widget/help-popup.html:1
+msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
+msgstr "詳細については、<a href=\"https://docs.angularjs.org/guide/templates\"> テンプレート</a> および <a href=\"https://docs.angularjs.org/guide/controller\"> コント ローラー</a> の AngularJS ガイドを参照してください。"
+
+#: custom-widget/help-popup.html:1
+msgid "For the moment, you cannot implement custom widget containers."
+msgstr "今のところ、カスタム ウィジェットのコンテナは実装できません。"
+
+#: home/artifact-factory.service.js:37
+msgid "Forms"
+msgstr "6.x フォーム"
+
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
 msgid "Frame"
 msgstr "フレーム"
+
+#: custom-widget/help-popup.html:1
+msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
+msgstr "コント ローラー内に公開された関数は、ctrl.newFunction() で使用できます。"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "GET"
 msgstr "GET"
 
-#: assets/help-popup.html:1 editor/data-panel/help-popup.html:1
+#: assets/help-popup.html:1 custom-widget/help-popup.html:1
+#: editor/data-panel/help-popup.html:1
 msgid "General"
 msgstr "全般"
 
@@ -734,13 +757,13 @@ msgstr "案件IDで案件を取得する"
 msgid "Get a human task by its identifier"
 msgstr "ヒューマン タスクIDでヒューマン タスクを取得する"
 
-#: editor/data-panel/api-examples.service.js:70
-msgid "Get a named business data reference defined in a case"
-msgstr "案件に定義された特定のビジネスデータ参照を取得する"
+#: editor/data-panel/api-examples.service.js:71
+msgid "Get a named business variable reference defined in a case"
+msgstr "案件で定義されている名前付きビジネス変数参照を取得します"
 
 #: editor/data-panel/api-examples.service.js:66
-msgid "Get all business data references defined in a case"
-msgstr "案件に定義されたすべてのビジネスデータ参照を取得する"
+msgid "Get all business variables defined in a case"
+msgstr "案件で定義されているすべてのビジネス変数を取得します"
 
 #: editor/data-panel/api-examples.service.js:20
 msgid "Get current logged user"
@@ -766,8 +789,9 @@ msgstr "HTTP リクエスト"
 msgid "Headers"
 msgstr "ヘッダー"
 
-#: assets/help-popup.html:1 editor/data-panel/help-popup.html:1
-#: editor/menu-bar/help-popup.html:1 home/help-popup.html:1
+#: assets/help-popup.html:1 custom-widget/help-popup.html:1
+#: editor/data-panel/help-popup.html:1 editor/header/help-popup.html:1
+#: home/help-popup.html:1
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -791,7 +815,7 @@ msgstr "リクエストが失敗した時、そのレスポンスを保持しま
 msgid "Holds the response when the request is successful"
 msgstr "リクエストが成功した時、そのレスポンスを保持します。"
 
-#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Home page"
 msgstr "ホームページ"
 
@@ -799,26 +823,22 @@ msgstr "ホームページ"
 msgid "Id,Name,Description,Date"
 msgstr "Id, 名前, 説明, 日付"
 
+#: custom-widget/help-popup.html:1
+msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
+msgstr "標準ウィジェットが、あなたのニーズを満たしていない場合、あなたの希望に沿ったカスタム ウィジェットを作成できます。作成後、そのカスタム ウィジェットはページ、フォーム、またはフラグメントの設計のため、パレット内で使用可能です。"
+
 #: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:14
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
 #: home/import/home-import.html:1 home/import/import-popover.html:1
-#: home/import/import-popup.html:1 home/import/import-report-popup.html:1
+#: home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "インポート"
 
 #: home/import/home-import.html:1
 msgid "Import a UI Designer artifact"
 msgstr "UI デザイナーのアーティファクトをインポート"
-
-#: home/home-pages.html:1
-msgid "Import a page or a form"
-msgstr "ページまたはフォームをインポート"
-
-#: home/home-widgets.html:1
-msgid "Import a widget"
-msgstr "ウィジェットをインポート"
 
 #: home/import/import.service.js:44
 msgid "Import error"
@@ -833,14 +853,22 @@ msgid "Import this JavaScript file as a local page asset."
 msgstr "ローカルなページアセットとして JavaScript ファイルをインポートします。"
 
 #: home/import/import-report-popup.html:1
-msgid "Import {{ importReport.report.element.name }}"
-msgstr "{{ importReport.report.element.name }} をインポート"
+msgid "Import {{ ::importReport.name }}"
+msgstr "{{ ::importReport.name }} をインポート"
 
 #: assets/help-popup.html:13
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関係を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/data-panel/api-examples.service.js:68
+msgid "In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref)."
+msgstr "プロセス内でビジネス変数を定義した場合、プロセス フォームでは、それらを取得するためにコンテキスト変数 （たとえば、 context.ビジネス変数名_ref）を使用します。"
+
+#: editor/data-panel/api-examples.service.js:74
+msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
+msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
+
+#: editor/header/help-popup.html:1
 msgid "In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language selected by the user, or in the default Portal language."
 msgstr "運用時、ユーザーが Bonita BPM にログインする場合、ユーザーが選択したポータル言語、またはデフォルトのポータル言語でページが表示されます。"
 
@@ -861,7 +889,7 @@ msgstr "運用時、ユーザーが Bonita BPM にログインする場合、ユ
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "フォーム コンテナのコンテンツの中で $form.$invalid をウィジェット プロパティ内のブーリアン変数として使用し、フォームの妥当性をチェックします。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
 msgstr "フラグメント エディタで、変数の有効範囲を「このフラグメントに固有」、または 「ページに公開」 に設定できます。"
 
@@ -869,7 +897,7 @@ msgstr "フラグメント エディタで、変数の有効範囲を「この�
 msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "このリストの中で、ページ アセットのみの削除、ローカル アセットの表示、およびページ外部アセットの編集ができます。"
 
-#: editor/data-panel/help-popup.html:1 editor/menu-bar/help-popup.html:1
+#: editor/data-panel/help-popup.html:1 editor/header/help-popup.html:1
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲において、ビジネス データを取り扱うために使用したり、あるいはページ要素の動作方法を決定付ける構造化情報を含めることができます。"
 
@@ -901,8 +929,8 @@ msgid "Interpolation"
 msgstr "補完（Interpolation）"
 
 #: assets/generic-asset-form.html:1
-msgid "Invalid URL (must start by http:// or https://)"
-msgstr "無効な URL（http:// または https:// で開始する必要があります）"
+msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
+msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
 
 #: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
@@ -979,6 +1007,14 @@ msgstr "ラベル幅"
 msgid "Last"
 msgstr "最後"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "Last update: {{:: artifact.lastUpdate | date:'short' }}"
+msgstr "最終更新日： {{:: artifact.lastUpdate | date:'short' }}"
+
+#: home/artifact-factory.service.js:44
+msgid "Layouts"
+msgstr "レイアウト"
+
 #: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Level 1"
 msgstr "レベル 1"
@@ -1023,7 +1059,7 @@ msgstr "リビング データ"
 msgid "Local"
 msgstr "ローカル"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Localization"
 msgstr "ローカライゼーション"
 
@@ -1064,7 +1100,7 @@ msgstr "行を上に移動"
 msgid "Multi-line, expandable, text input field"
 msgstr "拡張可能な複数行のテキスト入力フィールド"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Multiple content for tabs container"
 msgstr "タブ コンテナ： 複数のコンテンツ"
 
@@ -1079,7 +1115,6 @@ msgstr "ブーリアンである必要があります"
 #: assets/page-assets.html:1 assets/widget-assets.html:1
 #: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
 #: editor/data-panel/data.html:1 home/create/create-popover.html:1
-#: home/create/create-popup.html:1
 msgid "Name"
 msgstr "名前"
 
@@ -1092,36 +1127,24 @@ msgid "Name must contains only alphanumeric characters with no space"
 msgstr "名前は、スペースを含まない英数字のみで命名します "
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
-msgid "Navigation link to another page or form"
-msgstr "別のページやフォームへのナビゲーション リンク"
+msgid "Navigation link to another page or form, or for file download"
+msgstr "別のページまたはフォーム、またはファイル ダウンロードのためのナビゲーション リンク"
 
 #: backend/webapp/src/main/resources/widgets/pbText/pbText.json:3
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
 
-#: home/home-pages.html:1
-msgid "New page"
-msgstr "新規ページ"
-
-#: home/home-widgets.html:1
-msgid "New widget"
-msgstr "新規ウィジェット"
-
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
 
+#: home/artifact-list/artifact-list.html:1
+msgid "No artifact found."
+msgstr "アーティファクトが見つかりません。"
+
 #: assets/page-assets.html:1
 msgid "No asset"
 msgstr "アセットはありません"
-
-#: home/home-widgets.html:1
-msgid "No custom widget"
-msgstr "カスタム ウィジェットはありません"
-
-#: home/home-pages.html:1
-msgid "No page or form"
-msgstr "ページまたはフォームはありません"
 
 #: editor/data-panel/data.html:1
 msgid "No variable"
@@ -1136,13 +1159,13 @@ msgstr "配列の要素の数は、コンテナ構造体を繰り返す回数を
 msgid "Object key to display"
 msgstr "表示するオブジェクトのキー"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "１つの要素を１回選択し、右のプロパティパネルでそのプロパティを編集します。"
 
 #: assets/page-assets.html:1 assets/widget-assets.html:1
-#: editor/data-panel/data.html:1 editor/menu-bar/menu-bar.html:1
-#: home/home-header.html:1 home/home.html:1
+#: custom-widget/custom-widget-editor.html:1 editor/data-panel/data.html:1
+#: editor/header/header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "ヘルプを開く"
 
@@ -1162,7 +1185,7 @@ msgstr "POST"
 msgid "PUT"
 msgstr "PUT"
 
-#: editor/menu-bar/save-as-popup.html:1 home/home-pages.html:1
+#: editor/header/save-as-popup.html:1
 msgid "Page Name"
 msgstr "ページ名"
 
@@ -1170,13 +1193,9 @@ msgstr "ページ名"
 msgid "Page level"
 msgstr "ページ レベル"
 
-#: home/home-pages.html:1
-msgid "Page name should contains only alphanumeric characters with no space"
-msgstr "ページ名は、スペースを含まない英数字のみで命名します 。"
-
-#: home/home-pages.html:1
-msgid "Pages &amp; Forms"
-msgstr "ページ &amp; フォーム"
+#: home/artifact-factory.service.js:29
+msgid "Pages"
+msgstr "ページ"
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Parent frame (_parent)"
@@ -1190,7 +1209,7 @@ msgstr "親フレーム (_parent)"
 msgid "Placeholder"
 msgstr "プレース ホルダー"
 
-#: editor/menu-bar/menu-bar.html:1
+#: editor/header/header.html:1
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -1198,7 +1217,11 @@ msgstr "プレビュー"
 msgid "Preview - {{pageName}}"
 msgstr "プレビュー - {{pageName}}"
 
-#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/help-popup.html:1
+#: home/artifact-factory.service.js:35
+msgid "Process form"
+msgstr "プロセス フォーム"
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/help-popup.html:1
 msgid "Properties"
 msgstr "プロパティ"
 
@@ -1235,15 +1258,11 @@ msgstr "タブを削除"
 msgid "Rename"
 msgstr "名前を変更"
 
-#: home/home-pages.html:1
-msgid "Rename page"
-msgstr "ページ名を変更"
-
 #: editor/container-definition-factory.service.js:47
 msgid "Repeat container content. Variable of type array"
 msgstr "コンテナの内容を繰り返します。配列型変数"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Repeat content for the plain container"
 msgstr "プレイン コンテナ： コンテンツを繰り返す配列処理が可能です"
 
@@ -1276,21 +1295,21 @@ msgstr "返されるキー"
 msgid "Row"
 msgstr "行"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Rows"
 msgstr "行"
 
 #: custom-widget/custom-widget-editor.html:1
 #: custom-widget/save-as-popup.html:1 editor/data-panel/data-popup.html:12
-#: editor/menu-bar/menu-bar.html:1 editor/menu-bar/save-as-popup.html:1
+#: editor/header/header.html:1 editor/header/save-as-popup.html:1
 msgid "Save"
 msgstr "保存"
 
-#: custom-widget/custom-widget-editor.html:1 editor/menu-bar/menu-bar.html:1
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Save as ..."
 msgstr "別名で保存..."
 
-#: editor/menu-bar/save-as-popup.html:1
+#: editor/header/save-as-popup.html:1
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "{{ctrl.page.name}} を別名で保存..."
 
@@ -1326,7 +1345,7 @@ msgstr "ホワイトボードの要素を選択し、ここでその要素のプ
 msgid "Select an option"
 msgstr "オプションを選択してください"
 
-#: home/import/import-popover.html:1 home/import/import-popup.html:1
+#: home/import/import-popover.html:1
 msgid "Select your .zip file"
 msgstr "あなたの.zip ファイルを選択します"
 
@@ -1399,8 +1418,12 @@ msgid "Specify your own format"
 msgstr "あなた独自のフォーマットを指定します"
 
 #: home/help-popup.html:1
-msgid "Start <b>form</b> design in Bonita BPM Studio from the appropriate contract"
-msgstr "適切なコントラクトをベースにBonita BPM Studioで<b>フォーム</b>設計を開始します。"
+msgid "Start creating a <b>process form</b> in Bonita BPM Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr "Bonita BPM Studio の <b>プロセス フォーム</b> の作成を開始： プール、またはヒューマンタスクでコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
+
+#: home/help-popup.html:1
+msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita BPM Portal resources, and edit it."
+msgstr "デフォルトのレイアウトをインポートすることによって、<b>アプリケーション レイアウト</b> の作成を開始し、編集します。このレイアウトはBonita BPM ポータルのリソースとして使用可能です。"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Start process"
@@ -1423,7 +1446,7 @@ msgstr "送信"
 msgid "Submit task"
 msgstr "タスクを送信"
 
-#: editor/menu-bar/help-popup.html:1 home/help-popup.html:1
+#: editor/header/help-popup.html:1 home/help-popup.html:1
 msgid "Subscription edition"
 msgstr "サブスクリプション版"
 
@@ -1443,7 +1466,7 @@ msgstr "配列データを表形式で表示"
 msgid "Target URL on success"
 msgstr "成功時のターゲットURL"
 
-#: custom-widget/custom-widget-editor.html:1
+#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Template"
 msgstr "テンプレート"
 
@@ -1458,8 +1481,8 @@ msgid "Text used to structure the page or form content"
 msgstr "ページまたはフォームのコンテンツの構造化に使用されるテキスト"
 
 #: editor/properties-panel/bond/interpolation.html:1
-msgid "Text, optionally including variables in simple expressions for interpolation using \\{\\{ variableName \\}\\}"
-msgstr "テキストは、必要に応じ補完のために \\{\\{ variableName \\}\\} を使用して簡単な式内に変数を含めることができます"
+msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
+msgstr "テキスト、必要に応じて {{variableName}} を使用した補完で簡単な式に中に変数を含めることができます"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:20
 msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
@@ -1468,6 +1491,14 @@ msgstr "次に進む場所です。Bonita BPM ポータルを使用してビル�
 #: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
+
+#: custom-widget/help-popup.html:1
+msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
+msgstr "コント ローラーは、AngularJS スコープを拡大し、カスタム ウィジェット テンプレート内で使用可能な関数を公開する JavaScript 関数です。"
+
+#: custom-widget/help-popup.html:1
+msgid "The custom widget HTML template is defined here."
+msgstr "カスタム ウィジェット HTML テンプレートは、ここで定義されます。"
 
 #: home/import/import-report-popup.html:1
 msgid "The imported zip file contains elements with the same name as some existing elements. These existing elements will be overwritten:"
@@ -1492,7 +1523,7 @@ msgstr "値として使用するキーの名前。オブジェクト全体の場
 msgid "The page has not been imported."
 msgstr "ページはインポートされていません。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
 
@@ -1504,7 +1535,6 @@ msgstr "ウィジェットはインポートされていません。"
 msgid "The zip file also contains new elements."
 msgstr "Zip ファイルには、新しい要素も含まれています。"
 
-#: home/alert-deletion-notpossible-popup.html:1
 #: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
@@ -1516,10 +1546,6 @@ msgstr "{{ artifactType }} はインポートされていません。"
 #: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
-
-#: home/artifact-list/artifact-list.html:1
-msgid "There is no artifact yet..."
-msgstr "アーティファクトがまだ存在しません..."
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "This description will be displayed as a tooltip in the palette"
@@ -1574,6 +1600,10 @@ msgstr "複数バージョンの依存関係を管理するには、1 つの ア
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "運用中のフォームを更新するには、UI デザイナーからフォームをエクスポートし、ポータルの関連するプロセスにインポートし、関連するタスクまたはプロセス開始イベントにマップします。"
 
+#: custom-widget/help-popup.html:1
+msgid "To use AngularJS standard services, you must declare them in the main function arguments."
+msgstr "AngularJS の標準的なサービスを使用するには、メイン関数の引数の中でそれらを宣言する必要があります。"
+
 #: assets/help-popup.html:1
 msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
 msgstr "ローカライゼーション アセットを使用するには、ページ内のすべてのキーとそのキーのターゲット言語への翻訳に含むデフォルトの localization.json ファイルと同じ形式のファイルで localization.json ファイルを置き換えます。ローカライゼーション アセットは、ページ レベルです。ファイルの形式は次のようにする必要があります。"
@@ -1618,11 +1648,11 @@ msgstr "ページまたはフォームのアクションのトリガー"
 msgid "Type"
 msgstr "タイプ"
 
-#: home/home-header.html:1 home/home.html:1
+#: home/home.html:1
 msgid "UI Designer"
 msgstr "UI デザイナー"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "UI designer includes a mechanism to add translations for page elements, to support multi-language pages. The text displayed in the preview and at runtime adapts to the locale or browser language automatically."
 msgstr "UI デザイナーには、複数の言語ページをサポートするため、ページ要素の翻訳を追加するメカニズムが含まれています。プレビューおよび実行時に表示されるテキストは、ロケールまたはブラウザの言語を自動的に適応します。"
 
@@ -1670,7 +1700,7 @@ msgstr "繰り返されるコンテンツのコレクションを作動するた
 msgid "Use $item to remove the current item in a repeated collection"
 msgstr "繰返しコレクション内の現在項目を削除するには、$item を使用します。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情報収集</b>には、左側のパレットの<b>ウィジェット</b>を使用します。"
 
@@ -1691,10 +1721,10 @@ msgid "Use basic html tags and {{ dataVariable }} to access data"
 msgstr "基本的な html タグやデータにアクセスするには {{ dataVariable }} を使用"
 
 #: home/help-popup.html:1
-msgid "Use the UI Designer to build <b>pages</b> for your business applications, <b>forms</b> to start process instances or execute human tasks, and <b>application layouts</b> that apply to all pages of an application."
-msgstr "業務アプリケーションの<b>ページ</b>、プロセスの起案を開始するためやヒューマンタスクを実行するための<b>フォーム</b>、および アプリケーションのすべてのページに適用する<b>アプリケーション・レイアウト</b>をビルドするために UI デザイナーを使用します。"
+msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
+msgstr "UI デザイナーを使用してweb アーティファクトを作成または編集：  ビジネス アプリケーションを構成する<b>アプリケーション ページ</b> 、プロセスの起案または、ヒューマンタスクの実行にリンクされた <b>プロセス フォーム</b> 、およびビジネス アプリケーションのすべてのページに適用される<b>アプリケーション レイアウト</b>。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
@@ -1746,7 +1776,7 @@ msgstr "変数名は、英文字で始まり英数字のみで命名する必要
 msgid "Variable of type array"
 msgstr "配列型変数"
 
-#: editor/editor.html:1 editor/menu-bar/help-popup.html:1
+#: editor/editor.html:1 editor/header/help-popup.html:1
 msgid "Variables"
 msgstr "変数"
 
@@ -1766,7 +1796,7 @@ msgstr "W3C webサイト"
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
 
@@ -1774,31 +1804,23 @@ msgstr "行を削除したら、それに続く行が上に移動します"
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Studio内のコントラクトをベースにフォームを生成した場合は、そのフォームには送信ボタンといくつかのデフォルト変数： <code>formInput</code>、 <code>formOutput</code>、 <code>taskId</code>、 および <code>context</code> が含まれます。"
 
-#: editor/data-panel/api-examples.service.js:72
-msgid "Where businessDataName is the name of the data variable defined on the pool."
-msgstr "ここの businessDataName はプールで定義したビジネス変数の名前です。"
-
-#: editor/data-panel/api-examples.service.js:77
+#: editor/data-panel/api-examples.service.js:82
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "ここの businessDataType は com.company.model.MyData、 queryName は BDM クエリ名、 filter は \"myParam=myValue\" です。"
+
+#: editor/data-panel/api-examples.service.js:76
+msgid "Where businessVariableName is the name of the business variable defined at pool level."
+msgstr "ここの businessVariableName は、プール レベルで定義されているビジネス変数の名前です。"
 
 #: assets/page-assets.html:1
 msgid "Widget"
 msgstr "ウィジェット"
 
-#: home/home-widgets.html:1
-msgid "Widget Name"
-msgstr "ウィジェット名"
-
 #: custom-widget/custom-widget-editor.html:1
 msgid "Widget description"
 msgstr "ウィジェットの説明"
 
-#: home/home-widgets.html:1
-msgid "Widget name should contains only alphanumeric characters with no space"
-msgstr "ウィジェット名は、スペースを含まない英数字のみで命名します"
-
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Widgets"
 msgstr "ウィジェット"
 
@@ -1806,29 +1828,37 @@ msgstr "ウィジェット"
 msgid "Width"
 msgstr "幅"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "行の内部のウィジェットまたはコンテナーを削除すると、次に続く要素は左に移動します。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/data-panel/help-popup.html:1
+msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
+msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
+
+#: editor/header/help-popup.html:1
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "フォームまたはページのコンテナ内にウィジェットをきれいに配置して、それらのウィジェットをグループ化できます。コンテナは、別のコンテナを含めることができます。"
 
-#: home/help-popup.html:1
-msgid "You can import an existing page, form, or layout to edit, or duplicate existing ones"
-msgstr "既存のページ、フォームまたはレイアウトをインポートし、編集または複製することができます。"
+#: custom-widget/help-popup.html:1
+msgid "You can leave the controller empty if you do not need it."
+msgstr "必要がない場合は、コント ローラーは空のままにしておくことができます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
 
-#: editor/menu-bar/help-popup.html:1
+#: editor/header/help-popup.html:1
 msgid "You can translate all the text displayed on a page or form: the labels, the placeholders, the available values of a list, but also the date format of the DatePicker widget. The base language is en_US. The phrases in English are used as the keys to the translated phrases. This means that in the Page editor whiteboard, any default text that is created is in English. The rest of the UI designer, including properties, is in the language of your Bonita BPM Studio. When you preview a page that has translated keys, the language of your browser is used."
 msgstr "ページまたはフォーム上に表示されるすべてのテキストを翻訳することができます。ラベル、プレース ホルダ、使用可能な値のリストだけでなく、日付ウィジェットの日付フォーマットもです。基本言語は、en_US です。英語のフレーズは、フレーズを翻訳するキーとして使用されます。つまり、ページ エディタのホワイト ボードで作成されるデフォルトのテキストは英語になります。プロパティを含む UI デザイナーの残りの部分は、Bonita BPM Studio の言語になります。翻訳されたキーを持つページをプレビューする場合は、ブラウザの言語が使用されます。"
+
+#: custom-widget/help-popup.html:1
+msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
+msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
 
 #: assets/help-popup.html:13
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
@@ -1841,6 +1871,10 @@ msgstr "ページ内のアセットの順番は手動では変更できません
 #: common/directives/confirm-on-exit.js:20
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
+
+#: home/artifact-factory.service.js:36
+msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "_self"
@@ -2033,11 +2067,6 @@ msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 
-#: home/create/create-popup.html:1
-msgid "{{ createCtrl.type.value }} name should contains only alphanumeric characters with no space"
-msgstr "{{ createCtrl.type.value }} 名は、スペースを含まない英数字のみで命名する必要があります"
-
-#: home/alert-deletion-notpossible-popup.html:1
 #: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ key }}"
 msgid_plural "{{ key }}s"
