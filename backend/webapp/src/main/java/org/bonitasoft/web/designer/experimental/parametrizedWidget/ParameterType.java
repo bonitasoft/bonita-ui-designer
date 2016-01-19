@@ -17,7 +17,8 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 public enum ParameterType {
     CONSTANT("constant"),
     VARIABLE("variable"),
-    INTERPOLATION("interpolation");
+    INTERPOLATION("interpolation"),
+    EXPRESSION("expression");
 
     private String value;
 
