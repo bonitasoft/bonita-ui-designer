@@ -88,7 +88,7 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
-        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForOutputValue(contractInput));
         return multipleContainer.toContainer(dimensionFactory);
     }
 
@@ -103,7 +103,7 @@ public class ContractInputToWidgetMapper {
     private Component toSimpleComponent(ContractInput contractInput) {
         AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (widget instanceof Valuable) {
-            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForOutputValue(contractInput));
         }
         return widget.toComponent(dimensionFactory);
     }
@@ -120,7 +120,7 @@ public class ContractInputToWidgetMapper {
         return submitButton.toComponent(dimensionFactory);
     }
 
-    private String buildPathForInputValue(ContractInput contractInput) {
+    private String buildPathForOutputValue(ContractInput contractInput) {
         List<String> pathNames = newArrayList();
         pathNames.add(contractInput.getName());
         ContractInput pInput = contractInput.getParent();
@@ -136,7 +136,7 @@ public class ContractInputToWidgetMapper {
         if (pathNames.isEmpty()) {
             return null;
         } else if (pInput == null) {
-            pathNames.add(FORM_INPUT_DATA);
+            pathNames.add(FORM_OUTPUT_DATA);
         }
         return on(".").join(reverse(pathNames));
     }
@@ -152,7 +152,7 @@ public class ContractInputToWidgetMapper {
 
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
-        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForOutputValue(contractInput));
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }
