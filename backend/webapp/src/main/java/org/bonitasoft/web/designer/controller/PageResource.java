@@ -104,7 +104,7 @@ public class PageResource extends AssetResource<Page> {
     @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("scope") String scope, @PathVariable("name") String name)
             throws RepositoryException {
-        return create(contractToPageMapper.createPage(name, contract, FormScope.valueOf(scope.toUpperCase())), null);
+        return create(contractToPageMapper.createFormPage(name, contract, FormScope.valueOf(scope.toUpperCase())), null);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)
