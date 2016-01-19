@@ -17,7 +17,7 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 /**
  * @author Romain Bioteau
  */
-public class InputWidget extends AbstractParametrizedWidget implements Labeled, Valuable {
+public class InputWidget extends AbstractParametrizedWidget implements Labeled, Valuable, Requirable {
 
     static final String INPUT_WIDGET_ID = "pbInput";
     private String labelPosition = LabelPosition.LEFT.getValue();
@@ -25,6 +25,7 @@ public class InputWidget extends AbstractParametrizedWidget implements Labeled, 
     private String type;
     private String placeholder;
     private String value;
+    private boolean required = true;
 
     public InputWidget(String widgetId) {
         super(widgetId);
@@ -74,4 +75,11 @@ public class InputWidget extends AbstractParametrizedWidget implements Labeled, 
         this.value = value;
     }
 
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
 }
