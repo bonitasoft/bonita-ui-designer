@@ -31,6 +31,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContainer;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -72,11 +73,14 @@ public class ContractInputToWidgetMapper {
         rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
-            ((Labeled) component).setLabel("");
+            component.setLabel("");
             ((Labeled) component).setLabelWidth(0);
         }
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ITEM_ITERATOR);
+        }
+        if (component instanceof Requirable) {
+            ((Requirable) component).setRequired(false);
         }
         container.getRows().add(Lists.<Element>newArrayList(component.toComponent(dimensionFactory), createRemoveButton()));
         return container;
