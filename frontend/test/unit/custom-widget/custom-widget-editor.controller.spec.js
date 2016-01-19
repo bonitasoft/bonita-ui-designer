@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $modal, modalInstance, $window;
+  var $scope, alerts, $q, widgetRepo, $modal, modalInstance, $state, browserHistoryService;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -10,33 +10,35 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $modalInstance) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $modalInstance, _$state_, _browserHistoryService_) {
     $scope = $rootScope.$new();
-    $window = {
-      history: {
-        back: jasmine.createSpy()
-      }
-    };
+    $state = _$state_;
+    browserHistoryService = _browserHistoryService_;
     $q = _$q_;
     widgetRepo = _widgetRepo_;
     alerts = _alerts_;
     $modal = _$uibModal_;
     modalInstance = $modalInstance.create();
 
+    spyOn($state, 'go');
+    spyOn(browserHistoryService, 'back');
+
     $controller('CustomWidgetEditorCtrl', {
       $scope,
       $modal,
       artifact: awesomeWidget,
       artifactRepo: widgetRepo,
-      $timeout,
-      $window
+      $timeout
     });
 
   }));
 
   it('should navigate back', function() {
     $scope.back();
-    expect($window.history.back).toHaveBeenCalled();
+    expect(browserHistoryService.back).toHaveBeenCalled();
+    let fallback = browserHistoryService.back.calls.argsFor(0)[0];
+    fallback();
+    expect($state.go).toHaveBeenCalledWith('designer.home');
   });
 
   it('should update a property', function() {

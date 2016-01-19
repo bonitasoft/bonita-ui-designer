@@ -12,16 +12,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(() => {
+  class BrowserHistoryService {
+    constructor($window) {
+      this.$window = $window;
+    }
+    back(fallback) {
+      if (fallback && this.$window.history.length === 1) {
+        fallback();
+      } else {
+        this.$window.history.back();
+      }
+    }
+  }
 
-  'use strict';
-
-  angular.module('bonitasoft.designer.editor.header', [
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.repositories',
-    'gettext',
-    'ui.bootstrap',
-    'ui.router'
-  ]);
-
+  angular
+    .module('bonitasoft.designer.common.services')
+    .factory('browserHistoryService', ($window) => new BrowserHistoryService($window));
 })();

@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, browserHistoryService) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -12,10 +12,11 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
       this.$window = $window;
+      this.browserHistoryService = browserHistoryService;
     }
 
     back() {
-      this.$window.history.back();
+      this.browserHistoryService.back(() => this.$state.go('designer.home'));
     }
 
     save(page) {
