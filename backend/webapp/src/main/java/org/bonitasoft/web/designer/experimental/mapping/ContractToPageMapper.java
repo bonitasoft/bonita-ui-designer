@@ -16,7 +16,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,6 +27,7 @@ import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PageType;
 
@@ -45,15 +46,14 @@ public class ContractToPageMapper {
         this.objectMapperWrapper = objectMapperWrapper;
     }
 
-    public Page createPage(String name, Contract contract, FormScope scope) {
+    public Page createFormPage(String name, Contract contract, FormScope scope) {
         Page page = createEmptyPageWithData(name, contract, scope);
         page.setType(PageType.FORM);
-        contract.accept(new ContractInputVisitorImpl(page, contractToWidgetMapper));
-        if (page.getRows().isEmpty()) {
-            page.getRows().add(new ArrayList<Element>());
-        }
+        FormContainer formContainer = new FormContainer();
+        page.getRows().add(Collections.<Element>singletonList(formContainer));
+        contract.accept(new ContractInputVisitorImpl(formContainer.getContainer(), contractToWidgetMapper));
         if (scope != FormScope.OVERVIEW) {
-            addSubmitButton(page, contract, scope);
+            addSubmitButton(formContainer.getContainer(), contract, scope);
         }
         return page;
     }
