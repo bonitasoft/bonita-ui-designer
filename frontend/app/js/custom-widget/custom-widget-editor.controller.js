@@ -19,7 +19,7 @@
     .module('bonitasoft.designer.custom-widget')
     .controller('CustomWidgetEditorCtrl', CustomWidgetEditorCtrl);
 
-  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS) {
+  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
 
     $scope.widget = artifact;
     $scope.bonds = BONDS;
@@ -39,9 +39,7 @@
       return propertyBond !== 'variable' && propertyBond !== 'interpolation';
     };
 
-    $scope.back = function() {
-      $window.history.back();
-    };
+    $scope.back = () => browserHistoryService.back(() => $state.go('designer.home'));
 
     /**
      * Updates the property

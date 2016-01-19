@@ -3,12 +3,13 @@
   'use strict';
 
   describe('Menu bar controller', function() {
-    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state;
+    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, browserHistoryService;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $modalInstance, _$state_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $modalInstance, _$state_, _browserHistoryService_) {
       pageRepo = _pageRepo_;
+      browserHistoryService = _browserHistoryService_;
       $q = _$q_;
       $window = {
         history: {
@@ -20,6 +21,9 @@
       $uibModal = _$uibModal_;
       $state = _$state_;
       modalInstance = $modalInstance.fake();
+      
+      spyOn(browserHistoryService, 'back');
+      spyOn($state, 'go');
 
       controller = $controller('EditorHeaderCtrl', {
         $window: $window,
@@ -35,8 +39,10 @@
 
     it('should navigate back', function() {
       controller.back();
-
-      expect($window.history.back).toHaveBeenCalled();
+      expect(browserHistoryService.back).toHaveBeenCalled();
+      let fallback = browserHistoryService.back.calls.argsFor(0)[0];
+      fallback();
+      expect($state.go).toHaveBeenCalledWith('designer.home');
     });
 
     it('should save a page', function() {
@@ -73,7 +79,6 @@
     it('should save a page as ...', function() {
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
-      spyOn($state, 'go');
       var page = { id: 'person', type: 'page' };
 
       controller.saveAs(page);
