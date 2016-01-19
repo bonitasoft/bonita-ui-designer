@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-public class FileUploadWidget extends AbstractParametrizedWidget implements Valuable, Labeled {
+public class FileUploadWidget extends AbstractParametrizedWidget implements Valuable, Labeled, Requirable {
 
     static final String FILE_UPLOAD_WIDGET_ID = "pbUpload";
 
@@ -23,6 +23,7 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
     private String placeholder;
     private String value;
     private String url = "/bonita/API/formFileUpload";
+    private boolean required = true;
 
     public FileUploadWidget() {
         super(FILE_UPLOAD_WIDGET_ID);
@@ -68,4 +69,11 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
         this.url = url;
     }
 
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
 }
