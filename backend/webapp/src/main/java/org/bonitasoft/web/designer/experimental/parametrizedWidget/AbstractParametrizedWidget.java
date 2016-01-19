@@ -26,12 +26,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableSortedMap;
+import com.google.common.collect.Maps.EntryTransformer;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Maps.EntryTransformer;
 
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
@@ -50,9 +49,10 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(VALUE_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(DATA_TO_SEND_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
-        propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
     }
+
+    private Map<String, PropertyValue> propertyValues = new HashMap<>();
 
     public AbstractParametrizedWidget(String widgetId) {
         this.widgetId = widgetId;
@@ -159,7 +159,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
             @Override
             public PropertyValue transformEntry(String paramName, Object value) {
-                return createPropertyValue(getParameterType(paramName), value);
+                return propertyValues.containsKey(paramName) ? propertyValues.get(paramName) : createPropertyValue(getParameterType(paramName), value);
             }
         };
     }
@@ -175,4 +175,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         return propertyValue;
     }
 
+    public void setPropertyValue(String paramName, ParameterType type, Object value) {
+        propertyValues.put(paramName, createPropertyValue(type, value));
+    }
 }
