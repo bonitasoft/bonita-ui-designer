@@ -1,8 +1,16 @@
-<button class="Artifact-button Artifact-button-favorite"
-        ng-class="{'Artifact-button-favorite--checked': vm.isFavorite()}"
-        ng-click="vm.toggleFavorite()"
-        type="button"
-        title="{{vm.getTitle()}}">
-    <i class="fa"
-       ng-class="{'fa-star-o': !vm.isFavorite(), 'fa-star': vm.isFavorite()}"></i>
-</button>
+<span ng-switch="vm.isFavorite()">
+    <button ng-switch-when="true"
+            class="Artifact-button Artifact-favoriteButton Artifact-favoriteButton--checked"
+            ng-click="vm.toggleFavorite()"
+            type="button"
+            title="{{:: 'Unmark as favorite' | translate }}">
+        <i class="fa FavoriteButton-icon"></i>
+    </button>
+    <button ng-switch-default
+            class="Artifact-button Artifact-favoriteButton"
+            ng-click="vm.toggleFavorite()"
+            type="button"
+            title="{{:: 'Mark as favorite' | translate }}">
+        <i class="fa FavoriteButton-icon"></i>
+    </button>
+</span>

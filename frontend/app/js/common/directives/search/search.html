@@ -4,6 +4,7 @@
     <input class="form-control Search-input"
            name="search"
            ng-model="search.value"
+           ng-model-options="{ debounce: 200 }"
            placeholder="{{ search.placeholder }}"
            type="search">
 

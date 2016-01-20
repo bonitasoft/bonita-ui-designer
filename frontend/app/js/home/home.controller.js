@@ -19,7 +19,7 @@
   'use strict';
 
   class HomeCtrl {
-    constructor($scope, $modal, artifactStore, artifactFactories, $filter) {
+    constructor($scope, $modal, artifactStore, artifactFactories, $filter, $state) {
 
       $scope.artifacts = {};
 
@@ -33,6 +33,10 @@
        */
       $scope.refreshAll = () => artifactStore.load()
         .then((artifacts) => $scope.artifacts.all = artifacts)
+        .then(artifacts => artifacts.map(artifact => {
+          artifact.editionUrl = $state.href(`designer.${artifact.type}`, { id: artifact.id });
+          return artifact;
+        }))
         .then(filterArtifacts);
 
       $scope.openHelp = () => $modal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });

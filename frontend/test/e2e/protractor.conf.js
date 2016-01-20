@@ -169,15 +169,6 @@ exports.config = {
         browser.driver.manage().window().setSize(result.width, result.height);
       });
     });
-
-    // disable ngAnimate
-    var disableNgAnimate = function() {
-      angular.module('disableNgAnimate', ['ngAnimate']).run(['$animate', function($animate) {
-        $animate.enabled(false);
-      }]);
-    };
-
-    browser.addMockModule('disableNgAnimate', disableNgAnimate);
   },
 
   // A callback function called once tests are finished.

@@ -13,7 +13,7 @@ describe('HomeCtrl', function() {
   var artifacts = [...pages, ...widgets];
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
-  beforeEach(inject(function($controller, $rootScope, $injector) {
+  beforeEach(inject(function($controller, $rootScope, $injector, $state) {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');
     artifactStore = $injector.get('artifactStore');
@@ -23,6 +23,7 @@ describe('HomeCtrl', function() {
 
     controller = $controller('HomeCtrl', { $scope, artifactStore });
     $scope.$digest();
+    spyOn($state, 'href').and.callFake((state, params) => `${state}/${params.id}`);
   }));
 
   it('should refresh everything', function() {
@@ -37,5 +38,6 @@ describe('HomeCtrl', function() {
       form: [],
       layout: []
     });
+    artifacts.forEach(artifact => expect(artifact.editionUrl).toBe(`designer.${artifact.type}/${artifact.id}`));
   });
 });

@@ -1,10 +1,10 @@
-describe('favorite button', function () {
+describe('favorite button', function() {
 
   var $scope, element, artifact, controller, pageRepo;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home'));
 
-  beforeEach(inject(function ($compile, $rootScope, _pageRepo_) {
+  beforeEach(inject(function($compile, $rootScope, _pageRepo_) {
     $scope = $rootScope.$new();
     artifact = {
       type: 'page',
@@ -18,9 +18,9 @@ describe('favorite button', function () {
     controller = element.controller('favoriteButton');
   }));
 
-  describe('controller', function () {
+  describe('controller', function() {
 
-    it('should mark an artifact as favorite', function () {
+    it('should mark an artifact as favorite', function() {
       spyOn(pageRepo, 'markAsFavorite');
       artifact.favorite = false;
 
@@ -30,7 +30,7 @@ describe('favorite button', function () {
       expect(pageRepo.markAsFavorite).toHaveBeenCalledWith(artifact.id);
     });
 
-    it('should unmark an artifact as favorite', function () {
+    it('should unmark an artifact as favorite', function() {
       spyOn(pageRepo, 'unmarkAsFavorite');
       artifact.favorite = true;
 
@@ -40,58 +40,33 @@ describe('favorite button', function () {
       expect(pageRepo.unmarkAsFavorite).toHaveBeenCalledWith(artifact.id);
     });
 
-    it('should say if artifact is favorite or not', function () {
+    it('should say if artifact is favorite or not', function() {
       artifact.favorite = true;
       expect(controller.isFavorite()).toBeTruthy();
 
       artifact.favorite = false;
       expect(controller.isFavorite()).toBeFalsy();
     });
-
-    it('should get different title depending on artifact favorite state', function () {
-      artifact.favorite = true;
-      expect(controller.getTitle()).toBe('Unmark as favorite');
-
-      artifact.favorite = false;
-      expect(controller.getTitle()).toBe('Mark as favorite');
-    });
   });
 
-  describe('directive', function () {
+  describe('directive', function() {
 
-    it('should toogle favorite state while clicking on it', function () {
+    it('should toggle favorite state while clicking on it', function() {
       spyOn(controller, 'toggleFavorite');
 
-      element.click();
+      element.find('.Artifact-favoriteButton').click();
 
       expect(controller.toggleFavorite).toHaveBeenCalled();
-    });
-
-    it('should display title from controller', function() {
-      spyOn(controller, 'getTitle').and.returnValue('title from controller');
-      $scope.$apply();
-
-      expect(element.attr('title')).toBe('title from controller');
-    });
-
-    it('should display an icon depending on artifact favorite state', function() {
-      artifact.favorite = true;
-      $scope.$apply();
-      expect(element.find('i').attr('class')).toBe('fa fa-star');
-
-      artifact.favorite = false;
-      $scope.$apply();
-      expect(element.find('i').attr('class')).toBe('fa fa-star-o');
     });
 
     it('should have a special class name when artifact is marked as favorite', function() {
       artifact.favorite = true;
       $scope.$apply();
-      expect(element.attr('class')).toContain('Artifact-button-favorite--checked');
+      expect(element.find('.Artifact-favoriteButton--checked').length).toBe(1);
 
       artifact.favorite = false;
       $scope.$apply();
-      expect(element.attr('class')).not.toContain('Artifact-button-favorite--checked');
+      expect(element.find('.Artifact-favoriteButton--checked').length).toBe(0);
     });
   });
 });

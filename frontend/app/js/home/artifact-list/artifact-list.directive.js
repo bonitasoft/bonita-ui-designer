@@ -17,10 +17,20 @@
 
   class ArtifactListController {
 
-    constructor($modal, $timeout, repositories) {
+    constructor($modal, $timeout, repositories, gettextCatalog) {
       this.$modal = $modal;
       this.$timeout = $timeout;
       this.getRepository = (type) => repositories.get(type);
+      this.gettextCatalog = gettextCatalog;
+    }
+
+    translateKeys(key) {
+      return {
+        'Delete': this.gettextCatalog.getString('Delete'),
+        'Export': this.gettextCatalog.getString('Export'),
+        'Rename': this.gettextCatalog.getString('Rename'),
+        'Last Update:': this.gettextCatalog.getString('Last Update:')
+      }[key] || key;
     }
 
     deleteArtifact(artifact) {

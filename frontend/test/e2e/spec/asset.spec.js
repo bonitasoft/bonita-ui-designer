@@ -6,7 +6,7 @@ describe('asset panel', function() {
   var assetPanel, editor;
 
   beforeEach(function() {
-    editor = PageEditor.get('person');
+    editor = PageEditor.get('person-page');
     assetPanel = editor.assetPanel();
     //The asset panel is not opened by default
     assetPanel.open();
@@ -136,7 +136,7 @@ describe('asset panel', function() {
         var btn = $$('.btn-bonita-asset').first();
         var iframe = $$('.ExportArtifact').first();
         btn.click();
-        expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/person\/assets\/css\/myStyle.css$/);
+        expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/person-page\/assets\/css\/myStyle.css$/);
       });
 
     });

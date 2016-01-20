@@ -107,7 +107,7 @@ describe('home page', function() {
 
   it('should open a modal to confirm page deletion', function() {
     //We want to delete a page
-    $$('#person .Artifact-delete').first().click();
+    $$('#person-page .Artifact-delete').first().click();
     //A modal is opened with a confirmation message
     expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the page Person?');
   });
@@ -116,7 +116,7 @@ describe('home page', function() {
   xit('should not delete page if user cancels deletion', function() {
     var numberOfPages = element.all(by.repeater('page in pages')).count();
     //We want to delete a page
-    $$('#person .Artifact-delete').first().click();
+    $$('#person-page .Artifact-delete').first().click();
     //A modal is opened and I click on Cancel
 
     //Disable animation for modal
@@ -131,7 +131,7 @@ describe('home page', function() {
   });
 
   it('should export a page', function() {
-    var btn = $$('#person .Artifact-export').first();
+    var btn = $$('#person-page .Artifact-export').first();
     var iframe = $$('.ExportArtifact').first();
     btn.click();
 
@@ -148,7 +148,7 @@ describe('home page', function() {
 
   it('should rename a page', function() {
 
-    var btnRenamePage = $$('#person .Artifact-rename').first();
+    var btnRenamePage = $$('#person-page .Artifact-rename').first();
     btnRenamePage.click();
 
     //The link should now be a visible input with the page name
@@ -162,7 +162,7 @@ describe('home page', function() {
   });
 
   it('should not rename a page with space or special characters in name', function() {
-    $$('#person .Artifact-rename').first().click();
+    $$('#person-page .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     $('#page-name-input-0').clear();
@@ -183,7 +183,7 @@ describe('home page', function() {
 
   it('should remove the input to rename a page on blur', function() {
 
-    $$('#person .Artifact-rename').first().click();
+    $$('#person-page .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     var nameInput = $('#page-name-input-0');
@@ -198,7 +198,7 @@ describe('home page', function() {
   });
 
   it('should set autofocus on the input if we edit a page',  function() {
-    $$('#person .Artifact-rename').first().click();
+    $$('#person-page .Artifact-rename').first().click();
     var input = $('#page-name-input-0');
     expect(input.getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
   });
@@ -237,10 +237,10 @@ describe('home page', function() {
   });
 
   it('should mark a page as favorite', function() {
-    $$('#empty .Artifact-button-favorite').first().click();
+    $$('#empty .Artifact-favoriteButton').first().click();
     expect(home.getFavoritePageNames()).toEqual(['Person', 'empty']);
 
-    $$('#empty .Artifact-button-favorite').first().click();
+    $$('#empty .Artifact-favoriteButton').first().click();
     expect(home.getFavoritePageNames()).toEqual(['Person']);
   });
 });
