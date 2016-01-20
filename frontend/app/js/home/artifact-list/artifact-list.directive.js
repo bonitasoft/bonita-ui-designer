@@ -66,7 +66,7 @@
         this.getRepository(artifact.type)
           .rename(artifact.id, artifact.newName)
           .catch(() => artifact.newName = artifact.name)
-          .finally(this.refreshAll);
+          .finally(() => artifact.name = artifact.newName);
       }
 
       /**
