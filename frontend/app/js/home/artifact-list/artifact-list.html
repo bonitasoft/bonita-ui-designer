@@ -5,9 +5,9 @@
 <ul class="ArtifactList">
     <li class="ArtifactList-item ArtifactList-item--primary ArtifactList-{{:: artifact.type }}"
         id="{{:: artifact.id }}"
-        ng-repeat="artifact in artifactList.all">
-        <div class="Artifact-info">
-            <a ng-if="!artifactList.isInEditionMode($index)" ui-sref="designer.{{:: artifact.type }}({id: artifact.id})"
+        ng-repeat="artifact in artifactList.all track by artifact.id">
+        <div class="Artifact-info" ng-switch="artifactList.isInEditionMode($index)">
+            <a ng-switch-default ui-sref="designer.{{:: artifact.type }}({id: artifact.id})"
                class="Artifact-link Artifact-link--primary">
                 <i class="ui-icon ui-{{:: artifact.type }}s Artifact-icon"
                    title="{{:: artifact.type | translate }}"></i>
@@ -19,7 +19,7 @@
             </a>
 
             <form name="renameArtifact" class="Artifact-form"
-                  ng-if="artifactList.isInEditionMode($index)"
+                  ng-switch-when="true"
                   ng-submit="artifactList.renameItem(artifact)"
                   ng-init="artifact.newName = artifact.name">
                 <input name="name"
