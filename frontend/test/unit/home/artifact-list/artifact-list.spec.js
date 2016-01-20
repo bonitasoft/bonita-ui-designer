@@ -75,7 +75,6 @@ describe('artifactListController', function() {
 
     // then it should have save the name and refresh the page
     expect(pageRepo.rename).toHaveBeenCalled();
-    expect($scope.refreshAll).toHaveBeenCalled();
     expect(element.find('#page1 input').controller('ngModel').$viewValue).toBe('test');
   });
 
@@ -85,7 +84,6 @@ describe('artifactListController', function() {
     rename('#page1', 'test');
 
     expect(pageRepo.rename).toHaveBeenCalled();
-    expect($scope.refreshAll).toHaveBeenCalled();
     expect(element.find('#page1 input').controller('ngModel').$viewValue).toBe('Page 1');
   });
 
