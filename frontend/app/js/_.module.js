@@ -29,7 +29,6 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.assets',
     'ngSanitize',
-    'ngAnimate',
     'ui.router',
     'ui.bootstrap',
     'ui.ace',

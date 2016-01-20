@@ -1,11 +1,12 @@
 describe('Search', () => {
 
-  var element, $scope;
+  var element, $scope, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.directives'));
 
-  beforeEach(inject(function($compile, $rootScope) {
+  beforeEach(inject(function($compile, $rootScope, _$timeout_) {
     $scope = $rootScope.$new();
+    $timeout = _$timeout_;
     $scope.placeholder = 'foobar';
     element = $compile(`<form name="form"><search value="search" placeholder="{{ placeholder }}"></search></form>`)($scope);
     $scope.$apply();
@@ -17,7 +18,7 @@ describe('Search', () => {
 
       $scope.form.search.$setViewValue('abc');
 
-      expect($scope.search).toBe('abc');
+      $timeout(() => expect($scope.search).toBe('abc'));
     });
 
     it('should clear value when clicking on clear button', function() {
@@ -25,7 +26,7 @@ describe('Search', () => {
 
       element.find('.Search-clearButton').click().trigger('click');
 
-      expect($scope.search).toBe('');
+      $timeout(() => expect($scope.search).toBe(''));
     });
 
     it('should display a placeholder', function() {

@@ -116,14 +116,25 @@
   color: @color-primary-panel-item-active;
 }
 
-.Artifact-button-favorite:hover {
-  color: @Artifact-button--favorite-color;
+.Artifact-favoriteButton {
+
+  &:hover {
+    color: @Artifact-button--favorite-color;
+  }
+
+  .FavoriteButton-icon:before {
+    content: "\f006";
+  }
 }
 
-.Artifact-button-favorite--checked {
+.Artifact-favoriteButton--checked {
   color: @Artifact-button--favorite-color;
 
   &:hover {
     color: darken(@Artifact-button--favorite-color, 5%);
+  }
+
+  .FavoriteButton-icon:before {
+    content: "\f005";
   }
 }

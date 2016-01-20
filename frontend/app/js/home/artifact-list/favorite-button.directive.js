@@ -20,7 +20,7 @@
     };
   }
 
-  function FavoriteButtonCtrl(gettextCatalog) {
+  function FavoriteButtonCtrl() {
     var vm = this;
 
     vm.toggleFavorite = function() {
@@ -34,12 +34,6 @@
 
     vm.isFavorite = function() {
       return vm.artifact.favorite;
-    };
-
-    vm.getTitle = function() {
-      return vm.artifact.favorite ?
-        gettextCatalog.getString('Unmark as favorite') :
-        gettextCatalog.getString('Mark as favorite');
     };
   }
 

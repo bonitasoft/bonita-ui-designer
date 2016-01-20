@@ -111,7 +111,7 @@
       });
 
       // create new page
-      $httpBackend.whenPOST('rest/pages?duplicata=person').respond(function(method, url, data) {
+      $httpBackend.whenPOST('rest/pages?duplicata=person-page').respond(function(method, url, data) {
         var page = angular.fromJson(data);
         page.id = page.name;
         pages.push(page);
@@ -129,10 +129,10 @@
       // update page
       $httpBackend.whenPUT(/rest\/pages\/.*/).respond(200);
 
-      $httpBackend.whenDELETE('rest/pages/person').respond(200);
+      $httpBackend.whenDELETE('rest/pages/person-page').respond(200);
 
       // create/update person assets
-      $httpBackend.whenPOST('rest/pages/person/assets').respond(function(method, url, data) {
+      $httpBackend.whenPOST('rest/pages/person-page/assets').respond(function(method, url, data) {
         var asset = angular.fromJson(data);
         asset.id = asset.id || e2ehelper.uuid();
         return [201, asset, {}];
@@ -142,7 +142,7 @@
       /********************************************************************************************************
        *                                            EXPORT
        * ******************************************************************************************************/
-      $httpBackend.whenGET('export/page/person').respond(200);
+      $httpBackend.whenGET('export/page/person-page').respond(200);
 
     });
 

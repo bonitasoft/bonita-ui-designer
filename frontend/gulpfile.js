@@ -13,7 +13,6 @@ var paths = {
     'app/bower_components/ace-builds/src-min-noconflict/ext-language_tools.js',
     'app/bower_components/angular/angular.min.js',
     'app/bower_components/angular-sanitize/angular-sanitize.min.js',
-    'app/bower_components/angular-animate/angular-animate.min.js',
     'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'app/bower_components/angular-recursion/angular-recursion.min.js',
     'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',

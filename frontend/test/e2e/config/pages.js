@@ -6,7 +6,7 @@
     .module('bonitasoft.designer.e2e')
     .value('pages', [
       {
-        id: 'person',
+        id: 'person-page',
         name: 'Person',
         type: 'page',
         lastUpdate: 1447944407862,
