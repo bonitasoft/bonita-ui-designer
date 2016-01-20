@@ -72,14 +72,10 @@ var paths = {
     ]
   },
   locales: [
-    'de',
     'en',
     'es-ES',
     'fr',
-    'it',
-    'ja',
-    'pt-BR',
-    'ru'
+    'ja'
   ].map(function(lang) {
       return 'node_modules/angular-i18n/angular-locale_' + lang + '.js';
     })
