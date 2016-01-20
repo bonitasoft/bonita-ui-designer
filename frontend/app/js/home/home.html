@@ -28,15 +28,16 @@
 
         <section class="col-xs-7 Artifact-section">
             <uib-tabset>
-                <uib-tab ng-repeat="type in types">
-                    <uib-tab-heading class="tab-{{type.id}}">
-                        {{ type.name | translate }}
+                <uib-tab ng-repeat="type in ::types" active="active">
+                    <uib-tab-heading class="tab-{{:: type.id}}">
+                        {{:: type.name | translate }}
                         <span class="badge ArtifactSection-badge"
                               ng-class="{'ArtifactSection-badge--hasResults': search && artifacts[type.id].length}">
                             {{ artifacts[type.id].length }}
                         </span>
                     </uib-tab-heading>
                     <artifact-list
+                        ng-if="active"
                         artifacts="artifacts[type.id] | orderBy:'-lastUpdate'"
                         refresh-all="refreshAll"></artifact-list>
                 </uib-tab>
