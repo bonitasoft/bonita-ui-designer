@@ -50,4 +50,5 @@ public interface Identifiable {
 
     void setFavorite(boolean favorite);
 
+    String getType();
 }
