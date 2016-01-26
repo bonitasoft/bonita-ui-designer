@@ -72,7 +72,7 @@ angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', f
         url: '../API/bdm/businessDataReference/<strong>{{caseId}}</strong>/<strong>{{businessVariableName}}</strong>',
         alternative: {
           before: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:'),
-          url: '../<strong>{{context.businessVariableName.link}}</strong>',
+          url: '../<strong>{{context.businessVariableName_ref.link}}</strong>',
           more: gettextCatalog.getString('Where businessVariableName is the name of the business variable defined at pool level.')
         }
       },
