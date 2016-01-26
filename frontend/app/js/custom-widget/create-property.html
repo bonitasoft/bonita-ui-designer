@@ -14,6 +14,15 @@
             <input id="label" class="form-control" name="label" ng-model="currentParam.label" required>
         </div>
         <div class="form-group">
+            <label for="help" class="control-label" translate>Tooltip <i class="fa fa-info-circle" uib-tooltip="{{ 'The tooltip will be display as such, close to the property label.' | translate}}"></i> </label>
+            <textarea id="help" class="EditWidgetPopup-help  form-control" name="help" ng-model="currentParam.help" placeholder="{{ 'Describes the property' | translate}}"/>
+        </div>
+        <div class="form-group">
+            <label for="caption" class="control-label" translate>Caption</label>
+            <small class="help-block EditWidgetPopup-captionMarginTop">{{'The caption will be displayed as such below the property label.' | translate}}</small>
+            <input id="caption" class="form-control" name="caption" ng-model="currentParam.caption" placeholder="{{ 'Can be used to define the expected input format' | translate}}">
+        </div>
+        <div class="form-group">
             <label for="bond" class="control-label control-label--required" translate>Treat value as</label>
             <div id="bond" class="btn-group CustomWidgetProperty--fullWidth" uib-dropdown>
                 <button id="bondButton" type="button" class="btn btn-default CustomWidgetProperty--textLeft CustomWidgetProperty--fullWidth" uib-dropdown-toggle>
@@ -70,4 +79,5 @@
         <button type="submit" class="btn btn-bonita-default" ng-disabled="propertyForm.$invalid" ng-click="ok()">{{ (paramToUpdate ? 'Save' : 'Create')|translate }}</button>
         <button type="button" class="btn btn-link" ng-click="cancel()" translate>Cancel</button>
     </div>
+
 </form>
