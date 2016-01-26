@@ -72,12 +72,24 @@ describe('custom widget editor', function() {
 
     $('#name').sendKeys('newProperty');
     $('#label').sendKeys('new property');
+    $('#help').sendKeys('Tooltip for new property');
+    $('#caption').sendKeys('Caption for new property');
     $('#default').sendKeys('Default value');
 
     $('button[type="submit"]').click();
 
     var properties = getPropertyNamesInList();
     expect(properties).toContain('newProperty');
+
+    var property = element.all(by.repeater('property in widget.properties')).last();
+    var editButton = property.element(by.css('i.fa-pencil'));
+    editButton.click();
+
+    expect($('.modal-body #name').getAttribute('value')).toBe('newProperty');
+    expect($('.modal-body #label').getAttribute('value')).toBe('new property');
+    expect($('.modal-body #help').getAttribute('value')).toBe('Tooltip for new property');
+    expect($('.modal-body #caption').getAttribute('value')).toBe('Caption for new property');
+    expect($('.modal-body #default').getAttribute('value')).toBe('Default value');
   });
 
   it('should allow to update a property', function() {
