@@ -52,7 +52,7 @@
               </div>
 
               <section ng-switch-when="url" >
-                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See examples</button>
                   <div class="well" collapse="examplesCollapsed">
                       <div class="form-group">
                           <select class="form-control" ng-options="example as example.description group by example.category for example in apiExamples"
@@ -81,7 +81,7 @@
               </p>
 
               <section ng-switch-when="json" >
-                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See examples</button>
                   <div collapse="examplesCollapsed">
                       <p translate>
                           supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level,
@@ -114,7 +114,7 @@
                   <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.
               </p>
               <section ng-switch-when="expression" >
-                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link">See examples</button>
+                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See examples</button>
                   <div collapse="examplesCollapsed">
                       <p class="alert alert-default">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
