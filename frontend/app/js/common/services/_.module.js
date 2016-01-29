@@ -17,7 +17,8 @@
   'use strict';
 
   angular.module('bonitasoft.designer.common.services', [
-    'gettext'
+    'gettext',
+    'dn.sha'
   ]);
 
 })();
