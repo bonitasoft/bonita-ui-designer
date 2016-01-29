@@ -31,6 +31,10 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.min.js',
       'bower_components/keymaster/keymaster.js',
       'bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js',
+      'bower_components/identicon.js/pnglib.js',
+      'bower_components/identicon.js/identicon.js',
+      'bower_components/jsSHA/src/sha1.js',
+      'bower_components/angular-sha/src/angular-sha.js',
 
       'app/js/**/*.module.js',
       'app/js/**/*.js',
