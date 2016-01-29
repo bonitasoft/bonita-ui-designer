@@ -2,7 +2,8 @@
      tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="right"
      tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
     <div id="{{ widget.component.id }}" bo-draggable-data="widget" bo-draggable>
-        <img class="PaletteItem-icon" ng-src="{{iconData}}"/>
+        <img class="PaletteItem-icon" ng-if="widget.component.icon" ng-src="{{iconData}}" />
+        <identicon ng-if="!widget.component.icon" name="{{widget.component.id}}" size="30"></identicon>
         <h5 class="PaletteItem-label">{{ widget.component.name }}</h5>
     </div>
 </div>
