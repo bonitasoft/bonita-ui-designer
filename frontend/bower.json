@@ -34,7 +34,9 @@
     "keymaster": "~1.6.3",
     "angular-animate": "1.4.7",
     "angular-ui-validate": "1.2.2",
-    "angular-dynamic-locale": "0.1.29"
+    "angular-dynamic-locale": "0.1.29",
+    "identicon.js": "redboul/identicon.js#1.0.0",
+    "angular-sha": "*"
   },
   "resolutions": {
     "bootstrap": "3.3.6",
