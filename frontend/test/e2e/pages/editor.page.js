@@ -97,6 +97,7 @@ var AssetPanel = require('./asset-panel.page');
         if (!/.Palette-section--active/.test(className)) {
           btn.click();
         }
+        expect($('img[name="' + widgetId + '"]').getAttribute('src')).toContain('data:image/png;base64,');
         editor.addElement(widgetId).to('.widget-placeholder');
       });
     },
