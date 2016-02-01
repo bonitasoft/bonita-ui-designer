@@ -22,7 +22,7 @@ describe('paletteWidget', function() {
 
   it('should display the widget in palette', function() {
     // then we should have
-    expect(element.find('div').attr('id')).toBe('w-input');
+    expect(element.find('div[bo-draggable]').attr('id')).toBe('w-input');
     expect(element.text()).toContain('input');
   });
 
