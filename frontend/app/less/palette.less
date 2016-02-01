@@ -122,6 +122,9 @@
   vertical-align: top;
   opacity: 1;
   transition: opacity @transition-duration @sidebar-transition;
+  div {
+    min-height: inherit;
+  }
 }
 
 //  Alpha animation
@@ -141,17 +144,6 @@
 
 .PaletteItem:nth-child(2n) {
   border-right: 0
-}
-
-.PaletteItem-description {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 0;
-  height: 0;
-  border-bottom: 9px solid transparent;
-  border-right: 10px solid @color-palette-bg;
-  cursor: pointer;
 }
 
 .PaletteItem-icon {
