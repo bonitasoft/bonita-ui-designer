@@ -7,12 +7,12 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita-bpm-new-features\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /maintenance/ui-designer/lang-template.pot\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-01-19 06:32-0500\n"
+"PO-Revision-Date: 2016-02-02 10:26-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -730,7 +730,7 @@ msgstr "今のところ、カスタム ウィジェットのコンテナは実�
 
 #: home/artifact-factory.service.js:37
 msgid "Forms"
-msgstr "6.x フォーム"
+msgstr "フォーム"
 
 #: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
 msgid "Frame"
@@ -1175,7 +1175,7 @@ msgstr "オーバーライドされたアーティファクト"
 
 #: home/help-popup.html:1
 msgid "Overview"
-msgstr "オーバービュー"
+msgstr "案件概況"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "POST"
@@ -1328,6 +1328,10 @@ msgstr "検索キーで案件リストを検索する"
 #: home/home.html:1
 msgid "Search on name"
 msgstr "名前で検索"
+
+#: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
+msgid "See examples"
+msgstr "例を参照"
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
