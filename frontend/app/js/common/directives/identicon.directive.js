@@ -1,4 +1,3 @@
-/* globals Identicon */
 /**
  * Copyright (C) 2015 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
@@ -19,19 +18,18 @@
       this.restrict = 'E';
       this.replace = true;
       this.template = '<img width={{ctrl.size}} height={{ctrl.size}} ng-src="data:image/png;base64,{{ctrl.data}}"/>';
-      this.bindToController = { name: '@' , size: '@' };
+      this.bindToController = { name: '@' , size: '@', backgroundColor: '=', foregroundColor: '=' };
       this.scope = true;
       this.controllerAs = 'ctrl';
     }
-    controller($scope, $sha) {
+    controller($scope, $sha, $window) {
       'ngInject';
       $scope.$watchGroup([() => this.name, () => this.size], () => {
-        console.log($sha.hash('1', 'TEXT', 'HEX', this.name || ''));
-        this.data = new Identicon({
+        this.data = new $window.Identicon({
           'hash': $sha.hash('1', 'TEXT', 'HEX', this.name || ''),
           size: Number(this.size) || 40,
-          bg: [64, 72, 83],
-          fg: [255, 255, 255]
+          bg: (angular.isArray(this.backgroundColor) && this.backgroundColor.length > 1) ? this.backgroundColor : [64, 72, 83],
+          fg: (angular.isArray(this.foregroundColor) && this.foregroundColor.length > 1) ? this.foregroundColor : [255, 255, 255],
         }).toString();
       });
     }

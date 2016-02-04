@@ -12,7 +12,10 @@ describe('componentScopeBuilder', function() {
     // given
     var scope = $rootScope.$new();
     scope.component = {
+      id: 'dumbWidget',
       $$widget: {
+        id: 'dumbWidget',
+        name: 'dumbWidget',
         properties: []
       },
       propertyValues: {
@@ -27,12 +30,17 @@ describe('componentScopeBuilder', function() {
 
     // and we should a utility function range
     expect(directiveScope.range(5).length).toBe(5);
+    expect(directiveScope.environment.editor.pageId).toEqual('c0eae20f-14dd-4312-a678-2f1fab0a3898');
+    expect(directiveScope.environment.component).toBe(scope.component.$$widget);
   });
 
   it('should update scope properties when global property values are updated', function() {
     var scope = $rootScope.$new();
     scope.component = {
+      id: 'dumbWidget',
       $$widget: {
+        id: 'dumbWidget',
+        name: 'dumbWidget',
         properties: []
       },
       propertyValues: {
@@ -56,6 +64,8 @@ describe('componentScopeBuilder', function() {
     var scope = $rootScope.$new();
     scope.component = {
       $$widget: {
+        id: 'dumbWidget',
+        name: 'dumbWidget',
         properties: []
       },
       propertyValues: {
