@@ -19,10 +19,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AssetType {
 
-    CSS("css"),
-    JAVASCRIPT("js"),
-    IMAGE("img"),
-    JSON("json");
+    CSS("css"), JAVASCRIPT("js"), IMAGE("img"), FONT("fonts"), JSON("json");
 
     private String prefix;
 
@@ -31,9 +28,9 @@ public enum AssetType {
     }
 
     @JsonCreator
-    public static AssetType getAsset(String prefix){
-        for(AssetType type : values()){
-            if(type.prefix.equals(prefix)){
+    public static AssetType getAsset(String prefix) {
+        for (AssetType type : values()) {
+            if (type.prefix.equals(prefix)) {
                 return type;
             }
         }
