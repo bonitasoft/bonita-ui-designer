@@ -3,7 +3,7 @@
      tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
     <div id="{{ widget.component.id }}" bo-draggable-data="widget" bo-draggable>
         <img class="PaletteItem-icon" ng-if="widget.component.icon" ng-src="{{iconData}}" />
-        <identicon ng-if="!widget.component.icon" name="{{widget.component.id}}" size="30"></identicon>
+        <identicon ng-if="!widget.component.icon" name="{{widget.component.id}}" size="30" background-color="[0,0,0,0]"></identicon>
         <h5 class="PaletteItem-label">{{ widget.component.name }}</h5>
     </div>
 </div>
