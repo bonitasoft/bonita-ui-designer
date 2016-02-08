@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 import java.io.File;
 import java.util.Date;
 
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 
@@ -143,7 +144,7 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setButtonStyle(ButtonStyle.SUCCESS);
         buttonComponent.setAlignment(Alignment.RIGHT);
         buttonComponent.setAction(ButtonAction.ADD_TO_COLLECTION);
-        buttonComponent.setDimension(10);
+        buttonComponent.setDimension(12);
         return buttonComponent;
     }
 
@@ -152,8 +153,11 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setLabel("Remove");
         buttonComponent.setButtonStyle(ButtonStyle.DANGER);
         buttonComponent.setAction(ButtonAction.REMOVE_FROM_COLLECTION);
-        buttonComponent.setCollectionPosition("Last");
-        buttonComponent.setDimension(2);
+        buttonComponent.setCollectionPosition("Item");
+        buttonComponent.setAlignment(Alignment.RIGHT);
+        buttonComponent.setRemoveItem(ContractInputToWidgetMapper.ITEM_ITERATOR);
+        buttonComponent.setCollectionToModify("$collection");
+        buttonComponent.setDimension(12);
         return buttonComponent;
     }
 

@@ -57,7 +57,8 @@ public class ContractInputVisitorImplTest {
     public void add_a_component_embedded_in_a_container_with_buttons_when_visiting_a_multiple_leaf_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit((LeafContractInput) ContractInputBuilder.aContractInput("names").mulitple().build());
+        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper())
+                .visit((LeafContractInput) ContractInputBuilder.aContractInput("names").mulitple().build());
 
         assertThat(page.getRows()).hasSize(3);//one for the container label, one for the container, one for the button bar
 
@@ -73,27 +74,31 @@ public class ContractInputVisitorImplTest {
         assertThat(secondRow.get(0)).isInstanceOf(Container.class);
         Container container = (Container) secondRow.get(0);
         assertThat(container.getRows()).hasSize(1);
-        assertThat(container.getRows().get(0)).hasSize(1);
-        Component component = (Component) container.getRows().get(0).get(0);
+        List<Element> secondRowInner = container.getRows().get(0);
+        assertThat(secondRowInner).hasSize(2);
+        Component component = (Component) secondRowInner.get(0);
         assertThat(component.getId()).isEqualTo("pbInput");
         assertThat(component.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("")));
+        Component removeButton = (Component) secondRowInner.get(1);
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
 
         List<Element> thirdRow = page.getRows().get(2);
-        assertThat(thirdRow).hasSize(2);
+        assertThat(thirdRow).hasSize(1);
+        System.out.println(thirdRow);
         Component addButton = (Component) thirdRow.get(0);
         assertThat(addButton.getId()).isEqualTo("pbButton");
-        Component removeButton = (Component) thirdRow.get(1);
-        assertThat(removeButton.getId()).isEqualTo("pbButton");
+
     }
 
     @Test
     public void add_a_children_components_embedded_in_a_container_when_visiting_a_node_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit((NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
-                ContractInputBuilder.aStringContractInput("firstName"),
-                ContractInputBuilder.aStringContractInput("lastName")).build());
+        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper())
+                .visit((NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
+                        ContractInputBuilder.aStringContractInput("firstName"),
+                        ContractInputBuilder.aStringContractInput("lastName")).build());
 
         assertThat(page.getRows()).hasSize(2);//one for the container label, one for the container
 
@@ -144,7 +149,7 @@ public class ContractInputVisitorImplTest {
         assertThat(secondRow).hasSize(1);
         assertThat(secondRow.get(0)).isInstanceOf(Container.class);
         Container container = (Container) secondRow.get(0);
-        assertThat(container.getRows()).hasSize(2);
+        assertThat(container.getRows()).hasSize(3);
         assertThat(container.getRows().get(0)).hasSize(1);
 
         Component firstNameComponent = (Component) container.getRows().get(0).get(0);
@@ -152,17 +157,20 @@ public class ContractInputVisitorImplTest {
         assertThat(firstNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("First Name")));
 
+        assertThat(container.getRows().get(1)).hasSize(1);
         Component lastNameComponent = (Component) container.getRows().get(1).get(0);
         assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
 
+        assertThat(container.getRows().get(2)).hasSize(1);
+        Component removeButton = (Component) container.getRows().get(2).get(0);
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
+
         List<Element> thirdRow = page.getRows().get(2);
-        assertThat(thirdRow).hasSize(2);
+        assertThat(thirdRow).hasSize(1);
         Component addButton = (Component) thirdRow.get(0);
         assertThat(addButton.getId()).isEqualTo("pbButton");
-        Component removeButton = (Component) thirdRow.get(1);
-        assertThat(removeButton.getId()).isEqualTo("pbButton");
     }
 
     @Test
@@ -172,7 +180,8 @@ public class ContractInputVisitorImplTest {
         new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper()).visit(
                 (NodeContractInput) ContractInputBuilder.aNodeContractInput("complex").mulitple().withInput(
                         ContractInputBuilder.aNodeContractInput("subcomplex")
-                                .withInput(ContractInputBuilder.aStringContractInput("lastName")).build()).build());
+                                .withInput(ContractInputBuilder.aStringContractInput("lastName")).build())
+                        .build());
 
         assertThat(page.getRows()).hasSize(3);//one for the container label, one for the container,one for the button bar
 
@@ -189,7 +198,7 @@ public class ContractInputVisitorImplTest {
         Container complexContainer = (Container) complexSecondRow.get(0);
         assertThat(complexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
                 aDataPropertyValue("formInput.complex")));
-        assertThat(complexContainer.getRows()).hasSize(2);
+        assertThat(complexContainer.getRows()).hasSize(3);
         assertThat(complexContainer.getRows().get(0)).hasSize(1);
 
         Component subcomplexComponent = (Component) complexContainer.getRows().get(0).get(0);
@@ -213,11 +222,14 @@ public class ContractInputVisitorImplTest {
                 entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")),
                 entry(ParameterConstants.VALUE_PARAMETER, aDataPropertyValue("$item.subcomplex.lastName")));
 
+        assertThat(complexContainer.getRows().get(2)).hasSize(1);
+        Component removeButton = (Component) complexContainer.getRows().get(2).get(0);
+        assertThat(removeButton.getPropertyValues().get("collectionToModify").getValue()).isEqualTo("$collection");
+        assertThat(removeButton.getId()).isEqualTo("pbButton");
+
         List<Element> thirdRow = page.getRows().get(2);
-        assertThat(thirdRow).hasSize(2);
+        assertThat(thirdRow).hasSize(1);
         Component addButton = (Component) thirdRow.get(0);
         assertThat(addButton.getId()).isEqualTo("pbButton");
-        Component removeButton = (Component) thirdRow.get(1);
-        assertThat(removeButton.getId()).isEqualTo("pbButton");
     }
 }

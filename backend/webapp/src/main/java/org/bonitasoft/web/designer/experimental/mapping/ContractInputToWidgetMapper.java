@@ -20,6 +20,7 @@ import static com.google.common.collect.Lists.reverse;
 
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
@@ -36,10 +37,12 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 
+import com.google.common.collect.Lists;
+
 @Named
 public class ContractInputToWidgetMapper {
 
-    private static final String ITEM_ITERATOR = "$item";
+    public static final String ITEM_ITERATOR = "$item";
     static final String FORM_INPUT_DATA = "formInput";
     static final String FORM_OUTPUT_DATA = "formOutput";
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
@@ -63,7 +66,7 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ITEM_ITERATOR);
         }
-        container.getRows().add(Collections.<Element>singletonList(component.getAdapter(Component.class)));
+        container.getRows().add(Lists.<Element>newArrayList(component.getAdapter(Component.class), createRemoveButton()));
         return container;
     }
 
@@ -136,9 +139,8 @@ public class ContractInputToWidgetMapper {
         return addButton.getAdapter(Component.class);
     }
 
-    public Component createRemoveButton(ContractInput contractInput) {
+    public Component createRemoveButton() {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
-        removeButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         return removeButton.getAdapter(Component.class);
     }
 

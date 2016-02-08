@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.experimental.assertions.DatePickerWidgetAsser
 import org.bonitasoft.web.designer.experimental.assertions.InputWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.TitleWidgetAssert;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -259,58 +260,33 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_add_button_with_a_width_at_10() throws Exception {
+    public void create_add_button_with_a_width_at_12() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         ButtonWidget button = elementFactory.createAddButton();
 
-        assertThat(button.getDimension()).isEqualTo(10);
+        assertThat(button.getDimension()).isEqualTo(12);
     }
 
     @Test
-    public void create_remove_button_with_remove_from_collection_action() throws Exception {
+    public void create_remove_button() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         ButtonWidget button = elementFactory.createRemoveButton();
 
-        ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.REMOVE_FROM_COLLECTION.getValue());
-    }
+        assertThat(button.getDimension()).isEqualTo(12);
+        assertThat(button.getCollectionPosition()).isEqualTo("Item");
+        assertThat(button.getRemoveItem()).isEqualTo("$item");
+        assertThat(button.getCollectionToModify()).isEqualTo("$collection");
 
-    @Test
-    public void create_remove_button_with_label() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createRemoveButton();
-
+        AbstractParametrizedWidgetAssert.assertThat(button).hasAlignment(Alignment.RIGHT.getValue());
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.DANGER.getValue()).isNotDisabled();
         AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Remove").isDisplayed();
-    }
+        ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.REMOVE_FROM_COLLECTION.getValue());
 
-    @Test
-    public void create_remove_button_with_left_alignment() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createRemoveButton();
-
-        AbstractParametrizedWidgetAssert.assertThat(button).hasAlignment(Alignment.LEFT.getValue());
-    }
-
-    @Test
-    public void create_remove_button_with_a_width_at_2() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createRemoveButton();
-
-        assertThat(button.getDimension()).isEqualTo(2);
-    }
-
-    @Test
-    public void create_remove_button_which_remove_last_item() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createRemoveButton();
-
-        assertThat(button.getCollectionPosition()).isEqualTo("Last");
+        PropertyValue PropertyValue = button.toPropertyValues().get("removeItem");
+        assertThat(PropertyValue.getType()).isEqualTo("variable");
+        assertThat(PropertyValue.getValue()).isEqualTo("$item");
     }
 
     private ParametrizedWidgetFactory createFactory() {

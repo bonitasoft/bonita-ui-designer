@@ -14,9 +14,7 @@
  */
 package org.bonitasoft.web.designer.experimental.mapping;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
@@ -25,6 +23,8 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
+
+import com.google.common.collect.Lists;
 
 public class ContractInputVisitorImpl implements ContractInputVisitor {
 
@@ -45,6 +45,9 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
         for (ContractInput childInput : contractInput.getInput()) {
             childInput.accept(containerContractInputVisitor);
         }
+        if (contractInput.isMultiple()) {
+            newContainer.getRows().add(Collections.<Element>singletonList(contractInputToWidgetMapper.createRemoveButton()));
+        }
         container.getRows().add(Collections.<Element> singletonList(newContainer));
         addButtonBar(contractInput);
     }
@@ -58,14 +61,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
 
     private void addButtonBar(ContractInput contractInput) {
         if (contractInput.isMultiple()) {
-            container.getRows().add(addContainerButtonBar(contractInput));
+            container.getRows().add(Lists.<Element>newArrayList(contractInputToWidgetMapper.createAddButton(contractInput)));
         }
-    }
-
-    private List<Element> addContainerButtonBar(ContractInput contractInput) {
-        List<Element> buttonBar = new ArrayList<>();
-        buttonBar.add(contractInputToWidgetMapper.createAddButton(contractInput));
-        buttonBar.add(contractInputToWidgetMapper.createRemoveButton(contractInput));
-        return buttonBar;
     }
 }

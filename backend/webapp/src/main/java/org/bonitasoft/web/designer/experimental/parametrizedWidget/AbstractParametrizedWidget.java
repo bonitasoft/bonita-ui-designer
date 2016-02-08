@@ -45,11 +45,12 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     private String cssClasses = "";
 
     private static final Map<String, ParameterType> propertyParameters = new HashMap<>();
+
     static {
         propertyParameters.put(COLLECTION_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(REMOVE_ITEM_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(VALUE_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(DATA_TO_SEND_PARAMETER, ParameterType.VARIABLE);
-        propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
     }

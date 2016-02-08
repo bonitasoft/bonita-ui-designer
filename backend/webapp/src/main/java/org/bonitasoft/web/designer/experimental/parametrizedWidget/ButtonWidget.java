@@ -25,6 +25,8 @@ public class ButtonWidget extends AbstractParametrizedWidget {
     private String targetUrlOnSuccess;
     private String collectionPosition;
 
+    private String removeItem;
+
     public ButtonWidget() {
         super(BUTTON_WIDGET_ID);
     }
@@ -83,5 +85,13 @@ public class ButtonWidget extends AbstractParametrizedWidget {
 
     public String getCollectionPosition() {
         return collectionPosition;
+    }
+
+    public void setRemoveItem(String removeItem) {
+        this.removeItem = removeItem;
+    }
+
+    public String getRemoveItem() {
+        return removeItem;
     }
 }

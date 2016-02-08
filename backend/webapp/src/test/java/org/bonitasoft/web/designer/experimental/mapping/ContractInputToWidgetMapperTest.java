@@ -180,11 +180,11 @@ public class ContractInputToWidgetMapperTest {
 
         ContractInput skills = aNodeContractInput("skills").mulitple().build();
         aNodeContractInput("employee").mulitple().withInput(skills);
-        Component button = contractInputToWidgetMapper.createRemoveButton(skills);
+        Component button = contractInputToWidgetMapper.createRemoveButton();
 
         PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
-        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
+        assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$collection");
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
