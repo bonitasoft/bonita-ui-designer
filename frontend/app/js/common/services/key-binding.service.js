@@ -15,11 +15,11 @@
 (function() {
   'use strict';
   /**
-   * This modules wrap the keymaster library (available in window.key)
+   * This modules wrap the Mousetrap library (available in window.Mousetrap)
    * into an angular service
    */
-  angular.module('bonitasoft.designer.common.services').service('keymaster', function($window) {
-    // key is library name taht handle keyboard shortcuts
-    return $window.key;
+  angular.module('bonitasoft.designer.common.services').service('keyBindingService', function($window) {
+    // key is library name that handle keyboard shortcuts
+    return $window.Mousetrap;
   });
 })();
