@@ -19,14 +19,14 @@
     .module('bonitasoft.designer.custom-widget')
     .controller('CustomWidgetEditorCtrl', CustomWidgetEditorCtrl);
 
-  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keymaster, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
+  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
 
     $scope.widget = artifact;
     $scope.bonds = BONDS;
 
     var widgetRepo = artifactRepo;
 
-    keymaster('ctrl+s', function() {
+    keyBindingService.bindGlobal('ctrl+s', function() {
       $scope.$apply(function() {
         $scope.save();
       });
@@ -144,5 +144,10 @@
         size: 'lg'
       });
     };
+
+    $scope.$on('$destroy', function() {
+      keyBindingService.unbind('ctrl+s');
+    });
   }
+
 })();

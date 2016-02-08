@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keymaster, $uibModal, utils, whiteboardService) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService) {
 
   'use strict';
 
@@ -43,7 +43,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   /**
    * Adding DEL keyboard shortcut
    */
-  keymaster('del', function() {
+  keyBindingService.bind('del', function() {
     if (!$scope.currentComponent) {
       return;
     }
@@ -53,15 +53,15 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     });
   });
 
-  keymaster('right', function() {
+  keyBindingService.bind('right', function() {
     moveSelection(+1);
   });
 
-  keymaster('left', function() {
+  keyBindingService.bind('left', function() {
     moveSelection(-1);
   });
 
-  keymaster('ctrl+s', function() {
+  keyBindingService.bindGlobal('ctrl+s', function() {
     $scope.$apply(() => $scope.save());
     // prevent default browser action
     return false;
@@ -79,9 +79,10 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   }
 
   $scope.$on('$destroy', function() {
-    keymaster.unbind('del');
-    keymaster.unbind('right');
-    keymaster.unbind('left');
+    keyBindingService.unbind('del');
+    keyBindingService.unbind('right');
+    keyBindingService.unbind('left');
+    keyBindingService.unbind('ctrl+s');
   });
 
   /**
