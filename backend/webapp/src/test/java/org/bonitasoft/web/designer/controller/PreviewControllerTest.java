@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.controller.preview.Previewer;
@@ -67,7 +68,8 @@ public class PreviewControllerTest {
 
     @Before
     public void beforeEach() throws Exception {
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, pageAssetRepository, widgetAssetRepository, new RequestMappingUtils())).build();
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, pageAssetRepository, widgetAssetRepository, new RequestMappingUtils()))
+                .build();
     }
 
     @Test
@@ -162,9 +164,16 @@ public class PreviewControllerTest {
     }
 
     @Test
-    public void should_redirect_API_calls_to_the_real_API() throws Exception {
+    public void should_redirect_page_API_calls_to_the_real_API() throws Exception {
         mockMvc
                 .perform(get("/preview/page/API/portal/page"))
+                .andExpect(redirectedUrl("/bonita/API/portal/page"));
+    }
+
+    @Test
+    public void should_redirect_layout_API_calls_to_the_real_API() throws Exception {
+        mockMvc
+                .perform(get("/preview/layout/API/portal/page"))
                 .andExpect(redirectedUrl("/bonita/API/portal/page"));
     }
 
@@ -180,6 +189,7 @@ public class PreviewControllerTest {
         mockMvc
                 .perform(post("/preview/page/API/portal/page?id=123"))
                 .andExpect(new ResultMatcher() {
+
                     @Override
                     public void match(MvcResult result) throws Exception {
                         assertEquals(result.getResponse().getStatus(), SC_TEMPORARY_REDIRECT);

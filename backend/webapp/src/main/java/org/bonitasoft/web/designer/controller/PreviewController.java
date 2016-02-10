@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -53,10 +54,10 @@ public class PreviewController {
 
     @Inject
     public PreviewController(PageRepository pageRepository,
-                             Previewer previewer,
-                             AssetRepository<Page> pageAssetService,
-                             AssetRepository<Widget> widgetAssetService,
-                             RequestMappingUtils requestMappingUtils) {
+            Previewer previewer,
+            AssetRepository<Page> pageAssetService,
+            AssetRepository<Widget> widgetAssetService,
+            RequestMappingUtils requestMappingUtils) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
         this.pageAssetService = pageAssetService;
@@ -67,7 +68,7 @@ public class PreviewController {
     /**
      * Send redirect to the Rest API
      */
-    @RequestMapping("/preview/page/API/**")
+    @RequestMapping("/preview/{artifact}/API/**")
     public void proxyAPICall(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         try {
