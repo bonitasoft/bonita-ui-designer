@@ -27,6 +27,11 @@ describe('custom widget editor', function() {
     element(by.cssContainingText('#type li', typeName)).click();
   }
 
+  it('should display title and icon', function() {
+    expect($('.EditorHeader-name').getText()).toEqual('awesomeWidget');
+    expect($('.EditorHeader-name img').isPresent()).toBeTruthy();
+  });
+
   it('should display help', function() {
     $('.EditorHeader-help .btn').click();
     expect($('li#help-general').isPresent()).toBeTruthy();
