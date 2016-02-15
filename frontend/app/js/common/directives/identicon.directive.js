@@ -16,7 +16,6 @@
   class IdenticonDirective {
     constructor() {
       this.restrict = 'E';
-      this.replace = true;
       this.template = '<img width={{ctrl.size}} height={{ctrl.size}} ng-src="data:image/png;base64,{{ctrl.data}}"/>';
       this.bindToController = { name: '@' , size: '@', backgroundColor: '=', foregroundColor: '=' };
       this.scope = true;
