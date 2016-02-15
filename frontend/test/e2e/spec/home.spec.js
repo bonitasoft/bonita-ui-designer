@@ -140,6 +140,8 @@ describe('home page', function() {
 
   it('should open a modal to confirm widget deletion', function() {
     home.openTab('widget');
+
+    expect($('#customAwesomeWidget .Artifact-icon identicon').isPresent()).toBeTruthy();
     //We want to delete a widget
     $$('#customAwesomeWidget .Artifact-delete').first().click();
     //A modal is opened with a confirmation message
