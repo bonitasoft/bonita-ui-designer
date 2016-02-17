@@ -1,6 +1,6 @@
 describe('pbDatePicker', function () {
 
-  var $compile, scope, element;
+  var $compile, scope, element, body;
 
   beforeEach(module('bonitasoft.ui.widgets', 'mgcrea.ngStrap.datepicker'));
 
@@ -16,7 +16,11 @@ describe('pbDatePicker', function () {
       dateFormat : 'dd/MM/yyyy',
       label : 'Date'
     };
+
+    body = $('body');
+    body.html('');
     element = $compile('<pb-date-picker></pb-date-picker>')(scope);
+    element.appendTo(body);
     scope.$apply();
   }));
 
@@ -24,23 +28,23 @@ describe('pbDatePicker', function () {
    describe('calendar', function() {
 
     it('should not be displayed by default', function() {
-      expect(element.find('div.dropdown-menu.datepicker').length).toBe(0);
+      expect(body.find('div.dropdown-menu.datepicker').length).toBe(0);
     });
 
-    it('should be displayed while clicking on button', function() {
+    it('should be displayed and attached to body while clicking on button', function() {
       var button = element.find('.input-group .input-group-btn button');
 
       button.triggerHandler('click');
 
-      expect(element.find('div.dropdown-menu.datepicker').length).toBe(1);
+      expect(body.find('div.dropdown-menu.datepicker').length).toBe(1);
     });
 
-    it('should be displayed while clicking on input', function() {
+    it('should be displayed and attached to body while clicking on input', function() {
       var input = element.find('.input-group input');
 
       input.triggerHandler('click');
 
-      expect(element.find('div.dropdown-menu.datepicker').length).toBe(1);
+      expect(body.find('div.dropdown-menu.datepicker').length).toBe(1);
     });
   });
 
