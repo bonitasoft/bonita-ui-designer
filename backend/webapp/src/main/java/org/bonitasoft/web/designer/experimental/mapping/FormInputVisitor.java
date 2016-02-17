@@ -22,9 +22,9 @@ import static java.util.Collections.EMPTY_MAP;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
@@ -33,16 +33,18 @@ import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
 public class FormInputVisitor implements ContractInputVisitor {
 
-    private ImmutableMap<String, Object> defaultValues = ImmutableMap.<String, Object>builder()
-            .put(String.class.getName(), "")
-            .put(Boolean.class.getName(), false)
-            .put(Integer.class.getName(), 0)
-            .put(Double.class.getName(), 0)
-            .put(Float.class.getName(), 0)
-            .put(Long.class.getName(), 0)
-            .put(Date.class.getName(), 0)
-            .put(File.class.getName(), EMPTY_MAP)
-            .build();
+    private static Map<String, Object> defaultValues = new HashMap<>();
+
+    static {
+        defaultValues.put(String.class.getName(), "");
+        defaultValues.put(Boolean.class.getName(), false);
+        defaultValues.put(Integer.class.getName(), 0);
+        defaultValues.put(Double.class.getName(), 0);
+        defaultValues.put(Float.class.getName(), 0);
+        defaultValues.put(Long.class.getName(), 0);
+        defaultValues.put(Date.class.getName(), null);
+        defaultValues.put(File.class.getName(), EMPTY_MAP);
+    }
 
     private Map<String, Object> properties = newLinkedHashMap();
 
@@ -54,7 +56,7 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        if(contractInput.isMultiple()) {
+        if (contractInput.isMultiple()) {
             properties.put(contractInput.getName(), EMPTY_LIST);
             return;
         }
@@ -67,7 +69,7 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(LeafContractInput contractInput) {
-        if(contractInput.isMultiple()) {
+        if (contractInput.isMultiple()) {
             properties.put(contractInput.getName(), EMPTY_LIST);
             return;
         }
