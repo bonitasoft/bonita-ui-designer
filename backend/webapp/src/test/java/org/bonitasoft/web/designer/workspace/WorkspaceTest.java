@@ -18,7 +18,6 @@ import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +39,6 @@ import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.codehaus.plexus.util.FileUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,9 +47,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class WorkspaceTest {
+
+    private static final String CURRENT_DESIGNER_VERSION = "2.0.0";
+
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -93,12 +94,24 @@ public class WorkspaceTest {
                 new Watcher());
 
         workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
+        ReflectionTestUtils.setField(workspace, "currentDesignerVersion", CURRENT_DESIGNER_VERSION);
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {
         Resource resource = mock(Resource.class);
         when(resource.getURI()).thenReturn(path.toUri());
         when(resourceLoader.getResource(WebMvcConfiguration.WIDGETS_RESOURCES)).thenReturn(resource);
+    }
+
+
+    private void createWidget(String id, String content) throws IOException {
+        Path labelFile = temporaryFolder.newFolderPath("widgets", id).resolve(id + ".json");
+        byte[] fileContent = content.getBytes(StandardCharsets.UTF_8);
+        write(labelFile, fileContent, StandardOpenOption.CREATE);
+    }
+
+    private String contentOf(Path path) throws IOException {
+        return new String(readAllBytes(path));
     }
 
     @Test
@@ -138,36 +151,25 @@ public class WorkspaceTest {
     }
 
     @Test
-    public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_folder() throws Exception {
-        mockWidgetsBasePath(temporaryFolder.toPath().resolve("widgets"));
-
-        //We create the widget files
-        Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
-        Path labelFile = labelDir.resolve("pbLabel.json");
-        byte[] fileContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\"}".getBytes(StandardCharsets.UTF_8);
-        write(labelFile, fileContent, StandardOpenOption.CREATE);
+    public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_with_same_version() throws Exception {
+        mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
+        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \""+ CURRENT_DESIGNER_VERSION + "\"}";
+        createWidget("pbLabel", existingWidgetContent);
 
         workspace.initialize();
 
-        assertThat(readAllBytes(labelFile)).isEqualTo(fileContent);
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(contentOf(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json"))).isEqualTo(existingWidgetContent);
     }
 
     @Test
     public void should_copy_widget_file_if_it_is_already_in_widget_repository_folder_with_a_former_version() throws Exception {
         mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
-
-        //We create the widget files
-        Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
-        Path labelFile = labelDir.resolve("pbLabel.json");
-        byte[] fileContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"1.0.1\"}".getBytes(StandardCharsets.UTF_8);
-        write(labelFile, fileContent, StandardOpenOption.CREATE);
+        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"1.0.1\"}";
+        createWidget("pbLabel", existingWidgetContent);
 
         workspace.initialize();
 
-        String newLabelContent = new String(readAllBytes(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")));
-        String oldLabelContent = new String(readAllBytes(Paths.get("src/test/resources/workspace/widgets/pbLabel/pbLabel.json")));
-        assertThat(newLabelContent).isNotEqualTo(oldLabelContent);
+        assertThat(contentOf(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json"))).isNotEqualTo(existingWidgetContent);
     }
 
 }

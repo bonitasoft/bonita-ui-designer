@@ -15,29 +15,36 @@
 package org.bonitasoft.web.designer.workspace;
 
 import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 
 @Named
 public class Workspace {
+
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
+
+    @Value("${designer.version}")
+    private String currentDesignerVersion;
     private WorkspacePathResolver workspacePathResolver;
     private WidgetRepository widgetRepository;
     private WidgetLoader widgetLoader;
@@ -47,7 +54,7 @@ public class Workspace {
 
     @Inject
     public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetLoader widgetLoader,
-                     WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
+            WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
@@ -79,7 +86,7 @@ public class Workspace {
                 createWidget(widgetRepositorySourcePath, widget);
             } else {
                 Widget repoWidget = widgetRepository.get(widget.getId());
-                if(!StringUtils.equals(repoWidget.getDesignerVersion(), widget.getDesignerVersion())){
+                if (isBlank(repoWidget.getDesignerVersion()) || new Version(currentDesignerVersion).isGreaterThan(repoWidget.getDesignerVersion())) {
                     FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
                     createWidget(widgetRepositorySourcePath, widget);
                 }
