@@ -1,7 +1,6 @@
 <div class="row form-group" ng-class="{ 'form-horizontal':  !properties.labelHidden && properties.labelPosition === 'left' }">
     <label
             ng-if="!properties.labelHidden"
-            ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
         {{ properties.label | uiTranslate }}
     </label>
