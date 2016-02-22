@@ -153,10 +153,13 @@ exports.config = {
   // You can specify a file containing code to run by setting onPrepare to
   // the filename string.
   onPrepare: function() {
-    require('jasmine-reporters');
+    var jasmineReporters = require('jasmine-reporters');
     jasmine.getEnv().addReporter(
-      new jasmine.JUnitXmlReporter('build/reports/e2e-tests/')
-    );
+      new jasmineReporters.JUnitXmlReporter({
+        savePath: 'build/reports/e2e-tests/',
+        filePrefix: 'e2e',
+        consolidateAll: true
+      }));
 
     // maximize window - xvnc approved
     setTimeout(function() {
