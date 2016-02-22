@@ -188,10 +188,13 @@ exports.config = {
 
   // Options to be passed to Jasmine-node.
   onPrepare: function() {
-    require('jasmine-reporters');
+    var jasmineReporters = require('jasmine-reporters');
     jasmine.getEnv().addReporter(
-      new jasmine.JUnitXmlReporter('target/reports/e2e-tests/')
-    );
+      new jasmineReporters.JUnitXmlReporter({
+        savePath: 'build/reports/e2e-tests/',
+        filePrefix: 'e2e',
+        consolidateAll: true
+      }));
   },
 
   // Options to be passed to minijasminenode.
