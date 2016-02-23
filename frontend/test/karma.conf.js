@@ -1,3 +1,4 @@
+/* globals process */
 module.exports = function(config) {
 
   'use strict';
@@ -84,7 +85,7 @@ module.exports = function(config) {
     },
 
     // web server port
-    port: 9876,
+    port: process.env.KARMA_PORT || 9876,
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
