@@ -104,7 +104,8 @@ var banner = [
 var config = {
   paths: paths,
   banner: banner,
-  timestamp: Date.now()
+  timestamp: Date.now(),
+  protractor: { port: process.env.UID_PROTRACTOR_PORT || 12001 }
 };
 
 require('./gulp/build.js')(gulp, config);
