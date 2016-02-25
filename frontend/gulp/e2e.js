@@ -54,7 +54,7 @@ module.exports = function(gulp, config) {
     return gulp.src([])
       .pipe(protractor({
         configFile: 'test/e2e/protractor.conf.js',
-        args: ['--baseUrl', 'http://localhost:12001']
+        args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
       }))
       .on('error', function (e) {
         throw e;

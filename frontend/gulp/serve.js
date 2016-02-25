@@ -117,9 +117,9 @@ module.exports = function (gulp, config) {
     });
 
     var server = http.createServer(app);
-    server.listen(12001);
+    server.listen(config.protractor.port);
 
-    console.log('Server started http://localhost:12001');
+    console.log('Server started http://localhost:' + config.protractor.port);
     return server;
   }
 
