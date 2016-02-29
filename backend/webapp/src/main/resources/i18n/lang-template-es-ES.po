@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2016-02-02 10:14-0500\n"
+"PO-Revision-Date: 2016-02-29 05:57-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -279,7 +279,7 @@ msgstr "Enlace bidireccional"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Bonita BPM"
-msgstr ""
+msgstr "Bonita BPM"
 
 #: editor/common/properties.service.js:27
 msgid "CSS classes"
@@ -567,7 +567,7 @@ msgstr "Define las cabeceras de la tabla como el valor de una variable: <em>myAr
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "Define la URL destino donde se subirá el archivo"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:29
 #: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Eliminar"
@@ -675,7 +675,7 @@ msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
 
 #: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:30
 msgid "Export"
 msgstr "Exportar"
 
@@ -1007,9 +1007,9 @@ msgstr "Ancho de etiqueta"
 msgid "Last"
 msgstr "Último"
 
-#: home/artifact-list/artifact-list.html:1
-msgid "Last update: {{:: artifact.lastUpdate | date:'short' }}"
-msgstr "Última actualización: {{:: artifact.lastUpdate | date:'short' }}"
+#: home/artifact-list/artifact-list.directive.js:32
+msgid "Last Update:"
+msgstr "Última actualización:"
 
 #: home/artifact-factory.service.js:44
 msgid "Layouts"
@@ -1076,7 +1076,7 @@ msgstr "dd/MM/yyyy"
 msgid "Malformed json file"
 msgstr "Archivo json con formato incorrecto"
 
-#: home/artifact-list/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.html:1
 msgid "Mark as favorite"
 msgstr "Marcar como favorito"
 
@@ -1254,7 +1254,7 @@ msgstr "Eliminar de la colección"
 msgid "Remove tab"
 msgstr "Eliminar Pestaña"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:31
 msgid "Rename"
 msgstr "Renombrar"
 
@@ -1331,7 +1331,7 @@ msgstr "Buscar por nombre"
 
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
 msgid "See examples"
-msgstr ""
+msgstr "Ver ejemplos"
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
@@ -1667,7 +1667,7 @@ msgstr "El UI Designer incluye un mecanismo para agregar las traducciones para e
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
 #: assets/generic-asset-form.html:1
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: editor/data-panel/data-type.service.js:34
 msgid "URL parameter"
@@ -1689,7 +1689,7 @@ msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace 
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Casilla de verificación única. El usuario la marca o no"
 
-#: home/artifact-list/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.html:1
 msgid "Unmark as favorite"
 msgstr "Desmarcar como Favorito"
 
@@ -1819,7 +1819,7 @@ msgstr "Donde businessVariableName es el nombre de la variable de negocio a nive
 
 #: assets/page-assets.html:1
 msgid "Widget"
-msgstr ""
+msgstr "Widget"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Widget description"
@@ -1827,7 +1827,7 @@ msgstr "Descripción del widget"
 
 #: editor/header/help-popup.html:1
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: editor/properties-panel/component-properties-template.html:1
 msgid "Width"
@@ -2058,7 +2058,7 @@ msgstr "widgets"
 
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:170
 msgid "y: year, M: month, d: day"
-msgstr ""
+msgstr "y: año, M: mes, d: día"
 
 #: editor/properties-panel/field/boolean.html:1
 msgid "yes"

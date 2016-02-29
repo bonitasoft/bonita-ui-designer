@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-02-02 10:26-0500\n"
+"PO-Revision-Date: 2016-02-29 05:59-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -567,7 +567,7 @@ msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myAr
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "ファイルがアップロードされる場所を示すエンドポイントURLを定義します。"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:29
 #: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "削除"
@@ -675,7 +675,7 @@ msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
 #: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:30
 msgid "Export"
 msgstr "エクスポート"
 
@@ -718,7 +718,7 @@ msgstr "フォームにドキュメントをアップロードするためのフ
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "First"
-msgstr "第1"
+msgstr "最初の行"
 
 #: custom-widget/help-popup.html:1
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
@@ -1005,11 +1005,11 @@ msgstr "ラベル幅"
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:15
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Last"
-msgstr "最後"
+msgstr "最後の行"
 
-#: home/artifact-list/artifact-list.html:1
-msgid "Last update: {{:: artifact.lastUpdate | date:'short' }}"
-msgstr "最終更新日： {{:: artifact.lastUpdate | date:'short' }}"
+#: home/artifact-list/artifact-list.directive.js:32
+msgid "Last Update:"
+msgstr "最終更新日時："
 
 #: home/artifact-factory.service.js:44
 msgid "Layouts"
@@ -1076,7 +1076,7 @@ msgstr "yyyy/MM/dd"
 msgid "Malformed json file"
 msgstr "不正な形式の json ファイル"
 
-#: home/artifact-list/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.html:1
 msgid "Mark as favorite"
 msgstr "お気に入りに登録"
 
@@ -1254,7 +1254,7 @@ msgstr "コレクションから削除"
 msgid "Remove tab"
 msgstr "タブを削除"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:31
 msgid "Rename"
 msgstr "名前を変更"
 
@@ -1688,7 +1688,7 @@ msgstr "クリックされた時にHTTPリクエストを実行するために�
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "ユニークなオプションのチェック ボックス。ユーザーはチェックオンまたはオフにします。"
 
-#: home/artifact-list/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.html:1
 msgid "Unmark as favorite"
 msgstr "お気に入りのマークを解除"
 

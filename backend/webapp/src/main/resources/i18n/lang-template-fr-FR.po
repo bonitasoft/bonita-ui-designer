@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2016-02-02 10:08-0500\n"
+"PO-Revision-Date: 2016-02-29 05:56-0500\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -60,7 +60,7 @@ msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans
 
 #: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
-msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", « val2 »] ; Syntaxe d'un objet : {« key »: « valeur »}"
+msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", \"val2\"] ; Syntaxe d'un objet : {\"key\": \"valeur\"}"
 
 #: editor/data-panel/data-popup.html:10
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
@@ -271,7 +271,7 @@ msgstr "Les types de variables disponibles sont String et JSON (statiques) puis 
 
 #: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Back"
-msgstr "Retour"
+msgstr "Précédent"
 
 #: editor/help/property-bond-help.html:1
 msgid "Bidirectional bond"
@@ -567,7 +567,7 @@ msgstr "Définissez les en-têtes de tableau comme valeur d'une variable : <em>m
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "Définit l'URL cible dans lequel le fichier sera chargé"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:29
 #: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Supprimer"
@@ -675,7 +675,7 @@ msgid "Example: relative time filter"
 msgstr "Exemple : filtre \"temps relatif\""
 
 #: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:30
 msgid "Export"
 msgstr "Exporter"
 
@@ -1007,9 +1007,9 @@ msgstr "Largeur du libellé"
 msgid "Last"
 msgstr "Dernier"
 
-#: home/artifact-list/artifact-list.html:1
-msgid "Last update: {{:: artifact.lastUpdate | date:'short' }}"
-msgstr "Dernière mise à jour : {{:: artifact.lastUpdate | date:'short' }}"
+#: home/artifact-list/artifact-list.directive.js:32
+msgid "Last Update:"
+msgstr "Dernière mise à jour :"
 
 #: home/artifact-factory.service.js:44
 msgid "Layouts"
@@ -1076,7 +1076,7 @@ msgstr "dd/MM/yyyy"
 msgid "Malformed json file"
 msgstr "Le fichier json n'a pas le bon format"
 
-#: home/artifact-list/favorite-button.directive.js:42
+#: home/artifact-list/favorite-button.html:1
 msgid "Mark as favorite"
 msgstr "Ajouter à mes favoris"
 
@@ -1175,7 +1175,7 @@ msgstr "Artefacts remplacés"
 
 #: home/help-popup.html:1
 msgid "Overview"
-msgstr "Page de synthèse"
+msgstr "Aperçu"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "POST"
@@ -1254,7 +1254,7 @@ msgstr "Supprimer de la collection"
 msgid "Remove tab"
 msgstr "Supprimer l'onglet"
 
-#: home/artifact-list/artifact-list.html:1
+#: home/artifact-list/artifact-list.directive.js:31
 msgid "Rename"
 msgstr "Renommer"
 
@@ -1331,7 +1331,7 @@ msgstr "Rechercher par nom"
 
 #: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
 msgid "See examples"
-msgstr ""
+msgstr "Exemples"
 
 #: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
@@ -1688,7 +1688,7 @@ msgstr "URL utilisée pour exécuter la requête HTTP au clic sur ce bouton."
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Case à cocher unique pour une option. L'utilisateur peut la cocher ou pas"
 
-#: home/artifact-list/favorite-button.directive.js:41
+#: home/artifact-list/favorite-button.html:1
 msgid "Unmark as favorite"
 msgstr "Retirer des favoris"
 
