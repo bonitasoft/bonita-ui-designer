@@ -82,6 +82,13 @@
       "defaultValue": "MM/dd/yyyy",
       "help": "Specify your own format",
       "caption": "y: year, M: month, d: day"
+    },
+    {
+      "label": "Hide today button",
+      "name": "hideToday",
+      "type": "boolean",
+      "bond": "constant",
+      "defaultValue": false
     }
   ],
   "assets": [
