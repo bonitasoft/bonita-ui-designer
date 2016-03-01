@@ -4,6 +4,23 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element) {
 
   this.name = widgetNameFactory.getName('pbDatepicker');
 
+  this.setDateToToday = function() {
+    var today = new Date();
+    if(today.getDay() !== today.getUTCDay()){
+      //we need to add this offset for the displayed date to be correct
+      if(today.getTimezoneOffset() > 0){
+        today.setTime(today.getTime() - 1440 * 60 * 1000);
+      } else if(today.getTimezoneOffset() < 0){
+        today.setTime(today.getTime() + 1440 * 60 * 1000);
+      }
+    }
+    today.setUTCHours(0);
+    today.setUTCMinutes(0);
+    today.setUTCSeconds(0);
+    today.setUTCMilliseconds(0);
+    $scope.properties.value = today; 
+  };
+
   this.open = function () {
     angular.element($element).find('input').triggerHandler('click');
   };

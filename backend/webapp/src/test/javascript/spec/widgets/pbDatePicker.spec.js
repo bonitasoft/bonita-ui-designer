@@ -1,12 +1,13 @@
 describe('pbDatePicker', function () {
 
-  var $compile, scope, element, body;
+  var $compile, scope, element, body, filter;
 
   beforeEach(module('bonitasoft.ui.widgets', 'mgcrea.ngStrap.datepicker'));
 
-  beforeEach(inject(function (_$compile_, $rootScope) {
+  beforeEach(inject(function (_$compile_, $rootScope, $filter) {
     $compile = _$compile_;
     scope = $rootScope.$new();
+    filter = $filter;
     //We specified the default values
     scope.properties = {
       isBound: function() {
@@ -32,7 +33,7 @@ describe('pbDatePicker', function () {
     });
 
     it('should be displayed and attached to body while clicking on button', function() {
-      var button = element.find('.input-group .input-group-btn button');
+      var button = element.find('.input-group .input-group-btn button.calendar');
 
       button.triggerHandler('click');
 
@@ -179,10 +180,26 @@ describe('pbDatePicker', function () {
 
   });
 
-  describe('button', function() {
+  describe('today button', function() {
+    it('should set the date to current day',function() {
+      scope.properties.value = new Date(0);
+      scope.$apply();
+ 
+      element.find('.input-group .input-group-btn button.today').click();
+
+      expect(element.find('input').val()).toEqual(filter('date')(new Date(), 'dd/MM/yyyy'));
+    });
+    it('should be hidden when property hideToday is true', function() {
+      scope.properties.hideToday = true;
+      scope.$apply();
+      expect(element.find('.input-group .input-group-btn button.today').length).toBe(0);
+    });
+  });
+
+  describe('calendar button', function() {
 
     it('should be displayed by default', function () {
-      expect(element.find('.input-group .input-group-btn button').length).toBe(1);
+      expect(element.find('.input-group .input-group-btn button').length).toBe(2);
     });
 
     it('should be disabled if date picker disabled', function () {
