@@ -123,17 +123,12 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.cssClasses = cssClasses;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T extends Element> T getAdapter(Class<T> adapterClass) {
-        if (Component.class.equals(adapterClass)) {
-            Component component = new Component();
-            component.setId(getWidgetId());
-            component.setDimension(ImmutableSortedMap.of("xs", dimension));
-            component.setPropertyValues(toPropertyValues());
-            return (T) component;
-        }
-        return null;
+    public Component toComponent() {
+        Component component = new Component();
+        component.setId(getWidgetId());
+        component.setDimension(ImmutableSortedMap.of("xs", dimension));
+        component.setPropertyValues(toPropertyValues());
+        return component;
     }
 
     protected Map<String, PropertyValue> toPropertyValues() {

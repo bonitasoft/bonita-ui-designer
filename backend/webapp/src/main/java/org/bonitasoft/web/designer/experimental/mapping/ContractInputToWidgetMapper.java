@@ -68,7 +68,7 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
         Container container = toMultipleContainer(contractInput);
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).getAdapter(Component.class)));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).toComponent()));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             ((Labeled) component).setLabel("");
@@ -77,7 +77,7 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ITEM_ITERATOR);
         }
-        container.getRows().add(Lists.<Element>newArrayList(component.getAdapter(Component.class), createRemoveButton()));
+        container.getRows().add(Lists.<Element>newArrayList(component.toComponent(), createRemoveButton()));
         return container;
     }
 
@@ -88,7 +88,7 @@ public class ContractInputToWidgetMapper {
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
         multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
-        return multipleContainer.getAdapter(Container.class);
+        return multipleContainer.toContainer();
     }
 
     private boolean isParentMultiple(ContractInput contractInput) {
@@ -96,7 +96,7 @@ public class ContractInputToWidgetMapper {
     }
 
     private Container toSimpleContainer(NodeContractInput nodeContractInput) {
-        return parametrizedWidgetFactory.createWidgetContainer().getAdapter(Container.class);
+        return parametrizedWidgetFactory.createWidgetContainer().toContainer();
     }
 
     private Component toSimpleComponent(ContractInput contractInput) {
@@ -104,11 +104,11 @@ public class ContractInputToWidgetMapper {
         if (widget instanceof Valuable) {
             ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         }
-        return widget.getAdapter(Component.class);
+        return widget.toComponent();
     }
 
     public Container toContainer(NodeContractInput nodeContractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).getAdapter(Component.class)));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent()));
         return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput) : toSimpleContainer(nodeContractInput);
     }
 
@@ -116,7 +116,7 @@ public class ContractInputToWidgetMapper {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FORM_OUTPUT_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
-        return submitButton.getAdapter(Component.class);
+        return submitButton.toComponent();
     }
 
     private String buildPathForInputValue(ContractInput contractInput) {
@@ -146,7 +146,7 @@ public class ContractInputToWidgetMapper {
 
     public Component createRemoveButton() {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
-        return removeButton.getAdapter(Component.class);
+        return removeButton.toComponent();
     }
 
     public Component createAddButton(ContractInput contractInput) {
@@ -155,7 +155,7 @@ public class ContractInputToWidgetMapper {
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }
-        return addButton.getAdapter(Component.class);
+        return addButton.toComponent();
     }
 
     private boolean contractHasInput(ContractInput contractInput) {

@@ -30,15 +30,10 @@ public class WidgetContainer extends AbstractParametrizedWidget implements Param
         this.repeatedCollection = repeatedCollection;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T extends Element> T getAdapter(Class<T> adapterClass) {
-        if (Container.class.equals(adapterClass)) {
-            Container container = new Container();
-            container.setDimension(ImmutableSortedMap.of("xs", getDimension()));
-            container.setPropertyValues(toPropertyValues());
-            return (T) container;
-        }
-        return null;
+    public Container toContainer() {
+        Container container = new Container();
+        container.setDimension(ImmutableSortedMap.of("xs", getDimension()));
+        container.setPropertyValues(toPropertyValues());
+        return container;
     }
 }

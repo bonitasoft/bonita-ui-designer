@@ -14,9 +14,7 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import org.bonitasoft.web.designer.experimental.Adaptable;
-
-public interface ParametrizedWidget extends ParameterConstants, Adaptable {
+public interface ParametrizedWidget extends ParameterConstants {
 
     String getWidgetId();
 
