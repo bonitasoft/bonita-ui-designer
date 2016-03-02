@@ -21,10 +21,11 @@ import static com.google.common.collect.Lists.reverse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-
+import javax.inject.Inject;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
@@ -42,8 +43,6 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Lists;
-
 @Named
 public class ContractInputToWidgetMapper {
 
@@ -53,11 +52,13 @@ public class ContractInputToWidgetMapper {
     static final String FORM_INPUT_DATA = "formInput";
     static final String FORM_OUTPUT_DATA = "formOutput";
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
+    private DimensionFactory dimensionFactory;
 
     private JacksonObjectMapper objectMapperWrapper;
 
     @Inject
-    public ContractInputToWidgetMapper(JacksonObjectMapper objectMapperWrapper) {
+    public ContractInputToWidgetMapper(DimensionFactory dimensionFactory, JacksonObjectMapper objectMapperWrapper) {
+        this.dimensionFactory = dimensionFactory;
         this.objectMapperWrapper = objectMapperWrapper;
         parametrizedWidgetFactory = new ParametrizedWidgetFactory();
     }
@@ -68,7 +69,7 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
         Container container = toMultipleContainer(contractInput);
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).toComponent()));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             ((Labeled) component).setLabel("");
@@ -77,7 +78,7 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ITEM_ITERATOR);
         }
-        container.getRows().add(Lists.<Element>newArrayList(component.toComponent(), createRemoveButton()));
+        container.getRows().add(Lists.<Element>newArrayList(component.toComponent(dimensionFactory), createRemoveButton()));
         return container;
     }
 
@@ -88,7 +89,7 @@ public class ContractInputToWidgetMapper {
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
         multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
-        return multipleContainer.toContainer();
+        return multipleContainer.toContainer(dimensionFactory);
     }
 
     private boolean isParentMultiple(ContractInput contractInput) {
@@ -96,7 +97,7 @@ public class ContractInputToWidgetMapper {
     }
 
     private Container toSimpleContainer(NodeContractInput nodeContractInput) {
-        return parametrizedWidgetFactory.createWidgetContainer().toContainer();
+        return parametrizedWidgetFactory.createWidgetContainer().toContainer(dimensionFactory);
     }
 
     private Component toSimpleComponent(ContractInput contractInput) {
@@ -104,11 +105,11 @@ public class ContractInputToWidgetMapper {
         if (widget instanceof Valuable) {
             ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         }
-        return widget.toComponent();
+        return widget.toComponent(dimensionFactory);
     }
 
     public Container toContainer(NodeContractInput nodeContractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent()));
+        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent(dimensionFactory)));
         return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput) : toSimpleContainer(nodeContractInput);
     }
 
@@ -116,7 +117,7 @@ public class ContractInputToWidgetMapper {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FORM_OUTPUT_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
-        return submitButton.toComponent();
+        return submitButton.toComponent(dimensionFactory);
     }
 
     private String buildPathForInputValue(ContractInput contractInput) {
@@ -146,7 +147,7 @@ public class ContractInputToWidgetMapper {
 
     public Component createRemoveButton() {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
-        return removeButton.toComponent();
+        return removeButton.toComponent(dimensionFactory);
     }
 
     public Component createAddButton(ContractInput contractInput) {
@@ -155,7 +156,7 @@ public class ContractInputToWidgetMapper {
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }
-        return addButton.toComponent();
+        return addButton.toComponent(dimensionFactory);
     }
 
     private boolean contractHasInput(ContractInput contractInput) {

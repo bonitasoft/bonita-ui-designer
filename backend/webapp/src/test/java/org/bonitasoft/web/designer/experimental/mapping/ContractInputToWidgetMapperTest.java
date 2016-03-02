@@ -194,7 +194,7 @@ public class ContractInputToWidgetMapperTest {
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
-        return new ContractInputToWidgetMapper(objectMapper);
+        return new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
     }
 
 }

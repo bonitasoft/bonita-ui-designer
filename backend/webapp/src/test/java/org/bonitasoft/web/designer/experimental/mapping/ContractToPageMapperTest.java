@@ -47,7 +47,7 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(new ContractInputToWidgetMapper(objectMapper), objectMapper);
+        return new ContractToPageMapper(new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper), objectMapper);
     }
 
     @Test

@@ -45,8 +45,8 @@ public abstract class ElementBuilder<E extends Element> {
     public ElementBuilder<E> withReference(String reference) {
         getElement().setReference(reference);
         return this;
-    }
 
+    }
     protected abstract E getElement();
 
     public abstract E build();

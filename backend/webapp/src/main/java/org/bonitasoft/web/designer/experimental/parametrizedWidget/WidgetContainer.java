@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import com.google.common.collect.ImmutableSortedMap;
+import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 
@@ -30,9 +31,9 @@ public class WidgetContainer extends AbstractParametrizedWidget implements Param
         this.repeatedCollection = repeatedCollection;
     }
 
-    public Container toContainer() {
+    public Container toContainer(DimensionFactory dimensionFactory) {
         Container container = new Container();
-        container.setDimension(ImmutableSortedMap.of("xs", getDimension()));
+        container.setDimension(dimensionFactory.create(getDimension()));
         container.setPropertyValues(toPropertyValues());
         return container;
     }

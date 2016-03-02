@@ -30,19 +30,26 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContractInputVisitorImplTest {
 
-    JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    private JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    private ContractInputToWidgetMapper contractInputToWidgetMapper;
+
+    @Before
+    public void setUp() throws Exception {
+        contractInputToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
+    }
 
     @Test
     public void add_a_one_row_component_when_visiting_a_leaf_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper)).visit(ContractInputBuilder.aStringContractInput("name"));
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(ContractInputBuilder.aStringContractInput("name"));
 
         assertThat(page.getRows()).hasSize(1);
         assertThat(page.getRows().get(0)).hasSize(1);
@@ -53,8 +60,7 @@ public class ContractInputVisitorImplTest {
     public void do_nothing_when_visiting_a_leaf_contract_input_with_unsupported_type() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper))
-                .visit(new LeafContractInput("unsupported", IllegalArgumentException.class));
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(new LeafContractInput("unsupported", IllegalArgumentException.class));
 
         assertThat(page.getRows()).hasSize(0);
     }
@@ -63,7 +69,7 @@ public class ContractInputVisitorImplTest {
     public void add_a_component_embedded_in_a_container_with_buttons_when_visiting_a_multiple_leaf_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper))
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
                 .visit((LeafContractInput) ContractInputBuilder.aContractInput("names").mulitple().build());
 
         assertThat(page.getRows()).hasSize(3);//one for the container label, one for the container, one for the button bar
@@ -102,7 +108,7 @@ public class ContractInputVisitorImplTest {
     public void add_a_children_components_embedded_in_a_container_when_visiting_a_node_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper))
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
                 .visit((NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
                         ContractInputBuilder.aStringContractInput("firstName"),
                         ContractInputBuilder.aStringContractInput("lastName")).build());
@@ -138,7 +144,7 @@ public class ContractInputVisitorImplTest {
     public void add_a_children_components_embedded_in_a_container_with_buttons_when_visiting_a_multiple_node_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper)).visit(
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(
                 (NodeContractInput) ContractInputBuilder.aNodeContractInput("employee").withInput(
                         ContractInputBuilder.aStringContractInput("firstName"),
                         ContractInputBuilder.aStringContractInput("lastName")).mulitple().build());
@@ -188,7 +194,7 @@ public class ContractInputVisitorImplTest {
     public void add_a_complex_children_components_embedded_in_a_container_when_visiting_a_multiple_complex_node_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, new ContractInputToWidgetMapper(objectMapper)).visit(
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(
                 (NodeContractInput) ContractInputBuilder.aNodeContractInput("complex").mulitple()
                         .withInput(
                                 ContractInputBuilder.aNodeContractInput("subcomplex")

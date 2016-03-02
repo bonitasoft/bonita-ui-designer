@@ -34,7 +34,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
         property = "type")
 public abstract class Element {
 
-    private SortedMap<String, Integer> dimension = new TreeMap<>();
+    private Map<String, Integer> dimension = new TreeMap<>();
     private Map<String, PropertyValue> propertyValues = new HashMap<>();
     private String reference;
 
@@ -56,11 +56,11 @@ public abstract class Element {
     }
 
     @JsonView({JsonViewPersistence.class})
-    public SortedMap<String, Integer> getDimension() {
+    public Map<String, Integer> getDimension() {
         return dimension;
     }
 
-    public void setDimension(SortedMap<String, Integer> dimension) {
+    public void setDimension(Map<String, Integer> dimension) {
         this.dimension = dimension;
     }
 

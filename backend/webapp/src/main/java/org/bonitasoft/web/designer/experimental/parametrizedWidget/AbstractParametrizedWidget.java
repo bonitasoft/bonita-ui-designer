@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -123,10 +124,10 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.cssClasses = cssClasses;
     }
 
-    public Component toComponent() {
+    public Component toComponent(DimensionFactory dimensionFactory) {
         Component component = new Component();
         component.setId(getWidgetId());
-        component.setDimension(ImmutableSortedMap.of("xs", dimension));
+        component.setDimension(dimensionFactory.create(dimension));
         component.setPropertyValues(toPropertyValues());
         return component;
     }
