@@ -64,6 +64,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private Map<String, List<Identifiable>> usedBy; // list of element that use this widget
     private Set<Asset> assets = new HashSet<>();
     private Set<String> requiredModules;
+    private Set<String> authRules;
     private String type = "widget";
 
     /**
@@ -236,6 +237,15 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
 
     public void setRequiredModules(Set<String> requiredModules) {
         this.requiredModules = requiredModules;
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public Set<String> getAuthRules() {
+        return authRules;
+    }
+
+    public void setAuthRules(Set<String> authRules) {
+        this.authRules = authRules;
     }
 
     @Override

@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.builder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -26,14 +28,15 @@ import org.joda.time.Instant;
 
 public class WidgetBuilder {
 
-    private String id = "anId";
+    private String id = UUID.randomUUID().toString();
     private String name = "aName";
     private boolean custom = false;
     private String template = "<h1>this is a template</h1>";
     List<Property> properties = new ArrayList<>();
     private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
-    private HashSet<String> modules;
+    private Set<String> modules;
+    private Set<String> authRules;
     private String version;
     private boolean favorite = false;
 
@@ -80,6 +83,11 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder authRules(String... rules) {
+        this.authRules = Sets.<String>newHashSet(rules);
+        return this;
+    }
+
     public WidgetBuilder assets(AssetBuilder... assetBuilders) {
         this.assetBuilders = assetBuilders;
         return this;
@@ -119,6 +127,7 @@ public class WidgetBuilder {
             widget.addProperty(property);
         }
         widget.setRequiredModules(modules);
+        widget.setAuthRules(authRules);
         return widget;
     }
 }

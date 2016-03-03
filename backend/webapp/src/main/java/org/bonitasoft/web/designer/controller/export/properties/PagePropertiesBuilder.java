@@ -31,6 +31,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 
 @Named
@@ -40,10 +41,12 @@ public class PagePropertiesBuilder {
     private static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[^ /]*";   // matches ..... /API/{}/{}?...
     private TemplateEngine template;
     private ComponentVisitor componentVisitor;
+    private AuthRulesCollector authRulesCollector;
 
     @Inject
-    public PagePropertiesBuilder(ComponentVisitor componentVisitor) {
+    public PagePropertiesBuilder(ComponentVisitor componentVisitor, AuthRulesCollector authRulesCollector) {
         this.componentVisitor = componentVisitor;
+        this.authRulesCollector = authRulesCollector;
         template = new TemplateEngine(TEMPLATE_NAME);
     }
 
@@ -62,6 +65,8 @@ public class PagePropertiesBuilder {
         if (any(components, new ConstantPropertyValuePredicate("Submit task"))) {
             resources.add("POST|bpm/userTask");
         }
+
+        resources.addAll(authRulesCollector.visit(page));
 
         Map<String, String> context = new HashMap<>();
         context.put("name", page.getName());
