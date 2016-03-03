@@ -56,6 +56,7 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
 import org.bonitasoft.web.designer.visitor.DirectivesCollector;
@@ -256,6 +257,11 @@ public class DesignerConfig {
     @Bean
     public PropertyValuesVisitor propertyValuesVisitor() {
         return new PropertyValuesVisitor();
+    }
+
+    @Bean
+    public AuthRulesCollector authRulesCollector(WidgetRepository widgetRepository) {
+        return new AuthRulesCollector(widgetRepository);
     }
 
     @Bean
