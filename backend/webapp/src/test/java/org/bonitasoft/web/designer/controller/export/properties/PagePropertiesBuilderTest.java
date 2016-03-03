@@ -23,10 +23,17 @@ import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+import com.google.common.collect.ImmutableSet;
+import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +49,9 @@ public class PagePropertiesBuilderTest {
 
     @Mock
     private ComponentVisitor componentVisitor;
+
+    @Mock
+    private AuthRulesCollector authRulesCollector;
 
     @InjectMocks
     private PagePropertiesBuilder pagePropertiesBuilder;
@@ -64,6 +74,13 @@ public class PagePropertiesBuilderTest {
                 .build();
     }
 
+    private Data anApiData(String value) {
+        Data resource = new Data();
+        resource.setType(URL);
+        resource.setValue(value);
+        return resource;
+    }
+
     @Test
     public void should_build_a_well_formed_page_property_file() throws Exception {
         page.setId("aPageId");
@@ -79,10 +96,7 @@ public class PagePropertiesBuilderTest {
 
     @Test
     public void should_add_bonita_resource_found_in_page_data() throws Exception {
-        Data resource = new Data();
-        resource.setType(URL);
-        resource.setValue("/bonita/API/living/application-menu");
-        page.setData(singletonMap("foo", resource));
+        page.setData(singletonMap("foo", anApiData("/bonita/API/living/application-menu")));
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
@@ -91,10 +105,7 @@ public class PagePropertiesBuilderTest {
 
     @Test
     public void should_add_relative_bonita_resource_found_in_page_data() throws Exception {
-        Data resource = new Data();
-        resource.setType(URL);
-        resource.setValue("../API/bpm/userTask?filter=mine");
-        page.setData(singletonMap("foo", resource));
+        page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
@@ -102,12 +113,21 @@ public class PagePropertiesBuilderTest {
     }
 
     @Test
-    public void should_not_add_a_resource_which_is_not_a_bonita_resource() throws Exception {
-        Data resource = new Data();
-        resource.setType(URL);
-        resource.setValue("../API/path/to/wathever/resource");
+    public void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
+        Set<String> authRules = new TreeSet<>();
+        authRules.add("GET|living/application-menu");
+        authRules.add("POST|bpm/process");
+        page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
+        when(authRulesCollector.visit(page)).thenReturn(authRules);
+        
+        String properties = new String(pagePropertiesBuilder.build(page));
 
-        page.setData(singletonMap("foo", resource));
+        assertThat(properties).contains("resources=[GET|bpm/userTask, GET|living/application-menu, POST|bpm/process]");
+    }
+
+    @Test
+    public void should_not_add_a_resource_which_is_not_a_bonita_resource() throws Exception {
+        page.setData(singletonMap("foo", anApiData("../API/path/to/wathever/resource")));
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
@@ -136,10 +156,7 @@ public class PagePropertiesBuilderTest {
     public void should_combined_start_process_submit_task_and_bonita_resources() throws Exception {
         when(componentVisitor.visit(page))
                 .thenReturn(asList(startProcessComponent, submitTaskComponent));
-        Data resource = new Data();
-        resource.setType(URL);
-        resource.setValue("/bonita/API/bpm/userTask");
-        page.setData(singletonMap("foo", resource));
+        page.setData(singletonMap("foo", anApiData("/bonita/API/bpm/userTask")));
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
