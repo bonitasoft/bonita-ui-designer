@@ -23,9 +23,16 @@
     }
     controller($scope, $sha, $window) {
       'ngInject';
+
+      $sha.setConfig({
+        algorithm: 'SHA-1',
+        inputType: 'TEXT',
+        returnType: 'HEX'
+      });
+
       $scope.$watchGroup([() => this.name, () => this.size], () => {
         this.data = new $window.Identicon({
-          'hash': $sha.hash('1', 'TEXT', 'HEX', this.name || ''),
+          'hash': $sha.hash(this.name || ''),
           size: Number(this.size) || 40,
           bg: (angular.isArray(this.backgroundColor) && this.backgroundColor.length > 1) ? this.backgroundColor : [64, 72, 83],
           fg: (angular.isArray(this.foregroundColor) && this.foregroundColor.length > 1) ? this.foregroundColor : [255, 255, 255],
