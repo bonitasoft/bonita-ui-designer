@@ -121,6 +121,14 @@
       "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
       "type": "integer",
       "showFor": "properties.type.value === 'number'"
+    },
+    {
+      "label": "Step",
+      "name": "step",
+      "help": "Specifies the legal number intervals between values",
+      "type": "integer",
+      "showFor": "properties.type.value === 'number'",
+      "defaultValue": 1
     }
   ]
 }
