@@ -86,7 +86,8 @@ public class PageResource extends AssetResource<Page> {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Page> create(@RequestBody Page page, @RequestParam(value = "duplicata", required = false) String sourcePageId) throws RepositoryException {
+    public ResponseEntity<Page> create(@RequestBody Page page, @RequestParam(value = "duplicata", required = false) String sourcePageId)
+            throws RepositoryException {
         // the page should not have an ID. If it has one, we ignore it and generate one
         String pageId = UUID.randomUUID().toString();
         page.setId(pageId);

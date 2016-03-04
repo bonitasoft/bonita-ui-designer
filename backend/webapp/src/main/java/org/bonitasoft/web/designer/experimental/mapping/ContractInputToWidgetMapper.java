@@ -18,9 +18,11 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
@@ -30,24 +32,33 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContainer;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 
 @Named
 public class ContractInputToWidgetMapper {
 
+    private static final Logger logger = LoggerFactory.getLogger(ParametrizedWidgetFactory.class);
+
     public static final String ITEM_ITERATOR = "$item";
     static final String FORM_INPUT_DATA = "formInput";
     static final String FORM_OUTPUT_DATA = "formOutput";
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
 
-    public ContractInputToWidgetMapper() {
+    private JacksonObjectMapper objectMapperWrapper;
+
+    @Inject
+    public ContractInputToWidgetMapper(JacksonObjectMapper objectMapperWrapper) {
+        this.objectMapperWrapper = objectMapperWrapper;
         parametrizedWidgetFactory = new ParametrizedWidgetFactory();
     }
 
@@ -133,15 +144,36 @@ public class ContractInputToWidgetMapper {
         return parametrizedWidgetFactory.isSupported(contractInput);
     }
 
-    public Component createAddButton(ContractInput contractInput) {
-        ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
-        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
-        return addButton.getAdapter(Component.class);
-    }
-
     public Component createRemoveButton() {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
         return removeButton.getAdapter(Component.class);
+    }
+
+    public Component createAddButton(ContractInput contractInput) {
+        ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
+        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+        if (contractHasInput(contractInput)) {
+            addButton.setValueToAdd(getValueToAddFromContract(contractInput));
+        }
+        return addButton.getAdapter(Component.class);
+    }
+
+    private boolean contractHasInput(ContractInput contractInput) {
+        return contractInput instanceof NodeContractInput
+                && contractInput.getInput() != null;
+    }
+
+    private String getValueToAddFromContract(ContractInput contractInput) {
+        try {
+            FormInputVisitor visitor = new FormInputVisitor(objectMapperWrapper);
+            for (ContractInput input : contractInput.getInput()) {
+                input.accept(visitor);
+            }
+            return visitor.toJson();
+        } catch (IOException e) {
+            logger.warn("Impossible to set valueToAdd from ContractInput", e);
+        }
+        return null;
     }
 
 }

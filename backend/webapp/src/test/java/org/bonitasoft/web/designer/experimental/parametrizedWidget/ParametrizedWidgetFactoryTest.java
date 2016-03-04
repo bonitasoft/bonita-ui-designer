@@ -241,31 +241,16 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_add_button_with_add_to_collection_action() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createAddButton();
-
-        ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
-    }
-
-    @Test
-    public void create_add_button_with_label() throws Exception {
-        ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createAddButton();
-
-        ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.SUCCESS.getValue()).isNotDisabled();
-        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Add").hasAlignment(Alignment.RIGHT.getValue()).isDisplayed();
-    }
-
-    @Test
-    public void create_add_button_with_a_width_at_12() throws Exception {
+    public void create_add_button() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         ButtonWidget button = elementFactory.createAddButton();
 
         assertThat(button.getDimension()).isEqualTo(12);
+        ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.SUCCESS.getValue()).isNotDisabled();
+        ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
+
+        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Add").hasAlignment(Alignment.RIGHT.getValue()).isDisplayed();
     }
 
     @Test

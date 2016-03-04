@@ -24,7 +24,7 @@ public class ButtonWidget extends AbstractParametrizedWidget {
     private String collectionToModify;
     private String targetUrlOnSuccess;
     private String collectionPosition;
-
+    private String valueToAdd;
     private String removeItem;
 
     public ButtonWidget() {
@@ -93,5 +93,13 @@ public class ButtonWidget extends AbstractParametrizedWidget {
 
     public String getRemoveItem() {
         return removeItem;
+    }
+
+    public String getValueToAdd() {
+        return valueToAdd;
+    }
+
+    public void setValueToAdd(String valueToAdd) {
+        this.valueToAdd = valueToAdd;
     }
 }

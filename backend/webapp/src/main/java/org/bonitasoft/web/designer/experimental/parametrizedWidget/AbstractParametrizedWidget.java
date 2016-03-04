@@ -50,7 +50,8 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(COLLECTION_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(REMOVE_ITEM_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(VALUE_PARAMETER, ParameterType.VARIABLE);
-        propertyParameters.put(DATA_TO_SEND_PARAMETER, ParameterType.VARIABLE);
+        propertyParameters.put(DATA_TO_SEND_PARAMETER, ParameterType.EXPRESSION);
+        propertyParameters.put(VALUE_TO_ADD_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(REPEATED_COLLECTION_PARAMETER, ParameterType.VARIABLE);
         propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
     }

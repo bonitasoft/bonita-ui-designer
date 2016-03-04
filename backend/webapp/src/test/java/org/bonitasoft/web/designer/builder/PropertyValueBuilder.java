@@ -33,6 +33,10 @@ public class PropertyValueBuilder {
         return new PropertyValueBuilder(new PropertyValue()).withType(ParameterType.VARIABLE).withValue(value).build();
     }
 
+    public static PropertyValue anExpressionPropertyValue(Object value) {
+        return new PropertyValueBuilder(new PropertyValue()).withType(ParameterType.EXPRESSION).withValue(value).build();
+    }
+
     public static PropertyValue aInterpolationPropertyValue(Object value) {
         return new PropertyValueBuilder(new PropertyValue()).withType(ParameterType.INTERPOLATION).withValue(value).build();
     }

@@ -47,7 +47,7 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(new ContractInputToWidgetMapper(), objectMapper);
+        return new ContractToPageMapper(new ContractInputToWidgetMapper(objectMapper), objectMapper);
     }
 
     @Test
@@ -133,7 +133,7 @@ public class ContractToPageMapperTest {
         Component submitButon = (Component) page.getRows().get(3).get(0);
         assertThat(submitButon.getId()).isEqualTo("pbButton");
         assertThat(submitButon.getPropertyValues()).contains(
-                entry(ParameterConstants.DATA_TO_SEND_PARAMETER, aDataPropertyValue("formOutput")),
+                entry(ParameterConstants.DATA_TO_SEND_PARAMETER, anExpressionPropertyValue("formOutput")),
                 entry(ParameterConstants.ACTION_PARAMETER, aConstantPropertyValue(ButtonAction.SUBMIT_TASK.getValue())),
                 entry(ParameterConstants.TARGET_URL_ON_SUCCESS_PARAMETER, aInterpolationPropertyValue("/bonita")));
     }

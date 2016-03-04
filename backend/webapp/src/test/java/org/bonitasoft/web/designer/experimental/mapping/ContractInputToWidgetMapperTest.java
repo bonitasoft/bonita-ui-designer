@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
@@ -32,7 +34,11 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ContractInputToWidgetMapperTest {
+
+    JacksonObjectMapper objectMapper = new DesignerConfig().objectMapperWrapper();
 
     @Test
     public void should_string_contract_input_create_an_input_widget_id() throws Exception {
@@ -107,7 +113,7 @@ public class ContractInputToWidgetMapperTest {
         Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
-        assertThat(PropertyValue.getType()).isEqualTo("variable");
+        assertThat(PropertyValue.getType()).isEqualTo("expression");
         assertThat(PropertyValue.getValue()).isEqualTo("formOutput");
     }
 
@@ -188,7 +194,7 @@ public class ContractInputToWidgetMapperTest {
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
-        return new ContractInputToWidgetMapper();
+        return new ContractInputToWidgetMapper(objectMapper);
     }
 
 }
