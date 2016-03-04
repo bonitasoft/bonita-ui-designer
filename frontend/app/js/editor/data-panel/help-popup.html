@@ -71,17 +71,17 @@
                 <br/>It is the id of the current BPM task. You can use it as a BPM API parameter.
             </p>
 
-            <p><code>context</code> is an External API.
-                <br/>It provides references to all business variables and documents in the process instance.
-                To retrieve a business variable instance, create an External API variable with value <span
+            <p><translate><code>context</code> is an External API.</translate>
+                <br/><translate>It provides references to all business variables and documents in the process instance.
+                To retrieve a business variable instance, create an External API variable with value</translate> <span
                 ng-non-bindable>../{{context.myBusinessData_ref.link}}</span>
             </p>
             <p>
-                To retrieve a document instance, create an External API variable with value <span
+                <translate>To retrieve a document instance, create an External API variable with value</translate> <span
                 ng-non-bindable>../API/{{context.documentData_ref.url}}</span>
             </p>
             <p>
-                To allow your user to download a document add a link widget with its url property bound to<span
+                <translate>To allow your user to download a document add a link widget with its url property bound to</translate><span
                 ng-non-bindable>'../API/' + context.documentData_ref.url</span>
             </p>
         </tab>
