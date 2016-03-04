@@ -21,6 +21,7 @@
                 ng-maxlength="properties.maxLength"
                 min="{{properties.min}}"
                 max="{{properties.max}}"
+                step="{{properties.step}}"
                 ng-readonly="properties.readOnly">
             <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
         </div>
