@@ -160,7 +160,6 @@ describe('pbInput', function () {
     it('should validate min value', function () {
       scope.properties.type = 'number';
       scope.properties.min = 1;
-      scope.properties.min = 1;
       var element = $compile('<pb-input></pb-input>')(scope);
       scope.properties.value = 0;
       scope.$apply();
@@ -170,6 +169,27 @@ describe('pbInput', function () {
       scope.properties.value = 3;
       scope.$apply();
       expect(element.find('input').attr('class')).not.toMatch('ng-invalid-min');
+    });
+
+    it('should set a step attribute on number input', function () {
+      scope.properties.type = 'number';
+      scope.properties.step = 0.5;
+      var element = $compile('<pb-input></pb-input>')(scope);
+      
+      /*
+       * This part of the test would simulate the step feature 
+       * of the input using keyup but the triggerHandler do not
+       * send the correct event and the value is not updated
+       *
+       * scope.properties.value = 0;
+       * scope.$apply();
+
+       * element.find('input').triggerHandler({type: 'keydown', which: 38});
+       */
+      scope.$apply();
+      expect(element.find('input').attr('step')).toEqual('0.5');
+
+//      expect(scope.properties.value).toEqual(1);
     });
 
   });
