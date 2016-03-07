@@ -2,8 +2,7 @@ describe('pbButton', function () {
 
   var $compile, scope, element, $timeout, $parse, $q, $location, $window, $httpBackend;
 
-  beforeEach(module('bonitasoft.ui.services'));
-  beforeEach(module('bonitasoft.ui.widgets'));
+  beforeEach(module('bonitasoft.ui.services', 'bonitasoft.ui.widgets'));
 
   beforeEach(inject(function ($injector, $rootScope) {
 
@@ -29,10 +28,11 @@ describe('pbButton', function () {
 
 
   it('should have specified label', function () {
-    scope.properties.label = 'foobar';
+    scope.properties.label = '<i class="fa fa-bonita">foobar</i>';
     scope.$apply();
 
     expect(element.find('button').text()).toBe('foobar');
+    expect(element.find('button').html()).toBe('<i class="fa fa-bonita">foobar</i>');
   });
 
   it('should support changing text alignment', function () {

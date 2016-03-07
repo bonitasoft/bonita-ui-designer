@@ -58,9 +58,10 @@ describe('pbLink', function() {
 
   it('should set a text', function() {
     expect(dom.find('div').find('a').text()).toBe('');
-    scope.properties.text = 'yolo';
+    scope.properties.text = '<i class="fa fa-bonita">yolo</i>';
     scope.$apply();
     expect(dom.find('div').find('a').text()).toBe('yolo');
+    expect(dom.find('div').find('a').html()).toBe('<i class="fa fa-bonita">yolo</i>');
   });
 
 });

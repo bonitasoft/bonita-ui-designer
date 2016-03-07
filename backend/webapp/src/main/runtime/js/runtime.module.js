@@ -5,7 +5,7 @@
   angular.module('bonitasoft.ui.services', []);
   angular.module('bonitasoft.ui.directives', ['gettext']);
   angular.module('bonitasoft.ui.filters', ['gettext']);
-  angular.module('bonitasoft.ui.widgets', ['bonitasoft.ui.filters', 'bonitasoft.ui.services']);
+  angular.module('bonitasoft.ui.widgets', ['bonitasoft.ui.filters', 'bonitasoft.ui.services', 'ngSanitize']);
   angular.module('bonitasoft.ui.extensions', []);
 
   /* keep the former main module name for backward compatibility reasons*/

@@ -13,7 +13,7 @@ describe('pbInput', function () {
         return false;
       },
       labelWidth: 4,
-      label: 'foobar'
+      label: '<i class="fa fa-icon">foobar</i>'
     };
   }));
 
@@ -26,6 +26,7 @@ describe('pbInput', function () {
       var label = element.find('label');
       expect(element.find('.form-horizontal').length).toBe(0);
       expect(label.text().trim()).toBe('foobar');
+      expect(label.html()).toBe('<i class="fa fa-icon">foobar</i>');
     });
 
     it('should be on the left of the input', function () {
