@@ -1,8 +1,9 @@
-function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element) {
+function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element, $locale) {
 
   'use strict';
 
   this.name = widgetNameFactory.getName('pbDatepicker');
+  this.firstDayOfWeek = ($locale && $locale.DATETIME_FORMATS && $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK) || 0;
 
   this.setDateToToday = function() {
     var today = new Date();
