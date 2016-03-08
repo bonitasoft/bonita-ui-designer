@@ -26,7 +26,8 @@
                        data-timezone="UTC"
                        date-format="{{properties.dateFormat | uiTranslate}}"
                        data-trigger="click"
-                       onkeydown="return false">
+                       data-start-week="{{ctrl.firstDayOfWeek}}"
+                       onkeydown="return lalse">
 
                 <span class="input-group-btn">
                     <button ng-if="!properties.hideToday" type="button" class="btn btn-default today"
