@@ -88,7 +88,7 @@
       "name": "hideToday",
       "type": "boolean",
       "bond": "constant",
-      "defaultValue": false
+      "defaultValue": true
     }
   ],
   "assets": [
@@ -102,5 +102,6 @@
       "type": "js",
       "order": 2
     }
-  ]
+  ],
+  "requiredModules": ["mgcrea.ngStrap.datepicker"]
 }
