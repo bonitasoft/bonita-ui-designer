@@ -1,9 +1,11 @@
-function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element, $locale) {
+function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element, $locale, $bsDatepicker) {
 
   'use strict';
 
   this.name = widgetNameFactory.getName('pbDatepicker');
   this.firstDayOfWeek = ($locale && $locale.DATETIME_FORMATS && $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK) || 0;
+
+  $bsDatepicker.defaults.keyboard = false;
 
   this.setDateToToday = function() {
     var today = new Date();
@@ -23,7 +25,7 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element, $locale) {
   };
 
   this.open = function () {
-    angular.element($element).find('input').triggerHandler('click');
+    $element.find('input')[0].focus();
   };
 
   if (!$scope.properties.isBound('value')) {

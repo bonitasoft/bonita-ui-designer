@@ -30,6 +30,7 @@ module.exports = function (config) {
       'src/main/runtime/js/**/*.module.js',
       'src/main/runtime/js/**/*.js',
       'target/widget-directives/**/*.js',
+      'src/main/resources/widgets/**/assets/js/**/*.js',
       argv.specs || 'src/test/javascript/**/!(karma.conf).js'
     ],
 

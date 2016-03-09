@@ -1,12 +1,13 @@
 describe('pbDatePicker', function () {
 
-  var $compile, scope, element, body, filter;
+  var $compile, scope, element, body, filter, $timeout;
 
   beforeEach(module('bonitasoft.ui.widgets', 'mgcrea.ngStrap.datepicker'));
 
-  beforeEach(inject(function (_$compile_, $rootScope, $filter) {
+  beforeEach(inject(function (_$compile_, $rootScope, $filter, _$timeout_) {
     $compile = _$compile_;
     scope = $rootScope.$new();
+    $timeout = _$timeout_;
     filter = $filter;
     //We specified the default values
     scope.properties = {
@@ -43,7 +44,7 @@ describe('pbDatePicker', function () {
     it('should be displayed and attached to body while clicking on input', function() {
       var input = element.find('.input-group input');
 
-      input.triggerHandler('click');
+      input[0].focus();
 
       expect(body.find('div.dropdown-menu.datepicker').length).toBe(1);
     });
@@ -165,6 +166,7 @@ describe('pbDatePicker', function () {
     it('should parse correctly date', function() {
 
       element.find('input').val('01/09/2015').triggerHandler('input');
+      $timeout.flush();
 
       expect(scope.properties.value).toEqual(new Date('2015-09-01T00:00:00.000Z'));
     });
@@ -174,10 +176,10 @@ describe('pbDatePicker', function () {
       scope.$apply();
 
       element.find('input').val('2015/09/01').triggerHandler('input');
+      $timeout.flush();
 
       expect(scope.properties.value).toEqual(new Date('2015-09-01T00:00:00.000Z'));
     });
-
   });
 
   describe('today button', function() {
