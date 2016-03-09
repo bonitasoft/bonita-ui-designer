@@ -13,6 +13,16 @@ describe('date picker', function () {
 
     value = $('input[name="pbDatepicker3"]').getAttribute('value');
     expect(value).toBe('09/30/2015');
+  });
 
+  it('should show error date message on wrong date', function () {
+    browser.get('/designer/preview/page/datePicker/');
+
+    $('input[name="pbDatepicker0"]').click();
+    element(by.cssContainingText('.dropdown-menu table td button', '21')).click();
+
+    $('input[name="pbDatepicker2"]').sendKeys('bonita');
+
+    expect($('.text-danger').getText()).toEqual('This is not a valid date');
   });
 });
