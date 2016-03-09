@@ -27,7 +27,7 @@
     var saveSuccessMsg = gettextCatalog.getString('Custom widget [ {{name}} ] successfully saved', { name: $scope.widget.name });
     var widgetRepo = artifactRepo;
 
-    keyBindingService.bindGlobal('ctrl+s', function() {
+    keyBindingService.bindGlobal(['ctrl+s', 'command+s'], function() {
       $scope.$apply(function() {
         $scope.save();
       });
@@ -142,7 +142,7 @@
     };
 
     $scope.$on('$destroy', function() {
-      keyBindingService.unbind('ctrl+s');
+      keyBindingService.unbind(['ctrl+s', 'command+s']);
     });
   }
 
