@@ -40,18 +40,12 @@
   }
 }
 
-.EditorHeader-homeNav {
+.EditorHeader-title {
   height: @nav-bar-height;
   line-height: @nav-bar-height;
-  cursor: pointer;
   display: inline-block;
-  margin-left: -4px;
+  margin-left: -20px;
   padding-right: 15px;
-  &:hover{
-    background: lighten(@color-editor-header-back-bg, 5%);
-    color: @color-editor-header-text;
-    text-decoration: none;
-  }
 }
 
 .EditorHeader-icon  {
@@ -59,12 +53,19 @@
   font-size: 2em;
   vertical-align: middle;
   display: inline-block;
-  margin: 0 .6em;
+  margin: 0 0 0 .6em;
   position: relative;
   top: -.08em;
+  width: 56px;
+  text-align: center;
+}
+
+.EditorHeader-homeNav {
+  cursor: pointer;
   &:hover{
     color: @color-editor-header-text;
     text-decoration: none;
+    background: lighten(@color-editor-header-back-bg, 5%);
   }
 }
 

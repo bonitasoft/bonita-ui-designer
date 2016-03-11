@@ -38,13 +38,13 @@ describe('home page', function() {
 
   it('should create a layout', function() {
     home.createLayout('testLayout');
-    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('LAYOUT EDITOR');
     browser.get('#/');
     home.openTab('layout');
     $$('.ArtifactList-layout a').first().click();
     $$('.BottomPanel-toggle').last().click();
 
-    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('LAYOUT EDITOR');
 
     $('#save').click();
     $$('.EditorHeader-back').click();
@@ -53,13 +53,13 @@ describe('home page', function() {
 
   it('should create a form', function() {
     home.createForm('testForm');
-    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('FORM EDITOR');
     browser.get('#/');
     home.openTab('form');
     $$('.ArtifactList-form a').first().click();
     $$('.BottomPanel-toggle').last().click();
 
-    expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('FORM EDITOR');
 
     $('#save').click();
     $('.EditorHeader-icon').click();
