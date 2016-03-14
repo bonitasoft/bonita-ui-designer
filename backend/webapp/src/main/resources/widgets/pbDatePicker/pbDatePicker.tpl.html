@@ -26,12 +26,8 @@
                        data-timezone="UTC"
                        date-format="{{properties.dateFormat | uiTranslate}}"
                        data-trigger="focus"
-                       data-start-week="{{ctrl.firstDayOfWeek}}">
-                       <!-- 
-                       currently, ngModelOptions cannot be used with datepicker
-                       because the displayed value is wrong, it displays the one 
-                       before...
-                       ng-model-options="{ debounce: 350 }" -->
+                       data-start-week="{{ctrl.firstDayOfWeek}}"
+                       ng-model-options="{ debounce: 350 }">
 
                 <span class="input-group-btn">
                     <button ng-if="!properties.hideToday" type="button" class="btn btn-default today"
