@@ -40,4 +40,13 @@ describe('HomeCtrl', function() {
     });
     artifacts.forEach(artifact => expect(artifact.editionUrl).toBe(`designer.${artifact.type}/${artifact.id}`));
   });
+
+  it('should find type from activated tab', () => {
+    expect($scope.getActivatedArtifact()).toBeUndefined();
+    $scope.types[1].active = true;
+    expect($scope.getActivatedArtifact()).toBe($scope.types[1]);
+    $scope.types[3].active = true;
+    $scope.types[1].active = false;
+    expect($scope.getActivatedArtifact()).toBe($scope.types[3]);
+  });
 });

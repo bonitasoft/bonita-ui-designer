@@ -11,7 +11,7 @@
 <div class="container container--Home">
     <div class="row Home-toolbar">
         <div class="Home-buttons">
-            <uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>
+            <uid-create-artifact artifacts="artifacts.all" artifact-active="getActivatedArtifact()"></uid-create-artifact>
             <uid-import-artifact></uid-import-artifact>
         </div>
         <form class="Home-search" role="search">
@@ -28,7 +28,7 @@
 
         <section class="col-xs-7 Artifact-section">
             <uib-tabset>
-                <uib-tab ng-repeat="type in ::types" active="active">
+                <uib-tab ng-repeat="type in ::types" active="type.active">
                     <uib-tab-heading class="tab-{{:: type.id}}">
                         {{:: type.name | translate }}
                         <span class="badge ArtifactSection-badge"
@@ -37,7 +37,7 @@
                         </span>
                     </uib-tab-heading>
                     <artifact-list
-                        ng-if="active"
+                        ng-if="type.active"
                         artifacts="artifacts[type.id] | orderBy:'-lastUpdate'"
                         refresh-all="refreshAll"></artifact-list>
                 </uib-tab>

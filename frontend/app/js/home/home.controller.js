@@ -40,6 +40,7 @@
         .then(filterArtifacts);
 
       $scope.openHelp = () => $modal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
+      $scope.getActivatedArtifact = () => $scope.types.filter(type => type.active)[0];
 
       let factories = artifactFactories.getFactories();
       $scope.types = Object.keys(factories).map((key) => ({

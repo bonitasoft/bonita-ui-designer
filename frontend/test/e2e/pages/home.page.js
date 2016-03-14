@@ -49,6 +49,12 @@ export default class Home {
     $('input[name="all"]').click();
   }
 
+  createDefault(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    $('.modal-footer button[type="submit"]').click();
+  }
+
   createWidget(name){
     $('.HomeCreate').click();
     $('.modal-body input[name="name"]').sendKeys(name);

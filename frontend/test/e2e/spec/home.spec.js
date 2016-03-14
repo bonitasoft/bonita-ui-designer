@@ -71,6 +71,12 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
+  it('should create a widget with widget tab selected', function() {
+    home.openTab('widget');
+    home.createDefault('testWidget');
+    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
+  });
+
   it('should not create a page with space or special characters in name', function() {
     $('.HomeCreate').click();
     let nameInput = $('.modal-body input[name="name"]');

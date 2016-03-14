@@ -22,7 +22,9 @@
       this.$state = $state;
       this.$scope = $scope;
       this.types = artifactFactories.getFactories();
-      this.type = this.types.page;
+      $scope.$watch(() => this.artifactActive,
+        activeType =>
+          this.type = activeType && this.types[activeType.id] || this.types.page);
     }
 
     close() {
@@ -52,6 +54,7 @@
       templateUrl: 'js/home/create/home-create.html',
       controller: CreateArtifactCtrl,
       bindToController: {
+        artifactActive: '=',
         artifacts: '='
       },
       controllerAs: 'createCtrl'

@@ -27,6 +27,13 @@ describe('home create button', () => {
     expect(controller.types).toEqual(artifactFactories.getFactories());
   });
 
+  it('should preselect type when activated artifact holds a valid type', () => {
+    expect(controller.type).toBe(controller.types.page);
+    controller.artifactActive = { id: 'widget' };
+    $scope.$apply();
+    expect(controller.type).toBe(controller.types.widget);
+  });
+
   it('should check widget name if it already exists', () => {
     var type = artifactFactories.getFactory('page');
     expect(controller.isNameUniqueIfRelevantForType('bonita', type)).toBeFalsy();
