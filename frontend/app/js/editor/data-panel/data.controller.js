@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $uibModal, artifact, mode) {
+angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $uibModal, artifact, mode, gettextCatalog) {
 
   'use strict';
 
@@ -53,6 +53,10 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
   $scope.$watch('searchedData', () => {
     $scope.filterPageData();
   });
+
+  $scope.getType = data => ($scope.isExposed(data)) ? '(' + gettextCatalog.getString('Exposed') + ')' : $scope.getLabel(data.type);
+
+  $scope.isExposed = data => $scope.exposableData && data.exposed;
 
   $scope.openDataPopup = function(key) {
     var modalInstance = $uibModal.open({
