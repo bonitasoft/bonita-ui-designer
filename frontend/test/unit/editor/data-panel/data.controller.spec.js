@@ -2,11 +2,11 @@
   'use strict';
   describe('DataCtrl', function() {
 
-    var $scope, repository, $q, $location, $uibModal;
+    var $scope, repository, $q, $location, $uibModal, gettextCatalog;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel'));
 
-    beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$uibModal_) {
+    beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$uibModal_, _gettextCatalog_) {
       $scope = $rootScope.$new();
 
       $scope.addData = {
@@ -15,6 +15,7 @@
 
       $location = _$location_;
       repository = _pageRepo_;
+      gettextCatalog = _gettextCatalog_;
       $q = _$q_;
       $uibModal = _$uibModal_;
 
@@ -98,5 +99,29 @@
       $scope.openDataPopup();
       expect($uibModal.open).toHaveBeenCalled();
     });
+
+    it('should return none exposed data type', function() {
+      var data = {
+        $$name: 'colin',
+        value: 4,
+        exposed: false,
+        type: 'constant'
+      };
+
+      expect($scope.getType(data)).toEqual('String');
+    });
+
+    it('should return (Exposed) for exposed data type', function() {
+      var data = {
+        $$name: 'colin',
+        value: 4,
+        exposed: true,
+        type: 'constant'
+      };
+      $scope.exposableData = true ;
+
+      expect($scope.getType(data)).toEqual('(Exposed)');
+    });
+
   });
 })();
