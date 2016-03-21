@@ -5,7 +5,12 @@ describe('DeletionPopController', function() {
   beforeEach(inject(function($controller, $rootScope) {
     $scope = $rootScope.$new();
 
-    page = { id: 'page1', name: 'page1' };
+    page = {
+      id: 'page1', name: 'page1', usedBy: {
+        page: [{ type: 'page' }, { type: 'layout' }, { type: 'layout' }],
+        foobar: [{ type: 'foobar' }]
+      }
+    };
     modalInstance = jasmine.createSpyObj('modalInstance', ['close', 'dismiss']);
 
     $controller('DeletionPopUpController', {
@@ -35,4 +40,11 @@ describe('DeletionPopController', function() {
     expect($scope.artifact.type).toBe('page');
   });
 
+  it('should list elements which use artifact', function() {
+    expect($scope.usedBy).toEqual({
+      page: [{ type: 'page' }],
+      layout: [{ type: 'layout' }, { type: 'layout' }],
+      foobar: [{ type: 'foobar' }]
+    });
+  });
 });
