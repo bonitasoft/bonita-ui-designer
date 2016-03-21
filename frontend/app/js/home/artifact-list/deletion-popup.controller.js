@@ -30,4 +30,13 @@ angular.module('bonitasoft.designer.home').controller('DeletionPopUpController',
     $uibModalInstance.dismiss('cancel');
   };
 
+  [].concat(...values(artifact.usedBy || {})).reduce((usedBy, artifact) => {
+    usedBy[artifact.type] = usedBy[artifact.type] || [];
+    usedBy[artifact.type].push(artifact);
+    return usedBy;
+  }, $scope.usedBy = {});
+
+  function values(object) {
+    return Object.keys(object).map((type) => object[type]);
+  }
 });
