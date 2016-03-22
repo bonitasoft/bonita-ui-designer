@@ -54,7 +54,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
 
     @Override
     public List<T> getAll(Path directory) throws IOException {
-        return getAll(directory, "*");
+        return getAll(directory, "[!.]*");
     }
 
     protected List<T> getAll(Path directory, String glob) throws IOException {

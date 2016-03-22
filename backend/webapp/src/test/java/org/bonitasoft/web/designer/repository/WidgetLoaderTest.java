@@ -85,6 +85,13 @@ public class WidgetLoaderTest {
     }
 
     @Test
+    public void should_not_failed_when_directory_contains_an_hidden_file() throws Exception {
+        createDirectory(widgetDirectory.resolve(".DS_Store"));
+
+        widgetLoader.getAll(widgetDirectory);
+    }
+
+    @Test
     public void should_retrieve_all_custom_widgets() throws Exception {
         Widget input = WidgetBuilder.aWidget().id("input").build();
         Widget custom1 = WidgetBuilder.aWidget().id("custom1").custom().build();

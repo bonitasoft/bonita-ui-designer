@@ -146,6 +146,13 @@ public class JsonFileBasedLoaderTest {
     }
 
     @Test
+    public void should_not_fail_when_searching_object_by_id_and_repo_contains_an_hidden_file() throws Exception {
+        temporaryFolder.newFolderPath("jsonrepository", ".DS_Store");
+
+        loader.findByObjectId(repoDirectory, "object");
+    }
+
+    @Test
     public void should_not_find_an_object_even_if_id_start_the_same_as_the_one_looking_for() throws Exception {
         addToRepository(SimpleObjectBuilder.aSimpleObjectBuilder().id("abcd").build());
 

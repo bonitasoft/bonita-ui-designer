@@ -49,7 +49,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
         List<T> objects = new ArrayList<>();
 
         //Each component has its own files in a directory named with its id
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "*")) {
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "[!.]*")) {
             for (Path componentDirectory : directoryStream) {
                 //The directory name is the component id
                 String id = componentDirectory.getFileName().toString();
