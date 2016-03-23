@@ -14,6 +14,10 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   var input = $element.find('input');
   var form = $element.find('form');
 
+  this.preventFocus = function($event) {
+    $event.target.blur();
+  };
+
   input.on('change', forceSubmit);
   $scope.$on('$destroy', function() {
     input.off('change', forceSubmit);
@@ -75,7 +79,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   }
 
   function forceSubmit(event) {
-    if( !event.target.value) {
+    if(!event.target.value) {
       return;
     }
 

@@ -15,7 +15,7 @@
                  ng-upload-loading="ctrl.startUploading()"
                  error-catcher="ctrl.uploadError(error)">
                 <div class="input-group file-upload">
-                    <input type="text" readonly disabled placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" class="form-control">
+                    <input type="text" ng-focus="ctrl.preventFocus($event)" placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" class="form-control">
 
                     <button type="button" ng-if="ctrl.filemodel" ng-click="ctrl.clear()" class="file-upload-clear">
                         <i class="glyphicon glyphicon-remove-circle"></i>
