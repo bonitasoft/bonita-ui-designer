@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2016-02-29 05:57-0500\n"
+"PO-Revision-Date: 2016-03-24 05:58-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -41,6 +41,10 @@ msgstr "<b>Para utilizar un layout en una aplicación de negocio</b>, expórtalo
 #: home/help-popup.html:1
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita BPM Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
+
+#: editor/data-panel/help-popup.html:1
+msgid "<code>context</code> is an External API."
+msgstr "<code>context</code> es una External API."
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -936,6 +940,10 @@ msgstr "URL no válida: sólo debe contener caracteres alfanuméricos o #!:.? +=
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "Estructura de archivos json no válida {{ infos.modelfile }}"
 
+#: editor/data-panel/help-popup.html:1
+msgid "It provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value"
+msgstr "Otorga las referencias a todas las variables de negocio y documentos de la instancia de proceso. Para recuperar la instancia de una variable de negocio, crea una variable External API con valor"
+
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Item"
 msgstr "Item"
@@ -1580,6 +1588,10 @@ msgstr "Nivel de título"
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Para agregar contenido, arrastra y suelta los componentes de la paleta en la zona de trabajo."
 
+#: editor/data-panel/help-popup.html:1
+msgid "To allow your user to download a document add a link widget with its url property bound to"
+msgstr "Para permitir a los usuarios descargar un documento, añade un widget Link con la propiedad url configurada con"
+
 #: assets/help-popup.html:19
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
@@ -1599,6 +1611,10 @@ msgstr "Para cargar una imagen para cualquier widget personalizado, añade un re
 #: assets/help-popup.html:1
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "Para administrar múltiples versiones de dependencias, asegúrese de que sólo una versión de un recurso está activa dentro de una página."
+
+#: editor/data-panel/help-popup.html:1
+msgid "To retrieve a document instance, create an External API variable with value"
+msgstr "Para devolver una instancia de documento, crea una variable External API con valor"
 
 #: home/help-popup.html:1
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
