@@ -45,6 +45,15 @@
       expect($state.go).toHaveBeenCalledWith('designer.home');
     });
 
+    it('should check if page is dirty or pristine', () => {
+      expect(controller.pristine).toBeTruthy();
+      expect(controller.isPageDirty({})).toBeFalsy();
+      var page = { id: 'person' };
+      expect(controller.isPageDirty(page)).toBeTruthy();
+      expect(controller.pristine).toBeFalsy();
+
+    });
+
     it('should save a page', function() {
       spyOn(pageRepo, 'save');
       var page = { id: 'person' };

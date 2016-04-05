@@ -31,7 +31,7 @@ angular.module('bonitasoft.designer.common.directives')
 
         var repository = $injector.get($state.current.resolve.artifactRepo[0]);
         var stateName = $state.current.name;
-        repository.initLastSavedState($scope.confirmData);
+        repository.setLastSavedState($scope.confirmData);
         var onRouteChangeOff = $rootScope.$on('$stateChangeStart', routeChangeHandler);
 
         $window.onbeforeunload = function() {

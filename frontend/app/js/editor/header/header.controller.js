@@ -13,10 +13,18 @@
       this.$state = $state;
       this.$window = $window;
       this.browserHistoryService = browserHistoryService;
+      /*allow to avoid the display of 'Saved" on artifact load*/
+      this.pristine = true;
     }
 
     back() {
       this.browserHistoryService.back(() => this.$state.go('designer.home'));
+    }
+
+    isPageDirty(artifact) {
+      let needSave = this.artifactRepo.needSave(artifact);
+      this.pristine = this.pristine && !needSave;
+      return needSave;
     }
 
     save(page) {

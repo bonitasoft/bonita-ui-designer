@@ -163,8 +163,11 @@ describe('custom widget editor', function() {
     // change controller
     clearAndFillAceEditor('controller', '$scope.sayHello = function(){ $scope.property.verb = \'saying hello\' };');
 
+    expect($('.successfully-saved').isPresent()).toBeFalsy();
     // save it
     $('#save').click();
+    expect($('.successfully-saved').isPresent()).toBeTruthy();
+    expect($('#save').isEnabled()).toBeFalsy();
 
     // should go back to root when saved
     expect(browser.getCurrentUrl()).toMatch(/.*#\//);

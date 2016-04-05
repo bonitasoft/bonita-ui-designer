@@ -62,9 +62,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   });
 
   keymaster('ctrl+s', function() {
-    $scope.$apply(function() {
-      $scope.save();
-    });
+    $scope.$apply(() => $scope.save());
     // prevent default browser action
     return false;
   });

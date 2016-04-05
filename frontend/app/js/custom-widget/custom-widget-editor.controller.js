@@ -24,7 +24,6 @@
     $scope.widget = artifact;
     $scope.bonds = BONDS;
 
-    var saveSuccessMsg = gettextCatalog.getString('Custom widget [ {{name}} ] successfully saved', { name: $scope.widget.name });
     var widgetRepo = artifactRepo;
 
     keymaster('ctrl+s', function() {
@@ -76,9 +75,7 @@
      * Saves a widget and gives it an id based on its name (Awesome Widget -> awesome-widget)
      */
     $scope.save = function() {
-      widgetRepo.save($scope.widget).then(function() {
-        alerts.addSuccess(saveSuccessMsg, 2000);
-      });
+      widgetRepo.save($scope.widget);
 
     };
 
@@ -112,6 +109,13 @@
       function saveAs(data) {
         return widgetRepo.create(data, widget.id);
       }
+    };
+
+    $scope.pristine = true;
+    $scope.isPageDirty = function(artifact) {
+      let needSave = widgetRepo.needSave(artifact);
+      $scope.pristine = $scope.pristine && !needSave;
+      return needSave;
     };
 
     $scope.createOrUpdate = function(param) {

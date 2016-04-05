@@ -84,6 +84,20 @@
   margin: 0 2em;
 }
 
+.EditorHeader-saveStatus {
+  color: @color-editor-header-bg;
+  margin-left: 15px;
+  &.successfully-saved {
+    color: @color-editor-header-text;
+    opacity: 0;
+    transition: opacity 0.5s linear 1s;
+    -webkit-transition: opacity 0.5s linear 1s;
+    -moz-transition: opacity 0.5s linear 1s;
+    -ms-transition: opacity 0.5s linear 1s;
+    -o-transition: opacity 0.5s linear 1s;
+  }
+}
+
 .EditorHeader-name {
   display: inline-block;
   width: auto;
