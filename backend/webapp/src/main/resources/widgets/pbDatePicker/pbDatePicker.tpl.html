@@ -30,7 +30,7 @@
                        ng-model-options="{ debounce: 350 }">
 
                 <span class="input-group-btn">
-                    <button ng-if="!properties.hideToday" type="button" class="btn btn-default today"
+                    <button ng-if="properties.showToday" type="button" class="btn btn-default today"
                             ng-click="ctrl.setDateToToday()"
                             ng-disabled="properties.readOnly" ui-translate>
                            Today 

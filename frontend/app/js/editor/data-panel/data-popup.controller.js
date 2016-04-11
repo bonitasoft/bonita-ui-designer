@@ -20,6 +20,7 @@ angular.module('bonitasoft.designer.editor.data-panel')
     $scope.apiExamples = apiExamples.get();
     $scope.example = $scope.apiExamples[0];
     $scope.examplesCollapsed = true;
+    $scope.advancedExamplesCollapsed = true;
 
     $scope.dataTypes = dataTypeService.getDataTypes();
     $scope.getLabel = dataTypeService.getDataLabel;

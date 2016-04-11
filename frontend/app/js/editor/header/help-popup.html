@@ -89,26 +89,70 @@
         </uib-tab>
 
         <uib-tab heading="{{ 'Localization' | translate }}">
-            <h4 translate>Subscription edition</h4>
-            <p translate>UI designer includes a mechanism to add translations for page elements, to support multi-language
-                pages. The text displayed in the preview and at runtime adapts to the locale or browser language
-                automatically.</p>
+            
+            <p translate>The UI Designer is displayed in the language of your Bonita BPM Studio.</p>
 
-            <p translate>You can translate all the text displayed on a page or form: the labels, the placeholders, the
-                available values of a list, but also the date format of the DatePicker widget. The base language
-                is en_US. The phrases in English are used as the keys to the translated phrases. This means that
-                in the Page editor whiteboard, any default text that is created is in English. The rest of the
-                UI designer, including properties, is in the language of your Bonita BPM Studio. When you
-                preview a page that has translated keys, the language of your browser is used.</p>
+            <p translate>
+                In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created.
+            </p>
 
-            <p translate>Each page has a localization asset that contains the keys and the translations for all phrases
-                and all languages that the page supports. The asset is a file, localization.json. Each language
-                is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). Open the default
-                localization.json asset to see how this file must be formatted. You can modify the default asset
-                for your page, or import a new asset to replace the default one.</p>
+            <p translate>
+                You can translate all the text displayed on a UI artifact: labels, placeholders,
+                available values of a list. Even the Date format of the Date Picker widget can be localized.</p>
 
-            <p translate>In production, if the user is logged in to Bonita BPM, pages are displayed in the Portal language
-                selected by the user, or in the default Portal language.</p>
+            <p translate>
+                In the preview and at runtime, the displayed text will adapt automatically to the selected language.
+            </p>
+
+            <p translate>In production, if the user is logged into Bonita BPM Portal, UI artifacts
+              are displayed in the Portal language selected by the user or in the browser locale.</p>
+
+            <p translate>Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings
+                and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639
+                language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>,
+                edit it, and upload it with the same file name. For more information on installing new languages, checkout <a href="http://http://documentation.bonitasoft.com" target="_blank">Bonita BPM documentation site</a>.
+            </p>
+
+            <p translate>
+                By convention, in <em>localization.json</em>, the language used for translation keys is English.
+                This means that in the editor whiteboard, any widget default text is currently in English. 
+                However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and
+                add an <b>en-US</b> section in the <em>localization.json</em> asset file.
+            </p>
+
+            <p translate> <em>Note about the</em> Date Picker <em>widget:</em> the 
+                <em>Placeholder</em> property translations must match the <em>Date format</em> property value (order and number of letters).
+                However, the <em>Placeholder</em> key should be different from the <em>Date format</em> key to avoid translations mismatches.
+            </p>
+            <p translate>
+            <em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. 
+            Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget.
+            Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations.
+            </p>
+            <pre> {
+  "en-US": {
+    ...
+    "button.submit.name": "Submit",
+    "date.format": "MM/dd/yyyy",
+    "date.placeholder": "Enter a date (mm/dd/yyyy)",
+    ...
+  },
+  "fr-FR": {
+    ...
+    "button.submit.name": "Soumettre",
+    "date.format": "dd/MM/yyyy",
+    "date.placeholder": "Entrer une date (jj/mm/aaaa)",
+    ...
+  },
+  "es-ES": {
+    ...
+    "button.submit.name": "Enviar",
+    "date.format": "dd/MM/yyyy",
+    "date.placeholder": "Introducir una fecha (dd/mm/aaaa)",
+    ...
+  }
+}</pre>
+
         </uib-tab>
         <uid-responsive-help-tab></uid-responsive-help-tab>
     </uib-tabset>
