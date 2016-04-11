@@ -50,7 +50,7 @@
       "bond": "constant"
     },
     {
-      "label": "labelWidth",
+      "label": "Label width",
       "name": "labelWidth",
       "type": "integer",
       "defaultValue": 4,
@@ -64,31 +64,35 @@
     {
       "label": "Placeholder",
       "name": "placeholder",
-      "help": "Short hint that describes the expected value",
+      "help": "Short hint that describes the expected input format",
+      "caption": "Date format in the expected language, synchronized with the Date format property",
       "type": "text",
-      "defaultValue": "MM/dd/yyyy",
+      "defaultValue": "Enter a date (mm/dd/yyyy)",
       "bond": "interpolation"
     },
     {
       "label": "Value",
       "name": "value",
       "type": "text",
-      "bond": "variable"
+      "bond": "variable",
+      "help": "A date, at midnight UTC",
+      "caption": "Date or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable"
     },
     {
       "label": "Date format",
       "name": "dateFormat",
       "type": "text",
       "defaultValue": "MM/dd/yyyy",
-      "help": "Specify your own format",
-      "caption": "y: year, M: month, d: day"
+      "help": "Specify the expected technical format",
+      "caption": "M: month, d: day, y: year"
     },
     {
-      "label": "Hide today button",
-      "name": "hideToday",
+      "label": "Show today button",
+      "name": "showToday",
       "type": "boolean",
+      "help": "Display or hide the shortcut button to current day",
       "bond": "constant",
-      "defaultValue": true
+      "defaultValue": false
     }
   ],
   "assets": [

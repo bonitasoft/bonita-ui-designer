@@ -185,6 +185,7 @@ describe('pbDatePicker', function () {
   describe('today button', function() {
     it('should set the date to current day',function() {
       scope.properties.value = new Date(0);
+      scope.properties.showToday = true;
       scope.$apply();
  
       element.find('.input-group .input-group-btn button.today').click();
@@ -192,16 +193,16 @@ describe('pbDatePicker', function () {
       expect(element.find('input').val()).toEqual(filter('date')(new Date(), 'dd/MM/yyyy'));
     });
     it('should be hidden when property hideToday is true', function() {
-      scope.properties.hideToday = true;
+      scope.properties.showToday = true;
       scope.$apply();
-      expect(element.find('.input-group .input-group-btn button.today').length).toBe(0);
+      expect(element.find('.input-group .input-group-btn button.today').length).toBe(1);
     });
   });
 
   describe('calendar button', function() {
 
     it('should be displayed by default', function () {
-      expect(element.find('.input-group .input-group-btn button').length).toBe(2);
+      expect(element.find('.input-group .input-group-btn button').length).toBe(1);
     });
 
     it('should be disabled if date picker disabled', function () {

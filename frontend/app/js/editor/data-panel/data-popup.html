@@ -114,16 +114,21 @@
                   <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.
               </p>
               <section ng-switch-when="expression" >
-                  <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See examples</button>
-                  <div uib-collapse="examplesCollapsed">
-                      <p class="alert alert-default">
-                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                          <span translate>This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code></span>
-                      </p>
-                      <pre>return $data.supportTicket.environment.some(function(env){
-     return env.indexOf("Linux") != -1;
-  });</pre>
-                  </div>
+                <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See example 'functional programming'</button>
+                <div uib-collapse="examplesCollapsed">
+                    <p class="alert alert-default">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <span translate>This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code></span>
+                    </p>
+                    <pre>return $data.supportTicket.environment.some(function(env){
+   return env.indexOf("Linux") != -1;
+});</pre>
+                </div>
+                <br>
+                <button ng-click="advancedExamplesCollapsed = !advancedExamplesCollapsed" type="button" class="btn btn-link" translate>See example 'date object initialization'</button>
+                <div uib-collapse="advancedExamplesCollapsed">
+                  <pre>return new Date();</pre>
+                </div>
               </section>
             </div>
           </div>
