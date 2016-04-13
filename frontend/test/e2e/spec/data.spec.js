@@ -97,6 +97,25 @@ describe('data panel', function() {
       expect(dataPanel.lines.count()).toBe(4);
     });
 
+    it('should expand value field for Json when button is clicked', function() {
+      dataPanel.addButton.click();
+      expect(dataPanel.popupExpandBtn.isPresent()).toBeFalsy();
+      dataPanel.type = 'JSON';
+      dataPanel.popupExpandBtn.click();
+      expect(dataPanel.value.isDisplayed()).toBeTruthy();
+      expect(dataPanel.name.isDisplayed()).toBeFalsy();
+      expect(dataPanel.type.isDisplayed()).toBeFalsy();
+      dataPanel.popupExpandBtn.click();
+      expect(dataPanel.value.isDisplayed()).toBeTruthy();
+      expect(dataPanel.name.isDisplayed()).toBeTruthy();
+      expect(dataPanel.type.isDisplayed()).toBeTruthy();
+      dataPanel.type = 'Javascript expression';
+      dataPanel.popupExpandBtn.click();
+      expect(dataPanel.value.isDisplayed()).toBeTruthy();
+      expect(dataPanel.name.isDisplayed()).toBeFalsy();
+      expect(dataPanel.type.isDisplayed()).toBeFalsy();
+    });
+
     it('should not allow adding invalid Json', function() {
       dataPanel.addButton.click();
       dataPanel.name = 'aJson';

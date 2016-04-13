@@ -1,0 +1,9 @@
+<button type="button" 
+  ng-click="toggleExpand()"
+  uib-tooltip="{{getTooltipMessage()}}"
+  class="pull-right btn btn-sm btn-default"
+  tooltip-append-to-body="true" 
+  tooltip-popup-delay="200">
+  <i ng-if="!expanded" class="fa fa-expand"></i>
+  <i ng-if="expanded" class="fa fa-compress"></i>
+</button>
