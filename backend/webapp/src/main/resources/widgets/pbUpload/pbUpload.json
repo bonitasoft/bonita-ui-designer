@@ -72,6 +72,7 @@
     {
       "label": "Value",
       "name": "value",
+      "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "help": "Holds the response from the upload endpoint. That value can be used to fulfill a contract",
       "type": "text",
       "bond": "variable"
