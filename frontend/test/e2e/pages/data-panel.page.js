@@ -92,6 +92,12 @@
       }
     },
 
+    popupExpandBtn: {
+      get: function() {
+        return $('.modal-content .DataPanel-expandableValue button');
+      }
+    },
+
     popupSaveBtn: {
       get: function() {
         return $('.modal-footer').element(by.buttonText('Save'));

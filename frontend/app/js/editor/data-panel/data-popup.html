@@ -1,12 +1,13 @@
 <form name="addData" role="form" novalidate ng-submit="save(newData)">
-    <div class="modal-header">
-        <h3 class="modal-title" ng-if="isNewData" translate>Create a new variable</h3>
+    <div class="modal-header DataPanel--hideOnFullScreen">
+      <h3 class="modal-title" ng-if="isNewData" translate><span>Create a new variable</span></h3>
 
         <h3 class="modal-title" ng-if="!isNewData"><span translate>Edit variable</span>
             <strong>{{newData.$$name}}</strong></h3>
+          
     </div>
     <div class="modal-body">
-        <div class="form-group" ng-if="isNewData" ng-class="{'has-error': !isDataNameUnique(newData.$$name)}">
+        <div class="form-group DataPanel--hideOnFullScreen" ng-if="isNewData" ng-class="{'has-error': !isDataNameUnique(newData.$$name)}">
             <label class="control-label control-label--required" for="name">
                 <span translate>Name</span>
                 <span ng-show="!isDataNameUnique(newData.$$name)" translate> '{{newData.$$name}}' already exists</span>
@@ -19,7 +20,7 @@
         </div>
         <exposable-data model="newData.exposed" ng-if="exposableData"></exposable-data>
         <div ng-if="!newData.exposed">
-          <div class="form-group">
+          <div class="form-group DataPanel--hideOnFullScreen">
               <label class="control-label" for="type" translate>Type</label>
               <select name="type"
                       class="form-control"
@@ -72,15 +73,21 @@
               </section>
 
               <!-- json -->
-              <label ng-switch-when="json" class="control-label" for="value" translate>Value</label>
-              <ace-editor class="ace-editor--data" ng-switch-when="json" autofocus mode="json" ng-model="newData.value"
-                          ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
-                          id="value"></ace-editor>
-              <p class="help-block" ng-switch-when="json" translate>
-                  <span class="tip">Tip:</span> Array syntax: ["val1", "val2"], Object syntax: {"key": "value"}
-              </p>
+              <div ng-switch-when="json" class="row">
+                <div class="col-xs-12 DataPanel-expandableValue">
+                  <label class="control-label DataPanel-valueLabel" for="value" translate>Value</label><expand-modal></expand-modal>
+                </div>
+                <div class="col-xs-12">
+                  <ace-editor class="ace-editor--data" autofocus mode="json" ng-model="newData.value"
+                              ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
+                              id="value"></ace-editor>
+                  <p class="help-block DataPanel--hideOnFullScreen" translate>
+                      <span class="tip">Tip:</span> Array syntax: ["val1", "val2"], Object syntax: {"key": "value"}
+                  </p>
+                </div>
+              </div>
 
-              <section ng-switch-when="json" >
+              <section ng-switch-when="json" class="DataPanel--hideOnFullScreen">
                   <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See examples</button>
                   <div uib-collapse="examplesCollapsed">
                       <p translate>
@@ -106,14 +113,20 @@
               </section>
 
               <!-- expression -->
-              <label ng-switch-when="expression" class="control-label" for="value" translate>Value</label>
-              <ace-editor class="ace-editor--data" ng-switch-when="expression" autofocus mode="javascript" auto-completion="{{pageData}}"
-                          ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
-                          class="form-control" id="value"></ace-editor>
-              <p class="help-block" ng-switch-when="expression" translate>
-                  <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.
-              </p>
-              <section ng-switch-when="expression" >
+              <div ng-switch-when="expression" class="row">
+                <div class="col-xs-12 DataPanel-expandableValue">
+                  <label class="control-label DataPanel-valueLabel" for="value" translate>Value</label><expand-modal></expand-modal>
+                </div>
+                <div class="col-xs-12">
+                  <ace-editor class="ace-editor--data" autofocus mode="javascript" auto-completion="{{pageData}}"
+                              ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
+                              class="form-control" id="value"></ace-editor>
+                  <p class="help-block DataPanel--hideOnFullScreen " translate>
+                      <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.
+                  </p>
+                </div>
+              </div>
+              <section ng-switch-when="expression" class="DataPanel--hideOnFullScreen">
                 <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link" translate>See example 'functional programming'</button>
                 <div uib-collapse="examplesCollapsed">
                     <p class="alert alert-default">

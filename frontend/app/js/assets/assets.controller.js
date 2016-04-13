@@ -80,7 +80,8 @@
           asset: () => asset,
           component: () => vm.component,
           mode: () => mode
-        }
+        },
+        size: 'lg'
       });
     }
 
