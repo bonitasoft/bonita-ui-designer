@@ -91,6 +91,8 @@
     {
       "label": "Value",
       "name": "value",
+      "help": "Read-write binding, initialized or updated by users' input (bi-directional bond)",
+      "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable"
     },

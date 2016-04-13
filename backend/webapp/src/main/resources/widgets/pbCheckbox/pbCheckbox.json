@@ -31,7 +31,8 @@
     {
       "label": "Value",
       "name": "value",
-      "caption": "Must be a Boolean",
+      "help": "Read-write binding, initialized or updated by users' input (bi-directional bond)",
+      "caption": "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable"
     }

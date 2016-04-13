@@ -19,14 +19,14 @@ angular.module('bonitasoft.designer.editor.data-panel').factory('apiExamples', f
       {
         description: gettextCatalog.getString('Get current logged user'),
         url: '../API/system/session/1',
-        more: gettextCatalog.getString('User id could then be obtained by using {{youVar.user_id}}')
+        more: gettextCatalog.getString('User id could then be obtained by using {{myData.user_id}}')
       }
     ],
     'BPM API': [
       {
         description: gettextCatalog.getString('Get a human task by its identifier'),
         url: '../API/bpm/humanTask/<strong>{{taskId}}</strong>',
-        more: gettextCatalog.getString('Case identifier could then be retrieved by {{myVar.rootCaseId}}')
+        more: gettextCatalog.getString('Case identifier could then be retrieved by {{myData.rootCaseId}}')
       },
       {
         description: gettextCatalog.getString('List of human task in ready state for current user (pending + assigned)'),
