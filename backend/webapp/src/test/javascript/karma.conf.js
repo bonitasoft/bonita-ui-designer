@@ -76,6 +76,10 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: true
+    singleRun: true,
+    captureTimeout: 60000,  
+    browserDisconnectTimeout: 5000,
+    browserDisconnectTolerance: 5,
+    browserNoActivityTimeout: 40000
   });
 };
