@@ -32,7 +32,7 @@
                 title="{{'Export'|translate}}">
             <i class="ui-icon ui-export"></i>
         </button>
-        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !isPageDirty(widget) && !pristine }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
+        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !isPageDirty(widget) && !pristine && !dirty }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
     </div>
     <div class="EditorHeader-help">
         <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>

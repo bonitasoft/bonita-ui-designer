@@ -45,7 +45,7 @@
             <i class="fa fa-play"></i>
             <span translate>Preview</span>
         </button>
-        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !vm.isPageDirty(page) && !vm.pristine }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
+        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !vm.isPageDirty(page) && !vm.pristine && !vm.dirty }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
     </div>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>

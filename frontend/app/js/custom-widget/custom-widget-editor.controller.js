@@ -75,7 +75,7 @@
      * Saves a widget and gives it an id based on its name (Awesome Widget -> awesome-widget)
      */
     $scope.save = function() {
-      widgetRepo.save($scope.widget);
+      widgetRepo.save($scope.widget).then(() => $scope.dirty = false);
 
     };
 
@@ -112,9 +112,11 @@
     };
 
     $scope.pristine = true;
+    $scope.dirty = false;
     $scope.isPageDirty = function(artifact) {
       let needSave = widgetRepo.needSave(artifact);
       $scope.pristine = $scope.pristine && !needSave;
+      $scope.dirty = $scope.dirty || needSave;
       return needSave;
     };
 
