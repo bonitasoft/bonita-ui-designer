@@ -41,12 +41,21 @@
         }
       });
 
-      modalInstance.result.then(data => this.artifactRepo.create(data, page.id)).then(data => {
-        this.$stateParams.id = data.id;
-        this.$state.go(`designer.${page.type}`, this.$stateParams, {
-          reload: true
-        });
-      });
+      modalInstance.result
+        .then(data => this.removeReferences(data))
+        .then(data => this.artifactRepo.create(data, page.id))
+        .then(data => this.$stateParams.id = data.id)
+        .then(() => this.$state.go(`designer.${page.type}`, this.$stateParams, { reload: true }));
+    }
+
+    removeReferences(data) {
+      if (angular.isArray(data)) {
+        data.forEach(item => this.removeReferences(item));
+      } else if (angular.isObject(data)) {
+        delete data.reference;
+        angular.forEach(data, (value, key) => !key.match(/^\$/) && this.removeReferences(value));
+      }
+      return data;
     }
 
     saveAndExport(page) {

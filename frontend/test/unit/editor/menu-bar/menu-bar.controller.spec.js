@@ -21,7 +21,7 @@
       $uibModal = _$uibModal_;
       $state = _$state_;
       modalInstance = $modalInstance.fake();
-      
+
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');
 
@@ -88,6 +88,7 @@
     it('should save a page as ...', function() {
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
+      spyOn(controller, 'removeReferences').and.callThrough();
       var page = { id: 'person', type: 'page' };
 
       controller.saveAs(page);
@@ -100,10 +101,31 @@
       scope.$apply();
 
       expect(pageRepo.create).toHaveBeenCalledWith(page, page.id);
+      expect(controller.removeReferences).toHaveBeenCalledWith(page);
       expect($state.go).toHaveBeenCalledWith('designer.page', $stateParams, {
         reload: true
       });
     });
-  });
 
+    it('should remove reference attribute from every item', () => {
+      expect(controller.removeReferences({})).toEqual({});
+      expect(controller.removeReferences({ reference: 'test' })).toEqual({});
+      expect(controller.removeReferences([{ reference: 'test' }])).toEqual([{}]);
+      expect(controller.removeReferences({ rows: [{ reference: 'test' }] })).toEqual({ rows: [{}] });
+      let page = {
+        'name': 'test3',
+        'reference': 'bonita',
+        'rows': [ [{ 'type': 'fragment', 'reference': '14bb674b-06ee-40e2-9639-432f0337937a', 'id': '6c959a04-a8a8-4fde-b8d8-b76323cd1629' }] ],
+        'inactiveAssets': [], 'data': {}
+      };
+      page.rows[0].$$parentContainer = page;
+      //using angular json conversion allow to remove properties starting with a $
+      //avoiding a circular reference to page
+      let result = angular.fromJson(angular.toJson(controller.removeReferences(page)));
+      expect(result).toEqual({
+        'name': 'test3',
+        'rows': [ [{ 'type': 'fragment', 'id': '6c959a04-a8a8-4fde-b8d8-b76323cd1629', }] ],
+        'inactiveAssets': [], 'data': {} });
+    });
+  });
 })();
