@@ -188,4 +188,21 @@ describe('pbSelect', function () {
 
     expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
   });
+  
+  it('should leave the value as is if no available values but reset value if available value do not contain value', function(){
+    scope.properties = angular.extend(scope.properties, {
+      value: 'jean',
+      displayedKey: 'name',
+      returnedKey: 'name'
+    });
+    var widget = $compile('<pb-select></pb-select>')(scope);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual('jean');
+    scope.properties.availableValues = [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}];
+
+    scope.$apply();
+    expect(scope.properties.value).toBeUndefined();
+  });
 });

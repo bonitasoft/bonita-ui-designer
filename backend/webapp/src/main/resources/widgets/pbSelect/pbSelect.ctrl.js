@@ -17,24 +17,22 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout) {
     return item;
   };
 
-  $scope.$watch('properties.availableValues', function(items) {
+  $scope.$watchCollection('properties.availableValues', function(items) {
     if (Array.isArray(items)) {
       var foundItem = items
         .filter(comparator.bind(null, $scope.properties.value))
-        .reduce(function (acc, item) {
+        .map(function (item) {
           return ctrl.getValue(item);
-        }, undefined);
+        })[0];
 
       // terrible hack to force the select ui to show the correct options
       // so we change it's value to undefined and then delay to the correct value
+      $scope.properties.value = undefined;
       if (foundItem) {
-        $scope.properties.value = undefined;
-      }
-      $timeout(function(){
-        if (foundItem) {
+        $timeout(function(){
           $scope.properties.value = foundItem;
-        }
-      }, 0);
+        }, 0);
+      }
     }
 
   });
