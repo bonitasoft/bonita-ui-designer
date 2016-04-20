@@ -21,8 +21,11 @@ import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -43,7 +46,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
 
-        assertThat(grabFormContainerContent(page).getRows()).hasSize(5);
+        assertThat(getTaskFormContainerContent(page).getRows()).hasSize(5);
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
@@ -65,8 +68,8 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getRows().get(0)).hasSize(1);
-        assertThat(page.getRows().get(0).get(0)).isInstanceOf(FormContainer.class);
+        assertThat(page.getRows()).hasSize(2);
+        assertThat(page.getRows().get(1).get(0)).isInstanceOf(FormContainer.class);
     }
 
     @Test
@@ -85,7 +88,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("context", anURLData().value("/bonita/API/bpm/userTask/{{taskId}}/context").build()));
+        assertThat(page.getData()).contains(entry("context", anURLData().value("../API/bpm/userTask/{{taskId}}/context").build()));
     }
 
     @Test
@@ -122,7 +125,7 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createFormPage("myPage", aContract().build(), FormScope.OVERVIEW);
 
         assertThat(page.getRows()).hasSize(1);
-        assertThat(grabFormContainerContent(page).getRows()).isEmpty();
+        assertThat(((FormContainer) page.getRows().get(0).get(0)).getContainer().getRows()).isEmpty();
     }
 
     @Test
@@ -140,7 +143,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        Component submitButon = (Component) grabFormContainerContent(page).getRows().get(3).get(0);
+        Component submitButon = (Component) getTaskFormContainerContent(page).getRows().get(3).get(0);
         assertThat(submitButon.getId()).isEqualTo("pbButton");
         assertThat(submitButon.getPropertyValues()).contains(
                 entry(ParameterConstants.DATA_TO_SEND_PARAMETER, anExpressionPropertyValue("formOutput")),
@@ -148,7 +151,44 @@ public class ContractToPageMapperTest {
                 entry(ParameterConstants.TARGET_URL_ON_SUCCESS_PARAMETER, aInterpolationPropertyValue("/bonita")));
     }
 
-    public Container grabFormContainerContent(Page page) {
-        return ((FormContainer) page.getRows().get(0).get(0)).getContainer();
+    @Test
+    public void create_a_page_and_fetch_associated_task() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
+
+        assertThat(page.getData()).contains(entry("task", anURLData().value("../API/bpm/userTask/{{taskId}}").build()));
+    }
+
+    @Test
+    public void create_a_page_display_task_name() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+        TitleWidget title = new TitleWidget();
+        title.setLevel("Level 1");
+        title.setText("{{ task.displayName }}");
+        title.setAlignment(Alignment.CENTER);
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
+
+        assertThat(grabTaskInformation(page).getRows().get(0).get(0)).isEqualToIgnoringGivenFields(title.toComponent(new DimensionFactory()), "reference");
+    }
+
+    @Test
+    public void create_a_page_display_task_description() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+        TextWidget description = new TextWidget();
+        description.setText("{{ task.displayDescription }}");
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
+
+        assertThat(grabTaskInformation(page).getRows().get(1).get(0)).isEqualToIgnoringGivenFields(description.toComponent(new DimensionFactory()), "reference");
+    }
+
+    private Container grabTaskInformation(Page page) {
+        return (Container) page.getRows().get(0).get(0);
+    }
+
+    public Container getTaskFormContainerContent(Page page) {
+        return ((FormContainer) page.getRows().get(1).get(0)).getContainer();
     }
 }
