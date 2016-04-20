@@ -31,7 +31,12 @@ var paths = {
     'bower_components/jsSHA/src/sha1.js',
     'bower_components/identicon.js/pnglib.js',
     'bower_components/identicon.js/identicon.js',
-    'bower_components/angular-sha/src/angular-sha.js'
+    'bower_components/angular-sha/src/angular-sha.js',
+    'node_modules/angular-switcher/dist/angular-switcher.min.js',
+    'node_modules/ngstorage/ngStorage.min.js'
+  ],
+  css: [
+    'node_modules/angular-switcher/dist/angular-switcher.min.css'
   ],
   jsFolder: 'app/js',
   js: [

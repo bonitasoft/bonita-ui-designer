@@ -118,13 +118,15 @@ module.exports = function (gulp, config) {
   });
 
   gulp.task('bundle:css', function () {
-    return gulp.src('app/less/main.less')
+    var lessPipe = gulp.src('app/less/main.less')
       .pipe(plumber())
       .pipe(less())
       .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'))
       .pipe(autoPrefixer({
         browsers: ['ie >= 9', '> 1%']
-      }))
+      }));
+    var cssPipe = gulp.src(paths.css);
+    return merge(lessPipe, cssPipe).pipe(concat('main.css'))
       .pipe(gulp.dest(paths.dev + '/css'));
   });
 

@@ -23,7 +23,9 @@
     'bonitasoft.designer.templates',
     'ui.bootstrap',
     'ui.router',
-    'ui.validate'
+    'ui.validate',
+    'switcher',
+    'ngStorage'
   ]);
 
 })();

@@ -37,6 +37,8 @@ module.exports = function(config) {
       'bower_components/identicon.js/identicon.js',
       'bower_components/jsSHA/src/sha1.js',
       'bower_components/angular-sha/src/angular-sha.js',
+      'node_modules/angular-switcher/dist/angular-switcher.min.js',
+      'node_modules/ngstorage/ngStorage.min.js',
 
       'app/js/**/*.module.js',
       'app/js/**/*.js',

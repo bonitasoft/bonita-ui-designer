@@ -31,6 +31,8 @@ describe('HomeCtrl', function() {
     $scope.refreshAll();
     $scope.$apply();
 
+    expect($scope.$storage.homeSortOrder).toEqual('-lastUpdate');
+
     expect($scope.artifacts).toEqual({
       all: artifacts,
       page: pages,

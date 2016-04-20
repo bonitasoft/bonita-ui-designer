@@ -103,6 +103,25 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
   });
 
+  it('should change sort order to alphabetical or chronological', () => {
+    expect($('.switcher').getAttribute('class')).toContain('active');
+    $('.switcher .fa.fa-sort-alpha-asc').click();
+
+    expect(home.getListedPageNames()).toEqual([...PAGE_NAMES].reverse());
+    expect(home.getFavoriteArtifactNames()).toEqual(['favoriteWidget', 'Person']);
+    expect(home.getListedWidgetNames()).toEqual(WIDGET_NAMES);
+
+    //check the storage keeps the selected sort order
+    home = HomePage.get();
+    expect($('.switcher').getAttribute('class')).not.toContain('active');
+
+    $('.switcher .fa.fa-calendar').click();
+    expect($('.switcher').getAttribute('class')).toContain('active');
+    expect(home.getListedWidgetNames()).toEqual(WIDGET_NAMES);
+    expect(home.getListedPageNames()).toEqual(PAGE_NAMES);
+    expect(home.getFavoriteArtifactNames()).toEqual(['Person', 'favoriteWidget']);
+  });
+
   it('should forbid to create a widget with an already existing name', function() {
     $('.HomeCreate').click();
     element(by.css('#type-widget')).click();

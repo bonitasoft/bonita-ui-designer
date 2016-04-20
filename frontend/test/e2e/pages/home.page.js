@@ -33,6 +33,10 @@ export default class Home {
     return $$('.Artifact-section .ArtifactList-layout .Artifact-name').map((element) => element.getText());
   }
 
+  getFavoriteArtifactNames() {
+    return $$('.Favorite-section .Artifact-name').map((element) => element.getText());
+  }
+
   getTabCounter(type) {
     return $(`.tab-${type} .badge`).getText();
   }

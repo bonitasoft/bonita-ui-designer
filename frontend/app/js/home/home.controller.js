@@ -19,9 +19,11 @@
   'use strict';
 
   class HomeCtrl {
-    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state) {
+    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, gettextCatalog) {
 
       $scope.artifacts = {};
+      $scope.$storage = $localStorage;
+      $localStorage.homeSortOrder = $localStorage.homeSortOrder || '-lastUpdate';
 
       /**
        * When something is deleted, we need to refresh every collection,
@@ -51,6 +53,10 @@
       $scope.search = '';
       $scope.$watch('search', () => filterArtifacts($scope.artifacts.all));
       $scope.refreshAll();
+
+      $scope.getSortTooltipMessage = sortOrder =>
+        (sortOrder === '-lastUpdate') ? gettextCatalog.getString('Ordered by last update.<br/>Click to sort by artifact name') :
+           gettextCatalog.getString('Ordered by artifact name.<br/>Click to sort by last update');
 
       function filterArtifacts(artifacts) {
         $scope.types.forEach((type) => $scope.artifacts[type.id] = $filter('filter')(artifacts || [], {

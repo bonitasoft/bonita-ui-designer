@@ -7,8 +7,10 @@
     "npm": ">=2.0.0"
   },
   "dependencies": {
+    "angular-switcher": "0.2.6",
     "babel-polyfill": "6.3.14",
-    "mousetrap": "1.5.3"
+    "mousetrap": "1.5.3",
+    "ngstorage": "0.3.10"
   },
   "devDependencies": {
     "angular-i18n": "1.4.8",

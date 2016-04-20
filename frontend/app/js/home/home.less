@@ -225,3 +225,21 @@ body {
   padding: 30px;
   margin-bottom: 10px;
 }
+
+.switcher {
+  &.active .switcher-label.true {
+    color: @btn-bonita-default-bg;
+  }
+  .switcher-label.true {
+    color: @bonita-light-grey;
+  }
+}
+
+.switcher {
+  .switcher-label.false {
+    color: @btn-bonita-default-bg;
+  }
+  &.active .switcher-label.false {
+    color: @bonita-light-grey;
+  }
+}
