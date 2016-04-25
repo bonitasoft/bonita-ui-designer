@@ -22,7 +22,9 @@
                    ng-trim="false"
                    required>
             <div class="btn-group" dropdown>
-                <button id="save" type="button" class="EditorHeader-saveButton btn btn-bonita-primary"  ng-disabled="!formName.$valid || !vm.isPageDirty(page)" ng-click="vm.save(vm.page)" translate>Save</button>
+                <button id="save" type="button" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="vm.save(vm.page)" translate>
+                    Save
+                </button>
                 <button type="button" class="btn btn-bonita-primary dropdown-toggle" ng-disabled="!formName.$valid" dropdown-toggle>
                     <span class="fa fa-caret-down"></span>
                     <span class="sr-only" translate>Save</span>
@@ -45,7 +47,6 @@
             <i class="fa fa-play"></i>
             <span translate>Preview</span>
         </button>
-        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !vm.isPageDirty(page) && !vm.pristine }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
     </div>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>

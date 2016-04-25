@@ -32,14 +32,16 @@
 
       save(artifact) {
         return this.$http.put(`${this.baseUrl}/${artifact.id}`, artifact)
-          .success(() => this.setLastSavedState(artifact));
+          .success(() => {
+            this.lastSavedState = artifact;
+          });
       }
 
       /**
        * Initialise lastSavedState to track update from editor
        * @param  {Object} artifact  the current artifact being edited
        */
-      setLastSavedState(artifact) {
+      initLastSavedState(artifact) {
         this.lastSavedState = angular.copy(artifact);
       }
 
