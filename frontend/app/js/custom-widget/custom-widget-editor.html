@@ -16,7 +16,7 @@
             {{widget.name}}
         </h3>
         <div class="btn-group" uib-dropdown>
-            <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" translate>Save</button>
+            <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
             <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
                 <span class="fa fa-caret-down"></span>
                 <span class="sr-only">Save</span>
@@ -32,6 +32,7 @@
                 title="{{'Export'|translate}}">
             <i class="ui-icon ui-export"></i>
         </button>
+        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !isPageDirty(widget) && !pristine && !dirty }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
     </div>
     <div class="EditorHeader-help">
         <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>

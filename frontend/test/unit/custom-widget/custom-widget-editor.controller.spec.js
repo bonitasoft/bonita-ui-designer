@@ -65,6 +65,16 @@ describe('CustomWidgetEditorCtrl', function() {
     expect($scope.widget.properties).toEqual(expectedProperties);
   });
 
+  it('should check if widget is dirty or pristine', () => {
+    expect($scope.pristine).toBeTruthy();
+    expect($scope.dirty).toBeFalsy();
+    expect($scope.isPageDirty({})).toBeFalsy();
+    var widget = { id: 'person' };
+    expect($scope.isPageDirty(widget)).toBeTruthy();
+    expect($scope.dirty).toBeTruthy();
+    expect($scope.pristine).toBeFalsy();
+  });
+
   it('should add a property', function() {
     // given a new param
     var property = {
@@ -105,17 +115,17 @@ describe('CustomWidgetEditorCtrl', function() {
   it('should save a widget with its id', function() {
     // given a widget with a name
     spyOn(widgetRepo, 'save').and.returnValue($q.when());
-    spyOn(alerts, 'addSuccess');
+    $scope.dirty = true;
 
     // when the widget is saved
     $scope.save();
     $scope.$apply();
 
+    expect($scope.dirty).toBeFalsy();
     // then we should have called the repo
     var savedWidget = widgetRepo.save.calls.mostRecent().args[0];
     expect(savedWidget.id).toBe(awesomeWidget.id);
     expect(savedWidget.template).toBe(awesomeWidget.template);
-    expect(alerts.addSuccess).toHaveBeenCalledWith('Custom widget [ ' + awesomeWidget.name + ' ] successfully saved', 2000);
   });
 
   it('should open a dialog to create a new property', function() {

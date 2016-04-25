@@ -13,14 +13,24 @@
       this.$state = $state;
       this.$window = $window;
       this.browserHistoryService = browserHistoryService;
+      /*allow to avoid the display of 'Saved" on artifact load*/
+      this.pristine = true;
+      this.dirty = false;
     }
 
     back() {
       this.browserHistoryService.back(() => this.$state.go('designer.home'));
     }
 
+    isPageDirty(artifact) {
+      let needSave = this.artifactRepo.needSave(artifact);
+      this.pristine = this.pristine && !needSave;
+      this.dirty = this.dirty || needSave;
+      return needSave;
+    }
+
     save(page) {
-      return this.artifactRepo.save(page);
+      return this.artifactRepo.save(page).then(() => this.dirty = false);
     }
 
     saveAs(page) {
