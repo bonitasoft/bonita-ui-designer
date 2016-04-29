@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2016-04-12 09:58-0400\n"
+"PO-Revision-Date: 2016-04-29 04:38-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -76,7 +76,7 @@ msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran 
 
 #: editor/header/header.html:1
 msgid "<span>{{ vm.page.type }}</span> editor"
-msgstr ""
+msgstr "Editor de <span>{{ vm.page.type }}</span>"
 
 #: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$collection</strong>: the current collection"
@@ -489,6 +489,10 @@ msgstr "Servicios personalizados"
 #: home/artifact-factory.service.js:50
 msgid "Custom widget"
 msgstr "Widget personalizado"
+
+#: custom-widget/custom-widget-editor.controller.js:27
+msgid "Custom widget [ {{name}} ] successfully saved"
+msgstr "Widget personalizado [ {{name}} ] guardado correctamente"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
@@ -1320,10 +1324,6 @@ msgstr "Guardar {{ctrl.page.name}} como..."
 #: custom-widget/save-as-popup.html:1
 msgid "Save {{ctrl.widget.name}} as..."
 msgstr "Guardar {{ctrl.widget.name}} como..."
-
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
-msgid "Saved"
-msgstr ""
 
 #: editor/data-panel/data.html:1
 msgid "Search"
