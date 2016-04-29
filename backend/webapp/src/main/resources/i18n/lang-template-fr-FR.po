@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2016-03-24 05:57-0400\n"
+"PO-Revision-Date: 2016-04-12 09:53-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -75,8 +75,8 @@ msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?<
 msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent après un <em>?</em> dans l'URL de la page."
 
 #: editor/header/header.html:1
-msgid "<span>{{ vm.mode }}</span> editor"
-msgstr "Editeur de <span>{{ vm.mode }}</span>"
+msgid "<span>{{ vm.page.type }}</span> editor"
+msgstr "Editeur de <span>{{ vm.page.type }}</span>"
 
 #: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$collection</strong>: the current collection"
@@ -489,10 +489,6 @@ msgstr "Services personnalisés"
 #: home/artifact-factory.service.js:50
 msgid "Custom widget"
 msgstr "Widget personnalisé"
-
-#: custom-widget/custom-widget-editor.controller.js:27
-msgid "Custom widget [ {{name}} ] successfully saved"
-msgstr "Le widget personnalisé [ {{name}} ] a été enregistré avec succès"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
@@ -1183,7 +1179,7 @@ msgstr "Artefacts remplacés"
 
 #: home/help-popup.html:1
 msgid "Overview"
-msgstr "Aperçu"
+msgstr "Synthèse"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "POST"
@@ -1324,6 +1320,10 @@ msgstr "Enregistrer {{ctrl.page.name}} sous ..."
 #: custom-widget/save-as-popup.html:1
 msgid "Save {{ctrl.widget.name}} as..."
 msgstr "Enregistrer {{ctrl.widget.name}} sous ..."
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Saved"
+msgstr "Enregistré"
 
 #: editor/data-panel/data.html:1
 msgid "Search"

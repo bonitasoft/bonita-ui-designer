@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-03-24 06:12-0400\n"
+"PO-Revision-Date: 2016-04-12 09:55-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -44,7 +44,7 @@ msgstr "<b>業務アプリケーションのページとして使用するには
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>context</code> is an External API."
-msgstr "<code>コンテキスト</code> は、外部 API です。"
+msgstr "<code>context</code> は、外部 API です。"
 
 #: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -75,8 +75,8 @@ msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?<
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
 #: editor/header/header.html:1
-msgid "<span>{{ vm.mode }}</span> editor"
-msgstr "<span>{{ vm.mode }}</span> エディタ"
+msgid "<span>{{ vm.page.type }}</span> editor"
+msgstr "<span>{{ vm.page.type }}</span> エディタ"
 
 #: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$collection</strong>: the current collection"
@@ -489,10 +489,6 @@ msgstr "カスタム サービス"
 #: home/artifact-factory.service.js:50
 msgid "Custom widget"
 msgstr "カスタム ウィジェット"
-
-#: custom-widget/custom-widget-editor.controller.js:27
-msgid "Custom widget [ {{name}} ] successfully saved"
-msgstr "カスタム ウィジェット [ {{name}} ] は、問題なく保存されました。"
 
 #: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
@@ -1325,6 +1321,10 @@ msgstr "{{ctrl.page.name}} を別名で保存..."
 msgid "Save {{ctrl.widget.name}} as..."
 msgstr "{{ctrl.widget.name}} を別名で保存..."
 
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Saved"
+msgstr "保存済み"
+
 #: editor/data-panel/data.html:1
 msgid "Search"
 msgstr "検索"
@@ -2072,7 +2072,7 @@ msgstr "ウィジェット"
 
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:170
 msgid "y: year, M: month, d: day"
-msgstr "y: 年、m: 月、d: 日"
+msgstr "y: 年、M: 月、d: 日"
 
 #: editor/properties-panel/field/boolean.html:1
 msgid "yes"
