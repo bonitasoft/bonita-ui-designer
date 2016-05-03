@@ -84,23 +84,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
     return $http(req)
       .success(function(data, status) {
         $scope.properties.dataFromSuccess = data;
-        notifyParentFrame('success', status);
+        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data });
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           $window.location.assign($scope.properties.targetUrlOnSuccess);
         }
       })
       .error(function(data, status) {
         $scope.properties.dataFromError = data;
-        notifyParentFrame('error', status);
+        notifyParentFrame({ message: 'error', status: status, dataFromError: data  });
       })
       .finally(function() {
         vm.busy = false;
       });
   }
 
-  function notifyParentFrame(message, status) {
+  function notifyParentFrame(additionalProperties) {
     if ($window.parent !== $window.self) {
-      var dataToSend = angular.extend($scope.properties, { message: message, status: status });
+      var dataToSend = angular.extend({}, $scope.properties, additionalProperties);
       $window.parent.postMessage(JSON.stringify(dataToSend), '*');
     }
   }

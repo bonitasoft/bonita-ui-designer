@@ -8,14 +8,15 @@
       constructor(property, context) {
         super(property, context);
         this.getter = $parse(property.value);
+        this.isBound = !property.value;
       }
 
       getValue() {
-        return this.getter(this.context);
+        return (!this.isBound) ? this.getter(this.context) : this.value;
       }
 
       setValue(value) {
-        return this.getter.assign && this.getter.assign(this.context, value);
+        return (!this.isBound) ? this.getter.assign(this.context, value) : (this.value = value);
       }
     }
   ));

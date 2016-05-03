@@ -498,7 +498,9 @@ describe('pbButton', function () {
       scope.properties.action = 'PUT';
       scope.properties.url = '/some/location';
       scope.properties.targetUrlOnSuccess = '/new/location';
-      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(responseStatus, {case: 2});
+
+      let caseResponse = {case: 2};
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(responseStatus, caseResponse);
 
       scope.ctrl.action();
 
@@ -509,7 +511,7 @@ describe('pbButton', function () {
         {
           message: 'success',
           status: responseStatus,
-          dataFromSuccess: scope.properties.dataFromSuccess,
+          dataFromSuccess: caseResponse,
           targetUrlOnSuccess: scope.properties.targetUrlOnSuccess
         }), '*');
     });
@@ -532,7 +534,7 @@ describe('pbButton', function () {
         {
           message: 'error',
           status: responseStatus,
-          dataFromError: scope.properties.dataFromError,
+          dataFromError: 'fileTooBig',
           targetUrlOnSuccess: scope.properties.targetUrlOnSuccess
         }), '*');
     });
