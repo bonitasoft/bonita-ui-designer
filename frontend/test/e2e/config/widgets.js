@@ -223,6 +223,40 @@
           }
         ],
         assets: []
+      }, {
+        'designerVersion': '1.3.0-SNAPSHOT',
+        'favorite': false,
+        'id': 'pbTitle',
+        'name': 'Title',
+        'lastUpdate': 1462147621767,
+        'template': '<h1 ng-if="\'Level 1\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h1>\n<h2 ng-if="\'Level 2\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h2>\n<h3 ng-if="\'Level 3\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h3>\n<h4 ng-if="\'Level 4\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h4>\n<h5 ng-if="\'Level 5\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h5>\n<h6 ng-if="\'Level 6\' === properties.level" class="text-{{ properties.alignment }}">{{properties.text | uiTranslate}}</h6>\n',
+        'icon': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 20"><g><path fill="#fff" d="M29.6,8H33v10h3V4h-2.3c-0.1,0.9-1.4,2-4.1,2l-0.4,0.1L29.6,8z M24,11v7h3V3h-3v6h-6V3h-3v15h3v-7H24z"/></g></svg>',
+        'description': 'Text used to structure the page or form content',
+        'custom': false,
+        'order': 13,
+        'properties': [{
+          'label': 'Text',
+          'name': 'text',
+          'type': 'text',
+          'defaultValue': 'Title',
+          'bond': 'interpolation'
+        }, {
+          'label': 'Title level',
+          'name': 'level',
+          'type': 'choice',
+          'defaultValue': 'Level 2',
+          'choiceValues': ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6'],
+          'bond': 'constant'
+        }, {
+          'label': 'Alignment',
+          'name': 'alignment',
+          'type': 'choice',
+          'defaultValue': 'left',
+          'choiceValues': ['left', 'center', 'right'],
+          'bond': 'constant'
+        }],
+        'assets': [],
+        'type': 'widget'
       }
     ]);
 
