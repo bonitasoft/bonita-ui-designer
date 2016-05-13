@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
 
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(firstRow.get(0).getPropertyValues()).contains(
-                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Names")));
+                entry(ParameterConstants.TEXT_PARAMETER, aInterpolationPropertyValue("Names")));
 
         List<Element> secondRow = page.getRows().get(1);
         assertThat(secondRow).hasSize(1);
@@ -120,7 +121,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(firstRow.get(0).getPropertyValues()).contains(
-                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
+                entry(ParameterConstants.TEXT_PARAMETER, aInterpolationPropertyValue("Employee")));
 
         List<Element> secondRow = page.getRows().get(1);
         assertThat(secondRow).hasSize(1);
@@ -156,7 +157,7 @@ public class ContractInputVisitorImplTest {
         assertThat(firstRow.get(0)).isInstanceOf(Component.class);
         assertThat(((Component) firstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(firstRow.get(0).getPropertyValues()).contains(
-                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Employee")));
+                entry(ParameterConstants.TEXT_PARAMETER, aInterpolationPropertyValue("Employee")));
 
         List<Element> secondRow = page.getRows().get(1);
         assertThat(secondRow).hasSize(1);
@@ -245,14 +246,14 @@ public class ContractInputVisitorImplTest {
         assertThat(complexFirstRow).hasSize(1);
         assertThat(((Component) complexFirstRow.get(0)).getId()).isEqualTo("pbTitle");
         assertThat(complexFirstRow.get(0).getPropertyValues()).contains(
-                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue(title)));
+                entry(ParameterConstants.TEXT_PARAMETER, aInterpolationPropertyValue(title)));
     }
 
     private void checkSubcomplex(Container complexContainer) {
         Component subcomplexComponent = (Component) complexContainer.getRows().get(0).get(0);
         assertThat(subcomplexComponent.getId()).isEqualTo("pbTitle");
         assertThat(subcomplexComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.TEXT_PARAMETER, aConstantPropertyValue("Subcomplex")));
+                entry(ParameterConstants.TEXT_PARAMETER, aInterpolationPropertyValue("Subcomplex")));
 
         List<Element> subcomplexSecondRow = complexContainer.getRows().get(1);
         assertThat(subcomplexSecondRow).hasSize(1);
