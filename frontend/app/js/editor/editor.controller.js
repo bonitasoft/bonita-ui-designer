@@ -61,12 +61,6 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     moveSelection(-1);
   });
 
-  keyBindingService.bindGlobal(['ctrl+s', 'command+s'], function() {
-    $scope.$apply(() => $scope.save());
-    // prevent default browser action
-    return false;
-  });
-
   function moveSelection(offset) {
     var components = componentUtils.getVisibleComponents($scope.page);
     var index = components.indexOf($scope.currentComponent) + offset;
@@ -79,7 +73,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   }
 
   $scope.$on('$destroy', function() {
-    keyBindingService.unbind(['del', 'right', 'left', 'ctrl+s', 'command+s']);
+    keyBindingService.unbind(['del', 'right', 'left']);
   });
 
   /**

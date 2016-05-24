@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, browserHistoryService) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, browserHistoryService, keyBindingService, $scope) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -16,6 +16,16 @@
       /*allow to avoid the display of 'Saved" on artifact load*/
       this.pristine = true;
       this.dirty = false;
+
+      keyBindingService.bindGlobal(['ctrl+s', 'command+s'], () => {
+        $scope.$apply(() => this.save(this.page));
+        // prevent default browser action
+        return false;
+      });
+
+      $scope.$on('$destroy', function() {
+        keyBindingService.unbind(['ctrl+s', 'command+s']);
+      });
     }
 
     back() {

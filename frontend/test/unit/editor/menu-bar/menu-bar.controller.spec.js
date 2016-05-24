@@ -33,7 +33,8 @@
         $state: $state,
         artifactRepo: pageRepo,
         artifact: {},
-        mode: 'page'
+        mode: 'page',
+        $scope: scope
       });
     }));
 
