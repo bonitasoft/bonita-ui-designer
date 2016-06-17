@@ -120,8 +120,9 @@
     },
     {
       "label": "Target URL on success",
+      "caption": "In an application, combine the application URL with the page token",
       "type": "text",
-      "help": "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token",
+      "help": "Next page in user navigation. In the Portal, next page is always the case details page",
       "name": "targetUrlOnSuccess",
       "showFor": "['POST', 'PUT', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
       "bond": "interpolation"
