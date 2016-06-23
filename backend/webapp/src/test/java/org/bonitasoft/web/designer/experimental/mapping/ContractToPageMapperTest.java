@@ -20,6 +20,8 @@ import static org.bonitasoft.web.designer.builder.DataBuilder.*;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
@@ -27,6 +29,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterCons
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -119,16 +122,6 @@ public class ContractToPageMapperTest {
     }
 
     @Test
-    public void create_a_page_without_submit_button_for_overview_scope() throws Exception {
-        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
-
-        Page page = contractToPageMapper.createFormPage("myPage", aContract().build(), FormScope.OVERVIEW);
-
-        assertThat(page.getRows()).hasSize(1);
-        assertThat(((FormContainer) page.getRows().get(0).get(0)).getContainer().getRows()).isEmpty();
-    }
-
-    @Test
     public void create_a_page_without_output_data_for_overview_scope() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
@@ -182,6 +175,16 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
 
         assertThat(grabTaskInformation(page).getRows().get(1).get(0)).isEqualToIgnoringGivenFields(description.toComponent(new DimensionFactory()), "reference");
+    }
+
+    @Test
+    public void should_create_an_empty_formcontainer_when_contract_is_empty_and_scope_is_overview() throws Exception {
+        Contract anEmptyContract = aContract().build();
+
+        Page page = makeContractToPageMapper().createFormPage("myPage", anEmptyContract, FormScope.OVERVIEW);
+
+        FormContainer formContainer = (FormContainer) page.getRows().get(0).get(0);
+        assertThat(formContainer.getContainer().getRows().get(0)).isEqualTo(new ArrayList<>());
     }
 
     private Container grabTaskInformation(Page page) {

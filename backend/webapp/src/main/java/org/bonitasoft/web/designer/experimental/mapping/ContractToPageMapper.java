@@ -64,6 +64,10 @@ public class ContractToPageMapper {
         if (scope != FormScope.OVERVIEW) {
             addSubmitButton(formContainer.getContainer(), contract, scope);
         }
+
+        if (formContainer.getContainer().getRows().isEmpty()) {
+            formContainer.getContainer().getRows().add(new ArrayList<Element>());
+        }
         return page;
     }
 
