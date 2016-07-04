@@ -5,5 +5,5 @@
 FROM java:7
 EXPOSE 8080
 WORKDIR /data
-ADD ./backend/webapp/target/ui-designer-1.3.0-SNAPSHOT-standalone.jar /data/ui-designer-standalone.jar
+ADD ./backend/webapp/target/ui-designer-1.3-SNAPSHOT-standalone.jar /data/ui-designer-standalone.jar
 CMD java -jar ui-designer-standalone.jar
