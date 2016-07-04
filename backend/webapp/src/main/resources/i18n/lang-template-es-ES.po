@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2016-06-06 11:08-0400\n"
+"PO-Revision-Date: 2016-07-04 08:57-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -691,7 +691,7 @@ msgstr "Valor dinámico"
 
 #: editor/header/help-popup.html:1
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
-msgstr ""
+msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita BPM</a>:"
 
 #: editor/header/help-popup.html:1
 msgid "Each type or container has sepcific behaviors"
@@ -1218,6 +1218,10 @@ msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>cons
 msgid "New window (_blank)"
 msgstr "Nueva ventana (_blank)"
 
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
+msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
+msgstr "Página siguiente para mostrar, en las aplicaciones. En el Portal, se ignora ya que la navegación se gestiona automáticamente"
+
 #: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
@@ -1610,10 +1614,6 @@ msgstr "Texto utilizado para estructurar el contenido de la página o formulario
 #: editor/properties-panel/bond/interpolation.html:1
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texto, incluyendo opcionalmente variables en expresiones simples para la interpolación usando [[ variableName ]]"
-
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
-msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
-msgstr "Esta es la siguiente ubicación. En el caso de una aplicación construida con Bonita BPM Portal, combine la URL de su aplicación con el token de página"
 
 #: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."

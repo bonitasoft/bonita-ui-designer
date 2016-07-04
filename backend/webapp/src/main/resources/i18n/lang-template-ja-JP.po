@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-06-07 11:32-0400\n"
+"PO-Revision-Date: 2016-07-04 05:52-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -1090,7 +1090,7 @@ msgstr "最後の行"
 
 #: home/artifact-list/artifact-list.directive.js:32
 msgid "Last Update:"
-msgstr "最終更新日時："
+msgstr "最新更新日時："
 
 #: home/artifact-factory.service.js:44
 msgid "Layouts"
@@ -1218,6 +1218,10 @@ msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>�
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
 
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
+msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
+msgstr ""
+
 #: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
 msgstr "アーティファクトが見つかりません。"
@@ -1251,11 +1255,11 @@ msgstr "ヘルプを開く"
 
 #: home/home.controller.js:59
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
-msgstr "アーティファクト名順に並んでいます <br/>。最終更新日で並べ替えるには、ここをクリックしてください。"
+msgstr "アーティファクト名順に並んでいます <br/>。最新更新日時で並べ替えるには、ここをクリックしてください。"
 
 #: home/home.controller.js:58
 msgid "Ordered by last update.<br/>Click to sort by artifact name"
-msgstr "最終更新日順に並んでいます。<br/>アーティファクト名順で並べ替えるには、ここをクリックしてください。"
+msgstr "最新更新日時順に並んでいます。<br/>アーティファクト名順で並べ替えるには、ここをクリックしてください。"
 
 #: home/import/import-success-message.html:1
 msgid "Overridden artifacts"
@@ -1610,10 +1614,6 @@ msgstr "ページまたはフォームのコンテンツの構造化に使用さ
 #: editor/properties-panel/bond/interpolation.html:1
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "テキスト、必要に応じて {{variableName}} を使用した補完で簡単な式に中に変数を含めることができます"
-
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
-msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
-msgstr "次に進む場所です。Bonita BPM ポータルを使用してビルドされているアプリケーションの場合は、このページトークンを使ってあなたのアプリケーションURLを結び付けます。"
 
 #: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."

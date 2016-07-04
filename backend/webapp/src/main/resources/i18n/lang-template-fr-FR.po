@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2016-06-07 11:45-0400\n"
+"PO-Revision-Date: 2016-07-04 08:54-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -1218,6 +1218,10 @@ msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, <br/> co
 msgid "New window (_blank)"
 msgstr "Nouvelle fenêtre (_blank)"
 
+#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
+msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
+msgstr "Page suivante à afficher, dans une application. Dans le portail, ce champ est ignoré car la navigation est gérée automatiquement"
+
 #: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
 msgstr "Aucun artefact."
@@ -1506,7 +1510,7 @@ msgstr "Courte chaîne de texte ou paragraphe à afficher. Peut inclure des bali
 
 #: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
 msgid "Show today button"
-msgstr "Cacher le bouton Aujourd'hui"
+msgstr "Afficher le bouton Aujourd'hui"
 
 #: assets/generic-asset-form.html:1
 msgid "Source"
@@ -1610,10 +1614,6 @@ msgstr "Texte utilisé pour structurer le contenu de la page ou du formulaire"
 #: editor/properties-panel/bond/interpolation.html:1
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texte, incluant éventuellement des variables dans des expressions simples en utilisant l'interpolation avec {{ variableName }}"
-
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
-msgid "That is the next location. In the case of an application built using the Bonita BPM Portal, combine your application URL with the page token"
-msgstr "C'est la page suivante à afficher. Dans le cas d'une application générée à l'aide du portail, créez cette URL en combinant l'URL de l'application avec le token de la page"
 
 #: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
