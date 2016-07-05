@@ -1,9 +1,10 @@
 describe('widget property field', function() {
-  var $compile, element, scope;
+  var $compile, element, scope, timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel'));
-  beforeEach(inject(function(_$compile_, $rootScope) {
+  beforeEach(inject(function(_$compile_, $rootScope, $timeout) {
     $compile = _$compile_;
+    timeout = $timeout;
 
     scope = $rootScope.$new();
     scope.propertyValue = {};
@@ -26,8 +27,11 @@ describe('widget property field', function() {
   it('should allow switching to the expression editor when the property is of type expression', function() {
     expect(element.find('input').attr('type')).toBe('radio');
     element.find('button').click();
+    spyOn(element.find('input')[0], 'focus');
+    timeout.flush();
 
     expect(element.find('input').attr('type')).toBe('text');
+    expect(element.find('input')[0].focus).toHaveBeenCalled();
     expect(scope.propertyValue.type).toBe('expression');
     element.find('button').click();
 
