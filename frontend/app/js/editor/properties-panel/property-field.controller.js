@@ -40,6 +40,7 @@ angular.module('bonitasoft.designer.editor.properties-panel').controller('Proper
     valuesMemory[$scope.propertyValue.type] = $scope.propertyValue.value;
     $scope.propertyValue.type = $scope.propertyValue.type === 'expression' ? 'constant' : 'expression';
     $scope.propertyValue.value = valuesMemory[$scope.propertyValue.type];
+    $scope.focusInput();
   };
 
   this.isExpression = function() {
