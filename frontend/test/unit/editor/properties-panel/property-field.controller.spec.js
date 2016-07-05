@@ -17,6 +17,7 @@ describe('widget property field controller', function() {
       });
     };
     controller = createController($scope);
+    $scope.focusInput = jasmine.createSpy();
     $scope.$apply();
   }));
 
@@ -47,8 +48,10 @@ describe('widget property field controller', function() {
 
     controller.toggleExpressionEditor();
     expect($scope.propertyValue.type).toBe('expression');
+    expect($scope.focusInput).toHaveBeenCalled();
 
     controller.toggleExpressionEditor();
+    expect($scope.focusInput).toHaveBeenCalled();
     expect($scope.propertyValue.type).toBe('constant');
   });
 
