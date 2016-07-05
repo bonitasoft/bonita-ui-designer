@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.properties-panel').directive('propertyField', function() {
+angular.module('bonitasoft.designer.editor.properties-panel').directive('propertyField', function($timeout) {
 
   'use strict';
 
@@ -26,6 +26,16 @@ angular.module('bonitasoft.designer.editor.properties-panel').directive('propert
     },
     templateUrl: 'js/editor/properties-panel/property-field.html',
     controller: 'PropertyFieldDirectiveCtrl',
-    controllerAs: 'propertyField'
+    controllerAs: 'propertyField',
+    link: function(scope, element) {
+      scope.focusInput = function() {
+        $timeout(() => {
+          const input = element.find('input');
+          const value = input.val();
+          //force IE & FF to focus at the end of input
+          input.focus().val('').val(value);
+        }, 0);
+      };
+    }
   };
 });
