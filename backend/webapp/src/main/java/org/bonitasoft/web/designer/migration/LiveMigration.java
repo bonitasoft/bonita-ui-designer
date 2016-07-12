@@ -78,7 +78,7 @@ public class LiveMigration<A extends DesignerArtifact> {
 
     private void migrate(Repository<A> repository, Path path) {
         if (isMigrable(path)) {
-            final A artifact = loader.load(path.getParent(), valueOf(path.getFileName()));
+            final A artifact = loader.load(path.getParent().resolve(path.getFileName()));
             String formerArtifactVersion = artifact.getDesignerVersion();
             for (Migration<A> migration : migrationList) {
                 migration.migrate(artifact);

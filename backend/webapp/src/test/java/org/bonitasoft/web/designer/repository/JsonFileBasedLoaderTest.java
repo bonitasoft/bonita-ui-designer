@@ -73,7 +73,7 @@ public class JsonFileBasedLoaderTest {
         SimpleDesignerArtifact expectedObject = aFilledSimpleObject("id");
         addToRepository(expectedObject);
 
-        assertThat(loader.get(repoDirectory, "id")).isEqualTo(expectedObject);
+        assertThat(loader.get(repoDirectory.resolve("id/id.json"))).isEqualTo(expectedObject);
     }
 
     @Test(expected = IOException.class)
@@ -81,12 +81,12 @@ public class JsonFileBasedLoaderTest {
         addToRepository(aFilledSimpleObject("id"));
         doThrow(new IOException()).when(objectMapper).fromJson(any(byte[].class), eq(SimpleDesignerArtifact.class));
 
-        loader.get(repoDirectory, "foobar");
+        loader.get(repoDirectory.resolve("foobar/foobar.json"));
     }
 
     @Test(expected = NoSuchFileException.class)
     public void should_throw_NosuchFileException_when_while_getting_an_unexisting_object() throws Exception {
-        loader.get(repoDirectory, "unexisting");
+        loader.get(repoDirectory.resolve("unexisting/unexisting.json"));
     }
 
     @Test
@@ -216,21 +216,21 @@ public class JsonFileBasedLoaderTest {
         SimpleDesignerArtifact object1 = aFilledSimpleObject("objet1");
         addToRepository(object1);
 
-        SimpleDesignerArtifact loadedSimpleVersioned = loader.load(repoDirectory.resolve("objet1"), "objet1.json");
+        SimpleDesignerArtifact loadedSimpleVersioned = loader.load(repoDirectory.resolve("objet1/objet1.json"));
 
         assertThat(loadedSimpleVersioned).isEqualTo(object1);
     }
 
     @Test(expected = NotFoundException.class)
     public void should_throw_notfound_exception_when_there_are_no_pages_in_folder() throws Exception {
-        loader.load(repoDirectory, "test");
+        loader.load(repoDirectory.resolve("test"));
     }
 
     @Test(expected = JsonReadException.class)
     public void should_throw_json_read_exception_when_loaded_file_is_not_valid_json() throws Exception {
         write(repoDirectory.resolve("wrongjson.json"), "notJson".getBytes());
 
-        loader.load(repoDirectory, "wrongjson.json");
+        loader.load(repoDirectory.resolve("wrongjson.json"));
     }
 
 }

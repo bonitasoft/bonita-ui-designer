@@ -71,7 +71,7 @@ public class ArtifactImporter<T extends Identifiable> {
         String modelFile = repository.getComponentName() + ".json";
         try {
             // first load everything
-            T element = loader.load(resources, modelFile);
+            T element = loader.load(resources.resolve(modelFile));
             Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
             ImportReport report = buildReport(element, dependencies);

@@ -68,7 +68,7 @@ public class WidgetLoaderTest {
         Widget notExpectedWidget = WidgetBuilder.aWidget().id("label").build();
         addToDirectory(widgetDirectory, expectedWidget, notExpectedWidget);
 
-        Widget widget = widgetLoader.get(widgetDirectory, "input");
+        Widget widget = widgetLoader.get(widgetDirectory.resolve("input/input.json"));
 
         assertThat(widget).isEqualTo(expectedWidget);
     }
@@ -128,20 +128,20 @@ public class WidgetLoaderTest {
         Widget input = WidgetBuilder.aWidget().id("input").build();
         addToDirectory(widgetDirectory, input);
 
-        Widget widget = widgetLoader.load(widgetDirectory.resolve("input"), "input.json");
+        Widget widget = widgetLoader.load(widgetDirectory.resolve("input/input.json"));
 
         assertThat(widget).isEqualTo(input);
     }
 
     @Test(expected = NotFoundException.class)
     public void should_throw_notfound_exception_when_there_are_no_pages_in_folder() throws Exception {
-        widgetLoader.load(widgetDirectory, "test");
+        widgetLoader.load(widgetDirectory.resolve("test"));
     }
 
     @Test(expected = JsonReadException.class)
     public void should_throw_json_read_exception_when_loaded_file_is_not_valid_json() throws Exception {
         write(widgetDirectory.resolve("wrongjson.json"), "notJson".getBytes());
 
-        widgetLoader.load(widgetDirectory, "wrongjson.json");
+        widgetLoader.load(widgetDirectory.resolve("wrongjson.json"));
     }
 }
