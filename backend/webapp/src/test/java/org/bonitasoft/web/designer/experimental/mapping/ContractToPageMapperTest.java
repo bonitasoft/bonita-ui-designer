@@ -42,6 +42,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ContractToPageMapperTest {
 
     JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    private ContractInputToWidgetMapper contractToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
+    ContractToContainerMapper contractToContainerMapper = new ContractToContainerMapper(contractToWidgetMapper);
 
     @Test
     public void visit_a_contract_when_creating_a_page() throws Exception {
@@ -53,7 +55,7 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper), objectMapper);
+        return new ContractToPageMapper(contractToWidgetMapper, contractToContainerMapper, objectMapper, new DimensionFactory());
     }
 
     @Test
