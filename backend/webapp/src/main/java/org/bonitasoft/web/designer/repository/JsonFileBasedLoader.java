@@ -45,7 +45,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
     @Override
     public List<T> findByObjectId(Path directory, String objectId) throws IOException {
         //Object can be of type <E>
-        Path objectPath = jsonFile(directory, objectId);
+        Path objectPath = resolve(directory, objectId);
         List<T> objects = new ArrayList<>();
 
         //Each component has its own files in a directory named with its id
@@ -70,7 +70,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
     @Override
     public boolean contains(Path directory, String objectId) throws IOException {
         //Object can be of type <E>
-        Path objectPath = jsonFile(directory, objectId);
+        Path objectPath = resolve(directory, objectId);
 
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "*")) {
             for (Path componentDirectory : directoryStream) {

@@ -25,9 +25,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
@@ -47,9 +45,8 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         this.type = type;
     }
 
-    @Override
-    public T get(Path directory, String id) throws IOException {
-        return objectMapper.fromJson(readAllBytes(jsonFile(directory, id)), type);
+    public T get(Path path) throws IOException {
+        return objectMapper.fromJson(readAllBytes(path), type);
     }
 
     @Override
@@ -63,27 +60,27 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, glob)) {
             for (Path path : directoryStream) {
                 String id = getComponentId(path);
-                objects.add(get(directory, id));
+                objects.add(get(directory.resolve(format("%s/%s.json", id, id))));
             }
         }
         return objects;
     }
 
     @Override
-    public T load(Path directory, String filename) {
+    public T load(Path path) {
         try {
-            return objectMapper.fromJson(readAllBytes(directory.resolve(filename)), type);
+            return objectMapper.fromJson(readAllBytes(path), type);
         } catch (JsonProcessingException e) {
-            throw new JsonReadException(format("Could not read json file [%s]", filename), e);
+            throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {
-            throw new NotFoundException(format("Could not load component, unexpected structure in the file [%s]", filename));
+            throw new NotFoundException(format("Could not load component, unexpected structure in the file [%s]", path.getFileName()));
         } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting component (on file [%s])", filename), e);
+            throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
         }
     }
 
-    public Path jsonFile(Path directory, String id) {
-        return directory.resolve(id).resolve(id + ".json");
+    public Path resolve(Path directory, String id) {
+        return directory.resolve(format("%s/%s.json", id, id));
     }
 
     private String getComponentId(Path path) {
