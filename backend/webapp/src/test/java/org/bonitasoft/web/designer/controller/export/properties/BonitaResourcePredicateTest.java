@@ -28,7 +28,7 @@ public class BonitaResourcePredicateTest {
 
     @Before
     public void setUp() throws Exception {
-        data = new Data();
+        data = new Data(URL, null);
         predicate = new BonitaResourcePredicate("matches");
     }
 

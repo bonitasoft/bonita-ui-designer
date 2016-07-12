@@ -22,6 +22,7 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
+import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputVisitor;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.junit.Test;
 

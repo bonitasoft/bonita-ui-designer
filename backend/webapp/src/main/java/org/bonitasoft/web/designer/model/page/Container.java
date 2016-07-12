@@ -18,6 +18,7 @@ import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.springframework.util.StringUtils.isEmpty;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.bonitasoft.web.designer.experimental.mapping.FormScope;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
@@ -53,6 +56,11 @@ public class Container extends Element implements ElementContainer {
     public boolean isRepeated() {
         return getPropertyValues().containsKey("repeatedCollection")
                 && !isEmpty(getPropertyValues().get("repeatedCollection").getValue());
+    }
+
+    public Container addNewRow(Element element) {
+        this.getRows().add(Collections.<Element>singletonList(element));
+        return this;
     }
 
     @Override
