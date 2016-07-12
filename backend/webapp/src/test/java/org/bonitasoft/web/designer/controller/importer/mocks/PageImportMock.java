@@ -39,7 +39,7 @@ public class PageImportMock {
 
     public Page mockPageToBeImported(PageBuilder pageBuilder) {
         Page page = pageBuilder.build();
-        when(pageLoader.load(unzippedPath, "page.json")).thenReturn(page);
+        when(pageLoader.load(unzippedPath.resolve("page.json"))).thenReturn(page);
         return page;
     }
 }
