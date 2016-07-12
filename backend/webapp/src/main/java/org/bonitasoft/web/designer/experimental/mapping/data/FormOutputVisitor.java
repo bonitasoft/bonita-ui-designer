@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.bonitasoft.web.designer.experimental.mapping;
+package org.bonitasoft.web.designer.experimental.mapping.data;
 
 import static com.google.common.base.Joiner.on;
 import static java.lang.String.format;
