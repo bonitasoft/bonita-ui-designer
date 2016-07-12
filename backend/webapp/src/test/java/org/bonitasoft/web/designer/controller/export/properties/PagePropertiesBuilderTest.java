@@ -75,10 +75,7 @@ public class PagePropertiesBuilderTest {
     }
 
     private Data anApiData(String value) {
-        Data resource = new Data();
-        resource.setType(URL);
-        resource.setValue(value);
-        return resource;
+        return new Data(URL, value);
     }
 
     @Test
@@ -119,7 +116,7 @@ public class PagePropertiesBuilderTest {
         authRules.add("POST|bpm/process");
         page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
         when(authRulesCollector.visit(page)).thenReturn(authRules);
-        
+
         String properties = new String(pagePropertiesBuilder.build(page));
 
         assertThat(properties).contains("resources=[GET|bpm/userTask, GET|living/application-menu, POST|bpm/process]");

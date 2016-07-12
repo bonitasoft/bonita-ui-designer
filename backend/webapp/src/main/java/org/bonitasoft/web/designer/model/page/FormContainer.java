@@ -41,8 +41,9 @@ public class FormContainer extends Element {
         return container;
     }
 
-    public void setContainer(Container container) {
+    public FormContainer setContainer(Container container) {
         this.container = container;
+        return this;
     }
 
     @JsonIgnore

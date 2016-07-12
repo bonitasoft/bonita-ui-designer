@@ -60,9 +60,7 @@ public class DataBuilder {
     }
 
     public Data build() {
-        Data data = new Data();
-        data.setType(type);
-        data.setValue(value);
+        Data data = new Data(type, value);
         data.setExposed(exposed);
         return data;
     }

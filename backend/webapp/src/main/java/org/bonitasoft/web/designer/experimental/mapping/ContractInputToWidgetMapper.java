@@ -22,10 +22,12 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.collect.Lists;
+import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
+import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
+import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
@@ -51,11 +53,9 @@ public class ContractInputToWidgetMapper {
     private static final Logger logger = LoggerFactory.getLogger(ParametrizedWidgetFactory.class);
 
     public static final String ITEM_ITERATOR = "$item";
-    static final String FORM_INPUT_DATA = "formInput";
-    static final String FORM_OUTPUT_DATA = "formOutput";
+
     private ParametrizedWidgetFactory parametrizedWidgetFactory;
     private DimensionFactory dimensionFactory;
-
     private JacksonObjectMapper objectMapperWrapper;
 
     @Inject
@@ -120,7 +120,7 @@ public class ContractInputToWidgetMapper {
 
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
-        submitButton.setDataToSend(FORM_OUTPUT_DATA);
+        submitButton.setDataToSend(FormOutputData.NAME);
         submitButton.setTargetUrlOnSuccess("/bonita");
         submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
         return submitButton.toComponent(dimensionFactory);
@@ -142,7 +142,7 @@ public class ContractInputToWidgetMapper {
         if (pathNames.isEmpty()) {
             return null;
         } else if (pInput == null) {
-            pathNames.add(FORM_INPUT_DATA);
+            pathNames.add(FormInputData.NAME);
         }
         return on(".").join(reverse(pathNames));
     }
