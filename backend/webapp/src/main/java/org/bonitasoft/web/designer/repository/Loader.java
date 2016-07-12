@@ -26,7 +26,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
  */
 public interface Loader<T extends Identifiable> {
 
-    T get(Path directory, String id) throws IOException;
+    T get(Path path) throws IOException;
 
     List<T> getAll(Path directory) throws IOException;
 
@@ -51,7 +51,6 @@ public interface Loader<T extends Identifiable> {
     /**
      * Use to load the component in the path directory
      */
-    T load(Path directory, String filename);
-
+    T load(Path path);
 }
 
