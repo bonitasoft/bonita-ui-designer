@@ -24,6 +24,7 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.junit.Before;
