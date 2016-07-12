@@ -120,6 +120,6 @@ public class LiveMigrationTest {
         folder.newFolder("pageJson");
         File pageJson = folder.newFile("pageJson/pageJson.json");
         write(pageJson.toPath(), format("{ \"id\": \"pageJson\", \"designerVersion\": \"%s\" }", version).getBytes());
-        return loader.load(pageJson.getParentFile().toPath(), pageJson.getName());
+        return loader.load(pageJson.getParentFile().toPath().resolve(pageJson.getName()));
     }
 }

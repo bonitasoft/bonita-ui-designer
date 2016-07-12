@@ -66,7 +66,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     @Override
     public T get(String id) throws NotFoundException, RepositoryException {
         try {
-            return loader.get(path, id);
+            return loader.get(path.resolve(format("%s/%s.json", id, id)));
         } catch (NoSuchFileException e) {
             throw new NotFoundException(format("Non existing %s [%s]", getComponentName(), id));
         } catch (IOException e) {
