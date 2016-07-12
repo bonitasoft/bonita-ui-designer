@@ -193,7 +193,7 @@ public class ArtifactImporterTest {
     @Test(expected = ServerImportException.class)
     public void should_throw_server_import_exception_when_error_occurs_while_saving_files_in_repository() throws Exception {
         Page page = aPage().withId("aPage").build();
-        when(pageLoader.load(any(Path.class), eq("page.json"))).thenReturn(page);
+        when(pageLoader.load(unzippedPath.resolve("page.json"))).thenReturn(page);
         doThrow(RepositoryException.class).when(pageRepository).updateLastUpdateAndSave(page);
 
         importer.doImport(anImport(pageImportPath));
