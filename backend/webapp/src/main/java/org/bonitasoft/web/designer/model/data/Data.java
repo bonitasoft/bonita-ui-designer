@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.model.data;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -25,6 +27,12 @@ public class Data {
     private DataType type = DataType.CONSTANT;
     private Object value;
     private boolean exposed;
+
+    @JsonCreator
+    public Data(@JsonProperty("type") DataType type, @JsonProperty("value") Object value) {
+        this.type = type;
+        this.value = value;
+    }
 
     @JsonView({JsonViewPersistence.class})
     public DataType getType() {

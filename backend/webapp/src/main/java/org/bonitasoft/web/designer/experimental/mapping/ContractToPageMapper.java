@@ -14,121 +14,44 @@
  */
 package org.bonitasoft.web.designer.experimental.mapping;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
-import org.bonitasoft.web.designer.model.ElementContainer;
+import org.bonitasoft.web.designer.experimental.mapping.strategy.CaseOverviewPageCreationStrategy;
+import org.bonitasoft.web.designer.experimental.mapping.strategy.ProcessInstantiationFormCreationStrategy;
+import org.bonitasoft.web.designer.experimental.mapping.strategy.TaskFormCreationStrategy;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.data.DataType;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 
 @Named
 public class ContractToPageMapper {
 
-    private static final String CONTEXT_API_URL = "../API/bpm/userTask/{{taskId}}/context";
-    private static final String CONTEXT_DATA_NAME = "context";
-    private static final String TASK_ID_DATA_NAME = "taskId";
     private ContractInputToWidgetMapper contractToWidgetMapper;
-    private JacksonObjectMapper objectMapperWrapper;
+    private ContractToContainerMapper contractToContainerMapper;
+    private JacksonObjectMapper mapper;
+    private DimensionFactory dimensionFactory;
 
     @Inject
-    public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, JacksonObjectMapper objectMapperWrapper) {
+    public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
+            JacksonObjectMapper mapper, DimensionFactory dimensionFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
-        this.objectMapperWrapper = objectMapperWrapper;
+        this.contractToContainerMapper = contractToContainerMapper;
+        this.mapper = mapper;
+        this.dimensionFactory = dimensionFactory;
     }
 
     public Page createFormPage(String name, Contract contract, FormScope scope) {
-        Page page = createEmptyPageWithData(name, contract, scope);
-        page.setType("form");
+        switch (scope) {
+            case OVERVIEW:
+                return new CaseOverviewPageCreationStrategy(contractToContainerMapper).create(name, contract);
 
-        if (scope == FormScope.TASK) {
-            page.getRows().add(Collections.<Element>singletonList(createTaskInformation()));
+            case PROCESS:
+                return new ProcessInstantiationFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper).create(name, contract);
+
+            case TASK:
+            default:
+                return new TaskFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, dimensionFactory).create(name, contract);
         }
-
-        FormContainer formContainer = new FormContainer();
-        page.getRows().add(Collections.<Element>singletonList(formContainer));
-
-        contract.accept(new ContractInputVisitorImpl(formContainer.getContainer(), contractToWidgetMapper));
-        if (scope != FormScope.OVERVIEW) {
-            addSubmitButton(formContainer.getContainer(), contract, scope);
-        }
-
-        if (formContainer.getContainer().getRows().isEmpty()) {
-            formContainer.getContainer().getRows().add(new ArrayList<Element>());
-        }
-        return page;
-    }
-
-    private Container createTaskInformation() {
-        DimensionFactory dimensionFactory = new DimensionFactory();
-        Container container = new Container();
-
-        TitleWidget title = new TitleWidget();
-        title.setLevel("Level 1");
-        title.setText("{{ task.displayName }}");
-        title.setAlignment(Alignment.CENTER);
-        container.getRows().add(Collections.<Element>singletonList(title.toComponent(dimensionFactory)));
-
-        TextWidget description = new TextWidget();
-        description.setText("{{ task.displayDescription }}");
-        container.getRows().add(Collections.<Element>singletonList(description.toComponent(dimensionFactory)));
-
-        return container;
-    }
-
-    private Page createEmptyPageWithData(String name, Contract contract, FormScope scope) {
-        Page page = new Page();
-        page.setName(name);
-        if (scope != FormScope.OVERVIEW) {
-            addFormInputData(contract, page);
-            addFormOutputData(contract, page);
-        }
-        if (scope == FormScope.TASK) {
-            page.addData(TASK_ID_DATA_NAME, newData(DataType.URLPARAMETER, "id"));
-            page.addData("task", newData(DataType.URL, "../API/bpm/userTask/{{taskId}}"));
-            page.addData(CONTEXT_DATA_NAME, newData(DataType.URL, CONTEXT_API_URL));
-        }
-        return page;
-    }
-
-    private void addFormOutputData(Contract contract, Page page) {
-        FormOutputVisitor formOutputVisitor = new FormOutputVisitor();
-        contract.accept(formOutputVisitor);
-        page.addData(ContractInputToWidgetMapper.FORM_OUTPUT_DATA, newData(DataType.EXPRESSION, formOutputVisitor.toJavascriptExpression()));
-    }
-
-    private void addFormInputData(Contract contract, Page page) {
-        FormInputVisitor formInputVisitor = new FormInputVisitor(objectMapperWrapper);
-        contract.accept(formInputVisitor);
-        try {
-            page.addData(ContractInputToWidgetMapper.FORM_INPUT_DATA, newData(DataType.JSON, formInputVisitor.toJson()));
-        } catch (IOException e) {
-            page.addData(ContractInputToWidgetMapper.FORM_INPUT_DATA, newData(DataType.JSON, "{}"));
-        }
-    }
-
-    private Data newData(DataType type, Object value) {
-        Data data = new Data();
-        data.setType(type);
-        data.setValue(value);
-        return data;
-    }
-
-    private void addSubmitButton(ElementContainer page, Contract contract, FormScope scope) {
-        ArrayList<Element> row = new ArrayList<>();
-        row.add(contractToWidgetMapper.createSubmitButton(contract, ButtonAction.fromScope(scope)));
-        page.getRows().add(row);
     }
 }
