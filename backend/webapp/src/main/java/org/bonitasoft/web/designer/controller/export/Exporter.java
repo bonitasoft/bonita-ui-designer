@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller.export;
 
 import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
 import static org.springframework.util.FileCopyUtils.copy;
@@ -28,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +37,12 @@ public class Exporter<T extends DesignerArtifact> {
 
     private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
 
-    private final JacksonObjectMapper objectMapper;
     private final ExportStep<T>[] exportSteps;
 
     private Repository<T> repository;
 
-    public Exporter(Repository<T> repository, JacksonObjectMapper objectMapper, ExportStep<T>... exportSteps) {
+    public Exporter(Repository<T> repository, ExportStep<T>... exportSteps) {
         this.repository = repository;
-        this.objectMapper = objectMapper;
         this.exportSteps = exportSteps;
     }
 
@@ -66,7 +64,7 @@ public class Exporter<T extends DesignerArtifact> {
             filename = getFileName(identifiable);
 
             // add json model
-            zipper.addToZip(objectMapper.toJson(identifiable), format("%s/%s.json", RESOURCES, repository.getComponentName()));
+            zipper.addToZip(readAllBytes(repository.resolvePath(id).resolve(format("%s.json", id))), format("%s/%s.json", RESOURCES, repository.getComponentName()));
             // forceExecution export steps
             for (ExportStep exporter : exportSteps) {
                 exporter.execute(zipper, identifiable);
