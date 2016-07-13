@@ -14,7 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import static java.nio.file.Paths.get;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -27,10 +31,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -96,31 +98,31 @@ public class ZipperTest {
     @Test
     public void should_zip_a_directory() throws Exception {
 
-        zipper.addDirectoryToZip(Paths.get(dir));
+        zipper.addDirectoryToZip(get(dir), ALL_DIRECTORIES, ALL_FILES, "");
 
         Path dest = unzip(out);
-        expectSameDirContent(dest, Paths.get(dir));
+        expectSameDirContent(dest, get(dir));
     }
 
     @Test
     public void should_zip_a_directory_in_a_destination_folder_without_filter() throws Exception {
-        zipper.addDirectoryToZip(Paths.get(dir), "destinationInZip");
+        zipper.addDirectoryToZip(get(dir), ALL_DIRECTORIES, ALL_FILES, "destinationInZip");
 
         Path dest = unzip(out);
-        expectSameDirContent(dest.resolve("destinationInZip"), Paths.get(dir));
+        expectSameDirContent(dest.resolve("destinationInZip"), get(dir));
     }
 
     @Test
     public void should_zip_a_directory_in_a_destination_folder() throws Exception {
-        zipper.addDirectoryToZip(Paths.get(dir), Collections.singleton("aSubDirectory"), "destinationInZip");
+        zipper.addDirectoryToZip(get(dir), new IncludeChildDirectoryPredicate(get(dir), singleton("aSubDirectory")), ALL_FILES, "destinationInZip");
 
         Path dest = unzip(out);
-        expectSameDirContent(dest.resolve("destinationInZip"), Paths.get(dir));
+        expectSameDirContent(dest.resolve("destinationInZip"), get(dir));
     }
 
     @Test
     public void should_zipentry_contains_paths_instead_of_file_separators() throws Exception {
-        zipper.addDirectoryToZip(Paths.get(dir), Collections.singleton("aSubDirectory"), "destinationInZip");
+        zipper.addDirectoryToZip(get(dir), new IncludeChildDirectoryPredicate(get(dir), singleton("aSubDirectory")), ALL_FILES, "destinationInZip");
 
         Set<String> entries = zipEntries(out);
         assertThat(entries).contains("destinationInZip/aFile.txt");
@@ -140,7 +142,7 @@ public class ZipperTest {
     @Test
     public void should_zip_a_directory_and_filter_out_unaccepted_subdirectories() throws Exception {
         String destinationInZip = "destinationInZip";
-        zipper.addDirectoryToZip(Paths.get(dir), Collections.singleton("nonExisting"), destinationInZip);
+        zipper.addDirectoryToZip(get(dir), new IncludeChildDirectoryPredicate(get(dir), singleton("nonExisting")), ALL_FILES, destinationInZip);
 
         Path dest = unzip(out);
         assertThat(dest.resolve(destinationInZip).toFile().list()).containsExactly("aFile.txt");
