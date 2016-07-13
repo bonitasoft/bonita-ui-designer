@@ -21,7 +21,6 @@ import org.bonitasoft.web.designer.experimental.mapping.Form;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 
 public class CaseOverviewPageCreationStrategy implements PageCreationStrategy {
@@ -35,15 +34,15 @@ public class CaseOverviewPageCreationStrategy implements PageCreationStrategy {
     @Override
     public Page create(String name, Contract contract) {
         return new Form(name)
-            .addNewRow(createFormContainer(contract));
+            .addNewRow(createContainer(contract));
     }
 
-    private FormContainer createFormContainer(Contract contract) {
+    private Container createContainer(Contract contract) {
         Container container = contractToContainerMapper.create(contract);
         if (container.getRows().isEmpty()) {
             container.getRows().add(new ArrayList<Element>());
         }
-        return new FormContainer().setContainer(container);
+        return container;
     }
 
 }

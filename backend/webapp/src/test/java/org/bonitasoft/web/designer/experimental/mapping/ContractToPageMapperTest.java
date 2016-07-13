@@ -180,13 +180,13 @@ public class ContractToPageMapperTest {
     }
 
     @Test
-    public void should_create_an_empty_formcontainer_when_contract_is_empty_and_scope_is_overview() throws Exception {
+    public void should_create_an_empty_container_when_contract_is_empty_and_scope_is_overview() throws Exception {
         Contract anEmptyContract = aContract().build();
 
         Page page = makeContractToPageMapper().createFormPage("myPage", anEmptyContract, FormScope.OVERVIEW);
 
-        FormContainer formContainer = (FormContainer) page.getRows().get(0).get(0);
-        assertThat(formContainer.getContainer().getRows().get(0)).isEqualTo(new ArrayList<>());
+        Container container = (Container) page.getRows().get(0).get(0);
+        assertThat(container.getRows().get(0)).isEqualTo(new ArrayList<>());
     }
 
     private Container grabTaskInformation(Page page) {
