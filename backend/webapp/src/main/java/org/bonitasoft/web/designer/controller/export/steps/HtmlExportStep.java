@@ -14,11 +14,13 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
+import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.BACKEND_RESOURCES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -41,7 +43,11 @@ public class HtmlExportStep implements ExportStep<Page> {
 
     @Override
     public void execute(Zipper zipper, Page page) throws IOException {
-        zipper.addDirectoryToZip(Paths.get(resourceLoader.getResource(BACKEND_RESOURCES + "runtime").getURI()), RESOURCES);
+        zipper.addDirectoryToZip(
+                get(resourceLoader.getResource(BACKEND_RESOURCES + "runtime").getURI()),
+                ALL_DIRECTORIES,
+                ALL_FILES,
+                RESOURCES);
 
         byte[] html = generator.generateHtml(page).getBytes(StandardCharsets.UTF_8);
         zipper.addToZip(html, RESOURCES + "/index.html");

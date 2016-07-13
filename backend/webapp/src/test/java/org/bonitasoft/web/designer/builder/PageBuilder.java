@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
@@ -30,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.data.Data;
@@ -64,8 +67,13 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder with(ElementBuilder element) {
-        rows.add(asList(element.build()));
+    public PageBuilder with(ElementBuilder... elements) {
+        rows.add(newArrayList(transform(asList(elements), new Function<ElementBuilder, Element>() {
+            @Override
+            public Element apply(ElementBuilder elementBuilder) {
+                return elementBuilder.build();
+            }
+        })));
         return this;
     }
 
