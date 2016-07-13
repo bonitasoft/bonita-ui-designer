@@ -19,10 +19,15 @@ import static java.util.Arrays.asList;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -52,7 +57,6 @@ import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
@@ -73,13 +77,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 /**
  * @author Guillaume EHRET
@@ -211,11 +208,6 @@ public class DesignerConfig {
     @Bean
     public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, JacksonObjectMapper objectMapper, WidgetByIdExportStep widgetByIdExportStep) {
         return new Exporter(widgetRepository, objectMapper, widgetByIdExportStep);
-    }
-
-    @Bean
-    public List<Repository> widgetsUsedByRepositories(WidgetRepository widgetRepository, PageRepository pageRepository) {
-        return Lists.<Repository>newArrayList(pageRepository, widgetRepository);
     }
 
     @Bean
