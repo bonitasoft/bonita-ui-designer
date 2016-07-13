@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,6 +42,7 @@ public class AssetExportStep implements ExportStep<Page> {
             if (!pageAsset.isExternal()) {
                 zipper.addDirectoryToZip(
                         pageAssetRepository.findAssetPath(page.getId(), pageAsset.getName(), pageAsset.getType()),
+                        ALL_DIRECTORIES, ALL_FILES,
                         String.format("%s/assets/%s/%s", RESOURCES, pageAsset.getType().getPrefix(), pageAsset.getName())
                 );
             }
