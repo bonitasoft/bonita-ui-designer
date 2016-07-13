@@ -14,46 +14,55 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static com.google.common.collect.Sets.newHashSet;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.nio.file.Paths;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.*;
 
 import org.bonitasoft.web.designer.controller.export.Zipper;
-import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.utils.rule.TemporaryWidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.omg.CORBA.portable.OutputStream;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetsExportStepTest {
 
-    @Mock
-    private WorkspacePathResolver pathResolver;
+    private WorkspacePathResolver pathResolver = mock(WorkspacePathResolver.class);
 
-    @Mock
-    private WidgetIdVisitor widgetIdVisitor;
+    @Rule
+    public TemporaryWidgetRepository repository = new TemporaryWidgetRepository(pathResolver);;
 
-    @InjectMocks
     private WidgetsExportStep step;
 
     @Mock
     private Zipper zipper;
 
+    @Before
+    public void beforeEach() {
+        step = new WidgetsExportStep(pathResolver, new WidgetIdVisitor());
+        zipper = spy(new Zipper(mock(OutputStream.class)));
+    }
+
+
     @Test
     public void should_add_page_widgets_to_zip() throws Exception {
-        Page page = aPage().build();
-        when(widgetIdVisitor.visit(page)).thenReturn(newHashSet("widget1", "widget2"));
-        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get("widgets"));
+        repository.addWidget(aWidget().id("widget1"));
+        repository.addWidget(aWidget().id("widget2"));
 
-        step.execute(zipper, page);
+        step.execute(zipper, aPage().with(
+                aComponent("widget1"),
+                aComponent("widget2"))
+                .build());
 
-        verify(zipper).addDirectoryToZip(Paths.get("widgets"), newHashSet("widget1", "widget2"), "resources/widgets");
+        verify(zipper).addToZip(repository.resolveWidgetJson("widget1"), "resources/widgets/widget1/widget1.json");
+        verify(zipper).addToZip(repository.resolveWidgetJson("widget2"), "resources/widgets/widget2/widget2.json");
     }
 }

@@ -14,10 +14,14 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+
 import java.io.IOException;
+import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
@@ -37,6 +41,11 @@ public class WidgetsExportStep implements ExportStep<Page> {
 
     @Override
     public void execute(Zipper zipper, Page page) throws IOException {
-        zipper.addDirectoryToZip(pathResolver.getWidgetsRepositoryPath(), widgetIdVisitor.visit(page), RESOURCES + "/widgets");
+        Path widgetsRepositoryPath = pathResolver.getWidgetsRepositoryPath();
+        zipper.addDirectoryToZip(
+                widgetsRepositoryPath,
+                new IncludeChildDirectoryPredicate(widgetsRepositoryPath, widgetIdVisitor.visit(page)),
+                ALL_FILES,
+                RESOURCES + "/widgets");
     }
 }
