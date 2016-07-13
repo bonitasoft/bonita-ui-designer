@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import static java.nio.file.Files.walkFileTree;
+import static java.nio.file.Paths.get;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,16 +26,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zipper implements AutoCloseable {
 
-    private static final PathPredicate ACCEPT_ALL = new PathPredicate() {
+    interface PathPredicate {
+        boolean accept(Path path);
+    }
+
+    interface FilePredicate {
+        boolean accept(File file);
+    }
+
+    public static final PathPredicate ALL_DIRECTORIES = new PathPredicate() {
 
         @Override
         public boolean accept(Path path) {
+            return true;
+        }
+    };
+
+    public static final FilePredicate ALL_FILES = new FilePredicate() {
+
+        @Override
+        public boolean accept(File file) {
             return true;
         }
     };
@@ -43,50 +61,33 @@ public class Zipper implements AutoCloseable {
         zip = new ZipOutputStream(destStream);
     }
 
-    public void addDirectoryToZip(final Path directory) throws IOException {
-        addDirectoryToZip(directory, "");
+    public void addToZip(byte[] bytes, String destFilename) throws IOException {
+        zip.putNextEntry(new ZipEntry(destFilename));
+        zip.write(bytes);
+        zip.closeEntry();
     }
 
-    public void addDirectoryToZip(final Path directory, final String destinationDirectoryName) throws IOException {
-        addDirectoryToZip(directory, ACCEPT_ALL, destinationDirectoryName);
+    public void addToZip(Path path, String destFilename) throws IOException {
+        byte[] bytes = Files.readAllBytes(path);
+        addToZip(bytes, destFilename);
     }
 
     /**
-     * Adds the contents of the given source directory to the zip, by accepting only the direct subdirectories whose
-     * name is contained in the given accepted names.
+     * Adds the contents of the given source directory to the zip, by accepting only directories and files accepted by the
+     * given predicates.
      *
-     * @param sourceDirectory the source directory
-     * @param acceptedChildDirectoryNames the names of the accepted direct subdirectory names
+     * @param sourceDirectory          the source directory
+     * @param directoryPredicate       the predicate used to accept directories
+     * @param filePredicate            the predicate used to accept files
      * @param destinationDirectoryName the name of the target directory, in the zip, where all the files must be added.
      * @throws IOException
      */
     public void addDirectoryToZip(final Path sourceDirectory,
-            final Set<String> acceptedChildDirectoryNames,
-            final String destinationDirectoryName) throws IOException {
-        PathPredicate predicate = new PathPredicate() {
+                                  final PathPredicate directoryPredicate,
+                                  final FilePredicate filePredicate,
+                                  final String destinationDirectoryName) throws IOException {
 
-            @Override
-            public boolean accept(Path path) {
-                return !path.getParent().equals(sourceDirectory)
-                        || acceptedChildDirectoryNames.contains(path.getFileName().toString());
-            }
-        };
-        addDirectoryToZip(sourceDirectory, predicate, destinationDirectoryName);
-    }
-
-    /**
-     * Adds the contents of the given source directory to the zip, by accepting only the directories accepted by the
-     * given predicate.
-     *
-     * @param sourceDirectory the source directory
-     * @param directoryPredicate the predicate used to accept directories
-     * @param destinationDirectoryName the name of the target directory, in the zip, where all the files must be added.
-     * @throws IOException
-     */
-    private void addDirectoryToZip(final Path sourceDirectory,
-            final PathPredicate directoryPredicate,
-            final String destinationDirectoryName) throws IOException {
-        Files.walkFileTree(sourceDirectory, new SimpleFileVisitor<Path>() {
+        walkFileTree(sourceDirectory, new SimpleFileVisitor<Path>() {
 
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
@@ -98,27 +99,13 @@ public class Zipper implements AutoCloseable {
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                addToZip(file, normalizeZipEntryName(Paths.get(destinationDirectoryName).resolve(sourceDirectory.relativize(file))));
+                if (filePredicate.accept(file.toFile())) {
+                    addToZip(file, normalizeZipEntryName(get(destinationDirectoryName).resolve(sourceDirectory.relativize(file))));
+                }
                 return FileVisitResult.CONTINUE;
             }
 
         });
-    }
-
-    private String normalizeZipEntryName(Path path) {
-        String pathAsString = path.toString();
-        return pathAsString.replace(File.separator, "/");
-    }
-
-    public void addToZip(Path path, String destFilename) throws IOException {
-        byte[] bytes = Files.readAllBytes(path);
-        addToZip(bytes, destFilename);
-    }
-
-    public void addToZip(byte[] bytes, String destFilename) throws IOException {
-        zip.putNextEntry(new ZipEntry(destFilename));
-        zip.write(bytes);
-        zip.closeEntry();
     }
 
     public void close() throws IOException {
@@ -126,8 +113,7 @@ public class Zipper implements AutoCloseable {
         zip.close();
     }
 
-    private static interface PathPredicate {
-
-        boolean accept(Path path);
+    private String normalizeZipEntryName(Path path) {
+        return path.toString().replace(File.separator, "/");
     }
 }

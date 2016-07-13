@@ -14,14 +14,16 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
+import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.nio.file.Paths;
 import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.controller.export.Zipper;
@@ -69,7 +71,7 @@ public class HtmlExportStepTest {
 
         step.execute(zipper, aPage().build());
 
-        verify(zipper).addDirectoryToZip(Paths.get(new File("src/test/resources/generator").toURI()), "resources");
+        verify(zipper).addDirectoryToZip(get(new File("src/test/resources/generator").toURI()), ALL_DIRECTORIES, ALL_FILES, "resources");
     }
 
     @Test
