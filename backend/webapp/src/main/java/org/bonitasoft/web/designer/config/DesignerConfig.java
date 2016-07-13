@@ -201,13 +201,13 @@ public class DesignerConfig {
     }
 
     @Bean
-    public Exporter<Page> pageExporter(PageRepository pageRepository, JacksonObjectMapper objectMapper, ExportStep<Page>[] pageExportSteps) {
-        return new Exporter(pageRepository, objectMapper, pageExportSteps);
+    public Exporter<Page> pageExporter(PageRepository pageRepository, ExportStep<Page>[] pageExportSteps) {
+        return new Exporter(pageRepository, pageExportSteps);
     }
 
     @Bean
-    public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, JacksonObjectMapper objectMapper, WidgetByIdExportStep widgetByIdExportStep) {
-        return new Exporter(widgetRepository, objectMapper, widgetByIdExportStep);
+    public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, WidgetByIdExportStep widgetByIdExportStep) {
+        return new Exporter(widgetRepository, widgetByIdExportStep);
     }
 
     @Bean
