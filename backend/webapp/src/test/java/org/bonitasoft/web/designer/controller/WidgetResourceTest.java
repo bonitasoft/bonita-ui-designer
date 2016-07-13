@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
@@ -24,9 +25,7 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.hamcrest.CoreMatchers.everyItem;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.joda.time.Instant.parse;
 import static org.mockito.Matchers.any;
@@ -43,23 +42,21 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -94,8 +91,12 @@ public class WidgetResourceTest {
     public void setUp() throws URISyntaxException {
         initMocks(this);
         widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
-        WidgetResource widgetResource = new WidgetResource(new DesignerConfig().objectMapperWrapper(), widgetRepository, widgetAssetService, widgetRepositoryPath);
-        widgetResource.setUsedByRepositories(Arrays.<Repository>asList(widgetRepository, pageRepository));
+        WidgetResource widgetResource = new WidgetResource(
+                new DesignerConfig().objectMapperWrapper(),
+                widgetRepository,
+                widgetAssetService,
+                widgetRepositoryPath,
+                singletonList((WidgetContainerRepository) pageRepository));
         mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(pageRepository.getComponentName()).thenReturn("page");
@@ -119,8 +120,7 @@ public class WidgetResourceTest {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").lastUpdate(parse("2015-02-02")).build();
         when(widgetRepository.getAll()).thenReturn(asList(input, label));
-        when(pageRepository.findByObjectId(anyString())).thenReturn(asList(aPage().withName("hello").build()));
-        when(widgetRepository.findByObjectId(anyString())).thenReturn(asList(aWidget().name("helloWidget").build()));
+        when(pageRepository.getArtifactsUsingWidget(anyString())).thenReturn(asList(aPage().withName("hello").build()));
 
         mockMvc.perform(get("/rest/widgets?view=light"))
                 .andExpect(status().isOk())
@@ -128,7 +128,6 @@ public class WidgetResourceTest {
                 .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
                 .andExpect(jsonPath("$[*].type").value(everyItem(is("widget"))))
                 .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(parse("2015-02-02").getMillis())))
-                .andExpect(jsonPath("$[*].usedBy.widget[*].name").value(hasItems("helloWidget")))
                 .andExpect(jsonPath("$[*].usedBy.page[*].name").value(hasItems("hello")));
     }
 
@@ -236,7 +235,7 @@ public class WidgetResourceTest {
                 .perform(post("/rest/widgets?duplicata=my-widget-source")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(customLabel)))
-                .andExpect(status().isOk()) ;
+                .andExpect(status().isOk());
 
         verify(widgetRepository).create(notNull(Widget.class));
         verify(widgetAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-widget-source"), anyString());
@@ -291,21 +290,11 @@ public class WidgetResourceTest {
     public void should_not_allow_to_delete_a_custom_widget_used_in_a_page() throws Exception {
         when(widgetRepository.get("customLabel")).thenReturn(aWidget().custom().id("customLabel").build());
         when(pageRepository.containsObject("customLabel")).thenReturn(true);
-        when(pageRepository.findByObjectId("customLabel")).thenReturn(Arrays.asList(aPage().withName("person").build()));
+        when(pageRepository.getArtifactsUsingWidget("customLabel")).thenReturn(asList(aPage().withName("person").build()));
 
         mockMvc.perform(delete("/rest/widgets/customLabel"))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$[*].message").value("The widget cannot be deleted because it is used in 1 page, <person>"));
-    }
-
-    @Test
-    public void should_not_allow_to_delete_a_custom_widget_used_in_another_widget() throws Exception {
-        when(widgetRepository.get("customLabel")).thenReturn(aWidget().custom().id("customLabel").build());
-        when(widgetRepository.findByObjectId("customLabel")).thenReturn(Arrays.asList(aWidget().custom().name("customLabel2").build()));
-
-        mockMvc.perform(delete("/rest/widgets/customLabel"))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$[*].message").value("The widget cannot be deleted because it is used in 1 widget, <customLabel2>"));
     }
 
     @Test
@@ -320,7 +309,7 @@ public class WidgetResourceTest {
     @Test
     public void should_add_a_property_to_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = Arrays.asList(property);
+        List<Property> expectedProperties = asList(property);
         when(widgetRepository.addProperty("customLabel", property)).thenReturn(expectedProperties);
 
         mockMvc.perform(post("/rest/widgets/customLabel/properties")
@@ -367,7 +356,7 @@ public class WidgetResourceTest {
     @Test
     public void should_update_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = Arrays.asList(property);
+        List<Property> expectedProperties = asList(property);
         when(widgetRepository.updateProperty("customLabel", "toBeUpdated", property)).thenReturn(expectedProperties);
 
         mockMvc.perform(put("/rest/widgets/customLabel/properties/toBeUpdated")
@@ -414,7 +403,7 @@ public class WidgetResourceTest {
     @Test
     public void should_delete_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = Arrays.asList(property);
+        List<Property> expectedProperties = asList(property);
         when(widgetRepository.deleteProperty("customLabel", "toBeDeleted")).thenReturn(expectedProperties);
 
         mockMvc.perform(delete("/rest/widgets/customLabel/properties/toBeDeleted")
