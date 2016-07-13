@@ -14,7 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import static java.lang.String.format;
 import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
 import static org.apache.commons.io.FileUtils.deleteDirectory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -24,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
@@ -32,6 +35,7 @@ import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,11 +48,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 @RunWith(MockitoJUnitRunner.class)
 public class ExporterTest {
 
-    @Mock
-    private PageRepository pageRepository;
+    @Rule
+    public TemporaryFolder repositoryFolder = new TemporaryFolder();
 
     @Mock
-    private JacksonObjectMapper mapper;
+    private PageRepository pageRepository;
 
     private Exporter<Page> exporter;
 
@@ -61,15 +65,16 @@ public class ExporterTest {
     public void setUp() throws Exception {
         when(pageRepository.getComponentName()).thenReturn("page");
 
-        exporter = new Exporter<Page>(pageRepository, mapper, mock(ExportStep.class));
+        exporter = new Exporter<>(pageRepository, mock(ExportStep.class));
     }
 
-    private Page mockForPage(Page page) throws IOException {
+    private Page create(Page page) throws IOException {
         if (page.getId() == null) {
             page.setId("default-id");
         }
         when(pageRepository.get(page.getId())).thenReturn(page);
-        when(mapper.toJson(page)).thenReturn("foobar".getBytes());
+        when(pageRepository.resolvePath(page.getId())).thenReturn(repositoryFolder.toPath());
+        write(repositoryFolder.toPath().resolve(format("%s.json", page.getId())), "foobar".getBytes());
         return page;
     }
 
@@ -102,7 +107,7 @@ public class ExporterTest {
 
     @Test
     public void should_set_zip_content_type_to_response() throws Exception {
-        Page page = mockForPage(aPage().build());
+        Page page = create(aPage().build());
 
         exporter.handleFileExport(page.getId(), response);
 
@@ -111,7 +116,7 @@ public class ExporterTest {
 
     @Test
     public void should_set_formatted_filename_in_header() throws Exception {
-        Page page = mockForPage(aPage().withName("é&az zer/è\"").build());
+        Page page = create(aPage().withName("é&az zer/è\"").build());
 
         exporter.handleFileExport(page.getId(), response);
 
@@ -120,7 +125,7 @@ public class ExporterTest {
 
     @Test
     public void should_set__artifact_type_in_filename() throws Exception {
-        Page page = mockForPage(aPage().withType("layout").withName("thelayout").build());
+        Page page = create(aPage().withType("layout").withName("thelayout").build());
 
         exporter.handleFileExport(page.getId(), response);
 
@@ -129,8 +134,7 @@ public class ExporterTest {
 
     @Test
     public void should_export_json_model_of_the_exported_artefact() throws Exception {
-        Page page = mockForPage(aPage().build());
-        when(mapper.toJson(page)).thenReturn("foobar".getBytes());
+        Page page = create(aPage().build());
 
         exporter.handleFileExport(page.getId(), response);
 
@@ -143,8 +147,8 @@ public class ExporterTest {
     public void should_execute_export_steps() throws Exception {
         FakeStep fakeStep1 = new FakeStep("This is some content", "resources/file1.json");
         FakeStep fakeStep2 = new FakeStep("This is another content", "resources/deep/file2.json");
-        Exporter<Page> exporter = new Exporter<Page>(pageRepository, mapper, fakeStep1, fakeStep2);
-        Page page = mockForPage(aPage().build());
+        Exporter<Page> exporter = new Exporter<>(pageRepository, fakeStep1, fakeStep2);
+        Page page = create(aPage().build());
 
         exporter.handleFileExport(page.getId(), response);
 
