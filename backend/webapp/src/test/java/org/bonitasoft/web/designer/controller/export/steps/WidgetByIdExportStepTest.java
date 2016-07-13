@@ -14,11 +14,12 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
+import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.nio.file.Paths;
 
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
@@ -42,10 +43,10 @@ public class WidgetByIdExportStepTest {
 
     @Test
     public void should_add_a_widget_by_id_to_zip() throws Exception {
-        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get("widgets"));
+        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(get("widgets"));
 
         step.execute(zipper, aWidget().id("anId").build());
 
-        verify(zipper).addDirectoryToZip(Paths.get("widgets").resolve("anId"), "resources/anId");
+        verify(zipper).addDirectoryToZip(get("widgets").resolve("anId"), ALL_DIRECTORIES, ALL_FILES, "resources/anId");
     }
 }
