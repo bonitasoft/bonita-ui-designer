@@ -15,15 +15,17 @@
 package org.bonitasoft.web.designer.repository;
 
 import java.nio.file.Path;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
 
 
 @Named
-public class PageRepository extends AbstractRepository<Page> {
+public class PageRepository extends AbstractRepository<Page> implements WidgetContainerRepository<Page> {
 
     @Inject
     public PageRepository(
@@ -35,9 +37,12 @@ public class PageRepository extends AbstractRepository<Page> {
         super(path, persister, loader, validator, watcher);
     }
 
-
     @Override
     public String getComponentName() {
         return "page";
+    }
+
+    public List<Page> getArtifactsUsingWidget(String widgetId) {
+        return this.findByObjectId(widgetId);
     }
 }

@@ -15,11 +15,11 @@
 package org.bonitasoft.web.designer.controller;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map.Entry;
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,16 +27,14 @@ import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,31 +47,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/rest/widgets")
 public class WidgetResource extends AssetResource<Widget>{
-    private static final Logger logger = LoggerFactory.getLogger(WidgetResource.class);
+
     private JacksonObjectMapper objectMapper;
     private WidgetRepository repository;
-    private List<Repository> usedByRepositories;
     private Path widgetPath;
+    private List<WidgetContainerRepository> widgetContainerRepositories;
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService, @Named("widgetPath") Path widgetPath) {
+    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService, @Named("widgetPath") Path widgetPath, List<WidgetContainerRepository> widgetContainerRepositories) {
         super(widgetAssetService, repository, null);
         this.repository = repository;
         this.objectMapper = objectMapper;
         this.widgetPath = widgetPath;
+        this.widgetContainerRepositories = widgetContainerRepositories;
     }
 
     @Override
     protected void checkArtifactId(String artifactId) {
         checkWidgetIdIsNotAPbWidget(artifactId);
-    }
-
-    /**
-     * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
-     */
-    @Resource(name = "widgetsUsedByRepositories")
-    public void setUsedByRepositories(List<Repository> usedByRepositories) {
-        this.usedByRepositories = usedByRepositories;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -94,9 +85,10 @@ public class WidgetResource extends AssetResource<Widget>{
         return new ResponseEntity<>(new String(json), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.OK);
     }
 
+    @SuppressWarnings("unchecked")
     private void fillWithUsedBy(Widget widget) {
-        for (Repository repo : usedByRepositories) {
-            widget.addUsedBy(repo.getComponentName(), repo.findByObjectId(widget.getId()));
+        for (WidgetContainerRepository<Identifiable> repository : widgetContainerRepositories) {
+            widget.addUsedBy(repository.getComponentName(), repository.getArtifactsUsingWidget(widget.getId()));
         }
     }
 
