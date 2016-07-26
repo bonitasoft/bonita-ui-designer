@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-07-04 05:52-0400\n"
+"PO-Revision-Date: 2016-07-20 08:47-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -1220,7 +1220,7 @@ msgstr "新しいウィンドウ (_blank)"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
-msgstr ""
+msgstr "アプリケーションに表示する次のページ。ポータルでは、ナビゲーションは自動的に管理されるので無視されます。"
 
 #: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
