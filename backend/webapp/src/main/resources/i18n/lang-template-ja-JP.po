@@ -7,12 +7,12 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita-bpm-new-features\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2016-07-20 08:47-0400\n"
+"PO-Revision-Date: 2016-07-27 03:54-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -1267,7 +1267,7 @@ msgstr "オーバーライドされたアーティファクト"
 
 #: home/help-popup.html:1
 msgid "Overview"
-msgstr "オーバービュー"
+msgstr "案件概況"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "POST"
