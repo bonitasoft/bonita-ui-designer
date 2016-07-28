@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout) {
 
   'use strict';
 
@@ -202,13 +202,26 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     var componentIndex = currentRow.indexOf(component);
     currentRow.splice(componentIndex, 1);
     if (currentRow.length === 0 && destinationRow !== currentRow) {
-      removeRow(component.$$parentContainerRow.container, currentRow);
+      removeRowAfterDrop(component.$$parentContainerRow.container, currentRow);
     }
     if (!destinationRow) {
       component.triggerRemoved();
     }
     $scope.currentComponent = null;
   };
+
+  /**
+   * Remove the row at the end of the current digest loop
+   * to avoid messing up row indexes during drag and drop.
+   *
+   * @param container
+   * @param row
+   */
+  function removeRowAfterDrop(container, row) {
+    $timeout(function() {
+      removeRow(container, row);
+    }, 0);
+  }
 
   /**
    * Tells if the given row is the currently selected one.

@@ -1,7 +1,7 @@
 import aWidget from  '../utils/builders/WidgetElementBuilder';
 
 describe('EditorCtrl', function() {
-  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService;
+  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor', 'tabsContainerStructureMock'));
 
@@ -16,6 +16,7 @@ describe('EditorCtrl', function() {
     tabsContainerStructureMockJSON = $injector.get('tabsContainerStructureMockJSON');
     componentUtils = $injector.get('componentUtils');
     whiteboardService = $injector.get('whiteboardService');
+    $timeout = $injector.get('$timeout');
 
     $controller('EditorCtrl', {
       $scope: $scope,
@@ -410,6 +411,7 @@ describe('EditorCtrl', function() {
     $scope.deselectComponent();
 
     $scope.removeCurrentComponent(component);
+    $timeout.flush();
 
     expect(container.rows[1]).toBeUndefined();
     expect($scope.currentComponent).toBeNull();
