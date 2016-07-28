@@ -48,8 +48,8 @@ function PbChecklistCtrl($scope, $parse, widgetNameFactory, $log) {
     });
   }
 
-  $scope.$watch('properties.availableValues', updateSelectedValues);
-  $scope.$watch('properties.selectedValues', updateSelectedValues);
+  $scope.$watchCollection('properties.availableValues', updateSelectedValues);
+  $scope.$watchCollection('properties.selectedValues', updateSelectedValues);
 
   this.name = widgetNameFactory.getName('pbChecklist');
 

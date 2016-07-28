@@ -20,7 +20,7 @@ function PbRadioBoxCtrl($scope, $parse, $log, widgetNameFactory) {
     return item;
   };
 
-  $scope.$watch('properties.availableValues', function(items){
+  $scope.$watchCollection('properties.availableValues', function(items){
     if (Array.isArray(items)) {
       var foundValue = items
         .filter(comparator.bind(null, $scope.properties.selectedValue))
