@@ -6,15 +6,6 @@
     .run(createUrlResolver);
 
   function createUrlResolver(Resolver, ResolverService, $http, $interpolate, $rootScope) {
-    var csrf = {
-      get promise() {
-        return this.$promise || (this.$promise = $http({
-            method: 'GET',
-            url: '../API/system/session/unusedId'
-          }).success(() => $http.defaults.xsrfHeaderName = $http.defaults.xsrfCookieName = 'X-Bonita-API-Token'));
-      }
-    };
-
     class UrlResolver extends Resolver {
 
       interpolateUrl() {
@@ -24,9 +15,7 @@
       resolve() {
         var url = this.interpolateUrl();
         if (angular.isDefined(url)) {
-          return csrf.promise.finally(
-            () => $http.get(url).success((data) => this.model[this.name] = data)
-          );
+          return $http.get(url).success((data) => this.model[this.name] = data);
         }
       }
       watchDependencies() {
