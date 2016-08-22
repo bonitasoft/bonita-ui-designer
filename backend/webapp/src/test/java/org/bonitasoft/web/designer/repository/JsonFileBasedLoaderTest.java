@@ -17,21 +17,21 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aFilledSimpleObject;
+import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.bonitasoft.web.designer.builder.SimpleObjectBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -76,16 +76,16 @@ public class JsonFileBasedLoaderTest {
         assertThat(loader.get(repoDirectory.resolve("id/id.json"))).isEqualTo(expectedObject);
     }
 
-    @Test(expected = IOException.class)
-    public void should_throw_IOException_when_error_occurs_while_getting_a_object() throws Exception {
-        addToRepository(aFilledSimpleObject("id"));
+    @Test(expected = RepositoryException.class)
+    public void should_throw_RepositoryException_when_error_occurs_while_getting_a_object() throws Exception {
+        addToRepository(aFilledSimpleObject("foobar"));
         doThrow(new IOException()).when(objectMapper).fromJson(any(byte[].class), eq(SimpleDesignerArtifact.class));
 
         loader.get(repoDirectory.resolve("foobar/foobar.json"));
     }
 
-    @Test(expected = NoSuchFileException.class)
-    public void should_throw_NosuchFileException_when_while_getting_an_unexisting_object() throws Exception {
+    @Test(expected = NotFoundException.class)
+    public void should_throw_NotFoundException_when_while_getting_an_unexisting_object() throws Exception {
         loader.get(repoDirectory.resolve("unexisting/unexisting.json"));
     }
 
@@ -99,7 +99,7 @@ public class JsonFileBasedLoaderTest {
         assertThat(objects).containsOnly(object1, object2);
     }
 
-    @Test(expected = IOException.class)
+    @Test(expected = RepositoryException.class)
     public void should_throw_IOException_when_error_occurs_while_getting_all_object() throws Exception {
         addToRepository(aFilledSimpleObject("objet1"));
         doThrow(new IOException()).when(objectMapper).fromJson(any(byte[].class), eq(SimpleDesignerArtifact.class));
@@ -134,9 +134,9 @@ public class JsonFileBasedLoaderTest {
 
     @Test
     public void should_find_one_object_included_in_another_and_deserialize_it() throws Exception {
-        SimpleDesignerArtifact object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
+        SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
-        SimpleDesignerArtifact object2 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet2").another(object1).build();
+        SimpleDesignerArtifact object2 = aSimpleObjectBuilder().id("objet2").another(object1).build();
 
         addToRepository(object1, object2);
 
@@ -154,7 +154,7 @@ public class JsonFileBasedLoaderTest {
 
     @Test
     public void should_not_find_an_object_even_if_id_start_the_same_as_the_one_looking_for() throws Exception {
-        addToRepository(SimpleObjectBuilder.aSimpleObjectBuilder().id("abcd").build());
+        addToRepository(aSimpleObjectBuilder().id("abcd").build());
 
         List<SimpleDesignerArtifact> objects = loader.findByObjectId(repoDirectory, "abc");
 
@@ -163,9 +163,9 @@ public class JsonFileBasedLoaderTest {
 
     @Test
     public void should_not_find_object_included_in_another() throws Exception {
-        SimpleDesignerArtifact object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
+        SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
-        SimpleDesignerArtifact object2 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet2").another(object1).build();
+        SimpleDesignerArtifact object2 = aSimpleObjectBuilder().id("objet2").another(object1).build();
 
         addToRepository(object1, object2);
 
@@ -175,9 +175,9 @@ public class JsonFileBasedLoaderTest {
 
     @Test(expected = IOException.class)
     public void should_throw_IOException_when_error_occurs_on_finding_object_by_id() throws Exception {
-        SimpleDesignerArtifact object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
+        SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
-        SimpleDesignerArtifact object2 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet2").another(object1).build();
+        SimpleDesignerArtifact object2 = aSimpleObjectBuilder().id("objet2").another(object1).build();
 
         addToRepository(object1, object2);
 
@@ -187,9 +187,9 @@ public class JsonFileBasedLoaderTest {
 
     @Test
     public void should_find_object_included_in_another() throws Exception {
-        SimpleDesignerArtifact object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
+        SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
-        SimpleDesignerArtifact object2 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet2").another(object1).build();
+        SimpleDesignerArtifact object2 = aSimpleObjectBuilder().id("objet2").another(object1).build();
 
         addToRepository(object1, object2);
 
@@ -200,9 +200,9 @@ public class JsonFileBasedLoaderTest {
 
     @Test
     public void should_find_any_object_included_in_another() throws Exception {
-        SimpleDesignerArtifact object1 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet1").build();
+        SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first
-        SimpleDesignerArtifact object2 = SimpleObjectBuilder.aSimpleObjectBuilder().id("objet2").another(object1).build();
+        SimpleDesignerArtifact object2 = aSimpleObjectBuilder().id("objet2").another(object1).build();
 
         addToRepository(object1, object2);
 
@@ -233,4 +233,19 @@ public class JsonFileBasedLoaderTest {
         loader.load(repoDirectory.resolve("wrongjson.json"));
     }
 
+    @Test
+    public void should_get_object_metadata() throws Exception {
+        SimpleDesignerArtifact expectedObject = aSimpleObjectBuilder().id("id").metadata("foobar").build();
+        addToRepository(expectedObject);
+
+        assertThat(loader.get(loader.resolve(repoDirectory, "id")).getMetadata()).isEqualTo("foobar");
+    }
+
+    @Test
+    public void should_not_load_object_metadata() throws Exception {
+        SimpleDesignerArtifact expectedObject = aSimpleObjectBuilder().id("id").metadata("foobar").build();
+        addToRepository(expectedObject);
+
+        assertThat(loader.load(loader.resolve(repoDirectory, "id")).getMetadata()).isNull();
+    }
 }

@@ -14,9 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
@@ -202,7 +200,7 @@ public class ArtifactImporterTest {
     @Test(expected = ServerImportException.class)
     public void should_throw_import_exception_when_an_error_occurs_while_getting_widgets() throws Exception {
         Files.createDirectory(unzippedPath.resolve(WIDGETS_FOLDER));
-        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
+        when(widgetLoader.loadAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
 
         importer.doImport(anImport(pageImportPath));
     }

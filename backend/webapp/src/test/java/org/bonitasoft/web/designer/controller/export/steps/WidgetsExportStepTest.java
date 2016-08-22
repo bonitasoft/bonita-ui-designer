@@ -27,7 +27,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.omg.CORBA.portable.OutputStream;
@@ -38,7 +37,7 @@ public class WidgetsExportStepTest {
     private WorkspacePathResolver pathResolver = mock(WorkspacePathResolver.class);
 
     @Rule
-    public TemporaryWidgetRepository repository = new TemporaryWidgetRepository(pathResolver);;
+    public TemporaryWidgetRepository repository = new TemporaryWidgetRepository(pathResolver);
 
     private WidgetsExportStep step;
 
@@ -64,5 +63,14 @@ public class WidgetsExportStepTest {
 
         verify(zipper).addToZip(repository.resolveWidgetJson("widget1"), "resources/widgets/widget1/widget1.json");
         verify(zipper).addToZip(repository.resolveWidgetJson("widget2"), "resources/widgets/widget2/widget2.json");
+    }
+
+    @Test
+    public void should_not_add_widget_metadata_to_zip() throws Exception {
+        repository.addWidget(aWidget().id("widget"));
+
+        step.execute(zipper, aPage().with(aComponent("widget")).build());
+
+        verify(zipper, never()).addToZip(repository.resolveWidgetMetadata("widget"), "resources/widgets/widget/widget.metadata.json");
     }
 }

@@ -66,7 +66,7 @@ public class PageTest {
         assertThat(pageAfterJsonProcessing.getId()).isEqualTo(myPage.getId());
         assertThat(pageAfterJsonProcessing.getData()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.getRows()).isNotEmpty();
-        assertThat(pageAfterJsonProcessing.isFavorite()).isTrue();
+        assertThat(pageAfterJsonProcessing.isFavorite()).isFalse();
 
         //A rows contains a list of elements. We verify the first
         Element element = pageAfterJsonProcessing.getRows().get(0).get(0);
