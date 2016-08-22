@@ -15,10 +15,10 @@
 package org.bonitasoft.web.designer.repository;
 
 import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doThrow;
@@ -70,11 +70,6 @@ public class JsonFileBasedPersisterTest {
         return objectMapper.fromJson(json, SimpleDesignerArtifact.class);
     }
 
-    private void addToRepository(String id, SimpleDesignerArtifact o) throws IOException {
-        byte[] json = objectMapper.toJson(o);
-        write(repoDirectory.resolve(id + ".json"), json);
-    }
-
     @Test
     public void should_serialize_an_object_and_save_it_to_a_file() throws Exception {
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
@@ -124,5 +119,17 @@ public class JsonFileBasedPersisterTest {
             // should not have saved object1
             assertThat(repoDirectory.resolve("object1.json").toFile()).doesNotExist();
         }
+    }
+
+    @Test
+    public void should_persist_metadata_in_a_seperate_file() throws Exception {
+        SimpleDesignerArtifact artifact = aSimpleObjectBuilder()
+                .id("artifact")
+                .metadata("foobar")
+                .build();
+
+        repository.save(repoDirectory, "baz", artifact);
+
+        assertThat(new String(readAllBytes(repoDirectory.getParent().resolve(".metadata/baz.json")))).isEqualTo("{\"favorite\":false,\"metadata\":\"foobar\"}");
     }
 }

@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.readAllBytes;
+import static java.lang.String.valueOf;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 
@@ -26,21 +26,21 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.repository.WidgetLoader;
 
 @Named
 public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
-    private JacksonObjectMapper objectMapper;
+    private WidgetLoader widgetLoader;
     private HtmlSanitizer htmlSanitizer;
     private TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
 
     @Inject
-    public WidgetDirectiveBuilder(Watcher watcher, JacksonObjectMapper objectMapper, HtmlSanitizer htmlSanitizer) {
+    public WidgetDirectiveBuilder(Watcher watcher, WidgetLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
         super(watcher);
-        this.objectMapper = objectMapper;
+        this.widgetLoader = widgetLoader;
         this.htmlSanitizer = htmlSanitizer;
     }
 
@@ -53,10 +53,9 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
      */
     @Override
     public void build(Path jsonPath) throws IOException {
-        String path = jsonPath.toString();
-        Widget widget = objectMapper.fromJson(readAllBytes(get(path)), Widget.class);
+        Widget widget = widgetLoader.get(jsonPath);
         write(
-                get(path.replace(".json", ".js")),
+                get(valueOf(jsonPath).replace(".json", ".js")),
                 htmlBuilder
                         .with("escapedTemplate", htmlSanitizer.escapeSingleQuotesAndNewLines(widget.getTemplate()))
                         .build(widget).getBytes(StandardCharsets.UTF_8));
@@ -64,6 +63,6 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
     @Override
     public boolean isBuildable(String path) {
-        return path.endsWith(".json");
+        return path.endsWith(".json") && !path.contains(".metadata");
     }
 }
