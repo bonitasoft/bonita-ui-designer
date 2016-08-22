@@ -2,11 +2,6 @@
 ## Prerequisites
 
 - Install node.js and npm
-- Install gulp globally :
-
-```shell
-$ npm install -g gulp
-```
 
 - Install the local npm packages:
 
@@ -23,8 +18,9 @@ $ ./node_modules/protractor/bin/webdriver-manager update
 ## Dev
 
 ```shell
-$ gulp serve
+$ npm start
 ```
+This starts a server on port 3000 which allows serving the development page (index.html)
 
 ## Format code
 
@@ -45,22 +41,6 @@ Fix code format issues by hand if the format error report shows any error.
 $ npm run build
 ```
 
-or
-
-```shell
-$ gulp [default] --dist
-```
-
-> You can build without the flag *--dist*, but your application will be in debug mode cf [Running an AngularJS App in Production](https://docs.angularjs.org/guide/production)
-
-## Start a server
-
-```shell
-$ gulp [default] serve
-```
-
-This starts a server on port 3000 which allows serving the development page (index.html)
-
 ## Start built files
 
 ```shell
@@ -72,10 +52,6 @@ minified file.
 
 ## Execute e2e tests
 
-```shell
-$ gulp e2e
-```
-or
 ```shell
 $ npm run e2e
 ```
@@ -94,21 +70,11 @@ $ gulp serve:e2e
 ```shell
 $ npm test
 ```
-or
-```shell
-$ gulp test
-```
 
 ### Watch source files and tests
 
 ```shell
 $ npm run test-watch
-```
-
-or
-
-```shell
-$ gulp test-watch
 ```
 
 ## Internationalization

@@ -11,7 +11,7 @@ waitJetty() {
   echo "Jetty started"
 }
 
-gulp serve --gulpfile backend/webapp/gulpfile.js &
+(cd backend/webapp/ && npm start &)
 waitJetty
-gulp serve --gulpfile frontend/gulpfile.js
+(cd frontend/ && npm start)
 
