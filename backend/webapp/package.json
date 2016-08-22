@@ -18,7 +18,7 @@
     "postinstall": "bower install",
     "build": "gulp",
     "pot": "gulp pot",
-    "serve": "gulp serve"
+    "start": "gulp serve"
   },
   "engine": {
     "npm": ">=2.0.0"
