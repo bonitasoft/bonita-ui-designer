@@ -69,7 +69,7 @@ public class WidgetDirectiveBuilderTest {
     @Before
     public void setup() throws Exception {
         JacksonObjectMapper jacksonObjectMapper = new DesignerConfig().objectMapperWrapper();
-        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, jacksonObjectMapper, htmlSanitizer);
+        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetLoader(jacksonObjectMapper), htmlSanitizer);
 
         WidgetLoader widgetLoader = new WidgetLoader(jacksonObjectMapper);
 
@@ -105,7 +105,7 @@ public class WidgetDirectiveBuilderTest {
 
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly("pbButton", "whatever.txt", "pbInput");
+        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "pbInput");
     }
 
     @Test
@@ -123,6 +123,14 @@ public class WidgetDirectiveBuilderTest {
         widgetDirectiveBuilder.build(resolve("pbInput/pbInput.json"));
 
         assertThat(readDirective("pbInput")).isEqualTo(generateDirective(pbInput));
+    }
+
+    @Test
+    public void should_exclude_metadata_from_the_build() throws Exception {
+
+        boolean isBuildable = widgetDirectiveBuilder.isBuildable(".metadata/123.json");
+
+        assertThat(isBuildable).isFalse();
     }
 
     /**
