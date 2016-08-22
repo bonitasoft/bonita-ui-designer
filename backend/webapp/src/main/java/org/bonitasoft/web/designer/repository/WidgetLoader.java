@@ -50,8 +50,8 @@ public class WidgetLoader extends AbstractLoader<Widget>{
         return Files.exists(directory.resolve(widgetId).resolve(widgetId + ".json"));
     }
 
-    public List<Widget> getAllCustom(Path widgetsFolder) throws IOException {
-        return getAll(widgetsFolder, "custom*");
+    public List<Widget> loadAllCustom(Path widgetsFolder) throws IOException {
+        return loadAll(widgetsFolder, "custom*");
     }
 
 }

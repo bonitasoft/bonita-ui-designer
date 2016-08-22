@@ -23,11 +23,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
@@ -65,7 +63,7 @@ public class WidgetImportMock {
         Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
         this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");
-        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
+        when(widgetLoader.loadAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
         return widgets;
     }
 
@@ -76,7 +74,7 @@ public class WidgetImportMock {
                 aWidget().id("anotherExistingWidget").custom().build());
         this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");
-        when(widgetLoader.getAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
+        when(widgetLoader.loadAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
         when(widgetRepository.exists("alreadyThereWidget")).thenReturn(true);
         when(widgetRepository.exists("anotherExistingWidget")).thenReturn(true);
         return widgets;

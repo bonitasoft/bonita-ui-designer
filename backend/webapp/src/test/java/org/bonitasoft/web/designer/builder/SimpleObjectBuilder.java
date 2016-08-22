@@ -21,6 +21,7 @@ public class SimpleObjectBuilder {
     private String name = "objectName";
     private String id;
     private SimpleDesignerArtifact newObject;
+    private String metadata;
 
     private SimpleObjectBuilder() {
     }
@@ -45,9 +46,15 @@ public class SimpleObjectBuilder {
         return this;
     }
 
+    public SimpleObjectBuilder metadata(String metadata) {
+        this.metadata = metadata;
+        return this;
+    }
+
     public SimpleDesignerArtifact build() {
         SimpleDesignerArtifact myObject = new SimpleDesignerArtifact(id, name, 1);
         myObject.setAnother(newObject);
+        myObject.setMetadata(metadata);
         return myObject;
     }
 

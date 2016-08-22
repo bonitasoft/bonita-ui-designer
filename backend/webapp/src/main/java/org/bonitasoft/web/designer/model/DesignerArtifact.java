@@ -41,7 +41,7 @@ public abstract class DesignerArtifact implements Identifiable, ResetOnImport {
     }
 
     @Override
-    @JsonView({ JsonViewPersistence.class, JsonViewLight.class })
+    @JsonView({ JsonViewMetadata.class, JsonViewLight.class })
     public boolean isFavorite() {
         return favorite;
     }
