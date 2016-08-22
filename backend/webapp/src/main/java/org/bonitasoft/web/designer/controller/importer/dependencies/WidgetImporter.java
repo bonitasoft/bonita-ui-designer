@@ -45,7 +45,7 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
     public List<Widget> load(Identifiable parent, Path resources) throws IOException {
         Path widgetsPath = resources.resolve("widgets");
         if (Files.exists(widgetsPath)) {
-            return widgetLoader.getAllCustom(widgetsPath);
+            return widgetLoader.loadAllCustom(widgetsPath);
         }
         return new ArrayList<>();
     }

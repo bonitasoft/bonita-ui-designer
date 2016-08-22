@@ -17,16 +17,15 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
@@ -64,8 +63,8 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_get_a_widget_by_its_id() throws Exception {
-        Widget expectedWidget = WidgetBuilder.aWidget().id("input").build();
-        Widget notExpectedWidget = WidgetBuilder.aWidget().id("label").build();
+        Widget expectedWidget = aWidget().id("input").build();
+        Widget notExpectedWidget = aWidget().id("label").build();
         addToDirectory(widgetDirectory, expectedWidget, notExpectedWidget);
 
         Widget widget = widgetLoader.get(widgetDirectory.resolve("input/input.json"));
@@ -75,8 +74,8 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_retrieve_all_widgets() throws Exception {
-        Widget input = WidgetBuilder.aWidget().id("input").build();
-        Widget label = WidgetBuilder.aWidget().id("label").build();
+        Widget input = aWidget().id("input").build();
+        Widget label = aWidget().id("label").build();
         addToDirectory(widgetDirectory, input, label);
 
         List<Widget> widgets = widgetLoader.getAll(widgetDirectory);
@@ -93,20 +92,32 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_retrieve_all_custom_widgets() throws Exception {
-        Widget input = WidgetBuilder.aWidget().id("input").build();
-        Widget custom1 = WidgetBuilder.aWidget().id("custom1").custom().build();
-        Widget custom2 = WidgetBuilder.aWidget().id("custom2").custom().build();
+        Widget input = aWidget().id("input").build();
+        Widget custom1 = aWidget().id("custom1").custom().build();
+        Widget custom2 = aWidget().id("custom2").custom().build();
         addToDirectory(widgetDirectory, input, custom1, custom2);
 
-        List<Widget> widgets = widgetLoader.getAllCustom(widgetDirectory);
+        List<Widget> widgets = widgetLoader.loadAllCustom(widgetDirectory);
 
         assertThat(widgets).containsOnly(custom1, custom2);
     }
 
     @Test
+    public void should_only_load_persisted_properties() throws Exception {
+        addToDirectory(widgetDirectory, aWidget().id("customWidget")
+                .custom()
+                .favorite()
+                .build());
+
+        List<Widget> widgets = widgetLoader.loadAllCustom(widgetDirectory);
+
+        assertThat(widgets.get(0).isFavorite()).isFalse();
+    }
+
+    @Test
     public void should_find_widget_which_use_another_widget() throws Exception {
-        Widget input = WidgetBuilder.aWidget().id("input").build();
-        Widget label = WidgetBuilder.aWidget().id("label").template("use <input>").build();
+        Widget input = aWidget().id("input").build();
+        Widget label = aWidget().id("label").template("use <input>").build();
         addToDirectory(widgetDirectory, input, label);
 
         //input is used by label
@@ -115,8 +126,8 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_find_widget_which_not_use_another_widget() throws Exception {
-        Widget input = WidgetBuilder.aWidget().id("input").build();
-        Widget label = WidgetBuilder.aWidget().id("label").template("use <input>").build();
+        Widget input = aWidget().id("input").build();
+        Widget label = aWidget().id("label").template("use <input>").build();
         addToDirectory(widgetDirectory, input, label);
 
         //label is used by noone
@@ -125,7 +136,7 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_load_a_single_page_in_the_import_folder() throws Exception {
-        Widget input = WidgetBuilder.aWidget().id("input").build();
+        Widget input = aWidget().id("input").build();
         addToDirectory(widgetDirectory, input);
 
         Widget widget = widgetLoader.load(widgetDirectory.resolve("input/input.json"));

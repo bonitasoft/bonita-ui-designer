@@ -25,7 +25,6 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -81,7 +80,7 @@ public class WidgetTest {
         assertThat(widgetAfterJsonProcessing.getDescription()).isEqualTo("#widget fils d'son père!");
         assertThat(widgetAfterJsonProcessing.getId()).isNotNull();
         assertThat(widgetAfterJsonProcessing.getUsedBy()).isNull();
-        assertThat(widgetAfterJsonProcessing.isFavorite()).isTrue();
+        assertThat(widgetAfterJsonProcessing.isFavorite()).isFalse();
     }
 
     @Test

@@ -20,15 +20,11 @@ import static java.nio.file.Files.write;
 import static java.util.Collections.singletonList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.only;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.livebuild.Watcher;

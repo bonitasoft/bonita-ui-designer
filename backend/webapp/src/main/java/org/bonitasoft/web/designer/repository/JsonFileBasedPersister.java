@@ -12,23 +12,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-/*******************************************************************************
- * Copyright (C) 2015 BonitaSoft S.A.
- * BonitaSoft is a trademark of BonitaSoft SA.
- * This software file is BONITASOFT CONFIDENTIAL. Not For Distribution.
- * For commercial licensing information, contact:
- * BonitaSoft, 32 rue Gustave Eiffel – 38000 Grenoble
- * or BonitaSoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
- *******************************************************************************/
 package org.bonitasoft.web.designer.repository;
 
 import static java.nio.file.Files.write;
+import static org.apache.commons.io.FileUtils.forceMkdir;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -56,6 +50,8 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         validator.validate(content);
         try {
             write(jsonFile(directory, id), objectMapper.toJson(content, JsonViewPersistence.class));
+            forceMkdir(directory.getParent().resolve(".metadata").toFile());
+            write(jsonFile(directory.getParent().resolve(".metadata"), id), objectMapper.toJson(content, JsonViewMetadata.class));
         }
         catch (RuntimeException e){
             //Jackson can sent Runtime exception. We change this one to IO because this exception is caught higher
