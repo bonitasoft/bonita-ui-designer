@@ -16,17 +16,19 @@ package org.bonitasoft.web.designer.controller.importer.dependencies;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.assertj.core.api.Assertions;
-import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import java.io.File;
+
+import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,8 +36,15 @@ public class WidgetImporterTest {
 
     @Mock
     private WidgetRepository widgetRepository;
+
+    @Mock
+    private WidgetLoader widgetLoader;
+
     @InjectMocks
     private WidgetImporter widgetImporter;
+
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
     public void should_verify_that_a_widget_exists_in_repository() throws Exception {
@@ -53,5 +62,14 @@ public class WidgetImporterTest {
         boolean exists = widgetImporter.exists(aWidget().id("unknownWidget").build());
 
         assertThat(exists).isFalse();
+    }
+
+    @Test
+    public void should_load_custom_widgets() throws Exception {
+        File widgetsFolder = temporaryFolder.newFolder("widgets");
+
+        widgetImporter.load(null, temporaryFolder.toPath());
+
+        verify(widgetLoader).loadAllCustom(widgetsFolder.toPath());
     }
 }

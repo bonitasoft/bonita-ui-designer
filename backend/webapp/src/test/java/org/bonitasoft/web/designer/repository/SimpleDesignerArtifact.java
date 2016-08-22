@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.joda.time.Instant;
@@ -29,6 +30,7 @@ public final class SimpleDesignerArtifact extends DesignerArtifact {
     private String name;
     private int number;
     private SimpleDesignerArtifact another;
+    private String metadata;
 
     public SimpleDesignerArtifact() {
     }
@@ -63,6 +65,15 @@ public final class SimpleDesignerArtifact extends DesignerArtifact {
 
     public void setAnother(SimpleDesignerArtifact another) {
         this.another = another;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    @JsonView(JsonViewMetadata.class)
+    public String getMetadata() {
+        return metadata;
     }
 
     @JsonProperty("type")
