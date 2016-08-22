@@ -61,6 +61,10 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
         return this.toPath().resolve(format("%s/%s.json", id, id));
     }
 
+    public Path resolveWidgetMetadata(String id) {
+        return this.toPath().resolve(format("%s/%s.metadata.json", id, id));
+    }
+
     public Widget addWidget(WidgetBuilder widgetBuilder) {
         return repository.save(widgetBuilder.build());
     }

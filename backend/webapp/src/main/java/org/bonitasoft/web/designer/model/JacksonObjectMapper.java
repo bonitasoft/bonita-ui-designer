@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 
 /**
  * Wraps objectMapper to avoid recurrent issue like encoding ones
@@ -34,6 +35,10 @@ public class JacksonObjectMapper {
 
     public <T> T fromJson(byte[] bytes, Class<T> type) throws IOException {
         return objectMapper.readValue(bytes, type);
+    }
+
+    public <T> T fromJson(byte[] bytes, Class<T> type, Class<?> view) throws IOException {
+        return objectMapper.reader().withView(view).forType(type).readValue(bytes);
     }
 
     public byte[] toJson(Object object) throws IOException {
@@ -54,10 +59,14 @@ public class JacksonObjectMapper {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(fromJson(json.getBytes(StandardCharsets.UTF_8), Object.class));
     }
 
-    public void checkValidJson(byte[] bytes) throws IOException, JsonProcessingException {
+    public void checkValidJson(byte[] bytes) throws IOException {
         JsonParser parser = objectMapper.getFactory().createParser(bytes);
         while (parser.nextToken() != null) {
             // do nothing, will throw JsonProcessingException if error occurs
         }
+    }
+
+    public <T> T assign(T target, byte[] source) throws IOException {
+        return objectMapper.readerForUpdating(target).readValue(source);
     }
 }
