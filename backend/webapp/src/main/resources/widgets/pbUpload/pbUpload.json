@@ -90,6 +90,11 @@
       "name": "ng-upload-0.5.16.min.js",
       "type": "js",
       "order": 1
+    },
+    {
+      "name": "file-upload.css",
+      "type": "css",
+      "order": 1
     }
   ]
 }
