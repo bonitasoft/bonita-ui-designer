@@ -13,7 +13,7 @@
         favorite: true,
         data: {
           alreadyExistsData: {type: 'constant', value: 'aValue'},
-          jsonExample: {type: 'json', value: {}},
+          jsonExample: {type: 'json', value: '{}'},
           urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
         },
         assets: [
