@@ -14,14 +14,6 @@
     width: 100%;
 }
 
-.typeahead-sublist {padding: 0}
-.typeahead-sublist li {
-    list-style: none;
-    padding: 0 5px;
-    display: inline-block;
-}
-
-
 input[type=text|email|number|password].ng-invalid.ng-dirty {
   border-color: #C00;
   border-width: 1px;
