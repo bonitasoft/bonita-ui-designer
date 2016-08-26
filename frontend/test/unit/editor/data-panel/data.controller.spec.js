@@ -50,46 +50,52 @@
       expect($scope.page.data.hasOwnProperty('colin')).toBe(false);
     });
 
-    it('should filter a data that match a key value', function() {
-      var data = {
-        'colin': { value: 4 },
-        'api': { value: 'user' }
+    it('should transform page data to an array', function () {
+      $scope.page.data = {
+        aKey: {type: 'constant', value: 'aValue'},
+        jsonExample: {type: 'json', value: '{}'},
+        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
       };
 
-      $scope.page.data = data;
-      $scope.searchedData = 'colin';
-      $scope.$apply();
+      var variables = $scope.getVariables();
 
-      expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
+      expect(variables).toEqual([
+        {type: 'constant', value: 'aValue'},
+        {type: 'json', value: '{}'},
+        {type: 'url', value: 'https://api.github.com/users/jnizet'}
+      ]);
+      // each object should have a property non enumerable named name
+      expect(variables[0].name).toEqual('aKey');
+      expect(variables[1].name).toEqual('jsonExample');
+      expect(variables[2].name).toEqual('urlExample');
     });
 
-    it('should filter a data that match a data value', function() {
-      var data = {
-        'colin': { value: 4 },
-        'api': { value: { 'user': 'toto' } }
+    it('should filter variables by name', function () {
+      $scope.page.data = {
+        aKey: {type: 'constant', value: 'aValue'},
+        jsonExample: {type: 'json', value: '{}'},
+        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
       };
 
-      $scope.page.data = data;
-      $scope.searchedData = 'use';
-      $scope.$apply();
+      var filtered = $scope.getVariables('aKey');
+      expect(filtered).toEqual([{type: 'constant', value: 'aValue'}]);
 
-      expect($scope.pageData).toEqual({ 'api': { value: { 'user': 'toto' } } });
+      filtered = $scope.getVariables('unknownkey');
+      expect(filtered).toEqual([]);
     });
 
-    it('should reset filter for data', function() {
-      var data = {
-        'colin': { value: 4 },
-        'api': { value: 'user' }
+    it('should filter variables by value', function() {
+      $scope.page.data = {
+        aKey: {type: 'constant', value: 'aValue'},
+        jsonExample: {type: 'json', value: '{}'},
+        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
       };
 
-      $scope.page.data = data;
-      $scope.searchedData = 'colin';
-      $scope.$apply();
+      var filtered = $scope.getVariables('aValue');
+      expect(filtered).toEqual([{type: 'constant', value: 'aValue'}]);
 
-      expect($scope.pageData).toEqual({ 'colin': { value: 4 } });
-      $scope.searchedData = '';
-      $scope.$apply();
-      expect($scope.pageData).toEqual(data);
+      filtered = $scope.getVariables('unknownvalue');
+      expect(filtered).toEqual([]);
     });
 
     it('should open a data popup', function() {

@@ -23,7 +23,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toBe('aValue');
+      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toBe('aValue');
     });
 
     it('should add an Json data', function() {
@@ -38,7 +38,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('{"key": "foo"}');
+      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('{"key": "foo"}');
     });
 
     it('should add an Url data', function() {
@@ -53,7 +53,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('{{base}}/bonita/test');
+      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('{{base}}/bonita/test');
     });
 
     it('should add a Javascript expression data', function() {
@@ -68,7 +68,7 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('data.value')).getText()).toBe('return "test";');
+      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('return "test";');
     });
 
     it('should delete a data', function() {
@@ -86,13 +86,10 @@ describe('data panel', function() {
 
     it('should filter data', function() {
       dataPanel.addData('aName', 'String', 'aValue');
+
       dataPanel.filter('aName');
       expect(dataPanel.lines.count()).toBe(1);
-    });
 
-    it('should clear the data filter', function() {
-      dataPanel.addData('aName', 'String', 'aValue');
-      dataPanel.filter('aName');
       dataPanel.clearFilter();
       expect(dataPanel.lines.count()).toBe(4);
     });
@@ -164,14 +161,14 @@ describe('data panel', function() {
       dataPanel.editData(0);
       dataPanel.value = 'foo';
       $('.modal-footer .btn-link').click();
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toEqual('aValue');
+      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toEqual('aValue');
     });
 
     it('should allow modifying existing data value and confirming', function() {
       dataPanel.editData(0);
       dataPanel.value = 'foo';
       dataPanel.popupSaveBtn.click();
-      expect(dataPanel.lines.first().element(by.exactBinding('data.value')).getText()).toEqual('foo');
+      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toEqual('foo');
     });
 
     it('should not allow confirming invalid URL', function() {
