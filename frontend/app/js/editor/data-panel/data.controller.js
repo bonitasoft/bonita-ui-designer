@@ -18,15 +18,10 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
 
   $scope.searchedData = '';
   $scope.page = artifact;
-  $scope.pageData = artifact.data;
   $scope.getLabel = dataTypeService.getDataLabel;
   $scope.exposableData = mode !== 'page';
-  $scope.keys = Object.keys;
 
-  $scope.delete = function(dataName) {
-    delete $scope.page.data[dataName];
-    $scope.filterPageData();
-  };
+  $scope.delete = dataName => delete $scope.page.data[dataName];
 
   $scope.save = function(data) {
     $scope.page.data[data.$$name] = {
@@ -34,25 +29,7 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
       type: data.type,
       value: data.value
     };
-    $scope.filterPageData();
   };
-
-  $scope.filterPageData = function() {
-    function matchData(pattern, key, data) {
-      return key.indexOf(pattern.trim()) !== -1 || angular.toJson(data || {}).indexOf(pattern.trim()) !== -1;
-    }
-
-    $scope.pageData = Object.keys($scope.page.data).reduce(function(data, key) {
-      if (matchData($scope.searchedData, key, artifact.data[key].value)) {
-        data[key] = artifact.data[key];
-      }
-      return data;
-    }, {});
-  };
-
-  $scope.$watch('searchedData', () => {
-    $scope.filterPageData();
-  });
 
   $scope.getType = data => ($scope.isExposed(data)) ? '(' + gettextCatalog.getString('Exposed') + ')' : $scope.getLabel(data.type);
 
@@ -74,4 +51,21 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
   };
 
   $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/editor/data-panel/help-popup.html', size: 'lg' });
+
+  $scope.getVariables = (serchTerm) => {
+    function toMatchSearchTerm(variable) {
+      function contains(value, search) {
+        return angular.lowercase(value || '').indexOf(angular.lowercase(search) || '') !== -1;
+      }
+
+      return contains(variable.name, serchTerm) || contains(variable.value, serchTerm);
+    }
+
+    return Object.keys($scope.page.data)
+      .map((name) => {
+        var variable = $scope.page.data[name];
+        return Object.defineProperty(variable, 'name', { enumerable: false, value: name });
+      })
+      .filter(toMatchSearchTerm);
+  };
 });
