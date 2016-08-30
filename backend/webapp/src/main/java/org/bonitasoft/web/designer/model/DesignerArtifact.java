@@ -16,11 +16,9 @@ package org.bonitasoft.web.designer.model;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-import org.bonitasoft.web.designer.controller.importer.ResetOnImport;
-
 import com.fasterxml.jackson.annotation.JsonView;
 
-public abstract class DesignerArtifact implements Identifiable, ResetOnImport {
+public abstract class DesignerArtifact implements Identifiable {
 
     private String designerVersion;
     private boolean favorite = false;
@@ -51,9 +49,5 @@ public abstract class DesignerArtifact implements Identifiable, ResetOnImport {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
-    }
-
-    public void prepareForImport() {
-        this.setFavorite(false);
     }
 }

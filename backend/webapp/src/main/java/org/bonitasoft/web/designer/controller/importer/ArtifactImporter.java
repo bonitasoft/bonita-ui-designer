@@ -80,7 +80,6 @@ public class ArtifactImporter<T extends Identifiable> {
             if (force || report.doesNotOverrideElements()) {
                 // then save them
                 saveArtefactDependencies(resources, dependencies);
-                prepareForImport(element);
                 repository.updateLastUpdateAndSave(element);
                 report.setStatus(ImportReport.Status.IMPORTED);
             } else {
@@ -113,30 +112,8 @@ public class ArtifactImporter<T extends Identifiable> {
 
     private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<?>> map) {
         for (Entry<DependencyImporter, List<?>> entry : map.entrySet()) {
-            DependencyImporter importer = entry.getKey();
-            List<?> elements = entry.getValue();
-            if (importer instanceof ComponentDependencyImporter) {
-                elements = prepareForImport((List<? extends Identifiable>) elements);
-            }
-            importer.save(elements, resources);
+            entry.getKey().save(entry.getValue(), resources);
         }
-    }
-
-    private List<? extends Identifiable> prepareForImport(List<? extends Identifiable> list) {
-        return transform(list, new Function<Identifiable, Identifiable>() {
-
-            @Override
-            public Identifiable apply(Identifiable input) {
-                return prepareForImport(input);
-            }
-        });
-    }
-
-    private Identifiable prepareForImport(Identifiable element) {
-        if (element instanceof ResetOnImport) {
-            ((ResetOnImport) element).prepareForImport();
-        }
-        return element;
     }
 
     private Map<DependencyImporter, List<?>> loadArtefactDependencies(T element, Path resources) throws IOException {
@@ -146,5 +123,4 @@ public class ArtifactImporter<T extends Identifiable> {
         }
         return map;
     }
-
 }
