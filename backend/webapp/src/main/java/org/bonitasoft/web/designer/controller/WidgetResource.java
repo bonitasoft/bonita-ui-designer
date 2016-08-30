@@ -35,6 +35,7 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.WidgetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,15 +50,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class WidgetResource extends AssetResource<Widget>{
 
     private JacksonObjectMapper objectMapper;
-    private WidgetRepository repository;
+    private WidgetRepository widgetRepository;
+    private WidgetService widgetService;
     private Path widgetPath;
     private List<WidgetContainerRepository> widgetContainerRepositories;
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper, WidgetRepository repository, AssetService<Widget> widgetAssetService, @Named("widgetPath") Path widgetPath, List<WidgetContainerRepository> widgetContainerRepositories) {
-        super(widgetAssetService, repository, null);
-        this.repository = repository;
+    public WidgetResource(JacksonObjectMapper objectMapper,
+                          WidgetRepository widgetRepository,
+                          WidgetService widgetService,
+                          AssetService<Widget> widgetAssetService,
+                          @Named("widgetPath") Path widgetPath,
+                          List<WidgetContainerRepository> widgetContainerRepositories) {
+        super(widgetAssetService, widgetRepository, null);
+        this.widgetRepository = widgetRepository;
         this.objectMapper = objectMapper;
+        this.widgetService = widgetService;
         this.widgetPath = widgetPath;
         this.widgetContainerRepositories = widgetContainerRepositories;
     }
@@ -70,7 +78,7 @@ public class WidgetResource extends AssetResource<Widget>{
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view) throws RepositoryException, IOException {
         byte[] json;
-        List<Widget> widgets = repository.getAll();
+        List<Widget> widgets = widgetRepository.getAll();
         if ("light".equals(view)) {
             for (Widget widget : widgets) {
                 fillWithUsedBy(widget);
@@ -94,14 +102,14 @@ public class WidgetResource extends AssetResource<Widget>{
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.GET)
     public Widget get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
-        return repository.get(widgetId);
+        return widgetRepository.get(widgetId);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Widget create(@RequestBody Widget widget, @RequestParam(value = "duplicata", required = false) String sourceWidgetId) throws IllegalArgumentException {
-        Widget newWidget = repository.create(widget);
+        Widget newWidget = widgetRepository.create(widget);
         if(isNotEmpty(sourceWidgetId)) {
-            assetService.duplicateAsset(widgetPath, repository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
+            assetService.duplicateAsset(widgetPath, widgetRepository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
         }
         return newWidget;
     }
@@ -113,12 +121,12 @@ public class WidgetResource extends AssetResource<Widget>{
             throw new NotAllowedException("We can only save a custom widget");
         }
         widget.setId(widgetId);
-        repository.updateLastUpdateAndSave(widget);
+        widgetService.updateLastUpdateAndSave(widget);
     }
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotFoundException, NotAllowedException {
-        Widget widget = repository.get(widgetId);
+        Widget widget = widgetRepository.get(widgetId);
         if (!widget.isCustom()) {
             throw new NotAllowedException("We can only delete a custom widget");
         }
@@ -129,7 +137,7 @@ public class WidgetResource extends AssetResource<Widget>{
             throw new InUseException(buildErrorMessage(widget));
         }
 
-        repository.delete(widgetId);
+        widgetRepository.delete(widgetId);
     }
 
     private String buildErrorMessage(Widget widget) {
@@ -151,27 +159,27 @@ public class WidgetResource extends AssetResource<Widget>{
     @RequestMapping(value = "/{widgetId}/properties", method = RequestMethod.POST)
     public List<Property> addProperty(@PathVariable("widgetId") String widgetId, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        return repository.addProperty(widgetId, property);
+        return widgetRepository.addProperty(widgetId, property);
     }
 
     @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.PUT)
     public List<Property> updateProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        return repository.updateProperty(widgetId, propertyName, property);
+        return widgetRepository.updateProperty(widgetId, propertyName, property);
     }
 
     @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.DELETE)
     public List<Property> deleteProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        return repository.deleteProperty(widgetId, propertyName);
+        return widgetRepository.deleteProperty(widgetId, propertyName);
     }
 
     @RequestMapping(value = "/{widgetId}/favorite", method = RequestMethod.PUT)
     public void favorite(@PathVariable("widgetId") String pageId, @RequestBody Boolean favorite) throws RepositoryException {
         if (favorite) {
-            repository.markAsFavorite(pageId);
+            widgetRepository.markAsFavorite(pageId);
         } else {
-            repository.unmarkAsFavorite(pageId);
+            widgetRepository.unmarkAsFavorite(pageId);
         }
     }
 

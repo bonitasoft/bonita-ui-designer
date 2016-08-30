@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.annotations.Beta;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -59,6 +60,7 @@ import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.service.BondsTypesFixer;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
@@ -302,5 +304,10 @@ public class DesignerConfig {
     @Bean
     public VisitorFactory visitorFactory() {
         return new VisitorFactory();
+    }
+
+    @Bean
+    public BondsTypesFixer<Page> pageBondsTypesFixer(PageRepository pageRepository) {
+        return new BondsTypesFixer<>(pageRepository);
     }
 }
