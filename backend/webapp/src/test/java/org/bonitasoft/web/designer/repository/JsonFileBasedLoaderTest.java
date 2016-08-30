@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.repository;
 
 import static java.nio.file.Files.write;
+import static java.nio.file.Paths.get;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aFilledSimpleObject;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -143,6 +145,11 @@ public class JsonFileBasedLoaderTest {
         List<SimpleDesignerArtifact> objects = loader.findByObjectId(repoDirectory, "objet1");
 
         assertThat(objects).containsOnly(object2);
+    }
+
+    @Test
+    public void should_returns_an_empty_list_when_directory_does_not_exist() throws Exception {
+        assertThat(loader.findByObjectId(get("/does/not/exist"), "objectId")).isEmpty();
     }
 
     @Test

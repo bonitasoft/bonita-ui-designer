@@ -56,6 +56,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -76,6 +77,8 @@ public class WidgetResourceTest {
     @Mock
     private WidgetRepository widgetRepository;
 
+    @Mock WidgetService widgetService;
+
     @Mock
     private PageRepository pageRepository;
 
@@ -94,6 +97,7 @@ public class WidgetResourceTest {
         WidgetResource widgetResource = new WidgetResource(
                 new DesignerConfig().objectMapperWrapper(),
                 widgetRepository,
+                widgetService,
                 widgetAssetService,
                 widgetRepositoryPath,
                 singletonList((WidgetContainerRepository) pageRepository));
@@ -176,7 +180,7 @@ public class WidgetResourceTest {
                 .content(convertObjectToJsonBytes(customLabel)))
                 .andExpect(status().isOk());
 
-        verify(widgetRepository).updateLastUpdateAndSave(customLabel);
+        verify(widgetService).updateLastUpdateAndSave(customLabel);
     }
 
     @Test
@@ -201,7 +205,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_internal_server_error_if_an_error_occurs_while_saving_a_widget() throws Exception {
-        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetRepository).updateLastUpdateAndSave(any(Widget.class));
+        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetService).updateLastUpdateAndSave(any(Widget.class));
         Widget customLabel = aWidget().id("customLabel").custom().build();
 
         mockMvc.perform(put("/rest/widgets/customLabel")
