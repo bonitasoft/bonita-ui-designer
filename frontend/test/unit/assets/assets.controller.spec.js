@@ -98,6 +98,7 @@
 
       beforeEach(inject(function($injector) {
         $scope.widget = {};
+        var component = { id: 12, type: 'widget' };
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: component,

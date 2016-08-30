@@ -14,7 +14,7 @@
  */
 (function() {
 
-  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function($scope, $uibModalInstance, asset, component, mode, assetsService) {
+  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function($scope, $uibModalInstance, asset, component, assetsService) {
 
     'use strict';
 
@@ -26,7 +26,7 @@
     };
 
     function getUrl() {
-      return assetsService.getAssetUrl(asset, mode, component) + '?format=text';
+      return assetsService.getAssetUrl(asset, component) + '?format=text';
     }
   });
 
