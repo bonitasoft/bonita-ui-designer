@@ -78,15 +78,14 @@
         controller: 'AssetPreviewPopupCtrl',
         resolve: {
           asset: () => asset,
-          component: () => vm.component,
-          mode: () => mode
+          component: () => vm.component
         },
         size: 'lg'
       });
     }
 
     function getAssetUrl(asset) {
-      return assetsService.getAssetUrl(asset, mode, vm.component);
+      return assetsService.getAssetUrl(asset, vm.component);
     }
 
     function openAddUpdateAssetPopup(asset) {
