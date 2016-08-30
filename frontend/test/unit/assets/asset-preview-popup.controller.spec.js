@@ -38,7 +38,7 @@ describe('AssetPreviewPopupCtrl', function() {
         name: 'myasset.js',
         type: 'js'
       },
-      component: { id: 1234 },
+      component: { id: 1234, type: 'widget' },
       mode: 'widget',
       assetsService: assetsService
     });
@@ -57,7 +57,7 @@ describe('AssetPreviewPopupCtrl', function() {
         name: 'myasset.js',
         type: 'js'
       },
-      component: { id: 56 },
+      component: { id: 56, type: 'form' },
       mode: 'page',
       assetsService: assetsService
     });
@@ -74,7 +74,7 @@ describe('AssetPreviewPopupCtrl', function() {
         name: 'myasset.js',
         type: 'js'
       },
-      component: { id: 1234 },
+      component: { id: 1234, type: 'layout' },
       mode: 'page',
       assetsService: assetsService
     });
