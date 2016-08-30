@@ -100,26 +100,6 @@ public class ArtifactImporterTest {
     }
 
     @Test
-    public void should_reset_favorite_information_for_imported_element_and_its_dependencies() throws Exception {
-        wMocks.mockWidgetsAsAddedDependencies(
-                aWidget().id("aWidget").favorite(),
-                aWidget().id("anotherWidget").favorite());
-        pMocks.mockPageToBeImported(
-                aPage().withId("id").favorite());
-
-        importer.doImport(anImport(pageImportPath));
-
-        ArgumentCaptor<List> widgetCaptor = ArgumentCaptor.forClass(List.class);
-        verify(widgetRepository).saveAll(widgetCaptor.capture());
-        for (Widget widget : (List<Widget>) widgetCaptor.getValue()) {
-            assertThat(widget.isFavorite()).isFalse();
-        }
-        ArgumentCaptor<Page> pageCaptor = ArgumentCaptor.forClass(Page.class);
-        verify(pageRepository).updateLastUpdateAndSave(pageCaptor.capture());
-        assertThat(pageCaptor.getValue().isFavorite()).isFalse();
-    }
-
-    @Test
     public void should_return_an_import_report_containing_imported_element_and_imported_dependencies() throws Exception {
         List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
         List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
