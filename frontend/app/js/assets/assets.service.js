@@ -167,10 +167,10 @@
         page.assets = page.assets.filter((asset) =>  asset.componentId !== widget.id);
       }
 
-      function getAssetUrl(asset, mode, component) {
+      function getAssetUrl(asset, component) {
         //Url depends on the nature of component
         //In custom widget editor, component is a widget
-        if (mode === 'widget') {
+        if (component.type === 'widget') {
           return `rest/widgets/${component.id}/assets/${asset.type}/${asset.name}`;
         }
         //In page editor widget id is stored in asset.componentId if the asset scope is WIDGET
