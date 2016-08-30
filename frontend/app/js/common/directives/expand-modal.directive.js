@@ -30,7 +30,7 @@
         element.closest('.modal-dialog').toggleClass('modal-xxl');
         $scope.expanded = !$scope.expanded;
       };
-      $scope.getTooltipMessage = () => ($scope.expanded) ? this.gettextCatalog.getString('Go full screen') : this.gettextCatalog.getString('Back to default size');
+      $scope.getTooltipMessage = () => ($scope.expanded) ? this.gettextCatalog.getString('Back to default size') : this.gettextCatalog.getString('Go full screen');
     }
   }
 
