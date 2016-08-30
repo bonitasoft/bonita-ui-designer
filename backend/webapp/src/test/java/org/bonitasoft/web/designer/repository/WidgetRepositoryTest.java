@@ -14,17 +14,14 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.createDirectory;
-import static java.nio.file.Files.write;
+import static java.nio.file.Files.*;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,7 +87,7 @@ public class WidgetRepositoryTest {
         widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
         jsonFileRepository = new DesignerConfig().widgetFileBasedPersister();
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        // spying objectMapper to be able to simulate a json convertion error
+        // spying objectMapper to be able to simulate a json conversion error
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         widgetRepository = new WidgetRepository(
                 widgetDirectory,
