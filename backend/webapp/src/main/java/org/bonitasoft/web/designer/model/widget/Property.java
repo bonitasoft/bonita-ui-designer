@@ -156,6 +156,7 @@ public class Property {
                     .append(type, other.type)
                     .append(defaultValue, other.defaultValue)
                     .append(choiceValues, other.choiceValues)
+                    .append(bond, other.bond)
                     .isEquals();
         } else {
             return false;
@@ -173,6 +174,7 @@ public class Property {
                 .append(type)
                 .append(defaultValue)
                 .append(choiceValues)
+                .append(bond)
                 .toHashCode();
     }
 
@@ -187,6 +189,7 @@ public class Property {
                 .append("type", type)
                 .append("defaultValue", defaultValue)
                 .append("choiceValues", choiceValues)
+                .append("bond", bond)
                 .toString();
     }
 }
