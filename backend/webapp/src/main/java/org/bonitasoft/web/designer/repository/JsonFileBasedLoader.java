@@ -15,7 +15,9 @@
 package org.bonitasoft.web.designer.repository;
 
 import static java.lang.String.format;
+import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
+import static java.util.Collections.emptyList;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -47,6 +49,10 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
         //Object can be of type <E>
         Path objectPath = resolve(directory, objectId);
         List<T> objects = new ArrayList<>();
+
+        if (!exists(directory)) {
+            return emptyList();
+        }
 
         //Each component has its own files in a directory named with its id
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "[!.]*")) {

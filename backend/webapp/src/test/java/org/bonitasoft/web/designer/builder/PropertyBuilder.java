@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.PropertyType;
 
@@ -24,6 +25,7 @@ public class PropertyBuilder {
     private String caption = "the caption";
     private String help = "the help";
     private PropertyType type = PropertyType.TEXT;
+    private BondType bond = BondType.CONSTANT;
 
     public static PropertyBuilder aProperty() {
         return new PropertyBuilder();
@@ -39,6 +41,11 @@ public class PropertyBuilder {
         return this;
     }
 
+    public PropertyBuilder bond(BondType bond) {
+        this.bond = bond;
+        return this;
+    }
+
     public Property build() {
         Property p = new Property();
         p.setLabel(label);
@@ -46,6 +53,7 @@ public class PropertyBuilder {
         p.setCaption(caption);
         p.setType(type);
         p.setHelp(help);
+        p.setBond(bond);
         return p;
     }
 }
