@@ -1,4 +1,4 @@
-<div class="DataHeader">
+<div class="DataPanel-header DataHeader">
     <div class="DataHeader-action">
         <button class="btn btn-default" ng-click="openDataPopup()" translate>Create a new variable</button>
         <button class="btn btn-default btn-data--help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
@@ -9,19 +9,19 @@
     </div>
 </div>
 
-<table class="VariablesTable table table-condensed table-ui-designer table-striped table-text-ellipsis">
+<table class="DataPanel-table VariablesTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
     <thead>
-    <th translate>Name</th>
-    <th translate>Value</th>
-    <th translate>Type</th>
-    <th></th>
+    <th class="col-xs-3" translate>Name</th>
+    <th class="col-xs-6" translate>Value</th>
+    <th class="col-xs-2" translate>Type</th>
+    <th class="col-xs-1"></th>
     </thead>
     <tbody>
 
     <tr ng-repeat="variable in getVariables(searchedData) as variables track by variable.name" class="DataPanel-variable">
-        <td class="col-xs-2 DataPanel-variableName">{{variable.name}}</td>
-        <td class="col-xs-5 DataPanel-variableValue"> {{variable.value}}</td>
-        <td class="col-xs-1 DataPanel-variableType" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
+        <td class="col-xs-3 DataPanel-variableName">{{variable.name}}</td>
+        <td class="col-xs-6 DataPanel-variableValue"> {{variable.value}}</td>
+        <td class="col-xs-2 DataPanel-variableType" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
             {{getType(variable)}}
         </td>
         <td class="col-xs-1 DataPanel-variableActions">
@@ -40,3 +40,4 @@
     </tr>
     </tbody>
 </table>
+

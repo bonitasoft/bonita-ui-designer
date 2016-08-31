@@ -1,4 +1,4 @@
-<div class="DataHeader">
+<div class="AssetPanel-header DataHeader">
     <div class="DataHeader-action">
         <button class="btn btn-default btnAsset--create" ng-click="vm.openAssetPopup()" translate>Add a new asset</button>
         <button class="btn btn-default btn-asset--help" ng-click="vm.openHelp()" title="{{'Open help' | translate}}">
@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<table class="table table-condensed table-ui-designer table-striped table-text-ellipsis">
+<table class="AssetPanel-table table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
     <thead>
     <th class="col-xs-1" translate>Active</th>
     <th class="col-xs-6" translate>Name</th>
@@ -28,11 +28,11 @@
     <tbody>
     <tr ng-class="{'text-muted':!asset.active}"
         ng-repeat="asset in vm.component.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
-        <td><input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)"></td>
-        <td>{{asset.name}}</td>
-        <td>{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
-        <td>{{asset.type | assetType}}</td>
-        <td class="text-right">
+        <td class="col-xs-1"><input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)"></td>
+        <td class="col-xs-6">{{asset.name}}</td>
+        <td class="col-xs-2">{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
+        <td class="col-xs-1">{{asset.type | assetType}}</td>
+        <td class="col-xs-2 text-right">
             <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
                 <button file-download class="btn btn-bonita-asset" href="{{vm.getAssetUrl(asset)}}"
                         title="{{'Download asset' | translate }}" ng-if="!vm.isExternal(asset)">
