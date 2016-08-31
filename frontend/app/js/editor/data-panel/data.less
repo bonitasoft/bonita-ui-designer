@@ -1,3 +1,5 @@
+@data-panel-header-height: 40px;
+
 .ace_editor.ace-editor--data {
   height: 250px;
 }
@@ -25,4 +27,12 @@
   position: absolute;
   bottom: 0;
   left: 15px;
+}
+
+.DataPanel-header {
+  height: @data-panel-header-height;
+}
+
+.DataPanel-table {
+  height:calc(~"100%" - @data-panel-header-height);
 }
