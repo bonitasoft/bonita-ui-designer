@@ -21,7 +21,6 @@
 }
 
 .BottomPanel-content {
-  overflow: auto;
   background-color: @color-data-bg;
   padding: .7em;
 
@@ -98,11 +97,28 @@
   line-height: 1;
 }
 
+.table-scrollable {
+  @table-scrollable-header-height: 2.3em;
 
+  position: relative;
+
+  tbody  tr {
+    width: 100%;
+    display: inline-table;
+  }
+  thead tr {
+    height: @table-scrollable-header-height;
+  }
+  tbody{
+    overflow-y: auto;
+    height: calc(~"100%" - @table-scrollable-header-height);
+    width: 100%;
+    position: absolute;
+  }
+}
 
 .table-ui-designer {
 
-  background-color: @color-table-tr-even;
   // Cells
   > thead,
   > tbody,
@@ -143,6 +159,12 @@
     > td,
     > th {
       background-color: @color-table-tr-odd;
+    }
+  }
+  > tbody > tr:nth-child(even) {
+    > td,
+    > th {
+      background-color: @color-table-tr-even;
     }
   }
 }
