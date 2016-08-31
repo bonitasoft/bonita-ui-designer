@@ -1,3 +1,5 @@
+@asset-panel-header-height: 40px;
+
 .asset-preview-iframe {
   border:none;
   height: 70vh;
@@ -9,5 +11,13 @@
 
 .btn-asset--help {
   margin-left: 1em;
+}
+
+.AssetPanel-header {
+  height: @asset-panel-header-height;
+}
+
+.AssetPanel-table {
+  height:calc(~"100%" - @asset-panel-header-height);
 }
 
