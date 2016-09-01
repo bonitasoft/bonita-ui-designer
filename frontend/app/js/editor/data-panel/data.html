@@ -11,14 +11,18 @@
 
 <table class="DataPanel-table VariablesTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
     <thead>
-    <th class="col-xs-3" translate>Name</th>
+    <th class="col-xs-3">
+        <a ng-click="sort('name')"><translate>Name</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
+    </th>
     <th class="col-xs-6" translate>Value</th>
-    <th class="col-xs-2" translate>Type</th>
+    <th class="col-xs-2">
+        <a ng-click="sort('type')"><translate>Type</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
+    </th>
     <th class="col-xs-1"></th>
     </thead>
     <tbody>
 
-    <tr ng-repeat="variable in getVariables(searchedData) as variables track by variable.name" class="DataPanel-variable">
+    <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name" class="DataPanel-variable">
         <td class="col-xs-3 DataPanel-variableName">{{variable.name}}</td>
         <td class="col-xs-6 DataPanel-variableValue"> {{variable.value}}</td>
         <td class="col-xs-2 DataPanel-variableType" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
