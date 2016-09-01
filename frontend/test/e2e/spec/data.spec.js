@@ -17,13 +17,13 @@ describe('data panel', function() {
         nbData = nb;
       });
 
-      dataPanel.addData('aName', 'String', 'aValue');
+      dataPanel.addData('aNewData', 'String', 'aNewValue');
 
       dataPanel.lines.count().then(function(nb) {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toBe('aValue');
+      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('aNewValue');
     });
 
     it('should add an Json data', function() {
@@ -94,6 +94,28 @@ describe('data panel', function() {
       expect(dataPanel.lines.count()).toBe(4);
     });
 
+    it('should sort data by name or type', function() {
+      dataPanel.sortByName();
+      expect(dataPanel.getData(0).name).toBe('alreadyExistsData');
+      expect(dataPanel.getData(1).name).toBe('jsonExample');
+      expect(dataPanel.getData(2).name).toBe('urlExample');
+
+      dataPanel.sortByName();
+      expect(dataPanel.getData(0).name).toBe('urlExample');
+      expect(dataPanel.getData(1).name).toBe('jsonExample');
+      expect(dataPanel.getData(2).name).toBe('alreadyExistsData');
+
+      dataPanel.sortByType();
+      expect(dataPanel.getData(0).type).toBe('String');
+      expect(dataPanel.getData(1).type).toBe('JSON');
+      expect(dataPanel.getData(2).type).toBe('External API');
+
+      dataPanel.sortByType();
+      expect(dataPanel.getData(0).type).toBe('External API');
+      expect(dataPanel.getData(1).type).toBe('JSON');
+      expect(dataPanel.getData(2).type).toBe('String');
+    });
+
     it('should expand value field for Json when button is clicked', function() {
       dataPanel.addButton.click();
       expect(dataPanel.popupExpandBtn.isPresent()).toBeFalsy();
@@ -158,27 +180,27 @@ describe('data panel', function() {
     });
 
     it('should allow modifying existing data value and rollbacking', function() {
-      dataPanel.editData(0);
+      dataPanel.editData(2);
       dataPanel.value = 'foo';
       $('.modal-footer .btn-link').click();
-      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toEqual('aValue');
+      expect(dataPanel.getData(2).value).toEqual('aValue');
     });
 
     it('should allow modifying existing data value and confirming', function() {
-      dataPanel.editData(0);
+      dataPanel.editData(2);
       dataPanel.value = 'foo';
       dataPanel.popupSaveBtn.click();
-      expect(dataPanel.lines.first().element(by.exactBinding('variable.value')).getText()).toEqual('foo');
+      expect(dataPanel.getData(2).value).toEqual('foo');
     });
 
     it('should not allow confirming invalid URL', function() {
-      dataPanel.editData(2);
+      dataPanel.editData(1);
       dataPanel.value = '';
       expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow confirming invalid Json', function() {
-      dataPanel.editData(1);
+      dataPanel.editData(0);
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('');
       expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
