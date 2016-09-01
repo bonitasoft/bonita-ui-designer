@@ -121,7 +121,7 @@ public class WidgetResource extends AssetResource<Widget>{
             throw new NotAllowedException("We can only save a custom widget");
         }
         widget.setId(widgetId);
-        widgetService.updateLastUpdateAndSave(widget);
+        widgetRepository.updateLastUpdateAndSave(widget);
     }
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.DELETE)
@@ -165,7 +165,7 @@ public class WidgetResource extends AssetResource<Widget>{
     @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.PUT)
     public List<Property> updateProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
         checkWidgetIdIsNotAPbWidget(widgetId);
-        return widgetRepository.updateProperty(widgetId, propertyName, property);
+        return widgetService.updateProperty(widgetId, propertyName, property);
     }
 
     @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.DELETE)
