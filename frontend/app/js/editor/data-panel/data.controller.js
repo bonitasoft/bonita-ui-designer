@@ -68,4 +68,9 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
       })
       .filter(toMatchSearchTerm);
   };
+
+  $scope.sort = (sortCriteria) => {
+    $scope.isReversedSorting = $scope.sortCriteria === sortCriteria ?  !$scope.isReversedSorting : false;
+    $scope.sortCriteria = sortCriteria;
+  };
 });

@@ -47,8 +47,24 @@
 
     deleteData: function(index) {
       this.lines.get(index).element(by.css('.delete-data')).click();
-    }
+    },
 
+    getData: function(index) {
+      let data = this.lines.get(index);
+      return {
+        name: data.element(by.exactBinding('variable.name')).getText(),
+        type: data.element(by.css('.DataPanel-variableType')).getText(),
+        value: data.element(by.exactBinding('variable.value')).getText()
+      };
+    },
+
+    sortByName: function() {
+      element(by.cssContainingText('.VariablesTable thead th a', 'Name')).click();
+    },
+
+    sortByType: function() {
+      element(by.cssContainingText('.VariablesTable thead th a', 'Type')).click();
+    }
   };
 
   DataSideBar.prototype = Object.create(dataMethod, {
