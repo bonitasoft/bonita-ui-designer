@@ -129,65 +129,6 @@ public class WidgetTest {
         assertThat(widget.getType()).isEqualTo("widget");
     }
 
-    @Test
-    public void should_filter_a_list_of_properties_with_different_bond_type() {
-        Property constantFooProperty = aProperty().name("foo").bond(CONSTANT).build();
-        Property interpolationFooProperty = aProperty().name("foo").bond(INTERPOLATION).build();
-        Property barProperty = aProperty().name("bar").bond(INTERPOLATION).build();
-        Widget persistedWidget = aWidget().id("label")
-                .property(constantFooProperty)
-                .property(barProperty)
-                .build();
-        Widget otherWidget = aWidget().id("label")
-                .property(interpolationFooProperty)
-                .property(barProperty)
-                .build();
-
-        List<Property> propertiesWithTypeChange = otherWidget.filterPropertiesWithDifferentBondType(persistedWidget);
-
-        assertThat(propertiesWithTypeChange).containsExactly(interpolationFooProperty);
-    }
-
-    @Test
-    public void should_returns_an_empty_list_when_there_is_no_property_with_different_bond_type() {
-        Property fooProperty = aProperty().name("foo").bond(CONSTANT).build();
-        Property barProperty = aProperty().name("bar").bond(INTERPOLATION).build();
-        Widget widget = aWidget().id("label").property(fooProperty).property(barProperty).build();
-
-        List<Property> propertiesWithTypeChange = widget.filterPropertiesWithDifferentBondType(widget);
-
-        assertThat(propertiesWithTypeChange).isEmpty();
-    }
-
-    @Test
-    public void should_returns_true_when_a_list_of_properties_has_different_bond_type() {
-        Property fooProperty = aProperty().name("foo").bond(CONSTANT).build();
-        Property barProperty = aProperty().name("bar").bond(INTERPOLATION).build();
-        Widget persistedWidget = aWidget().id("label")
-                .property(fooProperty)
-                .property(barProperty)
-                .build();
-        Widget otherWidget = aWidget().id("label")
-                .property(aProperty().name("foo").bond(BondType.EXPRESSION).build())
-                .property(barProperty)
-                .build();
-
-        boolean hasPropertiesWithBondChange = otherWidget.hasPropertiesWithDifferentBondType(persistedWidget);
-
-        assertThat(hasPropertiesWithBondChange).isTrue();
-    }
-
-    @Test
-    public void should_returns_false_when_a_list_of_properties_has_same_bond_type() {
-        Property fooProperty = aProperty().name("foo").bond(CONSTANT).build();
-        Property barProperty = aProperty().name("bar").bond(INTERPOLATION).build();
-        Widget widget = aWidget().id("label").property(fooProperty).property(barProperty).build();
-
-        boolean hasPropertiesWithBondChange = widget.hasPropertiesWithDifferentBondType(widget);
-
-        assertThat(hasPropertiesWithBondChange).isFalse();
-    }
-
     /**
      * Create a filled widget with a value for all fields
      */

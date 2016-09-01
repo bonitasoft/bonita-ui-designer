@@ -180,7 +180,7 @@ public class WidgetResourceTest {
                 .content(convertObjectToJsonBytes(customLabel)))
                 .andExpect(status().isOk());
 
-        verify(widgetService).updateLastUpdateAndSave(customLabel);
+        verify(widgetRepository).updateLastUpdateAndSave(customLabel);
     }
 
     @Test
@@ -205,7 +205,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_internal_server_error_if_an_error_occurs_while_saving_a_widget() throws Exception {
-        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetService).updateLastUpdateAndSave(any(Widget.class));
+        doThrow(new RepositoryException("error occurs", new Exception())).when(widgetRepository).updateLastUpdateAndSave(any(Widget.class));
         Widget customLabel = aWidget().id("customLabel").custom().build();
 
         mockMvc.perform(put("/rest/widgets/customLabel")
@@ -361,7 +361,7 @@ public class WidgetResourceTest {
     public void should_update_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
         List<Property> expectedProperties = asList(property);
-        when(widgetRepository.updateProperty("customLabel", "toBeUpdated", property)).thenReturn(expectedProperties);
+        when(widgetService.updateProperty("customLabel", "toBeUpdated", property)).thenReturn(expectedProperties);
 
         mockMvc.perform(put("/rest/widgets/customLabel/properties/toBeUpdated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -370,7 +370,7 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJson(expectedProperties)));
 
-        verify(widgetRepository).updateProperty("customLabel", "toBeUpdated", property);
+        verify(widgetService).updateProperty("customLabel", "toBeUpdated", property);
     }
 
     @Test
@@ -384,7 +384,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_404_when_widget_or_property_not_found_while_updating_property() throws Exception {
-        when(widgetRepository.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(NotFoundException.class);
+        when(widgetService.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(NotFoundException.class);
 
         mockMvc.perform(put("/rest/widgets/label/properties/toBeUpdated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -395,7 +395,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_when_error_appear_while_updating_property() throws Exception {
-        when(widgetRepository.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(RepositoryException.class);
+        when(widgetService.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(RepositoryException.class);
 
         mockMvc.perform(put("/rest/widgets/label/properties/toBeUpdated")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

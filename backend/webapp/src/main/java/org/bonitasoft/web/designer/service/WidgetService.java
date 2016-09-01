@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import static java.util.Collections.singletonList;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,19 +39,10 @@ public class WidgetService {
         this.bondsTypesFixers = bondsTypesFixers;
     }
 
-    public Widget updateLastUpdateAndSave(Widget toBeSaved) throws RepositoryException {
-        toBeSaved.setLastUpdate(Instant.now());
-        return save(toBeSaved);
-    }
-
-    public Widget save(Widget widget) {
-        Widget persistedWidget = widgetRepository.get(widget.getId());
-        if (widget.hasPropertiesWithDifferentBondType(persistedWidget)) {
-            for (BondsTypesFixer bondsTypesFixer : bondsTypesFixers) {
-                List<Property> propertiesWithBondChange = widget.filterPropertiesWithDifferentBondType(persistedWidget);
-                bondsTypesFixer.fixBondsTypes(widget.getId(), propertiesWithBondChange);
-            }
+    public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
+        for (BondsTypesFixer bondsTypesFixer : bondsTypesFixers) {
+            bondsTypesFixer.fixBondsTypes(widgetId, singletonList(property));
         }
-        return widgetRepository.save(widget);
+        return widgetRepository.updateProperty(widgetId, propertyName, property);
     }
 }
