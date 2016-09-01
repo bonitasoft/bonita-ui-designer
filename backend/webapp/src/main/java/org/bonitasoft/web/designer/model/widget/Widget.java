@@ -307,19 +307,6 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
         return firstLetter + widgetId.substring(1).replaceAll("([A-Z])", "-$1").toLowerCase();
     }
 
-    public boolean hasPropertiesWithDifferentBondType(Widget otherWidget) {
-        return !filterPropertiesWithDifferentBondType(otherWidget).isEmpty();
-    }
-
-    public List<Property> filterPropertiesWithDifferentBondType(final Widget otherWidget) {
-        return newArrayList(filter(getProperties(), new Predicate<Property>() {
-            @Override
-            public boolean apply(Property property) {
-                return isDifferentBondType(property, otherWidget.getProperty(property.getName()));
-            }
-        }));
-    }
-
     private boolean isDifferentBondType(Property property, Property otherProperty) {
         return !property.getBond().equals(otherProperty.getBond());
     }

@@ -55,11 +55,9 @@ public class WidgetServiceTest {
         Property interpolationTextProperty = aProperty().name("text").bond(INTERPOLATION).build();
         Widget persistedWidget = aWidget().id("labelWidget").property(constantTextProperty).build();
         when(widgetRepository.get("labelWidget")).thenReturn(persistedWidget);
-        Widget widget = aWidget().id("labelWidget").property(interpolationTextProperty).build();
 
-        widgetService.save(widget);
+        widgetService.updateProperty("labelWidget", "text", interpolationTextProperty);
 
-        verify(widgetRepository).save(widget);
         verify(bondsTypesFixer).fixBondsTypes("labelWidget", singletonList(interpolationTextProperty));
     }
 }
