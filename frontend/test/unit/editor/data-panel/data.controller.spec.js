@@ -129,5 +129,31 @@
       expect($scope.getType(data)).toEqual('(Exposed)');
     });
 
+    it('should sort based on a sort criteria', function() {
+
+      $scope.sort('aCriteria');
+
+      expect($scope.sortCriteria).toBe('aCriteria');
+    });
+
+    it('should change sort order while sorting twice on same criteria', function() {
+
+      $scope.sort('aCriteria');
+      expect($scope.isReversedSorting).toBe(false);
+
+      $scope.sort('aCriteria');
+      expect($scope.isReversedSorting).toBe(true);
+    });
+
+    it('should reset sort order while changing sort criteria', function() {
+      $scope.isReversedSorting = true;
+      $scope.sortCriteria = 'aCriteria';
+
+      $scope.sort('anotherCriteria');
+
+      expect($scope.isReversedSorting).toBe(false);
+      expect($scope.sortCriteria).toBe('anotherCriteria');
+    });
+
   });
 })();
