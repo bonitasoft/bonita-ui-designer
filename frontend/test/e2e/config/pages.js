@@ -12,9 +12,9 @@
         lastUpdate: 1447944407862,
         favorite: true,
         data: {
-          alreadyExistsData: {type: 'constant', value: 'aValue'},
           jsonExample: {type: 'json', value: '{}'},
-          urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
+          urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'},
+          alreadyExistsData: {type: 'constant', value: 'aValue'}
         },
         assets: [
           {
