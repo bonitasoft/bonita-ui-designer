@@ -128,7 +128,7 @@ gulp.task('serve', function() {
 });
 
 gulp.task('default', ['clean', 'ddescriber'], function() {
-  gulp.start(['test', 'build']);
+  gulp.start(['build']);
 });
 
 module.exports = {
