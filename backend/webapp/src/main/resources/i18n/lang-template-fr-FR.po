@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2016-08-19 04:10-0400\n"
+"PO-Revision-Date: 2016-08-19 06:01-0400\n"
 
 #: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
@@ -617,7 +617,7 @@ msgstr "Définissez les en-têtes de tableau comme valeur d'une variable : <em>m
 
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:20
 msgid "Defines endpoint URL where the file will be uploaded"
-msgstr "Définit l'URL cible dans lequel le fichier sera chargé"
+msgstr "Définit l'URL cible dans laquelle le fichier sera chargé"
 
 #: home/artifact-list/artifact-list.directive.js:29
 #: home/artifact-list/confirm-deletion-popup.html:1
@@ -872,7 +872,7 @@ msgstr "Contient le contenu de la réponse du d'erreur su service d'upload. Cett
 
 #: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:14
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
-msgstr "Recueille la réponse de l'URL cible du chargement. Cette valeur peut être utilisée pour remplir un contrat"
+msgstr "Contient la réponse de l'URL cible après chargement. Cette valeur peut être utilisée pour remplir un contrat"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:18
 msgid "Holds the response when the request has failed"
@@ -1006,7 +1006,7 @@ msgstr "Interpolation"
 
 #: assets/generic-asset-form.html:1
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
-msgstr "URL invalide : il doit contenir uniquement des caractères alphanumériques ou #!:. ? += &%@-/"
+msgstr "URL invalide : elle doit contenir uniquement des caractères alphanumériques ou #!:. ? += &%@-/"
 
 #: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
@@ -1483,7 +1483,7 @@ msgstr "Valeurs sélectionnées"
 
 #: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:69
 msgid "Send data to this URL when the button is clicked"
-msgstr "Envoyer des données vers cette URL au clic sur le bouton"
+msgstr "Envoyer des données vers cette URL lors du clic sur le bouton"
 
 #: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
