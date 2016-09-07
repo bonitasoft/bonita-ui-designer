@@ -17,7 +17,7 @@
   'use strict';
 
   angular.module('bonitasoft.designer', [
-    'app.route',
+    'bonitasoft.designer.route',
     'bonitasoft.designer.preview',
     'bonitasoft.designer.home',
     'bonitasoft.designer.custom-widget',
