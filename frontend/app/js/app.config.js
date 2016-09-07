@@ -34,7 +34,7 @@
     });
 
   /* @ngInject */
-  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $stateProvider, $urlRouterProvider, appStates, $uibModalProvider) {
+  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $urlRouterProvider, $uibModalProvider) {
 
     /**
      * For the build, gulp replaces '%debugMode%' by false. For the dev no need to replace, it's eval to true.
@@ -53,16 +53,10 @@
     /* set default url */
     $urlRouterProvider.otherwise('/en/home');
 
-    /* create ui-router states */
-    Object.keys(appStates).forEach(function(stateName) {
-      $stateProvider.state(stateName, appStates[stateName]);
-    });
-
     angular.extend($uibModalProvider.options, {
       backdrop: 'static',
       //BS-14199 : change modal appearance animation for IE not to put cursor anywhere during animation
       windowClass: 'modal fade in'
     });
-
   }
 })();
