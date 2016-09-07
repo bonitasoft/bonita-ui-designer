@@ -17,16 +17,16 @@
   'use strict';
 
   angular
-    .module('app.route', ['tmh.dynamicLocale'])
-    .config((tmhDynamicLocaleProvider) => {
+    .module('bonitasoft.designer.route', ['tmh.dynamicLocale', 'ui.router'])
+    .config((tmhDynamicLocaleProvider, $stateProvider) => {
       tmhDynamicLocaleProvider.localeLocationPattern('locales/angular-locale_{{locale}}.js');
-    })
-    .constant('appStates', {
-      'designer': {
+
+      $stateProvider.state('designer', {
         abstract: true,
         url: '/:lang',
         template: '<ui-view></ui-view>',
-        resolve: { /* @ngInject */
+        resolve: {
+          /* @ngInject */
           language: function($stateParams, gettextCatalog, tmhDynamicLocale) {
             var languages = {
               'en': { lang: 'en' },
@@ -46,8 +46,9 @@
             }
           }
         }
-      },
-      'designer.home': {
+      });
+
+      $stateProvider.state('designer.home', {
         url: '/home',
         views: {
           '@designer': {
@@ -55,18 +56,21 @@
             templateUrl: 'js/home/home.html'
           }
         }
-      },
-      'designer.layout': {
+      });
+
+      $stateProvider.state('designer.layout', {
         url: '/layouts/:id',
         /* @ngInject */
         controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
-      },
-      'designer.form': {
+      });
+
+      $stateProvider.state('designer.form', {
         url: '/forms/:id',
         /* @ngInject */
         controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
-      },
-      'designer.page': {
+      });
+
+      $stateProvider.state('designer.page', {
         url: '/pages/:id',
         resolve: {
           /* @ngInject */
@@ -93,8 +97,9 @@
             templateUrl: 'js/editor/header/header.html'
           }
         }
-      },
-      'designer.page.asset': {
+      });
+
+      $stateProvider.state('designer.page.asset', {
         views: {
           //  sub view named in editor.html
           'data@designer.page': {
@@ -103,8 +108,9 @@
             templateUrl: 'js/assets/page-assets.html'
           }
         }
-      },
-      'designer.page.preview': {
+      });
+
+      $stateProvider.state('designer.page.preview', {
         url: '/preview',
         views: {
           '@designer': {
@@ -126,8 +132,9 @@
             return pageRepo;
           }
         }
-      },
-      'designer.widget': {
+      });
+
+      $stateProvider.state('designer.widget', {
         url: '/widget/:id',
         resolve: {
           /* @ngInject */
@@ -158,6 +165,6 @@
             templateUrl: 'js/assets/widget-assets.html'
           }
         }
-      }
+      });
     });
 })();
