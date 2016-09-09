@@ -143,30 +143,6 @@ describe('pageRepo', function() {
     expect(assets).toEqual(expectedAssets);
   });
 
-  it('should delete a local asset', function() {
-    var asset = {
-      id: 'UIID',
-      name: 'myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
-
-    pageRepo.deleteAsset('page1', asset);
-    $httpBackend.flush();
-  });
-
-  it('should delete an external asset', function() {
-    var asset = {
-      id: 'UIID',
-      name: 'http://mycdn.com/myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectDELETE('rest/pages/page1/assets/UIID').respond(200);
-
-    pageRepo.deleteAsset('page1', asset);
-    $httpBackend.flush();
-  });
-
   it('should deactivate an asset', function() {
     var asset = {
       id: 'UIID',
@@ -181,16 +157,6 @@ describe('pageRepo', function() {
     $httpBackend.expectPUT('rest/pages/page1/assets/UIID?active=true').respond(200);
     asset.active = true;
     pageRepo.desactivateAsset('page1', asset);
-    $httpBackend.flush();
-  });
-
-  it('should save an asset', function() {
-    var asset = {
-      name: 'http://mycdn.com/myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectPOST('rest/pages/my-page/assets').respond(200);
-    pageRepo.createAsset('my-page', asset);
     $httpBackend.flush();
   });
 
