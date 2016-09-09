@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetPopupCtrl', AssetPopupCtrl);
 
-  function AssetPopupCtrl($scope, $uibModalInstance, alerts, assetsService, artifactRepo, asset, assets, mode, artifact, gettextCatalog) {
+  function AssetPopupCtrl($scope, $uibModalInstance, alerts, assetsService, assetRepo, asset, assets, mode, artifact, gettextCatalog) {
 
     var urlPrefixForLocalAsset = 'rest/' + mode + 's/' + artifact.id + '/assets/';
 
@@ -57,7 +57,7 @@
      */
     function saveExternalAsset(formAsset, $event) {
       if (assetsService.isExternal(formAsset)) {
-        artifactRepo.createAsset(artifact.id, assetsService.formToAsset(formAsset)).then($uibModalInstance.close);
+        assetRepo.createAsset(artifact.id, assetsService.formToAsset(formAsset)).then($uibModalInstance.close);
         $event.preventDefault(); //preventing native form action execution
       }
       // else nothing to do, form will be submitted as standard multipart/form-data form

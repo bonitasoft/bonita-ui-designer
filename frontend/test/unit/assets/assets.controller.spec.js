@@ -2,7 +2,7 @@
   'use strict';
 
   describe('AssetCtrl', function() {
-    var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component;
+    var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component, assetRepo;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
@@ -20,12 +20,9 @@
             { id: '789', name: 'publicAsset', scope: 'WIDGET', active: true },
             { id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false }
           ]);
-        },
-        deleteAsset: function() {
-        },
-        createAsset: function() {
         }
       };
+      assetRepo = jasmine.createSpyObj('assetRepo', ['deleteAsset', 'createAsset']);
     }));
 
     describe('Page editor', function() {
@@ -38,7 +35,8 @@
           artifact: component,
           artifactRepo: artifactRepo,
           mode: 'page',
-          assetsService: assetsService
+          assetsService: assetsService,
+          assetRepo: assetRepo
         });
       }));
 
@@ -69,13 +67,12 @@
 
       it('should delete an asset', function() {
         var asset = { name: 'myasset.js' };
-
-        spyOn(artifactRepo, 'deleteAsset').and.returnValue($q.when({}));
+        assetRepo.deleteAsset.and.returnValue($q.when({}));
 
         controller.delete(asset);
         $scope.$apply();
 
-        expect(artifactRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
+        expect(assetRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
       });
 
       it('should get url for widget asset in page mode', function() {
@@ -104,7 +101,8 @@
           artifact: component,
           artifactRepo: artifactRepo,
           mode: 'widget',
-          assetsService: assetsService
+          assetsService: assetsService,
+          assetRepo
         });
       }));
 

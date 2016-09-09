@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($uibModal, artifact, artifactRepo, mode, assetsService) {
+  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService) {
 
     var vm = this;
     vm.component = artifact;
@@ -65,7 +65,7 @@
     }
 
     function deleteAsset(asset) {
-      artifactRepo.deleteAsset(vm.component.id, asset).then(function() {
+      assetRepo.deleteAsset(vm.component.id, asset).then(function() {
         vm.component.assets = vm.component.assets.filter(function(actual) {
           return actual.id !== asset.id;
         });
@@ -98,7 +98,7 @@
           assets: () => vm.component.assets,
           mode: () => mode,
           artifact: () => artifact,
-          artifactRepo: () => artifactRepo
+          assetRepo: () => assetRepo
         }
       });
       modalInstance.result.then(updateList);
