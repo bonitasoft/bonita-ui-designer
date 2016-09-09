@@ -50,15 +50,6 @@
           .then((response) => response.data.assets);
       }
 
-      createAsset(id, asset) {
-        return this.$http.post(`${this.baseUrl}/${id}/assets`, asset)
-          .then((response) => response.data);
-      }
-
-      deleteAsset(id, asset) {
-        return this.$http.delete(`${this.baseUrl}/${id}/assets/${asset.id}`);
-      }
-
       incrementOrderAsset(widgetId, asset) {
         return this.$http.put(`${this.baseUrl}/${widgetId}/assets/${asset.id}?increment=true`, asset);
       }

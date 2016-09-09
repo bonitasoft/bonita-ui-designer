@@ -147,40 +147,6 @@ describe('widgetRepo', function() {
     expect(url).toBe('export/widget/widgetId');
   });
 
-  it('should delete a local asset', function() {
-    var asset = {
-      id: 'UIID',
-      name: 'myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectDELETE('rest/widgets/my-widget/assets/UIID').respond(200, []);
-
-    widgetRepo.deleteAsset('my-widget', asset);
-    $httpBackend.flush();
-  });
-
-  it('should delete an external asset', function() {
-    var asset = {
-      id: 'UIID',
-      name: 'http://mycdn.com/myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectDELETE('rest/widgets/my-widget/assets/UIID').respond(200, []);
-
-    widgetRepo.deleteAsset('my-widget', asset);
-    $httpBackend.flush();
-  });
-
-  it('should save an asset', function() {
-    var asset = {
-      name: 'http://mycdn.com/myfile.js',
-      type: 'js'
-    };
-    $httpBackend.expectPOST('rest/widgets/my-widget/assets').respond(200);
-    widgetRepo.createAsset('my-widget', asset);
-    $httpBackend.flush();
-  });
-
   it('should decrement order of an asset', function() {
     var asset = {
       id: 'UIID',
