@@ -107,6 +107,9 @@
             controllerAs: 'vm',
             templateUrl: 'js/assets/page-assets.html'
           }
+        },
+        resolve: {
+          assetRepo: (AssetRepository, pageRepo) => new AssetRepository(pageRepo.baseUrl)
         }
       });
 
@@ -150,7 +153,8 @@
           /* @ngInject */
           mode: function() {
             return 'widget';
-          }
+          },
+          assetRepo: (AssetRepository, widgetRepo) => new AssetRepository(widgetRepo.baseUrl)
         },
         views: {
           // main view (ui-view in index.html)
