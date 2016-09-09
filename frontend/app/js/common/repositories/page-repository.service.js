@@ -37,16 +37,6 @@
         return this.$http.put(`${this.baseUrl}/${id}/name`, newName);
       }
 
-      /**
-       * Creates a new asset
-       * @param id - the page's id
-       * @param asset
-       */
-      createAsset(id, asset) {
-        return this.$http.post(`${this.baseUrl}/${id}/assets`, asset)
-          .then((response) => response.data);
-      }
-
       desactivateAsset(pageId, asset) {
         return this.$http.put(`${this.baseUrl}/${pageId}/assets/${asset.id}?active=${asset.active}`, asset);
       }
@@ -59,14 +49,6 @@
       loadAssets(page) {
         return this.$http.get(`${this.baseUrl}/${page.id}/assets`)
           .then((response) => response.data);
-      }
-
-      /**
-       * Delete an asset
-       * Returns a promise
-       */
-      deleteAsset(id, asset) {
-        return this.$http.delete(`${this.baseUrl}/${id}/assets/${ asset.id}`);
       }
     }
     return new PageRepository();

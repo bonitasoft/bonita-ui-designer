@@ -1,6 +1,6 @@
 describe('AssetPopupCtrl', function() {
 
-  var $rootScope, $scope, asset, $uibModalInstance, assetsService, alerts, assetsServiceProvider, controller, artifactRepo, $q, injector, assets;
+  var $rootScope, $scope, asset, $uibModalInstance, assetsService, alerts, assetsServiceProvider, controller, assetRepo, $q, injector, assets;
 
   function createController(mode) {
     return injector.get('$controller')('AssetPopupCtrl', {
@@ -12,7 +12,7 @@ describe('AssetPopupCtrl', function() {
       alerts: alerts,
       mode: mode,
       artifact: { id: 12 },
-      artifactRepo: artifactRepo
+      assetRepo: assetRepo
     });
   }
 
@@ -35,15 +35,7 @@ describe('AssetPopupCtrl', function() {
       type: 'js'
     };
 
-    artifactRepo = {
-      loadAssets: function() {
-        return $q.when([
-          { id: '123', name: 'myAsset', scope: 'PAGE', active: true },
-          { id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false },
-          { id: '789', name: 'publicAsset', scope: 'WIDGET', active: true },
-          { id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false }
-        ]);
-      },
+    assetRepo = {
       deleteAsset: function() {
       },
       createAsset: function() {
@@ -83,23 +75,23 @@ describe('AssetPopupCtrl', function() {
 
   it('should send external data to the caller when user want to save it', function() {
     var data = { name: 'myasset.js', external: true};
-    spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
+    spyOn(assetRepo, 'createAsset').and.returnValue($q.when(data));
     let event = jasmine.createSpyObj('event', ['preventDefault']);
 
     controller.saveExternalAsset(data, event);
 
-    expect(artifactRepo.createAsset).toHaveBeenCalled();
+    expect(assetRepo.createAsset).toHaveBeenCalled();
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
   it('should not save a non external asset', function() {
     var data = { name: 'myasset.js', source: 'local'};
-    spyOn(artifactRepo, 'createAsset').and.returnValue($q.when(data));
+    spyOn(assetRepo, 'createAsset').and.returnValue($q.when(data));
     let event = jasmine.createSpyObj('event', ['preventDefault']);
 
     controller.saveExternalAsset(data, event);
 
-    expect(artifactRepo.createAsset).not.toHaveBeenCalled();
+    expect(assetRepo.createAsset).not.toHaveBeenCalled();
     expect(event.preventDefault).not.toHaveBeenCalled();
   });
 
