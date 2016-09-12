@@ -32,7 +32,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Collections;
 
-import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -83,7 +82,7 @@ public class HtmlBuilderVisitorTest {
     public void setUp() throws Exception {
         initMocks(this);
         visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, directivesCollector, assetVisitor);
-        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String>emptySet());
+        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
     }
 
     @Test
@@ -257,7 +256,7 @@ public class HtmlBuilderVisitorTest {
                         .with(aContainer().withReference("container-reference").build())
                         .withReference("formcontainer-reference")
                         .build()))
-                .isEqualToBody(testResource.load("formContainerSimple.html"));
+                                .isEqualToBody(testResource.load("formContainerSimple.html"));
     }
 
     @Test
@@ -274,8 +273,6 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_add_container_to_the_formcontainer() throws Exception {
         FormContainer formContainer = aFormContainer()
-                .method("POST")
-                .action("/action.do")
                 .with(aContainer().with(aRow().with(
                         aComponent().withWidgetId("pbLabel").withReference("component-reference").build()))
                         .withReference("container-reference").build())
@@ -299,7 +296,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_not_add_extra_modules_when_no_widgets_needs_them() throws Exception {
         Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String>emptySet());
+        when(requiredModulesVisitor.visit(page)).thenReturn(Collections.<String> emptySet());
 
         String html = visitor.build(page, "");
 

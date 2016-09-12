@@ -16,51 +16,27 @@ package org.bonitasoft.web.designer.model.page;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonView;
+
 @JsonTypeName("formContainer")
 public class FormContainer extends Element {
 
-    public static final String PARAM_ACTION = "action";
-    public static final String PARAM_ACTION_DEFAULT_VALUE = "#";
-    public static final String PARAM_METHOD = "method";
-    public static final String PARAM_METHOD_DEFAULT_VALUE = "GET";
-
     private Container container = new Container();
 
-
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({ JsonViewPersistence.class })
     public Container getContainer() {
         return container;
     }
 
     public void setContainer(Container container) {
         this.container = container;
-    }
-
-    @JsonIgnore
-    public String getAction(){
-        return getValueParameter(PARAM_ACTION, PARAM_ACTION_DEFAULT_VALUE);
-    }
-
-    @JsonIgnore
-    public String getMethod(){
-        return getValueParameter(PARAM_METHOD, PARAM_METHOD_DEFAULT_VALUE);
-    }
-
-    @JsonIgnore
-    private String getValueParameter(String key, String defaultValue){
-        if(getPropertyValues().get(key)!=null){
-            return (String) getPropertyValues().get(key).getValue();
-        }
-        return defaultValue;
     }
 
     @Override

@@ -46,25 +46,6 @@ public class FormContainerBuilder extends ElementBuilder<FormContainer> {
         return this;
     }
 
-
-    public FormContainerBuilder action(String action) {
-        setParameter("action", action);
-        return this;
-    }
-
-    public FormContainerBuilder method(String method) {
-        setParameter("method", method);
-        return this;
-    }
-
-    public FormContainerBuilder addParam(String key, String type, Object value) {
-        PropertyValue parameterValue = new PropertyValue();
-        parameterValue.setValue(value);
-        parameterValue.setType(type);
-        formContainer.getPropertyValues().put(key, parameterValue);
-        return this;
-    }
-
     @Override
     public FormContainer build() {
         return formContainer;
@@ -77,13 +58,12 @@ public class FormContainerBuilder extends ElementBuilder<FormContainer> {
 
     private void setParameter(String key, String name) {
         PropertyValue value = formContainer.getPropertyValues().get(key);
-        if(value==null){
+        if (value == null) {
             value = new PropertyValue();
             value.setType("string");
             value.setValue(name);
             formContainer.getPropertyValues().put(key, value);
-        }
-        else{
+        } else {
             value.setValue(name);
         }
     }
