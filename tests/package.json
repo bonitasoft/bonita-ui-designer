@@ -13,7 +13,7 @@
     "gulp-babel": "5.3.0",
     "gulp-protractor": "1.0.0",
     "jasmine-reporters": "2.1.1",
-    "protractor": "2.4.0"
+    "protractor": "4.0.5"
   },
   "scripts": {
     "pretest": "webdriver-manager update",
