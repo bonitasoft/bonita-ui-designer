@@ -17,22 +17,22 @@
     </div>
 </div>
 
-<table class="AssetPanel-table table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
+<table class="AssetPanel-table AssetTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
     <thead>
-    <th class="col-xs-1" translate>Active</th>
-    <th class="col-xs-6" translate>Name</th>
-    <th class="col-xs-2" translate>Widget</th>
-    <th class="col-xs-1" translate>Type</th>
-    <th class="col-xs-2">&nbsp;</th>
+    <th class="AssetTable-active" translate>Active</th>
+    <th class="AssetTable-name" translate>Name</th>
+    <th class="AssetTable-scope" translate>Widget</th>
+    <th class="AssetTable-type" translate>Type</th>
+    <th class="AssetTable-actions">&nbsp;</th>
     </thead>
     <tbody>
     <tr ng-class="{'text-muted':!asset.active}"
         ng-repeat="asset in vm.component.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
-        <td class="col-xs-1"><input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)"></td>
-        <td class="col-xs-6">{{asset.name}}</td>
-        <td class="col-xs-2">{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
-        <td class="col-xs-1">{{asset.type | assetType}}</td>
-        <td class="col-xs-2 text-right">
+        <td class="AssetTable-active"><input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)"></td>
+        <td class="AssetTable-name">{{asset.name}}</td>
+        <td class="AssetTable-scope">{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
+        <td class="AssetTable-type">{{asset.type | assetType}}</td>
+        <td class="AssetTable-actions text-right">
             <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
                 <button file-download class="btn btn-bonita-asset" href="{{vm.getAssetUrl(asset)}}"
                         title="{{'Download asset' | translate }}" ng-if="!vm.isExternal(asset)">
