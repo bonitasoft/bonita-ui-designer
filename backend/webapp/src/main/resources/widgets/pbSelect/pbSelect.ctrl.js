@@ -1,4 +1,4 @@
-function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout) {
+function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window, $element) {
   var ctrl = this;
 
   function comparator(initialValue, item) {
@@ -24,6 +24,14 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout) {
         .map(function (item) {
           return ctrl.getValue(item);
         })[0];
+
+      //force IE9 to rerender option list
+      if ($window.navigator && $window.navigator.userAgent && $window.navigator.userAgent.indexOf('MSIE 9') >= 0) {
+        var option = document.createElement('option');
+        var select = $element.find('select')[0];
+        select.add(option,null);
+        select.remove(select.options.length-1);
+      }
 
       // terrible hack to force the select ui to show the correct options
       // so we change it's value to undefined and then delay to the correct value
