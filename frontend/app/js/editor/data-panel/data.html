@@ -11,24 +11,24 @@
 
 <table class="DataPanel-table VariablesTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
     <thead>
-    <th class="col-xs-3">
+    <th class="VariablesTable-name">
         <a ng-click="sort('name')"><translate>Name</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
     </th>
-    <th class="col-xs-6" translate>Value</th>
-    <th class="col-xs-2">
+    <th class="VariablesTable-value" translate>Value</th>
+    <th class="VariablesTable-type">
         <a ng-click="sort('type')"><translate>Type</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
     </th>
-    <th class="col-xs-1"></th>
+    <th class="VariablesTable-actions"></th>
     </thead>
     <tbody>
 
     <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name" class="DataPanel-variable">
-        <td class="col-xs-3 DataPanel-variableName">{{variable.name}}</td>
-        <td class="col-xs-6 DataPanel-variableValue"> {{variable.value}}</td>
-        <td class="col-xs-2 DataPanel-variableType" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
+        <td class="VariablesTable-name">{{variable.name}}</td>
+        <td class="VariablesTable-value"> {{variable.value}}</td>
+        <td class="VariablesTable-type" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
             {{getType(variable)}}
         </td>
-        <td class="col-xs-1 DataPanel-variableActions">
+        <td class="col-xs-1 VariablesTable-actions">
             <div class="btn-group link-group btn-group-sm pull-right">
                 <button class="btn update-data" ng-click="openDataPopup(variable.name)" title="{{ 'Edit variable' | translate }}">
                     <i class="fa fa-pencil"></i>
