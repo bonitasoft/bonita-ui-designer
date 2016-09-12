@@ -53,7 +53,7 @@
       let data = this.lines.get(index);
       return {
         name: data.element(by.exactBinding('variable.name')).getText(),
-        type: data.element(by.css('.DataPanel-variableType')).getText(),
+        type: data.element(by.css('.VariablesTable-type')).getText(),
         value: data.element(by.exactBinding('variable.value')).getText()
       };
     },
