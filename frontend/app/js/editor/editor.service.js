@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.editor')
     .service('editorService', editorService);
 
-  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts, gettext, whiteboardService, assetsService) {
+  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, containerDefinitionFactory, properties, alerts, gettext, whiteboardService, assetsService) {
 
     var paletteItems = {};
     var page;
@@ -62,27 +62,24 @@
     }
 
     function initializePalette(widgets) {
-      function filterCustomWidgets(val, item) {
-        return item.type === 'widget' && item.custom === val;
+      function filterCustoms(val, item) {
+        return item.custom === val;
       }
 
-      var coreWidgets = widgets.filter(filterCustomWidgets.bind(null, false))
-        .map(paletteWidgetWrapper.bind(null, gettext('widgets'), 1));
+      var coreWidgets = widgets.filter(filterCustoms.bind(null, false))
+        .map(paletteWrapper.bind(null, gettext('widgets'), 1));
 
-      var customWidgets = widgets.filter(filterCustomWidgets.bind(null, true))
-        .map(paletteWidgetWrapper.bind(null, gettext('custom widgets'), 2));
-
-      var containers = widgets.filter((widget) => widget.type === 'container')
-        .map(paletteContainerWrapper);
+      var customWidgets = widgets.filter(filterCustoms.bind(null, true))
+        .map(paletteWrapper.bind(null, gettext('custom widgets'), 2));
 
       // reset the components map
       components.reset();
-      components.register(containers);
+      components.register(getPaletteContainers());
       components.register(coreWidgets);
       components.register(customWidgets);
     }
 
-    function paletteWidgetWrapper(name, order, component) {
+    function paletteWrapper(name, order, component) {
       var extended = properties.addCommonPropertiesTo(component);
       return {
         component: extended,
@@ -93,30 +90,31 @@
       };
     }
 
-    function paletteContainerWrapper(component) {
-      let fns = {
-        container: {
-          init: whiteboardComponentWrapper.wrapContainer,
-          create: createContainer
-        },
-        tabsContainer: {
-          init: whiteboardComponentWrapper.wrapTabsContainer,
-          create: createTabsContainer
-        },
-        formContainer: {
-          init: whiteboardComponentWrapper.wrapFormContainer,
-          create: createFormContainer
+    function getPaletteContainers() {
+      var container = properties.addCommonPropertiesTo(containerDefinitionFactory.createContainerWidget());
+      var tabsContainer = properties.addCommonPropertiesTo(containerDefinitionFactory.createTabsContainerWidget());
+      var formContainer = properties.addCommonPropertiesTo(containerDefinitionFactory.createFormContainerWidget());
+      return [
+        {
+          sectionName: gettext('widgets'),
+          sectionOrder: 1,
+          component: container,
+          init: whiteboardComponentWrapper.wrapContainer.bind(null, container),
+          create: createContainer.bind(null, container)
+        }, {
+          sectionName: gettext('widgets'),
+          sectionOrder: 1,
+          component: tabsContainer,
+          init: whiteboardComponentWrapper.wrapTabsContainer.bind(null, tabsContainer),
+          create: createTabsContainer.bind(null, tabsContainer)
+        }, {
+          sectionName: gettext('widgets'),
+          sectionOrder: 1,
+          component: formContainer,
+          init: whiteboardComponentWrapper.wrapFormContainer.bind(null, formContainer),
+          create: createFormContainer.bind(null, formContainer)
         }
-      };
-
-      var extended = properties.addCommonPropertiesTo(component);
-      return {
-        component: extended,
-        sectionName: gettext('widgets'),
-        sectionOrder: 1,
-        init: fns[extended.id].init.bind(null, extended),
-        create: fns[extended.id].create.bind(null, extended)
-      };
+      ];
     }
 
     function createWidget(widget, parentRow) {
