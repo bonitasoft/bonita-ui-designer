@@ -36,8 +36,8 @@ describe('utils', function() {
     it('getTypes should return a table with all the types ', function() {
       expect(assetsService.getTypes()).toEqual(
         [
-          { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' },
-          { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' },
+          { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'javascript' },
+          { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'css' },
           { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' }
         ]);
     });

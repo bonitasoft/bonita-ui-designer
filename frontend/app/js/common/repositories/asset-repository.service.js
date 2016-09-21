@@ -35,6 +35,41 @@
       deleteAsset(id, asset) {
         return this.$http.delete(`${this.baseUrl}/${id}/assets/${asset.id}`);
       }
+
+      /**
+       * Update a local asset content (i.e. replace file content by newContent)
+       * @param component   component on which asset should be updated
+       * @param asset       asset on which content should be updated
+       * @param newContent  the new content
+       * @returns {HttpPromise}
+       */
+      updateLocalAssetContent(componentId, asset, newContent) {
+        var content = new Blob([newContent], { 'type': 'text/plain' });
+        var formData = new FormData();
+        formData.append('file', content, asset.name);
+
+        return this.$http({
+          url: `${this.baseUrl}/${componentId}/assets/${asset.type}`,
+          method: 'POST',
+          transformRequest: angular.identity,    // Do not serialize our FormData object
+          data: formData,
+          headers: {
+            // Default angular content-type is application/json
+            // Manually setting ‘Content-Type’: multipart/form-data will fail to fill in the boundary parameter of the request
+            // We explicitly set content-type to undefined so browser will sets the Content-Type to multipart/form-data for us and fills in the correct boundary
+            // See section 5.1.1. (Multipart Media Type / Common Syntax) of rfc2046 https://www.ietf.org/rfc/rfc2046.txt
+            'Content-Type': undefined
+          }
+        });
+      }
+
+      loadLocalAssetContent(componentId, asset) {
+        return this.$http({
+          url: `${this.baseUrl}/${componentId}/assets/${asset.type}/${asset.name}?format=text`,
+          method: 'GET',
+          transformResponse: angular.identity // Do not transform request, keep it in string even when this is a json content
+        });
+      }
     }
     return AssetRepository;
   }
