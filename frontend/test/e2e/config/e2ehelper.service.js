@@ -10,7 +10,9 @@
     }
 
     lastChunk(url) {
-      return url.match(/([^\/]*)\/*$/)[1];
+      var chunk = url.match(/([^\/]*)\/*$/)[1];
+      // remove query parameters
+      return chunk.split('?')[0];
     }
 
     uuid() {

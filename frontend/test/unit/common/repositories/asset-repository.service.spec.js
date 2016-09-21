@@ -44,4 +44,31 @@ describe('AssetRepository', () => {
     $httpBackend.flush();
   });
 
+  it('should update a local asset content', () => {
+    var asset = {
+      id: 'UIID',
+      name: 'myfile.js',
+      type: 'js'
+    };
+    $httpBackend.expectPOST(
+      'a/base/url/aPageId/assets/js',
+      () => true, // seems that we cannot test expected data. Phantomjs seems to not support FormData
+      (headers) => !headers['Content-Type']    // don't want any content-type, should be set by browser
+    ).respond(200);
+
+    assetRepo.updateLocalAssetContent('aPageId', asset, 'new file content');
+
+    $httpBackend.flush();
+  });
+
+  it('should load a local asset content', () => {
+    var asset = { id: 'asset-id', name: 'myfile.js', type: 'js' };
+    $httpBackend.whenGET('a/base/url/page-id/assets/js/myfile.js?format=text')
+      .respond('{ "json": "file" }');
+
+    assetRepo.loadLocalAssetContent('page-id', asset)
+      .then((response) =>  expect(response.data).toEqual('{ "json": "file" }'));
+
+    $httpBackend.flush();
+  });
 });
