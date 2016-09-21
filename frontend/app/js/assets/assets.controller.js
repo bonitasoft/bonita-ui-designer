@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService) {
+  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
 
     var vm = this;
     vm.component = artifact;
@@ -35,7 +35,9 @@
     vm.openAssetPreviewPopup = openAssetPreviewPopup;
     vm.getAssetUrl = getAssetUrl;
     vm.openAssetPopup = openAddUpdateAssetPopup;
+    vm.openAssetEditPopup = openAssetEditPopup;
     vm.openHelp = openHelp;
+    vm.isEditable = isEditable;
 
     function incrementOrderAsset(asset) {
       return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
@@ -84,6 +86,23 @@
       });
     }
 
+    function openAssetEditPopup(asset) {
+      if (assetsService.isExternal(asset)) {
+        openAddUpdateAssetPopup(asset);
+      } else {
+        openLocalAssetEditPopup(asset);
+      }
+    }
+
+    function openLocalAssetEditPopup(asset) {
+      assetEditPopup.open({
+          asset,
+          assetRepo,
+          component: vm.component
+        }
+      );
+    }
+
     function getAssetUrl(asset) {
       return assetsService.getAssetUrl(asset, vm.component);
     }
@@ -94,7 +113,7 @@
         controller: 'AssetPopupCtrl',
         controllerAs: 'vm',
         resolve: {
-          asset: () =>  asset,
+          asset: () => asset,
           assets: () => vm.component.assets,
           mode: () => mode,
           artifact: () => artifact,
@@ -129,6 +148,9 @@
       });
     }
 
+    function isEditable(asset) {
+      return asset.type !== 'img';
+    }
   }
 
 })();

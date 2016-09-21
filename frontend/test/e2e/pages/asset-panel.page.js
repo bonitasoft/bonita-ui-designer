@@ -47,6 +47,27 @@
     }
   }
 
+  class EditLocalAssetPopUp {
+    get fileContent() {
+      return element(by.css('.EditAssetPopUp .ace_content')).getText();
+    }
+
+    set fileContent(content) {
+      element(by.css('.EditAssetPopUp .ace_text-input')).clear().sendKeys(content);
+    }
+
+    save() {
+      element(by.cssContainingText('.EditAssetPopUp .modal-footer button', 'Update')).click();
+    }
+
+    cancel() {
+      element(by.cssContainingText('.modal-footer button', 'Cancel')).click();
+    }
+
+    isOpen() {
+      return element(by.css('.EditAssetPopUp')).isPresent();
+    }
+  }
 
   var AssetPanel = function() {
     this.sidebar = element(by.id('data-sidebar'));
@@ -74,9 +95,11 @@
     },
 
     editAsset: function(type, name) {
-      this.lines.filter(line => line.getText().then(text => text.indexOf(type) > -1 && text.indexOf(name) > -1))
+      this.lines.filter(line => line.getText()
+        .then(text => text.indexOf(type) > -1 && text.indexOf(name) > -1 && text.indexOf('Page level') > -1))
         .then(lines => lines[0].element(by.css('.fa-pencil')).click());
-      return new AssetPopUp();
+
+      return name.startsWith('http') ? new AssetPopUp() : new EditLocalAssetPopUp();
     }
   };
 

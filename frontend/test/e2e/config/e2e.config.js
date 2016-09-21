@@ -8,7 +8,7 @@
       // the 1.3 optimization needs to be disable for the e2e tests
       $compileProvider.debugInfoEnabled(true);
     })
-    .run(function($httpBackend, e2ehelper, pages, widgets) {
+    .run(function($httpBackend, e2ehelper, pages, widgets, assets) {
 
       /********************************************************************************************************
        *                                          MISCELLANEOUS
@@ -97,7 +97,25 @@
       /********************************************************************************************************
        *                                            PAGES
        * ******************************************************************************************************/
-        // get all (light representation)
+
+      // load an asset content
+      $httpBackend.whenGET(/rest\/pages\/.*\/assets\/.*\?format=text/).respond(function (method, url) {
+        var filename = e2ehelper.lastChunk(url);
+        return [200, assets[filename].content, {}];
+      });
+
+      // update an asset content
+      $httpBackend.whenPOST(/rest\/pages\/.*\/assets\/.+/).respond(function(method, url, data) {
+        var file = data.get('file');
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onloadend = function(){
+          assets[file.name].content = reader.result;
+        };
+        return [200];
+      });
+
+      // get all (light representation)
       $httpBackend.whenGET('rest/pages').respond(function() {
         var response = pages.map(({id, name, type, lastUpdate, favorite}) => ({id, name, type, lastUpdate, favorite}));
         return [200, response, {}];
@@ -137,6 +155,7 @@
         asset.id = asset.id || e2ehelper.uuid();
         return [201, asset, {}];
       });
+
 
 
       /********************************************************************************************************
