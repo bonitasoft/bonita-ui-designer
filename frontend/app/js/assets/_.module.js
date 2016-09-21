@@ -18,6 +18,7 @@
 
   angular.module('bonitasoft.designer.assets', [
     'bonitasoft.designer.common.directives',
+    'bonitasoft.designer.common.repositories',
     'gettext',
     'ui.bootstrap'
   ]);

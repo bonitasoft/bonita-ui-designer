@@ -2,11 +2,11 @@
   'use strict';
 
   describe('AssetCtrl', function() {
-    var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component, assetRepo;
+    var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component, assetRepo, assetEditPopup;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
-    beforeEach(inject(function($injector) {
+    beforeEach(inject(function($injector, _assetEditPopup_) {
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
@@ -23,6 +23,7 @@
         }
       };
       assetRepo = jasmine.createSpyObj('assetRepo', ['deleteAsset', 'createAsset']);
+      assetEditPopup = _assetEditPopup_;
     }));
 
     describe('Page editor', function() {
@@ -38,6 +39,10 @@
           assetsService: assetsService,
           assetRepo: assetRepo
         });
+
+        spyOn($uibModal, 'open').and.returnValue({
+          result: $q.when({})
+        });
       }));
 
       it('should expose filters', function() {
@@ -50,19 +55,33 @@
       });
 
       it('should open a data popup for asset preview', function() {
-        spyOn($uibModal, 'open').and.returnValue({
-          result: $q.when({})
-        });
         controller.openAssetPreviewPopup();
         expect($uibModal.open).toHaveBeenCalled();
       });
 
       it('should open a data popup for asset management', function() {
-        spyOn($uibModal, 'open').and.returnValue({
-          result: $q.when({})
-        });
         controller.openAssetPopup();
         expect($uibModal.open).toHaveBeenCalled();
+      });
+
+      it('should open update asset popup while editing an external asset', () => {
+        spyOn(assetsService, 'isExternal').and.returnValue(true);
+
+        controller.openAssetEditPopup();
+
+        expect($uibModal.open).toHaveBeenCalled();
+        expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/assets/asset-popup.html');
+        expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('AssetPopupCtrl');
+      });
+
+      it('should open edit asset popup while editing a local asset', () => {
+        spyOn(assetsService, 'isExternal').and.returnValue(false);
+        spyOn(assetEditPopup, 'open');
+        let asset = {id: 'anAsset'};
+
+        controller.openAssetEditPopup(asset);
+
+        expect(assetEditPopup.open).toHaveBeenCalledWith({ asset, assetRepo, component });
       });
 
       it('should delete an asset', function() {
@@ -89,6 +108,11 @@
         expect(assetUrl).toBe('rest/pages/12/assets/js/myasset.js');
       });
 
+      it('should say if an asset is editable or not', function() {
+        expect(controller.isEditable({type: 'img'})).toBeFalsy();
+        expect(controller.isEditable({type: 'css'})).toBeTruthy();
+        expect(controller.isEditable({type: 'js'})).toBeTruthy();
+      });
     });
 
     describe('Widget editor', function() {

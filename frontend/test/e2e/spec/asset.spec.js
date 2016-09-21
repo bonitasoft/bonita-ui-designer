@@ -73,33 +73,9 @@ describe('asset panel', function() {
 
   describe('for an asset', function() {
 
-    describe('stored locally in a widget', function() {
-
-      var widgetAsset;
-
-      beforeEach(function() {
-        widgetAsset = assetPanel.lines.first();
-      });
-
-      it('should display button to dowload/view the content', function() {
-        let downloadButton = widgetAsset.element(by.css('button i.fa-alias-import'));
-        expect(downloadButton.isPresent()).toBeTruthy();
-
-        let viewButton = widgetAsset.element(by.css('button i.fa-search'));
-        expect(viewButton.isPresent()).toBeTruthy();
-
-        let editButton = widgetAsset.element(by.css('button i.fa-pencil'));
-        expect(editButton.isPresent()).toBeFalsy();
-
-        let deleteButton = widgetAsset.element(by.css('button i.fa-trash'));
-        expect(deleteButton.isPresent()).toBeFalsy();
-
-      });
-
-      it('should display the widget name in the table', function() {
-        expect(widgetAsset.all(by.tagName('td')).get(2).getText()).toBe('customWidget');
-      });
-
+    it('should display the widget name in the table for a widget asset', function() {
+      let widgetAsset = assetPanel.lines.first();
+      expect(widgetAsset.all(by.tagName('td')).get(2).getText()).toBe('customWidget');
     });
 
     describe('stored locally', function() {
@@ -110,19 +86,27 @@ describe('asset panel', function() {
         localAsset = assetPanel.lines.last();
       });
 
-      it('should display button to dowload/view/delete the content', function() {
+      it('should display action buttons for assets', function() {
+        // editable page asset should have downnload/edit/delete
+        let editableAsset =  assetPanel.lines.last();
+        expect(editableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
+        expect(editableAsset.element(by.css('button i.fa-search')).isPresent()).toBeFalsy();
+        expect(editableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeTruthy();
+        expect(editableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
 
-        let downloadButton = localAsset.element(by.css('button i.fa-alias-import'));
-        expect(downloadButton.isPresent()).toBeTruthy();
+        // Non editable page asset should have downnload/view/delete
+        let nonEditableAsset =  assetPanel.lines.get(2);
+        expect(nonEditableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
+        expect(nonEditableAsset.element(by.css('button i.fa-search')).isPresent()).toBeTruthy();
+        expect(nonEditableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeFalsy();
+        expect(nonEditableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
 
-        let viewButton = localAsset.element(by.css('button i.fa-search'));
-        expect(viewButton.isPresent()).toBeTruthy();
-
-        let editButton = localAsset.element(by.css('button i.fa-pencil'));
-        expect(editButton.isPresent()).toBeFalsy();
-
-        let deleteButton = localAsset.element(by.css('button i.fa-trash'));
-        expect(deleteButton.isPresent()).toBeTruthy();
+        // asset coming from widget should have download/view
+        let widgetAsset = assetPanel.lines.first();
+        expect(widgetAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
+        expect(widgetAsset.element(by.css('button i.fa-search')).isPresent()).toBeTruthy();
+        expect(widgetAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeFalsy();
+        expect(widgetAsset.element(by.css('button i.fa-trash')).isPresent()).toBeFalsy();
       });
 
       it('should display "Page level" like asset type and the name asset is "myStyle.css"', function() {
@@ -250,5 +234,25 @@ describe('asset panel', function() {
 
       // Cannot test add button since for now there is no way to mock http calls outside $http service.
     });
+  });
+
+  it('should allow to edit a local asset', () => {
+    // should display asset file content
+    let popup = assetPanel.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('.somecssrule {\n  color: blue\n}');
+
+    // should update content
+    popup.fileContent = 'New content';
+    popup.save();
+    expect(popup.isOpen()).toBeFalsy();
+    assetPanel.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('New content');
+
+    // should not update file content while clicking on cancel
+    popup.fileContent = 'Again some fresh content';
+    popup.cancel();
+    expect(popup.isOpen()).toBeFalsy();
+    assetPanel.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('New content');
   });
 });

@@ -64,7 +64,7 @@ var paths = {
       'bower_components/bootstrap/fonts/*.*'
     ],
     ace: [
-      'bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json}.js'
+      'bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json,css}.js'
     ],
     licences: [
       'licences/**/*.*'
