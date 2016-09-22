@@ -12,40 +12,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * Open a popup with the preview of your page
+ */
+class OpenPreviewCtrl {
+  constructor($window, $state, resolutions, keyBindingService) {
+    this.$window = $window;
+    this.$state = $state;
+    this.resolutions = resolutions;
+    this.keyBindingService = keyBindingService;
+  }
+
+  openPreview() {
+    if (this.onOpenPreview) {
+      this.onOpenPreview();
+    }
+    if (this.previewWindow) {
+      this.previewWindow.focus();
+    }
+    this.previewWindow = this.$window.open(this.$state.href(`designer.${ this.mode || 'page'}.preview`, {
+      resolution: this.resolutions.selected().key
+    }), 'preview', 'width=1024,height=768,resizable=1,scrollbars=1');
+  }
+}
+
 angular.module('bonitasoft.designer.preview')
-  .directive('openPreview', function($window, $state, resolutions) {
-
-    'use strict';
-
-    /**
-     * Open a popup with the preview of your page
-     * You can set a custom width|height
-     *    - popup-width="1024" // default
-     *    - popup-height="768" // default
-     */
-    return {
-      link: function(scope, el, attr) {
-
-        // With IE10 we need to set a size and resizable
-        var params = 'width=pWidth,height=pHeight,resizable=1,scrollbars=1';
-        var paramsPopup = params
-                            .replace(/pWidth/, attr.popupWidth || 1024)
-                            .replace(/pHeight/, attr.popupHeight || 768);
-
-        var stateName =  'designer.'  + (attr.openPreview || 'page') + '.preview';
-
-        function clickHandler() {
-          $window.open($state.href(stateName, {
-            resolution: resolutions.selected().key
-          }), '_blank', paramsPopup);
-        }
-
-        el.on('click', clickHandler);
-
-        // remove click handler on destroy
-        scope.$on('$destroy', function() {
-          el.off('click', clickHandler);
-        });
-      }
-    };
-  });
+  .directive('openPreview', () => ({
+    controllerAs: 'ctrl',
+    controller: OpenPreviewCtrl,
+    bindToController: {
+      onOpenPreview: '&',
+      mode: '@',
+      isDisabled: '='
+    },
+    scope: true,
+    restrict: 'E',
+    templateUrl: 'js/preview/open-preview.html'
+  }));
