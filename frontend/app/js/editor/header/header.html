@@ -36,15 +36,7 @@
                 <i class="ui-icon ui-export"></i>
             </button>
         </form>
-        <button class="btn btn-bonita-primary"
-                id="preview"
-                title="{{ 'Preview' | translate }}"
-                ng-click="vm.save(vm.page)"
-                ng-disabled="!formName.$valid"
-                open-preview="{{vm.mode}}">
-            <i class="fa fa-play"></i>
-            <span translate>Preview</span>
-        </button>
+        <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!formName.$valid"></open-preview>
         <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !vm.isPageDirty(page) && !vm.pristine && !vm.dirty }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
     </div>
     <div class="EditorHeader-resolutions">
