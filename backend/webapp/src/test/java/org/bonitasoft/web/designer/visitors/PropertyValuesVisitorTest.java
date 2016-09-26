@@ -25,8 +25,11 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -44,7 +47,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class PropertyValuesVisitorTest {
 
     @Rule
-    public TestResource testResource;
+    public TestResource testResource = new TestResource(this.getClass());
 
     @InjectMocks
     private PropertyValuesVisitor propertyValuesVisitor;
@@ -146,18 +149,11 @@ public class PropertyValuesVisitorTest {
 
     @Test
     public void should_generate_a_service_containing_parameter_values() throws Exception {
-        HashMap<String, PropertyValue> propertyValues = new HashMap<>();
-        PropertyValue propertyValue = new PropertyValue();
-        propertyValue.setType("bar");
-        propertyValue.setValue("baz");
-        propertyValues.put("foo", propertyValue);
-
-        Component component = aComponent().withPropertyValue("foo", "bar", "baz").build();
+        Component component = aComponent().withPropertyValue("foo", "bar", "baz").withReference("component-ref").build();
         Page page = aPage().with(component).build();
 
-        assertThat(propertyValuesVisitor.generate(page))
-                .isEqualTo(new TemplateEngine("factory.hbs.js")
-                        .with("name", "propertyValues")
-                        .with("resources", singletonMap(component.getReference(), propertyValues)).build(this));
+        String service = propertyValuesVisitor.generate(page);
+
+        assertThat(service).isEqualTo(testResource.load("property-value-visitor.result.js"));
     }
 }
