@@ -7,13 +7,6 @@
     margin-top: 3px;
 }
 
-/* .component is in col- system, so for widget including .container we set his width to 100% to avoid horizontal scrollbar
-   if we don't do that, bootstrap will set it's width in px corresponding to resolution
- */
-.component .container {
-    width: 100%;
-}
-
 input[type=text|email|number|password].ng-invalid.ng-dirty {
   border-color: #C00;
   border-width: 1px;
