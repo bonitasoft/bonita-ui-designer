@@ -60,7 +60,7 @@
             // See section 5.1.1. (Multipart Media Type / Common Syntax) of rfc2046 https://www.ietf.org/rfc/rfc2046.txt
             'Content-Type': undefined
           }
-        });
+        }).then(response => response.data);
       }
 
       loadLocalAssetContent(componentId, asset) {
