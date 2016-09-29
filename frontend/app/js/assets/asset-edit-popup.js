@@ -17,10 +17,11 @@
 
   class AssetEditPopupCtrl {
 
-    constructor(asset, component, aceMode, $uibModalInstance, assetRepo) {
+    constructor(asset, component, aceMode, $uibModalInstance, assetRepo, assetErrorManagement) {
       this.asset = asset;
       this.component = component;
       this.$uibModalInstance = $uibModalInstance;
+      this.assetErrorManagement = assetErrorManagement;
       this.assetRepo = assetRepo;
       this.aceMode = aceMode;
       this.content = '';
@@ -33,6 +34,7 @@
     save() {
       this.assetRepo
         .updateLocalAssetContent(this.component.id, this.asset, this.content)
+        .then((response) => this.assetErrorManagement.manageErrorsFromResponse(response))
         .then(() => this.$uibModalInstance.close());
     }
   }
