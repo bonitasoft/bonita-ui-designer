@@ -9,7 +9,6 @@ describe('AssetPopupCtrl', function() {
       asset: asset,
       assets: assets,
       assetsService: assetsService,
-      alerts: alerts,
       mode: mode,
       artifact: { id: 12 },
       assetRepo: assetRepo
@@ -27,7 +26,8 @@ describe('AssetPopupCtrl', function() {
     assetsService = $injector.get('assetsService');
     injector = $injector;
     $uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['dismiss', 'close']);
-    alerts = jasmine.createSpyObj('alerts', ['addError']);
+    alerts = $injector.get('alerts');
+    spyOn(alerts, 'addError');
 
     assets = [];
     asset = {
@@ -56,21 +56,23 @@ describe('AssetPopupCtrl', function() {
     var response = { type: 'error', message: 'an error occured' };
 
     controller.onComplete(response);
+    $rootScope.$apply();
 
     expect(alerts.addError).toHaveBeenCalledWith(response.message);
-    expect($uibModalInstance.close).toHaveBeenCalled();
+    expect($uibModalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should display a specific error while uploading a malformed json file for json asset', function() {
     var response = { type: 'MalformedJsonException', message: 'an error occured', infos: { location: {column: 65, line: 12}} };
 
     controller.onComplete(response);
+    $rootScope.$apply();
 
     expect(alerts.addError).toHaveBeenCalledWith({
         contentUrl: 'js/assets/malformed-json-error-message.html',
         context: response
       }, 12000);
-    expect($uibModalInstance.close).toHaveBeenCalled();
+    expect($uibModalInstance.dismiss).toHaveBeenCalled();
   });
 
   it('should send external data to the caller when user want to save it', function() {
