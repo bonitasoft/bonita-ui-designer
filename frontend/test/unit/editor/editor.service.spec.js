@@ -7,12 +7,26 @@
     var labelWidget = {
       id: 'label',
       custom: false,
-      type: 'component',
-      properties: {
-        text: 'string',
-        alignment: 'string'
-      }
+      type: 'widget'
     };
+
+    let containers = [
+      {
+        id: 'pbContainer',
+        name: 'Container',
+        type: 'container'
+      },
+      {
+        id: 'pbTabsContainer',
+        name: 'Tabs container',
+        type: 'container'
+      },
+      {
+        id: 'pbFormContainer',
+        name: 'Form container',
+        type: 'container'
+      }
+    ];
 
     var json = {
       'data': {
@@ -22,28 +36,28 @@
           [
             {
               'type': 'container',
-              'dimension': { 'xs': 12 },
+              'dimension': {'xs': 12},
               'rows': [
                 [
                   {
                     'type': 'component',
                     'id': 'label',
-                    'dimension': { 'xs': 12 },
-                    'propertyValues': { 'text': 'label 1', 'alignment': 'left' }
+                    'dimension': {'xs': 12},
+                    'propertyValues': {'text': 'label 1', 'alignment': 'left'}
                   }
                 ],
                 [
                   {
                     'type': 'component',
                     'id': 'label',
-                    'dimension': { 'xs': 12 },
-                    'propertyValues': { 'text': 'label 2', 'alignment': 'left' }
+                    'dimension': {'xs': 12},
+                    'propertyValues': {'text': 'label 2', 'alignment': 'left'}
                   }
                 ],
                 [
                   {
                     'type': 'tabsContainer',
-                    'dimension': { 'xs': 12 },
+                    'dimension': {'xs': 12},
                     'tabs': [
                       {
                         'title': 'Tab 1',
@@ -129,7 +143,7 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
 
-      spyOn(widgetRepo, 'all').and.returnValue($q.when([labelWidget]));
+      spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat(labelWidget)));
       spyOn(alerts, 'addError');
     }));
 
@@ -203,32 +217,32 @@
 
     it('should remove widget assets from page when widget is not in page anymore', function() {
       var page = {
-        assets: [{ id: 'anAsset', componentId: 'aWidgget' }],
+        assets: [{id: 'anAsset', componentId: 'aWidgget'}],
         rows: []
       };
       spyOn(whiteboardService, 'contains').and.returnValue(false);
-      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page }));
+      spyOn(pageRepo, 'load').and.returnValue($q.when({data: page}));
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
-      editorService.removeAssetsFromPage({ id: 'aWidgget' });
+      editorService.removeAssetsFromPage({id: 'aWidgget'});
 
       expect(page.assets).toEqual([]);
     });
 
     it('should not remove widget assets from page when widget still exists in page', function() {
       var page = {
-        assets: [{ id: 'anAsset', componentId: 'aWidgget' }],
+        assets: [{id: 'anAsset', componentId: 'aWidgget'}],
         rows: []
       };
       spyOn(whiteboardService, 'contains').and.returnValue(true);
-      spyOn(pageRepo, 'load').and.returnValue($q.when({ data: page }));
+      spyOn(pageRepo, 'load').and.returnValue($q.when({data: page}));
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
-      editorService.removeAssetsFromPage({ id: 'aWidgget' });
+      editorService.removeAssetsFromPage({id: 'aWidgget'});
 
-      expect(page.assets).toContain({ id: 'anAsset', componentId: 'aWidgget' });
+      expect(page.assets).toContain({id: 'anAsset', componentId: 'aWidgget'});
     });
   });
 })();
