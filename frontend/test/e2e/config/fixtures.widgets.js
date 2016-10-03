@@ -199,6 +199,13 @@
             'order': 2,
             'active': true,
             'external': true
+          },
+          {
+            'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
+            'name': 'myStyle.css',
+            'type': 'css',
+            'order': 3,
+            'active': true
           }
         ]
       },

@@ -33,9 +33,9 @@
                 <i class="fa fa-alias-import"></i>
             </button>
             <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
-                    ng-if="!vm.isExternal(asset)" ng-click="vm.openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
-            <button class="btn btn-bonita-default" ng-click="vm.openAssetPopup(asset)"
-                    title="{{ 'Update asset' | translate }}" ng-if="vm.isExternal(asset)">
+                    ng-if="!vm.isEditable(asset)" ng-click="vm.openAssetPreviewPopup(asset)"><i class="fa fa-search"></i></button>
+            <button class="btn btn-bonita-default" ng-click="vm.openAssetEditPopup(asset)"
+                    title="{{ 'Update asset' | translate }}" ng-if="vm.isEditable(asset)">
                 <i class="fa fa-pencil"></i>
             </button>
             <button class="btn btn-bonita-default" ng-click="vm.delete(asset)" title="{{ 'Delete asset' | translate }}">

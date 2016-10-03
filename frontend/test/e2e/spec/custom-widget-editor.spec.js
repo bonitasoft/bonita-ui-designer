@@ -1,14 +1,13 @@
 var switchToAlert = require('../pages/utils.js').switchToAlert;
 var clearAndFillAceEditor = require('../pages/utils.js').clearAndFillAceEditor;
+var WidgetEditor = require('../pages/widget-editor.page');
 
 describe('custom widget editor', function() {
 
-  beforeEach(function() {
-    browser.get('#/en/widget/customAwesomeWidget');
+  let widgetEditor;
 
-    //prevent onbeforeunload event to avoid blocking protractor when running tests
-    //@see editor.page.js
-    browser.executeScript('window.onbeforeunload = function(){};');
+  beforeEach(function() {
+    widgetEditor = WidgetEditor.get('customAwesomeWidget');
   });
 
   function getPropertyNamesInList() {
@@ -222,4 +221,50 @@ describe('custom widget editor', function() {
     expect($('.modal-footer').isPresent()).toBeFalsy();
   });
 
+  it('should display action buttons for assets', function () {
+    let assets = widgetEditor.assets().list();
+
+    // external js asset should have edit/delete
+    let externalAsset = assets.first();
+    expect(externalAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeFalsy();
+    expect(externalAsset.element(by.css('button i.fa-search')).isPresent()).toBeFalsy();
+    expect(externalAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeTruthy();
+    expect(externalAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+
+    // Non editable asset should have downnload/view/delete
+    let nonEditableAsset = assets.get(1);
+    expect(nonEditableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
+    expect(nonEditableAsset.element(by.css('button i.fa-search')).isPresent()).toBeTruthy();
+    expect(nonEditableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeFalsy();
+    expect(nonEditableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+
+    // local editable asset  should have download/edit/delete
+    let localEditableAsset = assets.get(2);
+    expect(localEditableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
+    expect(localEditableAsset.element(by.css('button i.fa-search')).isPresent()).toBeFalsy();
+    expect(localEditableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeTruthy();
+    expect(localEditableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+  });
+
+  it('should allow to edit a local asset', function () {
+    let assets = widgetEditor.assets();
+
+    // should display asset file content
+    let popup = assets.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('.somecssrule {\n  color: blue\n}');
+
+    // should update content
+    popup.fileContent = 'New content';
+    popup.save();
+    expect(popup.isOpen()).toBeFalsy();
+    assets.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('New content');
+
+    // should not update file content while clicking on cancel
+    popup.fileContent = 'Again some fresh content';
+    popup.cancel();
+    expect(popup.isOpen()).toBeFalsy();
+    assets.editAsset('CSS', 'myStyle.css');
+    expect(popup.fileContent).toBe('New content');
+  });
 });
