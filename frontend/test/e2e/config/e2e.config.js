@@ -21,6 +21,23 @@
       /********************************************************************************************************
        *                                            WIDGETS
        * ******************************************************************************************************/
+      // load an asset content
+      $httpBackend.whenGET(/rest\/widgets\/.*\/assets\/.*\?format=text/).respond(function (method, url) {
+        var filename = e2ehelper.lastChunk(url);
+        return [200, assets[filename].content, {}];
+      });
+
+      // update an asset content
+      $httpBackend.whenPOST(/rest\/widgets\/.*\/assets\/./).respond(function (method, url, data) {
+        var file = data.get('file');
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onloadend = function () {
+          assets[file.name].content = reader.result;
+        };
+        return [200];
+      });
+
         // create new widget property
       $httpBackend.whenPOST(/rest\/widgets\/.*\/properties/).respond(function(method, url, data) {
         var property = angular.fromJson(data);
