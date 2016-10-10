@@ -17,11 +17,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
@@ -80,5 +76,14 @@ public class FormInputVisitorTest {
 
         assertThat(visitor.toJson())
                 .isEqualTo(objectMapper.prettyPrint("{\"persons\":[],\"roles\":[]}"));
+    }
+
+    @Test
+    public void should_default_to_null_when_contract_input_is_a_file() throws Exception {
+        Contract contract = aContract().withInput(aFileContractInput("myFile")).build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJson()).isEqualTo(objectMapper.prettyPrint("{\"myFile\":null}"));
     }
 }
