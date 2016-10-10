@@ -43,7 +43,7 @@ public class FormInputVisitor implements ContractInputVisitor {
         defaultValues.put(Float.class.getName(), 0);
         defaultValues.put(Long.class.getName(), 0);
         defaultValues.put(Date.class.getName(), null);
-        defaultValues.put(File.class.getName(), EMPTY_MAP);
+        defaultValues.put(File.class.getName(), null);
     }
 
     private Map<String, Object> properties = newLinkedHashMap();
