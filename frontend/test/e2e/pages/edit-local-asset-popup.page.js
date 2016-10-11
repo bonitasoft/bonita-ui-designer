@@ -11,7 +11,7 @@
     }
 
     save() {
-      element(by.cssContainingText('.EditAssetPopUp .modal-footer button', 'Update')).click();
+      element(by.cssContainingText('.EditAssetPopUp .modal-footer button', 'Save')).click();
     }
 
     cancel() {
