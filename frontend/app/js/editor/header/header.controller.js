@@ -13,9 +13,9 @@
       this.$state = $state;
       this.$window = $window;
       this.browserHistoryService = browserHistoryService;
-      /*allow to avoid the display of 'Saved" on artifact load*/
       this.pristine = true;
       this.dirty = false;
+      this.scope = $scope;
 
       keyBindingService.bindGlobal(['ctrl+s', 'command+s'], () => {
         $scope.$apply(() => this.save(this.page));
@@ -40,7 +40,9 @@
     }
 
     save(page) {
-      return this.artifactRepo.save(page).then(() => this.dirty = false);
+      return this.artifactRepo.save(page)
+        .then(() => this.dirty = false)
+        .then(() => this.scope.$broadcast('saved'));
     }
 
     saveAs(page) {

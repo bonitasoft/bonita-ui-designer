@@ -75,7 +75,9 @@
      * Saves a widget and gives it an id based on its name (Awesome Widget -> awesome-widget)
      */
     $scope.save = function() {
-      widgetRepo.save($scope.widget).then(() => $scope.dirty = false);
+      widgetRepo.save($scope.widget)
+        .then(() => $scope.dirty = false)
+        .then(() => $scope.$broadcast('saved'));
 
     };
 
