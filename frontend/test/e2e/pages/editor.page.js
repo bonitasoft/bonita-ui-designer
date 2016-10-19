@@ -199,6 +199,12 @@ var AssetPanel = require('./asset-panel.page');
       get: function() {
         return element(by.css('.EditorHeader'));
       }
+    },
+
+    saveIndicator: {
+      get: function() {
+        return element(by.css('.EditorHeader-saveIndicator .SaveIndicator'));
+      }
     }
   });
 })();

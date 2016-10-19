@@ -37,9 +37,9 @@ describe('editor menu', function() {
     // add a name and save
     $('#pageName').sendKeys('person');
 
-    expect($('.successfully-saved').isPresent()).toBeFalsy();
+    expect(editor.saveIndicator.isDisplayed()).toBeFalsy();
     $('#save').click();
-    expect($('.successfully-saved').isPresent()).toBeTruthy();
+    expect(editor.saveIndicator.isDisplayed()).toBeTruthy();
     expect($('#save').isEnabled()).toBeFalsy();
   });
 

@@ -180,10 +180,10 @@ describe('custom widget editor', function() {
     // change controller
     clearAndFillAceEditor('controller', '$scope.sayHello = function(){ $scope.property.verb = \'saying hello\' };');
 
-    expect($('.successfully-saved').isPresent()).toBeFalsy();
+    expect($('.EditorHeader-saveIndicator .SaveIndicator').isDisplayed()).toBeFalsy();
     // save it
     $('#save').click();
-    expect($('.successfully-saved').isPresent()).toBeTruthy();
+    expect($('.EditorHeader-saveIndicator .SaveIndicator').isDisplayed()).toBeTruthy();
     expect($('#save').isEnabled()).toBeFalsy();
 
     // should go back to root when saved
