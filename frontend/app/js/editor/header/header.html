@@ -37,7 +37,7 @@
             </button>
         </form>
         <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!formName.$valid"></open-preview>
-        <span class="EditorHeader-saveStatus" ng-class="{'successfully-saved': !vm.isPageDirty(page) && !vm.pristine && !vm.dirty }"><i class="glyphicon glyphicon-ok"></i> <translate>Saved</translate></span>
+        <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>

@@ -46,26 +46,17 @@
       expect($state.go).toHaveBeenCalledWith('designer.home');
     });
 
-    it('should check if page is dirty or pristine', () => {
-      expect(controller.pristine).toBeTruthy();
-      expect(controller.dirty).toBeFalsy();
-      expect(controller.isPageDirty({})).toBeFalsy();
-      var page = { id: 'person' };
-      expect(controller.isPageDirty(page)).toBeTruthy();
-      expect(controller.pristine).toBeFalsy();
-      expect(controller.dirty).toBeTruthy();
-    });
-
     it('should save a page', function() {
       spyOn(pageRepo, 'save').and.returnValue($q.when({}));
+      spyOn(scope, '$broadcast').and.callThrough();
       var page = { id: 'person' };
       controller.dirty = true;
 
       controller.save(page);
       scope.$apply();
 
-      expect(controller.dirty).toBeFalsy();
       expect(pageRepo.save).toHaveBeenCalledWith(page);
+      expect(scope.$broadcast).toHaveBeenCalledWith('saved');
     });
 
     it('should save and export page', function() {
