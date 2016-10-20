@@ -10,7 +10,7 @@
     "test": "mocha --compilers js:babel-register"
   },
   "author": "",
-  "license": "proprietary",
+  "license": "GPL-2.0",
   "dependencies": {
     "handlebars": "4.0.2",
     "jsesc": "0.5.0",
@@ -19,9 +19,16 @@
     "vinyl-fs": "1.0.0"
   },
   "devDependencies": {
+    "babel-preset-bonita": "1.0.2",
     "babel-register": "6.3.13",
     "chai": "3.2.0",
     "eol": "0.2.0",
     "mocha": "2.3.2"
+  },
+  "babel": {
+    "presets": [
+      "bonita"
+    ],
+    "sourceMap": "inline"
   }
 }
