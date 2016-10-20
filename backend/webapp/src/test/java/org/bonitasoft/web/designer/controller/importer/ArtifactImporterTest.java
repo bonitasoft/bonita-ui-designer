@@ -115,11 +115,13 @@ public class ArtifactImporterTest {
     @Test
     public void should_return_an_import_report_saying_that_element_has_been_overridden_when_element_already_exists_in_repository() throws Exception {
         Page page = pMocks.mockPageToBeImported();
+        Page existingPageInRepo = aPage().withId(page.getId()).withName("alreadyHere").build();
         when(pageRepository.exists(page.getId())).thenReturn(true);
+        when(pageRepository.get(page.getId())).thenReturn(existingPageInRepo);
 
         ImportReport report = importer.doImport(anImport(pageImportPath));
 
-        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
         assertThat(report.isOverridden()).isTrue();
     }
 

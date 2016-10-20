@@ -69,14 +69,16 @@ public class WidgetImportMock {
 
     public List<Widget> mockWidgetsAsOverridenDependencies() throws IOException {
         Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
-        List<Widget> widgets = asList(
-                aWidget().id("alreadyThereWidget").custom().build(),
-                aWidget().id("anotherExistingWidget").custom().build());
+        Widget alreadyThereWidget = aWidget().id("alreadyThereWidget").custom().build();
+        Widget anotherExistingWidget = aWidget().id("anotherExistingWidget").custom().build();
+        List<Widget> widgets = asList(alreadyThereWidget, anotherExistingWidget);
         this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(widgetLoader.loadAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenReturn(this.widgets);
         when(widgetRepository.exists("alreadyThereWidget")).thenReturn(true);
         when(widgetRepository.exists("anotherExistingWidget")).thenReturn(true);
+        when(widgetRepository.get("alreadyThereWidget")).thenReturn(alreadyThereWidget);
+        when(widgetRepository.get("anotherExistingWidget")).thenReturn(anotherExistingWidget);
         return widgets;
     }
 

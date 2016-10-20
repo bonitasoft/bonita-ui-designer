@@ -21,19 +21,14 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bonitasoft.web.designer.builder.AssetBuilder;
-import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
@@ -53,6 +48,12 @@ public class ImportReportTest {
     @Before
     public void setUp() throws Exception {
         when(widgetImporter.getComponentName()).thenReturn("widget");
+    }
+
+    private Widget existing(Widget widget) {
+        when(widgetImporter.getOriginalElementFromRepository(widget)).thenReturn(widget);
+        when(widgetImporter.exists(widget)).thenReturn(true);
+        return widget;
     }
 
     @Test
@@ -75,12 +76,10 @@ public class ImportReportTest {
 
     @Test
     public void should_include_added_and_overriden_widget_in_imported_dependencies() throws Exception {
+        Widget existingWidget = existing(aWidget().id("existing").build());
         Widget newWidget = aWidget().id("newOne").build();
-        Widget existingWidget = aWidget().id("existing").build();
         Map<DependencyImporter, List<?>> dependencies = new HashMap<>();
         dependencies.put(widgetImporter, asList(newWidget, existingWidget));
-        when(widgetImporter.exists(newWidget)).thenReturn(false);   // new widget
-        when(widgetImporter.exists(existingWidget)).thenReturn(true); // already existing widget
 
         ImportReport report = ImportReport.from(aPage().build(), dependencies);
 
