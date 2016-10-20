@@ -40,6 +40,8 @@
 
 .PropertyPanel-inner {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .PropertyPanel-title {
@@ -55,10 +57,9 @@
 }
 
 .PropertyPanel-content {
-  position: relative;
-  height: calc(~"100% - 3.5em");
-  padding: 0 10px;
-  overflow: auto;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 1em;
 
   .row {
