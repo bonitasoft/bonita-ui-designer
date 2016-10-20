@@ -87,7 +87,7 @@
   ],
   "assets": [
     {
-      "name": "ng-upload-0.5.16.min.js",
+      "name": "ng-upload-0.5.19-patched.min.js",
       "type": "js",
       "order": 1
     },
