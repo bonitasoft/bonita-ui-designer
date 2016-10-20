@@ -28,7 +28,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WidgetImporter implements ComponentDependencyImporter<Widget> {
+public class WidgetImporter extends ComponentDependencyImporter<Widget> {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetImporter.class);
     private WidgetLoader widgetLoader;
@@ -36,6 +36,7 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
     private AssetImporter<Widget> widgetAssetImporter;
 
     public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+        super(widgetRepository);
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;
         this.widgetAssetImporter = widgetAssetImporter;
@@ -67,15 +68,5 @@ public class WidgetImporter implements ComponentDependencyImporter<Widget> {
                 throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
             }
         }
-    }
-
-    @Override
-    public String getComponentName() {
-        return widgetRepository.getComponentName();
-    }
-
-    @Override
-    public boolean exists(Widget widget) {
-        return widgetRepository.exists(widget.getId());
     }
 }

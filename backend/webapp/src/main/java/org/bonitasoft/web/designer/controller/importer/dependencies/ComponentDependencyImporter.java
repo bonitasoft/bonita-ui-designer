@@ -15,10 +15,25 @@
 package org.bonitasoft.web.designer.controller.importer.dependencies;
 
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.repository.Repository;
 
-public interface ComponentDependencyImporter<T  extends Identifiable> extends DependencyImporter<T> {
+public abstract class ComponentDependencyImporter<T  extends Identifiable> implements DependencyImporter<T> {
 
-    String getComponentName();
+    private Repository<T> repository;
 
-    boolean exists(T element);
+    public ComponentDependencyImporter(Repository<T> repository) {
+        this.repository = repository;
+    }
+
+    public String getComponentName() {
+        return repository.getComponentName();
+    }
+
+    public boolean exists(T element) {
+        return repository.exists(element.getId());
+    }
+
+    public T getOriginalElementFromRepository(T element) {
+        return repository.get(element.getId());
+    }
 }

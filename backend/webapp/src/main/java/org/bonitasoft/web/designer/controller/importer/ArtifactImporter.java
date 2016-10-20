@@ -106,6 +106,7 @@ public class ArtifactImporter<T extends Identifiable> {
         ImportReport report = ImportReport.from(element, dependencies);
         if (repository.exists(element.getId())) {
             report.setOverridden(true);
+            report.setElement(repository.get(element.getId()));
         }
         return report;
     }

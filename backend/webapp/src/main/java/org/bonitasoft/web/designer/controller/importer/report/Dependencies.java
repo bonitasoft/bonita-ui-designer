@@ -42,7 +42,7 @@ public class Dependencies {
     private void add(List<Identifiable> identifiables, ComponentDependencyImporter importer) {
         for (Identifiable identifiable : identifiables) {
             if (importer.exists(identifiable)) {
-                addOverriddenDependency(importer.getComponentName(), identifiable);
+                addOverriddenDependency(importer.getComponentName(), importer.getOriginalElementFromRepository(identifiable));
             } else {
                 addAddedDependency(importer.getComponentName(), identifiable);
             }
