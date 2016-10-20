@@ -13,7 +13,9 @@
            <form action="{{ctrl.url}}"
                  ng-upload="ctrl.uploadComplete(content)"
                  ng-upload-loading="ctrl.startUploading()"
-                 error-catcher="ctrl.uploadError(error)">
+                 error-catcher="ctrl.uploadError(error)"
+                 upload-options-enable-csrf
+                 upload-options-csrf-param="CSRFToken">
                 <div class="input-group file-upload">
                     <input type="text" ng-focus="ctrl.preventFocus($event)" placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" class="form-control">
 
