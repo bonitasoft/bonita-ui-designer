@@ -7,13 +7,12 @@
   bottom: 0;
   height: @sidebar-data-default-height;
   z-index: @z-index-sidebar;
-
 }
 
 .BottomPanel-splitter {
   cursor: row-resize;
   position: absolute;
-  top: calc(~"2.2em" - @bottom-sidebar-splitter-height);
+  top: 0;
   left: 0;
   right: 0;
   height: @bottom-sidebar-splitter-height;
@@ -22,14 +21,18 @@
 
 .BottomPanel-content {
   background-color: @color-data-bg;
+  height: 100%;
   padding: .7em;
-
-  height: calc(~"100%" - @bottom-tab-height);
+  display: flex;
+  flex-direction: column;
 }
 
 .BottomPanel-toggleBar {
+  position: absolute;
+  transform: translateY(-100%);
   text-align: left;
   padding-left: 1em;
+  z-index: 43;
 }
 
 .BottomPanel-toggle {
@@ -46,125 +49,67 @@
   background-color: @color-data-bg;
 }
 
-/**
- * Data panel filter
- */
-
-.DataHeader {
-   padding-bottom: .7em;
-   display: table;
-   width: 100%
-}
-.DataHeader-action,
-.DataHeader-filter {
-   display: table-cell;
-   vertical-align: top;
-}
-.DataHeader-action {
-  width: 70%;
-}
-.DataHeader-filter {
-  text-align: right;
+.Toolbar {
+  padding-bottom: .7em;
+  display: flex;
+  align-items: center;
 }
 
-.DataPanel--italicLightGrey{
-  font-style: italic;
-  color: gray;
+.Toolbar-action {
+  flex: 1;
 }
 
-.search-filter {
-  position: relative;
- }
+.Table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
 
-.search-filter-input {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-}
+  thead {
+    background-color: #404853;
+    color: #fff;
 
-.search-filter-icon {
-  position: absolute;
-  left: .4em;
-  top: .7em;
-}
+    .Table-sort {
 
-.search-filter-button {
-  border: none;
-  background: none;
-  padding: 0;
-  position: absolute;
-  right: .4em;
-  top: .7em;
-  line-height: 1;
-}
+      &::after {
+        .fa;
+        content: @fa-var-sort;
+        padding: .2em;
+      }
 
-.table-scrollable {
-  @table-scrollable-header-height: 2.3em;
+      a {
+        color: inherit;
+        cursor: pointer;
 
-  position: relative;
-
-  tbody  tr {
-    width: 100%;
-    display: inline-table;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
-  thead tr {
-    height: @table-scrollable-header-height;
-  }
-  tbody{
+
+  tbody {
     overflow-y: auto;
-    height: calc(~"100%" - @table-scrollable-header-height);
-    width: 100%;
-    position: absolute;
-  }
-}
 
-.table-ui-designer {
+    tr {
+      background: #e5eaf0;
 
-  // Cells
-  > thead,
-  > tbody,
-  > tfoot {
-    > tr {
-      > th,
-      > td {
-        border-top: 1px solid @color-data-bg;
+      &:nth-child(odd) {
+        background: #eff2f6;
       }
     }
   }
-  // Bottom align for column headings
-  > thead > tr > th {
-    background-color: @color-table-header-bg;
-    color: @color-table-header-text;
-    border-bottom: 2px solid @color-data-bg;
-  }
-  // Remove top border from thead by default
-  > caption + thead,
-  > colgroup + thead,
-  > thead:first-child {
-    > tr:first-child {
-      > th,
-      > td {
-        border-top: 0;
-      }
-    }
-  }
-  // Account for multiple tbody instances
-  > tbody + tbody {
-    border-top: 2px solid @color-data-bg;
-  }
 
+  th, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    white-space: nowrap;
+    line-height: 2em;
+    padding: .3em;
+  }
 }
 
-.table-ui-designer.table-striped {
-  > tbody > tr:nth-child(odd) {
-    > td,
-    > th {
-      background-color: @color-table-tr-odd;
-    }
-  }
-  > tbody > tr:nth-child(even) {
-    > td,
-    > th {
-      background-color: @color-table-tr-even;
-    }
-  }
+.BottomPanel-scrollableView {
+  flex: 1;
+  overflow: auto;
 }

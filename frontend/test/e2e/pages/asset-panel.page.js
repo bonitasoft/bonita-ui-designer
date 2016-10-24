@@ -66,7 +66,7 @@
     },
 
     filter: function(name) {
-      return this.sidebar.element(by.cssContainingText('.search-filter label', name));
+      return this.sidebar.element(by.cssContainingText('.Toolbar-filter label', name));
     },
 
     addAsset: function() {

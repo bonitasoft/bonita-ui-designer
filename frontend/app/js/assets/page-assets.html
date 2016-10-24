@@ -1,23 +1,21 @@
-<div class="AssetPanel-header DataHeader">
-    <div class="DataHeader-action">
-        <button class="btn btn-default btnAsset--create" ng-click="vm.openAssetPopup()" translate>Add a new asset</button>
+<div class="Toolbar">
+    <div class="Toolbar-action">
+        <button class="btn btn-default btnAsset--create" ng-click="vm.openAssetPopup()" translate>
+            Add a new asset
+        </button>
         <button class="btn btn-default btn-asset--help" ng-click="vm.openHelp()" title="{{'Open help' | translate}}">
             <i class="fa fa-question-circle"></i>
         </button>
     </div>
 
-    <div class="DataHeader-filter">
-        <label class="sr-only" translate> filter: </label>
-
-        <div class="search-filter">
-            <label class="checkbox-inline" ng-repeat="(key, filter) in vm.filters">
-                <input type="checkbox" ng-model="filter.value"> {{filter.label}}
-            </label>
-        </div>
+    <div class="Toolbar-filter">
+        <label class="checkbox-inline" ng-repeat="(key, filter) in vm.filters">
+            <input type="checkbox" ng-model="filter.value"> {{filter.label}}
+        </label>
     </div>
 </div>
 
-<table class="AssetPanel-table AssetTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
+<table class="Table AssetTable">
     <thead>
     <th class="AssetTable-active" translate>Active</th>
     <th class="AssetTable-name" translate>Name</th>
@@ -25,36 +23,47 @@
     <th class="AssetTable-type" translate>Type</th>
     <th class="AssetTable-actions">&nbsp;</th>
     </thead>
-    <tbody>
-    <tr ng-class="{'text-muted':!asset.active}"
-        ng-repeat="asset in vm.component.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
-        <td class="AssetTable-active"><input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)"></td>
-        <td class="AssetTable-name">{{asset.name}}</td>
-        <td class="AssetTable-scope">{{asset.componentId}}<span ng-if="vm.isPageAsset(asset)" translate>Page level</span></td>
-        <td class="AssetTable-type">{{asset.type | assetType}}</td>
-        <td class="AssetTable-actions text-right">
-            <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
-                <button file-download class="btn btn-bonita-asset" href="{{vm.getAssetUrl(asset)}}"
-                        title="{{'Download asset' | translate }}" ng-if="!vm.isExternal(asset)">
-                    <i class="fa fa-alias-import"></i>
-                </button>
-                <button class="btn btn-bonita-asset" ng-click="vm.openAssetPreviewPopup(asset)"
-                        title="{{ 'View asset content' | translate }}" ng-if="!vm.isEditable(asset) || !vm.isPageAsset(asset)">
-                    <i class="fa fa-search"></i>
-                </button>
-                <button class="btn btn-bonita-asset" ng-click="vm.openAssetEditPopup(asset)"
-                        title="{{ 'Edit asset' | translate }}" ng-if="vm.isEditable(asset) && vm.isPageAsset(asset)">
-                    <i class="fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-bonita-asset" ng-click="vm.delete(asset)"
-                        title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr ng-if="results.length===0">
-        <td colspan="5" translate>No asset</td>
-    </tr>
-    </tbody>
 </table>
+<div class="BottomPanel-scrollableView">
+    <table class="Table AssetTable">
+        <tbody>
+        <tr ng-class="{'text-muted':!asset.active}"
+            ng-repeat="asset in vm.component.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
+            <td class="AssetTable-active">
+                <input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)">
+            </td>
+            <td class="AssetTable-name">{{asset.name}}</td>
+            <td class="AssetTable-scope">
+                {{asset.componentId}}
+                <span ng-if="vm.isPageAsset(asset)" translate>Page level</span>
+            </td>
+            <td class="AssetTable-type">{{asset.type | assetType}}</td>
+            <td class="AssetTable-actions text-right">
+                <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
+                    <button file-download class="btn btn-bonita-asset" href="{{vm.getAssetUrl(asset)}}"
+                            title="{{'Download asset' | translate }}" ng-if="!vm.isExternal(asset)">
+                        <i class="fa fa-alias-import"></i>
+                    </button>
+                    <button class="btn btn-bonita-asset" ng-click="vm.openAssetPreviewPopup(asset)"
+                            title="{{ 'View asset content' | translate }}"
+                            ng-if="!vm.isEditable(asset) || !vm.isPageAsset(asset)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-bonita-asset" ng-click="vm.openAssetEditPopup(asset)"
+                            title="{{ 'Edit asset' | translate }}"
+                            ng-if="vm.isEditable(asset) && vm.isPageAsset(asset)">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-bonita-asset" ng-click="vm.delete(asset)"
+                            title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="results.length===0">
+            <td colspan="5" translate>No asset</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
