@@ -10,7 +10,7 @@
 
 .modal-xxl {
   .DataPanel--hideOnFullScreen {
-    display:none;
+    display: none;
   }
 }
 
@@ -29,27 +29,6 @@
   left: 15px;
 }
 
-.DataPanel-header {
-  height: @data-panel-header-height;
-}
-
-.DataPanel-table {
-  height:calc(~"100%" - @data-panel-header-height);
-}
-
-.VariablesTable th a {
-  color: inherit;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.VariablesTable-sort {
-  padding-left: 0.4em;
-}
-
 .VariablesTable-actions {
   width: 5em;
 }
@@ -58,7 +37,11 @@
   width: 20%;
 }
 
-.VariablesTable-name  {
+.VariablesTable-name {
   width: 25%;
 }
 
+.VariablesTable-type--exposed {
+  font-style: italic;
+  color: gray;
+}

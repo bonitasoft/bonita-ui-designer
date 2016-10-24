@@ -1,47 +1,57 @@
-<div class="DataPanel-header DataHeader">
-    <div class="DataHeader-action">
+<div class="Toolbar">
+    <div class="Toolbar-action">
         <button class="btn btn-default" ng-click="openDataPopup()" translate>Create a new variable</button>
-        <button class="btn btn-default btn-data--help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+        <button class="btn btn-default btn-data--help" ng-click="openHelp()" title="{{'Open help' | translate}}">
+            <i class="fa fa-question-circle"></i>
+        </button>
     </div>
-    <div class="DataHeader-filter">
-        <label class="sr-only" translate> filter: </label>
+    <div>
         <search value="searchedData" placeholder="{{ 'Search' | translate }}"></search>
     </div>
 </div>
 
-<table class="DataPanel-table VariablesTable table table-condensed table-ui-designer table-striped table-text-ellipsis table-scrollable">
+<table class="Table VariablesTable">
     <thead>
-    <th class="VariablesTable-name">
-        <a ng-click="sort('name')"><translate>Name</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
-    </th>
-    <th class="VariablesTable-value" translate>Value</th>
-    <th class="VariablesTable-type">
-        <a ng-click="sort('type')"><translate>Type</translate> <i class="VariablesTable-sort fa fa-sort"></i></a>
-    </th>
-    <th class="VariablesTable-actions"></th>
+    <tr>
+        <th class="VariablesTable-name Table-sort">
+            <a ng-click="sort('name')" translate>Name</a>
+        </th>
+        <th class="VariablesTable-value" translate>Value</th>
+        <th class="VariablesTable-type Table-sort">
+            <a ng-click="sort('type')" translate>Type</a>
+        </th>
+        <th class="VariablesTable-actions"></th>
+    </tr>
     </thead>
-    <tbody>
-
-    <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name" class="DataPanel-variable">
-        <td class="VariablesTable-name">{{variable.name}}</td>
-        <td class="VariablesTable-value"> {{variable.value}}</td>
-        <td class="VariablesTable-type" ng-class="{'DataPanel--italicLightGrey': isExposed(variable)}">
-            {{getType(variable)}}
-        </td>
-        <td class="col-xs-1 VariablesTable-actions">
-            <div class="btn-group link-group btn-group-sm pull-right">
-                <button class="btn update-data" ng-click="openDataPopup(variable.name)" title="{{ 'Edit variable' | translate }}">
-                    <i class="fa fa-pencil"></i>
-                </button>
-                <button class="btn delete-data" ng-click="delete(variable.name)" title="{{ 'Delete variable' | translate }}">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    <tr ng-if="variables.length===0">
-        <td colspan="4" translate>No variable</td>
-    </tr>
-    </tbody>
 </table>
-
+<div class="BottomPanel-scrollableView">
+    <table class="Table VariablesTable">
+        <tbody>
+        <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name"
+            class="DataPanel-variable">
+            <td class="VariablesTable-name">{{variable.name}}</td>
+            <td class="VariablesTable-value">{{variable.value}}</td>
+            <td class="VariablesTable-type" ng-class="{'VariablesTable-type--exposed': isExposed(variable)}">
+                {{getType(variable)}}
+            </td>
+            <td class="VariablesTable-actions">
+                <div class="btn-group link-group btn-group-sm pull-right">
+                    <button class="btn update-data"
+                            ng-click="openDataPopup(variable.name)"
+                            title="{{ 'Edit variable' | translate }}">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn delete-data"
+                            ng-click="delete(variable.name)"
+                            title="{{ 'Delete variable' | translate }}">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="variables.length===0">
+            <td colspan="4" translate>No variable</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
