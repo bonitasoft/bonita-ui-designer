@@ -43,6 +43,16 @@ describe('Service: bindingService', function () {
     expect(binding.getValue()).toBe(7);
   });
 
+  it('should create an expression which returns the same object everytime if it has not change', function () {
+    property.type = 'expression';
+    property.value = '[{"name":"pierre"},{"name":"paul"}]';
+    let binding = bindingService.create(property, context);
+
+    let initialValue = binding.getValue();
+
+    expect(binding.getValue()).toBe(initialValue);
+  });
+
   it('should create a non readable variable binding for a variable property', function () {
     property.type = 'variable';
     property.value = '';
