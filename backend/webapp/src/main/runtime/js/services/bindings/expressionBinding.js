@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   angular.module('bonitasoft.ui.services').service('ExpressionBinding', (Binding, $parse) => (
@@ -11,7 +11,11 @@
       }
 
       getValue() {
-        return this.getter(this.context);
+        const newValue = this.getter(this.context);
+        if (!angular.equals(this.currentValue, newValue)) {
+          this.currentValue = newValue;
+        }
+        return this.currentValue;
       }
     }
   ));
