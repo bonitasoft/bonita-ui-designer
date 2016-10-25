@@ -28,31 +28,15 @@ describe('splitter container directive', function() {
       expect(controller.isActive('toto')).toBe(false);
       expect(controller.isActive('stateTest')).toBe(true);
     });
-    it('should register a splitter-horizontal', function() {
-      var splitter = {
-        openBottom: jasmine.createSpy('openBottom'),
-        closeBottom: jasmine.createSpy('closeBottom')
-      };
-
-      controller.register(splitter);
-      controller.toggle('stateTest');
-      expect(splitter.closeBottom).toHaveBeenCalled();
-    });
 
     it('should toggle a splitter-horizontal', function() {
-      var splitter = {
-        openBottom: jasmine.createSpy('openBottom'),
-        closeBottom: jasmine.createSpy('closeBottom')
-      };
+      controller.toggle('stateTest');
+      expect(controller.isOpen()).toBe(false);
 
-      controller.register(splitter);
       controller.toggle('stateTest');
-      expect(splitter.closeBottom).toHaveBeenCalled();
-      controller.toggle('stateTest');
-      expect(splitter.openBottom).toHaveBeenCalled();
+      expect(controller.isOpen()).toBe(true);
+      
       expect($state.go.calls.count()).toBe(2);
     });
-
   });
-
 });

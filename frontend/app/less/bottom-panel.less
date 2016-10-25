@@ -1,12 +1,11 @@
 @bottom-tab-height: 2.2em;
 
 .BottomPanel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: @sidebar-data-default-height;
   z-index: @z-index-sidebar;
+  transition: height .5s ease, min-height .5s ease;
+  min-height: 220px;
+  max-height: 500px;
 }
 
 .BottomPanel-splitter {
@@ -42,7 +41,7 @@
   text-align: left;
   display: inline-block;
   height: @bottom-tab-height;
-  background-color:lighten(@color-data-bg, 5%);
+  background-color: lighten(@color-data-bg, 5%);
 }
 
 .BottomPanel-toggle--active {
@@ -53,6 +52,7 @@
   padding-bottom: .7em;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .Toolbar-action {
@@ -112,4 +112,19 @@
 .BottomPanel-scrollableView {
   flex: 1;
   overflow: auto;
+}
+
+.BottomPanel.splitter-pane-closed {
+  // We need to override height directly
+  // added to the element via angular-resizable
+  height: 0 !important;
+  min-height: 0;
+}
+
+.rg-top {
+  margin-top: -7px;
+
+  span {
+    display: none;
+  }
 }

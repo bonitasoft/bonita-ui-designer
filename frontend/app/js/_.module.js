@@ -35,6 +35,7 @@
     'org.bonitasoft.dragAndDrop',
     'gettext',
     'ngUpload',
-    'angularMoment'
+    'angularMoment',
+    'angularResizable'
   ]);
 })();

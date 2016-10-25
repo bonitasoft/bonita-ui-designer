@@ -1,14 +1,9 @@
 .content-wrapper {
-  position: absolute;
-  top: @nav-bar-height;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
   overflow: hidden;
-}
-
-.form-control.form-control--pagename {
-  width: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
 }
 
 #editor-container {
@@ -17,36 +12,36 @@
   bottom: 0;
   left: @sidebar-palette-width;
   right: @sidebar-properties-default-width;
+  display: flex;
+  flex-direction: column;
 }
 
-.Palette--closed + #editor-container{
+.Palette--closed + #editor-container {
   left: @sidebar-palette-section-width;
 }
 
-.Palette--narrow + #editor-container{
+.Palette--narrow + #editor-container {
   left: @sidebar-palette-width--narrow;
 }
 
-
 .workspace {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  flex: 1;
+  overflow: auto;
 }
-
 
 #editor {
   overflow: auto;
   background-color: rgba(239, 241, 245, 0.15);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: @sidebar-data-default-height;
-  padding:0 2em;
+  display: block;
+  height: 100%;
+  padding: 0 2em;
+}
 
+.Editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .FileViewer-fileName {
@@ -58,4 +53,3 @@
   text-overflow: ellipsis;
   vertical-align: top;
 }
-

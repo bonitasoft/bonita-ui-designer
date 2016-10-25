@@ -38,6 +38,7 @@ module.exports = function(config) {
       'bower_components/angular-sha/src/angular-sha.js',
       'node_modules/angular-switcher/dist/angular-switcher.min.js',
       'node_modules/ngstorage/ngStorage.min.js',
+      'node_modules/angular-resizable/angular-resizable.min.js',
 
       'app/js/**/*.module.js',
       'app/js/**/*.js',
