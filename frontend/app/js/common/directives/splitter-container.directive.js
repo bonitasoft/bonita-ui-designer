@@ -21,7 +21,6 @@
 angular
   .module('bonitasoft.designer.common.directives')
   .controller('SplitterContainerCtrl', function($scope, $state) {
-    var splitter;
     var isOpen = true;
 
     this.isActive = function(stateName) {
@@ -32,25 +31,15 @@ angular
       return isOpen;
     };
 
-    this.register = function(controller) {
-      splitter = controller;
-    };
-
     this.toggle = function(stateName) {
       if (!isOpen) {
-        splitter.openBottom();
         isOpen = true;
       } else if ($state.current.name === stateName) {
-        splitter.closeBottom();
         isOpen = false;
       }
 
       $state.go(stateName, undefined, { location: false });
     };
-
-    $scope.$on('$destroy', function() {
-      splitter = undefined;
-    });
   })
   .directive('splitterContainer', function() {
     return {

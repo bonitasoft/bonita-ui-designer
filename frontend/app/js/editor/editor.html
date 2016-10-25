@@ -1,66 +1,63 @@
-<header ui-view="header" confirm-on-exit confirm-data="page"></header>
+<div class="Editor">
+    <header ui-view="header" confirm-on-exit confirm-data="page"></header>
 
-<div class="content-wrapper">
-    <!-- Palette -->
-    <div class="Palette"
-        ng-class="{'Palette--closed': isPaletteClosed, 'Palette--narrow': isPaletteNarrow}"
-        editor-palette
-        on-resize="resizePaletteHandler(isClosed, isNarrow)" >
-    </div>
-
-    <div id="editor-container" ng-class="{'': !sectionOpened}" >
-        <div class="workspace">
-            <container container="page" editor="editor" id="editor"  ng-click="editor.selectComponent(null, $event)" component-highlighter="component-element--hover" data-is-editor-container="true"  bo-dropzone bo-drop-success="appendComponent($event, $data)"></container>
-            <div class="alert alert-editor-hint" ng-if="page.rows.length === 1 && page.rows[0].length === 0">
-                <i class="fa fa-rotate-90 fa-share"></i>
-                <h4 class="hint-title" translate>This page is empty.</h4>
-                <translate>To add content, drag and drop components from the palette to the whiteboard above.</translate>
-            </div>
+    <div class="content-wrapper">
+        <!-- Palette -->
+        <div class="Palette"
+             ng-class="{'Palette--closed': isPaletteClosed, 'Palette--narrow': isPaletteNarrow}"
+             editor-palette
+             on-resize="resizePaletteHandler(isClosed, isNarrow)">
         </div>
 
-        <div id="data-sidebar" class="BottomPanel" splitter-container>
-            <div class="BottomPanel-toggleBar">
-                <div class="BottomPanel-toggle clickable"
-                     splitter-toggle="#data-sidebar-splitter"
-                     ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive( 'designer.' + mode) && splitterContainer.isOpen() }"
-                     ng-click="splitterContainer.toggle( 'designer.' + mode)">
-                    <span translate>Variables</span>
-                    <i class="fa"
-                        ng-if="splitterContainer.isActive( 'designer.' + mode) || !splitterContainer.isOpen()"
-                        ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
-                    </i>
-                </div>
-
-                <div class="BottomPanel-toggle clickable"
-                     splitter-toggle="#data-sidebar-splitter"
-                     ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.page.asset') && splitterContainer.isOpen() }"
-                     ng-click="splitterContainer.toggle('designer.page.asset')"
-                     ng-if="mode==='page'">
-                    <span translate>Assets</span>
-                    <i class="fa"
-                        ng-if="splitterContainer.isActive('designer.page.asset') || !splitterContainer.isOpen()"
-                        ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
-                    </i>
+        <div id="editor-container" ng-class="{'': !sectionOpened}">
+            <div class="workspace">
+                <container container="page" editor="editor" id="editor" ng-click="editor.selectComponent(null, $event)"
+                           component-highlighter="component-element--hover" data-is-editor-container="true" bo-dropzone
+                           bo-drop-success="appendComponent($event, $data)"></container>
+                <div class="alert alert-editor-hint" ng-if="page.rows.length === 1 && page.rows[0].length === 0">
+                    <i class="fa fa-rotate-90 fa-share"></i>
+                    <h4 class="hint-title" translate>This page is empty.</h4>
+                    <translate>To add content, drag and drop components from the palette to the whiteboard above.
+                    </translate>
                 </div>
             </div>
-            <div id="data-sidebar-splitter"
-                 splitter-horizontal
-                 default-state="designer.page"
-                 pane-top="#editor"
-                 pane-bottom="#data-sidebar"
-                 pane-bottom-max="600"
-                 pane-bottom-min="250">
+
+            <div id="data-sidebar" class="BottomPanel" splitter-container resizable r-directions="['top']" ng-class="{ 'splitter-pane-closed': !splitterContainer.isOpen() }">
+                <div class="BottomPanel-toggleBar">
+                    <div class="BottomPanel-toggle clickable"
+                         ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.' + mode) && splitterContainer.isOpen() }"
+                         ng-click="splitterContainer.toggle('designer.' + mode)">
+                        <span translate>Variables</span>
+                        <i class="fa"
+                           ng-if="splitterContainer.isActive( 'designer.' + mode) || !splitterContainer.isOpen()"
+                           ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
+                        </i>
+                    </div>
+
+                    <div class="BottomPanel-toggle clickable"
+                         ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.page.asset') && splitterContainer.isOpen() }"
+                         ng-click="splitterContainer.toggle('designer.page.asset')"
+                         ng-if="mode==='page'">
+                        <span translate>Assets</span>
+                        <i class="fa"
+                           ng-if="splitterContainer.isActive('designer.page.asset') || !splitterContainer.isOpen()"
+                           ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
+                        </i>
+                    </div>
+                </div>
+                <div class="BottomPanel-content" ui-view="data"></div>
             </div>
-            <div class="BottomPanel-content" ui-view="data"></div>
+
+            <div splitter-toggle="#widget-properties-splitter" title="{{'Toggle properties panel' | translate}}"
+                 target-state="designer.page" id="toggle-properties" class="clickable toggle">
+                <i class="fa toggle-right"></i>
+            </div>
         </div>
 
-        <div splitter-toggle="#widget-properties-splitter" title="{{'Toggle properties panel' | translate}}" target-state="designer.page" id="toggle-properties" class="clickable toggle">
-            <i class="fa toggle-right"></i>
+        <div id="widget-properties" class="PropertyPanel">
+            <div id="widget-properties-splitter" splitter-vertical="right" pane-left="#editor-container"
+                 pane-right="#widget-properties" pane-right-max="500" pane-right-min="280"></div>
+            <div class="PropertyPanel-popover" ng-include="'js/editor/properties-panel/properties-panel.html'"></div>
         </div>
-    </div>
-
-    <div id="widget-properties" class="PropertyPanel">
-        <div id="widget-properties-splitter" splitter-vertical="right" pane-left="#editor-container" pane-right="#widget-properties" pane-right-max="500" pane-right-min="280"></div>
-        <div class="PropertyPanel-popover" ng-include="'js/editor/properties-panel/properties-panel.html'"></div>
     </div>
 </div>

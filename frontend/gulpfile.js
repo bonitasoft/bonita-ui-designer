@@ -33,10 +33,12 @@ var paths = {
     'bower_components/identicon.js/identicon.js',
     'bower_components/angular-sha/src/angular-sha.js',
     'node_modules/angular-switcher/dist/angular-switcher.min.js',
-    'node_modules/ngstorage/ngStorage.min.js'
+    'node_modules/ngstorage/ngStorage.min.js',
+    'node_modules/angular-resizable/angular-resizable.min.js'
   ],
   css: [
-    'node_modules/angular-switcher/dist/angular-switcher.min.css'
+    'node_modules/angular-switcher/dist/angular-switcher.min.css',
+    'node_modules/angular-resizable/angular-resizable.min.css'
   ],
   jsFolder: 'app/js',
   js: [

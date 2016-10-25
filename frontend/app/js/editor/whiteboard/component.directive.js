@@ -28,8 +28,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('component', f
       editor: '=',
       componentIndex: '=',
       container: '=',
-      row: '=',
-      resizable: '='
+      row: '='
     },
     link: function(scope, element) {
       var componentScope = componentScopeBuilder.build(scope);
