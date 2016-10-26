@@ -302,6 +302,11 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     $scope.isPaletteNarrow = isNarrow;
   };
 
+  $scope.isPropertyPanelClosed = false;
+  function togglePropertyPanel() {
+    $scope.isPropertyPanelClosed = !$scope.isPropertyPanelClosed;
+  }
+
   /**
    * Object containing methods helpful for the component and container directives of the editor, and which is passed
    * as an attribute of these directives.
@@ -321,6 +326,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     moveAtPosition: $scope.moveAtPosition,
     changeComponentWidth: $scope.changeComponentWidth,
     getComponentWidth: $scope.getComponentWidth,
-    page: $scope.page
+    page: $scope.page,
+    togglePropertyPanel
   };
 });

@@ -35,26 +35,6 @@ angular.module('bonitasoft.designer.common.directives')
         this.xPosition = undefined;
 
         this.leftElem = $($scope.paneLeft);
-        this.rightElem = $($scope.paneRight);
-
-        /**
-         * Close the right pane
-         */
-        this.closeRight = function() {
-          var rightBounds = this.rightElem[0].getBoundingClientRect();
-          this.xPosition = rightBounds.right - rightBounds.left;
-
-          this.rightElem.addClass('splitter-pane-closed');
-          this.leftElem.css({ right: 0 }).addClass('splitter-closed-right');
-        };
-
-        /**
-         * Open the right pane
-         */
-        this.openRight = function() {
-          this.leftElem.css({ right: this.xPosition + 'px' }).removeClass('splitter-closed-right');
-          this.rightElem.removeClass('splitter-pane-closed');
-        };
 
         /**
          * Close the left pane
@@ -63,7 +43,6 @@ angular.module('bonitasoft.designer.common.directives')
           var leftBounds = this.leftElem[0].getBoundingClientRect();
           this.xPosition = leftBounds.right;
 
-          this.rightElem.css({ left: 0 }).addClass('splitter-closed-left');
           this.leftElem.addClass('splitter-pane-closed');
         };
 
@@ -71,16 +50,10 @@ angular.module('bonitasoft.designer.common.directives')
          * Open the left pane
          */
         this.openLeft = function() {
-          this.rightElem.css({ left: this.xPosition + 'px' }).removeClass('splitter-closed-left');
           this.leftElem.removeClass('splitter-pane-closed');
         };
 
         this.toggleRight = function() {
-          if (this.displayed) {
-            this.closeRight();
-          } else {
-            this.openRight();
-          }
           this.displayed = !this.displayed;
         };
 
@@ -116,7 +89,6 @@ angular.module('bonitasoft.designer.common.directives')
          */
         this.resize = function(pointerX) {
           this.xPosition = computeX(pointerX);
-          this.rightElem.css({ left: this.xPosition + 'px' });
           this.leftElem.css({ right: ($window.innerWidth - this.xPosition) + 'px' });
         };
       },

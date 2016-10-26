@@ -132,7 +132,7 @@ var AssetPanel = require('./asset-panel.page');
     },
 
     property: function(propertyName) {
-      return $('#widget-properties').element(by.id('property-' + propertyName));
+      return $('.PropertyPanel').element(by.id('property-' + propertyName));
     },
 
     back: function() {
@@ -153,12 +153,6 @@ var AssetPanel = require('./asset-panel.page');
     rows: {
       get: function() {
         return element.all(by.css('#editor > .widget-wrapper > [ng-repeat="row in container.rows"]'));
-      }
-    },
-
-    properties: {
-      get: function() {
-        return $('#widget-properties');
       }
     },
 

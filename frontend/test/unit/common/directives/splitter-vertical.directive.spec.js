@@ -69,26 +69,6 @@ describe('splitter vertical directive', function() {
     expect(controller.openLeft).toHaveBeenCalled();
   });
 
-  it('should close right element when it is opened', function() {
-    spyOn(controller, 'closeRight');
-    controller.displayed = true;
-
-    element.triggerHandler('splitter:toggle:right');
-
-    expect(controller.displayed).toBeFalsy();
-    expect(controller.closeRight).toHaveBeenCalled();
-  });
-
-  it('should open right element when it is closed', function() {
-    spyOn(controller, 'openRight');
-    controller.displayed = false;
-
-    element.triggerHandler('splitter:toggle:right');
-
-    expect(controller.displayed).toBeTruthy();
-    expect(controller.openRight).toHaveBeenCalled();
-  });
-
   it('should resize left and right elements and add classes when splitter is clicked', function() {
     spyOn(controller, 'resize');
     var splitter = angular.element(element.find('.splitter').get(0));
@@ -112,33 +92,11 @@ describe('splitter vertical directive', function() {
       scope = element.isolateScope();
     });
 
-    it('should close right sidebar and save x position', function() {
-
-      controller.closeRight();
-
-      expect(controller.rightElem).toHaveClass('splitter-pane-closed');
-      expect(controller.leftElem).toHaveClass('splitter-closed-right');
-      expect(controller.leftElem.attr('style')).toContain('right: 0');
-      expect(controller.xPosition).toBeDefined();
-    });
-
-    it('should open right sidebar with previous x position', function() {
-      controller.xPosition = 100;
-
-      controller.openRight();
-
-      expect(controller.rightElem).not.toHaveClass('splitter-pane-closed');
-      expect(controller.leftElem).not.toHaveClass('splitter-closed-right');
-      expect(controller.leftElem.attr('style')).toContain('right: 100');
-    });
-
     it('should close left sidebar and save x position', function() {
 
       controller.closeLeft();
 
       expect(controller.leftElem).toHaveClass('splitter-pane-closed');
-      expect(controller.rightElem).toHaveClass('splitter-closed-left');
-      expect(controller.rightElem.attr('style')).toContain('left: 0');
       expect(controller.xPosition).toBeDefined();
     });
 
@@ -148,8 +106,6 @@ describe('splitter vertical directive', function() {
       controller.openLeft();
 
       expect(controller.leftElem).not.toHaveClass('splitter-pane-closed');
-      expect(controller.rightElem).not.toHaveClass('splitter-closed-left');
-      expect(controller.rightElem.attr('style')).toContain('left: 100');
     });
 
     // unstable test. Do not pass on phantomjs but pass anywhere else.
@@ -159,7 +115,6 @@ describe('splitter vertical directive', function() {
       controller.resize(100);
 
       expect(controller.leftElem.attr('style')).toContain('right: 900px');
-      expect(controller.rightElem.attr('style')).toContain('left: 100px');
     });
 
     it('should not resize right pane to a width less than min', function() {
@@ -169,7 +124,6 @@ describe('splitter vertical directive', function() {
       controller.resize(900); // > 1000-200
 
       expect(controller.leftElem.attr('style')).toContain('right: 200px');
-      expect(controller.rightElem.attr('style')).toContain('left: 800px');
     });
 
     it('should not resize right pane to a width greater than max', function() {
@@ -179,7 +133,6 @@ describe('splitter vertical directive', function() {
       controller.resize(700); // < 1000-200
 
       expect(controller.leftElem.attr('style')).toContain('right: 200px');
-      expect(controller.rightElem.attr('style')).toContain('left: 800px');
     });
   });
 
