@@ -28,6 +28,7 @@
       isMovable: isMovable,
       getVisibleComponents: getVisibleComponents,
       isContainer: isContainer,
+      getResolutionClasses,
       column: {
         width: columnWidth,
         className: columnClass,
@@ -40,6 +41,16 @@
     };
 
     return service;
+
+    /**
+     * Returns the CSS classes that must be set on a component in the editor to reflect its width and the currently
+     * selected resolution. It returns an array containing the columnClass of the component, as well as
+     * component-selected if the current selection is the given component.
+     * Note that this function is called for a component of type 'widget' or of type 'container'.
+     */
+    function getResolutionClasses(component) {
+      return [service.column.className(component)];
+    }
 
     /**
      * Return the rows of a tab element
