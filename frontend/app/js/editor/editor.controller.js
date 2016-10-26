@@ -76,17 +76,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     keyBindingService.unbind(['del', 'right', 'left']);
   });
 
-  /**
-   * Returns the CSS classes that must be set on a component in the editor to reflect its width and the currently
-   * selected resolution. It returns an array containing the columnClass of the component, as well as
-   * component-selected if the current selection is the given component.
-   * Note that this function is called for a component of type 'widget' or of type 'container'.
-   */
-  $scope.componentClasses = function(component) {
-    var result = [componentUtils.column.className(component)];
-
-    return result;
-  };
+  $scope.componentClasses = componentUtils.getResolutionClasses;
 
   /**
    * Function called when we want the current selection to be a row of a container. Selecting a row of a container
