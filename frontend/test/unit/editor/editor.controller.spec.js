@@ -289,7 +289,7 @@ describe('EditorCtrl', function() {
     });
 
     it('should add a widget and do not change the length if we already have 12 col', function() {
-      $scope.addComponent(dragData,  0);
+      $scope.addComponent(dragData, 0);
       expect(container.rows[0][0].dimension.xs).toBe(12);
     });
 
@@ -551,7 +551,7 @@ describe('EditorCtrl', function() {
     $scope.$apply();
 
     // then it should call the service to save
-    expect(pageRepo.save).toHaveBeenCalledWith( $scope.page);
+    expect(pageRepo.save).toHaveBeenCalledWith($scope.page);
     // and set the path and search
     expect($state.go).toHaveBeenCalledWith('designer.widget', { id: 'widgetId' });
   });
@@ -559,5 +559,21 @@ describe('EditorCtrl', function() {
   it('should check that a page can be saved', function() {
     expect($scope.canBeSaved({ name: '' })).toBeFalsy();
     expect($scope.canBeSaved({ name: 'pageName' })).toBeTruthy();
+  });
+
+  it('should open property panel when toggle while it is closed', function() {
+    $scope.isPropertyPanelClosed = true;
+
+    $scope.editor.togglePropertyPanel();
+
+    expect($scope.isPropertyPanelClosed).toBe(false);
+  });
+
+  it('should close property panel when toggle while it is opened', function() {
+    $scope.isPropertyPanelClosed = false;
+
+    $scope.editor.togglePropertyPanel();
+
+    expect($scope.isPropertyPanelClosed).toBe(true);
   });
 });

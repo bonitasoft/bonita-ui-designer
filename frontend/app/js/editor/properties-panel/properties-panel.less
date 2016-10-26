@@ -1,10 +1,38 @@
+@property-panel-min-width: 280px;
+
 .PropertyPanel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: calc(~"100% - "@sidebar-properties-default-width);
   padding: 0;
+  max-width: 500px;
+  width: 280px;
+  min-width: @property-panel-min-width;
+  transition: width .5s ease, min-width .5s ease;
+
+  .PropertyPanel-toggle {
+    position: absolute;
+    top: 1em;
+    left: 0;
+    transform: translateX(-90%);
+    font-size: 24px;
+    background-color: @color-palette-item-bg;
+    color: @color-palette-item-text;
+    border: none;
+    box-shadow: none;
+
+    &:before {
+      .fa;
+      content: @fa-var-angle-right;
+      padding: 0 .2em;
+    }
+  }
+
+  &.PropertyPanel--closed {
+    width: 0 !important;
+    min-width: 0;
+
+    .PropertyPanel-toggle:before {
+      content: @fa-var-angle-left;
+    }
+  }
 }
 
 .PropertyPanel-expression {
@@ -40,6 +68,7 @@
 
 .PropertyPanel-inner {
   height: 100%;
+  min-width: @property-panel-min-width;
   display: flex;
   flex-direction: column;
 }
@@ -74,6 +103,7 @@
   padding: 0 1em;
   line-height: 1.5em;
   text-align: center;
+  min-width: @property-panel-min-width;
 }
 
 .PropertyPanel-PropertyIcon {
@@ -155,17 +185,6 @@ widget-property-field ul[typeahead-popup] {
   border: 2px solid @btn-bonita-property-linked-border;
 }
 
-#toggle-properties {
-  right: -6px;
-  padding-right: 4px;
-  border-right: none;
-  background-color: @color-properties-bg;
-}
-
-.toggle-right:before {
-  content: @fa-var-angle-right;
-}
-
 .splitter-closed-right .toggle-right:before {
   content: @fa-var-angle-left;
 }
@@ -174,6 +193,14 @@ widget-property-field ul[typeahead-popup] {
   font-size: 85%;
 
   > ul {
-    padding-left:2em;
+    padding-left: 2em;
+  }
+}
+
+.rg-left {
+  margin-left: -7px;
+
+  span {
+    display: none;
   }
 }

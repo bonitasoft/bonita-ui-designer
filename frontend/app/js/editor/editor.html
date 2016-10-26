@@ -17,7 +17,8 @@
                 <div class="alert alert-editor-hint" ng-if="page.rows.length === 1 && page.rows[0].length === 0">
                     <i class="fa fa-rotate-90 fa-share"></i>
                     <h4 class="hint-title" translate>This page is empty.</h4>
-                    <translate>To add content, drag and drop components from the palette to the whiteboard above.
+                    <translate>
+                        To add content, drag and drop components from the palette to the whiteboard above.
                     </translate>
                 </div>
             </div>
@@ -47,16 +48,15 @@
                 </div>
                 <div class="BottomPanel-content" ui-view="data"></div>
             </div>
-
-            <div splitter-toggle="#widget-properties-splitter" title="{{'Toggle properties panel' | translate}}"
-                 target-state="designer.page" id="toggle-properties" class="clickable toggle">
-                <i class="fa toggle-right"></i>
-            </div>
         </div>
 
-        <div id="widget-properties" class="PropertyPanel">
-            <div id="widget-properties-splitter" splitter-vertical="right" pane-left="#editor-container"
-                 pane-right="#widget-properties" pane-right-max="500" pane-right-min="280"></div>
+        <div class="PropertyPanel"
+             ng-class="{'PropertyPanel--closed': isPropertyPanelClosed}"
+             resizable r-directions="['left']">
+            <button title="{{'Toggle properties panel' | translate}}"
+                    class="PropertyPanel-toggle"
+                    ng-click="editor.togglePropertyPanel()">
+            </button>
             <div class="PropertyPanel-popover" ng-include="'js/editor/properties-panel/properties-panel.html'"></div>
         </div>
     </div>
