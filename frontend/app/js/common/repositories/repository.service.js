@@ -26,7 +26,7 @@
       constructor(type, baseUrl) {
         this.type = type;
         this.baseUrl = baseUrl;
-        this.lastSavedState = {};
+        this.lastSavedState = angular.toJson({});
         this.$http = $http;
       }
 
@@ -40,7 +40,8 @@
        * @param  {Object} artifact  the current artifact being edited
        */
       setLastSavedState(artifact) {
-        this.lastSavedState = angular.copy(artifact);
+        //stringify artifact is faster and then lighter than copying it
+        this.lastSavedState = angular.toJson(artifact);
       }
 
       /**
@@ -49,7 +50,7 @@
        * @return {Boolean}
        */
       needSave(artifact) {
-        return !angular.equals(artifact, this.lastSavedState);
+        return angular.toJson(artifact) !== this.lastSavedState;
       }
 
       delete(id) {
