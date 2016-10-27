@@ -1,0 +1,140 @@
+@bottom-tab-height: 2.2em;
+
+.BottomPanel {
+  height: @sidebar-data-default-height;
+  z-index: @z-index-sidebar;
+  transition: height .3s ease, min-height .3s ease;
+  min-height: 220px;
+  max-height: 500px;
+
+  &&--closed {
+
+    // We need to override height directly
+    // added to the element via angular-resizable
+    height: 0 !important;
+    min-height: 0;
+
+    .BottomPanel-tab:after {
+      content: @fa-var-angle-up;
+    }
+  }
+
+  &-tabs {
+    position: absolute;
+    transform: translateY(-100%);
+    text-align: left;
+    padding-left: 1em;
+    z-index: 43;
+  }
+
+  &-tab {
+    display: inline-block;
+    text-align: left;
+    font-size: 1em;
+    text-transform: uppercase;
+    margin-right: .3em;
+    padding: 4px 10px;
+    background-color: lighten(@color-data-bg, 5%);
+    border: none;
+    box-shadow: none;
+
+    &:after {
+      .fa;
+      padding: 0 0 0 .5em;
+    }
+
+    &&--active {
+      background-color: @color-data-bg;
+
+      &:after {
+        content: @fa-var-angle-down;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-content {
+    background-color: @color-data-bg;
+    height: 100%;
+    padding: .7em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-scrollableView {
+    flex: 1;
+    overflow: auto;
+  }
+}
+
+.Toolbar {
+  padding-bottom: .7em;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.Toolbar-action {
+  flex: 1;
+}
+
+.Table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+
+  thead {
+    background-color: #404853;
+    color: #fff;
+
+    .Table-sort {
+
+      &::after {
+        .fa;
+        content: @fa-var-sort;
+        padding: .2em;
+      }
+
+      a {
+        color: inherit;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  tbody {
+    overflow-y: auto;
+
+    tr {
+      background: #e5eaf0;
+
+      &:nth-child(odd) {
+        background: #eff2f6;
+      }
+    }
+  }
+
+  th, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    white-space: nowrap;
+    line-height: 2em;
+    padding: .3em;
+  }
+}
+
+.rg-top {
+  margin-top: -7px;
+
+  span {
+    display: none;
+  }
+}

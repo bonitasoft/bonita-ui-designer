@@ -50,7 +50,7 @@
   }
 
   var AssetPanel = function() {
-    this.sidebar = element(by.id('data-sidebar'));
+    this.sidebar = element(by.css('.BottomPanel'));
   };
 
   module.exports = AssetPanel;
@@ -58,7 +58,7 @@
   var assetMethod = {
 
     open: function() {
-      browser.actions().click(element.all(by.className('BottomPanel-toggle')).last()).perform();
+      browser.actions().click(element.all(by.className('BottomPanel-tab')).last()).perform();
     },
 
     element: function(selector) {

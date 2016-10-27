@@ -2,7 +2,7 @@
   'use strict';
 
   var DataSideBar = function() {
-    this.sidebar = element(by.id('data-sidebar'));
+    this.sidebar = element(by.css('.BottomPanel'));
   };
 
   module.exports = DataSideBar;

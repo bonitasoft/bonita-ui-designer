@@ -23,31 +23,7 @@
                 </div>
             </div>
 
-            <div id="data-sidebar" class="BottomPanel" splitter-container resizable r-directions="['top']" ng-class="{ 'splitter-pane-closed': !splitterContainer.isOpen() }">
-                <div class="BottomPanel-toggleBar">
-                    <div class="BottomPanel-toggle clickable"
-                         ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.' + mode) && splitterContainer.isOpen() }"
-                         ng-click="splitterContainer.toggle('designer.' + mode)">
-                        <span translate>Variables</span>
-                        <i class="fa"
-                           ng-if="splitterContainer.isActive( 'designer.' + mode) || !splitterContainer.isOpen()"
-                           ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
-                        </i>
-                    </div>
-
-                    <div class="BottomPanel-toggle clickable"
-                         ng-class="{ 'BottomPanel-toggle--active': splitterContainer.isActive('designer.page.asset') && splitterContainer.isOpen() }"
-                         ng-click="splitterContainer.toggle('designer.page.asset')"
-                         ng-if="mode==='page'">
-                        <span translate>Assets</span>
-                        <i class="fa"
-                           ng-if="splitterContainer.isActive('designer.page.asset') || !splitterContainer.isOpen()"
-                           ng-class="{'fa-angle-down':splitterContainer.isOpen(), 'fa-angle-up':!splitterContainer.isOpen()}">
-                        </i>
-                    </div>
-                </div>
-                <div class="BottomPanel-content" ui-view="data"></div>
-            </div>
+            <bottom-panel mode="{{ mode }}"></bottom-panel>
         </div>
 
         <div class="PropertyPanel"
