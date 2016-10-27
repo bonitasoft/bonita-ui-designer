@@ -15,7 +15,6 @@
   ],
   "dependencies": {
     "angular": "1.4.7",
-    "jquery": "2.1.1",
     "bootstrap": "3.3.6",
     "less.js": "1.7.0",
     "angular-mocks": "1.4.7",
