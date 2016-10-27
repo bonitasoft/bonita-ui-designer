@@ -1,0 +1,11 @@
+<div class="BottomPanel" ng-class="{'BottomPanel--closed': bottomPanel.isClosed()}"
+     resizable r-directions="['top']">
+    <div class="BottomPanel-tabs">
+        <button ng-repeat="tab in bottomPanel.tabs"
+                class="BottomPanel-tab" ng-class="{'BottomPanel-tab--active': tab.isActive()}"
+                ng-click="tab.activate()">
+            {{ tab.name }}
+        </button>
+    </div>
+    <div class="BottomPanel-content" ui-view="data"></div>
+</div>

@@ -16,15 +16,9 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor', [
-    'bonitasoft.designer.editor.common',
-    'bonitasoft.designer.editor.data-panel',
-    'bonitasoft.designer.editor.palette',
-    'bonitasoft.designer.editor.properties-panel',
-    'bonitasoft.designer.editor.header',
-    'bonitasoft.designer.editor.whiteboard',
-    'bonitasoft.designer.editor.bottom-panel',
-    'bonitasoft.designer.assets',
+  angular.module('bonitasoft.designer.editor.bottom-panel', [
+    'bonitasoft.designer.templates',
+    'ui.router',
     'gettext'
   ]);
 

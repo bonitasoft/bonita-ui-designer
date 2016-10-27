@@ -42,7 +42,7 @@ describe('home page', function() {
     browser.get('#/');
     home.openTab('layout');
     $$('.ArtifactList-layout a').first().click();
-    $$('.BottomPanel-toggle').last().click();
+    $$('.BottomPanel-tab').last().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('LAYOUT EDITOR');
 
@@ -57,7 +57,7 @@ describe('home page', function() {
     browser.get('#/');
     home.openTab('form');
     $$('.ArtifactList-form a').first().click();
-    $$('.BottomPanel-toggle').last().click();
+    $$('.BottomPanel-tab').last().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('FORM EDITOR');
 
