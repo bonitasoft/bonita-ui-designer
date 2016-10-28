@@ -8,6 +8,7 @@
   var jsesc = require('jsesc');
   var Handlebars = require('handlebars');
   var vfs = require('vinyl-fs');
+  var jsonSchema = require('./json-schema');
 
   /**
    * Inline file contents by replacing @<path>postfix with the contents
@@ -81,5 +82,8 @@
     });
   }
 
-  module.exports = buildWidget;
+  module.exports = {
+    buildWidget,
+    jsonSchema
+  }
 })();
