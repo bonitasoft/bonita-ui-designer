@@ -1,54 +1,56 @@
-<header class="HomeHeader">
-    <div class="HomeHeader-logo">
-        <img src="img/logo.png">
-    </div>
-    <h1 class="HomeHeader-title" translate>UI Designer</h1>
-    <div class="HomeHeader-help">
-        <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i
-            class="fa fa-question-circle"></i></button>
-    </div>
-</header>
-<div class="container container--Home">
-    <div class="row Home-toolbar">
-        <div class="Home-buttons">
-            <uid-create-artifact artifacts="artifacts.all" artifact-active="getActivatedArtifact()"></uid-create-artifact>
-            <uid-import-artifact></uid-import-artifact>
+<div class="Home">
+    <header class="HomeHeader">
+        <div class="HomeHeader-logo">
+            <img src="img/logo.png">
         </div>
-        <div class="Home-sortType pull-right" uib-tooltip-html="getSortTooltipMessage($storage.homeSortOrder)" tooltip-popup-delay="500">
-          <switcher ng-model="$storage.homeSortOrder"
-            true-value="'-lastUpdate'"
-            true-label="<i class='fa fa-long-arrow-down'></i> <i class='fa fa-calendar'></i>"
-            false-value="'+name'"
-            false-label="<i class='fa fa-sort-alpha-asc'></i>"></switcher>
+        <h1 class="HomeHeader-title" translate>UI Designer</h1>
+        <div class="HomeHeader-help">
+            <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i
+                class="fa fa-question-circle"></i></button>
         </div>
-        <form class="Home-search" role="search">
-            <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>
-        </form>
-    </div>
+    </header>
+    <div class="container container--Home">
+        <div class="row Home-toolbar">
+            <div class="Home-buttons">
+                <uid-create-artifact artifacts="artifacts.all" artifact-active="getActivatedArtifact()"></uid-create-artifact>
+                <uid-import-artifact></uid-import-artifact>
+            </div>
+            <div class="Home-sortType pull-right" uib-tooltip-html="getSortTooltipMessage($storage.homeSortOrder)" tooltip-popup-delay="500">
+                <switcher ng-model="$storage.homeSortOrder"
+                          true-value="'-lastUpdate'"
+                          true-label="<i class='fa fa-long-arrow-down'></i> <i class='fa fa-calendar'></i>"
+                          false-value="'+name'"
+                          false-label="<i class='fa fa-sort-alpha-asc'></i>"></switcher>
+            </div>
+            <form class="Home-search" role="search">
+                <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>
+            </form>
+        </div>
 
-    <div class="row row--Home">
-        <section class="col-xs-5 Favorite-section">
-            <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
-            <artifact-list artifacts="artifacts.all | filter:{name: search, favorite: 'true'} | orderBy:$storage.homeSortOrder"
-                           refresh-all="refreshAll"></artifact-list>
-        </section>
+        <div class="row row--Home">
+            <section class="col-xs-5 Favorite-section">
+                <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
+                <artifact-list artifacts="artifacts.all | filter:{name: search, favorite: 'true'} | orderBy:$storage.homeSortOrder"
+                               refresh-all="refreshAll"></artifact-list>
+            </section>
 
-        <section class="col-xs-7 Artifact-section">
-            <uib-tabset active="active">
-                <uib-tab ng-repeat="type in ::types">
-                    <uib-tab-heading class="tab-{{:: type.id}}">
-                        {{:: type.name | translate }}
-                        <span class="badge ArtifactSection-badge"
-                              ng-class="{'ArtifactSection-badge--hasResults': search && artifacts[type.id].length}">
+            <section class="col-xs-7 Artifact-section">
+                <uib-tabset active="active">
+                    <uib-tab ng-repeat="type in ::types">
+                        <uib-tab-heading class="tab-{{:: type.id}}">
+                            {{:: type.name | translate }}
+                            <span class="badge ArtifactSection-badge"
+                                  ng-class="{'ArtifactSection-badge--hasResults': search && artifacts[type.id].length}">
                             {{ artifacts[type.id].length }}
                         </span>
-                    </uib-tab-heading>
-                    <artifact-list
-                        ng-if="type.active = ($index === active)"
-                        artifacts="artifacts[type.id] | orderBy:$storage.homeSortOrder"
-                        refresh-all="refreshAll"></artifact-list>
-                </uib-tab>
-            </uib-tabset>
-        </section>
+                        </uib-tab-heading>
+                        <artifact-list
+                            ng-if="type.active = ($index === active)"
+                            artifacts="artifacts[type.id] | orderBy:$storage.homeSortOrder"
+                            refresh-all="refreshAll"></artifact-list>
+                    </uib-tab>
+                </uib-tabset>
+            </section>
+        </div>
     </div>
 </div>

@@ -1,108 +1,110 @@
-<div class="EditorHeader" role="navigation"  confirm-on-exit confirm-data="widget">
-    <div class="EditorHeader-menu">
-        <a class="EditorHeader-back" ng-click="back()" uib-tooltip="{{ 'Back' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <span class="EditorHeader-title">
-          <a ui-sref="designer.home" class="EditorHeader-icon EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
-            <i class="ui-icon ui-designer"></i>
-          </span>
-          <strong class="EditorHeader-brand" translate>
-              Custom widget editor
-          </strong>
-        </a>
-        <h3 class="EditorHeader-name EditorHeader-name--custom">
-            <identicon name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
-            {{widget.name}}
-        </h3>
-        <div class="btn-group" uib-dropdown>
-            <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
-            <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
-                <span class="fa fa-caret-down"></span>
-                <span class="sr-only">Save</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a id="saveAs" class="clickable" ng-click="saveAs(widget)" translate>Save as ...</a></li>
-            </ul>
-        </div>
-        <button type="button"
-                id="export"
-                class="btn btn-bonita-primary"
-                ng-click="saveAndExport()"
-                title="{{'Export'|translate}}">
-            <i class="ui-icon ui-export"></i>
-        </button>
-        <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
-    </div>
-    <div class="EditorHeader-help">
-        <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
-    </div>
-
-</div>
-
-
-<div class="container-fluid CustomEditor">
-    <div class="row">
-        <div class="col-xs-7">
-            <form id="widget-form" name="widgetForm">
-                <div>
-                    <h4 class="CustomEditor-section">
-                        <translate>Description</translate>
-                        <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" uib-tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
-                    </h4>
-                    <textarea class="form-control textarea--widget" ng-attr-placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
-                </div>
-                <div>
-                    <h4 class="CustomEditor-section" translate>Template</h4>
-                    <ace-editor class="ace-editor--widget" mode="html" ng-model="widget.template" id="template"></ace-editor>
-                </div>
-                <div>
-                    <h4 class="CustomEditor-section" translate>Controller</h4>
-                    <ace-editor class="ace-editor--widget" mode="javascript" ng-model="widget.controller" id="controller"></ace-editor>
-                </div>
-            </form>
-        </div>
-        <div class="col-xs-5">
-
-            <div ui-view="asset"></div>
-
-            <div class="form-group">
-                <h4 class="CustomEditor-section">
-                    <translate>Required angular modules</translate>
-                    <i class="fa fa-info-circle CustomEditor-helper" uib-tooltip="{{'Extra angular modules needed by this custom widget (comma separated)' | translate }}" tooltip-append-to-body="true"></i>
-                </h4>
-                <input type="text" class="form-control" id="requiredModules" ng-model="widget.requiredModules" ng-list>
+<div class="WidgetEditor">
+    <div class="EditorHeader" role="navigation"  confirm-on-exit confirm-data="widget">
+        <div class="EditorHeader-menu">
+            <a class="EditorHeader-back" ng-click="back()" uib-tooltip="{{ 'Back' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+            <span class="EditorHeader-title">
+              <a ui-sref="designer.home" class="EditorHeader-icon EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
+                <i class="ui-icon ui-designer"></i>
+              </span>
+              <strong class="EditorHeader-brand" translate>
+                  Custom widget editor
+              </strong>
+            </a>
+            <h3 class="EditorHeader-name EditorHeader-name--custom">
+                <identicon name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
+                {{widget.name}}
+            </h3>
+            <div class="btn-group" uib-dropdown>
+                <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
+                <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
+                    <span class="fa fa-caret-down"></span>
+                    <span class="sr-only">Save</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a id="saveAs" class="clickable" ng-click="saveAs(widget)" translate>Save as ...</a></li>
+                </ul>
             </div>
+            <button type="button"
+                    id="export"
+                    class="btn btn-bonita-primary"
+                    ng-click="saveAndExport()"
+                    title="{{'Export'|translate}}">
+                <i class="ui-icon ui-export"></i>
+            </button>
+            <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
+        </div>
+        <div class="EditorHeader-help">
+            <button class="btn btn-bonita-help" ng-click="openHelp()" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+        </div>
 
-            <table class="table table-striped">
-                <thead>
-                    <th class="col-xs-10">
-                         <h4 class="CustomEditor-section" translate>Properties</h4>
-                    </th>
-                    <th class="col-xs-2 Property-actions">
-                        <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-click="createOrUpdate()">
-                            <i class="fa fa-plus"></i>
-                            <span translate>Create</span>
-                        </button>
-                    </th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="property in widget.properties">
-                        <td class="col-xs-10 PropertyDescription">
-                            <div class="PropertyName"><strong>{{ property.name }}</strong></div>
-                            <div><small translate>Label</small>: {{ property.label }}</div>
-                            <div><small translate>Treat as </small><span> {{ bonds[property.bond].name | translate }}</span></div>
-                            <div><span ng-if="isTypeSelectable(property.bond)"><small translate>Type</small>: {{property.type}}</span></div>
-                            <div ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}</div>
-                            <div ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</div>
-                        </td>
-                        <td class="col-xs-2 Property-actions">
-                            <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-bonita-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
-                     </td>
-                    </tr>
-                </tbody>
-            </table>
+    </div>
+
+
+    <div class="container-fluid CustomEditor">
+        <div class="row">
+            <div class="col-xs-7">
+                <form id="widget-form" name="widgetForm">
+                    <div>
+                        <h4 class="CustomEditor-section">
+                            <translate>Description</translate>
+                            <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" uib-tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
+                        </h4>
+                        <textarea class="form-control textarea--widget" ng-attr-placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
+                    </div>
+                    <div>
+                        <h4 class="CustomEditor-section" translate>Template</h4>
+                        <ace-editor class="ace-editor--widget" mode="html" ng-model="widget.template" id="template"></ace-editor>
+                    </div>
+                    <div>
+                        <h4 class="CustomEditor-section" translate>Controller</h4>
+                        <ace-editor class="ace-editor--widget" mode="javascript" ng-model="widget.controller" id="controller"></ace-editor>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-5">
+
+                <div ui-view="asset"></div>
+
+                <div class="form-group">
+                    <h4 class="CustomEditor-section">
+                        <translate>Required angular modules</translate>
+                        <i class="fa fa-info-circle CustomEditor-helper" uib-tooltip="{{'Extra angular modules needed by this custom widget (comma separated)' | translate }}" tooltip-append-to-body="true"></i>
+                    </h4>
+                    <input type="text" class="form-control" id="requiredModules" ng-model="widget.requiredModules" ng-list>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                        <th class="col-xs-10">
+                             <h4 class="CustomEditor-section" translate>Properties</h4>
+                        </th>
+                        <th class="col-xs-2 Property-actions">
+                            <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-click="createOrUpdate()">
+                                <i class="fa fa-plus"></i>
+                                <span translate>Create</span>
+                            </button>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="property in widget.properties">
+                            <td class="col-xs-10 PropertyDescription">
+                                <div class="PropertyName"><strong>{{ property.name }}</strong></div>
+                                <div><small translate>Label</small>: {{ property.label }}</div>
+                                <div><small translate>Treat as </small><span> {{ bonds[property.bond].name | translate }}</span></div>
+                                <div><span ng-if="isTypeSelectable(property.bond)"><small translate>Type</small>: {{property.type}}</span></div>
+                                <div ng-if="property.type === 'choice'"><small translate>Choices</small>: {{ property.choiceValues.join(', ') }}</div>
+                                <div ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</div>
+                            </td>
+                            <td class="col-xs-2 Property-actions">
+                                <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-bonita-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
+                         </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
