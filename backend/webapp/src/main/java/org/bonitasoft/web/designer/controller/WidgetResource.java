@@ -23,6 +23,7 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -38,6 +39,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +64,7 @@ public class WidgetResource extends AssetResource<Widget>{
                           AssetService<Widget> widgetAssetService,
                           @Named("widgetPath") Path widgetPath,
                           List<WidgetContainerRepository> widgetContainerRepositories) {
-        super(widgetAssetService, widgetRepository, null);
+        super(widgetAssetService, widgetRepository, null, Optional.<SimpMessagingTemplate>absent());
         this.widgetRepository = widgetRepository;
         this.objectMapper = objectMapper;
         this.widgetService = widgetService;

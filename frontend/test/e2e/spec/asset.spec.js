@@ -242,15 +242,18 @@ describe('asset panel', function() {
     expect(popup.fileContent).toBe('.somecssrule {\n  color: blue\n}');
 
     // should update content
+    expect(popup.dismissBtn.getText()).toEqual('Close');
     popup.fileContent = 'New content';
+    expect(popup.dismissBtn.getText()).toEqual('Discard changes');
     popup.save();
-    expect(popup.isOpen()).toBeFalsy();
+    expect(popup.isOpen()).toBeTruthy();
+    popup.dismissBtn.click();
     assetPanel.editAsset('CSS', 'myStyle.css');
     expect(popup.fileContent).toBe('New content');
 
     // should not update file content while clicking on cancel
     popup.fileContent = 'Again some fresh content';
-    popup.cancel();
+    popup.dismissBtn.click();
     expect(popup.isOpen()).toBeFalsy();
     assetPanel.editAsset('CSS', 'myStyle.css');
     expect(popup.fileContent).toBe('New content');

@@ -14,8 +14,12 @@
       element(by.cssContainingText('.EditAssetPopUp .modal-footer button', 'Save')).click();
     }
 
-    cancel() {
-      element(by.cssContainingText('.modal-footer button', 'Cancel')).click();
+    dismiss() {
+      element(by.css('.modal-footer')).element(by.css('.EditAssetPopUp-dismissBtn')).click();
+    }
+
+    get dismissBtn() {
+      return element(by.css('.modal-footer')).element(by.css('.EditAssetPopUp-dismissBtn'));
     }
 
     isOpen() {
