@@ -1,6 +1,7 @@
 <div class="EditAssetPopUp">
     <div class="modal-header">
         <h3 class="modal-title">{{vm.asset.name}}</h3>
+        <save-indicator class="EditAssetPopUp-saveIndicator"></save-indicator>
     </div>
     <div class="modal-body">
         <ace-editor class="EditAssetPopUp-editor"
@@ -9,8 +10,18 @@
         </ace-editor>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="vm.save()" translate>Save</button>
-        <button class="btn btn-link" type="button" ng-click="$dismiss()" translate>Cancel</button>
+        <button type="button"
+                class="btn btn-primary"
+                ng-click="vm.save()"
+                ng-disabled="!vm.hasChanged()"
+                uib-tooltip="{{ 'This will also update the content of the preview window' | translate }}"
+                tooltip-popup-delay="500"
+                tooltip-append-to-body="true"
+                translate>Save</button>
+        <button class="btn btn-link EditAssetPopUp-dismissBtn" type="button" ng-click="$dismiss()">
+            <span class="u-fadeIn" ng-if="!vm.hasChanged()" translate>Close</span>
+            <span class="u-fadeIn" ng-if="vm.hasChanged()" translate>Discard changes</span>
+        </button>
     </div>
 
 </div>

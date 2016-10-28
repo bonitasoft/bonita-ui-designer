@@ -256,13 +256,14 @@ describe('custom widget editor', function() {
     // should update content
     popup.fileContent = 'New content';
     popup.save();
-    expect(popup.isOpen()).toBeFalsy();
+    expect(popup.isOpen()).toBeTruthy();
+    popup.dismissBtn.click();
     assets.editAsset('CSS', 'myStyle.css');
     expect(popup.fileContent).toBe('New content');
 
     // should not update file content while clicking on cancel
     popup.fileContent = 'Again some fresh content';
-    popup.cancel();
+    popup.dismissBtn.click();
     expect(popup.isOpen()).toBeFalsy();
     assets.editAsset('CSS', 'myStyle.css');
     expect(popup.fileContent).toBe('New content');

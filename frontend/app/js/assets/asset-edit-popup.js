@@ -17,25 +17,41 @@
 
   class AssetEditPopupCtrl {
 
-    constructor(asset, component, aceMode, $uibModalInstance, assetRepo, assetErrorManagement) {
+    constructor(asset, component, aceMode, $uibModalInstance, assetRepo, assetErrorManagement, $scope, keyBindingService) {
       this.asset = asset;
       this.component = component;
       this.$uibModalInstance = $uibModalInstance;
       this.assetErrorManagement = assetErrorManagement;
       this.assetRepo = assetRepo;
       this.aceMode = aceMode;
-      this.content = '';
+      this.content = this.initialContent = '';
+      this.scope = $scope;
 
       this.assetRepo
         .loadLocalAssetContent(component.id, asset)
-        .then((response) => this.content = response.data);
+        .then((response) => this.content = this.initialContent = response.data);
+
+      keyBindingService.bind(['ctrl+s', 'command+s'], () => {
+        $scope.$apply(() => this.save());
+        // prevent default browser action
+        return false;
+      });
     }
 
     save() {
-      this.assetRepo
+      return this.assetRepo
         .updateLocalAssetContent(this.component.id, this.asset, this.content)
         .then((response) => this.assetErrorManagement.manageErrorsFromResponse(response))
-        .then(() => this.$uibModalInstance.close());
+        .then(() => this.initialContent = this.content)
+        .then(() => this.scope.$broadcast('saved'));
+    }
+
+    saveAndClose() {
+      this.save().then(() => this.$uibModalInstance.close());
+    }
+
+    hasChanged() {
+      return this.content !== this.initialContent;
     }
   }
 

@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller;
 
 import static java.lang.Boolean.TRUE;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
@@ -42,6 +44,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,11 +59,13 @@ public abstract class AssetResource<T extends Assetable> {
     protected AssetService<T> assetService;
     protected AssetVisitor assetVisitor;
     protected Repository<T> repository;
+    private Optional<SimpMessagingTemplate> messagingTemplate;
 
-    public AssetResource(AssetService<T> assetService, Repository<T> repository, AssetVisitor assetVisitor) {
+    public AssetResource(AssetService<T> assetService, Repository<T> repository, AssetVisitor assetVisitor, Optional<SimpMessagingTemplate> messagingTemplate) {
         this.assetService = assetService;
         this.assetVisitor = assetVisitor;
         this.repository = repository;
+        this.messagingTemplate = messagingTemplate;
     }
 
     protected abstract void checkArtifactId(String artifactId);
@@ -70,6 +75,9 @@ public abstract class AssetResource<T extends Assetable> {
     public ResponseEntity<Asset> saveOrUpdate(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
         checkArtifactId(id);
         Asset asset = assetService.upload(file, repository.get(id), type);
+        if (messagingTemplate.isPresent()) {
+            messagingTemplate.get().convertAndSend(PREVIEWABLE_UPDATE, id);
+        }
         return new ResponseEntity<>(asset, HttpStatus.CREATED);
     }
 

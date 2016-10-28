@@ -24,6 +24,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
@@ -65,7 +66,7 @@ public class PageResource extends AssetResource<Page> {
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
             AssetVisitor assetVisitor) {
-        super(pageAssetService, pageRepository, assetVisitor);
+        super(pageAssetService, pageRepository, assetVisitor, Optional.of(messagingTemplate));
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
