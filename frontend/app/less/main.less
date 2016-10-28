@@ -58,16 +58,16 @@ html, body {
   height: 100%;
 }
 
-body {
+.Home, .WidgetEditor, .Editor {
   min-width: 1024px;
-}
 
-// forcing container width for low screen size
-// => UI Designer min-width 1024
-.container {
-  @media (max-width: @screen-md-min) {
-    min-width: @container-md;
-    width: @container-md;
+  // forcing container width for low screen size
+  // => UI Designer min-width 1024
+  .container {
+    @media (max-width: @screen-md-min) {
+      min-width: @container-md;
+      width: @container-md;
+    }
   }
 }
 
