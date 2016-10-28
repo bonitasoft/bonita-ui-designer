@@ -1,5 +1,5 @@
 import fs from 'fs';
-import buildWidget from '../src/index.js';
+import { buildWidget } from '../src/index.js';
 import vfs from 'vinyl-fs';
 import jsesc from 'jsesc';
 import {Writable} from 'stream';

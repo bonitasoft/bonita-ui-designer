@@ -11,15 +11,17 @@ var order = require('gulp-order');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var babel = require('gulp-babel');
+var flatten = require('gulp-flatten');
 
 var gettextWidget = require('./gettext-widget.js');
-var buildWidget = require('./widget-builder/src/index.js');
+var buildWidget = require('./widget-builder/src/index.js').buildWidget;
+var jsonSchema = require('./widget-builder/src/index.js').jsonSchema;
 
 module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['runtime', 'widgets', 'pot']);
+  gulp.task('build', ['jsonschema', 'runtime', 'widgets', 'pot']);
   gulp.task('lint', ['jshint', 'jscs:lint']);
 
   /**
@@ -28,6 +30,13 @@ module.exports = function(gulp, config) {
   gulp.task('ddescriber', function () {
     return gulp.src(paths.tests)
       .pipe(ddescriber());
+  });
+
+  gulp.task('jsonschema', function () {
+    return gulp.src(paths.widgetsJson)
+      .pipe(jsonSchema())
+      .pipe(flatten())
+      .pipe(gulp.dest('target/widget-schema'));
   });
 
   /**
