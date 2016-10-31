@@ -212,6 +212,9 @@
                 </includes>
                 <targetPath>templates</targetPath>
             </resource>
+            <resource>
+                <directory>target/generated-sources</directory>
+            </resource>
         </resources>
 
         <!-- the properties files are filtered -->
@@ -322,7 +325,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>compile</phase>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <arguments>install --prefix ./gulp/widget-builder</arguments>
                         </configuration>
@@ -352,7 +355,7 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>compile</phase>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <arguments>run build</arguments>
                         </configuration>
@@ -377,6 +380,27 @@
                     <execution>
                         <goals>
                             <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <version>0.4.27</version>
+                <configuration>
+                    <sourceDirectory>${build.directory}/widget-schema/</sourceDirectory>
+                    <outputDirectory>${build.directory}/generated-sources</outputDirectory>
+                    <targetPackage>org.bonitasoft.web.designer.experimental.widgets</targetPackage>
+                    <annotationStyle>none</annotationStyle>
+                    <includeAdditionalProperties>false</includeAdditionalProperties>
+                    <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
+                    <includeToString>false</includeToString>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
