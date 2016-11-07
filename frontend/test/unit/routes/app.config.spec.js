@@ -33,7 +33,7 @@ describe('The route config', function() {
 
   it('should resolve the necessary for the page preview', function() {
     // when we go to the editor
-    $location.path('en/pages/person/preview');
+    $location.path('en/preview/page/person');
     $rootScope.$apply();
 
     // a controller

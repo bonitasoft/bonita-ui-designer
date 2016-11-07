@@ -5,7 +5,7 @@
   };
 
   Preview.getPage = function(pageId) {
-    browser.get('#/en/pages/' + (pageId || 'empty') + '/preview');
+    browser.get('#/en/preview/page/' + (pageId || 'empty'));
     return new Preview();
   };
 

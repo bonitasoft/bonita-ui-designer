@@ -36,7 +36,7 @@
                 <i class="ui-icon ui-export"></i>
             </button>
         </form>
-        <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!formName.$valid"></open-preview>
+        <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" artifact-id="vm.page.id" is-disabled="!formName.$valid"></open-preview>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
     <div class="EditorHeader-resolutions">

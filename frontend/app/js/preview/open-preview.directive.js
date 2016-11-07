@@ -30,8 +30,10 @@ class OpenPreviewCtrl {
     if (this.previewWindow) {
       this.previewWindow.focus();
     }
-    this.previewWindow = this.$window.open(this.$state.href(`designer.${ this.mode || 'page'}.preview`, {
-      resolution: this.resolutions.selected().key
+    this.previewWindow = this.$window.open(this.$state.href(`designer.preview`, {
+      resolution: this.resolutions.selected().key,
+      id: this.artifactId,
+      mode: this.mode
     }), 'preview', 'width=1024,height=768,resizable=1,scrollbars=1');
   }
 }
@@ -42,6 +44,7 @@ angular.module('bonitasoft.designer.preview')
     controller: OpenPreviewCtrl,
     bindToController: {
       onOpenPreview: '&',
+      artifactId: '=',
       mode: '@',
       isDisabled: '='
     },

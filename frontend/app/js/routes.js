@@ -113,8 +113,8 @@
         }
       });
 
-      $stateProvider.state('designer.page.preview', {
-        url: '/preview',
+      $stateProvider.state('designer.preview', {
+        url: '/preview/:mode/:id',
         views: {
           '@designer': {
             controller: 'PreviewCtrl',
@@ -123,17 +123,12 @@
         },
         resolve: {
           /* @ngInject */
-          iframeParameters: function($stateParams) {
-            return {
-              url: 'preview/page',
-              id: $stateParams.id
-            };
-          },
+          iframeParameters: $stateParams => ({ url: `preview/${$stateParams.mode}`, id: $stateParams.id }),
+          /* @ngInject */
+          mode: $stateParams => $stateParams.mode,
           // injects the correct repo
           /* @ngInject */
-          artifactRepo: function(pageRepo) {
-            return pageRepo;
-          }
+          artifactRepo: (repositories, mode) => repositories.get(mode)
         }
       });
 

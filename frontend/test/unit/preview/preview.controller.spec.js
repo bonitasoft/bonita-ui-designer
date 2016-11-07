@@ -1,5 +1,5 @@
 describe('PreviewCtrl', function() {
-  var ctrl, $scope, $q, $location, $stateParams, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout;
+  var ctrl, $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket'));
 
@@ -8,12 +8,11 @@ describe('PreviewCtrl', function() {
     $q = $injector.get('$q');
     $scope = $injector.get('$rootScope').$new();
     $location = $injector.get('$location');
-    $stateParams = $injector.get('$stateParams');
     $timeout = $injector.get('$timeout');
+    pageRepo = $injector.get('pageRepo');
 
     pageRequest = $q.defer();
 
-    pageRepo = { load: angular.noop };
     spyOn(pageRepo, 'load').and.returnValue(pageRequest.promise);
 
     webSocket = _webSocket_;
@@ -30,12 +29,11 @@ describe('PreviewCtrl', function() {
     };
 
     ctrl = $injector.get('$controller')('PreviewCtrl', {
-      $scope: $scope,
-      iframeParameters: iframeParameters,
-      webSocket: webSocket,
-      artifactRepo: pageRepo,
-      $stateParams: $stateParams,
-      clock: clock
+      $scope,
+      iframeParameters,
+      webSocket,
+      clock,
+      artifactRepo: pageRepo
     });
 
   }));

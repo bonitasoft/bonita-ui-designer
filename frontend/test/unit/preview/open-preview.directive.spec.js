@@ -16,7 +16,6 @@ describe('directive openPreview', function() {
     spyOn($window, 'open').and.returnValue(jasmine.createSpyObj('window', ['focus']));
     spyOn($state, 'href').and.returnValue('/preview?resolution=xs');
     spyOn(resolutions, 'selected').and.returnValue({ key: 'xs' });
-
   }));
 
   describe('directive default behaviour', function() {
@@ -28,7 +27,7 @@ describe('directive openPreview', function() {
         isValid: true,
         save: jasmine.createSpy()
       };
-      dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid"></open-preview>')(scope);
+      dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid" artifact-id="vm.page.id"></open-preview>')(scope);
       scope.$apply();
       controller = dom.controller('openPreview');
     });
@@ -36,7 +35,7 @@ describe('directive openPreview', function() {
     it('should try to get the current preview url', function() {
       expect(controller.previewWindow).toBeUndefined();
       dom.find('button').click();
-      expect($state.href).toHaveBeenCalledWith('designer.page.preview', { resolution: 'xs' });
+      expect($state.href).toHaveBeenCalledWith('designer.preview', { resolution: 'xs', id: '12345', mode: 'page' });
       expect($window.open).toHaveBeenCalledWith('/preview?resolution=xs', 'preview', 'width=1024,height=768,resizable=1,scrollbars=1');
       expect(scope.vm.save).toHaveBeenCalledWith(scope.vm.page);
       dom.find('button').click();
@@ -45,10 +44,10 @@ describe('directive openPreview', function() {
 
     it('should open a popup', function() {
       scope.vm.mode = 'fragment';
-      dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid"></open-preview>')(scope);
+      dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid" artifact-id="vm.page.id"></open-preview>')(scope);
       scope.$apply();
       dom.find('button').click();
-      expect($state.href).toHaveBeenCalledWith('designer.fragment.preview', { resolution: 'xs' });
+      expect($state.href).toHaveBeenCalledWith('designer.preview', { resolution: 'xs', id: '12345', mode: 'fragment' });
     });
 
   });

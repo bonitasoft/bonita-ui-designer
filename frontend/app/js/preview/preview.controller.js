@@ -34,9 +34,7 @@
 
     artifactRepo
       .load(iframeParameters.id)
-      .then(function(response) {
-        $scope.pageName = response.data.name;
-      });
+      .then(response => $scope.pageName = response.data.name);
 
     refreshIframe();
     webSocket.listen('/previewableUpdates', (id) => {
