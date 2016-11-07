@@ -1,10 +1,15 @@
 <div class="Preview">
-    <div class="Preview-header">
-        <span class="Preview-title" translate>Preview - {{pageName}}</span>
-        <div class="navbar-right">
-            <language-picker on-change="refreshIframe()" class="navbar-text"></language-picker>
-            <resolutions-bar id="resolutions" class="btn-group btn-group-lg navbar-text"></resolutions-bar>
+    <nav class="navbar Preview-header" role="navigation">
+        <div class="navbar-header">
+            <navbar-toggle on-click="isNavCollapsed = !isNavCollapsed"></navbar-toggle>
+            <span class="navbar-brand" translate>Preview - {{pageName}}</span>
         </div>
-    </div>
+        <div class="Preview-toolbar collapse navbar-collapse" uib-collapse="isNavCollapsed">
+            <ul class="nav navbar-nav">
+                <li><language-picker on-change="refreshIframe()"></language-picker></li>
+                <li><resolutions-bar id="resolutions" class="btn-group Preview-resolutionBar"></resolutions-bar></li>
+            </ul>
+        </div>
+    </nav>
     <iframe preview-localized-iframe class="Preview-viewport" ng-src="{{iframe.src}}" width="{{iframeWidth()}}" ></iframe>
 </div>

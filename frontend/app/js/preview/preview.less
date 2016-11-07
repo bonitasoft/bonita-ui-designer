@@ -1,32 +1,27 @@
-@preview-nav-bar-height: 80px;
-
 .Preview {
   height: 100%;
-}
 
-.Preview-header {
-  background-color: @color-editor-header-bg;
-  color: @color-editor-header-text;
-  height: @nav-bar-height;
-  padding: 0 .75em;
-  display: table;
-  width: 100%;
-}
+  &-header {
+    background-color: @color-editor-header-bg;
+    color: @color-editor-header-text;
+    border-radius: 0;
+  }
 
-.Preview-title {
-  font-size: 1.5em;
-}
+  &-resolutionBar {
+    .navbar-vertical-align(@input-height-base);
+  }
 
-@media (min-width: 768px) {
-  .Preview-title {
-    float: left;
-    line-height: @preview-nav-bar-height;
+  &-toolbar {
+    float: right;
+
+    .navbar-nav {
+      margin: auto;
+    }
   }
 }
 
 .Preview-viewport {
   height: calc(~"100%" -  @nav-bar-height + 30);
-  box-sizing: content-box;
   border: 2px solid #cccccc;
   border-radius: 5px;
   display: block;
