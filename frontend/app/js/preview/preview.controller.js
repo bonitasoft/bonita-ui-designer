@@ -30,6 +30,7 @@
     $scope.refreshIframe = refreshIframe;
     $scope.buildIframeSrc = buildIframeSrc;
     $scope.iframeWidth = iframeWidth;
+    $scope.isNavCollapsed = true;
 
     artifactRepo
       .load(iframeParameters.id)
