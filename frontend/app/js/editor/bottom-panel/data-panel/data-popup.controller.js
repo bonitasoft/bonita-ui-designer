@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.data-panel')
+angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
   .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples) {
 
     'use strict';
