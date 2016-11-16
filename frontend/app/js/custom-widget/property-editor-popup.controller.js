@@ -16,20 +16,20 @@ angular.module('bonitasoft.designer.custom-widget').value('BONDS', {
   'variable': {
     type: 'text',
     name: 'Bidirectional bond',
-    template: 'js/editor/help/bidirectional-bond-help.html'
+    template: 'js/editor/properties-panel/help/bidirectional-bond-help.html'
   },
   'expression': {
     name: 'Dynamic value',
-    template: 'js/editor/help/dynamic-bond-help.html',
+    template: 'js/editor/properties-panel/help/dynamic-bond-help.html',
   },
   'interpolation': {
     type: 'text',
     name: 'Interpolation',
-    template: 'js/editor/help/interpolation-bond-help.html'
+    template: 'js/editor/properties-panel/help/interpolation-bond-help.html'
   },
   'constant': {
     name: 'Constant',
-    template: 'js/editor/help/constant-bond-help.html'
+    template: 'js/editor/properties-panel/help/constant-bond-help.html'
   }
 })
   .controller('PropertyEditorPopupCtrl', function($scope, param, $uibModalInstance, BONDS) {
