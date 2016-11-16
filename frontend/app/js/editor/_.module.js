@@ -18,7 +18,6 @@
 
   angular.module('bonitasoft.designer.editor', [
     'bonitasoft.designer.editor.common',
-    'bonitasoft.designer.editor.data-panel',
     'bonitasoft.designer.editor.palette',
     'bonitasoft.designer.editor.properties-panel',
     'bonitasoft.designer.editor.header',
