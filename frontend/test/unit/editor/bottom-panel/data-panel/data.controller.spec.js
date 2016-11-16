@@ -4,7 +4,7 @@
 
     var $scope, repository, $q, $location, $uibModal, gettextCatalog;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.editor.data-panel'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.bottom-panel.data-panel'));
 
     beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$uibModal_, _gettextCatalog_) {
       $scope = $rootScope.$new();

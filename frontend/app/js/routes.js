@@ -89,7 +89,7 @@
           //  sub view named in editor.html
           'data@designer.page': {
             controller: 'DataCtrl',
-            templateUrl: 'js/editor/data-panel/data.html'
+            templateUrl: 'js/editor/bottom-panel/data-panel/data.html'
           },
           'header@designer.page': {
             controller: 'EditorHeaderCtrl',
