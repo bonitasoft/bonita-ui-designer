@@ -23,7 +23,10 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('aNewValue');
+      let expectedData = dataPanel.getDataByName('aNewData');
+      expect(expectedData.name).toBe('aNewData');
+      expect(expectedData.type).toBe('String');
+      expect(expectedData.value).toBe('aNewValue');
     });
 
     it('should add an Json data', function() {
@@ -38,7 +41,10 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('{"key": "foo"}');
+      let expectedData = dataPanel.getDataByName('aJson');
+      expect(expectedData.name).toBe('aJson');
+      expect(expectedData.type).toBe('JSON');
+      expect(expectedData.value).toBe('{"key": "foo"}');
     });
 
     it('should add an Url data', function() {
@@ -53,7 +59,10 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('{{base}}/bonita/test');
+      let expectedData = dataPanel.getDataByName('aUrl');
+      expect(expectedData.name).toBe('aUrl');
+      expect(expectedData.type).toBe('External API');
+      expect(expectedData.value).toBe('{{base}}/bonita/test');
     });
 
     it('should add a Javascript expression data', function() {
@@ -68,7 +77,10 @@ describe('data panel', function() {
         expect(nb).toBe(nbData + 1);
       });
 
-      expect(dataPanel.lines.last().element(by.exactBinding('variable.value')).getText()).toBe('return "test";');
+      let expectedData = dataPanel.getDataByName('anExpression');
+      expect(expectedData.name).toBe('anExpression');
+      expect(expectedData.type).toBe('Javascript expression');
+      expect(expectedData.value).toBe('return "test";');
     });
 
     it('should delete a data', function() {
@@ -95,7 +107,7 @@ describe('data panel', function() {
     });
 
     it('should sort data by name or type', function() {
-      dataPanel.sortByName();
+      // Default order is 'name'
       expect(dataPanel.getData(0).name).toBe('alreadyExistsData');
       expect(dataPanel.getData(1).name).toBe('jsonExample');
       expect(dataPanel.getData(2).name).toBe('urlExample');
@@ -180,27 +192,27 @@ describe('data panel', function() {
     });
 
     it('should allow modifying existing data value and rollbacking', function() {
-      dataPanel.editData(2);
+      dataPanel.editData('alreadyExistsData');
       dataPanel.value = 'foo';
       $('.modal-footer .btn-link').click();
-      expect(dataPanel.getData(2).value).toEqual('aValue');
+      expect(dataPanel.getDataByName('alreadyExistsData').value).toEqual('aValue');
     });
 
     it('should allow modifying existing data value and confirming', function() {
-      dataPanel.editData(2);
+      dataPanel.editData('alreadyExistsData');
       dataPanel.value = 'foo';
       dataPanel.popupSaveBtn.click();
-      expect(dataPanel.getData(2).value).toEqual('foo');
+      expect(dataPanel.getDataByName('alreadyExistsData').value).toEqual('foo');
     });
 
     it('should not allow confirming invalid URL', function() {
-      dataPanel.editData(1);
+      dataPanel.editData('urlExample');
       dataPanel.value = '';
       expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow confirming invalid Json', function() {
-      dataPanel.editData(0);
+      dataPanel.editData('jsonExample');
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('');
       expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);

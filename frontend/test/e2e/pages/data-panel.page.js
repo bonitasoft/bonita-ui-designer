@@ -7,6 +7,14 @@
 
   module.exports = DataSideBar;
 
+  function dataElementToObject(dataElement) {
+    return {
+      name: dataElement.element(by.exactBinding('variable.name')).getText(),
+      type: dataElement.element(by.css('.VariablesTable-type')).getText(),
+      value: dataElement.element(by.exactBinding('variable.value')).getText()
+    };
+  }
+
   var dataMethod = {
     filter: function(filterPattern) {
       this.sidebar.element(by.model('search.value')).clear().sendKeys(filterPattern);
@@ -41,8 +49,10 @@
       textarea.sendKeys(value);
     },
 
-    editData: function(index) {
-      this.lines.get(index).element(by.css('.update-data')).click();
+    editData: function(name) {
+      this.lines
+        .filter(line => line.getText().then(text => text.indexOf(name) > -1))
+        .then(lines => lines[0].element(by.css('.update-data')).click());
     },
 
     deleteData: function(index) {
@@ -51,11 +61,14 @@
 
     getData: function(index) {
       let data = this.lines.get(index);
-      return {
-        name: data.element(by.exactBinding('variable.name')).getText(),
-        type: data.element(by.css('.VariablesTable-type')).getText(),
-        value: data.element(by.exactBinding('variable.value')).getText()
-      };
+      return dataElementToObject(data);
+    },
+
+    getDataByName: function(name) {
+      let data = this.lines
+        .filter(line => line.getText().then(text => text.indexOf(name) > -1))
+        .first();
+      return dataElementToObject(data);
     },
 
     sortByName: function() {

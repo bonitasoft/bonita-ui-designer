@@ -73,4 +73,6 @@ angular.module('bonitasoft.designer.editor.data-panel').controller('DataCtrl', f
     $scope.isReversedSorting = $scope.sortCriteria === sortCriteria ?  !$scope.isReversedSorting : false;
     $scope.sortCriteria = sortCriteria;
   };
+
+  $scope.sort('name'); // default sort is name
 });

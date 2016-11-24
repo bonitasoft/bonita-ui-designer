@@ -155,5 +155,9 @@
       expect($scope.sortCriteria).toBe('anotherCriteria');
     });
 
+    it('should be sorted by name by default', function() {
+      expect($scope.sortCriteria).toBe('name');
+    });
+
   });
 })();
