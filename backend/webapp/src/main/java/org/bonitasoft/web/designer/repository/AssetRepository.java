@@ -14,30 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.find;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
-import static java.lang.String.format;
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.write;
-import static java.util.Collections.emptyList;
-
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import javax.inject.Inject;
-
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -47,6 +24,25 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Iterables.*;
+import static com.google.common.collect.Iterables.find;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static java.lang.String.format;
+import static java.nio.file.Files.*;
+import static java.util.Collections.emptyList;
 
 /**
  * This Persister is used to attach assets to a component. Each of them are serialized in the same directory
@@ -135,17 +131,12 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         checkNotNull(assetType, format("Asset type is required (filename: %s)", filename));
 
         T component = repository.get(componentId);
-        Asset asset = (Asset) find(component.getAssets(), new Predicate<Asset>() {
-            @Override
-            public boolean apply(Asset asset) {
-                return filename.equals(asset.getName()) && assetType.equals(asset.getType());
-            }
-        });
-        asset.setComponentId(componentId);
-        if (asset.isExternal()) {
-            throw new NotAllowedException("We can't load an external asset. Use the link " + asset.getName());
+        Asset existingAsset = find(component.getAssets(), asset -> filename.equals(asset.getName()) && assetType.equals(asset.getType()));
+        existingAsset.setComponentId(componentId);
+        if (existingAsset.isExternal()) {
+            throw new NotAllowedException("We can't load an external asset. Use the link " + existingAsset.getName());
         }
-        return resolveExistingAssetPath(asset);
+        return resolveExistingAssetPath(existingAsset);
     }
 
     /**
