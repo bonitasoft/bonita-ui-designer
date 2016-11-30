@@ -31,7 +31,7 @@
       expect($filter('assetFilter')(assets, filters)).toEqual(assets);
     });
 
-    it('should exlude css', function() {
+    it('should exclude css', function() {
       filters.css.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
@@ -40,7 +40,7 @@
       ]);
     });
 
-    it('should exlude img', function() {
+    it('should exclude img', function() {
       filters.img.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
@@ -49,10 +49,20 @@
       ]);
     });
 
-    it('should exlude js', function() {
+    it('should exclude js', function() {
       filters.js.value = false;
 
       expect($filter('assetFilter')(assets, filters)).toEqual([
+        { 'name': 'MyAbcExample.css', 'type': 'css' },
+        { 'name': 'MyAbcExample.png', 'type': 'img' }
+      ]);
+    });
+
+    it('should exclude an asset with type which is not supported', function() {
+      assets.push({ 'name': 'foo.json', 'type': 'json' });
+
+      expect($filter('assetFilter')(assets, filters)).toEqual([
+        { 'name': 'MyAbcExample.js', 'type': 'js' },
         { 'name': 'MyAbcExample.css', 'type': 'css' },
         { 'name': 'MyAbcExample.png', 'type': 'img' }
       ]);
