@@ -13,7 +13,6 @@ var paths = {
     'bower_components/angular/angular.min.js',
     'bower_components/angular-sanitize/angular-sanitize.min.js',
     'bower_components/angular-messages/angular-messages.min.js',
-    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'bower_components/angular-gettext/dist/angular-gettext.min.js'
   ],
   fonts: [

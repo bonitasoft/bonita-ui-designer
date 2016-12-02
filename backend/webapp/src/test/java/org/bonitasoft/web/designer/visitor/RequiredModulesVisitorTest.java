@@ -87,7 +87,7 @@ public class RequiredModulesVisitorTest {
     }
 
     @Test
-    public void should_return_list_of_module_needed_by_widgets_in_tabscontainer_plus_uibootstrap_which_is_needed_by_tabscontainer() throws Exception {
+    public void should_return_list_of_module_needed_by_widgets_in_tabscontainer() throws Exception {
         Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
 
@@ -95,7 +95,7 @@ public class RequiredModulesVisitorTest {
                 aTab().with(aContainer().with(component1)),
                 aTab().with(aContainer().with(component2))).build());
 
-        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "ui.bootstrap.tabs", "ui.bootstrap.tpls");
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
     }
 
     @Test

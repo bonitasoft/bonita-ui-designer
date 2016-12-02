@@ -56,7 +56,6 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
         for (Tab tab : tabsContainer.getTabs()) {
             modules.addAll(tab.getContainer().accept(this));
         }
-        modules.addAll(asList("ui.bootstrap.tabs", "ui.bootstrap.tpls"));   // Tabs container need ui.bootstrap.tabs
         return modules;
     }
 
