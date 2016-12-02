@@ -24,7 +24,6 @@ module.exports = function (config) {
       'bower_components/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',
-      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'bower_components/angular-gettext/dist/angular-gettext.min.js',
 
       'src/main/runtime/js/**/*.module.js',
@@ -80,7 +79,7 @@ module.exports = function (config) {
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: true,
-    captureTimeout: 60000,  
+    captureTimeout: 60000,
     browserDisconnectTimeout: 5000,
     browserDisconnectTolerance: 5,
     browserNoActivityTimeout: 40000

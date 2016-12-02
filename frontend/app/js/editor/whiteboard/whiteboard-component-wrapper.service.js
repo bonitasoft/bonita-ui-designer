@@ -100,7 +100,7 @@
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow,
         triggerRemoved: whiteboardService.onRemoveTabsContainer.bind(null, element),
-        triggerAdded: angular.noop
+        triggerAdded: whiteboardService.onAddTabsContainer.bind(null, element),
       });
 
       element.tabs.forEach(function(tab) {

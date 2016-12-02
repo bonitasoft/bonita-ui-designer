@@ -21,6 +21,7 @@
       onRemoveWidget: onRemoveWidget,
       onRemoveContainer: onRemoveContainer,
       onRemoveTabsContainer: onRemoveTabsContainer,
+      onAddTabsContainer,
       onRemoveTab: onRemoveTab,
       onRemoveFormContainer: onRemoveFormContainer,
       contains,
@@ -76,8 +77,13 @@
       container.rows.forEach(onRemoveRow);
     }
 
+    function onAddTabsContainer(tabsContainer) {
+      executeFunctionsForComponent(onWidgetAddFunctions, tabsContainer);
+    }
+
     function onRemoveTabsContainer(tabsContainer) {
       tabsContainer.tabs.forEach(onRemoveTab);
+      executeFunctionsForComponent(onWidgetRemoveFunctions, tabsContainer);
     }
 
     function onRemoveTab(tab) {
