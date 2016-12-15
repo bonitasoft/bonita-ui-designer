@@ -19,8 +19,10 @@ import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * Wraps objectMapper to avoid recurrent issue like encoding ones
@@ -49,6 +51,14 @@ public class JacksonObjectMapper {
     public byte[] toJson(Object object, Class<?> serializationView) throws IOException {
         // Use UTF8 to accept any character and have platform-independent files.
         return objectMapper.writerWithView(serializationView).writeValueAsString(object).getBytes(StandardCharsets.UTF_8);
+    }
+
+    public byte[] toPrettyJson(Object object, Class<?> serializationView) throws IOException {
+        // Use UTF8 to accept any character and have platform-independent files.
+        return objectMapper.writerWithView(serializationView)
+                .with(new DefaultPrettyPrinter())
+                .writeValueAsString(object)
+                .getBytes(StandardCharsets.UTF_8);
     }
 
     public String prettyPrint(Object object) throws IOException {

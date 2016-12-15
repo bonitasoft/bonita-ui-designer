@@ -63,9 +63,9 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
 
                 //We consider only another objects
                 if (objectPath == null || !objectPath.equals(componentFile)) {
-                    byte[] content = readAllBytes(componentFile);
-                    if (indexOf(content, format("\"id\":\"%s\"", objectId).getBytes()) >= 0) {
-                        objects.add(objectMapper.fromJson(content, type));
+                    String content = removeSpaces(new String(readAllBytes(componentFile)));
+                    if (content.contains(format("\"id\":\"%s\"", objectId))) {
+                        objects.add(objectMapper.fromJson(content.getBytes(), type));
                     }
                 }
             }
@@ -119,5 +119,9 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
             }
         }
         return -1;
+    }
+
+    private String removeSpaces(String text) {
+        return text.replaceAll("\\s+", "");
     }
 }
