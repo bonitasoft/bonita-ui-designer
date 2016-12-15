@@ -54,6 +54,16 @@ public class JacksonObjectMapperTest {
     }
 
     @Test
+    public void should_serialize_object_into_human_readable_json_using_serialization_view() throws Exception {
+        SimpleObject object = new SimpleObject("id", "Vincent", 1);
+
+        assertThat(new String(objectMapper.toPrettyJson(object, JsonViewPersistence.class))).isEqualTo("{" + System.lineSeparator() +
+                "  \"name\" : \"Vincent\"," + System.lineSeparator() +
+                "  \"number\" : 1" + System.lineSeparator() +
+                "}");
+    }
+
+    @Test
     public void should_format_json_when_using_pretty_print_on_object() throws Exception {
         SimpleObject object = new SimpleObject("id", "Vincent", 1);
 
