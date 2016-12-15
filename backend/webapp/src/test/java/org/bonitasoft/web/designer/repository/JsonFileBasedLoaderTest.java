@@ -110,31 +110,6 @@ public class JsonFileBasedLoaderTest {
     }
 
     @Test
-    public void should_find_a_byte_array_in_an_another() {
-        assertThat(loader.indexOf("mon exemple complet".getBytes(), "exem".getBytes())).isEqualTo(4);
-    }
-
-    @Test
-    public void should_find_a_byte_array_in_an_another_on_start_position() {
-        assertThat(loader.indexOf("mon exemple complet".getBytes(), "mon ex".getBytes())).isEqualTo(0);
-    }
-
-    @Test
-    public void should_not_find_a_byte_array_in_an_another() {
-        assertThat(loader.indexOf("mon exemple complet".getBytes(), "rex".getBytes())).isEqualTo(-1);
-    }
-
-    @Test
-    public void should_not_find_null_in_byte_array() {
-        assertThat(loader.indexOf("mon exemple complet".getBytes(), null)).isEqualTo(-1);
-    }
-
-    @Test
-    public void should_not_find_occurence_in_byte_array_null() {
-        assertThat(loader.indexOf(null, "search".getBytes())).isEqualTo(-1);
-    }
-
-    @Test
     public void should_find_one_object_included_in_another_and_deserialize_it() throws Exception {
         SimpleDesignerArtifact object1 = aSimpleObjectBuilder().id("objet1").build();
         //My second object contains the first

@@ -49,7 +49,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         content.setDesignerVersionIfEmpty(version);
         validator.validate(content);
         try {
-            write(jsonFile(directory, id), objectMapper.toJson(content, JsonViewPersistence.class));
+            write(jsonFile(directory, id), objectMapper.toPrettyJson(content, JsonViewPersistence.class));
             forceMkdir(directory.getParent().resolve(".metadata").toFile());
             write(jsonFile(directory.getParent().resolve(".metadata"), id), objectMapper.toJson(content, JsonViewMetadata.class));
         }
