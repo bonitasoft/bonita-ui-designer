@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller.asset;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
@@ -40,6 +41,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.format;
 import static java.nio.file.Files.exists;
 import static java.util.UUID.randomUUID;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -85,31 +87,28 @@ public class AssetService<T extends Assetable> {
             }
 
             final Asset asset = new Asset()
-                    .setId(randomUUID().toString())
                     .setName(getOriginalFilename(file.getOriginalFilename()))
                     .setType(assetType)
                     .setOrder(getNextOrder(component));
 
-            Asset deletedAsset = deleteComponentAsset(component, new Predicate<Asset>() {
+            Optional<Asset> existingAsset =  Iterables.<Asset>tryFind(component.getAssets(), new Predicate<Asset>() {
+
 
                 @Override
                 public boolean apply(Asset element) {
                     return asset.equalsWithoutComponentId(element);
                 }
             });
-            if (deletedAsset != null) {
-                asset.setId(deletedAsset.getId());
+            if (existingAsset.isPresent()) {
+                asset.setId(existingAsset.get().getId());
             }
 
-            assetRepository.save(component.getId(), asset, file.getBytes());
-            //The component is updated
-            component.addAsset(asset);
-            repository.updateLastUpdateAndSave(component);
-            return asset;
+            return save(component, asset, file.getBytes());
 
         } catch (IOException e) {
             logger.error("Asset creation" + e);
-            throw new ServerImportException(String.format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()),
+            throw new ServerImportException(
+                    format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()),
                     e);
         }
     }
@@ -134,7 +133,7 @@ public class AssetService<T extends Assetable> {
                     existingAsset.setComponentId(component.getId());
                     assetRepository.delete(existingAsset);
                 } catch (NotFoundException | IOException e) {
-                    logger.warn(String.format("Asset to delete %s was not found", existingAsset.getName()), e);
+                    logger.warn(format("Asset to delete %s was not found", existingAsset.getName()), e);
                 }
             }
             component.getAssets().remove(existingAsset);
@@ -172,13 +171,25 @@ public class AssetService<T extends Assetable> {
     }
 
     /**
+     * Save an internal asset
+     */
+    public Asset save(T component, Asset asset, byte[] content) {
+        try {
+            assetRepository.save(component.getId(), asset, content);
+            return save(component, asset);
+        } catch (IOException e) {
+            throw new RepositoryException("Error while saving internal asset", e);
+        }
+    }
+
+    /**
      * Duplicate assets when an artifact is duplicated
      */
     public void duplicateAsset(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId) {
-        checkArgument(isNotEmpty(sourceArtifactId), String.format("source %s id is required", repository.getComponentName()));
-        checkArgument(isNotEmpty(targetArtifactId), String.format("target %s id is required", repository.getComponentName()));
-        checkArgument(artifactSourcePath != null && exists(artifactSourcePath), String.format("source %s path is required", repository.getComponentName()));
-        checkArgument(artifactTargetPath != null && exists(artifactTargetPath), String.format("target %s path is required", repository.getComponentName()));
+        checkArgument(isNotEmpty(sourceArtifactId), format("source %s id is required", repository.getComponentName()));
+        checkArgument(isNotEmpty(targetArtifactId), format("target %s id is required", repository.getComponentName()));
+        checkArgument(artifactSourcePath != null && exists(artifactSourcePath), format("source %s path is required", repository.getComponentName()));
+        checkArgument(artifactTargetPath != null && exists(artifactTargetPath), format("target %s path is required", repository.getComponentName()));
 
         try {
             List<Asset> assets = assetImporter.load(repository.get(sourceArtifactId), artifactSourcePath);

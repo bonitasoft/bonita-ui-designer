@@ -15,13 +15,16 @@
 package org.bonitasoft.web.designer.model.page;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.junit.Before;
@@ -101,6 +104,17 @@ public class PageTest {
         Page page = aPage().withName("the-name").build();
 
         beanValidator.validate(page);
+    }
+
+    @Test
+    public void should_check_for_assets_by_type_and_name() throws Exception {
+        Page page = aPage().withAsset(
+                anAsset().withType(AssetType.CSS).withName("aName"))
+                .build();
+
+        assertThat(page.hasAsset(AssetType.CSS, "aName")).isTrue();
+        assertThat(page.hasAsset(AssetType.CSS, "anotherName")).isFalse();
+        assertThat(page.hasAsset(AssetType.JAVASCRIPT, "aName")).isFalse();
     }
 
     /**
