@@ -229,6 +229,7 @@ describe('EditorCtrl', function() {
       };
 
       $scope.$apply();
+      $timeout.flush();
     });
 
     it('should append a component to first row if page is empty', function() {

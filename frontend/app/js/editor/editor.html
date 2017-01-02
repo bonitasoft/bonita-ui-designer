@@ -10,8 +10,9 @@
         </div>
 
         <div id="editor-container" ng-class="{'': !sectionOpened}">
+            <h4 ng-if="!page" class="Editor-loadingText" translate>Loading {{mode}}...</h4>
             <div class="workspace">
-                <container container="page" editor="editor" id="editor" ng-click="editor.selectComponent(null, $event)"
+                <container ng-if="page"  container="page" editor="editor" id="editor" ng-click="editor.selectComponent(null, $event)"
                            component-highlighter="component-element--hover" data-is-editor-container="true" bo-dropzone
                            bo-drop-success="appendComponent($event, $data)"></container>
                 <div class="alert alert-editor-hint" ng-if="page.rows.length === 1 && page.rows[0].length === 0">

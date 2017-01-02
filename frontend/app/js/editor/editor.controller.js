@@ -30,11 +30,12 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    * The editor mode
    */
   $scope.mode = mode || 'page';
-  /**
-   * The root container of the editor, always present. If there is no page loaded, then we build an empty one.
-   * It initially contains a single row, and may not contain less than a row. The counters are used by e2e tests.
-   */
-  $scope.page = artifact;
+
+  // We delay page resolution to not block the ui while having  a big page to be displayed
+  $timeout(() => {
+    $scope.page = artifact;
+    artifactRepo.setLastSavedState($scope.page);
+  }, 0);
 
   $scope.resolution = function() {
     return resolutions.selected();
