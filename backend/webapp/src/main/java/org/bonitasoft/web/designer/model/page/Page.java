@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.model.page;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import java.util.Set;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -34,6 +37,7 @@ import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -132,6 +136,15 @@ public class Page extends DesignerArtifact implements Previewable, Identifiable,
 
     public void setInactiveAssets(Set<String> inactiveAssets) {
         this.inactiveAssets = inactiveAssets;
+    }
+
+    public boolean hasAsset(final AssetType type, final String name) {
+        return FluentIterable.from(assets).anyMatch(new Predicate<Asset>() {
+            @Override
+            public boolean apply(Asset asset) {
+                return CSS.equals(type) && asset.getName().equals(name);
+            }
+        });
     }
 
     @JsonView({ JsonViewPersistence.class })

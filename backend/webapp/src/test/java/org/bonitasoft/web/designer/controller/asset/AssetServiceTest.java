@@ -148,8 +148,8 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_uploading_with_error_onsave() throws Exception {
-        expectedException.expect(ServerImportException.class);
-        expectedException.expectMessage(is("Error while uploading asset in myfile.inv [null]"));
+        expectedException.expect(RepositoryException.class);
+        expectedException.expectMessage(is("Error while saving internal asset"));
 
         Page page = aPage().build();
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
@@ -166,7 +166,6 @@ public class AssetServiceTest {
 
         Asset asset = assetService.upload(file, page, "js");
 
-        verify(assetRepository).delete(any(Asset.class));
         verify(assetRepository).save("page-id", page.getAssets().iterator().next(), "function(){}".getBytes());
         verify(repository).updateLastUpdateAndSave(page);
         assertThat(asset.getId()).isEqualTo(existingAsset.getId());
