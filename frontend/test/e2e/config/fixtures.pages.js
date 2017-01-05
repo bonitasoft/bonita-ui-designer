@@ -19,11 +19,12 @@
         assets: [
           {
             'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
-            'name': 'myStyle.css',
+            'name': 'myWidgetStyle.css',
             'type': 'css',
             'order': 1,
             'active': true,
-            'componentId': 'customWidget'
+            'componentId': 'customWidget',
+            'scope': 'widget'
           },
           {
             'id': '5aa4fe10-bd31-44e6-a5e6-39fc8a961691',
@@ -31,21 +32,24 @@
             'type': 'js',
             'order': 2,
             'active': true,
-            'external': true
+            'external': true,
+            'scope': 'page'
           },
           {
             'id': '0401a807-db07-4204-af8b-340078e6ee46',
             'name': 'protractor.png',
             'type': 'img',
             'order': 3,
-            'active': true
+            'active': true,
+            'scope': 'page'
           },
           {
             'id': '79555334-8f48-4f43-9291-0c82b6c94b1b',
             'name': 'myStyle.css',
             'type': 'css',
             'order': 4,
-            'active': true
+            'active': true,
+            'scope': 'page'
           }
         ],
         rows: [

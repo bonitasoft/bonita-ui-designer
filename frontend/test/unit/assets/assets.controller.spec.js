@@ -108,11 +108,6 @@
         expect(assetUrl).toBe('rest/pages/12/assets/js/myasset.js');
       });
 
-      it('should say if an asset is editable or not', function() {
-        expect(controller.isEditable({type: 'img'})).toBeFalsy();
-        expect(controller.isEditable({type: 'css'})).toBeTruthy();
-        expect(controller.isEditable({type: 'js'})).toBeTruthy();
-      });
     });
 
     describe('Widget editor', function() {
@@ -162,5 +157,18 @@
       });
     });
 
+    it('should say if an asset is editable or not', function() {
+      expect(controller.isEditable({type: 'img'})).toBeFalsy();
+      expect(controller.isEditable({type: 'css'})).toBeTruthy();
+      expect(controller.isEditable({type: 'js'})).toBeTruthy();
+      expect(controller.isEditable({type: 'js', scope: 'page'}, 'page')).toBeTruthy();
+      expect(controller.isEditable({type: 'js', scope: 'widget'}, 'page')).toBeFalsy();
+    });
+
+    it('should say if an asset is viewable or not', function() {
+      expect(controller.isViewable({external: true})).toBeFalsy();
+      expect(controller.isViewable({type: 'img'})).toBeTruthy();
+      expect(controller.isViewable({type: 'css', scope: 'widget'}, 'page')).toBeTruthy();
+    });
   });
 })();

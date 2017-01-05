@@ -38,6 +38,7 @@
     vm.openAssetEditPopup = openAssetEditPopup;
     vm.openHelp = openHelp;
     vm.isEditable = isEditable;
+    vm.isViewable = isViewable;
 
     function incrementOrderAsset(asset) {
       return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
@@ -148,8 +149,12 @@
       });
     }
 
-    function isEditable(asset) {
-      return asset.type !== 'img';
+    function isEditable(asset, scope) {
+      return asset.type !== 'img' && asset.scope === scope;
+    }
+
+    function isViewable(asset, scope) {
+      return !asset.external && !isEditable(asset, scope);
     }
   }
 

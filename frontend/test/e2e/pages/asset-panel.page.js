@@ -80,6 +80,27 @@
         .then(lines => lines[0].element(by.css('.fa-pencil')).click());
 
       return name.startsWith('http') ? new AssetPopUp() : new EditLocalAssetPopUp();
+    },
+
+    getAssetByName: function(name) {
+      function assetElementToObject(assetElement) {
+        return {
+          name: assetElement.element(by.css('.AssetTable-name')).getText(),
+          scope: assetElement.element(by.css('.AssetTable-scope')).getText(),
+          type: assetElement.element(by.css('.AssetTable-type')).getText(),
+          actions: {
+            delete: assetElement.element(by.css('.AssetTable-actions i.fa-trash')),
+            view: assetElement.element(by.css('.AssetTable-actions i.fa-search')),
+            download: assetElement.element(by.css('.AssetTable-actions i.fa-alias-import')),
+            edit: assetElement.element(by.css('.AssetTable-actions i.fa-pencil'))
+          }
+        };
+      }
+
+      let data = this.lines
+        .filter(line => line.getText().then(text => text.indexOf(name) > -1))
+        .first();
+      return assetElementToObject(data);
     }
   };
 

@@ -46,12 +46,12 @@
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="vm.openAssetPreviewPopup(asset)"
                             title="{{ 'View asset content' | translate }}"
-                            ng-if="!vm.isEditable(asset) || !vm.isPageAsset(asset)">
+                            ng-if="vm.isViewable(asset, 'page')">
                         <i class="fa fa-search"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="vm.openAssetEditPopup(asset)"
                             title="{{ 'Edit asset' | translate }}"
-                            ng-if="vm.isEditable(asset) && vm.isPageAsset(asset)">
+                            ng-if="vm.isEditable(asset, 'page')">
                         <i class="fa fa-pencil"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="vm.delete(asset)"

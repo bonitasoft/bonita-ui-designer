@@ -87,26 +87,34 @@ describe('asset panel', function() {
       });
 
       it('should display action buttons for assets', function() {
-        // editable page asset should have downnload/edit/delete
-        let editableAsset =  assetPanel.lines.last();
-        expect(editableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
-        expect(editableAsset.element(by.css('button i.fa-search')).isPresent()).toBeFalsy();
-        expect(editableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeTruthy();
-        expect(editableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+        // Editable page asset should have downnload/edit/delete
+        let editableAsset = assetPanel.getAssetByName('myStyle.css');
+        expect(editableAsset.actions.download.isPresent()).toBeTruthy();
+        expect(editableAsset.actions.view.isPresent()).toBeFalsy();
+        expect(editableAsset.actions.edit.isPresent()).toBeTruthy();
+        expect(editableAsset.actions.delete.isPresent()).toBeTruthy();
 
         // Non editable page asset should have downnload/view/delete
-        let nonEditableAsset =  assetPanel.lines.get(2);
-        expect(nonEditableAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
-        expect(nonEditableAsset.element(by.css('button i.fa-search')).isPresent()).toBeTruthy();
-        expect(nonEditableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeFalsy();
-        expect(nonEditableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+        let nonEditableAsset = assetPanel.getAssetByName('protractor.png');
+        expect(nonEditableAsset.actions.download.isPresent()).toBeTruthy();
+        expect(nonEditableAsset.actions.view.isPresent()).toBeTruthy();
+        expect(nonEditableAsset.actions.edit.isPresent()).toBeFalsy();
+        expect(nonEditableAsset.actions.delete.isPresent()).toBeTruthy();
 
-        // asset coming from widget should have download/view
-        let widgetAsset = assetPanel.lines.first();
-        expect(widgetAsset.element(by.css('button i.fa-alias-import')).isPresent()).toBeTruthy();
-        expect(widgetAsset.element(by.css('button i.fa-search')).isPresent()).toBeTruthy();
-        expect(widgetAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeFalsy();
-        expect(widgetAsset.element(by.css('button i.fa-trash')).isPresent()).toBeFalsy();
+        editor.addCustomWidget('customAwesomeWidget');
+        // External widget asset should have no action
+        let externalWidgetAsset = assetPanel.getAssetByName('https://awesome.cdn.com/cool.js');
+        expect(externalWidgetAsset.actions.delete.isPresent()).toBeFalsy();
+        expect(externalWidgetAsset.actions.view.isPresent()).toBeFalsy();
+        expect(externalWidgetAsset.actions.download.isPresent()).toBeFalsy();
+        expect(externalWidgetAsset.actions.edit.isPresent()).toBeFalsy();
+
+        // Local widget asset should have download/view
+        let internalWidgetAsset = assetPanel.getAssetByName('myWidgetStyle.css');
+        expect(internalWidgetAsset.actions.delete.isPresent()).toBeFalsy();
+        expect(internalWidgetAsset.actions.view.isPresent()).toBeTruthy();
+        expect(internalWidgetAsset.actions.download.isPresent()).toBeTruthy();
+        expect(internalWidgetAsset.actions.edit.isPresent()).toBeFalsy();
       });
 
       it('should display "Page level" like asset type and the name asset is "myStyle.css"', function() {
@@ -117,9 +125,9 @@ describe('asset panel', function() {
       });
 
       it('should export an asset', function() {
-        var btn = $$('.btn-bonita-asset').first();
+        let internalCSS = assetPanel.getAssetByName('myStyle.css');
         var iframe = $$('.ExportArtifact').first();
-        btn.click();
+        internalCSS.actions.download.click();
         expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/person-page\/assets\/css\/myStyle.css$/);
       });
 
@@ -258,4 +266,5 @@ describe('asset panel', function() {
     assetPanel.editAsset('CSS', 'myStyle.css');
     expect(popup.fileContent).toBe('New content');
   });
+
 });
