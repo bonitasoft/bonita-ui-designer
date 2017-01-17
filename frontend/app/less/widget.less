@@ -150,6 +150,9 @@
 .widget-content {
   overflow-x: hidden;
   min-height: 25px;
+  // prevent weird behavior when drag/dropping a widget on itself
+  // see https://bonitasoft.atlassian.net/browse/BS-16037
+  pointer-events: none;
 }
 
 /** improve wysiwyg in editor */
