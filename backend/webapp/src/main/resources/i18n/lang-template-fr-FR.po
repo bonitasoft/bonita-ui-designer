@@ -14,2309 +14,1593 @@ msgstr ""
 "Language: fr_FR\n"
 "PO-Revision-Date: 2016-11-24 05:15-0500\n"
 
-#: editor/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
 
-#: custom-widget/create-property.html:1
 msgid "(displayed in editor's property panel)"
 msgstr "(affiché dans le panneau de propriétés de l'éditeur)"
 
-#: custom-widget/create-property.html:1
 msgid "(used in your template and controller)"
 msgstr "(utilisé dans le template et le controller)"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:3
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
-#: home/help-popup.html:1
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b> Pour utiliser un formulaire dans un processus</b>, associez-le dans le studio au pool ou à une tâche humaine. Il sera automatiquement packagé dans l'archive .bar prête à être déployée dans le portail."
 
-#: home/help-popup.html:1
 msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
 msgstr "<b>Pour utiliser un layout dans une application métier</b>, exportez-le depuis le UI Designer et importez-le dans le portail en tant que ressource. Enfin, déclarez-le en tant que layout dans l'application souhaitée."
 
-#: home/help-popup.html:1
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Pour utiliser une page dans une application métier</b>, exportez-la depuis le UI Designer et importez-la dans Bonita BPM Portal en tant que ressource. Puis, à partir de l'application souhaitée, ajoutez-la à la liste des pages et si besoin, associez-lui un menu de navigation."
 
-#: editor/data-panel/help-popup.html:1
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
 
-#: editor/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> est un objet JSON. <br>Sa structure est définie par les inputs du contrat et ses attributs sont initialisés avec des valeurs par défaut. Il peut être utilisé pour définir les valeurs initiales des champs du formulaire. <br>Pour définir les valeurs de<code>formInput</code>, remplacez ces valeurs par défaut par des constantes (pour le test et debug) ou par les valeurs d'un objet ayant le même modèle, provenant d'une source externe (une external API de BDM, par exemple). <br>Vous pouvez également définir les valeurs initiales du formulaire à partir d'une autre source, sans utiliser <code>formInput</code>. Toutefois, vous devrez alors modifier manuellement la variable <code>formOutput</code>."
 
-#: editor/data-panel/help-popup.html:1
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> est une expression JavaScript qui retourne un objet. <br>Sa structure correspond aux exigences du contrat et est pré-remplie par <code>formInput</code> par défaut. Son but est d'agréger les champs du formulaire et de les soumettre à la tâche ou au processus pour remplir le contrat. A la soumission du formulaire, les valeurs entrées ou modifiées par l'utilisateur sont agrégées dans l'objet <code>formOutput</code> (tel que défini par la propriété <i>Données envoyées au clic</i> du bouton Submit) et envoyées au processus ou à la tâche"
 
-#: editor/data-panel/help-popup.html:1
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> est un paramètre d'URL. <br>C'est l'id de la tâche BPM courante. Vous pouvez l'utiliser comme paramètre d'API BPM."
 
-#: editor/header/help-popup.html:1
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>Exemple</b></em>: Utilisez la clé <em>nom.submit.bouton</em> pour la propriété <b>Libellé</b> d'un bouton Submit. Utilisez la clé <em>format.date</em> pour la propriété <b>Format de la date</b> et <em>placeholder.date</em> pour la propriété <b>Placeholder</b> du widget Date picker. Ensuite, mettez l'asset <em>localization.json</em> à jour avec les traductions de <em>nom.bouton.submit</em>, <em>format.date</em> en anglais, et <em>placeholder.date</em> dans la langue de traduction."
 
-#: editor/header/help-popup.html:1
 msgid "<em>Note about the</em> Date Picker <em>widget:</em> the <em>Placeholder</em> property translations must match the <em>Date format</em> property value (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Date format</em> key to avoid translations mismatches."
 msgstr "<em>Note sur le widget</em> Date Picker : la traduction de la propriété <em>Placeholder</em> doit être cohérente avec celle de la propriété <em>Format de la date> (l'ordre et le nombre des lettres). Cependant, leurs clés de traduction doivent être différentes, pour éviter toute incohérence de traduction."
 
-#: editor/data-panel/data-popup.html:1
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans l'URL, employez la syntaxe <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\"> Astuce :</span> Pour étendre les capacités de notre API REST, créez des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et utilisez-les ici</p>"
 
-#: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", \"val2\"] ; Syntaxe d'un objet : {\"key\": \"valeur\"}"
 
-#: editor/data-panel/data-popup.html:10
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\">Astuce:</span> Utilisez la touche <span class=\"key\">$</span> pour accéder aux variables, utilisez ctrl-espace pour déclencher la complétion automatique."
 
-#: editor/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent après un <em>?</em> dans l'URL de la page."
 
-#: editor/data-panel/data-popup.html:1
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Créer une nouvelle variable</span>"
 
-#: editor/header/header.html:1
 msgid "<span>{{ vm.page.type }}</span> editor"
 msgstr "Editeur de <span>{{ vm.page.type }}</span>"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong> : la collection courante"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
 msgstr "<strong>$index</strong> : l'index de l'itération courante de la collection (démarrant à zéro)"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong> : l'élément de l'itération courante"
 
-#: editor/data-panel/help-popup.html:1
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:12
 msgid "A date, at midnight UTC"
 msgstr "Une date, à minuit UTC"
 
-#: assets/help-popup.html:1
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
 
-#: editor/help/constant-bond-help.html:1
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Une propriété qui requiert une valeur constante est présentée dans le panneau de Propriétés comme un ensemble de boutons radio, une liste déroulante ou un sélecteur de chiffres (pour la propriété Largeur). Sélectionnez la valeur souhaitée."
 
-#: editor/help/description-bond-help.html:1
 msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
 msgstr "Une valeur de propriété peut être constante, dynamique, une liaison bidirectionnelle ou une interpolation."
 
-#: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
 msgstr "Une erreur serveur s'est produite."
 
-#: editor/data-panel/help-popup.html:1
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr "Une variable initialisée avec une expression JavaScript s'exécute au chargement de la page. Puis, lorsqu'une de ses dépendances change, sa valeur est mise à jour. Les dépendances sont créées à l'aide de <code>$data.XXX</code>."
 
-#: editor/data-panel/help-popup.html:1
 msgid "A variable initialized with an External API is reloaded every time the URL value changes."
 msgstr "Une variable initialisée avec une API externe est rechargée à chaque fois que la valeur de l'URL change."
 
-#: home/import/import-report-popup.html:1
 msgid "A {{ ::importReport.type }} with same id named <strong>{{ ::importReport.name }}</strong> already exists."
 msgstr "Un/e {{ ::importReport.type }} avec le même id nommé(e) <strong>{{ ::importReport.name }}</strong> existe déjà."
 
-#: assets/asset-popup.controller.js:106
 msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un asset de type {{type}} portant le nom <em>{{ name }}</em> a déjà été ajouté aux assets."
 
-#: editor/data-panel/data-popup.html:1
 msgid "API URL"
 msgstr "URL d'API"
 
-#: editor/header/help-popup.html:1
 msgid "Access to $form capabilities for form container"
 msgstr "Accès aux fonctionnalités $form pour le form container"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
 msgid "Action"
 msgstr "Action"
 
-#: assets/page-assets.html:1
 msgid "Active"
 msgstr "Activés"
 
-#: assets/widget-assets.html:1
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
 msgid "Add"
 msgstr "Ajouter"
 
-#: assets/help-popup.html:1
 msgid "Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)"
 msgstr "Ajoutez des assets de type CSS au niveau de la page et utilisez-les dans les propriétés Classes CSS des widgets. (Le UI Designer intègre le style Bootstrap par défaut)"
 
-#: assets/help-popup.html:1
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
 msgstr "Ajoutez des assets JavaScript pour intégrer des scripts personnalisés. Ils seront chargés et utilisables au niveau de la page. Vous pouvez les utiliser dans des variables de type expression JavaScript. Dans le champ valeur de la variable, appelez simplement la fonction avec les paramètres requis."
 
-#: assets/asset-popup.html:1 assets/page-assets.html:1
 msgid "Add a new asset"
 msgstr "Ajouter un nouvel asset"
 
-#: editor/whiteboard/tabs-container.html:1
 msgid "Add a new tab"
 msgstr "Ajouter un nouvel onglet"
 
-#: editor/header/help-popup.html:1
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Ajoutez des assets de type images, CSS ou JavaScript dans vos pages ou formulaires à partir du panneau Assets en bas."
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "Add to collection"
 msgstr "Ajouter à la collection "
 
-#: home/import/import-success-message.html:1
 msgid "Added artifacts"
 msgstr "Artefacts ajoutés"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:3
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:1
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "Alignment"
 msgstr "Alignement"
 
-#: editor/data-panel/api-examples.service.js:40
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "Toutes les données de processus d'un cas : rechercher une liste des variables d'un cas"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:14
 msgid "Alternate text"
 msgstr "Texte alternatif"
 
-#: home/help-popup.html:1
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita BPM Portal)."
 msgstr "Un artefact conçu avec le UI Designer peut être exporté pour être partagé entre coéquipiers (importation dans le UI Designer) ou utilisé dans les applications métier (importation dans Bonita BPM Portal)."
 
-#: assets/asset-popup.controller.js:104
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un asset de type {{type}} portant le nom <em>{{ name }}</em> a déjà été ajouté aux assets."
 
-#: editor/common/properties.service.js:33
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Toute classe CSS accessible. Par défaut, le UI Designer embarque Bootstrap http://getbootstrap.com/css/#helper-classes"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:68
 msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Une variable Booléene : <i>myData</i> ou <i>myData.attribute</i>"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:72
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:71
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:74
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:79
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:79
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Une variable : <i>myData</i> ou <i>myData.attribute</i>"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:11
 msgid "Application URL token"
 msgstr "Token URL de l'application"
 
-#: home/artifact-factory.service.js:43
 msgid "Application layout"
 msgstr "Layout d'application"
 
-#: home/artifact-factory.service.js:28
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Application page"
 msgstr "Page d'application"
 
-#: editor/help/dynamic-bond-help.html:1
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Appliquer un filtre à la valeur d'une variable : <em>selectedUser | json</em>"
 
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "Etes-vous sûr(e) de vouloir supprimer {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:13
 msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
 msgstr "Tableau (ex. une liste d'objets) utilisé pour remplir le tableau. Utilisez \"Clés des colonnes\" pour préciser le contenu utilie"
 
-#: home/help-popup.html:1
 msgid "Artifact creation:"
 msgstr "Création d'artefact :"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:14
 msgid "As used in the URL after the application token"
 msgstr "Tel qu’utilisé dans l’URL après le token de l’application"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
 msgid "Asset"
 msgstr "Asset"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
 msgid "Asset Name"
 msgstr "Nom de l'asset"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Asset has not been saved"
 msgstr "L'asset n'a pas été sauvegardé"
 
-#: assets/help-popup.html:13
 msgid "Asset list"
 msgstr "Liste des assets"
 
-#: assets/help-popup.html:1 assets/help-popup.html:13
 msgid "Asset use"
 msgstr "Utilisation des assets"
 
-#: assets/widget-assets.html:1
-#: editor/bottom-panel/bottom-panel.directive.js:34
 msgid "Assets"
 msgstr "Assets"
 
-#: assets/help-popup.html:1
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "Les Assets vous permettent d'ajouter des ressources du web aux pages et aux formulaires. Les types d'assets disponibles sont <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> et (dans les éditions Souscription) <strong>localisztion</strong>. Un asset peut être <strong>Local</strong> (fichier stocké dans l'objet page) ou <strong>Externe</strong> (URL). L'asset de localisation est toujours local."
 
-#: assets/help-popup.html:13
 msgid "At runtime, assets of a custom widget are loaded in the order defined."
 msgstr "A l'exécution, les assets d'un widget personnalisé sont chargés dans l'ordre établi."
 
-#: assets/help-popup.html:13
 msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
 msgstr "A l'exécution, les assets des widgets personnalisés sont chargés dans l'ordre alphabétique des noms de widgets personnalisés. Pour chaque widget personnalisé, les assets sont chargés dans l'ordre où ils apparaissent. Puis les assets de la page sont chargés à leur tour. Les assets JavaScript et CSS sont chargés dans le header de la page."
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:7
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:12
 msgid "Available values"
 msgstr "Valeurs disponibles"
 
-#: editor/data-panel/help-popup.html:1
 msgid "Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic)."
 msgstr "Les types de variables disponibles sont String et JSON (statiques) puis API externe, expression JavaScript et paramètre d'URL (dynamiques)."
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Back"
 msgstr "Précédent"
 
-#: common/directives/expand-modal.directive.js:33
 msgid "Back to default size"
 msgstr "Revenir à la taille par défaut"
 
-#: editor/help/property-bond-help.html:1
 msgid "Bidirectional bond"
 msgstr "Binding bidirectionnel"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
-#: editor/header/help-popup.html:1
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Par convention, dans le fichier <em>localization.json</em>, la langue utilisée pour les clés de traduction est l'anglais. Cela veut dire que sur le tableau blanc dans l'éditeur des artéfacts, le texte des widgets est en anglais par défaut. Cependant, pour faciliter la maintenance et la mise à jour des artéfacts en anglais, vous pouvez remplacer ces clés par des noms de code et ajouter une section <b>en-US</b> dans le fichier <em>localization.json</em>."
 
-#: editor/common/properties.service.js:27
 msgid "CSS classes"
 msgstr "Classes CSS"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:88
 msgid "Calendar for selecting a date"
 msgstr "Champ de saisie ou calendrier de sélection permettant d'entrer une date"
 
-#: editor/data-panel/api-examples.service.js:80
 msgid "Call a business data (custom) query"
 msgstr "Appel d'une requête BDM (spécifique)"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:17
 msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser les options et « Clé retournée » pour préciser les sélections"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:18
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:12
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions et « Clé retournée » pour préciser la sélection"
 
-#: custom-widget/create-property.html:2
 msgid "Can be used to define the expected input format"
 msgstr "Peut être utilisé pour expliquer le format d'entrée attendu"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:19
 msgid "Can be used to fulfill a contract"
 msgstr "Peut être utilisé pour remplir un contrat"
 
-#: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
-#: custom-widget/create-property.html:2 custom-widget/save-as-popup.html:1
-#: editor/data-panel/data-popup.html:12 editor/header/save-as-popup.html:1
-#: home/artifact-list/confirm-deletion-popup.html:1
-#: home/create/create-popover.html:1 home/import/import-popover.html:1
-#: home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "Annuler"
 
-#: custom-widget/create-property.html:2
 msgid "Caption"
 msgstr "Légende"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "Case Id"
 msgstr "Cas"
 
-#: editor/data-panel/api-examples.service.js:29
 msgid "Case identifier could then be retrieved by {{myData.rootCaseId}}"
 msgstr "L'Id du cas pourrait donc être récupérée grâce à {{myData.rootCaseId}}"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Case overview"
 msgstr "Page de synthèse du cas"
 
-#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
 msgstr "Vérifiez que la structure du fichier json correspond bien à un fichier standard exporté depuis le UI Designer."
 
-#: home/import/import-error-messages.service.js:22
 msgid "Check that the zip archive contains one of following files {{ infos.modelfiles }}."
 msgstr "Vérifiez que l'archive zip contient bien l'un des fichiers suivants {{ infos.modelfiles }}."
 
-#: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr "Vérifiez que l'archive zip contient bien le fichier {{ infos.modelfile }}."
 
-#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr "Vérifiez que la structure du fichier json correspond bien à un fichier standard exporté depuis le UI Designer."
 
-#: home/import/import-error-messages.service.js:14
 msgid "Check the log files"
 msgstr "Consultez les fichiers de log"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Choices"
 msgstr "Choix"
 
-#: custom-widget/create-property.html:2
 msgid "Choices (comma separated)"
 msgstr "Choix (séparés par des virgules)"
 
-#: common/directives/search/search.html:1
 msgid "Clear search"
 msgstr "Effacer la recherche"
 
-#: assets/generic-asset-form.html:1
 msgid "Click <em>Add</em> to override."
 msgstr "Cliquez sur <em>Ajouter</em> pour remplacer."
 
-#: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to a constant"
 msgstr "Cliquer pour binder une constante"
 
-#: editor/properties-panel/bond/expression.html:1
 msgid "Click to bind to an expression"
 msgstr "Cliquer pour binder une expression"
 
-#: assets/asset-edit-popup.html:1 assets/help-popup.html:19
-#: custom-widget/help-popup.html:1 editor/data-panel/help-popup.html:1
-#: editor/header/help-popup.html:23
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
-#: home/help-popup.html:1
 msgid "Close"
 msgstr "Fermer"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
-#: backend/webapp/src/main/resources/widgets/pbContainer/pbContainer.json:1
 msgid "Collection"
 msgstr "Collections"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:2
 msgid "Column keys"
 msgstr "Clés des colonnes"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:74
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:69
 msgid "Comma-separated list"
 msgstr "Liste séparée par des virgules"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:74
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:84
 msgid "Comma-separated list or bound an array data"
 msgstr "Liste séparée par des virgules ou variable de type tableau de données"
 
-#: editor/header/help-popup.html:1
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configurez les widgets en utilisant le <b>panneau de propriétés</b> sur la droite."
 
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "Confirmez-vous la suppression ?"
 
-#: editor/help/property-bond-help.html:1
 msgid "Constant"
 msgstr "Constante"
 
-#: backend/webapp/src/main/resources/widgets/pbFormContainer/pbFormContainer.json:5
 msgid "Container used for a form. Eases validation"
 msgstr "Container utilisé pour un formulaire. Facilite la validation"
 
-#: editor/header/help-popup.html:1
 msgid "Containers"
 msgstr "Containers"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:11
 msgid "Content"
 msgstr "Contenu"
 
-#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Controller"
 msgstr "Controller"
 
-#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr "L'archive zip est corrompue."
 
-#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
-#: home/create/home-create.html:1
 msgid "Create"
 msgstr "Créer"
 
-#: assets/help-popup.html:19
 msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
 msgstr "Créez une variable JSON nommée <code>updateDate</code> qui contient un timestamp sous forme de nombre"
 
-#: assets/help-popup.html:13
 msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
 msgstr "Créez un fichier JavaScript nommé <code>date-ago-filter.js</code> qui met à jour le module <code>bonitasoft.ui.extensions</code> avec le filtre:"
 
-#: home/help-popup.html:1
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "Créez un fragment pour réutiliser un groupe de widgets identiques ayant le même comportement dans plusieurs pages ou formulaires."
 
-#: home/create/home-create.html:1
 msgid "Create a new UI Designer artifact"
 msgstr "Créer un nouvel artefact"
 
-#: editor/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "Créer une nouvelle variable"
 
-#: editor/data-panel/help-popup.html:1
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr "Créez une variable ici. L'utilisation de la variable dans une propriété de widget dépend du type de propriété, décrit dans l'aide générale de l'éditeur de page, dans la section <i>Propriétés</i>."
 
-#: editor/header/help-popup.html:1
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "Créez une variable dans le panneau du bas. L'utilisation de la variable dans une propriété de widget dépend du type de propriété, décrit dans la section suivante."
 
-#: home/help-popup.html:1
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Créez une <b>page d'application</b> directement dans le UI Designer"
 
-#: home/create/create-popover.html:1
 msgid "Create new artifact"
 msgstr "Créer un nouvel artefact"
 
-#: custom-widget/create-property.html:1
 msgid "Create new property"
 msgstr "Créer une nouvelle propriété"
 
-#: editor/header/help-popup.html:1
 msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
 msgstr "Créez des variables dans le panneau Variables en bas, puis utilisez-les, seules ou dans des expressions simples, au niveau des propriétés des widgets."
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
 msgid "Current frame (_self)"
 msgstr "Cadre actuel (_self)"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Custom URL"
 msgstr "URL personnalisée"
 
-#: assets/help-popup.html:13
 msgid "Custom services"
 msgstr "Services personnalisés"
 
-#: home/artifact-factory.service.js:50
 msgid "Custom widget"
 msgstr "Widget personnalisé"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Custom widget editor"
 msgstr "Éditeur de widget personnalisé"
 
-#: custom-widget/help-popup.html:1
 msgid "Custom widget implementation is based on the AngularJS framework."
 msgstr "L'implémentation de widgets personnalisés est basée sur le framework AngularJS."
 
-#: custom-widget/help-popup.html:1
 msgid "Custom widget properties defined on the right can be used as variables in a controller with $scope.properties."
 msgstr "Les propriétés du widget personnalisé, définies à droite, peuvent être utilisées comme variables dans un controller en utilisant $scope.properties."
 
-#: custom-widget/help-popup.html:1
 msgid "Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty."
 msgstr "Les propriétés du widget personnalisé, définies à droite, peuvent être utilisées comme variables dans un template en utilisant properties.newProperty."
 
-#: home/artifact-factory.service.js:51
 msgid "Custom widgets"
 msgstr "Widgets personnalisés"
 
-#: custom-widget/help-popup.html:1
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "Les widgets personnalisés n'apparaissent pas clairement sur le whiteboard ; cliquez sur Aperçu pour les visualiser."
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "DELETE"
 msgstr "DELETE"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:5
 msgid "Data sent on click"
 msgstr "Données envoyées au clic"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:5
 msgid "Date"
 msgstr "Date"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:2
 msgid "Date format"
 msgstr "Format de la date"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:75
 msgid "Date format in the expected language, synchronized with the Date format property"
 msgstr "Format de la date dans la langue attendue, cohérent avec la propriété \"Format de la Date\""
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:79
 msgid "Date or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable"
 msgstr "Date ou variable <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatée en String"
 
-#: custom-widget/create-property.html:2
 msgid "Default"
 msgstr "Défaut"
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:14
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:4
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:16
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:8
 msgid "Default label"
 msgstr "Libellé par défaut"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
 msgid "Default name"
 msgstr "Nom par défaut"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Default value"
 msgstr "Valeur par défaut"
 
-#: editor/data-panel/help-popup.html:1
 msgid "Default variables"
 msgstr "Variables par défaut"
 
-#: editor/help/dynamic-bond-help.html:1
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "Définissez une condition pour la visibilité du widget : <em>userAge &gt; 18</em>"
 
-#: editor/help/dynamic-bond-help.html:1
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "Définissez les en-têtes de tableau comme valeur d'une variable : <em>maVariableTableau</em>"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:22
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "Définit l'URL cible dans laquelle le fichier sera chargé"
 
-#: home/artifact-list/artifact-list.directive.js:29
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Supprimer"
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "Delete asset"
 msgstr "Supprimer l'asset"
 
-#: editor/data-panel/data.html:1
 msgid "Delete variable"
 msgstr "Supprimer la variable"
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "La suppression n'est pas possible"
 
-#: custom-widget/create-property.html:1
 msgid "Describes the property"
 msgstr "Décrit la propriété"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Description"
 msgstr "Description"
 
-#: home/import/import-report-popup.html:1
 msgid "Details"
 msgstr "Détails"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
 msgid "Determines the application theme that will be used by the target page"
 msgstr "Détermine le thème de l’application qui sera utilisé par la page cible"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:1
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:1
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:15
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: assets/asset-edit-popup.html:1
 msgid "Discard changes"
 msgstr "Ignorer"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:96
 msgid "Display an image from assets or from a URL"
 msgstr "Afficher une image à partir d'un asset ou d'une URL"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:18
 msgid "Display or hide the shortcut button to current day"
 msgstr "Afficher ou masquer le bouton de raccourci pour sélectionner la date du jour"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:8
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
 msgid "Displayed key"
 msgstr "Clé affichée"
 
-#: home/import/import-report-popup.html:1
 msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "Voulez-vous toujours importer ce/tte {{ ::importReport.type }} ?"
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "Download asset"
 msgstr "Télécharger l'asset"
 
-#: editor/header/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
 msgstr "Glisser et déposer des widgets ou des containers dans les lignes"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:32
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "Liste déroulante de valeurs disponibles. L'utilisateur sélectionne une valeur"
 
-#: editor/help/property-bond-help.html:1
 msgid "Dynamic value"
 msgstr "Valeur dynamique"
 
-#: editor/header/help-popup.html:1
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et importez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
 
-#: editor/header/help-popup.html:1
 msgid "Each type or container has sepcific behaviors"
 msgstr "Chaque type de container possède des caractéristiques spécifiques"
 
-#: assets/asset-popup.html:1 assets/page-assets.html:1
 msgid "Edit asset"
 msgstr "Modifier l'asset"
 
-#: custom-widget/create-property.html:1
 msgid "Edit property"
 msgstr "Modifier la propriété"
 
-#: editor/properties-panel/properties-panel.html:1
 msgid "Edit the custom widget"
 msgstr "Modifier le widget personnalisé"
 
-#: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
 msgid "Edit variable"
 msgstr "Modifier la variable"
 
-#: editor/header/help-popup.html:1
 msgid "Editor organization"
 msgstr "Organisation de l'Editeur de page"
 
-#: editor/header/header.html:1
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Entrer le nom de ' + vm.mode + '"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:3
 msgid "Enter a date (mm/dd/yyyy)"
 msgstr "Saisissez une date (jj/mm/aaaa)"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Erreur à la ligne <code>{{ infos.location.line }}</code>, colonne <code>{{ infos.location.column }}</code>"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:2
 msgid "Error on upload holder"
 msgstr "Contenu de l'erreur d'upload"
 
-#: assets/help-popup.html:13
 msgid "Example: relative time filter"
 msgstr "Exemple : filtre \"temps relatif\""
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
-#: home/artifact-list/artifact-list.directive.js:30
 msgid "Export"
 msgstr "Exporter"
 
-#: editor/data-panel/data.controller.js:34
 msgid "Exposed"
 msgstr "Exposée"
 
-#: assets/assets.service.js:37
 msgid "External"
 msgstr "Externe"
 
-#: editor/data-panel/data-type.service.js:32
 msgid "External API"
 msgstr "API externe"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Modules AngularJS nécessaires pour ce widget personnalisé (séparés par des virgules)"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:6
 msgid "Failed response value"
 msgstr "Valeur de réponse en cas d'échec"
 
-#: home/home.html:1
 msgid "Favorites"
 msgstr "Favoris"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:88
 msgid "Field where the user can enter information"
 msgstr "Champ où l'utilisateur peut entrer des informations"
 
-#: assets/generic-asset-form.html:1
 msgid "File"
 msgstr "Fichier"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:84
 msgid "File chooser for uploading a document to a form"
 msgstr "Sélecteur de fichier pour télécharger un document vers un formulaire"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
 msgid "First"
 msgstr "Premier"
 
-#: custom-widget/help-popup.html:1
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
 msgstr "Pour plus d'informations, consultez le guide AngularJS sur les <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> et le <a href=\"https://docs.angularjs.org/guide/controller\">controller</a>."
 
-#: custom-widget/help-popup.html:1
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "Actuellement, la création de containers personnalisés n'est pas encore possible."
 
-#: home/artifact-factory.service.js:37
 msgid "Forms"
 msgstr "Formulaires"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:3
 msgid "Frame"
 msgstr "Cadre"
 
-#: custom-widget/help-popup.html:1
 msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
 msgstr "Les fonctions exposées dans le controller peuvent être utilisées avec ctrl.newFunction()."
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "GET"
 msgstr "GET"
 
-#: assets/help-popup.html:1 custom-widget/help-popup.html:1
-#: editor/data-panel/help-popup.html:1
 msgid "General"
 msgstr "Général"
 
-#: editor/data-panel/api-examples.service.js:48
 msgid "Get a case by its identifier"
 msgstr "Obtenir un cas par son identifiant"
 
-#: editor/data-panel/api-examples.service.js:27
 msgid "Get a human task by its identifier"
 msgstr "Obtenir une tâche humaine par son identifiant"
 
-#: editor/data-panel/api-examples.service.js:71
 msgid "Get a named business variable reference defined in a case"
 msgstr "Obtenir une référence de variable métier définie dans un cas"
 
-#: editor/data-panel/api-examples.service.js:66
 msgid "Get all business variables defined in a case"
 msgstr "Obtenir toutes les variables métier définies dans un cas"
 
-#: editor/data-panel/api-examples.service.js:20
 msgid "Get current logged user"
 msgstr "Obtenir l'utilisateur courant"
 
-#: editor/data-panel/api-examples.service.js:60
 msgid "Get custom information of a user"
 msgstr "Obtenir des informations personnalisées sur un utilisateur"
 
-#: editor/data-panel/api-examples.service.js:54
 msgid "Get professional details of a user"
 msgstr "Obtenir les détails professionnels d'un utilisateur"
 
-#: common/directives/expand-modal.directive.js:33
 msgid "Go full screen"
 msgstr "Affichez en plein écran"
 
-#: backend/webapp/src/main/resources/widgets/pbContainer/pbContainer.json:38
 msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
 msgstr "Groupe de widgets permettant de définir la disposition des éléments dans la page. Son contenu peut être répété en utilisant une variable de type tableau"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "HTTP request"
 msgstr "Requête HTTP"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:7
 msgid "Headers"
 msgstr "En-têtes"
 
-#: assets/help-popup.html:1 custom-widget/help-popup.html:1
-#: editor/data-panel/help-popup.html:1 editor/header/help-popup.html:1
-#: home/help-popup.html:1
 msgid "Help"
 msgstr "Aide"
 
-#: editor/common/properties.service.js:36
 msgid "Hidden"
 msgstr "Caché"
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:22
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
 msgstr "Contient le contenu de la réponse du d'erreur su service d'upload. Cette valeur peut être utilisée pour guider l'utilisateur."
 
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:12
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
 msgstr "Contient la réponse de l'URL cible après chargement. Cette valeur peut être utilisée pour remplir un contrat"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:18
 msgid "Holds the response when the request has failed"
 msgstr "Recueille la réponse lorsque la requête a échoué"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:22
 msgid "Holds the response when the request is successful"
 msgstr "Recueille la réponse lorsque la requête a réussi"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Home page"
 msgstr "Page d'accueil"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"
 
-#: home/import/import-report-popup.html:1
 msgid "Id must be unique, so the {{ ::importReport.type }} {{ ::importReport.name }} will be overwritten."
 msgstr "L'Id doit être unique, donc le/la {{ ::importReport.type }} {{ ::importReport.name }} sera écrasé(e)."
 
-#: home/import/import-report-popup.html:1
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "L'Id doit être unique, donc ces éléments seront écrasés."
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:4
 msgid "Id,Name,Description,Date"
 msgstr "ID, Nom, Description, Date"
 
-#: custom-widget/help-popup.html:1
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "Si les widgets standards ne répondent pas exactement à vos besoins, vous pouvez créer un widget personnalisé. Après création, un widget personnalisé est mis à disposition dans la palette pour concevoir des pages, des formulaires, des fragments ou des layouts."
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:17
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si vous spécifiez une expression, le résultat doit être un tableau de \"strings\""
 
-#: home/import/home-import.html:1 home/import/import-popover.html:1
-#: home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "Importer"
 
-#: home/import/home-import.html:1
 msgid "Import a UI Designer artifact"
 msgstr "Importer un artefact du UI Designer"
 
-#: home/import/import.service.js:44
 msgid "Import error"
 msgstr "Erreur d'import"
 
-#: assets/help-popup.html:13
 msgid "Import the moment.js library as an external asset."
 msgstr "Importez la librairie moment.js en tant qu'asset externe."
 
-#: assets/help-popup.html:19
 msgid "Import this JavaScript file as a local page asset."
 msgstr "Importez ce fichier JavaScript comme un asset local de page."
 
-#: home/import/import-report-popup.html:1
 msgid "Import {{ ::importReport.name }}"
 msgstr "Importer {{ ::importReport.name }}"
 
-#: editor/header/help-popup.html:1
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "Dans les éditions Subscriptions, pour supporter les langues variées des utilisateurs finaux, il inclut un mécanisme de traduction des artefacts composant les interfaces utilisateur (pages, formulaires, layouts)."
 
-#: assets/help-popup.html:13
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "Sur un asset de type JavaScript, vous pouvez spécifier une dépendance vers un module AngularJS. Tout d'abord ajoutez l'asset JavaScript, puis ajoutez le nom du module dans la section dédiée. Vous pouvez trouver les modules disponibles sur <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
 
-#: editor/data-panel/api-examples.service.js:68
 msgid "In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref)."
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez la variable context pour les récupérer (par exemple context.businessVariableName_ref)."
 
-#: editor/data-panel/api-examples.service.js:74
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
-#: editor/header/help-popup.html:1
 msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita BPM Portal, les artéfacts composant les interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:18
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:17
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:14
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:23
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:19
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:21
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:22
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:19
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:19
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:18
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:23
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:19
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:22
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:23
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
 
-#: editor/header/help-popup.html:1
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
 msgstr "Dans l'éditeur de fragment, vous pouvez définir la portée d'une variable : <i>spécifique à ce fragment</i> ou <i>exposée à la page</i>."
 
-#: assets/help-popup.html:13
 msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "Dans la liste, vous pouvez uniquement supprimer un asset de page, vous pouvez voir les assets locaux\" et éditer les assets externes de la page ou du formulaire."
 
-#: editor/header/help-popup.html:1
 msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
 msgstr "Dans l’aperçu et à l’exécution, le texte affiché s’adaptera automatiquement à la langue sélectionnée."
 
-#: editor/data-panel/help-popup.html:1 editor/header/help-popup.html:1
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "Dans le cadre d'une page, d'un formulaire ou d'un layout, une variable peut être utilisée pour gérer les données métier ou des variables de processus, ou peut contenir des informations de structure qui déterminent la façon dont se comportent les éléments."
 
-#: assets/help-popup.html:13
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "Dans cette liste, vous pouvez utiliser les flèches pour ré-ordonner les assets, voir les assets locaux, éditer les assets externes et supprimer tout type d'assets."
 
-#: home/import/import-error-messages.service.js:17
-#: home/import/import-error-messages.service.js:21
-#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr "La structure du zip est incorrecte."
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:14
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
 msgid "Inline"
 msgstr "En ligne"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:34
 msgid "Input field with content completion from a given list"
 msgstr "Champ de saisie avec suggestion à partir d'une liste donnée"
 
-#: home/help-popup.html:1
 msgid "Integration with Bonita BPM platform"
 msgstr "Intégration avec la plate-forme Bonita BPM"
 
-#: editor/help/property-bond-help.html:1
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: assets/generic-asset-form.html:1
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "URL invalide : elle doit contenir uniquement des caractères alphanumériques ou #!:. ? += &%@-/"
 
-#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "La structure du fichier json {{ infos.modelfile }} est invalide"
 
-#: editor/data-panel/help-popup.html:1
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
 msgstr "Elle fournit des références aux documents et variables métiers définis dans l'instance de processus (cas). Pour récupérer la valeur d'une variable métier, créez une variable de type API externe avec pour valeur"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
 msgid "Item"
 msgstr "Elément courant"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
 msgid "Item to remove"
 msgstr "Élément à supprimer"
 
-#: editor/data-panel/data-type.service.js:31
 msgid "JSON"
 msgstr "JSON"
 
-#: editor/data-panel/data-popup.html:10
 msgid "JSON specifications can be found on the"
 msgstr "Plus d'informations sur les spécifications JSON sur"
 
-#: editor/data-panel/data-type.service.js:33
 msgid "Javascript expression"
 msgstr "Expression JavaScript"
 
-#: custom-widget/create-property.html:1
-#: custom-widget/custom-widget-editor.html:1
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:12
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:14
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:4
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:14
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:13
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:13
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:12
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:10
 msgid "Label"
 msgstr "Libellé"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:1
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:2
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:5
 msgid "Label hidden"
 msgstr "Libellé masqué"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:11
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:5
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:10
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:10
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:6
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:7
 msgid "Label position"
 msgstr "Position du libellé"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:8
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:7
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:7
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:3
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:4
 msgid "Label width"
 msgstr "Largeur du libellé"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
 msgid "Last"
 msgstr "Dernier"
 
-#: home/artifact-list/artifact-list.directive.js:32
 msgid "Last Update:"
 msgstr "Dernière mise à jour :"
 
-#: home/artifact-factory.service.js:44
 msgid "Layouts"
 msgstr "Layouts"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 1"
 msgstr "Niveau 1"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 2"
 msgstr "Niveau 2"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 3"
 msgstr "Niveau 3"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 4"
 msgstr "Niveau 4"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 5"
 msgstr "Niveau 5"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:6
 msgid "Level 6"
 msgstr "Niveau 6"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:7
 msgid "Link"
 msgstr "Lien"
 
-#: editor/data-panel/api-examples.service.js:36
 msgid "List of cases open for a process definition id"
 msgstr "Liste des cas ouverts pour un id de définition de processus"
 
-#: editor/data-panel/api-examples.service.js:32
 msgid "List of human task in ready state for current user (pending + assigned)"
 msgstr "Liste des tâches humaines en état ready pour l'utilisateur courant (en attente + assignées)"
 
-#: editor/data-panel/help-popup.html:1
 msgid "Living data"
 msgstr "Living data"
 
-#: assets/assets.service.js:38
 msgid "Local"
 msgstr "Local"
 
-#: editor/header/help-popup.html:1
 msgid "Localization"
 msgstr "Localisation"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:7
 msgid "London,Paris,San Francisco"
 msgstr "Londres, Paris, San Francisco"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:69
 msgid "M: month, d: day, y: year"
 msgstr "M: mois, d: jour, y: année"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:9
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Malformed json file"
 msgstr "Le fichier json n'a pas le bon format"
 
-#: home/artifact-list/favorite-button.html:1
 msgid "Mark as favorite"
 msgstr "Ajouter à mes favoris"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
 msgid "Max value"
 msgstr "Valeur maximum"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:11
 msgid "Min value"
 msgstr "Valeur minimum"
 
-#: editor/whiteboard/container.html:1
 msgid "Move the row down"
 msgstr "Déplacer la ligne vers le bas"
 
-#: editor/whiteboard/container.html:1
 msgid "Move the row up"
 msgstr "Déplacer la ligne vers le haut"
 
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:27
 msgid "Multi-line, expandable, text input field"
 msgstr "Champ de saisie de texte multiligne et extensible"
 
-#: editor/header/help-popup.html:1
 msgid "Multiple content for tabs container"
 msgstr "Contenus multiples pour le tabs container"
 
-#: backend/webapp/src/main/resources/widgets/pbTabsContainer/pbTabsContainer.json:74
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "Plusieurs groupes de widgets, chaque groupe représentant un onglet"
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
-#: custom-widget/create-property.html:1 editor/data-panel/data-popup.html:1
-#: editor/data-panel/data.html:1 home/create/create-popover.html:1
 msgid "Name"
 msgstr "Nom"
 
-#: common/directives/artifact-name-validation.js:11
 msgid "Name must be less than {{maxlength}} characters long"
 msgstr "Le nom doit contenir moins de {{maxlength}} caractères"
 
-#: common/directives/artifact-name-validation.js:10
 msgid "Name must contains only alphanumeric characters with no space"
 msgstr "Le nom ne doit contenir que des caractères alphanumériques sans espace"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:94
 msgid "Navigation link to another page or form"
 msgstr "Lien de navigation vers une autre page ou formulaire"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:34
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, <br/> consectetur, <br/> adipisci velit..."
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
 msgid "New window (_blank)"
 msgstr "Nouvelle fenêtre (_blank)"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:21
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "Page suivante à afficher, dans une application. Dans le portail, ce champ est ignoré car la navigation est gérée automatiquement"
 
-#: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
 msgstr "Aucun artefact."
 
-#: assets/page-assets.html:1
 msgid "No asset"
 msgstr "Aucun asset"
 
-#: editor/data-panel/data.html:1
 msgid "No variable"
 msgstr "Aucune variable"
 
-#: backend/webapp/src/main/resources/widgets/pbContainer/pbContainer.json:23
 msgid "Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container"
 msgstr "Le nombre des éléments du tableau détermine le nombre des répétitions de la structure du container. Les données du tableau peuvent être utilisées dans les widgets du container"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:16
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:21
 msgid "Object key to display"
 msgstr "Clé de l'objet à afficher"
 
-#: editor/header/help-popup.html:1
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Lorsque vous sélectionnez un élément, modifiez ses propriétés dans le panneau de propriétés sur la droite."
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
-#: custom-widget/custom-widget-editor.html:1 editor/data-panel/data.html:1
-#: editor/header/header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "Ouvrir l'aide"
 
-#: home/home.controller.js:59
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Classés par nom d’artefact. <br/> Cliquez pour trier par date de dernière mise à jour"
 
-#: home/home.controller.js:58
 msgid "Ordered by last update.<br/>Click to sort by artifact name"
 msgstr "Classés par date de dernière mise à jour. <br/> Cliquez pour trier par nom d’artefact"
 
-#: home/import/import-success-message.html:1
 msgid "Overridden artifacts"
 msgstr "Artefacts remplacés"
 
-#: home/help-popup.html:1
 msgid "Overview"
 msgstr "Synthèse"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "POST"
 msgstr "POST"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "PUT"
 msgstr "PUT"
 
-#: editor/header/save-as-popup.html:1
 msgid "Page Name"
 msgstr "Nom de la page"
 
-#: assets/page-assets.html:1
 msgid "Page level"
 msgstr "Niveau de la page"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:10
 msgid "Page token"
 msgstr "Token de la page"
 
-#: home/artifact-factory.service.js:29
 msgid "Pages"
 msgstr "Pages"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
 msgid "Parent frame (_parent)"
 msgstr "Cadre parent (_parent)"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:8
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
 msgid "Placeholder"
 msgstr "Placeholder"
 
-#: preview/open-preview.html:1
 msgid "Preview"
 msgstr "Aperçu"
 
-#: preview/preview.html:1
 msgid "Preview - {{pageName}}"
 msgstr "Aperçu  - {{pageName}}"
 
-#: home/artifact-factory.service.js:35
 msgid "Process form"
 msgstr "Formulaire de processus"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Process instantiation form"
 msgstr "Formulaire d'instanciation de processus"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:1
 msgid "Process name"
 msgstr "Nom du processus"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
 msgid "Process version"
 msgstr "Version du processus"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/help-popup.html:1
 msgid "Properties"
 msgstr "Propriétés"
 
-#: custom-widget/create-property.html:1
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "Les noms des widgets personnalisés doivent commencer par une lettre et ne contenir que des caractères alphanumériques"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:15
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:21
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:2
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:23
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:23
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:14
 msgid "Read-only"
 msgstr "Lecture seule"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:19
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:23
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:20
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:17
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
 msgid "Read-write binding, initialized or updated by users' input (bi-directional bond)"
 msgstr "Liaison de type lecture / écriture, initialisée ou mise à jour par l’input de l'utilisateur (liaison bidirectionnelle)"
 
-#: assets/help-popup.html:13
 msgid "Relative time filter"
 msgstr "Filtre d'affichage de temps relatif"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:11
 msgid "Remove"
 msgstr "Supprimer"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "Remove from collection"
 msgstr "Supprimer de la collection"
 
-#: editor/whiteboard/tabs-container.html:1
 msgid "Remove tab"
 msgstr "Supprimer l'onglet"
 
-#: home/artifact-list/artifact-list.directive.js:31
 msgid "Rename"
 msgstr "Renommer"
 
-#: backend/webapp/src/main/resources/widgets/pbContainer/pbContainer.json:68
 msgid "Repeat container content. Variable of type array"
 msgstr "Répéter le contenu du container. Variable de type tableau"
 
-#: editor/header/help-popup.html:1
 msgid "Repeat content for the plain container"
 msgstr "Répéter le contenu du container simple"
 
-#: editor/whiteboard/container.html:1
 msgid "Repeated container"
 msgstr "Container répété"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:6
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:10
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:5
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:1
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:1
 msgid "Required"
 msgstr "Obligatoire"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Required angular modules"
 msgstr "Modules AngularJS requis"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:2
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:2
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
 msgid "Returned key"
 msgstr "Clé retournée"
 
-#: editor/whiteboard/container.html:1
 msgid "Row"
 msgstr "Ligne"
 
-#: editor/header/help-popup.html:1
 msgid "Rows"
 msgstr "Lignes"
 
-#: assets/asset-edit-popup.html:1 custom-widget/custom-widget-editor.html:1
-#: custom-widget/save-as-popup.html:1 editor/data-panel/data-popup.html:12
-#: editor/header/header.html:1 editor/header/save-as-popup.html:1
 msgid "Save"
 msgstr "Enregistrer"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Save as ..."
 msgstr "Enregistrer sous..."
 
-#: editor/header/save-as-popup.html:1
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "Enregistrer {{ctrl.page.name}} sous ..."
 
-#: custom-widget/save-as-popup.html:1
 msgid "Save {{ctrl.widget.name}} as..."
 msgstr "Enregistrer {{ctrl.widget.name}} sous ..."
 
-#: common/directives/save-indicator/save-indicator.html:1
 msgid "Saved"
 msgstr "Enregistré"
 
-#: editor/data-panel/data.html:1
 msgid "Search"
 msgstr "Chercher"
 
-#: editor/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
 msgstr "Recherchez une liste de cas basée sur une clé de recherche"
 
-#: home/home.html:1
 msgid "Search on name"
 msgstr "Rechercher par nom"
 
-#: editor/data-panel/data-popup.html:12
 msgid "See example 'date object initialization'"
 msgstr "Voir l’exemple « initialisation d’un objet date »"
 
-#: editor/data-panel/data-popup.html:10
 msgid "See example 'functional programming'"
 msgstr "Voir l'exemple 'programmation fonctionnelle\""
 
-#: editor/data-panel/data-popup.html:1
 msgid "See examples"
 msgstr "Exemples"
 
-#: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
 msgstr "Voir l'asset de localisation par défaut pour obtenir un exemple."
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:6
 msgid "Select"
 msgstr "Sélectionner"
 
-#: editor/properties-panel/properties-panel.html:1
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "Sélectionnez un élément du tableau blanc puis utilisez cette zone pour définir ses propriétés"
 
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:3
 msgid "Select an option"
 msgstr "Sélectionnez une option"
 
-#: home/import/import-popover.html:1
 msgid "Select your .zip file"
 msgstr "Sélectionnez votre fichier .zip"
 
-#: assets/generic-asset-form.html:1
 msgid "Select your file"
 msgstr "Sélectionnez votre fichier"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:5
 msgid "Selected Row"
 msgstr "Ligne sélectionnée"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:5
 msgid "Selected Value"
 msgstr "Valeur sélectionnée"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:5
 msgid "Selected values"
 msgstr "Valeurs sélectionnées"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:69
 msgid "Send data to this URL when the button is clicked"
 msgstr "Envoyer des données vers cette URL lors du clic sur le bouton"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:4
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "Jeu de cases d'options s'excluant mutuellement. L'utilisateur sélectionne une option"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:4
 msgid "Set of checkboxes for options. The user selects zero or more"
 msgstr "Ensemble de cases à cocher pour des options. L'utilisateur sélectionne zéro ou plusieurs"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:16
 msgid "Short hint that describes the expected input format"
 msgstr "Indice court qui décrit le format attendu"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:15
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:11
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:15
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:13
 msgid "Short hint that describes the expected value"
 msgstr "Indice court qui décrit la valeur attendue"
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:89
 msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "Courte chaîne de texte ou paragraphe à afficher. Peut inclure des balises HTML"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:6
 msgid "Show today button"
 msgstr "Afficher le bouton Aujourd'hui"
 
-#: assets/generic-asset-form.html:1
 msgid "Source"
 msgstr "Source"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:17
 msgid "Source Type"
 msgstr "Type de source"
 
-#: editor/common/properties.service.js:28
 msgid "Space-separated list"
 msgstr "Liste séparée par des espaces"
 
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:10
 msgid "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration"
 msgstr "Spécifie un texte de remplacement pour une image. Le texte devrait décrire l'image si celle-ci contient des informations ou être laissé vide si elle est uniquement utilisée à des fins de décoration"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:18
 msgid "Specifies the case (process instance) Id"
 msgstr "Spécifie l'Id du cas (instance de processus)"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:18
 msgid "Specifies the legal number intervals between values"
 msgstr "Spécifie les intervalles numériques légaux entre les valeurs"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:23
 msgid "Specifies the process name"
 msgstr "Spécifie le nom du processus"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:19
 msgid "Specifies the process version"
 msgstr "Spécifie le numéro de version du processus"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:22
 msgid "Specifies the task instance Id"
 msgstr "Spécifie l’Id de la tâche"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:16
 msgid "Specifies the type of link to create"
 msgstr "Spécifie le type de lien à créer"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:21
 msgid "Specifies where to open the linked document"
 msgstr "Spécifie l'endroit où le document lié sera ouvert"
 
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:22
 msgid "Specify the expected technical format"
 msgstr "Spécifiez le format technique attendu"
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Indiquez le nombre de colonnes de l'élément. Tous les éléments peuvent prendre jusqu'à 12 colonnes."
 
-#: home/help-popup.html:1
 msgid "Start creating a <b>process form</b> in Bonita BPM Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Commencez à créer un <b>formulaire de processus</b> dans Bonita BPM Studio : dans le pool ou la tâche humaine adéquate, créez un contrat puis lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
 
-#: home/help-popup.html:1
 msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita BPM Portal resources, and edit it."
 msgstr "Commencez à créer un <b>layout d'application</b> en important le layout par défaut disponible dans les ressources de Bonita BPM Portal, puis modifiez-le."
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "Start process"
 msgstr "Démarrer un processus"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:6
 msgid "Step"
 msgstr "Étape"
 
-#: editor/data-panel/data-type.service.js:30
 msgid "String"
 msgstr "Chaines"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:8
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:6
 msgid "Style"
 msgstr "Style"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
 msgid "Submit"
 msgstr "Soumettre"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:13
 msgid "Submit task"
 msgstr "Soumettre une tache"
 
-#: editor/header/help-popup.html:1 home/help-popup.html:1
 msgid "Subscription edition"
 msgstr "Edition Souscription"
 
-#: home/import/import.service.js:56
 msgid "Successful import"
 msgstr "Importation réussie"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:2
 msgid "Successful response value"
 msgstr "Valeur de réponse en cas de succès"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:4
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:3
 msgid "Target URL on success"
 msgstr "URL cible en cas de succès"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
 msgid "Task Id"
 msgstr "ID de tâche"
 
-#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Template"
 msgstr "Template"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:11
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:11
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:22
 msgid "Text"
 msgstr "Texte"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:97
 msgid "Text used to structure the page or form content"
 msgstr "Texte utilisé pour structurer le contenu de la page ou du formulaire"
 
-#: editor/properties-panel/bond/interpolation.html:1
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texte, incluant éventuellement des variables dans des expressions simples en utilisant l'interpolation avec {{ variableName }}"
 
-#: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>. Vous pouvez donc exporter des pages dans votre environnement de développement web favori pour les personnaliser davantage."
 
-#: editor/header/help-popup.html:1
 msgid "The UI Designer is displayed in the language of your Bonita BPM Studio."
 msgstr "Le UI Designer s’affiche dans la langue de votre Bonita BPM Studio."
 
-#: custom-widget/create-property.html:2
 msgid "The caption will be displayed as such below the property label."
 msgstr "La légende s'affiche comme telle sous le libellé de la propriété."
 
-#: custom-widget/help-popup.html:1
 msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
 msgstr "Le controller est une fonction JavaScript qui augmente le scope de AngularJS et expose des fonctions qui peuvent être utilisées dans le template du widget personnalisé."
 
-#: custom-widget/help-popup.html:1
 msgid "The custom widget HTML template is defined here."
 msgstr "Le template HTML du widget personnalisé est défini ici."
 
-#: home/import/import-report-popup.html:1
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient également de nouveaux éléments."
 
-#: home/import/import-report-popup.html:1
 msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient des éléments portant le même id que des éléments existants."
 
-#: assets/help-popup.html:13
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La liste contient à la fois des assets de page et les assets des widgets personnalisés utilisés dans cette page."
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:13
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:19
 msgid "The name of the key to use as label. Can be empty"
 msgstr "Le nom de la clé à utiliser comme label. Peut être vide"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:22
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:22
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:17
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "Le nom de la clé à utiliser comme valeur. Laisser vide pour un object"
 
-#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr "La page n'a pas été importée."
 
-#: custom-widget/create-property.html:1
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "L'info-bulle sera affiché comme tel, à proximité du libellé de la propriété."
 
-#: editor/header/help-popup.html:1
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "Le whiteboard est organisé en <b>lignes</b> que vous pouvez déplacer vers le haut ou le bas, ou supprimer."
 
-#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr "Le widget n'a pas été importé."
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "Le (la) {{ artifact.type }} ne peut pas être supprimé(e) car il/elle est utilisée par:"
 
-#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr "Le {{ artifactType }} n'a pas été importé."
 
-#: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Le UI Designer propose un ensemble de <b>widgets standards</b> pour afficher des informations et recueillir des informations de la part des utilisateurs. Vous pouvez également créer <b>des widgets personnalisés</b>."
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "Cette description apparaît en info-bulle dans la palette"
 
-#: editor/data-panel/data-popup.html:10
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "Cet exemple utilise l'exemple fourni par le type JSON. <br>Il recherche la chaîne « Linux » dans le tableau <code>environnement</code> de l'objet JSON <code>supportTicket</code>"
 
-#: assets/help-popup.html:13
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
-#: editor/editor.html:1
 msgid "This page is empty."
 msgstr "Cette page est vide."
 
-#: assets/asset-edit-popup.html:1
 msgid "This will also update the content of the preview window"
 msgstr "Cela mettra également à jour le contenu de la fenêtre d’aperçu"
 
-#: editor/properties-panel/tab-properties-template.html:1
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:3
 msgid "Title"
 msgstr "Titre"
 
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:12
 msgid "Title level"
 msgstr "Niveau du titre"
 
-#: editor/editor.html:1
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Pour ajouter du contenu, faites un glisser-déposer des composants de la palette sur le whiteboard."
 
-#: editor/data-panel/help-popup.html:1
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "Pour permettre à vos utilisateurs de télécharger un document, ajoutez un Link widget dont la propriété url est bindée à"
 
-#: assets/help-popup.html:19
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Pour afficher la date dans une propriété de widget évaluée comme une expression, utilisez le filtre <code>dateAgo</code> sur la variable <code>updateDate</code> comme suit : <code>updateDate | dateAgo</code>"
 
-#: assets/help-popup.html:13
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
 
-#: assets/help-popup.html:13
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 msgstr "Pour charger un asset local de type image dans un widget personnalisé, vous devez le référencer dans le template à l'intérieur d'une balise <code>&lt; img &gt;</code>, avec un chemin d'accès relatif comme suit : <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 
-#: assets/help-popup.html:1
 msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
 msgstr "Pour charger une image pour n'importe quel widget personnalisé, ajoutez un asset det ype image au niveau de la page. Vous pouvez y accéder avec <code>asset/img/[image name]</code>."
 
-#: assets/help-popup.html:1
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "Pour gérer plusieurs versions de dépendances, assurez-vous que chaque asset n'a qu'une version active au sein d'une page."
 
-#: editor/data-panel/help-popup.html:1
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Pour récupérer une instance de document, créez une variable de type API externe avec pour valeur"
 
-#: home/import/import-report-popup.html:1
 msgid "To save them with different ids, open them and use <i>Save as</i>, before you import."
 msgstr "Pour les sauver avec des Id différents, ouvrez-les et utilisez <i>Enregistrer sous</i>, puis importez."
 
-#: home/import/import-report-popup.html:1
 msgid "To save {{ ::importReport.name }} with a different id, open it and use <i>Save as</i> before you import."
 msgstr "Pour enregistrer {{ ::importReport.name }} avec un id différent, ouvrez-le et utilisez <i>Enregistrer sous</i>, puis importez."
 
-#: home/help-popup.html:1
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "Pour mettre à jour un formulaire en environnement de production, exportez-le depuis le UI Designer, importez-le dans le portail au niveau du processus cible, puis associez-le à la tâche cible ou à l'événement de début du processus."
 
-#: custom-widget/help-popup.html:1
 msgid "To use AngularJS standard services, you must declare them in the main function arguments."
 msgstr "Pour utiliser les services AngularJS standards, vous devez les déclarer en tant qu'arguments de la fonction principale."
 
-#: assets/help-popup.html:1
 msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
 msgstr "Pour utiliser un asset de localisation, remplacer le fichier localization.json avec un fichier du même format contenant toutes les clés de la page et les traductions dans les langues cibles. L'asset de localisation se trouve au niveau de la page. Le format du fichier doit être :"
 
-#: assets/help-popup.html:1
 msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
 msgstr "Pour utiliser un asset de type image dans le widget image, définissez la propriété <code>type de la Source</code> à <i>Asset</i> puis entrez le nom de l'image dans le champ <code>nom de l'asset</code>."
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "To use the collection data in the widgets of this container, there are contextual variables that you can bind to the widget properties:"
 msgstr "Pour utiliser les données de la collection dans les widgets de ce container, liez les variables contextuelles suivantes aux propriétés des widgets :"
 
-#: assets/help-popup.html:1
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "Pour utiliser le même asset dans plusieurs pages, vous pouvez l'ajouter à un widget personnalisé et utiliser ce widget personnalisé dans vos pages d'application ou vos formulaire. Lorsque vous ajoutez un widget personnalisé contenant des assets, ceux-ci sont automatiquement associés à la page."
 
-#: editor/editor.html:1
 msgid "Toggle properties panel"
 msgstr "Afficher / masquer le panneau de propriétés"
 
-#: custom-widget/create-property.html:1
 msgid "Tooltip"
 msgstr "Info-bulle"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
 msgid "Top frame (_top)"
 msgstr "Cadre supérieur (_top)"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Treat as"
 msgstr "Traiter comme"
 
-#: custom-widget/create-property.html:2
 msgid "Treat value as"
 msgstr "Traiter la valeur comme"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:90
 msgid "Trigger for an action in a page or form"
 msgstr "Déclenchement d'une action dans une page ou un formulaire"
 
-#: assets/asset-popup.html:1 assets/page-assets.html:1
-#: assets/widget-assets.html:1 custom-widget/create-property.html:2
-#: custom-widget/custom-widget-editor.html:1
-#: editor/data-panel/data-popup.html:1 editor/data-panel/data.html:1
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:3
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:8
 msgid "Type"
 msgstr "Type"
 
-#: home/home.html:1
 msgid "UI Designer"
 msgstr "UI Designer"
 
-#: assets/generic-asset-form.html:1
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:2
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:13
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:1
-#: backend/webapp/src/main/resources/widgets/pbImage/pbImage.json:14
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:2
 msgid "URL"
 msgstr "URL"
 
-#: editor/data-panel/data-type.service.js:34
 msgid "URL parameter"
 msgstr "Paramètre d'URL"
 
-#: editor/data-panel/data-popup.html:1
 msgid "URL parameter name"
 msgstr "Nom du paramètre d'URL"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:2
 msgid "URL to call"
 msgstr "URL à appeler"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:22
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "URL utilisée pour exécuter la requête HTTP au clic sur ce bouton."
 
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:38
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Case à cocher unique pour une option. L'utilisateur peut la cocher ou pas"
 
-#: home/artifact-list/favorite-button.html:1
 msgid "Unmark as favorite"
 msgstr "Retirer des favoris"
 
-#: assets/widget-assets.html:1
 msgid "Update asset"
 msgstr "Modifier l'asset"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:17
 msgid "Use $collection to act on the collection of a repeated content"
 msgstr "Utilisez $collection pour agir sur la collection d'un contenu répété"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:16
 msgid "Use $item to remove the current item in a repeated collection"
 msgstr "Utilisez $item pour supprimer l'élément courant dans une collection répétée"
 
-#: editor/header/help-popup.html:1
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "Utilisez les <b>widgets</b> depuis la palette à gauche pour <b>afficher des informations</b> et <b>recueillir des informations de</b> l'utilisateur final."
 
-#: editor/help/bidirectional-bond-help.html:1
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "Utilisez un une liaison bidirectionnelle pour spécifier une liaison de lecture / écriture entre la valeur de la propriété et une variable."
 
-#: editor/help/dynamic-bond-help.html:1
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
 msgstr "Utilisez une valeur dynamique pour spécifier une constante (par défaut) ou une expression. Cliquez sur l'icône expression fx pour passer de constante à expression. Cliquez sur l'icône constante X pour repasser d'expression à constante. Une expression peut inclure une variable pour rendre la valeur de la propriété dynamique, ou peut être simplement le nom d'une variable. Vous pouvez appliquer un filtre à une valeur de variable à l'aide d'un \"pipe\". Le lien avec la variable est de type lecture. Si vous souhaitez écrire dans la variable, utilisez un binding bidirectionnel. Exemples :"
 
-#: editor/help/interpolation-bond-help.html:1
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr "Utilisez une interpolation pour saisir le texte à afficher dans le widget. Le texte peut inclure des variables qui sont interprétées à l'aide de l'interpolation AngularJS. Lorsque la page est affichée, les variables sont remplacées par les valeurs interpolées. Spécifiez la variable comme une simple expression entre doubles accolades, en utilisant le même format que pour une valeur dynamique. Exemple : Je suis désolé, <em ng-non-bindable=\"\"> {{ user.name | uppercase }}</em>. J'ai bien peur de ne pas pouvoir faire cela."
 
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:80
 msgid "Use basic html tags and {{ dataVariable }} to access data"
 msgstr "Utilisez des balises html standard et {{ dataVariable }} pour accéder aux données"
 
-#: home/help-popup.html:1
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utilisez le UI Designer pour créer ou éditer les artefacts web : <b>pages d'application</b> pour composer des applications métier, <b>formulaires de processus</b> liés à l'instantiation du processus ou à l'exécution de tâches humaines, et <b>layouts d'application</b> appliqués à toutes les pages d'une application métier."
 
-#: editor/header/help-popup.html:1
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
 
-#: editor/data-panel/api-examples.service.js:22
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
 
-#: editor/data-panel/data-popup.html:1 editor/data-panel/data-popup.html:10
-#: editor/data-panel/data.html:1
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:5
-#: backend/webapp/src/main/resources/widgets/pbCheckbox/pbCheckbox.json:1
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:12
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:7
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:12
 msgid "Value"
 msgstr "Valeur"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:5
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:2
 msgid "Value max length"
 msgstr "Longueur maximum de la valeur"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:1
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:5
 msgid "Value min length"
 msgstr "Longueur minimum de la valeur"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:69
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:69
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:74
 msgid "Value must be unique"
 msgstr "La valeur doit être unique"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:4
 msgid "Value to add"
 msgstr "Valeur à ajouter"
 
-#: editor/properties-panel/bond/variable.html:1
 msgid "Variable in read-write binding with the property value"
 msgstr "Variable en lien bidirectionnel avec la valeur de la propriété"
 
-#: editor/data-panel/data-popup.html:1
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "Les noms de variables doivent commencer par une lettre et ne contenir que des caractères alphanumériques"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:74
 msgid "Variable of type array"
 msgstr "Variable de type tableau"
 
-#: editor/bottom-panel/bottom-panel.directive.js:26
-#: editor/header/help-popup.html:1
 msgid "Variables"
 msgstr "Variables"
 
-#: editor/data-panel/help-popup.html:1
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Les variables peuvent être bindées aux différents champs pour créer un comportement conditionnel entre propriétés de widgets."
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
 msgid "View asset content"
 msgstr "Voir le contenu de l'asset"
 
-#: editor/data-panel/data-popup.html:10
 msgid "W3C website"
 msgstr "Site web du W3C"
 
-#: backend/webapp/src/main/resources/widgets/pbTable/pbTable.json:22
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes du tableau"
 
-#: editor/header/help-popup.html:1
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
 
-#: editor/data-panel/help-popup.html:1
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Lorsque vous générez un formulaire à partir d'un contrat dans le studio, il contient un bouton \"Submit\" et 4 variables par défaut : <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> et <code>context</code>"
 
-#: editor/data-panel/api-examples.service.js:82
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "Où businessDataType = com.company.model.MyData, queryName = nom de la requête BDM, filter = \"myParam=myValue\""
 
-#: editor/data-panel/api-examples.service.js:76
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "Où businessVariableName est le nom de la variable métier définie au niveau du pool."
 
-#: assets/page-assets.html:1
 msgid "Widget"
 msgstr "Widget"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Widget description"
 msgstr "Description du widget"
 
-#: editor/header/help-popup.html:1
 msgid "Widgets"
 msgstr "Widgets"
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "Width"
 msgstr "Largeur"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:78
 msgid "Will be retrieved from the URL if not set"
 msgstr "Sera récupéré de l’URL si la valeur n'est pas renseignée"
 
-#: editor/header/help-popup.html:1
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "A l'intérieur d'une ligne, lorsque vous supprimez un widget ou un container, les éléments qui suivent sont déplacés vers la gauche"
 
-#: editor/header/help-popup.html:1
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis la page d'accueil."
 
-#: editor/data-panel/help-popup.html:1
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
 
-#: editor/header/help-popup.html:1
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Vous pouvez regrouper des widgets dans un container pour gérer leur disposition dans un formulaire ou une page. Un container peut contenir d'autres containers."
 
-#: custom-widget/help-popup.html:1
 msgid "You can leave the controller empty if you do not need it."
 msgstr "Le controller peut être laissé vide."
 
-#: editor/header/help-popup.html:1
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Vous pouvez enregistrer le contenu d'un container simple en tant que fragment réutilisable."
 
-#: editor/header/help-popup.html:1
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "Vous pouvez traduire tout le texte affiché dans un artefact composant l’interface utilisateur : libellés, placeholders, valeurs disponibles d’une liste. Même le format de date du widget Date Picker peut être localisé."
 
-#: custom-widget/help-popup.html:1
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "Vous pouvez utiliser les balises HTML standards ainsi que les directives, le scope, et le système d'interpolation d'AngularJS."
 
-#: custom-widget/help-popup.html:1
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Vous pouvez utiliser la propriété <i>environment</i> injectée dans le scope à l'intérieur du whiteboard. Elle permet de d'émuler un affichage pour le whiteboard puisque les données réelles d'utilisation ne seront pas disponibles."
 
-#: assets/help-popup.html:13
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "Vous ne pouvez pas avoir plus d'un asset de localisation. Télécharger un nouvel asset remplace le fichier existant."
 
-#: assets/help-popup.html:13
 msgid "You can’t manually change the order of assets in a page."
 msgstr "Vous ne pouvez pas modifier manuellement l'ordre des assets dans une page."
 
-#: common/directives/confirm-on-exit.js:20
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Vous avez des modifications non enregistrées. Voulez-vous vraiment quitter ?"
 
-#: home/artifact-factory.service.js:36
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Vous devriez créer le formulaire de processus à partir du Studio : dans le pool ou la tâche humaine adéquate, créez un contrat et lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:4
 msgid "_self"
 msgstr "_self"
 
-#: home/import/import-success-message.controller.js:38
 msgid "added"
 msgstr "ajoutée"
 
-#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr "artefact"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:15
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:17
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "center"
 msgstr "au centre"
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "column"
 msgid_plural "columns"
 msgstr[0] "colonne"
 msgstr[1] "colonnes"
 
-#: editor/editor.service.js:73
 msgid "custom widgets"
 msgstr "Widgets personnalisés"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "danger"
 msgstr "danger"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
 msgid "default"
 msgstr "par défaut"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
 msgid "email"
 msgstr "email"
 
-#: common/services/alerts.service.js:31
 msgid "error"
 msgstr "erreur"
 
-#: editor/properties-panel/bond/expression.html:1
 msgid "expression or variable"
 msgstr "expression ou variable"
 
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:4
 msgid "green,red,blue"
 msgstr "vert, rouge, bleu"
 
-#: editor/common/properties.service.js:37
 msgid "hidden"
 msgstr "masqué"
 
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:5
 msgid "http://"
 msgstr "http://"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "info"
 msgstr "info"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:3
 msgid "label Hidden"
 msgstr "Libellé masqué"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:8
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:15
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:17
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
 msgid "left"
 msgstr "A gauche"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "link"
 msgstr "link"
 
-#: editor/data-panel/data-popup.html:1
 msgid "name"
 msgstr "nom"
 
-#: editor/properties-panel/field/boolean.html:1
 msgid "no"
 msgstr "non"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
 msgid "number"
 msgstr "number"
 
-#: home/import/import-success-message.controller.js:36
 msgid "overridden"
 msgstr "remplacée"
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
 msgid "password"
 msgstr "mot de passe"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "primary"
 msgstr "primary"
 
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:7
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:15
-#: backend/webapp/src/main/resources/widgets/pbText/pbText.json:17
-#: backend/webapp/src/main/resources/widgets/pbTitle/pbTitle.json:9
 msgid "right"
 msgstr "à droite"
 
-#: common/services/alerts.service.js:32
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "success"
 msgstr "success"
 
-#: home/import/import-success-message.html:1
 msgid "successfully imported."
 msgstr "importé avec succès."
 
-#: editor/data-panel/data-popup.html:1
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket est un objet composé d'un <em>sujet</em>, d'un <em>niveau de sévérité </em>, d'un <em>environnement utilisateur</em>, d'un <em>contact</em> (<em>name</em> et <em>job title</em>), et d'une <em>URL</em> qui fournissent plus de détails sur le contact."
 
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:4
 msgid "text"
 msgstr "texte"
 
-#: backend/webapp/src/main/resources/widgets/pbAutocomplete/pbAutocomplete.json:9
-#: backend/webapp/src/main/resources/widgets/pbChecklist/pbChecklist.json:7
-#: backend/webapp/src/main/resources/widgets/pbInput/pbInput.json:13
-#: backend/webapp/src/main/resources/widgets/pbDatePicker/pbDatePicker.json:8
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:8
-#: backend/webapp/src/main/resources/widgets/pbSelect/pbSelect.json:9
-#: backend/webapp/src/main/resources/widgets/pbTextarea/pbTextarea.json:12
-#: backend/webapp/src/main/resources/widgets/pbUpload/pbUpload.json:11
 msgid "top"
 msgstr "En haut"
 
-#: editor/data-panel/data-popup.html:10
 msgid "view W3C's Json specification"
 msgstr "voir la spécification du JSON par le W3C"
 
-#: common/services/alerts.service.js:33
-#: backend/webapp/src/main/resources/widgets/pbButton/pbButton.json:10
-#: backend/webapp/src/main/resources/widgets/pbLink/pbLink.json:12
 msgid "warning"
 msgstr "warning"
 
-#: editor/editor.service.js:118 editor/editor.service.js:70
 msgid "widgets"
 msgstr "widgets"
 
-#: editor/properties-panel/field/boolean.html:1
 msgid "yes"
 msgstr "oui"
 
-#: backend/webapp/src/main/resources/widgets/pbRadioButtons/pbRadioButtons.json:30
 msgid "yes,no"
 msgstr "oui, non"
 
-#: home/import/import-report-item-list.html:1
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 msgstr[1] "{{ artifactType }}s"
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
-#: home/import/import-report-item-list.html:1
 msgid "{{ type }}"
 msgid_plural "{{ type }}s"
 msgstr[0] "{{ type }}"
 msgstr[1] "{{ type }}"
 
-#: assets/asset-preview-popup.html:1
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenu de {{asset.name}}<expand-modal></expand-modal>"
 
