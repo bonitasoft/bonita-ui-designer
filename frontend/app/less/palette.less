@@ -1,6 +1,5 @@
 .Palette {
   width: @sidebar-palette-width;
-  height: 100%;
   transition: width @sidebar-transition;
   background-color: @color-palette-item-bg;
 
@@ -19,7 +18,6 @@
 .Palette-sections {
   background-color: @color-palette-bg;
   width: @sidebar-palette-section-width;
-  height: 100%;
 }
 
 .Palette-section {
@@ -53,9 +51,8 @@
 
 
 .Palette-widgets {
-  width: @sidebar-palette-width - @sidebar-palette-section-width;
-  height: 100%;
-  overflow-y: scroll;
+  flex: 1;
+  overflow-y: auto;
   border-right: 1px solid @color-palette-bg;
   border-top: 1px solid @color-palette-bg;
   background:
