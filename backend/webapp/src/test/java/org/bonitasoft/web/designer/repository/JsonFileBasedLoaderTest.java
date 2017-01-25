@@ -25,6 +25,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -110,6 +111,32 @@ public class JsonFileBasedLoaderTest {
     }
 
     @Test
+    public void should_fail_silently_when_an_object_is_not_found_while_getting_all_object() throws Exception {
+        SimpleDesignerArtifact object1 = aFilledSimpleObject("object1");
+        SimpleDesignerArtifact object2 = aFilledSimpleObject("object2");
+        addToRepository(object1, object2);
+        Files.delete(repoDirectory.resolve("object1/object1.json"));
+
+        List<SimpleDesignerArtifact> all = loader.getAll(repoDirectory);
+
+        // Expect no exception and results contains only object2
+        assertThat(all).containsOnly(object2);
+    }
+
+    @Test
+    public void should_fail_silently_when_a_model_file_is_corrupted_while_getting_all_object() throws Exception {
+        SimpleDesignerArtifact object1 = aFilledSimpleObject("object1");
+        SimpleDesignerArtifact object2 = aFilledSimpleObject("object2");
+        addToRepository(object1, object2);
+        Files.write(repoDirectory.resolve("object1/object1.json"), "json corrupted".getBytes());
+
+        List<SimpleDesignerArtifact> all = loader.getAll(repoDirectory);
+
+        // Expect no exception and results contains only object2
+        assertThat(all).containsOnly(object2);
+    }
+
+    @Test
     public void should_find_a_byte_array_in_an_another() {
         assertThat(loader.indexOf("mon exemple complet".getBytes(), "exem".getBytes())).isEqualTo(4);
     }
@@ -157,6 +184,16 @@ public class JsonFileBasedLoaderTest {
         temporaryFolder.newFolderPath("jsonrepository", ".DS_Store");
 
         loader.findByObjectId(repoDirectory, "object");
+    }
+
+    @Test
+    public void should_not_fail_when_searching_object_by_id_and_artifact_folder_has_no_model_file() throws Exception {
+        Files.createDirectory(repoDirectory.resolve("artifactid"));
+
+        List<SimpleDesignerArtifact> objects = loader.findByObjectId(repoDirectory, "object");
+
+        // expect no exception and result list is empty
+        assertThat(objects).isEmpty();
     }
 
     @Test

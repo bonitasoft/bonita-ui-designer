@@ -27,17 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Load a component
  */
 public abstract class AbstractLoader<T extends Identifiable> implements Loader<T> {
+
+    private static final Logger logger = LoggerFactory.getLogger(AbstractLoader.class);
 
     private JacksonObjectMapper objectMapper;
     private Class<T> type;
@@ -64,6 +69,14 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         }
     }
 
+    private Optional<T> tryGet(Path path) {
+        try {
+            return Optional.of(get(path));
+        } catch (NotFoundException | JsonReadException e) {
+            return Optional.absent();
+        }
+    }
+
     @Override
     public List<T> getAll(Path directory) throws IOException {
         return getAll(directory, "[!.]*");
@@ -75,7 +88,13 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         try (DirectoryStream<Path> directoryStream = newDirectoryStream(directory, glob)) {
             for (Path path : directoryStream) {
                 String id = getComponentId(path);
-                objects.add(get(directory.resolve(format("%s/%s.json", id, id))));
+                Optional<T> e = tryGet(directory.resolve(format("%s/%s.json", id, id)));
+                if (e.isPresent()) {
+                    objects.add(e.get());
+                } else {
+                    logger.error(format("%s %s cannot be loaded, your repository may be corrupted",
+                            type.getClass().getSimpleName(), id));
+                }
             }
         }
         return objects;
