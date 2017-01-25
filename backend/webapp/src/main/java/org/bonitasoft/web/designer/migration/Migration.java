@@ -27,6 +27,13 @@ public class Migration<A extends DesignerArtifact> {
     private final Version version;
     private final MigrationStep<A>[] migrationSteps;
 
+    /**
+     * Associate one or more migration steps to a given version.
+     * Migration steps will be executed on models which version is lower or equal than the given version.
+     *
+     * @param version   Latest tagged UI Designer version that does need migration
+     * @param migrationSteps    The migration steps that need to be executed
+     */
     public Migration(String version, MigrationStep<A>... migrationSteps) {
         this.version = new Version(version);
         this.migrationSteps = migrationSteps;

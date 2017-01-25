@@ -282,6 +282,26 @@ public class DesignerConfig {
     }
 
     @Bean
+    public List<LiveMigration> liveMigrations(LiveMigration<Page> pageLiveMigration, LiveMigration<Widget> widgetLiveMigration) {
+        return Lists.<LiveMigration>newArrayList(pageLiveMigration, widgetLiveMigration);
+    }
+
+    @Bean
+    public VisitorFactory visitorFactory() {
+        return new VisitorFactory();
+    }
+
+    @Bean
+    public BondsTypesFixer<Page> pageBondsTypesFixer(PageRepository pageRepository) {
+        return new BondsTypesFixer<>(pageRepository);
+    }
+
+    /*******************************************************************************************************************
+     *                                              Migration Steps
+     *
+     * See {@link Migration}
+     ******************************************************************************************************************/
+    @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository,
             BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
@@ -296,20 +316,5 @@ public class DesignerConfig {
         return new LiveMigration<>(widgetRepository, widgetLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
-    }
-
-    @Bean
-    public List<LiveMigration> liveMigrations(LiveMigration<Page> pageLiveMigration, LiveMigration<Widget> widgetLiveMigration) {
-        return Lists.<LiveMigration>newArrayList(pageLiveMigration, widgetLiveMigration);
-    }
-
-    @Bean
-    public VisitorFactory visitorFactory() {
-        return new VisitorFactory();
-    }
-
-    @Bean
-    public BondsTypesFixer<Page> pageBondsTypesFixer(PageRepository pageRepository) {
-        return new BondsTypesFixer<>(pageRepository);
     }
 }
