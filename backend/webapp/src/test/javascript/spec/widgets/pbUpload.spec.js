@@ -1,11 +1,12 @@
 describe('pbUpload', function() {
 
-  var $compile, scope, dom;
+  var $compile, scope, dom, $window;
 
   beforeEach(module('bonitasoft.ui.widgets'));
   beforeEach(module('bonitasoft.ui.services'));
   beforeEach(inject(function ($injector){
     $compile = $injector.get('$compile');
+    $window = $injector.get('$window')
     scope = $injector.get('$rootScope').$new();
     scope.properties = {
       isBound: function() {
@@ -151,7 +152,7 @@ describe('pbUpload', function() {
 
       controller.startUploading();
       scope.$apply();
-      
+
       expect(element.find('input').val()).toMatch(/uploading/i);
     });
 
@@ -159,10 +160,10 @@ describe('pbUpload', function() {
       var element = $compile('<pb-upload></pb-upload>')(scope);
       var controller = element.controller('pbUpload');
       var errorBody = 'upload failed because of FileTooBigException';
-      
+
       controller.uploadComplete(errorBody);
       scope.$apply();
-      
+
       expect(element.find('input').val()).toMatch(/Upload failed/i);
       expect(scope.properties.errorContent).toEqual(errorBody);
     });
@@ -179,10 +180,11 @@ describe('pbUpload', function() {
       expect(element.find('input').val()).toMatch(/Upload failed/i);
       expect(scope.properties.errorContent).toEqual(error.message);
     });
+
     it('should update the filename if the value changes (on deletion for intance)', function () {
       var element = $compile('<pb-upload></pb-upload>')(scope);
       var controller = element.controller('pbUpload');
-       
+
       scope.$apply();
       expect(controller.filename).toBe('');
 
@@ -194,6 +196,16 @@ describe('pbUpload', function() {
       scope.properties.value = undefined;
       scope.$apply();
       expect(controller.filename).toBeUndefined();
+    });
+
+    it('should set the event value to null on submit', function() {
+      spyOn($window, 'onbeforeunload')
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+      scope.$apply();
+      var myEvent = {target: {value: 'value'}}
+      controller.forceSubmit(myEvent);
+      expect(myEvent.target.value).toBe(null);
     });
   });
 });

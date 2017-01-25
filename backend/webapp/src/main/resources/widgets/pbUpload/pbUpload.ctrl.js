@@ -8,6 +8,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   this.startUploading = startUploading;
   this.uploadError = uploadError;
   this.uploadComplete = uploadComplete;
+  this.forceSubmit = forceSubmit;
 
   this.name = widgetNameFactory.getName('pbUpload');
 
@@ -85,5 +86,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
     form.triggerHandler('submit');
     form[0].submit();
+    event.target.value = null;
   }
 }
