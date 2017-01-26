@@ -187,6 +187,16 @@ public class PageRepositoryTest {
         assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
     }
 
+    @Test
+    public void should_delete_page_metadata_when_deleting_a_page() throws Exception {
+        Page expectedPage = addToRepository(aFilledPage("page-id"));
+        assertThat(pagesPath.resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).exists();
+
+        repository.delete(expectedPage.getId());
+
+        assertThat(pagesPath.resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
+    }
+
     @Test(expected = NotFoundException.class)
     public void should_throw_NotFoundException_when_deleting_inexisting_page() throws Exception {
         repository.delete("foo");
