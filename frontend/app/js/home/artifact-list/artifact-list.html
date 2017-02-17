@@ -7,13 +7,13 @@
         id="{{:: artifact.id }}"
         ng-repeat="artifact in artifactList.all track by artifact.id">
         <div class="Artifact-info" ng-switch="artifactList.isInEditionMode($index)">
-          <a ng-switch-default ng-href="{{:: artifact.editionUrl }}"
+          <a ng-switch-default ng-href="{{:: artifact.editionUrl }}" 
                class="Artifact-link Artifact-link--primary">
                 <span ng-if="artifact.icon" class="Artifact-icon"><identicon name="{{artifact.id}}" size="25" foreground-color="[198, 199, 228, 255]" background-color="[0,0,0,0]"></identicon></span>
                 <i ng-if="!artifact.icon" class="ui-icon ui-{{:: artifact.type }}s Artifact-icon"
                    title="{{:: artifact.type }}"></i>
-                <span title="{{artifact.name }}" class="Artifact-text">
-                    <span class="Artifact-name">{{artifact.name }}</span>
+                <span title="{{:: artifact.name }}" class="Artifact-text">
+                    <span class="Artifact-name">{{:: artifact.name }}</span>
                     <span class="Artifact-metadata"
                       >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
                 </span>
