@@ -149,18 +149,21 @@
 
       function addWidgetAssetsToPage(widget, page) {
         page.assets = (widget && widget.$$widget.assets || [])
-          .filter((asset) => notIn(asset, page.assets))
           .map((asset) => {
             // these operations should be done on backend side. to be deleted while backend side is homogeneous
             asset.componentId = asset.componentId || widget.id;
             asset.scope = asset.scope || 'widget';
             return asset;
           })
+          .filter((asset) => notIn(asset, page.assets))
           .concat(page.assets);
       }
 
       function notIn(asset, array) {
-        return !array.some((item) => item.id === asset.id);
+        return !array.some((item) =>
+          item.name === asset.name &&
+          item.type === asset.type &&
+          item.componentId === asset.componentId);
       }
 
       function removeAssetsFromPage(widget, page) {

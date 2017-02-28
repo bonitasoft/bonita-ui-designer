@@ -62,7 +62,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
                 Path componentFile = componentDirectory.resolve(id + ".json");
 
                 //We consider only another objects
-                if (objectPath == null || !objectPath.equals(componentFile)) {
+                if (objectPath == null || !objectPath.equals(componentFile) && exists(componentFile)) {
                     String content = removeSpaces(new String(readAllBytes(componentFile)));
                     if (content.contains(format("\"id\":\"%s\"", objectId))) {
                         objects.add(objectMapper.fromJson(content.getBytes(), type));

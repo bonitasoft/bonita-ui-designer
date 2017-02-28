@@ -110,46 +110,57 @@ describe('utils', function() {
 
   it('should add widget asset before page assets if not already added', function() {
     var page = {
-      assets: [{ id: 'anAsset', componentId: '1234' }]
+      assets: [
+          { name: 'aJsAsset', type: 'js', componentId: 'anotherWidget', scope: 'widget' },
+          { name: 'anAsset', type: 'css', componentId: 'theWidget', scope: 'widget' }
+        ]
     };
+
     var widget = {
+      id: 'theWidget',
       $$widget: {
         assets: [
-          { id: 'widgetAsset', componentId: '4321', scope: 'widget' },
-          { id: 'otherWidgetAsset', componentId: '4321', scope: 'widget' }]
+          { name: 'aJsAsset', type: 'js' },
+          { name: 'aCssAsset', type: 'css' },
+          { name: 'anotherAsset', type: 'css' }
+        ]
       }
     };
 
     assetsService.addWidgetAssetsToPage(widget, page);
 
     expect(page.assets).toEqual([
-      { id: 'widgetAsset', componentId: '4321', scope: 'widget' },
-      { id: 'otherWidgetAsset', componentId: '4321', scope: 'widget' },
-      { id: 'anAsset', componentId: '1234' }
+      { name: 'aJsAsset', type: 'js', componentId: 'theWidget', scope: 'widget' },
+      { name: 'aCssAsset', type: 'css', componentId: 'theWidget', scope: 'widget' },
+      { name: 'anotherAsset', type: 'css', componentId: 'theWidget', scope: 'widget' },
+      { name: 'aJsAsset', type: 'js', componentId: 'anotherWidget', scope: 'widget' },
+      { name: 'anAsset', type: 'css', componentId: 'theWidget', scope: 'widget' }
     ]);
   });
 
   it('should not add widget asset to page if already added', function() {
     var page = {
       assets: [
-        { id: 'widgetAsset', componentId: '4321', scope: 'widget' },
-        { id: 'otherWidgetAsset', componentId: '4321', scope: 'widget' },
-        { id: 'anAsset', componentId: '1234' }]
+        { name: 'widgetAsset',  type: 'js', componentId: 'theWidget', scope: 'widget' },
+        { name: 'otherWidgetAsset', type: 'js', componentId: 'theWidget', scope: 'widget' },
+        { name: 'anAsset', type: 'js', componentId: '1234' }]
     };
     var widget = {
+      id: 'theWidget',
       $$widget: {
         assets: [
-          { id: 'widgetAsset', componentId: '4321', scope: 'widget' },
-          { id: 'otherWidgetAsset', componentId: '4321', scope: 'widget' }]
+          { name: 'widgetAsset',  type: 'js' },
+          { name: 'otherWidgetAsset', type: 'js' }
+        ]
       }
     };
 
     assetsService.addWidgetAssetsToPage(widget, page);
 
     expect(page.assets).toEqual([
-      { id: 'widgetAsset', componentId: '4321', scope: 'widget' },
-      { id: 'otherWidgetAsset', componentId: '4321', scope: 'widget' },
-      { id: 'anAsset', componentId: '1234' }
+      { name: 'widgetAsset',  type: 'js', componentId: 'theWidget', scope: 'widget' },
+      { name: 'otherWidgetAsset', type: 'js', componentId: 'theWidget', scope: 'widget' },
+      { name: 'anAsset', type: 'js', componentId: '1234' }
     ]);
   });
 

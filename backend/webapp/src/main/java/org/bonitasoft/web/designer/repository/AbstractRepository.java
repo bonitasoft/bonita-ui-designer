@@ -143,6 +143,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         T component = get(id);
         try {
             FileUtils.deleteDirectory(path.resolve(component.getId()).toFile());
+            FileUtils.deleteQuietly(path.resolve(format(".metadata/%s.json", component.getId())).toFile());
         } catch (IOException e) {
             throw new RepositoryException(format("Error while deleting %s [%s]", getComponentName(), id), e);
         }
