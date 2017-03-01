@@ -2,17 +2,16 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: bonita-bpm-new-features\n"
+"Project-Id-Version: bonita-bpm\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: crowdin.com\n"
-"X-Crowdin-Project: bonita-bpm-new-features\n"
+"X-Crowdin-Project: bonita-bpm\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
-"Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2016-12-30 05:32-0500\n"
+"PO-Revision-Date: 2017-02-28 23:18-0500\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -818,6 +817,9 @@ msgstr "Lista de tareas humana en estado ready para el usuario actual (pendiente
 msgid "Living data"
 msgstr "Datos variables"
 
+msgid "Loading {{mode}}..."
+msgstr ""
+
 msgid "Local"
 msgstr "Local"
 
@@ -1303,7 +1305,6 @@ msgstr "Para utilizar el mismo recurso en varias páginas, puede agregar un widg
 
 msgid "Toggle properties panel"
 msgstr "Toggle Panel de propiedades\n"
-""
 
 msgid "Tooltip"
 msgstr "Tooltip"
