@@ -1,38 +1,38 @@
 <div class="WidgetEditor">
     <div class="EditorHeader" role="navigation"  confirm-on-exit confirm-data="widget">
         <div class="EditorHeader-menu">
-            <a class="EditorHeader-back" ng-click="back()" uib-tooltip="{{ 'Back' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
+            <a class="EditorHeader-back EditorHeader-navBtn" ng-click="back()" uib-tooltip="{{ 'Back' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
                 <i class="fa fa-chevron-left"></i>
             </a>
-            <span class="EditorHeader-title">
-              <a ui-sref="designer.home" class="EditorHeader-icon EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
-                <i class="ui-icon ui-designer"></i>
-              </span>
-              <strong class="EditorHeader-brand" translate>
-                  Custom widget editor
-              </strong>
+            <a ui-sref="designer.home" class="EditorHeader-homeNav EditorHeader-navBtn" uib-tooltip="{{ 'Home page' | translate }} " tooltip-placement="right" tooltip-popup-delay="300">
+               <i class="ui-icon ui-designer"></i>
             </a>
+            <span class="EditorHeader-brand" translate>
+                Custom widget editor
+            </span>
             <h3 class="EditorHeader-name EditorHeader-name--custom">
                 <identicon name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
                 {{widget.name}}
             </h3>
-            <div class="btn-group" uib-dropdown>
-                <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
-                <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
-                    <span class="fa fa-caret-down"></span>
-                    <span class="sr-only">Save</span>
+            <div class="EditorHeader-actions">
+                <div class="btn-group" uib-dropdown>
+                    <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
+                    <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
+                        <span class="fa fa-caret-down"></span>
+                        <span class="sr-only">Save</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a id="saveAs" class="clickable" ng-click="saveAs(widget)" translate>Save as ...</a></li>
+                    </ul>
+                </div>
+                <button type="button"
+                        id="export"
+                        class="btn btn-bonita-primary"
+                        ng-click="saveAndExport()"
+                        title="{{'Export'|translate}}">
+                    <i class="ui-icon ui-export"></i>
                 </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a id="saveAs" class="clickable" ng-click="saveAs(widget)" translate>Save as ...</a></li>
-                </ul>
             </div>
-            <button type="button"
-                    id="export"
-                    class="btn btn-bonita-primary"
-                    ng-click="saveAndExport()"
-                    title="{{'Export'|translate}}">
-                <i class="ui-icon ui-export"></i>
-            </button>
             <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
         </div>
         <div class="EditorHeader-help">

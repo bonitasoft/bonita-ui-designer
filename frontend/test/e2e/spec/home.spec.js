@@ -26,7 +26,7 @@ describe('home page', function() {
     $$('.ArtifactList-page a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
-    $('.EditorHeader-icon').click();
+    $('.EditorHeader-homeNav').click();
     expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
@@ -62,7 +62,7 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('FORM EDITOR');
 
     $('#save').click();
-    $('.EditorHeader-icon').click();
+    $('.EditorHeader-homeNav').click();
     expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 

@@ -1,15 +1,13 @@
 <div class="EditorHeader" role="navigation">
     <div class="EditorHeader-menu">
-        <a class="EditorHeader-back" ng-click="vm.back()" uib-tooltip="{{ 'Back' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
+        <a class="EditorHeader-navBtn EditorHeader-back" ng-click="vm.back()" uib-tooltip="{{ 'Back' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
             <i class="fa fa-chevron-left"></i>
         </a>
-        <span class="EditorHeader-title">
-          <a ui-sref="designer.home" class="EditorHeader-icon EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
+        <a ui-sref="designer.home" class="EditorHeader-navBtn EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
             <i class="ui-icon ui-designer"></i>
-          </a>
-          <strong class="EditorHeader-brand" translate>
-              <span>{{ vm.page.type }}</span> editor
-          </strong>
+        </a>
+        <span class="EditorHeader-brand" translate>
+            {{ vm.page.type }} editor
         </span>
 
         <form name="formName" class="form-inline EditorHeader-form" autocomplete="off">
