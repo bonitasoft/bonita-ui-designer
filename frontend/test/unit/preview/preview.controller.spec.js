@@ -30,6 +30,7 @@ describe('PreviewCtrl', function() {
 
     ctrl = $injector.get('$controller')('PreviewCtrl', {
       $scope,
+      $location,
       iframeParameters,
       webSocket,
       clock,
@@ -41,6 +42,14 @@ describe('PreviewCtrl', function() {
   it('should set the iframe\'s source', function() {
     // then $sce should build a value for the iframe src, that we have to unwrap
     expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
+  });
+
+  it('should set the iframe\'s source with additionnal query parameters', function() {
+    spyOn($location, 'search').and.returnValue({ app: 'myApp', locale: 'fr' });
+
+    $scope.refreshIframe();
+
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?app=myApp&locale=fr&time=now');
   });
 
   it('should update the iframe src when a notification is received', function() {
