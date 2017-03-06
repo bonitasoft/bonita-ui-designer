@@ -26,6 +26,7 @@ angular.module('bonitasoft.designer.preview').factory('webSocket', function($roo
   var listen = function(topic, callback) {
     var socket = new SockJS('websockets');
     var client = Stomp.over(socket);
+    client.debug = null; // deactivate debug mode
 
     var subscribeCallback = function(message) {
       $rootScope.$apply(function() {
