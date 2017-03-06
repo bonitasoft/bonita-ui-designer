@@ -43,7 +43,7 @@ module.exports = function (gulp, config) {
       });
     }
 
-    if (matchStaticFile(req) && !matchStaticProxyfied(req)) {
+    if (req.url === '/' || matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
     } else if (/^\/bonita\/.*/.test(req.url)) {
       proxy.web(req, res, { target: 'http://127.0.0.1:8081' });
@@ -90,7 +90,6 @@ module.exports = function (gulp, config) {
     browser = browser || 'default';
 
     browserSync.instance = browserSync.init(files, {
-      startPath: startPath || '/index.html',
       server: {
         baseDir: baseDir,
         middleware: [
