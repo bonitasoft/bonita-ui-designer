@@ -14,7 +14,7 @@
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
                 <input class="form-control"
-                       name="{{ctrl.name}}"
+                       name="{{ctrl.name}}date"
                        type="text"
                        placeholder="{{properties.placeholder | uiTranslate}}"
                        ng-model="properties.value"
@@ -23,17 +23,15 @@
                        bs-datepicker
                        data-container="body"
                        data-autoclose="1"
-                       data-timezone="UTC"
-                       date-format="{{properties.dateFormat | uiTranslate}}"
+                       data-timezone="{{ctrl.timezone}}"
+                       data-date-format="{{properties.dateFormat | uiTranslate}}"
                        data-trigger="focus"
-                       data-start-week="{{ctrl.firstDayOfWeek}}"
-                       ng-model-options="{ debounce: 350 }">
-
+                       data-start-week="{{ctrl.firstDayOfWeek}}">
                 <span class="input-group-btn">
-                    <button ng-if="properties.showToday" type="button" class="btn btn-default today"
-                            ng-click="ctrl.setDateToToday()"
+                    <button ng-if="properties.showNow" type="button" class="btn btn-default now"
+                            ng-click="ctrl.setDateAndTimeToNow()"
                             ng-disabled="properties.readOnly" ui-translate>
-                           Today
+                           Now
                     </button>
                     <button type="button" class="btn btn-default calendar"
                             ng-click="ctrl.openDatePicker()"
@@ -42,7 +40,32 @@
                     </button>
                 </span>
             </p>
-            <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error "
+            <div ng-messages="($form[ctrl.name+'date'].$dirty && $form[ctrl.name +'date'].$error)"
+                 ng-messages-include="forms-generic-errors.html" role="alert"></div>
+            <p class="input-group">
+              <input class="form-control"
+                     name="{{ctrl.name}}time"
+                     type="text"
+                     placeholder="{{properties.timePlaceholder | uiTranslate}}"
+                     ng-model="properties.value"
+                     ng-readonly="properties.readOnly"
+                     ng-required="properties.required"
+                     bs-timepicker
+                     data-container="body"
+                     data-autoclose="0"
+                     data-timezone="{{ctrl.timezone}}"
+                     data-time-format="{{properties.timeFormat | uiTranslate}}"
+                     data-trigger="focus">
+
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-default timepicker"
+                              ng-click="ctrl.openTimePicker()"
+                              ng-disabled="properties.readOnly">
+                        <i class="glyphicon glyphicon-time"></i>
+                      </button>
+                  </span>
+            </p>
+            <div ng-messages="($form[ctrl.name+'time'].$dirty && $form[ctrl.name+'time'].$error)"
                  ng-messages-include="forms-generic-errors.html" role="alert"></div>
         </div>
     </div>
