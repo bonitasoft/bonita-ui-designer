@@ -24,7 +24,7 @@ angular.module('bonitasoft.designer.preview').factory('webSocket', function($roo
    * @param callback - the callback that will be call when a message is received, with the message body
    */
   var listen = function(topic, callback) {
-    var socket = new SockJS('websockets');
+    var socket = new SockJS(window.location.origin + window.location.pathname + '/websockets');
     var client = Stomp.over(socket);
 
     var subscribeCallback = function(message) {
