@@ -9,7 +9,9 @@ module.exports = function(gulp, config) {
     return new Server({
       configFile: paths.karma.configFile,
       singleRun: !watch
-    }, done).start();
+    }, function () {
+      done();
+    }).start();
   }
 
   /**

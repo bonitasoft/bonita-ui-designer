@@ -65,7 +65,7 @@ describe('pbDatePicker', function () {
     });
 
     it('should be on the left of the input if labelPosition change', function () {
-      scope.properties.labelPosition= 'left';
+      scope.properties.labelPosition = 'left';
       scope.$apply();
 
       expect(element.find('.form-horizontal').length).toBe(1);
@@ -187,7 +187,7 @@ describe('pbDatePicker', function () {
       scope.properties.value = new Date(0);
       scope.properties.showToday = true;
       scope.$apply();
- 
+
       element.find('.input-group .input-group-btn button.today').click();
 
       expect(element.find('input').val()).toEqual(filter('date')(new Date(), 'dd/MM/yyyy'));
@@ -202,15 +202,16 @@ describe('pbDatePicker', function () {
   describe('calendar button', function() {
 
     it('should be displayed by default', function () {
-      expect(element.find('.input-group .input-group-btn button').length).toBe(1);
+      expect(element.find('.input-group .input-group-btn button.calendar').length).toBe(1);
     });
 
     it('should be disabled if date picker disabled', function () {
       scope.properties.readOnly = true;
       scope.$apply();
 
-      var button = element.find('.input-group .input-group-btn button');
+      var button = element.find('.input-group .input-group-btn button.calendar');
       expect(button.attr('disabled')).toBe('disabled');
     });
   });
+
 });
