@@ -85,5 +85,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
     form.triggerHandler('submit');
     form[0].submit();
+    form[0].reset();
   }
 }
