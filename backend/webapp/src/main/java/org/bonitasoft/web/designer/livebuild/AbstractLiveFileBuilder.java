@@ -45,7 +45,7 @@ public abstract class AbstractLiveFileBuilder {
         });
 
         // now on build on change
-        watcher.watch(root, new BuilderFileListener(this, watcher));
+        watcher.watch(root, new BuilderFileListener(this));
     }
 
     public abstract void build(Path path) throws IOException;

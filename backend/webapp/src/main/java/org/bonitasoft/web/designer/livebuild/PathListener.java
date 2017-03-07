@@ -13,15 +13,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.bonitasoft.web.designer.repository;
+package org.bonitasoft.web.designer.livebuild;
 
 import java.nio.file.Path;
 
 public interface PathListener {
 
-    void pathCreated(Path path);
+    void pathCreated(Path path) throws Exception;
 
-    void pathDeleted(Path path);
+    void pathDeleted(Path path) throws Exception;
 
-    void pathChanged(Path path);
+    void pathChanged(Path path)throws Exception;
 }

@@ -40,6 +40,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;

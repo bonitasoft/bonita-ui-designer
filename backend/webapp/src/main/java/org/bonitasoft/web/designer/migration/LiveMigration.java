@@ -29,7 +29,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.repository.AbstractLoader;
-import org.bonitasoft.web.designer.repository.PathListener;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.repository.Repository;
 
 public class LiveMigration<A extends DesignerArtifact> {

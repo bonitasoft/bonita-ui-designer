@@ -23,8 +23,6 @@ import static org.mockito.Mockito.verify;
 import java.io.File;
 import java.nio.file.Path;
 
-import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.VFS;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,10 +42,10 @@ public class BuilderFileListenerTest {
     @Test
     public void should_call_build_on_file_change() throws Exception {
         given(builder.isBuildable(anyString())).willReturn(true);
-        BuilderFileListener builderFileListener = new BuilderFileListener(builder, new Watcher());
+        BuilderFileListener builderFileListener = new BuilderFileListener(builder);
         File file = folder.newFile();
 
-        builderFileListener.fileChanged(new FileChangeEvent(VFS.getManager().resolveFile(file.getPath())));
+        builderFileListener.pathChanged(file.toPath());
 
         verify(builder).build(file.toPath());
     }
@@ -55,10 +53,10 @@ public class BuilderFileListenerTest {
     @Test
     public void should_not_call_build_on_a_changing_file_filtered_by_the_extension_passed_through() throws Exception {
         given(builder.isBuildable(anyString())).willReturn(false);
-        BuilderFileListener builderFileListener = new BuilderFileListener(builder, new Watcher());
+        BuilderFileListener builderFileListener = new BuilderFileListener(builder);
         File file = folder.newFile("test - file.js");
 
-        builderFileListener.fileChanged(new FileChangeEvent(VFS.getManager().resolveFile(file.getPath())));
+        builderFileListener.pathChanged(file.toPath());
 
         verify(builder, never()).build(any(Path.class));
     }
@@ -66,10 +64,10 @@ public class BuilderFileListenerTest {
     @Test
     public void should_call_build_on_file_creation() throws Exception {
         given(builder.isBuildable(anyString())).willReturn(true);
-        BuilderFileListener builderFileListener = new BuilderFileListener(builder, new Watcher());
+        BuilderFileListener builderFileListener = new BuilderFileListener(builder);
         File file = folder.newFile("test - file.js");
 
-        builderFileListener.fileChanged(new FileChangeEvent(VFS.getManager().resolveFile(file.getPath())));
+        builderFileListener.pathChanged(file.toPath());
 
         verify(builder).build(file.toPath());
     }
@@ -77,10 +75,10 @@ public class BuilderFileListenerTest {
     @Test
     public void should_not_call_build_on_created_file_filtered_by_the_extension_passed_through() throws Exception {
         given(builder.isBuildable(anyString())).willReturn(false);
-        BuilderFileListener builderFileListener = new BuilderFileListener(builder, new Watcher());
+        BuilderFileListener builderFileListener = new BuilderFileListener(builder);
         File file = folder.newFile("test - file.js");
 
-        builderFileListener.fileCreated(new FileChangeEvent(VFS.getManager().resolveFile(file.getPath())));
+        builderFileListener.pathCreated(file.toPath());
 
         verify(builder, never()).build(any(Path.class));
     }

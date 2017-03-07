@@ -16,27 +16,56 @@ package org.bonitasoft.web.designer.livebuild;
 
 import static java.nio.file.Paths.get;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.Optional;
 import javax.inject.Named;
 
-import org.apache.commons.vfs2.*;
+import org.apache.commons.vfs2.FileChangeEvent;
+import org.apache.commons.vfs2.FileListener;
+import org.apache.commons.vfs2.FileSystemException;
+import org.apache.commons.vfs2.VFS;
 import org.apache.commons.vfs2.impl.DefaultFileMonitor;
 import org.apache.commons.vfs2.provider.UriParser;
-import org.apache.commons.vfs2.provider.local.LocalFile;
 
 @Named
 public class Watcher {
 
-    public void watch(Path path, FileListener fileListener) throws FileSystemException {
-        final DefaultFileMonitor monitor = new DefaultFileMonitor(fileListener);
+    private Optional<Long> delay = Optional.empty();
+
+    public void watch(Path path, final PathListener pathListener) throws IOException {
+        DefaultFileMonitor monitor = new DefaultFileMonitor(new FileListener() {
+            @Override
+            public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
+                pathListener.pathCreated(resolve(fileChangeEvent));
+            }
+
+            @Override
+            public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
+                pathListener.pathDeleted(resolve(fileChangeEvent));
+            }
+
+            @Override
+            public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
+                pathListener.pathChanged(resolve(fileChangeEvent));
+            }
+        });
         monitor.setRecursive(true);
         monitor.addFile(VFS.getManager().resolveFile(path.toUri().toString()));
+        if (delay.isPresent()) {
+            monitor.setDelay(delay.get());
+        }
         monitor.start();
     }
 
-    public Path resolve(FileChangeEvent fileChangeEvent) throws FileSystemException, URISyntaxException {
+    // for testing purpose
+    protected void setPollingDelayInMs(long delay) {
+        this.delay = Optional.of(delay);
+    }
+
+    private Path resolve(FileChangeEvent fileChangeEvent) throws FileSystemException, URISyntaxException {
         return get(new URI(UriParser.encode(fileChangeEvent.getFile().getName().getFriendlyURI(), new char[]{' '})));
     }
 }

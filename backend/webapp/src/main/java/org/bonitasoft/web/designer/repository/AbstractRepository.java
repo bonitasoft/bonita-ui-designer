@@ -31,9 +31,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.FileListener;
-import org.apache.commons.vfs2.FileSystemException;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -175,23 +173,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
-    public void watch(final PathListener pathListener) throws FileSystemException {
-        watcher.watch(path, new FileListener() {
-            @Override
-            public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathCreated(watcher.resolve(fileChangeEvent));
-            }
-
-            @Override
-            public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathDeleted(watcher.resolve(fileChangeEvent));
-            }
-
-            @Override
-            public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathChanged(watcher.resolve(fileChangeEvent));
-            }
-        });
+    public void watch(final PathListener pathListener) throws IOException {
+        watcher.watch(path, pathListener);
     }
 
     /**
