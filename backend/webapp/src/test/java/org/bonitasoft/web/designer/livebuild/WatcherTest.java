@@ -16,11 +16,14 @@ package org.bonitasoft.web.designer.livebuild;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.VFS;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,29 +33,94 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class WatcherTest {
 
+    private final static long SLEEP_DELAY = 20;
+    private final static long POLLING_DELAY = 10;
+
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    Watcher watcher = new Watcher();
+    private Watcher watcher = new Watcher();
+    private Path subDirectory;
 
-    @Test
-    public void should_resolve_file_path() throws Exception {
-        folder.newFolder("repertoire vers un");
-        File file = folder.newFile("repertoire vers un/fichier quelconque.txt");
-
-        FileChangeEvent fileChangeEvent = new FileChangeEvent(VFS.getManager().resolveFile(file.getPath()));
-
-        assertThat(watcher.resolve(fileChangeEvent).toString()).isEqualTo(file.getPath());
+    @Before
+    public void setUp() throws Exception {
+        subDirectory = Files.createDirectory(folder.toPath().resolve("un repertoire"));
+        watcher.setPollingDelayInMs(POLLING_DELAY);
     }
 
     @Test
-    @Ignore("Test ignored until we decide to support path with URI-not-supported characters other than spaces")
-    public void should_resolve_file_path_with_utf8_chars() throws Exception {
-        folder.newFolder("répertoire vers un");
-        File file = folder.newFile("répertoire vers un/fichier quelconque.txt");
+    public void should_trigger_a_created_event_when_a_file_is_created() throws Exception {
+        TestPathListener listener = new TestPathListener();
+        watcher.watch(folder.toPath(), listener);
 
-        FileChangeEvent fileChangeEvent = new FileChangeEvent(VFS.getManager().resolveFile(file.getPath()));
+        Path file = Files.createFile(subDirectory.resolve("file"));
 
-        assertThat(watcher.resolve(fileChangeEvent).toString()).isEqualTo(file.getPath());
+        Thread.sleep(SLEEP_DELAY);
+        assertThat(listener.getCreated()).containsExactly(file);
+        assertThat(listener.getChanged()).isEmpty();
+        assertThat(listener.getDeleted()).isEmpty();
+    }
+
+    @Test
+    @Ignore("Ignored since it fails from time to time. Unknown root cause")
+    public void should_trigger_a_modified_event_when_a_file_is_modified() throws Exception {
+        Path existingFile = Files.createFile(subDirectory.resolve("file"));
+        TestPathListener listener = new TestPathListener();
+        watcher.watch(folder.toPath(), listener);
+
+        Files.write(existingFile, "hello".getBytes(), StandardOpenOption.APPEND);
+
+        Thread.sleep(SLEEP_DELAY);
+        assertThat(listener.getCreated()).isEmpty();
+        assertThat(listener.getChanged()).containsExactly(existingFile);
+        assertThat(listener.getDeleted()).isEmpty();
+    }
+
+    @Test
+    public void should_trigger_a_deleted_event_when_a_file_is_deleted() throws Exception {
+        Path existingFile = Files.createFile(subDirectory.resolve("file"));
+        TestPathListener listener = new TestPathListener();
+        watcher.watch(folder.toPath(), listener);
+
+        Files.delete(existingFile);
+
+        Thread.sleep(SLEEP_DELAY);
+        assertThat(listener.getCreated()).isEmpty();
+        assertThat(listener.getChanged()).isEmpty();
+        assertThat(listener.getDeleted()).containsExactly(existingFile);
+    }
+
+    private class TestPathListener implements PathListener {
+        final List<Path> created= new ArrayList<>();
+        final List<Path> deleted = new ArrayList<>();
+        final List<Path> changed = new ArrayList<>();
+
+
+        @Override
+        public void pathCreated(Path path) throws Exception {
+            created.add(path);
+        }
+
+        @Override
+        public void pathDeleted(Path path) throws Exception {
+            deleted.add(path);
+        }
+
+        @Override
+        public void pathChanged(Path path) throws Exception {
+            changed.add(path);
+        }
+
+        public List<Path> getCreated() {
+            return created;
+        }
+
+        public List<Path> getDeleted() {
+            return deleted;
+        }
+
+        public List<Path> getChanged() {
+            return changed;
+        }
     }
 }

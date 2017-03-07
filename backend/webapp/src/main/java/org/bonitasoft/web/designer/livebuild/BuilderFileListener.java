@@ -20,35 +20,30 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 
-import org.apache.commons.vfs2.FileChangeEvent;
-import org.apache.commons.vfs2.FileListener;
-
-public class BuilderFileListener implements FileListener {
+public class BuilderFileListener implements PathListener {
 
     private AbstractLiveFileBuilder builder;
-    private Watcher watcher;
 
-    BuilderFileListener(AbstractLiveFileBuilder builder, Watcher watcher) {
+    BuilderFileListener(AbstractLiveFileBuilder builder) {
         this.builder = builder;
-        this.watcher = watcher;
     }
 
     @Override
-    public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
-        build(fileChangeEvent);
+    public void pathCreated(Path path) throws IOException, URISyntaxException {
+        build(path);
     }
 
     @Override
-    public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
+    public void pathDeleted(Path path) {
+
     }
 
     @Override
-    public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
-        build(fileChangeEvent);
+    public void pathChanged(Path path) throws IOException, URISyntaxException {
+        build(path);
     }
 
-    private void build(FileChangeEvent fileChangeEvent) throws IOException, URISyntaxException {
-        Path path = watcher.resolve(fileChangeEvent);
+    private void build(Path path) throws IOException, URISyntaxException {
         if (builder.isBuildable(valueOf(path))) {
             builder.build(path);
         }

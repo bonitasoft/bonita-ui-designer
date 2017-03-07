@@ -19,7 +19,7 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.apache.commons.vfs2.FileSystemException;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -91,7 +91,7 @@ public interface Repository<T extends Identifiable> {
 
     void walk(FileVisitor<? super Path> visitor) throws IOException;
 
-    void watch(PathListener pathListener) throws FileSystemException;
+    void watch(PathListener pathListener) throws IOException;
 
     T markAsFavorite(String id);
 
