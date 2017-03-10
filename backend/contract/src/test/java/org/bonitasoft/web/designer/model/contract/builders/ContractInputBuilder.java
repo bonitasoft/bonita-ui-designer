@@ -14,12 +14,15 @@
  */
 package org.bonitasoft.web.designer.model.contract.builders;
 
-import java.io.File;
-import java.util.Date;
-
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 public class ContractInputBuilder {
 
@@ -96,8 +99,25 @@ public class ContractInputBuilder {
         return new LeafContractInput(name, Integer.class);
     }
 
+    /**
+     * @Deprecated
+     * Type Date is deprecated in studio, prefer to use aLocalDateInput
+     */
+    @Deprecated
     public static LeafContractInput aDateContractInput(String name) {
         return new LeafContractInput(name, Date.class);
+    }
+
+    public static LeafContractInput aLocalDateContractInput(String name) {
+        return new LeafContractInput(name, LocalDate.class);
+    }
+
+    public static LeafContractInput aLocalDateTimeContractInput(String name) {
+        return new LeafContractInput(name, LocalDateTime.class);
+    }
+
+    public static LeafContractInput aOffsetDateTimeContractInput(String name) {
+        return new LeafContractInput(name, OffsetDateTime.class);
     }
 
     public static LeafContractInput aFileContractInput(String name) {
