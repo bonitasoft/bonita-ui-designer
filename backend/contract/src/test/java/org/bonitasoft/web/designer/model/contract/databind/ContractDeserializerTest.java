@@ -14,6 +14,17 @@
  */
 package org.bonitasoft.web.designer.model.contract.databind;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
+
 import static com.google.common.base.Predicates.instanceOf;
 import static com.google.common.collect.Iterables.find;
 import static com.google.common.collect.Lists.newArrayList;
@@ -22,14 +33,6 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-
-import java.util.Date;
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-import org.junit.Test;
 
 public class ContractDeserializerTest {
 
@@ -48,6 +51,9 @@ public class ContractDeserializerTest {
         assertThat(find(contract.getInput(), instanceOf(NodeContractInput.class)).getInput()).extracting("name", "type").containsExactly(
                 tuple("title", String.class.getName()),
                 tuple("creationDate", Date.class.getName()),
+                tuple("creationLocalDate", LocalDate.class.getName()),
+                tuple("creationLocalDateTime", LocalDateTime.class.getName()),
+                tuple("creationOffsetDateTime", OffsetDateTime.class.getName()),
                 tuple("updateTime", Long.class.getName()));
     }
 

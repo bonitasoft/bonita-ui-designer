@@ -14,20 +14,16 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
-import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
-import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;
-import org.bonitasoft.web.designer.experimental.assertions.DatePickerWidgetAssert;
-import org.bonitasoft.web.designer.experimental.assertions.InputWidgetAssert;
-import org.bonitasoft.web.designer.experimental.assertions.TitleWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.*;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
@@ -88,6 +84,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(component).isInstanceOf(InputWidget.class);
     }
 
+    @Deprecated
     @Test
     public void create_a_datepicker_for_date_contract_input() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
@@ -95,6 +92,24 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aDateContractInput("creationDate"));
 
         assertThat(component).isInstanceOf(DatePickerWidget.class);
+    }
+
+    @Test
+    public void create_a_datepicker_for_local_date_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
+
+        assertThat(component).isInstanceOf(DatePickerWidget.class);
+    }
+
+    @Test
+    public void create_a_datetimepicker_for_local_date_time_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
+
+        assertThat(component).isInstanceOf(DateTimePickerWidget.class);
     }
 
     @Test
@@ -118,13 +133,36 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("/bonita/API/formFileUpload");
     }
 
+    /**
+     * @Deprecated
+     */
     @Test
-    public void create_a_datepicker_for_date_contract_input_with_date_format() throws Exception {
+    public void should_create_a_datepicker_for_date_contract_input_with_date_format() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aDateContractInput("creationDate"));
 
         DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
+    }
+
+    @Test
+    public void should_create_a_datepicker_for_date_contract_input_with_local_date_format() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
+
+        DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
+    }
+
+
+    @Test
+    public void should_create_a_datetimepicker_for_date_contract_input_with_local_date_time_format() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory.createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
+
+        DateTimePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
+        DateTimePickerWidgetAssert.assertThat(component).hasTimeFormat("h:mm:ss a");
     }
 
     @Test
@@ -223,10 +261,37 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void date_contract_input_is_supported() throws Exception {
+    public void should_be_supported_date_contract_input() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        boolean isSupported = elementFactory.isSupported(aDateContractInput("creationDate"));
+        boolean isSupported = elementFactory.isSupported(aLocalDateContractInput("creationDate"));
+
+        assertThat(isSupported).isTrue();
+    }
+
+    @Test
+    public void should_be_supported_local_date_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        boolean isSupported = elementFactory.isSupported(aLocalDateContractInput("creationLocalDate"));
+
+        assertThat(isSupported).isTrue();
+    }
+
+    @Test
+    public void should_be_supported_local_date_time_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        boolean isSupported = elementFactory.isSupported(aLocalDateTimeContractInput("creationLocalDateTime"));
+
+        assertThat(isSupported).isTrue();
+    }
+
+    @Test
+    public void should_be_supported_local_offset_date_time_contract_input() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        boolean isSupported = elementFactory.isSupported(aLocalDateTimeContractInput("creationOffsetDateTime"));
 
         assertThat(isSupported).isTrue();
     }

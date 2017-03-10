@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-public class DatePickerWidget extends InputWidget {
+public class DateTimePickerWidget extends InputWidget {
 
-    private static final String DATE_PICKER_WIDGET_ID = "pbDatePicker";
+    private static final String DATE_TIME_PICKER_WIDGET_ID = "pbDateTimePicker";
     private String dateFormat;
-    private boolean showToday = true;
+    private String timeFormat;
+    private boolean showNow = true;
     private boolean forceUTC = false;
 
-    public DatePickerWidget() {
-        super(DATE_PICKER_WIDGET_ID);
+    public DateTimePickerWidget() {
+        super(DATE_TIME_PICKER_WIDGET_ID);
     }
 
     public String getDateFormat() {
@@ -41,12 +42,17 @@ public class DatePickerWidget extends InputWidget {
         this.forceUTC = forceUTC;
     }
 
-    public boolean isShowToday() {
-        return showToday;
+    public String getTimeFormat(){ return timeFormat;}
+
+    public void setTimeFormat(String timeFormat) {
+        this.timeFormat = timeFormat;
     }
 
-    public void setShowToday(boolean showToday) {
-        this.showToday = showToday;
+    public boolean isShowNow() {
+        return showNow;
     }
 
+    public void setShowNow(boolean showNow) {
+        this.showNow = showNow;
+    }
 }

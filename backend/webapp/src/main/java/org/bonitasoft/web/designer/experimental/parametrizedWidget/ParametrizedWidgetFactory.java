@@ -14,14 +14,16 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import java.io.File;
-import java.util.Date;
-
+import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 
-import com.google.common.base.CaseFormat;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 public class ParametrizedWidgetFactory {
 
@@ -36,9 +38,16 @@ public class ParametrizedWidgetFactory {
             inputWidget.setType(InputType.NUMBER);
             return inputWidget;
         }
-        if (aDateInput(input)) {
+        if (aLocalDateInput(input) || aDateInput(input)) {
             return createDatePicker(input);
         }
+        if (aLocalDateTimeInput(input)) {
+            return createDateTimePicker(input, false);
+        }
+        if (aOffsetDateTimeInput(input)) {
+            return createDateTimePicker(input, true);
+        }
+
         if (aBooleanInput(input)) {
             return createCheckBox(input);
         }
@@ -57,7 +66,7 @@ public class ParametrizedWidgetFactory {
     }
 
     public boolean isSupported(ContractInput input) {
-        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aBooleanInput(input) || aFileInput(input);
+        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aLocalDateInput(input) || aLocalDateTimeInput(input) || aOffsetDateTimeInput(input) || aBooleanInput(input) || aFileInput(input);
     }
 
     // contract sent by studio contain things like that "java.lang.Boolean" for type
@@ -81,6 +90,14 @@ public class ParametrizedWidgetFactory {
         return datePickerComponent;
     }
 
+    protected DateTimePickerWidget createDateTimePicker(ContractInput input, boolean forceUTC) {
+        DateTimePickerWidget dateTimePickerComponent = inputDefaultWidgetParameters(input, new DateTimePickerWidget());
+        dateTimePickerComponent.setDateFormat("MM/dd/yyyy");
+        dateTimePickerComponent.setTimeFormat("h:mm:ss a");
+        dateTimePickerComponent.setForceUTC(forceUTC);
+        return dateTimePickerComponent;
+    }
+
     public WidgetContainer createWidgetContainer() {
         WidgetContainer container = new WidgetContainer();
         return container;
@@ -97,8 +114,26 @@ public class ParametrizedWidgetFactory {
         return inputComponent;
     }
 
+
+
+    /**
+     * @deprecated
+     * Type Date is deprecated in studio, prefer use type LocalDate.
+     */
+    @Deprecated
     private boolean aDateInput(ContractInput input) {
         return Date.class.getName().equals(input.getType());
+    }
+    private boolean aLocalDateInput(ContractInput input) {
+        return LocalDate.class.getName().equals(input.getType());
+    }
+
+    private boolean aLocalDateTimeInput(ContractInput input) {
+        return LocalDateTime.class.getName().equals(input.getType());
+    }
+
+    private boolean aOffsetDateTimeInput(ContractInput input) {
+        return input.getType() != null && input.getType().equals(OffsetDateTime.class.getName());
     }
 
     private boolean aNumericInput(ContractInput input) {

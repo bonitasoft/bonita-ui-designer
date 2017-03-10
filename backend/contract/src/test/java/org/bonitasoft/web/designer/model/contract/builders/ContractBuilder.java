@@ -14,16 +14,10 @@
  */
 package org.bonitasoft.web.designer.model.contract.builders;
 
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 public class ContractBuilder {
 
@@ -54,7 +48,11 @@ public class ContractBuilder {
                 aNodeContractInput("ticket").withInput(
                         aStringContractInput("title"),
                         aDateContractInput("creationDate"),
+                        aLocalDateContractInput("creationLocalDate"),
+                        aLocalDateTimeContractInput("creationLocalDateTime"),
+                        aOffsetDateTimeContractInput("creationOffsetDateTime"),
                         aLongContractInput("updateTime")).build()).build();
+
     }
 
     public static Contract aContractWithMultipleInput() {
