@@ -1,24 +1,21 @@
-function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale, $bsDatepicker) {
+function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale, $bsDatepicker, moment) {
 
   'use strict';
 
   this.name = widgetNameFactory.getName('pbDateTimepicker');
   this.firstDayOfWeek = ($locale && $locale.DATETIME_FORMATS && $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK) || 0;
-  this.timezone = $scope.properties.withTimeZone ? null : 'UTC';
 
   $bsDatepicker.defaults.keyboard = false;
 
   this.setDateAndTimeToNow = function() {
-    var now = new Date();
-    if (!$scope.properties.withTimeZone) {
-      //We need to add this offset for the displayed date to be correct
-      if (now.getTimezoneOffset() > 0) {
-        now.setTime(now.getTime() + (now.getTimezoneOffset() * 60000));
-      } else if (now.getTimezoneOffset() < 0) {
-        now.setTime(now.getTime() - (now.getTimezoneOffset() * 60000));
-      }
+    var isoFormat = 'YYYY-MM-DDTHH:mm:ss';
+    if ($scope.properties.withTimeZone) {
+      var now = new moment().utc();
+      $scope.properties.value = now.format(isoFormat) + 'Z';
+    } else {
+      var now = new moment();
+      $scope.properties.value = now.format(isoFormat);
     }
-    $scope.properties.value = now;
   };
 
   this.openDatePicker = function () {
