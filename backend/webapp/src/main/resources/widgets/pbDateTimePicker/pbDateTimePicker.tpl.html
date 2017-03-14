@@ -16,6 +16,8 @@
                 <input class="form-control"
                        name="{{ctrl.name}}date"
                        type="text"
+                       data-date-type="{{properties.withTimeZone ? 'iso' : 'string'}}"
+                       data-model-date-format="{{properties.withTimeZone ? null : 'yyyy-MM-ddTHH:mm:ss'}}"
                        placeholder="{{properties.placeholder | uiTranslate}}"
                        ng-model="properties.value"
                        ng-readonly="properties.readOnly"
@@ -23,7 +25,6 @@
                        bs-datepicker
                        data-container="body"
                        data-autoclose="1"
-                       data-timezone="{{ctrl.timezone}}"
                        data-date-format="{{properties.dateFormat | uiTranslate}}"
                        data-trigger="focus"
                        data-start-week="{{ctrl.firstDayOfWeek}}">
@@ -46,6 +47,8 @@
               <input class="form-control"
                      name="{{ctrl.name}}time"
                      type="text"
+                     data-time-type="{{properties.withTimeZone ? 'iso' : 'string'}}"
+                     data-model-time-format="{{properties.withTimeZone ? null : 'yyyy-MM-ddTHH:mm:ss'}}"
                      placeholder="{{properties.timePlaceholder | uiTranslate}}"
                      ng-model="properties.value"
                      ng-readonly="properties.readOnly"
@@ -53,7 +56,6 @@
                      bs-timepicker
                      data-container="body"
                      data-autoclose="0"
-                     data-timezone="{{ctrl.timezone}}"
                      data-time-format="{{properties.timeFormat | uiTranslate}}"
                      data-trigger="focus">
 
