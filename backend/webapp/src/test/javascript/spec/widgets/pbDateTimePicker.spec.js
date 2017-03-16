@@ -115,7 +115,7 @@ describe('pbDateTimePicker', function () {
       expect(element.find('.form-horizontal').length).toBe(1);
     });
 
-    it('should not be there when displayLabel is falsy', function () {
+    it('should not be there when displayLabel is false', function () {
       scope.properties.labelHidden = true;
       scope.$apply();
 
@@ -332,6 +332,29 @@ describe('pbDateTimePicker', function () {
       element.appendTo(body);
       scope.$apply();
       expect(element.find('input').length).toBe(2);
+    });
+
+    it('should display the time input on the same line as the date input if inlineInput property is true', function () {
+      scope.properties.inlineInput = true;
+      element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      element.appendTo(body);
+      scope.$apply();
+
+      var input = element.find('.form-inline');
+
+      expect(input.length).toBe(1);
+    });
+
+    it('should display the time input below the date input if inlineInput property is false', function () {
+      scope.properties.inlineInput = false;
+      element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      element.appendTo(body);
+      scope.$apply();
+
+      var input = element.find('.form-inline');
+
+      expect(input.length).toBe(0);
+
     });
   });
 

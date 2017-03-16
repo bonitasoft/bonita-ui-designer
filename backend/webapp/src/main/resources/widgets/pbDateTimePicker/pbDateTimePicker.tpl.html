@@ -2,14 +2,13 @@
     'form-horizontal': properties.labelPosition === 'left' && !properties.labelHidden,
     'row': properties.labelPosition === 'top' && !properties.labelHidden || properties.labelHidden
     }">
-    <div class="form-group">
+    <div class="{{properties.inlineInput ? 'form-inline' : 'form-group '}}">
         <label
             ng-if="!properties.labelHidden"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
             {{ properties.label | uiTranslate }}
         </label>
-
         <div
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <p class="input-group">
@@ -29,11 +28,6 @@
                        data-trigger="focus"
                        data-start-week="{{ctrl.firstDayOfWeek}}">
                 <span class="input-group-btn">
-                    <button ng-if="properties.showNow" type="button" class="btn btn-default now"
-                            ng-click="ctrl.setDateAndTimeToNow()"
-                            ng-disabled="properties.readOnly" ui-translate>
-                           Now
-                    </button>
                     <button type="button" class="btn btn-default calendar"
                             ng-click="ctrl.openDatePicker()"
                             ng-disabled="properties.readOnly">
@@ -41,8 +35,6 @@
                     </button>
                 </span>
             </p>
-            <div ng-messages="($form[ctrl.name+'date'].$dirty && $form[ctrl.name +'date'].$error)"
-                 ng-messages-include="forms-generic-errors.html" role="alert"></div>
             <p class="input-group">
               <input class="form-control"
                      name="{{ctrl.name}}time"
@@ -57,6 +49,10 @@
                      data-container="body"
                      data-autoclose="0"
                      data-time-format="{{properties.timeFormat | uiTranslate}}"
+                     data-length="1"
+                     data-minute-step="1"
+                     data-second-step="1"
+                     data-arrow-behavior="picker"
                      data-trigger="focus">
 
                   <span class="input-group-btn">
@@ -65,9 +61,14 @@
                               ng-disabled="properties.readOnly">
                         <i class="glyphicon glyphicon-time"></i>
                       </button>
+                      <button ng-if="properties.showNow && !properties.readOnly" type="button" class="btn btn-default now"
+                              ng-click="ctrl.setDateAndTimeToNow()" ui-translate>
+                           Now
+                    </button>
                   </span>
             </p>
-            <div ng-messages="($form[ctrl.name+'time'].$dirty && $form[ctrl.name+'time'].$error)"
+            <div ng-messages="($form[ctrl.name+'time'].$dirty && $form[ctrl.name+'time'].$error) ||
+                              ($form[ctrl.name+'date'].$dirty && $form[ctrl.name +'date'].$error)"
                  ng-messages-include="forms-generic-errors.html" role="alert"></div>
         </div>
     </div>
