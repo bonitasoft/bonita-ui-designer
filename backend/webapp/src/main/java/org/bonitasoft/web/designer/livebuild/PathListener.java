@@ -19,9 +19,6 @@ import java.nio.file.Path;
 
 public interface PathListener {
 
-    void pathCreated(Path path) throws Exception;
+    void onChange(Path path) throws Exception;
 
-    void pathDeleted(Path path) throws Exception;
-
-    void pathChanged(Path path)throws Exception;
 }

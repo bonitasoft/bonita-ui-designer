@@ -35,21 +35,24 @@ public class Watcher {
 
     private Optional<Long> delay = Optional.empty();
 
+    /**
+     * Monitor a directory recursively and trigger an event whenever a file is created or updated
+     */
     public void watch(Path path, final PathListener pathListener) throws IOException {
         DefaultFileMonitor monitor = new DefaultFileMonitor(new FileListener() {
             @Override
             public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathCreated(resolve(fileChangeEvent));
+                pathListener.onChange(resolve(fileChangeEvent));
             }
 
             @Override
             public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathDeleted(resolve(fileChangeEvent));
+                // DO NOTHING
             }
 
             @Override
             public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
-                pathListener.pathChanged(resolve(fileChangeEvent));
+                pathListener.onChange(resolve(fileChangeEvent));
             }
         });
         monitor.setRecursive(true);

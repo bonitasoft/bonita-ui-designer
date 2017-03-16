@@ -57,22 +57,7 @@ public class LiveMigration<A extends DesignerArtifact> {
             }
         });
 
-        repository.watch(new PathListener() {
-
-            @Override
-            public void pathCreated(Path path) {
-                migrate(repository, path);
-            }
-
-            @Override
-            public void pathChanged(Path path) {
-                migrate(repository, path);
-            }
-
-            @Override
-            public void pathDeleted(Path path) {
-            }
-        });
+        repository.watch(path -> migrate(repository, path));
     }
 
     private void migrate(Repository<A> repository, Path path) {
