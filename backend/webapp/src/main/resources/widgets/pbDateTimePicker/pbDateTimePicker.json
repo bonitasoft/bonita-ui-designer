@@ -30,6 +30,14 @@
       "bond": "constant"
     },
     {
+      "label": "Inline",
+      "help": "Set the input time on the same line as the input date" ,
+      "name": "inlineInput",
+      "type": "boolean",
+      "defaultValue": true,
+      "bond": "constant"
+    },
+    {
       "label": "Label",
       "name": "label",
       "type": "text",
