@@ -56,9 +56,7 @@ public class WatcherTest {
         Path file = Files.createFile(subDirectory.resolve("file"));
 
         Thread.sleep(SLEEP_DELAY);
-        assertThat(listener.getCreated()).containsExactly(file);
-        assertThat(listener.getChanged()).isEmpty();
-        assertThat(listener.getDeleted()).isEmpty();
+        assertThat(listener.getChanged()).containsExactly(file);
     }
 
     @Test
@@ -71,52 +69,15 @@ public class WatcherTest {
         Files.write(existingFile, "hello".getBytes(), StandardOpenOption.APPEND);
 
         Thread.sleep(SLEEP_DELAY);
-        assertThat(listener.getCreated()).isEmpty();
         assertThat(listener.getChanged()).containsExactly(existingFile);
-        assertThat(listener.getDeleted()).isEmpty();
-    }
-
-    @Test
-    public void should_trigger_a_deleted_event_when_a_file_is_deleted() throws Exception {
-        Path existingFile = Files.createFile(subDirectory.resolve("file"));
-        TestPathListener listener = new TestPathListener();
-        watcher.watch(folder.toPath(), listener);
-
-        Files.delete(existingFile);
-
-        Thread.sleep(SLEEP_DELAY);
-        assertThat(listener.getCreated()).isEmpty();
-        assertThat(listener.getChanged()).isEmpty();
-        assertThat(listener.getDeleted()).containsExactly(existingFile);
     }
 
     private class TestPathListener implements PathListener {
-        final List<Path> created= new ArrayList<>();
-        final List<Path> deleted = new ArrayList<>();
         final List<Path> changed = new ArrayList<>();
 
-
         @Override
-        public void pathCreated(Path path) throws Exception {
-            created.add(path);
-        }
-
-        @Override
-        public void pathDeleted(Path path) throws Exception {
-            deleted.add(path);
-        }
-
-        @Override
-        public void pathChanged(Path path) throws Exception {
+        public void onChange(Path path) throws Exception {
             changed.add(path);
-        }
-
-        public List<Path> getCreated() {
-            return created;
-        }
-
-        public List<Path> getDeleted() {
-            return deleted;
         }
 
         public List<Path> getChanged() {

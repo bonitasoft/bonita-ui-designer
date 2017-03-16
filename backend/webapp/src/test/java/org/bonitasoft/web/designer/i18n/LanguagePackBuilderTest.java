@@ -27,7 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.livebuild.BuilderFileListener;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.fedorahosted.tennera.jgettext.PoParser;
@@ -76,7 +76,7 @@ public class LanguagePackBuilderTest {
 
         builder.start(path);
 
-        verify(watcher).watch(eq(path), any(BuilderFileListener.class));
+        verify(watcher).watch(eq(path), any(PathListener.class));
     }
 
     @Test

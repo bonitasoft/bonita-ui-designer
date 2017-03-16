@@ -441,21 +441,7 @@ public class WidgetRepositoryTest {
 
         final List<Path> createdPaths = new ArrayList<>();
 
-        widgetRepository.watch(new PathListener() {
-
-            @Override
-            public void pathCreated(Path path) {
-                createdPaths.add(path);
-            }
-
-            @Override
-            public void pathDeleted(Path path) {
-            }
-
-            @Override
-            public void pathChanged(Path path) {
-            }
-        });
+        widgetRepository.watch(path -> createdPaths.add(path));
 
         File file = temporaryFolder.newFile("file");
 

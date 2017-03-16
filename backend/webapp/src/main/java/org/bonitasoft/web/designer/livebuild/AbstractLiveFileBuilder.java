@@ -14,14 +14,14 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.Files.walkFileTree;
-
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+
+import static java.nio.file.FileVisitResult.CONTINUE;
+import static java.nio.file.Files.walkFileTree;
 
 public abstract class AbstractLiveFileBuilder {
 
@@ -37,15 +37,19 @@ public abstract class AbstractLiveFileBuilder {
 
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                if (isBuildable(path.toFile().getPath())) {
-                    build(path);
-                }
+                buildIfNeeded(path);
                 return CONTINUE;
             }
         });
 
         // now on build on change
-        watcher.watch(root, new BuilderFileListener(this));
+        watcher.watch(root, path -> buildIfNeeded(path));
+    }
+
+    private void buildIfNeeded(Path path) throws IOException {
+        if (isBuildable(path.toFile().getPath())) {
+            build(path);
+        }
     }
 
     public abstract void build(Path path) throws IOException;

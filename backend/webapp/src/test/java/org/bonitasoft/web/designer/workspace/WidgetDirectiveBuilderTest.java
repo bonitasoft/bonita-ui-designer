@@ -28,7 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.livebuild.BuilderFileListener;
+import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -113,7 +113,7 @@ public class WidgetDirectiveBuilderTest {
 
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        verify(watcher).watch(eq(widgetRepositoryDirectory.getRoot().toPath()), any(BuilderFileListener.class));
+        verify(watcher).watch(eq(widgetRepositoryDirectory.getRoot().toPath()), any(PathListener.class));
     }
 
     @Test
