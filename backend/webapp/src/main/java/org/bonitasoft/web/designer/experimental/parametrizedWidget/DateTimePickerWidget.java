@@ -20,7 +20,7 @@ public class DateTimePickerWidget extends InputWidget {
     private String dateFormat;
     private String timeFormat;
     private boolean showNow = true;
-    private boolean forceUTC = false;
+    private boolean withTimeZone = false;
 
     public DateTimePickerWidget() {
         super(DATE_TIME_PICKER_WIDGET_ID);
@@ -34,12 +34,12 @@ public class DateTimePickerWidget extends InputWidget {
         this.dateFormat = dateFormat;
     }
 
-    public boolean isForceUTC() {
-        return forceUTC;
+    public boolean isWithTimeZone() {
+        return withTimeZone;
     }
 
-    public void setForceUTC(boolean forceUTC) {
-        this.forceUTC = forceUTC;
+    public void setWithTimeZone(boolean withTimeZone) {
+        this.withTimeZone = withTimeZone;
     }
 
     public String getTimeFormat(){ return timeFormat;}

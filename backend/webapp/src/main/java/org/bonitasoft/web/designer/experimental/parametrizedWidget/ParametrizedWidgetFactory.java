@@ -90,11 +90,11 @@ public class ParametrizedWidgetFactory {
         return datePickerComponent;
     }
 
-    protected DateTimePickerWidget createDateTimePicker(ContractInput input, boolean forceUTC) {
+    protected DateTimePickerWidget createDateTimePicker(ContractInput input, boolean withTimeZone) {
         DateTimePickerWidget dateTimePickerComponent = inputDefaultWidgetParameters(input, new DateTimePickerWidget());
         dateTimePickerComponent.setDateFormat("MM/dd/yyyy");
         dateTimePickerComponent.setTimeFormat("h:mm:ss a");
-        dateTimePickerComponent.setForceUTC(forceUTC);
+        dateTimePickerComponent.setWithTimeZone(withTimeZone);
         return dateTimePickerComponent;
     }
 
@@ -133,7 +133,7 @@ public class ParametrizedWidgetFactory {
     }
 
     private boolean aOffsetDateTimeInput(ContractInput input) {
-        return input.getType() != null && input.getType().equals(OffsetDateTime.class.getName());
+        return OffsetDateTime.class.getName().equals(input.getType());
     }
 
     private boolean aNumericInput(ContractInput input) {

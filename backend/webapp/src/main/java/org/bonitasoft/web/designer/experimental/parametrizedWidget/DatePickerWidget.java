@@ -19,7 +19,6 @@ public class DatePickerWidget extends InputWidget {
     private static final String DATE_PICKER_WIDGET_ID = "pbDatePicker";
     private String dateFormat;
     private boolean showToday = true;
-    private boolean forceUTC = false;
 
     public DatePickerWidget() {
         super(DATE_PICKER_WIDGET_ID);
@@ -31,14 +30,6 @@ public class DatePickerWidget extends InputWidget {
 
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
-    }
-
-    public boolean isForceUTC() {
-        return forceUTC;
-    }
-
-    public void setForceUTC(boolean forceUTC) {
-        this.forceUTC = forceUTC;
     }
 
     public boolean isShowToday() {
