@@ -2,7 +2,7 @@ describe('pbLink', function() {
 
   var compile, scope, dom, location;
 
-  beforeEach(module('bonitasoft.ui.widgets'));
+  beforeEach(module('bonitasoft.ui.services','bonitasoft.ui.widgets'));
 
   beforeEach(inject(function ($injector){
     compile = $injector.get('$compile');
@@ -81,7 +81,7 @@ describe('pbLink', function() {
     scope.properties.type = 'page';
     scope.properties.pageToken = 'mySecondPage';
     scope.$apply();
-    expect(dom.find('a').attr('href')).toContain('../mySecondPage');
+    expect(dom.find('a').attr('href')).toBe('http://localhost:8080/bonita/apps/myApp/mySecondPage');
   });
 
   it('should set URL when type is start process', function() {
@@ -109,6 +109,43 @@ describe('pbLink', function() {
     expect(dom.find('a').attr('href')).toBe('http://localhost:8080/bonita/portal/form/processInstance/12?app=myApp');
   });
 
+  it('should set URL when we are in preview and type is start process', function() {
+    location.absUrl = function() {
+      return 'http://localhost:8080/designer/preview/page/41f71aae-9980-45cb-84ff-cd9d9fddf0da/?time=1488459114511&app=myApp';
+    };
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'process';
+    scope.properties.processName = 'Pool';
+    scope.properties.processVersion = '1.0';
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBe('/bonita/portal/form/process/Pool/1.0?app=myApp');
+  });
+
+  it('should set URL when we are in preview and type is page', function() {
+    location.absUrl = function() {
+      return 'http://localhost:8080/designer/preview/page/41f71aae-9980-45cb-84ff-cd9d9fddf0da/?time=1488459114511&app=myApp';
+    };
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'page';
+    scope.properties.pageToken = 'mySecondPage';
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBe('/bonita/apps/myApp/mySecondPage');
+  });
+
+  it('should set URL when we are in preview and type is page and app token is not passed', function() {
+    location.absUrl = function() {
+      return 'http://localhost:8080/designer/preview/page/41f71aae-9980-45cb-84ff-cd9d9fddf0da/?time=1488459114511';
+    };
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'page';
+    scope.properties.pageToken = 'mySecondPage';
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBe('/bonita/apps/APP_TOKEN_PLACEHOLDER/mySecondPage');
+  });
+
   it('should set App token in URL when the property is set', function() {
     expect(dom.find('div').find('a').attr('href')).toBeUndefined();
     scope.properties.type = 'task';
@@ -116,6 +153,31 @@ describe('pbLink', function() {
     scope.properties.appToken = 'livingApp';
     scope.$apply();
     expect(dom.find('div').find('a').attr('href')).toBe('http://localhost:8080/bonita/portal/form/taskInstance/42?app=livingApp');
+  });
+
+  it('should set params in URL when the property is set and type is perform task', function() {
+    expect(dom.find('div').find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'task';
+    scope.properties.taskId = '42';
+    scope.properties.appToken = 'livingApp';
+    scope.properties.params = {
+      locale: 'fr',
+      tenant: 2
+    };
+    scope.$apply();
+    expect(dom.find('div').find('a').attr('href')).toBe('http://localhost:8080/bonita/portal/form/taskInstance/42?app=livingApp&locale=fr&tenant=2');
+  });
+
+  it('should set params in URL when the property is set and type is page', function() {
+    expect(dom.find('div').find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'page';
+    scope.properties.pageToken = 'mySecondPage';
+    scope.properties.params = {
+      locale: 'fr',
+      tenant: 2
+    };
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBe('http://localhost:8080/bonita/apps/myApp/mySecondPage?locale=fr&tenant=2');
   });
 
 });
