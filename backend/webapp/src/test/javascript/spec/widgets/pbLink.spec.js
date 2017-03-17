@@ -8,9 +8,9 @@ describe('pbLink', function() {
     compile = $injector.get('$compile');
     scope = $injector.get('$rootScope').$new();
     location = $injector.get('$location');
-    location.absUrl = function() {
-      return 'http://localhost:8080/bonita/portal/resource/app/myApp/tasks/content/?app=myApp'
-    };
+    spyOn(location, 'absUrl').and.callFake(function() {
+      return 'http://localhost:8080/bonita/portal/resource/app/myApp/tasks/content/?app=myApp';
+    });
     scope.properties = {
       type: 'URL',
       alignment: 'left',
