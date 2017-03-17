@@ -9,8 +9,12 @@ module.exports = function(gulp, config) {
     return new Server({
       configFile: paths.karma.configFile,
       singleRun: !watch
-    }, function () {
-      done();
+    }, function (exitCode) {
+      if(exitCode === 0){
+        done();
+      } else {
+        process.exit(exitCode);
+      }
     }).start();
   }
 

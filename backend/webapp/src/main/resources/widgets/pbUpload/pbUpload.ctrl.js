@@ -8,20 +8,31 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   this.startUploading = startUploading;
   this.uploadError = uploadError;
   this.uploadComplete = uploadComplete;
-  this.forceSubmit = forceSubmit;
 
   this.name = widgetNameFactory.getName('pbUpload');
-
-  var input = $element.find('input');
-  var form = $element.find('form');
 
   this.preventFocus = function($event) {
     $event.target.blur();
   };
 
-  input.on('change', forceSubmit);
+  this.submitForm = function() {
+    var form = $element.find('form');
+    form.triggerHandler('submit');
+    form[0].submit();
+  };
+
+  this.forceSubmit = function(event) {
+    if(!event.target.value) {
+      return;
+    }
+    ctrl.submitForm();
+    event.target.value = null;
+  };
+
+  var input = $element.find('input');
+  input.on('change', ctrl.forceSubmit);
   $scope.$on('$destroy', function() {
-    input.off('change', forceSubmit);
+    input.off('change', ctrl.forceSubmit);
   });
 
   $scope.$watch('properties.url', function(newUrl, oldUrl){
@@ -70,22 +81,12 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     //when the upload widget return a String, it means an error has occurred (with a html document as a response)
     //if it's not a string, we test if it contains some error message
     if(angular.isString(response) || (response && response.type && response.message)){
-      $log.warn('upload fails');
+      $log.warn('upload failed');
       ctrl.filemodel = '';
       ctrl.filename = gettextCatalog.getString('Upload failed');
       $scope.properties.errorContent = angular.isString(response) ? response : response.message;
       return;
     }
     $scope.properties.value = response;
-  }
-
-  function forceSubmit(event) {
-    if(!event.target.value) {
-      return;
-    }
-
-    form.triggerHandler('submit');
-    form[0].submit();
-    event.target.value = null;
   }
 }
