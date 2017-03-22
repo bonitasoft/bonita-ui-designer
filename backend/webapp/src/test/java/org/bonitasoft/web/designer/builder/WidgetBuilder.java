@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.collect.Sets;
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.joda.time.Instant;
@@ -35,7 +34,7 @@ public class WidgetBuilder {
     List<Property> properties = new ArrayList<>();
     private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
-    private Set<String> modules;
+    private Set<String> modules = new HashSet<>();
     private Set<String> authRules;
     private String version;
     private boolean favorite = false;

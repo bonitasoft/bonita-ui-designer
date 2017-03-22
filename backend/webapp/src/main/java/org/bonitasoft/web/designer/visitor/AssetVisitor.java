@@ -17,10 +17,10 @@ package org.bonitasoft.web.designer.visitor;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -45,17 +45,25 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
     @Override
     public Set<Asset> visit(Container container) {
-        return visitRows(container.getRows());
+        Set<Asset> assets = new HashSet<>();
+        assets.addAll(linkAssetToComponent(container.getId()));
+        assets.addAll(visitRows(container.getRows()));
+        return assets;
     }
 
     @Override
     public Set<Asset> visit(FormContainer formContainer) {
-        return formContainer.getContainer().accept(this);
+        Set<Asset> assets = new HashSet<>();
+        assets.addAll(linkAssetToComponent(formContainer.getId()));
+
+        assets.addAll(formContainer.getContainer().accept(this));
+        return assets;
     }
 
     @Override
     public Set<Asset> visit(TabsContainer tabsContainer) {
         Set<Asset> assets = new HashSet<>();
+        assets.addAll(linkAssetToComponent(tabsContainer.getId()));
         for (Tab tab : tabsContainer.getTabs()) {
             assets.addAll(tab.getContainer().accept(this));
         }
@@ -71,6 +79,16 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
             asset.setScope(AssetScope.WIDGET);
         }
         return widget.getAssets();
+    }
+
+    private List<Asset> linkAssetToComponent(String id) {
+        Widget widget = widgetRepository.get(id);
+        return widget.getAssets().stream().map(asset -> {
+            asset.setComponentId(widget.getId());
+            asset.setScope(AssetScope.WIDGET);
+            return asset;
+
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -89,7 +107,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
             assets.addAll(visitRows(previewable.getRows()));
 
             //User can exclude assets or specify a specific order in the page
-            for(Asset asset : assets){
+            for (Asset asset : assets) {
                 asset.setActive(!previewable.getInactiveAssets().contains(asset.getId()));
             }
         }

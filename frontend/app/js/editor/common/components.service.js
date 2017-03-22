@@ -39,13 +39,10 @@
     }
 
     function init(component, parentRow) {
-      // container have no id, only a type
-      var id = component.id || component.type;
-
-      if (!componentsMap.hasOwnProperty(id)) {
-        throw new Error('Component ' + id + ' has not been registered');
+      if (!componentsMap.hasOwnProperty(component.id)) {
+        throw new Error('Component ' + component.id + ' has not been registered');
       }
-      var fnInit = componentsMap[id].init;
+      var fnInit = componentsMap[component.id].init;
       fnInit(component, parentRow);
     }
 

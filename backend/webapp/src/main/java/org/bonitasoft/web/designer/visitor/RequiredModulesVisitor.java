@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptySet;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,17 +39,27 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
 
     @Override
     public Set<String> visit(Container container) {
-        return visitRows(container.getRows());
+        Set<String> modules = new HashSet<>();
+        Widget widget = widgetRepository.get(container.getId());
+        modules.addAll(widget.getRequiredModules());
+        modules.addAll(visitRows(container.getRows()));
+        return modules;
     }
 
     @Override
     public Set<String> visit(FormContainer formContainer) {
-        return formContainer.getContainer().accept(this);
+        Set<String> modules = new HashSet<>();
+        Widget widget = widgetRepository.get(formContainer.getId());
+        modules.addAll(widget.getRequiredModules());
+        modules.addAll(formContainer.getContainer().accept(this));
+        return modules;
     }
 
     @Override
     public Set<String> visit(TabsContainer tabsContainer) {
         Set<String> modules = new HashSet<>();
+        Widget widget = widgetRepository.get(tabsContainer.getId());
+        modules.addAll(widget.getRequiredModules());
         for (Tab tab : tabsContainer.getTabs()) {
             modules.addAll(tab.getContainer().accept(this));
         }
@@ -62,11 +69,7 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
     @Override
     public Set<String> visit(Component component) {
         Widget widget = widgetRepository.get(component.getId());
-        Set<String> modules = widget.getRequiredModules();
-        if (modules == null) {
-            return emptySet();
-        }
-        return modules;
+        return widget.getRequiredModules();
     }
 
     @Override

@@ -112,6 +112,7 @@ public class AssetVisitorTest {
         Component component1 = mockComponentFor(aWidget(), "id1", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
         Component component2 = mockComponentFor(aWidget(), "id2", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
 
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<Asset> assets = assetVisitor.visit(aContainer().with(component1, component2).build());
 
         assertThat(assets).extracting("name").containsExactly("myfile.js", "myfile.js");
@@ -119,26 +120,51 @@ public class AssetVisitorTest {
     }
 
     @Test
+    public void should_return_list_of_asset_needed_by_widgets_in_container_who_have_an_asset() throws Exception {
+        Component component1 = mockComponentFor(aWidget(), "id1", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), "id2", anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().assets(anAsset().withName("container.min.js").withType(AssetType.JAVASCRIPT)).build());
+        Set<Asset> assets = assetVisitor.visit(aContainer().with(component1, component2).build());
+
+        assertThat(assets).extracting("name").containsExactly("container.min.js", "myfile.js", "myfile.js");
+        assertThat(assets).extracting("componentId").contains("id2", "id1");
+    }
+
+    @Test
     public void should_return_list_of_asset_needed_by_widgets_in_formcontainer() throws Exception {
         Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
         Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.css").withType(AssetType.CSS));
-
+        when(widgetRepository.get("pbFormContainer")).thenReturn(aWidget().build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<Asset> assets = assetVisitor.visit(aFormContainer().with(
                 aContainer().with(component1, component2)).build());
 
         assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css");
     }
 
+    public void should_return_list_of_asset_needed_by_widgets_in_formcontainer_who_have_an_asset() throws Exception {
+        Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.css").withType(AssetType.CSS));
+        when(widgetRepository.get("pbFormContainer")).thenReturn(aWidget().assets(anAsset().withName("formContainer.min.js").withType(AssetType.JAVASCRIPT)).build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+        Set<Asset> assets = assetVisitor.visit(aFormContainer().with(
+                aContainer().with(component1, component2)).build());
+
+        assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css", "formContainer.min.js");
+    }
+
     @Test
     public void should_return_list_of_asset_needed_by_widgets_in_tabscontainer_plus_uibootstrap_which_is_needed_by_tabscontainer() throws Exception {
         Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
         Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.css").withType(AssetType.CSS));
-
+        when(widgetRepository.get("pbTabsContainer")).thenReturn(aWidget().assets(anAsset().withName("bootstrap.min.js").withType(AssetType.JAVASCRIPT)).build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<Asset> assets = assetVisitor.visit(aTabsContainer().with(
                 aTab().with(aContainer().with(component1)),
                 aTab().with(aContainer().with(component2))).build());
 
-        assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css");
+        assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css","bootstrap.min.js");
         assertThat(assets.iterator().next().getComponentId()).isNotEmpty();
 
     }

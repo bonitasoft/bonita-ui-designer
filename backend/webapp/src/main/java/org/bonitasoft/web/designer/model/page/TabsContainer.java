@@ -28,6 +28,14 @@ public class TabsContainer extends Component {
 
     private List<Tab> tabs;
 
+    // We override this id to make import of old pages enable. We do this to fix faster.
+    // It would be better to create a migration step for each page or widget
+    // This migration step will be migrate all element before 1.4.21 to add id for each type tabsContainer.
+    @Override
+    public String getId() {
+        return "pbTabsContainer";
+    }
+
     @JsonView({JsonViewPersistence.class})
     public List<Tab> getTabs() {
         return tabs;

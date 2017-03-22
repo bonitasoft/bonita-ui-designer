@@ -36,6 +36,14 @@ public class Container extends Component implements ElementContainer {
 
     private List<List<Element>> rows = new ArrayList<>();
 
+    // We override this id to make import of old pages enable. We do this to fix faster.
+    // It would be better to create a migration step for each page or widget
+    // This migration step will be migrate all element before 1.4.21 to add id for each type container.
+    @Override
+    public String getId() {
+        return "pbContainer";
+    }
+
     @JsonView({JsonViewPersistence.class})
     public List<List<Element>> getRows() {
         return rows;
