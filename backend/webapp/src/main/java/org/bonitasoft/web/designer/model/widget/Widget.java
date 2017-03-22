@@ -14,10 +14,8 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.find;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,10 +35,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
@@ -65,7 +63,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private List<Property> properties = new ArrayList<>();
     private Map<String, List<Identifiable>> usedBy; // list of element that use this widget
     private Set<Asset> assets = new HashSet<>();
-    private Set<String> requiredModules;
+    private Set<String> requiredModules = new HashSet<>();
     private Set<String> authRules;
     private String type = "widget";
 

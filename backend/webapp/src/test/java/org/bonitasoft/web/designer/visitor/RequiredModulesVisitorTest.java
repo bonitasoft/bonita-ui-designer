@@ -69,17 +69,28 @@ public class RequiredModulesVisitorTest {
     public void should_return_list_of_module_needed_by_widgets_in_container() throws Exception {
         Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
-
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<String> modules = requiredModulesVisitor.visit(aContainer().with(component1, component2).build());
 
         assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
     }
 
     @Test
+    public void should_return_list_of_module_needed_by_widgets_in_container_who_has_a_required_module() throws Exception {
+        Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
+        Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().modules("containerModule").build());
+        Set<String> modules = requiredModulesVisitor.visit(aContainer().with(component1, component2).build());
+
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "containerModule");
+    }
+
+    @Test
     public void should_return_list_of_module_needed_by_widgets_in_formcontainer() throws Exception {
         Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
-
+        when(widgetRepository.get("pbFormContainer")).thenReturn(aWidget().build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<String> modules = requiredModulesVisitor.visit(aFormContainer().with(
                 aContainer().with(component1, component2)).build());
 
@@ -90,12 +101,26 @@ public class RequiredModulesVisitorTest {
     public void should_return_list_of_module_needed_by_widgets_in_tabscontainer() throws Exception {
         Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
-
+        when(widgetRepository.get("pbTabsContainer")).thenReturn(aWidget().build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<String> modules = requiredModulesVisitor.visit(aTabsContainer().with(
                 aTab().with(aContainer().with(component1)),
                 aTab().with(aContainer().with(component2))).build());
 
         assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
+    }
+
+    @Test
+    public void should_return_list_of_module_needed_by_widgets_in_tabscontainer_who_has_a_required_module() throws Exception {
+        Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
+        Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
+        when(widgetRepository.get("pbTabsContainer")).thenReturn(aWidget().modules("tabContainerModule").build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+        Set<String> modules = requiredModulesVisitor.visit(aTabsContainer().with(
+                aTab().with(aContainer().with(component1)),
+                aTab().with(aContainer().with(component2))).build());
+
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "tabContainerModule");
     }
 
     @Test

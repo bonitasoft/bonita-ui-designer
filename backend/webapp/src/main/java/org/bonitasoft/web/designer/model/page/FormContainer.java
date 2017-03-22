@@ -29,6 +29,15 @@ public class FormContainer extends Component {
 
     private Container container = new Container();
 
+
+    // We override this id to make import of old pages enable. We do this to fix faster.
+    // It would be better to create a migration step for each page or widget
+    // This migration step will be migrate all element before 1.4.21 to add id for each type FormContainer.
+    @Override
+    public String getId() {
+        return "pbFormContainer";
+    }
+
     @JsonView({JsonViewPersistence.class})
     public Container getContainer() {
         return container;
