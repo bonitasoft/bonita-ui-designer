@@ -26,9 +26,11 @@ public class ContainerBuilder extends ElementBuilder<Container> {
 
     private Container container;
     private String reference = "container-reference";
+    private String id = "pbContainer";
 
     private ContainerBuilder() {
         container = new Container();
+        container.setId(id);
         container.setReference(reference);
     }
 

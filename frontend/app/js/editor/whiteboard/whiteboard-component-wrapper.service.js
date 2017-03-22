@@ -23,12 +23,12 @@
   function whiteboardComponentWrapper(whiteboardService, components, componentId) {
 
     var service = {
-      wrapPage: wrapPage,
-      wrapWidget: wrapWidget,
-      wrapContainer: wrapContainer,
-      wrapTabsContainer: wrapTabsContainer,
-      wrapTab: wrapTab,
-      wrapFormContainer: wrapFormContainer
+      wrapPage,
+      wrapWidget,
+      wrapContainer,
+      wrapTabsContainer,
+      wrapTab,
+      wrapFormContainer
     };
     return service;
 
@@ -79,7 +79,7 @@
 
     function wrapContainer(container, element, parentRow) {
       var component = angular.extend(element, {
-        $$id: componentId.getNextId('container'),
+        $$id: componentId.getNextId(container.id),
         $$widget: angular.copy(container),
         $$templateUrl: 'js/editor/whiteboard/container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/container-properties-template.html',
@@ -94,7 +94,7 @@
 
     function wrapTabsContainer(tabContainer, element, parentRow) {
       var component = angular.extend(element, {
-        $$id: componentId.getNextId('tabsContainer'),
+        $$id: componentId.getNextId(tabContainer.id),
         $$widget: angular.copy(tabContainer),
         $$templateUrl: 'js/editor/whiteboard/tabs-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
@@ -105,7 +105,7 @@
 
       element.tabs.forEach(function(tab) {
         service.wrapTab(tab, element);
-        service.wrapContainer({}, tab.container);
+        service.wrapContainer({ id: 'pbContainer' }, tab.container);
       });
 
       return component;
@@ -125,7 +125,7 @@
 
     function wrapFormContainer(formContainer, element, parentRow) {
       var component = angular.extend(element, {
-        $$id: componentId.getNextId('formContainer'),
+        $$id: componentId.getNextId(formContainer.id),
         $$widget: angular.copy(formContainer),
         $$templateUrl: 'js/editor/whiteboard/form-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
@@ -134,7 +134,7 @@
         triggerAdded: angular.noop
       });
 
-      service.wrapContainer({}, element.container);
+      service.wrapContainer({ id: 'pbContainer' }, element.container);
       return component;
     }
 

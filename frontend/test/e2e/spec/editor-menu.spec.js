@@ -15,11 +15,11 @@ describe('editor menu', function() {
     editor.setWidth('6');
 
     // add a label in the container
-    editor.addElement('pbParagraph').to('#container-0 .widget-placeholder');
+    editor.addElement('pbParagraph').to('#pbContainer-0 .widget-placeholder');
     editor.setWidth('4');
 
     // add an input in the container
-    editor.addElement('pbInput').to('#container-0 .widget-placeholder');
+    editor.addElement('pbInput').to('#pbContainer-0 .widget-placeholder');
     editor.setWidth('8');
 
     // add another container
@@ -27,11 +27,11 @@ describe('editor menu', function() {
     editor.setWidth('6');
 
     // add a label in the container
-    editor.addElement('pbParagraph').to('#container-1 .widget-placeholder');
+    editor.addElement('pbParagraph').to('#pbContainer-1 .widget-placeholder');
     editor.setWidth('4');
 
     // add an input in the container
-    editor.addElement('pbInput').to('#container-1 .widget-placeholder');
+    editor.addElement('pbInput').to('#pbContainer-1 .widget-placeholder');
     editor.setWidth('8');
 
     // add a name and save
@@ -46,19 +46,19 @@ describe('editor menu', function() {
   it('should load a page', function() {
     PageEditor.get('person-page');
     // then we should have a page with two containers, each with one label and an input
-    expect($$('#container-0').count()).toBe(1);
-    expect($$('#container-0 label').count()).toBe(1);
-    expect($$('#container-0 input').count()).toBe(1);
-    expect($$('#container-1').count()).toBe(1);
-    expect($$('#container-1 label').count()).toBe(1);
-    expect($$('#container-1 input').count()).toBe(1);
+    expect($$('#pbContainer-0').count()).toBe(1);
+    expect($$('#pbContainer-0 label').count()).toBe(1);
+    expect($$('#pbContainer-0 input').count()).toBe(1);
+    expect($$('#pbContainer-1').count()).toBe(1);
+    expect($$('#pbContainer-1 label').count()).toBe(1);
+    expect($$('#pbContainer-1 input').count()).toBe(1);
 
     // we should have the correct size
     // we use element(by.xpath('..')) to get the parent node
-    expect($('#container-0').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
-    expect($('#container-0').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
-    expect($('#container-1').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
-    expect($('#container-1').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
+    expect($('#pbContainer-0').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
+    expect($('#pbContainer-0').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
+    expect($('#pbContainer-1').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
+    expect($('#pbContainer-1').element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-4');
   });
 
   it('should allow to edit page data', function() {

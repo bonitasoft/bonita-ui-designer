@@ -110,17 +110,17 @@ var AssetPanel = require('./asset-panel.page');
 
     // add a container
     addContainer: function() {
-      this.addElement('container').to('.widget-placeholder', false, true);
+      this.addElement('pbContainer').to('.widget-placeholder', false, true);
     },
 
     // add a Tabs container
     addTabsContainer: function() {
-      this.addElement('tabsContainer').to('.widget-placeholder', false, true);
+      this.addElement('pbTabsContainer').to('.widget-placeholder', false, true);
     },
 
     // add a Tabs container
     addFormContainer: function() {
-      this.addElement('formContainer').to('.widget-placeholder', false, true);
+      this.addElement('pbFormContainer').to('.widget-placeholder', false, true);
     },
 
     dataPanel: function() {

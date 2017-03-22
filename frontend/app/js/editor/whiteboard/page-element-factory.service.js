@@ -18,6 +18,7 @@
 
     function createElement(type, definition) {
       return {
+        id: definition.id,
         type: type,
         dimension: resolutions.getDefaultDimension(),
         propertyValues: properties.computeValues(definition.properties)
@@ -31,15 +32,12 @@
      * @return {Object}           New component to add to the whiteboard
      */
     function createWidgetElement(widget) {
-      var element = createElement(getType(widget), widget);
-      return angular.extend(element, {
-        id: widget.id
-      });
+      return createElement(getType(widget), widget);
     }
 
     function getType(component) {
       // for now, page widget elements have type 'component'
-      return !component.type || component.type === 'widget' ? 'component' : component.type;
+      return !component.type || component.type === 'widget' ? 'component' : component.type;
     }
 
     function createContainerElement(container) {
@@ -65,6 +63,7 @@
       return {
         title: title,
         container: {
+          id: 'pbContainer',
           type: 'container',
           rows: [
             []
@@ -77,6 +76,7 @@
       var element = createElement('formContainer', formContainer);
       return angular.extend(element, {
         container: {
+          id: 'pbContainer',
           type: 'container',
           rows: [
             []

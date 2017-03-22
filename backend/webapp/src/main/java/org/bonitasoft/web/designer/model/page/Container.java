@@ -27,18 +27,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.experimental.mapping.FormScope;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
 @JsonTypeName("container")
-public class Container extends Element implements ElementContainer {
+public class Container extends Component implements ElementContainer {
 
     private List<List<Element>> rows = new ArrayList<>();
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public List<List<Element>> getRows() {
         return rows;
     }

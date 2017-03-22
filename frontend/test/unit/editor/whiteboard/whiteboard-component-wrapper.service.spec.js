@@ -42,12 +42,13 @@ describe('whiteboard component wrapper', function() {
 
   it('should init a container', function() {
     var containerDefinition = {
+      id: 'pbContainer',
       type: 'container'
     };
 
     service.wrapContainer(containerDefinition, item, parentRow);
 
-    expect(item.$$id).toBe('container-0');
+    expect(item.$$id).toBe('pbContainer-0');
     expect(item.$$widget).toEqual(containerDefinition);
     expect(item.$$widget).not.toBe(containerDefinition);
     expect(item.$$templateUrl).toBeDefined();
@@ -59,13 +60,13 @@ describe('whiteboard component wrapper', function() {
   it('should init a formContainer', function() {
     spyOn(service, 'wrapContainer');
     var formContainerDefinition = {
-      id: 'formContainer',
+      id: 'pbFormContainer',
       type: 'formContainer'
     };
 
     service.wrapFormContainer(formContainerDefinition, item, parentRow);
 
-    expect(item.$$id).toBe('formContainer-0');
+    expect(item.$$id).toBe('pbFormContainer-0');
     expect(item.$$widget).toEqual(formContainerDefinition);
     expect(item.$$widget).not.toBe(formContainerDefinition);
     expect(item.$$templateUrl).toBeDefined();
@@ -80,6 +81,7 @@ describe('whiteboard component wrapper', function() {
     item.tabs = [{
       title: 'tab1',
       container: {
+        id: 'pbContainer',
         type: 'container',
         rows: [
           []
@@ -88,6 +90,7 @@ describe('whiteboard component wrapper', function() {
     }, {
       title: 'tab2',
       container: {
+        id: 'pbContainer',
         type: 'container',
         rows: [
           []
@@ -95,13 +98,13 @@ describe('whiteboard component wrapper', function() {
       }
     }];
     var tabsContainerDefinition = {
-      id: 'tabsContainer',
+      id: 'pbTabsContainer',
       type: 'tabsContainer'
     };
 
     service.wrapTabsContainer(tabsContainerDefinition, item, parentRow);
 
-    expect(item.$$id).toBe('tabsContainer-0');
+    expect(item.$$id).toBe('pbTabsContainer-0');
     expect(item.$$widget).toEqual(tabsContainerDefinition);
     expect(item.$$widget).not.toBe(tabsContainerDefinition);
     expect(item.$$templateUrl).toBeDefined();

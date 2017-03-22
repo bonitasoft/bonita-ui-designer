@@ -95,24 +95,22 @@
 
     function paletteContainerWrapper(component) {
       let fns = {
-        container: {
+        pbContainer: {
           init: whiteboardComponentWrapper.wrapContainer,
           create: createContainer
         },
-        tabsContainer: {
+        pbTabsContainer: {
           init: whiteboardComponentWrapper.wrapTabsContainer,
           create: createTabsContainer
         },
-        formContainer: {
+        pbFormContainer: {
           init: whiteboardComponentWrapper.wrapFormContainer,
           create: createFormContainer
         }
       };
 
       var extended = properties.addCommonPropertiesTo(component);
-      // containers come from backend side with an id beginning with 'pb'
-      // Nevertheless on frontend side and in page model, we refer to them without this prefix so it is stripped
-      extended.id = stripPrefix(extended.id);
+
       return {
         component: extended,
         sectionName: gettext('widgets'),
@@ -120,10 +118,6 @@
         init: fns[extended.id].init.bind(null, extended),
         create: fns[extended.id].create.bind(null, extended)
       };
-    }
-
-    function stripPrefix(id) {
-      return id.startsWith('pb') ? id.charAt(2).toLowerCase() + id.slice(3) : id;
     }
 
     function createWidget(widget, parentRow) {
