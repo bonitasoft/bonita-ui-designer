@@ -131,7 +131,7 @@ describe('editor test', function() {
 
     editor.addWidget('pbParagraph');
     // add a container before the widget
-    editor.addElement('container').to('.dropZone', true, false);
+    editor.addElement('pbContainer').to('.dropZone', true, false);
     expect($$('container').count()).toBe(2);
 
     // container should be before component
@@ -146,7 +146,7 @@ describe('editor test', function() {
 
     editor.addWidget('pbParagraph');
     // add a container after the widget
-    editor.addElement('container').to('.dropZone', false, true);
+    editor.addElement('pbContainer').to('.dropZone', false, true);
     expect($$('container').count()).toBe(2);
 
     // container should be after component

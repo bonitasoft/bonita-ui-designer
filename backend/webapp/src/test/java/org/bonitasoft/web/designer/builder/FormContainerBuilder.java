@@ -22,10 +22,12 @@ public class FormContainerBuilder extends ElementBuilder<FormContainer> {
 
     private FormContainer formContainer;
     private String reference = "formcontainer-reference";
+    private String id = "pbFormContainer";
 
     private FormContainerBuilder() {
         formContainer = new FormContainer();
         formContainer.setReference(reference);
+        formContainer.setId(id);
     }
 
     public static FormContainerBuilder aFormContainer() {

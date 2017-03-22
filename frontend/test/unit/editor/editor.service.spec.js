@@ -35,6 +35,7 @@
         'rows': [
           [
             {
+              'id':'pbContainer',
               'type': 'container',
               'dimension': {'xs': 12},
               'rows': [
@@ -56,6 +57,7 @@
                 ],
                 [
                   {
+                    'id':'pbTabsContainer',
                     'type': 'tabsContainer',
                     'dimension': {'xs': 12},
                     'tabs': [
@@ -75,6 +77,7 @@
             }
           ], [
             {
+              'id':'pbFormContainer',
               'type': 'formContainer',
               'dimension': {
                 'xs': 12
@@ -157,7 +160,7 @@
 
       $rootScope.$apply();
 
-      expect(page.rows[0][0].$$id).toBe('container-0');
+      expect(page.rows[0][0].$$id).toBe('pbContainer-0');
       expect(page.rows[0][0].$$widget.name).toBe('Container');
       expect(page.rows[0][0].rows[0][0].$$id).toBe('component-0');
       expect(page.rows[0][0].rows[0][0].$$widget).toEqual(labelWidget);
@@ -169,11 +172,12 @@
       var tabsContainer = page.rows[0][0].rows[2][0];
       expect(tabsContainer.$$parentContainerRow.container).toBe(page.rows[0][0]);
       expect(tabsContainer.$$parentContainerRow.row).toBe(page.rows[0][0].rows[2]);
+      expect(tabsContainer.$$id).toBe('pbTabsContainer-0');
       expect(tabsContainer.$$widget.name).toBe('Tabs container');
       expect(tabsContainer.tabs[0].$$parentTabsContainer).toBe(tabsContainer);
 
       var formContainer = page.rows[1][0];
-      expect(formContainer.$$id).toBe('formContainer-0');
+      expect(formContainer.$$id).toBe('pbFormContainer-0');
       expect(formContainer.$$widget.name).toBe('Form container');
       expect(formContainer.$$parentContainerRow.container).toBe(page);
     });

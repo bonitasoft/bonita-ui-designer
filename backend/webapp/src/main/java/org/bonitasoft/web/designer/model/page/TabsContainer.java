@@ -24,7 +24,7 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
 @JsonTypeName("tabsContainer")
-public class TabsContainer extends Element {
+public class TabsContainer extends Component {
 
     private List<Tab> tabs;
 

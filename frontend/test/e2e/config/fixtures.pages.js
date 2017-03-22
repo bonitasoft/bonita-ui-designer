@@ -54,6 +54,7 @@
         ],
         rows: [
           [{
+            id: 'pbContainer',
             type: 'container',
             dimension: {
               xs: 4
@@ -147,6 +148,7 @@
               }]
             ]
           }, {
+            id: 'pbContainer',
             type: 'container',
             dimension: {
               xs: 4

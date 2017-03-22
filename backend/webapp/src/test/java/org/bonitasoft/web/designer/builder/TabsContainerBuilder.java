@@ -21,9 +21,12 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 
 public class TabsContainerBuilder extends ElementBuilder<TabsContainer> {
 
-    TabsContainer tabsContainer = new TabsContainer();
+    private TabsContainer tabsContainer;
+    private String id = "pbTabsContainer";
 
     private TabsContainerBuilder() {
+        tabsContainer = new TabsContainer();
+        tabsContainer.setId(id);
         tabsContainer.setTabs(new ArrayList<Tab>());
     }
 

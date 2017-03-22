@@ -54,6 +54,7 @@
 
     it('should create a page element for a container', function() {
       var container = {
+        id: 'pbContainer',
         properties: [
           {
             name: 'robert',
@@ -66,6 +67,7 @@
       var element = service.createContainerElement(container);
 
       expect(element).toEqual({
+        id: 'pbContainer',
         type: 'container',
         dimension: { xs: 12 },
         propertyValues: {
@@ -77,6 +79,7 @@
 
     it('should create a page element for a tabsContainer', function() {
       var tabsContainer = {
+        id: 'pbTabsContainer',
         properties: [
           {
             name: 'robert',
@@ -89,6 +92,7 @@
       var element = service.createTabsContainerElement(tabsContainer);
 
       expect(element).toEqual({
+        id: 'pbTabsContainer',
         type: 'tabsContainer',
         dimension: { xs: 12 },
         propertyValues: {
@@ -98,6 +102,7 @@
           {
             title: 'Tab 1',
             container: {
+              id: 'pbContainer',
               type: 'container',
               rows: [
                 []
@@ -107,6 +112,7 @@
           {
             title: 'Tab 2',
             container: {
+              id: 'pbContainer',
               type: 'container',
               rows: [
                 []
@@ -125,6 +131,7 @@
       expect(tab).toEqual({
         title: 'tab',
         container: {
+          id: 'pbContainer',
           type: 'container',
           rows: [
             []
@@ -135,6 +142,7 @@
 
     it('should create a page element for a form container', function() {
       var formContainer = {
+        id: 'pbFormContainer',
         properties: [
           {
             name: 'robert',
@@ -147,12 +155,14 @@
       var element = service.createFormContainerElement(formContainer);
 
       expect(element).toEqual({
+        id: 'pbFormContainer',
         type: 'formContainer',
         dimension: { xs: 12 },
         propertyValues: {
           robert: { type: 'constant', value: 'manger' }
         },
         container: {
+          id: 'pbContainer',
           type: 'container',
           rows: [
             []
