@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-02-28 23:05-0500\n"
+"PO-Revision-Date: 2017-03-17 14:16-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -79,6 +79,9 @@ msgstr "<strong>$index</strong> : l'index de l'itération courante de la collect
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong> : l'élément de l'itération courante"
 
+msgid "A JSON object"
+msgstr ""
+
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
 
@@ -144,6 +147,9 @@ msgstr "Ajouter à la collection "
 
 msgid "Added artifacts"
 msgstr "Artefacts ajoutés"
+
+msgid "Additional request parameters added to the query string"
+msgstr ""
 
 msgid "Alignment"
 msgstr "Alignement"
@@ -481,8 +487,11 @@ msgstr "Description"
 msgid "Details"
 msgstr "Détails"
 
-msgid "Determines the application theme that will be used by the target page"
-msgstr "Détermine le thème de l’application qui sera utilisé par la page cible"
+msgid "Determines target application. It is recommended not to hard code it."
+msgstr ""
+
+msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
+msgstr ""
 
 msgid "Disabled"
 msgstr "Désactivé"
@@ -1336,6 +1345,9 @@ msgstr "Paramètre d'URL"
 msgid "URL parameter name"
 msgstr "Nom du paramètre d'URL"
 
+msgid "URL parameters"
+msgstr ""
+
 msgid "URL to call"
 msgstr "URL à appeler"
 
@@ -1444,8 +1456,8 @@ msgstr "Widgets"
 msgid "Width"
 msgstr "Largeur"
 
-msgid "Will be retrieved from the URL if not set"
-msgstr "Sera récupéré de l’URL si la valeur n'est pas renseignée"
+msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
+msgstr ""
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "A l'intérieur d'une ligne, lorsque vous supprimez un widget ou un container, les éléments qui suivent sont déplacés vers la gauche"

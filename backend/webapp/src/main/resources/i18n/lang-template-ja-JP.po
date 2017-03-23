@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-02-28 23:09-0500\n"
+"PO-Revision-Date: 2017-03-17 14:19-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -79,6 +79,9 @@ msgstr "<strong>$index</strong>: コレクションの現在の反復処理の�
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: 現在の反復処理の要素"
 
+msgid "A JSON object"
+msgstr ""
+
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
 
@@ -144,6 +147,9 @@ msgstr "コレクションに追加"
 
 msgid "Added artifacts"
 msgstr "追加されたアーティファクト"
+
+msgid "Additional request parameters added to the query string"
+msgstr ""
 
 msgid "Alignment"
 msgstr "配置"
@@ -481,8 +487,11 @@ msgstr "説明"
 msgid "Details"
 msgstr "詳細情報"
 
-msgid "Determines the application theme that will be used by the target page"
-msgstr "ターゲット ページで使用するアプリケーションのテーマを指定します"
+msgid "Determines target application. It is recommended not to hard code it."
+msgstr ""
+
+msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
+msgstr ""
 
 msgid "Disabled"
 msgstr "無効"
@@ -1336,6 +1345,9 @@ msgstr "URL パラメータ"
 msgid "URL parameter name"
 msgstr "URL パラメータ名"
 
+msgid "URL parameters"
+msgstr ""
+
 msgid "URL to call"
 msgstr "コールするURL"
 
@@ -1444,8 +1456,8 @@ msgstr "ウィジェット"
 msgid "Width"
 msgstr "幅"
 
-msgid "Will be retrieved from the URL if not set"
-msgstr "未設定の場合、URL から取得する"
+msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
+msgstr ""
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "行の内部のウィジェットまたはコンテナーを削除すると、次に続く要素は左に移動します。"

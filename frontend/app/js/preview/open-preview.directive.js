@@ -30,11 +30,14 @@ class OpenPreviewCtrl {
     if (this.previewWindow) {
       this.previewWindow.focus();
     }
+    //Preview window is opened with a toolbar=1 option to make the URL editable (only works on Firefow unfortunately)
+    //See https://bugs.chromium.org/p/chromium/issues/detail?id=82522
+    //This is an improvement for BS-16078
     this.previewWindow = this.$window.open(this.$state.href(`designer.preview`, {
       resolution: this.resolutions.selected().key,
       id: this.artifactId,
       mode: this.mode
-    }), 'preview', 'width=1024,height=768,resizable=1,scrollbars=1');
+    }), 'preview', 'width=1024,height=768,toolbar=1,resizable=1,scrollbars=1');
   }
 }
 

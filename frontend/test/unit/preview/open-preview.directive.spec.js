@@ -36,7 +36,7 @@ describe('directive openPreview', function() {
       expect(controller.previewWindow).toBeUndefined();
       dom.find('button').click();
       expect($state.href).toHaveBeenCalledWith('designer.preview', { resolution: 'xs', id: '12345', mode: 'page' });
-      expect($window.open).toHaveBeenCalledWith('/preview?resolution=xs', 'preview', 'width=1024,height=768,resizable=1,scrollbars=1');
+      expect($window.open).toHaveBeenCalledWith('/preview?resolution=xs', 'preview', 'width=1024,height=768,toolbar=1,resizable=1,scrollbars=1');
       expect(scope.vm.save).toHaveBeenCalledWith(scope.vm.page);
       dom.find('button').click();
       expect(controller.previewWindow.focus).toHaveBeenCalled();

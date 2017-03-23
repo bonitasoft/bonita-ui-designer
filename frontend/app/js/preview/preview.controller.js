@@ -24,7 +24,7 @@
    * The preview controller. It handles the loading of the page model, the resolution changes and provides
    * common functions to the directives used inside the page.
    */
-  function PreviewCtrl($scope, $sce, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
 
     $scope.iframe = {};
     $scope.refreshIframe = refreshIframe;
@@ -48,7 +48,13 @@
      * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
      */
     function buildIframeSrc() {
-      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '/?time=' + clock.now());
+      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + iframeParameters.id + '/' + buildIframeQueryString({ time: clock.now() }));
+    }
+
+    function buildIframeQueryString(additionalParams) {
+      var params = angular.extend({}, $location.search(), additionalParams || {});
+      var queryString = $httpParamSerializer(params);
+      return queryString ? '?' + queryString : '';
     }
 
     function iframeWidth() {
