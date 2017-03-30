@@ -20,9 +20,9 @@ describe('directive openPreview', function() {
 
   describe('directive default behaviour', function() {
 
-    beforeEach(function() {
+    beforeEach(function () {
       scope.vm = {
-        page: { id: '12345' },
+        page: {id: '12345'},
         mode: 'page',
         isValid: true,
         save: jasmine.createSpy()
@@ -32,22 +32,32 @@ describe('directive openPreview', function() {
       controller = dom.controller('openPreview');
     });
 
-    it('should try to get the current preview url', function() {
+    it('should create a new pop up when it has not been created yet', function () {
       expect(controller.previewWindow).toBeUndefined();
+
       dom.find('button').click();
-      expect($state.href).toHaveBeenCalledWith('designer.preview', { resolution: 'xs', id: '12345', mode: 'page' });
+
+      expect($state.href).toHaveBeenCalledWith('designer.preview', {resolution: 'xs', id: '12345', mode: 'page'});
       expect($window.open).toHaveBeenCalledWith('/preview?resolution=xs', 'preview', 'width=1024,height=768,toolbar=1,resizable=1,scrollbars=1');
       expect(scope.vm.save).toHaveBeenCalledWith(scope.vm.page);
-      dom.find('button').click();
-      expect(controller.previewWindow.focus).toHaveBeenCalled();
     });
 
-    it('should open a popup', function() {
-      scope.vm.mode = 'fragment';
-      dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid" artifact-id="vm.page.id"></open-preview>')(scope);
-      scope.$apply();
+    it('should create a new pop up when it has been closed', function () {
       dom.find('button').click();
-      expect($state.href).toHaveBeenCalledWith('designer.preview', { resolution: 'xs', id: '12345', mode: 'fragment' });
+
+      controller.previewWindow = { closed: true };
+      dom.find('button').click();
+
+      expect($window.open.calls.count()).toBe(2);
+    });
+
+    it('should focus the pop up when it has already been created', function () {
+
+      dom.find('button').click();
+      dom.find('button').click();
+
+      expect($window.open.calls.count()).toBe(1);
+      expect(controller.previewWindow.focus).toHaveBeenCalled();
     });
 
   });
