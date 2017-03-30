@@ -1,0 +1,133 @@
+{
+  "designerVersion" : "1.5.7",
+  "id" : "dateTimePicker",
+  "name" : "dateTimePicker",
+  "type" : "page",
+  "lastUpdate" : 1490614219339,
+  "rows" : [ [ {
+    "type" : "formContainer",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : ""
+      },
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      }
+    },
+    "reference" : "0ac7b0a7-4274-4fa3-9516-6e8bcfb22f04",
+    "id" : "pbFormContainer",
+    "container" : {
+      "type" : "container",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : { },
+      "reference" : "0d8641df-003b-4a6b-bb06-393d68c22618",
+      "id" : "pbContainer",
+      "rows" : [ [ {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "inlineInput" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Date and time"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "withTimeZone" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "aDate.dateISO"
+          },
+          "dateFormat" : {
+            "type" : "constant",
+            "value" : "MM/dd/yyyy"
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Enter a date (mm/dd/yyyy)"
+          },
+          "timeFormat" : {
+            "type" : "constant",
+            "value" : "h:mm:ss a"
+          },
+          "timePlaceholder" : {
+            "type" : "interpolation",
+            "value" : "Enter a time (h:mm:ss a)"
+          },
+          "showToday" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "showNow" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "d02b58be-d66c-4b62-b594-de64699971a4",
+        "id" : "pbDateTimePicker"
+      } ] ]
+    }
+  } ] ],
+  "assets" : [ {
+    "id" : "3a4c4ad5-de08-471f-8cc5-f6507de12614",
+    "name" : "style1.css",
+    "type" : "css",
+    "order" : 1,
+    "external" : false
+  }, {
+    "id" : "88fc3b8d-3a4e-464a-909b-f97ef3f61ff1",
+    "name" : "style.css",
+    "type" : "css",
+    "order" : 0,
+    "external" : false
+  } ],
+  "inactiveAssets" : [ ],
+  "data" : {
+    "aDate" : {
+      "type" : "json",
+      "value" : "{\n    \"dateISO\": \"2007-03-01T16:17:00\"\n}",
+      "exposed" : false
+    }
+  }
+}

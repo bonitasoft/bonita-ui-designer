@@ -72,7 +72,7 @@
     {
       "label": "Handle time zone",
       "name": "withTimeZone",
-      "caption": "No: user time zone is ignored. No difference between display/input and value<br>Yes: display/input reflects the user time zone and may be different from the (UTC) value",
+      "caption": "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value",
       "type": "choice",
       "choiceValues": [
         {
@@ -133,10 +133,17 @@
       "bond": "interpolation"
     },
     {
+      "label": "Show Today button",
+      "name": "showToday",
+      "type": "boolean",
+      "help": "Display or hide the shortcut button to current day",
+      "bond": "constant",
+      "defaultValue": true
+    },
+    {
       "label": "Show Now button",
       "name": "showNow",
       "type": "boolean",
-      "showFor": "properties.readOnly.value === false",
       "help": "Display or hide the shortcut button to set date and time to now",
       "bond": "constant",
       "defaultValue": true
