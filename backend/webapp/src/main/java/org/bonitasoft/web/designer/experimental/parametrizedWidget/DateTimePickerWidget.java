@@ -21,6 +21,7 @@ public class DateTimePickerWidget extends InputWidget {
     private String timeFormat;
     private boolean showNow = true;
     private boolean withTimeZone = false;
+    private boolean inlineInput = true;
 
     public DateTimePickerWidget() {
         super(DATE_TIME_PICKER_WIDGET_ID);
@@ -42,7 +43,9 @@ public class DateTimePickerWidget extends InputWidget {
         this.withTimeZone = withTimeZone;
     }
 
-    public String getTimeFormat(){ return timeFormat;}
+    public String getTimeFormat() {
+        return timeFormat;
+    }
 
     public void setTimeFormat(String timeFormat) {
         this.timeFormat = timeFormat;
@@ -54,5 +57,9 @@ public class DateTimePickerWidget extends InputWidget {
 
     public void setShowNow(boolean showNow) {
         this.showNow = showNow;
+    }
+
+    public boolean getInlineInput() {
+        return inlineInput;
     }
 }

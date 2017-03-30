@@ -69,7 +69,7 @@
       "type": "text",
       "bond": "variable",
       "help": "A date that should be at midnight UTC",
-      "caption": "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable"
+      "caption": "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
     },
     {
       "label": "Technical date format",
@@ -94,7 +94,6 @@
       "type": "boolean",
       "help": "Display or hide the shortcut button to current day",
       "bond": "constant",
-      "showFor": "properties.readOnly.value === false",
       "defaultValue": true
     }
   ],

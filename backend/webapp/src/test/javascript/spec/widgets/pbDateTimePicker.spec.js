@@ -1,11 +1,11 @@
-describe('pbDateTimePicker', function () {
+describe('pbDateTimePicker', function() {
 
 
   var $compile, scope, element, body, filter, $timeout;
 
   beforeEach(module('bonitasoft.ui.widgets', 'mgcrea.ngStrap.datepicker', 'mgcrea.ngStrap.timepicker', 'angularMoment'));
 
-  beforeEach(inject(function (_$compile_, $rootScope, $filter, _$timeout_) {
+  beforeEach(inject(function(_$compile_, $rootScope, $filter, _$timeout_) {
     $compile = _$compile_;
     scope = $rootScope.$new();
     $timeout = _$timeout_;
@@ -15,21 +15,22 @@ describe('pbDateTimePicker', function () {
       isBound: function() {
         return false;
       },
-      placeholder : 'dd/MM/yyyy',
-      dateFormat : 'dd/MM/yyyy',
-      timeFormat : 'h:mm:ss a',
-      label : 'Date and time',
+      placeholder: 'dd/MM/yyyy',
+      dateFormat: 'dd/MM/yyyy',
+      timeFormat: 'h:mm:ss a',
+      label: 'Date and time',
       withTimeZone: true
     };
 
     body = $('body');
+
     body.html('');
   }));
 
 
   describe('calendar', function() {
 
-    beforeEach(function () {
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
@@ -90,32 +91,32 @@ describe('pbDateTimePicker', function () {
 
   describe('label', function() {
 
-    beforeEach(function(){
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
     });
 
-    it('should be displayed by default', function () {
+    it('should be displayed by default', function() {
       expect(element.find('label').length).toBe(1);
     });
 
-    it('should have a default value equals to [Date and time]', function () {
+    it('should have a default value equals to [Date and time]', function() {
       expect(element.find('label').text().trim()).toBe('Date and time');
     });
 
-    it('should be on the top by default', function () {
+    it('should be on the top by default', function() {
       expect(element.find('.form-horizontal').length).toBe(0);
     });
 
-    it('should be on the left of the input if labelPosition change', function () {
+    it('should be on the left of the input if labelPosition change', function() {
       scope.properties.labelPosition = 'left';
       scope.$apply();
 
       expect(element.find('.form-horizontal').length).toBe(1);
     });
 
-    it('should not be there when displayLabel is false', function () {
+    it('should not be there when displayLabel is false', function() {
       scope.properties.labelHidden = true;
       scope.$apply();
 
@@ -132,13 +133,13 @@ describe('pbDateTimePicker', function () {
 
   describe('input-group', function() {
 
-    beforeEach(function(){
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
     });
 
-    it('should adapt its width to label size when on the left', function () {
+    it('should adapt its width to label size when on the left', function() {
       scope.properties = angular.extend(scope.properties, {
         labelPosition: 'left',
         labelWidth: 4
@@ -149,7 +150,7 @@ describe('pbDateTimePicker', function () {
       expect(input.parent().parent().hasClass('col-xs-8')).toBeTruthy();
     });
 
-    it('should be wrapped in full width div when no label', function () {
+    it('should be wrapped in full width div when no label', function() {
       scope.properties.labelHidden = true;
       scope.$apply();
 
@@ -157,7 +158,7 @@ describe('pbDateTimePicker', function () {
       expect(input.parent().hasClass('col-xs-12')).toBeTruthy();
     });
 
-    it('should be wrapped in full width div when label is on the top', function () {
+    it('should be wrapped in full width div when label is on the top', function() {
       var input = element.find('input').parent();
       expect(input.parent().hasClass('col-xs-12')).toBeTruthy();
     });
@@ -165,13 +166,13 @@ describe('pbDateTimePicker', function () {
 
   describe('input used to display date', function() {
 
-    beforeEach(function(){
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
     });
 
-    it('should be readonly if dateTimepicker is readonly', function () {
+    it('should be readonly if dateTimepicker is readonly', function() {
       scope.properties.readOnly = true;
       scope.$apply();
 
@@ -181,7 +182,7 @@ describe('pbDateTimePicker', function () {
 
     });
 
-    it('should be required when requested', function () {
+    it('should be required when requested', function() {
       scope.properties.required = true;
       scope.$apply();
 
@@ -236,7 +237,7 @@ describe('pbDateTimePicker', function () {
 
   describe('input used to display time', function() {
 
-    it('should be readonly if dateTimePicker is readonly', function () {
+    it('should be readonly if dateTimePicker is readonly', function() {
       scope.properties.readOnly = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
@@ -247,7 +248,7 @@ describe('pbDateTimePicker', function () {
       expect(input.attr('readonly')).toBe('readonly');
     });
 
-    it('should be required when requested', function () {
+    it('should be required when requested', function() {
       scope.properties.required = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
@@ -327,14 +328,14 @@ describe('pbDateTimePicker', function () {
       expect(scope.properties.value).toEqual('2015-09-01T14:02:55');
     });
 
-    it('should always display time option', function () {
+    it('should always display time option', function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
       expect(element.find('input').length).toBe(2);
     });
 
-    it('should display the time input on the same line as the date input if inlineInput property is true', function () {
+    it('should display the time input on the same line as the date input if inlineInput property is true', function() {
       scope.properties.inlineInput = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
@@ -345,7 +346,7 @@ describe('pbDateTimePicker', function () {
       expect(input.length).toBe(1);
     });
 
-    it('should display the time input below the date input if inlineInput property is false', function () {
+    it('should display the time input below the date input if inlineInput property is false', function() {
       scope.properties.inlineInput = false;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
@@ -358,9 +359,36 @@ describe('pbDateTimePicker', function () {
     });
   });
 
+  describe('today button', function() {
+    it('should set the date to current day and keep time if time will be selected', function() {
+      scope.properties.value = '2015-09-30T14:02:55.000Z';
+      scope.properties.showToday = true;
+      scope.properties.withTimeZone = true;
+      element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      element.appendTo(body);
+      scope.$apply();
+
+      var oldtime = moment(scope.properties.value);
+
+      element.find('.input-group .input-group-btn button.today').click();
+
+      var today = new moment({hour: oldtime.hours(), minute: oldtime.minutes(), seconds: oldtime.seconds()});
+
+      expect(moment(scope.properties.value).isSame(today)).toBeTruthy();
+    });
+    it('should be hidden when property showToday is false', function() {
+      scope.properties.showToday = false;
+      element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      element.appendTo(body);
+      scope.$apply();
+      expect(element.find('.input-group .input-group-btn button.today').length).toBe(0);
+    });
+  });
+
+
   describe('now button', function() {
 
-    it('should set the date to current day and time',function() {
+    it('should set the date to current day and time', function() {
       scope.properties.showNow = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
@@ -380,7 +408,8 @@ describe('pbDateTimePicker', function () {
       expect(element.find('.input-group .input-group-btn button.now').length).toBe(0);
     });
 
-    it('should set current absolute date and time into UTC date and time',function() {
+    it('should set current absolute date and time into UTC date and time', function() {
+      jasmine.clock().mockDate(moment('2015-09-01T18:53:55.000').toDate());
       scope.properties.withTimeZone = false;
       scope.properties.showNow = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -389,11 +418,12 @@ describe('pbDateTimePicker', function () {
 
       element.find('.input-group .input-group-btn button.now').click();
 
-      expect(element.find('input').eq(0).val()).toEqual(filter('date')(new Date(), scope.properties.dateFormat));
-      expect(element.find('input').eq(1).val()).toEqual(filter('date')(new Date(), scope.properties.timeFormat));
+      expect(element.find('input').eq(0).val()).toEqual(filter('date')('2015-09-01', scope.properties.dateFormat));
+      expect(element.find('input').eq(1).val()).toEqual(filter('date')('6:55:00 PM', scope.properties.timeFormat));
     });
 
-    it('should set current GMT timeZone date and time to current GMT timeZone date and time',function() {
+    it('should set current GMT timeZone date and time to current GMT timeZone date and time', function() {
+      jasmine.clock().mockDate(moment('2015-09-01T14:12:55.000Z').toDate());
       scope.properties.withTimeZone = true;
       scope.properties.showNow = true;
       var element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -402,24 +432,24 @@ describe('pbDateTimePicker', function () {
 
       element.find('.input-group .input-group-btn button.now').click();
 
-      expect(element.find('input').eq(0).val()).toEqual(filter('date')(new Date(), scope.properties.dateFormat));
-      expect(element.find('input').eq(1).val()).toEqual(filter('date')(new Date(), scope.properties.timeFormat));
+      expect(element.find('input').eq(0).val()).toEqual(filter('date')('2015-09-01', scope.properties.dateFormat));
+      expect(element.find('input').eq(1).val()).toEqual(filter('date')('4:10:00 PM', scope.properties.timeFormat));
     });
 
   });
 
   describe('calendar button', function() {
-    beforeEach(function(){
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
     });
 
-    it('should be displayed by default', function () {
+    it('should be displayed by default', function() {
       expect(element.find('.input-group .input-group-btn button.calendar').length).toBe(1);
     });
 
-    it('should be disabled if date picker disabled', function () {
+    it('should be disabled if date picker disabled', function() {
       scope.properties.readOnly = true;
       scope.$apply();
 
@@ -429,17 +459,17 @@ describe('pbDateTimePicker', function () {
   });
 
   describe('time button', function() {
-    beforeEach(function(){
+    beforeEach(function() {
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
       element.appendTo(body);
       scope.$apply();
     });
 
-    it('should be displayed by default', function () {
+    it('should be displayed by default', function() {
       expect(element.find('.input-group .input-group-btn button.timepicker').length).toBe(1);
     });
 
-    it('should be disabled if time picker disabled', function () {
+    it('should be disabled if time picker disabled', function() {
       scope.properties.readOnly = true;
       scope.$apply();
 
