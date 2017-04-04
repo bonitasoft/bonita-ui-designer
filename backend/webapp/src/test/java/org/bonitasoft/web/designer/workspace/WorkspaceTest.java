@@ -14,20 +14,6 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
@@ -48,6 +34,20 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class WorkspaceTest {
 
@@ -148,6 +148,8 @@ public class WorkspaceTest {
 
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
+        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/help.html")).exists();
+        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbMissingHelp/pbMissingHelp.json")).exists();
     }
 
     @Test

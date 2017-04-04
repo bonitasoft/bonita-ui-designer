@@ -14,34 +14,24 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import static com.google.common.collect.Iterables.find;
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.Assetable;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JsonViewLight;
-import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.*;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
+
+import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
+import java.util.*;
+import java.util.regex.Pattern;
+
+import static com.google.common.collect.Iterables.find;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 
 public class Widget extends DesignerArtifact implements Identifiable, Assetable {
@@ -66,6 +56,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private Set<String> requiredModules = new HashSet<>();
     private Set<String> authRules;
     private String type = "widget";
+    private boolean hasHelp = false;
 
     /**
      * The validation context can change depending on the nature of a widget. A custom widget name can't contain space but a
@@ -259,6 +250,15 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
         }
     }
 
+    @JsonView({JsonViewPersistence.class})
+    public boolean hasHelp() {
+        return hasHelp;
+    }
+
+    public void setHasHelp(boolean hasHelp) {
+        this.hasHelp = hasHelp;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Widget) {
@@ -270,6 +270,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                     .append(controller, other.controller)
                     .append(custom, other.custom)
                     .append(properties, other.properties)
+                    .append(hasHelp, other.hasHelp)
                     .isEquals();
         } else {
             return false;
@@ -285,6 +286,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                 .append(controller)
                 .append(custom)
                 .append(properties)
+                .append(hasHelp)
                 .toHashCode();
     }
 
@@ -297,6 +299,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                 .append("controller", controller)
                 .append("custom", custom)
                 .append("properties", properties)
+                .append("hasHelp", hasHelp)
                 .toString();
     }
 

@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout, widgetRepo) {
 
   'use strict';
 
@@ -320,4 +320,31 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     page: $scope.page,
     togglePropertyPanel
   };
+
+  $scope.widgetHelpPopover = {
+    content: '',
+    isOpen: false
+  };
+
+  var unregisterWidget = $scope.$watch(
+    'currentComponent.$$widget',
+    function() { $scope.widgetHelpPopover.isOpen = false; }
+  );
+  $scope.$on('$destroy', unregisterWidget);
+
+  $scope.widgetHelpTemplateURL  = 'js/editor/properties-panel/widgetHelpTemplate.html';
+
+  $scope.triggerWidgetHelp = function() {
+    if ($scope.widgetHelpPopover.isOpen) {
+      $scope.widgetHelpPopover.isOpen = false;
+    } else {
+      $scope.widgetHelpPopover.isOpen = true;
+      widgetRepo.getHelp($scope.currentComponent.$$widget.id).then(
+        function(response) {
+          $scope.widgetHelpPopover.content = response.data;
+        }
+      );
+    }
+  };
+
 });

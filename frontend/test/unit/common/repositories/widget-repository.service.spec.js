@@ -184,4 +184,13 @@ describe('widgetRepo', function() {
 
     $httpBackend.flush();
   });
+
+  it('should get help content', function() {
+    $httpBackend.expectGET('rest/widgets/widget-id/help').respond({ data: '' });
+
+    widgetRepo.getHelp('widget-id');
+
+    $httpBackend.flush();
+  });
+
 });

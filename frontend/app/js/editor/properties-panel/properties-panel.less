@@ -64,16 +64,55 @@
   flex-direction: column;
 }
 
-.PropertyPanel-title {
+.PropertyPanel-header {
   margin: 0;
+  padding: 1em 1em 0;
+  line-height: 2.2;
+}
+
+.PropertyPanel-title {
+
   text-transform: uppercase;
   letter-spacing: 2px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   font-size: .9em;
-  line-height: 2.2;
-  padding: 1em 1em 0;
+  padding: 3px 0px;
+}
+
+div .PropertyPanel-help-popover.popover {
+  color: @text-color;
+  min-width: 600px;
+  max-height: 90%;
+  display: flex !important;
+  z-index: 100;
+}
+
+.PropertyPanel-help-popover .popover-title {
+  letter-spacing: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: .9em;
+}
+
+.PropertyPanel-help-popover .popover-content {
+  overflow: auto;
+  min-width: 590px;
+  height: 100%;
+}
+
+PropertyPanel-help-popover-body {
+  border-top: 1px solid @modal-header-border-color;
+}
+
+.PropertyPanel-help-btn {
+  margin-top: 17px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  float: left;
+  margin-right:7px;
 }
 
 .PropertyPanel-content {
@@ -188,5 +227,15 @@ widget-property-field ul[typeahead-popup] {
 
   span {
     display: none;
+  }
+}
+
+.PropertyPanel-help-popover-body .tabs-left {
+  padding: 15px;
+  > .nav-tabs {
+    width: 11em;
+  }
+  .tab-content{
+    padding-left: 20px;
   }
 }

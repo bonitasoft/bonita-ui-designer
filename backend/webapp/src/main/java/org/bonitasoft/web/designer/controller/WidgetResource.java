@@ -14,17 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Map.Entry;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -40,12 +32,18 @@ import org.bonitasoft.web.designer.service.WidgetService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map.Entry;
+
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @RestController
 @RequestMapping("/rest/widgets")
@@ -183,6 +181,11 @@ public class WidgetResource extends AssetResource<Widget>{
         } else {
             widgetRepository.unmarkAsFavorite(pageId);
         }
+    }
+
+    @RequestMapping(value = "/{widgetId}/help", method = RequestMethod.GET,  produces = "text/html; charset=UTF-8")
+    public void serveWidgetFiles(HttpServletRequest request, HttpServletResponse response, @PathVariable("widgetId") String widgetId) throws IOException {
+        HttpFile.writeFileInResponse(request, response, widgetPath.resolve(widgetId+"/help.html"));
     }
 
     private void checkWidgetIdIsNotAPbWidget(String widgetId) {

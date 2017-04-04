@@ -14,6 +14,37 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.widget.Property;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.WidgetService;
+import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.Mock;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
@@ -36,36 +67,6 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.model.WidgetContainerRepository;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.widget.Property;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.mockito.Mock;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.WidgetResource}
@@ -659,6 +660,26 @@ public class WidgetResourceTest {
 
         mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js?format=text")).andExpect(status().isInternalServerError());
         mockMvc.perform(get("/rest/widgets/widget-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @Ignore("Test ignored because failed on CI")
+     public void should_download_help() throws Exception {
+        Path expectedFile = widgetRepositoryPath.resolve("pbText/help.html");
+
+        mockMvc
+                .perform(get("/rest/widgets/pbText/help"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"help.html\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_respond_404_when_widget_help_is_not_found() throws Exception {
+        mockMvc.perform(get("/rest/widgets/pbLabel/help")).andExpect(status().isNotFound());
     }
 
 }

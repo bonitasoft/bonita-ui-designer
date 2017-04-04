@@ -69,6 +69,10 @@
       deleteProperty(widgetId, propertyName) {
         return this.$http.delete(`${this.baseUrl}/${widgetId}/properties/${propertyName}`);
       }
+
+      getHelp(widgetId) {
+        return this.$http.get(`${this.baseUrl}/${widgetId}/help`);
+      }
     }
     return new WidgetRepository();
   }

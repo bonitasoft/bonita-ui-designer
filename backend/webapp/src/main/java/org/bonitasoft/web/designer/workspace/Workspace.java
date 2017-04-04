@@ -14,18 +14,6 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.createDirectories;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.migration.Version;
@@ -37,6 +25,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 @Named
 public class Workspace {
@@ -96,8 +96,15 @@ public class Workspace {
     }
 
     private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
-        createDirectories(widgetRepository.resolvePath(widget.getId()));
+        Path widgetRepositoryPath = createDirectories(widgetRepository.resolvePath(widget.getId()));
         widgetRepository.updateLastUpdateAndSave(widget);
+
+        //Widget help is copied
+        File sourceHelpFile = new File(widgetRepositorySourcePath.toString() + File.separator + widget.getId() + File.separator + "help.html");
+        if(widget.hasHelp() && sourceHelpFile.exists()) {
+            FileUtils.copyFile(sourceHelpFile, new File(widgetRepositoryPath.toString() + File.separator + "help.html"));
+        }
+
         //Widget assets are copied if they exist
         try {
             List<Asset> assets = widgetAssetImporter.load(widget, widgetRepositorySourcePath);

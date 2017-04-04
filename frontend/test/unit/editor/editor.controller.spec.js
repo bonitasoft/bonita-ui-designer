@@ -1,7 +1,7 @@
 import aWidget from  '../utils/builders/WidgetElementBuilder';
 
 describe('EditorCtrl', function() {
-  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService, $timeout;
+  var $scope, pageRepo, $q, $location, $state, $window, tabsContainerStructureMockJSON, componentUtils, whiteboardService, $timeout, widgetRepo;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor', 'tabsContainerStructureMock'));
 
@@ -13,6 +13,7 @@ describe('EditorCtrl', function() {
     $location = $injector.get('$location');
     $state = $injector.get('$state');
     pageRepo = $injector.get('pageRepo');
+    widgetRepo = $injector.get('widgetRepo');
     tabsContainerStructureMockJSON = $injector.get('tabsContainerStructureMockJSON');
     componentUtils = $injector.get('componentUtils');
     whiteboardService = $injector.get('whiteboardService');
@@ -577,4 +578,44 @@ describe('EditorCtrl', function() {
 
     expect($scope.isPropertyPanelClosed).toBe(true);
   });
+
+
+  it('should open widget help popover while it is closed', function(){
+    $scope.widgetHelpPopover.isOpen = false;
+    spyOn(widgetRepo, 'getHelp').and.callFake(function() {
+      return $q.when({});
+    });
+    $scope.currentComponent = {$$widget : {id: 'myFirstComponent'}};
+
+    $scope.triggerWidgetHelp();
+
+    expect($scope.widgetHelpPopover.isOpen).toBe(true);
+    expect(widgetRepo.getHelp).toHaveBeenCalledWith('myFirstComponent');
+  });
+
+  it('should close widget help popover while it is opened', function(){
+    $scope.widgetHelpPopover.isOpen = true;
+
+    $scope.triggerWidgetHelp();
+
+    expect($scope.widgetHelpPopover.isOpen).toBe(false);
+
+  });
+
+  it('should close widget help popover when component changed while it is opened', function(){
+    $scope.widgetHelpPopover.isOpen = true;
+    spyOn(widgetRepo, 'getHelp').and.callFake(function() {
+      return $q.when({});
+    });
+    $scope.currentComponent = {$$widget : {id: 'myFirstComponent'}};
+    expect($scope.widgetHelpPopover.isOpen).toBe(true);
+
+    $scope.triggerWidgetHelp();
+    $scope.currentComponent = {$$widget : {id: 'mySecondComponent'}};
+
+    expect($scope.widgetHelpPopover.isOpen).toBe(false);
+
+  });
+
+
 });
