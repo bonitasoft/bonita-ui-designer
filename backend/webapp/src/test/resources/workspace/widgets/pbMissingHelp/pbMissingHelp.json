@@ -1,6 +1,6 @@
 {
-  "id": "pbText",
-  "name": "Text",
+  "id": "pbMissingHelp",
+  "name": "MissingHelp",
   "template": "<p ng-bind-html=\"propertyValues.content\"></p>",
   "hasHelp" : true,
   "properties": [

@@ -1,6 +1,15 @@
 <div class="PropertyPanel-inner" ng-show="currentComponent">
-    <h3 class="PropertyPanel-title">{{ currentComponent.$$widget.name }}</h3>
 
+    <div class="PropertyPanel-header">
+        <button ng-if="currentComponent.$$widget.hasHelp" ng-click="triggerWidgetHelp()" class="btn btn-xs btn-bonita-help-widget PropertyPanel-help-btn"
+                uib-popover-template="widgetHelpTemplateURL" type="button"
+                popover-trigger="none" popover-is-open="widgetHelpPopover.isOpen" popover-placement="left-top" popover-class="PropertyPanel-help-popover">
+            <i class="fa fa-question-circle"></i>
+        </button>
+        <h3 class="PropertyPanel-title">
+            {{ currentComponent.$$widget.name }}
+        </h3>
+    </div>
     <div class="PropertyPanel-content">
         <div class="row">
             <div class="col-xs-12" ng-if="currentComponent.$$widget.custom">
@@ -11,6 +20,7 @@
         </div>
         <div ng-include="currentComponent.$$propertiesTemplateUrl"></div>
     </div>
+
 </div>
 
 <div class="PropertyPanel-inner" ng-show="!currentComponent">

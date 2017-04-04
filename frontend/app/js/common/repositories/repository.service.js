@@ -86,6 +86,7 @@
       unmarkAsFavorite(artifactId) {
         return this.$http.put(`${this.baseUrl}/${artifactId}/favorite`, false);
       }
+
     }
 
     return Repository;

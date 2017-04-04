@@ -68,17 +68,13 @@
       inline(file, '.ctrl.js');
       this.push(file);
       this.push(buildDirective(file));
-      fs.exists(path.join(parentDir, 'assets'), function (exists) {
-        if (!exists) {
-          callback();
-          return;
-        }
-        vfs.src(path.join(parentDir, '/assets/**/*.*'), base)
+
+        vfs.src([path.join(parentDir, '/assets/**/*.*'), path.join(parentDir, '/help.html')], base)
           .pipe(pushTo(this))
           .on('finish', function () {
             callback();
           });
-      }.bind(this));
+
     });
   }
 

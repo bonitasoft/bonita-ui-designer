@@ -18,7 +18,7 @@
   angular.module('bonitasoft.designer.common.directives')
     .directive('compileTemplate', ['$compile', function($compile) {
       return function(scope, element, attrs) {
-        var ensureCompileOnlyOnce = scope.$watch(
+        var unregister = scope.$watch(
           function(scope) {
             // watch the 'compile' expression for changes
             return scope.$eval(attrs.compileTemplate);
@@ -32,11 +32,9 @@
             // NOTE: we only compile .childNodes so that
             // we don't get into infinite loop compiling ourselves
             $compile(element.contents())(scope);
-
-            // Use AngularJS's un-watch feature to ensure compilation only occurs once.
-            ensureCompileOnlyOnce();
           }
         );
+        scope.$on('$destroy', unregister);
       };
     }]);
 })();

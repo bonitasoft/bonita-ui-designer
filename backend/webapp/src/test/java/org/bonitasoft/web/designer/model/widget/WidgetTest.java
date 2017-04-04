@@ -14,21 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import static org.apache.commons.io.IOUtils.toByteArray;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
-import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
-import static org.bonitasoft.web.designer.utils.ListUtil.asList;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -38,6 +23,16 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.utils.ListUtil.asList;
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 public class WidgetTest {
 
@@ -86,6 +81,7 @@ public class WidgetTest {
         assertThat(widgetAfterJsonProcessing.getId()).isNotNull();
         assertThat(widgetAfterJsonProcessing.getUsedBy()).isNull();
         assertThat(widgetAfterJsonProcessing.isFavorite()).isFalse();
+        assertThat(widgetAfterJsonProcessing.hasHelp()).isFalse();
     }
 
     @Test
