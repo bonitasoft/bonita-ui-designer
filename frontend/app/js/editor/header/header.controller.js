@@ -76,23 +76,6 @@
       this.artifactRepo.save(page)
         .then(() =>this.$window.location = this.artifactRepo.exportUrl(page));
     }
-
-    openHelp() {
-      this.$uibModal.open({
-        templateUrl: 'js/editor/header/help-popup.html',
-        size: 'lg',
-        resolve: {
-          pageEdition: () => this.mode === 'page'
-        },
-        controller: function($scope, $uibModalInstance, pageEdition) {
-          'ngInject';
-          $scope.pageEdition = pageEdition;
-          $scope.cancel = function() {
-            $uibModalInstance.dismiss('cancel');
-          };
-        }
-      });
-    }
   }
 
   angular

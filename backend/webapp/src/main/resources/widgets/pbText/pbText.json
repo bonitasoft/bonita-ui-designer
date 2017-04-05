@@ -12,7 +12,7 @@
       "name": "text",
       "type": "html",
       "defaultValue": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...",
-      "caption": "Use basic html tags and {{ dataVariable }} to access data",
+      "caption": "Use basic html tags, <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)",
       "bond": "interpolation"
     },
     {

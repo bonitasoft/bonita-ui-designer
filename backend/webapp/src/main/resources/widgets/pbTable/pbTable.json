@@ -27,7 +27,8 @@
       "caption": "Comma-separated list",
       "help": "When 'Content' is a list of objects, specifies the attributes to display in the table columns",
       "name": "columnsKey",
-      "type": "collection"
+      "type": "collection",
+      "caption": "Use <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">Filters</a> to format the data (e.g. <span ng-non-bindable>columnKey|uiDate</span>)"
     },
     {
       "label": "Selected Row",

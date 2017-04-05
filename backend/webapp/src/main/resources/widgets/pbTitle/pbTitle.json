@@ -12,6 +12,7 @@
       "name": "text",
       "type": "text",
       "defaultValue": "Title",
+      "caption": "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)",
       "bond": "interpolation"
     },
     {

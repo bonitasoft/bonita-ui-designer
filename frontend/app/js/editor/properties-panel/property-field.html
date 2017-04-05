@@ -5,7 +5,7 @@
                                                    uib-tooltip="{{property.help | translate}}"
                                                    tooltip-placement="top-right"
                                                    tooltip-append-to-body="true"></i></label>
-        <small class="help-block" ng-bind-html="property.caption | translate"></small>
+        <small class="help-block" compile-template="property.caption | translate"></small>
     </div>
     <ng-include src="propertyField.getBondTemplate(property)"></ng-include>
 </div>

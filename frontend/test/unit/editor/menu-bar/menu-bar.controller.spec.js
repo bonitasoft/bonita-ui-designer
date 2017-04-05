@@ -71,16 +71,6 @@
       expect($window.location).toBe('export/page/person');
     });
 
-    it('should open help pop up', function() {
-      spyOn($uibModal, 'open');
-
-      controller.openHelp();
-
-      expect($uibModal.open).toHaveBeenCalled();
-      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/help-popup.html');
-      expect($uibModal.open.calls.mostRecent().args[0].size).toEqual('lg');
-    });
-
     it('should save a page as ...', function() {
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'create').and.returnValue($q.when({}));
