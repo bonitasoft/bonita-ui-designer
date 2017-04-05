@@ -3,8 +3,8 @@
     <h3 class="modal-title" translate>Help</h3>
 </div>
 <div class="modal-body">
-    <uib-tabset class="tabs-left">
-        <uib-tab heading="{{ 'Editor organization' | translate }}">
+    <uib-tabset class="tabs-left" active="tabContainer.activeTab">
+        <uib-tab heading="{{ 'Editor organization' | translate }}" index="'editor'">
 
             <p translate>Use the palette on the left to drag and drop containers and widgets in the whiteboard.</p>
 
@@ -18,7 +18,7 @@
 
         </uib-tab>
 
-        <uib-tab heading="{{ 'Rows' | translate }}">
+        <uib-tab heading="{{ 'Rows' | translate }}" index="'rows'">
             <p>
                 <translate>The whiteboard is organized in <b>rows</b> that you can move up and down, or delete.
                 </translate>
@@ -32,7 +32,7 @@
             </p>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Widgets' | translate }}">
+        <uib-tab heading="{{ 'Widgets' | translate }}" index="'widgets'">
             <p translate>Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather
                 information from</b> the end users.</p>
 
@@ -41,14 +41,14 @@
             <p translate>You can also create <b>custom widgets</b> from the home page.</p>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Containers' | translate }}">
+        <uib-tab heading="{{ 'Containers' | translate }}" index="'containers'">
             <p translate>
                 You can group widgets into a container to define the arrangement of widgets in a form or a page. A
                 container can contain other containers.
             </p>
 
             <p>
-                <translate>Each type or container has sepcific behaviors</translate>
+                <translate>Each type or container has specific behaviors</translate>
             <ul>
 
                 <li translate>Repeat content for the plain container</li>
@@ -64,7 +64,7 @@
 
         </uib-tab>
 
-        <uib-tab heading="{{ 'Variables' | translate }}">
+        <uib-tab heading="{{ 'Variables' | translate }}" index="'variable'">
             <p translate>
                 In the scope of a page, form, or layout, a variable can be used to handle business data,
                 or can contain structural information that determines how page elements behave.
@@ -84,12 +84,42 @@
             </p>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Properties' | translate }}">
+        <uib-tab heading="{{ 'Properties' | translate }}" index="'properties'">
             <ng-include src="'js/editor/properties-panel/help/property-bond-help.html'"/>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Localization' | translate }}">
-            
+        <uib-tab heading="{{ 'Filters' | translate }}" index="'filters'">
+            <p translate>You can format data with filters when data is used in widget property fields that allow interpolation <i class="fa fa-paragraph"></i> or that are bound to a variable <i class="fa fa-link"></i> .</p>
+            <p translate>
+                All <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter" target="_blank">angularJS filters</a> are available. Usage requires the use of <code>|</code> ("pipe"). E.g. <code>myVariable|lowercase</code>.
+            </p>
+            <p translate>
+                For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API.
+            </p>
+            <p translate>
+                You can apply it to the following variable value types:
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted String variables</li>
+                    <li>Date object</li>
+                    <li>Milliseconds since Epoch (number or string  variable)</li>
+                </ul>
+            </p>
+            <p translate>
+                Two use cases :
+                <ul>
+                    <li><code>dateVariable|uiDate</code> applies a default <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li>
+                    <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">angularJS date filter</a>.<br/>
+                        E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li>
+                </ul>
+            </p>
+            <p class="CalloutSubscription">
+                <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                <translate>Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href="javascript:void(0);" ng-click="tabContainer.activeTab = 'localization'">localization section</a><translate>).
+            </p>
+        </uib-tab>
+
+        <uib-tab heading="{{ 'Localization' | translate }}" index="'localization'">
+
             <p translate>The UI Designer is displayed in the language of your Bonita BPM Studio.</p>
 
             <p translate>
@@ -115,17 +145,17 @@
 
             <p translate>
                 By convention, in <em>localization.json</em>, the language used for translation keys is English.
-                This means that in the editor whiteboard, any widget default text is currently in English. 
+                This means that in the editor whiteboard, any widget default text is currently in English.
                 However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and
                 add an <b>en-US</b> section in the <em>localization.json</em> asset file.
             </p>
 
-            <p translate> <em>Note about the</em> Date Picker <em>widget:</em> the 
+            <p translate> <em>Note about the</em> Date Picker <em>widget:</em> the
                 <em>Placeholder</em> property translations must match the <em>Date format</em> property value (order and number of letters).
                 However, the <em>Placeholder</em> key should be different from the <em>Date format</em> key to avoid translations mismatches.
             </p>
             <p translate>
-            <em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. 
+            <em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button.
             Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget.
             Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations.
             </p>

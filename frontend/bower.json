@@ -21,7 +21,7 @@
     "angular-sanitize": "1.4.7",
     "font-awesome": "4.3.0",
     "angular-recursion": "1.0.3",
-    "angular-bootstrap": "1.3.1",
+    "angular-bootstrap": "1.3.3",
     "angular-ui-ace": "0.1.1",
     "bonita-js-components": "bonitasoft/bonita-js-components#0.5.3",
     "angular-gettext": "2.0.1",
@@ -38,6 +38,6 @@
   "resolutions": {
     "bootstrap": "3.3.6",
     "angular": "1.4.7",
-    "angular-bootstrap": "1.3.1"
+    "angular-bootstrap": "1.3.3"
   }
 }
