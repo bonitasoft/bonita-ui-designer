@@ -1,9 +1,9 @@
 <div class="input-group input-group-sm linked">
-    <input name="paramValue"
-           ng-model="propertyValue.value"
-           type="text"
-           uib-typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
-           autofocus="linked" class="form-control"/>
+
+    <uid-property-typeahead
+        uid-property-typeahead-values="getDataNames()"
+        uid-property-typeahead-model="propertyValue.value">
+    </uid-property-typeahead>
 
     <span class="input-group-btn" title="{{ 'Variable in read-write binding with the property value' | translate }}">
         <button class="btn btn-bonita-property" type="button" disabled="true"><i class="fa fa-link"></i></button>

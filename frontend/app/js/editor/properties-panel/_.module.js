@@ -20,7 +20,8 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.editor.common',
     'bonitasoft.designer.common.filters',
-    'gettext'
+    'gettext',
+    'ui.bootstrap'
   ]);
 
 })();
