@@ -2,13 +2,13 @@
     <ng-include src="propertyField.getFieldTemplate(property)" include-replace
                 ng-if="!propertyField.isExpression()"></ng-include>
 
-    <input id="property-{{ property.label.toLowerCase() }}"
-           ng-model="propertyValue.value"
-           type="text"
-           class="form-control PropertyPanel-expression"
-           ng-if="propertyField.isExpression()"
-           uib-typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
-           placeholder="{{ 'expression or variable' | translate }}"/>
+    <uid-property-typeahead
+        ng-if="propertyField.isExpression()"
+        class="PropertyPanel-expression"
+        uid-property-typeahead-values="getDataNames()"
+        uid-property-typeahead-model="propertyValue.value"
+        placeholder="{{ 'expression or variable' | translate }}">
+    </uid-property-typeahead>
 
     <span class="input-group-btn">
         <button class="btn btn-bonita-property"

@@ -31,7 +31,7 @@ angular.module('bonitasoft.designer.editor.properties-panel').controller('Proper
   };
 
   $scope.getDataNames = function() {
-    return Object.keys($scope.pageData);
+    return Object.keys($scope.pageData || {});
   };
 
   var valuesMemory = {};
