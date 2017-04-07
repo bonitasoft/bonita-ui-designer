@@ -60,6 +60,10 @@ angular.module('bonitasoft.designer.common.directives').directive('aceEditor', f
           readOnly: false
         });
 
+        // unbind ctrl-alt-e key since it prevent typing the euros sign on windows
+        // see https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts#other
+        // relates to https://bonitasoft.atlassian.net/browse/BS-16364
+        editor.commands.bindKey('Ctrl-Alt-E', null);
       };
 
       $scope.$on('$destroy', function() {
