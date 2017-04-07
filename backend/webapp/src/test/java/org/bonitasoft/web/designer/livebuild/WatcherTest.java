@@ -19,14 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -39,18 +35,29 @@ public class WatcherTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    private Watcher watcher = new Watcher();
+    private static FileAlterationMonitor monitor = new FileAlterationMonitor(POLLING_DELAY);
+
+    private Watcher watcher = new Watcher(new ObserverFactory(), monitor);
     private Path subDirectory;
+
+    @BeforeClass
+    public static void startMonitor() throws Exception {
+        monitor.start();
+    }
+
+    @AfterClass
+    public static void stopMonitor() throws Exception {
+        monitor.stop();
+    }
 
     @Before
     public void setUp() throws Exception {
-        subDirectory = Files.createDirectory(folder.toPath().resolve("un repertoire"));
-        watcher.setPollingDelayInMs(POLLING_DELAY);
+        subDirectory = Files.createDirectory(folder.toPath().resolve("un répertoire"));
     }
 
     @Test
     public void should_trigger_a_created_event_when_a_file_is_created() throws Exception {
-        TestPathListener listener = new TestPathListener();
+        PathListenerStub listener = new PathListenerStub();
         watcher.watch(folder.toPath(), listener);
 
         Path file = Files.createFile(subDirectory.resolve("file"));
@@ -60,10 +67,9 @@ public class WatcherTest {
     }
 
     @Test
-    @Ignore("Ignored since it fails from time to time. Unknown root cause")
     public void should_trigger_a_modified_event_when_a_file_is_modified() throws Exception {
         Path existingFile = Files.createFile(subDirectory.resolve("file"));
-        TestPathListener listener = new TestPathListener();
+        PathListenerStub listener = new PathListenerStub();
         watcher.watch(folder.toPath(), listener);
 
         Files.write(existingFile, "hello".getBytes(), StandardOpenOption.APPEND);
@@ -72,16 +78,4 @@ public class WatcherTest {
         assertThat(listener.getChanged()).containsExactly(existingFile);
     }
 
-    private class TestPathListener implements PathListener {
-        final List<Path> changed = new ArrayList<>();
-
-        @Override
-        public void onChange(Path path) throws Exception {
-            changed.add(path);
-        }
-
-        public List<Path> getChanged() {
-            return changed;
-        }
-    }
 }

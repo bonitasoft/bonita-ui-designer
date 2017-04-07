@@ -81,7 +81,7 @@ public class WidgetRepositoryTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
-    private LiveMigration<Widget> liveMigration;
+    private Watcher watcher;
 
     @Before
     public void setUp() throws IOException {
@@ -95,7 +95,7 @@ public class WidgetRepositoryTest {
                 jsonFileRepository,
                 new WidgetLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
-                new Watcher());
+                watcher);
 
         ReflectionTestUtils.setField(jsonFileRepository, "version", DESIGNER_VERSION);
     }
@@ -438,16 +438,11 @@ public class WidgetRepositoryTest {
 
     @Test
     public void should_watch_widget_repository() throws Exception {
+        PathListener pathListener = path -> System.out.println(path);
 
-        final List<Path> createdPaths = new ArrayList<>();
+        widgetRepository.watch(pathListener);
 
-        widgetRepository.watch(path -> createdPaths.add(path));
-
-        File file = temporaryFolder.newFile("file");
-
-        Thread.sleep(100); // Needed as we need DefaultFileMonitor.class to kick in
-
-        assertThat(createdPaths).containsExactly(file.toPath());
+        verify(watcher).watch(widgetDirectory, pathListener);
     }
 
     @Test

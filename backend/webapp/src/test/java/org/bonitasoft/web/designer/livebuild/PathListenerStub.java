@@ -14,29 +14,20 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.commons.io.monitor.FileAlterationMonitor;
-import org.apache.commons.io.monitor.FileAlterationObserver;
 
-@Named
-public class Watcher {
+public class PathListenerStub implements PathListener {
+    final List<Path> changed = new ArrayList<>();
 
-    private ObserverFactory observerFactory;
-    private FileAlterationMonitor monitor;
-
-    @Inject
-    public Watcher(ObserverFactory observerFactory, FileAlterationMonitor monitor) {
-        this.observerFactory = observerFactory;
-        this.monitor = monitor;
+    @Override
+    public void onChange(Path path) throws Exception {
+        changed.add(path);
     }
 
-    public void watch(Path path, final PathListener listener) throws IOException {
-        FileAlterationObserver observer = observerFactory.create(path, listener);
-        monitor.addObserver(observer);
+    public List<Path> getChanged() {
+        return changed;
     }
-
 }

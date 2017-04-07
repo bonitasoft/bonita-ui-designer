@@ -91,7 +91,7 @@ public class WorkspaceTest {
                 widgetPersister,
                 new WidgetLoader(jacksonObjectMapper),
                 validator,
-                new Watcher());
+                mock(Watcher.class));
 
         workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
         ReflectionTestUtils.setField(workspace, "currentDesignerVersion", CURRENT_DESIGNER_VERSION);
