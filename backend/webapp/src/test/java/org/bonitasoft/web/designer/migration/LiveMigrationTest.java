@@ -62,7 +62,7 @@ public class LiveMigrationTest {
 
     @Before
     public void setUp() throws Exception {
-        repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, new Watcher());
+        repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, mock(Watcher.class));
     }
 
     @Test

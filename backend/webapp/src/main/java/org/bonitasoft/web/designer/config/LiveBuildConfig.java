@@ -12,31 +12,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.livebuild;
+package org.bonitasoft.web.designer.config;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
-import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Named
-public class Watcher {
+@Configuration
+public class LiveBuildConfig {
 
-    private ObserverFactory observerFactory;
-    private FileAlterationMonitor monitor;
-
-    @Inject
-    public Watcher(ObserverFactory observerFactory, FileAlterationMonitor monitor) {
-        this.observerFactory = observerFactory;
-        this.monitor = monitor;
+    @Bean
+    public FileAlterationMonitor monitor() {
+        return new FileAlterationMonitor(1000);
     }
 
-    public void watch(Path path, final PathListener listener) throws IOException {
-        FileAlterationObserver observer = observerFactory.create(path, listener);
-        monitor.addObserver(observer);
+    @PostConstruct
+    public void start() throws Exception {
+        monitor().start();
+    }
+
+    @PreDestroy
+    public void stop() throws Exception {
+        monitor().stop();
     }
 
 }

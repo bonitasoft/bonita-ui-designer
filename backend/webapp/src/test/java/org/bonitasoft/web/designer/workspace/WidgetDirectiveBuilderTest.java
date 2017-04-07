@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
@@ -78,7 +79,7 @@ public class WidgetDirectiveBuilderTest {
                 new DesignerConfig().widgetFileBasedPersister(),
                 widgetLoader,
                 validator,
-                new Watcher());
+                mock(Watcher.class));
 
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);
