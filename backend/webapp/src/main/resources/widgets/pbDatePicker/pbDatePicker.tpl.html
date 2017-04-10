@@ -32,7 +32,7 @@
                     <button ng-if="properties.showToday" type="button" class="btn btn-default today"
                             ng-click="ctrl.setDateToToday()"
                             ng-disabled="properties.readOnly" ui-translate>
-                           Today
+                        {{properties.todayLabel || 'Today' | uiTranslate}}
                     </button>
                     <button type="button" class="btn btn-default calendar"
                             ng-click="ctrl.openDatePicker()"
