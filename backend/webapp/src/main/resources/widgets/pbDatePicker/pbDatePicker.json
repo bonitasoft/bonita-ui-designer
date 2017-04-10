@@ -95,6 +95,15 @@
       "help": "Display or hide the shortcut button to current day",
       "bond": "constant",
       "defaultValue": true
+    },
+    {
+      "label": "Today button label",
+      "name": "todayLabel",
+      "type": "text",
+      "help": "Can be translated in subscription editions using the asset localization.json",
+      "bond": "interpolation",
+      "showFor": "properties.showToday.value === true",
+      "defaultValue": "Today"
     }
   ],
   "assets": [

@@ -141,12 +141,30 @@
       "defaultValue": true
     },
     {
+      "label": "Today button label",
+      "name": "todayLabel",
+      "type": "text",
+      "help": "Can be translated in subscription editions using the asset localization.json",
+      "bond": "interpolation",
+      "showFor": "properties.showToday.value === true",
+      "defaultValue": "Today"
+    },
+    {
       "label": "Show Now button",
       "name": "showNow",
       "type": "boolean",
       "help": "Display or hide the shortcut button to set date and time to now",
       "bond": "constant",
       "defaultValue": true
+    },
+    {
+      "label": "Now button label",
+      "name": "nowLabel",
+      "type": "text",
+      "help": "Can be translated in subscription editions using the asset localization.json",
+      "bond": "interpolation",
+      "showFor": "properties.showNow.value === true",
+      "defaultValue": "Now"
     }
   ],
   "assets": [

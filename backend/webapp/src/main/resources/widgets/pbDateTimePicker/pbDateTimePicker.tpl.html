@@ -32,7 +32,7 @@
                      <button ng-if="properties.showToday" type="button" class="btn btn-default today"
                              ng-click="ctrl.setDateToToday()"
                              ng-disabled="properties.readOnly" ui-translate>
-                           Today
+                         {{properties.todayLabel || 'Today' | uiTranslate}}
                     </button>
                     <button type="button" class="btn btn-default calendar"
                             ng-click="ctrl.openDatePicker()"
@@ -66,7 +66,7 @@
                       <button ng-if="properties.showNow" type="button" class="btn btn-default now"
                               ng-disabled="properties.readOnly"
                               ng-click="ctrl.setDateAndTimeToNow()" ui-translate>
-                           Now
+                          {{properties.nowLabel || 'Now' | uiTranslate}}
                       </button>
                       <button type="button" class="btn btn-default timepicker"
                               ng-click="ctrl.openTimePicker()"
