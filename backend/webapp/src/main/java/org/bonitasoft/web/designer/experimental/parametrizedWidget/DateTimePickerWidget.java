@@ -20,6 +20,8 @@ public class DateTimePickerWidget extends InputWidget {
     private String dateFormat;
     private String timeFormat;
     private boolean showNow = true;
+    private boolean showToday = true;
+
     private boolean withTimeZone = false;
     private boolean inlineInput = true;
 
@@ -57,6 +59,14 @@ public class DateTimePickerWidget extends InputWidget {
 
     public void setShowNow(boolean showNow) {
         this.showNow = showNow;
+    }
+
+    public boolean isShowToday() {
+        return showToday;
+    }
+
+    public void setShowToday(boolean showToday) {
+        this.showToday = showToday;
     }
 
     public boolean getInlineInput() {

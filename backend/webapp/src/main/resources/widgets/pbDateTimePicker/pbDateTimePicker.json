@@ -169,12 +169,12 @@
   ],
   "assets": [
     {
-      "name": "angular-strap-2.3.9-patched-dateTime.compat.min.js",
+      "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.compat.min.js",
       "type": "js",
       "order": 1
     },
     {
-      "name": "angular-strap-2.3.9-patched-dateTime.tpl.min.js",
+      "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.tpl.min.js",
       "type": "js",
       "order": 2
     },

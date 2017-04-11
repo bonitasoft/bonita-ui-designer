@@ -21,3 +21,7 @@ input[type='number'].ng-invalid.ng-dirty, input[type='password'].ng-invalid.ng-d
   content: "*";
   color: #C00;
 }
+.btn-invalid{
+    border-color: #C00;
+    border-width: 1px;
+}
