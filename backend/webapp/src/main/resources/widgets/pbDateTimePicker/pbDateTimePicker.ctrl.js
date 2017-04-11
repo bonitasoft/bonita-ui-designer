@@ -7,31 +7,99 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
 
   $bsDatepicker.defaults.keyboard = false;
 
+
+  $scope.$watch('properties.value', function() {
+    refreshInputs();
+  },true);
+
+  var refreshInputs = function(){
+    var value = moment($scope.properties.value);
+    if ($scope.properties.value && value.isValid()) {
+      $scope.properties.dateValue = formatToIso(moment({
+        year: value.year(),
+        month: value.month(),
+        date: value.date()
+      }));
+      $scope.properties.timeValue = formatToIso(moment({
+        hours: value.hours(),
+        minutes: value.minutes(),
+        seconds: value.seconds()
+      }));
+    }
+  }
+
+  $scope.updateTimeValue = function() {
+    if ($scope.properties.timeValue && moment($scope.properties.timeValue).isValid()) {
+      var time = moment($scope.properties.timeValue);
+      var dateTime = moment($scope.properties.value);
+      if (!dateTime.isValid()) {
+        dateTime = moment();
+      }
+      $scope.properties.value = formatToIso(dateTime
+        .hours(time.hours())
+        .minutes(time.minutes())
+        .seconds(time.seconds())
+      );
+    }
+  };
+
+  $scope.updateDateValue = function() {
+    if ($scope.properties.dateValue && moment($scope.properties.dateValue).isValid()) {
+      var date = moment($scope.properties.dateValue);
+      var dateTime = moment($scope.properties.value);
+      if (dateTime.isValid()) {
+        $scope.properties.value = formatToIso(dateTime
+          .year(date.year())
+          .month(date.month())
+          .date(date.date())
+        );
+      } else {
+        $scope.properties.value = formatToIso(moment()
+          .year(date.year())
+          .month(date.month())
+          .date(date.date())
+          .hours(12)
+          .minutes(0)
+          .seconds(0)
+        );
+      }
+    }
+  }
+
+  var formatToIso = function(moment) {
+    var isoFormat = 'YYYY-MM-DDTHH:mm:ss';
+    if ($scope.properties.withTimeZone) {
+      return moment.utc().format(isoFormat) + 'Z';
+    } else {
+      return moment.format(isoFormat);
+    }
+  };
+
+
   this.setDateAndTimeToNow = function() {
-    var now = new moment();
+    var now = moment();
     now.minute(Math.round(now.minute() / 5) * 5).second(0);
-    this.formatMoment(now);
+    $scope.properties.value = formatToIso(now);
+    refreshInputs();
   };
 
   this.setDateToToday = function() {
-    var now;
-    if ($scope.properties.value) {
+    if ($scope.properties.timeValue && moment($scope.properties.timeValue).isValid()) {
       // Set the date at today but don't change time
-      var input = new moment($scope.properties.value);
-      now = new moment({hour: input.hours(), minute: input.minutes(), seconds: input.seconds()});
+      var timeValue = moment($scope.properties.timeValue);
+      $scope.properties.value = formatToIso(moment({
+        hour: timeValue.hours(),
+        minute: timeValue.minutes(),
+        seconds: timeValue.seconds()
+      }));
     } else {
-      now = new moment({hour: 0, minute: 0, seconds: 0})
+      $scope.properties.value = formatToIso(moment({
+        hour: 0,
+        minute: 0,
+        seconds: 0
+      }));
     }
-    this.formatMoment(now);
-  };
-
-  this.formatMoment = function(moment) {
-    var isoFormat = 'YYYY-MM-DDTHH:mm:ss';
-    if ($scope.properties.withTimeZone) {
-      $scope.properties.value = moment.utc().format(isoFormat) + 'Z';
-    } else {
-      $scope.properties.value = moment.format(isoFormat);
-    }
+    refreshInputs();
   };
 
   this.openDatePicker = function() {
@@ -46,3 +114,4 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
     $log.error('the pbDateTimepicker property named "value" need to be bound to a variable');
   }
 }
+

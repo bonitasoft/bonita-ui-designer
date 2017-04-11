@@ -16,6 +16,6 @@ describe('date time picker', function () {
     $('input[name="pbDateTimepicker0date"]').click();
     $('input[name="pbDateTimepicker0date"]').sendKeys('bonita');
 
-    expect($('.text-danger').getText()).toEqual('This is not a valid date');
+    expect($('.text-danger').getText()).toEqual('This is not a valid date or time');
   });
 });

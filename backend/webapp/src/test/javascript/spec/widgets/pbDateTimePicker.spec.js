@@ -194,7 +194,7 @@ describe('pbDateTimePicker', function() {
       scope.properties.value = '2015-09-30T00:00:00Z';
       scope.$apply();
 
-      expect(element.find('input').val()).toBe('30/09/2015');
+      expect(element.find('input').val()).toBe(moment('2015-09-30T00:00:00Z').format('DD/MM/YYYY'));
     });
 
     it('should display date using expected date format', function() {
@@ -202,16 +202,15 @@ describe('pbDateTimePicker', function() {
       scope.properties.dateFormat = 'yyyy/MM/dd';
       scope.$apply();
 
-      expect(element.find('input').val()).toBe('2015/09/30');
+      expect(element.find('input').val()).toBe(moment('2015-09-30T00:00:00Z').format('YYYY/MM/DD'));
     });
 
     it('should parse correctly date', function() {
-      scope.properties.value = '2015-09-30T00:00:00.000Z';
+      scope.properties.value = '2015-09-30T00:00:00';
       scope.$apply();
-      element.find('input').val('01/09/2015').triggerHandler('input');
-      $timeout.flush();
+      element.find('input').val('03/10/2015').triggerHandler('input');
 
-      expect(scope.properties.value).toEqual('2015-09-01T00:00:00.000Z');
+      expect(moment(scope.properties.value).isSame(moment('2015-10-03T00:00:00'))).toBeTruthy();
     });
 
     it('should parse correctly date according to date format', function() {
@@ -219,9 +218,8 @@ describe('pbDateTimePicker', function() {
       scope.$apply();
 
       element.find('input').val('2015/09/01').triggerHandler('input');
-      $timeout.flush();
 
-      expect(moment(scope.properties.value).isSame(moment('2015-09-01T00:00:00.000'))).toBeTruthy();
+      expect(moment(scope.properties.value).format('YYYY/MM/DD')).toEqual(moment('2015-09-01').format('YYYY/MM/DD'));
     });
 
     it('should not change time when date input changes', function() {
@@ -231,7 +229,7 @@ describe('pbDateTimePicker', function() {
       input.val('05/09/2015').triggerHandler('input');
       input.val('06/09/2015').triggerHandler('input');
 
-      expect(moment(scope.properties.value).isSame(moment('2015-09-06T14:02:55.000'))).toBeTruthy();
+      expect(moment.utc(scope.properties.value).format()).toEqual(moment('2015-09-06T14:02:55').utc().format());
     });
   });
 
@@ -299,7 +297,7 @@ describe('pbDateTimePicker', function() {
       element.find('input').eq(0).val('01/09/2015').triggerHandler('input');
       element.find('input').eq(1).val('2:02:55 PM').triggerHandler('input');
 
-      expect(moment(scope.properties.value).isSame(moment('2015-09-01T14:02:55.000'))).toBeTruthy();
+      expect(moment(scope.properties.value).format()).toEqual(moment('2015-09-01T14:02:55').format());
     });
 
     it('should parse correctly date and time according to time format', function() {
@@ -312,7 +310,7 @@ describe('pbDateTimePicker', function() {
       element.find('input').eq(0).val('01/09/2015').triggerHandler('input');
       element.find('input').eq(1).val('14:02:55').triggerHandler('input');
 
-      expect(moment(scope.properties.value).isSame(moment('2015-09-01T14:02:55.000'))).toBeTruthy();
+      expect(moment(scope.properties.value).milliseconds(0).format()).toEqual(moment('2015-09-01T14:02:55').format());
     });
 
     it('should parse correctly date and time according to time format without timezone', function() {
@@ -341,7 +339,7 @@ describe('pbDateTimePicker', function() {
       element.appendTo(body);
       scope.$apply();
 
-      var input = element.find('.form-inline');
+      var input = element.find('.form-horizontal');
 
       expect(input.length).toBe(1);
     });
@@ -352,7 +350,7 @@ describe('pbDateTimePicker', function() {
       element.appendTo(body);
       scope.$apply();
 
-      var input = element.find('.form-inline');
+      var input = element.find('.form-horizontal');
 
       expect(input.length).toBe(0);
 
@@ -361,7 +359,7 @@ describe('pbDateTimePicker', function() {
 
   describe('today button', function() {
     it('should set the date to current day and keep time if time will be selected', function() {
-      scope.properties.value = '2015-09-30T14:02:55.000Z';
+      scope.properties.value = '2015-09-30T14:02:55Z';
       scope.properties.showToday = true;
       scope.properties.withTimeZone = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -372,10 +370,15 @@ describe('pbDateTimePicker', function() {
 
       element.find('.input-group .input-group-btn button.today').click();
 
-      var today = new moment({hour: oldtime.hours(), minute: oldtime.minutes(), seconds: oldtime.seconds()});
+      var today = new moment({
+        hour: oldtime.hours(),
+        minute: oldtime.minutes(),
+        seconds: oldtime.seconds()
+      });
 
-      expect(moment(scope.properties.value).isSame(today)).toBeTruthy();
+      expect(moment(scope.properties.value).format()).toEqual(today.format());
     });
+
     it('should be hidden when property showToday is false', function() {
       scope.properties.showToday = false;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -408,8 +411,9 @@ describe('pbDateTimePicker', function() {
       expect(element.find('.input-group .input-group-btn button.now').length).toBe(0);
     });
 
-    it('should set current absolute date and time into UTC date and time', function() {
-      jasmine.clock().mockDate(moment('2015-09-01T18:53:55.000').toDate());
+
+    it('should set current absolute date and time around at five minutes into UTC date and time', function() {
+      jasmine.clock().mockDate(moment('2015-09-01T18:53:55').toDate());
       scope.properties.withTimeZone = false;
       scope.properties.showNow = true;
       element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -423,7 +427,7 @@ describe('pbDateTimePicker', function() {
     });
 
     it('should set current GMT timeZone date and time to current GMT timeZone date and time', function() {
-      jasmine.clock().mockDate(moment('2015-09-01T14:12:55.000Z').toDate());
+      jasmine.clock().mockDate(moment('2015-09-01T14:12:55Z').toDate());
       scope.properties.withTimeZone = true;
       scope.properties.showNow = true;
       var element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
@@ -432,8 +436,8 @@ describe('pbDateTimePicker', function() {
 
       element.find('.input-group .input-group-btn button.now').click();
 
-      expect(element.find('input').eq(0).val()).toEqual(filter('date')('2015-09-01', scope.properties.dateFormat));
-      expect(element.find('input').eq(1).val()).toEqual(filter('date')('4:10:00 PM', scope.properties.timeFormat));
+      expect(element.find('input').eq(0).val()).toEqual(moment().format('DD/MM/YYYY'));
+      expect(element.find('input').eq(1).val()).toEqual(moment().minutes(10).seconds(0).format('h:mm:ss A'));
     });
 
   });
@@ -454,6 +458,7 @@ describe('pbDateTimePicker', function() {
       scope.$apply();
 
       var button = element.find('.input-group .input-group-btn button.calendar');
+
       expect(button.attr('disabled')).toBe('disabled');
     });
   });
@@ -474,6 +479,7 @@ describe('pbDateTimePicker', function() {
       scope.$apply();
 
       var button = element.find('.input-group .input-group-btn button.timepicker');
+
       expect(button.attr('disabled')).toBe('disabled');
     });
   });
