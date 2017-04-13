@@ -50,7 +50,7 @@
             </p>
             <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error "
                  ng-messages-include="forms-generic-errors.html" role="alert">
-                <div ng-message="parse" ng-if="!environment" class="text-danger">
+                <div ng-message="parse" ng-if="!environment || !environment.editor" class="text-danger">
                     {{ 'This is not a valid date' | uiTranslate }}
                 </div>
             </div>

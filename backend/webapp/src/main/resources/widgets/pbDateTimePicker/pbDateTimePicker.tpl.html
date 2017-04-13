@@ -9,6 +9,10 @@
             class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
             {{ properties.label | uiTranslate }}
         </label>
+        <div ng-if="environment && environment.editor && properties.value" class="col-xs-12">
+            <i class="fa fa-link"/></i>
+            {{properties.value}}
+        </div>
         <div
             class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}
             {{properties.inlineInput ? 'form-horizontal' : ''}}">
@@ -99,10 +103,10 @@
             <div ng-messages="($form[ctrl.name+'time'].$dirty && $form[ctrl.name+'time'].$error) ||
                                       ($form[ctrl.name+'date'].$dirty && $form[ctrl.name +'date'].$error)"
                  ng-messages-include="forms-generic-errors.html" role="alert">
-                <div ng-message="date" ng-if="!environment" class="text-danger">
+                <div ng-message="date" ng-if="!environment || !environment.editor" class="text-danger">
                     {{ 'This is not a valid date or time' | uiTranslate }}
                 </div>
-                <div ng-message="parse" ng-if="!environment" class="text-danger">
+                <div ng-message="parse" ng-if="!environment || !environment.editor" class="text-danger">
                     {{ 'This is not a valid date or time' | uiTranslate }}
                 </div>
             </div>
