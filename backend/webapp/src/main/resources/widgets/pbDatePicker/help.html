@@ -1,29 +1,32 @@
-<article>
-    <h4 translate>Usage</h4>
-    <p translate>Use this widget to select a date. To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead.</p>
-    <p translate>The output of the widget (its <em>Value</em>) is an <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z).
-        In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date.</p>
-</article>
-<article>
-    <h4 translate>Format</h4>
-    <p translate>This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE</em>, and based on <code>java.util.Date</code>.
-    </p>
-    <p transtate><em>Note:</em> it is recommended to use the type <em>DATE ONLY</em> rather than the type <em>DATE</em> when dealing only with dates (without time).</p>
-    <p translate>The <em>Technical date format</em> property define the format of the values displayed in the date input.
-    It should be a valid <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">AngularJS date format</a>.
-    </p>
-</article>
-<article>
-    <h4 translate>Date display</h4>
-    <p translate>To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to "yes" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href="javascript:void(0);" open-help="filters" editor-mode="page">filter</a>.</p>
-</article>
-<article>
-    <h4 translate>Localization</h4>
-    <p class="CalloutSubscription">
-        <span class="CalloutSubscription--title" translate>Subscription edition</span>
-        <translate>The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>.
-            The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly.
-            Make sure the technical format value and its translations is a valid <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">date format</a>.</translate>
-        <translate>For more information, refer to the <a href="javascript:void(0);" open-help="localization" editor-mode="page"><em>localization</em> help section</a>.</translate>
-    </p>
-</article>
+<uib-tabset class="tabs-left">
+    <uib-tab heading="{{ 'Usage' | translate }}" index="'usage'">
+        <p>
+            <translate>Use this widget to select a date.</translate><br/>
+            <translate>To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead.</translate>
+        </p>
+        <p>
+            <translate>The output of the widget (its <em>Value</em>) is an <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z).</translate><br/>
+            <translate>In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date.</translate>
+        </p>
+    </uib-tab>
+    <uib-tab heading="{{ 'Format' | translate }}" index="'format'">
+        <p translate>This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>.
+        </p>
+        <p translate>The <em>Technical date format</em> property define the format of the values displayed in the date input.
+        It should be a valid <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">AngularJS date format</a>.
+        </p>
+    </uib-tab>
+    <uib-tab heading="{{ 'Date display' | translate }}" index="'display'">
+        <p translate>To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to "yes" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href="javascript:void(0);" open-help="filters" editor-mode="page">filter</a>.
+        </p>
+    </uib-tab>
+    <uib-tab heading="{{ 'Localization' | translate }}" index="'localization'">
+        <p class="CalloutSubscription">
+            <span class="CalloutSubscription--title" translate>Subscription edition</span>
+            <translate>The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>.</translate><br/>
+            <translate>The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly.</translate><br/>
+            <translate>Make sure the technical format value and its translations is a valid <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">date format</a>.</translate><br/>
+            <translate>For more information, refer to the <a href="javascript:void(0);" open-help="localization" editor-mode="page"><em>localization</em> help section</a>.</translate>
+        </p>
+    </uib-tab>
+</uib-tabset>

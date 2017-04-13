@@ -24,6 +24,7 @@ var paths = {
   ],
   widgets: ['src/main/resources/widgets/**/*.*'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
+  widgetsHtml: ['src/main/resources/widgets/**/*.html'],
   karma: { configFile: __dirname + '/src/test/javascript/karma.conf.js' },
   tests: ['src/test/**/*.spec.js'],
 

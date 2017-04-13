@@ -1,6 +1,7 @@
 var ddescriber = require('../../../frontend/gulp/ddescriber.js');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
+var gettext = require('gulp-angular-gettext');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
@@ -48,13 +49,22 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.dest.json));
   });
 
-  gulp.task('pot', function () {
+  gulp.task('pot', ['pot:json', 'pot:html']);
+
+  gulp.task('pot:json', function () {
     return gulp.src(paths.widgetsJson)
       .pipe( gettextWidget.prepare() )
       .pipe(concat('widgets.json', {newLine: ','}))
       .pipe( gettextWidget.extract() )
       .pipe(gulp.dest('target/po'));
   });
+
+  gulp.task('pot:html', function () {
+    return gulp.src(paths.widgetsHtml)
+      .pipe(gettext.extract('widgets.html.pot', {}))
+      .pipe(gulp.dest('target/po'));
+  });
+
 
   gulp.task('jshint', function () {
     return gulp.src(paths.runtime)
