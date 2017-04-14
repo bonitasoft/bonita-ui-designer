@@ -32,6 +32,7 @@
     "gulp-angular-gettext": "^2.1.0",
     "gulp-babel": "6.1.1",
     "gulp-concat": "~2.4.2",
+    "gulp-replace": "0.5.4",
     "gulp-flatten": "^0.3.1",
     "gulp-include": "^1.1.0",
     "gulp-jscs": "3.0.2",
