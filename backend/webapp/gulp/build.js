@@ -1,6 +1,7 @@
 var ddescriber = require('../../../frontend/gulp/ddescriber.js');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 var gettext = require('gulp-angular-gettext');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
@@ -59,9 +60,14 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest('target/po'));
   });
 
+  /**
+   * Exctract translation keys from HTML files
+   * remove empty msgid key header as it fails in crowndin/upload.sh when using msguniq
+   */
   gulp.task('pot:html', function () {
     return gulp.src(paths.widgetsHtml)
       .pipe(gettext.extract('widgets.html.pot', {}))
+      .pipe(replace(/^[^#]*/, ''))
       .pipe(gulp.dest('target/po'));
   });
 
