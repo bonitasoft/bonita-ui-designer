@@ -22,7 +22,10 @@ import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
 
+import org.bonitasoft.web.designer.builder.ComponentBuilder;
+import org.bonitasoft.web.designer.builder.TabsContainerBuilder;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,6 +55,21 @@ public class DirectivesCollectorTest {
                         aWidget().id("input").build(),
                         aWidget().id("paragraph").build()));
 
+
+        assertThat(directivesCollector.collect(page)).containsOnly(
+                "widgets/input/input.js",
+                "widgets/paragraph/paragraph.js");
+    }
+
+    @Test
+    public void should_collect_directives_from_the_preview_without_container() throws Exception {
+        Page page = aPage().build();
+        HashSet<String> widgetIds = new HashSet<>(asList("input", "paragraph","pbContainer"));
+        when(widgetIdVisitor.visit(page)).thenReturn(widgetIds);
+        when(widgetRepository.getByIds(widgetIds))
+                .thenReturn(asList(
+                        aWidget().id("input").build(),
+                        aWidget().id("paragraph").build(),aWidget().id("pbContainer").type("container").build()));
 
         assertThat(directivesCollector.collect(page)).containsOnly(
                 "widgets/input/input.js",

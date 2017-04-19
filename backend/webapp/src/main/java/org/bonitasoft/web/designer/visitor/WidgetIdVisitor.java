@@ -37,12 +37,18 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
 
     @Override
     public Set<String> visit(Container container) {
-        return getWidgetIdsFrom(container.getRows());
+        Set<String> widgetIds = new HashSet<>();
+        widgetIds.addAll(getWidgetIdsFrom(container.getRows()));
+        widgetIds.add(container.getId());
+        return widgetIds;
     }
 
     @Override
     public Set<String> visit(FormContainer formContainer) {
-        return formContainer.getContainer().accept(this);
+        Set<String> widgetIds = new HashSet<>();
+        widgetIds.addAll(formContainer.getContainer().accept(this));
+        widgetIds.add(formContainer.getId());
+        return widgetIds;
     }
 
     @Override
@@ -51,6 +57,7 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
         for (Tab tab : tabsContainer.getTabs()) {
             widgetIds.addAll(tab.getContainer().accept(this));
         }
+        widgetIds.add(tabsContainer.getId());
         return widgetIds;
     }
 

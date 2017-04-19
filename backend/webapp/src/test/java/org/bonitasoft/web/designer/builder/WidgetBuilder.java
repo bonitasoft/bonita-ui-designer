@@ -33,6 +33,7 @@ public class WidgetBuilder {
     private Set<String> modules = new HashSet<>();
     private Set<String> authRules;
     private String version;
+    private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
 
@@ -104,6 +105,11 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder type(String type){
+        this.type = type;
+        return this;
+    }
+
     public Widget build() {
         Widget widget = new Widget();
         widget.setId(id);
@@ -114,6 +120,7 @@ public class WidgetBuilder {
         widget.setDesignerVersion(version);
         widget.setFavorite(favorite);
         widget.setHasHelp(hasHelp);
+        widget.setType(type);
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {

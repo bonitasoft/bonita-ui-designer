@@ -14,15 +14,13 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Lists.transform;
 import static java.lang.String.format;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -40,13 +38,14 @@ public class DirectivesCollector {
     }
 
     public List<String> collect(Previewable previewable) {
-        return transform(
-                widgetRepository.getByIds(widgetIdVisitor.visit(previewable)),
-                new Function<Widget, String>() {
-                    @Override
-                    public String apply(Widget widget) {
-                        return format("widgets/%s/%s.js", widget.getId(), widget.getId());
-                    }
-                });
+        return widgetRepository.getByIds(widgetIdVisitor.visit(previewable)).stream()
+                .filter(widget -> !isContainer(widget))
+                .map(w -> format("widgets/%s/%s.js", w.getId(), w.getId()))
+                .collect(Collectors.toList());
     }
+
+    private boolean isContainer(Widget widget) {
+        return "container".equals(widget.getType());
+    }
+
 }
