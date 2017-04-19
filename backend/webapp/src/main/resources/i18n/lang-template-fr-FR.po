@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita-bpm\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-03-17 14:16-0400\n"
+"PO-Revision-Date: 2017-04-19 08:23-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -25,6 +25,15 @@ msgstr "(utilisé dans le template et le controller)"
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
+msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
+"            For the time, it is rounded up or down to the closest 5 min value."
+msgstr "<b>Le bouton <em>Maintenant</em></b> affiche dans le widget la date et l'heure courantes de l’utilisateur, arrondies aux 5 min les plus proches."
+
+msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
+"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
+msgstr "<b>Le bouton <em>Aujourd'hui</em></b> affiche dans le widget la date du jour de l’utilisateur.\n"
+"             Si l'heure est déjà définie, elle est gardée telle quelle. Sinon, il affiche minuit."
+
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b> Pour utiliser un formulaire dans un processus</b>, associez-le dans le studio au pool ou à une tâche humaine. Il sera automatiquement packagé dans l'archive .bar prête à être déployée dans le portail."
 
@@ -33,6 +42,16 @@ msgstr "<b>Pour utiliser un layout dans une application métier</b>, exportez-le
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Pour utiliser une page dans une application métier</b>, exportez-la depuis le UI Designer et importez-la dans Bonita BPM Portal en tant que ressource. Puis, à partir de l'application souhaitée, ajoutez-la à la liste des pages et si besoin, associez-lui un menu de navigation."
+
+msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
+"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TZ)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
+msgstr "<b>Lorsque <em>Gérer fuseau horaire</em> est à \"non\"</b> : le fuseau horaire de l’utilisateur est ignoré et la valeur du widget ne contient aucune information de fuseau horaire (par exemple, dd-MM-yyyyTHH:mm:ss). \n"
+"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier tels que <em>DATE AND TIME (NO TZ)</em> dans la BDM, basés sur <code>java.time.LocalDateTime</code>."
+
+msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
+"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TZ)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
+msgstr "<b>Lorsque <em>Gérer fuseau horaire</em> est à \"oui\"</b> : la <em>Valeur</em> des widgets est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ). \n"
+"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier tels que <em>DATE AND TIME (TZ)</em> dans la Base de Données Métier (BDM), basés sur <code>java.time.LocalDateTime</code>."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
@@ -49,8 +68,8 @@ msgstr "<code>taskId</code> est un paramètre d'URL. <br>C'est l'id de la tâche
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>Exemple</b></em>: Utilisez la clé <em>nom.submit.bouton</em> pour la propriété <b>Libellé</b> d'un bouton Submit. Utilisez la clé <em>format.date</em> pour la propriété <b>Format de la date</b> et <em>placeholder.date</em> pour la propriété <b>Placeholder</b> du widget Date picker. Ensuite, mettez l'asset <em>localization.json</em> à jour avec les traductions de <em>nom.bouton.submit</em>, <em>format.date</em> en anglais, et <em>placeholder.date</em> dans la langue de traduction."
 
-msgid "<em>Note about the</em> Date Picker <em>widget:</em> the <em>Placeholder</em> property translations must match the <em>Date format</em> property value (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Date format</em> key to avoid translations mismatches."
-msgstr "<em>Note sur le widget</em> Date Picker : la traduction de la propriété <em>Placeholder</em> doit être cohérente avec celle de la propriété <em>Format de la date> (l'ordre et le nombre des lettres). Cependant, leurs clés de traduction doivent être différentes, pour éviter toute incohérence de traduction."
+msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
+msgstr "<em>Note sur les widgets</em> Date <em>et</em> Date Time : la traduction de la propriété <em>Placeholder</em> doit être cohérente avec celle de la propriété <em>Format technique de la date</em> (ordre et nombre de lettres). Cependant, leurs clés de traduction doivent être différentes, pour éviter toute incohérence de traduction."
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans l'URL, employez la syntaxe <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\"> Astuce :</span> Pour étendre les capacités de notre API REST, créez des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et utilisez-les ici</p>"
@@ -67,9 +86,6 @@ msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent ap
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Créer une nouvelle variable</span>"
 
-msgid "<span>{{ vm.page.type }}</span> editor"
-msgstr "Editeur de <span>{{ vm.page.type }}</span>"
-
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong> : la collection courante"
 
@@ -79,14 +95,17 @@ msgstr "<strong>$index</strong> : l'index de l'itération courante de la collect
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong> : l'élément de l'itération courante"
 
+msgid "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-ddTHH:mm:ss(Z)"
+msgstr "Variable de type String formatée selon <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> : yyyy-MM-ddTHH:mm:ss(Z)"
+
 msgid "A JSON object"
-msgstr ""
+msgstr "Un objet JSON"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
 
-msgid "A date, at midnight UTC"
-msgstr "Une date, à minuit UTC"
+msgid "A date that should be at midnight UTC"
+msgstr "Une date qui devrait être à minuit UTC"
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
@@ -149,10 +168,13 @@ msgid "Added artifacts"
 msgstr "Artefacts ajoutés"
 
 msgid "Additional request parameters added to the query string"
-msgstr ""
+msgstr "Paramètres de requête supplémentaires ajoutés à la requête"
 
 msgid "Alignment"
 msgstr "Alignement"
+
+msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
+msgstr "Tous les <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\"> filtres angularJS</a> sont disponibles. Pour les utiliser, tapez <code>|</code> (« pipe »). Par exemple, <code>myVariable | minuscules</code>."
 
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "Toutes les données de processus d'un cas : rechercher une liste des variables d'un cas"
@@ -250,8 +272,11 @@ msgstr "Par convention, dans le fichier <em>localization.json</em>, la langue ut
 msgid "CSS classes"
 msgstr "Classes CSS"
 
-msgid "Calendar for selecting a date"
-msgstr "Champ de saisie ou calendrier de sélection permettant d'entrer une date"
+msgid "Calendar for selecting a date (only)"
+msgstr "Calendrier pour la sélection d'une date (uniquement)"
+
+msgid "Calendar for selecting a date and time"
+msgstr "Calendrier pour la sélection d'une date et d'une heure"
 
 msgid "Call a business data (custom) query"
 msgstr "Appel d'une requête BDM (spécifique)"
@@ -264,6 +289,9 @@ msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préci
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions et « Clé retournée » pour préciser la sélection"
+
+msgid "Can be translated in subscription editions using the asset localization.json"
+msgstr "Peut être traduit dans les éditions Subscription grâce à l'asset localization.json"
 
 msgid "Can be used to define the expected input format"
 msgstr "Peut être utilisé pour expliquer le format d'entrée attendu"
@@ -433,14 +461,30 @@ msgstr "Données envoyées au clic"
 msgid "Date"
 msgstr "Date"
 
-msgid "Date format"
-msgstr "Format de la date"
+msgid "Date & time display"
+msgstr "Affichage des dates et heures"
 
-msgid "Date format in the expected language, synchronized with the Date format property"
-msgstr "Format de la date dans la langue attendue, cohérent avec la propriété \"Format de la Date\""
+msgid "Date Placeholder"
+msgstr "Placeholder pour la date"
 
-msgid "Date or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable"
-msgstr "Date ou variable <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatée en String"
+msgid "Date and time"
+msgstr "Placeholder pour la date et l'heure"
+
+msgid "Date and time can reflect the user time zone (e.g., a meeting day and time) or be absolute, identical everywhere (e.g., opening hours of a store somewhere).\n"
+"            This is controlled by the property <em>Handle time zone</em>."
+msgstr "La date et l'heure peuvent intégrer le fuseau horaire de l'utilisateur (jour et heure d'une réunion) ou être absolues, affichées de façon identique partout (horaires d'ouverture d'une boutique).\n"
+"            Ce choix est proposé par la propriété <em>Gérer fuseau horaire</em>."
+
+msgid "Date display"
+msgstr "Affichage de la date"
+
+msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
+msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
+
+msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
+msgstr "Un objet date ou une variable String formatée selon <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> yyyy-MM-dd\n"
+" \n"
+"Context | Edit Context"
 
 msgid "Default"
 msgstr "Défaut"
@@ -488,10 +532,10 @@ msgid "Details"
 msgstr "Détails"
 
 msgid "Determines target application. It is recommended not to hard code it."
-msgstr ""
+msgstr "Détermine l’application cible. Il est recommandé de ne pas le saisir en dur."
 
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
-msgstr ""
+msgstr "Détermine le thème de l’application qui sera utilisé par la page cible. Il est recommandé de ne pas le saisir en dur."
 
 msgid "Disabled"
 msgstr "Désactivé"
@@ -504,6 +548,9 @@ msgstr "Afficher une image à partir d'un asset ou d'une URL"
 
 msgid "Display or hide the shortcut button to current day"
 msgstr "Afficher ou masquer le bouton de raccourci pour sélectionner la date du jour"
+
+msgid "Display or hide the shortcut button to set date and time to now"
+msgstr "Afficher ou masquer le bouton de raccourci pour régler la date et l’heure au moment présent"
 
 msgid "Displayed key"
 msgstr "Clé affichée"
@@ -526,8 +573,8 @@ msgstr "Valeur dynamique"
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et importez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
 
-msgid "Each type or container has sepcific behaviors"
-msgstr "Chaque type de container possède des caractéristiques spécifiques"
+msgid "Each type or container has specific behaviors"
+msgstr "Chaque type de container a des comportements spécifiques"
 
 msgid "Edit asset"
 msgstr "Modifier l'asset"
@@ -549,6 +596,9 @@ msgstr "Entrer le nom de ' + vm.mode + '"
 
 msgid "Enter a date (mm/dd/yyyy)"
 msgstr "Saisissez une date (jj/mm/aaaa)"
+
+msgid "Enter a time (h:mm:ss a)"
+msgstr "Entrez une heure (hh:mm:ss)"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Erreur à la ligne <code>{{ infos.location.line }}</code>, colonne <code>{{ infos.location.column }}</code>"
@@ -589,14 +639,32 @@ msgstr "Fichier"
 msgid "File chooser for uploading a document to a form"
 msgstr "Sélecteur de fichier pour télécharger un document vers un formulaire"
 
+msgid "Filters"
+msgstr "Filtres"
+
 msgid "First"
 msgstr "Premier"
+
+msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
+msgstr "Pour les formats de date particulièrement, le UI Designer embarque un filtre <em>uiDate</em> pour afficher facilement des dates de la BDM ou de toute autre API REST."
+
+msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
+msgstr "Pour plus d'information, reportez-vous à la section d'aide <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localisation</em></a>."
 
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
 msgstr "Pour plus d'informations, consultez le guide AngularJS sur les <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> et le <a href=\"https://docs.angularjs.org/guide/controller\">controller</a>."
 
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "Actuellement, la création de containers personnalisés n'est pas encore possible."
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Format used to display the date"
+msgstr "Format utilisé pour afficher la date"
+
+msgid "Format used to display the time"
+msgstr "Format utilisé pour afficher l'heure"
 
 msgid "Forms"
 msgstr "Formulaires"
@@ -642,6 +710,9 @@ msgstr "Groupe de widgets permettant de définir la disposition des éléments d
 
 msgid "HTTP request"
 msgstr "Requête HTTP"
+
+msgid "Handle time zone"
+msgstr "Gérer les fuseaux horaires"
 
 msgid "Headers"
 msgstr "En-têtes"
@@ -715,6 +786,9 @@ msgstr "Dans un formulaire de processus, si vous avez défini des variables mét
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
+msgid "In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date."
+msgstr "En plus des variables String conformes à l'ISO 8601 (avec ou sans information d'heure), vous pouvez aussi passer des inputs de types objets Date ou nombres (millisecondes depuis Epoch). Cependant, lorsque l'utilisateur sélectionnera une date, le type de variable liée à la <em>Valeur</em> du widget passera à String (ISO 8601)."
+
 msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita BPM Portal, les artéfacts composant les interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
@@ -735,6 +809,12 @@ msgstr "Dans le cadre d'une page, d'un formulaire ou d'un layout, une variable p
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "Dans cette liste, vous pouvez utiliser les flèches pour ré-ordonner les assets, voir les assets locaux, éditer les assets externes et supprimer tout type d'assets."
+
+msgid "Includes the localized version of the Technical date format property, to guide the user"
+msgstr "Inclut la version localisée de la propriété Format technique de date, pour guider l’utilisateur"
+
+msgid "Includes the localized version of the Technical time format property, to guide the user"
+msgstr "Inclut la version localisée de la propriété Format technique de l'heure, pour guider l’utilisateur"
 
 msgid "Incorrect zip structure."
 msgstr "La structure du zip est incorrecte."
@@ -838,11 +918,14 @@ msgstr "Localisation"
 msgid "London,Paris,San Francisco"
 msgstr "Londres, Paris, San Francisco"
 
-msgid "M: month, d: day, y: year"
-msgstr "M: mois, d: jour, y: année"
-
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
+
+msgid "Make sure the technical format value and its translations is a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date format</a>."
+msgstr "Assurez-vous que la valeur pour le format technique de date et ses traductions sont des <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">formats de date</a> valides."
+
+msgid "Make sure the technical format values and their translations are valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date/time formats</a>."
+msgstr "Assurez-vous que la valeur pour le format technique de date/heure et ses traductions sont des <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">formats de date/heure</a> valides."
 
 msgid "Malformed json file"
 msgstr "Le fichier json n'a pas le bon format"
@@ -900,6 +983,15 @@ msgstr "Aucun asset"
 
 msgid "No variable"
 msgstr "Aucune variable"
+
+msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
+msgstr "Non : fuseau horaire de l’utilisateur ignoré <br>Oui : fuseau horaire de l’utilisateur reflété dans l'affichage/saisie qui peut être différent(e) de la valeur"
+
+msgid "Now"
+msgstr "Maintenant"
+
+msgid "Now button label"
+msgstr "Libellé du bouton Aujourd'hui"
 
 msgid "Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container"
 msgstr "Le nombre des éléments du tableau détermine le nombre des répétitions de la structure du container. Les données du tableau peuvent être utilisées dans les widgets du container"
@@ -1087,8 +1179,14 @@ msgstr "Jeu de cases d'options s'excluant mutuellement. L'utilisateur sélection
 msgid "Set of checkboxes for options. The user selects zero or more"
 msgstr "Ensemble de cases à cocher pour des options. L'utilisateur sélectionne zéro ou plusieurs"
 
-msgid "Short hint that describes the expected input format"
-msgstr "Indice court qui décrit le format attendu"
+msgid "Set the input time on the same line as the input date"
+msgstr "Saisie de la date et de l’heure sur la même ligne"
+
+msgid "Short hint that describes the expected input format for the date"
+msgstr "Court indice qui décrit le format attendu pour la saisie de la date"
+
+msgid "Short hint that describes the expected input format for the time"
+msgstr "Court indice qui décrit le format attendu pour la saisie de l'heure"
 
 msgid "Short hint that describes the expected value"
 msgstr "Indice court qui décrit la valeur attendue"
@@ -1096,7 +1194,10 @@ msgstr "Indice court qui décrit la valeur attendue"
 msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "Courte chaîne de texte ou paragraphe à afficher. Peut inclure des balises HTML"
 
-msgid "Show today button"
+msgid "Show Now button"
+msgstr "Afficher le bouton Maintenant"
+
+msgid "Show Today button"
 msgstr "Afficher le bouton Aujourd'hui"
 
 msgid "Source"
@@ -1131,9 +1232,6 @@ msgstr "Spécifie le type de lien à créer"
 
 msgid "Specifies where to open the linked document"
 msgstr "Spécifie l'endroit où le document lié sera ouvert"
-
-msgid "Specify the expected technical format"
-msgstr "Spécifiez le format technique attendu"
 
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Indiquez le nombre de colonnes de l'élément. Tous les éléments peuvent prendre jusqu'à 12 colonnes."
@@ -1180,6 +1278,12 @@ msgstr "URL cible en cas de succès"
 msgid "Task Id"
 msgstr "ID de tâche"
 
+msgid "Technical date format"
+msgstr "Format technique de la date"
+
+msgid "Technical time format"
+msgstr "Format technique de l'heure"
+
 msgid "Template"
 msgstr "Template"
 
@@ -1192,6 +1296,16 @@ msgstr "Texte utilisé pour structurer le contenu de la page ou du formulaire"
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texte, incluant éventuellement des variables dans des expressions simples en utilisant l'interpolation avec {{ variableName }}"
 
+msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
+"            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
+msgstr "Les propriétés <em>Format technique de date</em> et <em>Format technique d'heure</em> définissent le format et les valeurs affichées dans les inputs de date et heure.\n"
+"            Elles doivent correspondre à des <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> formats de date/time AngularJS</a> valides."
+
+msgid "The <em>Technical date format</em> property define the format of the values displayed in the date input.\n"
+"        It should be a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a>."
+msgstr "La propriété <em>Format technique de date</em> définit le format et les valeurs affichées dans l'input de date.\n"
+"            Elle doit correspondre à un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> format de date AngularJS</a> valide."
+
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>. Vous pouvez donc exporter des pages dans votre environnement de développement web favori pour les personnaliser davantage."
 
@@ -1201,17 +1315,29 @@ msgstr "Le UI Designer s’affiche dans la langue de votre Bonita BPM Studio."
 msgid "The caption will be displayed as such below the property label."
 msgstr "La légende s'affiche comme telle sous le libellé de la propriété."
 
+msgid "The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>."
+msgstr "Le contenu des propriétés <em>Libellé</em>, <em>Format technique de date</em>, <em>Placeholder</em> et le libellé du bouton <em>Aujourd'hui</em> sont localisés par défaut. Ces éléments peuvent être édités dans l'asset <em>localization.json</em>."
+
+msgid "The content of <em>Label</em>, <em>Technical date formats</em>, <em>Placeholder</em> properties, as well as the labels of buttons <em>Today/Now</em> are localized by default. Localized formats can be edited in the asset <em>localization.json</em>."
+msgstr "Le contenu des propriétés <em>Libellé</em>, <em>Format technique de date</em>, <em>Placeholder</em> et les libellés des boutons <em>Aujourd'hui/Maintenant</em> sont localisés par défaut. Ces éléments peuvent être édités dans l'asset <em>localization.json</em>."
+
 msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
 msgstr "Le controller est une fonction JavaScript qui augmente le scope de AngularJS et expose des fonctions qui peuvent être utilisées dans le template du widget personnalisé."
 
 msgid "The custom widget HTML template is defined here."
 msgstr "Le template HTML du widget personnalisé est défini ici."
 
+msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
+msgstr "L’affichage des dates et des heures s’appuie sur le fuseau horaire du navigateur de l’utilisateur. Par conséquent, les valeurs affichées diffèrent des valeurs stockées (sauf pour le fuseau horaire GMT)."
+
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient également de nouveaux éléments."
 
 msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient des éléments portant le même id que des éléments existants."
+
+msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable."
+msgstr "L’entrée/sortie du widget (sa <em>Valeur</em>) est une variable String formatée selon la norme <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a>."
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La liste contient à la fois des assets de page et les assets des widgets personnalisés utilisés dans cette page."
@@ -1222,11 +1348,17 @@ msgstr "Le nom de la clé à utiliser comme label. Peut être vide"
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "Le nom de la clé à utiliser comme valeur. Laisser vide pour un object"
 
+msgid "The output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
+msgstr "La sortie du widget (sa <em>Valeur</em>) est une variable String formatée selon la norme <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a>, avec une heure fixée à minuit UTC (par exemple, 2016-12-31T00:00:00.000Z)."
+
 msgid "The page has not been imported."
 msgstr "La page n'a pas été importée."
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "L'info-bulle sera affiché comme tel, à proximité du libellé de la propriété."
+
+msgid "The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly."
+msgstr "Les valeurs de toutes les propriétés sont également utilisées comme clés de traduction. Par conséquent, si vous choisissez de ne pas conserver les valeurs par défaut, mettez à jour l'asset <em>localization.json</em> en conséquence."
 
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "Le whiteboard est organisé en <b>lignes</b> que vous pouvez déplacer vers le haut ou le bas, ou supprimer."
@@ -1255,8 +1387,14 @@ msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.
 msgid "This page is empty."
 msgstr "Cette page est vide."
 
+msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
+msgstr "Ce widget peut être utilisé pour afficher/mettre à jour des attributs de variables métier définies dans la Base de Données Métier (BDM) en tant que <em>DATE ONLY</em> et basé sur <code>java.time.LocalDate</code> ou en tant que <em>DATE (NOT RECOMMENDED)</em> et basés sur <code>java.util.Date</code>."
+
 msgid "This will also update the content of the preview window"
 msgstr "Cela mettra également à jour le contenu de la fenêtre d’aperçu"
+
+msgid "Time Placeholder"
+msgstr "Placeholder de l'heure"
 
 msgid "Title"
 msgstr "Titre"
@@ -1269,6 +1407,12 @@ msgstr "Pour ajouter du contenu, faites un glisser-déposer des composants de la
 
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "Pour permettre à vos utilisateurs de télécharger un document, ajoutez un Link widget dont la propriété url est bindée à"
+
+msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
+msgstr "Pour afficher (non pas mettre à jour) une date et une heure récupérées de l’API du BDM (ou autre API), vous pouvez soit utiliser ce widget <em>DATE TIME</em> en activant la propriété <em>Lecture seule</em>, soit utiliser un widget <em>Texte</em>, <em>Titre</em> ou un widget <em>Table</em> en formatant la valeur grâce au <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtre</a> <em>uiDate</em> fourni."
+
+msgid "To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
+msgstr "Pour afficher (non pas mettre à jour) une date récupérée de l’API du BDM (ou autre API), vous pouvez soit utiliser ce widget <em>DATE</em> en activant la propriété <em>Lecture seule</em>, soit utiliser un widget <em>Texte</em>, <em>Titre</em> ou un widget <em>Table</em> en formatant la valeur grâce au <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtre</a> <em>uiDate</em> fourni."
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Pour afficher la date dans une propriété de widget évaluée comme une expression, utilisez le filtre <code>dateAgo</code> sur la variable <code>updateDate</code> comme suit : <code>updateDate | dateAgo</code>"
@@ -1294,6 +1438,12 @@ msgstr "Pour les sauver avec des Id différents, ouvrez-les et utilisez <i>Enreg
 msgid "To save {{ ::importReport.name }} with a different id, open it and use <i>Save as</i> before you import."
 msgstr "Pour enregistrer {{ ::importReport.name }} avec un id différent, ouvrez-le et utilisez <i>Enregistrer sous</i>, puis importez."
 
+msgid "To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead."
+msgstr "Pour sélectionner une date et une heure (par exemple, pour planifier une réunion), utilisez plutôt le widget <em>DATE TIME</em>."
+
+msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
+msgstr "Pour sélectionner seulement une date (par exemple, une date de naissance), utilisez plutôt le widget <em>DATE</em>."
+
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "Pour mettre à jour un formulaire en environnement de production, exportez-le depuis le UI Designer, importez-le dans le portail au niveau du processus cible, puis associez-le à la tâche cible ou à l'événement de début du processus."
 
@@ -1311,6 +1461,15 @@ msgstr "Pour utiliser les données de la collection dans les widgets de ce conta
 
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "Pour utiliser le même asset dans plusieurs pages, vous pouvez l'ajouter à un widget personnalisé et utiliser ce widget personnalisé dans vos pages d'application ou vos formulaire. Lorsque vous ajoutez un widget personnalisé contenant des assets, ceux-ci sont automatiquement associés à la page."
+
+msgid "Today"
+msgstr "Aujourd’hui"
+
+msgid "Today & Now"
+msgstr "Aujourd'hui & Maintenant"
+
+msgid "Today button label"
+msgstr "Libellé du bouton Aujourd'hui"
 
 msgid "Toggle properties panel"
 msgstr "Afficher / masquer le panneau de propriétés"
@@ -1330,6 +1489,9 @@ msgstr "Traiter la valeur comme"
 msgid "Trigger for an action in a page or form"
 msgstr "Déclenchement d'une action dans une page ou un formulaire"
 
+msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
+msgstr "Deux cas d’utilisation : <ul><li><code>dateVariable|uiDate</code> applique un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> format</a> par défaut. Pour une chaîne ISO 8601 avec une heure, le format par défaut est <em>« medium »</em>. Sinon, c’est <em>« mediumDate »</em>.</li> <li><code>dateVariable|uiDate:format</code> si vous avez besoin de préciser le format d'avantage. Il s'utilise comme <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> angularJS date filter</a>. <br>Ex. <code>dateVariable|uiDate :'short'</code> ou <code>dateVariable|uiDate: 'dd/MM/yyyy'</code></li></ul>"
+
 msgid "Type"
 msgstr "Type"
 
@@ -1346,7 +1508,7 @@ msgid "URL parameter name"
 msgstr "Nom du paramètre d'URL"
 
 msgid "URL parameters"
-msgstr ""
+msgstr "Paramètres d'URL"
 
 msgid "URL to call"
 msgstr "URL à appeler"
@@ -1363,14 +1525,23 @@ msgstr "Retirer des favoris"
 msgid "Update asset"
 msgstr "Modifier l'asset"
 
+msgid "Usage"
+msgstr "Utilisation"
+
 msgid "Use $collection to act on the collection of a repeated content"
 msgstr "Utilisez $collection pour agir sur la collection d'un contenu répété"
 
 msgid "Use $item to remove the current item in a repeated collection"
 msgstr "Utilisez $item pour supprimer l'élément courant dans une collection répétée"
 
+msgid "Use <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">Filters</a> to format the data (e.g. <span ng-non-bindable>columnKey|uiDate</span>)"
+msgstr "Utilisez des <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> Filtres</a> pour formater les données (ex. <span ng-non-bindable> columnKey|uiDate</span>)"
+
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "Utilisez les <b>widgets</b> depuis la palette à gauche pour <b>afficher des informations</b> et <b>recueillir des informations de</b> l'utilisateur final."
+
+msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
+msgstr "Utilisez <span ng-non-bindable>{{dataVariable}}</span> pour accéder aux données et les <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtres</a> pour formater (par exemple <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "Utilisez un une liaison bidirectionnelle pour spécifier une liaison de lecture / écriture entre la valeur de la propriété et une variable."
@@ -1381,14 +1552,26 @@ msgstr "Utilisez une valeur dynamique pour spécifier une constante (par défaut
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr "Utilisez une interpolation pour saisir le texte à afficher dans le widget. Le texte peut inclure des variables qui sont interprétées à l'aide de l'interpolation AngularJS. Lorsque la page est affichée, les variables sont remplacées par les valeurs interpolées. Spécifiez la variable comme une simple expression entre doubles accolades, en utilisant le même format que pour une valeur dynamique. Exemple : Je suis désolé, <em ng-non-bindable=\"\"> {{ user.name | uppercase }}</em>. J'ai bien peur de ne pas pouvoir faire cela."
 
-msgid "Use basic html tags and {{ dataVariable }} to access data"
-msgstr "Utilisez des balises html standard et {{ dataVariable }} pour accéder aux données"
+msgid "Use basic html tags, <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
+msgstr "Utilisez des balises html basiques, <span ng-non-bindable>{{dataVariable}}</span> pour accéder aux données et des <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtres</a> pour les formater (ex. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utilisez le UI Designer pour créer ou éditer les artefacts web : <b>pages d'application</b> pour composer des applications métier, <b>formulaires de processus</b> liés à l'instantiation du processus ou à l'exécution de tâches humaines, et <b>layouts d'application</b> appliqués à toutes les pages d'une application métier."
 
+msgid "Use the characters: H (hour), h (hour in AM/PM), m (minutes) and optionally s (seconds), a (AM/PM)"
+msgstr "Utilisez les caractères : H (heures), h (heure au format AM/PM), m (minutes) et, éventuellement, s (secondes), et a (AM/PM)"
+
+msgid "Use the characters: M (month), d (day), y (year)"
+msgstr "Utilisez les caractères : M (mois), d (jour), y (année)"
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
+
+msgid "Use this widget to select a date and a time."
+msgstr "Utilisez ce widget pour permettre la sélection d'une date et d'une heure."
+
+msgid "Use this widget to select a date."
+msgstr "Utilisez ce widget pour permettre la sélection d'une date."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
@@ -1457,7 +1640,7 @@ msgid "Width"
 msgstr "Largeur"
 
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
-msgstr ""
+msgstr "Sera récupéré à partir de l’URL s'il n’est pas défini (paramètre « app »). Vous pouvez le passer dans l’URL de la fenêtre d'aperçu, pour vos tests."
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "A l'intérieur d'une ligne, lorsque vous supprimez un widget ou un container, les éléments qui suivent sont déplacés vers la gauche"
@@ -1465,8 +1648,14 @@ msgstr "A l'intérieur d'une ligne, lorsque vous supprimez un widget ou un conta
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis la page d'accueil."
 
+msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
+msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants : <ul><li>Variable String formatée selon <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a></li> <li>Objet Date</li> <li>millisecondes depuis Epoch (nombre ou variable String)</li></ul>"
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
+
+msgid "You can format data with filters when data is used in widget property fields that allow interpolation <i class=\"fa fa-paragraph\"></i> or that are bound to a variable <i class=\"fa fa-link\"></i> ."
+msgstr "Le formatage de variables par filtres est possible dans les champs de propriété de widgets qui permettent l’interpolation <i class=\"fa fa-paragraph\"></i> ou ceux qui sont liés à une variable <i class=\"fa fa-link\"></i>."
 
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Vous pouvez regrouper des widgets dans un container pour gérer leur disposition dans un formulaire ou une page. Un container peut contenir d'autres containers."
@@ -1536,6 +1725,9 @@ msgstr "expression ou variable"
 msgid "green,red,blue"
 msgstr "vert, rouge, bleu"
 
+msgid "h:mm:ss a"
+msgstr "HH:mm:ss"
+
 msgid "hidden"
 msgstr "masqué"
 
@@ -1574,6 +1766,9 @@ msgstr "primary"
 
 msgid "right"
 msgstr "à droite"
+
+msgid "should contain timezone information only when 'Handle time zone' is not selected"
+msgstr "doit contenir des informations de fuseau horaire uniquement lorsque « Handle time zone » n’est pas sélectionné"
 
 msgid "success"
 msgstr "success"
@@ -1614,6 +1809,9 @@ msgid "{{ type }}"
 msgid_plural "{{ type }}s"
 msgstr[0] "{{ type }}"
 msgstr[1] "{{ type }}"
+
+msgid "{{ vm.page.type }} editor"
+msgstr "Éditeur de {{ vm.page.type }}"
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenu de {{asset.name}}<expand-modal></expand-modal>"
