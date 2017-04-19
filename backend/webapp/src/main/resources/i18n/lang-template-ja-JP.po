@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-03-17 14:19-0400\n"
+"PO-Revision-Date: 2017-04-19 06:05-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -80,7 +80,7 @@ msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: 現在の反復処理の要素"
 
 msgid "A JSON object"
-msgstr ""
+msgstr "JSON オブジェクト"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
@@ -149,7 +149,7 @@ msgid "Added artifacts"
 msgstr "追加されたアーティファクト"
 
 msgid "Additional request parameters added to the query string"
-msgstr ""
+msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
 
 msgid "Alignment"
 msgstr "配置"
@@ -440,7 +440,7 @@ msgid "Date format in the expected language, synchronized with the Date format p
 msgstr "求められる言語の日付書式、日付書式のプロパティと同期されます。"
 
 msgid "Date or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable"
-msgstr "Date または <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式設定された文字列型の変数"
+msgstr "Date または <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列変数"
 
 msgid "Default"
 msgstr "デフォルト"
@@ -488,10 +488,10 @@ msgid "Details"
 msgstr "詳細情報"
 
 msgid "Determines target application. It is recommended not to hard code it."
-msgstr ""
+msgstr "ターゲット アプリケーションを指定します。ハード コーディングしないことを推奨します。"
 
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
-msgstr ""
+msgstr "ターゲット ページで使用するアプリケーションのテーマを指定します。ハード コーディングしないことを推奨します。"
 
 msgid "Disabled"
 msgstr "無効"
@@ -827,7 +827,7 @@ msgid "Living data"
 msgstr "リビング データ"
 
 msgid "Loading {{mode}}..."
-msgstr ""
+msgstr "{{mode}} を読み込んでいます..."
 
 msgid "Local"
 msgstr "ローカル"
@@ -923,7 +923,7 @@ msgid "Overridden artifacts"
 msgstr "オーバーライドされたアーティファクト"
 
 msgid "Overview"
-msgstr "案件概況"
+msgstr "オーバービュー"
 
 msgid "POST"
 msgstr "POST"
@@ -1031,7 +1031,7 @@ msgid "Save {{ctrl.widget.name}} as..."
 msgstr "{{ctrl.widget.name}} を別名で保存..."
 
 msgid "Saved"
-msgstr "保存済み"
+msgstr "保存しました"
 
 msgid "Search"
 msgstr "検索"
@@ -1346,7 +1346,7 @@ msgid "URL parameter name"
 msgstr "URL パラメータ名"
 
 msgid "URL parameters"
-msgstr ""
+msgstr "URL パラメータ"
 
 msgid "URL to call"
 msgstr "コールするURL"
@@ -1457,10 +1457,10 @@ msgid "Width"
 msgstr "幅"
 
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
-msgstr ""
+msgstr "（'app' パラメータ） を設定していない場合、URL から取得されます。テスト用のプレビュー URL のクエリ文字列で渡すことができます。"
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
-msgstr "行の内部のウィジェットまたはコンテナーを削除すると、次に続く要素は左に移動します。"
+msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
 
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"

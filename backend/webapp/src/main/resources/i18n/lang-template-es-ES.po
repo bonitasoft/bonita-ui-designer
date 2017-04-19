@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-03-17 14:24-0400\n"
+"PO-Revision-Date: 2017-04-19 09:52-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -80,7 +80,7 @@ msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: el elemento de la iteración actual"
 
 msgid "A JSON object"
-msgstr ""
+msgstr "Un objeto JSON"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas las variables son reevaluadas y el UI se actualiza. En consecuencia:"
@@ -149,7 +149,7 @@ msgid "Added artifacts"
 msgstr "Artefactos agregados"
 
 msgid "Additional request parameters added to the query string"
-msgstr ""
+msgstr "Parámetros adicionales de la petición añadidos a la cadena de consulta"
 
 msgid "Alignment"
 msgstr "Alineación"
@@ -488,10 +488,10 @@ msgid "Details"
 msgstr "Detalles"
 
 msgid "Determines target application. It is recommended not to hard code it."
-msgstr ""
+msgstr "Determina la aplicación de destino. Se recomienda no hardcodearla."
 
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
-msgstr ""
+msgstr "Determina el tema de la aplicación que utilizará la página de destino. Se recomienda no hardcodearlo."
 
 msgid "Disabled"
 msgstr "Desactivado"
@@ -827,7 +827,7 @@ msgid "Living data"
 msgstr "Datos variables"
 
 msgid "Loading {{mode}}..."
-msgstr ""
+msgstr "Cargando {{mode}}..."
 
 msgid "Local"
 msgstr "Local"
@@ -1346,7 +1346,7 @@ msgid "URL parameter name"
 msgstr "Nombre del parámetro de URL"
 
 msgid "URL parameters"
-msgstr ""
+msgstr "Parámetros de URL"
 
 msgid "URL to call"
 msgstr "URL a llamar"
@@ -1457,7 +1457,7 @@ msgid "Width"
 msgstr "Ancho"
 
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
-msgstr ""
+msgstr "Será obtenido de la dirección URL si no ha sido establecido (parámetro 'app'). Puede pasarlo en la cadena de consulta de la dirección URL de la vista previa a modo de prueba."
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
