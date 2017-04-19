@@ -50,7 +50,7 @@ public class WidgetIdVisitorTest {
         List<Element> row2 = Arrays.<Element>asList(createComponentWithWidget("bar"));
         container.setRows(Arrays.asList(row1, row2));
 
-        assertThat(visitor.visit(container)).containsOnly("foo", "bar");
+        assertThat(visitor.visit(container)).containsOnly("foo", "bar","pbContainer");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class WidgetIdVisitorTest {
         container.setRows(Arrays.asList(row1, row2));
         formContainer.setContainer(container);
 
-        assertThat(visitor.visit(formContainer)).containsOnly("foo", "bar");
+        assertThat(visitor.visit(formContainer)).containsOnly("foo", "bar","pbContainer","pbFormContainer");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class WidgetIdVisitorTest {
 
         tabsContainer.setTabs(Arrays.asList(tab1));
 
-        assertThat(visitor.visit(tabsContainer)).containsExactly("foo");
+        assertThat(visitor.visit(tabsContainer)).containsExactly("pbTabsContainer","pbContainer","foo");
     }
 
     private Component createComponentWithWidget(String widgetId) {
