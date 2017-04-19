@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-04-19 08:23-0400\n"
+"PO-Revision-Date: 2017-04-19 09:49-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -45,13 +45,13 @@ msgstr "<b>Pour utiliser une page dans une application métier</b>, exportez-la 
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
 "            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TZ)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
-msgstr "<b>Lorsque <em>Gérer fuseau horaire</em> est à \"non\"</b> : le fuseau horaire de l’utilisateur est ignoré et la valeur du widget ne contient aucune information de fuseau horaire (par exemple, dd-MM-yyyyTHH:mm:ss). \n"
-"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier tels que <em>DATE AND TIME (NO TZ)</em> dans la BDM, basés sur <code>java.time.LocalDateTime</code>."
+msgstr "<b>Lorsque <em>Gérer fuseau horaire</em> est à \"non\"</b> : le fuseau horaire de l’utilisateur est ignoré et la valeur du widget ne contient aucune information de fuseau horaire (par exemple, yyyy-MM-ddTHH:mm:ss). \n"
+"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier de type <em>DATE-TIME (NO TZ)</em> dans la BDM, basés sur <code>java.time.LocalDateTime</code>."
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
 "            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TZ)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
 msgstr "<b>Lorsque <em>Gérer fuseau horaire</em> est à \"oui\"</b> : la <em>Valeur</em> des widgets est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ). \n"
-"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier tels que <em>DATE AND TIME (TZ)</em> dans la Base de Données Métier (BDM), basés sur <code>java.time.LocalDateTime</code>."
+"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier de type <em>DATE-TIME (TZ)</em> dans la Base de Données Métier (BDM), basés sur <code>java.time.LocalDateTime</code>."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
@@ -96,7 +96,7 @@ msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong> : l'élément de l'itération courante"
 
 msgid "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-ddTHH:mm:ss(Z)"
-msgstr "Variable de type String formatée selon <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> : yyyy-MM-ddTHH:mm:ss(Z)"
+msgstr "Variable de type String au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> : yyyy-MM-ddTHH:mm:ss(Z)"
 
 msgid "A JSON object"
 msgstr "Un objet JSON"
@@ -482,9 +482,7 @@ msgid "Date formats are localized by default. Localized formats can be edited in
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
 
 msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
-msgstr "Un objet date ou une variable String formatée selon <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> yyyy-MM-dd\n"
-" \n"
-"Context | Edit Context"
+msgstr "Un objet Date ou une variable de type String au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> yyyy-MM-dd"
 
 msgid "Default"
 msgstr "Défaut"
@@ -787,7 +785,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
 msgid "In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date."
-msgstr "En plus des variables String conformes à l'ISO 8601 (avec ou sans information d'heure), vous pouvez aussi passer des inputs de types objets Date ou nombres (millisecondes depuis Epoch). Cependant, lorsque l'utilisateur sélectionnera une date, le type de variable liée à la <em>Valeur</em> du widget passera à String (ISO 8601)."
+msgstr "En plus des variables de type String au format ISO 8601 (avec ou sans information d'heure), vous pouvez aussi passer des inputs de types objets Date ou nombres (millisecondes depuis Epoch). Cependant, lorsque l'utilisateur sélectionnera une date, le type de la variable liée à la <em>Valeur</em> du widget passera à String (ISO 8601)."
 
 msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita BPM Portal, les artéfacts composant les interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
@@ -1337,7 +1335,7 @@ msgid "The imported {{ ::importReport.type }} contains elements with the same id
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient des éléments portant le même id que des éléments existants."
 
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable."
-msgstr "L’entrée/sortie du widget (sa <em>Valeur</em>) est une variable String formatée selon la norme <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a>."
+msgstr "L’entrée/sortie du widget (sa <em>Valeur</em>) est une variable de type String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La liste contient à la fois des assets de page et les assets des widgets personnalisés utilisés dans cette page."
@@ -1349,7 +1347,7 @@ msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "Le nom de la clé à utiliser comme valeur. Laisser vide pour un object"
 
 msgid "The output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr "La sortie du widget (sa <em>Valeur</em>) est une variable String formatée selon la norme <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a>, avec une heure fixée à minuit UTC (par exemple, 2016-12-31T00:00:00.000Z)."
+msgstr "La sortie du widget (sa <em>Valeur</em>) est une variable de type String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>, avec une heure fixée à minuit UTC (par exemple, 2016-12-31T00:00:00.000Z)."
 
 msgid "The page has not been imported."
 msgstr "La page n'a pas été importée."
@@ -1490,7 +1488,7 @@ msgid "Trigger for an action in a page or form"
 msgstr "Déclenchement d'une action dans une page ou un formulaire"
 
 msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
-msgstr "Deux cas d’utilisation : <ul><li><code>dateVariable|uiDate</code> applique un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> format</a> par défaut. Pour une chaîne ISO 8601 avec une heure, le format par défaut est <em>« medium »</em>. Sinon, c’est <em>« mediumDate »</em>.</li> <li><code>dateVariable|uiDate:format</code> si vous avez besoin de préciser le format d'avantage. Il s'utilise comme <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> angularJS date filter</a>. <br>Ex. <code>dateVariable|uiDate :'short'</code> ou <code>dateVariable|uiDate: 'dd/MM/yyyy'</code></li></ul>"
+msgstr "Deux cas d’utilisation : <ul><li><code>dateVariable|uiDate</code> applique un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a> par défaut. Pour une chaîne ISO 8601 avec une heure, le format par défaut est <em>'medium'</em>. Sinon, c’est <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> si vous avez besoin de préciser davantage le format, il peut être passé de la même manière qu'avec le <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">filtre date d'angularJS</a>.<br>Ex. <code>dateVariable|uiDate :'short'</code> ou <code>dateVariable|uiDate: 'dd/MM/yyyy'</code></li></ul>"
 
 msgid "Type"
 msgstr "Type"
@@ -1649,7 +1647,7 @@ msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis la page d'accueil."
 
 msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
-msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants : <ul><li>Variable String formatée selon <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a></li> <li>Objet Date</li> <li>millisecondes depuis Epoch (nombre ou variable String)</li></ul>"
+msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants : <ul><li>variable String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a></li> <li>objet Date</li> <li>millisecondes depuis Epoch (nombre ou variable String)</li></ul>"
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."

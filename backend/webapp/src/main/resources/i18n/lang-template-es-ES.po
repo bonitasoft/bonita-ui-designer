@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-04-19 08:25-0400\n"
+"PO-Revision-Date: 2017-04-19 09:52-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -594,10 +594,10 @@ msgid "Enter ' + vm.mode + ' name"
 msgstr "Introduzca ' + vm.mode + ' nombre"
 
 msgid "Enter a date (mm/dd/yyyy)"
-msgstr "Introduzca una fecha (mm/dd/yyyy)"
+msgstr "Introduzca una fecha (dd/mm/aaaa)"
 
 msgid "Enter a time (h:mm:ss a)"
-msgstr "Introduzca una hora (h:mm:ss a)"
+msgstr "Introduzca una hora (h:mm:ss)"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{{ infos.location.column }}</code>"
@@ -1725,7 +1725,7 @@ msgid "green,red,blue"
 msgstr "verde, rojo, azul"
 
 msgid "h:mm:ss a"
-msgstr "h:mm:ss a"
+msgstr "H:mm:ss"
 
 msgid "hidden"
 msgstr "oculto"
