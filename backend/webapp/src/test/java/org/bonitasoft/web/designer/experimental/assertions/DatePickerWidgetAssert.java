@@ -67,4 +67,16 @@ public class DatePickerWidgetAssert extends AbstractAssert<DatePickerWidgetAsser
         return this;
     }
 
+    public DatePickerWidgetAssert hasPlaceholder(){
+        isNotNull();
+
+        String errorMessage = format("\nExpected <%s> placeHolder \n  but was:\n  <%s>", actual, actual.getPlaceholder());
+
+        if (actual.getPlaceholder().isEmpty()) {
+            throw new AssertionError(errorMessage);
+        }
+
+        return this;
+    }
+
 }

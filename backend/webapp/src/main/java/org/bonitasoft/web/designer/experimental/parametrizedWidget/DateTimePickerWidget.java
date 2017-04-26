@@ -21,9 +21,13 @@ public class DateTimePickerWidget extends InputWidget {
     private String timeFormat;
     private boolean showNow = true;
     private boolean showToday = true;
+    private boolean hidden = false;
+    private String nowLabel;
+    private String todayLabel;
 
     private boolean withTimeZone = false;
     private boolean inlineInput = true;
+    private String timePlaceholder;
 
     public DateTimePickerWidget() {
         super(DATE_TIME_PICKER_WIDGET_ID);
@@ -69,7 +73,31 @@ public class DateTimePickerWidget extends InputWidget {
         this.showToday = showToday;
     }
 
+    public String getTimePlaceholder() {return timePlaceholder; }
+
+    public void setTimePlaceholder(String timePlaceholder) { this.timePlaceholder = timePlaceholder; }
+
+    public String getNowLabel() {
+        return nowLabel;
+    }
+
+    public void setNowLabel(String nowLabel) {
+        this.nowLabel = nowLabel;
+    }
+
+    public String getTodayLabel() {
+        return todayLabel;
+    }
+
+    public void setTodayLabel(String todayLabel) {
+        this.todayLabel = todayLabel;
+    }
+
     public boolean getInlineInput() {
         return inlineInput;
+    }
+
+    public void setInlineInput(boolean inlineInput) {
+        this.inlineInput = inlineInput;
     }
 }

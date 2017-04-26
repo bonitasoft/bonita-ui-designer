@@ -19,6 +19,8 @@ public class DatePickerWidget extends InputWidget {
     private static final String DATE_PICKER_WIDGET_ID = "pbDatePicker";
     private String dateFormat;
     private boolean showToday = true;
+    private boolean hidden = false;
+    private String todayLabel;
 
     public DatePickerWidget() {
         super(DATE_PICKER_WIDGET_ID);
@@ -40,4 +42,11 @@ public class DatePickerWidget extends InputWidget {
         this.showToday = showToday;
     }
 
+    public String getTodayLabel() {
+        return todayLabel;
+    }
+
+    public void setTodayLabel(String todayLabel) {
+        this.todayLabel = todayLabel;
+    }
 }
