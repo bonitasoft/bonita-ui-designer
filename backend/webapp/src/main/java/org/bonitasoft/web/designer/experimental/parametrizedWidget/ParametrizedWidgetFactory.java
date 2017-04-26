@@ -14,18 +14,20 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import com.google.common.base.CaseFormat;
-import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
-import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
-import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
-import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
+
+import com.google.common.base.CaseFormat;
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
+import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
+import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
+import org.bonitasoft.web.designer.experimental.widgets.PbInput;
+import org.bonitasoft.web.designer.experimental.widgets.PbUpload;
+import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
 
 public class ParametrizedWidgetFactory {
 
@@ -63,7 +65,7 @@ public class ParametrizedWidgetFactory {
         FileUploadWidget fileUploadWidget = new FileUploadWidget();
         fileUploadWidget.setLabel(inputDisplayLabel(input));
         fileUploadWidget.setLabelPosition(LabelPosition.TOP);
-        fileUploadWidget.setPlaceholder(input.getDescription());
+        fileUploadWidget.setPlaceholder(new PbUpload().getPlaceholder());
         return fileUploadWidget;
     }
 
@@ -89,6 +91,7 @@ public class ParametrizedWidgetFactory {
     protected DatePickerWidget createDatePicker(ContractInput input) {
         PbDatePicker reference = new PbDatePicker();
         DatePickerWidget datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
+
         datePickerComponent.setReadonly(reference.getReadOnly());
         datePickerComponent.setDateFormat(reference.getDateFormat());
         datePickerComponent.setPlaceholder(reference.getPlaceholder());
@@ -124,7 +127,7 @@ public class ParametrizedWidgetFactory {
 
     protected InputWidget createInputWidget(ContractInput input) {
         InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
-        inputWidget.setPlaceholder(input.getDescription());
+        inputWidget.setPlaceholder(new PbInput().getPlaceholder());
         return inputWidget;
     }
 
@@ -135,15 +138,14 @@ public class ParametrizedWidgetFactory {
     }
 
 
-
     /**
-     * @deprecated
-     * Type Date is deprecated in studio, prefer use type LocalDate.
+     * @deprecated Type Date is deprecated in studio, prefer use type LocalDate.
      */
     @Deprecated
     private boolean aDateInput(ContractInput input) {
         return Date.class.getName().equals(input.getType());
     }
+
     private boolean aLocalDateInput(ContractInput input) {
         return LocalDate.class.getName().equals(input.getType());
     }

@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
+import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
@@ -87,14 +88,13 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_map_contract_input_description_to_an_input_placeholder() throws Exception {
+    public void should_keep_default_placeholder_input_when_contract_input_have_description() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         LeafContractInput contractInput = (LeafContractInput) aStringContractInput("name");
         contractInput.setDescription("name of the user");
         Element element = contractInputToWidgetMapper.toElement(contractInput, Collections.<List<Element>> emptyList());
-
-        assertThat(element.getPropertyValues().get("placeholder").getValue()).isEqualTo("name of the user");
+        assertThat(element.getPropertyValues().get("placeholder").getValue()).isEqualTo(new PbInput().getPlaceholder());
     }
 
     @Test
