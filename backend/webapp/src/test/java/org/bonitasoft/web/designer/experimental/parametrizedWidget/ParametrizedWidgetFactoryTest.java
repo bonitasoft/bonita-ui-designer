@@ -142,6 +142,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aDateContractInput("creationDate"));
 
+        DatePickerWidgetAssert.assertThat(component).hasPlaceholder();
         DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
     }
 
@@ -151,6 +152,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
 
+        DatePickerWidgetAssert.assertThat(component).hasPlaceholder();
         DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
     }
 
@@ -163,6 +165,21 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         DateTimePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
         DateTimePickerWidgetAssert.assertThat(component).hasTimeFormat("h:mm:ss a");
+        DateTimePickerWidgetAssert.assertThat(component).hasDatePlaceholder();
+        DateTimePickerWidgetAssert.assertThat(component).hasTimePlaceholder();
+        assertThat(component.isWithTimeZone()).isEqualTo(false);
+    }
+
+    @Test
+    public void should_create_a_datetimepicker_for_date_contract_input_with_off_date_time_format() throws Exception {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+
+        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory.createParametrizedWidget(aOffsetDateTimeContractInput("creationOffSetDateTime"));
+        assertThat(component.isWithTimeZone()).isEqualTo(true);
+        DateTimePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
+        DateTimePickerWidgetAssert.assertThat(component).hasTimeFormat("h:mm:ss a");
+        DateTimePickerWidgetAssert.assertThat(component).hasDatePlaceholder();
+        DateTimePickerWidgetAssert.assertThat(component).hasTimePlaceholder();
     }
 
     @Test

@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
+import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
+import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 
@@ -85,16 +87,33 @@ public class ParametrizedWidgetFactory {
     }
 
     protected DatePickerWidget createDatePicker(ContractInput input) {
+        PbDatePicker reference = new PbDatePicker();
         DatePickerWidget datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
-        datePickerComponent.setDateFormat("MM/dd/yyyy");
+        datePickerComponent.setReadonly(reference.getReadOnly());
+        datePickerComponent.setDateFormat(reference.getDateFormat());
+        datePickerComponent.setPlaceholder(reference.getPlaceholder());
+        datePickerComponent.setShowToday(reference.getShowToday());
+        datePickerComponent.setTodayLabel(reference.getTodayLabel());
+
         return datePickerComponent;
     }
 
     protected DateTimePickerWidget createDateTimePicker(ContractInput input, boolean withTimeZone) {
+        PbDateTimePicker reference = new PbDateTimePicker();
         DateTimePickerWidget dateTimePickerComponent = inputDefaultWidgetParameters(input, new DateTimePickerWidget());
-        dateTimePickerComponent.setDateFormat("MM/dd/yyyy");
-        dateTimePickerComponent.setTimeFormat("h:mm:ss a");
+
+        dateTimePickerComponent.setPlaceholder(reference.getPlaceholder());
+        dateTimePickerComponent.setTimePlaceholder(reference.getTimePlaceholder());
+        dateTimePickerComponent.setDateFormat(reference.getDateFormat());
+        dateTimePickerComponent.setTimeFormat(reference.getTimeFormat());
         dateTimePickerComponent.setWithTimeZone(withTimeZone);
+        dateTimePickerComponent.setReadonly(reference.getReadOnly());
+        dateTimePickerComponent.setTodayLabel(reference.getTodayLabel());
+        dateTimePickerComponent.setNowLabel(reference.getNowLabel());
+        dateTimePickerComponent.setShowNow(reference.getShowNow());
+        dateTimePickerComponent.setShowToday(reference.getShowToday());
+        dateTimePickerComponent.setInlineInput(reference.getInlineInput());
+
         return dateTimePickerComponent;
     }
 
@@ -104,13 +123,14 @@ public class ParametrizedWidgetFactory {
     }
 
     protected InputWidget createInputWidget(ContractInput input) {
-        return inputDefaultWidgetParameters(input, new InputWidget());
+        InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
+        inputWidget.setPlaceholder(input.getDescription());
+        return inputWidget;
     }
 
     private <T extends InputWidget> T inputDefaultWidgetParameters(ContractInput input, T inputComponent) {
         inputComponent.setLabel(inputDisplayLabel(input));
         inputComponent.setLabelPosition(LabelPosition.TOP);
-        inputComponent.setPlaceholder(input.getDescription());
         return inputComponent;
     }
 

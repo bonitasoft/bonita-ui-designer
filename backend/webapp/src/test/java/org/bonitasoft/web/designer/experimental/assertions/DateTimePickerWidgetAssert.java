@@ -81,7 +81,6 @@ public class DateTimePickerWidgetAssert extends AbstractAssert<DateTimePickerWid
         // we overrides the default error message with a more explicit one
         String errorMessage = format("\nExpected <%s> timeFormat to be:\n  <%s>\n but was:\n  <%s>", actual, timeFormat, actual.getTimeFormat());
 
-        // check
         if (!actual.getTimeFormat().equals(timeFormat)) {
             throw new AssertionError(errorMessage);
         }
@@ -90,4 +89,27 @@ public class DateTimePickerWidgetAssert extends AbstractAssert<DateTimePickerWid
         return this;
     }
 
+    public DateTimePickerWidgetAssert hasDatePlaceholder() {
+        isNotNull();
+
+        String errorMessage = format("\nExpected <%s> placeHolder \n  but was:\n  <%s>", actual, actual.getPlaceholder());
+
+        if (actual.getPlaceholder().isEmpty()) {
+            throw new AssertionError(errorMessage);
+        }
+
+        return this;
+    }
+
+    public DateTimePickerWidgetAssert hasTimePlaceholder() {
+        isNotNull();
+
+        String errorMessage = format("\nExpected <%s> timePlaceHolder \n  but was:\n  <%s>", actual, actual.getTimePlaceholder());
+
+        if (actual.getTimePlaceholder().isEmpty()) {
+            throw new AssertionError(errorMessage);
+        }
+
+        return this;
+    }
 }
