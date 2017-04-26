@@ -14,20 +14,25 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import org.bonitasoft.web.designer.experimental.assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+
+import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.DatePickerWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.DateTimePickerWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.InputWidgetAssert;
+import org.bonitasoft.web.designer.experimental.assertions.TitleWidgetAssert;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
 public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
-    @Rule
+   @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
@@ -56,14 +61,15 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_text_input_for_string_contract_input_with_description_as_placeholder() throws Exception {
+    public void create_a_datepicker_for_localdate_contract_input_with_description_keeping_default_placeholder() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        LeafContractInput contractInput = aStringContractInput("name");
+        LeafContractInput contractInput = aLocalDateContractInput("name");
         contractInput.setDescription("My description");
+
         InputWidget component = (InputWidget) elementFactory.createParametrizedWidget(contractInput);
 
-        InputWidgetAssert.assertThat(component).hasPlaceholder(contractInput.getDescription());
+        InputWidgetAssert.assertThat(component).hasPlaceholder("Enter a date (mm/dd/yyyy)");
     }
 
     @Test
