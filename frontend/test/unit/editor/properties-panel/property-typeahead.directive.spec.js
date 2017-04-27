@@ -1,14 +1,15 @@
 describe('property typeahead', () => {
 
-  let element, scope;
+  let element, scope, $timeout;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel'));
 
-  beforeEach(inject(function(_$compile_, $rootScope) {
+  beforeEach(inject(function(_$compile_, $rootScope, _$timeout_) {
     let $compile = _$compile_;
+    $timeout = _$timeout_;
 
     scope = $rootScope.$new();
-    scope.model = '';
+    scope.model = undefined;
     scope.data = ['Alabama', 'Oregon'];
 
     element = $compile(`
@@ -42,6 +43,14 @@ describe('property typeahead', () => {
 
   it('should display suggestions when user type a !', () => {
     element.find('input').val('!').trigger('input');
+
+    expect(getSuggestions(element)).toEqual(['Alabama', 'Oregon']);
+  });
+
+  it('should display suggestions on focus', () => {
+    element.find('input').triggerHandler('focus');
+    // internal ui-bootstrap typeahead might be based on $timeout. need to flush it to get suggestions on focus
+    $timeout.flush();
 
     expect(getSuggestions(element)).toEqual(['Alabama', 'Oregon']);
   });

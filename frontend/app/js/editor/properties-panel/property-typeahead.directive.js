@@ -19,6 +19,8 @@
     constructor($filter) {
       this.prefix = '';
       this.$filter = $filter;
+      // need to initialize model with empty string to trigger typeahead on focus using typeahead-min-length="0"
+      this.model = this.model || '';
     }
 
     getValues(search) {

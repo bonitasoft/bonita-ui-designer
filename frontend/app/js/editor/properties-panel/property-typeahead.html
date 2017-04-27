@@ -2,4 +2,5 @@
        class="form-control"
        ng-model="vm.model"
        uib-typeahead="key for key in vm.getValues($viewValue)"
+       typeahead-min-length="0"
        typeahead-on-select="vm.onSelectedCallback($item, $model, $label)"/>
