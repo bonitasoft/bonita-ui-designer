@@ -47,6 +47,15 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').factory('ap
       {
         description: gettextCatalog.getString('Get a case by its identifier'),
         url: '../API/bpm/case/<strong>{{caseId}}</strong>'
+      },
+      {
+        description: gettextCatalog.getString('Get all business variables defined in a case'),
+        url: '../API/bpm/case/<strong>{{caseId}}</strong>/context',
+        alternative: {
+          before: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:'),
+          url: '../<strong>{{context.businessVariableName_ref.link}}</strong>',
+          more: gettextCatalog.getString('Where businessVariableName is the name of the business variable defined at pool level.')
+        }
       }
     ],
     'Identity API': [
@@ -62,20 +71,6 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').factory('ap
       }
     ],
     'BDM API': [
-      {
-        description: gettextCatalog.getString('Get all business variables defined in a case'),
-        url: '../API/bdm/businessDataReference?f=caseId=<strong>{{caseId}}</strong>&p=0&c=10',
-        more: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref).')
-      },
-      {
-        description: gettextCatalog.getString('Get a named business variable reference defined in a case'),
-        url: '../API/bdm/businessDataReference/<strong>{{caseId}}</strong>/<strong>{{businessVariableName}}</strong>',
-        alternative: {
-          before: gettextCatalog.getString('In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:'),
-          url: '../<strong>{{context.businessVariableName_ref.link}}</strong>',
-          more: gettextCatalog.getString('Where businessVariableName is the name of the business variable defined at pool level.')
-        }
-      },
       {
         description: gettextCatalog.getString('Call a business data (custom) query'),
         url: '../API/bdm/businessData/<strong>{{businessDataType}}</strong>?q=<strong>{{queryName}}</strong>&p=0&c=10&f=<strong>{{filter}}</strong>',
