@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-04-26 05:07-0400\n"
+"PO-Revision-Date: 2017-05-01 18:12-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -685,9 +685,6 @@ msgstr "Obtenir un cas par son identifiant"
 msgid "Get a human task by its identifier"
 msgstr "Obtenir une tâche humaine par son identifiant"
 
-msgid "Get a named business variable reference defined in a case"
-msgstr "Obtenir une référence de variable métier définie dans un cas"
-
 msgid "Get all business variables defined in a case"
 msgstr "Obtenir toutes les variables métier définies dans un cas"
 
@@ -777,9 +774,6 @@ msgstr "Dans les éditions Subscriptions, pour supporter les langues variées de
 
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "Sur un asset de type JavaScript, vous pouvez spécifier une dépendance vers un module AngularJS. Tout d'abord ajoutez l'asset JavaScript, puis ajoutez le nom du module dans la section dédiée. Vous pouvez trouver les modules disponibles sur <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
-
-msgid "In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref)."
-msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez la variable context pour les récupérer (par exemple context.businessVariableName_ref)."
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
