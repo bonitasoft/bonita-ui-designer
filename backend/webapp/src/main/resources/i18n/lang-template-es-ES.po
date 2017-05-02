@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-04-27 20:59-0400\n"
+"PO-Revision-Date: 2017-05-01 18:18-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -686,9 +686,6 @@ msgstr "Obten un caso por su identificador"
 msgid "Get a human task by its identifier"
 msgstr "Obtén una tarea humana por su identificador"
 
-msgid "Get a named business variable reference defined in a case"
-msgstr "Obtener una referencia de variable de negocio definida en un caso"
-
 msgid "Get all business variables defined in a case"
 msgstr "Obtener todas las variables del negocio definidas en un caso"
 
@@ -778,9 +775,6 @@ msgstr "En las ediciones de suscripción, para dar soporte con múltiples idioma
 
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "En un recurso JavaScript, puede especificar una dependencia de un módulo Angular. Primero agrega el recurso JavaScript y luego añada el nombre del módulo en la sección dedicada. Puede encontrar los módulos disponibles en <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
-
-msgid "In a process form, if you have defined business variables in your process, use the context variable to retrieve them (e.g. context.businessVariableName_ref)."
-msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice la variable contexto para recuperarlas (por ejemplo, context.businessVariableName_ref)."
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
