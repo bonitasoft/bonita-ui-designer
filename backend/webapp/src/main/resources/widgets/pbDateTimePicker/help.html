@@ -12,11 +12,11 @@
     <uib-tab heading="{{ 'Format' | translate }}" index="'format'">
         <p>
             <translate><b>With <em>Handle time zone</em> set to "yes"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).
-            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TZ)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>.</translate><br/>
+            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>.</translate><br/>
             <translate>The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone).</translate>
         </p>
         <p translate><b>With <em>Handle time zone</em> set to "no"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).
-            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TZ)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>.
+            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>.
         </p>
         <p translate>The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.
             They should be valid <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">AngularJS date/time formats</a>.
