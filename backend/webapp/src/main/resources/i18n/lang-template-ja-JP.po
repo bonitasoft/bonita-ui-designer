@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-05-01 18:14-0400\n"
+"PO-Revision-Date: 2017-05-04 10:43-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -45,14 +45,14 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita BPM ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
-"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TZ)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
+"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
 msgstr "<b><em>タイム ゾーン処理</em>を\"いいえ\"に設定</b>： ユーザーのタイム ゾーンは無視され、ウィジェットの値にはタイム ゾーン情報が含まれません (例えば、yyyy-MM-ddTHH:mm:ss)。\n"
-"            BDM で <em>DATE-TIME (NO TZ)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+"            BDM で <em>DATE-TIME (NO TIME ZONE)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
-"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TZ)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
+"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
 msgstr "<b><em>タイム ゾーン処理</em>を\"はい\"に設定</b>： ウィジェットの <em>値</em> は、UTC (例えば、yyyy-MM-ddTHH:mm:ssZ) になります。\n"
-"            BDM で <em>DATE-TIME (TZ)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+"            BDM で <em>DATE-TIME (TIME ZONE)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
@@ -743,9 +743,6 @@ msgstr "{{ ::importReport.type }} {{ ::importReport.name }} は上書きされ�
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
 
-msgid "Id,Name,Description,Date"
-msgstr "Id, 名前, 説明, 日付"
-
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "標準ウィジェットが、あなたのニーズを満たしていない場合、あなたの希望に沿ったカスタム ウィジェットを作成できます。作成後、そのカスタム ウィジェットはページ、フォーム、またはフラグメントの設計のため、パレット内で使用可能です。"
 
@@ -908,9 +905,6 @@ msgstr "ローカル"
 msgid "Localization"
 msgstr "ローカライゼーション"
 
-msgid "London,Paris,San Francisco"
-msgstr "大阪, 名古屋, 福岡"
-
 msgid "MM/dd/yyyy"
 msgstr "yyyy/MM/dd"
 
@@ -967,6 +961,9 @@ msgstr "新しいウィンドウ (_blank)"
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "アプリケーションに表示する次のページ。ポータルでは、ナビゲーションは自動的に管理されるので無視されます。"
+
+msgid "No"
+msgstr ""
 
 msgid "No artifact found."
 msgstr "アーティファクトが見つかりません。"
@@ -1638,6 +1635,9 @@ msgstr "（'app' パラメータ） を設定していない場合、URL から�
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
 
+msgid "Yes"
+msgstr ""
+
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
 
@@ -1714,9 +1714,6 @@ msgstr "エラー"
 msgid "expression or variable"
 msgstr "式または変数"
 
-msgid "green,red,blue"
-msgstr "緑, 赤, 青"
-
 msgid "h:mm:ss a"
 msgstr "h:mm:ss a"
 
@@ -1759,7 +1756,7 @@ msgstr "primary"
 msgid "right"
 msgstr "右"
 
-msgid "should contain timezone information only when 'Handle time zone' is not selected"
+msgid "should contain time zone information only when 'Handle time zone' is not selected"
 msgstr "タイムゾーン処理が選択されていない場合のみ、タイム ゾーン情報を含める必要があります。"
 
 msgid "success"
@@ -1788,9 +1785,6 @@ msgstr "ウィジェット"
 
 msgid "yes"
 msgstr "はい"
-
-msgid "yes,no"
-msgstr "はい, いいえ"
 
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
