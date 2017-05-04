@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-05-01 18:18-0400\n"
+"PO-Revision-Date: 2017-05-04 10:52-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -45,14 +45,14 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita BPM Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
-"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TZ)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
+"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
 msgstr "<b>Con <em>Gestionar zona horaria</em> establecida como \"no\"</b>: la zona horaria del usuario no es tenida en cuenta y el valor del widget no contiene ninguna información de zona horaria (por ejemplo, AAAA-MM-ddTHH:mm:ss).\n"
-"             Utilice tales fechas y horas para mostrar o actualizar atributos de variables de negocio definidas como <em>DATE-TIME (NO TZ)</em> en el modelo de datos de negocio (BDM), y basado en <code>java.time.LocalDateTime</code>."
+"             Utilice tales fechas y horas para mostrar o actualizar atributos de variables de negocio definidas como <em>DATE-TIME (NO TIME ZONE)</em> en el modelo de datos de negocio (BDM), y basado en <code>java.time.LocalDateTime</code>."
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
-"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TZ)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
+"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
 msgstr "<b>Con <em>Gestionar zona horaria</em> establecido como \"sí\"</b>: el <em>valor</em> del widget está en UTC (por ejemplo, AAAA-MM-ddTHH:mm:ssZ).\n"
-"             Utilice esta configuración para mostrar o actualizar atributos de variable de negocio definidos como <em>DATE-TIME (TZ)</em> en el modelo de datos de negocio (BDM) y basado en <code>java.time.OffsetDateTime</code>."
+"             Utilice esta configuración para mostrar o actualizar atributos de variable de negocio definidos como <em>DATE-TIME (TIME ZONE)</em> en el modelo de datos de negocio (BDM) y basado en <code>java.time.OffsetDateTime</code>."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
@@ -743,9 +743,6 @@ msgstr "El Id debe ser único, por lo que se sobrescribirán el {{ ::importRepor
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "El Id debe ser único, por lo que se sobrescribirán esos elementos."
 
-msgid "Id,Name,Description,Date"
-msgstr "ID, nombre, descripción, fecha"
-
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "Si los widgets estándar no satisfacen sus necesidades, puede crear un widget personalizado para que coincida exactamente con lo que desea. Después de la creación, un widget personalizado está disponible en la paleta para el diseño de páginas, formularios o fragmentos."
 
@@ -908,9 +905,6 @@ msgstr "Local"
 msgid "Localization"
 msgstr "Localización"
 
-msgid "London,Paris,San Francisco"
-msgstr "Londres, París, San Francisco"
-
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
 
@@ -967,6 +961,9 @@ msgstr "Nueva ventana (_blank)"
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "Página siguiente para mostrar, en las aplicaciones. En el Portal, se ignora ya que la navegación se gestiona automáticamente"
+
+msgid "No"
+msgstr "No"
 
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
@@ -1638,6 +1635,9 @@ msgstr "Será obtenido de la dirección URL si no ha sido establecido (parámetr
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
+msgid "Yes"
+msgstr "Si"
+
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Se pueden crear <b>widgets personalizados</b> desde la página de inicio."
 
@@ -1715,9 +1715,6 @@ msgstr "error"
 msgid "expression or variable"
 msgstr "expresión o variable"
 
-msgid "green,red,blue"
-msgstr "verde, rojo, azul"
-
 msgid "h:mm:ss a"
 msgstr "H:mm:ss"
 
@@ -1760,7 +1757,7 @@ msgstr "primary"
 msgid "right"
 msgstr "derecha"
 
-msgid "should contain timezone information only when 'Handle time zone' is not selected"
+msgid "should contain time zone information only when 'Handle time zone' is not selected"
 msgstr "debe contener información de zona horaria sólo cuando 'Gestionar zona horaria' no está seleccionado"
 
 msgid "success"
@@ -1789,9 +1786,6 @@ msgstr "widgets"
 
 msgid "yes"
 msgstr "sí"
-
-msgid "yes,no"
-msgstr "sí, no"
 
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
