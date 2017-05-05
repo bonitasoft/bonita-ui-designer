@@ -1,4 +1,4 @@
-fdescribe('repeat container', function() {
+describe('repeat container', function() {
 
   /**
    * This test repeats a container over a collection.
