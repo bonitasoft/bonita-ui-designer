@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-05-04 10:43-0400\n"
+"PO-Revision-Date: 2017-05-04 21:44-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -46,13 +46,13 @@ msgstr "<b>業務アプリケーションのページとして使用するには
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
 "            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
-msgstr "<b><em>タイム ゾーン処理</em>を\"いいえ\"に設定</b>： ユーザーのタイム ゾーンは無視され、ウィジェットの値にはタイム ゾーン情報が含まれません (例えば、yyyy-MM-ddTHH:mm:ss)。\n"
-"            BDM で <em>DATE-TIME (NO TIME ZONE)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+msgstr "<b><em>タイムゾーン処理</em>を「いいえ」に設定</b>： ユーザーのタイムゾーンは無視され、ウィジェットの値にはタイムゾーン情報が含まれません (例えば、yyyy-MM-ddTHH:mm:ss)。\n"
+"            BDM で <em>日時 (タイムゾーンなし)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
 "            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
-msgstr "<b><em>タイム ゾーン処理</em>を\"はい\"に設定</b>： ウィジェットの <em>値</em> は、UTC (例えば、yyyy-MM-ddTHH:mm:ssZ) になります。\n"
-"            BDM で <em>DATE-TIME (TIME ZONE)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+msgstr "<b><em>タイムゾーン処理</em>を「はい」に設定</b>： ウィジェットの <em>値</em> は、UTC (例えば、yyyy-MM-ddTHH:mm:ssZ) になります。\n"
+"            BDM で <em>日時 (タイムゾーンあり)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
@@ -70,7 +70,7 @@ msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <
 msgstr "<em><b>例</b></em>： [送信] ボタンの <b>ラベル</b> プロパティにキー <em>button.submit.name</em> を使用します。<b>日付書式</b> プロパティにキー <em>date.format</em> を、日付選択ウィジェットの<b>プレース ホルダー</b> プロパティにキー <em>date.placeholder</em> を使用します。そして、<em>localization.json</em> アセットを変更し、<em>Button.submit.name</em>、<em>date.format</em>、<em>date.placeholder</em> の英語と他言語翻訳を追加します。"
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
-msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関する<em>注意事項：</em> <em>プレース ホルダー</em> プロパティの翻訳は、<em>技術的な書式</em> プロパティの値（年月日の順序と文字数）と一致させる必要があります。ただし、翻訳の不一致を避けるため、<em>プレース ホルダー</em> のキーは、<em>技術的な書式</em> と違うキーを使用します。"
+msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関する<em>注意事項：</em> <em>プレース ホルダー</em> プロパティの翻訳は、<em>テクニカルな書式</em> プロパティの値（年月日の順序と文字数）と一致させる必要があります。ただし、翻訳の不一致を避けるため、<em>プレース ホルダー</em> のキーは、<em>テクニカルな書式</em> と違うキーを使用します。"
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> 構文を使用して、URL 内にデータを使用できます。</p><p><span class=\"tip\"> ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> でユーザー独自のREST APIを作成し、それらをここで使用することも可能です。</p>"
@@ -473,8 +473,8 @@ msgstr "日付と時刻"
 
 msgid "Date and time can reflect the user time zone (e.g., a meeting day and time) or be absolute, identical everywhere (e.g., opening hours of a store somewhere).\n"
 "            This is controlled by the property <em>Handle time zone</em>."
-msgstr "日時は、ユーザーのタイム ゾーンを反映 （例えば、会議の日時）したり、どこの場所でもタイムゾーンに関係なく同一である （例えば、どこかの店の開店時刻）のいずれも取り扱えます。\n"
-"            これは、<em>タイム ゾーン処理</em> プロパティによって制御されます。"
+msgstr "日時は、ユーザーのタイムゾーンを反映 （例えば、会議の日時）したり、どこの場所でもタイムゾーンに関係なく同一である （例えば、どこかの店の開店時刻）のいずれも取り扱えます。\n"
+"            これは、<em>タイムゾーン処理</em> プロパティによって制御されます。"
 
 msgid "Date display"
 msgstr "日付の表示"
@@ -909,10 +909,10 @@ msgid "MM/dd/yyyy"
 msgstr "yyyy/MM/dd"
 
 msgid "Make sure the technical format value and its translations is a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date format</a>."
-msgstr "技術的な書式の値とその翻訳は、有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">日付書式</a> であるか確認してください。"
+msgstr "テクニカルな書式の値とその翻訳は、有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">日付書式</a> であるか確認してください。"
 
 msgid "Make sure the technical format values and their translations are valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date/time formats</a>."
-msgstr "技術的な書式の値とその翻訳は、有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">日付書式</a> であるか確認してください。"
+msgstr "テクニカルな書式の値とその翻訳は、有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">日付書式</a> であるか確認してください。"
 
 msgid "Malformed json file"
 msgstr "不正な形式の json ファイル"
@@ -963,7 +963,7 @@ msgid "Next page to display, for applications. In the Portal, it is ignored as n
 msgstr "アプリケーションに表示する次のページ。ポータルでは、ナビゲーションは自動的に管理されるので無視されます。"
 
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 msgid "No artifact found."
 msgstr "アーティファクトが見つかりません。"
@@ -975,7 +975,7 @@ msgid "No variable"
 msgstr "変数はありません"
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
-msgstr "[いいえ]: ユーザーのタイム ゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイム ゾーンを反映し、実際の値と異なる場合があります。"
+msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイムゾーンを反映し、実際の値と異なる場合があります。"
 
 msgid "Now"
 msgstr "今時点"
@@ -1184,6 +1184,9 @@ msgstr "期待値を説明するショートヒント"
 msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "表示されるテキストの段落または短い文字列です。HTML タグを含めることができます。"
 
+msgid "Should contain time zone information only when 'Handle time zone' is set to 'yes'"
+msgstr "タイムゾーン処理が「はい」に設定されている場合にのみ、タイムゾーン情報を含める必要があります。"
+
 msgid "Show Now button"
 msgstr "現在のボタンを表示"
 
@@ -1269,10 +1272,10 @@ msgid "Task Id"
 msgstr "タスクID"
 
 msgid "Technical date format"
-msgstr "技術的な日付の形式"
+msgstr "テクニカルな日付書式"
 
 msgid "Technical time format"
-msgstr "技術的な時刻の形式"
+msgstr "テクニカルな時刻書式"
 
 msgid "Template"
 msgstr "テンプレート"
@@ -1288,12 +1291,12 @@ msgstr "テキスト、必要に応じて {{variableName}} を使用した補完
 
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
-msgstr "<em>技術的な日付書式</em> と <em>技術的な時刻書式</em> のプロパティは、日時入力に表示する値の書式を定義します。\n"
+msgstr "<em>テクニカルな日付書式</em> と <em>テクニカルな時刻書式</em> のプロパティは、日時入力に表示する値の書式を定義します。\n"
 "            それらは有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time format</a> にする必要があります。"
 
 msgid "The <em>Technical date format</em> property define the format of the values displayed in the date input.\n"
 "        It should be a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a>."
-msgstr "<em>技術的な日付書式</em>のプロパティは、日付入力に表示する値の書式を定義します。\n"
+msgstr "<em>テクニカルな日付書式</em>のプロパティは、日付入力に表示する値の書式を定義します。\n"
 "            それらは有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a> にする必要があります。"
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
@@ -1306,10 +1309,10 @@ msgid "The caption will be displayed as such below the property label."
 msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
 
 msgid "The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>."
-msgstr "<em>ラベル</em>、<em>技術的な日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
+msgstr "<em>ラベル</em>、<em>テクニカルな日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
 
 msgid "The content of <em>Label</em>, <em>Technical date formats</em>, <em>Placeholder</em> properties, as well as the labels of buttons <em>Today/Now</em> are localized by default. Localized formats can be edited in the asset <em>localization.json</em>."
-msgstr "<em>ラベル</em>、<em>技術的な日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
+msgstr "<em>ラベル</em>、<em>テクニカルな日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
 
 msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
 msgstr "コント ローラーは、AngularJS スコープを拡大し、カスタム ウィジェット テンプレート内で使用可能な関数を公開する JavaScript 関数です。"
@@ -1318,7 +1321,7 @@ msgid "The custom widget HTML template is defined here."
 msgstr "カスタム ウィジェット HTML テンプレートは、ここで定義されます。"
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
-msgstr "日時の表示は、ユーザーのブラウザーのタイム ゾーンに依存します。したがって、表示されている値は、（GMT タイム ゾーンを除き、）格納されている値と違います。"
+msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーンに依存します。したがって、表示されている値は、（GMT タイムゾーンを除き、）格納されている値と違います。"
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
@@ -1378,7 +1381,7 @@ msgid "This page is empty."
 msgstr "このページは空白です。"
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
-msgstr "このウィジェットは、 ビジネス データ モデル (BDM) を定義されているビジネス変数属性を<code>java.time.LocalDate</code> に基づく<em>日付のみ</em>、または <code>java.util.Date</code> に基づく<em>日付(非推奨)</em> として、表示/更新するために使用できます。"
+msgstr "このウィジェットは、 ビジネス データ モデル (BDM) を定義されているビジネス変数属性を<code>java.time.LocalDate</code> に基づく<em>日付のみ</em>、または <code>java.util.Date</code> に基づく<em>DATE (非推奨)</em> として、表示/更新するために使用できます。"
 
 msgid "This will also update the content of the preview window"
 msgstr "プレビュー ウィンドウの内容も更新されます"
@@ -1636,7 +1639,7 @@ msgid "Within a row, when you delete a widget or a container, the following elem
 msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
 
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
@@ -1755,9 +1758,6 @@ msgstr "primary"
 
 msgid "right"
 msgstr "右"
-
-msgid "should contain time zone information only when 'Handle time zone' is not selected"
-msgstr "タイムゾーン処理が選択されていない場合のみ、タイム ゾーン情報を含める必要があります。"
 
 msgid "success"
 msgstr "success"
