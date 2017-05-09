@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-05-04 21:36-0400\n"
+"PO-Revision-Date: 2017-05-08 21:35-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -1184,7 +1184,7 @@ msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
 msgstr "Courte chaîne de texte ou paragraphe à afficher. Peut inclure des balises HTML"
 
 msgid "Should contain time zone information only when 'Handle time zone' is set to 'yes'"
-msgstr ""
+msgstr "Doit contenir des informations de fuseau horaire uniquement si « Gérer les fuseaux horaires » a la valeur« oui »"
 
 msgid "Show Now button"
 msgstr "Afficher le bouton Maintenant"
