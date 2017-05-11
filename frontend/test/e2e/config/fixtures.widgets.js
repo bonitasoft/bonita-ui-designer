@@ -6,7 +6,7 @@
     .module('bonitasoft.designer.e2e')
     .value('widgets', [
       {
-        designerVersion: '1.5-SNAPSHOT',
+        designerVersion: '1.5.35',
         id: 'pbParagraph',
         name: 'Paragraph',
         type: 'widget',
@@ -32,7 +32,7 @@
         }]
       },
       {
-        designerVersion: '1.5-SNAPSHOT',
+        designerVersion: '1.5.35',
         id: 'pbInput',
         name: 'Input',
         type: 'widget',
@@ -235,7 +235,7 @@
         ],
         assets: []
       }, {
-        'designerVersion': '1.5-SNAPSHOT',
+        'designerVersion': '1.5.35',
         'favorite': false,
         'id': 'pbTitle',
         'name': 'Title',
