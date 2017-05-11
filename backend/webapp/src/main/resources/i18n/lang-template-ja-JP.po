@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-05-08 21:42-0400\n"
+"PO-Revision-Date: 2017-05-11 07:08-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -24,6 +24,9 @@ msgstr "（テンプレートとコントローラーで使用される）"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
+
+msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
+msgstr ""
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -485,6 +488,9 @@ msgstr "日付書式は、デフォルトでローカライズされます。ロ
 msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
 msgstr "Date オブジェクトまたは <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列変数 yyyy-MM-dd"
 
+msgid "Date objects"
+msgstr ""
+
 msgid "Default"
 msgstr "デフォルト"
 
@@ -734,6 +740,9 @@ msgstr "リクエストが成功した時、そのレスポンスを保持しま
 msgid "Home page"
 msgstr "ホームページ"
 
+msgid "However, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date."
+msgstr ""
+
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
 
@@ -775,9 +784,6 @@ msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
-
-msgid "In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date."
-msgstr "ISO 8601 の文字列変数 （タイムゾーン情報の有無にかかわらず） に加え、入力として Date オブジェクトまたは数値 （1970/01/01からのミリ秒単位の経過時間）を渡すこともできます。しかし、ユーザーが日付を選択したとき、ウィジェットの <em>値</em> にバインドされている変数の型を文字列 (ISO 8601) に変更します。"
 
 msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita BPM にログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI アーティファクトが表示されます。"
@@ -904,6 +910,9 @@ msgstr "ローカル"
 
 msgid "Localization"
 msgstr "ローカライゼーション"
+
+msgid "Long number values (Milliseconds since epoch)"
+msgstr ""
 
 msgid "MM/dd/yyyy"
 msgstr "yyyy/MM/dd"
@@ -1329,8 +1338,8 @@ msgstr "インポートした {{ ::importReport.type }} には、新しい要素
 msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
 msgstr "インポートした {{ ::importReport.type }} には、いくつかの既存の要素と同じ id を持つ要素が含まれています。"
 
-msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable."
-msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> で書式化された文字列変数です。"
+msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
+msgstr ""
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
@@ -1340,9 +1349,6 @@ msgstr "ラベルとして使用するキーの名前。空にすることがで
 
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "値として使用するキーの名前。オブジェクト全体の場合は、空のままにします。"
-
-msgid "The output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr "このウィジェット の出力（その<em>値</em>）は、<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> で書式化された文字列変数で、UTC で真夜中 の時刻が設定されています（例えば、2016-12-31T00:00:00.000Z）。"
 
 msgid "The page has not been imported."
 msgstr "ページはインポートされていません。"
@@ -1382,6 +1388,9 @@ msgstr "このページは空白です。"
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
 msgstr "このウィジェットは、 ビジネス データ モデル (BDM) を定義されているビジネス変数属性を<code>java.time.LocalDate</code> に基づく<em>日付のみ</em>、または <code>java.util.Date</code> に基づく<em>DATE (非推奨)</em> として、表示/更新するために使用できます。"
+
+msgid "This widget supports the following types for its <em>Value</em> property as input:"
+msgstr ""
 
 msgid "This will also update the content of the preview window"
 msgstr "プレビュー ウィンドウの内容も更新されます"
@@ -1560,11 +1569,11 @@ msgstr "使用文字： M (月)、d (日)、 y (年)"
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
-msgid "Use this widget to select a date and a time."
-msgstr "このウィジェットを使用し、日付と時刻を選択します。"
+msgid "Use this widget to select a date (e.g., a date of birth)."
+msgstr ""
 
-msgid "Use this widget to select a date."
-msgstr "このウィジェットを使用し、日付を選択します。"
+msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
@@ -1607,6 +1616,9 @@ msgstr "W3C webサイト"
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
+
+msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
