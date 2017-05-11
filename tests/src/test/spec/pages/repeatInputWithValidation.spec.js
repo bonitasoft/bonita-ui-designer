@@ -1,9 +1,5 @@
 describe('repeat container', function() {
 
-  /**
-   * This test repeats a container over a collection.
-   * Each container contains an input and a paragraph, bound to the item.
-   */
   beforeEach(function() {
     browser.get('/designer/preview/page/repeatInputWithValidation/');
   });
@@ -22,7 +18,6 @@ describe('repeat container', function() {
     });
 
     expect(forms.count()).toBe(1);
-    //console.log('forms!', forms.get(0));
   });
 
   it('should display a message if the state is invalid', function() {
