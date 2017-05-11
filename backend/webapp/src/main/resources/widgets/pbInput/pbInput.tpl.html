@@ -14,6 +14,7 @@
                 class="form-control"
                 placeholder="{{ properties.placeholder | uiTranslate }}"
                 ng-model="properties.value"
+                ng-model-options="{ allowInvalid: true }"
                 name="{{ctrl.name}}"
                 ng-required="properties.required"
                 ng-minlength="properties.minLength"

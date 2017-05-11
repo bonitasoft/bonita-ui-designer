@@ -4,7 +4,7 @@
        ng-class="properties.cssClasses"
        ng-if="!properties.hidden"
        {{#repeated}}
-         ng-repeat="$item in ($collection = properties.repeatedCollection) track by $id($item)"
+         ng-repeat="$item in ($collection = properties.repeatedCollection) track by $index"
        {{/repeated}}>
 
     {{{rowsHtml}}}
