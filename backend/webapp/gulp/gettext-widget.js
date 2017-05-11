@@ -114,10 +114,7 @@ function extract() {
           value = property.caption;
           acc[value] = (acc[value] || []).concat(getInfo('caption', fileName));
         }
-        if (property.hasOwnProperty('defaultValue')) {
-          if (!isNaN(property.defaultValue)) {
-            return acc;
-          }
+        if (property.hasOwnProperty('defaultValue') && typeof property.defaultValue == "string") {
           value = property.defaultValue;
           acc[value] = (acc[value] || []).concat(getInfo('defaultValue', fileName));
         }
