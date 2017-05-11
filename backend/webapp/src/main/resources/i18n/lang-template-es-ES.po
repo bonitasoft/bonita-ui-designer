@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-05-08 21:56-0400\n"
+"PO-Revision-Date: 2017-05-11 07:58-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -24,6 +24,9 @@ msgstr "(utilizado en su plantilla y controller)"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
+
+msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
+msgstr ""
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -485,6 +488,9 @@ msgstr "Por defecto, los formatos de fecha están localizados. Los formatos loca
 msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
 msgstr "Objeto de fecha o variable de tipo String formateada en <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a>: aaaa-MM-dd"
 
+msgid "Date objects"
+msgstr ""
+
 msgid "Default"
 msgstr "Por defecto"
 
@@ -734,6 +740,9 @@ msgstr "Es la respuesta cuando la llamada se realiza correctamente"
 msgid "Home page"
 msgstr "Página de inicio"
 
+msgid "However, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date."
+msgstr ""
+
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
 
@@ -775,9 +784,6 @@ msgstr "En un recurso JavaScript, puede especificar una dependencia de un módul
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
-
-msgid "In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date."
-msgstr "Además de variables de tipo String ISO 8601 (con o sin información de hora), también puede pasar Objetos de fecha o números (Milisegundos desde Epoch) como entrada. Sin embargo, el tipo de la variable vinculada al widget <em>Valor</em> cambiará a un tipo String (ISO 8601) cuando el usuario seleccione una fecha."
 
 msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita BPM Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
@@ -904,6 +910,9 @@ msgstr "Local"
 
 msgid "Localization"
 msgstr "Localización"
+
+msgid "Long number values (Milliseconds since epoch)"
+msgstr ""
 
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
@@ -1329,8 +1338,8 @@ msgstr "El {{ ::importReport.type }} importado también contiene nuevos elemento
 msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
 msgstr "El {{ ::importReport.type }} importado contiene elementos con el mismo id que algunos elementos existentes."
 
-msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable."
-msgstr "La entrada y salida del widget (su <em>Valor</em>) es una variable de tipo String con formato de <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a>."
+msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
+msgstr ""
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La lista contiene los recursos de página y los recursos de los widgets personalizados utilizados en esta página."
@@ -1340,9 +1349,6 @@ msgstr "El nombre de la clave a utilizar como etiqueta. Puede estar vacío"
 
 msgid "The name of the key to use as value. Leave it empty for whole object"
 msgstr "El nombre de la clave para usar como valor. Dejar vacío para tener todo el objeto"
-
-msgid "The output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr "La salida del widget (su <em>Valor</em>) es una variable de tipo String en formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a> con la hora establecida a medianoche UTC (por ejemplo, 2016-12-31T00:00:00.000Z)."
 
 msgid "The page has not been imported."
 msgstr "La página no ha sido importada."
@@ -1382,6 +1388,9 @@ msgstr "Esta página está vacía."
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
 msgstr "Puede utilizar este widget para mostrar o actualizar atributos de variable de negocio definidos en el modelo de datos de negocio (BDM) como <em>DATE ONLY</em>, y basado en <code>java.time.LocalDate</code> o como <em>DATE (NOT RECOMMENDED)</em> y basado en <code>java.util.Date</code>."
+
+msgid "This widget supports the following types for its <em>Value</em> property as input:"
+msgstr ""
 
 msgid "This will also update the content of the preview window"
 msgstr "También se actualizará el contenido de la ventana de previsualización"
@@ -1560,11 +1569,11 @@ msgstr "Utilice los caracteres: M (mes), d (día), y (año)"
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
-msgid "Use this widget to select a date and a time."
-msgstr "Utilice este widget para seleccionar una fecha y una hora."
+msgid "Use this widget to select a date (e.g., a date of birth)."
+msgstr ""
 
-msgid "Use this widget to select a date."
-msgstr "Utilice este widget para seleccionar una fecha."
+msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
@@ -1607,6 +1616,9 @@ msgstr "Sitio web de W3C"
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "Cuando el contenido es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla"
+
+msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
