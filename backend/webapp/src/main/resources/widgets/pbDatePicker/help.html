@@ -1,12 +1,17 @@
 <uib-tabset class="tabs-left">
     <uib-tab heading="{{ 'Usage' | translate }}" index="'usage'">
         <p>
-            <translate>Use this widget to select a date.</translate><br/>
+            <translate>Use this widget to select a date (e.g., a date of birth).</translate><br/>
             <translate>To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead.</translate>
         </p>
-        <p>
-            <translate>The output of the widget (its <em>Value</em>) is an <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted string variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z).</translate><br/>
-            <translate>In addition to ISO 8601 string variables (with or without time information), you can also pass Date objects or numbers (Milliseconds since epoch) as input. However, it will change the type of the variable bound to the widget <em>Value</em> to a String (ISO 8601) when the user selects a date.</translate>
+        <p translate>This widget supports the following types for its <em>Value</em> property as input:</p>
+        <ul>
+            <li translate><a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> String variables (with or without time information)</li>
+            <li translate>Date objects</li>
+            <li translate>Long number values (Milliseconds since epoch)</li>
+        </ul>
+        <p><translate>However, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date.</translate><br/>
+        <translate>When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z).</translate>
         </p>
     </uib-tab>
     <uib-tab heading="{{ 'Format' | translate }}" index="'format'">

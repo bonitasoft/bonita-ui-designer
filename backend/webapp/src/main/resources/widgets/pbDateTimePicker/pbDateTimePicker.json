@@ -94,7 +94,7 @@
       "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable",
-      "help": "should contain timezone information only when 'Handle time zone' is not selected",
+      "help": "Should contain time zone information only when 'Handle time zone' is set to 'yes'",
       "caption": "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-ddTHH:mm:ss(Z)"
     },
     {
