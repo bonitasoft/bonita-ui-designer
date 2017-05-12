@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-05-04 21:44-0400\n"
+"PO-Revision-Date: 2017-05-11 20:56-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -1128,7 +1128,7 @@ msgid "Search on name"
 msgstr "名前で検索"
 
 msgid "See example 'date object initialization'"
-msgstr "「日付オブジェクトの初期化」 の例を参照してください。"
+msgstr "「Date オブジェクトの初期化」 の例を参照してください。"
 
 msgid "See example 'functional programming'"
 msgstr "「関数型のプログラミング」の例を参照してください。"
