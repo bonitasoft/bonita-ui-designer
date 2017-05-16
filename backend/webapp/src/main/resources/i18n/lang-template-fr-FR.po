@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-05-11 06:38-0400\n"
+"PO-Revision-Date: 2017-05-15 20:49-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -26,7 +26,7 @@ msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
-msgstr ""
+msgstr "Variables de type String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (avec ou sans information de fuseau horaire)"
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -46,15 +46,11 @@ msgstr "<b>Pour utiliser un layout dans une application métier</b>, exportez-le
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Pour utiliser une page dans une application métier</b>, exportez-la depuis le UI Designer et importez-la dans Bonita BPM Portal en tant que ressource. Puis, à partir de l'application souhaitée, ajoutez-la à la liste des pages et si besoin, associez-lui un menu de navigation."
 
-msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
-"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
-msgstr "<b>Lorsque <em>Gérer les fuseaux horaires</em> est à \"non\"</b> : le fuseau horaire de l’utilisateur est ignoré et la <em>Valeur</em> du widget ne contient aucune information de fuseau horaire (par exemple, yyyy-MM-ddTHH:mm:ss). \n"
-"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier de type <em>DATE-TIME (NO TIME ZONE)</em> dans la BDM, basés sur <code>java.time.LocalDateTime</code>."
+msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
+msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"non\"</b> : le fuseau horaire de l’utilisateur est ignoré et la <em>Valeur</em> du widget ne contient aucune information de fuseau horaire (par exemple, yyyy-MM-ddTHH:mm:ss)."
 
-msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
-"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
-msgstr "<b>Lorsque <em>Gérer les fuseaux horaires</em> est à \"oui\"</b> : la <em>Valeur</em> des widgets est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ). \n"
-"             Utilisez ces dates et heures pour afficher/mettre à jour des attributs de variables métier de type <em>DATE-TIME (TIME ZONE)</em> dans la Base de Données Métier (BDM), basés sur <code>java.time.LocalDateTime</code>."
+msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
+msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"oui\"</b> : la <em>Valeur</em> du widget est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ)."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
@@ -70,6 +66,18 @@ msgstr "<code>taskId</code> est un paramètre d'URL. <br>C'est l'id de la tâche
 
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>Exemple</b></em>: Utilisez la clé <em>nom.submit.bouton</em> pour la propriété <b>Libellé</b> d'un bouton Submit. Utilisez la clé <em>format.date</em> pour la propriété <b>Format de la date</b> et <em>placeholder.date</em> pour la propriété <b>Placeholder</b> du widget Date picker. Ensuite, mettez l'asset <em>localization.json</em> à jour avec les traductions de <em>nom.bouton.submit</em>, <em>format.date</em> en anglais, et <em>placeholder.date</em> dans la langue de traduction."
+
+msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
+msgstr "<em>DATE (NOT RECOMMENDED)</em> (basé sur <code>java.util.Date</code>)"
+
+msgid "<em>DATE ONLY</em> (based on <code>java.time.LocalDate</code>)"
+msgstr "<em>DATE ONLY</em> (basé sur <code>java.time.LocalDate</code>)"
+
+msgid "<em>DATE-TIME (NO TIME ZONE)</em> (based on <code>java.time.LocalDateTime</code>): set the property <em>Handle time zone</em> to \"No\""
+msgstr "<em>DATE-TIME (NO TIME ZONE)</em> (basé sur <code>java.time.LocalDateTime</code>) : mettre la propriété <em>Gérer fuseau horaire</em> à \"non\""
+
+msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
+msgstr "<em>DATE-TIME (TIME ZONE)</em> (basé sur <code>java.time.OffsetDateTime</code>) : mettre la propriété <em>Gérer fuseau horaire</em> à \"oui\""
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "<em>Note sur les widgets</em> Date <em>et</em> Date Time : la traduction de la propriété <em>Placeholder</em> doit être cohérente avec celle de la propriété <em>Format technique de la date</em> (ordre et nombre de lettres). Cependant, leurs clés de traduction doivent être différentes, pour éviter toute incohérence de traduction."
@@ -106,9 +114,6 @@ msgstr "Un objet JSON"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
-
-msgid "A date that should be at midnight UTC"
-msgstr "Une date qui devrait être à minuit UTC"
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
@@ -484,11 +489,8 @@ msgstr "Affichage de la date"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
 
-msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
-msgstr "Un objet Date ou une variable de type String au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> yyyy-MM-dd"
-
 msgid "Date objects"
-msgstr ""
+msgstr "Objets Date"
 
 msgid "Default"
 msgstr "Défaut"
@@ -739,8 +741,8 @@ msgstr "Recueille la réponse lorsque la requête a réussi"
 msgid "Home page"
 msgstr "Page d'accueil"
 
-msgid "However, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date."
-msgstr ""
+msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
+msgstr "Toutefois, <b>la sortie du widget est toujours un objet Javascript Date</b>. Donc la variable liée à la <em>valeur</em> de la widget deviendra un objet Date lorsque l’utilisateur sélectionnera une date. Ce comportement permet d'assurer la rétrocompatibilité des pages crées avec d'anciennes versions du UI Designer."
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"
@@ -819,6 +821,9 @@ msgstr "En ligne"
 
 msgid "Input field with content completion from a given list"
 msgstr "Champ de saisie avec suggestion à partir d'une liste donnée"
+
+msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
+msgstr "Entrée : Chaîne de caractères au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (AAAA-MM-JJ), Objet Date ou nombre <br>Sortie : Objet Date (voir l'aide de la widget)"
 
 msgid "Integration with Bonita BPM platform"
 msgstr "Intégration avec la plate-forme Bonita BPM"
@@ -911,7 +916,7 @@ msgid "Localization"
 msgstr "Localisation"
 
 msgid "Long number values (Milliseconds since epoch)"
-msgstr ""
+msgstr "Nombres Long (Millisecondes depuis epoch)"
 
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
@@ -1279,6 +1284,9 @@ msgstr "URL cible en cas de succès"
 msgid "Task Id"
 msgstr "ID de tâche"
 
+msgid "Technical Format"
+msgstr "Format technique"
+
 msgid "Technical date format"
 msgstr "Format technique de la date"
 
@@ -1338,7 +1346,7 @@ msgid "The imported {{ ::importReport.type }} contains elements with the same id
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient des éléments portant le même id que des éléments existants."
 
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
-msgstr ""
+msgstr "L’entrée/sortie du widget (sa <em>Valeur</em>) est une variable String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La liste contient à la fois des assets de page et les assets des widgets personnalisés utilisés dans cette page."
@@ -1385,11 +1393,11 @@ msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.
 msgid "This page is empty."
 msgstr "Cette page est vide."
 
-msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
-msgstr "Ce widget peut être utilisé pour afficher/mettre à jour des attributs de variables métier définies dans la Base de Données Métier (BDM) en tant que <em>DATE ONLY</em> et basé sur <code>java.time.LocalDate</code> ou en tant que <em>DATE (NOT RECOMMENDED)</em> et basés sur <code>java.util.Date</code>."
+msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
+msgstr "Ce widget peut être utilisé pour afficher/mettre à jour des attributs de variables métier définies dans la Base de Données Métier (BDM) en tant que :"
 
 msgid "This widget supports the following types for its <em>Value</em> property as input:"
-msgstr ""
+msgstr "Ce widget supporte les types suivants en entrée pour sa propriété <em>Valeur</em> :"
 
 msgid "This will also update the content of the preview window"
 msgstr "Cela mettra également à jour le contenu de la fenêtre d’aperçu"
@@ -1569,16 +1577,19 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
-msgstr ""
+msgstr "Utilisez ce widget pour faire sélectionner une date (par exemple, une date de naissance)."
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
-msgstr ""
+msgstr "Utilisez ce widget pour faire sélectionner une date et une heure (par exemple pour planifier une réunion)."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
 
 msgid "Value"
 msgstr "Valeur"
+
+msgid "Value Format"
+msgstr "Format de la Valeur"
 
 msgid "Value max length"
 msgstr "Longueur maximum de la valeur"
@@ -1617,7 +1628,7 @@ msgid "When 'Content' is a list of objects, specifies the attributes to display 
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes du tableau"
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr ""
+msgstr "Quand elle est envoyée en JSON dans le corps de la requête, la valeur est convertie en une chaîne de caractères au format ISO 8601 avec l'heure à minuit UTC (par exemple : 2016-12-31T00:00:00.000Z)."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
