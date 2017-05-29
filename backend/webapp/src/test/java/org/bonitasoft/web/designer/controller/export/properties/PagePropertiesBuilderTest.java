@@ -87,7 +87,7 @@ public class PagePropertiesBuilderTest {
 
         assertThat(properties).contains("name=custompage_aPageName" + LINE_SEPARATOR);
         assertThat(properties).contains("displayName=aPageName page" + LINE_SEPARATOR);
-        assertThat(properties).contains("description=aPageName page generated with Bonita BPM UI designer");
+        assertThat(properties).contains("description=aPageName page generated with Bonita UI designer");
         assertThat(properties).contains("resources=[]");
     }
 
