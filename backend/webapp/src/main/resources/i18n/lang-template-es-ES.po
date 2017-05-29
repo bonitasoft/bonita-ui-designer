@@ -42,10 +42,10 @@ msgid "<b>To use a form in a process</b>, map it in the studio to the relevant p
 msgstr "<b>Para utilizar un formulario en un proceso</b>, mapéalo en el Studio con el proceso o tarea humana correspondientes. Será automáticamente empaquetado en el archivo .bar y estará listo para desplegarse en el portal."
 
 msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
-msgstr "<b>Para utilizar un layout en una aplicación de negocio</b>, expórtalo desde el UI Designer, impórtalo en el Bonita BPM Portal como recurso y mapéalo en el layout de la aplicación correspondiente."
+msgstr "<b>Para utilizar un layout en una aplicación de negocio</b>, expórtalo desde el UI Designer, impórtalo en el Bonita Portal como recurso y mapéalo en el layout de la aplicación correspondiente."
 
-msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita BPM Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
-msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita BPM Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
+msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
+msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
 "            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
@@ -184,8 +184,8 @@ msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
 msgid "Alternate text"
 msgstr "Texto alternativo"
 
-msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita BPM Portal)."
-msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita BPM Portal)."
+msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
+msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
 
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
@@ -265,8 +265,8 @@ msgstr "Regresar al tamaño predeterminado"
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
 
-msgid "Bonita BPM"
-msgstr "Bonita BPM"
+msgid "Bonita"
+msgstr "Bonita"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
@@ -574,7 +574,7 @@ msgid "Dynamic value"
 msgstr "Valor dinámico"
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
-msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita BPM</a>:"
+msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita</a>:"
 
 msgid "Each type or container has specific behaviors"
 msgstr "Cada tipo de contenedor tiene comportamientos específicos"
@@ -783,8 +783,8 @@ msgstr "En un recurso JavaScript, puede especificar una dependencia de un módul
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
 
-msgid "In production, if the user is logged into Bonita BPM Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
-msgstr "En producción, si el usuario está logueado en el Bonita BPM Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
+msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
+msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "En el contexto de un contenedor de formulario, utilice $form.$invalid como un valor booleano para comprobar la validez del formulario en una propiedad del widget"
@@ -819,8 +819,8 @@ msgstr "En línea"
 msgid "Input field with content completion from a given list"
 msgstr "Campo de entrada con autocompletado basado en una lista dada"
 
-msgid "Integration with Bonita BPM platform"
-msgstr "Integración con Bonita BPM Platform"
+msgid "Integration with Bonita platform"
+msgstr "Integración con Bonita Platform"
 
 msgid "Interpolation"
 msgstr "Interpolación"
@@ -1236,11 +1236,11 @@ msgstr "Especifica dónde abrir el documento vinculado"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Especifique el número de columnas del elemento. Todos los elementos no podrán sobrepasar 12 columnas."
 
-msgid "Start creating a <b>process form</b> in Bonita BPM Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
-msgstr "Comienza creando un <b>formulario de proceso</b> en Bonita BPM Studio: desde la Pool apropiada o desde una tarea humana, crea un contrato y ejecuta el UI Designer. Auto-generará un formulario correspondiente que se podrá editar."
+msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr "Comienza creando un <b>formulario de proceso</b> en Bonita Studio: desde la Pool apropiada o desde una tarea humana, crea un contrato y ejecuta el UI Designer. Auto-generará un formulario correspondiente que se podrá editar."
 
-msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita BPM Portal resources, and edit it."
-msgstr "Comience creando un <b>layout de la aplicación</b> mediante la importación del layout por defecto, en los recursos de Bonita BPM Portal y edítelo."
+msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
+msgstr "Comience creando un <b>layout de la aplicación</b> mediante la importación del layout por defecto, en los recursos de Bonita Portal y edítelo."
 
 msgid "Start process"
 msgstr "Iniciar proceso"
@@ -1309,8 +1309,8 @@ msgstr "La propiedad de <em>Formato técnico de fecha</em> define el formato de 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "El UI Designer genera <b>el código de la aplicación del estándar html, basado en AngularJS</b>. Exporta páginas si quieres personalizarlas aún más en tu entorno de desarrollo web favorito."
 
-msgid "The UI Designer is displayed in the language of your Bonita BPM Studio."
-msgstr "El UI Desginer se muestra en el idioma de tu Bonita BPM Studio."
+msgid "The UI Designer is displayed in the language of your Bonita Studio."
+msgstr "El UI Desginer se muestra en el idioma de tu Bonita Studio."
 
 msgid "The caption will be displayed as such below the property label."
 msgstr "El título se mostrará como tal debajo de la etiqueta de propiedad."
