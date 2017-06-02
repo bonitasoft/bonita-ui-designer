@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-06-01 21:05-0400\n"
+"PO-Revision-Date: 2017-06-02 06:00-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -26,7 +26,7 @@ msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
-msgstr "Variables String <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a> (con o sin información de tiempo)"
+msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -48,10 +48,10 @@ msgid "<b>To use a page in a business application</b>, export it from the UI Des
 msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita BPM Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
-msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: zona de tiempo del usuario es ignorada y el valor del widget no contiene ninguna información de zona horaria (por ejemplo, yyyy-MM-ddTHH:mm:ss)."
+msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: la zona horaria del usuario se ignora y el valor del widget no contiene ninguna información de zona horaria (por ejemplo, yyyy-MM-ddTHH:mm:ss)."
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
-msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"yes\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo,yyyy-MM-ddTHH:mm:ssZ)."
+msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"si\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo, yyyy-MM-ddTHH:mm:ssZ)."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
@@ -75,10 +75,10 @@ msgid "<em>DATE ONLY</em> (based on <code>java.time.LocalDate</code>)"
 msgstr "<em>DATE ONLY</em> (basado en <code>java.time.LocalDate</code>)"
 
 msgid "<em>DATE-TIME (NO TIME ZONE)</em> (based on <code>java.time.LocalDateTime</code>): set the property <em>Handle time zone</em> to \"No\""
-msgstr "<em>DATE-TIME (NO TIME ZONE)</em> (basado en <code>java.time.LocalDateTime</code>): establezca la propiedad de <em>Manejar la zona horaria</em> al \"no\""
+msgstr "<em>DATE-TIME (NO TIME ZONE)</em> (basado en <code>java.time.LocalDateTime</code>): establezca la propiedad de <em>Manejar la zona horaria</em> a \"no\""
 
 msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
-msgstr "<em>DATE-TIME (TIME ZONE)</em> (basado en <code>java.time.OffsetDateTime</code>): establezca la propiedad de <em>Manejar la zona horaria</em> al \"si\""
+msgstr "<em>DATE-TIME (TIME ZONE)</em> (basado en <code>java.time.OffsetDateTime</code>): establezca la propiedad de <em>Manejar la zona horaria</em> a \"si\""
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "<em>Nota sobre los widgets</em> Selector de fecha <em>y</em> Selector de fecha y hora <em>:</em> las traducciones de la propiedad de <em>Placeholder</em> deben coincidir con el valor de las propiedades <em>Formato de fecha</em> (orden y número de letras). Sin embargo, la clave <em>Placeholder</em> debe ser diferente de la clave <em>Formato técnico de fecha</em> para evitar desajustes de las traducciones."
@@ -743,7 +743,7 @@ msgid "Home page"
 msgstr "Página de inicio"
 
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
-msgstr "Sin embargo, <b>la salida del widget es siempre un objeto Date Javascript</b>. Así que va a cambiar el tipo de la variable atado a la <em>Valor</em> del widget a un objeto Date cuando el usuario selecciona una fecha. Esto es necesario para asegurar la compatibilidad con versiones anteriores de páginas diseñadas con versiones antiguas del UI Designer."
+msgstr "Sin embargo, <b>la salida del widget siempre es un objeto Javascript Date</b>. Así que va a cambiar el tipo de la variable atada al <em>Valor</em> del widget a un objeto Date cuando el usuario selecciona una fecha. Esto es necesario para asegurar la compatibilidad con versiones anteriores de páginas diseñadas con versiones antiguas del UI Designer."
 
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
@@ -824,7 +824,7 @@ msgid "Input field with content completion from a given list"
 msgstr "Campo de entrada con autocompletado basado en una lista dada"
 
 msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
-msgstr "Entrada: String <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (AAAA-MM-dd), objeto Date o número LONG <br>salida: objeto Date (consulte la ayuda del widget)"
+msgstr "Entrada: String con formato <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> (yyyy-MM-dd), objeto Date o número Long <br>salida: objeto Date (consulte la ayuda del widget)"
 
 msgid "Integration with Bonita BPM platform"
 msgstr "Integración con Bonita BPM Platform"
@@ -917,7 +917,7 @@ msgid "Localization"
 msgstr "Localización"
 
 msgid "Long number values (Milliseconds since epoch)"
-msgstr ""
+msgstr "Valores numéricos Long (en milisegundos desde Epoch)"
 
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
@@ -1286,7 +1286,7 @@ msgid "Task Id"
 msgstr "Id de tarea"
 
 msgid "Technical Format"
-msgstr ""
+msgstr "Formato técnico"
 
 msgid "Technical date format"
 msgstr "Formato de fecha técnica"
@@ -1347,7 +1347,7 @@ msgid "The imported {{ ::importReport.type }} contains elements with the same id
 msgstr "El {{ ::importReport.type }} importado contiene elementos con el mismo id que algunos elementos existentes."
 
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
-msgstr ""
+msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La lista contiene los recursos de página y los recursos de los widgets personalizados utilizados en esta página."
@@ -1395,10 +1395,10 @@ msgid "This page is empty."
 msgstr "Esta página está vacía."
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
-msgstr ""
+msgstr "Este widget se puede utilizar para mostrar/actualizar atributos de variables de negocio definidos en el modelo de datos de negocio (BDM) con los siguientes tipos:"
 
 msgid "This widget supports the following types for its <em>Value</em> property as input:"
-msgstr ""
+msgstr "Este widget soporta los siguientes tipos por su propiedad de <em>Valor</em> como entrada:"
 
 msgid "This will also update the content of the preview window"
 msgstr "También se actualizará el contenido de la ventana de previsualización"
@@ -1578,10 +1578,10 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
-msgstr ""
+msgstr "Use este widget para seleccionar una fecha (por ejemplo, fecha de nacimiento)."
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
-msgstr ""
+msgstr "Use este widget para seleccionar una fecha y una hora (por ejemplo, planificar una cita)."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
@@ -1590,7 +1590,7 @@ msgid "Value"
 msgstr "Valor"
 
 msgid "Value Format"
-msgstr ""
+msgstr "Formato del valor"
 
 msgid "Value max length"
 msgstr "Longitud máxima"
@@ -1629,7 +1629,7 @@ msgid "When 'Content' is a list of objects, specifies the attributes to display 
 msgstr "Cuando el contenido es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla"
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr ""
+msgstr "Cuando se envía en el cuerpo JSON de una request, se serializa en una variable String con formato ISO 8601 con el tiempo establecido a medianoche UTC (por ejemplo, 2016-12-31T00:00:00.000Z)."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
@@ -1662,7 +1662,7 @@ msgid "Within a row, when you delete a widget or a container, the following elem
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Se pueden crear <b>widgets personalizados</b> desde la página de inicio."

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-06-01 20:46-0400\n"
+"PO-Revision-Date: 2017-06-02 05:43-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -823,7 +823,7 @@ msgid "Input field with content completion from a given list"
 msgstr "Champ de saisie avec suggestion à partir d'une liste donnée"
 
 msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
-msgstr "Entrée : Chaîne de caractères au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (AAAA-MM-JJ), Objet Date ou nombre <br>Sortie : Objet Date (voir l'aide de la widget)"
+msgstr "Entrée : Chaîne de caractères au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (yyyy-MM-dd), Objet Date ou nombre <br>Sortie : Objet Date (voir l'aide du widget)"
 
 msgid "Integration with Bonita BPM platform"
 msgstr "Intégration avec la plate-forme Bonita BPM"
