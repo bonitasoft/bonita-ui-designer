@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-06-01 21:05-0400\n"
+"PO-Revision-Date: 2017-06-02 06:00-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -26,7 +26,7 @@ msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
-msgstr "Variables String <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a> (con o sin información de tiempo)"
+msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -910,7 +910,7 @@ msgid "Localization"
 msgstr "Localización"
 
 msgid "Long number values (Milliseconds since epoch)"
-msgstr ""
+msgstr "Valores numéricos Long (en milisegundos desde Epoch)"
 
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
@@ -1337,7 +1337,7 @@ msgid "The imported {{ ::importReport.type }} contains elements with the same id
 msgstr "El {{ ::importReport.type }} importado contiene elementos con el mismo id que algunos elementos existentes."
 
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
-msgstr ""
+msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La lista contiene los recursos de página y los recursos de los widgets personalizados utilizados en esta página."
@@ -1388,7 +1388,7 @@ msgid "This widget can be used to display/update business variable attributes de
 msgstr "Puede utilizar este widget para mostrar o actualizar atributos de variable de negocio definidos en el modelo de datos de negocio (BDM) como <em>DATE ONLY</em>, y basado en <code>java.time.LocalDate</code> o como <em>DATE (NOT RECOMMENDED)</em> y basado en <code>java.util.Date</code>."
 
 msgid "This widget supports the following types for its <em>Value</em> property as input:"
-msgstr ""
+msgstr "Este widget soporta los siguientes tipos por su propiedad de <em>Valor</em> como entrada:"
 
 msgid "This will also update the content of the preview window"
 msgstr "También se actualizará el contenido de la ventana de previsualización"
@@ -1568,10 +1568,10 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
-msgstr ""
+msgstr "Use este widget para seleccionar una fecha (por ejemplo, fecha de nacimiento)."
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
-msgstr ""
+msgstr "Use este widget para seleccionar una fecha y una hora (por ejemplo, planificar una cita)."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
@@ -1616,7 +1616,7 @@ msgid "When 'Content' is a list of objects, specifies the attributes to display 
 msgstr "Cuando el contenido es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla"
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr ""
+msgstr "Cuando se envía en el cuerpo JSON de una request, se serializa en una variable String con formato ISO 8601 con el tiempo establecido a medianoche UTC (por ejemplo, 2016-12-31T00:00:00.000Z)."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
@@ -1649,7 +1649,7 @@ msgid "Within a row, when you delete a widget or a container, the following elem
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Se pueden crear <b>widgets personalizados</b> desde la página de inicio."
