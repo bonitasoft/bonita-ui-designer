@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-06-02 05:51-0400\n"
+"PO-Revision-Date: 2017-06-07 04:54-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -1206,7 +1206,7 @@ msgid "Show Now button"
 msgstr "現在のボタンを表示"
 
 msgid "Show Today button"
-msgstr "今日のボタンを表示"
+msgstr "今日ボタンを表示"
 
 msgid "Source"
 msgstr "ソース"
@@ -1480,7 +1480,7 @@ msgid "Today & Now"
 msgstr "今日の今時点"
 
 msgid "Today button label"
-msgstr "本日ボタンのラベル"
+msgstr "今日ボタンのラベル"
 
 msgid "Toggle properties panel"
 msgstr "プロパティ パネルの表示"
