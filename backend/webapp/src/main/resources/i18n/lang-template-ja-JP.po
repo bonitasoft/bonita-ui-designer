@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-06-25 18:23-0400\n"
+"PO-Revision-Date: 2017-07-03 18:08-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -49,12 +49,12 @@ msgstr "<b>業務アプリケーションのページとして使用するには
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
 "            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
-msgstr "<b><em>タイムゾーンを処理</em>を「いいえ」に設定した場合</b>: ユーザーのタイムゾーンは無視され、ウィジェットの値にはタイムゾーン情報が含まれません（例えば、yyyy-MM-ddTHH:mm:ss）。\n"
+msgstr "<b><em>タイムゾーンを処理</em>を「いいえ」に設定した場合</b>: ユーザーのタイムゾーンは無視され、ウィジェットの値にはタイムゾーン情報が含まれません（たとえば、yyyy-MM-ddTHH:mm:ss）。\n"
 "            BDM で <em>日時 (タイムゾーンなし)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
 "            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
-msgstr "<b><em>タイムゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTC （例えば、yyyy-MM-ddTHH:mm:ssZ）になります。\n"
+msgstr "<b><em>タイムゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTC （たとえば、yyyy-MM-ddTHH:mm:ssZ）になります。\n"
 "            BDM で <em>日時 (タイムゾーンあり)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
 
 msgid "<code>context</code> is an External API."
@@ -169,7 +169,7 @@ msgid "Add to collection"
 msgstr "コレクションに追加"
 
 msgid "Added artifacts"
-msgstr "追加されたアーティファクト"
+msgstr "追加された生成物"
 
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
@@ -178,7 +178,7 @@ msgid "Alignment"
 msgstr "配置"
 
 msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
-msgstr "すべての <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS フィルター</a> が利用可能です。例えば 、<code>myVariable|lowercase</code>のように、<code>|</code> (パイプ)を使用します。"
+msgstr "すべての <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS フィルター</a> が利用可能です。たとえば 、<code>myVariable|lowercase</code>のように、<code>|</code> (パイプ)を使用します。"
 
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "案件の全プロセスデータ: 案件リストの変数を検索します"
@@ -187,7 +187,7 @@ msgid "Alternate text"
 msgstr "代替テキスト"
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
-msgstr "UI デザイナーで設計したアーティファクトは、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
+msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
 
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
@@ -220,7 +220,7 @@ msgid "Array used to populate the table. Can be a list of objects. Use 'Column k
 msgstr "テーブルを埋め込むために使用される配列（Array）。オブジェクトの配列（リスト）を指定することもできます。この場合、各列に表示する項目名のリストを「列を示すキー」に指定します。"
 
 msgid "Artifact creation:"
-msgstr "アーティファクトの作成："
+msgstr "生成物の作成："
 
 msgid "As used in the URL after the application token"
 msgstr "アプリケーション トークンの後の URL に使用されます"
@@ -271,7 +271,7 @@ msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
-msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI アーティファクトの表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
+msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI 生成物の表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
 
 msgid "CSS classes"
 msgstr "CSS クラス"
@@ -403,7 +403,7 @@ msgid "Create a fragment to reuse the same group of widgets with the same behavi
 msgstr "ウィジェットを同一のグループにまとめて部品化し、他のページまたはフォームの再利用するフラグメントを作成します。"
 
 msgid "Create a new UI Designer artifact"
-msgstr "新しい UI デザイナーのアーティファクトを作成します"
+msgstr "新しい UI デザイナーの生成物を作成します"
 
 msgid "Create a new variable"
 msgstr "新規変数を作成"
@@ -418,7 +418,7 @@ msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "UI デザイナーで直接、<b>アプリケーション ページ</b> を作成します"
 
 msgid "Create new artifact"
-msgstr "新しいアーティファクトを作成"
+msgstr "新しい生成物を作成"
 
 msgid "Create new property"
 msgstr "新規プロパティを作成"
@@ -476,7 +476,7 @@ msgstr "日付と時刻"
 
 msgid "Date and time can reflect the user time zone (e.g., a meeting day and time) or be absolute, identical everywhere (e.g., opening hours of a store somewhere).\n"
 "            This is controlled by the property <em>Handle time zone</em>."
-msgstr "日時は、ユーザーのタイムゾーンを反映 （例えば、会議の日時）したり、どこの場所でもタイムゾーンに関係なく同一である （例えば、どこかの店の開店時刻）のいずれも取り扱えます。\n"
+msgstr "日時は、ユーザーのタイムゾーンを反映 （たとえば、会議の日時）したり、どこの場所でもタイムゾーンに関係なく同一である （たとえば、どこかの店の開店時刻）のいずれも取り扱えます。\n"
 "            これは、<em>タイムゾーン処理</em> プロパティによって制御されます。"
 
 msgid "Date display"
@@ -576,7 +576,7 @@ msgid "Dynamic value"
 msgstr "動的な値"
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
-msgstr "各アーティファクトは、<em>localization.json</em> アセットを持ち、このアセットは UI 上に表示されるすべて文字列のキーとサポート言語（デフォルト、日本語、フランス語、スペイン語など）の対訳を持っています。各言語は、言語セクションを持ち、ISO 639 の言語属性（たとえば、ja, fr-FR, es-ES） によって識別されます。新しい言語（キーとその対訳のセット）を追加するには、 <em>localization.json</em> をエクスポートして外部のエディタで編集し、同じファイル名でアップロードします。新しい言語のインストールの詳細については、 Bonita BPM ドキュメント サイトを参照してください。（キーワード："
+msgstr "各生成物は、<em>localization.json</em> アセットを持ち、このアセットは UI 上に表示されるすべて文字列のキーとサポート言語（デフォルト、日本語、フランス語、スペイン語など）の対訳を持っています。各言語は、言語セクションを持ち、ISO 639 の言語属性（たとえば、ja, fr-FR, es-ES） によって識別されます。新しい言語（キーとその対訳のセット）を追加するには、 <em>localization.json</em> をエクスポートして外部のエディタで編集し、同じファイル名でアップロードします。新しい言語のインストールの詳細については、 Bonita BPM ドキュメント サイトを参照してください。（キーワード："
 
 msgid "Each type or container has specific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
@@ -762,7 +762,7 @@ msgid "Import"
 msgstr "インポート"
 
 msgid "Import a UI Designer artifact"
-msgstr "UI デザイナーのアーティファクトをインポート"
+msgstr "UI デザイナーの生成物をインポート"
 
 msgid "Import error"
 msgstr "インポート エラー"
@@ -777,7 +777,7 @@ msgid "Import {{ ::importReport.name }}"
 msgstr "{{ ::importReport.name }} をインポート"
 
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
-msgstr "サブスクリプションのエディションでは、作成した UI アーティファクト（ページ、フォーム、レイアウト） を翻訳し、エンドユーザー向けに UI を多言語で表示するための仕組があります。"
+msgstr "サブスクリプションのエディションでは、作成した UI 生成物（ページ、フォーム、レイアウト） を翻訳し、エンドユーザー向けに UI を多言語で表示するための仕組があります。"
 
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関係を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
@@ -786,7 +786,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
-msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI アーティファクトが表示されます。"
+msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "フォーム コンテナのコンテンツの中で $form.$invalid をウィジェット プロパティ内のブーリアン変数として使用し、フォームの妥当性をチェックします。"
@@ -975,7 +975,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No artifact found."
-msgstr "アーティファクトが見つかりません。"
+msgstr "生成物が見つかりません。"
 
 msgid "No asset"
 msgstr "アセットはありません"
@@ -1005,13 +1005,13 @@ msgid "Open help"
 msgstr "ヘルプを開く"
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
-msgstr "アーティファクト名順に並んでいます <br/>。最新更新日時で並べ替えるには、ここをクリックしてください。"
+msgstr "生成物名順に並んでいます <br/>。最新更新日時で並べ替えるには、ここをクリックしてください。"
 
 msgid "Ordered by last update.<br/>Click to sort by artifact name"
-msgstr "最新更新日時順に並んでいます。<br/>アーティファクト名順で並べ替えるには、ここをクリックしてください。"
+msgstr "最新更新日時順に並んでいます。<br/>生成物名順で並べ替えるには、ここをクリックしてください。"
 
 msgid "Overridden artifacts"
-msgstr "オーバーライドされたアーティファクト"
+msgstr "オーバーライドされた生成物"
 
 msgid "Overview"
 msgstr "オーバービュー"
@@ -1441,10 +1441,10 @@ msgid "To save {{ ::importReport.name }} with a different id, open it and use <i
 msgstr "{{ ::importReport.name }} を異なる id で保存するには、インポートする前にそれらを開き、 <i>別名で保存...</i> を使用します。"
 
 msgid "To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead."
-msgstr "日付と時間（例えば、会議をスケジュールする）を選択するには、<em>日時選択</em> ウィジェットを使用します。"
+msgstr "日付と時間（たとえば、会議をスケジュールする）を選択するには、<em>日時選択</em> ウィジェットを使用します。"
 
 msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
-msgstr "日付だけ（例えば、誕生日）を選択するには、<em>日付選択</em> ウィジェットを使用します。"
+msgstr "日付だけ（たとえば、誕生日）を選択するには、<em>日付選択</em> ウィジェットを使用します。"
 
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "運用中のフォームを更新するには、UI デザイナーからフォームをエクスポートし、ポータルの関連するプロセスにインポートし、関連するタスクまたはプロセス開始イベントにマップします。"
@@ -1492,7 +1492,7 @@ msgid "Trigger for an action in a page or form"
 msgstr "ページまたはフォームのアクションのトリガー"
 
 msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
-msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデフォルトの <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">書式</a> が適用されます。時刻に使用する ISO 8601 文字列では、デフォルトの書式は、<em>'medium'</em> です。それ以外の場合は、 <em>'mediumDate'</4<li>> です。</li><1>いずれかの書式でより詳細に指定したい場合は、 <code>dateVariable | uiDate:書式</code> を使用します。それは、<a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS 日付フィルター</a> とまったく同じ方法で指定できます。<br> 例えば、<code>dateVariable|uiDate:'short'</code> または <code>dateVariable|uiDate:'dd/MM/yyyy'</code>です。</li> </ul>"
+msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデフォルトの <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">書式</a> が適用されます。時刻に使用する ISO 8601 文字列では、デフォルトの書式は、<em>'medium'</em> です。それ以外の場合は、 <em>'mediumDate'</4<li>> です。</li><1>いずれかの書式でより詳細に指定したい場合は、 <code>dateVariable | uiDate:書式</code> を使用します。それは、<a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS 日付フィルター</a> とまったく同じ方法で指定できます。<br> たとえば、<code>dateVariable|uiDate:'short'</code> または <code>dateVariable|uiDate:'dd/MM/yyyy'</code>です。</li> </ul>"
 
 msgid "Type"
 msgstr "タイプ"
@@ -1537,13 +1537,13 @@ msgid "Use $item to remove the current item in a repeated collection"
 msgstr "繰返しコレクション内の現在項目を削除するには、$item を使用します。"
 
 msgid "Use <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">Filters</a> to format the data (e.g. <span ng-non-bindable>columnKey|uiDate</span>)"
-msgstr "日付の書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用します。 （例えば <span ng-non-bindable>columnKey | uiDate</span>）"
+msgstr "日付の書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用します。 （たとえば、 <span ng-non-bindable>columnKey | uiDate</span>）"
 
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情報収集</b>には、左側のパレットの<b>ウィジェット</b>を使用します。"
 
 msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
-msgstr "データのアクセスには、<span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（例えば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
+msgstr "データのアクセスには、<span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（たとえば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
 
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "双方向フィールドを使用し、プロパティの値と変数間の双方向で読み書きできるバインドを指定します。"
@@ -1555,10 +1555,10 @@ msgid "Use an interpolation field to enter text to display in the widget. The te
 msgstr "ウィジェットの表示テキスト中に変数を埋め込み可能にしたい場合、この補完フィールドを使用します。この補完フィールドのテキストには、AngularJS の補完 (interpolation) で解釈される変数を含むことができます。その変数はページが表示されたとき、補完された値に置き換えられます。 二重の中かっこで囲まれた簡単な式として変数を指定します。 例: <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em> さん、申し訳ありませんが、それを行うことはできません。"
 
 msgid "Use basic html tags, <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
-msgstr "データのアクセスには、基本的な html タグ <span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（例えば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
+msgstr "データのアクセスには、基本的な html タグ <span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（たとえば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
-msgstr "UI デザイナーを使用してweb アーティファクトを作成または編集：  ビジネス アプリケーションを構成する<b>アプリケーション ページ</b> 、プロセスの起案または、ヒューマンタスクの実行にリンクされた <b>プロセス フォーム</b> 、およびビジネス アプリケーションのすべてのページに適用される<b>アプリケーション レイアウト</b>。"
+msgstr "UI デザイナーを使用してweb 生成物を作成または編集：  ビジネス アプリケーションを構成する<b>アプリケーション ページ</b> 、プロセスの起案または、ヒューマンタスクの実行にリンクされた <b>プロセス フォーム</b> 、およびビジネス アプリケーションのすべてのページに適用される<b>アプリケーション レイアウト</b>。"
 
 msgid "Use the characters: H (hour), h (hour in AM/PM), m (minutes) and optionally s (seconds), a (AM/PM)"
 msgstr "使用文字： H (時間)、h (午前/午後の時間)、m (分)、オプションで s (秒) 、a (午前/午後)"
@@ -1570,10 +1570,10 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
-msgstr "日付を選択するためには、このウィジェットを使用します（例えば、誕生日）。"
+msgstr "日付を選択するためには、このウィジェットを使用します（たとえば、誕生日）。"
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
-msgstr "日時を選択するためには、このウィジェットを使用します（例えば、会議開始時刻）。"
+msgstr "日時を選択するためには、このウィジェットを使用します（たとえば、会議開始時刻）。"
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
@@ -1618,7 +1618,7 @@ msgid "When 'Content' is a list of objects, specifies the attributes to display 
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
-msgstr "リクエストの JSON 本体に送信されると、真夜中の UTC に設定された時刻（例えば、2016-12-31T00:00:00.000Z）で ISO 8601 で書式化された文字列変数にシリアル化されます。"
+msgstr "リクエストの JSON 本体に送信されると、真夜中の UTC に設定された時刻（たとえば、2016-12-31T00:00:00.000Z）が ISO 8601 で書式化された文字列変数にシリアル化されます。"
 
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
@@ -1675,7 +1675,7 @@ msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
-msgstr "UI のアーティファクトに表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
+msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
@@ -1702,7 +1702,7 @@ msgid "added"
 msgstr "追加済み"
 
 msgid "artifact"
-msgstr "アーティファクト"
+msgstr "生成物"
 
 msgid "center"
 msgstr "中央"
