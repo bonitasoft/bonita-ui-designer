@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-07-03 18:06-0400\n"
+"PO-Revision-Date: 2017-07-05 20:45-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -44,7 +44,7 @@ msgid "<b>To use a layout in a business application</b>, export it from the UI D
 msgstr "<b>Pour utiliser un layout dans une application métier</b>, exportez-le depuis le UI Designer et importez-le dans le portail en tant que ressource. Enfin, déclarez-le en tant que layout dans l'application souhaitée."
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
-msgstr ""
+msgstr "<b>Pour utiliser une page dans une application métier</b>, exportez-la depuis le UI Designer et importez-la dans Bonita Portal en tant que ressource. Puis, à partir de l'application souhaitée, ajoutez-la à la liste des pages et si besoin, associez-lui un menu de navigation."
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
 "            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
@@ -186,7 +186,7 @@ msgid "Alternate text"
 msgstr "Texte alternatif"
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
-msgstr ""
+msgstr "Un artefact conçu avec le UI Designer peut être exporté pour être partagé entre coéquipiers (importation dans le UI Designer) ou utilisé dans les applications métier (importation dans Bonita Portal)."
 
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un asset de type {{type}} portant le nom <em>{{ name }}</em> a déjà été ajouté aux assets."
@@ -785,7 +785,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
-msgstr ""
+msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artéfacts composant les interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
@@ -821,7 +821,7 @@ msgid "Input field with content completion from a given list"
 msgstr "Champ de saisie avec suggestion à partir d'une liste donnée"
 
 msgid "Integration with Bonita platform"
-msgstr ""
+msgstr "Intégration avec la plate-forme Bonita"
 
 msgid "Interpolation"
 msgstr "Interpolation"
@@ -1238,10 +1238,10 @@ msgid "Specify the number of columns of the element. All elements can take up to
 msgstr "Indiquez le nombre de colonnes de l'élément. Tous les éléments peuvent prendre jusqu'à 12 colonnes."
 
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
-msgstr ""
+msgstr "Commencez à créer un <b>formulaire de processus</b> dans Bonita Studio : dans le pool ou la tâche humaine adéquate, créez un contrat puis lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
 
 msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
-msgstr ""
+msgstr "Commencez à créer un <b>layout d'application</b> en important le layout par défaut disponible dans les ressources de Bonita Portal, puis modifiez-le."
 
 msgid "Start process"
 msgstr "Démarrer un processus"
@@ -1311,7 +1311,7 @@ msgid "The UI Designer generates <b>standard html application code, based on Ang
 msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>. Vous pouvez donc exporter des pages dans votre environnement de développement web favori pour les personnaliser davantage."
 
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
-msgstr ""
+msgstr "Le UI Designer s’affiche dans la langue de votre Bonita Studio."
 
 msgid "The caption will be displayed as such below the property label."
 msgstr "La légende s'affiche comme telle sous le libellé de la propriété."
