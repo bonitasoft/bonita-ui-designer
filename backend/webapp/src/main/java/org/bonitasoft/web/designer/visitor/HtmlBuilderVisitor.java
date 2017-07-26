@@ -20,42 +20,59 @@ import static com.google.common.collect.Lists.transform;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.repository.AssetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
  */
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
+    private static final Logger logger = LoggerFactory.getLogger(HtmlBuilderVisitor.class);
+
     private AssetVisitor assetVisitor;
-    private DirectivesCollector directivesCollector;
     private List<PageFactory> pageFactories;
     private RequiredModulesVisitor requiredModulesVisitor;
+    private DirectivesCollector directivesCollector;
+    private AssetRepository<Page> pageAssetRepository;
+    private AssetRepository<Widget> widgetAssetRepository;
 
     public HtmlBuilderVisitor(List<PageFactory> pageFactories,
-                              RequiredModulesVisitor requiredModulesVisitor,
-                              AssetVisitor assetVisitor,
-                              DirectivesCollector directivesCollector) {
+            RequiredModulesVisitor requiredModulesVisitor,
+            AssetVisitor assetVisitor,
+            DirectivesCollector directivesCollector,
+            AssetRepository<Page> pageAssetRepository,
+            AssetRepository<Widget> widgetAssetRepository) {
         this.pageFactories = pageFactories;
         this.requiredModulesVisitor = requiredModulesVisitor;
         this.assetVisitor = assetVisitor;
         this.directivesCollector = directivesCollector;
+        this.pageAssetRepository = pageAssetRepository;
+        this.widgetAssetRepository = widgetAssetRepository;
     }
 
     @Override
@@ -105,17 +122,20 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * Build a previewable HTML, based on the given list of widgets
      * TODO: once resourceContext remove we can merge this method with HtmlBuilderVisitor#visit(Previewable)
      *
-     * @param previewable     to build
+     * @param previewable to build
      * @param resourceContext the URL context can change on export or preview...
      */
     public <P extends Previewable & Identifiable> String build(final P previewable, String resourceContext) {
 
+        List<Asset> sortedAssets = getSortedAssets(previewable);
         TemplateEngine template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("directives", directivesCollector.buildUniqueDirectivesFiles(previewable, previewable.getId()))
                 .with("rowsHtml", build(previewable.getRows()))
-                .with("previableassets", getSortedAssets(previewable))
+                .with("jsAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.JAVASCRIPT, sortedAssets))
+                .with("cssAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.CSS, sortedAssets))
                 .with("factories", transform(pageFactories, new Function<PageFactory, String>() {
+
                     @Override
                     public String apply(PageFactory factory) {
                         return factory.generate(previewable);
@@ -158,6 +178,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                         Iterables.filter(
                                 assetVisitor.visit(previewable),
                                 new Predicate<Asset>() {
+
                                     @Override
                                     public boolean apply(Asset asset) {
                                         return asset.isActive();
@@ -165,7 +186,40 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                                 }));
     }
 
+    private List<String> getAssetHtmlSrcList(String previewableId, AssetType assetType, List<Asset> sortedAssets) {
+        List<String> assetsSrc = new ArrayList<>();
+        sortedAssets.stream()
+                .filter(asset -> assetType.equals(asset.getType()))
+                .forEach(asset -> {
+                    String widgetPrefix = "";
+                    if (asset.isExternal()) {
+                        assetsSrc.add(asset.getName());
+                    } else {
+                        String assetHash;
+                        if (AssetScope.WIDGET.equals(asset.getScope())) {
+                            widgetPrefix = String.format("widgets/%s/", asset.getComponentId());
+                            assetHash = getHash(asset, widgetAssetRepository, previewableId);
+                        } else {
+                            assetHash = getHash(asset, pageAssetRepository, previewableId);
+                        }
+                        assetsSrc.add(String.format("%sassets/%s/%s?hash=%s", widgetPrefix, asset.getType().getPrefix(), asset.getName(), assetHash));
+                    }
+                });
+        return assetsSrc;
+    }
+
+    private String getHash(Asset asset, AssetRepository<?> assetRepository, String previewableId) {
+        try {
+            byte[] content = asset.getComponentId() == null ? assetRepository.readAllBytes(previewableId, asset) : assetRepository.readAllBytes(asset);
+            return DigestUtils.sha1Hex(content);
+        } catch (Exception e) {
+            logger.warn("Failure to generate hash for asset " + asset.getName(), e);
+            return UUID.randomUUID().toString();
+        }
+    }
+
     class TabTemplate {
+
         private final String title;
         private final String content;
 

@@ -59,20 +59,28 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         this.validator = validator;
     }
 
-    protected Path resolveComponentPath(Asset asset) {
-        return repository.resolvePathFolder(asset.getComponentId());
+    protected Path resolveComponentPath(String componentId) {
+        return repository.resolvePathFolder(componentId);
     }
 
-    protected Path resolveAssetPath(Asset asset) {
+    protected Path resolveAssetPath(String componentId, Asset asset) {
         validator.validate(asset);
-        return resolveComponentPath(asset).resolve("assets").resolve(asset.getType().getPrefix()).resolve(asset.getName());
+        return resolveComponentPath(componentId).resolve("assets").resolve(asset.getType().getPrefix()).resolve(asset.getName());
+    }
+    
+    protected Path resolveAssetPath(Asset asset) {
+        return resolveAssetPath(asset.getComponentId(), asset);
     }
 
     protected Path resolveExistingAssetPath(Asset asset) {
-        Path path = resolveAssetPath(asset);
+        return resolveExistingAssetPath(asset.getComponentId(), asset);
+    }
+
+    protected Path resolveExistingAssetPath(String componentId, Asset asset) {
+        Path path = resolveAssetPath(componentId, asset);
         if (!exists(path)) {
             throw new NotFoundException(format("Error when searching asset %s for %s [%s]: asset not found.",
-                    asset.getName(), repository.getComponentName(), asset.getComponentId()));
+                    asset.getName(), repository.getComponentName(), componentId));
         }
         return path;
     }
@@ -82,7 +90,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      */
     public void save(Asset asset, byte[] content) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
-        Path parent = resolveComponentPath(asset);
+        Path parent = resolveComponentPath(asset.getComponentId());
         if (!exists(parent.resolve("assets").resolve(asset.getType().getPrefix()))) {
             createDirectories(parent.resolve("assets").resolve(asset.getType().getPrefix()));
         }
@@ -119,6 +127,14 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     public byte[] readAllBytes(Asset asset) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         return Files.readAllBytes(resolveExistingAssetPath(asset));
+    }
+    
+    /**
+     * Read resource content
+     */
+    public byte[] readAllBytes(String componentId, Asset asset) throws IOException {
+        checkNotNull(componentId, COMPONENT_ID_REQUIRED);
+        return Files.readAllBytes(resolveExistingAssetPath(componentId, asset));
     }
 
     /**

@@ -8,19 +8,15 @@
     <link rel='stylesheet' href='{{resourceContext}}css/bootstrap.min.css'>
     <link rel='stylesheet' href='../theme/theme.css'>
 
-    {{#each previableassets}}
-        {{#ifequal type value='CSS'}}
-            <link rel="stylesheet" href="{{#assetsrc}}{{/assetsrc}}">
-        {{/ifequal}}
+    {{#each cssAsset}}
+            <link rel="stylesheet" href="{{ this }}">
     {{/each}}
 
     <script src="{{resourceContext}}js/vendor.min.js"></script>
     <script src="{{resourceContext}}js/runtime.min.js"></script>
     <!-- assets attached to the page -->
-    {{#each previableassets}}
-        {{#ifequal type value='JAVASCRIPT'}}
-            <script src="{{#assetsrc}}{{/assetsrc}}"></script>
-        {{/ifequal}}
+    {{#each jsAsset}}
+            <script src="{{ this }}"></script>
     {{/each}}
 
     {{#if modules}}

@@ -147,6 +147,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         }
     }
 
+    @Override
     public Path resolvePathFolder(String id) {
         return resolvePath(id);
     }
