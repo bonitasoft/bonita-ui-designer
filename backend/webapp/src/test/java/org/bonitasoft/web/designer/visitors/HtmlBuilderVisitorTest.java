@@ -18,29 +18,37 @@ import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtmlBody;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtmlHead;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.toBody;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
@@ -70,8 +78,18 @@ public class HtmlBuilderVisitorTest {
 
     @Mock
     private AssetVisitor assetVisitor;
+    
+    @Mock
+    private AssetRepository<Page> pageAssetRepository;
+    
+    @Mock
+    private AssetRepository<Widget> widgetAssetRepository;
 
     private HtmlBuilderVisitor visitor;
+    
+    private static final byte[] assetsContent = new byte[0];
+    
+    private String assetSHA1;
 
     @Mock
     private DirectivesCollector directivesCollector;
@@ -82,8 +100,11 @@ public class HtmlBuilderVisitorTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector);
+        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector, pageAssetRepository, widgetAssetRepository);
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
+        when(pageAssetRepository.readAllBytes(anyString(), any(Asset.class))).thenReturn(assetsContent);
+        when(widgetAssetRepository.readAllBytes(any(Asset.class))).thenReturn(assetsContent);
+        assetSHA1 = DigestUtils.sha1Hex(assetsContent);
     }
 
     @Test
@@ -316,9 +337,9 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "mycontext/");
 
         String head = Jsoup.parse(html).head().html();
-        assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css\">");
+        assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css?hash=" + assetSHA1 + "\">");
         assertThat(head).contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">");
-        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile.js\"></script>");
+        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile.js?hash=" + assetSHA1 + "\"></script>");
     }
 
     @Test
@@ -354,9 +375,9 @@ public class HtmlBuilderVisitorTest {
         //The header not contain inactive asset
         assertThat(head).doesNotContain("myfile99.js");
         //Page asset should be the last one, after widget assets identified by [widget-id] and widget assets identified by [zidget-id]
-        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js\"></script> \n" +
-                "<script src=\"widgets/widget-id/assets/js/myfile3.js\"></script> \n" +
-                "<script src=\"widgets/zidget-id/assets/js/myfile4.js\"></script> \n" +
-                "<script src=\"assets/js/myfile1.js\"></script>");
+        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script> \n" +
+                "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script> \n" +
+                "<script src=\"widgets/zidget-id/assets/js/myfile4.js?hash=" + assetSHA1 + "\"></script> \n" +
+                "<script src=\"assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>");
     }
 }

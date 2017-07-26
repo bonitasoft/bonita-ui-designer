@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -71,7 +72,7 @@ public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<Str
         return getPropertyValuesFor(previewable.getRows());
     }
 
-    public String generate(Previewable previewable) {
+    public <P extends Previewable & Identifiable> String generate(P previewable) {
         return new TemplateEngine("factory.hbs.js")
                 .with("name", "propertyValues")
                 .with("resources", this.visit(previewable))

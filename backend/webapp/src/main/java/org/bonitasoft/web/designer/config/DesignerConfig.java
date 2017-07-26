@@ -19,15 +19,10 @@ import static java.util.Arrays.asList;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -80,6 +75,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 /**
  * @author Guillaume EHRET
@@ -245,8 +247,8 @@ public class DesignerConfig {
 
     @Bean
     public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories, RequiredModulesVisitor requiredModulesVisitor,
-            DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
-        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector);
+            DirectivesCollector directivesCollector, AssetVisitor assetVisitor,  PageRepository pageRepository, WidgetRepository widgetRepository) {
+        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector, pageAssetRepository(pageRepository), widgetAssetRepository(widgetRepository));
     }
 
     @Bean
