@@ -1,5 +1,5 @@
 var fs = require('fs');
-var buildWidget = require('./widget-builder/src/index').buildWidget;
+var buildWidget = require('widget-builder/src/index').buildWidget;
 var shell = require('gulp-shell');
 
 module.exports = function(gulp, config) {

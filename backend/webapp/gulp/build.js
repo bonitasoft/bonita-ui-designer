@@ -16,8 +16,8 @@ var babel = require('gulp-babel');
 var flatten = require('gulp-flatten');
 
 var gettextWidget = require('./gettext-widget.js');
-var buildWidget = require('./widget-builder/src/index.js').buildWidget;
-var jsonSchema = require('./widget-builder/src/index.js').jsonSchema;
+var buildWidget = require('widget-builder/src/index.js').buildWidget;
+var jsonSchema = require('widget-builder/src/index.js').jsonSchema;
 
 module.exports = function(gulp, config) {
 

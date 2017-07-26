@@ -202,7 +202,7 @@
                 </excludes>
             </resource>
             <resource>
-                <directory>gulp/widget-builder/src</directory>
+                <directory>node_modules/widget-builder/src</directory>
                 <includes>
                     <include>widgetDirectiveTemplate.hbs.js</include>
                 </includes>
@@ -325,26 +325,6 @@
                         <phase>initialize</phase>
                         <configuration>
                             <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm install widget-builder</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <arguments>install --prefix ./gulp/widget-builder</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm test widget-builder</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>test</phase>
-                        <configuration>
-                            <arguments>test --prefix ./gulp/widget-builder</arguments>
                         </configuration>
                     </execution>
                     <execution>
