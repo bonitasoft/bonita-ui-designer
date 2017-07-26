@@ -65,12 +65,9 @@
     {
       "label": "Value",
       "name": "value",
-      "help": "Read-write binding, initialized or updated by users' input (bi-directional bond)",
-      "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable",
-      "help": "A date that should be at midnight UTC",
-      "caption": "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
+      "caption": "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
     },
     {
       "label": "Technical date format",
