@@ -1,4 +1,4 @@
-var buildWidget = require('./widget-builder/src/index').buildWidget;
+var buildWidget = require('widget-builder/src/index').buildWidget;
 var Server = require('karma').Server;
 
 module.exports = function(gulp, config) {
