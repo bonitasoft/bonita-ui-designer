@@ -59,7 +59,8 @@
     "optimist": "0.6.1",
     "phantomjs-prebuilt": "2.1.7",
     "through": "^2.3.6",
-    "through2": "^0.6.5"
+    "through2": "^0.6.5",
+    "widget-builder": "bonitasoft/widget-builder#2.0.1"
   },
   "dependencies": {
     "jquery": "^2.1.3",
