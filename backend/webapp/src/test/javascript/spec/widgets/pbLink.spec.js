@@ -155,12 +155,12 @@ describe('pbLink', function() {
     expect(dom.find('div').find('a').attr('href')).toBe('http://localhost:8080/bonita/portal/form/taskInstance/42?app=livingApp');
   });
 
-  it('should set params in URL when the property is set and type is perform task', function() {
+  it('should set urlParams in URL when the property is set and type is perform task', function() {
     expect(dom.find('div').find('a').attr('href')).toBeUndefined();
     scope.properties.type = 'task';
     scope.properties.taskId = '42';
     scope.properties.appToken = 'livingApp';
-    scope.properties.params = {
+    scope.properties.urlParams = {
       locale: 'fr',
       tenant: 2
     };
@@ -168,11 +168,11 @@ describe('pbLink', function() {
     expect(dom.find('div').find('a').attr('href')).toBe('http://localhost:8080/bonita/portal/form/taskInstance/42?app=livingApp&locale=fr&tenant=2');
   });
 
-  it('should set params in URL when the property is set and type is page', function() {
+  it('should set urlParams in URL when the property is set and type is page', function() {
     expect(dom.find('div').find('a').attr('href')).toBeUndefined();
     scope.properties.type = 'page';
     scope.properties.pageToken = 'mySecondPage';
-    scope.properties.params = {
+    scope.properties.urlParams = {
       locale: 'fr',
       tenant: 2
     };
