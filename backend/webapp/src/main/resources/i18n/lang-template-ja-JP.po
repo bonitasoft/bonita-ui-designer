@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-07-05 20:49-0400\n"
+"PO-Revision-Date: 2017-07-27 18:38-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -47,15 +47,11 @@ msgstr "<b>業務アプリケーションのレイアウトとして使用する
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
 
-msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss).\n"
-"            Use such dates and times to display/update business variable attributes defined as <em>DATE-TIME (NO TIME ZONE)</em> in the BDM, and based on <code>java.time.LocalDateTime</code>."
-msgstr "<b><em>タイムゾーンを処理</em>を「いいえ」に設定した場合</b>: ユーザーのタイムゾーンは無視され、ウィジェットの値にはタイムゾーン情報が含まれません（たとえば、yyyy-MM-ddTHH:mm:ss）。\n"
-"            BDM で <em>日時 (タイムゾーンなし)</em> と定義され、<code>java.time.LocalDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
+msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定した場合</b>: ユーザーのタイム ゾーンは無視され、ウィジェットの値に任意のタイム ゾーン情報は含まれません（たとえば、yyyy-MM-ddTHH:mm:ss）。"
 
-msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ).\n"
-"            Use this configuration to display/update business variable attributes defined as <em>DATE-TIME (TIME ZONE)</em> in the Business Data Model (BDM), and based on <code>java.time.OffsetDateTime</code>."
-msgstr "<b><em>タイムゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTC （たとえば、yyyy-MM-ddTHH:mm:ssZ）になります。\n"
-"            BDM で <em>日時 (タイムゾーンあり)</em> と定義され、<code>java.time.OffsetDateTime</code> に基づくビジネス変数属性を表示/更新するためには、この設定を使用します。"
+msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
+msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
@@ -71,6 +67,18 @@ msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM �
 
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>例</b></em>： [送信] ボタンの <b>ラベル</b> プロパティにキー <em>button.submit.name</em> を使用します。<b>日付書式</b> プロパティにキー <em>date.format</em> を、日付選択ウィジェットの<b>プレース ホルダー</b> プロパティにキー <em>date.placeholder</em> を使用します。そして、<em>localization.json</em> アセットを変更し、<em>Button.submit.name</em>、<em>date.format</em>、<em>date.placeholder</em> の英語と他言語翻訳を追加します。"
+
+msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
+msgstr "<em>日付 (非推奨)</em>（<code>java.util.Date</code> に基づく）"
+
+msgid "<em>DATE ONLY</em> (based on <code>java.time.LocalDate</code>)"
+msgstr "<em>日付のみ</em>（<code>java.time.LocalDate</code> に基づく）"
+
+msgid "<em>DATE-TIME (NO TIME ZONE)</em> (based on <code>java.time.LocalDateTime</code>): set the property <em>Handle time zone</em> to \"No\""
+msgstr "<em>日時 (タイムゾーンなし)</em>（<code>java.time.LocalDateTime</code> に基づく）:  プロパティの<em>タイム ゾーンを処理</em> を「いいえ」に設定"
+
+msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
+msgstr "<em>日時 (タイムゾーンあり)</em>（<code>java.time.OffsetDateTime</code> に基づく）: プロパティの<em>タイム ゾーンを処理</em> を「はい」に設定"
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関する<em>注意事項：</em> <em>プレース ホルダー</em> プロパティの翻訳は、<em>テクニカルな書式</em> プロパティの値（年月日の順序と文字数）と一致させる必要があります。ただし、翻訳の不一致を避けるため、<em>プレース ホルダー</em> のキーは、<em>テクニカルな書式</em> と違うキーを使用します。"
@@ -107,9 +115,6 @@ msgstr "JSON オブジェクト"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
-
-msgid "A date that should be at midnight UTC"
-msgstr "協定世界時 (UTC)  にする必要がある日付"
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "ローカルアセット名に特殊文字やスペースを含めることはできません。 外部アセットは標準的なURLでなければなりません。"
@@ -485,9 +490,6 @@ msgstr "日付の表示"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "日付書式は、デフォルトでローカライズされます。ローカライズされた書式は <em>localization.json</em> で編集できます （<a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">ローカリゼーション セクション</a> を参照してください）。"
 
-msgid "Date object or <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-dd"
-msgstr "Date オブジェクトまたは <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列変数 yyyy-MM-dd"
-
 msgid "Date objects"
 msgstr "Date オブジェクト"
 
@@ -740,8 +742,8 @@ msgstr "リクエストが成功した時、そのレスポンスを保持しま
 msgid "Home page"
 msgstr "ホームページ"
 
-msgid "However, the output of the widget is always a Javascript Date object. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date."
-msgstr "ただし、ウィジェットの出力は常に Javascript の Date オブジェクトです。したがって、ユーザーが日付を選択したときには、ウィジェット <em>値</em> にバインドした変数の型をDate オブジェクトに変更します。"
+msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
+msgstr "ただし、<b>ウィジェットの出力は常に Javascript の Date オブジェクトになります</b>。したがって、ユーザーが「日付」を選択したときは、ウィジェット <em>値</em> にバインドする変数の型を Date オブジェクトに変更します。これは、古いバージョンの UI デザイナーでデザインされたページとの下位互換性を確保するために必要です。"
 
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
@@ -820,6 +822,10 @@ msgstr "横に並べる"
 
 msgid "Input field with content completion from a given list"
 msgstr "指定したリストでオートコンプリートする入力フィールド"
+
+msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
+msgstr "入力: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列 (yyyy-MM-dd)で、Date オブジェクトまたは Long の長整数<br> 出力: \n"
+" Date オブジェクト （ウィジェットのヘルプを参照してください）"
 
 msgid "Integration with Bonita platform"
 msgstr "Bonita プラットフォームとの連携"
@@ -1280,6 +1286,9 @@ msgstr "成功時のターゲットURL"
 msgid "Task Id"
 msgstr "タスクID"
 
+msgid "Technical Format"
+msgstr "テクニカルな書式"
+
 msgid "Technical date format"
 msgstr "テクニカルな日付書式"
 
@@ -1386,8 +1395,8 @@ msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a
 msgid "This page is empty."
 msgstr "このページは空白です。"
 
-msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) as <em>DATE ONLY</em>, and based on <code>java.time.LocalDate</code> or as <em>DATE (NOT RECOMMENDED)</em>, and based on <code>java.util.Date</code>."
-msgstr "このウィジェットは、 ビジネス データ モデル (BDM) を定義されているビジネス変数属性を<code>java.time.LocalDate</code> に基づく<em>日付のみ</em>、または <code>java.util.Date</code> に基づく<em>DATE (非推奨)</em> として、表示/更新するために使用できます。"
+msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
+msgstr "このウィジェットは、ビジネス データ モデル (BDM) に次の型で定義されているビジネス変数属性の表示/更新に使用できます。"
 
 msgid "This widget supports the following types for its <em>Value</em> property as input:"
 msgstr "このウィジェットでは、その <em>値</em> プロパティに入力として、次の型をサポートしています。"
@@ -1580,6 +1589,9 @@ msgstr "User id は、 {{myData.user_id}} を使用することによって取�
 
 msgid "Value"
 msgstr "値"
+
+msgid "Value Format"
+msgstr "値の書式"
 
 msgid "Value max length"
 msgstr "値の最大文字数"
