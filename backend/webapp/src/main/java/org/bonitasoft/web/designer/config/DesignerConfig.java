@@ -26,7 +26,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.annotations.Beta;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -54,6 +53,8 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
+import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
@@ -66,7 +67,6 @@ import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.DataModelVisitor;
-import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.EmptyPageFactory;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
@@ -246,7 +246,13 @@ public class DesignerConfig {
     @Bean
     public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories, RequiredModulesVisitor requiredModulesVisitor,
             DirectivesCollector directivesCollector, AssetVisitor assetVisitor) {
-        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, directivesCollector, assetVisitor);
+        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector);
+    }
+
+    @Bean
+    public DirectiveFileGenerator directiveFileGenerator(WorkspacePathResolver pathResolver, WidgetRepository widgetRepository,
+            WidgetIdVisitor widgetIdVisitor) {
+        return new DirectiveFileGenerator(pathResolver, widgetRepository, widgetIdVisitor);
     }
 
     @Bean

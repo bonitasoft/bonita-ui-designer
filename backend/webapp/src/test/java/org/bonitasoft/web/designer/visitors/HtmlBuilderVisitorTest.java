@@ -30,6 +30,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -37,12 +38,12 @@ import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.DirectivesCollector;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
@@ -68,12 +69,12 @@ public class HtmlBuilderVisitorTest {
     private RequiredModulesVisitor requiredModulesVisitor;
 
     @Mock
-    private DirectivesCollector directivesCollector;
-
-    @Mock
     private AssetVisitor assetVisitor;
 
     private HtmlBuilderVisitor visitor;
+
+    @Mock
+    private DirectivesCollector directivesCollector;
 
     @Rule
     public TestResource testResource = new TestResource(HtmlGenerator.class);
@@ -81,7 +82,7 @@ public class HtmlBuilderVisitorTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, directivesCollector, assetVisitor);
+        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector);
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
     }
 
@@ -202,17 +203,13 @@ public class HtmlBuilderVisitorTest {
     public void should_generate_an_html_with_the_list_of_widgets() throws Exception {
         Page page = aPage().withId("page-id").build();
         when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
-        // given two widgets
-        when(directivesCollector.collect(page)).thenReturn(asList(
-                "widgets/pbInput/pbInput.js",
-                "widgets/pbLabel/pbLabel.js"));
+        when(directivesCollector.buildUniqueDirectivesFiles(page,page.getId())).thenReturn(Arrays.asList("assets/widgets.js"));
 
         // when we generate the html
         String generatedHtml = visitor.build(page, "mycontext/");
 
         // then we should have the directive scripts included
-        assertThat(generatedHtml).contains("<script src=\"widgets/pbInput/pbInput.js\"></script>");
-        assertThat(generatedHtml).contains("<script src=\"widgets/pbLabel/pbLabel.js\"></script>");
+        assertThat(generatedHtml).contains("<script src=\"assets/widgets.js\"></script>");
 
         // and an empty object as constant
         assertThat(generatedHtml).contains("pb-model='page-id'");
@@ -238,9 +235,8 @@ public class HtmlBuilderVisitorTest {
                         .withReference("container-reference"))
                 .build();
         when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
-        when(directivesCollector.collect(page)).thenReturn(asList(
-                "widgets/input/input.js",
-                "widgets/paragraph/paragraph.js"));
+        when(directivesCollector.buildUniqueDirectivesFiles(page,page.getId())).thenReturn(Arrays.asList
+                ("assets/widgets-f8b2ef17808cccb95dbf0973e7745cd53c29c684.js"));
         when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(assetRelative, assetJquery, assetLocal));
 
         String html = visitor.build(page, "mycontext/");
