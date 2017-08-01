@@ -19,7 +19,14 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.*;
 
+import java.nio.file.Paths;
+import java.util.Arrays;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
+import org.bonitasoft.web.designer.rendering.FilesConcatenator;
 import org.bonitasoft.web.designer.utils.rule.TemporaryWidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
@@ -44,9 +51,12 @@ public class WidgetsExportStepTest {
     @Mock
     private Zipper zipper;
 
+    @Mock
+    private DirectiveFileGenerator directiveFileGenerator;
+
     @Before
     public void beforeEach() {
-        step = new WidgetsExportStep(pathResolver, new WidgetIdVisitor());
+        step = new WidgetsExportStep(pathResolver, new WidgetIdVisitor(), directiveFileGenerator);
         zipper = spy(new Zipper(mock(OutputStream.class)));
     }
 
@@ -55,22 +65,34 @@ public class WidgetsExportStepTest {
     public void should_add_page_widgets_to_zip() throws Exception {
         repository.addWidget(aWidget().id("widget1"));
         repository.addWidget(aWidget().id("widget2"));
-
-        step.execute(zipper, aPage().with(
+        Page page = aPage().with(
                 aComponent("widget1"),
                 aComponent("widget2"))
-                .build());
+                .build();
+        String content = "content";
+        when(directiveFileGenerator.getWidgetsFilesUsedInPage(page)).thenReturn(Arrays.asList(Paths.get("widget1"),Paths
+                .get("widget2")));
+        when(directiveFileGenerator.concatenate(Arrays.asList(Paths.get("widget1"),Paths
+                .get("widget2")))).thenReturn(content.getBytes());
+
+        step.execute(zipper, page);
 
         verify(zipper).addToZip(repository.resolveWidgetJson("widget1"), "resources/widgets/widget1/widget1.json");
         verify(zipper).addToZip(repository.resolveWidgetJson("widget2"), "resources/widgets/widget2/widget2.json");
+        verify(zipper).addToZip(content.getBytes(), "resources/assets/widgets-" + DigestUtils.sha1Hex(content) + ".js");
     }
 
     @Test
     public void should_not_add_widget_metadata_to_zip() throws Exception {
         repository.addWidget(aWidget().id("widget"));
+        Page page = aPage().with(aComponent("widget")).build();
+        String content = "content";
+        when(directiveFileGenerator.getWidgetsFilesUsedInPage(page)).thenReturn(Arrays.asList(Paths.get("widget")));
+        when(directiveFileGenerator.concatenate(Arrays.asList(Paths.get("widget")))).thenReturn(content.getBytes());
 
-        step.execute(zipper, aPage().with(aComponent("widget")).build());
+        step.execute(zipper, page);
 
-        verify(zipper, never()).addToZip(repository.resolveWidgetMetadata("widget"), "resources/widgets/widget/widget.metadata.json");
+        verify(zipper, never()).addToZip(repository.resolveWidgetMetadata("widget"), "resources/widgets/widget/widget" +
+                ".metadata.json");
     }
 }

@@ -35,6 +35,7 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 
 /**
@@ -43,36 +44,18 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     private AssetVisitor assetVisitor;
+    private DirectivesCollector directivesCollector;
     private List<PageFactory> pageFactories;
     private RequiredModulesVisitor requiredModulesVisitor;
-    private DirectivesCollector directivesCollector;
-
-    class TabTemplate {
-        private final String title;
-        private final String content;
-
-        public TabTemplate(String title, String content) {
-            this.title = title;
-            this.content = content;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getContent() {
-            return content;
-        }
-    }
 
     public HtmlBuilderVisitor(List<PageFactory> pageFactories,
                               RequiredModulesVisitor requiredModulesVisitor,
-                              DirectivesCollector directivesCollector,
-                              AssetVisitor assetVisitor) {
+                              AssetVisitor assetVisitor,
+                              DirectivesCollector directivesCollector) {
         this.pageFactories = pageFactories;
         this.requiredModulesVisitor = requiredModulesVisitor;
-        this.directivesCollector = directivesCollector;
         this.assetVisitor = assetVisitor;
+        this.directivesCollector = directivesCollector;
     }
 
     @Override
@@ -103,18 +86,19 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                 .build(tabsContainer);
     }
 
-
     @Override
     public String visit(Component component) {
 
         return new TemplateEngine("component.hbs.html")
-                .with("template", "<" + Widget.spinalCase(component.getId()) + "></" + Widget.spinalCase(component.getId()) + ">")
+                .with("template", "<" + Widget.spinalCase(component.getId()) + "></" + Widget.spinalCase(component
+                        .getId()) + ">")
                 .build(component);
     }
 
     @Override
     public String visit(Previewable previewable) {
-        throw new RuntimeException("Can't build previewable html by visiting it. Need to call HtmlBuilderVisitor#build.");
+        throw new RuntimeException("Can't build previewable html by visiting it. Need to call " +
+                "HtmlBuilderVisitor#build.");
     }
 
     /**
@@ -128,7 +112,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
         TemplateEngine template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
-                .with("directives", directivesCollector.collect(previewable))
+                .with("directives", directivesCollector.buildUniqueDirectivesFiles(previewable, previewable.getId()))
                 .with("rowsHtml", build(previewable.getRows()))
                 .with("previableassets", getSortedAssets(previewable))
                 .with("factories", transform(pageFactories, new Function<PageFactory, String>() {
@@ -179,5 +163,23 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                                         return asset.isActive();
                                     }
                                 }));
+    }
+
+    class TabTemplate {
+        private final String title;
+        private final String content;
+
+        public TabTemplate(String title, String content) {
+            this.title = title;
+            this.content = content;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getContent() {
+            return content;
+        }
     }
 }

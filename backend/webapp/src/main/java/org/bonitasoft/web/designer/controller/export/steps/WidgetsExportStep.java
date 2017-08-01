@@ -18,12 +18,15 @@ import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
@@ -32,11 +35,14 @@ public class WidgetsExportStep implements ExportStep<Page> {
 
     private WorkspacePathResolver pathResolver;
     private WidgetIdVisitor widgetIdVisitor;
+    private DirectiveFileGenerator directiveFileGenerator;
 
     @Inject
-    public WidgetsExportStep(WorkspacePathResolver pathResolver, WidgetIdVisitor widgetIdVisitor) {
+    public WidgetsExportStep(WorkspacePathResolver pathResolver, WidgetIdVisitor widgetIdVisitor,
+                             DirectiveFileGenerator directiveFileGenerator) {
         this.pathResolver = pathResolver;
         this.widgetIdVisitor = widgetIdVisitor;
+        this.directiveFileGenerator = directiveFileGenerator;
     }
 
     @Override
@@ -47,5 +53,10 @@ public class WidgetsExportStep implements ExportStep<Page> {
                 new IncludeChildDirectoryPredicate(widgetsRepositoryPath, widgetIdVisitor.visit(page)),
                 ALL_FILES,
                 RESOURCES + "/widgets");
+
+        // Export widgets.js
+        List<Path> files = directiveFileGenerator.getWidgetsFilesUsedInPage(page);
+        byte[] content = directiveFileGenerator.concatenate(files);
+        zipper.addToZip(content, RESOURCES + "/assets/widgets-" + DigestUtils.sha1Hex(content) + ".js");
     }
 }
