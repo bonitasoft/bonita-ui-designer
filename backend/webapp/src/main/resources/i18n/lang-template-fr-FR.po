@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-07-03 18:06-0400\n"
+"PO-Revision-Date: 2017-08-03 18:06-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -1376,7 +1376,7 @@ msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "Le (la) {{ artifact.type }} ne peut pas être supprimé(e) car il/elle est utilisée par:"
 
 msgid "The {{ artifactType }} has not been imported."
-msgstr "Le {{ artifactType }} n'a pas été importé."
+msgstr "Le ou l' {{ artifactType }} n'a pas été importé(e)."
 
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Le UI Designer propose un ensemble de <b>widgets standards</b> pour afficher des informations et recueillir des informations de la part des utilisateurs. Vous pouvez également créer <b>des widgets personnalisés</b>."
