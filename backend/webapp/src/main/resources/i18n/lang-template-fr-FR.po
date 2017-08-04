@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-07-27 18:35-0400\n"
+"PO-Revision-Date: 2017-08-03 18:05-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -787,7 +787,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
-msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artéfacts composant les interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
+msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artefacts des interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
@@ -826,7 +826,7 @@ msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>I
 msgstr "Entrée : Chaîne de caractères au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (yyyy-MM-dd), Objet Date ou nombre <br>Sortie : Objet Date (voir l'aide du widget)"
 
 msgid "Integration with Bonita platform"
-msgstr "Intégration avec la plate-forme Bonita"
+msgstr "Intégration avec la plateforme Bonita"
 
 msgid "Interpolation"
 msgstr "Interpolation"
@@ -1243,10 +1243,10 @@ msgid "Specify the number of columns of the element. All elements can take up to
 msgstr "Indiquez le nombre de colonnes de l'élément. Tous les éléments peuvent prendre jusqu'à 12 colonnes."
 
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
-msgstr "Commencez à créer un <b>formulaire de processus</b> dans Bonita Studio : dans le pool ou la tâche humaine adéquate, créez un contrat puis lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
+msgstr "Débutez la création des <b>formulaires de processus</b> dans Bonita Studio : dans le pool ou la tâche humaine adéquate, créez un contrat (le nécessaire attendu pour s'exécuter) puis lancez le UI Designer. Le formulaire sera automatiquement généré. Il est basé sur le contrat et peut être édité."
 
 msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
-msgstr "Commencez à créer un <b>layout d'application</b> en important le layout par défaut disponible dans les ressources de Bonita Portal, puis modifiez-le."
+msgstr "Créez un <b>layout d'application</b> en important le layout par défaut (disponible dans les Ressources de Bonita Portal) et en lui apportant la personnalisation nécessaire."
 
 msgid "Start process"
 msgstr "Démarrer un processus"
@@ -1376,7 +1376,7 @@ msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "Le (la) {{ artifact.type }} ne peut pas être supprimé(e) car il/elle est utilisée par:"
 
 msgid "The {{ artifactType }} has not been imported."
-msgstr "Le {{ artifactType }} n'a pas été importé."
+msgstr "Le ou l' {{ artifactType }} n'a pas été importé(e)."
 
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Le UI Designer propose un ensemble de <b>widgets standards</b> pour afficher des informations et recueillir des informations de la part des utilisateurs. Vous pouvez également créer <b>des widgets personnalisés</b>."
