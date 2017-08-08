@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-08-03 18:06-0400\n"
+"PO-Revision-Date: 2017-08-07 18:23-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -489,6 +489,9 @@ msgstr "Affichage de la date"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
 
+msgid "Date object"
+msgstr ""
+
 msgid "Date objects"
 msgstr "Objets Date"
 
@@ -935,6 +938,9 @@ msgstr "Ajouter à mes favoris"
 
 msgid "Max value"
 msgstr "Valeur maximum"
+
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr ""
 
 msgid "Min value"
 msgstr "Valeur minimum"
@@ -1666,8 +1672,8 @@ msgstr "Oui"
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis la page d'accueil."
 
-msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
-msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants : <ul><li>variable String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a></li> <li>objet Date</li> <li>millisecondes depuis Epoch (nombre ou variable String)</li></ul>"
+msgid "You can apply it to the following variable value types:"
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
@@ -1739,6 +1745,9 @@ msgstr "erreur"
 
 msgid "expression or variable"
 msgstr "expression ou variable"
+
+msgid "formatted String variables"
+msgstr ""
 
 msgid "h:mm:ss a"
 msgstr "HH:mm:ss"
