@@ -178,9 +178,17 @@ describe('pbButton', function () {
 
   describe('controller actions', function () {
 
+    var originalFrameElement;
+
+    beforeEach(function () {
+      originalFrameElement = $window.frameElement;
+      $window.frameElement = Object.create($window.frameElement);
+    });
+
     afterEach(function () {
       $httpBackend.verifyNoOutstandingRequest();
       $httpBackend.verifyNoOutstandingExpectation();
+      $window.frameElement = originalFrameElement;
     });
 
     it('should POST some data to an API', function () {
@@ -287,6 +295,7 @@ describe('pbButton', function () {
     });
 
     it('should change location on success', function () {
+      $window.frameElement = null;
       scope.properties.action = 'PUT';
       scope.properties.url = '/some/location';
       scope.properties.targetUrlOnSuccess = '/new/location';
@@ -297,6 +306,34 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect($window.location.assign).toHaveBeenCalledWith('/new/location');
+    });
+
+    it('should change location on success when in iframe', function () {
+      $window.frameElement.id = 'someframe';
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      scope.properties.targetUrlOnSuccess = '/new/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(200, '');
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+      expect($window.location.assign).toHaveBeenCalledWith('/new/location');
+    });
+
+    it('should not change location on success when in bonitaframe', function () {
+      $window.frameElement.id = 'bonitaframe';
+      scope.properties.action = 'PUT';
+      scope.properties.url = '/some/location';
+      scope.properties.targetUrlOnSuccess = '/new/location';
+      $httpBackend.expectPUT('/some/location', scope.properties.dataToSend = {}).respond(200, '');
+
+      scope.ctrl.action();
+
+      $timeout.flush();
+      $httpBackend.flush();
+      expect($window.location.assign).not.toHaveBeenCalled();
     });
 
     it('should bind error data when PUT fail', function () {

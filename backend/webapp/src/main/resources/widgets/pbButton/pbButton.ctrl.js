@@ -86,7 +86,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
         $scope.properties.dataFromSuccess = data;
         notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data });
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-          $window.location.assign($scope.properties.targetUrlOnSuccess);
+          redirectIfNeeded();
         }
       })
       .error(function(data, status) {
@@ -96,6 +96,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
       .finally(function() {
         vm.busy = false;
       });
+  }
+
+  function redirectIfNeeded() {
+    var iframeId = $window.frameElement ? $window.frameElement.id : null;
+    //Redirect only if we are not in the portal or a living app
+    if (!iframeId || iframeId && iframeId.indexOf('bonitaframe') !== 0) {
+      $window.location.assign($scope.properties.targetUrlOnSuccess);
+    }
   }
 
   function notifyParentFrame(additionalProperties) {
