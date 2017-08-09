@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.exists;
+
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +33,10 @@ import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 @Named
 public class DirectivesCollector {
 
-    public static String ASSETS_FOLDER = "assets";
+    public static String JS_FOLDER = "js";
     private WorkspacePathResolver pathResolver;
     private DirectiveFileGenerator directiveFileGenerator;
+
 
     @Inject
     public DirectivesCollector(WorkspacePathResolver pathResolver, DirectiveFileGenerator directiveFileGenerator) {
@@ -40,8 +45,21 @@ public class DirectivesCollector {
     }
 
     public List<String> buildUniqueDirectivesFiles(Previewable previewable, String pageId) {
-        Path assetFolder = pathResolver.getPagesRepositoryPath().resolve(pageId).resolve(ASSETS_FOLDER);
-        String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable,assetFolder);
-        return Arrays.asList(ASSETS_FOLDER +"/" + filename.toString());
+        Path pageWorkspace = pathResolver.getPagesRepositoryPath().resolve(pageId);
+        String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable,
+                getDestinationFolderPath(pageWorkspace));
+        return Arrays.asList(JS_FOLDER + "/" + filename.toString());
+    }
+
+    protected Path getDestinationFolderPath(Path path) {
+        Path jsFolder = path.resolve(JS_FOLDER);
+        if (exists(jsFolder)) {
+            return jsFolder;
+        }
+        try {
+            return createDirectories(jsFolder);
+        } catch (IOException e) {
+            throw new GenerationException("Error while create directories " + jsFolder.toString(), e);
+        }
     }
 }
