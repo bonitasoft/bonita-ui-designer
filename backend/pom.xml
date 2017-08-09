@@ -240,7 +240,7 @@
                         <headerDefinition>./copyright/copyright.xml</headerDefinition>
                     </headerDefinitions>
                     <includes>
-                        <include>**/src/*/**/*.java</include>
+                        <include>**/src/*/**/bonitasoft/**/*.java</include>
                     </includes>
                 </configuration>
                 <executions>

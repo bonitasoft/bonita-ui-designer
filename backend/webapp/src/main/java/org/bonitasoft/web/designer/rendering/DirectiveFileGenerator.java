@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -56,12 +55,17 @@ public class DirectiveFileGenerator {
         return FilesConcatenator.concat(paths);
     }
 
+    public byte[] minify(byte[] content) {
+        return Minifier.minify(content);
+    }
+
     public String generateAllDirectivesFilesInOne(Previewable previewable, Path path) {
         List<Path> filename = getWidgetsFilesUsedInPage(previewable);
         byte[] content = concatenate(filename);
+        content = minify(content);
         String fileHash = DigestUtils.sha1Hex(content);
         WidgetFileHelper.deleteOldConcatenateFiles(path, fileHash);
-        Path file = WidgetFileHelper.writeFile(content, path, fileHash);
+        Path file = WidgetFileHelper.writeFile(content, path, fileHash + ".min");
         return file.getFileName().toString();
     }
 }

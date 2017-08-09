@@ -26,7 +26,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
-import org.bonitasoft.web.designer.rendering.FilesConcatenator;
+import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.utils.rule.TemporaryWidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
@@ -69,7 +69,8 @@ public class WidgetsExportStepTest {
                 aComponent("widget1"),
                 aComponent("widget2"))
                 .build();
-        String content = "content";
+        String content = "Mon   content   to                 minify";
+        byte[] expected = Minifier.minify(content.getBytes());
         when(directiveFileGenerator.getWidgetsFilesUsedInPage(page)).thenReturn(Arrays.asList(Paths.get("widget1"),Paths
                 .get("widget2")));
         when(directiveFileGenerator.concatenate(Arrays.asList(Paths.get("widget1"),Paths
@@ -79,7 +80,7 @@ public class WidgetsExportStepTest {
 
         verify(zipper).addToZip(repository.resolveWidgetJson("widget1"), "resources/widgets/widget1/widget1.json");
         verify(zipper).addToZip(repository.resolveWidgetJson("widget2"), "resources/widgets/widget2/widget2.json");
-        verify(zipper).addToZip(content.getBytes(), "resources/assets/widgets-" + DigestUtils.sha1Hex(content) + ".js");
+        verify(zipper).addToZip(expected, "resources/assets/widgets-" + DigestUtils.sha1Hex(expected) + ".min.js");
     }
 
     @Test

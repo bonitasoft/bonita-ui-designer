@@ -61,10 +61,10 @@ public class DirectivesCollectorTest {
         Page page = aPage().build();
         when( pathResolver.getPagesRepositoryPath().resolve(page.getId())).thenReturn(temporaryFolder.toPath());
         Path assets = temporaryFolder.toPath().resolve(page.getId()).resolve("assets");
-        when(directiveFileGenerator.generateAllDirectivesFilesInOne(page, assets)).thenReturn("widgets-123456");
+        when(directiveFileGenerator.generateAllDirectivesFilesInOne(page, assets)).thenReturn("widgets-123456.min.js");
 
         List<String> imports = collector.buildUniqueDirectivesFiles(page, page.getId());
 
-        Assertions.assertThat(imports).containsOnly("assets/widgets-123456");
+        Assertions.assertThat(imports).containsOnly("assets/widgets-123456.min.js");
     }
 }

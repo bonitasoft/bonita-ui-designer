@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import static java.nio.file.Files.*;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -88,9 +89,22 @@ public class DirectiveFileGeneratorTest {
 
         String filename = generator.generateAllDirectivesFilesInOne(page, pagePath);
 
-        assertThat(filename).isEqualTo("widgets-f8b2ef17808cccb95dbf0973e7745cd53c29c684.js");
+        assertThat(filename).isEqualTo("widgets-f66d6f4cc38b2259ec29fa16e9f171251cd3d346.min.js");
+    }
 
+    @Test
+    public void should_concatenate_and_minify_widgets_directives_file_who_was_use_in_page() throws Exception {
+        Page page = aPage().build();
+        initFilesForConcatAndMinify(page);
+        mockWidgetIdVisitorAndWidgetRepository(page, "pbLabel", "paragraph");
+        Path path = temporaryFolder.toPath().resolve("pages").resolve(page.getId());
+        String expected = "\nList<String>filename=getWidgetsFilesUsedInPage(previewable);" +
+                "byte[]content=getConcatenationWidgetsDirectives(filename);file2";
 
+        String filename = generator.generateAllDirectivesFilesInOne(page, path);
+
+        assertThat(new String(readAllBytes(path.resolve(filename)),"UTF-8")).isEqualTo(expected);
+        assertThat(filename).isEqualTo("widgets-0f2d4ba1fa1992794df3dca7a9b8e4ec735b4746.min.js");
     }
 
     private void initWidgetsFileWhoUsedInPage(Page page) throws IOException {
@@ -110,6 +124,16 @@ public class DirectiveFileGeneratorTest {
         when(widgetIdVisitor.visit(page)).thenReturn(widgetIds);
         when(widgetRepository.getByIds(widgetIds))
                 .thenReturn(widgets);
+    }
+
+    private void initFilesForConcatAndMinify(Page page) throws IOException {
+        temporaryFolder.newFolder("pbLabel");
+        temporaryFolder.newFolder("paragraph");
+        temporaryFolder.newFolder("pages", page.getId());
+        Files.write((" List<String> filename = getWidgetsFilesUsedInPage(previewable);\n byte[] content = " +
+                "getConcatenationWidgetsDirectives(filename);").getBytes(), temporaryFolder.newFile("pbLabel/pbLabel" +
+                ".js"));
+        Files.write("file2".getBytes(), temporaryFolder.newFile("paragraph/paragraph.js"));
     }
 
 
