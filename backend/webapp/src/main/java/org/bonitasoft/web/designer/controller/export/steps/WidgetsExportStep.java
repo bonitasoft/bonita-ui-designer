@@ -59,6 +59,6 @@ public class WidgetsExportStep implements ExportStep<Page> {
         List<Path> files = directiveFileGenerator.getWidgetsFilesUsedInPage(page);
         byte[] content = directiveFileGenerator.concatenate(files);
         content = Minifier.minify(content);
-        zipper.addToZip(content, RESOURCES + "/assets/widgets-" + DigestUtils.sha1Hex(content) + ".min.js");
+        zipper.addToZip(content, RESOURCES + "/js/widgets-" + DigestUtils.sha1Hex(content) + ".min.js");
     }
 }

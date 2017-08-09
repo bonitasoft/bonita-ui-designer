@@ -210,4 +210,17 @@ public class PreviewControllerTest {
                     }
                 });
     }
+
+    @Test
+    public void should_load_widget_minify_files_for_any_previawable() throws Exception {
+        Path expectedFile = pageRepositoryPath.resolve("ma-page/js/widgets-abc123.min.js");
+
+        mockMvc
+                .perform(get("/preview/page/ma-page/js/widgets-abc123.min.js"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"widgets-abc123.min.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
 }

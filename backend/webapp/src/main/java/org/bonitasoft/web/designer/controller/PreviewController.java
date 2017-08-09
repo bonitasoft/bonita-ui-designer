@@ -101,6 +101,13 @@ public class PreviewController {
         HttpFile.writeFileInResponse(request, response, widgetRepositoryPath.resolve(matchingPath));
     }
 
+    @RequestMapping("/preview/page/{id}/js/**")
+    public void servePageJs(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
+        Path filePath = pageRepositoryPath.resolve(pageId).resolve("js").resolve(matchingPath);
+        HttpFile.writeFileInResponse(request, response, filePath);
+    }
+
     /**
      * Returns fake css file for living app theme.css
      */

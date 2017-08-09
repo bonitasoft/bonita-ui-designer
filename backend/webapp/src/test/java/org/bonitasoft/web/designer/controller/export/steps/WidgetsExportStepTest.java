@@ -80,7 +80,7 @@ public class WidgetsExportStepTest {
 
         verify(zipper).addToZip(repository.resolveWidgetJson("widget1"), "resources/widgets/widget1/widget1.json");
         verify(zipper).addToZip(repository.resolveWidgetJson("widget2"), "resources/widgets/widget2/widget2.json");
-        verify(zipper).addToZip(expected, "resources/assets/widgets-" + DigestUtils.sha1Hex(expected) + ".min.js");
+        verify(zipper).addToZip(expected, "resources/js/widgets-" + DigestUtils.sha1Hex(expected) + ".min.js");
     }
 
     @Test

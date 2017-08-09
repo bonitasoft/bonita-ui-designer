@@ -60,11 +60,11 @@ public class DirectivesCollectorTest {
     public void should_build_directives_from_the_preview() throws IOException {
         Page page = aPage().build();
         when( pathResolver.getPagesRepositoryPath().resolve(page.getId())).thenReturn(temporaryFolder.toPath());
-        Path assets = temporaryFolder.toPath().resolve(page.getId()).resolve("assets");
+        Path assets = temporaryFolder.toPath().resolve(page.getId()).resolve("js");
         when(directiveFileGenerator.generateAllDirectivesFilesInOne(page, assets)).thenReturn("widgets-123456.min.js");
 
         List<String> imports = collector.buildUniqueDirectivesFiles(page, page.getId());
 
-        Assertions.assertThat(imports).containsOnly("assets/widgets-123456.min.js");
+        Assertions.assertThat(imports).containsOnly("js/widgets-123456.min.js");
     }
 }
