@@ -27,6 +27,7 @@ import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredic
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
+import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
@@ -57,6 +58,7 @@ public class WidgetsExportStep implements ExportStep<Page> {
         // Export widgets.js
         List<Path> files = directiveFileGenerator.getWidgetsFilesUsedInPage(page);
         byte[] content = directiveFileGenerator.concatenate(files);
-        zipper.addToZip(content, RESOURCES + "/assets/widgets-" + DigestUtils.sha1Hex(content) + ".js");
+        content = Minifier.minify(content);
+        zipper.addToZip(content, RESOURCES + "/assets/widgets-" + DigestUtils.sha1Hex(content) + ".min.js");
     }
 }
