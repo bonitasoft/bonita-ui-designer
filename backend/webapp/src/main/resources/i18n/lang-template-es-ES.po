@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-08-07 18:30-0400\n"
+"PO-Revision-Date: 2017-08-12 18:22-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -34,9 +34,9 @@ msgstr "<b>El botón <em>Ahora</em></b> establece la fecha y hora actuales para 
 "             Por el momento, se redondea hacia arriba o hacia abajo para el valor más cercano de 5 min."
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
-"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
-msgstr "<b>El botón <em>Hoy</em></b> establece la fecha actual del usuario como la fecha seleccionada.\n"
-"             No cambia la hora seleccionada, excepto cuando la hora no se ha establecido. En ese caso, establece la hora a medianoche."
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
+msgstr ""
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>Para utilizar un formulario en un proceso</b>, mapéalo en el Studio con el proceso o tarea humana correspondientes. Será automáticamente empaquetado en el archivo .bar y estará listo para desplegarse en el portal."
