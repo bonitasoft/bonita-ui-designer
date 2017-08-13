@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-08-07 18:23-0400\n"
+"PO-Revision-Date: 2017-08-12 18:15-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -33,9 +33,9 @@ msgid "<b><em>Now</em> button</b> sets the selected date and time to the current
 msgstr "<b>Le bouton <em>Maintenant</em></b> affiche dans le widget la date et l'heure courantes de l’utilisateur, arrondies aux 5 min les plus proches."
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
-"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
-msgstr "<b>Le bouton <em>Aujourd'hui</em></b> affiche dans le widget la date du jour de l’utilisateur.\n"
-"             Si l'heure est déjà définie, elle est gardée telle quelle. Sinon, il affiche minuit."
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
+msgstr ""
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b> Pour utiliser un formulaire dans un processus</b>, associez-le dans le studio au pool ou à une tâche humaine. Il sera automatiquement packagé dans l'archive .bar prête à être déployée dans le portail."
