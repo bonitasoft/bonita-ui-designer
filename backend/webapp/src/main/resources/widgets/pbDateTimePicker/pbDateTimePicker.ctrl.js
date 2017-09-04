@@ -7,6 +7,7 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
 
   $bsDatepicker.defaults.keyboard = false;
 
+  var minuteStep = 5;
 
   $scope.$watch('properties.value', function() {
     refreshInputs();
@@ -46,25 +47,27 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
   $scope.updateDateValue = function() {
     if ($scope.properties.dateValue && moment($scope.properties.dateValue).isValid()) {
       var date = moment($scope.properties.dateValue);
-      var dateTime = moment($scope.properties.value);
-      if (dateTime.isValid()) {
+      var dateTime = moment($scope.properties.timeValue);
+      if ($scope.properties.timeValue && dateTime.isValid()) {
         $scope.properties.value = formatToIso(dateTime
           .year(date.year())
           .month(date.month())
           .date(date.date())
         );
       } else {
-        $scope.properties.value = formatToIso(moment()
-          .year(date.year())
-          .month(date.month())
-          .date(date.date())
-          .hours(12)
-          .minutes(0)
+        var now = moment();
+        $scope.properties.value = formatToIso(date
+          .hours(now.hours())
+          .minutes(roundToMinuteStep(now.minute()))
           .seconds(0)
         );
       }
     }
-  }
+  };
+
+  var roundToMinuteStep = function(minutes) {
+    return Math.round(minutes / minuteStep) * minuteStep;
+  };
 
   var formatToIso = function(moment) {
     var isoFormat = 'YYYY-MM-DDTHH:mm:ss';
@@ -78,7 +81,7 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
 
   this.setDateAndTimeToNow = function() {
     var now = moment();
-    now.minute(Math.round(now.minute() / 5) * 5).second(0);
+    now.minute(roundToMinuteStep(now.minute())).second(0);
     $scope.properties.value = formatToIso(now);
     refreshInputs();
   };
@@ -93,11 +96,11 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
         seconds: timeValue.seconds()
       }));
     } else {
-      $scope.properties.value = formatToIso(moment({
-        hour: 0,
-        minute: 0,
-        seconds: 0
-      }));
+      var now = moment();
+      $scope.properties.value = formatToIso(now
+        .minutes(roundToMinuteStep(now.minute()))
+        .seconds(0)
+      );
     }
     refreshInputs();
   };

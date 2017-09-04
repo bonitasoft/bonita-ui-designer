@@ -29,7 +29,8 @@
     </uib-tab>
     <uib-tab heading="{{ 'Today & Now' | translate }}" index="'today'">
         <p translate><b><em>Today</em> button</b> sets the selected date to the current date for the user.
-            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight.
+            It doesn't change the selected time, except when the time is not set.
+            In that case, it's rounded up or down to the closest 5 min value.
         </p>
         <p translate><b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.
             For the time, it is rounded up or down to the closest 5 min value.
