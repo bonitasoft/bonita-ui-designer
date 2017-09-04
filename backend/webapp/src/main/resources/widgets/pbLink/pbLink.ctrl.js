@@ -25,7 +25,7 @@ function PbLinkCtrl($scope, $location, $window, httpParamSerializer) {
   };
 
   function buildQueryString(additionalParams) {
-    var params = angular.extend({}, $scope.properties.params || {}, additionalParams || {});
+    var params = angular.extend({}, $scope.properties.urlParams || {}, additionalParams || {});
     var queryString = httpParamSerializer.paramSerializer(params);
     return queryString ? '?' + queryString : '';
   }
