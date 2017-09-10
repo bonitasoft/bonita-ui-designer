@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-08-03 07:13-0400\n"
+"PO-Revision-Date: 2017-09-09 18:54-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -34,9 +34,11 @@ msgstr "<b><em>今時点</em> のボタン</b> は、ユーザーの現在の日
 "          時刻は、上下 5 分の最も近い値に丸められます。"
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
-"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
 msgstr "<b><em>今日</em> のボタン</b> は、ユーザーの選択した日付を現在の日付に設定します。\n"
-"            時刻が設定されていない場合を除いて、選択された時刻を変更しません。その場合は、真夜中に設定します。"
+"            時刻が設定されていない場合を除いて、選択された時刻を変更しません。\n"
+"           その場合は、上下 5 分の最も近い値に丸められます。"
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>プロセスのフォームとして使用するには</b>、Studioで関連するプロセス、またはヒューマン タスクにそれをマップします。それはポータルへのデプロイ時に、 .bar アーカイブ ファイル内に自動的にパッケージ化されます。"
@@ -490,6 +492,9 @@ msgstr "日付の表示"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "日付書式は、デフォルトでローカライズされます。ローカライズされた書式は <em>localization.json</em> で編集できます （<a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">ローカリゼーション セクション</a> を参照してください）。"
 
+msgid "Date object"
+msgstr "Date オブジェクト"
+
 msgid "Date objects"
 msgstr "Date オブジェクト"
 
@@ -937,6 +942,9 @@ msgstr "お気に入りに登録"
 
 msgid "Max value"
 msgstr "最大値"
+
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr "1970/01/01からのミリ秒単位の経過時間（Long または文字列変数）"
 
 msgid "Min value"
 msgstr "最小値"
@@ -1668,8 +1676,8 @@ msgstr "はい"
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
 
-msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
-msgstr "次の変数値の型に適用することができます： <ul><li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> 書式文字列変数</li> <li>Date オブジェクト</li> <li>1970/01/01 を起点としたミリ秒単位の経過時間（LONGの長整数型または文字列変数） </li></ul>"
+msgid "You can apply it to the following variable value types:"
+msgstr "次の変数の値型に適用することができます："
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
@@ -1740,6 +1748,9 @@ msgstr "エラー"
 
 msgid "expression or variable"
 msgstr "式または変数"
+
+msgid "formatted String variables"
+msgstr "書式化された文字列変数"
 
 msgid "h:mm:ss a"
 msgstr "h:mm:ss a"
