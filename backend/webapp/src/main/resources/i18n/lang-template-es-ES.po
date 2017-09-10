@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-08-03 18:10-0400\n"
+"PO-Revision-Date: 2017-09-09 19:01-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -34,9 +34,9 @@ msgstr "<b>El botón <em>Ahora</em></b> establece la fecha y hora actuales para 
 "             Por el momento, se redondea hacia arriba o hacia abajo para el valor más cercano de 5 min."
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
-"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
-msgstr "<b>El botón <em>Hoy</em></b> establece la fecha actual del usuario como la fecha seleccionada.\n"
-"             No cambia la hora seleccionada, excepto cuando la hora no se ha establecido. En ese caso, establece la hora a medianoche."
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
+msgstr ""
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>Para utilizar un formulario en un proceso</b>, mapéalo en el Studio con el proceso o tarea humana correspondientes. Será automáticamente empaquetado en el archivo .bar y estará listo para desplegarse en el portal."
@@ -490,6 +490,9 @@ msgstr "Pantalla de la fecha"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Por defecto, los formatos de fecha están localizados. Los formatos localizados se pueden editar en <em>localization.json</em> (consulte la <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\"> sección de localización</a> <translate>).</translate>."
 
+msgid "Date object"
+msgstr ""
+
 msgid "Date objects"
 msgstr "Objetos Date"
 
@@ -936,6 +939,9 @@ msgstr "Marcar como favorito"
 
 msgid "Max value"
 msgstr "Valor máximo"
+
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr ""
 
 msgid "Min value"
 msgstr "Valor mínimo"
@@ -1667,8 +1673,8 @@ msgstr "Sí"
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Se pueden crear <b>widgets personalizados</b> desde la página de inicio."
 
-msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
-msgstr "Puede aplicarlo a los siguientes tipos de valor de variable: <ul> <li>Variables String formateadas según <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a></li> <li>Objeto de fecha</li> <li>Milisegundos desde Epoch (variable de número o cadena)</li></ul>"
+msgid "You can apply it to the following variable value types:"
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Puede ampliar nuestras capacidades de la API REST creando <em>extensiones de API REST</em> en el menú <i>Desarrollo</i> del Studio y utilizarlas como variables de API externa en el UI Designer."
@@ -1740,6 +1746,9 @@ msgstr "error"
 
 msgid "expression or variable"
 msgstr "expresión o variable"
+
+msgid "formatted String variables"
+msgstr ""
 
 msgid "h:mm:ss a"
 msgstr "H:mm:ss"

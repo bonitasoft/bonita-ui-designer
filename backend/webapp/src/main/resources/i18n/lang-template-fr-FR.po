@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-08-03 18:05-0400\n"
+"PO-Revision-Date: 2017-09-09 18:50-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -33,9 +33,10 @@ msgid "<b><em>Now</em> button</b> sets the selected date and time to the current
 msgstr "<b>Le bouton <em>Maintenant</em></b> affiche dans le widget la date et l'heure courantes de l’utilisateur, arrondies aux 5 min les plus proches."
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
-"            It doesn't change the selected time, except when the time is not set. In that case, it sets it to midnight."
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
 msgstr "<b>Le bouton <em>Aujourd'hui</em></b> affiche dans le widget la date du jour de l’utilisateur.\n"
-"             Si l'heure est déjà définie, elle est gardée telle quelle. Sinon, il affiche minuit."
+"             Si l'heure est déjà définie, elle est gardée telle quelle. Sinon, elle est arrondi à la dizaine de minutes la plus proche de l'heure actuelle."
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b> Pour utiliser un formulaire dans un processus</b>, associez-le dans le studio au pool ou à une tâche humaine. Il sera automatiquement packagé dans l'archive .bar prête à être déployée dans le portail."
@@ -489,6 +490,9 @@ msgstr "Affichage de la date"
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
 
+msgid "Date object"
+msgstr "Objet Date"
+
 msgid "Date objects"
 msgstr "Objets Date"
 
@@ -935,6 +939,9 @@ msgstr "Ajouter à mes favoris"
 
 msgid "Max value"
 msgstr "Valeur maximum"
+
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr "Millisecondes depuis Epoch (nombre ou variable String)"
 
 msgid "Min value"
 msgstr "Valeur minimum"
@@ -1666,8 +1673,8 @@ msgstr "Oui"
 msgid "You can also create <b>custom widgets</b> from the home page."
 msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis la page d'accueil."
 
-msgid "You can apply it to the following variable value types: <ul> <li><a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variables</li> <li>Date object</li> <li>Milliseconds since Epoch (number or string variable)</li> </ul>"
-msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants : <ul><li>variable String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a></li> <li>objet Date</li> <li>millisecondes depuis Epoch (nombre ou variable String)</li></ul>"
+msgid "You can apply it to the following variable value types:"
+msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
@@ -1739,6 +1746,9 @@ msgstr "erreur"
 
 msgid "expression or variable"
 msgstr "expression ou variable"
+
+msgid "formatted String variables"
+msgstr "variable String au format"
 
 msgid "h:mm:ss a"
 msgstr "HH:mm:ss"
