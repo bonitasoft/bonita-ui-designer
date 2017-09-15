@@ -60,11 +60,18 @@
     });
 
     it('should save and export page', function() {
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
       spyOn(pageRepo, 'save').and.returnValue($q.when({}));
       spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
       var page = { id: 'person' };
 
       controller.saveAndExport(page);
+
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/export-popup.html');
+      expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('ExportPopUpController');
+
+      modalInstance.close({});
       scope.$apply();
 
       expect(pageRepo.save).toHaveBeenCalledWith(page);
