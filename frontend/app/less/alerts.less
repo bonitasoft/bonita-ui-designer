@@ -48,6 +48,23 @@
   }
 }
 
+.ui-alert-info {
+  border-color: @color-alert-info;
+
+  h4 {
+    color: @color-alert-info;
+  }
+
+  &::before {
+    background-color: @color-alert-info;
+  }
+
+  &::after {
+    content: @fa-var-info;
+    left: 14px;
+  }
+}
+
 .ui-alert-success {
   border-color: @color-alert-success;
 

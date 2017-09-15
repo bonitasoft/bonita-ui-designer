@@ -73,8 +73,24 @@
     }
 
     saveAndExport(page) {
-      this.artifactRepo.save(page)
-        .then(() =>this.$window.location = this.artifactRepo.exportUrl(page));
+      var modalInstance = this.$uibModal.open({
+        templateUrl: 'js/editor/header/export-popup.html',
+        controller: 'ExportPopUpController',
+        controllerAs: 'ctrl',
+        resolve: {
+          page: () => page
+        }
+      });
+
+      modalInstance.result
+        .then(data => {
+          var withJSON = data.withJSON;
+          var exportMode = data.exportMode;
+          this.artifactRepo.save(page)
+            .then(() => {
+              this.$window.location = this.artifactRepo.exportUrl(page, exportMode, withJSON);
+            });
+        });
     }
   }
 
