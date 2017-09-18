@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-09-09 18:54-0400\n"
+"PO-Revision-Date: 2017-09-17 18:52-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -549,6 +549,9 @@ msgstr "ターゲット アプリケーションを指定します。ハード �
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "ターゲット ページで使用するアプリケーションのテーマを指定します。ハード コーディングしないことを推奨します。"
 
+msgid "Development (readable Javascript and JSON descriptor)"
+msgstr "開発（読み取り可能な Javascript と JSON 記述子）"
+
 msgid "Disabled"
 msgstr "無効"
 
@@ -600,6 +603,9 @@ msgstr "カスタム ウィジェットを編集"
 msgid "Edit variable"
 msgstr "変数を編集"
 
+msgid "Editable in the UI Designer (JSON descriptor)"
+msgstr "UI デザイナー（JSON 記述子）で編集可能 "
+
 msgid "Editor organization"
 msgstr "エディタの構成設定"
 
@@ -623,6 +629,9 @@ msgstr "例: 相対時間フィルター"
 
 msgid "Export"
 msgstr "エクスポート"
+
+msgid "Export {{ctrl.page.name}}"
+msgstr "{{ctrl.page.name}} をエクスポート"
 
 msgid "Exposed"
 msgstr "公開"
@@ -692,6 +701,9 @@ msgstr "GET"
 
 msgid "General"
 msgstr "全般"
+
+msgid "Generate an artifact for:"
+msgstr "次の生成物を生成： "
 
 msgid "Get a case by its identifier"
 msgstr "案件IDで案件を取得する"
@@ -812,6 +824,15 @@ msgstr "変数は、ページ、フォーム、またはレイアウトの有効
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
+
+msgid "Includes a readable version of all the widgets' Javascript"
+msgstr "すべてのウィジェットの Javascript の読み取り可能バージョンを含む"
+
+msgid "Includes only a minified version of the widgets' Javavascript"
+msgstr "ウィジェットの Javavascript の 圧縮（minify）バージョンのみを含む"
+
+msgid "Includes the UI Designer JSON descriptor of the page"
+msgstr "ページの UI デザイナー JSON 記述子を含む"
 
 msgid "Includes the localized version of the Technical date format property, to guide the user"
 msgstr "ユーザーをガイドするため、ローカライズされた日付書式プロパティが含まれています。"
@@ -1071,6 +1092,9 @@ msgstr "プロセス名"
 
 msgid "Process version"
 msgstr "プロセスのバージョン"
+
+msgid "Production (optimized Javascript)"
+msgstr "プロダクション（最適化された Javascript）"
 
 msgid "Properties"
 msgstr "プロパティ"
@@ -1348,6 +1372,18 @@ msgstr "カスタム ウィジェット HTML テンプレートは、ここで�
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーンに依存します。したがって、表示されている値は、（GMT タイムゾーンを除き、）格納されている値と違います。"
+
+msgid "The generated artifact can be imported back in the UI Designer."
+msgstr "UI デザイナーで生成された生成物をインポートできます。"
+
+msgid "The generated artifact cannot be imported back in the UI Designer."
+msgstr "UI デザイナーで生成された生成物をインポートできません。"
+
+msgid "The generated artifact is not optimized for database space and performance."
+msgstr "生成された生成物は、データベース容量とパフォーマンスのために最適化されていません。"
+
+msgid "The generated artifact is optimized for database space and performance."
+msgstr "生成された生成物は、データベース容量とパフォーマンスのために最適化されています。"
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
@@ -1678,6 +1714,9 @@ msgstr "ホームページから<b>カスタム ウィジェット</b>も作成�
 
 msgid "You can apply it to the following variable value types:"
 msgstr "次の変数の値型に適用することができます："
+
+msgid "You can choose what to export depending on the artifact's target."
+msgstr "生成物のターゲットによってエクスポートするものを選択できます。"
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
