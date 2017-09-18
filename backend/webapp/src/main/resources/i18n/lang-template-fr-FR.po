@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-09-09 18:50-0400\n"
+"PO-Revision-Date: 2017-09-17 18:46-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -547,6 +547,9 @@ msgstr "Détermine l’application cible. Il est recommandé de ne pas le saisir
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "Détermine le thème de l’application qui sera utilisé par la page cible. Il est recommandé de ne pas le saisir en dur."
 
+msgid "Development (readable Javascript and JSON descriptor)"
+msgstr ""
+
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -598,6 +601,9 @@ msgstr "Modifier le widget personnalisé"
 msgid "Edit variable"
 msgstr "Modifier la variable"
 
+msgid "Editable in the UI Designer (JSON descriptor)"
+msgstr ""
+
 msgid "Editor organization"
 msgstr "Organisation de l'Editeur de page"
 
@@ -621,6 +627,9 @@ msgstr "Exemple : filtre \"temps relatif\""
 
 msgid "Export"
 msgstr "Exporter"
+
+msgid "Export {{ctrl.page.name}}"
+msgstr ""
 
 msgid "Exposed"
 msgstr "Exposée"
@@ -690,6 +699,9 @@ msgstr "GET"
 
 msgid "General"
 msgstr "Général"
+
+msgid "Generate an artifact for:"
+msgstr ""
 
 msgid "Get a case by its identifier"
 msgstr "Obtenir un cas par son identifiant"
@@ -810,6 +822,15 @@ msgstr "Dans le cadre d'une page, d'un formulaire ou d'un layout, une variable p
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "Dans cette liste, vous pouvez utiliser les flèches pour ré-ordonner les assets, voir les assets locaux, éditer les assets externes et supprimer tout type d'assets."
+
+msgid "Includes a readable version of all the widgets' Javascript"
+msgstr ""
+
+msgid "Includes only a minified version of the widgets' Javavascript"
+msgstr ""
+
+msgid "Includes the UI Designer JSON descriptor of the page"
+msgstr ""
 
 msgid "Includes the localized version of the Technical date format property, to guide the user"
 msgstr "Inclut la version localisée de la propriété Format technique de date, pour guider l’utilisateur"
@@ -1068,6 +1089,9 @@ msgstr "Nom du processus"
 
 msgid "Process version"
 msgstr "Version du processus"
+
+msgid "Production (optimized Javascript)"
+msgstr ""
 
 msgid "Properties"
 msgstr "Propriétés"
@@ -1345,6 +1369,18 @@ msgstr "Le template HTML du widget personnalisé est défini ici."
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "L’affichage des dates et des heures s’appuie sur le fuseau horaire du navigateur de l’utilisateur. Par conséquent, les valeurs affichées diffèrent des valeurs stockées (sauf pour le fuseau horaire GMT)."
+
+msgid "The generated artifact can be imported back in the UI Designer."
+msgstr ""
+
+msgid "The generated artifact cannot be imported back in the UI Designer."
+msgstr ""
+
+msgid "The generated artifact is not optimized for database space and performance."
+msgstr ""
+
+msgid "The generated artifact is optimized for database space and performance."
+msgstr ""
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient également de nouveaux éléments."
@@ -1675,6 +1711,9 @@ msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis l
 
 msgid "You can apply it to the following variable value types:"
 msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
+
+msgid "You can choose what to export depending on the artifact's target."
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
