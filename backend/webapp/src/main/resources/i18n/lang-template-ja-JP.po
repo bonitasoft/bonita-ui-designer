@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-09-17 18:52-0400\n"
+"PO-Revision-Date: 2017-10-16 20:50-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -70,6 +70,9 @@ msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM �
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>例</b></em>： [送信] ボタンの <b>ラベル</b> プロパティにキー <em>button.submit.name</em> を使用します。<b>日付書式</b> プロパティにキー <em>date.format</em> を、日付選択ウィジェットの<b>プレース ホルダー</b> プロパティにキー <em>date.placeholder</em> を使用します。そして、<em>localization.json</em> アセットを変更し、<em>Button.submit.name</em>、<em>date.format</em>、<em>date.placeholder</em> の英語と他言語翻訳を追加します。"
 
+msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
+msgstr "<em>コレクションに追加</em> または <em>コレクションから削除</em> のアクションは、サーバーに送信する前にデータを準備するために使用できます （たとえば、プロセス/タスクが複数の入力コントラクトを持っている場合）。リクエストはサーバーへ送信されません。このボタンは、配列型 (JSON の <code>[]</code>の部分) の変数である <em>コレクション</em> データだけを更新します。"
+
 msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
 msgstr "<em>日付 (非推奨)</em>（<code>java.util.Date</code> に基づく）"
 
@@ -82,8 +85,14 @@ msgstr "<em>日時 (タイムゾーンなし)</em>（<code>java.time.LocalDateTi
 msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
 msgstr "<em>日時 (タイムゾーンあり)</em>（<code>java.time.OffsetDateTime</code> に基づく）: プロパティの<em>タイム ゾーンを処理</em> を「はい」に設定"
 
+msgid "<em>Failed response value</em>: the variable will be set if the request is unsuccessful (code 4XX)"
+msgstr "<em>失敗時のレスポンス値</em>： この変数はリクエストが失敗した場合 (コード 4XX) に設定されます"
+
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関する<em>注意事項：</em> <em>プレース ホルダー</em> プロパティの翻訳は、<em>テクニカルな書式</em> プロパティの値（年月日の順序と文字数）と一致させる必要があります。ただし、翻訳の不一致を避けるため、<em>プレース ホルダー</em> のキーは、<em>テクニカルな書式</em> と違うキーを使用します。"
+
+msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
+msgstr "<em>成功時のレスポンス値</em>： この変数はリクエストが成功した場合 (コード 2XX) に設定されます"
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> 構文を使用して、URL 内にデータを使用できます。</p><p><span class=\"tip\"> ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> でユーザー独自のREST APIを作成し、それらをここで使用することも可能です。</p>"
@@ -174,6 +183,9 @@ msgstr "下部にある [アセット] パネルで、画像、CSS または Jav
 
 msgid "Add to collection"
 msgstr "コレクションに追加"
+
+msgid "Add/Remove an Object to/from a collection"
+msgstr "コレクションへのオブジェクトの追加/削除"
 
 msgid "Added artifacts"
 msgstr "追加された生成物"
@@ -362,6 +374,9 @@ msgid "Close"
 msgstr "閉じる"
 
 msgid "Collection"
+msgstr "コレクション"
+
+msgid "Collections"
 msgstr "コレクション"
 
 msgid "Column keys"
@@ -666,6 +681,21 @@ msgstr "フィルター"
 msgid "First"
 msgstr "最初の行"
 
+msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
+msgstr "<em>プロセスを開始</em> や<em>タスクを送信</em> のアクションに対するデータの形式は、プロセス/タスクのコントラクト仕様を満たす必要があります。"
+
+msgid "For HTTP requests and Start process / Submit task actions, you can store the response of the request in a variable using the properties:"
+msgstr "HTTP リクエストやプロセスを開始 / タスクを送信に対するアクションは、プロパティを使用して、リクエストのレスポンスを変数に格納できます。"
+
+msgid "For HTTP requests, the following methods are supported:"
+msgstr "HTTP リクエストに対しては、次の方法がサポートされています："
+
+msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
+msgstr ""
+
+msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal's admin profile)."
+msgstr ""
+
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "特に日付書式に関しては、UI デザイナーは、 BDM または他の REST API から取得した日付を簡単に示する <em>uiDate</em> フィルターを装備しています。"
 
@@ -741,6 +771,9 @@ msgstr "ヘッダー"
 msgid "Help"
 msgstr "ヘルプ"
 
+msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
+msgstr ""
+
 msgid "Hidden"
 msgstr "非表示"
 
@@ -762,6 +795,9 @@ msgstr "ホームページ"
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "ただし、<b>ウィジェットの出力は常に Javascript の Date オブジェクトになります</b>。したがって、ユーザーが「日付」を選択したときは、ウィジェット <em>値</em> にバインドする変数の型を Date オブジェクトに変更します。これは、古いバージョンの UI デザイナーでデザインされたページとの下位互換性を確保するために必要です。"
 
+msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
+msgstr ""
+
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
 
@@ -770,6 +806,9 @@ msgstr "{{ ::importReport.type }} {{ ::importReport.name }} は上書きされ�
 
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
+
+msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
+msgstr ""
 
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "標準ウィジェットが、あなたのニーズを満たしていない場合、あなたの希望に沿ったカスタム ウィジェットを作成できます。作成後、そのカスタム ウィジェットはページ、フォーム、またはフラグメントの設計のため、パレット内で使用可能です。"
@@ -803,6 +842,9 @@ msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
+
+msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
+msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
@@ -964,6 +1006,9 @@ msgstr "お気に入りに登録"
 msgid "Max value"
 msgstr "最大値"
 
+msgid "Message"
+msgstr "メッセージ"
+
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "1970/01/01からのミリ秒単位の経過時間（Long または文字列変数）"
 
@@ -1072,6 +1117,9 @@ msgstr "ページ"
 msgid "Parent frame (_parent)"
 msgstr "親フレーム (_parent)"
 
+msgid "Perform an HTTP request"
+msgstr "HTTP リクエストを実行"
+
 msgid "Placeholder"
 msgstr "プレース ホルダー"
 
@@ -1132,11 +1180,17 @@ msgstr "プレイン コンテナ： コンテンツを繰り返す配列処理�
 msgid "Repeated container"
 msgstr "繰り返しコンテナ"
 
+msgid "Request"
+msgstr "リクエスト"
+
 msgid "Required"
 msgstr "必須"
 
 msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
+
+msgid "Response"
+msgstr "レスポンス"
 
 msgid "Returned key"
 msgstr "返されるキー"
@@ -1276,6 +1330,9 @@ msgstr "リンクされたドキュメントを開く場所を指定します"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
 
+msgid "Start a process"
+msgstr "プロセスを開始"
+
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Bonita Studio の <b>プロセス フォーム</b> の作成を開始： プール、またはヒューマンタスクでコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
 
@@ -1296,6 +1353,9 @@ msgstr "スタイル"
 
 msgid "Submit"
 msgstr "送信"
+
+msgid "Submit a task"
+msgstr "タスクを送信"
 
 msgid "Submit task"
 msgstr "タスクを送信"
@@ -1349,6 +1409,9 @@ msgid "The <em>Technical date format</em> property define the format of the valu
 msgstr "<em>テクニカルな日付書式</em>のプロパティは、日付入力に表示する値の書式を定義します。\n"
 "            それらは有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a> にする必要があります。"
 
+msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
+msgstr ""
+
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
 
@@ -1370,8 +1433,14 @@ msgstr "コント ローラーは、AngularJS スコープを拡大し、カス�
 msgid "The custom widget HTML template is defined here."
 msgstr "カスタム ウィジェット HTML テンプレートは、ここで定義されます。"
 
+msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
+msgstr ""
+
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーンに依存します。したがって、表示されている値は、（GMT タイムゾーンを除き、）格納されている値と違います。"
+
+msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
+msgstr ""
 
 msgid "The generated artifact can be imported back in the UI Designer."
 msgstr "UI デザイナーで生成された生成物をインポートできます。"
@@ -1405,6 +1474,12 @@ msgstr "値として使用するキーの名前。オブジェクト全体の場
 
 msgid "The page has not been imported."
 msgstr "ページはインポートされていません。"
+
+msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
+msgstr ""
+
+msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
@@ -1627,6 +1702,9 @@ msgstr "日付を選択するためには、このウィジェットを使用し
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
 msgstr "日時を選択するためには、このウィジェットを使用します（たとえば、会議開始時刻）。"
+
+msgid "Use this widget to:"
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"

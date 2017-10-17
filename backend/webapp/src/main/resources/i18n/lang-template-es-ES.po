@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2017-09-17 19:05-0400\n"
+"PO-Revision-Date: 2017-10-16 20:59-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -68,6 +68,9 @@ msgstr "<code>taskId</code> es un parámetro de URL. <br>Es el id de la tarea ac
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>Ejemplo</b></em>: Utilice la clave <em>button.submit.name</em> en la propiedad <b>Etiqueta</b> del botón Enviar. Use la clave <em>date.format</em> en la propiedad <b>formato de fecha</b> y <em>date.placeholder</em> en la propiedad de <b>placeholder</b> en un widget selector de fecha (datepicker). Luego, cambie el recurso <em>localization.json</em> para agregar las traducciones en inglés de <em>button.submit.name</em>, <em>date.format</em>, <em>date.placeholder</em>."
 
+msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
+msgstr ""
+
 msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
 msgstr "<em>DATE (NOT RECOMMENDED)</em> (basado en <code>java.util.Date</code>)"
 
@@ -80,8 +83,14 @@ msgstr "<em>DATE-TIME (NO TIME ZONE)</em> (basado en <code>java.time.LocalDateTi
 msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
 msgstr "<em>DATE-TIME (TIME ZONE)</em> (basado en <code>java.time.OffsetDateTime</code>): establezca la propiedad de <em>Manejar la zona horaria</em> a \"si\""
 
+msgid "<em>Failed response value</em>: the variable will be set if the request is unsuccessful (code 4XX)"
+msgstr ""
+
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "<em>Nota sobre los widgets</em> Selector de fecha <em>y</em> Selector de fecha y hora <em>:</em> las traducciones de la propiedad de <em>Placeholder</em> deben coincidir con el valor de las propiedades <em>Formato de fecha</em> (orden y número de letras). Sin embargo, la clave <em>Placeholder</em> debe ser diferente de la clave <em>Formato técnico de fecha</em> para evitar desajustes de las traducciones."
+
+msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
+msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\">Sugerencia:</span> puede utilizar datos en la URL, usando la sintaxis <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Sugerencia:</span> puede ampliar nuestras capacidades de la API REST creando <em>extensiones de API REST</em> en el menú <i>Desarrollo</i> del Studio y usarlos aquí</p>"
@@ -172,6 +181,9 @@ msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la part
 
 msgid "Add to collection"
 msgstr "Añadir a la colección"
+
+msgid "Add/Remove an Object to/from a collection"
+msgstr ""
 
 msgid "Added artifacts"
 msgstr "Artefactos agregados"
@@ -361,6 +373,9 @@ msgstr "Cerrar"
 
 msgid "Collection"
 msgstr "Colección"
+
+msgid "Collections"
+msgstr ""
 
 msgid "Column keys"
 msgstr "Claves de columna"
@@ -664,6 +679,21 @@ msgstr "Filtros"
 msgid "First"
 msgstr "Primero"
 
+msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
+msgstr ""
+
+msgid "For HTTP requests and Start process / Submit task actions, you can store the response of the request in a variable using the properties:"
+msgstr ""
+
+msgid "For HTTP requests, the following methods are supported:"
+msgstr ""
+
+msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
+msgstr ""
+
+msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal's admin profile)."
+msgstr ""
+
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "Para el formato de fecha en concreto, el UI Designer provee un filtro <em>uiDate</em> para mostrar fácilmente las fechas obtenidas de la BDM o cualquier otra API REST."
 
@@ -739,6 +769,9 @@ msgstr "Cabeceras"
 msgid "Help"
 msgstr "Ayuda"
 
+msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
+msgstr ""
+
 msgid "Hidden"
 msgstr "Oculto"
 
@@ -760,6 +793,9 @@ msgstr "Página de inicio"
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "Sin embargo, <b>la salida del widget siempre es un objeto Javascript Date</b>. Así que va a cambiar el tipo de la variable atada al <em>Valor</em> del widget a un objeto Date cuando el usuario selecciona una fecha. Esto es necesario para asegurar la compatibilidad con versiones anteriores de páginas diseñadas con versiones antiguas del UI Designer."
 
+msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
+msgstr ""
+
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
 
@@ -768,6 +804,9 @@ msgstr "El Id debe ser único, por lo que se sobrescribirán el {{ ::importRepor
 
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "El Id debe ser único, por lo que se sobrescribirán esos elementos."
+
+msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
+msgstr ""
 
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "Si los widgets estándar no satisfacen sus necesidades, puede crear un widget personalizado para que coincida exactamente con lo que desea. Después de la creación, un widget personalizado está disponible en la paleta para el diseño de páginas, formularios o fragmentos."
@@ -801,6 +840,9 @@ msgstr "En un recurso JavaScript, puede especificar una dependencia de un módul
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
+
+msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
+msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
@@ -961,6 +1003,9 @@ msgstr "Marcar como favorito"
 msgid "Max value"
 msgstr "Valor máximo"
 
+msgid "Message"
+msgstr ""
+
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr ""
 
@@ -1069,6 +1114,9 @@ msgstr "Páginas"
 msgid "Parent frame (_parent)"
 msgstr "Frame padre (_parent)"
 
+msgid "Perform an HTTP request"
+msgstr ""
+
 msgid "Placeholder"
 msgstr "Placeholder"
 
@@ -1129,11 +1177,17 @@ msgstr "Repetir el contenido en el contenedor"
 msgid "Repeated container"
 msgstr "Contenedor repetido"
 
+msgid "Request"
+msgstr ""
+
 msgid "Required"
 msgstr "Requerido"
 
 msgid "Required angular modules"
 msgstr "Módulos angular requeridos"
+
+msgid "Response"
+msgstr ""
 
 msgid "Returned key"
 msgstr "Clave de retorno"
@@ -1273,6 +1327,9 @@ msgstr "Especifica dónde abrir el documento vinculado"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Especifique el número de columnas del elemento. Todos los elementos no podrán sobrepasar 12 columnas."
 
+msgid "Start a process"
+msgstr ""
+
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Comienza creando un <b>formulario de proceso</b> en Bonita Studio: desde la Pool apropiada o desde una tarea humana, crea un contrato y ejecuta el UI Designer. Auto-generará un formulario correspondiente que se podrá editar."
 
@@ -1293,6 +1350,9 @@ msgstr "Estilo"
 
 msgid "Submit"
 msgstr "Enviar"
+
+msgid "Submit a task"
+msgstr ""
 
 msgid "Submit task"
 msgstr "Enviar tarea"
@@ -1346,6 +1406,9 @@ msgid "The <em>Technical date format</em> property define the format of the valu
 msgstr "La propiedad de <em>Formato técnico de fecha</em> define el formato de los valores que se muestran en las entradas de fecha.\n"
 "             Debe ser un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">formato AngularJS de fecha</a> válido."
 
+msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
+msgstr ""
+
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "El UI Designer genera <b>el código de la aplicación del estándar html, basado en AngularJS</b>. Exporta páginas si quieres personalizarlas aún más en tu entorno de desarrollo web favorito."
 
@@ -1367,8 +1430,14 @@ msgstr "El controlador es una función JavaScript que aumenta el alcance de Angu
 msgid "The custom widget HTML template is defined here."
 msgstr "El template HTML del widget personalizado se define aquí."
 
+msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
+msgstr ""
+
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "La muestra de fechas y horas depende de la zona horaria del navegador del usuario. Por lo tanto, los valores difieren de los valores almacenados (excepto en la zona horaria GMT)."
+
+msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
+msgstr ""
 
 msgid "The generated artifact can be imported back in the UI Designer."
 msgstr ""
@@ -1402,6 +1471,12 @@ msgstr "El nombre de la clave para usar como valor. Dejar vacío para tener todo
 
 msgid "The page has not been imported."
 msgstr "La página no ha sido importada."
+
+msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
+msgstr ""
+
+msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "La ayuda se mostrará como tal, cerca de la etiqueta de propiedad."
@@ -1624,6 +1699,9 @@ msgstr "Use este widget para seleccionar una fecha (por ejemplo, fecha de nacimi
 
 msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
 msgstr "Use este widget para seleccionar una fecha y una hora (por ejemplo, planificar una cita)."
+
+msgid "Use this widget to:"
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
