@@ -4,60 +4,32 @@
 <form class="form EditorHeader-exportForm" name="exportPage">
     <div class="modal-body" id="modal-export-page">
         <div>
-            <p translate>You can choose what to export depending on the artifact's target.</p>
-            <p translate>Generate an artifact for: </p>
+            <h4 translate>Exported formats</h4>
+            <p translate>The .zip archive of an exported page contains: </p>
+            <ul>
+                <li translate>JSON descriptor to exchange between UI Designers</li>
+                <li translate>Minified widgets JavaScript for optimized performance</li>
+                <li translate>Standard widgets JavaScript for edition outside the UI Designer</li>
+            </ul>
+            <p>
+                <b translate>Attention:</b>
+                <span translate>if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it.</span>
+                <span translate>You will have to manage the minification and the "#" updates to trigger cache busting.</span>
+                <span translate>For more information, consult the <a href="https://documentation.bonitasoft.com/?page=live-update#cache_busting">documentation</a>.</span>
+            </p>
         </div>
-        <div class="form-group">
-            <div class="radio">
-                <label uib-tooltip="{{'Includes only a minified version of the widgets\' Javavascript' | translate}}"
-                    tooltip-placement="top-left"
-                    tooltip-append-to-body="true"
-                    tooltip-popup-delay="300">
-                    <input
-                        name="exportMode"
-                        ng-model="ctrl.exportMode"
-                        id="minified"
-                        type="radio"
-                        value="minified"
-                        disabled>
-                    <translate>Production (optimized Javascript)</translate>
-                </label>
-            </div>
-            <div class="checkbox" ng-show="ctrl.exportMode === 'minified'">
-                <label uib-tooltip="{{'Includes the UI Designer JSON descriptor of the page' | translate}}"
-                    tooltip-placement="top-left"
-                    tooltip-append-to-body="true"
-                    tooltip-popup-delay="300">
-                    <input
-                        name="withJSON"
-                        ng-model="ctrl.withJSON"
-                        id="json"
-                        type="checkbox"
-                        disabled>
-                    <translate>Editable in the UI Designer (JSON descriptor)</translate>
-                </label>
-            </div>
-            <div class="radio">
-                <label uib-tooltip="{{'Includes a readable version of all the widgets\' Javascript' | translate}}"
-                    tooltip-placement="top-left"
-                    tooltip-append-to-body="true"
-                    tooltip-popup-delay="300">
-                    <input
-                        name="exportMode"
-                        ng-model="ctrl.exportMode"
-                        id="readable"
-                        type="radio"
-                        value="readable"
-                        disabled>
-                    <translate>Development (readable Javascript and JSON descriptor)</translate>
-                </label>
-            </div>
-        </div>
-        <div>
-            <div class="ui-alert ui-alert-info" ng-show="ctrl.exportMode === 'readable' || ctrl.withJSON" translate>The generated artifact can be imported back in the UI Designer.</div>
-            <div class="ui-alert ui-alert-warning" ng-show="ctrl.exportMode === 'minified' && !ctrl.withJSON" translate>The generated artifact cannot be imported back in the UI Designer.</div>
-            <div class="ui-alert ui-alert-info" ng-show="ctrl.exportMode === 'minified' && !ctrl.withJSON" translate>The generated artifact is optimized for database space and performance.</div>
-            <div class="ui-alert ui-alert-warning" ng-show="ctrl.exportMode === 'readable' || ctrl.withJSON" translate>The generated artifact is not optimized for database space and performance.</div>
+        <div class="checkbox">
+            <label uib-tooltip="{{'If checked, this popup will not be displayed again unless you clean up your browser cache' | translate}}"
+                tooltip-placement="top-left"
+                tooltip-append-to-body="true"
+                tooltip-popup-delay="300">
+                <input
+                    name="doNotShowAgain"
+                    ng-model="ctrl.doNotShowAgain"
+                    id="doNotShowAgain"
+                    type="checkbox">
+                <translate>Do not show me this dialog again</translate>
+            </label>
         </div>
     </div>
     <div class="modal-footer" id="modal-export-page-controls">

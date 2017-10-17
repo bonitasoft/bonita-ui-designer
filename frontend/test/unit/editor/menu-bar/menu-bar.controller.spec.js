@@ -3,11 +3,11 @@
   'use strict';
 
   describe('Menu bar controller', function() {
-    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, browserHistoryService;
+    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, $localStorage, browserHistoryService;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_) {
       pageRepo = _pageRepo_;
       browserHistoryService = _browserHistoryService_;
       $q = _$q_;
@@ -20,6 +20,7 @@
       scope = $rootScope;
       $uibModal = _$uibModal_;
       $state = _$state_;
+      $localStorage = _$localStorage_;
       modalInstance = $uibModalInstance.fake();
 
       spyOn(browserHistoryService, 'back');
@@ -34,7 +35,8 @@
         artifactRepo: pageRepo,
         artifact: {},
         mode: 'page',
-        $scope: scope
+        $scope: scope,
+        $localStorage : $localStorage
       });
     }));
 
@@ -73,6 +75,22 @@
 
       modalInstance.close({});
       scope.$apply();
+
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
+      expect($window.location).toBe('export/page/person');
+    });
+
+    it('should save and export page without displaying message', function() {
+      $localStorage.bonitaUIDesigner = { doNotShowExportMessageAgain: true };
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
+      spyOn(pageRepo, 'save').and.returnValue($q.when({}));
+      spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
+      var page = { id: 'person' };
+
+      controller.saveAndExport(page);
+      scope.$apply();
+
+      expect($uibModal.open).not.toHaveBeenCalled();
 
       expect(pageRepo.save).toHaveBeenCalledWith(page);
       expect($window.location).toBe('export/page/person');

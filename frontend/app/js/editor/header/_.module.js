@@ -21,7 +21,8 @@
     'bonitasoft.designer.common.repositories',
     'gettext',
     'ui.bootstrap',
-    'ui.router'
+    'ui.router',
+    'ngStorage'
   ]);
 
 })();

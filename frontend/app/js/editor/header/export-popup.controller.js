@@ -3,15 +3,20 @@
   'use strict';
 
   class ExportPopUpController {
-    constructor($uibModalInstance, page) {
+    constructor($uibModalInstance, $localStorage, page) {
+      'ngInject';
       this.$uibModalInstance = $uibModalInstance;
+      this.$localStorage = $localStorage;
       this.page = page;
-      this.withJSON = true;
-      this.exportMode = 'minified';
+      this.doNotShowAgain = false;
     }
 
     ok() {
-      this.$uibModalInstance.close({ exportMode: this.exportMode, withJSON: this.withJSON });
+      if (!this.$localStorage.bonitaUIDesigner) {
+        this.$localStorage.bonitaUIDesigner = {};
+      }
+      this.$localStorage.bonitaUIDesigner.doNotShowExportMessageAgain = this.doNotShowAgain;
+      this.$uibModalInstance.close();
     }
   }
 
