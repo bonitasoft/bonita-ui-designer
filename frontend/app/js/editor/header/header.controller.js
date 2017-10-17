@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, browserHistoryService, keyBindingService, $scope) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -12,6 +12,7 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
       this.$window = $window;
+      this.$localStorage = $localStorage;
       this.browserHistoryService = browserHistoryService;
       this.pristine = true;
       this.dirty = false;
@@ -72,25 +73,29 @@
       return data;
     }
 
-    saveAndExport(page) {
-      var modalInstance = this.$uibModal.open({
-        templateUrl: 'js/editor/header/export-popup.html',
-        controller: 'ExportPopUpController',
-        controllerAs: 'ctrl',
-        resolve: {
-          page: () => page
-        }
-      });
+    achieveSaveAndExport(page) {
+      this.artifactRepo.save(page)
+        .then(() =>this.$window.location = this.artifactRepo.exportUrl(page));
+    }
 
-      modalInstance.result
-        .then(data => {
-          var withJSON = data.withJSON;
-          var exportMode = data.exportMode;
-          this.artifactRepo.save(page)
-            .then(() => {
-              this.$window.location = this.artifactRepo.exportUrl(page, exportMode, withJSON);
-            });
+    saveAndExport(page) {
+      if (!this.$localStorage.bonitaUIDesigner || !this.$localStorage.bonitaUIDesigner.doNotShowExportMessageAgain) {
+        var modalInstance = this.$uibModal.open({
+          templateUrl: 'js/editor/header/export-popup.html',
+          controller: 'ExportPopUpController',
+          controllerAs: 'ctrl',
+          resolve: {
+            page: () => page
+          }
         });
+
+        modalInstance.result
+          .then(() => {
+            this.achieveSaveAndExport(page);
+          });
+      } else {
+        this.achieveSaveAndExport(page);
+      }
     }
   }
 

@@ -30,6 +30,7 @@
     "stomp-websocket": "2.3.4",
     "angular-moment": "0.9.0",
     "ngUpload": "0.5.16",
+    "ngstorage": "0.3.11",
     "angular-ui-validate": "1.2.2",
     "angular-dynamic-locale": "0.1.29",
     "identicon.js": "redboul/identicon.js#1.0.0",
