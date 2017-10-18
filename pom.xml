@@ -38,7 +38,7 @@
                     <version>1.5</version>
                     <configuration>
                         <installDirectory>${session.executionRootDirectory}</installDirectory>
-                        <nodeVersion>v6.9.4</nodeVersion>
+                        <nodeVersion>v8.7.0</nodeVersion>
                         <npmVersion>3.10.10</npmVersion>
                     </configuration>
                 </plugin>
