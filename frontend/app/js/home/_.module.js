@@ -21,6 +21,7 @@
     'bonitasoft.designer.common.directives',
     'bonitasoft.designer.home.import',
     'bonitasoft.designer.templates',
+    'bonitasoft.designer.editor.header',
     'ui.bootstrap',
     'ui.router',
     'ui.validate',

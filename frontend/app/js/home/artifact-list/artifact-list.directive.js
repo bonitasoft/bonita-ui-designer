@@ -17,9 +17,10 @@
 
   class ArtifactListController {
 
-    constructor($uibModal, $timeout, repositories, gettextCatalog) {
+    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog) {
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
+      this.$localStorage = $localStorage;
       this.getRepository = (type) => repositories.get(type);
       this.gettextCatalog = gettextCatalog;
     }
@@ -48,6 +49,36 @@
       modalInstance.result
         .then((id) => this.getRepository(artifact.type).delete(id))
         .then(this.refreshAll);
+    }
+
+    exportArtifact(artifact) {
+      if (this.showExportPopup(artifact.type)) {
+        var modalInstance = this.$uibModal.open({
+          templateUrl: 'js/editor/header/export-popup.html',
+          controller: 'ExportPopUpController',
+          controllerAs: 'ctrl',
+          resolve: {
+            page: () => artifact
+          }
+        });
+
+        modalInstance.result
+          .then(() => {
+            this.achieveExport(artifact);
+          });
+      } else {
+        this.achieveExport(artifact);
+      }
+    }
+
+    showExportPopup(artifactType) {
+      let storage = this.$localStorage.bonitaUIDesigner;
+      return artifactType === 'page' &&
+        (!storage || !storage.doNotShowExportMessageAgain);
+    }
+
+    achieveExport(artifact) {
+      this.downloadArtifact(this.getRepository(artifact.type).exportUrl(artifact));
     }
 
     /**
@@ -96,7 +127,8 @@
     scope: true,
     bindToController: {
       all: '=*artifacts',
-      refreshAll: '='
+      refreshAll: '=',
+      downloadArtifact: '='
     },
     templateUrl: 'js/home/artifact-list/artifact-list.html'
   }));

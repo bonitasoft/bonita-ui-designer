@@ -2,13 +2,14 @@ describe('artifactListController', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home'));
 
-  var $scope, $q, $uibModal, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
+  var $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
 
   beforeEach(inject(function($rootScope, $compile, $injector) {
 
-    $scope = $rootScope.$new();
+    $scope = $rootScope;
     $q = $injector.get('$q');
     $uibModal = $injector.get('$uibModal');
+    $localStorage = $injector.get('$localStorage');
     pageRepo = $injector.get('pageRepo');
     widgetRepo = $injector.get('widgetRepo');
     $state = $injector.get('$state');
@@ -16,6 +17,7 @@ describe('artifactListController', function() {
     $httpBackend = $injector.get('$httpBackend');
 
     $scope.refreshAll = jasmine.createSpy('refreshAll');
+    $scope.downloadArtifact = jasmine.createSpy('downloadArtifact');
     $scope.artifacts = [
       {
         id: 'page1',
@@ -32,7 +34,7 @@ describe('artifactListController', function() {
       }
     ];
 
-    element = $compile('<artifact-list artifacts="artifacts" refresh-all="refreshAll"></artifact-list>')($scope);
+    element = $compile('<artifact-list artifacts="artifacts" refresh-all="refreshAll" download-artifact="downloadArtifact"></artifact-list>')($scope);
     $scope.$digest();
   }));
 
@@ -61,9 +63,34 @@ describe('artifactListController', function() {
   });
 
   it('should export an artifact', function() {
-    $httpBackend.expectGET('export/page/page1').respond(200);
+    spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/page1');
+    var fakeModal = {
+      result: $q.when()
+    };
+    spyOn($uibModal, 'open').and.returnValue(fakeModal);
 
     element.find('#page1 .Artifact-export').click();
+
+    expect($uibModal.open).toHaveBeenCalled();
+    expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/export-popup.html');
+    expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('ExportPopUpController');
+
+    expect($scope.downloadArtifact).toHaveBeenCalledWith('export/page/page1');
+  });
+
+  it('should export an artifact without displaying message', function() {
+    $localStorage.bonitaUIDesigner = { doNotShowExportMessageAgain: true };
+    spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/page1');
+    var fakeModal = {
+      result: $q.when()
+    };
+    spyOn($uibModal, 'open').and.returnValue(fakeModal);
+
+    element.find('#page1 .Artifact-export').click();
+
+    expect($uibModal.open).not.toHaveBeenCalled();
+
+    expect($scope.downloadArtifact).toHaveBeenCalledWith('export/page/page1');
   });
 
   it('should rename an artifact if the name has changed', function() {

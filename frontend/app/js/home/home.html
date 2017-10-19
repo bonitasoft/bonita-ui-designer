@@ -47,7 +47,8 @@
                         <artifact-list
                             ng-if="type.active = ($index === active)"
                             artifacts="artifacts[type.id] | orderBy:$storage.homeSortOrder"
-                            refresh-all="refreshAll"></artifact-list>
+                            refresh-all="refreshAll"
+                            download-artifact="downloadArtifact"></artifact-list>
                     </uib-tab>
                 </uib-tabset>
             </section>

@@ -79,7 +79,8 @@
     }
 
     saveAndExport(page) {
-      if (!this.$localStorage.bonitaUIDesigner || !this.$localStorage.bonitaUIDesigner.doNotShowExportMessageAgain) {
+      let storage = this.$localStorage.bonitaUIDesigner;
+      if (!storage || !storage.doNotShowExportMessageAgain) {
         var modalInstance = this.$uibModal.open({
           templateUrl: 'js/editor/header/export-popup.html',
           controller: 'ExportPopUpController',
