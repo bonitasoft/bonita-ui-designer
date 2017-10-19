@@ -19,7 +19,7 @@
   'use strict';
 
   class HomeCtrl {
-    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, gettextCatalog) {
+    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, $window, gettextCatalog) {
 
       $scope.artifacts = {};
       $scope.$storage = $localStorage;
@@ -43,6 +43,7 @@
 
       $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
       $scope.getActivatedArtifact = () => $scope.types.filter(type => type.active)[0];
+      $scope.downloadArtifact = (url) => $window.location = url;
 
       let factories = artifactFactories.getFactories();
       $scope.types = Object.keys(factories).map((key) => ({

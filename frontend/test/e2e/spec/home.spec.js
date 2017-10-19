@@ -137,8 +137,7 @@ describe('home page', function() {
     expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the page Person?');
   });
 
-  // deactivated since it fails randomly on our CI
-  xit('should not delete page if user cancels deletion', function() {
+  it('should not delete page if user cancels deletion', function() {
     var numberOfPages = element.all(by.repeater('page in pages')).count();
     //We want to delete a page
     $$('#person-page .Artifact-delete').first().click();
@@ -147,20 +146,22 @@ describe('home page', function() {
     //Disable animation for modal
     $$('#confirm-delete-popup').allowAnimations(false);
 
-    $$('#confirm-delete-popup .modal-footer button').get(0).click();
+    $$('#confirm-delete-popup .modal-footer button[name=cancel]').get(0).click();
     browser.waitForAngular();
     expect($$('#confirm-delete-popup').count()).toBe(0);
     //and the page is not deleted
-    expect(home.getListedPageNames().count()).toBe(numberOfPages);
+    var newNumberOfPages = element.all(by.repeater('page in pages')).count();
+    expect(newNumberOfPages).toBe(numberOfPages);
 
   });
 
   it('should export a page', function() {
     var btn = $$('#person-page .Artifact-export').first();
-    var iframe = $$('.ExportArtifact').first();
     btn.click();
 
-    expect(iframe.getAttribute('src')).toMatch(/\/export\/page\/person/);
+    $$('.EditorHeader-exportForm .modal-footer button[name=export]').get(0).click();
+    browser.waitForAngular();
+    expect($$('.EditorHeader-exportForm').count()).toBe(0);
   });
 
   it('should open a modal to confirm widget deletion', function() {

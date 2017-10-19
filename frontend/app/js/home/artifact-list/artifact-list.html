@@ -43,7 +43,7 @@
             <favorite-button artifact-repository="::artifactList.getRepository(artifact.type)"
                              artifact=":: artifact"></favorite-button>
             <button file-download class="Artifact-button Artifact-button--primary Artifact-export"
-                    href="{{:: artifactList.getRepository(artifact.type).exportUrl(artifact) }}"
+                    ng-click="artifactList.exportArtifact(artifact)"
                     title="{{:: artifactList.translateKeys('Export') }}">
                 <i class="ui-icon ui-export"></i>
             </button>
