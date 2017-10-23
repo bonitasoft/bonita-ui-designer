@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2017-10-16 20:46-0400\n"
+"PO-Revision-Date: 2017-10-22 18:21-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -69,7 +69,7 @@ msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <
 msgstr "<em><b>Exemple</b></em>: Utilisez la clé <em>nom.submit.bouton</em> pour la propriété <b>Libellé</b> d'un bouton Submit. Utilisez la clé <em>format.date</em> pour la propriété <b>Format de la date</b> et <em>placeholder.date</em> pour la propriété <b>Placeholder</b> du widget Date picker. Ensuite, mettez l'asset <em>localization.json</em> à jour avec les traductions de <em>nom.bouton.submit</em>, <em>format.date</em> en anglais, et <em>placeholder.date</em> dans la langue de traduction."
 
 msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
-msgstr ""
+msgstr "Les actions <em>Ajouter à la collection</em> ou <em>Supprimer de la collection</em> peuvent être utilisées pour préparer les données avant de les envoyer au serveur (ex. si vous avez un contrat de processus/tâche avec un input multiple). Aucune demande ne sera envoyée au serveur. Le bouton mettra juste à jour les données de la <em>Collection</em> qui doivent être une variable de type tableau (<code>[]</code> en JSON)."
 
 msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
 msgstr "<em>DATE (NOT RECOMMENDED)</em> (basé sur <code>java.util.Date</code>)"
@@ -84,13 +84,13 @@ msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</
 msgstr "<em>DATE-TIME (TIME ZONE)</em> (basé sur <code>java.time.OffsetDateTime</code>) : mettre la propriété <em>Gérer fuseau horaire</em> à \"oui\""
 
 msgid "<em>Failed response value</em>: the variable will be set if the request is unsuccessful (code 4XX)"
-msgstr ""
+msgstr "<em>Valeur de réponse en cas d'échec</em> : la variable sera définie si la demande est en échec (code 4XX)"
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "<em>Note sur les widgets</em> Date <em>et</em> Date Time : la traduction de la propriété <em>Placeholder</em> doit être cohérente avec celle de la propriété <em>Format technique de la date</em> (ordre et nombre de lettres). Cependant, leurs clés de traduction doivent être différentes, pour éviter toute incohérence de traduction."
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
-msgstr ""
+msgstr "<em>Valeur de réponse en cas de succès</em> : la variable sera définie si la demande est à succès (code 2XX)"
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans l'URL, employez la syntaxe <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\"> Astuce :</span> Pour étendre les capacités de notre API REST, créez des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et utilisez-les ici</p>"
@@ -183,7 +183,7 @@ msgid "Add to collection"
 msgstr "Ajouter à la collection "
 
 msgid "Add/Remove an Object to/from a collection"
-msgstr ""
+msgstr "Ajouter/supprimer un Objet à/d'une collection"
 
 msgid "Added artifacts"
 msgstr "Artefacts ajoutés"
@@ -268,6 +268,9 @@ msgstr "A l'exécution, les assets d'un widget personnalisé sont chargés dans 
 
 msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
 msgstr "A l'exécution, les assets des widgets personnalisés sont chargés dans l'ordre alphabétique des noms de widgets personnalisés. Pour chaque widget personnalisé, les assets sont chargés dans l'ordre où ils apparaissent. Puis les assets de la page sont chargés à leur tour. Les assets JavaScript et CSS sont chargés dans le header de la page."
+
+msgid "Attention:"
+msgstr "Attention :"
 
 msgid "Available values"
 msgstr "Valeurs disponibles"
@@ -375,7 +378,7 @@ msgid "Collection"
 msgstr "Collections"
 
 msgid "Collections"
-msgstr ""
+msgstr "Collections"
 
 msgid "Column keys"
 msgstr "Clés des colonnes"
@@ -562,9 +565,6 @@ msgstr "Détermine l’application cible. Il est recommandé de ne pas le saisir
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "Détermine le thème de l’application qui sera utilisé par la page cible. Il est recommandé de ne pas le saisir en dur."
 
-msgid "Development (readable Javascript and JSON descriptor)"
-msgstr ""
-
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -582,6 +582,9 @@ msgstr "Afficher ou masquer le bouton de raccourci pour régler la date et l’h
 
 msgid "Displayed key"
 msgstr "Clé affichée"
+
+msgid "Do not show me this dialog again"
+msgstr "Ne plus afficher ce dialogue"
 
 msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "Voulez-vous toujours importer ce/tte {{ ::importReport.type }} ?"
@@ -616,9 +619,6 @@ msgstr "Modifier le widget personnalisé"
 msgid "Edit variable"
 msgstr "Modifier la variable"
 
-msgid "Editable in the UI Designer (JSON descriptor)"
-msgstr ""
-
 msgid "Editor organization"
 msgstr "Organisation de l'Editeur de page"
 
@@ -644,7 +644,10 @@ msgid "Export"
 msgstr "Exporter"
 
 msgid "Export {{ctrl.page.name}}"
-msgstr ""
+msgstr "Exporter {{ctrl.page.name}}"
+
+msgid "Exported formats"
+msgstr "Formats exportés"
 
 msgid "Exposed"
 msgstr "Exposée"
@@ -680,22 +683,25 @@ msgid "First"
 msgstr "Premier"
 
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
-msgstr ""
+msgstr "Pour les actions <em>Démarrer le processus</em> et <em>Soumettre une tâche</em>, le format des données doit satisfaire les spécifications du contract de processus/tâche."
 
 msgid "For HTTP requests and Start process / Submit task actions, you can store the response of the request in a variable using the properties:"
-msgstr ""
+msgstr "Pour les requêtes HTTP et les actions Démarrer un processsus et Soumettre une tâche, vous pouvez stocker la réponse de la requête dans une variable en utilisant les propriétés :"
 
 msgid "For HTTP requests, the following methods are supported:"
-msgstr ""
+msgstr "Pour les requêtes HTTP, les méthodes suivantes sont supportées :"
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
-msgstr ""
+msgstr "Pour une réponse en cas d'erreur, la valeur du message est « erreur » et la propriété <em>dataFromSuccess</em> est remplacée par une propriété <em>dataFromError</em>"
 
-msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal's admin profile)."
-msgstr ""
+msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
+msgstr "Pour un exemple de code JavaScript qui gère le message, ouvrez l’asset <em>layout.js</em> du layout d’application par défaut (à exporter depuis la page Ressources du profil Administrateur de Bonita Portal)."
 
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "Pour les formats de date particulièrement, le UI Designer embarque un filtre <em>uiDate</em> pour afficher facilement des dates de la BDM ou de toute autre API REST."
+
+msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
+msgstr "Pour plus d’informations, consultez la <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\"> documentation</a>."
 
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "Pour plus d'information, reportez-vous à la section d'aide <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localisation</em></a>."
@@ -729,9 +735,6 @@ msgstr "GET"
 
 msgid "General"
 msgstr "Général"
-
-msgid "Generate an artifact for:"
-msgstr ""
 
 msgid "Get a case by its identifier"
 msgstr "Obtenir un cas par son identifiant"
@@ -770,7 +773,7 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
-msgstr ""
+msgstr "Voici le format du message JSON envoyé au cadre parent (dans le cadre parent, vous devrez appeler <code>JSON.parse</code> comme le message est transformé en chaîne de caractères avant d’être envoyé) :"
 
 msgid "Hidden"
 msgstr "Caché"
@@ -794,7 +797,7 @@ msgid "However, <b>the output of the widget is always a Javascript Date object</
 msgstr "Toutefois, <b>la sortie du widget est toujours un objet Javascript Date</b>. Donc la variable liée à la <em>valeur</em> de la widget deviendra un objet Date lorsque l’utilisateur sélectionnera une date. Ce comportement permet d'assurer la rétrocompatibilité des pages crées avec d'anciennes versions du UI Designer."
 
 msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
-msgstr ""
+msgstr "Cependant, telle une redirection de la fenêtre active (frame) ne sera pas effectuée dans Bonita Portal ni dans un iframe d'application avec l'id <em>bonitaframe</em> (comme dans le layout d’application par défaut). Cela est dû au fait que Bonita Portal et le layout d'application par défaut gèrent la réponse en cas de succès par eux-mêmes."
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"
@@ -805,8 +808,11 @@ msgstr "L'Id doit être unique, donc le/la {{ ::importReport.type }} {{ ::import
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "L'Id doit être unique, donc ces éléments seront écrasés."
 
+msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
+msgstr "Si vous cochez cette case, la pop-up ne s’affichera plus, à moins que vous ne vidiez le cache de votre navigateur"
+
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
-msgstr ""
+msgstr "Si la page est affichée à l’intérieur d’un iframe, un postMessage JavaScript sera envoyé au cadre <b>parent</b> avec l’état de la réponse et les valeurs de propriétés du widget button. Bonita Portal, la liste des tâches ou le layout d’application par défaut gèrent ce message différemment :"
 
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "Si les widgets standards ne répondent pas exactement à vos besoins, vous pouvez créer un widget personnalisé. Après création, un widget personnalisé est mis à disposition dans la palette pour concevoir des pages, des formulaires, des fragments ou des layouts."
@@ -842,7 +848,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
-msgstr ""
+msgstr "En plus de la variable de la <em>valeur de réponse en cas de succès</em>, pour les requêtes <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Start process</em> et <em>Submit task</em> vous pouvez également définir une <em>URL cible en cas de succès</em> qui sera être utilisée pour définir l’emplacement de la fenêtre actuelle (frame) lorsque la requête est à succès."
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artefacts des interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
@@ -864,15 +870,6 @@ msgstr "Dans le cadre d'une page, d'un formulaire ou d'un layout, une variable p
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "Dans cette liste, vous pouvez utiliser les flèches pour ré-ordonner les assets, voir les assets locaux, éditer les assets externes et supprimer tout type d'assets."
-
-msgid "Includes a readable version of all the widgets' Javascript"
-msgstr ""
-
-msgid "Includes only a minified version of the widgets' Javavascript"
-msgstr ""
-
-msgid "Includes the UI Designer JSON descriptor of the page"
-msgstr ""
 
 msgid "Includes the localized version of the Technical date format property, to guide the user"
 msgstr "Inclut la version localisée de la propriété Format technique de date, pour guider l’utilisateur"
@@ -915,6 +912,9 @@ msgstr "Élément à supprimer"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON descriptor to exchange between UI Designers"
+msgstr "Descripteur JSON permettant d'échanger des fichiers entre UI Designers"
 
 msgid "JSON specifications can be found on the"
 msgstr "Plus d'informations sur les spécifications JSON sur"
@@ -1004,13 +1004,16 @@ msgid "Max value"
 msgstr "Valeur maximum"
 
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "Millisecondes depuis Epoch (nombre ou variable String)"
 
 msgid "Min value"
 msgstr "Valeur minimum"
+
+msgid "Minified widgets JavaScript for optimized performance"
+msgstr "JavaScript minifié des widgets, pour des performances optimisées en production"
 
 msgid "Move the row down"
 msgstr "Déplacer la ligne vers le bas"
@@ -1115,7 +1118,7 @@ msgid "Parent frame (_parent)"
 msgstr "Cadre parent (_parent)"
 
 msgid "Perform an HTTP request"
-msgstr ""
+msgstr "Effectue une requête HTTP"
 
 msgid "Placeholder"
 msgstr "Placeholder"
@@ -1137,9 +1140,6 @@ msgstr "Nom du processus"
 
 msgid "Process version"
 msgstr "Version du processus"
-
-msgid "Production (optimized Javascript)"
-msgstr ""
 
 msgid "Properties"
 msgstr "Propriétés"
@@ -1178,7 +1178,7 @@ msgid "Repeated container"
 msgstr "Container répété"
 
 msgid "Request"
-msgstr ""
+msgstr "Requête"
 
 msgid "Required"
 msgstr "Obligatoire"
@@ -1187,7 +1187,7 @@ msgid "Required angular modules"
 msgstr "Modules AngularJS requis"
 
 msgid "Response"
-msgstr ""
+msgstr "Réponse"
 
 msgid "Returned key"
 msgstr "Clé retournée"
@@ -1327,8 +1327,11 @@ msgstr "Spécifie l'endroit où le document lié sera ouvert"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Indiquez le nombre de colonnes de l'élément. Tous les éléments peuvent prendre jusqu'à 12 colonnes."
 
+msgid "Standard widgets JavaScript for edition outside the UI Designer"
+msgstr "JavaScript standard des widgets, pour éditer la page en dehors du UI Designer"
+
 msgid "Start a process"
-msgstr ""
+msgstr "Démarrer un processus"
 
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Débutez la création des <b>formulaires de processus</b> dans Bonita Studio : dans le pool ou la tâche humaine adéquate, créez un contrat (le nécessaire attendu pour s'exécuter) puis lancez le UI Designer. Le formulaire sera automatiquement généré. Il est basé sur le contrat et peut être édité."
@@ -1352,7 +1355,7 @@ msgid "Submit"
 msgstr "Soumettre"
 
 msgid "Submit a task"
-msgstr ""
+msgstr "Soumettre une tache"
 
 msgid "Submit task"
 msgstr "Soumettre une tache"
@@ -1396,6 +1399,9 @@ msgstr "Texte utilisé pour structurer le contenu de la page ou du formulaire"
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texte, incluant éventuellement des variables dans des expressions simples en utilisant l'interpolation avec {{ variableName }}"
 
+msgid "The .zip archive of an exported page contains:"
+msgstr "L’archive .zip d’une page exportée contient :"
+
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
 msgstr "Les propriétés <em>Format technique de date</em> et <em>Format technique d'heure</em> définissent le format et les valeurs affichées dans les inputs de date et heure.\n"
@@ -1407,7 +1413,7 @@ msgstr "La propriété <em>Format technique de date</em> définit le format et l
 "            Elle doit correspondre à un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> format de date AngularJS</a> valide."
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
-msgstr ""
+msgstr "Les <em>données envoyées au clic</em> pour les demandes POST et PUT doivent être un objet JavaScript (un JSON peut être utilisé). Ces données seront envoyées dans le corps de la requête."
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>. Vous pouvez donc exporter des pages dans votre environnement de développement web favori pour les personnaliser davantage."
@@ -1431,25 +1437,13 @@ msgid "The custom widget HTML template is defined here."
 msgstr "Le template HTML du widget personnalisé est défini ici."
 
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
-msgstr ""
+msgstr "Le layout d’application par défaut va récupérer l' <em>URL cible en cas de succès</em> qui a été envoyée dans le message et définir l'emplacement de sa fenêtre grâce à elle."
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "L’affichage des dates et des heures s’appuie sur le fuseau horaire du navigateur de l’utilisateur. Par conséquent, les valeurs affichées diffèrent des valeurs stockées (sauf pour le fuseau horaire GMT)."
 
 msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
-msgstr ""
-
-msgid "The generated artifact can be imported back in the UI Designer."
-msgstr ""
-
-msgid "The generated artifact cannot be imported back in the UI Designer."
-msgstr ""
-
-msgid "The generated artifact is not optimized for database space and performance."
-msgstr ""
-
-msgid "The generated artifact is optimized for database space and performance."
-msgstr ""
+msgstr "La documentation suivante s’applique si vous avez besoin gérer vous-même le comportement en cas de succès (par exemple si vous construisez votre propre liste de tâches, ou toute page contenant un iframe pour afficher des formulaires)."
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "Le/la {{ ::importReport.type }} importé(e) contient également de nouveaux éléments."
@@ -1473,10 +1467,10 @@ msgid "The page has not been imported."
 msgstr "La page n'a pas été importée."
 
 msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
-msgstr ""
+msgstr "Bonita Portal et la liste de tâches seront redirigés vers la liste des processus (pour l'action <em>Démarrer un processus</em>) ou rafraîchiront la liste de tâches (pour l'action <em>Soumettre une tâche</em>)."
 
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
-msgstr ""
+msgstr "La propriété <em>Valeur à ajouter</em> peut être un objet JavaScript ou un String selon le format prévu pour la collection que vous créez."
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "L'info-bulle sera affiché comme tel, à proximité du libellé de la propriété."
@@ -1701,7 +1695,7 @@ msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)
 msgstr "Utilisez ce widget pour faire sélectionner une date et une heure (par exemple pour planifier une réunion)."
 
 msgid "Use this widget to:"
-msgstr ""
+msgstr "Utilisez ce widget pour :"
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
@@ -1790,9 +1784,6 @@ msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis l
 msgid "You can apply it to the following variable value types:"
 msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
 
-msgid "You can choose what to export depending on the artifact's target."
-msgstr ""
-
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
 
@@ -1828,6 +1819,9 @@ msgstr "Vous avez des modifications non enregistrées. Voulez-vous vraiment quit
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Vous devriez créer le formulaire de processus à partir du Studio : dans le pool ou la tâche humaine adéquate, créez un contrat et lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
+
+msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
+msgstr "Vous devrez gérer la minification et mettre à jour les URL des ressources pour déclencher le cache-busting et prendre en compte les modifications."
 
 msgid "_self"
 msgstr "_self"
@@ -1875,6 +1869,9 @@ msgstr "masqué"
 
 msgid "http://"
 msgstr "http://"
+
+msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
+msgstr "si vous modifiez une page, un formulaire ou un layout en dehors du UI Designer, vous ne serez pas en mesure de la/le réimporter."
 
 msgid "info"
 msgstr "info"
