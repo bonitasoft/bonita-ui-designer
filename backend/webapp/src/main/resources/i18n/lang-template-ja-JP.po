@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-10-16 20:50-0400\n"
+"PO-Revision-Date: 2017-10-22 18:24-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -270,6 +270,9 @@ msgstr "カスタム ウィジェットのアセットは実行時に定義し�
 
 msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
 msgstr "カスタム ウィジェットのアセットは実行時にカスタム ウィジェット名のアルファベット順にロードされます。各カスタム ウィジェットのアセットはそれらがリストされている順にロードされ、その後、ページのアセットがロードされます。JavaScript と CSS のアセットはページヘッダー順にロードされます。"
+
+msgid "Attention:"
+msgstr ""
 
 msgid "Available values"
 msgstr "使用可能な値"
@@ -564,9 +567,6 @@ msgstr "ターゲット アプリケーションを指定します。ハード �
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "ターゲット ページで使用するアプリケーションのテーマを指定します。ハード コーディングしないことを推奨します。"
 
-msgid "Development (readable Javascript and JSON descriptor)"
-msgstr "開発（読み取り可能な Javascript と JSON 記述子）"
-
 msgid "Disabled"
 msgstr "無効"
 
@@ -584,6 +584,9 @@ msgstr "日付と時刻を現在の日時に設定するショートカット �
 
 msgid "Displayed key"
 msgstr "表示するキー"
+
+msgid "Do not show me this dialog again"
+msgstr ""
 
 msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "この {{ ::importReport.type }} をインポートしてもよろしいですか？"
@@ -618,9 +621,6 @@ msgstr "カスタム ウィジェットを編集"
 msgid "Edit variable"
 msgstr "変数を編集"
 
-msgid "Editable in the UI Designer (JSON descriptor)"
-msgstr "UI デザイナー（JSON 記述子）で編集可能 "
-
 msgid "Editor organization"
 msgstr "エディタの構成設定"
 
@@ -647,6 +647,9 @@ msgstr "エクスポート"
 
 msgid "Export {{ctrl.page.name}}"
 msgstr "{{ctrl.page.name}} をエクスポート"
+
+msgid "Exported formats"
+msgstr ""
 
 msgid "Exposed"
 msgstr "公開"
@@ -693,11 +696,14 @@ msgstr "HTTP リクエストに対しては、次の方法がサポートされ�
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr ""
 
-msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal's admin profile)."
+msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
 msgstr ""
 
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "特に日付書式に関しては、UI デザイナーは、 BDM または他の REST API から取得した日付を簡単に示する <em>uiDate</em> フィルターを装備しています。"
+
+msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
+msgstr ""
 
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "詳細については、<a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>ローカリゼーション</em>のヘルプ セクション</a> を参照してください。"
@@ -731,9 +737,6 @@ msgstr "GET"
 
 msgid "General"
 msgstr "全般"
-
-msgid "Generate an artifact for:"
-msgstr "次の生成物を生成： "
 
 msgid "Get a case by its identifier"
 msgstr "案件IDで案件を取得する"
@@ -807,6 +810,9 @@ msgstr "{{ ::importReport.type }} {{ ::importReport.name }} は上書きされ�
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
 
+msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
+msgstr ""
+
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr ""
 
@@ -867,15 +873,6 @@ msgstr "変数は、ページ、フォーム、またはレイアウトの有効
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
 
-msgid "Includes a readable version of all the widgets' Javascript"
-msgstr "すべてのウィジェットの Javascript の読み取り可能バージョンを含む"
-
-msgid "Includes only a minified version of the widgets' Javavascript"
-msgstr "ウィジェットの Javavascript の 圧縮（minify）バージョンのみを含む"
-
-msgid "Includes the UI Designer JSON descriptor of the page"
-msgstr "ページの UI デザイナー JSON 記述子を含む"
-
 msgid "Includes the localized version of the Technical date format property, to guide the user"
 msgstr "ユーザーをガイドするため、ローカライズされた日付書式プロパティが含まれています。"
 
@@ -918,6 +915,9 @@ msgstr "削除する項目"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON descriptor to exchange between UI Designers"
+msgstr ""
 
 msgid "JSON specifications can be found on the"
 msgstr "JSONの仕様が見つかりません："
@@ -1014,6 +1014,9 @@ msgstr "1970/01/01からのミリ秒単位の経過時間（Long または文字
 
 msgid "Min value"
 msgstr "最小値"
+
+msgid "Minified widgets JavaScript for optimized performance"
+msgstr ""
 
 msgid "Move the row down"
 msgstr "行を下に移動"
@@ -1140,9 +1143,6 @@ msgstr "プロセス名"
 
 msgid "Process version"
 msgstr "プロセスのバージョン"
-
-msgid "Production (optimized Javascript)"
-msgstr "プロダクション（最適化された Javascript）"
 
 msgid "Properties"
 msgstr "プロパティ"
@@ -1330,6 +1330,9 @@ msgstr "リンクされたドキュメントを開く場所を指定します"
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
 
+msgid "Standard widgets JavaScript for edition outside the UI Designer"
+msgstr ""
+
 msgid "Start a process"
 msgstr "プロセスを開始"
 
@@ -1399,6 +1402,9 @@ msgstr "ページまたはフォームのコンテンツの構造化に使用さ
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "テキスト、必要に応じて {{variableName}} を使用した補完で簡単な式に中に変数を含めることができます"
 
+msgid "The .zip archive of an exported page contains:"
+msgstr ""
+
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
 msgstr "<em>テクニカルな日付書式</em> と <em>テクニカルな時刻書式</em> のプロパティは、日時入力に表示する値の書式を定義します。\n"
@@ -1441,18 +1447,6 @@ msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーン
 
 msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
 msgstr ""
-
-msgid "The generated artifact can be imported back in the UI Designer."
-msgstr "UI デザイナーで生成された生成物をインポートできます。"
-
-msgid "The generated artifact cannot be imported back in the UI Designer."
-msgstr "UI デザイナーで生成された生成物をインポートできません。"
-
-msgid "The generated artifact is not optimized for database space and performance."
-msgstr "生成された生成物は、データベース容量とパフォーマンスのために最適化されていません。"
-
-msgid "The generated artifact is optimized for database space and performance."
-msgstr "生成された生成物は、データベース容量とパフォーマンスのために最適化されています。"
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
@@ -1793,9 +1787,6 @@ msgstr "ホームページから<b>カスタム ウィジェット</b>も作成�
 msgid "You can apply it to the following variable value types:"
 msgstr "次の変数の値型に適用することができます："
 
-msgid "You can choose what to export depending on the artifact's target."
-msgstr "生成物のターゲットによってエクスポートするものを選択できます。"
-
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
 
@@ -1831,6 +1822,9 @@ msgstr "変更が保存されていません。本当に終了しても良いで
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
+
+msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
+msgstr ""
 
 msgid "_self"
 msgstr "_self"
@@ -1877,6 +1871,9 @@ msgstr "非表示"
 
 msgid "http://"
 msgstr "http://"
+
+msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
+msgstr ""
 
 msgid "info"
 msgstr "info"
