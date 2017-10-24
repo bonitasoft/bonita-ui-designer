@@ -233,11 +233,11 @@ describe('asset panel', function() {
       popup.type = 'Image';
       popup.source = 'Local';
 
-      popup.file = path.resolve(__dirname, 'protractor.png');
+      popup.file = path.resolve(__dirname,'resources', 'protractor.png');
       expect($('div.file-upload + div.text-warning').getText()).toBe(' An Image asset named protractor.png is already added to assets.\nClick Add to override.');
       expect(popup.addBtn.isEnabled()).toBeTruthy();
 
-      popup.file = path.resolve(__dirname, 'karma.png');
+      popup.file = path.resolve(__dirname,'resources', 'karma.png');
       expect($('div.file-upload + div.text-warning').isPresent()).toBeFalsy();
 
       // Cannot test add button since for now there is no way to mock http calls outside $http service.

@@ -46,7 +46,7 @@ describe('moving components test', function() {
 
     //simulate mouseover to display the component toolbars
     browser.actions().mouseMove(secondComponent.element(by.css('.move-left'))).click().perform();
-    expect(editor.components.first().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-2');
+    expect(editor.components.first().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs');
   });
 
   it('should allow moving a component right', function() {
@@ -56,7 +56,7 @@ describe('moving components test', function() {
     secondComponent.click();
     //simulate mouseover to display the component toolbar
     browser.actions().mouseMove(secondComponent.element(by.css('.move-right'))).click().perform();
-    expect(editor.components.last().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-2');
+    expect(editor.components.last().element(by.xpath('../..')).getAttribute('class')).toContain('col-xs');
   });
 
   it('should not allow moving an existing component on #editor', function() {

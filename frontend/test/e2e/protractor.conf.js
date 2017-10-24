@@ -23,7 +23,7 @@ exports.config = {
   // to the location of this config. If no other method of starting Selenium
   // Server is found, this will default to
   // node_modules/protractor/selenium/selenium-server...
-  seleniumServerJar: '../../node_modules/webdriver-manager/selenium/selenium-server-standalone-2.53.1.jar',
+  seleniumServerJar: '../../node_modules/webdriver-manager/selenium/selenium-server-standalone-3.6.0.jar',
   // The port to start the Selenium Server on, or null if the server should
   // find its own unused port.
   seleniumPort: null,
@@ -35,7 +35,7 @@ exports.config = {
   // find the chromedriver binary. This will be passed to the Selenium jar as
   // the system property webdriver.chrome.driver. If null, Selenium will
   // attempt to find ChromeDriver using PATH.
-  chromeDriver: '../../node_modules/webdriver-manager/selenium/chromedriver_2.24',
+  chromeDriver: '../../node_modules/webdriver-manager/selenium/chromedriver_2.33',
 
   // If true, only ChromeDriver will be started, not a Selenium Server.
   // Tests for browsers other than Chrome will not run.
