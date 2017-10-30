@@ -67,7 +67,7 @@
     "merge-stream": "^0.1.7",
     "mkdirp": "^0.5.1",
     "multiparty": "^4.1.2",
-    "phantomjs-prebuilt": "2.1.7",
+    "phantomjs-prebuilt": "2.1.8",
     "protractor": "5.2.0",
     "run-sequence": "~0.3.7",
     "serve-static": "~1.6.2",
