@@ -11,7 +11,7 @@ waitJetty() {
   echo "Jetty started"
 }
 
-(cd backend/webapp/ && npm start &)
+(cd backend/webapp/ && yarn start &)
 waitJetty
-(cd frontend/ && npm start)
+(cd frontend/ && yarn start)
 

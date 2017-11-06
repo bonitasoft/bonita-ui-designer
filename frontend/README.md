@@ -1,12 +1,12 @@
 # Front end
 ## Prerequisites
 
-- Install node.js and npm
+- Install node.js and yarn
 
 - Install the local npm packages:
 
 ```shell
-$ npm install
+$ yarn install
 ```
 
 - Install selenium and the chrome driver
@@ -18,7 +18,7 @@ $ ./node_modules/protractor/bin/webdriver-manager update
 ## Dev
 
 ```shell
-$ npm start
+$ yarn start
 ```
 This starts a server on port 3000 which allows serving the development page (index.html)
 
@@ -38,7 +38,7 @@ Fix code format issues by hand if the format error report shows any error.
 ## Build
 
 ```shell
-$ npm run build
+$ yarn run build
 ```
 
 ## Start built files
@@ -53,7 +53,7 @@ minified file.
 ## Execute e2e tests
 
 ```shell
-$ npm run e2e
+$ yarn run e2e
 ```
 This generates the CSS, JS and html files, starts a selenium server on port 12001, executes the e2e tests, then
 stops the server.
@@ -68,13 +68,13 @@ $ gulp serve:e2e
 ### Single run
 
 ```shell
-$ npm test
+$ yarn test
 ```
 
 ### Watch source files and tests
 
 ```shell
-$ npm run test-watch
+$ yarn run test-watch
 ```
 
 ## Internationalization

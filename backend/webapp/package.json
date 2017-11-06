@@ -57,7 +57,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "log4js": "0.6.27",
     "optimist": "0.6.1",
-    "phantomjs-prebuilt": "2.1.7",
+    "phantomjs-prebuilt": "2.1.8",
     "through": "^2.3.6",
     "through2": "^0.6.5",
     "widget-builder": "bonitasoft/widget-builder#2.0.1"

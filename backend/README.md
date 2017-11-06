@@ -37,7 +37,7 @@ To run unit test code coverage, launch maven profile _coverage_
 #### Single run
 
 ```shell
-$ npm test
+$ yarn test
 ```
 or
 ```shell
@@ -47,7 +47,7 @@ $ gulp test
 ### Watch source files and tests
 
 ```shell
-$ npm run test-watch
+$ yarn run test-watch
 ```
 
 or
