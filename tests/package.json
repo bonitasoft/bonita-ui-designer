@@ -17,7 +17,7 @@
     "webdriver-manager": "12.0.6"
   },
   "scripts": {
-    "pretest": "webdriver-manager update",
+    "pretest": "webdriver-manager update --versions.standalone=3.7.0 --versions.chrome=2.33",
     "test": "gulp ddescriber && gulp test"
   },
   "author": "",
