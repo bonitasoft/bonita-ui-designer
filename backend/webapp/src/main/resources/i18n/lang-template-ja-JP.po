@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: charlessouillard <rodrigue.legall@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2017-10-28 21:06-0400\n"
+"PO-Revision-Date: 2017-11-15 05:23-0500\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -272,7 +272,7 @@ msgid "At runtime, custom widget assets are loaded in alphabetical order of the 
 msgstr "カスタム ウィジェットのアセットは実行時にカスタム ウィジェット名のアルファベット順にロードされます。各カスタム ウィジェットのアセットはそれらがリストされている順にロードされ、その後、ページのアセットがロードされます。JavaScript と CSS のアセットはページヘッダー順にロードされます。"
 
 msgid "Attention:"
-msgstr ""
+msgstr "注意:"
 
 msgid "Available values"
 msgstr "使用可能な値"
@@ -586,7 +586,7 @@ msgid "Displayed key"
 msgstr "表示するキー"
 
 msgid "Do not show me this dialog again"
-msgstr ""
+msgstr "今後、このダイアログは表示しない"
 
 msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "この {{ ::importReport.type }} をインポートしてもよろしいですか？"
@@ -649,7 +649,7 @@ msgid "Export {{ctrl.page.name}}"
 msgstr "{{ctrl.page.name}} をエクスポート"
 
 msgid "Exported formats"
-msgstr ""
+msgstr "エクスポートの形式"
 
 msgid "Exposed"
 msgstr "公開"
@@ -694,16 +694,16 @@ msgid "For HTTP requests, the following methods are supported:"
 msgstr "HTTP リクエストに対しては、次の方法がサポートされています："
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
-msgstr ""
+msgstr "エラー応答のメッセージの値は、 'error'、そして、プロパティ <em>dataFromSuccess</em> は、プロパティ <em>dataFromError</em> に置き換えられます。"
 
 msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
-msgstr ""
+msgstr "メッセージを処理する JavaScript コードの例は、デフォルトのアプリケーション レイアウト（これは、Bonita ポータル管理者プロファイルのリソース セクションで取得できます）内のアセット <em>layout.js</em> で見ることができます。"
 
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "特に日付書式に関しては、UI デザイナーは、 BDM または他の REST API から取得した日付を簡単に示する <em>uiDate</em> フィルターを装備しています。"
 
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
-msgstr ""
+msgstr "詳細については、<a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">ドキュメント</a> を参照してください。"
 
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "詳細については、<a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>ローカリゼーション</em>のヘルプ セクション</a> を参照してください。"
@@ -775,7 +775,7 @@ msgid "Help"
 msgstr "ヘルプ"
 
 msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
-msgstr ""
+msgstr "これは、親フレームに JSON でポストしたメッセージの形式です（送信される前に文字列化のため、親フレームで<code> JSON.parse</code> を呼び出す必要があります) ："
 
 msgid "Hidden"
 msgstr "非表示"
@@ -799,7 +799,7 @@ msgid "However, <b>the output of the widget is always a Javascript Date object</
 msgstr "ただし、<b>ウィジェットの出力は常に Javascript の Date オブジェクトになります</b>。したがって、ユーザーが「日付」を選択したときは、ウィジェット <em>値</em> にバインドする変数の型を Date オブジェクトに変更します。これは、古いバージョンの UI デザイナーでデザインされたページとの下位互換性を確保するために必要です。"
 
 msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
-msgstr ""
+msgstr "ただし、このような現在のウィンドウ (フレーム) へのリダイレクトは、Bonita ポータル内や <em>bonitaframe</em> id を使用したアプリケーション  iframe  (デフォルトのアプリケーション レイアウトなどの場合) 内では実行されません。これは、Bonita ポータルやデフォルトのアプリケーション  レイアウトは自身で成功なレスポンスを処理するものだからです。"
 
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
@@ -811,10 +811,10 @@ msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
 
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
-msgstr ""
+msgstr "チェックオンの場合、このポップアップはブラウザのキャッシュがクリーンナップされない限り、二度と表示されません。"
 
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
-msgstr ""
+msgstr "ページが iframe 内に表示されている場合、 JavaScript postMessage がレスポンスのステータスとボタン ウィジェットのプロパティ値と一緒に <b>親</b> フレームに送信されます。Bonita ポータル、タスク リストまたはデフォルトのアプリケーション レイアウトは、このメッセージを異なって処理します。"
 
 msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
 msgstr "標準ウィジェットが、あなたのニーズを満たしていない場合、あなたの希望に沿ったカスタム ウィジェットを作成できます。作成後、そのカスタム ウィジェットはページ、フォーム、またはフラグメントの設計のため、パレット内で使用可能です。"
@@ -850,7 +850,7 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
-msgstr ""
+msgstr "<em>成功時のレスポンス値</em> の変数に加え、 <em>POST</em>、<em>PUT</em>、<em>削除</em>、<em>プロセスを開始</em> 、<em>タスクを送信</em> のリクエストに対し、そのリクエストが成功したときに、現在のウィンドウ (フレーム) の場所に表示する<em>成功時のターゲットURL</em> を定義する可能性もあります。"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
@@ -917,7 +917,7 @@ msgid "JSON"
 msgstr "JSON"
 
 msgid "JSON descriptor to exchange between UI Designers"
-msgstr ""
+msgstr "UI デザイナー間でやりとりする JSON 記述子"
 
 msgid "JSON specifications can be found on the"
 msgstr "JSONの仕様が見つかりません："
@@ -1016,7 +1016,7 @@ msgid "Min value"
 msgstr "最小値"
 
 msgid "Minified widgets JavaScript for optimized performance"
-msgstr ""
+msgstr "最適化されたパフォーマンスの minified ウィジェット JavaScript"
 
 msgid "Move the row down"
 msgstr "行を下に移動"
@@ -1331,7 +1331,7 @@ msgid "Specify the number of columns of the element. All elements can take up to
 msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
 
 msgid "Standard widgets JavaScript for edition outside the UI Designer"
-msgstr ""
+msgstr "UI デザイナーの外部エディション用の標準ウィジェット JavaScript "
 
 msgid "Start a process"
 msgstr "プロセスを開始"
@@ -1403,7 +1403,7 @@ msgid "Text, optionally including variables in simple expressions for interpolat
 msgstr "テキスト、必要に応じて {{variableName}} を使用した補完で簡単な式に中に変数を含めることができます"
 
 msgid "The .zip archive of an exported page contains:"
-msgstr ""
+msgstr "エクスポートされたページの .zip アーカイブは次のとおりです："
 
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
@@ -1416,7 +1416,7 @@ msgstr "<em>テクニカルな日付書式</em>のプロパティは、日付入
 "            それらは有効な <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a> にする必要があります。"
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
-msgstr ""
+msgstr "POST や PUT リクエストの<em>クリックで送信されたデータ</em> は、 JavaScript オブジェクト（JSON を使用可）にする必要があります。このデータは、リクエストの本文で送信されます。"
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
@@ -1440,13 +1440,13 @@ msgid "The custom widget HTML template is defined here."
 msgstr "カスタム ウィジェット HTML テンプレートは、ここで定義されます。"
 
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
-msgstr ""
+msgstr "デフォルトのアプリケーション レイアウトは、メッセージで送信され、そのウィンドウの位置に設定された<em>成功時のターゲットURL</em> を取得します。"
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーンに依存します。したがって、表示されている値は、（GMT タイムゾーンを除き、）格納されている値と違います。"
 
 msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
-msgstr ""
+msgstr "成功時の振る舞いを自分で処理する必要がある（例えば、あなた独自のタスク リストを構築する、あるいはフォームを表示するために iframe で任意のページを構築する）場合 は、次のドキュメントを適用します。"
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
@@ -1470,10 +1470,10 @@ msgid "The page has not been imported."
 msgstr "ページはインポートされていません。"
 
 msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
-msgstr ""
+msgstr "ポータルやタスク リストは、プロセス リストにリダイレクト（<em>プロセスの開始</em> のアクション）するか、あるいは、タスク リストをリフレッシュ（<em>タスクを送信</em> のアクション）します。"
 
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
-msgstr ""
+msgstr "プロパティ <em>追加する値</em> は、コレクションに必要な形式に応じて JavaScript オブジェクトまたは文字列にすることができます。"
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
@@ -1698,7 +1698,7 @@ msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)
 msgstr "日時を選択するためには、このウィジェットを使用します（たとえば、会議開始時刻）。"
 
 msgid "Use this widget to:"
-msgstr ""
+msgstr "このウィジェットを使用:"
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
@@ -1824,7 +1824,7 @@ msgid "You should start process form design in the studio: from the appropriate 
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
-msgstr ""
+msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
 
 msgid "_self"
 msgstr "_self"
@@ -1873,7 +1873,7 @@ msgid "http://"
 msgstr "http://"
 
 msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
-msgstr ""
+msgstr "ページ、フォームや UI デザイナーの外側のレイアウトを編集する場合、それを再インポートすることはできません。"
 
 msgid "info"
 msgstr "info"
