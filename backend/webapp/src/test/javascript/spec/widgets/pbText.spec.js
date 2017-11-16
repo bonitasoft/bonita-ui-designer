@@ -7,16 +7,28 @@ describe('pbParagraph', function () {
   beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
     scope = $rootScope.$new();
-    scope.properties = {};
+    scope.properties = {
+      allowHTML: true
+    };
   }));
 
-  it('should contains specified html', function () {
-    scope.properties.text = "<em>hello</em>";
+  it('should contain specified html', function () {
+    scope.properties.text = '<em>hello</em>';
 
     var element = $compile('<pb-text></pb-text>')(scope);
     scope.$apply();
 
     expect(element.text().trim()).toBe("hello");
+  });
+
+  it('should not contain specified html if not allowed', function () {
+    scope.properties.allowHTML = false;
+    scope.properties.text = '<em>hello</em>';
+
+    var element = $compile('<pb-text></pb-text>')(scope);
+    scope.$apply();
+
+    expect(element.text().trim()).toBe('<em>hello</em>');
   });
 
   it('should allow text alignment', function () {
