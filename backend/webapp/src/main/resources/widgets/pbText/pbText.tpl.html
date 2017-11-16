@@ -1,1 +1,2 @@
-<p class="text-{{ properties.alignment }}" ng-bind-html="properties.text | uiTranslate"></p>
+<p ng-if="properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind-html="properties.text | uiTranslate"></p>
+<p ng-if="!properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind="properties.text | uiTranslate"></p>
