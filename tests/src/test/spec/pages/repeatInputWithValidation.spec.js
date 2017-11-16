@@ -33,7 +33,7 @@ describe('repeat container', function() {
 
     enableValidation();
 
-    let buttons = $$('button').filter(function(elem) {
+    var buttons = $$('button').filter(function(elem) {
       return elem.isDisplayed();
     });
     expect(buttons.count()).toBe(3);
@@ -48,11 +48,11 @@ describe('repeat container', function() {
   });
 
   function enableValidation() {
-     let inputs = $$('input').filter(function(elem) {
+     var inputs = $$('input').filter(function(elem) {
       return elem.isDisplayed();
     });
 
-    inputs.each(input => {
+    inputs.each(function(input) {
       input.sendKeys('a');
     });
   }
