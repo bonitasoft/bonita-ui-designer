@@ -92,7 +92,7 @@ public class ContractInputVisitorImplTest {
         Component component = (Component) secondRowInner.get(0);
         assertThat(component.getId()).isEqualTo("pbInput");
         assertThat(component.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("")));
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("")));
         Component removeButton = (Component) secondRowInner.get(1);
         assertThat(removeButton.getId()).isEqualTo("pbButton");
 
@@ -133,12 +133,12 @@ public class ContractInputVisitorImplTest {
         Component firstNameComponent = (Component) container.getRows().get(0).get(0);
         assertThat(firstNameComponent.getId()).isEqualTo("pbInput");
         assertThat(firstNameComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("First Name")));
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("First Name")));
 
         Component lastNameComponent = (Component) container.getRows().get(1).get(0);
         assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("Last Name")));
     }
 
     @Test
@@ -169,13 +169,13 @@ public class ContractInputVisitorImplTest {
         Component firstNameComponent = (Component) container.getRows().get(0).get(0);
         assertThat(firstNameComponent.getId()).isEqualTo("pbInput");
         assertThat(firstNameComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("First Name")));
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("First Name")));
 
         assertThat(container.getRows().get(1)).hasSize(1);
         Component lastNameComponent = (Component) container.getRows().get(1).get(0);
         assertThat(lastNameComponent.getId()).isEqualTo("pbInput");
         assertThat(lastNameComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")));
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("Last Name")));
 
         assertThat(container.getRows().get(2)).hasSize(1);
         Component removeButton = (Component) container.getRows().get(2).get(0);
@@ -268,7 +268,7 @@ public class ContractInputVisitorImplTest {
         Component lastnameInputComponent = (Component) subComplexContainer.getRows().get(0).get(0);
         assertThat(lastnameInputComponent.getId()).isEqualTo("pbInput");
         assertThat(lastnameInputComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Last Name")),
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("Last Name")),
                 entry(ParameterConstants.VALUE_PARAMETER, aDataPropertyValue("$item.subcomplex.lastName")));
 
         checkSubcomplexTitle(complexContainer.getRows().get(2), "Subcomplex Multiple");
@@ -286,7 +286,7 @@ public class ContractInputVisitorImplTest {
         Component friendsInputComponent = (Component) complexSecondContainer.getRows().get(0).get(0);
         assertThat(friendsInputComponent.getId()).isEqualTo("pbInput");
         assertThat(friendsInputComponent.getPropertyValues()).contains(
-                entry(ParameterConstants.LABEL_PARAMETER, aConstantPropertyValue("Friend")),
+                entry(ParameterConstants.LABEL_PARAMETER, aInterpolationPropertyValue("Friend")),
                 entry(ParameterConstants.VALUE_PARAMETER, aDataPropertyValue("$item.friend")));
 
         checkComplexRemoveButton(complexSecondContainer, 1);
