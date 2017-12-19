@@ -18,6 +18,7 @@
                 typeahead="ctrl.getLabel(item) for item in properties.availableValues | filter:$viewValue"
                 typeahead-template-url="customTypeaheadForInputAutocomplete.html"
                 ng-model="properties.value"
+                ng-model-options="{ allowInvalid: true }"
                 name="{{ctrl.name}}"
                 ng-required="properties.required"
                 ng-readonly="properties.readOnly">
