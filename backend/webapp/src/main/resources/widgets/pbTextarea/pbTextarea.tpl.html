@@ -13,6 +13,7 @@
             <textarea class="form-control"
                 name="{{ctrl.name}}"
                 ng-model="properties.value"
+                ng-model-options="{ allowInvalid: true }"
                 ng-required="properties.required"
                 ng-minlength="properties.minLength"
                 ng-maxlength="properties.maxLength"
