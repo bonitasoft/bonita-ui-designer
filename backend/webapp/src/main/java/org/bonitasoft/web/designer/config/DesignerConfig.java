@@ -41,6 +41,7 @@ import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -311,12 +312,14 @@ public class DesignerConfig {
      ******************************************************************************************************************/
     @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository,
-            BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep) {
+            BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep,
+                                                 TextWidgetInterpretHTMLMigrationStep textWidgetInterpretHTMLMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", bondMigrationStep),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>()),
-                new Migration<>("1.5.7", styleAssetMigrationStep)));
+                new Migration<>("1.5.7", styleAssetMigrationStep),
+                new Migration<>("1.7.4", textWidgetInterpretHTMLMigrationStep)));
     }
 
     @Bean

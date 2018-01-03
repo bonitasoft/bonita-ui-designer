@@ -27,6 +27,7 @@ import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -57,7 +58,7 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.5.7";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.7.4";
 
     String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
 
@@ -95,6 +96,20 @@ public class WorkspaceMigrationTest {
                 return value.getType();
             }
         })).doesNotContain("data");
+    }
+
+    @Test
+    public void should_migrate_a_page_adding_text_widget_interpret_HTML_property_value() {
+
+        Page page = pageRepository.get("page_1_5_51");
+
+        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
+        PropertyValue allowHTMLProperty = propertyValues.get("allowHTML");
+
+        assertThat(allowHTMLProperty).isNotNull();
+        assertThat(allowHTMLProperty.getType()).isEqualTo(BondType.CONSTANT.toJson());
+        assertThat(allowHTMLProperty.getValue()).isEqualTo(Boolean.TRUE);
     }
 
     @Test
