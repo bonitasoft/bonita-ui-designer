@@ -6,8 +6,8 @@ You can build entire project using maven.
     mvn clean package
     
 This will build frontend and backend and create two artifacts :
-backend/target/ui-designer-1.7-SNAPSHOT.war
-backend/target/ui-designer-1.7-SNAPSHOT-standalone.jar
+backend/target/ui-designer-1.7.12.war
+backend/target/ui-designer-1.7.12-standalone.jar
 
 ## Test
 while running `mvn clean package` only unit tests are run. 
@@ -22,7 +22,7 @@ Also frontend e2e test could be launched via
 ## Run
 To run build standalone jar, just launch it as a standard jar :
 
-    java -jar backend/target/ui-designer-1.7-SNAPSHOT-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository]
+    java -jar backend/target/ui-designer-1.7.12-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository]
 
 Application is now available at http://localhost:8080/designer/
 
@@ -30,7 +30,7 @@ You can specify workspace location where pages and widgets are stored. Default v
 
 Available options can be listed by running 
 
-    java -jar backend/target/ui-designer-1.7-SNAPSHOT-standalone.jar -h
+    java -jar backend/target/ui-designer-1.7.12-standalone.jar -h
     
 Other available options are listed here : http://tomcat.apache.org/maven-plugin-2.0/executable-war-jar.html 
     
