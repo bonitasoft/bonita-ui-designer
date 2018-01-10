@@ -42,7 +42,7 @@ public class Migration<A extends DesignerArtifact> {
     public void migrate(A artifact) {
         if (artifact.getDesignerVersion() == null || version.isGreaterThan(artifact.getDesignerVersion())) {
 
-            logger.info(format("%s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
+            logger.info(format("[MIGRATION] %s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
                     artifact.getId(),
@@ -53,7 +53,7 @@ public class Migration<A extends DesignerArtifact> {
             }
 
             artifact.setDesignerVersion(version.toString());
-            logger.info(format("%s <%s> version is now <%s>",
+            logger.info(format("[MIGRATION] %s <%s> version is now <%s>",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
                     version));

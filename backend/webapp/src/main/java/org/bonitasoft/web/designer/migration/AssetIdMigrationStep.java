@@ -35,7 +35,7 @@ public class AssetIdMigrationStep<A extends Identifiable & Assetable> implements
         for (Asset asset : artifact.getAssets()) {
             if (asset.getId() == null) {
                 asset.setId(UUID.randomUUID().toString());
-                logger.info(format("A uuid <%s> has been added to asset <%s> (Id was introduced in 1.0.2)", asset.getId(), asset.getName()));
+                logger.info(format("[MIGRATION] A uuid <%s> has been added to asset <%s> (Id was introduced in 1.0.2)", asset.getId(), asset.getName()));
             }
         }
     }

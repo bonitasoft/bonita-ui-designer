@@ -61,7 +61,7 @@ public class StyleAssetMigrationStep implements MigrationStep<Page> {
         assetService.save(artifact, style, getContent());
 
         logger.info(format(
-                "Adding default CSS asset [%s] to %s [%s] (introduced in 1.4.8)",
+                "[MIGRATION] Adding default CSS asset [%s] to %s [%s] (introduced in 1.4.8)",
                 style.getName(), artifact.getType(), artifact.getName()));
     }
 
