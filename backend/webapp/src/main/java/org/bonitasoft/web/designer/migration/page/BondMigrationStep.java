@@ -91,7 +91,7 @@ public class BondMigrationStep implements MigrationStep<Page> {
     private void logTypeChange(String name, String formerType, Entry<String, PropertyValue> entry) {
         String currentType = entry.getValue().getType();
         if (!formerType.equals(currentType)) {
-            logger.info(format("%s <%s> property value type has been changed from <%s> to <%s>",
+            logger.info(format("[MIGRATION] %s property <%s> value type has been changed from <%s> to <%s>",
                     name,
                     entry.getKey(),
                     formerType,
