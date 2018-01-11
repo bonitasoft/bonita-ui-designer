@@ -32,7 +32,7 @@ public class AssetExternalMigrationStep<A extends Identifiable & Assetable> impl
         for (Asset asset : artifact.getAssets()) {
             asset.setExternal(isAssetURL(asset.getName()));
             logger.info(
-                    format("<%s> asset with id <%s> has been identified as %s (external property was introduced in 1.2)", asset.getName(), asset.getId(),
+                    format("[MIGRATION] Asset <%s> with id <%s> has been identified as %s (external property was introduced in 1.2)", asset.getName(), asset.getId(),
                             (asset.isExternal() ? "external" : "internal")));
         }
     }

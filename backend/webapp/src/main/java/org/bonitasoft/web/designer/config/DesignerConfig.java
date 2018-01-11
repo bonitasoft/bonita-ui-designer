@@ -34,12 +34,7 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.migration.AssetExternalMigrationStep;
-import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
-import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
-import org.bonitasoft.web.designer.migration.LiveMigration;
-import org.bonitasoft.web.designer.migration.Migration;
-import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
+import org.bonitasoft.web.designer.migration.*;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -323,9 +318,11 @@ public class DesignerConfig {
     }
 
     @Bean
-    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
+    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
+            UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep) {
         return new LiveMigration<>(widgetRepository, widgetLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
-                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
+                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>()),
+                new Migration<>("1.5.10", uiBootstrapAssetMigrationStep)));
     }
 }

@@ -35,12 +35,12 @@ public class JacksonDeserializationProblemHandler extends DeserializationProblem
     public boolean handleUnknownProperty(DeserializationContext ctxt, com.fasterxml.jackson.core.JsonParser jp, JsonDeserializer<?> deserializer, Object beanOrClass, String propertyName) throws IOException {
 
         if (beanOrClass instanceof Asset && "inactive".equals(propertyName)) {
-            logger.info("inactive asset is deprecated since 1.0.1");
+            logger.info("[MIGRATION] inactive asset is deprecated since 1.0.1");
             return true;
         }
 
         if (beanOrClass instanceof Property && "bidirectional".equals(propertyName)) {
-            logger.info("bidirectional property is deprecated since 1.0.2");
+            logger.info("[MIGRATION] bidirectional property is deprecated since 1.0.2");
             return true;
         }
 
