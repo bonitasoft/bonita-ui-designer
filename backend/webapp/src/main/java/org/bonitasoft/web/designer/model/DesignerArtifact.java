@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 public abstract class DesignerArtifact implements Identifiable {
 
     private String designerVersion;
+    private String previousDesignerVersion;
     private boolean favorite = false;
 
     @JsonView({ JsonViewPersistence.class })
@@ -36,6 +37,15 @@ public abstract class DesignerArtifact implements Identifiable {
         if (isBlank(designerVersion)) {
             setDesignerVersion(version);
         }
+    }
+
+    @JsonView({ JsonViewPersistence.class })
+    public String getPreviousDesignerVersion() {
+        return previousDesignerVersion;
+    }
+
+    public void setPreviousDesignerVersion(String version) {
+        this.previousDesignerVersion = version;
     }
 
     @Override

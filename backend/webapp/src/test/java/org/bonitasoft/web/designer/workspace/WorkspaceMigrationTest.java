@@ -24,7 +24,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.bonitasoft.web.designer.ApplicationConfig;
-import org.bonitasoft.web.designer.migration.UIBootstrapAssetMigrationStep;
+import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -58,9 +58,9 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.5.7";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.5.10";
 
-    String WIDGET_HIGHER_MIGRATION_VERSION = "1.5.10";
+    String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
 
     @Before
     public void setUp() throws Exception {
@@ -73,6 +73,8 @@ public class WorkspaceMigrationTest {
         Page page = pageRepository.get("page_1_0_0");
 
         assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.0");
+
         assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
             @Override
@@ -104,6 +106,7 @@ public class WorkspaceMigrationTest {
         Widget widget = widgetRepository.get("widget_1_0_0");
 
         assertThat(widget.getDesignerVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
+        assertThat(widget.getPreviousDesignerVersion()).isEqualTo("1.0.0");
 
         assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
 
@@ -115,13 +118,11 @@ public class WorkspaceMigrationTest {
     }
 
     @Test
-    public void should_migrate_a_widget_adding_uiBootstrap() {
+    public void should_migrate_a_page_adding_uiBootstrap() {
 
-        Widget widget = widgetRepository.get("widget_1_0_0");
+        Page page = pageRepository.get("page_1_0_1");
 
-        assertThat(widget.getDesignerVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
-
-        assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
+        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
             @Override
             public String apply(Asset asset) {
@@ -131,13 +132,31 @@ public class WorkspaceMigrationTest {
     }
 
     @Test
-    public void should_migrate_a_widget_not_adding_uiBootstrap_when_already_an_asset() {
+    public void should_migrate_a_page_not_adding_uiBootstrap_when_already_a_page_asset() {
 
-        Widget widget = widgetRepository.get("widgetWithUIBootstrap");
+        Page page = pageRepository.get("pageWithUIBootstrap");
 
-        assertThat(widget.getDesignerVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.1");
 
-        assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
+        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
+
+            @Override
+            public String apply(Asset asset) {
+                return asset.getName();
+            }
+        })).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
+    }
+
+    @Test
+    public void should_migrate_a_page_not_adding_uiBootstrap_when_already_a_widget_asset() {
+
+        Page page = pageRepository.get("pageWithUIBootstrapWidget");
+
+        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.1");
+
+        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
             @Override
             public String apply(Asset asset) {

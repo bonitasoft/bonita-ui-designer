@@ -75,7 +75,7 @@
 
     achieveSaveAndExport(page) {
       this.artifactRepo.save(page)
-        .then(() =>this.$window.location = this.artifactRepo.exportUrl(page));
+        .then(() => this.$window.location = this.artifactRepo.exportUrl(page));
     }
 
     saveAndExport(page) {

@@ -36,6 +36,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.migration.*;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -306,20 +307,20 @@ public class DesignerConfig {
      ******************************************************************************************************************/
     @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader, PageRepository pageRepository,
-            BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep) {
+            BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep,
+            UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep) {
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", bondMigrationStep),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>()),
-                new Migration<>("1.5.7", styleAssetMigrationStep)));
+                new Migration<>("1.5.7", styleAssetMigrationStep),
+                new Migration<>("1.5.10", uiBootstrapAssetMigrationStep)));
     }
 
     @Bean
-    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
-            UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep) {
+    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
         return new LiveMigration<>(widgetRepository, widgetLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
-                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>()),
-                new Migration<>("1.5.10", uiBootstrapAssetMigrationStep)));
+                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
     }
 }
