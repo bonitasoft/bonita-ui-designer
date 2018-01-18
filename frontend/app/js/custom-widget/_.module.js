@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.custom-widget', ['bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services', 'ui.bootstrap', 'gettext', 'ui.router']);
+  angular.module('bonitasoft.designer.custom-widget', ['bonitasoft.designer.editor.header.help', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services', 'ui.bootstrap', 'gettext', 'ui.router']);
 
 })();

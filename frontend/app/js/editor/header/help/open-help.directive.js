@@ -15,7 +15,7 @@
 (function() {
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.header').directive('openHelp', ['$uibModal', function($uibModal) {
+  angular.module('bonitasoft.designer.editor.header.help').directive('openHelp', ['$uibModal', '$localStorage', function($uibModal, $localStorage) {
     return {
       restrict: 'A',
       scope: {
@@ -25,7 +25,7 @@
       link: function($scope, elem) {
         function onClick() {
           $uibModal.open({
-            templateUrl: 'js/editor/header/help-popup.html',
+            templateUrl: 'js/editor/header/help/help-popup.html',
             size: 'lg',
             resolve: {
               pageEdition: function() {
@@ -35,7 +35,7 @@
                 return $scope.helpSection;
               }
             },
-            controller: function($scope, $uibModalInstance, pageEdition, helpSection) {
+            controller: function($scope, $uibModalInstance, $localStorage, pageEdition, helpSection) {
               'ngInject';
               $scope.pageEdition = pageEdition;
               if (helpSection) {
@@ -43,13 +43,25 @@
                   activeTab: helpSection
                 };
               }
+
               $scope.cancel = function() {
+                if (!$localStorage.bonitaUIDesigner) {
+                  $localStorage.bonitaUIDesigner = {};
+                }
+                $localStorage.bonitaUIDesigner.doNotShowMigrationNotesAgain = true;
                 $uibModalInstance.dismiss('cancel');
               };
             }
           });
         }
         elem.on('click', onClick);
+
+        //Handle migration notes
+        let storage = $localStorage.bonitaUIDesigner;
+        if (!storage || !storage.doNotShowMigrationNotesAgain) {
+          $scope.helpSection = 'migration';
+          onClick();
+        }
       }
     };
   }]);

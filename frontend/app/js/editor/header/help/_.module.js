@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2018 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,8 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.header', [
-    'bonitasoft.designer.editor.header.help',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.repositories',
-    'gettext',
+  angular.module('bonitasoft.designer.editor.header.help', [
     'ui.bootstrap',
-    'ui.router',
     'ngStorage'
   ]);
 

@@ -1,7 +1,7 @@
 {
   "designerVersion": "1.0.1",
-  "id": "page_1_0_1",
-  "name": "page101",
+  "id": "pageWithUIBootstrapWidget",
+  "name": "pageWithUIBootstrapWidget",
   "type": "page",
   "lastUpdate": 1436966572684,
   "rows": [
@@ -91,14 +91,10 @@
           "cssClasses": {
             "type": "data",
             "value": "data4"
-          },
-          "value": {
-            "type": "data",
-            "value": "data5"
           }
         },
-        "reference": "904g2123-93cc-669g-9h74-f3b707345cf5",
-        "id": "widget_1_0_0"
+        "reference": "501a2123-93cc-669g-9h74-f3b707345aa1",
+        "id": "widgetWithUIBootstrap"
       }
     ]
   ],
