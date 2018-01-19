@@ -45,12 +45,13 @@ public class WidgetFileHelperTest {
     public void should_delete_on_folder_all_old_widgets_directives_file() throws Exception {
         File assetsFolder = temporaryFolder.newFolder("maPage", "assets");
         File expectToBeDeletedFile = temporaryFolder.newFile("maPage/assets/widgets-fdsf45741sf.js");
+        File expectExistFile = temporaryFolder.newFile("maPage/assets/12345654.json");
 
         WidgetFileHelper.deleteOldConcatenateFiles(assetsFolder.toPath(), "aa");
 
         assertThat(expectToBeDeletedFile).doesNotExist();
+        assertThat(expectExistFile).exists();
     }
-
 
     @Test(expected = GenerationException.class)
     public void should_throw_generation_exception_if_not_exist_folder_path_when_write_a_file() throws Exception {
