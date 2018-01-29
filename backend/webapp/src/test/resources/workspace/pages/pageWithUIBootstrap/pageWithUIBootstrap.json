@@ -1,7 +1,7 @@
 {
   "designerVersion": "1.0.1",
-  "id": "page_1_0_1",
-  "name": "page101",
+  "id": "pageWithUIBootstrap",
+  "name": "pageWithUIBootstrap",
   "type": "page",
   "lastUpdate": 1436966572684,
   "rows": [
@@ -102,7 +102,7 @@
       }
     ]
   ],
-  "assets": [],
+  "assets": [{"name":"https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js","type":"js","order":1,"inactive":false}],
   "data": {
     "data1": {
       "type": "constant",

@@ -19,7 +19,7 @@
     .module('bonitasoft.designer.custom-widget')
     .controller('CustomWidgetEditorCtrl', CustomWidgetEditorCtrl);
 
-  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
+  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, $localStorage, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
 
     $scope.widget = artifact;
     $scope.bonds = BONDS;
@@ -142,12 +142,38 @@
         });
     };
 
-    $scope.openHelp = () => {
+    $scope.openHelp = (section) => {
       $uibModal.open({
         templateUrl: 'js/custom-widget/help-popup.html',
-        size: 'lg'
+        size: 'lg',
+        resolve: {
+          helpSection: function() {
+            return section;
+          }
+        },
+        controller: function($scope, $uibModalInstance, $localStorage, helpSection) {
+          if (helpSection) {
+            $scope.tabContainer = {
+              activeTab: helpSection
+            };
+          }
+
+          $scope.cancel = function() {
+            if (!$localStorage.bonitaUIDesigner) {
+              $localStorage.bonitaUIDesigner = {};
+            }
+            $localStorage.bonitaUIDesigner.doNotShowMigrationNotesAgain = true;
+            $uibModalInstance.dismiss('cancel');
+          };
+        }
       });
     };
+
+    //Handle migration notes
+    let storage = $localStorage.bonitaUIDesigner;
+    if (!storage || !storage.doNotShowMigrationNotesAgain) {
+      $scope.openHelp('migration');
+    }
 
     $scope.$on('$destroy', function() {
       keyBindingService.unbind(['ctrl+s', 'command+s']);

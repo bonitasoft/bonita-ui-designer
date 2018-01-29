@@ -8,7 +8,12 @@
       // the 1.3 optimization needs to be disable for the e2e tests
       $compileProvider.debugInfoEnabled(true);
     })
-    .run(function($httpBackend, e2ehelper, pages, widgets, assets) {
+    .run(function($httpBackend, $localStorage, e2ehelper, pages, widgets, assets) {
+
+      /********************************************************************************************************
+       *                                          LOCAL STORAGE
+       * ******************************************************************************************************/
+      $localStorage.bonitaUIDesigner = { doNotShowMigrationNotesAgain: true };
 
       /********************************************************************************************************
        *                                          MISCELLANEOUS

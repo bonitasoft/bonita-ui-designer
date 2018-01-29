@@ -68,6 +68,7 @@ public class LiveMigration<A extends DesignerArtifact> {
                 migration.migrate(artifact);
             }
             if(!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
+                artifact.setPreviousDesignerVersion(formerArtifactVersion);
                 repository.updateLastUpdateAndSave(artifact);
             }
         }
