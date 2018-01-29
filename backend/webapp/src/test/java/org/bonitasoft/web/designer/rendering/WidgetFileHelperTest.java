@@ -44,13 +44,31 @@ public class WidgetFileHelperTest {
     @Test
     public void should_delete_on_folder_all_old_widgets_directives_file() throws Exception {
         File assetsFolder = temporaryFolder.newFolder("maPage", "assets");
-        File expectToBeDeletedFile = temporaryFolder.newFile("maPage/assets/widgets-fdsf45741sf.js");
+        File expectToBeDeletedFile = temporaryFolder.newFile("maPage/assets/widgets-fdsf45741sf.min.js");
+        File fragment = temporaryFolder.newFile("maPage/assets/123456.js");
+        File expectExistFile = temporaryFolder.newFile("maPage/assets/12345654.json");
 
         WidgetFileHelper.deleteOldConcatenateFiles(assetsFolder.toPath(), "aa");
 
         assertThat(expectToBeDeletedFile).doesNotExist();
+        assertThat(expectExistFile).exists();
+        assertThat(fragment).exists();
     }
 
+    @Test
+    public void should_delete_on_root_folder_all_old_widgets_directives_file() throws Exception {
+        File assetsFolder = temporaryFolder.newFolder("myFragmentId");
+        File fragmentJS = temporaryFolder.newFile("myFragmentId/myFragmentId.js");
+        File oldConcatDirectiveFile = temporaryFolder.newFile("myFragmentId/widgets-11111.min.js");
+        File descriptorFile = temporaryFolder.newFile("myFragmentId/myFragmentId.json");
+
+
+        WidgetFileHelper.deleteOldConcatenateFiles(assetsFolder.toPath(), "123");
+
+        assertThat(fragmentJS).exists();
+        assertThat(descriptorFile).exists();
+        assertThat(oldConcatDirectiveFile).doesNotExist();
+    }
 
     @Test(expected = GenerationException.class)
     public void should_throw_generation_exception_if_not_exist_folder_path_when_write_a_file() throws Exception {
@@ -69,8 +87,8 @@ public class WidgetFileHelperTest {
     @Test
     public void should_delete_files_if_old_files_exists() throws Exception {
         File assetsFolder = temporaryFolder.newFolder("maPage", "assets");
-        File expectFileDeleted = temporaryFolder.newFile("maPage/assets/widgets-4576.js");
-        File expectFileAlreadyExist = temporaryFolder.newFile("maPage/assets/widgets-1z2a3456.js");
+        File expectFileDeleted = temporaryFolder.newFile("maPage/assets/widgets-4576.min.js");
+        File expectFileAlreadyExist = temporaryFolder.newFile("maPage/assets/widgets-1z2a3456.min.js");
 
         WidgetFileHelper.deleteOldConcatenateFiles(assetsFolder.toPath(), "1z2a3456");
 

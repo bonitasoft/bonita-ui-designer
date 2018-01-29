@@ -44,6 +44,25 @@ $ ./server.sh
 
 You can access the application at http://localhost:3000/index-dev.html, backend side is accessible at http://localhost:8080/
 
+## Debug mode
+How to debug backend with some breakpoint ?
+
+In community/backend run debug mode:
+ 
+```shell
+    mvnDebug jetty:run
+````
+
+Go in your IDE, edit run configuration: Select `Remote`. Only change port value (5000 by default) to value display in your shell.
+Run this configuration in debug.
+
+In community/frontend, run:
+```shell
+    yarn start
+````
+
+Now you can debug your application with breakpoint.
+
 ## Docker
 You can run the ui-designer locally using Docker (of course, you need to install Docker to do so).
 The Dockerfile is a really simple one, using a base image with java7, adding the build standalone jar and starting it.

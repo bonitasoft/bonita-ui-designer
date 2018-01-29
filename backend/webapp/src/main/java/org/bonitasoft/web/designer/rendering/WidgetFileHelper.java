@@ -35,7 +35,8 @@ public final class WidgetFileHelper {
     }
 
     public static void deleteOldConcatenateFiles(Path path, String suffix) {
-        String regex = "^(?!.*?(?:" + suffix + ")).*$";
+        String regex = "^" + FILENAME_PREFIX +"(?:(?!"+ suffix + ").)*\\.min\\.js$";
+
         // Resource leak: 'files' is never closed under windows so we need to put Files.list into try catch
         try (Stream<Path> files = Files.list(path)) {
             files.filter(p -> p.getFileName().toString().matches(regex) && !Files.isDirectory(p))
