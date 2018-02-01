@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-01-29 20:44-0500\n"
+"PO-Revision-Date: 2018-01-31 04:07-0500\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -24,6 +24,9 @@ msgstr "(utilisé dans le template et le controller)"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
+
+msgid "7.5 Migration notes"
+msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "Variables de type String au format <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (avec ou sans information de fuseau horaire)"
@@ -709,6 +712,9 @@ msgstr "Pour plus d'information, reportez-vous à la section d'aide <a href=\"ja
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
 msgstr "Pour plus d'informations, consultez le guide AngularJS sur les <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> et le <a href=\"https://docs.angularjs.org/guide/controller\">controller</a>."
 
+msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
+msgstr ""
+
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "Actuellement, la création de containers personnalisés n'est pas encore possible."
 
@@ -1006,6 +1012,9 @@ msgstr "Valeur maximum"
 msgid "Message"
 msgstr "Message"
 
+msgid "Migration"
+msgstr ""
+
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "Millisecondes depuis Epoch (nombre ou variable String)"
 
@@ -1291,6 +1300,9 @@ msgstr "Afficher le bouton Maintenant"
 msgid "Show Today button"
 msgstr "Afficher le bouton Aujourd'hui"
 
+msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
+msgstr ""
+
 msgid "Source"
 msgstr "Source"
 
@@ -1540,6 +1552,9 @@ msgstr "Pour afficher la date dans une propriété de widget évaluée comme une
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
+
+msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
+msgstr ""
 
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 msgstr "Pour charger un asset local de type image dans un widget personnalisé, vous devez le référencer dans le template à l'intérieur d'une balise <code>&lt; img &gt;</code>, avec un chemin d'accès relatif comme suit : <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
