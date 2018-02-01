@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-01-29 20:49-0500\n"
+"PO-Revision-Date: 2018-01-31 04:10-0500\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -24,6 +24,9 @@ msgstr "（テンプレートとコントローラーで使用される）"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
+
+msgid "7.5 Migration notes"
+msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>で書式化された文字列変数 (時間情報の有無にかかわらず)"
@@ -711,6 +714,9 @@ msgstr "詳細については、<a href=\"javascript:void(0);\" open-help=\"loca
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
 msgstr "詳細については、<a href=\"https://docs.angularjs.org/guide/templates\"> テンプレート</a> および <a href=\"https://docs.angularjs.org/guide/controller\"> コント ローラー</a> の AngularJS ガイドを参照してください。"
 
+msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
+msgstr ""
+
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "今のところ、カスタム ウィジェットのコンテナは実装できません。"
 
@@ -1015,6 +1021,9 @@ msgstr "最大値"
 msgid "Message"
 msgstr "メッセージ"
 
+msgid "Migration"
+msgstr ""
+
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "1970/01/01からのミリ秒単位の経過時間（Long または文字列変数）"
 
@@ -1300,6 +1309,9 @@ msgstr "現在のボタンを表示"
 msgid "Show Today button"
 msgstr "今日のボタンを表示"
 
+msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
+msgstr ""
+
 msgid "Source"
 msgstr "ソース"
 
@@ -1549,6 +1561,9 @@ msgstr "式として評価されたウィジェット プロパティで日付�
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
+
+msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
+msgstr ""
 
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 msgstr "カスタム ウィジェットでローカルの image アセットをロードするには、<br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[カスタム ウィジェットID]/assets/img/[イメージ名]\"&gt;</code>の相対パスを使って<code>&lt;img&gt;</code> タグ内の image を参照する必要があります。"
