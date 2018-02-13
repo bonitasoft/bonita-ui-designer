@@ -20,11 +20,14 @@ import static java.nio.file.Files.newDirectoryStream;
 import static java.nio.file.Files.readAllBytes;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Optional;
@@ -98,6 +101,23 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
             }
         }
         return objects;
+    }
+
+    @Override
+    public String getNextAvailableObjectId(Path directory, String objectName) throws IOException {
+        if (!Files.exists(directory.resolve(objectName))) {
+            return objectName;
+        }
+        Pattern pattern = Pattern.compile(objectName + "(\\d+)$");
+        String nextAvailableObjectId;
+        try (final Stream<Path> directoryStream = Files.list(directory)) {
+            OptionalInt maxInt = directoryStream.map(directoryPath -> pattern.matcher(directoryPath.getFileName().toString()))
+                    .filter(Matcher::find)
+                    .mapToInt(m -> Integer.valueOf(m.group(1)))
+                    .max();
+            nextAvailableObjectId = objectName + (maxInt.orElse(0) + 1);
+        }
+        return nextAvailableObjectId;
     }
 
     @Override

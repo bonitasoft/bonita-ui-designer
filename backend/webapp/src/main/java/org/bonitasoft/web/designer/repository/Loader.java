@@ -30,6 +30,8 @@ public interface Loader<T extends Identifiable> {
 
     List<T> getAll(Path directory) throws IOException;
 
+    String getNextAvailableObjectId(Path directory, String objectName) throws IOException;
+
     /**
      * Find all the objects which contain an object id. Each object (widget, page, ...) has its
      * own id calculated with an UUID. To increase performances, we just search if the id is in the text

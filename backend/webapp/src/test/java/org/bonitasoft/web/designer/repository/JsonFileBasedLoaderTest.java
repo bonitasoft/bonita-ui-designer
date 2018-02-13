@@ -292,4 +292,23 @@ public class JsonFileBasedLoaderTest {
 
         assertThat(loader.load(loader.resolve(repoDirectory, "id")).getMetadata()).isNull();
     }
+
+    @Test
+    public void should_get_same_object_id_as_page_name() throws Exception {
+        assertThat(loader.getNextAvailableObjectId(repoDirectory, "pageNameToUseAsPrefix")).isEqualTo("pageNameToUseAsPrefix");
+    }
+
+    @Test
+    public void should_get_object_id_if_page_name_taken() throws Exception {
+        Files.createDirectory(repoDirectory.resolve("pageNameToUseAsPrefix"));
+        Files.createDirectory(repoDirectory.resolve("pageNameToUseAsPrefix20"));
+        Files.createDirectory(repoDirectory.resolve("pageNameToUseAsPrefix245"));
+        assertThat(loader.getNextAvailableObjectId(repoDirectory, "pageNameToUseAsPrefix")).isEqualTo("pageNameToUseAsPrefix246");
+    }
+
+    @Test
+    public void should_get_next_available_object_id() throws Exception {
+        Files.createDirectory(repoDirectory.resolve("pageNameToUseAsPrefix"));
+        assertThat(loader.getNextAvailableObjectId(repoDirectory, "pageNameToUseAsPrefix")).isEqualTo("pageNameToUseAsPrefix1");
+    }
 }

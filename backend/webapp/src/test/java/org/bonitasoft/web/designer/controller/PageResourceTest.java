@@ -139,6 +139,7 @@ public class PageResourceTest {
         List<List<Element>> rows = Collections.singletonList(emptyRow);
         pageToBeSaved.setRows(rows);
         pageToBeSaved.setName("test");
+        when(pageRepository.getNextAvailableId("test")).thenReturn("test");
 
         mockMvc
                 .perform(post("/rest/pages")
@@ -158,6 +159,7 @@ public class PageResourceTest {
         Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(pageAsset, widgetAsset).build();
         when(pageRepository.get("my-page-source"))
                 .thenReturn(aPage().withId("my-page-source").withName("test").withAsset(pageAsset, widgetAsset).build());
+        when(pageRepository.getNextAvailableId("test")).thenReturn("test");
 
         mockMvc
                 .perform(post("/rest/pages?duplicata=my-page-source")
@@ -178,6 +180,7 @@ public class PageResourceTest {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.TASK))).thenReturn(newPage);
+        when(pageRepository.getNextAvailableId("myPage")).thenReturn("myPage");
 
         mockMvc
                 .perform(post("/rest/pages/contract/task/myPage")
@@ -194,6 +197,7 @@ public class PageResourceTest {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.PROCESS))).thenReturn(newPage);
+        when(pageRepository.getNextAvailableId("myPage")).thenReturn("myPage");
 
         mockMvc
                 .perform(post("/rest/pages/contract/process/myPage")
@@ -210,6 +214,7 @@ public class PageResourceTest {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.OVERVIEW))).thenReturn(newPage);
+        when(pageRepository.getNextAvailableId("myPage")).thenReturn("myPage");
 
         mockMvc
                 .perform(post("/rest/pages/contract/overview/myPage")
