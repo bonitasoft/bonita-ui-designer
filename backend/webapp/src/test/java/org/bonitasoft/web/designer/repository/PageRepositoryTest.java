@@ -131,6 +131,23 @@ public class PageRepositoryTest {
         assertThat(exists(Paths.get(repository.resolvePath(page.getId()).toString(), "assets", "css", "style.css"))).isTrue();
     }
 
+    @Test
+    public void should_give_new_id_if_there_is_already_a_page_with_same_id() throws Exception {
+        Page page = aFilledPage("pageName");
+        repository.updateLastUpdateAndSave(page);
+
+        String newPageId = repository.getNextAvailableId("pageName");
+
+        assertThat(newPageId).isEqualTo("pageName1");
+    }
+
+    @Test
+    public void should_keep_page_name_id_if_there_is_no_page_with_same_id() throws Exception {
+        String newPageId = repository.getNextAvailableId("pageName");
+
+        assertThat(newPageId).isEqualTo("pageName");
+    }
+
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_while_saving_a_page() throws Exception {
         Page expectedPage = aFilledPage("page-id");

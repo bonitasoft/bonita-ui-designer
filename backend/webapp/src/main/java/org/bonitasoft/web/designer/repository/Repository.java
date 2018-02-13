@@ -96,4 +96,6 @@ public interface Repository<T extends Identifiable> {
     T markAsFavorite(String id);
 
     T unmarkAsFavorite(String id);
+
+    String getNextAvailableId(String name) throws IOException;
 }

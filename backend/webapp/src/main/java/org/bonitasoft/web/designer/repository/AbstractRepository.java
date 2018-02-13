@@ -207,4 +207,13 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         component.setFavorite(false);
         return save(component);
     }
+
+    @Override
+    public String getNextAvailableId(String name) throws RepositoryException {
+        try {
+            return loader.getNextAvailableObjectId(path, name);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Failed to gerenrate object ID"), e);
+        }
+    }
 }

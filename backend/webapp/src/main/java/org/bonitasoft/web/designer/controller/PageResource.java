@@ -90,7 +90,7 @@ public class PageResource extends AssetResource<Page> {
     public ResponseEntity<Page> create(@RequestBody Page page, @RequestParam(value = "duplicata", required = false) String sourcePageId)
             throws RepositoryException {
         // the page should not have an ID. If it has one, we ignore it and generate one
-        String pageId = UUID.randomUUID().toString();
+        String pageId = pageRepository.getNextAvailableId(page.getName());
         page.setId(pageId);
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
