@@ -25,10 +25,11 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     public static final String PREVIEWABLE_UPDATE = "/previewableUpdates";
+    public static final String PREVIEWABLE_REMOVAL= "/previewableRemoval";
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker(PREVIEWABLE_UPDATE);
+        config.enableSimpleBroker(PREVIEWABLE_UPDATE, PREVIEWABLE_REMOVAL);
     }
 
     @Override

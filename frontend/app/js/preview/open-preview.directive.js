@@ -25,20 +25,38 @@ class OpenPreviewCtrl {
 
   openPreview() {
     if (this.onOpenPreview) {
-      this.onOpenPreview();
+      this.onOpenPreview()
+        .then(newArtifactId => {
+          if (newArtifactId) {
+            this.artifactId = newArtifactId;
+            if (this.previewWindow && !this.previewWindow.closed) {
+              this.previewWindow.location = this.getPreviewLocation();
+            }
+          }
+        });
     }
+    //cannot be done when onOpenPreview promise is resolved as browser are blocking async window.open
+    this.handlePreviewWindow();
+  }
+
+  handlePreviewWindow() {
     if (this.previewWindow && !this.previewWindow.closed) {
       this.previewWindow.focus();
     } else {
       //Preview window is opened with a toolbar=1 option to make the URL editable (only works on Firefow unfortunately)
       //See https://bugs.chromium.org/p/chromium/issues/detail?id=82522
       //This is an improvement for BS-16078
-      this.previewWindow = this.$window.open(this.$state.href(`designer.preview`, {
-        resolution: this.resolutions.selected().key,
-        id: this.artifactId,
-        mode: this.mode
-      }), 'preview', 'width=1024,height=768,toolbar=1,resizable=1,scrollbars=1');
+      this.previewWindow = this.$window.open(this.getPreviewLocation(),
+        'preview', 'width=1024,height=768,toolbar=1,resizable=1,scrollbars=1');
     }
+  }
+
+  getPreviewLocation() {
+    return this.$state.href(`designer.preview`, {
+      resolution: this.resolutions.selected().key,
+      id: this.artifactId,
+      mode: this.mode
+    });
   }
 }
 

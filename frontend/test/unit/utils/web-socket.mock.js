@@ -9,17 +9,24 @@
   function webSocket($q) {
 
     var deferred = $q.defer();
-    var listenUrl;
+    var deferredConnect = $q.defer();
+    var listenUrls = [];
 
     return {
-      listen: function(url, callback) {
-        listenUrl = url;
+      subscribe: function(topic, callback) {
+        listenUrls.push(topic);
         deferred.promise.then(callback);
       },
       send: function(url, data) {
-        if (listenUrl === url) {
+        if (listenUrls.indexOf(url) >= 0) {
           deferred.resolve(data);
         }
+      },
+      connect: function() {
+        return deferredConnect.promise;
+      },
+      resolveConnection: function () {
+        deferredConnect.resolve();
       }
     };
   }

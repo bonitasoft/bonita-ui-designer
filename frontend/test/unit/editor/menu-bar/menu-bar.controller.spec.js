@@ -21,7 +21,8 @@
       $uibModal = _$uibModal_;
       $state = _$state_;
       $localStorage = _$localStorage_;
-      modalInstance = $uibModalInstance.fake();
+      $localStorage.bonitaUIDesigner = {};
+        modalInstance = $uibModalInstance.fake();
 
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');
@@ -49,9 +50,9 @@
     });
 
     it('should save a page', function() {
-      spyOn(pageRepo, 'save').and.returnValue($q.when({}));
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : () => {}}));
       spyOn(scope, '$broadcast').and.callThrough();
-      var page = { id: 'person' };
+      var page = { id: 'person', name: 'person'};
       controller.dirty = true;
 
       controller.save(page);
@@ -61,9 +62,27 @@
       expect(scope.$broadcast).toHaveBeenCalledWith('saved');
     });
 
+    it('should save a page changing its name', function() {
+      let expectedHeaders = (headerName) => {
+        let headers = {location : '/rest/pages/person'};
+        return headers[headerName];
+      };
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : expectedHeaders}));
+      var page = { id: 'person', name: 'person', type: 'page' };
+      controller.dirty = true;
+
+      controller.save(page);
+      scope.$apply();
+
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
+      expect($state.go).toHaveBeenCalledWith('designer.page', $stateParams, {
+        reload: true
+      });
+    });
+
     it('should save and export page', function() {
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
-      spyOn(pageRepo, 'save').and.returnValue($q.when({}));
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : () => {}}));
       spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
       var page = { id: 'person' };
 
@@ -83,7 +102,7 @@
     it('should save and export page without displaying message', function() {
       $localStorage.bonitaUIDesigner = { doNotShowExportMessageAgain: true };
       spyOn($uibModal, 'open').and.returnValue(modalInstance);
-      spyOn(pageRepo, 'save').and.returnValue($q.when({}));
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : () => {}}));
       spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
       var page = { id: 'person' };
 

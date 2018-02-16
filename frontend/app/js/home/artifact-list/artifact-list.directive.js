@@ -17,12 +17,13 @@
 
   class ArtifactListController {
 
-    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog) {
+    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state) {
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
       this.$localStorage = $localStorage;
       this.getRepository = (type) => repositories.get(type);
       this.gettextCatalog = gettextCatalog;
+      this.$state = $state;
     }
 
     translateKeys(key) {
@@ -106,8 +107,24 @@
       if (artifact.newName !== artifact.name) {
         this.getRepository(artifact.type)
           .rename(artifact.id, artifact.newName)
-          .catch(() => artifact.newName = artifact.name)
-          .finally(() => artifact.name = artifact.newName);
+          .then(response => {
+            let location = response.headers('location');
+            if (location) {
+              let newId = location.substring(location.lastIndexOf('/') + 1);
+              artifact.newId = newId;
+            } else {
+              artifact.newId = artifact.id;
+            }
+          })
+          .catch(() => {
+            artifact.newName = artifact.name;
+            artifact.newId = artifact.id;
+          })
+          .finally(() => {
+            artifact.name = artifact.newName;
+            artifact.id = artifact.newId;
+            artifact.editionUrl = this.$state.href(`designer.${artifact.type}`, { id: artifact.id });
+          });
       }
 
       /**

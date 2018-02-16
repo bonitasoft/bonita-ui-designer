@@ -14,38 +14,35 @@
  */
 /* global SockJS */
 /* global Stomp */
-angular.module('bonitasoft.designer.preview').factory('webSocket', function($rootScope, $log) {
+angular.module('bonitasoft.designer.preview').factory('webSocket', function($rootScope, $q) {
 
   'use strict';
+  var socket = new SockJS(window.location.origin + window.location.pathname + '/websockets');
+  var client = Stomp.over(socket);
+  client.debug = null; // deactivate debug mode
 
   /**
    * Connects to a topic and calls the callback every time a message is received.
    * @param topic - the topic to connect to
    * @param callback - the callback that will be call when a message is received, with the message body
    */
-  var listen = function(topic, callback) {
-    var socket = new SockJS(window.location.origin + window.location.pathname + '/websockets');
-    var client = Stomp.over(socket);
-    client.debug = null; // deactivate debug mode
-
+  var subscribe = function(topic, callback) {
     var subscribeCallback = function(message) {
       $rootScope.$apply(function() {
         callback(message.body);
       });
     };
+    client.subscribe(topic, subscribeCallback);
+  };
 
-    var subscribe = function() {
-      client.subscribe(topic, subscribeCallback);
-    };
-
-    var error = function() {
-      $log.error('error connecting to notifications web socket for topic ' + topic);
-    };
-
-    client.connect('', subscribe, error);
+  var connect = function() {
+    let deferred = $q.defer();
+    client.connect('', (frame) => deferred.resolve(frame), (err) => deferred.reject(err));
+    return deferred.promise;
   };
 
   return {
-    listen: listen
+    connect: connect,
+    subscribe: subscribe
   };
 });
