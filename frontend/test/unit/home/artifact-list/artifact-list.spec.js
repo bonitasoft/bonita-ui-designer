@@ -10,6 +10,7 @@ describe('artifactListController', function() {
     $q = $injector.get('$q');
     $uibModal = $injector.get('$uibModal');
     $localStorage = $injector.get('$localStorage');
+    $localStorage.bonitaUIDesigner = {};
     pageRepo = $injector.get('pageRepo');
     widgetRepo = $injector.get('widgetRepo');
     $state = $injector.get('$state');
@@ -94,8 +95,12 @@ describe('artifactListController', function() {
   });
 
   it('should rename an artifact if the name has changed', function() {
+    var expectedHeaders = (headerName) => {
+      var headers = {location : '/rest/pages/person'};
+      return headers[headerName];
+    };
     // given a page with a new name
-    spyOn(pageRepo, 'rename').and.returnValue($q.when());
+    spyOn(pageRepo, 'rename').and.returnValue($q.when({headers : expectedHeaders}));
 
     // when renaming the page
     rename('#page1', 'test');

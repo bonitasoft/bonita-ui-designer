@@ -24,7 +24,7 @@
    * The preview controller. It handles the loading of the page model, the resolution changes and provides
    * common functions to the directives used inside the page.
    */
-  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
 
     $scope.iframe = {};
     $scope.refreshIframe = refreshIframe;
@@ -37,11 +37,18 @@
       .then(response => $scope.pageName = response.data.name);
 
     refreshIframe();
-    webSocket.listen('/previewableUpdates', (id) => {
-      if (id === iframeParameters.id) {
-        refreshIframe();
-      }
-    });
+    webSocket.connect().then(() => {
+      webSocket.subscribe('/previewableUpdates', (id) => {
+        if (id === iframeParameters.id) {
+          refreshIframe();
+        }
+      });
+      webSocket.subscribe('/previewableRemoval', (id) => {
+        if (id === iframeParameters.id) {
+          closeWindow();
+        }
+      });
+    }, () => $log.error('error connecting to notifications web socket for preview'));
 
     /**
      * The iframe source has to be a trusted url for Angular, hence the use of the $sce service.
@@ -63,6 +70,10 @@
 
     function refreshIframe() {
       $scope.iframe.src = buildIframeSrc();
+    }
+
+    function closeWindow() {
+      $window.close();
     }
   }
 

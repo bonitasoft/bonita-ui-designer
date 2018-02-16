@@ -70,6 +70,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
@@ -228,7 +229,7 @@ public class PageResourceTest {
 
     @Test
     public void should_save_a_page() throws Exception {
-        Page pageToBeSaved = aFilledPage("my-page");
+        Page pageToBeSaved = mockPageOfId("my-page");
 
         mockMvc
                 .perform(
@@ -241,10 +242,29 @@ public class PageResourceTest {
     }
 
     @Test
+    public void should_save_a_page_renaming_it() throws Exception {
+        Page pageToBeUpdated = aPage().withId("my-page").withName("my-page").build();
+        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        Page pageToBeSaved = aPage().withName("page-new-name").build();
+        when(pageRepository.getNextAvailableId("page-new-name")).thenReturn("page-new-name");
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
+                                convertObjectToJsonBytes(pageToBeSaved)))
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.LOCATION, "/rest/pages/page-new-name"));
+
+        verify(pageRepository).updateLastUpdateAndSave(aPage().withId("page-new-name").withName("page-new-name").build());
+        verify(messagingTemplate).convertAndSend("/previewableRemoval", "my-page");
+    }
+
+    @Test
     public void should_not_save_widget_assets_while_saving_a_page() throws Exception {
         Page pageToBeSaved = aPage().withId("my-page").withAsset(
                 aWidgetAsset(),
                 aPageAsset()).build();
+        when(pageRepository.get("my-page")).thenReturn(pageToBeSaved);
         Page expectedPage = aPage().withId("my-page").withAsset(
                 aPageAsset()).build();
 
@@ -329,17 +349,36 @@ public class PageResourceTest {
     @Test
     public void should_rename_a_page() throws Exception {
         String newName = "my-page-new-name";
-        mockPageOfId("my-page");
+        Page pageToBeUpdated = aPage().withId("my-page").withName("page-name").build();
+        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageRepository.getNextAvailableId(newName)).thenReturn(newName);
 
         mockMvc
                 .perform(
                         put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(newName))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.LOCATION, "/rest/pages/" + newName));
 
         ArgumentCaptor<Page> pageArgumentCaptor = ArgumentCaptor.forClass(Page.class);
+        verify(pageRepository).getNextAvailableId(newName);
         verify(pageRepository).updateLastUpdateAndSave(pageArgumentCaptor.capture());
 
         assertThat(pageArgumentCaptor.getValue().getName()).isEqualTo(newName);
+        assertThat(pageArgumentCaptor.getValue().getId()).isEqualTo(newName);
+    }
+
+    @Test
+    public void should_not_rename_a_page_if_name_is_same() throws Exception {
+        String name = "page-name";
+        Page pageToBeUpdated = aPage().withId("my-page").withName(name).build();
+        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(name))
+                .andExpect(status().isOk());
+
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
     }
 
     @Test

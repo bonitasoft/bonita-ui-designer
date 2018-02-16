@@ -17,12 +17,16 @@ package org.bonitasoft.web.designer.controller;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Sets.filter;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -38,6 +42,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -109,20 +114,53 @@ public class PageResource extends AssetResource<Page> {
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)
-    public void save(@PathVariable("pageId") String pageId, @RequestBody Page page) throws RepositoryException {
-        // the page should have the same ID as pageId.
-        page.setId(pageId);
+    public ResponseEntity<Void> save(HttpServletRequest request, @PathVariable("pageId") String pageId, @RequestBody Page page) throws RepositoryException {
+        String newPageId;
+        try {
+            Page currentPage = pageRepository.get(pageId);
+            if (currentPage.getName().equals(page.getName())) {
+                // the page should have the same ID as pageId.
+                newPageId = pageId;
+            } else {
+                newPageId = pageRepository.getNextAvailableId(page.getName());
+            }
+        } catch (NotFoundException e) {
+            newPageId = pageRepository.getNextAvailableId(page.getName());
+        }
+        page.setId(newPageId);
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
-        // send notification of update
-        messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
+        ResponseEntity<Void> responseEntity;
+        if(!newPageId.equals(pageId)) {
+            pageRepository.delete(pageId);
+            // send notification of removal
+            messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
+            responseEntity = getMovedResourceResponse(request, newPageId);
+        } else {
+            // send notification of update
+            messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        }
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{pageId}/name", method = RequestMethod.PUT)
-    public void rename(@PathVariable("pageId") String pageId, @RequestBody String name) throws RepositoryException {
+    public ResponseEntity<Void> rename(HttpServletRequest request, @PathVariable("pageId") String pageId, @RequestBody String name) throws RepositoryException {
         Page page = pageRepository.get(pageId);
-        page.setName(name);
-        pageRepository.updateLastUpdateAndSave(page);
+        ResponseEntity<Void> responseEntity;
+        if(!page.getName().equals(name)) {
+            String newPageId = pageRepository.getNextAvailableId(name);
+            page.setId(newPageId);
+            page.setName(name);
+            pageRepository.updateLastUpdateAndSave(page);
+            pageRepository.delete(pageId);
+            // send notification of removal
+            messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
+            responseEntity = getMovedResourceResponse(request, newPageId, "/name");
+        } else {
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        }
+        return responseEntity;
     }
 
     @RequestMapping(value = "/{pageId}/favorite", method = RequestMethod.PUT)
@@ -144,6 +182,8 @@ public class PageResource extends AssetResource<Page> {
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("pageId") String pageId) throws RepositoryException {
         pageRepository.delete(pageId);
+        // send notification of removal
+        messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
     }
 
 }

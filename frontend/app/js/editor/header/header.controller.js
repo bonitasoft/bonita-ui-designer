@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -13,6 +13,7 @@
       this.$state = $state;
       this.$window = $window;
       this.$localStorage = $localStorage;
+      this.$timeout = $timeout;
       this.browserHistoryService = browserHistoryService;
       this.pristine = true;
       this.dirty = false;
@@ -42,8 +43,22 @@
 
     save(page) {
       return this.artifactRepo.save(page)
-        .then(() => this.dirty = false)
-        .then(() => this.scope.$broadcast('saved'));
+        .then(response => {
+          this.dirty = false;
+          let location = response.headers('location');
+          if (location) {
+            return location.substring(location.lastIndexOf('/') + 1);
+          } else {
+            this.scope.$broadcast('saved');
+          }
+        })
+        .then((newId) => {
+          if (newId) {
+            this.$stateParams.id = newId;
+            this.$state.go(`designer.${page.type}`, this.$stateParams, { reload: true });
+            return newId;
+          }
+        });
     }
 
     saveAs(page) {
@@ -74,8 +89,17 @@
     }
 
     achieveSaveAndExport(page) {
-      this.artifactRepo.save(page)
-        .then(() => this.$window.location = this.artifactRepo.exportUrl(page));
+      this.save(page)
+        .then((newId) => {
+          let exportPage = (page) => this.$window.location = this.artifactRepo.exportUrl(page);
+          if (newId) {
+            page.id = newId;
+            //delay required in order for the new state to be applied
+            this.$timeout(() => exportPage(page), 500);
+          } else {
+            exportPage(page);
+          }
+        });
     }
 
     saveAndExport(page) {

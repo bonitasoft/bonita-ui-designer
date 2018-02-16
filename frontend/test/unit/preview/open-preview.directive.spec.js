@@ -2,11 +2,12 @@ describe('directive openPreview', function() {
 
   'use strict';
 
-  var scope, $window, $state, resolutions, dom, $compile, controller;
+  var scope, $window, $state, $q, resolutions, dom, $compile, controller;
 
   beforeEach(angular.mock.module('bonitasoft.designer.preview', 'bonitasoft.designer.templates'));
   beforeEach(inject(function($injector) {
 
+    $q = $injector.get('$q');
     $window = $injector.get('$window');
     $state = $injector.get('$state');
     scope = $injector.get('$rootScope').$new();
@@ -25,8 +26,13 @@ describe('directive openPreview', function() {
         page: {id: '12345'},
         mode: 'page',
         isValid: true,
-        save: jasmine.createSpy()
+        save: (() => {
+          var deferred = $q.defer();
+          deferred.resolve();
+          return deferred.promise;
+        })
       };
+      spyOn(scope.vm, 'save').and.callThrough();
       dom = $compile('<open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" is-disabled="!vm.isValid" artifact-id="vm.page.id"></open-preview>')(scope);
       scope.$apply();
       controller = dom.controller('openPreview');

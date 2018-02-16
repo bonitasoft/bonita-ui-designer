@@ -1,5 +1,5 @@
 describe('PreviewCtrl', function() {
-  var ctrl, $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout;
+  var ctrl, $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout, $log, $window;
 
   beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket'));
 
@@ -9,11 +9,12 @@ describe('PreviewCtrl', function() {
     $scope = $injector.get('$rootScope').$new();
     $location = $injector.get('$location');
     $timeout = $injector.get('$timeout');
+    $window = $injector.get('$window');
+    $log = $injector.get('$log');
     pageRepo = $injector.get('pageRepo');
-
     pageRequest = $q.defer();
-
     spyOn(pageRepo, 'load').and.returnValue(pageRequest.promise);
+    spyOn($window, 'close');
 
     webSocket = _webSocket_;
     clock = {
@@ -31,11 +32,16 @@ describe('PreviewCtrl', function() {
     ctrl = $injector.get('$controller')('PreviewCtrl', {
       $scope,
       $location,
+      $log,
+      $window,
       iframeParameters,
       webSocket,
       clock,
       artifactRepo: pageRepo
     });
+
+    webSocket.resolveConnection();
+    $scope.$apply();
 
   }));
 
@@ -93,5 +99,15 @@ describe('PreviewCtrl', function() {
     });
     $scope.$apply();
     expect($scope.pageName).toBe('jeanne');
+  });
+
+  it('should close the window when a notification is received', function() {
+    expect($scope.iframe.src.$$unwrapTrustedValue()).toBe('/preview/page/1337/?time=now');
+    spyOn(clock, 'now').and.returnValue('newNow');
+
+    webSocket.send('/previewableRemoval', '1337');
+    $scope.$apply();
+
+    expect($window.close).toHaveBeenCalled();
   });
 });
