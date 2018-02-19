@@ -371,8 +371,8 @@
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>0.4.27</version>
                 <configuration>
-                    <sourceDirectory>${build.directory}/widget-schema/</sourceDirectory>
-                    <outputDirectory>${build.directory}/generated-sources</outputDirectory>
+                    <sourceDirectory>${project.build.directory}/widget-schema/</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
                     <targetPackage>org.bonitasoft.web.designer.experimental.widgets</targetPackage>
                     <annotationStyle>none</annotationStyle>
                     <includeAdditionalProperties>false</includeAdditionalProperties>
