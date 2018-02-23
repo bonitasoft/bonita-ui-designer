@@ -18,16 +18,18 @@ package org.bonitasoft.web.designer.model.widget;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Locale;
+
 public enum BondType {
     CONSTANT, INTERPOLATION, EXPRESSION, VARIABLE;
 
     @JsonValue
     public String toJson() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ENGLISH);
     }
 
     @JsonCreator
     public static BondType fromJson(String text) {
-        return valueOf(text.toUpperCase());
+        return valueOf(text.toUpperCase(Locale.ENGLISH));
     }
 }

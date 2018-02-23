@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.bonitasoft.web.designer.controller.importer.report.Dependencies;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
@@ -71,10 +72,10 @@ public class ImportReportBuilder {
     public ImportReport build() {
         Dependencies dependencies = new Dependencies();
         for (Identifiable identifiable : added) {
-            dependencies.addAddedDependency(identifiable.getClass().getSimpleName().toLowerCase(), identifiable);
+            dependencies.addAddedDependency(identifiable.getClass().getSimpleName().toLowerCase(Locale.ENGLISH), identifiable);
         }
         for (Identifiable identifiable : overridden) {
-            dependencies.addOverriddenDependency(identifiable.getClass().getSimpleName().toLowerCase(), identifiable);
+            dependencies.addOverriddenDependency(identifiable.getClass().getSimpleName().toLowerCase(Locale.ENGLISH), identifiable);
         }
         ImportReport importReport = new ImportReport(element, dependencies);
         importReport.setUUID(uuid);
