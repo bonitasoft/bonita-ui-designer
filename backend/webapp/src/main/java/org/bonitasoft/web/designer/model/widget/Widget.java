@@ -305,7 +305,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
 
     public static String spinalCase(String widgetId) {
         char firstLetter = Character.toLowerCase(widgetId.charAt(0));
-        return firstLetter + widgetId.substring(1).replaceAll("([A-Z])", "-$1").toLowerCase();
+        return firstLetter + widgetId.substring(1).replaceAll("([A-Z])", "-$1").toLowerCase(Locale.ENGLISH);
     }
 
     private boolean isDifferentBondType(Property property, Property otherProperty) {

@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller.importer.report;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -90,7 +91,7 @@ public class ImportReport {
 
         @JsonValue
         public String toString() {
-            return name().toLowerCase();
+            return name().toLowerCase(Locale.ENGLISH);
         }
     }
 }
