@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -71,7 +72,7 @@ public class PagePropertiesBuilder {
         Map<String, String> context = new HashMap<>();
         context.put("name", page.getName());
         context.put("resources", resources.toString());
-        context.put("type", String.valueOf(page.getType()).toLowerCase());
+        context.put("type", String.valueOf(page.getType()).toLowerCase(Locale.ENGLISH));
 
         // Java properties files must be encoded using ISO_8859_1
         return template.build(context).getBytes(StandardCharsets.ISO_8859_1);

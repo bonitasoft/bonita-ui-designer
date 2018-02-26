@@ -23,6 +23,7 @@ import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPD
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -110,7 +111,7 @@ public class PageResource extends AssetResource<Page> {
     @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("scope") String scope, @PathVariable("name") String name)
             throws RepositoryException {
-        return create(contractToPageMapper.createFormPage(name, contract, FormScope.valueOf(scope.toUpperCase())), null);
+        return create(contractToPageMapper.createFormPage(name, contract, FormScope.valueOf(scope.toUpperCase(Locale.ENGLISH))), null);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)

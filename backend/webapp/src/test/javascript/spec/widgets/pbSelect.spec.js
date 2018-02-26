@@ -189,7 +189,7 @@ describe('pbSelect', function () {
     expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
   });
   
-  it('should leave the value as is if no available values but reset value if available value do not contain value', function(){
+  it('should leave the value as it is if no available values but reset value if available value do not contain value', function(){
     scope.properties = angular.extend(scope.properties, {
       value: 'jean',
       displayedKey: 'name',
@@ -203,6 +203,29 @@ describe('pbSelect', function () {
     scope.properties.availableValues = [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}];
 
     scope.$apply();
-    expect(scope.properties.value).toBeUndefined();
+    $timeout.flush();
+
+    expect(scope.properties.value).toBeNull();
+  });
+
+  it('should allow setting value to null if available values contain null value', function(){
+    scope.properties = angular.extend(scope.properties, {
+        value: null,
+        displayedKey: 'firstname',
+        returnedKey: 'username'
+    });
+    var widget = $compile('<pb-select></pb-select>')(scope);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.properties.value).toBeNull();
+    scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': null}];
+
+    scope.$apply();
+    $timeout.flush();
+
+    expect(scope.properties.value).toBeNull();
+    var selectedIndex = widget.find('select')[0].value;
+    expect(scope.properties.availableValues[selectedIndex]).toEqual({'firstname': '', 'username': null});
   });
 });
