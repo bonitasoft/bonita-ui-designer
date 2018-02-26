@@ -55,7 +55,7 @@
         .then((newId) => {
           if (newId) {
             this.$stateParams.id = newId;
-            this.$state.go(`designer.${page.type}`, this.$stateParams, { reload: true });
+            this.$state.go(`designer.${page.type}`, this.$stateParams, { location: 'replace', reload: true });
             return newId;
           }
         });

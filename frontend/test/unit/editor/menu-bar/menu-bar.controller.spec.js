@@ -76,7 +76,7 @@
 
       expect(pageRepo.save).toHaveBeenCalledWith(page);
       expect($state.go).toHaveBeenCalledWith('designer.page', $stateParams, {
-        reload: true
+        location: 'replace', reload: true
       });
     });
 
