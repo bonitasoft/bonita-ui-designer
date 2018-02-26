@@ -17,17 +17,19 @@ package org.bonitasoft.web.designer.model.data;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Locale;
+
 public enum DataType {
 
     CONSTANT, URL, JSON, EXPRESSION, URLPARAMETER ;
 
     @JsonValue
     public String toJson() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ENGLISH);
     }
 
     @JsonCreator
     public static DataType fromJson(String text) {
-        return valueOf(text.toUpperCase());
+        return valueOf(text.toUpperCase(Locale.ENGLISH));
     }
 }

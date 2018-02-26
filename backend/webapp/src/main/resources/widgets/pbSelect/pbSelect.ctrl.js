@@ -36,11 +36,13 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
       // terrible hack to force the select ui to show the correct options
       // so we change it's value to undefined and then delay to the correct value
       $scope.properties.value = undefined;
-      if (foundItem) {
-        $timeout(function(){
+      $timeout(function() {
+        if (foundItem) {
           $scope.properties.value = foundItem;
-        }, 0);
-      }
+        } else {
+          $scope.properties.value = null;
+        }
+      }, 0);
     }
 
   });

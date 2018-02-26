@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.model.widget;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Locale;
+
 /**
  * Available widget property types.
  *
@@ -28,11 +30,11 @@ public enum PropertyType {
 
     @JsonValue
     public String toJson() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ENGLISH);
     }
 
     @JsonCreator
     public static PropertyType fromJson(String text) {
-        return valueOf(text.toUpperCase());
+        return valueOf(text.toUpperCase(Locale.ENGLISH));
     }
 }

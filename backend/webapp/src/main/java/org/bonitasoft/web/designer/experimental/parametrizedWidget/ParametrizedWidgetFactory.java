@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
+import java.util.Locale;
 
 import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
@@ -75,7 +76,7 @@ public class ParametrizedWidgetFactory {
 
     // contract sent by studio contain things like that "java.lang.Boolean" for type
     private boolean aBooleanInput(ContractInput input) {
-        return input.getType() != null && input.getType().toLowerCase().endsWith("boolean");
+        return input.getType() != null && input.getType().toLowerCase(Locale.ENGLISH).endsWith("boolean");
     }
 
     private boolean aFileInput(ContractInput input) {
