@@ -23,6 +23,7 @@ import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMo
 
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,9 +94,11 @@ public class PageResource extends AssetResource<Page> {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Page page, @RequestParam(value = "duplicata", required = false) String sourcePageId)
             throws RepositoryException {
-        // the page should not have an ID. If it has one, we ignore it and generate one
+        // the page should not have an ID. If it has one, we ignore it and generate one using the name
         String pageId = pageRepository.getNextAvailableId(page.getName());
         page.setId(pageId);
+        // the page should not have an UUID. If it has one, we ignore it and generate one
+        page.setUUID(UUID.randomUUID().toString());
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
         if (isNotEmpty(sourcePageId)) {
@@ -126,6 +130,7 @@ public class PageResource extends AssetResource<Page> {
             newPageId = pageRepository.getNextAvailableId(page.getName());
         }
         page.setId(newPageId);
+        setPageUUIDIfNotSet(page);
         page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
         ResponseEntity<Void> responseEntity;
@@ -140,6 +145,14 @@ public class PageResource extends AssetResource<Page> {
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         }
         return responseEntity;
+    }
+
+    protected void setPageUUIDIfNotSet(Page page) {
+        if(StringUtils.isEmpty(page.getUUID())) {
+            //it is a new page so we set its UUID
+            String pageUUID = UUID.randomUUID().toString();
+            page.setUUID(pageUUID);
+        }
     }
 
     @RequestMapping(value = "/{pageId}/name", method = RequestMethod.PUT)

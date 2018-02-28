@@ -84,7 +84,7 @@ public class PageRepositoryTest {
 
     private Page addToRepository(Page page) throws Exception {
         Path repo = temporaryFolder.newFolderPath(page.getId());
-        persister.save(repo, page.getId(), page);
+        persister.save(repo, page);
         return page;
     }
 
@@ -151,7 +151,7 @@ public class PageRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_while_saving_a_page() throws Exception {
         Page expectedPage = aFilledPage("page-id");
-        doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage.getId(), expectedPage);
+        doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage);
 
         repository.updateLastUpdateAndSave(expectedPage);
     }

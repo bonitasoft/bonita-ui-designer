@@ -23,5 +23,5 @@ public interface ExportStep<T extends Identifiable> {
 
     static String RESOURCES = "resources";
 
-    void execute(Zipper zipper, T page) throws IOException;
+    void execute(Zipper zipper, T artifact) throws IOException;
 }

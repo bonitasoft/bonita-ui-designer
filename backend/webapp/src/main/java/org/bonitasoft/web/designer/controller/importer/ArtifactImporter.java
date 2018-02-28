@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static com.google.common.collect.Lists.transform;
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
@@ -26,10 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
-import org.bonitasoft.web.designer.controller.importer.dependencies.ComponentDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -38,8 +38,7 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Function;
+import org.springframework.util.StringUtils;
 
 public class ArtifactImporter<T extends Identifiable> {
 
@@ -75,12 +74,15 @@ public class ArtifactImporter<T extends Identifiable> {
             Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
 
             ImportReport report = buildReport(element, dependencies);
-            report.setUUID(anImport.getUuid());
+            report.setUUID(anImport.getUUID());
 
             if (force || report.doesNotOverrideElements()) {
+                if (force) {
+                    //delete element that will be overriden
+                    deleteComponentWithSameUUID(report, element);
+                }
                 // then save them
-                saveArtefactDependencies(resources, dependencies);
-                repository.updateLastUpdateAndSave(element);
+                saveComponent(resources, element, dependencies);
                 report.setStatus(ImportReport.Status.IMPORTED);
             } else {
                 report.setStatus(ImportReport.Status.CONFLICT);
@@ -102,13 +104,63 @@ public class ArtifactImporter<T extends Identifiable> {
         }
     }
 
+    private void saveComponent(Path resources, T element, Map<DependencyImporter, List<?>> dependencies) throws IOException {
+        if (element instanceof HasUUID && repository.exists(element.getId())) {
+            //If an element with the same ID already exist in the repository, generate a new ID
+            String newId = repository.getNextAvailableId(element.getName());
+            ((HasUUID) element).setId(newId);
+        }
+        saveArtefactDependencies(resources, dependencies);
+        repository.updateLastUpdateAndSave(element);
+    }
+
+    private void deleteComponentWithSameUUID(ImportReport report, T element) {
+        T elementToReplace = (T) report.getElement();
+        if (report.isOverridden() && elementToReplace instanceof HasUUID
+                && elementToReplace.getId() != element.getId()) {
+            repository.delete(elementToReplace.getId());
+        }
+    }
+
     private ImportReport buildReport(T element, Map<DependencyImporter, List<?>> dependencies) {
         ImportReport report = ImportReport.from(element, dependencies);
-        if (repository.exists(element.getId())) {
-            report.setOverridden(true);
-            report.setElement(repository.get(element.getId()));
+        if(element instanceof HasUUID) {
+            checkIfElementWithUUIDIsOverriden(element, report);
+        } else if (repository.exists(element.getId())) {
+            setOverriden(report, element.getId());
         }
         return report;
+    }
+
+    private void checkIfElementWithUUIDIsOverriden(T element, ImportReport report) {
+        String elementUUID = ((HasUUID) element).getUUID();
+        T overridenElement = null;
+        if (!StringUtils.isEmpty(elementUUID)) {
+            // if there is already a artifact with this UUID, it will be replaced
+            overridenElement = repository.getByUUID(elementUUID);
+        } else {
+            try {
+                UUID.fromString(element.getId());
+                logger.info(
+                        format("Imported artifact %s does not have an uuid attribute but its id has the UUID format."
+                                + "The migration will give it an uuid attribute with the same value as its id.", element.getId()));
+                // Migration will give the artifact the same uuid attribute as its ID
+                // so if there is already an artifact with this UUID, it will be replaced
+                overridenElement = repository.getByUUID(element.getId());
+            } catch (IllegalArgumentException e) {
+                logger.info(
+                        format("Imported artifact %s does not have an uuid attribute and its id does not have the UUID format."
+                                + "A new UUID will be generated by the migration so it will not replace another artifact.", element.getId()));
+            }
+        }
+        if (overridenElement != null) {
+            setOverriden(report, overridenElement.getId());
+        }
+    }
+
+    private void setOverriden(ImportReport report, String elementId) {
+        report.setOverridden(true);
+        report.setElement(repository.get(elementId));
     }
 
     private void saveArtefactDependencies(Path resources, Map<DependencyImporter, List<?>> map) {

@@ -51,7 +51,7 @@ public class ImportStoreTest {
 
         Import storedImport = importStore.store(artifactImporter, importPath);
 
-        assertThat(storedImport.getUuid()).isNotNull();
+        assertThat(storedImport.getUUID()).isNotNull();
         assertThat(storedImport.getImporter()).isEqualTo(artifactImporter);
         assertThat(storedImport.getPath()).isEqualTo(importPath);
     }
@@ -60,7 +60,7 @@ public class ImportStoreTest {
     public void should_get_a_stored_import() throws Exception {
         Import expectedImport = importStore.store(artifactImporter, Paths.get("import/path"));
 
-        Import fetchedImport = importStore.get(expectedImport.getUuid());
+        Import fetchedImport = importStore.get(expectedImport.getUUID());
 
         assertThat(expectedImport).isEqualTo(fetchedImport);
     }
@@ -74,9 +74,9 @@ public class ImportStoreTest {
     public void should_remove_a_stored_import() throws Exception {
         Import addedReport = importStore.store(artifactImporter, Paths.get("import/path"));
 
-        importStore.remove(addedReport.getUuid());
+        importStore.remove(addedReport.getUUID());
 
-        importStore.get(addedReport.getUuid()); // should throw not found exception
+        importStore.get(addedReport.getUUID()); // should throw not found exception
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ImportStoreTest {
         Path importFolder = temporaryFolder.newFolderPath("importFolder");
         Import addedReport = importStore.store(artifactImporter, importFolder);
 
-        importStore.remove(addedReport.getUuid());
+        importStore.remove(addedReport.getUUID());
 
         assertThat(importFolder).doesNotExists();
     }

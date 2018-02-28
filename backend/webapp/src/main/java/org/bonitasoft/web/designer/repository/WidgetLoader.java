@@ -54,4 +54,8 @@ public class WidgetLoader extends AbstractLoader<Widget>{
         return loadAll(widgetsFolder, "custom*");
     }
 
+    @Override
+    public Widget getByUUID(Path directory, String uuid) throws IOException {
+        return null;
+    }
 }

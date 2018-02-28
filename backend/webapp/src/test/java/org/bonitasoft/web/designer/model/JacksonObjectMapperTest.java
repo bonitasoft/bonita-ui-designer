@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -44,6 +46,25 @@ public class JacksonObjectMapperTest {
         SimpleObject object = new SimpleObject("id", "Vincent", 1);
 
         JSONAssert.assertEquals(new String(objectMapper.toJson(object)), "{\"name\":\"Vincent\",\"number\":1, \"another\": null, \"id\": \"id\"}", false);
+    }
+
+    @Test
+    public void should_deserialize_json_to_map() throws Exception {
+        String json = "{\"name\": \"walter\", \"lastname\": \"bates\"}";
+
+        Map<String, String> map = objectMapper.fromJsonToMap(json.getBytes(StandardCharsets.UTF_8));
+
+        assertThat(map.get("name")).isEqualTo("walter");
+        assertThat(map.get("lastname")).isEqualTo("bates");
+    }
+
+    @Test
+    public void should_serialize_map_into_json() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "walter");
+        map.put("lastname", "bates");
+
+        JSONAssert.assertEquals(new String(objectMapper.toJson(map)), "{\"name\":\"walter\",\"lastname\":\"bates\"}", false);
     }
 
     @Test

@@ -74,7 +74,7 @@ public class LiveMigrationTest {
         liveMigration.start();
 
         page.setDesignerVersion("1.0.2");
-        verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), "pageJson", page);
+        verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), page);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class LiveMigrationTest {
 
         liveMigration.start();
 
-        verify(persister, never()).save(any(Path.class), anyString(), any(Page.class));
+        verify(persister, never()).save(any(Path.class), any(Page.class));
     }
 
     @Test

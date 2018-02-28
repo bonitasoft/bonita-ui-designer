@@ -14,24 +14,14 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
-import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
 import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.zip.ZipException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.controller.utils.Unzipper;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.springframework.web.multipart.MultipartFile;
 
 @Named
 public class PathImporter {
@@ -70,7 +60,7 @@ public class PathImporter {
             report = importFn.apply(anImport);
         } finally {
             if (report == null || IMPORTED.equals(report.getStatus())) {
-                importStore.remove(anImport.getUuid());
+                importStore.remove(anImport.getUUID());
             }
         }
         return report;

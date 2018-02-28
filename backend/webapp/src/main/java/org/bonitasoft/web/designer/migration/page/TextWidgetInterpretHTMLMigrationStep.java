@@ -16,6 +16,7 @@
 package org.bonitasoft.web.designer.migration.page;
 
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -27,21 +28,19 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Named
-public class TextWidgetInterpretHTMLMigrationStep implements MigrationStep<Page>  {
+public class TextWidgetInterpretHTMLMigrationStep<T extends AbstractPage> implements MigrationStep<T>  {
 
     private static final Logger logger = LoggerFactory.getLogger(TextWidgetInterpretHTMLMigrationStep.class);
 
     private ComponentVisitor componentVisitor;
 
-    @Inject
     public TextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         this.componentVisitor = componentVisitor;
     }
     @Override
-    public void migrate(Page page) {
+    public void migrate(AbstractPage page) {
         for (Component component : page.accept(componentVisitor)) {
-            if ("pbText".equals(component.getId())) {
+            if ("pbText".equals(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
                 PropertyValue interpretHTMLValue = new PropertyValue();
                 interpretHTMLValue.setType(BondType.CONSTANT.toJson());
                 interpretHTMLValue.setValue(Boolean.TRUE);

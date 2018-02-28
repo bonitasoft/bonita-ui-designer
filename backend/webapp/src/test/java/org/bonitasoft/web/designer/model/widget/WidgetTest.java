@@ -46,20 +46,21 @@ public class WidgetTest {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledWidget());
 
         assertEquals(json, "{"
-                + "\"id\":\"UUID2\","
+                + "\"id\":\"ID2\","
                 + "\"name\":\"aName\","
                 + "\"custom\":false,"
                 + "\"favorite\": true,"
                 + "\"type\": \"widget\","
                 + "\"usedBy\":{"
                 + "\"page\":[{"
-                + "\"id\":\"UUID\","
+                + "\"id\":\"ID\","
+                + "\"uuid\":\"UUID\","
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
                 + "\"favorite\": false"
                 + "}],"
                 + "\"widget\":[{"
-                + "\"id\":\"UUID\","
+                + "\"id\":\"ID\","
                 + "\"name\":\"aName\","
                 + "\"custom\":false,"
                 + "\"type\": \"widget\","
@@ -129,10 +130,11 @@ public class WidgetTest {
      * Create a filled widget with a value for all fields
      */
     private Widget createAFilledWidget() throws Exception {
-        Widget widget = aWidget().id("UUID").build();
+        Widget widget = aWidget().id("ID").build();
 
-        Widget widgetSon = aWidget().id("UUID2").build();
-        Page page = aFilledPage("UUID");
+        Widget widgetSon = aWidget().id("ID2").build();
+        Page page = aFilledPage("ID");
+        page.setUUID("UUID");
         page.setName("myPage");
         widgetSon.addUsedBy("page", asList(page));
         widgetSon.addUsedBy("widget", asList(widget));
