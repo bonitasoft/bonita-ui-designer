@@ -14,6 +14,8 @@
     "gulp-protractor": "3.0.0",
     "jasmine-reporters": "2.1.1",
     "protractor": "5.2.0",
+    "query-string": "^5.1.0",
+    "url": "^0.11.0",
     "webdriver-manager": "12.0.6"
   },
   "scripts": {
