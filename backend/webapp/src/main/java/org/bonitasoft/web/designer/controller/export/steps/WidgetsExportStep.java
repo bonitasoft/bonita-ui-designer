@@ -25,14 +25,14 @@ import javax.inject.Named;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
-@Named
-public class WidgetsExportStep implements ExportStep<Page> {
+public class WidgetsExportStep<T extends AbstractPage> implements ExportStep<T> {
 
     private WorkspacePathResolver pathResolver;
     private WidgetIdVisitor widgetIdVisitor;
@@ -47,7 +47,7 @@ public class WidgetsExportStep implements ExportStep<Page> {
     }
 
     @Override
-    public void execute(Zipper zipper, Page page) throws IOException {
+    public void execute(Zipper zipper, T page) throws IOException {
         Path widgetsRepositoryPath = pathResolver.getWidgetsRepositoryPath();
         zipper.addDirectoryToZip(
                 widgetsRepositoryPath,

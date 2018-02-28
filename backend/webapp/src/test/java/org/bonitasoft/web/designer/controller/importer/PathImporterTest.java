@@ -79,7 +79,7 @@ public class PathImporterTest {
 
         pathImporter.importFromPath(unzipedPath, importer);
 
-        verify(importStore).remove(anImport.getUuid());
+        verify(importStore).remove(anImport.getUUID());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class PathImporterTest {
             pathImporter.importFromPath(unzipedPath, importer);
             failBecauseExceptionWasNotThrown(ImportException.class);
         } catch (Exception e) {
-            verify(importStore).remove(anImport.getUuid());
+            verify(importStore).remove(anImport.getUUID());
         }
     }
 
@@ -104,7 +104,7 @@ public class PathImporterTest {
         ImportReport report = pathImporter.forceImportFromPath(unzipedPath, importer);
 
         assertThat(expectedReport).isEqualTo(report);
-        verify(importStore).remove(anImport.getUuid());
+        verify(importStore).remove(anImport.getUUID());
     }
 
     @Test(expected =  ImportException.class)

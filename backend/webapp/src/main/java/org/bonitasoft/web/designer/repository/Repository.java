@@ -33,6 +33,12 @@ public interface Repository<T extends Identifiable> {
     T get(String id) throws NotFoundException, RepositoryException;
 
     /**
+     * Gets component by its uuid
+     * Return null if the component does not Implement {@link org.bonitasoft.web.designer.model.HasUUID}
+     */
+    T getByUUID(String uuid) throws NotFoundException, RepositoryException;
+
+    /**
      * Get all the component in a directory
      */
     List<T> getAll() throws RepositoryException;

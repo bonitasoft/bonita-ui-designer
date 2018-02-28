@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.model;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +25,8 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * Wraps objectMapper to avoid recurrent issue like encoding ones
@@ -43,6 +47,12 @@ public class JacksonObjectMapper {
         return objectMapper.reader().withView(view).forType(type).readValue(bytes);
     }
 
+    public Map<String, String> fromJsonToMap(byte[] bytes) throws IOException {
+        TypeFactory factory = TypeFactory.defaultInstance();
+        MapType mapType = factory.constructMapType(HashMap.class, String.class, String.class);
+        return objectMapper.readValue(bytes, mapType);
+    }
+
     public byte[] toJson(Object object) throws IOException {
         // Use UTF8 to accept any character and have platform-independent files.
         return objectMapper.writeValueAsString(object).getBytes(StandardCharsets.UTF_8);
@@ -51,6 +61,11 @@ public class JacksonObjectMapper {
     public byte[] toJson(Object object, Class<?> serializationView) throws IOException {
         // Use UTF8 to accept any character and have platform-independent files.
         return objectMapper.writerWithView(serializationView).writeValueAsString(object).getBytes(StandardCharsets.UTF_8);
+    }
+
+    public byte[] toJson(Map<String, String> map) throws IOException {
+        // Use UTF8 to accept any character and have platform-independent files.
+        return objectMapper.writeValueAsString(map).getBytes(StandardCharsets.UTF_8);
     }
 
     public byte[] toPrettyJson(Object object, Class<?> serializationView) throws IOException {

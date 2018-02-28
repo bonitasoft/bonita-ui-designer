@@ -16,12 +16,15 @@ package org.bonitasoft.web.designer.repository;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.springframework.util.StringUtils;
 
 
 @Named

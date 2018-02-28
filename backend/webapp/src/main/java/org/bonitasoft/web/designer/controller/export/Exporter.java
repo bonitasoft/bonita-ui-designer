@@ -67,6 +67,7 @@ public class Exporter<T extends DesignerArtifact> {
             zipper.addToZip(readAllBytes(repository.resolvePath(id).resolve(format("%s.json", id))), format("%s/%s.json", RESOURCES, repository.getComponentName()));
             // forceExecution export steps
             for (ExportStep exporter : exportSteps) {
+                logger.info("export step " + exporter.getClass().getName());
                 exporter.execute(zipper, identifiable);
             }
 

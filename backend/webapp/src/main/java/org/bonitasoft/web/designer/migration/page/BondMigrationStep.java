@@ -24,10 +24,7 @@ import javax.inject.Named;
 
 import com.google.common.collect.ImmutableMap;
 import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -38,8 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Named
-public class BondMigrationStep implements MigrationStep<Page> {
+public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(BondMigrationStep.class);
     private ComponentVisitor componentVisitor;
@@ -53,7 +49,6 @@ public class BondMigrationStep implements MigrationStep<Page> {
             .put(BondType.VARIABLE, new VariableBondMigrationStrategy())
             .build();
 
-    @Inject
     public BondMigrationStep(ComponentVisitor componentVisitor, WidgetRepository widgetRepository, VisitorFactory visitorFactory) {
         this.componentVisitor = componentVisitor;
         this.widgetRepository = widgetRepository;
@@ -61,7 +56,7 @@ public class BondMigrationStep implements MigrationStep<Page> {
     }
 
     @Override
-    public void migrate(Page page) {
+    public void migrate(AbstractPage page) {
 
         for (Component component : page.accept(componentVisitor)) {
             Widget widget = widgetRepository.get(component.getId());

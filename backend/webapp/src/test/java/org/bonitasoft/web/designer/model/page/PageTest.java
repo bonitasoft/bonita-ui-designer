@@ -48,7 +48,8 @@ public class PageTest {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledPage());
 
         JSONAssert.assertEquals(json, "{"
-                + "\"id\":\"UUID\","
+                + "\"id\":\"ID\","
+                + "\"uuid\":\"UUID\","
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
                 + "\"favorite\": true"
@@ -121,7 +122,8 @@ public class PageTest {
      * Create a filled page with a value for all fields
      */
     private Page createAFilledPage() throws Exception {
-        Page page = PageBuilder.aFilledPage("UUID");
+        Page page = PageBuilder.aFilledPage("ID");
+        page.setUUID("UUID");
         page.setFavorite(true);
         page.setName("myPage");
         return page;

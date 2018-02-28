@@ -32,9 +32,11 @@ public interface Loader<T extends Identifiable> {
 
     String getNextAvailableObjectId(Path directory, String objectName) throws IOException;
 
+    T getByUUID(Path directory, String uuid) throws IOException;
+
     /**
      * Find all the objects which contain an object id. Each object (widget, page, ...) has its
-     * own id calculated with an UUID. To increase performances, we just search if the id is in the text
+     * own id. To increase performances, we just search if the id is in the text
      * files. Only files which contain a reference are deserialized
      *
      * @throws java.io.IOException
@@ -43,7 +45,7 @@ public interface Loader<T extends Identifiable> {
 
     /**
      * Find if an object is used in another objects. Each object (widget, page, ...) has its
-     * own id calculated with an UUID. To increase performances, we just search if the id is in the text
+     * own id. To increase performances, we just search if the id is in the text
      * files. Only files which contain a reference are deserialized
      *
      * @throws java.io.IOException

@@ -46,7 +46,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -68,24 +67,32 @@ public class ArtifactImporterTest {
     private WidgetLoader widgetLoader;
     @Mock
     private WidgetRepository widgetRepository;
-    private ArtifactImporter<Page> importer;
+    private ArtifactImporter<Page> pageImporter;
+    private ArtifactImporter<Widget> widgetImporter;
 
     private Path pageImportPath;
-    private Path unzippedPath;
+    private Path widgetImportPath;
+    private Path pageUnzippedPath;
+    private Path widgetUnzippedPath;
     private WidgetImportMock wMocks;
     private PageImportMock pMocks;
 
     @Before
     public void setUp() throws IOException {
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
-        DependencyImporter widgetImporter = new WidgetImporter(widgetLoader, widgetRepository, mock(AssetImporter.class));
-        importer = new ArtifactImporter<>(pageRepository, pageLoader, widgetImporter);
-        unzippedPath = pageImportPath.resolve("resources");
-        Files.createDirectory(unzippedPath);
+        widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
+        DependencyImporter widgetDependencyImporter = new WidgetImporter(widgetLoader, widgetRepository, mock(AssetImporter.class));
+        pageImporter = new ArtifactImporter<>(pageRepository, pageLoader, widgetDependencyImporter);
+        widgetImporter = new ArtifactImporter<>(widgetRepository, widgetLoader);
+        pageUnzippedPath = pageImportPath.resolve("resources");
+        Files.createDirectory(pageUnzippedPath);
         when(pageRepository.getComponentName()).thenReturn("page");
+        widgetUnzippedPath = widgetImportPath.resolve("resources");
+        Files.createDirectory(widgetUnzippedPath);
+        when(widgetRepository.getComponentName()).thenReturn("widget");
 
-        wMocks = new WidgetImportMock(unzippedPath, widgetLoader, widgetRepository);
-        pMocks = new PageImportMock(unzippedPath, pageLoader);
+        wMocks = new WidgetImportMock(pageUnzippedPath, widgetLoader, widgetRepository);
+        pMocks = new PageImportMock(pageUnzippedPath, pageLoader);
     }
 
     @Test
@@ -93,7 +100,7 @@ public class ArtifactImporterTest {
         List<Widget> widgets = wMocks.mockWidgetsAsAddedDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        importer.doImport(anImport(pageImportPath));
+        pageImporter.doImport(anImport(pageImportPath));
 
         verify(widgetRepository).saveAll(widgets);
         verify(pageRepository).updateLastUpdateAndSave(page);
@@ -105,7 +112,7 @@ public class ArtifactImporterTest {
         List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        ImportReport report = importer.doImport(anImport(pageImportPath));
+        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
         assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
@@ -113,24 +120,38 @@ public class ArtifactImporterTest {
     }
 
     @Test
-    public void should_return_an_import_report_saying_that_element_has_been_overridden_when_element_already_exists_in_repository() throws Exception {
+    public void should_return_an_import_report_saying_that_page_is_going_to_be_when_element_already_exists_in_repository() throws Exception {
         Page page = pMocks.mockPageToBeImported();
-        Page existingPageInRepo = aPage().withId(page.getId()).withName("alreadyHere").build();
-        when(pageRepository.exists(page.getId())).thenReturn(true);
-        when(pageRepository.get(page.getId())).thenReturn(existingPageInRepo);
+        Page existingPageInRepo = aPage().withUUID(page.getUUID()).withName("alreadyHere").build();
+        when(pageRepository.getByUUID(page.getUUID())).thenReturn(existingPageInRepo);
+        when(pageRepository.get(existingPageInRepo.getId())).thenReturn(existingPageInRepo);
 
-        ImportReport report = importer.doImport(anImport(pageImportPath));
+        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getElement()).isEqualTo(existingPageInRepo);
         assertThat(report.isOverridden()).isTrue();
     }
 
     @Test
+    public void should_return_an_import_report_saying_that_widget_is_going_to_be_overridden_when_element_already_exists_in_repository() throws Exception {
+        Widget widget = aWidget().id("aWidget").custom().build();
+        Widget existingWidgetInRepo = aWidget().id("aWidget").favorite().custom().build();
+        when(widgetLoader.load(widgetUnzippedPath.resolve("widget.json"))).thenReturn(widget);
+        when(widgetRepository.exists(widget.getId())).thenReturn(true);
+        when(widgetRepository.get(widget.getId())).thenReturn(existingWidgetInRepo);
+
+        ImportReport report = widgetImporter.doImport(anImport(widgetImportPath));
+
+        assertThat(report.getElement()).isEqualTo(existingWidgetInRepo);
+        assertThat(report.isOverridden()).isTrue();
+    }
+
+    @Test
     public void should_return_an_import_report_saying_that_element_has_not_been_overridden_when_element_does_not_exists_in_repository() throws Exception {
         Page page = pMocks.mockPageToBeImported();
-        when(pageRepository.exists(page.getId())).thenReturn(false);
+        when(pageRepository.getByUUID(page.getUUID())).thenReturn(null);
 
-        ImportReport report = importer.doImport(anImport(pageImportPath));
+        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.isOverridden()).isFalse();
@@ -141,7 +162,7 @@ public class ArtifactImporterTest {
         List<Widget> widgets = wMocks.mockWidgetsAsAddedDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        ImportReport report = importer.doImport(anImport(pageImportPath));
+        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
         verify(widgetRepository).saveAll(widgets);
@@ -153,7 +174,7 @@ public class ArtifactImporterTest {
         List<Widget> overriddenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
 
-        ImportReport report = importer.doImport(anImport(pageImportPath));
+        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.CONFLICT);
         verify(widgetRepository, never()).saveAll(overriddenWidgets);
@@ -167,28 +188,28 @@ public class ArtifactImporterTest {
         exception.expect(ImportException.class);
         exception.expect(hasType(UNEXPECTED_ZIP_STRUCTURE));
 
-        importer.doImport(anImport(newFolder));
+        pageImporter.doImport(anImport(newFolder));
     }
 
     @Test(expected = ServerImportException.class)
     public void should_throw_server_import_exception_when_error_occurs_while_saving_files_in_repository() throws Exception {
         Page page = aPage().withId("aPage").build();
-        when(pageLoader.load(unzippedPath.resolve("page.json"))).thenReturn(page);
+        when(pageLoader.load(pageUnzippedPath.resolve("page.json"))).thenReturn(page);
         doThrow(RepositoryException.class).when(pageRepository).updateLastUpdateAndSave(page);
 
-        importer.doImport(anImport(pageImportPath));
+        pageImporter.doImport(anImport(pageImportPath));
     }
 
     @Test(expected = ServerImportException.class)
     public void should_throw_import_exception_when_an_error_occurs_while_getting_widgets() throws Exception {
-        Files.createDirectory(unzippedPath.resolve(WIDGETS_FOLDER));
-        when(widgetLoader.loadAllCustom(unzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
+        Files.createDirectory(pageUnzippedPath.resolve(WIDGETS_FOLDER));
+        when(widgetLoader.loadAllCustom(pageUnzippedPath.resolve(WIDGETS_FOLDER))).thenThrow(new IOException());
 
-        importer.doImport(anImport(pageImportPath));
+        pageImporter.doImport(anImport(pageImportPath));
     }
 
     private Import anImport(Path path) {
-        return new Import(importer, "import-uuid", path);
+        return new Import(pageImporter, "import-uuid", path);
     }
 
     @Test
@@ -197,18 +218,58 @@ public class ArtifactImporterTest {
         List<Widget> overriddenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.exists(page.getId())).thenReturn(false);
-        Import anImport = new Import(importer, "import-uuid", pageImportPath);
+        Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
 
-        ImportReport report = importer.forceImport(anImport);
+        ImportReport report = pageImporter.forceImport(anImport);
 
         assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
         assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overriddenWidgets);
         assertThat(report.getElement()).isEqualTo(page);
-        assertThat(report.getUUID()).isEqualTo(anImport.getUuid());
+        assertThat(report.getUUID()).isEqualTo(anImport.getUUID());
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
         verify(widgetRepository, never()).saveAll(overriddenWidgets);
         verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
     }
 
+    @Test
+    public void should_force_an_import_overwriting_page() throws Exception {
+        wMocks.mockWidgetsAsAddedDependencies();
+        Page page = pMocks.mockPageToBeImported();
+        Page existingPageInRepo = aPage().withUUID(page.getUUID()).withId("alreadyHere").withName("alreadyHere").build();
+        when(pageRepository.getByUUID(page.getUUID())).thenReturn(existingPageInRepo);
+        when(pageRepository.get(existingPageInRepo.getId())).thenReturn(existingPageInRepo);
+        when(pageRepository.exists(page.getId())).thenReturn(false);
+        Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
 
+        ImportReport report = pageImporter.forceImport(anImport);
+
+        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
+        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
+        assertThat(page.getId()).isEqualTo("id");
+        verify(pageRepository).delete(existingPageInRepo.getId());
+        verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
+    }
+
+    @Test
+    public void should_force_an_import_when_another_page_with_same_id_exist() throws Exception {
+        wMocks.mockWidgetsAsAddedDependencies();
+        Page page = pMocks.mockPageToBeImported();
+        page.setName("myPage");
+        Page existingPageInRepo = aPage().withUUID(page.getUUID()).withId("alreadyHere").withName("alreadyHere").build();
+        when(pageRepository.getByUUID(page.getUUID())).thenReturn(existingPageInRepo);
+        when(pageRepository.get(existingPageInRepo.getId())).thenReturn(existingPageInRepo);
+        when(pageRepository.exists(page.getId())).thenReturn(true);
+        when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
+        Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
+
+        ImportReport report = pageImporter.forceImport(anImport);
+
+        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
+        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
+        assertThat(page.getId()).isEqualTo("myPage1");
+        verify(pageRepository).delete(existingPageInRepo.getId());
+        verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
+    }
 }

@@ -41,14 +41,11 @@ import org.bonitasoft.web.designer.migration.LiveMigration;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
@@ -208,9 +205,14 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep widgetsExportStep,
-            PagePropertiesExportStep pagePropertiesExportStep,
-            HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
+    public WidgetsExportStep<Page> widgetsExportStep(WorkspacePathResolver pathResolver, WidgetIdVisitor widgetIdVisitor, DirectiveFileGenerator directiveFileGenerator) {
+        return new WidgetsExportStep<Page>(pathResolver, widgetIdVisitor, directiveFileGenerator);
+    }
+
+    @Bean
+    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep<Page> widgetsExportStep,
+                                                      PagePropertiesExportStep pagePropertiesExportStep,
+                                                      HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
         return new ExportStep[] { htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep };
     }
 
@@ -324,23 +326,38 @@ public class DesignerConfig {
      * Migration Steps
      * See {@link Migration}
      ******************************************************************************************************************/
+
+    @Bean
+    public BondMigrationStep<Page> pageBondMigrationStep(ComponentVisitor componentVisitor,
+                                                         WidgetRepository widgetRepository,
+                                                         VisitorFactory visitorFactory) {
+        return new BondMigrationStep(componentVisitor, widgetRepository, visitorFactory);
+    }
+
+    @Bean
+    public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
+        return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
+    }
+
     @Bean
     public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader,
-            PageRepository pageRepository,
-            BondMigrationStep bondMigrationStep, StyleAssetMigrationStep styleAssetMigrationStep,
-            TextWidgetInterpretHTMLMigrationStep textWidgetInterpretHTMLMigrationStep,
-            UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep) {
+                                                 PageRepository pageRepository,
+                                                 BondMigrationStep<Page> pageBondMigrationStep,
+                                                 StyleAssetMigrationStep styleAssetMigrationStep,
+                                                 TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
+                                                 UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
+                                                 PageUUIDMigrationStep pageUUIDMigrationStep) {
 
         return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
-                new Migration<>("1.0.3", bondMigrationStep),
+                new Migration<>("1.0.3", pageBondMigrationStep),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>()),
                 new Migration<>("1.5.7", styleAssetMigrationStep),
                 new Migration<>("1.5.10", uiBootstrapAssetMigrationStep),
-                new Migration<>("1.7.4", textWidgetInterpretHTMLMigrationStep)));
+                new Migration<>("1.7.4", pageTextWidgetInterpretHTMLMigrationStep),
+                new Migration<>("1.7.25", pageUUIDMigrationStep)));
 
     }
-
     @Bean
     public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
         return new LiveMigration<>(widgetRepository, widgetLoader, asList(

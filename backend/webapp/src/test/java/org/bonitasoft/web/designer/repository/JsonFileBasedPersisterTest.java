@@ -72,9 +72,9 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_serialize_an_object_and_save_it_to_a_file() throws Exception {
-        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
 
-        repository.save(repoDirectory, "foo", expectedObject);
+        repository.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject).isEqualTo(expectedObject);
@@ -82,9 +82,9 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_set_designer_version_while_saving_if_not_already_set() throws Exception {
-        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
 
-        repository.save(repoDirectory, "foo", expectedObject);
+        repository.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject.getDesignerVersion()).isEqualTo(DESIGNER_VERSION);
@@ -92,20 +92,20 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_not_set_designer_version_while_saving_if_already_set() throws Exception {
-        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("id", "aName", 2);
-        expectedObject.setDesignerVersion("alreadySetVerion");
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
+        expectedObject.setDesignerVersion("alreadySetVersion");
 
-        repository.save(repoDirectory, "foo", expectedObject);
+        repository.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
-        assertThat(savedObject.getDesignerVersion()).isEqualTo("alreadySetVerion");
+        assertThat(savedObject.getDesignerVersion()).isEqualTo("alreadySetVersion");
     }
 
     @Test(expected = IOException.class)
     public void should_throw_IOException_when_error_occurs_while_saving_a_object() throws Exception {
         doThrow(new RuntimeException()).when(objectMapper).toJson(anyObject(), any(Class.class));
 
-        repository.save(repoDirectory, "foo", new SimpleDesignerArtifact());
+        repository.save(repoDirectory, new SimpleDesignerArtifact());
     }
 
     @Test
@@ -113,7 +113,7 @@ public class JsonFileBasedPersisterTest {
         doThrow(ConstraintValidationException.class).when(validator).validate(any(Object.class));
 
         try {
-            repository.save(repoDirectory, "object1", new SimpleDesignerArtifact("object1", "object1", 1));
+            repository.save(repoDirectory, new SimpleDesignerArtifact("object1", "object1", 1));
             failBecauseExceptionWasNotThrown(ConstraintValidationException.class);
         } catch (ConstraintValidationException e) {
             // should not have saved object1
@@ -124,11 +124,11 @@ public class JsonFileBasedPersisterTest {
     @Test
     public void should_persist_metadata_in_a_seperate_file() throws Exception {
         SimpleDesignerArtifact artifact = aSimpleObjectBuilder()
-                .id("artifact")
+                .id("baz")
                 .metadata("foobar")
                 .build();
 
-        repository.save(repoDirectory, "baz", artifact);
+        repository.save(repoDirectory, artifact);
 
         assertThat(new String(readAllBytes(repoDirectory.getParent().resolve(".metadata/baz.json")))).isEqualTo("{\"favorite\":false,\"metadata\":\"foobar\"}");
     }

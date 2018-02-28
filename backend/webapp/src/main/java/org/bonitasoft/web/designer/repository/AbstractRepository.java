@@ -33,6 +33,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -73,6 +74,15 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
+    public T getByUUID(String uuid) throws RepositoryException {
+        try {
+            return loader.getByUUID(path, uuid);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while getting %s with UUID %s", getComponentName(), uuid), e);
+        }
+    }
+
+    @Override
     public List<T> getAll() throws RepositoryException {
         try {
             return loader.getAll(path);
@@ -106,7 +116,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         createComponentDirectory(component);
 
         try {
-            persister.save(resolvePathFolder(component.getId()), component.getId(), component);
+            persister.save(resolvePathFolder(component.getId()), component);
             return component;
         } catch (IOException e) {
             throw new RepositoryException(format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
@@ -127,7 +137,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             return loader.findByObjectId(path, id);
         } catch (IOException e) {
-            throw new RepositoryException(format("Error while searching %ss which used an object", getComponentName()), e);
+            throw new RepositoryException(format("Error while searching %ss using an object", getComponentName()), e);
         }
     }
 
@@ -140,8 +150,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public void delete(String id) throws NotFoundException, RepositoryException {
         T component = get(id);
         try {
-            FileUtils.deleteDirectory(path.resolve(component.getId()).toFile());
-            FileUtils.deleteQuietly(path.resolve(format(".metadata/%s.json", component.getId())).toFile());
+            persister.delete(resolvePathFolder(component.getId()), component);
         } catch (IOException e) {
             throw new RepositoryException(format("Error while deleting %s [%s]", getComponentName(), id), e);
         }

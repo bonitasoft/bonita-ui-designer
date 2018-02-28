@@ -51,6 +51,7 @@ public class PageBuilder {
     private Map<String, Data> data = new HashMap<>();
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
+    private String uuid = UUID.randomUUID().toString();
     private String version;
     private boolean favorite = false;
     private String type;
@@ -117,6 +118,11 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withUUID(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
     public PageBuilder withVersion(String version) {
         this.version = version;
         return this;
@@ -144,6 +150,7 @@ public class PageBuilder {
         page.setRows(rows);
         page.setData(data);
         page.setId(id);
+        page.setUUID(uuid);
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
         page.setDesignerVersion(version);

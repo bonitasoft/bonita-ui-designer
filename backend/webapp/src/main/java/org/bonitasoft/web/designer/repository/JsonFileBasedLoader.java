@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
-import static java.util.Collections.emptyList;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -25,14 +25,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.readAllBytes;
+import static java.util.Collections.emptyList;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
  */
 public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<T> {
+
+    protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedLoader.class);
 
     private JacksonObjectMapper objectMapper;
     private Class<T> type;
@@ -71,6 +76,23 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
             }
         }
         return objects;
+    }
+
+    @Override
+    public T getByUUID(Path directory, String uuid) throws IOException {
+        Path indexPath = directory.resolve(".metadata/.index.json");
+        if (indexPath.toFile().exists()) {
+            byte[] indexFileContent = readAllBytes(indexPath);
+            Map<String, String> index = objectMapper.fromJsonToMap(indexFileContent);
+            String objectId = index.get(uuid);
+            if (objectId != null) {
+                Path componentFile = directory.resolve(format("%s/%s.json", objectId, objectId));
+                return objectMapper.fromJson(readAllBytes(componentFile), type);
+            }
+        } else {
+            logger.info(format("index file not found [%s]. It will be created when needed of by the migration.", indexPath.toString()));
+        }
+        return null;
     }
 
     @Override

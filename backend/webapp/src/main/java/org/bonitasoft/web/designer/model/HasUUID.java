@@ -12,31 +12,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.controller.importer;
+package org.bonitasoft.web.designer.model;
 
-import java.nio.file.Path;
+public interface HasUUID {
 
-public class Import {
+    /**
+     * Unique id for a component never changing
+     */
+    String getUUID();
 
-    private ArtifactImporter importer;
-    private String uuid;
-    private Path path;
-
-    public Import(ArtifactImporter importer, String uuid, Path path) {
-        this.importer = importer;
-        this.uuid = uuid;
-        this.path = path;
-    }
-
-    public ArtifactImporter getImporter() {
-        return importer;
-    }
-
-    public String getUUID() {
-        return uuid;
-    }
-
-    public Path getPath() {
-        return path;
-    }
+    /**
+     * When a component has an UUID the ID may need to be changed (at import time for example)
+     * @param id
+     */
+    void setId(String id);
 }
