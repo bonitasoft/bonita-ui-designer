@@ -137,28 +137,4 @@ public abstract class AssetResource<T extends Assetable> {
             assetService.changeAssetStateInPreviewable(repository.get(id), assetId, active);
         }
     }
-
-    protected ResponseEntity<Void> getMovedResourceResponse(HttpServletRequest request, String newObjectId) throws RepositoryException {
-        return getMovedResourceResponse(request, newObjectId, null);
-    }
-
-    protected ResponseEntity<Void> getMovedResourceResponse(HttpServletRequest request, String newObjectId, String currentURIAttributeSuffix) throws RepositoryException {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        try {
-            String currentURI = request.getRequestURI();
-            String requestURI;
-            if (currentURIAttributeSuffix != null && currentURI.lastIndexOf(currentURIAttributeSuffix) >= 0) {
-                int indexOfSuffix = currentURI.lastIndexOf(currentURIAttributeSuffix);
-                requestURI = currentURI.substring(0, indexOfSuffix);
-            } else {
-                requestURI = currentURI;
-            }
-            int currentURILastSeparatorIndex = requestURI.lastIndexOf("/");
-            URI newLocation = new URI(requestURI.substring(0, currentURILastSeparatorIndex) + "/" + newObjectId);
-            responseHeaders.setLocation(newLocation);
-        } catch (URISyntaxException e) {
-            throw new RepositoryException("Failed to generate new object URI", e);
-        }
-        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
-    }
 }
