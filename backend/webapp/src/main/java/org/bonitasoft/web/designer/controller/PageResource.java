@@ -19,12 +19,10 @@ import static com.google.common.collect.Sets.filter;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +41,6 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -134,9 +131,9 @@ public class PageResource extends AssetResource<Page> {
         ResponseEntity<Void> responseEntity;
         if(!newPageId.equals(pageId)) {
             pageRepository.delete(pageId);
+            responseEntity = getMovedResourceResponse(request, newPageId);
             // send notification of removal
             messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
-            responseEntity = getMovedResourceResponse(request, newPageId);
         } else {
             // send notification of update
             messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
@@ -155,9 +152,9 @@ public class PageResource extends AssetResource<Page> {
             page.setName(name);
             pageRepository.updateLastUpdateAndSave(page);
             pageRepository.delete(pageId);
+            responseEntity = getMovedResourceResponse(request, newPageId, "/name");
             // send notification of removal
             messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
-            responseEntity = getMovedResourceResponse(request, newPageId, "/name");
         } else {
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         }
