@@ -1,310 +1,438 @@
 {
-  "designerVersion": "1.5-SNAPSHOT",
-  "id": "autocomplete",
-  "name": "autocomplete",
-  "lastUpdate": 1429799064124,
-  "rows": [
-    [{
-      "type": "container",
-      "dimension": {
-        "xs": 12,
-        "sm": 12,
-        "md": 12,
-        "lg": 12
+  "designerVersion" : "1.5.10",
+  "previousDesignerVersion" : "1.5-SNAPSHOT",
+  "id" : "autocomplete",
+  "name" : "autocomplete",
+  "type" : "page",
+  "lastUpdate" : 1519894322373,
+  "rows" : [ [ {
+    "type" : "container",
+    "dimension" : {
+      "xs" : 12,
+      "sm" : 12,
+      "md" : 12,
+      "lg" : 12
+    },
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : "test-simple"
       },
-      "propertyValues": {
-        "cssClasses": {
-          "type": "constant",
-          "value": "test-simple"
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      },
+      "repeatedCollection" : {
+        "type" : "constant",
+        "value" : ""
+      }
+    },
+    "reference" : "a133b9d3-9a80-4b5b-bf7a-df5d99ea5928",
+    "id" : "pbContainer",
+    "rows" : [ [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
         },
-        "hidden": {
-          "type": "constant",
-          "value": false
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
         },
-        "repeatedCollection": {
-          "type": "constant",
-          "value": ""
+        "text" : {
+          "type" : "constant",
+          "value" : "simple list of value"
+        },
+        "level" : {
+          "type" : "constant",
+          "value" : "Level 3"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
         }
       },
-      "reference": "a133b9d3-9a80-4b5b-bf7a-df5d99ea5928",
-      "rows": [
-        [{
-          "type": "component",
-          "dimension": {
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "text": {
-              "type": "constant",
-              "value": "simple list of value"
-            },
-            "level": {
-              "type": "constant",
-              "value": "Level 3"
-            },
-            "alignment": {
-              "type": "constant",
-              "value": "left"
-            }
-          },
-          "reference": "9d70759c-48d9-4ea9-b9a1-988a16846606",
-          "id": "pbTitle"
-        }],
-        [{
-          "type": "component",
-          "id": "pbAutocomplete",
-          "dimension": {
-            "xs": 12,
-            "md": 12,
-            "sm": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "readOnly": {
-              "type": "constant",
-              "value": false
-            },
-            "labelHidden": {
-              "type": "constant",
-              "value": false
-            },
-            "label": {
-              "type": "constant",
-              "value": "city"
-            },
-            "labelPosition": {
-              "type": "constant",
-              "value": "left"
-            },
-            "labelWidth": {
-              "type": "constant",
-              "value": 4
-            },
-            "placeholder": {
-              "type": "constant"
-            },
-            "availableValues": {
-              "type": "constant",
-              "value": ["London", "Paris", "San Francisco"]
-            },
-            "value": {
-              "type": "variable",
-              "value": "selectedCity"
-            },
-            "displayedKey": {
-              "type": "constant"
-            }
-          }
-        }],
-        [{
-          "type": "component",
-          "dimension": {
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "text": {
-              "type": "interpolation",
-              "value": "city: {{selectedCity}}"
-            },
-            "alignment": {
-              "type": "constant",
-              "value": "left"
-            }
-          },
-          "reference": "3fb6cdc9-e085-49fe-bb3a-c4511e61e9ca",
-          "id": "pbText"
-        }]
-      ]
-    }],
-    [{
-      "type": "container",
-      "dimension": {
-        "xs": 12,
-        "sm": 12,
-        "md": 12,
-        "lg": 12
+      "reference" : "9d70759c-48d9-4ea9-b9a1-988a16846606",
+      "id" : "pbTitle"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "md" : 12,
+        "sm" : 12,
+        "lg" : 12
       },
-      "propertyValues": {
-        "cssClasses": {
-          "type": "constant",
-          "value": "test-object"
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
         },
-        "hidden": {
-          "type": "constant",
-          "value": false
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
         },
-        "repeatedCollection": {
-          "type": "constant",
-          "value": ""
+        "readOnly" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "labelHidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "label" : {
+          "type" : "constant",
+          "value" : "city"
+        },
+        "labelPosition" : {
+          "type" : "constant",
+          "value" : "left"
+        },
+        "labelWidth" : {
+          "type" : "constant",
+          "value" : 4
+        },
+        "placeholder" : {
+          "type" : "constant"
+        },
+        "availableValues" : {
+          "type" : "constant",
+          "value" : [ "London", "Paris", "San Francisco" ]
+        },
+        "value" : {
+          "type" : "variable",
+          "value" : "selectedCity"
+        },
+        "displayedKey" : {
+          "type" : "constant"
         }
       },
-      "reference": "cf7059f9-6696-4751-80ac-c4710ce64bdd",
-      "rows": [
-        [{
-          "type": "component",
-          "dimension": {
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "text": {
-              "type": "constant",
-              "value": "Object list"
-            },
-            "level": {
-              "type": "constant",
-              "value": "Level 2"
-            },
-            "alignment": {
-              "type": "constant",
-              "value": "left"
-            }
-          },
-          "reference": "588951be-a375-4757-947f-9f887784c4c1",
-          "id": "pbTitle"
-        }],
-        [{
-          "type": "component",
-          "id": "pbAutocomplete",
-          "dimension": {
-            "xs": 12,
-            "md": 12,
-            "sm": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "readOnly": {
-              "type": "constant",
-              "value": false
-            },
-            "labelHidden": {
-              "type": "constant",
-              "value": false
-            },
-            "label": {
-              "type": "constant",
-              "value": "user"
-            },
-            "labelPosition": {
-              "type": "constant",
-              "value": "left"
-            },
-            "labelWidth": {
-              "type": "constant",
-              "value": 4
-            },
-            "placeholder": {
-              "type": "constant"
-            },
-            "availableValues": {
-              "type": "variable",
-              "value": "users"
-            },
-            "value": {
-              "type": "variable",
-              "value": "selectedUser"
-            },
-            "displayedKey": {
-              "type": "constant",
-              "value": "name"
-            }
-          }
-        }],
-        [{
-          "type": "component",
-          "dimension": {
-            "xs": 12,
-            "sm": 12,
-            "md": 12,
-            "lg": 12
-          },
-          "propertyValues": {
-            "cssClasses": {
-              "type": "constant",
-              "value": ""
-            },
-            "hidden": {
-              "type": "constant",
-              "value": false
-            },
-            "text": {
-              "type": "interpolation",
-              "value": "user {{selectedUser|json}}"
-            },
-            "alignment": {
-              "type": "constant",
-              "value": "left"
-            }
-          },
-          "reference": "18bf9f7b-40f0-4242-aed2-4ab7f60951ff",
-          "id": "pbText"
-        }]
-      ]
-    }]
-  ],
-  "data": {
-    "selectedUser": {
-      "type": "json",
-      "value": "{ \"name\": \"Paul\" }",
-      "exposed": false
+      "reference" : "c6e33872-f938-4fb9-bb34-1105863786dd",
+      "id" : "pbAutocomplete"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "city: {{selectedCity}}"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "3fb6cdc9-e085-49fe-bb3a-c4511e61e9ca",
+      "id" : "pbText"
+    } ] ]
+  } ], [ {
+    "type" : "container",
+    "dimension" : {
+      "xs" : 12,
+      "sm" : 12,
+      "md" : 12,
+      "lg" : 12
     },
-    "users": {
-      "type": "json",
-      "value": "[\n {\"name\": \"Paul\", \"age\": 31},\n {\"name\": \"Hokusai\", \"age\": 32},\n {\"name\": \"Pablo\", \"age\": 33}\n]",
-      "exposed": false
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : "test-object"
+      },
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      },
+      "repeatedCollection" : {
+        "type" : "constant",
+        "value" : ""
+      }
     },
-    "selectedCity": {
-      "type": "constant",
-      "value": null,
-      "exposed": false
+    "reference" : "cf7059f9-6696-4751-80ac-c4710ce64bdd",
+    "id" : "pbContainer",
+    "rows" : [ [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "constant",
+          "value" : "Object list"
+        },
+        "level" : {
+          "type" : "constant",
+          "value" : "Level 2"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "588951be-a375-4757-947f-9f887784c4c1",
+      "id" : "pbTitle"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "md" : 12,
+        "sm" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "readOnly" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "labelHidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "label" : {
+          "type" : "constant",
+          "value" : "user"
+        },
+        "labelPosition" : {
+          "type" : "constant",
+          "value" : "left"
+        },
+        "labelWidth" : {
+          "type" : "constant",
+          "value" : 4
+        },
+        "placeholder" : {
+          "type" : "constant"
+        },
+        "availableValues" : {
+          "type" : "variable",
+          "value" : "users"
+        },
+        "value" : {
+          "type" : "variable",
+          "value" : "selectedUser"
+        },
+        "displayedKey" : {
+          "type" : "constant",
+          "value" : "name"
+        },
+        "required" : {
+          "type" : "constant",
+          "value" : false
+        }
+      },
+      "reference" : "1f93c297-3797-40a2-84fd-fa13e8297c6a",
+      "id" : "pbAutocomplete"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "user {{selectedUser|json}}"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "18bf9f7b-40f0-4242-aed2-4ab7f60951ff",
+      "id" : "pbText"
+    } ] ]
+  } ], [ {
+    "type" : "container",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : "test-async"
+      },
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      },
+      "repeatedCollection" : {
+        "type" : "variable",
+        "value" : ""
+      }
+    },
+    "reference" : "971ff351-8924-48f0-9a70-30dbc52a74db",
+    "id" : "pbContainer",
+    "rows" : [ [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "Async typeahead"
+        },
+        "level" : {
+          "type" : "constant",
+          "value" : "Level 2"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "a48fc4b6-ef09-46fd-b2f3-7055439ddd8c",
+      "id" : "pbTitle"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "readOnly" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "required" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "labelHidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "label" : {
+          "type" : "interpolation",
+          "value" : "Async autocomplete"
+        },
+        "labelPosition" : {
+          "type" : "constant",
+          "value" : "top"
+        },
+        "labelWidth" : {
+          "type" : "constant",
+          "value" : 4
+        },
+        "placeholder" : {
+          "type" : "interpolation"
+        },
+        "availableValues" : {
+          "type" : "expression",
+          "value" : "usersAsync"
+        },
+        "displayedKey" : {
+          "type" : "constant",
+          "value" : "userName"
+        },
+        "value" : {
+          "type" : "variable",
+          "value" : "firstname"
+        }
+      },
+      "reference" : "31471322-21e4-4ab9-86e3-4beaf81fb166",
+      "id" : "pbAutocomplete"
+    } ] ]
+  } ] ],
+  "assets" : [ {
+    "id" : "a0a9c080-3396-452b-be40-5ec2ff8df5cf",
+    "name" : "style.css",
+    "type" : "css",
+    "order" : 1,
+    "external" : false
+  }, {
+    "id" : "27779e6e-4479-4415-966a-385bde2604bb",
+    "name" : "ui-bootstrap-tpls-0.13.0.min.js",
+    "type" : "js",
+    "order" : 2,
+    "external" : false
+  } ],
+  "inactiveAssets" : [ ],
+  "data" : {
+    "selectedUser" : {
+      "type" : "json",
+      "value" : "{ \"name\": \"Paul\" }",
+      "exposed" : false
+    },
+    "users" : {
+      "type" : "json",
+      "value" : "[\n {\"name\": \"Paul\", \"age\": 31},\n {\"name\": \"Hokusai\", \"age\": 32},\n {\"name\": \"Pablo\", \"age\": 33}\n]",
+      "exposed" : false
+    },
+    "selectedCity" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "firstname" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "usersAsync" : {
+      "type" : "url",
+      "value" : "../API/identity/user?s={{firstname}}",
+      "exposed" : false
     }
   }
 }
