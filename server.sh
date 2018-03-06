@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export PORTAL_ORIGIN=http://localhost:8081
+export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dbonita.portal.origin=$PORTAL_ORIGIN"
+
 # CURL is needed
 
 url=http://localhost:8080/rest/pages
@@ -11,6 +14,7 @@ waitJetty() {
   echo "Jetty started"
 }
 
+echo Using $bonita.portal.origin as portal origin. You can edit it in community/server.sh
 (cd backend/webapp/ && yarn start &)
 waitJetty
 (cd frontend/ && yarn start)

@@ -27,6 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -74,7 +75,8 @@ public class PreviewController {
         try {
             String queryString = isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString();
             response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-            response.addHeader("Location", "/bonita/API/" + RequestMappingUtils.extractPathWithinPattern(request) + queryString);
+            response.addHeader("Location", request.getContextPath() + "/bonita/API/" + RequestMappingUtils.extractPathWithinPattern(request) + queryString);
+
             response.flushBuffer();
         } catch (IOException e) {
             String message = "Error while redirecting API call";
@@ -126,5 +128,4 @@ public class PreviewController {
             // fail silently
         }
     }
-
 }
