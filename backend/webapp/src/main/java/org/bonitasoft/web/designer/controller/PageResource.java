@@ -24,10 +24,10 @@ import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMo
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
@@ -52,8 +52,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping("/rest/pages")
@@ -131,10 +129,10 @@ public class PageResource extends AssetResource<Page> {
         }
         page.setId(newPageId);
         setPageUUIDIfNotSet(page);
-        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
         ResponseEntity<Void> responseEntity;
         if(!newPageId.equals(pageId)) {
+            assetService.duplicateAsset(pageRepository.resolvePath(pageId), pageRepository.resolvePath(pageId), pageId, newPageId);
             pageRepository.delete(pageId);
             responseEntity = getMovedResourceResponse(request, newPageId);
             // send notification of removal
@@ -164,6 +162,7 @@ public class PageResource extends AssetResource<Page> {
             page.setId(newPageId);
             page.setName(name);
             pageRepository.updateLastUpdateAndSave(page);
+            assetService.duplicateAsset(pageRepository.resolvePath(pageId), pageRepository.resolvePath(pageId), pageId, newPageId);
             pageRepository.delete(pageId);
             responseEntity = getMovedResourceResponse(request, newPageId, "/name");
             // send notification of removal
