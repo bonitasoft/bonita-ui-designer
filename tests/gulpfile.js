@@ -3,8 +3,10 @@ var gulp = require('gulp');
 var ddescriber = require("../frontend/gulp/ddescriber.js");
 var protractor = require('gulp-protractor').protractor;
 var connect = require('connect');
-var multiparty = require('multiparty');
 var http = require('http');
+
+var fileuploadMiddleware = require('./src/test/fixtures/middleware/fileupload.middleware');
+var apiUserMiddleware = require('./src/test/fixtures/middleware/api-user.middleware');
 
 var proxy = require('http-proxy')
   .createProxyServer({
@@ -27,45 +29,6 @@ var config = {
     port: 8083
   }
 };
-
-function matchUpload(req) {
-  return /API\/formFileUpload/.test(req.url);
-}
-
-function uploadMiddleware(req, res, next){
-  var form = new multiparty.Form();
-  var filename;
-
-  if( !matchUpload(req) ) {
-    next();
-    return;
-  }
-
-  form.on('error', function(error){
-    console.log('Error parsing form', error.stack);
-    res.writeHead(500, {'content-type': 'text/plain'});
-    res.end(JSON.stringify(error));
-  });
-
-  form.on('part', function(part){
-    if (part.filename) {
-      filename = part.filename;
-    }
-    part.resume();
-  });
-
-  form.on('close', function() {
-    res.statusCode = 200;
-    res.setHeader( 'content-type', 'text/html' );
-    res.write(JSON.stringify({
-      filename: filename,
-      tempPath: '1234.file'
-    }));
-    res.end();
-  });
-
-  form.parse(req);
-}
 
 /* proxyMiddleware forwards all requests to tomcat server
  except fake upload request */
@@ -99,8 +62,8 @@ var registerTestTask = function(gulp, config) {
   gulp.task('test', function() {
     var app = connect();
 
-    // use upload middleware to mock /API/formFileUpload
-    app.use(uploadMiddleware);
+    app.use(fileuploadMiddleware);
+    app.use(apiUserMiddleware);
     app.use(creatproxyMiddleware(config.tomcat.port));
 
     var server = http.createServer(app).listen(config.protractor.port);

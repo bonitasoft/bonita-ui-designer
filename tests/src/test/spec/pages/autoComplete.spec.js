@@ -56,4 +56,23 @@ describe('autocomplete', function () {
       expect(p.getText()).toContain('Hokusai');
     });
   });
+
+  const labels = () => {
+    return $$('.dropdown-menu a')
+      .map(function (item) {
+        return item.getText();
+      });
+  };
+
+  describe('async', () => {
+    // see https://bonitasoft.atlassian.net/browse/BS-16696
+    it('should display the right selection', () => {
+      const input = $('.test-async input');
+      input.clear().sendKeys('walt');
+      expect(labels()).toEqual([ 'walter.bates' ]);
+
+      input.sendKeys(protractor.Key.BACK_SPACE);
+      expect(labels()).toEqual([ 'walter.bates', 'thomas.wallis' ]);
+    });
+  });
 });
