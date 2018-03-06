@@ -22,12 +22,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
+import org.mitre.dsmiley.httpproxy.ProxyServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -35,6 +36,12 @@ import org.springframework.web.servlet.DispatcherServlet;
  * adding a Spring ContextLoaderListener to the ServletContext.
  */
 public class SpringWebApplicationInitializer implements WebApplicationInitializer {
+
+
+    /**
+     * System property set by the studio to target bonita portal
+     */
+    public static final String BONITA_PORTAL_ORIGIN = "bonita.portal.origin";
 
     private static final String[] BANNER = { "",
             "d8888b.  .d88b.  d8b   db d888888b d888888b  .d8b.    .d8888.  .d88b.  d88888b d888888b",
@@ -77,10 +84,29 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         // Register and map the dispatcher servlet
+
+        ServletRegistration.Dynamic proxyRegistration = servletContext.addServlet("proxyAPI", ProxyServlet.class);
+        proxyRegistration.setLoadOnStartup(1);
+        proxyRegistration.setInitParameter("targetUri", getPortalOrigin() + "/bonita");
+        proxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
+        proxyRegistration.setInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
+        proxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
+        proxyRegistration.addMapping("/bonita/*");
+
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
         dispatcher.setAsyncSupported(true);
         dispatcher.addMapping("/");
+    }
+
+    private String getPortalOrigin() {
+
+        String portalOrigin =  System.getProperty(BONITA_PORTAL_ORIGIN);
+        if(StringUtils.isNotBlank(portalOrigin)){
+            return portalOrigin;
+        }
+        logger.warn("System property " + BONITA_PORTAL_ORIGIN + " is not set. Same origin as UI Designer will be used for portal calls.");
+        return "";
     }
 }

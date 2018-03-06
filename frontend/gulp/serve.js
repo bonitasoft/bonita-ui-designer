@@ -45,8 +45,6 @@ module.exports = function (gulp, config) {
 
     if (req.url === '/' || matchStaticFile(req) && !matchStaticProxyfied(req)) {
       next();
-    } else if (/^\/bonita\/.*/.test(req.url)) {
-      proxy.web(req, res, { target: 'http://127.0.0.1:8081' });
     } else {
       proxy.web(req, res, { target: 'http://127.0.0.1:8080' });
     }
