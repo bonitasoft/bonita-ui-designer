@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.core.FakeJsonProcessingException;
+import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
@@ -244,9 +245,12 @@ public class PageResourceTest {
     @Test
     public void should_save_a_page_renaming_it() throws Exception {
         Page pageToBeUpdated = aPage().withId("my-page").withName("my-page").build();
+        pageToBeUpdated.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
         when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
         Page pageToBeSaved = aPage().withName("page-new-name").build();
+        pageToBeSaved.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
         when(pageRepository.getNextAvailableId("page-new-name")).thenReturn("page-new-name");
+
 
         mockMvc
                 .perform(
@@ -256,6 +260,7 @@ public class PageResourceTest {
                 .andExpect(header().string(HttpHeaders.LOCATION, "/rest/pages/page-new-name"));
 
         verify(pageRepository).updateLastUpdateAndSave(aPage().withId("page-new-name").withName("page-new-name").build());
+        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"),pageRepository.resolvePath("my-page"), "my-page", "page-new-name");
         verify(messagingTemplate).convertAndSend("/previewableRemoval", "my-page");
     }
 
@@ -379,6 +384,31 @@ public class PageResourceTest {
                 .andExpect(status().isOk());
 
         verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
+    }
+
+    @Test
+    public void should_keep_assets_when_page_is_renamed() throws Exception {
+        String newName = "my-page-new-name";
+
+        Page pageToBeUpdated = aPage().withId("my-page").withName("page-name").build();
+        pageToBeUpdated.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
+
+        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageRepository.getNextAvailableId(newName)).thenReturn(newName);
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(newName))
+                .andExpect(status().isOk())
+                .andExpect(header().string(HttpHeaders.LOCATION, "/rest/pages/" + newName));
+
+        ArgumentCaptor<Page> pageArgumentCaptor = ArgumentCaptor.forClass(Page.class);
+        verify(pageRepository).getNextAvailableId(newName);
+        verify(pageRepository).updateLastUpdateAndSave(pageArgumentCaptor.capture());
+        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"),pageRepository.resolvePath("my-page"), "my-page", "my-page-new-name");
+
+        assertThat(pageArgumentCaptor.getValue().getName()).isEqualTo(newName);
+        assertThat(pageArgumentCaptor.getValue().getId()).isEqualTo(newName);
     }
 
     @Test
