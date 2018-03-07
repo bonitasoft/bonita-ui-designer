@@ -129,6 +129,7 @@ public class PageResource extends AssetResource<Page> {
         }
         page.setId(newPageId);
         setPageUUIDIfNotSet(page);
+        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
         pageRepository.updateLastUpdateAndSave(page);
         ResponseEntity<Void> responseEntity;
         if(!newPageId.equals(pageId)) {
