@@ -85,7 +85,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
         // Register and map the dispatcher servlet
 
-        ServletRegistration.Dynamic proxyRegistration = servletContext.addServlet("proxyAPI", ProxyServlet.class);
+        ServletRegistration.Dynamic proxyRegistration = servletContext.addServlet("bonitaAPIProxy", PreservingCookiePathProxyServlet.class);
         proxyRegistration.setLoadOnStartup(1);
         proxyRegistration.setInitParameter("targetUri", getPortalOrigin() + "/bonita");
         proxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
