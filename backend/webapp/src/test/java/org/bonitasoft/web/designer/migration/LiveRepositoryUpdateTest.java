@@ -17,9 +17,9 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.write;
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.singletonList;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -43,7 +43,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LiveMigrationTest {
+public class LiveRepositoryUpdateTest {
 
     JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
 
@@ -68,10 +68,10 @@ public class LiveMigrationTest {
     @Test
     public void should_migrate_a_page() throws Exception {
         Migration<Page> migration = new Migration<>("1.0.2", mock(MigrationStep.class));
-        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         Page page = createPage("1.0.1");
 
-        liveMigration.start();
+        liveRepositoryUpdate.start();
 
         page.setDesignerVersion("1.0.2");
         verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), page);
@@ -80,10 +80,10 @@ public class LiveMigrationTest {
     @Test
     public void should_not_migrate_file_which_are_not_json() throws Exception {
         Migration<Page> migration = mock(Migration.class);
-        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         folder.newFile("whatever");
 
-        liveMigration.start();
+        liveRepositoryUpdate.start();
 
         verify(migration, never()).migrate(any(Page.class));
     }
@@ -91,10 +91,10 @@ public class LiveMigrationTest {
     @Test
     public void should_not_save_an_artifact_already_migrated() throws Exception {
         Migration<Page> migration = new Migration<>("1.0.2", mock(MigrationStep.class));
-        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         createPage("1.0.2");
 
-        liveMigration.start();
+        liveRepositoryUpdate.start();
 
         verify(persister, never()).save(any(Path.class), any(Page.class));
     }
@@ -102,14 +102,26 @@ public class LiveMigrationTest {
     @Test
     public void should_exclude_assets() throws Exception {
         Migration<Page> migration = mock(Migration.class);
-        LiveMigration<Page> liveMigration = new LiveMigration<>(repository, loader, singletonList(migration));
+        LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         createPage("1.0.0");
         folder.newFolder("pageJson/assets");
         folder.newFile("pageJson/assets/whatever.json");
 
-        liveMigration.start();
+        liveRepositoryUpdate.start();
+
 
         verify(migration, only()).migrate(any(Page.class));
+    }
+
+    @Test
+    public void should_be_refresh_repository_index_json_on_migrate() throws Exception {
+        LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
+        createPage("1.7.25");
+
+        liveRepositoryUpdate.start();
+
+        verify(persister).updateMetadata(any(Path.class), any(Page.class));
+        verify(persister).saveInIndex(any(Path.class), any(Page.class));
     }
 
     private Page createPage(String version) throws IOException {

@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
@@ -38,10 +38,10 @@ public class WorkspaceInitializerTest {
     private static final String WAR_BASE_PATH = "src/main/webapp";
 
     @Mock
-    private LiveMigration<Page> pageLiveMigration;
+    private LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate;
 
     @Mock
-    private LiveMigration<Widget> widgetLiveMigration;
+    private LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate;
 
     @Mock
     private Workspace workspace;
@@ -52,7 +52,7 @@ public class WorkspaceInitializerTest {
     @Before
     public void initializeWorkspaceInitializer() {
         workspaceInitializer.setServletContext(new MockServletContext(WAR_BASE_PATH, new FileSystemResourceLoader()));
-        workspaceInitializer.setMigrations(Arrays.<LiveMigration>asList(pageLiveMigration, widgetLiveMigration));
+        workspaceInitializer.setMigrations(Arrays.<LiveRepositoryUpdate>asList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate));
     }
 
     @Test
@@ -64,13 +64,13 @@ public class WorkspaceInitializerTest {
     @Test
     public void should_start_page_live_migration() throws Exception {
         workspaceInitializer.contextInitialized();
-        verify(pageLiveMigration).start();
+        verify(pageRepositoryLiveUpdate).start();
     }
 
     @Test
     public void should_start_widget_live_migration() throws Exception {
         workspaceInitializer.contextInitialized();
-        verify(widgetLiveMigration).start();
+        verify(widgetRepositoryLiveUpdate).start();
     }
 
     @Test(expected = RuntimeException.class)

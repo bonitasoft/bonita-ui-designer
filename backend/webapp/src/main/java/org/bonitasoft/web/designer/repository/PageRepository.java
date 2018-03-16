@@ -14,9 +14,9 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,11 +24,9 @@ import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.springframework.util.StringUtils;
-
 
 @Named
-public class PageRepository extends AbstractRepository<Page> implements WidgetContainerRepository<Page> {
+public class PageRepository extends AbstractRepository<Page> implements RefreshingRepository, WidgetContainerRepository<Page> {
 
     @Inject
     public PageRepository(
@@ -48,4 +46,19 @@ public class PageRepository extends AbstractRepository<Page> implements WidgetCo
     public List<Page> getArtifactsUsingWidget(String widgetId) {
         return this.findByObjectId(widgetId);
     }
+
+    @Override
+    public void refresh(String id) throws RepositoryException {
+        Page page = this.get(id);
+        try {
+            Path metadataPath = persister.updateMetadata(this.path.resolve(page.getId()), page);
+            persister.saveInIndex(metadataPath, page);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }

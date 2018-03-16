@@ -37,7 +37,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImport
 import org.bonitasoft.web.designer.migration.AssetExternalMigrationStep;
 import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
-import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
@@ -307,9 +307,9 @@ public class DesignerConfig {
     }
 
     @Bean
-    public List<LiveMigration> liveMigrations(LiveMigration<Page> pageLiveMigration,
-            LiveMigration<Widget> widgetLiveMigration) {
-        return Lists.<LiveMigration> newArrayList(pageLiveMigration, widgetLiveMigration);
+    public List<LiveRepositoryUpdate> liveRepositoryUpdate(LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate,
+                                                           LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate) {
+        return Lists.<LiveRepositoryUpdate> newArrayList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate);
     }
 
     @Bean
@@ -340,15 +340,15 @@ public class DesignerConfig {
     }
 
     @Bean
-    public LiveMigration<Page> pageLiveMigration(JsonFileBasedLoader<Page> pageFileBasedLoader,
-                                                 PageRepository pageRepository,
-                                                 BondMigrationStep<Page> pageBondMigrationStep,
-                                                 StyleAssetMigrationStep styleAssetMigrationStep,
-                                                 TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
-                                                 UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
-                                                 PageUUIDMigrationStep pageUUIDMigrationStep) {
+    public LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate(JsonFileBasedLoader<Page> pageFileBasedLoader,
+                                                               PageRepository pageRepository,
+                                                               BondMigrationStep<Page> pageBondMigrationStep,
+                                                               StyleAssetMigrationStep styleAssetMigrationStep,
+                                                               TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
+                                                               UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
+                                                               PageUUIDMigrationStep pageUUIDMigrationStep) {
 
-        return new LiveMigration<>(pageRepository, pageFileBasedLoader, asList(
+        return new LiveRepositoryUpdate<>(pageRepository, pageFileBasedLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>()),
@@ -359,8 +359,8 @@ public class DesignerConfig {
 
     }
     @Bean
-    public LiveMigration<Widget> widgetLiveMigration(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
-        return new LiveMigration<>(widgetRepository, widgetLoader, asList(
+    public LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
+        return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
     }
