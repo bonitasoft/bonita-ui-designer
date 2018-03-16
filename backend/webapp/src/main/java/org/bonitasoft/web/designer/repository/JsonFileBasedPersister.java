@@ -25,7 +25,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.bonitasoft.web.designer.model.*;
+import org.bonitasoft.web.designer.model.HasUUID;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonViewMetadata;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
@@ -53,9 +57,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         validator.validate(content);
         try {
             write(jsonFile(directory, content.getId()), objectMapper.toPrettyJson(content, JsonViewPersistence.class));
-            Path metadataPath = directory.getParent().resolve(".metadata");
-            forceMkdir(metadataPath.toFile());
-            write(jsonFile(metadataPath, content.getId()), objectMapper.toJson(content, JsonViewMetadata.class));
+            Path metadataPath = updateMetadata(directory, content);
             if (content instanceof HasUUID && !StringUtils.isEmpty(((HasUUID) content).getUUID())) {
                 //update index used by the studio to find artifacts given their UUID
                 saveInIndex(metadataPath, content);
@@ -67,7 +69,14 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         }
     }
 
-    protected void saveInIndex(Path metadataPath, T content) throws IOException {
+    public Path updateMetadata(Path directory, T content) throws IOException {
+        Path metadataPath = directory.getParent().resolve(".metadata");
+        forceMkdir(metadataPath.toFile());
+        write(jsonFile(metadataPath, content.getId()), objectMapper.toJson(content, JsonViewMetadata.class));
+        return metadataPath;
+    }
+
+    public void saveInIndex(Path metadataPath, T content) throws IOException {
         Path indexPath = jsonFile(metadataPath, ".index");
         Map<String, String> index;
         if (!indexPath.toFile().exists()) {

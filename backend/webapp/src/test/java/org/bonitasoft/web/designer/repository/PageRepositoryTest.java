@@ -32,7 +32,7 @@ import javax.validation.Validation;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.migration.LiveMigration;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -53,7 +53,7 @@ public class PageRepositoryTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Mock
-    private LiveMigration<Page> liveMigration;
+    private LiveRepositoryUpdate<Page> liveRepositoryUpdate;
 
     //The persister is not mocked
     private JsonFileBasedPersister<Page> persister;
@@ -244,7 +244,6 @@ public class PageRepositoryTest {
 
         Page fetchedPage = repository.get(page.getId());
         assertThat(fetchedPage.isFavorite()).isTrue();
-
     }
 
     @Test
@@ -257,4 +256,16 @@ public class PageRepositoryTest {
         assertThat(fetchedPage.isFavorite()).isFalse();
     }
 
+    @Test
+    public void should_refresh_repository() throws Exception {
+        Page page = addToRepository(aPage());
+        pagesPath.resolve(".metadata").resolve(page.getId() + ".json").toFile().delete();
+        pagesPath.resolve(".metadata").resolve(".index.json").toFile().delete();
+
+        repository.refresh(page.getId());
+
+        Page fetchedPage = repository.get(page.getId());
+        assertThat(fetchedPage.isFavorite()).isFalse();
+        assertThat(pagesPath.resolve(".metadata").resolve(".index.json").toFile()).exists();
+    }
 }

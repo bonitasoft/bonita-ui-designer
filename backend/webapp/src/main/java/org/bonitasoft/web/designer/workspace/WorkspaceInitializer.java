@@ -23,10 +23,7 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
-import org.bonitasoft.web.designer.migration.LiveMigration;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.springframework.web.context.ServletContextAware;
 
 /**
@@ -40,15 +37,15 @@ public class WorkspaceInitializer implements ServletContextAware {
     @Inject
     private Workspace workspace;
 
-    private List<LiveMigration> migrations;
+    private List<LiveRepositoryUpdate> migrations;
 
     private ServletContext servletContext;
 
     /**
      * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
      */
-    @Resource(name = "liveMigrations")
-    public void setMigrations(List<LiveMigration> migrations) {
+    @Resource(name = "liveRepositoryUpdate")
+    public void setMigrations(List<LiveRepositoryUpdate> migrations) {
         this.migrations = migrations;
     }
 
@@ -56,7 +53,7 @@ public class WorkspaceInitializer implements ServletContextAware {
     public void contextInitialized() {
         try {
             workspace.initialize();
-            for (LiveMigration migration : migrations) {
+            for (LiveRepositoryUpdate migration : migrations) {
                 migration.start();
             }
         } catch (IOException e) {
