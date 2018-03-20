@@ -22,7 +22,6 @@
     return {
       templateUrl: 'js/home/import/import-report-item-list.html',
       scope: {
-        pageName: '=',
         type: '=',
         displayPage: '=',
         dependencies: '='

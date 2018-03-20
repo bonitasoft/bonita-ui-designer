@@ -63,7 +63,6 @@ describe('UI designer: home', function() {
     //try to reimport expecting a confirmation message on overridden elements
     expect(modal.isPresent()).toBe(true);
     expect($('.modal-title').getText()).toEqual('Import testImport');
-    expect($('.ImportReport-page').getText()).toContain('testImport');
 
     $('button.btn-primary').click();
     //modal dismiss too slowly for test to execute

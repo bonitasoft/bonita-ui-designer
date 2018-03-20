@@ -54,9 +54,9 @@ describe('Import service', () => {
         context: errorToDisplay });
     });
 
-    it('should resolve response processing when override is false ', function() {
+    it('should resolve response processing when overwritten is false ', function() {
       var report = {
-        overridden: false,
+        overwritten: false,
         element: { type: 'page' }
       };
       var expectedReport = angular.extend(report, { type: 'page' });
@@ -76,7 +76,7 @@ describe('Import service', () => {
     // TODO to be removed when widget has type
     it('should set import report context type to \'widget\' when import report element has no type', function() {
       var report = {
-        overridden: false,
+        overwritten: false,
         element: {  }
       };
       var expectedReport = angular.extend(report, { type: 'widget' });
@@ -86,9 +86,9 @@ describe('Import service', () => {
 
     });
 
-    it('should resolve response processing when checkOverride is false ', function() {
+    it('should resolve response processing when checkOverwrites is false ', function() {
       var report = {
-        overridden: false,
+        overwritten: false,
         element: { type: 'page' }
       };
       var expectedReport = angular.extend(report, { type: 'page' });
@@ -106,8 +106,8 @@ describe('Import service', () => {
       expect(errorFn).not.toHaveBeenCalled();
     });
 
-    it('should resolve response processing when checkOverride is true and overriden is true ', function() {
-      var report = { overridden: true,
+    it('should resolve response processing when checkOverwrites is true and overwritten is true ', function() {
+      var report = { overwritten: true,
           element: { type: 'page' }
       };
       var expectedReport = angular.extend(report, { type: 'page' });

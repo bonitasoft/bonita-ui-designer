@@ -22,20 +22,20 @@ describe('ImportArtifactSuccessMessageTemplate', function() {
       element: {
         name: 'pageName'
       },
-      overridden: false
+      overwritten: false
     });
     scope.$apply();
 
     expect(hardTrim(element.find('p').first().text())).toBe('page pageName successfully imported.');
   });
 
-  it('should print to user that element has been overridden', function() {
+  it('should print to user that element has been overwritten', function() {
     angular.extend(scope, {
       type: 'page',
       element: {
         name: 'pageName'
       },
-      overridden: true
+      overwritten: true
     });
     scope.$apply();
 
@@ -56,7 +56,7 @@ describe('ImportArtifactSuccessMessageTemplate', function() {
   it('should display added dependencies', function() {
     angular.extend(scope, {
       element: { name: 'aPage' },
-      overridden: false,
+      overwritten: false,
       dependencies: {
         added: {
           page: [{ name: 'anotherPage' }],
@@ -67,12 +67,11 @@ describe('ImportArtifactSuccessMessageTemplate', function() {
     scope.$apply();
 
     expect(element.find('section.ImportReport-added').length).toBe(1);
-    expect(hardTrim(element.find('section.ImportReport-added ul li').first().text())).toBe('aPage');
-    expect(hardTrim(element.find('section.ImportReport-added ul li').next().first().text())).toBe('page anotherPage');
-    expect(hardTrim(element.find('section.ImportReport-added ul li').next().next().text())).toBe('widget aWidget');
+    expect(hardTrim(element.find('section.ImportReport-added ul li').first().text())).toBe('page anotherPage');
+    expect(hardTrim(element.find('section.ImportReport-added ul li').next().text())).toBe('widget aWidget');
   });
 
-  it('should not display overridden dependencies section when no dependencies are overridden', function() {
+  it('should not display overwritten dependencies section when no dependencies are overwritten', function() {
     angular.extend(scope, {
       dependencies: {
 
@@ -80,13 +79,13 @@ describe('ImportArtifactSuccessMessageTemplate', function() {
     });
     scope.$apply();
 
-    expect(element.find('section.ImportReport-overridden').length).toBe(0);
+    expect(element.find('section.ImportReport-overwritten').length).toBe(0);
   });
 
-  it('should display overridden dependencies', function() {
+  it('should display overwritten dependencies', function() {
     angular.extend(scope, {
       dependencies: {
-        overridden: {
+        overwritten: {
           page: [{ name: 'aPage' }, { name: 'anotherPage' }],
           widget: [{ name: 'aWidget' }]
         }
@@ -94,8 +93,8 @@ describe('ImportArtifactSuccessMessageTemplate', function() {
     });
     scope.$apply();
 
-    expect(element.find('section.ImportReport-overridden').length).toBe(1);
-    expect(hardTrim(element.find('section.ImportReport-overridden ul li').first().text())).toBe('pages aPage, anotherPage');
-    expect(hardTrim(element.find('section.ImportReport-overridden ul li').next().text())).toBe('widget aWidget');
+    expect(element.find('section.ImportReport-overwritten').length).toBe(1);
+    expect(hardTrim(element.find('section.ImportReport-overwritten ul li').first().text())).toBe('pages aPage, anotherPage');
+    expect(hardTrim(element.find('section.ImportReport-overwritten ul li').next().text())).toBe('widget aWidget');
   });
 });

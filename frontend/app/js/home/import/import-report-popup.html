@@ -3,18 +3,29 @@
       <h3 class="modal-title"><i class="fa fa-exclamation-triangle text-warning "></i><translate>Import {{ ::importReport.name }}</translate></h3>
     </div>
     <div class="modal-body">
+
+        <p ng-if="importReport.report.overwritten && importReport.isPageImport()">
+            <translate>A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists.</translate><br/>
+            <translate>The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten.</translate><br/>
+            <translate>To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import.</translate>
+        </p>
+        <p ng-if="importReport.report.overwritten && !importReport.isPageImport()">
+            <translate>A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists.</translate><br/>
+            <translate>Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten.</translate><br/>
+            <translate>To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import.</translate>
+        </p>
+
         <div ng-if="importReport.hasDependencies()">
-            <translate>The imported {{ ::importReport.type }} contains elements with the same id as some existing elements.</translate>
+            <translate>The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements.</translate>
             <import-report-item-list page-name="importReport.name"
                                      type="importReport.type"
-                                     display-page="importReport.report.overridden"
-                                     dependencies="importReport.report.dependencies.overridden">
+                                     dependencies="importReport.report.dependencies.overwritten">
             </import-report-item-list>
             <p>
                 <translate>Id must be unique, so those elements will be overwritten.</translate><br/>
-                <translate>To save them with different ids, open them and use <i>Save as</i>, before you import.</translate>
+                <translate>To avoid them being overwritten, <i>rename</i> them before you import.</translate>
             </p>
-            <div ng-if="!importReport.report.overridden || importReport.report.dependencies.added">
+            <div ng-if="importReport.report.dependencies.added">
                 <p>
                     <translate>The imported {{ ::importReport.type }} also contains new elements.</translate>
                     <span ng-click="showDetails = !showDetails" class="clickable ImportReport--smallAndUnderlined">
@@ -26,18 +37,11 @@
                 <div uib-collapse="!showDetails">
                     <import-report-item-list page-name="importReport.name"
                                              type="importReport.type"
-                                             display-page="!importReport.report.overridden"
                                              dependencies="importReport.report.dependencies.added">
                     </import-report-item-list>
                 </div>
             </div>
         </div>
-
-        <p ng-if="!importReport.hasDependencies()">
-            <translate>A {{ ::importReport.type }} with same id named <strong>{{ ::importReport.name }}</strong> already exists.</translate><br/>
-            <translate>Id must be unique, so the {{ ::importReport.type }} {{ ::importReport.name }} will be overwritten.</translate><br/>
-            <translate>To save {{ ::importReport.name }} with a different id, open it and use <i>Save as</i> before you import.</translate>
-        </p>
 
         <p translate>Do you still want to import this {{ ::importReport.type }} now ?</p>
     </div>

@@ -115,12 +115,12 @@ public class ArtifactImporterTest {
         ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
-        assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overridenWidgets);
+        assertThat(report.getDependencies().getOverwritten().get("widget")).isEqualTo(overridenWidgets);
         assertThat(report.getElement()).isEqualTo(page);
     }
 
     @Test
-    public void should_return_an_import_report_saying_that_page_is_going_to_be_when_element_already_exists_in_repository() throws Exception {
+    public void should_return_an_import_report_saying_that_page_is_going_to_be_overwritten_when_element_already_exists_in_repository() throws Exception {
         Page page = pMocks.mockPageToBeImported();
         Page existingPageInRepo = aPage().withUUID(page.getUUID()).withName("alreadyHere").build();
         when(pageRepository.getByUUID(page.getUUID())).thenReturn(existingPageInRepo);
@@ -128,12 +128,13 @@ public class ArtifactImporterTest {
 
         ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
-        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
-        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.getElement()).isEqualTo(page);
+        assertThat(report.getOverwrittenElement()).isEqualTo(existingPageInRepo);
+        assertThat(report.isOverwritten()).isTrue();
     }
 
     @Test
-    public void should_return_an_import_report_saying_that_widget_is_going_to_be_overridden_when_element_already_exists_in_repository() throws Exception {
+    public void should_return_an_import_report_saying_that_widget_is_going_to_be_overwritten_when_element_already_exists_in_repository() throws Exception {
         Widget widget = aWidget().id("aWidget").custom().build();
         Widget existingWidgetInRepo = aWidget().id("aWidget").favorite().custom().build();
         when(widgetLoader.load(widgetUnzippedPath.resolve("widget.json"))).thenReturn(widget);
@@ -143,18 +144,19 @@ public class ArtifactImporterTest {
         ImportReport report = widgetImporter.doImport(anImport(widgetImportPath));
 
         assertThat(report.getElement()).isEqualTo(existingWidgetInRepo);
-        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.isOverwritten()).isTrue();
     }
 
     @Test
-    public void should_return_an_import_report_saying_that_element_has_not_been_overridden_when_element_does_not_exists_in_repository() throws Exception {
+    public void should_return_an_import_report_saying_that_element_has_not_been_overwritten_when_element_does_not_exists_in_repository() throws Exception {
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.getByUUID(page.getUUID())).thenReturn(null);
 
         ImportReport report = pageImporter.doImport(anImport(pageImportPath));
 
         assertThat(report.getElement()).isEqualTo(page);
-        assertThat(report.isOverridden()).isFalse();
+        assertThat(report.isOverwritten()).isFalse();
+        assertThat(report.getOverwrittenElement()).isNull();
     }
 
     @Test
@@ -223,7 +225,7 @@ public class ArtifactImporterTest {
         ImportReport report = pageImporter.forceImport(anImport);
 
         assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
-        assertThat(report.getDependencies().getOverridden().get("widget")).isEqualTo(overriddenWidgets);
+        assertThat(report.getDependencies().getOverwritten().get("widget")).isEqualTo(overriddenWidgets);
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.getUUID()).isEqualTo(anImport.getUUID());
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
@@ -243,8 +245,8 @@ public class ArtifactImporterTest {
 
         ImportReport report = pageImporter.forceImport(anImport);
 
-        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
-        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.getOverwrittenElement()).isEqualTo(existingPageInRepo);
+        assertThat(report.isOverwritten()).isTrue();
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
         assertThat(page.getId()).isEqualTo("id");
         verify(pageRepository).delete(existingPageInRepo.getId());
@@ -265,8 +267,8 @@ public class ArtifactImporterTest {
 
         ImportReport report = pageImporter.forceImport(anImport);
 
-        assertThat(report.getElement()).isEqualTo(existingPageInRepo);
-        assertThat(report.isOverridden()).isTrue();
+        assertThat(report.getOverwrittenElement()).isEqualTo(existingPageInRepo);
+        assertThat(report.isOverwritten()).isTrue();
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.IMPORTED);
         assertThat(page.getId()).isEqualTo("myPage1");
         verify(pageRepository).delete(existingPageInRepo.getId());

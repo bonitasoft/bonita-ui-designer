@@ -154,7 +154,7 @@ public class ImportControllerTest {
         ImportReport expectedReport =
                 anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID("UUIDZipFile").withStatus(ImportReport.Status.CONFLICT)
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
-                        .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
+                        .withOverwritten(aWidget().id("overwrittenWidget").name("oldWidget")).build();
         when(pathImporter.importFromPath(unzipedPath, pageImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page").file(file))
@@ -167,8 +167,8 @@ public class ImportControllerTest {
                 .andExpect(jsonPath("element.name").value("thePage"))
                 .andExpect(jsonPath("dependencies.added.widget[0].id").value("addedWidget"))
                 .andExpect(jsonPath("dependencies.added.widget[0].name").value("newWidget"))
-                .andExpect(jsonPath("dependencies.overridden.widget[0].id").value("overriddenWidget"))
-                .andExpect(jsonPath("dependencies.overridden.widget[0].name").value("oldWidget"));
+                .andExpect(jsonPath("dependencies.overwritten.widget[0].id").value("overwrittenWidget"))
+                .andExpect(jsonPath("dependencies.overwritten.widget[0].name").value("oldWidget"));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class ImportControllerTest {
         ImportReport expectedReport =
                 anImportReportFor(aPage().withId("aPage").withName("thePage")).withUUID("UUIDZipFile").withStatus(ImportReport.Status.IMPORTED)
                         .withAdded(aWidget().id("addedWidget").name("newWidget"))
-                        .withOverridden(aWidget().id("overriddenWidget").name("oldWidget")).build();
+                        .withOverwritten(aWidget().id("overwrittenWidget").name("oldWidget")).build();
         when(pathImporter.forceImportFromPath(unzipedPath, pageImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page?force=true").file(file))
@@ -191,8 +191,8 @@ public class ImportControllerTest {
                 .andExpect(jsonPath("element.name").value("thePage"))
                 .andExpect(jsonPath("dependencies.added.widget[0].id").value("addedWidget"))
                 .andExpect(jsonPath("dependencies.added.widget[0].name").value("newWidget"))
-                .andExpect(jsonPath("dependencies.overridden.widget[0].id").value("overriddenWidget"))
-                .andExpect(jsonPath("dependencies.overridden.widget[0].name").value("oldWidget"));
+                .andExpect(jsonPath("dependencies.overwritten.widget[0].id").value("overwrittenWidget"))
+                .andExpect(jsonPath("dependencies.overwritten.widget[0].name").value("oldWidget"));
     }
 
     @Test

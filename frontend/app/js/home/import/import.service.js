@@ -26,7 +26,7 @@
       forceImport,
       isErrorResponse,
       manageImportResponse,
-      doesImportOverrideExistingContent
+      doesImportOverwriteExistingContent
     };
     return service;
 
@@ -34,7 +34,7 @@
       return response && response.type && response.message;
     }
 
-    function manageImportResponse(type, checkForOverrides, response) {
+    function manageImportResponse(type, checkForOverwrites, response) {
       var deferred = $q.defer();
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this is an error
@@ -50,7 +50,7 @@
         var importReportContext = angular.extend(response, {
           type: response.element.type || 'widget'   // TODO remove this when widget has type
         });
-        if (!checkForOverrides || service.doesImportOverrideExistingContent(response)) {
+        if (!checkForOverwrites || service.doesImportOverwriteExistingContent(response)) {
           //
           alerts.addSuccess({
             title: gettextCatalog.getString('Successful import'),
@@ -65,8 +65,8 @@
       return deferred.promise;
     }
 
-    function doesImportOverrideExistingContent(report) {
-      return !(report.overridden || (report.dependencies && report.dependencies.overridden));
+    function doesImportOverwriteExistingContent(report) {
+      return !(report.overwritten || (report.dependencies && report.dependencies.overwritten));
     }
 
     function forceImport(report) {
