@@ -73,6 +73,23 @@
                 layout of the relevant application.
             </p>
         </uib-tab>
+        <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
+            <dt translate="">Identifier</dt>
+            <p translate>
+                Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized
+                identifier. This will make them easier to find in Bonita repositories.
+            </p>
+            <p translate>
+                You may rename existing artifacts so they benefit from this change too.
+            </p>
+
+            <p class="alert alert-warning" translate>
+                Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers.
+            </p>
+            <p translate>
+                For more information, consult the official UI Designer overview documentation.
+            </p>
+        </uib-tab>
     </uib-tabset>
 </div>
 <div class="modal-footer">

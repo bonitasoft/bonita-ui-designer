@@ -198,3 +198,31 @@ html, body {
 .form-control::placeholder {
   opacity: 0.9;
 }
+
+.shaker {
+  animation: shake 1s cubic-bezier(.36,.07,.19,.97) both 1s;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  50%{
+    transform: translate3d(-4px, 0, 0);
+    background-color: #d1d1d1;
+  }
+  30%,  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
