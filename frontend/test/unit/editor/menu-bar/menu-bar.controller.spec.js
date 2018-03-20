@@ -62,6 +62,17 @@
       expect(scope.$broadcast).toHaveBeenCalledWith('saved');
     });
 
+    it('should not save a page if not dirty', function() {
+      spyOn(pageRepo, 'save');
+      spyOn(pageRepo, 'needSave').and.returnValue(false);
+      var page = { id: 'person', name: 'person'};
+
+      controller.save(page);
+      scope.$apply();
+
+      expect(pageRepo.save).not.toHaveBeenCalled();
+    });
+
     it('should save a page changing its name', function() {
       let expectedHeaders = (headerName) => {
         let headers = {location : '/rest/pages/person'};
@@ -112,6 +123,22 @@
       expect($uibModal.open).not.toHaveBeenCalled();
 
       expect(pageRepo.save).toHaveBeenCalledWith(page);
+      expect($window.location).toBe('export/page/person');
+    });
+
+    it('should avoid save then export if page is not dirty', function() {
+      $localStorage.bonitaUIDesigner = { doNotShowExportMessageAgain: true };
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
+      spyOn(pageRepo, 'save');
+      spyOn(pageRepo, 'exportUrl').and.returnValue('export/page/person');
+      var page = { id: 'person' };
+      spyOn(pageRepo, 'needSave').and.returnValue(false);
+
+      controller.saveAndExport(page);
+      scope.$apply();
+
+      expect($uibModal.open).not.toHaveBeenCalled();
+      expect(pageRepo.save).not.toHaveBeenCalled();
       expect($window.location).toBe('export/page/person');
     });
 
