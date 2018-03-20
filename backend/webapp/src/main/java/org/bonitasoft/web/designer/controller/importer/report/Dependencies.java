@@ -26,7 +26,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 public class Dependencies {
 
     private Map<String, List<Object>> added;
-    private Map<String, List<Object>> overridden;
+    private Map<String, List<Object>> overwritten;
 
     public static Dependencies from(Map<DependencyImporter, List<?>> dependenciesAsList) {
         Dependencies dependencies = new Dependencies();
@@ -42,7 +42,7 @@ public class Dependencies {
     private void add(List<Identifiable> identifiables, ComponentDependencyImporter importer) {
         for (Identifiable identifiable : identifiables) {
             if (importer.exists(identifiable)) {
-                addOverriddenDependency(importer.getComponentName(), importer.getOriginalElementFromRepository(identifiable));
+                addOverwrittenDependency(importer.getComponentName(), importer.getOriginalElementFromRepository(identifiable));
             } else {
                 addAddedDependency(importer.getComponentName(), identifiable);
             }
@@ -53,12 +53,12 @@ public class Dependencies {
         return added;
     }
 
-    public Map<String, List<Object>> getOverridden() {
-        return overridden;
+    public Map<String, List<Object>> getOverwritten() {
+        return overwritten;
     }
 
-    public void addOverriddenDependency(String componentName, Object dependency) {
-        overridden = addDependency(overridden, componentName, dependency);
+    public void addOverwrittenDependency(String componentName, Object dependency) {
+        overwritten = addDependency(overwritten, componentName, dependency);
     }
 
     public void addAddedDependency(String componentName, Object dependency) {

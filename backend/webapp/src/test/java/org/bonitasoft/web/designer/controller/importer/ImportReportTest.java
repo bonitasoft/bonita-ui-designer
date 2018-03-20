@@ -84,7 +84,7 @@ public class ImportReportTest {
         ImportReport report = ImportReport.from(aPage().build(), dependencies);
 
         assertThat(report.getDependencies().getAdded().get("widget")).containsOnly(newWidget);
-        assertThat(report.getDependencies().getOverridden().get("widget")).containsOnly(existingWidget);
+        assertThat(report.getDependencies().getOverwritten().get("widget")).containsOnly(existingWidget);
     }
 
     @Test
@@ -95,6 +95,6 @@ public class ImportReportTest {
         ImportReport report = ImportReport.from(aPage().build(), dependencies);
 
         assertThat(report.getDependencies().getAdded()).isNull();
-        assertThat(report.getDependencies().getOverridden()).isNull();
+        assertThat(report.getDependencies().getOverwritten()).isNull();
     }
 }

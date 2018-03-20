@@ -32,8 +32,8 @@
     }
 
     function getState() {
-      if ($scope.overridden) {
-        return gettextCatalog.getString('overridden');
+      if ($scope.overwritten) {
+        return gettextCatalog.getString('overwritten');
       }
       return gettextCatalog.getString('added');
     }

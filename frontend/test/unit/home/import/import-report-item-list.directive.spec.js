@@ -3,7 +3,7 @@ describe('importReportItemList directive', () => {
   beforeEach(angular.mock.module('bonitasoft.designer.home.import'));
   beforeEach(inject(($rootScope, $compile) => {
     scope = $rootScope.$new();
-    var markup = '<import-report-item-list page-name="element.name" type="type" display-page="!overridden" dependencies="dependencies.added"></import-report-item-list> ';
+    var markup = '<import-report-item-list page-name="element.name" type="type" display-page="!overwritten" dependencies="dependencies.added"></import-report-item-list> ';
     var element = $compile(markup)(scope);
     scope.$apply();
     scope = element.isolateScope();

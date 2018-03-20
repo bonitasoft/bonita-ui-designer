@@ -26,11 +26,11 @@ public class ImportReportBuilder {
 
     private Identifiable element;
     List<Identifiable> added = new ArrayList<>();
-    List<Identifiable> overridden = new ArrayList<>();
+    List<Identifiable> overwritten = new ArrayList<>();
     private String uuid;
     private ImportReport.Status status;
 
-    private boolean override;
+    private boolean overwrite;
 
     public ImportReportBuilder(Identifiable element) {
         this.element = element;
@@ -49,8 +49,8 @@ public class ImportReportBuilder {
         return this;
     }
 
-    public ImportReportBuilder withOverridden(WidgetBuilder builder) {
-        overridden.add(builder.build());
+    public ImportReportBuilder withOverwritten(WidgetBuilder builder) {
+        overwritten.add(builder.build());
         return this;
     }
 
@@ -59,8 +59,8 @@ public class ImportReportBuilder {
         return this;
     }
 
-    public ImportReportBuilder withOverride(boolean override) {
-        this.override = override;
+    public ImportReportBuilder withOverwrite(boolean overwrite) {
+        this.overwrite = overwrite;
         return this;
     }
 
@@ -74,12 +74,12 @@ public class ImportReportBuilder {
         for (Identifiable identifiable : added) {
             dependencies.addAddedDependency(identifiable.getClass().getSimpleName().toLowerCase(Locale.ENGLISH), identifiable);
         }
-        for (Identifiable identifiable : overridden) {
-            dependencies.addOverriddenDependency(identifiable.getClass().getSimpleName().toLowerCase(Locale.ENGLISH), identifiable);
+        for (Identifiable identifiable : overwritten) {
+            dependencies.addOverwrittenDependency(identifiable.getClass().getSimpleName().toLowerCase(Locale.ENGLISH), identifiable);
         }
         ImportReport importReport = new ImportReport(element, dependencies);
         importReport.setUUID(uuid);
-        importReport.setOverridden(override);
+        importReport.setOverwritten(overwrite);
         importReport.setStatus(status);
         return importReport;
     }

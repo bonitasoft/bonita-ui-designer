@@ -34,7 +34,11 @@
     }
 
     hasDependencies() {
-      return this.report.dependencies && this.report.dependencies.added || this.report.dependencies.overridden;
+      return this.report.dependencies && (this.report.dependencies.added || this.report.dependencies.overwritten);
+    }
+
+    isPageImport() {
+      return this.report.element.type === 'page' || this.report.element.type === 'form' || this.report.element.type === 'layout';
     }
 
     get type() {
@@ -43,6 +47,14 @@
 
     get name() {
       return this.report.element.name;
+    }
+
+    get overwrittenType() {
+      return this.report.overwrittenElement.type;
+    }
+
+    get overwrittenName() {
+      return this.report.overwrittenElement.name;
     }
   }
 

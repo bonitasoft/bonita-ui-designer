@@ -23,16 +23,16 @@ describe('Import Success Message Controller', function() {
     expect(names).toBe('first, second');
   });
 
-  it('should get overridden state when element has been overridden', function() {
-    scope.overridden = true;
+  it('should get overwritten state when element has been overwritten', function() {
+    scope.overwritten = true;
 
     var state = controller.getState();
 
-    expect(state).toBe('overridden');
+    expect(state).toBe('overwritten');
   });
 
   it('should get added state when element has been added', function() {
-    scope.overridden = false;
+    scope.overwritten = false;
 
     var state = controller.getState();
 

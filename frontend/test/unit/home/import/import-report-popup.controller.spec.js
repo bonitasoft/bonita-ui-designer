@@ -61,7 +61,7 @@ describe('Import artifact report controller', () => {
     expect(importArtifactReportCtrl.hasDependencies()).toBeTruthy();
 
     importArtifactReportCtrl.report = {
-      dependencies: {overridden: ['anelement']}
+      dependencies: {overwritten: ['anelement']}
     };
     expect(importArtifactReportCtrl.hasDependencies()).toBeTruthy();
   });

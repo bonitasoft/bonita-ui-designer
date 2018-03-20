@@ -28,7 +28,8 @@ public class ImportReport {
 
     private Status status;
     private Identifiable element;
-    private Boolean overridden = false;
+    private Identifiable overwrittenElement;
+    private Boolean overwritten = false;
     private Dependencies dependencies;
     private String uuid;
 
@@ -49,12 +50,20 @@ public class ImportReport {
         return element;
     }
 
-    public Boolean isOverridden() {
-        return overridden;
+    public void setOverwrittenElement(Identifiable overwrittenElement) {
+        this.overwrittenElement = overwrittenElement;
     }
 
-    public void setOverridden(Boolean overridden) {
-        this.overridden = overridden;
+    public Identifiable getOverwrittenElement() {
+        return overwrittenElement;
+    }
+
+    public Boolean isOverwritten() {
+        return overwritten;
+    }
+
+    public void setOverwritten(Boolean overwritten) {
+        this.overwritten = overwritten;
     }
 
     public Dependencies getDependencies() {
@@ -74,8 +83,8 @@ public class ImportReport {
     }
 
     @JsonIgnore
-    public boolean doesNotOverrideElements() {
-        return !this.isOverridden() && (this.getDependencies().getOverridden() == null || this.getDependencies().getOverridden().isEmpty());
+    public boolean doesNotOverwriteElements() {
+        return !this.isOverwritten() && (this.getDependencies().getOverwritten() == null || this.getDependencies().getOverwritten().isEmpty());
     }
 
     public Status getStatus() {
