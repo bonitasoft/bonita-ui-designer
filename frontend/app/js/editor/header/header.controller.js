@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -14,6 +14,7 @@
       this.$window = $window;
       this.$localStorage = $localStorage;
       this.$timeout = $timeout;
+      this.$q = $q;
       this.browserHistoryService = browserHistoryService;
       this.pristine = true;
       this.dirty = false;
@@ -42,6 +43,11 @@
     }
 
     save(page) {
+      if (!this.isPageDirty(page)) {
+        let defer = this.$q.defer();
+        defer.resolve();
+        return defer.promise;
+      }
       return this.artifactRepo.save(page)
         .then(response => {
           this.dirty = false;
