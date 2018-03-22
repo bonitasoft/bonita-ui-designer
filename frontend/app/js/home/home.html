@@ -5,8 +5,11 @@
         </div>
         <h1 class="HomeHeader-title" translate>UI Designer</h1>
         <div class="HomeHeader-help">
-            <button class="btn btn-bonita-help shaker" ng-click="openHelp()" title="{{'Open help' | translate}}"><i
-                class="fa fa-question-circle"></i></button>
+            <button class="btn btn-bonita-help shaker" ng-click="openHelp()"
+                    uib-tooltip="{{'Open help' | translate}}"
+                    tooltip-popup-delay="500"
+                    tooltip-placement="left">
+                <i class="fa fa-question-circle"></i></button>
         </div>
     </header>
     <div class="container container--Home">

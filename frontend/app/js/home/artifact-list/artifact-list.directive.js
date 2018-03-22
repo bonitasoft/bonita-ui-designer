@@ -31,7 +31,8 @@
         'Delete': this.gettextCatalog.getString('Delete'),
         'Export': this.gettextCatalog.getString('Export'),
         'Rename': this.gettextCatalog.getString('Rename'),
-        'Last Update:': this.gettextCatalog.getString('Last Update:')
+        'Last Update:': this.gettextCatalog.getString('Last Update:'),
+        'In folder:': this.gettextCatalog.getString('In folder ')
       }[key] || key;
     }
 

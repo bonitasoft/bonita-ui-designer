@@ -30,7 +30,7 @@
                 </ul>
             </div>
             <button type="button" id="export" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="vm.saveAndExport(vm.page)"
-                    title="{{ 'Export' | translate }}">
+                    uib-tooltip="{{ 'Export' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300">
                 <i class="ui-icon ui-export"></i>
             </button>
         </form>
@@ -41,6 +41,6 @@
         <div resolutions-bar id="resolutions" class="btn-group"></div>
     </div>
     <div class="EditorHeader-help">
-        <button class="btn btn-bonita-help" open-help editor-mode="{{vm.mode}}" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+        <button class="btn btn-bonita-help" open-help editor-mode="{{vm.mode}}" uib-tooltip="{{ 'Open help' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300"><i class="fa fa-question-circle"></i></button>
     </div>
 </div>

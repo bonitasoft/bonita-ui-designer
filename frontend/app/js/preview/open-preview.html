@@ -1,6 +1,8 @@
 <button class="btn btn-bonita-primary"
     id="preview"
-    title="{{ 'Preview' | translate }}"
+    uib-tooltip="{{ 'Preview' | translate }}"
+    tooltip-placement="bottom"
+    tooltip-popup-delay="300"
     ng-click="ctrl.openPreview()"
     ng-disabled="ctrl.isDisabled">
   <i class="fa fa-play"></i>
