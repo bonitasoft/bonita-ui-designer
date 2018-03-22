@@ -3,14 +3,16 @@
             class="Artifact-button Artifact-favoriteButton Artifact-favoriteButton--checked"
             ng-click="vm.toggleFavorite()"
             type="button"
-            title="{{:: 'Unmark as favorite' | translate }}">
+            uib-tooltip="{{:: 'Unmark as favorite' | translate }}"
+            tooltip-popup-delay="500">
         <i class="fa FavoriteButton-icon"></i>
     </button>
     <button ng-switch-default
             class="Artifact-button Artifact-favoriteButton"
             ng-click="vm.toggleFavorite()"
             type="button"
-            title="{{:: 'Mark as favorite' | translate }}">
+            uib-tooltip="{{:: 'Mark as favorite' | translate }}"
+            tooltip-popup-delay="500">
         <i class="fa FavoriteButton-icon"></i>
     </button>
 </span>

@@ -1,5 +1,7 @@
 <button type="button" class="btn btn-bonita-primary HomeCreate"
-        title="{{'Create a new UI Designer artifact' | translate}}"
+        uib-tooltip="{{'Create a new UI Designer artifact' | translate}}"
+        tooltip-popup-delay="500"
+        tooltip-placement="bottom"
         uib-popover-template="'js/home/create/create-popover.html'" popover-trigger="outsideClick" popover-placement="bottom-left" popover-is-open="createCtrl.isOpen" popover-class="HomeCreate-popover">
     <i class="fa fa-plus"></i> <translate>Create</translate>
 </button>
