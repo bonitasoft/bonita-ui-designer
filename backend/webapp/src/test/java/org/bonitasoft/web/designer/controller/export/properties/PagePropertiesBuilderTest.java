@@ -22,11 +22,7 @@ import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.mockito.Mockito.when;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import com.google.common.collect.ImmutableSet;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
@@ -102,11 +98,16 @@ public class PagePropertiesBuilderTest {
 
     @Test
     public void should_add_relative_bonita_resource_found_in_page_data() throws Exception {
-        page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
+        Map<String, Data> dataMap = new TreeMap<String, Data>();
+        dataMap.put("foo", anApiData("../API/bpm/userTask?filter=mine"));
+        dataMap.put("bar", anApiData("../API/identity/user/1"));
+        dataMap.put("other", anApiData("../API/identity/group/1?param=value"));
+
+        page.setData(dataMap);
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
-        assertThat(properties).contains("resources=[GET|bpm/userTask]");
+        assertThat(properties).contains("resources=[GET|identity/user, GET|bpm/userTask, GET|identity/group]");
     }
 
     @Test
