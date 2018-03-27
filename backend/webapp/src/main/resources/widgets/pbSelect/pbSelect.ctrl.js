@@ -17,13 +17,26 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     return item;
   };
 
+  this.findSelectedItem = function (items) {
+    return items.filter(comparator.bind(null, $scope.properties.value))
+      .map(function (item) {
+        return ctrl.getValue(item);
+      })[0];
+  };
+
+  this.setSelectedValue = function (foundItem) {
+    $timeout(function () {
+      if (foundItem) {
+        $scope.properties.value = foundItem;
+      } else {
+        $scope.properties.value = null;
+      }
+    }, 0);
+  };
+
   $scope.$watchCollection('properties.availableValues', function(items) {
     if (Array.isArray(items)) {
-      var foundItem = items
-        .filter(comparator.bind(null, $scope.properties.value))
-        .map(function (item) {
-          return ctrl.getValue(item);
-        })[0];
+      var foundItem = ctrl.findSelectedItem(items);
 
       //force IE9 to rerender option list
       if ($window.navigator && $window.navigator.userAgent && $window.navigator.userAgent.indexOf('MSIE 9') >= 0) {
@@ -36,15 +49,19 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
       // terrible hack to force the select ui to show the correct options
       // so we change it's value to undefined and then delay to the correct value
       $scope.properties.value = undefined;
-      $timeout(function() {
-        if (foundItem) {
-          $scope.properties.value = foundItem;
-        } else {
-          $scope.properties.value = null;
-        }
-      }, 0);
+      ctrl.setSelectedValue(foundItem);
     }
+  });
 
+  $scope.$watch('properties.value', function(value) {
+    if (value) {
+      var items = $scope.properties.availableValues;
+      if (Array.isArray(items)) {
+        var foundItem = ctrl.findSelectedItem(items);
+
+        ctrl.setSelectedValue(foundItem);
+      }
+    }
   });
 
   this.name = widgetNameFactory.getName('pbSelect');

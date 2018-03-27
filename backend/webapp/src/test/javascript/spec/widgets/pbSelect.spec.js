@@ -185,10 +185,9 @@ describe('pbSelect', function () {
     $timeout.flush();
 
     var selectedIndex = widget.find('select')[0].value;
-
     expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
   });
-  
+
   it('should leave the value as it is if no available values but reset value if available value do not contain value', function(){
     scope.properties = angular.extend(scope.properties, {
       value: 'jean',
@@ -206,6 +205,32 @@ describe('pbSelect', function () {
     $timeout.flush();
 
     expect(scope.properties.value).toBeNull();
+  });
+
+  it('should allow setting the value of the select after the available values', function(){
+    scope.properties = angular.extend(scope.properties, {
+      displayedKey: 'name',
+      returnedKey: 'name'
+    });
+    var widget = $compile('<pb-select></pb-select>')(scope);
+    scope.$digest();
+    $timeout.flush();
+
+    scope.properties.availableValues = [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}];
+
+    scope.$apply();
+    $timeout.flush();
+
+    expect(scope.properties.value).toBeNull();
+
+    scope.properties.value = 'serge';
+
+    scope.$apply();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual('serge');
+    var selectedIndex = widget.find('select')[0].value;
+    expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
   });
 
   it('should allow setting value to null if available values contain null value', function(){
