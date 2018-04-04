@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class ResponseHeadersHelper {
             int currentURILastSeparatorIndex = requestURI.lastIndexOf("/");
             URI newLocation = new URI(requestURI.substring(0, currentURILastSeparatorIndex) + "/" + newObjectId);
             responseHeaders.setLocation(newLocation);
+            responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         } catch (URISyntaxException e) {
             throw new RepositoryException("Failed to generate new object URI", e);
         }

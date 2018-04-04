@@ -63,6 +63,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.hamcrest.Matchers;
 import org.joda.time.Instant;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,6 +78,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import com.google.common.collect.Sets;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -232,7 +236,7 @@ public class PageResourceTest {
     public void should_save_a_page() throws Exception {
         Page pageToBeSaved = mockPageOfId("my-page");
 
-        mockMvc
+        ResultActions result = mockMvc
                 .perform(
                         put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
                                 convertObjectToJsonBytes(pageToBeSaved)))
@@ -240,6 +244,8 @@ public class PageResourceTest {
 
         verify(pageRepository).updateLastUpdateAndSave(pageToBeSaved);
         verify(messagingTemplate).convertAndSend("/previewableUpdates", "my-page");
+
+        Assert.assertEquals(MediaType.APPLICATION_JSON.toString(), result.andReturn().getResponse().getContentType());
     }
 
     @Test
@@ -252,7 +258,7 @@ public class PageResourceTest {
         when(pageRepository.getNextAvailableId("page-new-name")).thenReturn("page-new-name");
 
 
-        mockMvc
+        ResultActions result =  mockMvc
                 .perform(
                         put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
                                 convertObjectToJsonBytes(pageToBeSaved)))
@@ -262,6 +268,8 @@ public class PageResourceTest {
         verify(pageRepository).updateLastUpdateAndSave(aPage().withId("page-new-name").withName("page-new-name").build());
         verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"),pageRepository.resolvePath("my-page"), "my-page", "page-new-name");
         verify(messagingTemplate).convertAndSend("/previewableRemoval", "my-page");
+
+        Assert.assertEquals(MediaType.APPLICATION_JSON.toString(), result.andReturn().getResponse().getContentType());
     }
 
     @Test
