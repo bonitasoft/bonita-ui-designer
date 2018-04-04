@@ -76,8 +76,8 @@ public class LiveRepositoryUpdate<A extends DesignerArtifact> {
     }
 
     private void updateRepository(Repository<A> repository, Path path) {
-        migrate(repository, path);
         refresh(repository, path);
+        migrate(repository, path);
     }
 
     private void refresh(Repository<A> repository, Path path) {
