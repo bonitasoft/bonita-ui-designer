@@ -147,12 +147,26 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
 
     protected List<T> loadAll(Path directory, String glob) throws IOException {
         List<T> objects = new ArrayList<>();
-
         try (DirectoryStream<Path> directoryStream = newDirectoryStream(directory, glob)) {
-            for (Path path : directoryStream) {
-                String id = getComponentId(path);
-                objects.add(load(resolve(directory, id)));
-            }
+            objects = loadAll(directory, directoryStream);
+        }
+        return objects;
+    }
+
+    protected List<T> loadAll(Path directory, DirectoryStream.Filter<Path> filter) throws IOException {
+        List<T> objects = new ArrayList<>();
+
+        try (DirectoryStream<Path> directoryStream = newDirectoryStream(directory, filter)) {
+            objects = loadAll(directory, directoryStream);
+        }
+        return objects;
+    }
+
+    private List<T> loadAll(Path directory, DirectoryStream<Path> directoryStream) {
+        List<T> objects = new ArrayList<>();
+        for (Path path : directoryStream) {
+            String id = getComponentId(path);
+            objects.add(load(resolve(directory, id)));
         }
         return objects;
     }

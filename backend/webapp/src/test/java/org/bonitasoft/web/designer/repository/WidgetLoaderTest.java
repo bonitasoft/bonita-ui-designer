@@ -92,7 +92,7 @@ public class WidgetLoaderTest {
 
     @Test
     public void should_retrieve_all_custom_widgets() throws Exception {
-        Widget input = aWidget().id("input").build();
+        Widget input = aWidget().id("pbInput").build();
         Widget custom1 = aWidget().id("custom1").custom().build();
         Widget custom2 = aWidget().id("custom2").custom().build();
         addToDirectory(widgetDirectory, input, custom1, custom2);
