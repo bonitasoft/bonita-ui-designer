@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.repository;
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -51,7 +52,12 @@ public class WidgetLoader extends AbstractLoader<Widget>{
     }
 
     public List<Widget> loadAllCustom(Path widgetsFolder) throws IOException {
-        return loadAll(widgetsFolder, "custom*");
+        return loadAll(widgetsFolder, new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path path) throws IOException {
+                return !path.getFileName().toString().startsWith("pb");
+            }
+        });
     }
 
     @Override
