@@ -35,7 +35,7 @@
             </button>
         </form>
         <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" artifact-id="vm.page.id"
-                      is-disabled="!formName.$valid || formName.$dirty"></open-preview>
+                      is-disabled="!formName.$valid || vm.isPageDirty(vm.page)"></open-preview>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
     <div class="EditorHeader-resolutions">
