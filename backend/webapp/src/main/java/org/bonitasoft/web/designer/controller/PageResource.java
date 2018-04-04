@@ -42,7 +42,9 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.util.StringUtils;
@@ -141,7 +143,9 @@ public class PageResource extends AssetResource<Page> {
         } else {
             // send notification of update
             messagingTemplate.convertAndSend(PREVIEWABLE_UPDATE, pageId);
-            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            responseEntity = new ResponseEntity<>(headers, HttpStatus.OK);
         }
         return responseEntity;
     }
