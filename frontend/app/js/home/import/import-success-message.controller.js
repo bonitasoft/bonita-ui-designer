@@ -24,6 +24,7 @@
 
     vm.joinOnNames = joinOnNames;
     vm.getState = getState;
+    vm.translateKeys = translateKeys;
 
     function joinOnNames(artifacts) {
       return artifacts.map(function(item) {
@@ -36,6 +37,16 @@
         return gettextCatalog.getString('overwritten');
       }
       return gettextCatalog.getString('added');
+    }
+
+    function translateKeys(key) {
+      return {
+        'page': gettextCatalog.getString('page'),
+        'form': gettextCatalog.getString('form'),
+        'widget': gettextCatalog.getString('widget'),
+        'layout': gettextCatalog.getString('layout'),
+        'fragment': gettextCatalog.getString('fragment')
+      }[key] || key;
     }
   }
 
