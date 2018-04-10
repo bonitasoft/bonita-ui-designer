@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-01-31 04:10-0500\n"
+"PO-Revision-Date: 2018-04-10 05:40-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -148,8 +148,11 @@ msgstr "JavaScript 式で初期化される変数は、ページが読み込ま�
 msgid "A variable initialized with an External API is reloaded every time the URL value changes."
 msgstr "外部 API で初期化される変数は、URL の値が変更されるたびに再度読み込まれます。"
 
-msgid "A {{ ::importReport.type }} with same id named <strong>{{ ::importReport.name }}</strong> already exists."
-msgstr "既に <strong>{{ ::importReport.name }}</strong> をという名前の同じ id  {{ ::importReport.type }} が存在します。"
+msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
+
+msgid "A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
 
 msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
@@ -289,6 +292,9 @@ msgstr "戻る"
 msgid "Back to default size"
 msgstr "デフォルトのサイズに戻す"
 
+msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
+msgstr ""
+
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
 
@@ -342,6 +348,9 @@ msgstr "案件のIDは、{{myVar.rootCaseId}} で取得できます。"
 
 msgid "Case overview"
 msgstr "案件概況"
+
+msgid "Changes need to be saved to enable the preview"
+msgstr ""
 
 msgid "Check that the json file structure matches a standard UI Designer export."
 msgstr "Json ファイル構造が標準 UI デザイナーのエクスポートと一致することを確認します。"
@@ -708,6 +717,9 @@ msgstr "特に日付書式に関しては、UI デザイナーは、 BDM また�
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "詳細については、<a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">ドキュメント</a> を参照してください。"
 
+msgid "For more information, consult the official UI Designer overview documentation."
+msgstr ""
+
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "詳細については、<a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>ローカリゼーション</em>のヘルプ セクション</a> を参照してください。"
 
@@ -810,11 +822,14 @@ msgstr "ただし、このような現在のウィンドウ (フレーム) へ�
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
 
-msgid "Id must be unique, so the {{ ::importReport.type }} {{ ::importReport.name }} will be overwritten."
-msgstr "{{ ::importReport.type }} {{ ::importReport.name }} は上書きされるので、Id は一意でなければなりません。"
+msgid "Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
 
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
+
+msgid "Identifier"
+msgstr ""
 
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "チェックオンの場合、このポップアップはブラウザのキャッシュがクリーンナップされない限り、二度と表示されません。"
@@ -860,6 +875,9 @@ msgstr "プロセス内にビジネス変数を定義した場合、プロセス
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "<em>成功時のレスポンス値</em> の変数に加え、 <em>POST</em>、<em>PUT</em>、<em>削除</em>、<em>プロセスを開始</em> 、<em>タスクを送信</em> のリクエストに対し、そのリクエストが成功したときに、現在のウィンドウ (フレーム) の場所に表示する<em>成功時のターゲットURL</em> を定義する可能性もあります。"
+
+msgid "In folder"
+msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
@@ -1083,6 +1101,9 @@ msgstr "変数はありません"
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイムゾーンを反映し、実際の値と異なる場合があります。"
+
+msgid "Noteworthy changes"
+msgstr ""
 
 msgid "Now"
 msgstr "今時点"
@@ -1363,6 +1384,9 @@ msgstr "デフォルトのレイアウトをインポートすることによっ
 msgid "Start process"
 msgstr "プロセスを開始"
 
+msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories."
+msgstr ""
+
 msgid "Step"
 msgstr "ステップ"
 
@@ -1469,9 +1493,6 @@ msgstr "成功時の振る舞いを自分で処理する必要がある（例え
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
 
-msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
-msgstr "インポートした {{ ::importReport.type }} には、いくつかの既存の要素と同じ id を持つ要素が含まれています。"
-
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> で書式化された文字列変数です。"
 
@@ -1504,6 +1525,12 @@ msgstr "このホワイトボードは<b>行が複数</b>あるので、それ�
 
 msgid "The widget has not been imported."
 msgstr "ウィジェットはインポートされていません。"
+
+msgid "The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
+
+msgid "The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements."
+msgstr ""
 
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
@@ -1550,6 +1577,9 @@ msgstr "コンテンツを追加するには、コンポーネントをパレッ
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "ユーザーがドキュメントをダウンロードできるようにするには、リンク ウィジェットを追加してそのドキュメントにバインドする URL プロパティを設定します。"
 
+msgid "To avoid them being overwritten, <i>rename</i> them before you import."
+msgstr ""
+
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "BDM API （または別の API）から取得した日付と時刻を表示 （更新なし）するためには、<em>日時選択</em> ウィジェットを使用して、その<em>読み取り専用</em> プロパティを「はい」にするか 、 <em>テキスト</em>、<em>タイトル</em> または <em>表</em> ウィジェットを使用して、 その値を <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> で書式化します。"
 
@@ -1577,11 +1607,11 @@ msgstr "複数バージョンの依存関係を管理するには、1 つの ア
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "ドキュメント インスタンスを取得するには、値を持つExternal API 変数を作成します。"
 
-msgid "To save them with different ids, open them and use <i>Save as</i>, before you import."
-msgstr "異なる id で保存するには、インポートする前にそれらを開き、<i>別名で保存...</i> を使用します。"
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
+msgstr ""
 
-msgid "To save {{ ::importReport.name }} with a different id, open it and use <i>Save as</i> before you import."
-msgstr "{{ ::importReport.name }} を異なる id で保存するには、インポートする前にそれらを開き、 <i>別名で保存...</i> を使用します。"
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import."
+msgstr ""
 
 msgid "To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead."
 msgstr "日付と時間（たとえば、会議をスケジュールする）を選択するには、<em>日時選択</em> ウィジェットを使用します。"
@@ -1841,6 +1871,9 @@ msgstr "ページ内のアセットの順番は手動では変更できません
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
 
+msgid "You may rename existing artifacts so they benefit from this change too."
+msgstr ""
+
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
 
@@ -1881,8 +1914,14 @@ msgstr "エラー"
 msgid "expression or variable"
 msgstr "式または変数"
 
+msgid "form"
+msgstr ""
+
 msgid "formatted String variables"
 msgstr "書式化された文字列変数"
+
+msgid "fragment"
+msgstr ""
 
 msgid "h:mm:ss a"
 msgstr "h:mm:ss a"
@@ -1902,6 +1941,9 @@ msgstr "info"
 msgid "label Hidden"
 msgstr "ラベルを非表示"
 
+msgid "layout"
+msgstr ""
+
 msgid "left"
 msgstr "左"
 
@@ -1917,8 +1959,11 @@ msgstr "いいえ"
 msgid "number"
 msgstr "数値"
 
-msgid "overridden"
-msgstr "オーバーライド"
+msgid "overwritten"
+msgstr ""
+
+msgid "page"
+msgstr ""
 
 msgid "password"
 msgstr "パスワード"
@@ -1949,6 +1994,9 @@ msgstr "W3C の JSON 仕様を表示"
 
 msgid "warning"
 msgstr "warning"
+
+msgid "widget"
+msgstr ""
 
 msgid "widgets"
 msgstr "ウィジェット"
