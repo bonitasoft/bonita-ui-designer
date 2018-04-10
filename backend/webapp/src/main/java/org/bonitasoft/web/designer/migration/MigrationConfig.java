@@ -52,21 +52,15 @@ public class MigrationConfig {
 
     @Bean
     public LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate(JsonFileBasedLoader<Page> pageFileBasedLoader,
-                                                               PageRepository pageRepository,
-                                                               List<Migration<Page>> pageMigrationSteps) {
+                                                               PageRepository pageRepository) {
         return new LiveRepositoryUpdate<>(pageRepository, pageFileBasedLoader, pageMigrationSteps);
     }
 
-    @Bean
-    public LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate(
-            WidgetLoader widgetLoader,
-            WidgetRepository widgetRepository,
-            List<Migration<Widget>> widgetMigrationSteps) {
-        return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, widgetMigrationSteps);
-    }
+    @Resource(name="pageMigrationStepsList")
+    private List<Migration<Page>> pageMigrationSteps;
 
     @Bean
-    public List<Migration<Page>> pageMigrationSteps(
+    public List<Migration<Page>> pageMigrationStepsList(
             BondMigrationStep<Page> pageBondMigrationStep,
             StyleAssetMigrationStep styleAssetMigrationStep,
             TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
@@ -82,9 +76,18 @@ public class MigrationConfig {
                 new Migration<>("1.7.25", pageUUIDMigrationStep));
     }
 
+    @Bean
+    public LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate(
+            WidgetLoader widgetLoader,
+            WidgetRepository widgetRepository) {
+        return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, widgetMigrationSteps);
+    }
 
-    @Resource
-    public List<Migration<Widget>> widgetMigrationSteps() {
+    @Resource(name="widgetMigrationStepsList")
+    private List<Migration<Widget>> widgetMigrationSteps;
+
+    @Bean
+    public List<Migration<Widget>> widgetMigrationStepsList() {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())
