@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-01-31 04:17-0500\n"
+"PO-Revision-Date: 2018-04-10 05:49-0400\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -148,8 +148,11 @@ msgstr "Una variable que se inicializa con una expresión de JavaScript se ejecu
 msgid "A variable initialized with an External API is reloaded every time the URL value changes."
 msgstr "Una variable inicializada con una API externa se vuelve a cargar cada vez que cambia el valor de URL."
 
-msgid "A {{ ::importReport.type }} with same id named <strong>{{ ::importReport.name }}</strong> already exists."
-msgstr "Un {{ ::importReport.type }} con mismo id y llamado <strong>{{ ::importReport.name }}</strong> ya existe."
+msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
+
+msgid "A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
 
 msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
@@ -289,6 +292,9 @@ msgstr "Atrás"
 msgid "Back to default size"
 msgstr "Regresar al tamaño predeterminado"
 
+msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
+msgstr ""
+
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
 
@@ -342,6 +348,9 @@ msgstr "El identificador del Caso podría recuperarse con {{myVar.rootCaseId}}"
 
 msgid "Case overview"
 msgstr "Resumen de caso"
+
+msgid "Changes need to be saved to enable the preview"
+msgstr ""
 
 msgid "Check that the json file structure matches a standard UI Designer export."
 msgstr "Compruebe que la estructura del archivo json coincide con el archivo estándar del UI Designer exportado."
@@ -708,6 +717,9 @@ msgstr "Para el formato de fecha en concreto, el UI Designer provee un filtro <e
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "Para obtener más información, consulte la <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\"> documentación</a>."
 
+msgid "For more information, consult the official UI Designer overview documentation."
+msgstr ""
+
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "Para obtener más información, consulte la <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"> sección de ayuda de la <em>localización</em></a>."
 
@@ -810,11 +822,14 @@ msgstr "Sin embargo, tal redirección de la ventana actual (frame) no se realiza
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
 
-msgid "Id must be unique, so the {{ ::importReport.type }} {{ ::importReport.name }} will be overwritten."
-msgstr "El Id debe ser único, por lo que se sobrescribirán el {{ ::importReport.name }} de {{ ::importReport.type }}."
+msgid "Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
 
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "El Id debe ser único, por lo que se sobrescribirán esos elementos."
+
+msgid "Identifier"
+msgstr ""
 
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "Si está marcado, este popup no se mostrará nuevamente a menos que se limpie la caché del navegador"
@@ -860,6 +875,9 @@ msgstr "En un formulario de proceso, si se han definido variables de negocio en 
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "Además de la variable <em>Valor de respuesta exitosa</em>, para las peticiones <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Iniciar proceso</em> y <em>Enviar tarea</em>, también es posible definir una <em>Dirección URL de destino en éxito</em> que se utiliza para establecer la ubicación actual de la ventana (frame) cuando la solicitud es exitosa."
+
+msgid "In folder"
+msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
@@ -1082,6 +1100,9 @@ msgstr "Sin variables"
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "No: la zona horaria del usuario no es tenida en cuenta. <br>Sí: la pantalla/entrada refleja la zona horaria del usuario y puede ser diferente del valor"
+
+msgid "Noteworthy changes"
+msgstr ""
 
 msgid "Now"
 msgstr "Ahora"
@@ -1362,6 +1383,9 @@ msgstr "Comience creando un <b>layout de la aplicación</b> mediante la importac
 msgid "Start process"
 msgstr "Iniciar proceso"
 
+msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories."
+msgstr ""
+
 msgid "Step"
 msgstr "Tarea"
 
@@ -1468,9 +1492,6 @@ msgstr "La siguiente documentación se aplica si se necesita manejar el comporta
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "El {{ ::importReport.type }} importado también contiene nuevos elementos."
 
-msgid "The imported {{ ::importReport.type }} contains elements with the same id as some existing elements."
-msgstr "El {{ ::importReport.type }} importado contiene elementos con el mismo id que algunos elementos existentes."
-
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
@@ -1503,6 +1524,12 @@ msgstr "El whiteboard está organizado en <b>filas</b> que se pueden mover arrib
 
 msgid "The widget has not been imported."
 msgstr "El widget no se ha importado."
+
+msgid "The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
+
+msgid "The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements."
+msgstr ""
 
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "El {{ artifact.type }} no se puede eliminar porque es utilizado en:"
@@ -1549,6 +1576,9 @@ msgstr "Para agregar contenido, arrastra y suelta los componentes de la paleta e
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "Para permitir a los usuarios descargar un documento, añade un widget Link con la propiedad url configurada con"
 
+msgid "To avoid them being overwritten, <i>rename</i> them before you import."
+msgstr ""
+
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Para mostrar (y no actualizar) una fecha y una hora obtenidas de la API BDM (u otra API), puede utilizar este widget de <em>Selector de fecha y hora</em> con la propiedad <em>Sólo lectura</em> establecida a \"sí\" o utilizar un widget de <em>Texto</em>, <em>Título</em> o <em>Tabla</em> y dar formato al valor con el <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtro</a> <em>uiDate</em> proporcionado."
 
@@ -1576,11 +1606,11 @@ msgstr "Para administrar múltiples versiones de dependencias, asegúrese de que
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Para devolver una instancia de documento, crea una variable External API con valor"
 
-msgid "To save them with different ids, open them and use <i>Save as</i>, before you import."
-msgstr "Para guardarlos con diferentes IDs, ábralos y utilice <i>Guardar como</i>, antes de importar."
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
+msgstr ""
 
-msgid "To save {{ ::importReport.name }} with a different id, open it and use <i>Save as</i> before you import."
-msgstr "Para guardar {{ ::importReport.name }} con un id diferente, ábralo y utilice <i>Guardar como</i> antes de importar."
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import."
+msgstr ""
 
 msgid "To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead."
 msgstr "Para seleccionar una fecha y una hora (por ejemplo, para planear una cita), utilice el widget de <em>Selector de hora y fecha</em> en su lugar."
@@ -1840,6 +1870,9 @@ msgstr "No se puede cambiar manualmente el orden de los recursos de una página.
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
 
+msgid "You may rename existing artifacts so they benefit from this change too."
+msgstr ""
+
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
 
@@ -1881,8 +1914,14 @@ msgstr "error"
 msgid "expression or variable"
 msgstr "expresión o variable"
 
+msgid "form"
+msgstr ""
+
 msgid "formatted String variables"
 msgstr "variables con formato tipo String"
+
+msgid "fragment"
+msgstr ""
 
 msgid "h:mm:ss a"
 msgstr "H:mm:ss"
@@ -1902,6 +1941,9 @@ msgstr "info"
 msgid "label Hidden"
 msgstr "Ocultar etiqueta"
 
+msgid "layout"
+msgstr ""
+
 msgid "left"
 msgstr "izquierda"
 
@@ -1917,8 +1959,11 @@ msgstr "no"
 msgid "number"
 msgstr "number"
 
-msgid "overridden"
-msgstr "se reemplaza"
+msgid "overwritten"
+msgstr ""
+
+msgid "page"
+msgstr ""
 
 msgid "password"
 msgstr "password"
@@ -1949,6 +1994,9 @@ msgstr "ver la especificación Json de W3C"
 
 msgid "warning"
 msgstr "warning"
+
+msgid "widget"
+msgstr ""
 
 msgid "widgets"
 msgstr "widgets"
