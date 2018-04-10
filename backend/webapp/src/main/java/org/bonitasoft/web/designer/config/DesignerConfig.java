@@ -14,15 +14,18 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import static java.util.Arrays.asList;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -34,18 +37,14 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.migration.AssetExternalMigrationStep;
-import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
-import org.bonitasoft.web.designer.migration.Migration;
-import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
-import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
-import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
-import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
@@ -76,13 +75,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-
 /**
  * @author Guillaume EHRET
  */
@@ -93,7 +85,7 @@ public class DesignerConfig {
 
     @Bean
     public Class[] jacksonSubTypes() {
-        return new Class[] { Component.class, Container.class, FormContainer.class, TabsContainer.class };
+        return new Class[]{Component.class, Container.class, FormContainer.class, TabsContainer.class};
     }
 
     @Bean
@@ -169,7 +161,7 @@ public class DesignerConfig {
 
     @Bean
     public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
-            AssetImporter<Widget> widgetAssetImporter) {
+                                                AssetImporter<Widget> widgetAssetImporter) {
         return new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
     }
 
@@ -185,20 +177,20 @@ public class DesignerConfig {
 
     @Bean
     public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, WidgetImporter widgetImporter,
-            AssetImporter<Page> pageAssetImporter) {
+                                               AssetImporter<Page> pageAssetImporter) {
         return new ArtifactImporter<>(pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
     }
 
     @Bean
     public ArtifactImporter<Widget> widgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
-            AssetImporter<Widget> widgetAssetImporter) {
+                                                   AssetImporter<Widget> widgetAssetImporter) {
         return new ArtifactImporter<>(widgetRepository, widgetLoader, widgetAssetImporter);
     }
 
     @Bean
     public Map<String, ArtifactImporter> artifactImporters(ArtifactImporter<Page> pageImporter,
-            ArtifactImporter<Widget> widgetImporter) {
-        return ImmutableMap.<String, ArtifactImporter> builder()
+                                                           ArtifactImporter<Widget> widgetImporter) {
+        return ImmutableMap.<String, ArtifactImporter>builder()
                 .put("page", pageImporter)
                 .put("widget", widgetImporter)
                 .build();
@@ -211,9 +203,9 @@ public class DesignerConfig {
 
     @Bean
     public ExportStep<Page>[] pageExportSteps(WidgetsExportStep<Page> widgetsExportStep,
-                                                      PagePropertiesExportStep pagePropertiesExportStep,
-                                                      HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
-        return new ExportStep[] { htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep };
+                                              PagePropertiesExportStep pagePropertiesExportStep,
+                                              HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
+        return new ExportStep[]{htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
     }
 
     @Bean
@@ -258,17 +250,17 @@ public class DesignerConfig {
 
     @Bean
     public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories,
-            RequiredModulesVisitor requiredModulesVisitor,
-            DirectivesCollector directivesCollector, AssetVisitor assetVisitor, PageRepository pageRepository,
-            WidgetRepository widgetRepository) {
+                                                 RequiredModulesVisitor requiredModulesVisitor,
+                                                 DirectivesCollector directivesCollector, AssetVisitor assetVisitor, PageRepository pageRepository,
+                                                 WidgetRepository widgetRepository) {
         return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector,
                 pageAssetRepository(pageRepository), widgetAssetRepository(widgetRepository));
     }
 
     @Bean
     public DirectiveFileGenerator directiveFileGenerator(WorkspacePathResolver pathResolver,
-            WidgetRepository widgetRepository,
-            WidgetIdVisitor widgetIdVisitor) {
+                                                         WidgetRepository widgetRepository,
+                                                         WidgetIdVisitor widgetIdVisitor) {
         return new DirectiveFileGenerator(pathResolver, widgetRepository, widgetIdVisitor);
     }
 
@@ -309,7 +301,7 @@ public class DesignerConfig {
     @Bean
     public List<LiveRepositoryUpdate> liveRepositoryUpdate(LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate,
                                                            LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate) {
-        return Lists.<LiveRepositoryUpdate> newArrayList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate);
+        return Lists.<LiveRepositoryUpdate>newArrayList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate);
     }
 
     @Bean
@@ -320,48 +312,5 @@ public class DesignerConfig {
     @Bean
     public BondsTypesFixer<Page> pageBondsTypesFixer(PageRepository pageRepository) {
         return new BondsTypesFixer<>(pageRepository);
-    }
-
-    /*******************************************************************************************************************
-     * Migration Steps
-     * See {@link Migration}
-     ******************************************************************************************************************/
-
-    @Bean
-    public BondMigrationStep<Page> pageBondMigrationStep(ComponentVisitor componentVisitor,
-                                                         WidgetRepository widgetRepository,
-                                                         VisitorFactory visitorFactory) {
-        return new BondMigrationStep(componentVisitor, widgetRepository, visitorFactory);
-    }
-
-    @Bean
-    public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
-        return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
-    }
-
-    @Bean
-    public LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate(JsonFileBasedLoader<Page> pageFileBasedLoader,
-                                                               PageRepository pageRepository,
-                                                               BondMigrationStep<Page> pageBondMigrationStep,
-                                                               StyleAssetMigrationStep styleAssetMigrationStep,
-                                                               TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
-                                                               UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
-                                                               PageUUIDMigrationStep pageUUIDMigrationStep) {
-
-        return new LiveRepositoryUpdate<>(pageRepository, pageFileBasedLoader, asList(
-                new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
-                new Migration<>("1.0.3", pageBondMigrationStep),
-                new Migration<>("1.2.9", new AssetExternalMigrationStep<Page>()),
-                new Migration<>("1.5.7", styleAssetMigrationStep),
-                new Migration<>("1.5.10", uiBootstrapAssetMigrationStep),
-                new Migration<>("1.7.4", pageTextWidgetInterpretHTMLMigrationStep),
-                new Migration<>("1.7.25", pageUUIDMigrationStep)));
-
-    }
-    @Bean
-    public LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate(WidgetLoader widgetLoader, WidgetRepository widgetRepository) {
-        return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, asList(
-                new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
-                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())));
     }
 }
