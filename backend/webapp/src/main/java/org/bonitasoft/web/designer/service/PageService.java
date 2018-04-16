@@ -21,8 +21,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 
+
 @Named
-public class PageService {
+public class PageService implements ArtifactService {
 
     private final PageMigrationApplyer pageMigrationApplyer;
     private PageRepository pageRepository;
@@ -33,6 +34,7 @@ public class PageService {
         this.pageMigrationApplyer = pageMigrationApplyer;
     }
 
+    @Override
     public Page get(String id){
         Page page = this.pageRepository.get(id);
         Page migratedPage = pageMigrationApplyer.migrate(page);
