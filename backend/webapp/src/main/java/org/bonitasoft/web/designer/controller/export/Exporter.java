@@ -30,6 +30,7 @@ import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.service.ArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,11 +39,13 @@ public class Exporter<T extends DesignerArtifact> {
     private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
 
     private final ExportStep<T>[] exportSteps;
+    private final ArtifactService<T> artifactService;
 
     private Repository<T> repository;
 
-    public Exporter(Repository<T> repository, ExportStep<T>... exportSteps) {
+    public Exporter(Repository<T> repository, ArtifactService<T> artifactService, ExportStep<T>... exportSteps) {
         this.repository = repository;
+        this.artifactService = artifactService;
         this.exportSteps = exportSteps;
     }
 
@@ -60,7 +63,7 @@ public class Exporter<T extends DesignerArtifact> {
             //The outputStream scope is local in the try-with-resource-block
             zipStream = outputStream;
 
-            T identifiable = repository.get(id);
+            T identifiable = artifactService.get(id);
             filename = getFileName(identifiable);
 
             // add json model

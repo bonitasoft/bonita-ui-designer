@@ -26,15 +26,14 @@ import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -54,6 +53,9 @@ public class ExporterTest {
     @Mock
     private PageRepository pageRepository;
 
+    @Mock
+    private PageService pageService;
+
     private Exporter<Page> exporter;
 
     private MockHttpServletResponse response = new MockHttpServletResponse();
@@ -65,7 +67,7 @@ public class ExporterTest {
     public void setUp() throws Exception {
         when(pageRepository.getComponentName()).thenReturn("page");
 
-        exporter = new Exporter<>(pageRepository, mock(ExportStep.class));
+        exporter = new Exporter<>(pageRepository, pageService, mock(ExportStep.class));
     }
 
     private Page create(Page page) throws IOException {
@@ -73,6 +75,7 @@ public class ExporterTest {
             page.setId("default-id");
         }
         when(pageRepository.get(page.getId())).thenReturn(page);
+        when(pageService.get(page.getId())).thenReturn(page);
         when(pageRepository.resolvePath(page.getId())).thenReturn(repositoryFolder.toPath());
         write(repositoryFolder.toPath().resolve(format("%s.json", page.getId())), "foobar".getBytes());
         return page;
@@ -97,7 +100,7 @@ public class ExporterTest {
     @Test
     public void should_throw_exception_when_artefact_to_export_is_not_found() throws Exception {
         NotFoundException cause = new NotFoundException("Page not found");
-        when(pageRepository.get("unknown-id")).thenThrow(cause);
+        when(pageService.get("unknown-id")).thenThrow(cause);
 
         exception.expect(ExportException.class);
         exception.expectCause(is(cause));
@@ -134,7 +137,7 @@ public class ExporterTest {
 
     @Test
     public void should_export_json_model_of_the_exported_artefact() throws Exception {
-        Page page = create(aPage().build());
+        Page page = create(aPage().withId("myPage").build());
 
         exporter.handleFileExport(page.getId(), response);
 
@@ -147,7 +150,7 @@ public class ExporterTest {
     public void should_execute_export_steps() throws Exception {
         FakeStep fakeStep1 = new FakeStep("This is some content", "resources/file1.json");
         FakeStep fakeStep2 = new FakeStep("This is another content", "resources/deep/file2.json");
-        Exporter<Page> exporter = new Exporter<>(pageRepository, fakeStep1, fakeStep2);
+        Exporter<Page> exporter = new Exporter<>(pageRepository, pageService, fakeStep1, fakeStep2);
         Page page = create(aPage().build());
 
         exporter.handleFileExport(page.getId(), response);
