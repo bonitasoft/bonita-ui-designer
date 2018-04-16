@@ -68,12 +68,12 @@ public class PageResource extends AssetResource<Page> {
 
     @Inject
     public PageResource(
+            PageService pageService,
             PageRepository pageRepository,
             SimpMessagingTemplate messagingTemplate,
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
-            AssetVisitor assetVisitor,
-            PageService pageService) {
+            AssetVisitor assetVisitor) {
         super(pageAssetService, pageRepository, assetVisitor, Optional.of(messagingTemplate));
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
