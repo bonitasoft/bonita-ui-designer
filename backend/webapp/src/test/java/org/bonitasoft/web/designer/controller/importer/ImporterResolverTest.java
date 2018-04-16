@@ -31,11 +31,13 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Loader;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mock;
 
 public class ImporterResolverTest {
 
@@ -44,6 +46,8 @@ public class ImporterResolverTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @Mock
+    private PageService pageService;
     private ImporterResolver importerResolver;
 
     private ArtifactImporter<Page> pageArtifactImporter;
@@ -51,8 +55,8 @@ public class ImporterResolverTest {
 
     @Before
     public void setUp() throws Exception {
-        pageArtifactImporter = new ArtifactImporter<>(mock(Repository.class), mock(Loader.class));
-        widgetArtifactImporter = new ArtifactImporter<>(mock(Repository.class), mock(Loader.class));
+        pageArtifactImporter = new ArtifactImporter<Page>(mock(Repository.class), pageService, mock(Loader.class));
+        widgetArtifactImporter = new ArtifactImporter<Widget>(mock(Repository.class), null, mock(Loader.class));
         importerResolver = new ImporterResolver(new DesignerConfig().artifactImporters(pageArtifactImporter, widgetArtifactImporter));
     }
 

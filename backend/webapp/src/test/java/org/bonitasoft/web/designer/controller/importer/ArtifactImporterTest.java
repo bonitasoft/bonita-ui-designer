@@ -40,6 +40,7 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -61,6 +62,10 @@ public class ArtifactImporterTest {
 
     @Mock
     private PageRepository pageRepository;
+
+    @Mock
+    private PageService pageService;
+
     @Mock
     private JsonFileBasedLoader<Page> pageLoader;
     @Mock
@@ -82,8 +87,8 @@ public class ArtifactImporterTest {
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
         DependencyImporter widgetDependencyImporter = new WidgetImporter(widgetLoader, widgetRepository, mock(AssetImporter.class));
-        pageImporter = new ArtifactImporter<>(pageRepository, pageLoader, widgetDependencyImporter);
-        widgetImporter = new ArtifactImporter<>(widgetRepository, widgetLoader);
+        pageImporter = new ArtifactImporter<Page>(pageRepository, pageService, pageLoader, widgetDependencyImporter);
+        widgetImporter = new ArtifactImporter<Widget>(widgetRepository, null, widgetLoader);
         pageUnzippedPath = pageImportPath.resolve("resources");
         Files.createDirectory(pageUnzippedPath);
         when(pageRepository.getComponentName()).thenReturn("page");

@@ -36,6 +36,7 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.ArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -46,11 +47,13 @@ public class ArtifactImporter<T extends Identifiable> {
 
     private Repository<T> repository;
     private Loader<T> loader;
+    private final ArtifactService<T> artifactService;
     private DependencyImporter[] dependencyImporters;
 
-    public ArtifactImporter(Repository<T> repository, Loader<T> loader, DependencyImporter... dependencyImporters) {
+    public ArtifactImporter(Repository<T> repository, ArtifactService<T> artifactService, Loader<T> loader, DependencyImporter... dependencyImporters) {
         this.loader = loader;
         this.repository = repository;
+        this.artifactService = artifactService;
         this.dependencyImporters = dependencyImporters;
     }
 
@@ -111,7 +114,8 @@ public class ArtifactImporter<T extends Identifiable> {
             ((HasUUID) element).setId(newId);
         }
         saveArtefactDependencies(resources, dependencies);
-        repository.updateLastUpdateAndSave(element);
+        T savedElement = repository.updateLastUpdateAndSave(element);
+        artifactService.migrate(savedElement);
     }
 
     private void deleteComponentWithSameUUID(ImportReport report, T element) {

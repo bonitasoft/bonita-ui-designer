@@ -177,15 +177,16 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, WidgetImporter widgetImporter,
+    public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, PageService pageService,
+                                               WidgetImporter widgetImporter,
                                                AssetImporter<Page> pageAssetImporter) {
-        return new ArtifactImporter<>(pageRepository, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
+        return new ArtifactImporter<Page>(pageRepository, pageService, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
     }
 
     @Bean
     public ArtifactImporter<Widget> widgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
                                                    AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtifactImporter<>(widgetRepository, widgetLoader, widgetAssetImporter);
+        return new ArtifactImporter<Widget>(widgetRepository, null, widgetLoader, widgetAssetImporter);
     }
 
     @Bean
