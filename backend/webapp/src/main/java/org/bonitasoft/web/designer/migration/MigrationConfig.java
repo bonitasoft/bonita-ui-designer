@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.migration;
 import static java.util.Arrays.asList;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
@@ -30,6 +29,7 @@ import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.springframework.context.annotation.Bean;
@@ -92,5 +92,10 @@ public class MigrationConfig {
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())
         );
+    }
+
+    @Bean
+    public PageMigrationApplyer pageMigrationApplyer(){
+        return new PageMigrationApplyer(pageMigrationSteps);
     }
 }
