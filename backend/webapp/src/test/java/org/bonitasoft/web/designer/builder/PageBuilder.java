@@ -53,6 +53,7 @@ public class PageBuilder {
     private String id = UUID.randomUUID().toString();
     private String uuid = UUID.randomUUID().toString();
     private String version;
+    private String previousDesignerVersion;
     private boolean favorite = false;
     private String type;
 
@@ -128,6 +129,11 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withPreviousDesignerVersion(String previousDesignerVersion) {
+        this.previousDesignerVersion = previousDesignerVersion;
+        return this;
+    }
+
     public PageBuilder withType(String type) {
         this.type = type;
         return this;
@@ -154,6 +160,7 @@ public class PageBuilder {
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
         page.setDesignerVersion(version);
+        page.setPreviousDesignerVersion(previousDesignerVersion);
         page.setFavorite(favorite);
 
         if (type != null) {

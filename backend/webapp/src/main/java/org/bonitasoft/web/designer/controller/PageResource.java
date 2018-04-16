@@ -39,6 +39,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +64,7 @@ public class PageResource extends AssetResource<Page> {
     private PageRepository pageRepository;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
+    private final PageService pageService;
 
     @Inject
     public PageResource(
@@ -70,11 +72,13 @@ public class PageResource extends AssetResource<Page> {
             SimpMessagingTemplate messagingTemplate,
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
-            AssetVisitor assetVisitor) {
+            AssetVisitor assetVisitor,
+            PageService pageService) {
         super(pageAssetService, pageRepository, assetVisitor, Optional.of(messagingTemplate));
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
+        this.pageService = pageService;
     }
 
     @Override
@@ -160,7 +164,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(value = "/{pageId}/name", method = RequestMethod.PUT)
     public ResponseEntity<Void> rename(HttpServletRequest request, @PathVariable("pageId") String pageId, @RequestBody String name) throws RepositoryException {
-        Page page = pageRepository.get(pageId);
+        Page page = pageService.get(pageId);
         ResponseEntity<Void> responseEntity;
         if(!page.getName().equals(name)) {
             String newPageId = pageRepository.getNextAvailableId(name);
@@ -189,7 +193,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
     public Page get(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
-        Page page = pageRepository.get(pageId);
+        Page page = pageService.get(pageId);
         page.setAssets(assetVisitor.visit(page));
         return page;
     }

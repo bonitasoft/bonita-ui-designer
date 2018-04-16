@@ -60,6 +60,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.hamcrest.Matchers;
 import org.joda.time.Instant;
@@ -94,6 +95,9 @@ public class PageResourceTest {
     private PageRepository pageRepository;
 
     @Mock
+    private PageService pageService;
+
+    @Mock
     private SimpMessagingTemplate messagingTemplate;
 
     @Mock
@@ -119,6 +123,7 @@ public class PageResourceTest {
     private Page mockPageOfId(String id) {
         Page page = aPage().withId(id).build();
         when(pageRepository.get(id)).thenReturn(page);
+        when(pageService.get(id)).thenReturn(page);
         return page;
     }
 
@@ -321,7 +326,7 @@ public class PageResourceTest {
     @Test
     public void should_retrieve_a_page_representation_by_its_id() throws Exception {
         Page expectedPage = aFilledPage("my-page");
-        when(pageRepository.get("my-page")).thenReturn(expectedPage);
+        when(pageService.get("my-page")).thenReturn(expectedPage);
 
         mockMvc
                 .perform(get("/rest/pages/my-page"))
@@ -333,7 +338,7 @@ public class PageResourceTest {
 
     @Test
     public void should_respond_404_not_found_if_page_is_not_existing() throws Exception {
-        when(pageRepository.get("my-page")).thenThrow(new NotFoundException("page not found"));
+        when(pageService.get("my-page")).thenThrow(new NotFoundException("page not found"));
 
         mockMvc.perform(get("/rest/pages/my-page")).andExpect(status().isNotFound());
     }
@@ -363,7 +368,7 @@ public class PageResourceTest {
     public void should_rename_a_page() throws Exception {
         String newName = "my-page-new-name";
         Page pageToBeUpdated = aPage().withId("my-page").withName("page-name").build();
-        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageService.get("my-page")).thenReturn(pageToBeUpdated);
         when(pageRepository.getNextAvailableId(newName)).thenReturn(newName);
 
         mockMvc
@@ -384,7 +389,7 @@ public class PageResourceTest {
     public void should_not_rename_a_page_if_name_is_same() throws Exception {
         String name = "page-name";
         Page pageToBeUpdated = aPage().withId("my-page").withName(name).build();
-        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageService.get("my-page")).thenReturn(pageToBeUpdated);
 
         mockMvc
                 .perform(
@@ -401,7 +406,7 @@ public class PageResourceTest {
         Page pageToBeUpdated = aPage().withId("my-page").withName("page-name").build();
         pageToBeUpdated.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
 
-        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageService.get("my-page")).thenReturn(pageToBeUpdated);
         when(pageRepository.getNextAvailableId(newName)).thenReturn(newName);
 
         mockMvc
@@ -421,7 +426,7 @@ public class PageResourceTest {
 
     @Test
     public void should_respond_404_not_found_if_page_is_not_existing_when_renaming() throws Exception {
-        when(pageRepository.get("my-page")).thenThrow(new NotFoundException("page not found"));
+        when(pageService.get("my-page")).thenThrow(new NotFoundException("page not found"));
 
         mockMvc
                 .perform(put("/rest/pages/my-page/name").contentType(MediaType.APPLICATION_JSON_VALUE).content(convertObjectToJsonBytes("hello")))
