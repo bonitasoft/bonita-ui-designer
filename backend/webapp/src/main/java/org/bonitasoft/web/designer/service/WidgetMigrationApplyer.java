@@ -43,8 +43,9 @@ public class WidgetMigrationApplyer {
 
         if (!StringUtils.equals(formerArtifactVersion, widget.getDesignerVersion())) {
             widget.setPreviousDesignerVersion(formerArtifactVersion);
+            logger.info(format("[MIGRATION] Widget %s has been terminated in %s seconds !", widget.getName(),(System.currentTimeMillis() - startTime)/ 1000.0f));
         }
-        logger.info(format("[MIGRATION] Widget %s has been terminated in %s seconds !", widget.getName(),(System.currentTimeMillis() - startTime)/ 1000.0f));
+
         return widget;
     }
 }

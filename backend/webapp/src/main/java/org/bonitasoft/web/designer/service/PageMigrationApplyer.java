@@ -46,9 +46,9 @@ public class PageMigrationApplyer {
 
         if (!StringUtils.equals(formerArtifactVersion, page.getDesignerVersion())) {
             page.setPreviousDesignerVersion(formerArtifactVersion);
+            logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime)/ 1000.0f));
         }
 
-        logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime)/ 1000.0f));
         return page;
     }
 
