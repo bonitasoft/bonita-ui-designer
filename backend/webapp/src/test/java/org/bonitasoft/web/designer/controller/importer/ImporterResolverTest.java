@@ -48,8 +48,8 @@ public class ImporterResolverTest {
 
     @Mock
     private PageService pageService;
-    private ImporterResolver importerResolver;
 
+    private ImporterResolver importerResolver;
     private ArtifactImporter<Page> pageArtifactImporter;
     private ArtifactImporter<Widget> widgetArtifactImporter;
 
