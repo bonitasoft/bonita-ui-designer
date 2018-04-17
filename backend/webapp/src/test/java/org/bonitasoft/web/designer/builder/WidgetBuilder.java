@@ -33,6 +33,7 @@ public class WidgetBuilder {
     private Set<String> modules = new HashSet<>();
     private Set<String> authRules;
     private String version;
+    private String previousDesignerVersion;
     private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
@@ -95,6 +96,11 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder previousDesignerVersion(String previousDesignerVersion) {
+        this.previousDesignerVersion = previousDesignerVersion;
+        return this;
+    }
+
     public WidgetBuilder favorite() {
         this.favorite = true;
         return this;
@@ -121,6 +127,7 @@ public class WidgetBuilder {
         widget.setFavorite(favorite);
         widget.setHasHelp(hasHelp);
         widget.setType(type);
+        widget.setPreviousDesignerVersion(previousDesignerVersion);
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {

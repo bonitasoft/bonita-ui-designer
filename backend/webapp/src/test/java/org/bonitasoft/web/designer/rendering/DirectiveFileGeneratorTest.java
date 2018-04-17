@@ -107,6 +107,18 @@ public class DirectiveFileGeneratorTest {
         assertThat(filename).isEqualTo("widgets-0f2d4ba1fa1992794df3dca7a9b8e4ec735b4746.min.js");
     }
 
+    @Test
+    public void should_return_only_custom_widget_use_in_page() throws Exception {
+        Page page = aPage().build();
+        initFilesForConcatAndMinify(page);
+        mockWidgetIdVisitorAndWidgetRepository(page, "pbLabel", "paragraph");
+
+        List<Path> filename = generator.getCustomWidgetsFilesUsedInPage(page);
+
+        assertThat(filename.size()).isEqualTo(1);
+        assertThat(filename.get(0).getFileName().toString()).isEqualTo("paragraph");
+    }
+
     private void initWidgetsFileWhoUsedInPage(Page page) throws IOException {
         temporaryFolder.newFolder("pbLabel");
         temporaryFolder.newFolder("paragraph");
@@ -135,6 +147,4 @@ public class DirectiveFileGeneratorTest {
                 ".js"));
         Files.write("file2".getBytes(), temporaryFolder.newFile("paragraph/paragraph.js"));
     }
-
-
 }

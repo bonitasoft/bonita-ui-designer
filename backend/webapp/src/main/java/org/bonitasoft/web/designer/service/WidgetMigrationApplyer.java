@@ -21,38 +21,30 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PageMigrationApplyer {
+public class WidgetMigrationApplyer {
 
-    private WidgetService widgetService;
-    private final List<Migration<Page>> migrationList;
-    private static final Logger logger = LoggerFactory.getLogger(PageMigrationApplyer.class);
+    private final List<Migration<Widget>> migrationList;
+    private static final Logger logger = LoggerFactory.getLogger(WidgetMigrationApplyer.class);
 
-    public PageMigrationApplyer(WidgetService widgetService, List<Migration<Page>> pageMigrationStepsList){
-        this.widgetService = widgetService;
-        this.migrationList = pageMigrationStepsList;
+    public WidgetMigrationApplyer(List<Migration<Widget>> widgetMigrationStepsList){
+        this.migrationList = widgetMigrationStepsList;
     }
 
-    public Page migrate(Page page) {
+    public Widget migrate(Widget widget) {
         long startTime = System.currentTimeMillis();
-        String formerArtifactVersion = page.getDesignerVersion();
-        for (Migration<Page> migration : migrationList) {
-            migration.migrate(page);
-        }
-        // Migrate widgets
-        migrateAllWidgetUsed(page);
-
-        if (!StringUtils.equals(formerArtifactVersion, page.getDesignerVersion())) {
-            page.setPreviousDesignerVersion(formerArtifactVersion);
+        String formerArtifactVersion = widget.getDesignerVersion();
+        for (Migration<Widget> migration : migrationList) {
+            migration.migrate(widget);
         }
 
-        logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime)/ 1000.0f));
-        return page;
-    }
-
-    private void migrateAllWidgetUsed(Page page){
-        widgetService.migrateAllCustomWidgetUsedInPage(page);
+        if (!StringUtils.equals(formerArtifactVersion, widget.getDesignerVersion())) {
+            widget.setPreviousDesignerVersion(formerArtifactVersion);
+        }
+        logger.info(format("[MIGRATION] Widget %s has been terminated in %s seconds !", widget.getName(),(System.currentTimeMillis() - startTime)/ 1000.0f));
+        return widget;
     }
 }

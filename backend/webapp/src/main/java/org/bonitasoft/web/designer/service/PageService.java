@@ -35,6 +35,7 @@ public class PageService implements ArtifactService {
         this.pageMigrationApplyer = pageMigrationApplyer;
     }
 
+
     @Override
     public Page get(String id) {
         Page page = this.pageRepository.get(id);
@@ -49,5 +50,4 @@ public class PageService implements ArtifactService {
         }
         return migratedPage;
     }
-
 }

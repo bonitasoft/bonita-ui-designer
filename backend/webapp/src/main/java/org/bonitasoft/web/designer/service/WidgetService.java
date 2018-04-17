@@ -16,27 +16,36 @@ package org.bonitasoft.web.designer.service;
 
 import static java.util.Collections.singletonList;
 
+import java.nio.file.Path;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.joda.time.Instant;
 
 @Named
-public class WidgetService {
+public class WidgetService implements ArtifactService {
 
+    private final WidgetMigrationApplyer widgetMigrationApplyer;
+    private final DirectiveFileGenerator directiveFileGenerator;
     private WidgetRepository widgetRepository;
     private List<BondsTypesFixer> bondsTypesFixers;
 
     @Inject
-    public WidgetService(WidgetRepository widgetRepository, List<BondsTypesFixer> bondsTypesFixers) {
+    public WidgetService(WidgetRepository widgetRepository,
+                         List<BondsTypesFixer> bondsTypesFixers,
+                         WidgetMigrationApplyer widgetMigrationApplyer,
+                         DirectiveFileGenerator directiveFileGenerator) {
         this.widgetRepository = widgetRepository;
         this.bondsTypesFixers = bondsTypesFixers;
+        this.widgetMigrationApplyer = widgetMigrationApplyer;
+        this.directiveFileGenerator = directiveFileGenerator;
     }
 
     public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
@@ -44,5 +53,25 @@ public class WidgetService {
             bondsTypesFixer.fixBondsTypes(widgetId, singletonList(property));
         }
         return widgetRepository.updateProperty(widgetId, propertyName, property);
+    }
+
+    @Override
+    public Widget get(String id) {
+        Widget widget = this.widgetRepository.get(id);
+        return migrate(widget);
+    }
+
+    @Override
+    public Widget migrate(Identifiable artifact) {
+        Widget migratedWidget = widgetMigrationApplyer.migrate((Widget) artifact);
+        if (!StringUtils.equals(migratedWidget.getPreviousDesignerVersion(), migratedWidget.getDesignerVersion())) {
+            widgetRepository.updateLastUpdateAndSave(migratedWidget);
+        }
+        return migratedWidget;
+    }
+
+    public void migrateAllCustomWidgetUsedInPage(Page page){
+        List<Path> widgets = directiveFileGenerator.getCustomWidgetsFilesUsedInPage(page);
+        widgets.forEach(widget -> this.get(widget.getFileName().toString()));
     }
 }

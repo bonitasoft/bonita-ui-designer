@@ -123,7 +123,7 @@ public class PageResource extends AssetResource<Page> {
     public ResponseEntity<Void> save(HttpServletRequest request, @PathVariable("pageId") String pageId, @RequestBody Page page) throws RepositoryException {
         String newPageId;
         try {
-            Page currentPage = pageRepository.get(pageId);
+            Page currentPage = pageService.get(pageId);
             if (currentPage.getName().equals(page.getName())) {
                 // the page should have the same ID as pageId.
                 newPageId = pageId;

@@ -30,6 +30,8 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
+import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
+import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +58,7 @@ public class MigrationConfig {
         return new LiveRepositoryUpdate<>(pageRepository, pageFileBasedLoader, pageMigrationSteps);
     }
 
-    @Resource(name="pageMigrationStepsList")
+    @Resource(name = "pageMigrationStepsList")
     private List<Migration<Page>> pageMigrationSteps;
 
     @Bean
@@ -83,7 +85,7 @@ public class MigrationConfig {
         return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, widgetMigrationSteps);
     }
 
-    @Resource(name="widgetMigrationStepsList")
+    @Resource(name = "widgetMigrationStepsList")
     private List<Migration<Widget>> widgetMigrationSteps;
 
     @Bean
@@ -95,7 +97,12 @@ public class MigrationConfig {
     }
 
     @Bean
-    public PageMigrationApplyer pageMigrationApplyer(){
-        return new PageMigrationApplyer(pageMigrationSteps);
+    public PageMigrationApplyer pageMigrationApplyer(WidgetService widgetService) {
+        return new PageMigrationApplyer(widgetService, pageMigrationSteps);
+    }
+
+    @Bean
+    public WidgetMigrationApplyer widgetMigrationApplyer() {
+        return new WidgetMigrationApplyer(widgetMigrationSteps);
     }
 }

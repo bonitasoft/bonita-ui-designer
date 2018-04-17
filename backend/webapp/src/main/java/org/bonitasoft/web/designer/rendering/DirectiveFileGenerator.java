@@ -51,6 +51,14 @@ public class DirectiveFileGenerator {
                 .collect(Collectors.toList());
     }
 
+    public List<Path> getCustomWidgetsFilesUsedInPage(Previewable previewable) {
+        return widgetRepository.getByIds(widgetIdVisitor.visit(previewable)).stream()
+                .filter(widget -> !widget.getId().startsWith("pb"))
+                .map(w -> Paths.get(w.getId()).resolve(w.getId()))
+                .map(file -> pathResolver.getWidgetsRepositoryPath().resolve(file))
+                .collect(Collectors.toList());
+    }
+
     public byte[] concatenate(List<Path> paths) {
         return FilesConcatenator.concat(paths);
     }

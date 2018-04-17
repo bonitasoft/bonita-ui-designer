@@ -102,7 +102,7 @@ public class WidgetResource extends AssetResource<Widget>{
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.GET)
     public Widget get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
-        return widgetRepository.get(widgetId);
+        return widgetService.get(widgetId);
     }
 
     @RequestMapping(method = RequestMethod.POST)

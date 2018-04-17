@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,12 +42,18 @@ public class WidgetServiceTest {
     @Mock
     private BondsTypesFixer bondsTypesFixer;
 
+    @Mock
+    private WidgetMigrationApplyer widgetMigrationApplyer;
+
+    @Mock
+    private DirectiveFileGenerator directiveFileGenerator;
+
     @InjectMocks
     private WidgetService widgetService;
 
     @Before
     public void setUp() throws Exception {
-        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer));
+        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, directiveFileGenerator);
     }
 
     @Test
