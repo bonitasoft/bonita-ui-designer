@@ -257,7 +257,7 @@ public class PageResourceTest {
     public void should_save_a_page_renaming_it() throws Exception {
         Page pageToBeUpdated = aPage().withId("my-page").withName("my-page").build();
         pageToBeUpdated.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
-        when(pageRepository.get("my-page")).thenReturn(pageToBeUpdated);
+        when(pageService.get("my-page")).thenReturn(pageToBeUpdated);
         Page pageToBeSaved = aPage().withName("page-new-name").build();
         pageToBeSaved.addAsset(AssetBuilder.aFilledAsset(pageToBeUpdated));
         when(pageRepository.getNextAvailableId("page-new-name")).thenReturn("page-new-name");
@@ -282,7 +282,7 @@ public class PageResourceTest {
         Page pageToBeSaved = aPage().withId("my-page").withAsset(
                 aWidgetAsset(),
                 aPageAsset()).build();
-        when(pageRepository.get("my-page")).thenReturn(pageToBeSaved);
+        when(pageService.get("my-page")).thenReturn(pageToBeSaved);
         Page expectedPage = aPage().withId("my-page").withAsset(
                 aPageAsset()).build();
 

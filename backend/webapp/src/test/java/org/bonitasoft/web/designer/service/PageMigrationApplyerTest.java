@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.service;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -26,15 +27,19 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageMigrationApplyerTest {
 
+    @Mock
+    private WidgetService widgetService;
+
     @Test
     public void should_migrate_a_page() throws IOException {
         Migration<Page> migration = new Migration("1.0.2", mock(MigrationStep.class));
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration));
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(widgetService,Collections.singletonList(migration));
         Page page = PageBuilder.aPage().withId("myPage").withVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
 
         migrationApplyer.migrate(page);
@@ -46,12 +51,25 @@ public class PageMigrationApplyerTest {
     @Test
     public void should_not_modify_previous_designer_version_when_no_migration_done() throws Exception {
         Migration<Page> migration = new Migration("1.0.0", mock(MigrationStep.class));
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration));
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(widgetService, Collections.singletonList(migration));
         Page page = PageBuilder.aPage().withId("myPage").withVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
 
         migrationApplyer.migrate(page);
 
         Assert.assertEquals(page.getPreviousDesignerVersion(),"1.0.0");
         Assert.assertEquals(page.getDesignerVersion(),"1.0.0");
+    }
+
+    @Test
+    public void should_migrate_all_custom_widget_uses_in_page_when_page_migration_is_done(){
+        Migration<Page> migration = new Migration("1.0.1", mock(MigrationStep.class));
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(widgetService, Collections.singletonList(migration));
+        Page page = PageBuilder.aPage().withId("myPage").withVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
+
+        Page migratedPage = migrationApplyer.migrate(page);
+
+        verify(widgetService).migrateAllCustomWidgetUsedInPage(migratedPage);
+        Assert.assertEquals(migratedPage.getPreviousDesignerVersion(),"1.0.0");
+        Assert.assertEquals(migratedPage.getDesignerVersion(),"1.0.1");
     }
 }

@@ -16,9 +16,11 @@ package org.bonitasoft.web.designer.controller;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -155,7 +157,7 @@ public class WidgetResourceTest {
     @Test
     public void should_get_a_widget_by_its_id() throws Exception {
         Widget input = aWidget().id("input").build();
-        when(widgetRepository.get("input")).thenReturn(input);
+        when(widgetService.get("input")).thenReturn(input);
 
         mockMvc.perform(get("/rest/widgets/input"))
 
@@ -165,7 +167,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_404_when_getting_an_unexisting_widget() throws Exception {
-        when(widgetRepository.get("notExistingWidget")).thenThrow(new NotFoundException("not found"));
+        when(widgetService.get("notExistingWidget")).thenThrow(new NotFoundException("not found"));
 
         mockMvc.perform(get("/rest/widgets/notExistingWidget"))
 
@@ -196,7 +198,8 @@ public class WidgetResourceTest {
 
     @Test
     public void should_not_allow_to_save_a_not_custom_widget() throws Exception {
-        Widget pbWidget = aWidget().build();
+        Widget pbWidget = aWidget().id("input").build();
+        when(widgetService.get("input")).thenReturn(pbWidget);
 
         mockMvc.perform(put("/rest/widgets/customLabel")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

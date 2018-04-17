@@ -57,6 +57,7 @@ import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.BondsTypesFixer;
 import org.bonitasoft.web.designer.service.PageService;
+import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
@@ -216,8 +217,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, WidgetByIdExportStep widgetByIdExportStep) {
-        return new Exporter(widgetRepository,null, widgetByIdExportStep);
+    public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, WidgetService widgetService, WidgetByIdExportStep widgetByIdExportStep) {
+        return new Exporter(widgetRepository,widgetService, widgetByIdExportStep);
     }
 
     @Bean
