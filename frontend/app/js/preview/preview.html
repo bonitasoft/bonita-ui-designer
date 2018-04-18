@@ -7,7 +7,13 @@
         <div class="Preview-toolbar collapse navbar-collapse" uib-collapse="isNavCollapsed">
             <ul class="nav navbar-nav">
                 <li><language-picker on-change="refreshIframe()"></language-picker></li>
-                <li><resolutions-bar id="resolutions" class="btn-group Preview-resolutionBar"></resolutions-bar></li>
+                <li>
+                    <resolutions-bar
+                        on-change="updateResolutionInUrl"
+                        id="resolutions"
+                        class="btn-group Preview-resolutionBar">
+                    </resolutions-bar>
+                </li>
             </ul>
         </div>
     </nav>
