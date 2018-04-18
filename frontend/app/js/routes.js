@@ -114,7 +114,7 @@
       });
 
       $stateProvider.state('designer.preview', {
-        url: '/preview/:mode/:id',
+        url: '/preview/:mode/:id?resolution',
         views: {
           '@designer': {
             controller: 'PreviewCtrl',

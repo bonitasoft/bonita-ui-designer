@@ -24,12 +24,13 @@
    * The preview controller. It handles the loading of the page model, the resolution changes and provides
    * common functions to the directives used inside the page.
    */
-  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo) {
+  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo, $state, mode) {
 
     $scope.iframe = {};
     $scope.refreshIframe = refreshIframe;
     $scope.buildIframeSrc = buildIframeSrc;
     $scope.iframeWidth = iframeWidth;
+    $scope.updateResolutionInUrl = updateResolutionInUrl;
     $scope.isNavCollapsed = true;
 
     artifactRepo
@@ -74,6 +75,14 @@
 
     function closeWindow() {
       $window.close();
+    }
+
+    function updateResolutionInUrl(resolution) {
+      $state.transitionTo(`designer.preview`, {
+        resolution: resolution.key,
+        id: iframeParameters.id,
+        mode: mode
+      }, { notify: false });
     }
   }
 

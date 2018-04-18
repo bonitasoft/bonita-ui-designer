@@ -37,7 +37,8 @@ describe('PreviewCtrl', function() {
       iframeParameters,
       webSocket,
       clock,
-      artifactRepo: pageRepo
+      artifactRepo: pageRepo,
+      mode: 'page'
     });
 
     webSocket.resolveConnection();
