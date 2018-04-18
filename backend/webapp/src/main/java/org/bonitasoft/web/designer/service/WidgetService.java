@@ -18,6 +18,7 @@ import static java.util.Collections.singletonList;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -28,12 +29,13 @@ import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
 @Named
 public class WidgetService implements ArtifactService {
 
     private final WidgetMigrationApplyer widgetMigrationApplyer;
-    private final DirectiveFileGenerator directiveFileGenerator;
+    private WidgetIdVisitor widgetIdVisitor;
     private WidgetRepository widgetRepository;
     private List<BondsTypesFixer> bondsTypesFixers;
 
@@ -41,11 +43,11 @@ public class WidgetService implements ArtifactService {
     public WidgetService(WidgetRepository widgetRepository,
                          List<BondsTypesFixer> bondsTypesFixers,
                          WidgetMigrationApplyer widgetMigrationApplyer,
-                         DirectiveFileGenerator directiveFileGenerator) {
+                         WidgetIdVisitor widgetIdVisitor) {
         this.widgetRepository = widgetRepository;
         this.bondsTypesFixers = bondsTypesFixers;
         this.widgetMigrationApplyer = widgetMigrationApplyer;
-        this.directiveFileGenerator = directiveFileGenerator;
+        this.widgetIdVisitor = widgetIdVisitor;
     }
 
     public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
@@ -71,7 +73,8 @@ public class WidgetService implements ArtifactService {
     }
 
     public void migrateAllCustomWidgetUsedInPage(Page page){
-        List<Path> widgets = directiveFileGenerator.getCustomWidgetsFilesUsedInPage(page);
-        widgets.forEach(widget -> this.get(widget.getFileName().toString()));
+        widgetRepository.getByIds(widgetIdVisitor.visit(page))
+                .stream()
+                .forEach(w->this.migrate(w));
     }
 }

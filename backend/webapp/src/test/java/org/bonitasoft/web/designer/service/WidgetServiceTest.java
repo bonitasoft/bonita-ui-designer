@@ -15,17 +15,23 @@
 package org.bonitasoft.web.designer.service;
 
 import static java.util.Collections.singletonList;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
 import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,14 +52,14 @@ public class WidgetServiceTest {
     private WidgetMigrationApplyer widgetMigrationApplyer;
 
     @Mock
-    private DirectiveFileGenerator directiveFileGenerator;
+    private WidgetIdVisitor widgetIdVisitor;
 
     @InjectMocks
     private WidgetService widgetService;
 
     @Before
     public void setUp() throws Exception {
-        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, directiveFileGenerator);
+        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, widgetIdVisitor);
     }
 
     @Test
@@ -66,5 +72,58 @@ public class WidgetServiceTest {
         widgetService.updateProperty("labelWidget", "text", interpolationTextProperty);
 
         verify(bondsTypesFixer).fixBondsTypes("labelWidget", singletonList(interpolationTextProperty));
+    }
+
+    @Test
+    public void should_migrate_found_widget_when_get_is_called() {
+        Widget widget = aWidget().id("widget").version("1.0.0").build();
+        Widget widgetMigrated = aWidget().id("widget").version("1.1.0").previousDesignerVersion("1.0.0").build();
+        when(widgetMigrationApplyer.migrate(widget)).thenReturn(widgetMigrated);
+
+        when(widgetRepository.get("widget")).thenReturn(widget);
+
+        widgetService.get("widget");
+
+        verify(widgetMigrationApplyer).migrate(widget);
+        verify(widgetRepository).updateLastUpdateAndSave(widgetMigrated);
+    }
+
+    @Test
+    public void should_not_update_and_save_widget_if_no_migration_done() {
+        Widget widget = aWidget().id("widget").version("1.0.0").build();
+        Widget widgetMigrated = aWidget().id("widget").version("1.0.0").previousDesignerVersion("1.0.0").build();
+        when(widgetMigrationApplyer.migrate(widget)).thenReturn(widgetMigrated);
+        when(widgetRepository.get("widget")).thenReturn(widget);
+
+        widgetService.get("widget");
+
+        verify(widgetMigrationApplyer).migrate(widget);
+        verify(widgetRepository, never()).updateLastUpdateAndSave(widgetMigrated);
+    }
+
+
+    @Test
+    public void should_migrate_all_custom_widget() throws Exception {
+        Widget widget1 = aWidget().id("widget1").version("1.0.0").build();
+        Widget widget2 = aWidget().id("widget2").version("1.0.0").build();
+        Widget widget1Migrated = aWidget().id("widget1").version("1.1.0").build();
+        Widget widget2Migrated = aWidget().id("widget2").version("1.1.0").build();
+        when(widgetMigrationApplyer.migrate(widget1)).thenReturn(widget1Migrated);
+        when(widgetMigrationApplyer.migrate(widget2)).thenReturn(widget2Migrated);
+        when(widgetRepository.get("widget1")).thenReturn(widget1);
+        when(widgetRepository.get("widget2")).thenReturn(widget2);
+        Set<String> h = new HashSet<>(Arrays.asList("widget1", "widget1"));
+        when(widgetRepository.getByIds(h)).thenReturn(Arrays.asList(widget1, widget2));
+        Page page = aPage().with(
+                aComponent("widget1"),
+                aComponent("widget2"))
+                .build();
+
+        when(widgetIdVisitor.visit(page)).thenReturn(h);
+
+        widgetService.migrateAllCustomWidgetUsedInPage(page);
+
+        verify(widgetMigrationApplyer).migrate(widget1);
+        verify(widgetMigrationApplyer).migrate(widget2);
     }
 }
