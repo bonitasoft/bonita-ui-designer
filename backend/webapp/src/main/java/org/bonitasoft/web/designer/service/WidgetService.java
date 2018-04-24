@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.service;
 
 import static java.util.Collections.singletonList;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
@@ -72,8 +72,8 @@ public class WidgetService implements ArtifactService {
         return migratedWidget;
     }
 
-    public void migrateAllCustomWidgetUsedInPage(Page page){
-        widgetRepository.getByIds(widgetIdVisitor.visit(page))
+    public void migrateAllCustomWidgetUsedInPreviewable(Previewable previewable){
+        widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
                 .stream()
                 .forEach(w->this.migrate(w));
     }

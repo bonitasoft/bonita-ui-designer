@@ -21,5 +21,4 @@ public interface ArtifactService <T extends Identifiable> {
     T get(String id);
 
     T migrate(T artifact);
-
 }

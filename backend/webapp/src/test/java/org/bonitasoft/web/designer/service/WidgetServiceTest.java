@@ -121,7 +121,7 @@ public class WidgetServiceTest {
 
         when(widgetIdVisitor.visit(page)).thenReturn(h);
 
-        widgetService.migrateAllCustomWidgetUsedInPage(page);
+        widgetService.migrateAllCustomWidgetUsedInPreviewable(page);
 
         verify(widgetMigrationApplyer).migrate(widget1);
         verify(widgetMigrationApplyer).migrate(widget2);
