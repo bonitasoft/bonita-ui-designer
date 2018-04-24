@@ -14,20 +14,10 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static java.util.Arrays.asList;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
+import static org.mockito.Mockito.*;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.junit.Before;
 import org.junit.Test;

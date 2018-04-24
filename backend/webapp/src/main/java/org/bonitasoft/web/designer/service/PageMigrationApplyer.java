@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
 
 public class PageMigrationApplyer {
 
-    private WidgetService widgetService;
-    private final List<Migration<Page>> migrationList;
+    protected WidgetService widgetService;
+    protected final List<Migration<Page>> migrationList;
     private static final Logger logger = LoggerFactory.getLogger(PageMigrationApplyer.class);
 
-    public PageMigrationApplyer(WidgetService widgetService, List<Migration<Page>> pageMigrationStepsList){
+    public PageMigrationApplyer(List<Migration<Page>> pageMigrationStepsList, WidgetService widgetService) {
         this.widgetService = widgetService;
         this.migrationList = pageMigrationStepsList;
     }
@@ -41,18 +41,23 @@ public class PageMigrationApplyer {
         for (Migration<Page> migration : migrationList) {
             migration.migrate(page);
         }
-        // Migrate widgets
+
         migrateAllWidgetUsed(page);
 
-        if (!StringUtils.equals(formerArtifactVersion, page.getDesignerVersion())) {
-            page.setPreviousDesignerVersion(formerArtifactVersion);
-            logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime)/ 1000.0f));
-        }
+        updatePreviousDesignerVersionIfMigrationDone(page,formerArtifactVersion,startTime);
 
         return page;
     }
 
-    private void migrateAllWidgetUsed(Page page){
-        widgetService.migrateAllCustomWidgetUsedInPage(page);
+    protected Page updatePreviousDesignerVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime){
+        if (!StringUtils.equals(formerArtifactVersion, page.getDesignerVersion())) {
+            page.setPreviousDesignerVersion(formerArtifactVersion);
+            logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime) / 1000.0f));
+        }
+        return page;
+    }
+
+    protected void migrateAllWidgetUsed(Page page) {
+       widgetService.migrateAllCustomWidgetUsedInPreviewable(page);
     }
 }

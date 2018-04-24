@@ -115,9 +115,8 @@ public class ArtifactImporter<T extends Identifiable> {
         }
         saveArtefactDependencies(resources, dependencies);
         T savedElement = repository.updateLastUpdateAndSave(element);
-        if(artifactService != null) {
-            artifactService.migrate(savedElement);
-        }
+        artifactService.migrate(savedElement);
+
     }
 
     private void deleteComponentWithSameUUID(ImportReport report, T element) {

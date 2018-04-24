@@ -186,8 +186,9 @@ public class DesignerConfig {
 
     @Bean
     public ArtifactImporter<Widget> widgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
+                                                   WidgetService widgetService,
                                                    AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtifactImporter<>(widgetRepository, null, widgetLoader, widgetAssetImporter);
+        return new ArtifactImporter<>(widgetRepository, widgetService, widgetLoader, widgetAssetImporter);
     }
 
     @Bean

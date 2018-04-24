@@ -22,7 +22,6 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 
-
 @Named
 public class PageService implements ArtifactService {
 

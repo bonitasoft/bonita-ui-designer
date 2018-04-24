@@ -19,6 +19,7 @@ import static java.util.Arrays.asList;
 import java.util.List;
 import javax.annotation.Resource;
 
+import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
@@ -30,14 +31,17 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
+import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@Conditional(DesignerConfigConditional.class)
 public class MigrationConfig {
 
     @Bean
@@ -59,7 +63,7 @@ public class MigrationConfig {
     }
 
     @Resource(name = "pageMigrationStepsList")
-    private List<Migration<Page>> pageMigrationSteps;
+    protected List<Migration<Page>> pageMigrationSteps;
 
     @Bean
     public List<Migration<Page>> pageMigrationStepsList(
@@ -86,7 +90,7 @@ public class MigrationConfig {
     }
 
     @Resource(name = "widgetMigrationStepsList")
-    private List<Migration<Widget>> widgetMigrationSteps;
+    protected List<Migration<Widget>> widgetMigrationSteps;
 
     @Bean
     public List<Migration<Widget>> widgetMigrationStepsList() {
@@ -97,8 +101,13 @@ public class MigrationConfig {
     }
 
     @Bean
+    public PageService pageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer) {
+        return new PageService(pageRepository, pageMigrationApplyer);
+    }
+
+    @Bean
     public PageMigrationApplyer pageMigrationApplyer(WidgetService widgetService) {
-        return new PageMigrationApplyer(widgetService, pageMigrationSteps);
+        return new PageMigrationApplyer(pageMigrationSteps, widgetService);
     }
 
     @Bean
