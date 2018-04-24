@@ -15,7 +15,7 @@
   "scripts": {
     "test": "gulp test && gulp test:datepicker --timezone='America/Los_Angeles' && gulp test:datepicker --timezone='Asia/Bangkok'",
     "test-watch": "gulp test-watch",
-    "postinstall": "bower install --allow-root",
+    "postinstall": "bower install",
     "build": "gulp",
     "pot": "gulp pot",
     "start": "gulp serve"
