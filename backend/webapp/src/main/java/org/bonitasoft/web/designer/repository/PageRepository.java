@@ -20,13 +20,20 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 @Named
 public class PageRepository extends AbstractRepository<Page> implements RefreshingRepository, WidgetContainerRepository<Page> {
+
+    private static final Logger logger = LoggerFactory.getLogger(DesignerConfigConditional.class);
 
     @Inject
     public PageRepository(
@@ -48,14 +55,18 @@ public class PageRepository extends AbstractRepository<Page> implements Refreshi
     }
 
     @Override
-    public void refresh(String id) throws RepositoryException {
-        Page page = this.get(id);
+    public void refresh(String id) {
         try {
+            Page page = this.get(id);
             Path metadataPath = persister.updateMetadata(this.path.resolve(page.getId()), page);
             persister.saveInIndex(metadataPath, page);
+
+        } catch (RepositoryException e) {
+            logger.error(format("Cannot read page %s. Maybe a migration is required.", id), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Cannot update index file.", e);
         }
+
 
 
     }

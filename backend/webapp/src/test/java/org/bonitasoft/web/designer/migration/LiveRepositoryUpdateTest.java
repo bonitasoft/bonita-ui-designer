@@ -25,15 +25,23 @@ import static org.mockito.Mockito.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -122,6 +130,21 @@ public class LiveRepositoryUpdateTest {
 
         verify(persister).updateMetadata(any(Path.class), any(Page.class));
         verify(persister).saveInIndex(any(Path.class), any(Page.class));
+    }
+
+    @Test
+    public void should_order_LiveRepositoryUpdate() throws Exception {
+        LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
+        Repository<Widget> wRepo = new WidgetRepository(folder.toPath(), mock(JsonFileBasedPersister.class), mock(WidgetLoader.class), beanValidator, mock(Watcher.class));
+
+        LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate = new LiveRepositoryUpdate<>(wRepo, mock(WidgetLoader.class), EMPTY_LIST);
+
+        List<LiveRepositoryUpdate> liveRepoList = new ArrayList<>();
+        liveRepoList.add(pageLiveRepositoryUpdate);
+        liveRepoList.add(widgetLiveRepositoryUpdate);
+
+        Assertions.assertThat(liveRepoList).containsExactly(pageLiveRepositoryUpdate,widgetLiveRepositoryUpdate);
+        Assertions.assertThat(liveRepoList.stream().sorted().collect(Collectors.toList())).containsExactly(widgetLiveRepositoryUpdate,pageLiveRepositoryUpdate);
     }
 
     private Page createPage(String version) throws IOException {

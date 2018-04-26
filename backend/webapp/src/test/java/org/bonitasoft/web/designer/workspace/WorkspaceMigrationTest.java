@@ -66,6 +66,7 @@ public class WorkspaceMigrationTest {
     @Before
     public void setUp() throws Exception {
         workspaceInitializer.contextInitialized();
+        workspaceInitializer.migrateWorkspace();
     }
 
     @Test

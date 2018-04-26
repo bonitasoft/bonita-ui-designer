@@ -20,6 +20,7 @@ import static org.apache.commons.lang3.StringUtils.contains;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
@@ -28,12 +29,14 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AbstractLoader;
 import org.bonitasoft.web.designer.repository.RefreshingRepository;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 
-public class LiveRepositoryUpdate<A extends DesignerArtifact> {
+public class LiveRepositoryUpdate<A extends DesignerArtifact> implements Comparable<LiveRepositoryUpdate> {
 
     private AbstractLoader<A> loader;
     private Repository<A> repository;
@@ -53,31 +56,34 @@ public class LiveRepositoryUpdate<A extends DesignerArtifact> {
 
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-                updateRepository(repository, path.toFile().toPath());
+                refresh(repository, path.toFile().toPath());
                 return CONTINUE;
             }
         });
 
-        repository.watch(path -> updateRepository(repository, path));
+        repository.watch(path -> refresh(repository, path));
     }
 
-    private void migrate(Repository<A> repository, Path path) {
-        if (isArtifactDescriptor(path)) {
-            final A artifact = loader.get(path);
-            String formerArtifactVersion = artifact.getDesignerVersion();
-            for (Migration<A> migration : migrationList) {
-                migration.migrate(artifact);
-            }
-            if (!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
-                artifact.setPreviousDesignerVersion(formerArtifactVersion);
-                repository.updateLastUpdateAndSave(artifact);
-            }
-        }
-    }
+    public void migrate() throws IOException {
+        repository.walk(new SimpleFileVisitor<Path>() {
 
-    private void updateRepository(Repository<A> repository, Path path) {
-        refresh(repository, path);
-        migrate(repository, path);
+            @Override
+            public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
+                if (isArtifactDescriptor(path)) {
+                    final A artifact = loader.get(path);
+                    String formerArtifactVersion = artifact.getDesignerVersion();
+                    for (Migration<A> migration : migrationList) {
+                        migration.migrate(artifact);
+                    }
+                    if (!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
+                        artifact.setPreviousDesignerVersion(formerArtifactVersion);
+                        repository.updateLastUpdateAndSave(artifact);
+                    }
+                }
+                return CONTINUE;
+            }
+        });
+
     }
 
     private void refresh(Repository<A> repository, Path path) {
@@ -92,5 +98,10 @@ public class LiveRepositoryUpdate<A extends DesignerArtifact> {
         return path.toString().endsWith(".json") &&
                 !contains(path.toString(), File.separator + ".metadata" + File.separator)
                 && !contains(path.toString(), File.separator + "assets" + File.separator);
+    }
+
+    @Override
+    public int compareTo(LiveRepositoryUpdate o) {
+        return  repository instanceof WidgetRepository ? -1 : 1;
     }
 }
