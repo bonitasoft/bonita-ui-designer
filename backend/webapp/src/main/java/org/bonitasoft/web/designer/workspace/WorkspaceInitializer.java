@@ -15,7 +15,10 @@
 package org.bonitasoft.web.designer.workspace;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -24,6 +27,7 @@ import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.springframework.web.context.ServletContextAware;
 
 /**
@@ -54,10 +58,20 @@ public class WorkspaceInitializer implements ServletContextAware {
         try {
             workspace.initialize();
             for (LiveRepositoryUpdate migration : migrations) {
-                migration.start();
+                    migration.start();
             }
         } catch (IOException e) {
             throw new DesignerInitializerException("Unable to initialize workspace", e);
+        }
+    }
+
+    public synchronized void migrateWorkspace(){
+        for (LiveRepositoryUpdate migration :  migrations.stream().sorted().collect(Collectors.toList())) {
+            try {
+                migration.migrate();
+            } catch (IOException e) {
+                throw new DesignerInitializerException("Unable to migrate workspace", e);
+            }
         }
     }
 

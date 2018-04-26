@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -48,5 +49,11 @@ public class PageService implements ArtifactService {
             pageRepository.updateLastUpdateAndSave(migratedPage);
         }
         return migratedPage;
+    }
+
+    public void migrateAllPages() {
+        for (Page page :  pageRepository.getAll()) {
+            migrate(page);
+        }
     }
 }
