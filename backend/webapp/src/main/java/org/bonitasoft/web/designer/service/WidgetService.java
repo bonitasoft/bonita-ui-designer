@@ -65,8 +65,9 @@ public class WidgetService implements ArtifactService {
 
     @Override
     public Widget migrate(Identifiable artifact) {
+        String formerArtifactVersion = artifact.getDesignerVersion();
         Widget migratedWidget = widgetMigrationApplyer.migrate((Widget) artifact);
-        if (!StringUtils.equals(migratedWidget.getPreviousDesignerVersion(), migratedWidget.getDesignerVersion())) {
+        if (!StringUtils.equals(formerArtifactVersion, migratedWidget.getDesignerVersion())) {
             widgetRepository.updateLastUpdateAndSave(migratedWidget);
         }
         return migratedWidget;
