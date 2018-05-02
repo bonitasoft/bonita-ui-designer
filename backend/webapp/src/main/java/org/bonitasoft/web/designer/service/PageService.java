@@ -51,9 +51,4 @@ public class PageService implements ArtifactService {
         return migratedPage;
     }
 
-    public void migrateAllPages() {
-        for (Page page :  pageRepository.getAll()) {
-            migrate(page);
-        }
-    }
 }

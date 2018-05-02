@@ -58,7 +58,7 @@ public class WorkspaceInitializer implements ServletContextAware {
         try {
             workspace.initialize();
             for (LiveRepositoryUpdate migration : migrations) {
-                    migration.start();
+                migration.start();
             }
         } catch (IOException e) {
             throw new DesignerInitializerException("Unable to initialize workspace", e);

@@ -79,7 +79,7 @@ public class LiveRepositoryUpdateTest {
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         Page page = createPage("1.0.1");
 
-        liveRepositoryUpdate.start();
+        liveRepositoryUpdate.migrate();
 
         page.setDesignerVersion("1.0.2");
         verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), page);
@@ -91,7 +91,7 @@ public class LiveRepositoryUpdateTest {
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         folder.newFile("whatever");
 
-        liveRepositoryUpdate.start();
+        liveRepositoryUpdate.migrate();
 
         verify(migration, never()).migrate(any(Page.class));
     }
@@ -102,7 +102,7 @@ public class LiveRepositoryUpdateTest {
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         createPage("1.0.2");
 
-        liveRepositoryUpdate.start();
+        liveRepositoryUpdate.migrate();
 
         verify(persister, never()).save(any(Path.class), any(Page.class));
     }
@@ -115,14 +115,14 @@ public class LiveRepositoryUpdateTest {
         folder.newFolder("pageJson/assets");
         folder.newFile("pageJson/assets/whatever.json");
 
-        liveRepositoryUpdate.start();
+        liveRepositoryUpdate.migrate();
 
 
         verify(migration, only()).migrate(any(Page.class));
     }
 
     @Test
-    public void should_be_refresh_repository_index_json_on_migrate() throws Exception {
+    public void should_be_refresh_repository_index_json_on_start() throws Exception {
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
         createPage("1.7.25");
 
