@@ -24,12 +24,15 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
@@ -42,6 +45,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
     private String version;
     private JacksonObjectMapper objectMapper;
     private BeanValidator validator;
+    private static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
 
     public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator) {
         this.objectMapper = objectMapper;
@@ -86,7 +90,12 @@ public class JsonFileBasedPersister<T extends Identifiable> {
             index = objectMapper.fromJsonToMap(indexFileContent);
         }
         index.put(((HasUUID) content).getUUID(), content.getId());
-        write(indexPath, objectMapper.toJson(index));
+        try{
+            write(indexPath, objectMapper.toJson(index));
+        }catch (JsonGenerationException e){
+            logger.error(format("Cannot generate index for file %s. Maybe a migration is required.",content.getId()), e);
+        }
+
     }
 
     protected void removeFromIndex(Path metadataPath, T content) throws IOException {
