@@ -253,4 +253,46 @@ describe('pbSelect', function () {
     var selectedIndex = widget.find('select')[0].value;
     expect(scope.properties.availableValues[selectedIndex]).toEqual({'firstname': '', 'username': null});
   });
+
+  it('should allow setting value to 0 if available values contain 0 value', function(){
+    scope.properties = angular.extend(scope.properties, {
+      value: 0,
+      displayedKey: 'firstname',
+      returnedKey: 'username'
+    });
+    var widget = $compile('<pb-select></pb-select>')(scope);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual(0);
+    scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': 0}];
+
+    scope.$apply();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual(0);
+    var selectedIndex = widget.find('select')[0].value;
+    expect(scope.properties.availableValues[selectedIndex]).toEqual({'firstname': '', 'username': 0});
+  });
+
+  it('should allow setting value to false if available values contain false value', function(){
+    scope.properties = angular.extend(scope.properties, {
+      value: false,
+      displayedKey: 'firstname',
+      returnedKey: 'username'
+    });
+    var widget = $compile('<pb-select></pb-select>')(scope);
+    scope.$digest();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual(false);
+    scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': false}];
+
+    scope.$apply();
+    $timeout.flush();
+
+    expect(scope.properties.value).toEqual(false);
+    var selectedIndex = widget.find('select')[0].value;
+    expect(scope.properties.availableValues[selectedIndex]).toEqual({'firstname': '', 'username': false});
+  });
 });
