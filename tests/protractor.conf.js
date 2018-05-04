@@ -1,4 +1,4 @@
-/* globals exports */
+/* globals exports, process */
 // needed for ES6 to work in protractor <_<
 require('babel-core/register');
 
@@ -15,6 +15,19 @@ const capabilities = {
     }
   }
 };
+
+// activate chrome in headless mode
+// see https://developers.google.com/web/updates/2017/04/headless-chrome
+if (process.env.HEADLESS) {
+  capabilities.chromeOptions.args = [
+    ...capabilities.chromeOptions.args,
+    '--headless',
+    // Temporarily needed if running on Windows.
+    '--disable-gpu',
+    // We must disable the Chrome sandbox when running Chrome inside Docker
+    '--no-sandbox'
+  ];
+}
 
 exports.config = {
   seleniumServerJar: './node_modules/webdriver-manager/selenium/selenium-server-standalone-3.11.0.jar',
