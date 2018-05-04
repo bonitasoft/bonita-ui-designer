@@ -100,7 +100,7 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <arguments>run e2e</arguments>
+                                    <arguments>run e2e:headless</arguments>
                                 </configuration>
                             </execution>
                         </executions>

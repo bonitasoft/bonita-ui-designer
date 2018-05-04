@@ -108,7 +108,7 @@
                         </goals>
                         <phase>integration-test</phase>
                         <configuration>
-                            <arguments>run test</arguments>
+                            <arguments>run test:headless</arguments>
                         </configuration>
                     </execution>
                 </executions>
