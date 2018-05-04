@@ -9,10 +9,12 @@
   "devDependencies": {
     "babel-core": "6.3.17",
     "babel-preset-bonita": "1.0.2",
+    "cross-env": "^5.1.4",
     "gulp": "~3.8.8",
     "gulp-babel": "5.3.0",
     "gulp-protractor": "3.0.0",
     "jasmine-reporters": "2.1.1",
+    "npm-run-all": "^4.1.2",
     "protractor": "5.2.0",
     "query-string": "^5.1.0",
     "url": "^0.11.0",
@@ -20,7 +22,8 @@
   },
   "scripts": {
     "pretest": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.38",
-    "test": "gulp ddescriber && gulp test"
+    "test": "gulp ddescriber && gulp test",
+    "test:headless": "cross-env HEADLESS=true npm-run-all test"
   },
   "author": "",
   "license": "proprietary",
@@ -29,9 +32,9 @@
   },
   "homepage": "https://github.com/bonitasoft/bonita-form-builder",
   "dependencies": {
-    "multiparty": "^4.1.2",
     "connect": "^3.3.5",
-    "http-proxy": "^1.11.1"
+    "http-proxy": "^1.11.1",
+    "multiparty": "^4.1.2"
   },
   "babel": {
     "presets": [
