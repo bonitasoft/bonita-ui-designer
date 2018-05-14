@@ -78,11 +78,11 @@
     }
 
     function updateResolutionInUrl(resolution) {
-      $state.transitionTo(`designer.preview`, {
+      $state.go(`designer.preview`, {
         resolution: resolution.key,
         id: iframeParameters.id,
         mode: mode
-      }, { notify: false });
+      });
     }
   }
 
