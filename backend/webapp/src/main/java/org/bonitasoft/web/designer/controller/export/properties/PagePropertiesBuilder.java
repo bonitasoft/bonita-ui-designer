@@ -39,7 +39,7 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 public class PagePropertiesBuilder {
 
     private static final String TEMPLATE_NAME = "page.hbs.properties";
-    private static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[/?]?[^ /]*";   // matches ..... /API/{}/{}?...
+    private static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[/?]?[^/]*";   // matches ..... /API/{}/{}?...
     private TemplateEngine template;
     private ComponentVisitor componentVisitor;
     private AuthRulesCollector authRulesCollector;

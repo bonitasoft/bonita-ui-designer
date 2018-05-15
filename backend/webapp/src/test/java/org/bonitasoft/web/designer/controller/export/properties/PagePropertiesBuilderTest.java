@@ -102,12 +102,13 @@ public class PagePropertiesBuilderTest {
         dataMap.put("foo", anApiData("../API/bpm/userTask?filter=mine"));
         dataMap.put("bar", anApiData("../API/identity/user/1"));
         dataMap.put("other", anApiData("../API/identity/group/1?param=value"));
+        dataMap.put("archived", anApiData("../API/bpm/archivedUserTask?filter=mine&o=name DESC"));
 
         page.setData(dataMap);
 
         String properties = new String(pagePropertiesBuilder.build(page));
 
-        assertThat(properties).contains("resources=[GET|identity/user, GET|bpm/userTask, GET|identity/group]");
+        assertThat(properties).contains("resources=[GET|bpm/archivedUserTask, GET|identity/user, GET|bpm/userTask, GET|identity/group]");
     }
 
     @Test
