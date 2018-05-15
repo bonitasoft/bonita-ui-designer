@@ -48,7 +48,7 @@ public class WorkspaceInitializer implements ServletContextAware {
     /**
      * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
      */
-    @Resource(name = "liveRepositoryUpdate")
+    @Resource(name = "liveRepositoriesUpdate")
     public void setMigrations(List<LiveRepositoryUpdate> migrations) {
         this.migrations = migrations;
     }
