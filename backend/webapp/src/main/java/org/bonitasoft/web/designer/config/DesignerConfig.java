@@ -303,7 +303,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public List<LiveRepositoryUpdate> liveRepositoryUpdate(LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate,
+    public List<LiveRepositoryUpdate> liveRepositoriesUpdate(LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate,
                                                            LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate) {
         return Lists.<LiveRepositoryUpdate>newArrayList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate);
     }
