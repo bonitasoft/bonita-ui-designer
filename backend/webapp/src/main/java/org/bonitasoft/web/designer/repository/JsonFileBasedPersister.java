@@ -93,7 +93,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         try{
             write(indexPath, objectMapper.toJson(index));
         }catch (JsonGenerationException e){
-            logger.error(format("Cannot generate index for file %s. Maybe a migration is required.",content.getId()), e);
+            logger.error(format("Cannot generate index for file %s. Maybe a migration is required.",content.getId()));
         }
 
     }
