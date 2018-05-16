@@ -4,7 +4,7 @@
   "type": "widget",
   "template": "@pbText.tpl.html",
   "description": "Short string or paragraph of text to be displayed. Can include HTML tags",
-  "order": "16",
+  "order": "19",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#fff' d='M8.2,20h15v-1h-15V20z M8.2,17h31v-1h-31V17z M8.2,4h32V3h-32V4z M8.2,14h34v-1h-34V14z M8.2,7h30V6h-30V7z M8.2,1h35V0h-35V1z'/></g></svg>",
   "properties": [
     {
