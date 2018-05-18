@@ -5,26 +5,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
   var vm = this;
 
   this.action = function action() {
-    var id;
+
 
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
     } else if ($scope.properties.action === 'Start process') {
-      id = getUrlParam('id');
-      if (id) {
-        doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam());
-      } else {
-        $log.log('Impossible to retrieve the process definition id value from the URL');
-      }
+      startProcess();
     } else if ($scope.properties.action === 'Submit task') {
-      id = getUrlParam('id');
-      if (id) {
-        doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam());
-      } else {
-        $log.log('Impossible to retrieve the task id value from the URL');
-      }
+      submitTask();
     } else if ($scope.properties.url) {
       doRequest($scope.properties.action, $scope.properties.url);
     }
@@ -64,6 +54,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
       $scope.properties.collectionToModify.unshift(item);
     } else {
       $scope.properties.collectionToModify.push(item);
+    }
+  }
+
+  function startProcess() {
+    var id = getUrlParam('id');
+    if (id) {
+      var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
+        removeFormEntryFromLocalStorage();
+      });
+
+    } else {
+      $log.log('Impossible to retrieve the process definition id value from the URL');
     }
   }
 
@@ -135,5 +137,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
       return paramValue[1];
     }
     return '';
+  }
+
+  /*
+   * Exposes this method for test purpose.
+   */
+  this.getLocalStorageId = function getLocalStorageId() {
+    /*
+     * This naming convention is defined in the pbSaveButton widget. Both values must remain consistent.
+     */
+    return "bonita-form-" + $window.location.href;
+  }
+
+  function removeFormEntryFromLocalStorage() {
+    $window.localStorage.removeItem(vm.getLocalStorageId());
+  }
+
+  function submitTask() {
+    var id;
+    id = getUrlParam('id');
+    if (id) {
+      doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam()).then(function() {
+        removeFormEntryFromLocalStorage();
+      });
+    } else {
+      $log.log('Impossible to retrieve the task id value from the URL');
+    }
   }
 }
