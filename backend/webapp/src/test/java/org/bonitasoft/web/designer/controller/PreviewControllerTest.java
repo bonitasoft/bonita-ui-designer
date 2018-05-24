@@ -180,21 +180,21 @@ public class PreviewControllerTest {
     public void should_redirect_page_API_calls_to_the_real_API() throws Exception {
         mockMvc
                 .perform(get("/preview/page/API/portal/page"))
-                .andExpect(redirectedUrl("/bonita/API/portal/page"));
+                .andExpect(redirectedUrl("/API/portal/page"));
     }
 
     @Test
     public void should_redirect_layout_API_calls_to_the_real_API() throws Exception {
         mockMvc
                 .perform(get("/preview/layout/API/portal/page"))
-                .andExpect(redirectedUrl("/bonita/API/portal/page"));
+                .andExpect(redirectedUrl("/API/portal/page"));
     }
 
     @Test
     public void should_redirect_API_calls_to_the_real_API_and_add_the_query_string() throws Exception {
         mockMvc
                 .perform(get("/preview/page/API/portal/page?p=0&c=1"))
-                .andExpect(redirectedUrl("/bonita/API/portal/page?p=0&c=1"));
+                .andExpect(redirectedUrl("/API/portal/page?p=0&c=1"));
     }
 
     @Test
@@ -206,7 +206,7 @@ public class PreviewControllerTest {
                     @Override
                     public void match(MvcResult result) throws Exception {
                         assertEquals(result.getResponse().getStatus(), SC_TEMPORARY_REDIRECT);
-                        assertEquals(result.getResponse().getRedirectedUrl(), "/bonita/API/portal/page?id=123");
+                        assertEquals(result.getResponse().getRedirectedUrl(), "/API/portal/page?id=123");
                     }
                 });
     }

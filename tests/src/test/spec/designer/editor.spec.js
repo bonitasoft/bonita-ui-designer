@@ -1,7 +1,7 @@
 describe('UI designer: editor', function () {
 
   beforeEach(function () {
-    browser.get('/designer/#/en/pages/empty');
+    browser.get('/bonita/#/en/pages/empty');
   });
 
   it('should open the empty page', function(){

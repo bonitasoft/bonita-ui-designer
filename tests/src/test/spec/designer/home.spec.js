@@ -16,7 +16,7 @@ describe('UI designer: home', function() {
   }
 
   beforeEach(function() {
-    browser.get('/designer/#/en/home');
+    browser.get('/bonita/#/en/home');
   });
 
   it('should list pages', function() {

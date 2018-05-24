@@ -5,7 +5,7 @@ describe('repeat container', function() {
    * Each container contains an input and a paragraph, bound to the item.
    */
   beforeEach(function() {
-    browser.get('/designer/preview/page/repeatContainer/');
+    browser.get('/bonita/preview/page/repeatContainer/');
   });
 
   it('should display 1 containers with 2 paragraphs and 2 inputs with item value', function() {

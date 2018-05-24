@@ -58,7 +58,7 @@
                         </goals>
                         <configuration>
                             <name>UiDesigner</name>
-                            <healthcheckUrl>http://localhost:8083/designer</healthcheckUrl>
+                            <healthcheckUrl>http://localhost:8083/bonita</healthcheckUrl>
                             <arguments>
                                 <argument>java</argument>
                                 <argument>-jar</argument>

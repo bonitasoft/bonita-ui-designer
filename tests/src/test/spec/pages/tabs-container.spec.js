@@ -1,7 +1,7 @@
 describe('tabsContainer', function () {
 
   beforeEach(function () {
-    browser.get('/designer/preview/page/tabsContainer/');
+    browser.get('/bonita/preview/page/tabsContainer/');
   });
   it('should display 1 tabsContainers with 2 tabs', function () {
 

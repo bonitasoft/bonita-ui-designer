@@ -5,7 +5,7 @@ describe('select', function() {
    * We can play with its visibility, its value, its label display, etc...
    */
   beforeEach(function() {
-    browser.get('/designer/preview/page/select/');
+    browser.get('/bonita/preview/page/select/');
   });
 
   it('should manage contingency', function() {

@@ -75,7 +75,7 @@ public class PreviewController {
         try {
             String queryString = isEmpty(request.getQueryString()) ? "" : "?" + request.getQueryString();
             response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-            response.addHeader("Location", request.getContextPath() + "/bonita/API/" + RequestMappingUtils.extractPathWithinPattern(request) + queryString);
+            response.addHeader("Location", request.getContextPath() + "/API/" + RequestMappingUtils.extractPathWithinPattern(request) + queryString);
 
             response.flushBuffer();
         } catch (IOException e) {

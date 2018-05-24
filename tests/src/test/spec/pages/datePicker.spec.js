@@ -1,7 +1,7 @@
 describe('date picker', function () {
 
   it('should display dates not taking timezone in account', function () {
-    browser.get('/designer/preview/page/datePicker/');
+    browser.get('/bonita/preview/page/datePicker/');
 
     $('input[name="pbDatepicker0"]').click();
     element(by.cssContainingText('.dropdown-menu table td button', '21')).click();
@@ -16,7 +16,7 @@ describe('date picker', function () {
   });
 
   it('should show error date message on wrong date', function () {
-    browser.get('/designer/preview/page/datePicker/');
+    browser.get('/bonita/preview/page/datePicker/');
 
     $('input[name="pbDatepicker0"]').click();
     element(by.cssContainingText('.dropdown-menu table td button', '21')).click();

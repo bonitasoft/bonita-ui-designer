@@ -1,7 +1,7 @@
 describe('repeat container', function() {
 
   beforeEach(function() {
-    browser.get('/designer/preview/page/repeatInputWithValidation/');
+    browser.get('/bonita/preview/page/repeatInputWithValidation/');
   });
 
   it('should display 3 containers with input fields and buttons', function() {
