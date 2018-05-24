@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService) {
 
   'use strict';
 
@@ -61,7 +61,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
     var id = getUrlParam('id');
     if (id) {
       var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
-        removeFormEntryFromLocalStorage();
+        localStorageService.delete($window.location.href);
       });
 
     } else {
@@ -139,26 +139,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window) {
     return '';
   }
 
-  /*
-   * Exposes this method for test purpose.
-   */
-  this.getLocalStorageId = function getLocalStorageId() {
-    /*
-     * This naming convention is defined in the pbSaveButton widget. Both values must remain consistent.
-     */
-    return "bonita-form-" + $window.location.href;
-  }
-
-  function removeFormEntryFromLocalStorage() {
-    $window.localStorage.removeItem(vm.getLocalStorageId());
-  }
-
   function submitTask() {
     var id;
     id = getUrlParam('id');
     if (id) {
       doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam()).then(function() {
-        removeFormEntryFromLocalStorage();
+        localStorageService.delete($window.location.href);
       });
     } else {
       $log.log('Impossible to retrieve the task id value from the URL');
