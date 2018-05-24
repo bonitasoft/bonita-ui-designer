@@ -1,7 +1,7 @@
 describe('textarea', function() {
 
   beforeEach(function() {
-    browser.get('/designer/preview/page/textarea/');
+    browser.get('/bonita/preview/page/textarea/');
   });
 
   it('should display a value and update it', function() {

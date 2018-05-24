@@ -278,7 +278,7 @@
                         <phase>package</phase>
                         <configuration>
                             <finalName>${project.build.finalName}-standalone.jar</finalName>
-                            <path>/designer</path>
+                            <path>/bonita</path>
                         </configuration>
                     </execution>
                 </executions>

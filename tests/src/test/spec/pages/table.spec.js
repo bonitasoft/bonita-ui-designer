@@ -7,7 +7,7 @@ describe('table', function () {
   }
 
   beforeEach(function () {
-    browser.get('/designer/preview/page/table/');
+    browser.get('/bonita/preview/page/table/');
   });
 
   it('should display a table filled with data that can be selected', function () {

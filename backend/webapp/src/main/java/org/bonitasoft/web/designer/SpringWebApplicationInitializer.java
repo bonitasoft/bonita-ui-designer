@@ -84,20 +84,32 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         // Register and map the dispatcher servlet
-
-        ServletRegistration.Dynamic proxyRegistration = servletContext.addServlet("bonitaAPIProxy", PreservingCookiePathProxyServlet.class);
-        proxyRegistration.setLoadOnStartup(1);
-        proxyRegistration.setInitParameter("targetUri", getPortalOrigin() + "/bonita");
-        proxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
-        proxyRegistration.setInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
-        proxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
-        proxyRegistration.addMapping("/bonita/*");
+        // Useful for REST API calls in the preview using relative URLs ../API/ and absolute /bonita/API
+        registerProxy(servletContext,"bonitaAPIProxy", "/API/*", "/bonita/API");
+        // Useful for Resources calls in the preview using absolute URLs /bonita
+        registerProxy(servletContext,"bonitaPortalProxy", "/portal/*", "/bonita/portal");
+        registerProxy(servletContext,"bonitaPortalJSProxy", "/portal.js/*", "/bonita/portal.js");
+        registerProxy(servletContext,"bonitaServicesProxy", "/services/*", "/bonita/services");
+        registerProxy(servletContext,"bonitaThemeProxy", "/theme/*", "/bonita/theme");
+        registerProxy(servletContext,"bonitaServerAPIProxy", "/serverAPI/*", "/bonita/serverAPI");
+        registerProxy(servletContext,"bonitaMobileProxy", "/mobile/*", "/bonita/mobile");
+        registerProxy(servletContext,"bonitaAppsProxy", "/apps/*", "/bonita/apps");
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
         dispatcher.setAsyncSupported(true);
         dispatcher.addMapping("/");
+    }
+
+    private void registerProxy(ServletContext servletContext, String servletName, String servletMapping, String targetUri) {
+        ServletRegistration.Dynamic apiProxyRegistration = servletContext.addServlet(servletName, PreservingCookiePathProxyServlet.class);
+        apiProxyRegistration.setLoadOnStartup(1);
+        apiProxyRegistration.setInitParameter("targetUri", getPortalOrigin() + targetUri);
+        apiProxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
+        apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
+        apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
+        apiProxyRegistration.addMapping(servletMapping);
     }
 
     private String getPortalOrigin() {
