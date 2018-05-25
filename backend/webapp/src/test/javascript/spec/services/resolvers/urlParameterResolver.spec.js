@@ -27,4 +27,10 @@ describe('Service: urlParameterResolver', function() {
 
     expect(model.foo).toBe('qux');
   });
+
+  it('should decode a parameter from the url', () => {
+    barValue = 'http%3A%2F%2Fwww.google.com';
+    $rootScope.$apply();
+    expect(model.foo).toBe('http://www.google.com');
+  });
 });
