@@ -4,7 +4,7 @@
 
     <groupId>org.bonitasoft.web</groupId>
     <artifactId>ui-designer</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.7.60</version>
 
     <packaging>pom</packaging>
 
