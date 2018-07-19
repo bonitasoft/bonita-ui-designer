@@ -31,6 +31,9 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
+import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_USER;
+
 /**
  * Spring WebApplicationInitializer implementation initializes Spring context by
  * adding a Spring ContextLoaderListener to the ServletContext.
@@ -42,6 +45,12 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
      * System property set by the studio to target bonita portal
      */
     public static final String BONITA_PORTAL_ORIGIN = "bonita.portal.origin";
+
+    /**
+     * Can be set when developing using a remote bonita platform
+     */
+    public static final String BONITA_PORTAL_USER = "bonita.portal.origin.user";
+    public static final String BONITA_PORTAL_PASSWORD = "bonita.portal.origin.password";
 
     private static final String[] BANNER = { "",
             "d8888b.  .d88b.  d8b   db d888888b d888888b  .d8b.    .d8888.  .d88b.  d88888b d888888b",
@@ -110,10 +119,19 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
         apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
         apiProxyRegistration.addMapping(servletMapping);
+        addCredentials(apiProxyRegistration);
+    }
+
+    private void addCredentials(ServletRegistration.Dynamic apiProxyRegistration) {
+        String portalUser = System.getProperty(BONITA_PORTAL_USER);
+        String portalPassword = System.getProperty(BONITA_PORTAL_PASSWORD);
+        if (!StringUtils.isBlank(portalUser) && !StringUtils.isBlank(portalPassword)) {
+            apiProxyRegistration.setInitParameter(P_PORTAL_USER, portalUser);
+            apiProxyRegistration.setInitParameter(P_PORTAL_PASSWORD, portalPassword);
+        }
     }
 
     private String getPortalOrigin() {
-
         String portalOrigin =  System.getProperty(BONITA_PORTAL_ORIGIN);
         if(StringUtils.isNotBlank(portalOrigin)){
             return portalOrigin;

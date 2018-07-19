@@ -14,21 +14,43 @@
  */
 package org.bonitasoft.web.designer;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.BasicHttpContext;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.HttpCookie;
-import java.util.List;
+import java.io.IOException;
+import java.net.*;
+import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Extending {@link ProxyServlet} to fix the cookie path which was overriden even when preserveCookie is set to true
  */
+@Slf4j
 public class PreservingCookiePathProxyServlet extends ProxyServlet {
 
-    /** Copy cookie from the proxy to the servlet client.
-     *  Replaces cookie path to local path and renames cookie to avoid collisions.
+    public static final String P_PORTAL_USER = "portalUser";
+    public static final String P_PORTAL_PASSWORD = "portalPassword";
+    private BonitaCredentials credentials;
+
+
+    /**
+     * Copy cookie from the proxy to the servlet client.
+     * Replaces cookie path to local path and renames cookie to avoid collisions.
      */
     @Override
     protected void copyProxyCookie(HttpServletRequest servletRequest,
@@ -36,7 +58,7 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
         List<HttpCookie> cookies = HttpCookie.parse(headerValue);
         String path = servletRequest.getContextPath(); // path starts with / or is empty string
         path += servletRequest.getServletPath(); // servlet path starts with / or is empty string
-        if(path.isEmpty()){
+        if (path.isEmpty()) {
             path = "/";
         }
 
@@ -55,4 +77,91 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
             servletResponse.addCookie(servletCookie);
         }
     }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        credentials = new BonitaCredentials();
+        credentials.username = getConfigParam(P_PORTAL_USER);
+        credentials.password = getConfigParam(P_PORTAL_PASSWORD);
+        try {
+            credentials.loginServletURI = new URL(targetHost + "/bonita/loginservice").toURI();
+        } catch (URISyntaxException | MalformedURLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+
+    @Override
+    protected HttpResponse doExecute(HttpServletRequest servletRequest, HttpServletResponse servletResponse, HttpRequest proxyRequest) throws IOException {
+        //reuse previous login
+        if (credentials.jsessionID != null) {
+            setJSessionID(proxyRequest, credentials.jsessionID);
+        }
+        HttpResponse httpResponse = super.doExecute(servletRequest, servletResponse, proxyRequest);
+        //when a login is required, we try to login on bonita platform
+        if (httpResponse.getStatusLine().getStatusCode() == 401 && credentials.isSet()) {
+            log.info("response 401, will try to login");
+            HttpResponse loginResponse = login(credentials);
+            String responseContent = IOUtils.toString(httpResponse.getEntity().getContent());
+            int statusCode = loginResponse.getStatusLine().getStatusCode();
+            if (statusCode != 200) {
+                log.error("Unable to log in bonita platform, code {}, response: {}", statusCode, responseContent);
+                return httpResponse;
+            }
+            credentials.jsessionID = getJSessionId(loginResponse);
+            log.info("created server session: {}", credentials.jsessionID);
+            setJSessionID(proxyRequest, credentials.jsessionID);
+            return super.doExecute(servletRequest, servletResponse, proxyRequest);
+        }
+        return httpResponse;
+    }
+
+    private void setJSessionID(HttpRequest proxyRequest, String jSessionId) {
+        proxyRequest.setHeader("Cookie", jSessionId);
+    }
+
+    private HttpResponse login(BonitaCredentials credentials) throws IOException {
+        BasicHttpContext httpContext = new BasicHttpContext();
+        BasicCookieStore cookieStore = new BasicCookieStore();
+        httpContext.setAttribute("http.cookie-store", cookieStore);
+        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        urlParameters.add(new BasicNameValuePair("username", credentials.username));
+        urlParameters.add(new BasicNameValuePair("password", credentials.password));
+        urlParameters.add(new BasicNameValuePair("redirect", "false"));
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(urlParameters, "utf-8");
+        HttpPost postRequest = new HttpPost(credentials.loginServletURI);
+        postRequest.setEntity(entity);
+        return getProxyClient().execute(postRequest, httpContext);
+    }
+
+
+    private String getJSessionId(HttpResponse response) {
+        List<Header> headers = Arrays.asList(response.getHeaders("Set-Cookie"));
+        String prefix = "JSESSIONID=";
+        Optional<String> any = headers.stream()
+                .filter(h -> h.getValue().contains(prefix))
+                .map(Header::getValue)
+                .map(value -> Arrays.asList(value.split(";[ ]*")))
+                .flatMap(Collection::stream)
+                .filter(s -> s.startsWith(prefix))
+                .findAny();
+        if (any.isPresent()) {
+            return any.get();
+        } else {
+            throw new RuntimeException("Unable to find JSESSIONID in headers " + headers);
+        }
+    }
+
+    private static class BonitaCredentials {
+        String username;
+        String password;
+        URI loginServletURI;
+        String jsessionID;
+
+        boolean isSet() {
+            return !isBlank(username) && !isBlank(password);
+        }
+    }
+
 }
