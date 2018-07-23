@@ -84,10 +84,12 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
         credentials = new BonitaCredentials();
         credentials.username = getConfigParam(P_PORTAL_USER);
         credentials.password = getConfigParam(P_PORTAL_PASSWORD);
-        try {
-            credentials.loginServletURI = new URL(targetHost + "/bonita/loginservice").toURI();
-        } catch (URISyntaxException | MalformedURLException e) {
-            throw new ServletException(e);
+        if (targetHost != null) {
+            try {
+                credentials.loginServletURI = new URL(targetHost + "/bonita/loginservice").toURI();
+            } catch (URISyntaxException | MalformedURLException e) {
+                throw new ServletException(e);
+            }
         }
     }
 
@@ -160,7 +162,7 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
         String jsessionID;
 
         boolean isSet() {
-            return !isBlank(username) && !isBlank(password);
+            return !isBlank(username) && !isBlank(password) && loginServletURI != null;
         }
     }
 
