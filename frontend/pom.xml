@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.bonitasoft.web</groupId>
         <artifactId>ui-designer</artifactId>
-        <version>1.7-SNAPSHOT</version>
+        <version>1.7.69</version>
     </parent>
 
     <artifactId>ui-designer-frontend</artifactId>
