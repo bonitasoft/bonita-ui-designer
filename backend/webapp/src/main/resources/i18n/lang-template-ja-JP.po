@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-06-06 21:49-0400\n"
+"PO-Revision-Date: 2018-08-27 02:13\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -1852,6 +1852,9 @@ msgstr "必要がない場合は、コント ローラーは空のままにし�
 
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
+
+msgid "You can see the migration notes again by clicking on the help button"
+msgstr ""
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
