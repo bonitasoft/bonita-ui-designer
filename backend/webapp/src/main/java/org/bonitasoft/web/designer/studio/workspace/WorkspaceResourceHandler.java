@@ -25,6 +25,8 @@ public interface WorkspaceResourceHandler {
 
     void postClose(Path filePath) throws ResourceNotFoundException;
 
+    void delete(Path filePath) throws ResourceNotFoundException;
+
     void postDelete(Path filePath) throws ResourceNotFoundException;
 
     void postSave(Path filePath) throws ResourceNotFoundException;
@@ -34,5 +36,6 @@ public interface WorkspaceResourceHandler {
     void postImport();
 
     LockStatus getLockStatus(Path filePath) throws ResourceNotFoundException;
+
 
 }

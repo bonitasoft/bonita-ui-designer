@@ -19,6 +19,7 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -72,6 +73,21 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
             handleResourceException(filePath, e);
         }
     }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler#delete(java.nio.file.Path)
+     */
+    @Override
+    public void delete(Path filePath) throws ResourceNotFoundException {
+        try {
+            doPost(filePath, WorkspaceResourceEvent.DELETE);
+        } catch (Exception e) {
+            handleResourceException(filePath, e);
+        }
+    }
+
 
     /*
      * (non-Javadoc)
@@ -179,5 +195,6 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
         }
         throw new RuntimeException("Unhandled exception", e);
     }
+
 
 }

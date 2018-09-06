@@ -15,12 +15,13 @@
 package org.bonitasoft.web.designer.studio.repository;
 
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -76,6 +77,15 @@ public class RepositoryAspect {
         postSaveAndUpdateDate(joinPoint);
     }
 
+    @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository.delete(String))")
+    public void delete(JoinPoint joinPoint) {
+        try {
+            handler.delete(filePath(joinPoint));
+        } catch (ResourceNotFoundException e) {
+            throw new RepositoryException("An error occured while proceeding delete action.", e);
+        }
+    }
+    
     @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
     public void postDelete(JoinPoint joinPoint) {
         try {

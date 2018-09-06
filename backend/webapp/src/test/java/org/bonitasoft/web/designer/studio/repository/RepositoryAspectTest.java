@@ -17,11 +17,15 @@ package org.bonitasoft.web.designer.studio.repository;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import org.bonitasoft.web.designer.ApplicationConfig;
@@ -99,6 +103,15 @@ public class RepositoryAspectTest {
     }
 
     @Test
+    public void should_trigger_delete_on_workspaceResourceHandler_when_deleting_a_widget() throws Exception {
+        widgetRepository.save(aWidget().id("widgetId1").build());
+
+        widgetRepository.delete("widgetId1");
+
+        verify(workspaceResourceHandler).delete(widgetRepository.resolvePath("widgetId1"));
+    }
+
+    @Test
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_widget_on_widgetRepository() throws Exception {
         widgetRepository.updateLastUpdateAndSave(
                 aWidget().id("widgetId1").build()
@@ -149,6 +162,15 @@ public class RepositoryAspectTest {
         doThrow(LockedResourceException.class).when(workspaceResourceHandler).preOpen(any(Path.class));
 
         formRepository.get("a_form_id");
+    }
+
+    @Test
+    public void should_trigger_delete_on_workspaceResourceHandler_when_deleting_a_form() throws Exception {
+        formRepository.save(aPage().withId("aPageId").build());
+
+        formRepository.delete("aPageId");
+
+        verify(workspaceResourceHandler).delete(formRepository.resolvePath("aPageId"));
     }
 
     @Test
