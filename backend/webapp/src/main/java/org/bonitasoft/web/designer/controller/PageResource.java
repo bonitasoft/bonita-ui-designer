@@ -15,12 +15,15 @@
 package org.bonitasoft.web.designer.controller;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Iterables.any;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.filterValues;
 import static com.google.common.collect.Sets.filter;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -31,16 +34,23 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
+import org.bonitasoft.web.designer.controller.export.properties.BonitaResourcePredicate;
+import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
+import org.bonitasoft.web.designer.controller.export.properties.ConstantPropertyValuePredicate;
+import org.bonitasoft.web.designer.controller.export.properties.PagePropertiesBuilder;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
+import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -61,10 +71,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PageResource extends AssetResource<Page> {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
+    public static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[/?]?[^/]*";   // matches ..... /API/{}/{}?...
     private PageRepository pageRepository;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
     private final PageService pageService;
+    private final ComponentVisitor componentVisitor;
+    private final AuthRulesCollector authRulesCollector;
 
     @Inject
     public PageResource(
@@ -73,12 +86,15 @@ public class PageResource extends AssetResource<Page> {
             SimpMessagingTemplate messagingTemplate,
             ContractToPageMapper contractToPageMapper,
             AssetService<Page> pageAssetService,
-            AssetVisitor assetVisitor) {
+            AssetVisitor assetVisitor,
+            ComponentVisitor componentVisitor, AuthRulesCollector authRulesCollector) {
         super(pageAssetService, pageRepository, assetVisitor, Optional.of(messagingTemplate));
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
         this.pageService = pageService;
+        this.componentVisitor = componentVisitor;
+        this.authRulesCollector = authRulesCollector;
     }
 
     @Override
@@ -203,6 +219,28 @@ public class PageResource extends AssetResource<Page> {
         pageRepository.delete(pageId);
         // send notification of removal
         messagingTemplate.convertAndSend(PREVIEWABLE_REMOVAL, pageId);
+    }
+
+    @RequestMapping(value = "/{pageId}/resources", method = RequestMethod.GET)
+    public List<String> getResources(@PathVariable("pageId") String pageId){
+        Page page = pageService.get(pageId);
+        List<String> resources = newArrayList(transform(
+                filterValues(page.getData(), new BonitaResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
+                new BonitaResourceTransformer(BONITA_RESOURCE_REGEX)));
+
+        Iterable<Component> components = componentVisitor.visit(page);
+
+        if (any(components, new ConstantPropertyValuePredicate("Start process"))) {
+            resources.add("POST|bpm/process");
+        }
+
+        if (any(components, new ConstantPropertyValuePredicate("Submit task"))) {
+            resources.add("POST|bpm/userTask");
+        }
+
+        resources.addAll(authRulesCollector.visit(page));
+
+        return resources;
     }
 
 }

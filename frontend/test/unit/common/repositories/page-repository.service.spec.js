@@ -175,4 +175,19 @@ describe('pageRepo', function() {
 
     $httpBackend.flush();
   });
+
+  it('should list the resources for a page', function() {
+    var expectedResources = [
+      'GET|living/application-menu'
+    ];
+    $httpBackend.expectGET('rest/pages/1/resources').respond(expectedResources);
+
+    var resources;
+    pageRepo.loadResources({id: 1}).then(function (data) {
+      resources = data;
+    });
+
+    $httpBackend.flush();
+    expect(resources).toEqual(expectedResources);
+  });
 });

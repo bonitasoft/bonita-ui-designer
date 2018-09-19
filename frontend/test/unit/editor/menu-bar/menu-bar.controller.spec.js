@@ -164,6 +164,25 @@
       });
     });
 
+    it('should update page metadata', function() {
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : () => {}}));
+      spyOn(pageRepo, 'loadResources').and.returnValue(['GET|living/application-menu']);
+
+      var page = { id: 'person', type: 'page', displayName: 'display name', description: 'description'};
+
+      controller.editMetadata(page);
+
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/metadata-popup.html');
+      expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('MetadataPopUpController');
+
+      modalInstance.close(page);
+      scope.$apply();
+
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
+    });
+
     it('should remove reference attribute from every item', () => {
       expect(controller.removeReferences({})).toEqual({});
       expect(controller.removeReferences({ reference: 'test' })).toEqual({});

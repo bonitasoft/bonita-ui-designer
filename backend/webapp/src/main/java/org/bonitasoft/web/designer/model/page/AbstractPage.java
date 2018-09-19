@@ -14,13 +14,29 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.*;
+import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.ElementContainer;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.Data;
@@ -28,12 +44,6 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
-
-import javax.validation.constraints.Pattern;
-import java.util.*;
-
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 
 public abstract class AbstractPage extends DesignerArtifact implements Previewable, Identifiable, ElementContainer, Assetable {
 
@@ -47,7 +57,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getId() {
         return id;
     }
@@ -56,7 +66,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.id = id;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getName() {
         return name;
     }
@@ -65,7 +75,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.name = name;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public Instant getLastUpdate() {
         return lastUpdate;
     }
@@ -74,7 +84,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.lastUpdate = lastUpdate;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     @Override
     public List<List<Element>> getRows() {
         return rows;
@@ -84,7 +94,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.rows = rows;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Set<Asset> getAssets() {
         return assets;
     }
@@ -109,7 +119,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.assets = assets;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Set<String> getInactiveAssets() {
         return inactiveAssets;
     }
@@ -127,7 +137,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         });
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public Map<String, Data> getData() {
         return data;
     }

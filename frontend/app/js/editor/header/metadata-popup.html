@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h3 class="modal-title" translate>{{ctrl.page.name}} information</h3>
+</div>
+<form class="form EditorHeader-editMetadata" name="editMetadata" novalidate>
+    <div class="modal-body" id="modal-edit-metadata">
+        <h4 translate>Metadata</h4>
+        <div class="form-group" ng-class="{'has-error': editMetadata.displayName.$invalid && editMetadata.displayName.$error.required}">
+            <label class="control-label control-label--required" for="page-displayName" translate>Display name</label>
+            <i class="fa fa-info-circle" uib-tooltip="{{'Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive.' | translate}}" tooltip-placement="right"></i>
+            <input
+                name="displayName"
+                ng-model="ctrl.displayName"
+                class="form-control"
+                id="page-displayName"
+                placeholder="{{ 'Page display name' | translate }}"
+                maxlength="255"
+                required/>
+            <span class="help-block" ng-show="editMetadata.displayName.$invalid
+            && editMetadata.displayName.$error.required" translate>Display name is required.</span>
+        </div>
+        <div class="form-group">
+            <label for="page-description" translate>Description</label>
+            <i class="fa fa-info-circle" uib-tooltip="{{'Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive.' | translate}}" tooltip-placement="right"></i>
+            <textarea
+                name="description"
+                ng-model="ctrl.description"
+                class="form-control"
+                id="page-description"
+                placeholder="{{ 'Page description' | translate }}"/>
+        </div>
+        <div class="form-group" ng-if="ctrl.type.key === 'page' || ctrl.type.key === 'form'">
+            <label class="control-label" for="type" tranlate>Type</label>
+            <i class="fa fa-info-circle" uib-tooltip="{{'You can change the type to be able to use this artifact as a process form or as an application page.' | translate}}" tooltip-placement="right"></i>
+            <div class="radio" ng-repeat="type in ctrl.types">
+                <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="ctrl.type" ng-value="type">{{type.value | translate}}</label>
+            </div>
+        </div>
+        <br/>
+        <h4 translate>Resources
+            <i class="fa fa-info-circle" uib-tooltip="{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}" tooltip-placement="right"></i>
+        </h4>
+        <div class="form-group">
+            <ul>
+                <li ng-repeat=" resource in ctrl.resources track by $index">
+                    {{resource }}
+                </li>
+                <li ng-show="!ctrl.resources.length" translate>No resources used</li>
+            </ul>
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer" id="modal-export-page-controls">
+        <button class="btn btn-primary" ng-click="ctrl.save(editMetadata)" name="save" ng-disabled="editMetadata.$invalid" translate>Save</button>
+        <button class="btn btn-link" ng-click="$dismiss('cancel')" name="cancel" translate>Cancel</button>
+    </div>
+</form>

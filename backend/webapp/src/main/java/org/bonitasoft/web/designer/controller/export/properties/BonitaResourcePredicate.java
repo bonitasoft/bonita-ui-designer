@@ -20,7 +20,7 @@ import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.data.Data;
 
-class BonitaResourcePredicate implements Predicate<Data> {
+public class BonitaResourcePredicate implements Predicate<Data> {
 
     private String bonitaResourceRegex;
 

@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.data.Data;
 
-class BonitaResourceTransformer implements Function<Data, String> {
+public class BonitaResourceTransformer implements Function<Data, String> {
 
     private String bonitaResourceRegex;
 

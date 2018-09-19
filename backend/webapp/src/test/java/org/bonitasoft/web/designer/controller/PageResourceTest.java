@@ -16,8 +16,12 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
@@ -25,6 +29,7 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -44,6 +49,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.core.FakeJsonProcessingException;
 import org.bonitasoft.web.designer.builder.AssetBuilder;
@@ -55,6 +62,8 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -62,6 +71,8 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
+import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.hamcrest.Matchers;
 import org.joda.time.Instant;
 import org.junit.Assert;
@@ -113,6 +124,18 @@ public class PageResourceTest {
     private PageResource pageResource;
 
     private Path widgetRepositoryPath;
+
+    private Component startProcessComponent;
+
+    private Component submitTaskComponent;
+
+    private Page page;
+
+    @Mock
+    private ComponentVisitor componentVisitor;
+
+    @Mock
+    private AuthRulesCollector authRulesCollector;
 
     @Before
     public void setUp() throws URISyntaxException {
@@ -263,7 +286,7 @@ public class PageResourceTest {
         when(pageRepository.getNextAvailableId("page-new-name")).thenReturn("page-new-name");
 
 
-        ResultActions result =  mockMvc
+        ResultActions result = mockMvc
                 .perform(
                         put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
                                 convertObjectToJsonBytes(pageToBeSaved)))
@@ -271,7 +294,7 @@ public class PageResourceTest {
                 .andExpect(header().string(HttpHeaders.LOCATION, "/rest/pages/page-new-name"));
 
         verify(pageRepository).updateLastUpdateAndSave(aPage().withId("page-new-name").withName("page-new-name").build());
-        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"),pageRepository.resolvePath("my-page"), "my-page", "page-new-name");
+        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"), pageRepository.resolvePath("my-page"), "my-page", "page-new-name");
         verify(messagingTemplate).convertAndSend("/previewableRemoval", "my-page");
 
         Assert.assertEquals(MediaType.APPLICATION_JSON.toString(), result.andReturn().getResponse().getContentType());
@@ -418,7 +441,7 @@ public class PageResourceTest {
         ArgumentCaptor<Page> pageArgumentCaptor = ArgumentCaptor.forClass(Page.class);
         verify(pageRepository).getNextAvailableId(newName);
         verify(pageRepository).updateLastUpdateAndSave(pageArgumentCaptor.capture());
-        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"),pageRepository.resolvePath("my-page"), "my-page", "my-page-new-name");
+        verify(pageAssetService).duplicateAsset(pageRepository.resolvePath("my-page"), pageRepository.resolvePath("my-page"), "my-page", "my-page-new-name");
 
         assertThat(pageArgumentCaptor.getValue().getName()).isEqualTo(newName);
         assertThat(pageArgumentCaptor.getValue().getId()).isEqualTo(newName);
@@ -535,7 +558,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets() throws Exception {
         Page page = mockPageOfId("my-page");
-        Asset[] assets = new Asset[] {
+        Asset[] assets = new Asset[]{
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(AssetScope.PAGE).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withScope(AssetScope.PAGE).withType(JAVASCRIPT).build()
@@ -555,7 +578,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets_while_getting_a_page() throws Exception {
         Page page = mockPageOfId("my-page");
-        Asset[] assets = new Asset[] {
+        Asset[] assets = new Asset[]{
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build()
@@ -693,4 +716,64 @@ public class PageResourceTest {
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
     }
 
+    private Data anApiData(String value) {
+        return new Data(URL, value);
+    }
+
+    private void setUpPageForResourcesTests() {
+        page = mockPageOfId("myPage");
+        when(componentVisitor.visit(page)).thenReturn(Collections.<Component>emptyList());
+        startProcessComponent = aComponent()
+                .withPropertyValue("foo", "constant", "Start process")
+                .build();
+        submitTaskComponent = aComponent()
+                .withPropertyValue("foo", "constant", "Submit task")
+                .build();
+    }
+
+    @Test
+    public void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
+        setUpPageForResourcesTests();
+        Set<String> authRules = new TreeSet<>();
+        authRules.add("GET|living/application-menu");
+        authRules.add("POST|bpm/process");
+        page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
+        when(authRulesCollector.visit(page)).thenReturn(authRules);
+
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[GET|bpm/userTask, GET|living/application-menu, POST|bpm/process]");
+    }
+
+    @Test
+    public void should_add_start_process_resource_if_a_start_process_submit_is_contained_in_the_page() throws Exception {
+        setUpPageForResourcesTests();
+        when(componentVisitor.visit(page)).thenReturn(singleton(startProcessComponent));
+
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[POST|bpm/process]");
+    }
+
+    @Test
+    public void should_add_submit_task_resource_if_a_start_submit_task_is_contained_in_the_page() throws Exception {
+        setUpPageForResourcesTests();
+        when(componentVisitor.visit(page)).thenReturn(singleton(submitTaskComponent));
+
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[POST|bpm/userTask]");
+    }
+
+    @Test
+    public void should_combined_start_process_submit_task_and_bonita_resources() throws Exception {
+        setUpPageForResourcesTests();
+        when(componentVisitor.visit(page))
+                .thenReturn(asList(startProcessComponent, submitTaskComponent));
+        page.setData(singletonMap("foo", anApiData("/bonita/API/bpm/userTask")));
+
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[GET|bpm/userTask, POST|bpm/process, POST|bpm/userTask]");
+    }
 }

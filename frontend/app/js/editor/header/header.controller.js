@@ -128,6 +128,24 @@
         this.achieveSaveAndExport(page);
       }
     }
+
+    editMetadata(page) {
+      var resources = this.artifactRepo.loadResources(page);
+      var modalInstance = this.$uibModal.open({
+        templateUrl: 'js/editor/header/metadata-popup.html',
+        controller: 'MetadataPopUpController',
+        controllerAs: 'ctrl',
+        resolve: {
+          page: () => page,
+          resources: () => resources
+        }
+      });
+
+      modalInstance.result
+        .then(() => {
+          this.save(page);
+        });
+    }
   }
 
   angular

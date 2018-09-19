@@ -14,39 +14,20 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.validation.constraints.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.*;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.visitor.ElementVisitor;
-import org.hibernate.validator.constraints.NotBlank;
-import org.joda.time.Instant;
+import org.bonitasoft.web.designer.model.HasUUID;
+import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
 
 public class Page extends AbstractPage implements HasUUID {
 
     //useful for the index and studio
     private String uuid;
     private String type = "page";
+    private String description = "Page generated with Bonita UI designer";
+    private String displayName = "";
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getType() {
         return type;
     }
@@ -55,12 +36,33 @@ public class Page extends AbstractPage implements HasUUID {
         this.type = type;
     }
 
-    @JsonView({ JsonViewLight.class, JsonViewPersistence.class })
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getUUID() {
         return uuid;
     }
 
     public void setUUID(String uuid) {
         this.uuid = uuid;
+    }
+
+
+    @JsonView({JsonViewPersistence.class})
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public String getDisplayName() {
+        return "".equals(displayName) ? this.getName().concat(" ").concat(this.type) : displayName;
+    }
+
+
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }

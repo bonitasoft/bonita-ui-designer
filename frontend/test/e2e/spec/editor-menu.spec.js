@@ -119,4 +119,44 @@ describe('editor menu', function() {
     expect(browser.getCurrentUrl()).toMatch(/.*\/pages\/GoodNewName/);   // http://host:port/#/en/pages/GoodNewName  => in e2e config page name = page id
   });
 
+  it('should edit page metadata', function() {
+    var editor = PageEditor.get('person-page');
+
+    editor.menu.$('#metadata').click();
+
+    var displayName = $('.modal-body input[name="displayName"]');
+    var description = $('.modal-body textarea[name="description"]');
+    var typePage = $('.modal-body input#type-page');
+    var typeForm = $('.modal-body input#type-form');
+    var submitButton = $('.modal-footer .btn-primary');
+
+    // button disabled when we enter a wrong display name
+    displayName.clear();
+    expect(submitButton.isEnabled()).toBeFalsy();
+
+    expect(typePage.getAttribute('checked')).toBeTruthy();
+    expect(typeForm.getAttribute('checked')).toBeFalsy();
+
+    // display name and description are changed
+    displayName.clear();
+    displayName.sendKeys('new display name');
+    description.clear();
+    description.sendKeys('new description');
+    typeForm.click();
+
+    expect(submitButton.isEnabled()).toBeTruthy();
+    submitButton.click();
+
+    editor.menu.$('#metadata').click();
+
+    var newDisplayName = $('.modal-body input[name="displayName"]');
+    expect(newDisplayName.getAttribute('value')).toBe('new display name');
+    var newDescription = $('.modal-body textarea[name="description"]');
+    expect(newDescription.getAttribute('value')).toBe('new description');
+    var newTypeForm = $('.modal-body input#type-form');
+    expect(newTypeForm.getAttribute('checked')).toBeTruthy();
+
+    $('.modal-footer .btn-link').click();
+  });
+
 });

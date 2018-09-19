@@ -50,6 +50,11 @@
         return this.$http.get(`${this.baseUrl}/${page.id}/assets`)
           .then((response) => response.data);
       }
+
+      loadResources(page) {
+        return this.$http.get(`${this.baseUrl}/${page.id}/resources`)
+          .then((response)=> response.data);
+      }
     }
     return new PageRepository();
   }
