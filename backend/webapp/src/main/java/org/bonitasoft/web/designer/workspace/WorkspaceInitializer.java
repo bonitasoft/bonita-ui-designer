@@ -44,6 +44,8 @@ public class WorkspaceInitializer implements ServletContextAware {
     private List<LiveRepositoryUpdate> migrations;
 
     private ServletContext servletContext;
+    
+    private boolean initialized = false;
 
     /**
      * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
@@ -54,18 +56,22 @@ public class WorkspaceInitializer implements ServletContextAware {
     }
 
     @PostConstruct
-    public void contextInitialized() {
-        try {
-            workspace.initialize();
-            for (LiveRepositoryUpdate migration : migrations) {
-                migration.start();
+    public synchronized void contextInitialized() {
+        if(!initialized) {
+            try {
+                workspace.initialize();
+                for (LiveRepositoryUpdate migration : migrations) {
+                    migration.start();
+                }
+                initialized = true;
+            } catch (IOException e) {
+                throw new DesignerInitializerException("Unable to initialize workspace", e);
             }
-        } catch (IOException e) {
-            throw new DesignerInitializerException("Unable to initialize workspace", e);
         }
     }
 
     public synchronized void migrateWorkspace(){
+        contextInitialized(); //Ensure that the worksapce initialization is ended
         for (LiveRepositoryUpdate migration :  migrations.stream().sorted().collect(Collectors.toList())) {
             try {
                 migration.migrate();
