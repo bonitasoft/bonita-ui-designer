@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-08-27 02:08\n"
+"PO-Revision-Date: 2018-09-27 02:13\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -586,6 +586,12 @@ msgstr "Ignorer"
 msgid "Display an image from assets or from a URL"
 msgstr "Afficher une image à partir d'un asset ou d'une URL"
 
+msgid "Display name"
+msgstr ""
+
+msgid "Display name is required."
+msgstr ""
+
 msgid "Display or hide the shortcut button to current day"
 msgstr "Afficher ou masquer le bouton de raccourci pour sélectionner la date du jour"
 
@@ -618,6 +624,9 @@ msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant 
 
 msgid "Each type or container has specific behaviors"
 msgstr "Chaque type de container a des comportements spécifiques"
+
+msgid "Edit ' + vm.page.type + ' information"
+msgstr ""
 
 msgid "Edit asset"
 msgstr "Modifier l'asset"
@@ -994,6 +1003,9 @@ msgstr "Niveau 6"
 msgid "Link"
 msgstr "Lien"
 
+msgid "List of Bonita REST API calls made by the page. As a summary."
+msgstr ""
+
 msgid "List of cases open for a process definition id"
 msgstr "Liste des cas ouverts pour un id de définition de processus"
 
@@ -1035,6 +1047,9 @@ msgstr "Valeur maximum"
 
 msgid "Message"
 msgstr "Message"
+
+msgid "Metadata"
+msgstr ""
 
 msgid "Migration"
 msgstr "Migration"
@@ -1093,6 +1108,9 @@ msgstr "Aucun artefact."
 msgid "No asset"
 msgstr "Aucun asset"
 
+msgid "No resources used"
+msgstr ""
+
 msgid "No variable"
 msgstr "Aucune variable"
 
@@ -1140,6 +1158,12 @@ msgstr "PUT"
 
 msgid "Page Name"
 msgstr "Nom de la page"
+
+msgid "Page description"
+msgstr ""
+
+msgid "Page display name"
+msgstr ""
 
 msgid "Page level"
 msgstr "Niveau de la page"
@@ -1221,6 +1245,9 @@ msgstr "Obligatoire"
 
 msgid "Required angular modules"
 msgstr "Modules AngularJS requis"
+
+msgid "Resources <i class=\"fa fa-info-circle\" uib-tooltip=\"{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}\" tooltip-placement=\"right\"></i>"
+msgstr ""
 
 msgid "Response"
 msgstr "Réponse"
@@ -1749,6 +1776,9 @@ msgstr "Utilisez ce widget pour faire sélectionner une date et une heure (par e
 msgid "Use this widget to:"
 msgstr "Utilisez ce widget pour :"
 
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr ""
+
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
 
@@ -1835,6 +1865,9 @@ msgstr "Vous pouvez également créer des <b>widgets personnalisés</b> depuis l
 
 msgid "You can apply it to the following variable value types:"
 msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
+
+msgid "You can change the type to be able to use this artifact as a process form or as an application page."
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
@@ -2021,4 +2054,7 @@ msgstr "Éditeur de {{ vm.page.type }}"
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenu de {{asset.name}}<expand-modal></expand-modal>"
+
+msgid "{{ctrl.page.name}} information"
+msgstr ""
 

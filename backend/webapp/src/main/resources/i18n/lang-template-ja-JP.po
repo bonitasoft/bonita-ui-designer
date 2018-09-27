@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-08-27 02:13\n"
+"PO-Revision-Date: 2018-09-27 02:20\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -588,6 +588,12 @@ msgstr "変更を破棄"
 msgid "Display an image from assets or from a URL"
 msgstr "アセットまたは URL からイメージを表示します。"
 
+msgid "Display name"
+msgstr ""
+
+msgid "Display name is required."
+msgstr ""
+
 msgid "Display or hide the shortcut button to current day"
 msgstr "現在日にショートカット ボタンを表示または非表示"
 
@@ -620,6 +626,9 @@ msgstr "各生成物は、<em>localization.json</em> アセットを持ち、こ
 
 msgid "Each type or container has specific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
+
+msgid "Edit ' + vm.page.type + ' information"
+msgstr ""
 
 msgid "Edit asset"
 msgstr "アセットを編集"
@@ -997,6 +1006,9 @@ msgstr "レベル 6"
 msgid "Link"
 msgstr "リンク"
 
+msgid "List of Bonita REST API calls made by the page. As a summary."
+msgstr ""
+
 msgid "List of cases open for a process definition id"
 msgstr "プロセス定義ID（processDefinitionId）でオープンする案件のリスト"
 
@@ -1038,6 +1050,9 @@ msgstr "最大値"
 
 msgid "Message"
 msgstr "メッセージ"
+
+msgid "Metadata"
+msgstr ""
 
 msgid "Migration"
 msgstr ""
@@ -1096,6 +1111,9 @@ msgstr "生成物が見つかりません。"
 msgid "No asset"
 msgstr "アセットはありません"
 
+msgid "No resources used"
+msgstr ""
+
 msgid "No variable"
 msgstr "変数はありません"
 
@@ -1143,6 +1161,12 @@ msgstr "PUT"
 
 msgid "Page Name"
 msgstr "ページ名"
+
+msgid "Page description"
+msgstr ""
+
+msgid "Page display name"
+msgstr ""
 
 msgid "Page level"
 msgstr "ページ レベル"
@@ -1224,6 +1248,9 @@ msgstr "必須"
 
 msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
+
+msgid "Resources <i class=\"fa fa-info-circle\" uib-tooltip=\"{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}\" tooltip-placement=\"right\"></i>"
+msgstr ""
 
 msgid "Response"
 msgstr "レスポンス"
@@ -1751,6 +1778,9 @@ msgstr "日時を選択するためには、このウィジェットを使用し
 msgid "Use this widget to:"
 msgstr "このウィジェットを使用:"
 
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr ""
+
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
 
@@ -1837,6 +1867,9 @@ msgstr "ホームページから<b>カスタム ウィジェット</b>も作成�
 
 msgid "You can apply it to the following variable value types:"
 msgstr "次の変数の値型に適用することができます："
+
+msgid "You can change the type to be able to use this artifact as a process form or as an application page."
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
@@ -2020,4 +2053,7 @@ msgstr "{{ vm.page.type }} エディタ"
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
+
+msgid "{{ctrl.page.name}} information"
+msgstr ""
 
