@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.common.services').service('aceDataCompleter', function() {
+angular.module('bonitasoft.designer.common.services').service('aceDataCompleter', function(gettext) {
   return function(data) {
     return {
       getCompletions: function(editor, session, pos, prefix, callback) {
@@ -32,10 +32,18 @@ angular.module('bonitasoft.designer.common.services').service('aceDataCompleter'
             return {
               name: data,
               value: data,
-              score: 2, // increase score to show suggestion on top of the list
+              score: 10, // increase score to show suggestion on top of the list
               meta: 'data' // the suggestion's category
             };
           });
+        // add translation function
+        completions.push({
+          caption: 'uiTranslate()',
+          snippet: 'uiTranslate($0)',
+          score: 9,
+          meta: 'function',
+          docHTML: gettext('Translate the given text')
+        });
         callback(null, completions);
       }
     };

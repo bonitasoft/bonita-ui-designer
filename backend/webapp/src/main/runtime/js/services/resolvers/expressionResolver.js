@@ -5,7 +5,7 @@
     .module('bonitasoft.ui.services')
     .run(createExpressionResolver);
 
-  function createExpressionResolver(Resolver, ResolverService, $log, $rootScope) {
+  function createExpressionResolver(Resolver, ResolverService, $log, $rootScope, $filter) {
 
     class ExpressionResolver extends Resolver {
       constructor(model, name, content) {
@@ -15,9 +15,15 @@
       resolve() {
         // use strict. Avoid pollution of the global object.
         /* jshint evil: true */
-        var expression = new Function('$data', '"use strict";' + this.content);
+        var expression = new Function(
+          '$data',//inject all data
+          'uiTranslate',//inject translate function
+          '"use strict";' + this.content);
         try {
-          this.model[this.name] = expression(this.model);
+          this.model[this.name] = expression(
+            this.model, // all data
+            (text) => $filter('translate')(text) // translate function
+          );
         } catch (e) {
           $log.warn('Error evaluating <', this.name, '> data: ', e.message);
         }

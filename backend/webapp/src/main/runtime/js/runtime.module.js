@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('bonitasoft.ui.constants', []);
-  angular.module('bonitasoft.ui.services', []);
+  angular.module('bonitasoft.ui.services', ['gettext']);
   angular.module('bonitasoft.ui.directives', ['gettext']);
   angular.module('bonitasoft.ui.filters', ['gettext']);
   angular.module('bonitasoft.ui.widgets', ['bonitasoft.ui.filters', 'bonitasoft.ui.services', 'ngSanitize']);

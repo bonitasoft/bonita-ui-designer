@@ -12,14 +12,24 @@ describe('ace-data-completer', function() {
   });
 
   describe('getCompletions', function() {
-    it('should return an of completions ', function() {
+    it('should return each data in completions', function () {
+      var data = {
+        'users': {value: []}
+      };
+      var completer = service(data);
+      completer.getCompletions(null, null, 0, '', function (err, results) {
+        expect(results).toContain({name: '$data.users', value: '$data.users', score: 10, meta: 'data'});
+      });
+    });
+    it('should return translate function in completions', function () {
       var data = {
         'users': { value: [] }
       };
       var completer = service(data);
       completer.getCompletions(null, null, 0, '' ,function(err, results) {
-        expect(results.length).toBe(1);
-        expect(results).toEqual([{ name: '$data.users', value: '$data.users', score: 2, meta: 'data' }]);
+        expect(results.find((e) => {
+          return e.caption && e.caption.includes('uiTranslate');
+        })).toBeDefined();
       });
     });
   });
