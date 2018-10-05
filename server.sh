@@ -15,7 +15,11 @@ waitJetty() {
 }
 
 echo Using $bonita.portal.origin as portal origin. You can edit it in community/server.sh
-(cd backend/webapp/ && yarn start &)
-waitJetty
-(cd frontend/ && yarn start)
+yarnCrossPlatform="yarn"
+if [ "$OSTYPE" = "msys" ];then
+   yarnCrossPlatform="yarn.cmd"
+fi
 
+(cd backend/webapp/ && $yarnCrossPlatform start &)
+waitJetty
+(cd frontend/ && $yarnCrossPlatform start)
