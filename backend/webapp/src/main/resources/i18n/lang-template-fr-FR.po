@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-09-27 02:13\n"
+"PO-Revision-Date: 2018-10-08 02:29\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -1679,6 +1679,9 @@ msgstr "Info-bulle"
 
 msgid "Top frame (_top)"
 msgstr "Cadre supérieur (_top)"
+
+msgid "Translate the given text"
+msgstr ""
 
 msgid "Treat as"
 msgstr "Traiter comme"
