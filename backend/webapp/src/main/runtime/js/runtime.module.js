@@ -3,6 +3,7 @@
 
   angular.module('bonitasoft.ui.constants', []);
   angular.module('bonitasoft.ui.services', ['gettext']);
+  angular.module('bonitasoft.ui.i18n', ['ngCookies', 'gettext']);
   angular.module('bonitasoft.ui.directives', ['gettext']);
   angular.module('bonitasoft.ui.filters', ['gettext']);
   angular.module('bonitasoft.ui.widgets', ['bonitasoft.ui.filters', 'bonitasoft.ui.services', 'ngSanitize']);
@@ -16,6 +17,7 @@
     'ngSanitize',
     'ngMessages',
     'bonitasoft.ui.templates',
+    'bonitasoft.ui.i18n',
     'bonitasoft.ui.constants',
     'bonitasoft.ui.services',
     'bonitasoft.ui.directives',
@@ -25,4 +27,3 @@
     'pb.generator'
   ]);
 })();
-

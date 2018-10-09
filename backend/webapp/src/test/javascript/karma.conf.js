@@ -25,6 +25,7 @@ module.exports = function (config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',
       'bower_components/angular-gettext/dist/angular-gettext.min.js',
+      'bower_components/angular-cookies/angular-cookies.min.js',
 
       'src/main/runtime/js/**/*.module.js',
       'src/main/runtime/js/**/*.js',

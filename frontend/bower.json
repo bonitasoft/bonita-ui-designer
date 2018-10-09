@@ -25,6 +25,7 @@
     "angular-ui-ace": "0.1.1",
     "bonita-js-components": "bonitasoft/bonita-js-components#0.5.3",
     "angular-gettext": "2.0.1",
+    "angular-cookies": "1.4.7",
     "angular-ui-router": "0.2.13",
     "sockjs": "0.3.4",
     "stomp-websocket": "2.3.4",

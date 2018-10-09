@@ -2,10 +2,11 @@ describe('Service: bindingService', function () {
 
   beforeEach(module('bonitasoft.ui.services'));
 
-  let bindingService, property, context;
+  let bindingService, property, context, gettextCatalog;
 
-  beforeEach(inject(function (_bindingService_) {
+  beforeEach(inject(function (_bindingService_, _gettextCatalog_) {
     bindingService = _bindingService_;
+    gettextCatalog = _gettextCatalog_;
     property = {};
     context = {};
   }));
@@ -108,5 +109,20 @@ describe('Service: bindingService', function () {
     expect(function() {
       bindingService.create(property, context);
     }).toThrowError();
+  });
+
+  it('should translate an interpolated variable', function() {
+    gettextCatalog.setStrings('fr-FR', {
+      'Hello {{ userName }}': 'Bonjour {{ userName }}'
+    });
+    gettextCatalog.setCurrentLanguage('fr-FR');
+    property.type = 'interpolation';
+    property.value = 'Hello {{ userName }}';
+    context.userName = 'Vincent';
+
+    let binding = bindingService.create(property, context);
+
+    expect(binding.constructor.name).toBe('InterpolationBinding');
+    expect(binding.getValue()).toBe('Bonjour Vincent');
   });
 });

@@ -19,6 +19,7 @@ var paths = {
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'bower_components/angular-ui-validate/dist/validate.js',
     'bower_components/angular-ui-ace/ui-ace.min.js',
+    'bower_components/angular-cookies/angular-cookies.min.js',
     'bower_components/ngUpload/ng-upload.min.js',
     'bower_components/bonita-js-components/dist/bonita-lib-tpl.min.js',
     'bower_components/angular-gettext/dist/angular-gettext.min.js',

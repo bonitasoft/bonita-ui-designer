@@ -1,12 +1,12 @@
 (function () {
   'use strict';
 
-  angular.module('bonitasoft.ui.services').service('InterpolationBinding', (Binding, $interpolate) => (
+  angular.module('bonitasoft.ui.services').service('InterpolationBinding', (Binding, gettextCatalog) => (
 
     class InterpolationBinding extends Binding {
 
       getValue() {
-        return $interpolate(this.property.value || '')(this.context);
+        return gettextCatalog.getString(this.property.value || '', this.context);
       }
     }
   ));
