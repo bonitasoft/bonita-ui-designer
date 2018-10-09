@@ -20,7 +20,7 @@
                    ng-trim="false"
                    required>
             <button type="button" id="metadata" ng-if="vm.page.type === 'page' || vm.page.type === 'form' || vm.page.type === 'layout'" class="btn btn-bonita-primary" ng-click="vm.editMetadata(vm.page)"
-                    uib-tooltip="{{ 'Edit ' + vm.page.type + ' information' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300">
+                    uib-tooltip="{{ vm.page.type + ' information' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300">
                 <i class="ui-icon ui-tags"></i>
             </button>
             <div class="btn-group" uib-dropdown>

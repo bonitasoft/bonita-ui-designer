@@ -27,6 +27,7 @@ import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMo
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -240,7 +241,7 @@ public class PageResource extends AssetResource<Page> {
 
         resources.addAll(authRulesCollector.visit(page));
 
-        return resources;
+        return resources.stream().distinct().collect(Collectors.toList());
     }
 
 }

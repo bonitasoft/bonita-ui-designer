@@ -30,21 +30,21 @@
         </div>
         <div class="form-group" ng-if="ctrl.type.key === 'page' || ctrl.type.key === 'form'">
             <label class="control-label" for="type" tranlate>Type</label>
-            <i class="fa fa-info-circle" uib-tooltip="{{'You can change the type to be able to use this artifact as a process form or as an application page.' | translate}}" tooltip-placement="right"></i>
+            <i id="type" class="fa fa-info-circle" uib-tooltip="{{'You can change the type to be able to use this artifact as a process form or as an application page.' | translate}}" tooltip-placement="right"></i>
             <div class="radio" ng-repeat="type in ctrl.types">
                 <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="ctrl.type" ng-value="type">{{type.value | translate}}</label>
             </div>
         </div>
         <br/>
-        <h4 translate>Resources
-            <i class="fa fa-info-circle" uib-tooltip="{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}" tooltip-placement="right"></i>
+        <h4 translate>Bonita REST API calls
+            <i class="fa fa-info-circle" uib-tooltip="{{'Summary of the Bonita REST API calls made by the page.' | translate}}" tooltip-placement="right"></i>
         </h4>
         <div class="form-group">
             <ul>
                 <li ng-repeat=" resource in ctrl.resources track by $index">
                     {{resource }}
                 </li>
-                <li ng-show="!ctrl.resources.length" translate>No resources used</li>
+                <li ng-show="!ctrl.resources.length" translate>No Bonita REST API calls.</li>
             </ul>
             </p>
         </div>

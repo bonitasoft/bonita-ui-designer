@@ -57,7 +57,7 @@ public class Page extends AbstractPage implements HasUUID {
 
     @JsonView({JsonViewPersistence.class})
     public String getDisplayName() {
-        return "".equals(displayName) ? this.getName().concat(" ").concat(this.type) : displayName;
+        return "".equals(displayName) ? this.getName() : displayName;
     }
 
 
