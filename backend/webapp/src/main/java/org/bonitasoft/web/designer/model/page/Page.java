@@ -60,8 +60,6 @@ public class Page extends AbstractPage implements HasUUID {
         return "".equals(displayName) ? this.getName() : displayName;
     }
 
-
-
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }

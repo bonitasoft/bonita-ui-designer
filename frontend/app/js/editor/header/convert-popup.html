@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 class="modal-title" translate>Convert {{ctrl.page.name}}</h3>
+</div>
+<form class="form EditorHeader-convert" name="convert" novalidate>
+    <div class="modal-body" id="modal-convert">
+        <p translate>
+            In the Studio, a form must be linked to a process or a task, using the contract; a page is
+            linked to an application descriptor.</p>
+        <div class="form-group" ng-if="ctrl.type.key === 'page' || ctrl.type.key === 'form'">
+            <label class="control-label" for="type" tranlate>Type</label>
+            <div id="type" class="radio" ng-repeat="type in ctrl.types">
+                <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="ctrl.type" ng-value="type">{{type.value
+                    | translate}}</label>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer" id="modal-export-page-controls">
+        <button class="btn btn-primary" ng-click="ctrl.save(editMetadata)" name="save"
+                ng-disabled="editMetadata.$invalid" translate>Save
+        </button>
+        <button class="btn btn-link" ng-click="$dismiss('cancel')" name="cancel" translate>Cancel</button>
+    </div>
+</form>

@@ -4,6 +4,7 @@
 <form class="form" name="newPage">
     <div class="modal-body" id="modal-save-page-as">
         <div class="form-group">
+            <label class="control-label" for="page-name" tranlate>Name</label>
             <input
                 name="name"
                 ng-model="ctrl.newName"
@@ -12,6 +13,16 @@
                 id="page-name"
                 placeholder="{{ 'Page Name' | translate }}"
                 required>
+        </div>
+        <div class="form-group" ng-if="ctrl.type.key === 'page' || ctrl.type.key === 'form'">
+            <label class="control-label" for="type" tranlate>Type</label>
+            <i class="fa fa-info-circle" uib-tooltip="{{'You can change the type to be able to use this artifact as a process form or as an application page.' | translate}}" tooltip-placement="right"></i>
+            <div id="type" class="radio" ng-repeat="type in ctrl.types">
+                <label>
+                    <input type="radio" name="type" id="type-{{type.key}}" ng-model="ctrl.type" ng-value="type">{{type.value | translate}}
+                    <i class="fa fa-info-circle" uib-tooltip="{{type.tooltip | translate}}" tooltip-placement="right"></i>
+                </label>
+            </div>
         </div>
     </div>
     <div class="modal-footer" id="modal-delete-page-controls">

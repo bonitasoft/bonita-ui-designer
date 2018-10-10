@@ -31,6 +31,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a id="saveAs" class="clickable" ng-click="vm.saveAs(vm.page)" ng-disabled="!formName.$valid" translate>Save as ...</a></li>
+                    <li ng-if="vm.page.type === 'page' || vm.page.type === 'form'"><a id="convert" class="clickable" ng-click="vm.convert(vm.page)" ng-disabled="!formName.$valid" translate>Convert to ...</a></li>
                 </ul>
             </div>
             <button type="button" id="export" class="btn btn-bonita-primary" ng-disabled="!formName.$valid" ng-click="vm.saveAndExport(vm.page)"

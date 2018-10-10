@@ -84,6 +84,22 @@
         .then(() => this.$state.go(`designer.${page.type}`, this.$stateParams, { reload: true }));
     }
 
+    convert(page) {
+      var modalInstance = this.$uibModal.open({
+        templateUrl: 'js/editor/header/convert-popup.html',
+        controller: 'ConvertPopUpController',
+        controllerAs: 'ctrl',
+        resolve: {
+          page: () => page
+        }
+      });
+
+      modalInstance.result
+        .then(() => {
+          this.save(page);
+        });
+    }
+
     removeReferences(data) {
       if (angular.isArray(data)) {
         data.forEach(item => this.removeReferences(item));

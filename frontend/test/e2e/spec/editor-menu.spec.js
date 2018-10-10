@@ -103,9 +103,13 @@ describe('editor menu', function() {
 
     var newName = $('.modal-body input[name="name"]');
     var submitButton = $('.modal-footer .btn-primary');
+    var typePage = $('.modal-body input#type-page');
+    var typeForm = $('.modal-body input#type-form');
 
     // input should be filled with current page name
     expect(newName.getAttribute('value')).toBe('Person');
+    expect(typePage.getAttribute('checked')).toBeTruthy();
+    expect(typeForm.getAttribute('checked')).toBeFalsy();
 
     // button disabled when we enter a wrong page name
     newName.clear();
@@ -126,23 +130,18 @@ describe('editor menu', function() {
 
     var displayName = $('.modal-body input[name="displayName"]');
     var description = $('.modal-body textarea[name="description"]');
-    var typePage = $('.modal-body input#type-page');
-    var typeForm = $('.modal-body input#type-form');
     var submitButton = $('.modal-footer .btn-primary');
+
 
     // button disabled when we enter a wrong display name
     displayName.clear();
     expect(submitButton.isEnabled()).toBeFalsy();
-
-    expect(typePage.getAttribute('checked')).toBeTruthy();
-    expect(typeForm.getAttribute('checked')).toBeFalsy();
 
     // display name and description are changed
     displayName.clear();
     displayName.sendKeys('new display name');
     description.clear();
     description.sendKeys('new description');
-    typeForm.click();
 
     expect(submitButton.isEnabled()).toBeTruthy();
     submitButton.click();
@@ -153,6 +152,34 @@ describe('editor menu', function() {
     expect(newDisplayName.getAttribute('value')).toBe('new display name');
     var newDescription = $('.modal-body textarea[name="description"]');
     expect(newDescription.getAttribute('value')).toBe('new description');
+
+
+    $('.modal-footer .btn-link').click();
+  });
+
+  it('should convert page', function() {
+    var editor = PageEditor.get('person-page');
+
+    editor.menu.$('button.dropdown-toggle').click();
+    editor.menu.$('#convert').click();
+
+    var typePage = $('.modal-body input#type-page');
+    var typeForm = $('.modal-body input#type-form');
+    var submitButton = $('.modal-footer .btn-primary');
+
+    expect(submitButton.isEnabled()).toBeTruthy();
+
+    expect(typePage.getAttribute('checked')).toBeTruthy();
+    expect(typeForm.getAttribute('checked')).toBeFalsy();
+
+    typeForm.click();
+
+    expect(submitButton.isEnabled()).toBeTruthy();
+    submitButton.click();
+
+    editor.menu.$('button.dropdown-toggle').click();
+    editor.menu.$('#convert').click();
+
     var newTypeForm = $('.modal-body input#type-form');
     expect(newTypeForm.getAttribute('checked')).toBeTruthy();
 

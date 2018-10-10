@@ -203,5 +203,18 @@
         'rows': [ [{ 'type': 'fragment', 'id': '6c959a04-a8a8-4fde-b8d8-b76323cd1629', }] ],
         'inactiveAssets': [], 'data': {} });
     });
+
+    it('should open convert popup', function() {
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
+      spyOn(pageRepo, 'save').and.returnValue($q.when({headers : () => {}}));
+      var page = { id: 'person', type: 'page'};
+      controller.convert(page);
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/convert-popup.html');
+      expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('ConvertPopUpController');
+      modalInstance.close(page);
+      scope.$apply();
+      expect(pageRepo.save).toHaveBeenCalledWith(page);
+    });
   });
 })();

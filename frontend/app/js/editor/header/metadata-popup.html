@@ -28,13 +28,6 @@
                 id="page-description"
                 placeholder="{{ 'Page description' | translate }}"/>
         </div>
-        <div class="form-group" ng-if="ctrl.type.key === 'page' || ctrl.type.key === 'form'">
-            <label class="control-label" for="type" tranlate>Type</label>
-            <i id="type" class="fa fa-info-circle" uib-tooltip="{{'You can change the type to be able to use this artifact as a process form or as an application page.' | translate}}" tooltip-placement="right"></i>
-            <div class="radio" ng-repeat="type in ctrl.types">
-                <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="ctrl.type" ng-value="type">{{type.value | translate}}</label>
-            </div>
-        </div>
         <br/>
         <h4 translate>Bonita REST API calls
             <i class="fa fa-info-circle" uib-tooltip="{{'Summary of the Bonita REST API calls made by the page.' | translate}}" tooltip-placement="right"></i>
