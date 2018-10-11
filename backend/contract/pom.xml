@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.bonitasoft.web</groupId>
         <artifactId>ui-designer-backend</artifactId>
-        <version>1.8-SNAPSHOT</version>
+        <version>1.8.19</version>
     </parent>
 
     <artifactId>ui-designer-backend-contract</artifactId>
