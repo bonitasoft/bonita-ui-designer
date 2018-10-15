@@ -41,6 +41,8 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
         .minutes(time.minutes())
         .seconds(time.seconds())
       );
+    } else {
+      $scope.properties.value = undefined;
     }
   };
 
@@ -62,6 +64,8 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
           .seconds(0)
         );
       }
+    } else {
+      $scope.properties.value = undefined;
     }
   };
 
