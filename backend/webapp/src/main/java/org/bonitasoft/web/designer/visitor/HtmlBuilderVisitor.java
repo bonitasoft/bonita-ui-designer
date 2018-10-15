@@ -202,7 +202,9 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                         } else {
                             assetHash = getHash(asset, pageAssetRepository, previewableId);
                         }
-                        assetsSrc.add(String.format("%sassets/%s/%s?hash=%s", widgetPrefix, asset.getType().getPrefix(), asset.getName(), assetHash));
+                        if (!assetsSrc.contains(asset.getName())) {
+                            assetsSrc.add(String.format("%sassets/%s/%s?hash=%s", widgetPrefix, asset.getType().getPrefix(), asset.getName(), assetHash));
+                        }
                     }
                 });
         return assetsSrc;

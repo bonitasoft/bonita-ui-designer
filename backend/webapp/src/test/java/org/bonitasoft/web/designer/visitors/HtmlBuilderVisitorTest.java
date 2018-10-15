@@ -78,17 +78,17 @@ public class HtmlBuilderVisitorTest {
 
     @Mock
     private AssetVisitor assetVisitor;
-    
+
     @Mock
     private AssetRepository<Page> pageAssetRepository;
-    
+
     @Mock
     private AssetRepository<Widget> widgetAssetRepository;
 
     private HtmlBuilderVisitor visitor;
-    
+
     private static final byte[] assetsContent = new byte[0];
-    
+
     private String assetSHA1;
 
     @Mock
@@ -224,7 +224,7 @@ public class HtmlBuilderVisitorTest {
     public void should_generate_an_html_with_the_list_of_widgets() throws Exception {
         Page page = aPage().withId("page-id").build();
         when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
-        when(directivesCollector.buildUniqueDirectivesFiles(page,page.getId())).thenReturn(Arrays.asList("assets/widgets.js"));
+        when(directivesCollector.buildUniqueDirectivesFiles(page, page.getId())).thenReturn(Arrays.asList("assets/widgets.js"));
 
         // when we generate the html
         String generatedHtml = visitor.build(page, "mycontext/");
@@ -256,7 +256,7 @@ public class HtmlBuilderVisitorTest {
                         .withReference("container-reference"))
                 .build();
         when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
-        when(directivesCollector.buildUniqueDirectivesFiles(page,page.getId())).thenReturn(Arrays.asList
+        when(directivesCollector.buildUniqueDirectivesFiles(page, page.getId())).thenReturn(Arrays.asList
                 ("assets/widgets-f8b2ef17808cccb95dbf0973e7745cd53c29c684.js"));
         when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(assetRelative, assetJquery, assetLocal));
 
@@ -379,5 +379,51 @@ public class HtmlBuilderVisitorTest {
                 "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script> \n" +
                 "<script src=\"widgets/zidget-id/assets/js/myfile4.js?hash=" + assetSHA1 + "\"></script> \n" +
                 "<script src=\"assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>");
+    }
+
+    @Test
+    public void should_import_asset_only_once_for_each_widget() throws Exception {
+        Page page = aPage().build();
+
+        when(assetVisitor.visit(page)).thenReturn(
+                Sets.newHashSet(
+                        new Asset().setName("myfile5.js").setOrder(0).setType(AssetType.JAVASCRIPT),
+                        new Asset().setName("myfile2.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile3.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile3.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile2.js").setOrder(5).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id")));
+
+        String html = visitor.build(page, "mycontext/");
+
+        String head = Jsoup.parse(html).head().html();
+
+        // The page should contain exactly these imports
+        assertThat(head).contains(
+                "<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script> \n" +
+                        "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script> \n" +
+                        "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script> \n" +
+                        "<script src=\"assets/js/myfile5.js?hash=" + assetSHA1 + "\"></script>");
+    }
+
+    @Test
+    public void should_import_asset_only_once_globally() throws Exception {
+        Page page = aPage().build();
+
+        when(assetVisitor.visit(page)).thenReturn(
+                Sets.newHashSet(
+                        new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
+                        new Asset().setName("myfile1.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"),
+                        new Asset().setName("myfile1.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("gidget-id"),
+                        new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("vidget-id"),
+                        new Asset().setName("myfile1.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("nidget-id")));
+
+        String html = visitor.build(page, "mycontext/");
+
+        String head = Jsoup.parse(html).head().html();
+
+        // The page should contain exactly these imports
+        assertThat(head).contains(
+                "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script> \n");
     }
 }
