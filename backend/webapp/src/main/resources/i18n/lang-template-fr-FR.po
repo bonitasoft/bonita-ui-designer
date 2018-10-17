@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-10-08 02:29\n"
+"PO-Revision-Date: 2018-10-17 08:27\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -299,6 +299,9 @@ msgstr "Binding bidirectionnel"
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
+msgid "Bonita REST API calls"
+msgstr ""
+
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Par convention, dans le fichier <em>localization.json</em>, la langue utilisée pour les clés de traduction est l'anglais. Cela veut dire que sur le tableau blanc dans l'éditeur des artéfacts, le texte des widgets est en anglais par défaut. Cependant, pour faciliter la maintenance et la mise à jour des artéfacts en anglais, vous pouvez remplacer ces clés par des noms de code et ajouter une section <b>en-US</b> dans le fichier <em>localization.json</em>."
 
@@ -421,6 +424,12 @@ msgstr "Contenu"
 
 msgid "Controller"
 msgstr "Controller"
+
+msgid "Convert to ..."
+msgstr ""
+
+msgid "Convert {{ctrl.page.name}}"
+msgstr ""
 
 msgid "Corrupted zip archive."
 msgstr "L'archive zip est corrompue."
@@ -624,9 +633,6 @@ msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant 
 
 msgid "Each type or container has specific behaviors"
 msgstr "Chaque type de container a des comportements spécifiques"
-
-msgid "Edit ' + vm.page.type + ' information"
-msgstr ""
 
 msgid "Edit asset"
 msgstr "Modifier l'asset"
@@ -889,6 +895,9 @@ msgstr "Dans le dossier"
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artefacts des interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
+msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr ""
+
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
 
@@ -1003,7 +1012,10 @@ msgstr "Niveau 6"
 msgid "Link"
 msgstr "Lien"
 
-msgid "List of Bonita REST API calls made by the page. As a summary."
+msgid "Linked to a process instantiation or a task, using the contract"
+msgstr ""
+
+msgid "Linked to an application descriptor."
 msgstr ""
 
 msgid "List of cases open for a process definition id"
@@ -1102,14 +1114,14 @@ msgstr "Page suivante à afficher, dans une application. Dans le portail, ce cha
 msgid "No"
 msgstr "Non"
 
+msgid "No Bonita REST API calls."
+msgstr ""
+
 msgid "No artifact found."
 msgstr "Aucun artefact."
 
 msgid "No asset"
 msgstr "Aucun asset"
-
-msgid "No resources used"
-msgstr ""
 
 msgid "No variable"
 msgstr "Aucune variable"
@@ -1245,9 +1257,6 @@ msgstr "Obligatoire"
 
 msgid "Required angular modules"
 msgstr "Modules AngularJS requis"
-
-msgid "Resources <i class=\"fa fa-info-circle\" uib-tooltip=\"{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}\" tooltip-placement=\"right\"></i>"
-msgstr ""
 
 msgid "Response"
 msgstr "Réponse"
@@ -1437,6 +1446,9 @@ msgstr "Importation réussie"
 
 msgid "Successful response value"
 msgstr "Valeur de réponse en cas de succès"
+
+msgid "Summary of the Bonita REST API calls made by the page."
+msgstr ""
 
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"

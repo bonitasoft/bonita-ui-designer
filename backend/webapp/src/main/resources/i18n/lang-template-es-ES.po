@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-10-08 03:14\n"
+"PO-Revision-Date: 2018-10-17 08:48\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -301,6 +301,9 @@ msgstr "Enlace bidireccional"
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
+msgid "Bonita REST API calls"
+msgstr ""
+
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
 
@@ -423,6 +426,12 @@ msgstr "Contenido"
 
 msgid "Controller"
 msgstr "Controller"
+
+msgid "Convert to ..."
+msgstr ""
+
+msgid "Convert {{ctrl.page.name}}"
+msgstr ""
 
 msgid "Corrupted zip archive."
 msgstr "El archivo zip está corrupto."
@@ -626,9 +635,6 @@ msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con cl
 
 msgid "Each type or container has specific behaviors"
 msgstr "Cada tipo de contenedor tiene comportamientos específicos"
-
-msgid "Edit ' + vm.page.type + ' information"
-msgstr ""
 
 msgid "Edit asset"
 msgstr "Actualizar recurso"
@@ -891,6 +897,9 @@ msgstr "En la carpeta"
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
+msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr ""
+
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "En el contexto de un contenedor de formulario, utilice $form.$invalid como un valor booleano para comprobar la validez del formulario en una propiedad del widget"
 
@@ -1005,7 +1014,10 @@ msgstr "Nivel 6"
 msgid "Link"
 msgstr "Enlace"
 
-msgid "List of Bonita REST API calls made by the page. As a summary."
+msgid "Linked to a process instantiation or a task, using the contract"
+msgstr ""
+
+msgid "Linked to an application descriptor."
 msgstr ""
 
 msgid "List of cases open for a process definition id"
@@ -1104,14 +1116,14 @@ msgstr "Página siguiente para mostrar, en las aplicaciones. En el Portal, se ig
 msgid "No"
 msgstr "No"
 
+msgid "No Bonita REST API calls."
+msgstr ""
+
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
 
 msgid "No asset"
 msgstr "No hay recursos"
-
-msgid "No resources used"
-msgstr ""
 
 msgid "No variable"
 msgstr "Sin variables"
@@ -1247,9 +1259,6 @@ msgstr "Requerido"
 
 msgid "Required angular modules"
 msgstr "Módulos angular requeridos"
-
-msgid "Resources <i class=\"fa fa-info-circle\" uib-tooltip=\"{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}\" tooltip-placement=\"right\"></i>"
-msgstr ""
 
 msgid "Response"
 msgstr "Respuesta"
@@ -1439,6 +1448,9 @@ msgstr "Importación exitosa"
 
 msgid "Successful response value"
 msgstr "Valor de la respuesta exitosa"
+
+msgid "Summary of the Bonita REST API calls made by the page."
+msgstr ""
 
 msgid "Tabular presentation of data from an array"
 msgstr "Presentación en formato tabla de una matriz de datos"

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-10-08 02:43\n"
+"PO-Revision-Date: 2018-10-17 08:34\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -301,6 +301,9 @@ msgstr "双方向バインド"
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
+msgid "Bonita REST API calls"
+msgstr ""
+
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI 生成物の表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
 
@@ -423,6 +426,12 @@ msgstr "コンテンツ"
 
 msgid "Controller"
 msgstr "コントローラー"
+
+msgid "Convert to ..."
+msgstr ""
+
+msgid "Convert {{ctrl.page.name}}"
+msgstr ""
 
 msgid "Corrupted zip archive."
 msgstr "破損した zip アーカイブです。"
@@ -626,9 +635,6 @@ msgstr "各生成物は、<em>localization.json</em> アセットを持ち、こ
 
 msgid "Each type or container has specific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
-
-msgid "Edit ' + vm.page.type + ' information"
-msgstr ""
 
 msgid "Edit asset"
 msgstr "アセットを編集"
@@ -891,6 +897,9 @@ msgstr ""
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
 
+msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr ""
+
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "フォーム コンテナのコンテンツの中で $form.$invalid をウィジェット プロパティ内のブーリアン変数として使用し、フォームの妥当性をチェックします。"
 
@@ -1006,7 +1015,10 @@ msgstr "レベル 6"
 msgid "Link"
 msgstr "リンク"
 
-msgid "List of Bonita REST API calls made by the page. As a summary."
+msgid "Linked to a process instantiation or a task, using the contract"
+msgstr ""
+
+msgid "Linked to an application descriptor."
 msgstr ""
 
 msgid "List of cases open for a process definition id"
@@ -1105,14 +1117,14 @@ msgstr "アプリケーションに表示する次のページ。ポータルで
 msgid "No"
 msgstr "いいえ"
 
+msgid "No Bonita REST API calls."
+msgstr ""
+
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
 
 msgid "No asset"
 msgstr "アセットはありません"
-
-msgid "No resources used"
-msgstr ""
 
 msgid "No variable"
 msgstr "変数はありません"
@@ -1248,9 +1260,6 @@ msgstr "必須"
 
 msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
-
-msgid "Resources <i class=\"fa fa-info-circle\" uib-tooltip=\"{{'List of Bonita REST API calls made by the page. As a summary.' | translate}}\" tooltip-placement=\"right\"></i>"
-msgstr ""
 
 msgid "Response"
 msgstr "レスポンス"
@@ -1440,6 +1449,9 @@ msgstr "インポートが成功しました。"
 
 msgid "Successful response value"
 msgstr "成功時のレスポンス値"
+
+msgid "Summary of the Bonita REST API calls made by the page."
+msgstr ""
 
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
