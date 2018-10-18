@@ -18,6 +18,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
@@ -33,6 +34,8 @@ public interface ElementVisitor<T> {
     T visit(FormContainer formContainer);
 
     T visit(TabsContainer tabsContainer);
+
+    T visit(ModalContainer modalContainer);
 
     T visit(Component component);
 

@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -87,6 +88,16 @@ public class ComponentVisitorTest {
 
         Iterable<Component> components = componentVisitor.visit(aPage()
                 .with(component)
+                .build());
+
+        assertThat(components).containsExactly(component);
+    }
+
+    @Test
+    public void should_collect_component_from_a_modal_container() throws Exception {
+        Iterable<Component> components = componentVisitor.visit(aModalContainer()
+                .with(aContainer()
+                        .with(component))
                 .build());
 
         assertThat(components).containsExactly(component);

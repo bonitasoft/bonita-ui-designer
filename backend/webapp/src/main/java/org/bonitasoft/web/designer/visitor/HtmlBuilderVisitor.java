@@ -31,6 +31,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
@@ -62,11 +63,11 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     private AssetRepository<Widget> widgetAssetRepository;
 
     public HtmlBuilderVisitor(List<PageFactory> pageFactories,
-            RequiredModulesVisitor requiredModulesVisitor,
-            AssetVisitor assetVisitor,
-            DirectivesCollector directivesCollector,
-            AssetRepository<Page> pageAssetRepository,
-            AssetRepository<Widget> widgetAssetRepository) {
+                              RequiredModulesVisitor requiredModulesVisitor,
+                              AssetVisitor assetVisitor,
+                              DirectivesCollector directivesCollector,
+                              AssetRepository<Page> pageAssetRepository,
+                              AssetRepository<Widget> widgetAssetRepository) {
         this.pageFactories = pageFactories;
         this.requiredModulesVisitor = requiredModulesVisitor;
         this.assetVisitor = assetVisitor;
@@ -104,6 +105,14 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     }
 
     @Override
+    public String visit(ModalContainer modalContainer) {
+        return new TemplateEngine("modalContainer.hbs.html")
+                .with("content", modalContainer.getContainer().accept(this))
+                .with("modalidHtml", modalContainer.getPropertyValues().get("modalId").getValue())
+                .build(modalContainer);
+    }
+
+    @Override
     public String visit(Component component) {
 
         return new TemplateEngine("component.hbs.html")
@@ -122,7 +131,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * Build a previewable HTML, based on the given list of widgets
      * TODO: once resourceContext remove we can merge this method with HtmlBuilderVisitor#visit(Previewable)
      *
-     * @param previewable to build
+     * @param previewable     to build
      * @param resourceContext the URL context can change on export or preview...
      */
     public <P extends Previewable & Identifiable> String build(final P previewable, String resourceContext) {

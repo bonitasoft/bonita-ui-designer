@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
@@ -58,6 +59,14 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
             widgetIds.addAll(tab.getContainer().accept(this));
         }
         widgetIds.add(tabsContainer.getId());
+        return widgetIds;
+    }
+
+    @Override
+    public Set<String> visit(ModalContainer modalContainer) {
+        Set<String> widgetIds = new HashSet<>();
+        widgetIds.addAll(modalContainer.getContainer().accept(this));
+        widgetIds.add(modalContainer.getId());
         return widgetIds;
     }
 

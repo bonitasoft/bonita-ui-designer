@@ -1,0 +1,6 @@
+<div class="widget-wrapper">
+    <i title="{{ 'Modal container' | translate }}"></i>
+    <component-mover component="modalContainer" on-delete="editor.removeCurrentComponent()"
+                     ng-if="editor.isCurrentComponent(modalContainer)"></component-mover>
+    <container container="modalContainer.container" editor="editor"></container>
+</div>

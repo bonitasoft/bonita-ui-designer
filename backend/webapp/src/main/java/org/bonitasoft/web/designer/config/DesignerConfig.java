@@ -43,6 +43,7 @@ import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -87,7 +88,7 @@ public class DesignerConfig {
 
     @Bean
     public Class[] jacksonSubTypes() {
-        return new Class[]{Component.class, Container.class, FormContainer.class, TabsContainer.class};
+        return new Class[]{Component.class, Container.class, FormContainer.class, TabsContainer.class, ModalContainer.class};
     }
 
     @Bean

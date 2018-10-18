@@ -19,6 +19,7 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -164,7 +165,7 @@ public class AssetVisitorTest {
                 aTab().with(aContainer().with(component1)),
                 aTab().with(aContainer().with(component2))).build());
 
-        assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css","bootstrap.min.js");
+        assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css", "bootstrap.min.js");
         assertThat(assets.iterator().next().getComponentId()).isNotEmpty();
 
     }
@@ -191,4 +192,17 @@ public class AssetVisitorTest {
         assertThat(assets).extracting("name").contains("myfile.js", "myfile.css");
         assertThat(assets).extracting("active").contains(true, false);
     }
+
+    @Test
+    public void should_return_list_of_asset_needed_by_widgets_in_modal_container() throws Exception {
+        Component component1 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), UUID.randomUUID().toString(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+
+        when(widgetRepository.get("pbModalContainer")).thenReturn(aWidget().build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+        Set<Asset> assets = assetVisitor.visit(aModalContainer().with(aContainer().with(component1, component2)).build());
+
+        assertThat(assets).extracting("name").containsExactly("myfile.js", "myfile.js");
+    }
+
 }

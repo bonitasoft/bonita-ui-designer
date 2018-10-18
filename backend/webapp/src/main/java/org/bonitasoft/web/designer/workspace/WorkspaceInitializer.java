@@ -15,8 +15,6 @@
 package org.bonitasoft.web.designer.workspace;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
@@ -27,7 +25,6 @@ import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.springframework.web.context.ServletContextAware;
 
 /**

@@ -27,13 +27,13 @@
       wrapWidget,
       wrapContainer,
       wrapTabsContainer,
+      wrapModalContainer,
       wrapTab,
       wrapFormContainer
     };
     return service;
 
     /**
-     * @internal
      * Initializes a row coming from the server.
      */
     function wrapRow(container, row) {
@@ -134,6 +134,20 @@
         triggerAdded: angular.noop
       });
 
+      service.wrapContainer({ id: 'pbContainer' }, element.container);
+      return component;
+    }
+
+    function wrapModalContainer(modalContainer, element, parentRow) {
+      var component = angular.extend(element, {
+        $$id: componentId.getNextId(modalContainer.id),
+        $$widget: angular.copy(modalContainer),
+        $$templateUrl: 'js/editor/whiteboard/modal-container-template.html',
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveModalContainer.bind(null, element),
+        triggerAdded: angular.noop
+      });
       service.wrapContainer({ id: 'pbContainer' }, element.container);
       return component;
     }

@@ -82,6 +82,16 @@
           "value": "Remove from collection",
           "label": "Remove from collection",
           "group": "Collection"
+        },
+        {
+          "value": "Open modal",
+          "label": "Open modal",
+          "group": "Modal"
+        },
+        {
+          "value": "Close modal",
+          "label": "Close modal",
+          "group": "Modal"
         }
       ],
       "defaultValue": "Submit task",
@@ -112,6 +122,15 @@
       "bond": "variable"
     },
     {
+      "label": "Close modal on success",
+      "help": "Close modal when the action is successful",
+      "name": "closeOnSuccess",
+      "type": "boolean",
+      "defaultValue": false,
+      "showFor": "['POST', 'PUT', 'GET', 'DELETE', 'Submit task', 'Start process', 'Remove from collection', 'Add to collection', 'Open modal'].indexOf(properties.action.value) > -1",
+      "bond": "expression"
+    },
+    {
       "label": "Failed response value",
       "help": "Holds the response when the request has failed",
       "name": "dataFromError",
@@ -135,6 +154,14 @@
       "type": "collection",
       "showFor": "properties.action.value === 'Remove from collection' || properties.action.value === 'Add to collection'",
       "bond": "variable"
+    },
+    {
+      "label": "Modal Id",
+      "name": "modalId",
+      "type": "text",
+      "defaultValue": "",
+      "showFor": "properties.action.value === 'Open modal'",
+      "bond": "expression"
     },
     {
       "label": "Add",

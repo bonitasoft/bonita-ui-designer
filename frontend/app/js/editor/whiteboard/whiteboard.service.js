@@ -24,6 +24,7 @@
       onAddTabsContainer,
       onRemoveTab: onRemoveTab,
       onRemoveFormContainer: onRemoveFormContainer,
+      onRemoveModalContainer: onRemoveModalContainer,
       contains,
       reset
     };
@@ -92,6 +93,10 @@
 
     function onRemoveFormContainer(formContainer) {
       onRemoveContainer(formContainer.container);
+    }
+
+    function onRemoveModalContainer(modalContainer) {
+      onRemoveContainer(modalContainer.container);
     }
   }
 })();

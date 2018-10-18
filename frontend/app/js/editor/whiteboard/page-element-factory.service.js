@@ -12,6 +12,7 @@
       createWidgetElement: createWidgetElement,
       createContainerElement: createContainerElement,
       createTabsContainerElement: createTabsContainerElement,
+      createModalContainerElement: createModalContainerElement,
       createFormContainerElement: createFormContainerElement,
       createTabElement: createTabElement
     };
@@ -74,6 +75,19 @@
 
     function createFormContainerElement(formContainer) {
       var element = createElement('formContainer', formContainer);
+      return angular.extend(element, {
+        container: {
+          id: 'pbContainer',
+          type: 'container',
+          rows: [
+            []
+          ]
+        }
+      });
+    }
+
+    function createModalContainerElement(modalContainer) {
+      var element = createElement('modalContainer', modalContainer);
       return angular.extend(element, {
         container: {
           id: 'pbContainer',

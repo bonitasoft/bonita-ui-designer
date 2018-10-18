@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
@@ -55,6 +56,11 @@ public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element
                         return tab.getContainer().accept(AnyLocalContainerVisitor.this);
                     }
                 })));
+    }
+
+    @Override
+    public Iterable<Element> visit(ModalContainer modalContainer) {
+        return concat(singletonList(modalContainer), modalContainer.getContainer().accept(this));
     }
 
     @Override

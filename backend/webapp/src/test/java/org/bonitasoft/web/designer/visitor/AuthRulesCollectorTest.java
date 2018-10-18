@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -109,6 +110,17 @@ public class AuthRulesCollectorTest {
         Component component2 = mockComponentFor(aWidget().authRules("GET|bpm/userTask"));
 
         Set<String> modules = authRulesCollector.visit(aPage().with(component1, component2).build());
+
+        assertThat(modules).containsOnly("GET|living/application-menu", "POST|bpm/process", "GET|bpm/userTask");
+    }
+
+    @Test
+    public void should_collect_auth_rules_needed_by_widgets_in_modal_container() throws Exception {
+        Component component1 = mockComponentFor(aWidget().authRules("GET|living/application-menu", "POST|bpm/process"));
+        Component component2 = mockComponentFor(aWidget().authRules("GET|bpm/userTask"));
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+
+        Set<String> modules = authRulesCollector.visit(aModalContainer().with(aContainer().with(component1, component2)).build());
 
         assertThat(modules).containsOnly("GET|living/application-menu", "POST|bpm/process", "GET|bpm/userTask");
     }

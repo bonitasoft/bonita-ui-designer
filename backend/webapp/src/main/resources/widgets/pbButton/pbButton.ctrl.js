@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
   'use strict';
 
@@ -9,15 +9,34 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
+      closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
+      closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Start process') {
       startProcess();
+      closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Submit task') {
       submitTask();
+      closeModal($scope.properties.closeOnSuccess);
+    } else if ($scope.properties.action === 'Open modal') {
+      closeModal($scope.properties.closeOnSuccess);
+      openModal($scope.properties.modalId);
+    } else if ($scope.properties.action === 'Close modal') {
+      closeModal(true);
     } else if ($scope.properties.url) {
       doRequest($scope.properties.action, $scope.properties.url);
+      closeModal($scope.properties.closeOnSuccess);
     }
+  };
+
+  function openModal(modalId) {
+    modalService.open(modalId);
+  };
+
+  function closeModal(shouldClose) {
+    if(shouldClose)
+      modalService.close();
   };
 
   function removeFromCollection() {

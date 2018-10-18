@@ -106,6 +106,10 @@
         pbFormContainer: {
           init: whiteboardComponentWrapper.wrapFormContainer,
           create: createFormContainer
+        },
+        pbModalContainer: {
+          init: whiteboardComponentWrapper.wrapModalContainer,
+          create: createModalContainer
         }
       };
 
@@ -138,6 +142,11 @@
     function createFormContainer(formContainer, parentRow) {
       var element = pageElementFactory.createFormContainerElement(formContainer);
       return whiteboardComponentWrapper.wrapFormContainer(formContainer, element, parentRow);
+    }
+
+    function createModalContainer(modalContainer, parentRow) {
+      var element = pageElementFactory.createModalContainerElement(modalContainer);
+      return whiteboardComponentWrapper.wrapModalContainer(modalContainer, element, parentRow);
     }
 
     function addWidgetAssetsToPage(widget) {

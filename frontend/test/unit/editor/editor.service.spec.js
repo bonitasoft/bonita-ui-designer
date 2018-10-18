@@ -2,11 +2,17 @@
   'use strict';
 
   describe('editor service', function() {
-    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService;
+    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService, modalContainerStructureMockJSON;
 
     var labelWidget = {
       id: 'label',
       custom: false,
+      type: 'widget'
+    };
+
+    var inputwidget = {
+      id: 'pbInput',
+        custom: false,
       type: 'widget'
     };
 
@@ -24,6 +30,11 @@
       {
         id: 'pbFormContainer',
         name: 'Form container',
+        type: 'container'
+      },
+      {
+        id: 'pbModalContainer',
+        name: 'Modal container',
         type: 'container'
       }
     ];
@@ -130,9 +141,10 @@
       }
     };
 
-    beforeEach(angular.mock.module('bonitasoft.designer.editor'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor', 'modalContainerStructureMock' ));
 
     beforeEach(inject(function($injector) {
+      modalContainerStructureMockJSON = $injector.get('modalContainerStructureMockJSON');
       $rootScope = $injector.get('$rootScope');
       $httpBackend = $injector.get('$httpBackend');
       $q = $injector.get('$q');
@@ -146,7 +158,7 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
 
-      spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat(labelWidget)));
+      spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
       spyOn(alerts, 'addError');
     }));
 
@@ -247,6 +259,22 @@
       editorService.removeAssetsFromPage({id: 'aWidgget'});
 
       expect(page.assets).toContain({id: 'anAsset', componentId: 'aWidgget'});
+    });
+
+    it('should initialize a page with a modal container', function () {
+      var page = {};
+      spyOn(pageRepo, 'load').and.returnValue($q.when(modalContainerStructureMockJSON));
+      editorService.initialize(pageRepo, 'person')
+        .then(function (data) {
+          page = data;
+        });
+      $rootScope.$apply();
+      expect(page.rows[0][0].$$id).toBe('pbModalContainer-0');
+      expect(page.rows[0][0].id).toBe('pbModalContainer');
+      expect(page.rows[0][0].$$widget.name).toBe('Modal container');
+      expect(page.rows[0][0].container.rows[0][0].$$id).toBe('component-0');
+      expect(page.rows[0][0].container.rows[0][0].id).toBe('pbInput');
+      expect(page.rows[0][0].container.rows[0][0].$$widget).toEqual(inputwidget);
     });
   });
 })();

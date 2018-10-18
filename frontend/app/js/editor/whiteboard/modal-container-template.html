@@ -1,0 +1,7 @@
+<modal-container id="{{ component.$$id }}"
+           class="modal-element"
+           modal-container="component"
+           editor="editor"
+           ng-click="editor.selectComponent(component, $event)"
+           ng-class="{'component-element--selected': editor.isCurrentComponent(component)}">
+</modal-container>

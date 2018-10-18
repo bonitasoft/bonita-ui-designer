@@ -15,7 +15,6 @@
 
     function createContext(modelCtrl, scope) {
       var context = modelCtrl.createGateway();
-
       expand(context)
 
         .with('$item', {

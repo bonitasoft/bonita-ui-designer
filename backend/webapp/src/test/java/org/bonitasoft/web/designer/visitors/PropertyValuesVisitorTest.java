@@ -21,6 +21,7 @@ import static org.assertj.core.data.MapEntry.entry;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -155,5 +156,16 @@ public class PropertyValuesVisitorTest {
         String service = propertyValuesVisitor.generate(page);
 
         assertThat(service).isEqualTo(testResource.load("property-value-visitor.result.js"));
+    }
+
+    @Test
+    public void should_associate_component_property_values_contained_in_a_modal_container_with_its_id() throws Exception {
+        assertThat(propertyValuesVisitor.visit(aModalContainer()
+                .with(aContainer().with(aComponent().withReference("component-id").withPropertyValue("foo", "bar", "baz"))
+                        .withReference("container-id").build())
+                .build())).containsOnly(
+                entry("modalContainer-reference", emptyMap()),
+                entry("container-id", emptyMap()),
+                entry("component-id", singletonMap("foo", propertyValue)));
     }
 }

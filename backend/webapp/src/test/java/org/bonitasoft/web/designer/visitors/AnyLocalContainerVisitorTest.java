@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -25,6 +26,7 @@ import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsCont
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.visitor.AnyLocalContainerVisitor;
 import org.junit.Before;
@@ -86,5 +88,15 @@ public class AnyLocalContainerVisitorTest {
         assertThat(anyLocalContainerVisitor.visit(aPage()
                 .with(container)
                 .build())).containsExactly(container);
+    }
+
+    @Test
+    public void should_collect_modalContainer() throws Exception {
+        Container container = aContainer().with(component).build();
+        ModalContainer modalContainer = aModalContainer()
+                .with(container)
+                .build();
+
+        assertThat(anyLocalContainerVisitor.visit(modalContainer)).contains(modalContainer, container);
     }
 }

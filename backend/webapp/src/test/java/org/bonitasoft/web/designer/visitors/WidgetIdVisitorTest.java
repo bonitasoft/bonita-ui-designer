@@ -23,6 +23,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
@@ -78,6 +79,17 @@ public class WidgetIdVisitorTest {
 
         assertThat(visitor.visit(tabsContainer)).containsExactly("pbTabsContainer","pbContainer","foo");
     }
+
+    @Test
+    public void should_traverse_modal_container() {
+        ModalContainer modalContainer = new ModalContainer();
+        List<Element> row1 = Arrays.<Element>asList(createComponentWithWidget("foo"));
+        List<Element> row2 = Arrays.<Element>asList(createComponentWithWidget("bar"));
+        modalContainer.getContainer().setRows(Arrays.asList(row1, row2));
+
+        assertThat(visitor.visit(modalContainer)).containsOnly("pbContainer", "foo", "bar", "pbModalContainer");
+    }
+
 
     private Component createComponentWithWidget(String widgetId) {
         Component component = new Component();

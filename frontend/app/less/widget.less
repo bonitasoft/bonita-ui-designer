@@ -1,5 +1,5 @@
 @widget-active-color: #1E90FF;
-@widget-hover-color:  #87CEFA;
+@widget-hover-color: #87CEFA;
 @widget-active-background: #ecf7ff;
 @row-border-color: #aaa;
 @row-border-active-color: #888;
@@ -23,7 +23,6 @@
   white-space: nowrap;
 }
 
-
 // row caption
 .component-caption--row {
   left: -5px;
@@ -41,14 +40,14 @@
   color: #333;
 }
 
-.row-builder{
+.row-builder {
   position: relative;
 }
 
 /**
  * Caption for Row element
  */
-.row-element.component-element--hover .component-element--selected .component-caption  {
+.row-element.component-element--hover .component-element--selected .component-caption {
   opacity: 0;
   z-index: auto;
 }
@@ -80,29 +79,42 @@
 .row-element {
   border: 1px transparent solid;
   border-left: #eee 5px solid;
-  position:relative;
+  position: relative;
 
 }
 
 /**
  * Component
  */
-.component-element,
-.form-element,
-.container-element {
+.component-element{
   display: block;
   border: 1px transparent solid;
   margin: .3em 0;
   padding: 1px;
 }
 
-.container-element {
-  box-shadow: 1px 1px 4px #ccc
+/**
+ * Container
+ */
+.container-element,
+.form-element,
+.modal-element {
+  box-shadow: 1px 1px 4px #ccc;
+  display: block;
+  border: 1px dashed;
+  border-color: #9292a4;
 }
 
 .form-element {
-  border-style: dashed;
-  border-color: #424251;
+  border-width: 2px;
+}
+
+/**
+ * Modal
+ */
+.modal-element {
+  box-shadow: -15px 15px 0px -8px lightgrey;
+  margin-bottom: 10px;
 }
 
 .component-element--hover {
@@ -111,7 +123,7 @@
 }
 
 .row-element.component-element--hover {
-  border:1px solid @row-border-active-color;
+  border: 1px solid @row-border-active-color;
   border-left: @row-border-active-color 5px solid;
   transition: border .3s ease;
   transition-delay: .2s;
@@ -123,8 +135,6 @@
   transition: opacity .3s ease;
 }
 
-
-
 .move-row-action {
   font-size: large;
   color: inherit;
@@ -134,12 +144,11 @@
     color: black;
   }
 }
+
 .widget-content > .row {
   margin-left: -15px;
   margin-right: -15px;
 }
-
-
 
 .widget-label-horizontal {
   padding-top: 7px;
@@ -156,7 +165,7 @@
 }
 
 /** improve wysiwyg in editor */
-.widget-content .form-horizontal .form-group{
+.widget-content .form-horizontal .form-group {
   margin-bottom: 0;
 }
 
@@ -165,13 +174,12 @@
   border: 2px #555555 solid;
 }
 
-
 .widget-placeholder {
   margin: 0.3em 0;
   min-height: 2.5em;
 }
 
-.widget-placeholder.widget-placeholder::before{
+.widget-placeholder.widget-placeholder::before {
   content: attr(data-col);
   .text-center();
   color: #cccccc;
@@ -190,7 +198,6 @@
   z-index: 0;
   line-height: 2em;
 }
-
 
 .bo-dropzone-hover.widget-placeholder::before {
   background-color: #ddd;

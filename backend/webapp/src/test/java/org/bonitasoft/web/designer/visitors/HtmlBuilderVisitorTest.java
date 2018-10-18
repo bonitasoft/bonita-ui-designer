@@ -23,6 +23,7 @@ import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -297,6 +299,28 @@ public class HtmlBuilderVisitorTest {
                 .build();
 
         assertThatHtmlBody(visitor.visit(formContainer)).isEqualToBody(testResource.load("formContainerWithContainer.html"));
+    }
+
+    /**
+     * Test for Modal Container
+     */
+    @Test
+    public void should_build_a_modal_container() throws GenerationException {
+
+        assertThatHtmlBody(visitor.visit(aModalContainer().with(aContainer().withReference("container-reference").build())
+                .withReference("modal-container-reference")
+                .withPropertyValue("property", "value")
+                .withPropertyValue("modalId", "modal1")
+                .build())).isEqualToBody(testResource.load("modalContainer.html"));
+    }
+
+    @Test
+    public void should_add_row_to_the_modal_container() throws Exception {
+        ModalContainerBuilder modal = aModalContainer();
+        modal.withPropertyValue("modalId", "modal1");
+        modal.with(aContainer().with(aRow().build()).withReference("first-container").build());
+        assertThatHtmlBody(visitor.visit(modal.build()))
+                .isEqualToBody(testResource.load("modalContainerWithRow.html"));
     }
 
     @Test

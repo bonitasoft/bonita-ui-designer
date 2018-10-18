@@ -15,7 +15,8 @@
 package org.bonitasoft.web.designer.visitor;
 
 import static com.google.common.collect.Iterables.concat;
-import static org.bonitasoft.web.designer.model.widget.BondType.*;
+import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
+import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
 
 import java.util.List;
 
@@ -23,13 +24,13 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
-import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
 public class FixBondsTypesVisitor implements ElementVisitor<Void> {
 
@@ -58,6 +59,12 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
         for (Tab tab : tabsContainer.getTabs()) {
             visit(tab.getContainer());
         }
+        return null;
+    }
+
+    @Override
+    public Void visit(ModalContainer modalContainer) {
+        visit(modalContainer.getContainer());
         return null;
     }
 

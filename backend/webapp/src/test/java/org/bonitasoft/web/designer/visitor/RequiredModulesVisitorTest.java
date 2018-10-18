@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
@@ -121,6 +122,28 @@ public class RequiredModulesVisitorTest {
                 aTab().with(aContainer().with(component2))).build());
 
         assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "tabContainerModule");
+    }
+
+    @Test
+    public void should_return_list_of_module_needed_by_widgets_in_modal_container() throws Exception {
+        Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
+        Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
+        when(widgetRepository.get("pbModalContainer")).thenReturn(aWidget().build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+        Set<String> modules = requiredModulesVisitor.visit(aModalContainer().with(aContainer().with(component1, component2)).build());
+
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
+    }
+
+    @Test
+    public void should_return_list_of_module_needed_by_widgets_in_modal_container_who_has_a_required_module() throws Exception {
+        Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
+        Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
+        when(widgetRepository.get("pbModalContainer")).thenReturn(aWidget().modules("containerModule").build());
+        when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
+        Set<String> modules = requiredModulesVisitor.visit(aModalContainer().with(aContainer().with(component1, component2)).build());
+
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule", "containerModule");
     }
 
     @Test

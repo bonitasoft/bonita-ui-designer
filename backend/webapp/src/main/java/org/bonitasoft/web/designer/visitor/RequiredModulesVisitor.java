@@ -23,6 +23,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.Tab;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
@@ -63,6 +64,15 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
         for (Tab tab : tabsContainer.getTabs()) {
             modules.addAll(tab.getContainer().accept(this));
         }
+        return modules;
+    }
+
+    @Override
+    public Set<String> visit(ModalContainer modalContainer) {
+        Set<String> modules = new HashSet<>();
+        Widget widget = widgetRepository.get(modalContainer.getId());
+        modules.addAll(widget.getRequiredModules());
+        modules.addAll(modalContainer.getContainer().accept(this));
         return modules;
     }
 

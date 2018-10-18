@@ -2,7 +2,7 @@
   "id": "pbTabsContainer",
   "name": "Tabs container",
   "type": "container",
-  "order": -1,
+  "order": -2,
   "description": "Multiple groups of widgets, each group in a tab",
   "template": "",
   "requiredModules": ["ui.bootstrap.tabs", "ui.bootstrap.tpls"],

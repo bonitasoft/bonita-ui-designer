@@ -25,6 +25,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.page.Tab;
@@ -64,6 +65,13 @@ public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<Str
                 propertyValues.putAll(tab.getContainer().accept(this));
             }
         }
+        return propertyValues;
+    }
+
+    @Override
+    public Map<String, Map<String, PropertyValue>> visit(ModalContainer modalContainer) {
+        Map<String, Map<String, PropertyValue>> propertyValues = modalContainer.getContainer().accept(this);
+        propertyValues.put(modalContainer.getReference(), modalContainer.getPropertyValues());
         return propertyValues;
     }
 
