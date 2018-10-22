@@ -21,8 +21,7 @@
     .factory('properties', propertiesService);
 
   function propertiesService(gettext) {
-
-    var commonProperties = [
+    var cssProperty = [
       {
         label: gettext('CSS classes'),
         caption: gettext('Space-separated list'),
@@ -31,7 +30,11 @@
         defaultValue: '',
         bond: 'expression',
         help: gettext('Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes')
-      },
+      }
+    ];
+
+    var commonProperties = [
+      cssProperty[0],
       {
         label: gettext('Hidden'),
         name: gettext('hidden'),
@@ -45,6 +48,7 @@
       computeValues: computeValues,
       computeValue: computeValue,
       addCommonPropertiesTo: addCommonPropertiesTo,
+      addCssPropertyTo: addCssPropertyTo,
       isBound
     };
 
@@ -64,6 +68,11 @@
 
     function addCommonPropertiesTo(component) {
       component.properties = commonProperties.concat(component.properties || []);
+      return component;
+    }
+
+    function addCssPropertyTo(component) {
+      component.properties = cssProperty.concat(component.properties || []);
       return component;
     }
 

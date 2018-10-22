@@ -143,7 +143,7 @@
         $$id: componentId.getNextId(modalContainer.id),
         $$widget: angular.copy(modalContainer),
         $$templateUrl: 'js/editor/whiteboard/modal-container-template.html',
-        $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/modal-container-properties-template.html',
         $$parentContainerRow: parentRow,
         triggerRemoved: whiteboardService.onRemoveModalContainer.bind(null, element),
         triggerAdded: angular.noop

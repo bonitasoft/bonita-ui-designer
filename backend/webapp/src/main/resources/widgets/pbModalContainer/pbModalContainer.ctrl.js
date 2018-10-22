@@ -14,6 +14,7 @@ function PbModalContainerCtrl($scope, $log, $modal, modalService) {
     ctrl.open=function (){
          var modalInstance = $modal.open({
               scope: $scope,
+              size: $scope.properties.size,
               animation: $scope.properties.animation,
               ariaLabelledBy: 'modal-title',
               ariaDescribedBy: 'modal-body',

@@ -113,7 +113,13 @@
         }
       };
 
-      var extended = properties.addCommonPropertiesTo(component);
+      var extended;
+
+      if (component.id === 'pbModalContainer') {
+        extended = properties.addCssPropertyTo(component);
+      } else {
+        extended = properties.addCommonPropertiesTo(component);
+      }
 
       return {
         component: extended,
