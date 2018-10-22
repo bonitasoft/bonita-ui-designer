@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-10-17 08:48\n"
+"PO-Revision-Date: 2018-10-22 02:00\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -217,6 +217,9 @@ msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser c
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
 
+msgid "Animation"
+msgstr ""
+
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Bootstrap http://getbootstrap.com/css/#helper-classes"
 
@@ -376,6 +379,9 @@ msgstr "opciones"
 msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
+msgid "Choose true if you want display this modal with an animation, false otherwise"
+msgstr ""
+
 msgid "Clear search"
 msgstr "Limpiar búsqueda"
 
@@ -390,6 +396,15 @@ msgstr "Haga clic para enlazar una expresión"
 
 msgid "Close"
 msgstr "Cerrar"
+
+msgid "Close modal"
+msgstr ""
+
+msgid "Close modal on success"
+msgstr ""
+
+msgid "Close modal when the action is successful"
+msgstr ""
 
 msgid "Collection"
 msgstr "Colección"
@@ -1077,6 +1092,15 @@ msgstr "Valor mínimo"
 msgid "Minified widgets JavaScript for optimized performance"
 msgstr "Widgets JavaScript miniaturizados para un rendimiento optimizado"
 
+msgid "Modal"
+msgstr ""
+
+msgid "Modal Id"
+msgstr ""
+
+msgid "Modal container"
+msgstr ""
+
 msgid "Move the row down"
 msgstr "Bajar la fila"
 
@@ -1151,6 +1175,9 @@ msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de p
 
 msgid "Open help"
 msgstr "Abrir ayuda"
+
+msgid "Open modal"
+msgstr ""
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Ordenado por nombre de artefacto. <br/> Haz clic en ordenar por última actualización"
@@ -1731,6 +1758,9 @@ msgstr "URL a llamar"
 
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace clic en este botón."
+
+msgid "Unique ID of this modal"
+msgstr ""
 
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Casilla de verificación única. El usuario la marca o no"

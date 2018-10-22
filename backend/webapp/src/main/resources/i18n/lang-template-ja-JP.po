@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-10-17 08:34\n"
+"PO-Revision-Date: 2018-10-22 02:14\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -217,6 +217,9 @@ msgstr "UI デザイナーで設計した生成物は、チームメンバーと
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
 
+msgid "Animation"
+msgstr ""
+
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
 
@@ -376,6 +379,9 @@ msgstr "選択肢"
 msgid "Choices (comma separated)"
 msgstr "選択肢 (カンマで区切る)"
 
+msgid "Choose true if you want display this modal with an animation, false otherwise"
+msgstr ""
+
 msgid "Clear search"
 msgstr "検索をクリア"
 
@@ -390,6 +396,15 @@ msgstr "クリックして式にバインド"
 
 msgid "Close"
 msgstr "閉じる"
+
+msgid "Close modal"
+msgstr ""
+
+msgid "Close modal on success"
+msgstr ""
+
+msgid "Close modal when the action is successful"
+msgstr ""
 
 msgid "Collection"
 msgstr "コレクション"
@@ -1078,6 +1093,15 @@ msgstr "最小値"
 msgid "Minified widgets JavaScript for optimized performance"
 msgstr "最適化されたパフォーマンスの minified ウィジェット JavaScript"
 
+msgid "Modal"
+msgstr ""
+
+msgid "Modal Id"
+msgstr ""
+
+msgid "Modal container"
+msgstr ""
+
 msgid "Move the row down"
 msgstr "行を下に移動"
 
@@ -1152,6 +1176,9 @@ msgstr "１つの要素を１回選択し、右のプロパティパネルでそ
 
 msgid "Open help"
 msgstr "ヘルプを開く"
+
+msgid "Open modal"
+msgstr ""
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "生成物名順に並んでいます <br/>。最新更新日時で並べ替えるには、ここをクリックしてください。"
@@ -1732,6 +1759,9 @@ msgstr "コールするURL"
 
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "クリックされた時にHTTPリクエストを実行するために使用するURL"
+
+msgid "Unique ID of this modal"
+msgstr ""
 
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "ユニークなオプションのチェック ボックス。ユーザーはチェックオンまたはオフにします。"
