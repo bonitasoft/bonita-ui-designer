@@ -50,11 +50,6 @@
       "name": "ui-bootstrap-tpls-0.13.0.min.js",
       "type": "js",
       "order": 1
-    },
-    {
-      "name": "style.css",
-      "type": "css",
-      "order": 2
     }
   ],
   "requiredModules": ["ui.bootstrap"]
