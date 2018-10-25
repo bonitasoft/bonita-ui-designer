@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-10-22 01:59\n"
+"PO-Revision-Date: 2018-10-24 02:00\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -808,6 +808,9 @@ msgstr "Affichez en plein écran"
 msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
 msgstr "Groupe de widgets permettant de définir la disposition des éléments dans la page. Son contenu peut être répété en utilisant une variable de type tableau"
 
+msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
+msgstr ""
+
 msgid "HTTP request"
 msgstr "Requête HTTP"
 
@@ -1392,6 +1395,9 @@ msgstr "Afficher le bouton Aujourd'hui"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Depuis Bonita 7.5.0, UI Bootstrap n’est plus fourni dans les pages du UI Designer."
+
+msgid "Size"
+msgstr ""
 
 msgid "Source"
 msgstr "Source"
@@ -2021,6 +2027,9 @@ msgstr "info"
 msgid "label Hidden"
 msgstr "Libellé masqué"
 
+msgid "large"
+msgstr ""
+
 msgid "layout"
 msgstr "layout"
 
@@ -2029,6 +2038,9 @@ msgstr "A gauche"
 
 msgid "link"
 msgstr "link"
+
+msgid "medium"
+msgstr ""
 
 msgid "name"
 msgstr "nom"
@@ -2053,6 +2065,9 @@ msgstr "primary"
 
 msgid "right"
 msgstr "à droite"
+
+msgid "small"
+msgstr ""
 
 msgid "success"
 msgstr "success"

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-10-22 02:14\n"
+"PO-Revision-Date: 2018-10-24 02:29\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -810,6 +810,9 @@ msgstr "全画面表示"
 msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
 msgstr "ページ要素の配列定義に使用されるウィジェットのグループ。このコンテンツは配列で繰り返されます。"
 
+msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
+msgstr ""
+
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
 
@@ -1394,6 +1397,9 @@ msgid "Show Today button"
 msgstr "今日のボタンを表示"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
+msgstr ""
+
+msgid "Size"
 msgstr ""
 
 msgid "Source"
@@ -2022,6 +2028,9 @@ msgstr "info"
 msgid "label Hidden"
 msgstr "ラベルを非表示"
 
+msgid "large"
+msgstr ""
+
 msgid "layout"
 msgstr ""
 
@@ -2030,6 +2039,9 @@ msgstr "左"
 
 msgid "link"
 msgstr "link"
+
+msgid "medium"
+msgstr ""
 
 msgid "name"
 msgstr "名前"
@@ -2054,6 +2066,9 @@ msgstr "primary"
 
 msgid "right"
 msgstr "右"
+
+msgid "small"
+msgstr ""
 
 msgid "success"
 msgstr "success"
