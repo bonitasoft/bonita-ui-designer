@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $uibModal, modalInstance, $state, $localStorage, browserHistoryService;
+  var $scope, alerts, $q, widgetRepo, $uibModal, modalInstance, $state, browserHistoryService;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -10,7 +10,7 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $uibModalInstance, _$localStorage_, _$state_, _browserHistoryService_) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
     $scope = $rootScope.$new();
     $state = _$state_;
     browserHistoryService = _browserHistoryService_;
@@ -18,20 +18,17 @@ describe('CustomWidgetEditorCtrl', function() {
     widgetRepo = _widgetRepo_;
     alerts = _alerts_;
     $uibModal = _$uibModal_;
-    $localStorage = _$localStorage_;
     modalInstance = $uibModalInstance.create();
 
     spyOn($state, 'go');
     spyOn(browserHistoryService, 'back');
 
-    $localStorage.bonitaUIDesigner = { doNotShowMigrationNotesAgain: true };
 
     $controller('CustomWidgetEditorCtrl', {
       $scope,
       $uibModal,
       artifact: awesomeWidget,
       artifactRepo: widgetRepo,
-      $localStorage : $localStorage,
       $timeout
     });
 

@@ -19,7 +19,7 @@
     .module('bonitasoft.designer.custom-widget')
     .controller('CustomWidgetEditorCtrl', CustomWidgetEditorCtrl);
 
-  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, $localStorage, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
+  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
 
     $scope.widget = artifact;
     $scope.bonds = BONDS;
@@ -151,7 +151,7 @@
             return section;
           }
         },
-        controller: function($scope, $uibModalInstance, $localStorage, helpSection) {
+        controller: function($scope, $uibModalInstance, helpSection) {
           if (helpSection) {
             $scope.tabContainer = {
               activeTab: helpSection
@@ -159,21 +159,11 @@
           }
 
           $scope.cancel = function() {
-            if (!$localStorage.bonitaUIDesigner) {
-              $localStorage.bonitaUIDesigner = {};
-            }
-            $localStorage.bonitaUIDesigner.doNotShowMigrationNotesAgain = true;
             $uibModalInstance.dismiss('cancel');
           };
         }
       });
     };
-
-    //Handle migration notes
-    let storage = $localStorage.bonitaUIDesigner;
-    if (!storage || !storage.doNotShowMigrationNotesAgain) {
-      $scope.openHelp('migration');
-    }
 
     $scope.$on('$destroy', function() {
       keyBindingService.unbind(['ctrl+s', 'command+s']);
