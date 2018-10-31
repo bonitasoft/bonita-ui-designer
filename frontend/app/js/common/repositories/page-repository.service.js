@@ -38,7 +38,8 @@
       }
 
       desactivateAsset(pageId, asset) {
-        return this.$http.put(`${this.baseUrl}/${pageId}/assets/${asset.id}?active=${asset.active}`, asset);
+        var assetId = asset.id || asset.name;
+        return this.$http.put(`${this.baseUrl}/${pageId}/assets/${assetId}?active=${asset.active}`, asset);
       }
 
       /**

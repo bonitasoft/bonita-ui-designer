@@ -62,7 +62,7 @@
       var inactiveAssets = vm.component.assets.filter(function(asset) {
         return !asset.active;
       }).map(function(asset) {
-        return asset.id;
+        return asset.id || asset.name;
       });
       vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
     }

@@ -117,7 +117,11 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
             //User can exclude assets or specify a specific order in the page
             for (Asset asset : assets) {
-                asset.setActive(!previewable.getInactiveAssets().contains(asset.getId()));
+                if (asset.getId() != null) {
+                    asset.setActive(!previewable.getInactiveAssets().contains(asset.getId()));
+                } else {
+                    asset.setActive(!previewable.getInactiveAssets().contains(asset.getName()));
+                }
             }
         }
 

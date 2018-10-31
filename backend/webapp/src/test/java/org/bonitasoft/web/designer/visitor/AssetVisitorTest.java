@@ -205,4 +205,26 @@ public class AssetVisitorTest {
         assertThat(assets).extracting("name").containsExactly("myfile.js", "myfile.js");
     }
 
+    @Test
+    public void should_good_list_widget_asset__if_one_is_inactive() throws Exception {
+        Component component = mockComponentFor(
+                aWidget(),
+                "id1",
+                anAsset().withName("myfileBis.js").withType(AssetType.JAVASCRIPT),
+                anAsset().withName("http://mycdn.com/myfile.js").withType(AssetType.JAVASCRIPT)
+        );
+
+        Page page = aPage().with(component)
+                .withAsset(
+                        anAsset().withId("assetUIID1").withName("myfile.js").withType(AssetType.JAVASCRIPT).build(),
+                        anAsset().withId("assetUIID2").withName("myfile.css").withType(AssetType.CSS).build()
+                )
+                .withInactiveAsset("assetUIID2", "myfileBis.js")
+                .build();
+
+        Set<Asset> assets = assetVisitor.visit(page);
+
+        assertThat(assets).extracting("name").contains("myfile.js", "myfile.css", "myfileBis.js", "http://mycdn.com/myfile.js");
+        assertThat(assets).extracting("active").contains(true, false, true, false);
+    }
 }
