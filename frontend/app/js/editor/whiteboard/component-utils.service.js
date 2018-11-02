@@ -26,6 +26,7 @@
       isEmpty: isEmpty,
       isChildOf: isChildOf,
       isMovable: isMovable,
+      hasModalContainingModal: hasModalContainingModal,
       getVisibleComponents: getVisibleComponents,
       isContainer: isContainer,
       getResolutionClasses,
@@ -109,12 +110,14 @@
      * @return {Boolean}
      */
     function isChildOf(id, container) {
-      if (container.$$id === id) {
+      if (container.$$id === id ||
+        (container.container && container.container.$$id === id)) {
         return true;
       }
+
       // We normalize container and tabs container into an array of rows
       // For tabs, we merge rows of each tabs container
-      var rows = container.rows || (container.tabs || [])
+      var rows = container.rows || (container.container && container.container.rows) || (container.tabs || [])
           .map(getTabRows)
           .reduce(flattenReducer, []);
 
@@ -144,6 +147,42 @@
       }
 
       return false;
+    }
+
+    function hasModalContainingModal(container, modalInParents) {
+
+      if (modalInParents && container.type === 'modalContainer') {
+        return true;
+      }
+
+      // We normalize container and tabs container into an array of rows
+      // For tabs, we merge rows of each tabs container
+      var rows = container.rows ||
+        container.container && container.container.rows ||
+        container.$$widget && container.$$widget.rows ||
+        (container.tabs || [])
+        .map(getTabRows)
+        .reduce(flattenReducer, []);
+
+      if (rows.length === 0) {
+        return false;
+      }
+
+      if (modalInParents === undefined) {
+        modalInParents = container.type === 'modalContainer';
+      }
+
+      if (container.type === 'modalContainer') {
+        modalInParents = true;
+      }
+
+      // we reduce rows into an array of widget and iterate over it
+      // using some to stop when we found the widget
+      return rows
+        .reduce(flattenReducer, [])
+        .some(function(widget) {
+          return hasModalContainingModal(widget, this);
+        }, modalInParents);
     }
 
     /**

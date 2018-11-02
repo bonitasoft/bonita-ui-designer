@@ -15,7 +15,8 @@
             </div>
 
             <div ng-repeat="component in row" class="component" ng-class="editor.componentClasses(component)"  bo-draggable bo-draggable-data="component" bo-drop-item="dropItem($data, row, rowIndex)">
-                <div ng-include="component.$$templateUrl"></div>
+                <i ng-if="hasModalContainingModal(component)" class="fa fa-times-circle Component-marker" style="color:red;" title="{{ 'A modal container cannot contain another modal container.' | translate }}"></i>
+                <div ng-include="component.$$templateUrl" ng-class="{'error':hasModalContainingModal(component)}"></div>
             </div>
 
             <div ng-if="editor.rowSize(row) < 12"

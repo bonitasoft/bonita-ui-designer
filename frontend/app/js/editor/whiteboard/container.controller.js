@@ -105,4 +105,9 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
   $scope.isRepeated = function(container) {
     return container && container.propertyValues && container.propertyValues.repeatedCollection && container.propertyValues.repeatedCollection.value;
   };
+
+  $scope.hasModalContainingModal =  function(container) {
+    return componentUtils.hasModalContainingModal(container) && container.type === 'modalContainer';
+  };
+
 });
