@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-10-24 02:29\n"
+"PO-Revision-Date: 2018-11-02 03:15\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -133,6 +133,9 @@ msgstr "バインディングは動的です。したがって、データが変
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "ローカルアセット名に特殊文字やスペースを含めることはできません。 外部アセットは標準的なURLでなければなりません。"
 
+msgid "A modal container doesn't work when it is embedded in another container, next to other widgets or inside a fragment."
+msgstr ""
+
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "コンスタント値を要求するプロパティが、ラジオ ボタンのセット、ドロップ ダウン リスト、または （幅プロパティ）の数値セレクターとして [プロパティ] パネルに表示されます。必要な値を選択します。"
 
@@ -178,6 +181,9 @@ msgstr "CSS アセットをページレベルで追加し、それらをあら�
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
 msgstr "カスタムスクリプトに JavaScript アセットを追加します。それらはページレベルでロードされ利用可能になります。JavaScript 式タイプの変数でそれらを使用できます。 変数の値フィールドでその関数をコールし必要なパラメータを渡します。"
 
+msgid "Add a modal ID, as the button will need to open the right modal container. This ID must be unique within a given page, form, or layout."
+msgstr ""
+
 msgid "Add a new asset"
 msgstr "新規アセットを追加"
 
@@ -220,11 +226,18 @@ msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセット
 msgid "Animation"
 msgstr ""
 
+msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
+"            following classes:"
+msgstr ""
+
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
 
 msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "任意のブール変数： <i>myData</i> または <i>myData.attribute</i>"
+
+msgid "Any button can close a modal container that contains it when a success happens after any button action."
+msgstr ""
 
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "任意の変数： <i>myData</i> または <i>myData.attribute</i>"
@@ -397,6 +410,9 @@ msgstr "クリックして式にバインド"
 msgid "Close"
 msgstr "閉じる"
 
+msgid "Close Modal"
+msgstr ""
+
 msgid "Close modal"
 msgstr ""
 
@@ -438,6 +454,9 @@ msgstr "コンテナ"
 
 msgid "Content"
 msgstr "コンテンツ"
+
+msgid "Control"
+msgstr ""
 
 msgid "Controller"
 msgstr "コントローラー"
@@ -903,6 +922,9 @@ msgstr "サブスクリプションのエディションでは、作成した UI
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関係を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
 
+msgid "In a form, a page, or a layout, we recommend to drop modal containers at the bottom of the editor content."
+msgstr ""
+
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
 
@@ -969,6 +991,9 @@ msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "{{ infos.modelfile }} は、無効な json ファイル構造です"
+
+msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
+msgstr ""
 
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
 msgstr "プロセス インスタンス（案件のこと）内のすべてのビジネス変数およびドキュメントへの参照を提供します。ビジネス変数インスタンスを取得するには、値を持つ外部 API 変数を作成します。"
@@ -1105,6 +1130,9 @@ msgstr ""
 msgid "Modal container"
 msgstr ""
 
+msgid "Modals"
+msgstr ""
+
 msgid "Move the row down"
 msgstr "行を下に移動"
 
@@ -1176,6 +1204,9 @@ msgstr "表示するオブジェクトのキー"
 
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "１つの要素を１回選択し、右のプロパティパネルでそのプロパティを編集します。"
+
+msgid "Open Modal"
+msgstr ""
 
 msgid "Open help"
 msgstr "ヘルプを開く"
@@ -1519,6 +1550,12 @@ msgstr "テキスト、必要に応じて {{variableName}} を使用した補完
 msgid "The .zip archive of an exported page contains:"
 msgstr "エクスポートされたページの .zip アーカイブは次のとおりです："
 
+msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
+msgstr ""
+
+msgid "The <em>Open modal</em> action can be used to open any modal container on the page. To point towards the right one, specify the ID in the button's \"Modal ID\" property."
+msgstr ""
+
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
 msgstr "<em>テクニカルな日付書式</em> と <em>テクニカルな時刻書式</em> のプロパティは、日時入力に表示する値の書式を定義します。\n"
@@ -1571,6 +1608,14 @@ msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
 
+msgid "The modal size can be selected in the widget <em>Size</em> properties. Options available are small,\n"
+"            medium or large, which will control the width of the modal."
+msgstr ""
+
+msgid "The modal style can be improved by using the <em>modal-body</em> specific class into the <em>CSS\n"
+"            Classes</em> property field."
+msgstr ""
+
 msgid "The name of the key to use as label. Can be empty"
 msgstr "ラベルとして使用するキーの名前。空にすることができます。"
 
@@ -1622,6 +1667,10 @@ msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
+msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
+"            of the modal."
+msgstr ""
+
 msgid "This page is empty."
 msgstr "このページは空白です。"
 
@@ -1652,6 +1701,16 @@ msgstr "ユーザーがドキュメントをダウンロードできるように
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr ""
 
+msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
+"            modal</em> action."
+msgstr ""
+
+msgid "To control modal containers, the following methods are available in a button:"
+msgstr ""
+
+msgid "To control modal containers, the following methods are supported:"
+msgstr ""
+
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "BDM API （または別の API）から取得した日付と時刻を表示 （更新なし）するためには、<em>日時選択</em> ウィジェットを使用して、その<em>読み取り専用</em> プロパティを「はい」にするか 、 <em>テキスト</em>、<em>タイトル</em> または <em>表</em> ウィジェットを使用して、 その値を <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> で書式化します。"
 
@@ -1660,6 +1719,9 @@ msgstr "BDM API （または別の API）から取得した日付を表示 （�
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "式として評価されたウィジェット プロパティで日付を表示するには、たとえば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
+
+msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
+msgstr ""
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
@@ -1675,6 +1737,11 @@ msgstr "カスタム ウィジェットにイメージをロードするには�
 
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "複数バージョンの依存関係を管理するには、1 つの アセット バージョン だけがページの内部でアクティブであるようにします。"
+
+msgid "To open a modal window it is enough to input a modal ID in the properties, to create a button,\n"
+"            select <em>Open modal</em> in the Action property, and fill in the right modal ID. The button should be\n"
+"            located outside of the modal container."
+msgstr ""
 
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "ドキュメント インスタンスを取得するには、値を持つExternal API 変数を作成します。"
@@ -1819,6 +1886,9 @@ msgstr "使用文字： M (月)、d (日)、 y (年)"
 
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
+
+msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
+msgstr ""
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
 msgstr "日付を選択するためには、このウィジェットを使用します（たとえば、誕生日）。"

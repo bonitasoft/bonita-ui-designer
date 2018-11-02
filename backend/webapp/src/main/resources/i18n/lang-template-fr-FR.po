@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-10-24 02:00\n"
+"PO-Revision-Date: 2018-11-02 02:59\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -131,6 +131,9 @@ msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les va
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
 
+msgid "A modal container doesn't work when it is embedded in another container, next to other widgets or inside a fragment."
+msgstr ""
+
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Une propriété qui requiert une valeur constante est présentée dans le panneau de Propriétés comme un ensemble de boutons radio, une liste déroulante ou un sélecteur de chiffres (pour la propriété Largeur). Sélectionnez la valeur souhaitée."
 
@@ -176,6 +179,9 @@ msgstr "Ajoutez des assets de type CSS au niveau de la page et utilisez-les dans
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
 msgstr "Ajoutez des assets JavaScript pour intégrer des scripts personnalisés. Ils seront chargés et utilisables au niveau de la page. Vous pouvez les utiliser dans des variables de type expression JavaScript. Dans le champ valeur de la variable, appelez simplement la fonction avec les paramètres requis."
 
+msgid "Add a modal ID, as the button will need to open the right modal container. This ID must be unique within a given page, form, or layout."
+msgstr ""
+
 msgid "Add a new asset"
 msgstr "Ajouter un nouvel asset"
 
@@ -216,6 +222,10 @@ msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un asset de type {{type}} portant le nom <em>{{ name }}</em> a déjà été ajouté aux assets."
 
 msgid "Animation"
+msgstr "Animation"
+
+msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
+"            following classes:"
 msgstr ""
 
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
@@ -223,6 +233,9 @@ msgstr "Toute classe CSS accessible. Par défaut, le UI Designer embarque Bootst
 
 msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Une variable Booléene : <i>myData</i> ou <i>myData.attribute</i>"
+
+msgid "Any button can close a modal container that contains it when a success happens after any button action."
+msgstr ""
 
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Une variable : <i>myData</i> ou <i>myData.attribute</i>"
@@ -303,7 +316,7 @@ msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
 msgid "Bonita REST API calls"
-msgstr ""
+msgstr "Appels vers la REST API Bonita"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Par convention, dans le fichier <em>localization.json</em>, la langue utilisée pour les clés de traduction est l'anglais. Cela veut dire que sur le tableau blanc dans l'éditeur des artéfacts, le texte des widgets est en anglais par défaut. Cependant, pour faciliter la maintenance et la mise à jour des artéfacts en anglais, vous pouvez remplacer ces clés par des noms de code et ajouter une section <b>en-US</b> dans le fichier <em>localization.json</em>."
@@ -378,7 +391,7 @@ msgid "Choices (comma separated)"
 msgstr "Choix (séparés par des virgules)"
 
 msgid "Choose true if you want display this modal with an animation, false otherwise"
-msgstr ""
+msgstr "Choisissez 'vrai' pour l'afficher avec animation, 'faux' pour la faire apparaître"
 
 msgid "Clear search"
 msgstr "Effacer la recherche"
@@ -395,14 +408,17 @@ msgstr "Cliquer pour binder une expression"
 msgid "Close"
 msgstr "Fermer"
 
-msgid "Close modal"
+msgid "Close Modal"
 msgstr ""
+
+msgid "Close modal"
+msgstr "Fermer la fenêtre modale"
 
 msgid "Close modal on success"
-msgstr ""
+msgstr "Fermer la fenêtre modale en cas de succès"
 
 msgid "Close modal when the action is successful"
-msgstr ""
+msgstr "Fermer la fenêtre modale lorsque l'action a été réalisée avec succès"
 
 msgid "Collection"
 msgstr "Collections"
@@ -437,14 +453,17 @@ msgstr "Containers"
 msgid "Content"
 msgstr "Contenu"
 
+msgid "Control"
+msgstr ""
+
 msgid "Controller"
 msgstr "Controller"
 
 msgid "Convert to ..."
-msgstr ""
+msgstr "Convertir en ..."
 
 msgid "Convert {{ctrl.page.name}}"
-msgstr ""
+msgstr "Convertir {{ctrl.page.name}}"
 
 msgid "Corrupted zip archive."
 msgstr "L'archive zip est corrompue."
@@ -611,10 +630,10 @@ msgid "Display an image from assets or from a URL"
 msgstr "Afficher une image à partir d'un asset ou d'une URL"
 
 msgid "Display name"
-msgstr ""
+msgstr "Nom affiché"
 
 msgid "Display name is required."
-msgstr ""
+msgstr "Le nom affiché est obligatoire."
 
 msgid "Display or hide the shortcut button to current day"
 msgstr "Afficher ou masquer le bouton de raccourci pour sélectionner la date du jour"
@@ -809,7 +828,7 @@ msgid "Group of widgets used to define the arrangement of the page elements. Its
 msgstr "Groupe de widgets permettant de définir la disposition des éléments dans la page. Son contenu peut être répété en utilisant une variable de type tableau"
 
 msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
-msgstr ""
+msgstr "Groupe de widgets permettant de définir la disposition des éléments dans la page. Son contenu est affiché sous forme de pop-in."
 
 msgid "HTTP request"
 msgstr "Requête HTTP"
@@ -901,6 +920,9 @@ msgstr "Dans les éditions Subscriptions, pour supporter les langues variées de
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "Sur un asset de type JavaScript, vous pouvez spécifier une dépendance vers un module AngularJS. Tout d'abord ajoutez l'asset JavaScript, puis ajoutez le nom du module dans la section dédiée. Vous pouvez trouver les modules disponibles sur <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
 
+msgid "In a form, a page, or a layout, we recommend to drop modal containers at the bottom of the editor content."
+msgstr ""
+
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "Dans un formulaire de processus, si vous avez défini des variables métier dans votre processus, utilisez le lien vers la variable à récupérer à l'aide de la variable context :"
 
@@ -914,7 +936,7 @@ msgid "In production, if the user is logged into Bonita Portal, UI artifacts are
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artefacts des interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
 msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
-msgstr ""
+msgstr "Dans le studio, un formulaire doit être associé à un processus ou une tâche en utilisant le contrat ; une page est associée à un descripteur d'application ou un processus (synthèse des cas)."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
@@ -966,6 +988,9 @@ msgstr "URL invalide : elle doit contenir uniquement des caractères alphanumér
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "La structure du fichier json {{ infos.modelfile }} est invalide"
+
+msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
+msgstr ""
 
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
 msgstr "Elle fournit des références aux documents et variables métiers définis dans l'instance de processus (cas). Pour récupérer la valeur d'une variable métier, créez une variable de type API externe avec pour valeur"
@@ -1031,10 +1056,10 @@ msgid "Link"
 msgstr "Lien"
 
 msgid "Linked to a process instantiation or a task, using the contract"
-msgstr ""
+msgstr "Associé à l'instanciation d'un processus ou à une tâche, en utilisant le contrat"
 
 msgid "Linked to an application descriptor."
-msgstr ""
+msgstr "Associée à un descripteur d’application ou un processus (synthèse des cas)."
 
 msgid "List of cases open for a process definition id"
 msgstr "Liste des cas ouverts pour un id de définition de processus"
@@ -1079,7 +1104,7 @@ msgid "Message"
 msgstr "Message"
 
 msgid "Metadata"
-msgstr ""
+msgstr "Méta-données"
 
 msgid "Migration"
 msgstr "Migration"
@@ -1094,12 +1119,15 @@ msgid "Minified widgets JavaScript for optimized performance"
 msgstr "JavaScript minifié des widgets, pour des performances optimisées en production"
 
 msgid "Modal"
-msgstr ""
+msgstr "Fenêtre modale (pop-in)"
 
 msgid "Modal Id"
-msgstr ""
+msgstr "ID de la fenêtre modale"
 
 msgid "Modal container"
+msgstr "Container modal"
+
+msgid "Modals"
 msgstr ""
 
 msgid "Move the row down"
@@ -1142,7 +1170,7 @@ msgid "No"
 msgstr "Non"
 
 msgid "No Bonita REST API calls."
-msgstr ""
+msgstr "Aucun appel à la REST API Bonita."
 
 msgid "No artifact found."
 msgstr "Aucun artefact."
@@ -1174,11 +1202,14 @@ msgstr "Clé de l'objet à afficher"
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Lorsque vous sélectionnez un élément, modifiez ses propriétés dans le panneau de propriétés sur la droite."
 
+msgid "Open Modal"
+msgstr ""
+
 msgid "Open help"
 msgstr "Ouvrir l'aide"
 
 msgid "Open modal"
-msgstr ""
+msgstr "Ouvrir la fenêtre modale"
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Classés par nom d’artefact. <br/> Cliquez pour trier par date de dernière mise à jour"
@@ -1202,10 +1233,10 @@ msgid "Page Name"
 msgstr "Nom de la page"
 
 msgid "Page description"
-msgstr ""
+msgstr "Description de la page"
 
 msgid "Page display name"
-msgstr ""
+msgstr "Nom affiché de la page"
 
 msgid "Page level"
 msgstr "Niveau de la page"
@@ -1397,7 +1428,7 @@ msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages.
 msgstr "Depuis Bonita 7.5.0, UI Bootstrap n’est plus fourni dans les pages du UI Designer."
 
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 msgid "Source"
 msgstr "Source"
@@ -1481,7 +1512,7 @@ msgid "Successful response value"
 msgstr "Valeur de réponse en cas de succès"
 
 msgid "Summary of the Bonita REST API calls made by the page."
-msgstr ""
+msgstr "Résumé des appels à la REST API Bonita faits par la page."
 
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
@@ -1515,6 +1546,12 @@ msgstr "Texte, incluant éventuellement des variables dans des expressions simpl
 
 msgid "The .zip archive of an exported page contains:"
 msgstr "L’archive .zip d’une page exportée contient :"
+
+msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
+msgstr ""
+
+msgid "The <em>Open modal</em> action can be used to open any modal container on the page. To point towards the right one, specify the ID in the button's \"Modal ID\" property."
+msgstr ""
 
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
@@ -1568,6 +1605,14 @@ msgstr "L’entrée/sortie du widget (sa <em>Valeur</em>) est une variable Strin
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La liste contient à la fois des assets de page et les assets des widgets personnalisés utilisés dans cette page."
 
+msgid "The modal size can be selected in the widget <em>Size</em> properties. Options available are small,\n"
+"            medium or large, which will control the width of the modal."
+msgstr ""
+
+msgid "The modal style can be improved by using the <em>modal-body</em> specific class into the <em>CSS\n"
+"            Classes</em> property field."
+msgstr ""
+
 msgid "The name of the key to use as label. Can be empty"
 msgstr "Le nom de la clé à utiliser comme label. Peut être vide"
 
@@ -1619,6 +1664,10 @@ msgstr "Cet exemple utilise l'exemple fourni par le type JSON. <br>Il recherche 
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
+msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
+"            of the modal."
+msgstr ""
+
 msgid "This page is empty."
 msgstr "Cette page est vide."
 
@@ -1649,6 +1698,16 @@ msgstr "Pour permettre à vos utilisateurs de télécharger un document, ajoutez
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "Pour éviter de les écraser, <i>renommez</i>- les avant d'importer à nouveau."
 
+msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
+"            modal</em> action."
+msgstr ""
+
+msgid "To control modal containers, the following methods are available in a button:"
+msgstr ""
+
+msgid "To control modal containers, the following methods are supported:"
+msgstr ""
+
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Pour afficher (non pas mettre à jour) une date et une heure récupérées de l’API du BDM (ou autre API), vous pouvez soit utiliser ce widget <em>DATE TIME</em> en activant la propriété <em>Lecture seule</em>, soit utiliser un widget <em>Texte</em>, <em>Titre</em> ou un widget <em>Table</em> en formatant la valeur grâce au <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtre</a> <em>uiDate</em> fourni."
 
@@ -1657,6 +1716,9 @@ msgstr "Pour afficher (non pas mettre à jour) une date récupérée de l’API 
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Pour afficher la date dans une propriété de widget évaluée comme une expression, utilisez le filtre <code>dateAgo</code> sur la variable <code>updateDate</code> comme suit : <code>updateDate | dateAgo</code>"
+
+msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
+msgstr ""
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
@@ -1673,6 +1735,11 @@ msgstr "Pour charger une image pour n'importe quel widget personnalisé, ajoutez
 
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "Pour gérer plusieurs versions de dépendances, assurez-vous que chaque asset n'a qu'une version active au sein d'une page."
+
+msgid "To open a modal window it is enough to input a modal ID in the properties, to create a button,\n"
+"            select <em>Open modal</em> in the Action property, and fill in the right modal ID. The button should be\n"
+"            located outside of the modal container."
+msgstr ""
 
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Pour récupérer une instance de document, créez une variable de type API externe avec pour valeur"
@@ -1726,7 +1793,7 @@ msgid "Top frame (_top)"
 msgstr "Cadre supérieur (_top)"
 
 msgid "Translate the given text"
-msgstr ""
+msgstr "Traduire le texte indiqué"
 
 msgid "Treat as"
 msgstr "Traiter comme"
@@ -1765,7 +1832,7 @@ msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "URL utilisée pour exécuter la requête HTTP au clic sur ce bouton."
 
 msgid "Unique ID of this modal"
-msgstr ""
+msgstr "ID unique de cette fenêtre modale"
 
 msgid "Unique checkbox for an option. The user checks it or not"
 msgstr "Case à cocher unique pour une option. L'utilisateur peut la cocher ou pas"
@@ -1818,6 +1885,9 @@ msgstr "Utilisez les caractères : M (mois), d (jour), y (année)"
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
 
+msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
+msgstr ""
+
 msgid "Use this widget to select a date (e.g., a date of birth)."
 msgstr "Utilisez ce widget pour faire sélectionner une date (par exemple, une date de naissance)."
 
@@ -1828,7 +1898,7 @@ msgid "Use this widget to:"
 msgstr "Utilisez ce widget pour :"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
-msgstr ""
+msgstr "Utilisé dans la liste des Ressources du portail. Fait partie du descripteur page.properties dans l'archive de la page exportée."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
@@ -1918,7 +1988,7 @@ msgid "You can apply it to the following variable value types:"
 msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
 
 msgid "You can change the type to be able to use this artifact as a process form or as an application page."
-msgstr ""
+msgstr "Vous pouvez changer de type pour utiliser cet artefact en tant que formulaire de processus, page d'application ou page de synthèse de cas."
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
@@ -1936,7 +2006,7 @@ msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Vous pouvez enregistrer le contenu d'un container simple en tant que fragment réutilisable."
 
 msgid "You can see the migration notes again by clicking on the help button"
-msgstr ""
+msgstr "Pour relire ces notes de migration, cliquez sur le bouton d'aide \"?\""
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "Vous pouvez traduire tout le texte affiché dans un artefact composant l’interface utilisateur : libellés, placeholders, valeurs disponibles d’une liste. Même le format de date du widget Date Picker peut être localisé."
@@ -2028,7 +2098,7 @@ msgid "label Hidden"
 msgstr "Libellé masqué"
 
 msgid "large"
-msgstr ""
+msgstr "grande"
 
 msgid "layout"
 msgstr "layout"
@@ -2040,7 +2110,7 @@ msgid "link"
 msgstr "link"
 
 msgid "medium"
-msgstr ""
+msgstr "moyenne"
 
 msgid "name"
 msgstr "nom"
@@ -2067,7 +2137,7 @@ msgid "right"
 msgstr "à droite"
 
 msgid "small"
-msgstr ""
+msgstr "petite"
 
 msgid "success"
 msgstr "success"
@@ -2116,5 +2186,5 @@ msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenu de {{asset.name}}<expand-modal></expand-modal>"
 
 msgid "{{ctrl.page.name}} information"
-msgstr ""
+msgstr "Informations de {{ctrl.page.name}}"
 
