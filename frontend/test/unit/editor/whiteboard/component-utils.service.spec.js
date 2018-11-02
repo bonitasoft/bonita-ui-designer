@@ -66,6 +66,300 @@ describe('ComponentUtils Service', function() {
     });
   });
 
+  describe('modal containers test', function() {
+    var modal, container, modalWithModal, containerWithModal, modalWithContainerWithModal, tabsContainerWithContainer,
+      tabsContainerWithContainerWithModal;
+
+    beforeEach(function() {
+      modal = {
+        $$id: 'pbModalContainer-1',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-1',
+          rows: [[{}]]
+        }
+      };
+
+      container = {
+        type: 'container',
+        id: 'pbContainer',
+        $$id: 'pbContainer-2',
+        rows: [[{}]]
+      };
+
+      modalWithModal = {
+        $$id: 'pbModalContainer-3',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-3',
+          rows: [[
+            modal
+          ]]
+        }
+      };
+
+      containerWithModal = {
+        type: 'container',
+        id: 'pbContainer',
+        $$id: 'pbContainer-4',
+        rows: [[
+          modal
+        ]]
+      };
+
+      modalWithContainerWithModal = {
+        $$id: 'pbModalContainer-5',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-5',
+          rows: [[
+            containerWithModal
+          ]]
+        }
+      };
+
+      tabsContainerWithContainer = {
+        $$id: 'pbTabsContainer-6',
+        type: 'tabsContainer',
+        id: 'pbTabsContainer',
+        tabs: [
+          {
+            title: 'Tab 1',
+            container: {
+              $$id: 'pbContainer-7',
+              id: 'pbContainer',
+              type: 'container',
+              rows: [[
+                container
+              ]]
+            }
+          }
+        ]
+      };
+
+      tabsContainerWithContainerWithModal = {
+        $$id: 'pbTabsContainer-8',
+        type: 'tabsContainer',
+        id: 'pbTabsContainer',
+        tabs: [
+          {
+            title: 'Tab 1',
+            container: {
+              $$id: 'pbContainer-9',
+              id: 'pbContainer',
+              type: 'container',
+              rows: [[
+                containerWithModal
+              ]]
+            }
+          }
+        ]
+      };
+    });
+
+    it('should return true if a modal container is our child', function() {
+      expect(service.isChildOf('pbContainer-1', modal)).toBe(true);
+      expect(service.isChildOf('pbContainer-1', modalWithModal)).toBe(true);
+      expect(service.isChildOf('pbContainer-1', containerWithModal)).toBe(true);
+      expect(service.isChildOf('pbContainer-1', modalWithContainerWithModal)).toBe(true);
+      expect(service.isChildOf('pbContainer-1', tabsContainerWithContainerWithModal)).toBe(true);
+    });
+
+    it('should return false if a modal container is not our child', function() {
+      expect(service.isChildOf('pbContainer-99', modal)).toBe(false);
+      expect(service.isChildOf('pbContainer-99', containerWithModal)).toBe(false);
+      expect(service.isChildOf('pbContainer-99', tabsContainerWithContainerWithModal)).toBe(false);
+    });
+
+    it('should return true if a modal container is containing a modal container', function() {
+      var modalWithTabsContainerWithContainerWithModal = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [[
+            tabsContainerWithContainerWithModal
+          ]]
+        }
+      };
+
+      expect(service.hasModalContainingModal(modalWithModal)).toBe(true);
+      expect(service.hasModalContainingModal(modalWithContainerWithModal)).toBe(true);
+      expect(service.hasModalContainingModal(modalWithTabsContainerWithContainerWithModal)).toBe(true);
+    });
+
+    it('should return false if a modal container is not containing a modal container', function() {
+      expect(service.hasModalContainingModal(modal)).toBe(false);
+      expect(service.hasModalContainingModal(container)).toBe(false);
+      expect(service.hasModalContainingModal(containerWithModal)).toBe(false);
+      expect(service.hasModalContainingModal(tabsContainerWithContainerWithModal)).toBe(false);
+      expect(service.hasModalContainingModal(tabsContainerWithContainer)).toBe(false);
+    });
+
+    it('should return true if a modal container is containing a modal container in the same row with another widget', function() {
+      var modalWithWigetAndModalInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              modal
+            ]
+          ]
+        }
+      };
+
+      var modalWithWigetAndContainerWithModalInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              containerWithModal
+            ]
+          ]
+        }
+      };
+
+      var modalWithWigetAndModalWithModalInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              modalWithModal
+            ]
+          ]
+        }
+      };
+
+      var modalWithWigetAndTabsContainerWithContainerWithModalInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              tabsContainerWithContainerWithModal
+            ]
+          ]
+        }
+      };
+
+      expect(service.hasModalContainingModal(modalWithWigetAndModalInRow)).toBe(true);
+      expect(service.hasModalContainingModal(modalWithWigetAndContainerWithModalInRow)).toBe(true);
+      expect(service.hasModalContainingModal(modalWithWigetAndModalWithModalInRow)).toBe(true);
+      expect(service.hasModalContainingModal(modalWithWigetAndTabsContainerWithContainerWithModalInRow)).toBe(true);
+    });
+
+    it('should return false if a modal container is not containing a modal container in the same row with another widget', function() {
+      var modalWithWigetAndNothingInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [{}]
+          ]
+        }
+      };
+
+      var modalWithWigetAndContainerInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              container
+            ]
+          ]
+        }
+      };
+
+      var modalWithWidgetAndTabsContainerWithContainerInRow = {
+        $$id: 'pbModalContainer-37',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-37',
+          rows: [
+            [
+              {
+                $$id: 1337,
+                id: 'pbTextarea',
+                type: 'component'
+              }
+            ],
+            [
+              tabsContainerWithContainer
+            ]
+          ]
+        }
+      };
+
+      expect(service.hasModalContainingModal(modalWithWigetAndNothingInRow)).toBe(false);
+      expect(service.hasModalContainingModal(modalWithWigetAndContainerInRow)).toBe(false);
+      expect(service.hasModalContainingModal(modalWithWidgetAndTabsContainerWithContainerInRow)).toBe(false);
+    });
+
+  });
+
   describe('test if a component can move', function() {
     var componentItem, componentItem2;
 
