@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-11-02 03:00\n"
+"PO-Revision-Date: 2018-11-04 03:06\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -133,7 +133,10 @@ msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "El nombre de un recurso local no debe contener espacios o caracteres especiales. Un nombre de recurso externo debe ser una URL estándar."
 
-msgid "A modal container doesn't work when it is embedded in another container, next to other widgets or inside a fragment."
+msgid "A modal container cannot contain another modal container."
+msgstr ""
+
+msgid "A modal container doesn't work when it is embedded in another modal container."
 msgstr ""
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
