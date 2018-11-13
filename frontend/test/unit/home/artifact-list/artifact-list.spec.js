@@ -1,6 +1,6 @@
 describe('artifactListController', function() {
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
 
   var $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
 

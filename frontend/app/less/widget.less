@@ -1,3 +1,5 @@
+@import "theme-colour";
+
 @widget-active-color: #1E90FF;
 @widget-hover-color: #87CEFA;
 @widget-active-background: #ecf7ff;
@@ -120,7 +122,7 @@
 .error {
   .modal-element,
   .fragment-element{
-    border-color: red;
+    border-color: @btn-bonita-primary-bg;
   }
 }
 
@@ -239,4 +241,8 @@
 
 .component-element--selected .Component-marker {
   color: @widget-active-color;
+}
+
+.error-icon {
+  color: @btn-bonita-primary-bg;
 }

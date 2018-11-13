@@ -14,6 +14,16 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
+import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.utils.ListUtil.asList;
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
+
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -24,16 +34,6 @@ import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static org.apache.commons.io.IOUtils.toByteArray;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.utils.ListUtil.asList;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
-
 public class WidgetTest {
 
     @Rule
@@ -42,7 +42,7 @@ public class WidgetTest {
     private ObjectMapper objectMapper = new DesignerConfig().objectMapper();
 
     @Test
-    public void jsonview_light_should_only_manage_id_name_and_light_page() throws Exception {
+    public void jsonview_light_should_only_manage_id_name_hasValidationError_and_light_page() throws Exception {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledWidget());
 
         assertEquals(json, "{"
@@ -57,7 +57,8 @@ public class WidgetTest {
                 + "\"uuid\":\"UUID\","
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
-                + "\"favorite\": false"
+                + "\"favorite\": false,"
+                + "\"hasValidationError\": false"
                 + "}],"
                 + "\"widget\":[{"
                 + "\"id\":\"ID\","

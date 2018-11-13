@@ -3,7 +3,7 @@ describe('HomeCtrl', function() {
   var pages = [{ id: 'page1', name: 'Page 1' }];
   var widgets = [{ id: 'widget1', name: 'Widget 1', custom: true }];
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
   beforeEach(inject(function($injector) {
 
     $q = $injector.get('$q');

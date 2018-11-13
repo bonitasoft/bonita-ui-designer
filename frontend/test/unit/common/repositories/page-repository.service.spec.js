@@ -1,16 +1,17 @@
 describe('pageRepo', function() {
-  var $rootScope, pageRepo, $httpBackend;
+  var $rootScope, pageRepo, $httpBackend, _componentUtils;
 
   var json = {
     id: 'person',
     'rows': []
   };
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
-  beforeEach(inject(function(_$rootScope_, $q, _pageRepo_, _$httpBackend_) {
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.editor.whiteboard'));
+  beforeEach(inject(function(_$rootScope_, $q, _pageRepo_, _$httpBackend_, componentUtils) {
     $rootScope = _$rootScope_;
     pageRepo = _pageRepo_;
     $httpBackend = _$httpBackend_;
+    _componentUtils = componentUtils;
   }));
 
   it('should list the pages', function() {
@@ -112,6 +113,96 @@ describe('pageRepo', function() {
 
     // then we should have called the backend
     $httpBackend.flush();
+  });
+
+  it('should verify if the page is valid on save',function() {
+    // given a page
+    let page = {
+      type: 'page',
+      name: 'page1',
+      id: 'page-id-1',
+      hasValidationError: false,
+      rows: [[]]
+    };
+    // when we save the page
+    pageRepo.save(page);
+    // then we should not have a validation error
+    expect(page.hasValidationError).toBe(false);
+
+    // when we add a modal container
+    page.rows[0].push(
+      {
+        $$id: 'pbModalContainer-1',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-1',
+          rows: [[]]
+        }
+      }
+    );
+    // when we save the page
+    pageRepo.save(page);
+    // then we should not have a validation error
+    expect(page.hasValidationError).toBe(false);
+
+    // when we add a modal container beside the other modal container
+    page.rows[0].push(
+      {
+        $$id: 'pbModalContainer-2',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-2',
+          rows: [[]]
+        }
+      }
+    );
+    // when we save the page
+    pageRepo.save(page);
+    // then we should not have a validation error
+    expect(page.hasValidationError).toBe(false);
+
+    // when we add a modal container inside a modal container
+    page.rows[0][0].container.rows[0].push(
+      {
+        $$id: 'pbModalContainer-3',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-3',
+          rows: [[]]
+        }
+      }
+    );
+    // when we save the page
+    pageRepo.save(page);
+    // then we should have a validation error
+    expect(page.hasValidationError).toBe(true);
+
+    // when we add a modal container inside a modal container that is inside a modal container
+    page.rows[0][0].container.rows[0][0].container.rows[0].push(
+      {
+        $$id: 'pbModalContainer-4',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        container: {
+          $$id: 'pbContainer-4',
+          rows: [[]]
+        }
+      }
+    );
+    //when we save the page
+    pageRepo.save(page);
+    // then the page should stay invalid
+    expect(page.hasValidationError).toBe(true);
+
+    // when we add a remove the modal container that creates the problem
+    page.rows[0][0].container.rows[0] = [];
+    //when we save the page
+    pageRepo.save(page);
+    // then the page should be valid
+    expect(page.hasValidationError).toBe(false);
   });
 
   it('should compute page export url', function() {

@@ -2,7 +2,7 @@ describe('repositories service', () => {
 
   var repositories, pageRepo, widgetRepo;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories'));
+  beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function(_repositories_, _pageRepo_, _widgetRepo_) {
     repositories = _repositories_;

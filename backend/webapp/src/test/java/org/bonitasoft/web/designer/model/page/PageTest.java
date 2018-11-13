@@ -19,7 +19,6 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -44,7 +43,7 @@ public class PageTest {
     }
 
     @Test
-    public void jsonview_light_should_only_manage_id_name_and_favorite() throws Exception {
+    public void jsonview_light_should_only_manage_id_name_hasValidationError_and_favorite() throws Exception {
         String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledPage());
 
         JSONAssert.assertEquals(json, "{"
@@ -52,7 +51,8 @@ public class PageTest {
                 + "\"uuid\":\"UUID\","
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
-                + "\"favorite\": true"
+                + "\"favorite\": true,"
+                + "\"hasValidationError\": false"
                 + "}", false);
     }
 

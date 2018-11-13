@@ -5,7 +5,7 @@
   describe('Menu bar controller', function() {
     var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, $localStorage, browserHistoryService;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal', 'bonitasoft.designer.editor.whiteboard'));
 
     beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_) {
       pageRepo = _pageRepo_;

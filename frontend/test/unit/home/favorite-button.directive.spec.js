@@ -2,7 +2,7 @@ describe('favorite button', function() {
 
   var $scope, element, artifact, controller, pageRepo;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function($compile, $rootScope, _pageRepo_) {
     $scope = $rootScope.$new();

@@ -56,6 +56,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
+    private boolean hasValidationError = false;
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getId() {
@@ -199,4 +200,9 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
                 .append("version", getDesignerVersion())
                 .toString();
     }
+
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
+    public boolean hasValidationError() { return hasValidationError; }
+
+    public void setHasValidationError(boolean hasValidationError) { this.hasValidationError = hasValidationError; }
 }
