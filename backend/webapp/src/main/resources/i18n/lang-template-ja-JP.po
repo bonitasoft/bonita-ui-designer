@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-11-08 03:40\n"
+"PO-Revision-Date: 2018-11-18 03:32\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -934,7 +934,7 @@ msgstr "プロセス内にビジネス変数を定義した場合、プロセス
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "<em>成功時のレスポンス値</em> の変数に加え、 <em>POST</em>、<em>PUT</em>、<em>削除</em>、<em>プロセスを開始</em> 、<em>タスクを送信</em> のリクエストに対し、そのリクエストが成功したときに、現在のウィンドウ (フレーム) の場所に表示する<em>成功時のターゲットURL</em> を定義する可能性もあります。"
 
-msgid "In folder"
+msgid "In folder:"
 msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
@@ -1907,6 +1907,9 @@ msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
+
+msgid "Validation error. Fix is recommended before export"
+msgstr ""
 
 msgid "Value"
 msgstr "値"
