@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-11-04 03:06\n"
+"PO-Revision-Date: 2018-11-18 03:03\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -1610,7 +1610,7 @@ msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "La lista contiene los recursos de página y los recursos de los widgets personalizados utilizados en esta página."
 
-msgid "The modal size can be selected in the widget <em>Size</em> properties. Options available are small,\n"
+msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
 "            medium or large, which will control the width of the modal."
 msgstr ""
 

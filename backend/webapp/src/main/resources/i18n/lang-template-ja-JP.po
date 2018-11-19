@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-11-04 03:45\n"
+"PO-Revision-Date: 2018-11-18 03:32\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -1611,7 +1611,7 @@ msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href
 msgid "The list contains both page assets and the assets of the custom widgets used in this page."
 msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
 
-msgid "The modal size can be selected in the widget <em>Size</em> properties. Options available are small,\n"
+msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
 "            medium or large, which will control the width of the modal."
 msgstr ""
 
