@@ -71,7 +71,6 @@
     {
       "label": "Displayed key",
       "name": "displayedKey",
-      "help": "Object's key to display",
       "type": "text",
       "help": "The name of the key to use as label. Can be empty"
     },

@@ -115,6 +115,5 @@
       "type": "js",
       "order": 2
     }
-  ],
-  "requiredModules": ["mgcrea.ngStrap.datepicker"]
+  ]
 }

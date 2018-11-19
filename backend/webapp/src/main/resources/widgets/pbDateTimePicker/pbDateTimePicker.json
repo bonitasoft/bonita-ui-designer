@@ -91,7 +91,6 @@
     {
       "label": "Value",
       "name": "value",
-      "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable",
       "help": "Should contain time zone information only when 'Handle time zone' is set to 'yes'",
