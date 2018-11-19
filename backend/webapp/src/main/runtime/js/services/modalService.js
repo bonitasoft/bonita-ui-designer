@@ -13,13 +13,17 @@
     };
 
     function openModal(name) {
-      openModals.push(name);
-      modals[name].open();
+      if (name && modals[name]) {
+        openModals.push(name);
+        modals[name].open();
+      }
     }
 
     function closeModal() {
       var name = openModals.pop();
-      modals[name].close();
+      if (name && modals[name]) {
+        modals[name].close();
+      }
     }
 
     function registerModal(name, modal) {
