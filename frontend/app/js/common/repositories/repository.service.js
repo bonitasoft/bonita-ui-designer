@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('Repository', repositoryService);
 
-  function repositoryService($http) {
+  function repositoryService($http, componentUtils) {
 
     class Repository {
       constructor(type, baseUrl) {
@@ -50,6 +50,9 @@
        * @return {Boolean}
        */
       needSave(artifact) {
+        if (artifact && artifact.hasValidationError) {
+          artifact.hasValidationError = componentUtils.hasModalContainingModal(artifact);
+        }
         return angular.toJson(artifact) !== this.lastSavedState;
       }
 

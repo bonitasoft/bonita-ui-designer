@@ -119,13 +119,6 @@
   margin-bottom: 10px;
 }
 
-.error {
-  .modal-element,
-  .fragment-element{
-    border-color: @btn-bonita-primary-bg;
-  }
-}
-
 .component-element--hover {
   border-color: @widget-hover-color;
   transition: opacity .3s ease;
@@ -243,6 +236,13 @@
   color: @widget-active-color;
 }
 
-.error-icon {
+.error {
+  .modal-element,
+  .fragment-element{
+    border-color: @btn-bonita-primary-bg;
+  }
+}
+
+.error-icon, .modal-element .error-icon {
   color: @btn-bonita-primary-bg;
 }

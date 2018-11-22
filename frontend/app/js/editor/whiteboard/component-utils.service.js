@@ -154,7 +154,6 @@
       if (modalInParents && container.type === 'modalContainer') {
         return true;
       }
-
       // We normalize container and tabs container into an array of rows
       // For tabs, we merge rows of each tabs container
       var rows = container.rows ||

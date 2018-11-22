@@ -202,7 +202,11 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     }
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
-    public boolean hasValidationError() { return hasValidationError; }
+    public boolean getHasValidationError() {
+        return hasValidationError;
+    }
 
-    public void setHasValidationError(boolean hasValidationError) { this.hasValidationError = hasValidationError; }
+    public void setHasValidationError(boolean hasValidationError) {
+        this.hasValidationError = hasValidationError;
+    }
 }
