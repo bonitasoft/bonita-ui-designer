@@ -50,7 +50,7 @@
        * @return {Boolean}
        */
       needSave(artifact) {
-        if (artifact && artifact.hasValidationError) {
+        if (artifact && artifact.hasValidationError !== undefined) {
           artifact.hasValidationError = componentUtils.hasModalContainingModal(artifact);
         }
         return angular.toJson(artifact) !== this.lastSavedState;
