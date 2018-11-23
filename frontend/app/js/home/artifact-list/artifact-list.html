@@ -9,21 +9,28 @@
         <div class="Artifact-info" ng-switch="artifactList.isInEditionMode($index)">
           <a ng-switch-default ng-href="{{:: artifact.editionUrl }}"
                class="Artifact-link Artifact-link--primary">
-                <span ng-if="artifact.icon" class="Artifact-icon"><identicon name="{{artifact.id}}" size="25" foreground-color="[198, 199, 228, 255]" background-color="[0,0,0,0]"></identicon></span>
+                <span ng-if="artifact.icon" class="Artifact-icon"><identicon name="{{artifact.id}}" size="25"
+                                                                             foreground-color="[198, 199, 228, 255]"
+                                                                             background-color="[0,0,0,0]">
+                </identicon>
+                <i ng-if="artifact.hasValidationError" class="fa identicon-error-overlay"></i>
+                </span>
                 <i ng-if="!artifact.icon" class="ui-icon ui-{{:: artifact.type }}s Artifact-icon"
-                   uib-tooltip="{{:: artifact.type }}"
+                   uib-tooltip="{{::!artifact.hasValidationError ? artifact.type : artifactList.translateKeys('Validation error. Fix is recommended before export')}}"
                    tooltip-popup-delay="500">
+                    <i ng-if="artifact.hasValidationError" class="fa error-overlay"></i>
                 </i>
+
                 <span class="Artifact-text">
                     <span class="Artifact-name"
                           uib-tooltip-template="'js/home/artifact-list/artifact-tooltip-template.html'"
                           tooltip-popup-delay="500"
-                          tooltip-placement="top-left">{{artifact.name}}</span>
+                          tooltip-placement="top-left">{{artifact.name}}
+                    </span>
                     <span class="Artifact-metadata"
                       >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
                 </span>
             </a>
-
             <form name="renameArtifact" class="Artifact-form"
                   ng-switch-when="true"
                   ng-submit="artifactList.renameItem(artifact)"

@@ -7,7 +7,7 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -934,8 +934,8 @@ msgstr "En un formulario de proceso, si se han definido variables de negocio en 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "Además de la variable <em>Valor de respuesta exitosa</em>, para las peticiones <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Iniciar proceso</em> y <em>Enviar tarea</em>, también es posible definir una <em>Dirección URL de destino en éxito</em> que se utiliza para establecer la ubicación actual de la ventana (frame) cuando la solicitud es exitosa."
 
-msgid "In folder"
-msgstr "En la carpeta"
+msgid "In folder:"
+msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
@@ -1906,6 +1906,9 @@ msgstr "Utilizado en la lista de Recursos del portal. Parte del descriptor page.
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
+
+msgid "Validation error. Fix is recommended before export"
+msgstr ""
 
 msgid "Value"
 msgstr "Valor"

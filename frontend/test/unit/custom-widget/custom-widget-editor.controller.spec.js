@@ -8,7 +8,7 @@ describe('CustomWidgetEditorCtrl', function() {
     id: 'awesomeCustomWidget'
   };
 
-  beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal'));
+  beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal', 'bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
     $scope = $rootScope.$new();

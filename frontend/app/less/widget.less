@@ -1,3 +1,5 @@
+@import "theme-colour";
+
 @widget-active-color: #1E90FF;
 @widget-hover-color: #87CEFA;
 @widget-active-background: #ecf7ff;
@@ -117,13 +119,6 @@
   margin-bottom: 10px;
 }
 
-.error {
-  .modal-element,
-  .fragment-element{
-    border-color: red;
-  }
-}
-
 .component-element--hover {
   border-color: @widget-hover-color;
   transition: opacity .3s ease;
@@ -239,4 +234,15 @@
 
 .component-element--selected .Component-marker {
   color: @widget-active-color;
+}
+
+.error {
+  .modal-element,
+  .fragment-element{
+    border-color: @btn-bonita-primary-bg;
+  }
+}
+
+.error-icon, .modal-element .error-icon {
+  color: @btn-bonita-primary-bg;
 }

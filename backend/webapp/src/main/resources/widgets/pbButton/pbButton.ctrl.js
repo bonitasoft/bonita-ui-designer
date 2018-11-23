@@ -15,10 +15,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Start process') {
       startProcess();
-      closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Submit task') {
       submitTask();
-      closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Open modal') {
       closeModal($scope.properties.closeOnSuccess);
       openModal($scope.properties.modalId);
@@ -26,7 +24,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal(true);
     } else if ($scope.properties.url) {
       doRequest($scope.properties.action, $scope.properties.url);
-      closeModal($scope.properties.closeOnSuccess);
     }
   };
 
@@ -109,6 +106,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           redirectIfNeeded();
         }
+        closeModal($scope.properties.closeOnSuccess);
       })
       .error(function(data, status) {
         $scope.properties.dataFromError = data;

@@ -18,13 +18,13 @@ import static java.lang.String.format;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
@@ -37,6 +37,8 @@ public abstract class Element {
     private Map<String, Integer> dimension = new TreeMap<>();
     private Map<String, PropertyValue> propertyValues = new HashMap<>();
     private String reference;
+
+    private boolean hasValidationError = false;
 
     public Element() {
         this.dimension.put("xs", 12);
@@ -89,5 +91,14 @@ public abstract class Element {
 
     private String stringifyColumn(String prefix, Integer size) {
         return size == null ? "" : format("col-%s-%d ", prefix, size);
+    }
+
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
+    public boolean getHasValidationError() {
+        return hasValidationError;
+    }
+
+    public void setHasValidationError(boolean hasValidationError) {
+        this.hasValidationError = hasValidationError;
     }
 }

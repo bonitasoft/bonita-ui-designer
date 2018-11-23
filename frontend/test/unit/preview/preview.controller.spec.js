@@ -1,7 +1,7 @@
 describe('PreviewCtrl', function() {
   var ctrl, $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout, $log, $window;
 
-  beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket'));
+  beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket', 'bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function($injector, _webSocket_) {
 

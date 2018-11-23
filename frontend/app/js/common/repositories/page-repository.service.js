@@ -22,12 +22,18 @@
     .factory('formRepo', pageRepository)
     .factory('layoutRepo', pageRepository);
 
-  function pageRepository(Repository) {
+  function pageRepository(Repository, componentUtils) {
 
     class PageRepository extends Repository {
       constructor() {
         super('page', 'rest/pages');
       }
+
+      save(artifact) {
+        artifact.hasValidationError = componentUtils.hasModalContainingModal(artifact);
+        return super.save(artifact);
+      }
+
       /**
        * Renames a page and returns a promise
        * @param id - the page's id

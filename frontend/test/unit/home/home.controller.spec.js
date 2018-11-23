@@ -12,7 +12,7 @@ describe('HomeCtrl', function() {
 
   var artifacts = [...pages, ...widgets];
 
-  beforeEach(angular.mock.module('bonitasoft.designer.home'));
+  beforeEach(angular.mock.module('bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
   beforeEach(inject(function($controller, $rootScope, $injector, $state) {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');

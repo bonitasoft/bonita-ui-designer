@@ -67,7 +67,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
     // If you are trying to dragAndDrop a widget already defined
     if (data.$$widget) {
 
-      if (!componentUtils.isMovable(data, $scope.component || $scope.container))  {
+      if (!componentUtils.isMovable(data, $scope.component || $scope.container)) {
         return;
       }
       $scope.editor.selectRow($scope.container, row);
@@ -106,8 +106,7 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
     return container && container.propertyValues && container.propertyValues.repeatedCollection && container.propertyValues.repeatedCollection.value;
   };
 
-  $scope.hasModalContainingModal =  function(container) {
-    return componentUtils.hasModalContainingModal(container) && container.type === 'modalContainer';
+  $scope.hasModalContainingModal = function(container) {
+    return container && container.type === 'modalContainer' && componentUtils.hasModalContainingModal(container);
   };
-
 });

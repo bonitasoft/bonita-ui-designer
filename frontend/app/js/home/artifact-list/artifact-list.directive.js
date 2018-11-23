@@ -32,7 +32,8 @@
         'Export': this.gettextCatalog.getString('Export'),
         'Rename': this.gettextCatalog.getString('Rename'),
         'Last Update:': this.gettextCatalog.getString('Last Update:'),
-        'In folder:': this.gettextCatalog.getString('In folder ')
+        'In folder:': this.gettextCatalog.getString('In folder:'),
+        'Validation error. Fix is recommended before export': this.gettextCatalog.getString('Validation error. Fix is recommended before export')
       }[key] || key;
     }
 

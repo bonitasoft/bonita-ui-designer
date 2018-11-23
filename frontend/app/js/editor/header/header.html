@@ -41,6 +41,10 @@
         </form>
         <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" artifact-id="vm.page.id"
                       is-disabled="!formName.$valid || vm.isPageDirty(vm.page)"></open-preview>
+        <div ng-if="vm.page.hasValidationError" uib-tooltip="{{ 'Validation error on the page. Fix is recommended before export' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300" style="margin-left:10px">
+            <i class="fa fa-times-circle" style="color:red;"></i>
+            <translate>Validation Errors</translate>
+        </div>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
     <div class="EditorHeader-resolutions">
