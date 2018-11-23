@@ -107,6 +107,6 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
   };
 
   $scope.hasModalContainingModal = function(container) {
-    return container && container.type === 'modalContainer' && componentUtils.hasModalContainingModal(container);
+    return container && (container.type === 'modalContainer' || container.type === 'fragment') && componentUtils.hasModalContainingModal(container);
   };
 });
