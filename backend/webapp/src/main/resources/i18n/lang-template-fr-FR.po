@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2018-11-18 03:01\n"
+"PO-Revision-Date: 2018-11-25 03:01\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -1905,6 +1905,12 @@ msgstr "Utilisé dans la liste des Ressources du portail. Fait partie du descrip
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
+
+msgid "Validation Errors"
+msgstr ""
+
+msgid "Validation error on the page. Fix is recommended before export"
+msgstr ""
 
 msgid "Validation error. Fix is recommended before export"
 msgstr ""
