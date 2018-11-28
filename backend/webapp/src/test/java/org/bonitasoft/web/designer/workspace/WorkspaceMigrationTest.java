@@ -20,9 +20,9 @@ import static com.google.common.collect.Iterables.transform;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
-
 import javax.inject.Inject;
 
+import com.google.common.base.Function;
 import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -39,8 +39,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import com.google.common.base.Function;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfig.class })
@@ -59,7 +57,7 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.7.25";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.8.29";
 
     String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
 

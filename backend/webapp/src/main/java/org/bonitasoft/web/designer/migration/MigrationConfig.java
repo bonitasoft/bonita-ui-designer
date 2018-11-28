@@ -71,7 +71,7 @@ public class MigrationConfig {
             StyleAssetMigrationStep styleAssetMigrationStep,
             TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
             UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
-            PageUUIDMigrationStep pageUUIDMigrationStep) {
+            PageUUIDMigrationStep pageUUIDMigrationStep, StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -79,7 +79,8 @@ public class MigrationConfig {
                 new Migration<>("1.5.7", styleAssetMigrationStep),
                 new Migration<>("1.5.10", uiBootstrapAssetMigrationStep),
                 new Migration<>("1.7.4", pageTextWidgetInterpretHTMLMigrationStep),
-                new Migration<>("1.7.25", pageUUIDMigrationStep));
+                new Migration<>("1.7.25", pageUUIDMigrationStep)
+                ,new Migration<>("1.8.29", styleAddModalContainerPropertiesMigrationStep));
     }
 
     @Bean
