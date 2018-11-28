@@ -486,4 +486,19 @@ public class AssetServiceTest {
 
         verify(assetRepository).refreshAssets(page);
     }
+
+    @Test
+    public void should_read_asset_content() throws IOException {
+        Asset myAsset = anAsset().withType(CSS).withName("style.css").build();
+        Page page = aPage()
+                .withVersion("1.7.9").withAsset(myAsset).build();
+
+        when(assetRepository.readAllBytes(page.getId(), myAsset)).thenReturn("myContentOfAsset".getBytes());
+
+        String content = assetService.getAssetContent(page, myAsset);
+        assertThat(content).isEqualTo("myContentOfAsset");
+
+
+
+    }
 }

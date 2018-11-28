@@ -358,6 +358,35 @@ describe('ComponentUtils Service', function() {
       expect(service.hasModalContainingModal(modalWithWidgetAndTabsContainerWithContainerInRow)).toBe(false);
     });
 
+    it('should return true if a modal is not at the root of the page', function() {
+      modal.$$parentContainerRow = {
+        container: {
+          type: 'container'
+        }
+      };
+      expect(service.hasModalInSubContainers(modal)).toBe(true);
+    });
+
+    it('should return false if a modal is at the root of the artifact', function() {
+      modal.$$parentContainerRow = {
+        container: {
+          type: 'page'
+        }
+      };
+      expect(service.hasModalInSubContainers(modal)).toBe(false);
+      modal.$$parentContainerRow = {
+        container: {
+          type: 'form'
+        }
+      };
+      expect(service.hasModalInSubContainers(modal)).toBe(false);
+      modal.$$parentContainerRow = {
+        container: {
+          type: 'layout'
+        }
+      };
+      expect(service.hasModalInSubContainers(modal)).toBe(false);
+    });
   });
 
   describe('test if a component can move', function() {

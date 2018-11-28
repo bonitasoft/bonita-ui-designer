@@ -15,8 +15,8 @@
             </div>
 
             <div ng-repeat="component in row" class="component" ng-class="editor.componentClasses(component)"  bo-draggable bo-draggable-data="component" bo-drop-item="dropItem($data, row, rowIndex)">
-                <i ng-if="hasModalContainingModal(component)" class="fa fa-times-circle Component-marker error-icon" title="{{ 'A modal container cannot contain another modal container.' | translate }}"></i>
-                <div ng-include="component.$$templateUrl" ng-class="{'error':hasModalContainingModal(component)}"></div>
+                <i ng-if="hasModalInSubContainers(component)" class="fa fa-times-circle Component-marker error-icon" title="{{ 'A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard.' | translate }}"></i>
+                <div ng-include="component.$$templateUrl" ng-class="{'error':hasModalInSubContainers(component)}"></div>
             </div>
 
             <div ng-if="editor.rowSize(row) < 12"

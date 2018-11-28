@@ -30,6 +30,7 @@
       getVisibleComponents: getVisibleComponents,
       isContainer: isContainer,
       getResolutionClasses,
+      hasModalInSubContainers,
       column: {
         width: columnWidth,
         className: columnClass,
@@ -182,6 +183,10 @@
         .some(function(widget) {
           return hasModalContainingModal(widget, this);
         }, modalInParents);
+    }
+
+    function hasModalInSubContainers(container) {
+      return container.type === 'modalContainer' && (container.$$parentContainerRow.container.type === 'fragment' || container.$$parentContainerRow.container.type === 'container');
     }
 
     /**

@@ -14,6 +14,19 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.util.UUID.randomUUID;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -33,19 +46,6 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.util.UUID.randomUUID;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
 
 public class AssetService<T extends Assetable> {
 
@@ -91,7 +91,7 @@ public class AssetService<T extends Assetable> {
                     .setType(assetType)
                     .setOrder(getNextOrder(component));
 
-            Optional<Asset> existingAsset =  Iterables.<Asset>tryFind(component.getAssets(), new Predicate<Asset>() {
+            Optional<Asset> existingAsset = Iterables.<Asset>tryFind(component.getAssets(), new Predicate<Asset>() {
 
 
                 @Override
@@ -180,6 +180,10 @@ public class AssetService<T extends Assetable> {
         } catch (IOException e) {
             throw new RepositoryException("Error while saving internal asset", e);
         }
+    }
+
+    public String getAssetContent(T component, Asset asset) throws IOException {
+        return new String(assetRepository.readAllBytes(component.getId(), asset));
     }
 
     /**
