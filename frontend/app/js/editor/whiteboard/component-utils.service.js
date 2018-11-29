@@ -26,11 +26,11 @@
       isEmpty: isEmpty,
       isChildOf: isChildOf,
       isMovable: isMovable,
-      hasModalContainingModal: hasModalContainingModal,
       getVisibleComponents: getVisibleComponents,
       isContainer: isContainer,
       getResolutionClasses,
-      hasModalInSubContainers,
+      containsModalInContainer,
+      isModalInContainer,
       column: {
         width: columnWidth,
         className: columnClass,
@@ -150,9 +150,12 @@
       return false;
     }
 
-    function hasModalContainingModal(container, modalInParents) {
-
-      if (modalInParents && container.type === 'modalContainer') {
+    /**
+     * Returns true if the container passed contain a Modal in another container.
+     * (A modal that is not at the root of a Page/Form/layout.)
+     */
+    function containsModalInContainer(container) {
+      if (isModalInContainer(container)) {
         return true;
       }
       // We normalize container and tabs container into an array of rows
@@ -161,19 +164,11 @@
         container.container && container.container.rows ||
         container.$$widget && container.$$widget.rows ||
         (container.tabs || [])
-        .map(getTabRows)
-        .reduce(flattenReducer, []);
+          .map(getTabRows)
+          .reduce(flattenReducer, []);
 
       if (rows.length === 0) {
         return false;
-      }
-
-      if (modalInParents === undefined) {
-        modalInParents = container.type === 'modalContainer';
-      }
-
-      if (container.type === 'modalContainer') {
-        modalInParents = true;
       }
 
       // we reduce rows into an array of widget and iterate over it
@@ -181,12 +176,17 @@
       return rows
         .reduce(flattenReducer, [])
         .some(function(widget) {
-          return hasModalContainingModal(widget, this);
-        }, modalInParents);
+          return containsModalInContainer(widget);
+        });
     }
 
-    function hasModalInSubContainers(container) {
-      return container.type === 'modalContainer' && (container.$$parentContainerRow.container.type === 'fragment' || container.$$parentContainerRow.container.type === 'container');
+    /**
+     * Returns true if the container passed is contains in another container than Page, form, or layout.
+     */
+    function isModalInContainer(container) {
+      return container.type === 'modalContainer' &&
+             (container.$$parentContainerRow.container.type === 'fragment' ||
+             container.$$parentContainerRow.container.type === 'container');
     }
 
     /**
