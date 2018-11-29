@@ -17,6 +17,6 @@
     <div palette-widget
         class="PaletteItem text-center"
         ng-repeat="widget in palette.currentSection.widgets | orderBy:'component.order'"
-        widget="widget">
+        widget="widget" is-fragment="palette.isFragment()">
     </div>
 </div>

@@ -1,10 +1,15 @@
-<div uib-tooltip="{{ widget.component.description | translate }}"
-     tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="right"
-     tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
-    <div id="{{ widget.component.id }}" bo-draggable-data="widget" bo-draggable>
-        <img class="PaletteItem-icon" ng-if="widget.component.icon" ng-src="{{iconData}}" height="20" width="50"/>
-        <identicon ng-if="!widget.component.icon" name="{{widget.component.id}}" size="30" background-color="[0,0,0,0]"></identicon>
-        <h5 class="PaletteItem-label">{{ widget.component.name }}</h5>
+<div ng-class="{'display-widget': widget.component.id === 'pbModalContainer' && isFragment }">
+    <div
+         uib-tooltip="{{ widget.component.description | translate }}"
+         tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="right"
+         tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
+
+        <div id="{{ widget.component.id }}" bo-draggable-data="widget" bo-draggable>
+            <img class="PaletteItem-icon" ng-if="widget.component.icon" ng-src="{{iconData}}" height="20" width="50"/>
+            <identicon ng-if="!widget.component.icon" name="{{widget.component.id}}" size="30"
+                       background-color="[0,0,0,0]"></identicon>
+            <h5 class="PaletteItem-label">{{ widget.component.name }}</h5>
+        </div>
     </div>
 </div>
 
