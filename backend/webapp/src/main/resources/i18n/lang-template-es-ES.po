@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-11-25 03:04\n"
+"PO-Revision-Date: 2018-11-28 03:06\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -134,10 +134,10 @@ msgid "A local asset name must not contain special characters or spaces. An exte
 msgstr "El nombre de un recurso local no debe contener espacios o caracteres especiales. Un nombre de recurso externo debe ser una URL estándar."
 
 msgid "A modal container cannot contain another modal container."
-msgstr ""
+msgstr "Un contenedor modal no puede contener otro contenedor modal."
 
 msgid "A modal container doesn't work when it is embedded in another modal container."
-msgstr ""
+msgstr "Un contenedor modal no funciona si esta embebido en otro contenedor modal."
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Una propiedad que requiere un valor constante se presenta en el panel de propiedades como un grupo de radio buttons, lista desplegable o selector de números (para la propiedad Width). Selecciona el valor deseado."
@@ -185,7 +185,7 @@ msgid "Add JavaScript assets for custom scripts. They will be loaded and made av
 msgstr "Añada recursos JavaScript para scripts personalizados. Serán cargados y estarán disponibles a nivel de página. Se pueden utilizar en las variables de tipo Expresión JavaScript. En el campo de valor de la variable, simplemente llame a la función y pase los parámetros requeridos."
 
 msgid "Add a modal ID, as the button will need to open the right modal container. This ID must be unique within a given page, form, or layout."
-msgstr ""
+msgstr "Añada un modal ID, ya que el botón necesita abrir el contenedor modal adecuado. Este ID debe ser único en una página, formulario o layout."
 
 msgid "Add a new asset"
 msgstr "Añadir un nuevo asset"
@@ -231,7 +231,7 @@ msgstr "Animación"
 
 msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
 "            following classes:"
-msgstr ""
+msgstr "Otra posibilidad es añadir contenedores diferentes dentro de una modal y especificar una de las clases siguiente:"
 
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Bootstrap http://getbootstrap.com/css/#helper-classes"
@@ -240,7 +240,7 @@ msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Cualquier variable booleana: <i>myData</i> ó <i>myData.attribute</i>"
 
 msgid "Any button can close a modal container that contains it when a success happens after any button action."
-msgstr ""
+msgstr "Cualquier botón puede cerrar un contenedor modal en el cual esta contenido el botón, si la acción del botón es satisfactoria."
 
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Cualquier variable: <i>myData</i> ó <i>myData.attribute</i>"
@@ -414,7 +414,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 msgid "Close Modal"
-msgstr ""
+msgstr "Cerrar Modal"
 
 msgid "Close modal"
 msgstr "Cierre modal"
@@ -459,7 +459,7 @@ msgid "Content"
 msgstr "Contenido"
 
 msgid "Control"
-msgstr ""
+msgstr "Control"
 
 msgid "Controller"
 msgstr "Controller"
@@ -926,7 +926,7 @@ msgid "In a JavaScript asset, you can specify a dependency on an Angular module.
 msgstr "En un recurso JavaScript, puede especificar una dependencia de un módulo Angular. Primero agrega el recurso JavaScript y luego añada el nombre del módulo en la sección dedicada. Puede encontrar los módulos disponibles en <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
 
 msgid "In a form, a page, or a layout, we recommend to drop modal containers at the bottom of the editor content."
-msgstr ""
+msgstr "En un formulario, página, o layaout, le recomendamos añadir los contenedores modales al final del editor."
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
@@ -995,7 +995,7 @@ msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "Estructura de archivos json no válida {{ infos.modelfile }}"
 
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
-msgstr ""
+msgstr "Es posible desactivar la animación de entrada de la modal. El uso principal de esta opción es para crear un wizard o asistente, es decir, cuando varios contenedores se van a mostrar en secuencia."
 
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
 msgstr "Otorga las referencias a todas las variables de negocio y documentos de la instancia de proceso (caso). Para recuperar la instancia de una variable de negocio, crea una variable de tipo API externo con valor"
@@ -1133,7 +1133,7 @@ msgid "Modal container"
 msgstr "Contenedor modal"
 
 msgid "Modals"
-msgstr ""
+msgstr "Modales"
 
 msgid "Move the row down"
 msgstr "Bajar la fila"
@@ -1208,7 +1208,7 @@ msgid "Once you select an element, edit its properties in the properties panel o
 msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de propiedades de la derecha."
 
 msgid "Open Modal"
-msgstr ""
+msgstr "Abrir Modal"
 
 msgid "Open help"
 msgstr "Abrir ayuda"
@@ -1553,10 +1553,10 @@ msgid "The .zip archive of an exported page contains:"
 msgstr "El archivo .zip de una página exportada contiene:"
 
 msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
-msgstr ""
+msgstr "La acción <em>Cerrar modal</em> cerrará la modal que contiene el botón cuando se presione."
 
 msgid "The <em>Open modal</em> action can be used to open any modal container on the page. To point towards the right one, specify the ID in the button's \"Modal ID\" property."
-msgstr ""
+msgstr "La acción <em>Abrir modal</em> puede usarse para abrir cualquier contenedor modal de la página. Para especificar cual, defina el ID de la modal en la propiedad \"Modal Id\"."
 
 msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
 "            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
@@ -1616,7 +1616,7 @@ msgstr ""
 
 msgid "The modal style can be improved by using the <em>modal-body</em> specific class into the <em>CSS\n"
 "            Classes</em> property field."
-msgstr ""
+msgstr "El estilo de la modal puede ser mejorado utilizando la clase especifica <em>modal-body</em> en la propiedad <em>CSS Classes</em>."
 
 msgid "The name of the key to use as label. Can be empty"
 msgstr "El nombre de la clave a utilizar como etiqueta. Puede estar vacío"
@@ -1671,7 +1671,7 @@ msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> momen
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
-msgstr ""
+msgstr "La modal está basada en la implementación ui-bootstrap. Es posible modificar el tamaño y/o estilo de la modal."
 
 msgid "This page is empty."
 msgstr "Esta página está vacía."
@@ -1705,13 +1705,13 @@ msgstr "Para evitar que se sobrescriban, <i>renombre</i> ellos antes de importar
 
 msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
 "            modal</em> action."
-msgstr ""
+msgstr "Para cerrar una modal, añada un boton dentro de la modal y seleccione la acción <em>Cerrar modal</em>."
 
 msgid "To control modal containers, the following methods are available in a button:"
-msgstr ""
+msgstr "Los siguiente métodos están disponibles en el botón para manejar los contenedores modal:"
 
 msgid "To control modal containers, the following methods are supported:"
-msgstr ""
+msgstr "Los siguiente métodos están disponibles para manejar los contenedores modal:"
 
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Para mostrar (y no actualizar) una fecha y una hora obtenidas de la API BDM (u otra API), puede utilizar este widget de <em>Selector de fecha y hora</em> con la propiedad <em>Sólo lectura</em> establecida a \"sí\" o utilizar un widget de <em>Texto</em>, <em>Título</em> o <em>Tabla</em> y dar formato al valor con el <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtro</a> <em>uiDate</em> proporcionado."
@@ -1723,7 +1723,7 @@ msgid "To display the date in a widget property evaluated as an expression, use 
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
 
 msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
-msgstr ""
+msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añada la primera modal al final, añada la segunda modal debajo de la primera, añada un botón en la primera modal que abra la segunda modal."
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
@@ -1743,7 +1743,7 @@ msgstr "Para administrar múltiples versiones de dependencias, asegúrese de que
 msgid "To open a modal window it is enough to input a modal ID in the properties, to create a button,\n"
 "            select <em>Open modal</em> in the Action property, and fill in the right modal ID. The button should be\n"
 "            located outside of the modal container."
-msgstr ""
+msgstr "Para abrir una modal es suficiente con declarar un modal ID en la propiedades, añadir un botón, seleccione <em>Abrir modal</em> en la propiedad acción, y configure el modal ID. El botón debe ubicarse fuera del contenedor modal."
 
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Para devolver una instancia de documento, crea una variable External API con valor"
@@ -1890,7 +1890,7 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
 msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
-msgstr ""
+msgstr "Utilice este contenedor para crear una ventana modal que puede ser abierta o cerrada desde un botón, y mostrar contenido tanto en páginas, formularios o layouts."
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
 msgstr "Use este widget para seleccionar una fecha (por ejemplo, fecha de nacimiento)."
