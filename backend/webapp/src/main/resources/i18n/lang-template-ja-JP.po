@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-11-28 03:40\n"
+"PO-Revision-Date: 2018-11-30 13:46\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -133,10 +133,10 @@ msgstr "バインディングは動的です。したがって、データが変
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "ローカルアセット名に特殊文字やスペースを含めることはできません。 外部アセットは標準的なURLでなければなりません。"
 
-msgid "A modal container cannot contain another modal container."
+msgid "A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard."
 msgstr ""
 
-msgid "A modal container doesn't work when it is embedded in another modal container."
+msgid "A modal container doesn't work when it is embedded in another container."
 msgstr ""
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
@@ -299,6 +299,9 @@ msgstr "カスタム ウィジェットのアセットは実行時にカスタ�
 msgid "Attention:"
 msgstr "注意:"
 
+msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
+msgstr ""
+
 msgid "Available values"
 msgstr "使用可能な値"
 
@@ -316,6 +319,12 @@ msgstr ""
 
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
+
+msgid "Bonita 7.7"
+msgstr ""
+
+msgid "Bonita 7.8"
+msgstr ""
 
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
@@ -370,6 +379,9 @@ msgstr "案件のIDは、{{myVar.rootCaseId}} で取得できます。"
 
 msgid "Case overview"
 msgstr "案件概況"
+
+msgid "Change the type of a UI Designer artifact (page/form)"
+msgstr ""
 
 msgid "Changes need to be saved to enable the preview"
 msgstr ""
@@ -637,6 +649,9 @@ msgstr "アセットまたは URL からイメージを表示します。"
 msgid "Display name"
 msgstr ""
 
+msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
+msgstr ""
+
 msgid "Display name is required."
 msgstr ""
 
@@ -681,6 +696,9 @@ msgstr "プロパティを編集"
 
 msgid "Edit the custom widget"
 msgstr "カスタム ウィジェットを編集"
+
+msgid "Edit the display name and display description of a page, form, or layout from the Editor"
+msgstr ""
 
 msgid "Edit variable"
 msgstr "変数を編集"
@@ -798,6 +816,9 @@ msgstr "フォーム"
 
 msgid "Frame"
 msgstr "フレーム"
+
+msgid "From the page or form editors, right by the \"Save\" button, a click on the arrow displays a new option \"Convert to...\". It has also been added in the \"Save as\" option to, for example, save a form as a case overview page."
+msgstr ""
 
 msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
 msgstr "コント ローラー内に公開された関数は、ctrl.newFunction() で使用できます。"
@@ -1166,6 +1187,9 @@ msgstr "別のページやフォームへのナビゲーション リンク"
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
 
+msgid "New modal container to create pop-ins"
+msgstr ""
+
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
 
@@ -1487,7 +1511,7 @@ msgstr "デフォルトのレイアウトをインポートすることによっ
 msgid "Start process"
 msgstr "プロセスを開始"
 
-msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories."
+msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories. You may rename existing artifacts so they benefit from this change too."
 msgstr ""
 
 msgid "Step"
@@ -1518,6 +1542,9 @@ msgid "Successful response value"
 msgstr "成功時のレスポンス値"
 
 msgid "Summary of the Bonita REST API calls made by the page."
+msgstr ""
+
+msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr ""
 
 msgid "Tabular presentation of data from an array"
@@ -1633,6 +1660,9 @@ msgstr "ポータルやタスク リストは、プロセス リストにリダ�
 
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
 msgstr "プロパティ <em>追加する値</em> は、コレクションに必要な形式に応じて JavaScript オブジェクトまたは文字列にすることができます。"
+
+msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
@@ -2039,9 +2069,6 @@ msgstr "ページ内のアセットの順番は手動では変更できません
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
-
-msgid "You may rename existing artifacts so they benefit from this change too."
-msgstr ""
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
