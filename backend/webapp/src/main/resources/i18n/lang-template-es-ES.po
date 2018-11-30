@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-11-28 03:06\n"
+"PO-Revision-Date: 2018-11-30 13:34\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -26,7 +26,7 @@ msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
 msgid "7.5 Migration notes"
-msgstr ""
+msgstr "7.5 Notas Migración"
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
@@ -133,11 +133,11 @@ msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "El nombre de un recurso local no debe contener espacios o caracteres especiales. Un nombre de recurso externo debe ser una URL estándar."
 
-msgid "A modal container cannot contain another modal container."
-msgstr "Un contenedor modal no puede contener otro contenedor modal."
+msgid "A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard."
+msgstr "Un contenedor modal no se puede ubicar en otro contenedor. Recomendación: coloca todos los contenedores modales en la parte inferior de la pizarra."
 
-msgid "A modal container doesn't work when it is embedded in another modal container."
-msgstr "Un contenedor modal no funciona si esta embebido en otro contenedor modal."
+msgid "A modal container doesn't work when it is embedded in another container."
+msgstr "Un contenedor modal no funciona si esta embebido en otro contenedor."
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Una propiedad que requiere un valor constante se presenta en el panel de propiedades como un grupo de radio buttons, lista desplegable o selector de números (para la propiedad Width). Selecciona el valor deseado."
@@ -299,6 +299,9 @@ msgstr "En tiempo de ejecución, los recursos de los widget personalizado se car
 msgid "Attention:"
 msgstr "Atención:"
 
+msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
+msgstr "Disponibles en la paleta, se abre sobre el contenido de un página/formulario/layout. Para administrar dichos contenedores, el widget de botón añade dos acciones: \"Abrir modal\" y \"Cerrar el modal\"."
+
 msgid "Available values"
 msgstr "Valores Disponibles"
 
@@ -316,6 +319,12 @@ msgstr "Debido a este cambio, si usted recibe un fragmento, cámbielo el nombre 
 
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
+
+msgid "Bonita 7.7"
+msgstr "Bonita 7.7"
+
+msgid "Bonita 7.8"
+msgstr "Bonita 7.8"
 
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
@@ -370,6 +379,9 @@ msgstr "El identificador del Caso podría recuperarse con {{myVar.rootCaseId}}"
 
 msgid "Case overview"
 msgstr "Resumen de caso"
+
+msgid "Change the type of a UI Designer artifact (page/form)"
+msgstr "Cambiar el tipo de un artefacto creado con el UI Designer (formulario/página)"
 
 msgid "Changes need to be saved to enable the preview"
 msgstr "Se requiere guardar los cambios para habilitar la vista previa"
@@ -637,6 +649,9 @@ msgstr "Mostrar una imagen desde recursos o desde una URL"
 msgid "Display name"
 msgstr "Mostrar nombre"
 
+msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
+msgstr "Nombre mostrado y la descripción se utilizan cuando se importa la página, formulario o layout en la página de recursos del portal. Para editarlos, haga clic en el botón nuevo \"Etiqueta\"."
+
 msgid "Display name is required."
 msgstr "Se necesita un nombre para mostrar."
 
@@ -681,6 +696,9 @@ msgstr "Editar propiedad"
 
 msgid "Edit the custom widget"
 msgstr "Edita el widget personalizado"
+
+msgid "Edit the display name and display description of a page, form, or layout from the Editor"
+msgstr "Editar el nombre mostrado y descripción de una página, formulario o layout desde el Editor"
 
 msgid "Edit variable"
 msgstr "Editar la variable"
@@ -779,7 +797,7 @@ msgid "For more information, see the AngularJS guide on <a href=\"https://docs.a
 msgstr "Para obtener más información, consulte a la guía de AngularJS de <a href=\"https://docs.angularjs.org/guide/templates\"> plantillas</a> y <a href=\"https://docs.angularjs.org/guide/controller\"> Controladores</a>."
 
 msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
-msgstr ""
+msgstr "Para los nuevos artefactos, necesitará agregar el fichero en los widgets personalizados o páginas que lo requieran."
 
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "Por el momento, no se puede implementar un widget contenedor personalizado."
@@ -798,6 +816,9 @@ msgstr "Formularios"
 
 msgid "Frame"
 msgstr "Frame"
+
+msgid "From the page or form editors, right by the \"Save\" button, a click on the arrow displays a new option \"Convert to...\". It has also been added in the \"Save as\" option to, for example, save a form as a case overview page."
+msgstr "Desde el editor de las páginas y formularios, justo al lado del botón \"Guardar\", al hacer clic en la flecha se muestra una nueva opción \"Convertir a...\". También se ha agregado en la opción \"Guardar como\" para, por ejemplo, guardar un formulario como una página de resumen del caso."
 
 msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
 msgstr "Las funciones expuestas en el controlador pueden utilizarse con ctrl.newFunction()."
@@ -935,7 +956,7 @@ msgid "In addition to the <em>Successful response value</em> variable, for the <
 msgstr "Además de la variable <em>Valor de respuesta exitosa</em>, para las peticiones <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Iniciar proceso</em> y <em>Enviar tarea</em>, también es posible definir una <em>Dirección URL de destino en éxito</em> que se utiliza para establecer la ubicación actual de la ventana (frame) cuando la solicitud es exitosa."
 
 msgid "In folder:"
-msgstr ""
+msgstr "En la carpeta:"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
@@ -1112,7 +1133,7 @@ msgid "Metadata"
 msgstr "Metadatos"
 
 msgid "Migration"
-msgstr ""
+msgstr "Migración"
 
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "Milisegundos desde Epoch (variable numérica o string)"
@@ -1164,6 +1185,9 @@ msgstr "Enlace a otra página o formulario"
 
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
+
+msgid "New modal container to create pop-ins"
+msgstr "Nuevo contenedor modal para crear pop-ins"
 
 msgid "New window (_blank)"
 msgstr "Nueva ventana (_blank)"
@@ -1430,7 +1454,7 @@ msgid "Show Today button"
 msgstr "Mostrar botón Hoy"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
-msgstr ""
+msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
 
 msgid "Size"
 msgstr "Tamaño"
@@ -1486,8 +1510,8 @@ msgstr "Comience creando un <b>layout de la aplicación</b> mediante la importac
 msgid "Start process"
 msgstr "Iniciar proceso"
 
-msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories."
-msgstr "A partir de la versión 7.7.0, el nombre de un artefacto de UI es su identificador único, en lugar de un identificador aleatorio. Esto les hará más fácil de encontrar en los repositorios de Bonita."
+msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories. You may rename existing artifacts so they benefit from this change too."
+msgstr "A partir de la versión 7.7.0, el nombre de un artefacto de UI es su identificador único, en lugar de un identificador aleatorio. Esto les hará más fácil de encontrar en los repositorios de Bonita. Puede cambiar el nombre de los artefactos existentes para que también se beneficien de este cambio."
 
 msgid "Step"
 msgstr "Tarea"
@@ -1518,6 +1542,9 @@ msgstr "Valor de la respuesta exitosa"
 
 msgid "Summary of the Bonita REST API calls made by the page."
 msgstr "Resumen de las llamadas a la API REST de Bonita realizadas por la página."
+
+msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
+msgstr "Resumen de las llamadas al API de REST de Bonita en una página, formulario o layout"
 
 msgid "Tabular presentation of data from an array"
 msgstr "Presentación en formato tabla de una matriz de datos"
@@ -1633,6 +1660,9 @@ msgstr "El portal y la lista de tareas se redirijirá a la lista de procesos (ac
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
 msgstr "La propiedad <em>Valor a agregar</em> puede ser un objeto de JavaScript o un String dependiendo del formato esperado de la colección que está construyendo."
 
+msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
+msgstr "El mismo botón de \"Etiqueta\" muestra un resumen de todas las llamadas al API REST hechas por el artefacto actual a la API REST Bonita.\""
+
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "La ayuda se mostrará como tal, cerca de la etiqueta de propiedad."
 
@@ -1729,7 +1759,7 @@ msgid "To extend a page or form with custom AngularJS services (such as filters,
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
-msgstr ""
+msgstr "Para mantener las paginas funcionando, si migras una página diseñada en una versión anterior a 7.5.0 que contiene custom widgets, se añadirá el fichero <em>ui-bootstrap-tpls-0.13.0.min.js</em> automáticamente a la página. Puede eliminarlo si no lo necesita."
 
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 msgstr "Para cargar un recurso de imagen local en un widget personalizado, necesitas hacer referencia a ella en la plantilla dentro de una etiqueta <code>&lt; img &gt;</code> con una ruta relativa como sigue: <br><code ng-non-bindable=\"\">&lt;img src=\"widgets/[id del widget personalizado]/assets/img /[nombre imagen]\"&gt;</code>"
@@ -1908,13 +1938,13 @@ msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
 
 msgid "Validation Errors"
-msgstr ""
+msgstr "Errores de validación"
 
 msgid "Validation error on the page. Fix is recommended before export"
-msgstr ""
+msgstr "Error de validación en la página. Se recomienda corregirlo antes de la exportación"
 
 msgid "Validation error. Fix is recommended before export"
-msgstr ""
+msgstr "Error de validación. Se recomienda corregirlo antes de la exportación"
 
 msgid "Value"
 msgstr "Valor"
@@ -2038,9 +2068,6 @@ msgstr "No se puede cambiar manualmente el orden de los recursos de una página.
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
-
-msgid "You may rename existing artifacts so they benefit from this change too."
-msgstr "Usted puede renombrar artefactos existentes para que beneficiarán de este cambio también."
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
