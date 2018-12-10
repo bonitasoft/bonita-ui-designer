@@ -58,8 +58,11 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
       var items = $scope.properties.availableValues;
       if (Array.isArray(items)) {
         var foundItem = ctrl.findSelectedItem(items);
-
-        ctrl.setSelectedValue(foundItem);
+        $timeout(function () {
+          if (!angular.isDefined(foundItem)) {
+            $scope.properties.value = null;
+          }
+        }, 0);
       }
     }
   });
