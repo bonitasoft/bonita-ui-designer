@@ -17,10 +17,10 @@
             <input id="name" name="name" type="text" class="form-control" required autofocus
                    placeholder="{{ createCtrl.type.value + ' name' | translate }}"
                    ng-model="createCtrl.name"
-                   ui-validate="{alreadyExists : '!createCtrl.isNameAlreadyUseIfRelevantForType($value, createCtrl.type)'}"
+                   ui-validate="{alreadyExists : '!createCtrl.isArtifactNameAlreadyExist($value, createCtrl.type)'}"
                    ui-validate-watch="'createCtrl.type'"
                    artifact-name-validation
-                   artifact-name-validation-messages="{ alreadyExists: 'A {{ createCtrl.type.value.toLowerCase() }} with this name already exists' }">
+                   artifact-name-validation-messages="{ alreadyExists: '{{ createCtrl.type.value }} with this name already exists' }">
         </div>
     </div>
     <div class="modal-footer">

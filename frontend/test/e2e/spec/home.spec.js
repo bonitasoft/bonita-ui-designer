@@ -98,6 +98,21 @@ describe('home page', function() {
     expect($$('.NewArtifact .tooltip-inner').count()).toBe(0);
   });
 
+  it('should not create a page with page name is already exist', function() {
+    $('.HomeCreate').click();
+    let nameInput = $('.modal-body input[name="name"]');
+    nameInput.sendKeys('Person');
+    let createPageButton = $('.modal-footer button[type="submit"]');
+    expect(createPageButton.isEnabled()).toBeFalsy();
+    expect($('.NewArtifact .tooltip-inner').isDisplayed()).toBeTruthy();
+
+    nameInput.clear();
+    nameInput.sendKeys('Person');
+
+    expect(createPageButton.isEnabled()).toBeFalsy();
+    expect($('.NewArtifact .tooltip-inner').isDisplayed()).toBeTruthy();
+  });
+
   it('should create a widget', function() {
     home.createWidget('test');
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
@@ -127,7 +142,7 @@ describe('home page', function() {
     element(by.css('#type-widget')).click();
     $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
     expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
-    expect($('.tooltip-inner').getText()).toEqual('A custom widget with this name already exists');
+    expect($('.tooltip-inner').getText()).toEqual('Custom widget with this name already exists');
   });
 
   it('should open a modal to confirm page deletion', function() {

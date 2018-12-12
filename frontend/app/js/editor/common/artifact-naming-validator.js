@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2018 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,22 +12,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+angular.module('bonitasoft.designer.editor.common').factory('artifactNamingValidator', function() {
 
   'use strict';
 
-  angular.module('bonitasoft.designer.home', [
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.home.import',
-    'bonitasoft.designer.templates',
-    'bonitasoft.designer.editor.header',
-    'bonitasoft.designer.editor.common',
-    'ui.bootstrap',
-    'ui.router',
-    'ui.validate',
-    'switcher',
-    'ngStorage'
-  ]);
+  function isArtifactNameAlreadyUseForType(name, type, artifactsList) {
+    return name &&
+      (artifactsList || [])
+        .filter(item => item.type === type)
+        .some(item => item.name.toLowerCase() === name.toLowerCase());
+  }
 
-})();
+  return {
+    isArtifactNameAlreadyUseForType
+  };
+});

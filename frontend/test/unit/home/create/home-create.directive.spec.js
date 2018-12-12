@@ -1,14 +1,15 @@
 describe('home create button', () => {
 
-  var element, $scope, controller, q, artifactFactories, state, repositories;
+  var element, $scope, controller, q, artifactFactories, state, repositories, artifactNamingValidator;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'mock.modal'));
 
-  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_) {
+  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_,_artifactNamingValidator_) {
     q = $q;
     state = _$state_;
     artifactFactories = _artifactFactories_;
     repositories = _repositories_;
+    artifactNamingValidator = _artifactNamingValidator_;
 
     $scope = $rootScope.$new();
     $scope.refreshAll = jasmine.createSpy('refreshAll');
@@ -36,18 +37,18 @@ describe('home create button', () => {
 
   it('should check page name if it already exists with case-insensitive', () => {
     var type = artifactFactories.getFactory('page');
-    expect(controller.isNameAlreadyUseIfRelevantForType('bonita', type)).toBeTruthy();
-    expect(controller.isNameAlreadyUseIfRelevantForType('Bonita', type)).toBeTruthy();
-    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeFalsy();
+    expect(controller.isArtifactNameAlreadyExist('bonita', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('Bonita', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeFalsy();
   });
 
 
   it('should check widget name if it already exists', () => {
     var type = artifactFactories.getFactory('widget');
-    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeTruthy();
 
     type = artifactFactories.getFactory('page');
-    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeFalsy();
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeFalsy();
   });
 
   it('should create a widget and navigate to editor', () => {

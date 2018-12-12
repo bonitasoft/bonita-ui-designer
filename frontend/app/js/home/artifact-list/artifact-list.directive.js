@@ -17,13 +17,14 @@
 
   class ArtifactListController {
 
-    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state) {
+    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidator) {
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
       this.$localStorage = $localStorage;
       this.getRepository = (type) => repositories.get(type);
       this.gettextCatalog = gettextCatalog;
       this.$state = $state;
+      this.artifactNamingValidator = artifactNamingValidator;
     }
 
     translateKeys(key) {
@@ -91,11 +92,20 @@
      * @param {Object} artifact - the item to rename
      */
     toggleItemEdition(index) {
-      this.editionIndex = this.editionIndex ? undefined : index;
+      this.editionIndex = this.editionIndex !== undefined ? undefined : index;
     }
 
     isInEditionMode(index) {
       return this.editionIndex === index;
+    }
+
+    isArtifactNameAlreadyExist(name, artifact, artifacts) {
+      var res = false;
+      if (name !== artifact.name) {
+        res = this.artifactNamingValidator.isArtifactNameAlreadyUseForType(name, artifact.type, artifacts);
+      }
+      return res;
+
     }
 
     /**
@@ -105,7 +115,6 @@
      * @param {Object} artifact - the item to rename
      */
     renameItem(artifact) {
-
       if (artifact.newName !== artifact.name) {
         this.getRepository(artifact.type)
           .rename(artifact.id, artifact.newName)
@@ -125,7 +134,7 @@
           .finally(() => {
             artifact.name = artifact.newName;
             artifact.id = artifact.newId;
-            artifact.editionUrl = this.$state.href(`designer.${artifact.type}`, { id: artifact.id });
+            artifact.editionUrl = this.$state.href(`designer.${ artifact.type }`, { id: artifact.id });
           });
       }
 
