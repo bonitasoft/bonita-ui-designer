@@ -27,6 +27,7 @@
           state: 'page',
           value: gettext('Application page'),
           filterName: gettext('Pages'),
+          hasUniqueName: true,
           create: name => this.createPage(name, 'page')
         },
         form: {
@@ -35,6 +36,7 @@
           value: gettext('Process form'),
           tooltip: gettext('You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit.'),
           filterName: gettext('Forms'),
+          hasUniqueName: true,
           create: name => this.createPage(name, 'form')
         },
         layout: {
@@ -42,6 +44,7 @@
           state: 'page',
           value: gettext('Application layout'),
           filterName: gettext('Layouts'),
+          hasUniqueName: true,
           create: name => this.createPage(name, 'layout')
         },
         widget: {

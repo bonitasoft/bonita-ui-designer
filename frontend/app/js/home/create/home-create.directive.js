@@ -31,11 +31,11 @@
       this.isOpen = false;
     }
 
-    isNameUniqueIfRelevantForType(name, type) {
+    isNameAlreadyUseIfRelevantForType(name, type) {
       return type.hasUniqueName &&
-          (this.artifacts || [])
-            .filter(item => item.type === type.key)
-            .some(item => item.name === name);
+        (this.artifacts || [])
+          .filter(item => item.type === type.key)
+          .some(item => item.name.toLowerCase() === name.toLowerCase());
     }
 
     create(type, name) {

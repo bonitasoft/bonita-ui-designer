@@ -14,7 +14,7 @@ describe('home create button', () => {
     $scope.refreshAll = jasmine.createSpy('refreshAll');
     $scope.filters = {};
     $scope.artifacts = {
-      all: [{ name: 'test', type: 'widget' }, { name: 'bontia', type: 'page' }]
+      all: [{ name: 'test', type: 'widget' }, { name: 'bonita', type: 'page' }]
     };
 
     element = $compile('<uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>')($scope);
@@ -34,16 +34,20 @@ describe('home create button', () => {
     expect(controller.type).toBe(controller.types.widget);
   });
 
-  it('should check widget name if it already exists', () => {
+  it('should check page name if it already exists with case-insensitive', () => {
     var type = artifactFactories.getFactory('page');
-    expect(controller.isNameUniqueIfRelevantForType('bonita', type)).toBeFalsy();
-    expect(controller.isNameUniqueIfRelevantForType('test', type)).toBeFalsy();
+    expect(controller.isNameAlreadyUseIfRelevantForType('bonita', type)).toBeTruthy();
+    expect(controller.isNameAlreadyUseIfRelevantForType('Bonita', type)).toBeTruthy();
+    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeFalsy();
+  });
 
-    type = artifactFactories.getFactory('widget');
-    expect(controller.isNameUniqueIfRelevantForType('test', type)).toBeTruthy();
+
+  it('should check widget name if it already exists', () => {
+    var type = artifactFactories.getFactory('widget');
+    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeTruthy();
 
     type = artifactFactories.getFactory('page');
-    expect(controller.isNameUniqueIfRelevantForType('test', type)).toBeFalsy();
+    expect(controller.isNameAlreadyUseIfRelevantForType('test', type)).toBeFalsy();
   });
 
   it('should create a widget and navigate to editor', () => {
