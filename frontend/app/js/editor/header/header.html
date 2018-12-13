@@ -18,6 +18,9 @@
                    placeholder="{{ 'Enter ' +  vm.mode + ' name' | translate }}"
                    ng-model="vm.page.name"
                    ng-trim="false"
+                   ng-model-options="{ debounce: 500 }"
+                   ui-validate="{alreadyExists : '!vm.isArtifactNameAlreadyExist($value, vm.page)'}"
+                   ui-validate-watch="'vm.page'"
                    required>
             <button type="button" id="metadata" ng-if="vm.page.type === 'page' || vm.page.type === 'form' || vm.page.type === 'layout'" class="btn btn-bonita-primary" ng-click="vm.editMetadata(vm.page)"
                     uib-tooltip="{{ vm.page.type + ' information' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300">

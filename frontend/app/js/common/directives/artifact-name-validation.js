@@ -8,7 +8,8 @@
       this.maxlength = 240;
       this.validators = {
         pattern: gettextCatalog.getString('Name must contains only alphanumeric characters with no space'),
-        maxlength: gettextCatalog.getString('Name must be less than {{maxlength}} characters long', this)
+        maxlength: gettextCatalog.getString('Name must be less than {{maxlength}} characters long', this),
+        alreadyExists: gettextCatalog.getString('This name already exists')
       };
     }
 

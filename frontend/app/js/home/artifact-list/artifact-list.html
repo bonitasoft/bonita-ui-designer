@@ -36,14 +36,13 @@
                   ng-submit="artifactList.renameItem(artifact)"
                   ng-init="artifact.newName = artifact.name">
                 <input name="name" class="form-control" required
-                       ui-validate="{alreadyExists : '!artifactList.isArtifactNameAlreadyExist($value, artifact, artifactList.all)'}"
+                       ui-validate="{alreadyExists : '!artifactList.isArtifactNameAlreadyExist($value, artifact, artifactList.existingArtifacts)'}"
                        ui-validate-watch="'artifact'"
                        data-autofocus
                        id="page-name-input-{{:: $index }}"
                        ng-model="artifact.newName"
                        ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
-                       artifact-name-validation
-                       artifact-name-validation-messages="{ alreadyExists: 'A {{ artifact.type }} with this name already exists' }">
+                       artifact-name-validation>
             </form>
         </div>
         <div class="Artifact-actions">

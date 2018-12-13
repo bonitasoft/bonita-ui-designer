@@ -2,12 +2,12 @@
 
   'use strict';
 
-  describe('Menu bar controller', function() {
-    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, $localStorage, browserHistoryService;
+  describe('Header controller', function() {
+    var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, $localStorage, browserHistoryService, artifactStore ,artifactNamingValidatorService;
 
-    beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal', 'bonitasoft.designer.editor.whiteboard'));
+    beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal', 'bonitasoft.designer.editor.whiteboard','bonitasoft.designer.home'));
 
-    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_, _artifactStore_, _artifactNamingValidatorService_) {
       pageRepo = _pageRepo_;
       browserHistoryService = _browserHistoryService_;
       $q = _$q_;
@@ -27,6 +27,10 @@
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');
 
+      artifactStore = _artifactStore_;
+      artifactNamingValidatorService = _artifactNamingValidatorService_;
+      spyOn(artifactStore, 'load').and.returnValue(Promise.resolve([ {id: 'person', type: 'page'}]));
+
       controller = $controller('EditorHeaderCtrl', {
         $window: $window,
         selectedResolution: {},
@@ -37,7 +41,9 @@
         artifact: {},
         mode: 'page',
         $scope: scope,
-        $localStorage : $localStorage
+        $localStorage : $localStorage,
+        artifactStore: artifactStore,
+        artifactNamingValidatorService: artifactNamingValidatorService
       });
     }));
 

@@ -17,14 +17,14 @@
 
   class ArtifactListController {
 
-    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidator) {
+    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidatorService) {
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
       this.$localStorage = $localStorage;
       this.getRepository = (type) => repositories.get(type);
       this.gettextCatalog = gettextCatalog;
       this.$state = $state;
-      this.artifactNamingValidator = artifactNamingValidator;
+      this.artifactNamingValidatorService = artifactNamingValidatorService;
     }
 
     translateKeys(key) {
@@ -102,7 +102,7 @@
     isArtifactNameAlreadyExist(name, artifact, artifacts) {
       var res = false;
       if (name !== artifact.name) {
-        res = this.artifactNamingValidator.isArtifactNameAlreadyUseForType(name, artifact.type, artifacts);
+        res = this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name, artifact.type, artifacts);
       }
       return res;
 
@@ -155,6 +155,7 @@
     scope: true,
     bindToController: {
       all: '=*artifacts',
+      existingArtifacts: '=',
       refreshAll: '=',
       downloadArtifact: '='
     },

@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q, artifactStore, artifactNamingValidatorService) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -19,6 +19,11 @@
       this.pristine = true;
       this.dirty = false;
       this.scope = $scope;
+      this.artifactNamingValidatorService = artifactNamingValidatorService;
+      this.artifacts = [];
+
+      // load all artifact with same type
+      artifactStore.load().then((artifacts) => this.artifacts = artifacts.filter(item => item.type === this.page.type));
 
       keyBindingService.bindGlobal(['ctrl+s', 'command+s'], () => {
         $scope.$apply(() => this.save(this.page));
@@ -161,6 +166,13 @@
         .then(() => {
           this.save(page);
         });
+    }
+
+    isArtifactNameAlreadyExist(value, artifact) {
+      if (value !== artifact.id) {
+        return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(value, artifact.type, this.artifacts);
+      }
+      return false;
     }
   }
 

@@ -35,7 +35,7 @@ describe('artifactListController', function() {
       }
     ];
 
-    element = $compile('<artifact-list artifacts="artifacts" refresh-all="refreshAll" download-artifact="downloadArtifact"></artifact-list>')($scope);
+    element = $compile('<artifact-list artifacts="artifacts" existing-artifacts="artifacts" refresh-all="refreshAll" download-artifact="downloadArtifact"></artifact-list>')($scope);
     $scope.$digest();
   }));
 

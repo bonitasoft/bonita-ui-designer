@@ -19,8 +19,7 @@
                    ng-model="createCtrl.name"
                    ui-validate="{alreadyExists : '!createCtrl.isArtifactNameAlreadyExist($value, createCtrl.type)'}"
                    ui-validate-watch="'createCtrl.type'"
-                   artifact-name-validation
-                   artifact-name-validation-messages="{ alreadyExists: '{{ createCtrl.type.value }} with this name already exists' }">
+                   artifact-name-validation>
         </div>
     </div>
     <div class="modal-footer">

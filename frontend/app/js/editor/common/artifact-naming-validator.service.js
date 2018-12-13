@@ -12,15 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.common').factory('artifactNamingValidator', function() {
+angular.module('bonitasoft.designer.editor.common').factory('artifactNamingValidatorService', function() {
 
   'use strict';
 
-  function isArtifactNameAlreadyUseForType(name, type, artifactsList) {
-    return name &&
-      (artifactsList || [])
-        .filter(item => item.type === type)
-        .some(item => item.name.toLowerCase() === name.toLowerCase());
+  function isArtifactNameAlreadyUseForType(value, type, artifactsList) {
+    return value && (artifactsList || [])
+      .filter(item => item.type === type)
+      .some(item => item.name.toLowerCase() === value.toLowerCase());
   }
 
   return {

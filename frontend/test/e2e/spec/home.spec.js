@@ -142,7 +142,7 @@ describe('home page', function() {
     element(by.css('#type-widget')).click();
     $('.modal-body input[name="name"]').sendKeys('awesomeWidget');
     expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
-    expect($('.tooltip-inner').getText()).toEqual('Custom widget with this name already exists');
+    expect($('.tooltip-inner').getText()).toEqual('This name already exists');
   });
 
   it('should open a modal to confirm page deletion', function() {

@@ -17,9 +17,9 @@
   'use strict';
 
   class CreateArtifactCtrl {
-    constructor($scope, repositories, $state, artifactFactories, artifactNamingValidator) {
+    constructor($scope, repositories, $state, artifactFactories, artifactNamingValidatorService) {
       this.repositories = repositories;
-      this.artifactNamingValidator = artifactNamingValidator;
+      this.artifactNamingValidatorService = artifactNamingValidatorService;
       this.$state = $state;
       this.$scope = $scope;
       this.types = artifactFactories.getFactories();
@@ -33,7 +33,7 @@
     }
 
     isArtifactNameAlreadyExist(name, type) {
-      return this.artifactNamingValidator.isArtifactNameAlreadyUseForType(name,type.key,this.artifacts);
+      return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name,type.key,this.artifacts);
     }
 
     create(type, name) {
