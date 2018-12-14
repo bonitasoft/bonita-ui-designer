@@ -40,7 +40,7 @@ describe('artifact name vaildation', function() {
     expect(element.find('div[uib-tooltip-popup] .tooltip-inner').text()).toBe('Name must contains only alphanumeric characters with no space');
   });
 
-  it('should display an error message in tooltip when name has more than 240 characters', function() {
+  it('should display an error message in tooltip when name has more than 228 characters', function() {
     const longName = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' +
         '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' +
         '1234567890123456789012345678901234567890TooLong';
@@ -50,7 +50,7 @@ describe('artifact name vaildation', function() {
 
     expect(element.hasClass('ng-invalid')).toBeTruthy();
     expect(element.hasClass('ng-invalid-maxlength')).toBeTruthy();
-    expect(element.find('div[uib-tooltip-popup] .tooltip-inner').text()).toBe('Name must be less than 240 characters long');
+    expect(element.find('div[uib-tooltip-popup] .tooltip-inner').text()).toBe('Name must be less than 228 characters long');
   });
 
   it('should display tooltip on top left by default', function() {

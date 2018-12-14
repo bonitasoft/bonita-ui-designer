@@ -5,7 +5,7 @@
   class ArtifactNameValidationController {
 
     constructor(gettextCatalog) {
-      this.maxlength = 240;
+      this.maxlength = 228;
       this.validators = {
         pattern: gettextCatalog.getString('Name must contains only alphanumeric characters with no space'),
         maxlength: gettextCatalog.getString('Name must be less than {{maxlength}} characters long', this)
