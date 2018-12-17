@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-11-30 13:34\n"
+"PO-Revision-Date: 2018-12-17 02:59\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -1702,6 +1702,9 @@ msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> momen
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
 msgstr "La modal está basada en la implementación ui-bootstrap. Es posible modificar el tamaño y/o estilo de la modal."
+
+msgid "This name already exists"
+msgstr ""
 
 msgid "This page is empty."
 msgstr "Esta página está vacía."

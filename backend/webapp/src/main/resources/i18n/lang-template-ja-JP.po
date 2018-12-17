@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-11-30 13:45\n"
+"PO-Revision-Date: 2018-12-17 03:07\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -1702,6 +1702,9 @@ msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
+msgstr ""
+
+msgid "This name already exists"
 msgstr ""
 
 msgid "This page is empty."
