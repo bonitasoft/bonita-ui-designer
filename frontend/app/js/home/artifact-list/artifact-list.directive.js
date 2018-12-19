@@ -32,6 +32,7 @@
         'Delete': this.gettextCatalog.getString('Delete'),
         'Export': this.gettextCatalog.getString('Export'),
         'Rename': this.gettextCatalog.getString('Rename'),
+        'Cancel': this.gettextCatalog.getString('Cancel'),
         'Last Update:': this.gettextCatalog.getString('Last Update:'),
         'In folder:': this.gettextCatalog.getString('In folder:'),
         'Validation error. Fix is recommended before export': this.gettextCatalog.getString('Validation error. Fix is recommended before export')
@@ -97,6 +98,15 @@
 
     isInEditionMode(index) {
       return this.editionIndex === index;
+    }
+
+    /**
+     * Hack to disable button if name input is in error
+     * @param index
+     * @returns {boolean}
+     */
+    isValid(index) {
+      return !document.getElementById('page-name-input-' + index).getAttribute('uib-tooltip');
     }
 
     isArtifactNameAlreadyExist(name, artifact, artifacts) {

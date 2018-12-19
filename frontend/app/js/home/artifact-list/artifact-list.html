@@ -7,7 +7,7 @@
         id="{{:: artifact.id }}"
         ng-repeat="artifact in artifactList.all track by artifact.id">
         <div class="Artifact-info" ng-switch="artifactList.isInEditionMode($index)">
-          <a ng-switch-default ng-href="{{:: artifact.editionUrl }}"
+            <a ng-switch-default ng-href="{{:: artifact.editionUrl }}"
                class="Artifact-link Artifact-link--primary">
                 <span ng-if="artifact.icon" class="Artifact-icon"><identicon name="{{artifact.id}}" size="25"
                                                                              foreground-color="[198, 199, 228, 255]"
@@ -28,32 +28,55 @@
                           tooltip-placement="top-left">{{artifact.name}}
                     </span>
                     <span class="Artifact-metadata"
-                      >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
+                    >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
                 </span>
             </a>
             <form name="renameArtifact" class="Artifact-form"
                   ng-switch-when="true"
-                  ng-submit="artifactList.renameItem(artifact)"
+                  ng-submit="renameArtifact.$valid && artifactList.renameItem(artifact)"
                   ng-init="artifact.newName = artifact.name">
-                <input name="name" class="form-control" required
-                       ui-validate="{alreadyExists : '!artifactList.isArtifactNameAlreadyExist($value, artifact, artifactList.existingArtifacts)'}"
-                       ui-validate-watch="'artifact'"
-                       data-autofocus
-                       id="page-name-input-{{:: $index }}"
-                       ng-model="artifact.newName"
-                       ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
-                       artifact-name-validation>
+                <div>
+                    <input name="name" class="form-control" required
+                           ui-validate="{alreadyExists : '!artifactList.isArtifactNameAlreadyExist($value, artifact, artifactList.existingArtifacts)'}"
+                           ui-validate-watch="'artifact'"
+                           data-autofocus
+                           id="page-name-input-{{:: $index }}"
+                           ng-model="artifact.newName"
+                           ng-blur="renameArtifact.$valid && artifactList.renameItem(artifact)"
+                           artifact-name-validation>
+                </div>
             </form>
         </div>
         <div class="Artifact-actions">
-            <button class="Artifact-button Artifact-button--primary Artifact-rename"
-                    ng-click="artifactList.toggleItemEdition($index)"
-                    type="button"
-                    uib-tooltip="{{:: artifactList.translateKeys('Rename')}}"
-                    tooltip-popup-delay="500"
-                    ng-if=":: artifactList.getRepository(artifact.type).rename">
-                <i class="fa fa-pencil"></i>
-            </button>
+            <span ng-if="artifactList.isInEditionMode($index)">
+                <button class="Artifact-button Artifact-button--primary Artifact-rename"
+                        ng-mousedown="artifactList.toggleItemEdition($index)"
+                        type="button"
+                        uib-tooltip="{{artifactList.translateKeys('Cancel')}}">
+                    <i class='fa fa-times'></i>
+                </button>
+                <span ng-if="artifactList.isValid($index)">
+                <button class="Artifact-button Artifact-button--primary Artifact-rename"
+                        ng-click="artifactList.toggleItemEdition($index)"
+                        type="button"
+                        uib-tooltip="{{artifactList.translateKeys('Rename')}}"
+                        tooltip-popup-delay="500"
+                        ng-if=":: artifactList.getRepository(artifact.type).rename">
+                    <i class='fa fa-check'></i>
+                </button>
+                </span>
+            </span>
+            <span ng-if="!artifactList.isInEditionMode($index)">
+                <button class="Artifact-button Artifact-button--primary Artifact-rename"
+                        ng-class=""
+                        ng-click="artifactList.toggleItemEdition($index)"
+                        type="button"
+                        uib-tooltip="{{artifactList.translateKeys('Rename')}}"
+                        tooltip-popup-delay="500"
+                        ng-if=":: artifactList.getRepository(artifact.type).rename"/>
+                <i class='fa fa-pencil'></i>
+            </span>
+
             <favorite-button artifact-repository="::artifactList.getRepository(artifact.type)"
                              artifact=":: artifact"></favorite-button>
             <button file-download class="Artifact-button Artifact-button--primary Artifact-export"
