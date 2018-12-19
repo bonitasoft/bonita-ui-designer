@@ -4,9 +4,9 @@
     <div class="content-wrapper">
         <!-- Palette -->
         <div class="Palette"
-             ng-class="{'Palette--closed': isPaletteClosed, 'Palette--narrow': isPaletteNarrow}"
+             ng-class="{'Palette--closed': isPaletteClosed}"
              editor-palette
-             on-resize="resizePaletteHandler(isClosed, isNarrow)">
+             on-resize="resizePaletteHandler(isClosed)">
         </div>
 
         <div id="editor-container" ng-class="{'': !sectionOpened}">

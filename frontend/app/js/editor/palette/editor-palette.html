@@ -11,12 +11,15 @@
         <i class="ui-icon" ng-class="palette.getIconClassName(section)"></i>
     </button>
 </section>
+
 <div class="Palette-widgets"
-     ng-class="{'Palette-widgets--narrow': palette.isNarrow()}"
      ng-if="palette.currentSection !== undefined">
-    <div palette-widget
-        class="PaletteItem text-center"
-        ng-repeat="widget in palette.currentSection.widgets | orderBy:'component.order'"
-        widget="widget">
+    <search value="palette.currentSection.search" placeholder="{{ 'Search' | translate }}"></search>
+    <div class="Palette-board">
+        <div palette-widget
+             class="PaletteItem text-center"
+             ng-repeat="widget in palette.currentSection.widgets | filterByComponentName:palette.currentSection.search | orderBy:'component.order'"
+             widget="widget">
+        </div>
     </div>
 </div>

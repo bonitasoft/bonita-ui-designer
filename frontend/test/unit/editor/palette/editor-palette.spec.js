@@ -53,7 +53,7 @@
 
       spyOn(paletteService, 'getSections').and.returnValue(paletteData);
 
-      var template = '<div editor-palette on-resize="resizePaletteHandler(isClosed, isNarrow)" ></div>';
+      var template = '<div editor-palette on-resize="resizePaletteHandler(isClosed)" ></div>';
       element = $compile(template)($scope);
       $scope.$digest();
       controller = element.controller('editorPalette');
@@ -79,7 +79,7 @@
       var widgets = element.find('.PaletteItem');
       expect(widgets.length).toBe(paletteData[1].widgets.length);
 
-      expect($scope.resizePaletteHandler).toHaveBeenCalledWith(false, true);
+      expect($scope.resizePaletteHandler).toHaveBeenCalledWith(false);
     });
 
     it('should close a sections', function() {
@@ -89,13 +89,7 @@
 
       var widgets = element.find('.Palette-widgets');
       expect(widgets.length).toBe(0);
-      expect($scope.resizePaletteHandler).toHaveBeenCalledWith(true, false);
-    });
-
-    it('should display sections with less than 10 widgets as narrow', function() {
-      element.find('.Palette-section').eq(1).click();
-      var paletteWidgets = element.find('.Palette-widgets');
-      expect(paletteWidgets[0].getAttribute('class')).toMatch('Palette-widgets--narrow');
+      expect($scope.resizePaletteHandler).toHaveBeenCalledWith(true);
     });
 
     describe('controller', function() {
@@ -110,13 +104,13 @@
       it('should toggle a section', function() {
         controller.toggleSection(paletteData[1]);
         expect(controller.currentSection).toBe(paletteData[1]);
-        expect($scope.resizePaletteHandler).toHaveBeenCalledWith(false, true);
+        expect($scope.resizePaletteHandler).toHaveBeenCalledWith(false);
       });
 
       it('should close a section if currentSection is open', function() {
         controller.toggleSection(paletteData[0]);
         expect(controller.currentSection).toBe(undefined);
-        expect($scope.resizePaletteHandler).toHaveBeenCalledWith(true, false);
+        expect($scope.resizePaletteHandler).toHaveBeenCalledWith(true);
       });
 
       it('should return correct active section', function() {
@@ -127,18 +121,6 @@
       it('should return correct active section', function() {
         expect(controller.isActiveSection(paletteData[0])).toBe(true);
         expect(controller.isActiveSection(paletteData[1])).toBe(false);
-      });
-
-      it('should return correct narrow value', function() {
-        expect(controller.isNarrow()).toBe(false);
-        controller.currentSection = paletteData[1];
-        expect(controller.isNarrow()).toBe(true);
-      });
-
-      it('should return correct narrow value', function() {
-        expect(controller.isClosed()).toBe(false);
-        controller.currentSection = undefined;
-        expect(controller.isClosed()).toBe(true);
       });
 
       it('should get section icon class name', function() {

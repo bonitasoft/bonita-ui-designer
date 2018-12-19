@@ -6,6 +6,7 @@
            ng-model="search.value"
            ng-model-options="{ debounce: 200 }"
            placeholder="{{ search.placeholder }}"
+           autocomplete="off"
            type="search">
 
     <button type="button" ng-if="search.isClearButtonVisible()"

@@ -47,7 +47,6 @@
     this.currentSection = this.sections[0];
     this.toggleSection = toggleSection;
     this.isActiveSection = isActiveSection;
-    this.isNarrow = isNarrow;
     this.isClosed = isClosed;
     this.getIconClassName = getIconClassName;
 
@@ -64,13 +63,8 @@
 
     function resize() {
       $scope.onResize({
-        isClosed: isClosed(),
-        isNarrow: isNarrow()
+        isClosed: isClosed()
       });
-    }
-
-    function isNarrow() {
-      return !!(palette.currentSection && palette.currentSection.widgets.length < 10);
     }
 
     function isClosed() {

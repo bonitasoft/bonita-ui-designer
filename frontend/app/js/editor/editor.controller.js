@@ -288,9 +288,8 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
 
   };
 
-  $scope.resizePaletteHandler = function(isClosed, isNarrow) {
+  $scope.resizePaletteHandler = function(isClosed) {
     $scope.isPaletteClosed = isClosed;
-    $scope.isPaletteNarrow = isNarrow;
   };
 
   $scope.isPropertyPanelClosed = false;
