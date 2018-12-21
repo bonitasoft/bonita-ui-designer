@@ -206,6 +206,7 @@ describe('pbButton', function () {
       $httpBackend.flush();
 
       expect(scope.properties.dataFromSuccess).toBe('yes');
+      expect(scope.properties.dataFromError).toBe(undefined);
     });
 
     it('should bind success data when POST succeed', function () {
@@ -222,6 +223,7 @@ describe('pbButton', function () {
       $httpBackend.flush();
 
       expect(scope.properties.dataFromSuccess).toBe('success');
+      expect(scope.properties.dataFromError).toBe(undefined);
     });
 
     it('should bind error data when POST fail', function () {
@@ -237,6 +239,37 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect(scope.properties.dataFromError).toBe('not found');
+      expect(scope.properties.dataFromSuccess).toBe(undefined);
+    });
+
+    it('should bind response status code when POST succeeds', function() {
+      var data = {'name': 'toto'};
+      var url = '/toto';
+      $httpBackend.expectPOST(url, data).respond(200, 'success');
+
+      scope.properties.dataToSend = data;
+      scope.properties.action = 'POST';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(200);
+    });
+
+    it('should bind response status code when POST fail', function() {
+      var data = {'name': 'toto'};
+      var url = '/toto';
+      $httpBackend.expectPOST(url, data).respond(500, 'error');
+
+      scope.properties.dataToSend = data;
+      scope.properties.action = 'POST';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(500);
     });
 
     it('should bind success data when GET succeed', function () {
@@ -251,6 +284,7 @@ describe('pbButton', function () {
       $httpBackend.flush();
 
       expect(scope.properties.dataFromSuccess).toBe('success');
+      expect(scope.properties.dataFromError).toBe(undefined);
     });
 
     it('should bind error data when GET fail', function () {
@@ -264,6 +298,33 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect(scope.properties.dataFromError).toBe('not found');
+      expect(scope.properties.dataFromSuccess).toBe(undefined);
+    });
+
+    it('should bind response status code when GET succeeds', function() {
+      var url = '/toto';
+      $httpBackend.expectGET(url).respond(200, 'success');
+      
+      scope.properties.action = 'GET';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(200);
+    });
+
+    it('should bind response status code when GET fail', function() {
+      var url = '/toto';
+      $httpBackend.expectGET(url).respond(500, 'error');
+
+      scope.properties.action = 'GET';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(500);
     });
 
     it('should not change location on GET success', function () {
@@ -293,6 +354,39 @@ describe('pbButton', function () {
       $httpBackend.flush();
 
       expect(scope.properties.dataFromSuccess).toBe('success');
+      expect(scope.properties.dataFromError).toBe(undefined);
+    });
+
+    it('should bind response status code data when PUT succeed', function () {
+      var data = {'name': 'toto'};
+      var url = '/toto/1';
+
+      $httpBackend.expectPUT(url, data).respond(200, 'success');
+      scope.properties.dataToSend = data;
+      scope.properties.action = 'PUT';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect(scope.properties.responseStatusCode).toBe(200);
+    });
+
+    it('should bind response status code data when PUT fail', function () {
+      var data = {'name': 'toto'};
+      var url = '/toto/1';
+
+      $httpBackend.expectPUT(url, data).respond(500, 'error');
+      scope.properties.dataToSend = data;
+      scope.properties.action = 'PUT';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+
+      expect(scope.properties.responseStatusCode).toBe(500);
     });
 
     it('should change location on success', function () {
@@ -350,6 +444,7 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect(scope.properties.dataFromError).toBe('not found');
+      expect(scope.properties.dataFromSuccess).toBe(undefined);
       expect($window.location.assign).not.toHaveBeenCalled();
     });
 
@@ -365,6 +460,7 @@ describe('pbButton', function () {
       $httpBackend.flush();
 
       expect(scope.properties.dataFromSuccess).toBe('success');
+      expect(scope.properties.dataFromError).toBe(undefined);
     });
 
     it('should bind error data when DELETE fail', function () {
@@ -378,6 +474,33 @@ describe('pbButton', function () {
       $timeout.flush();
       $httpBackend.flush();
       expect(scope.properties.dataFromError).toBe('not found');
+      expect(scope.properties.dataFromSuccess).toBe(undefined);
+    });
+
+    it('should bind response status code data when DELETE fail', function () {
+      var url = '/toto';
+      $httpBackend.expectDELETE(url).respond(500, 'error');
+
+      scope.properties.action = 'DELETE';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(500);
+    });
+
+    it('should bind response status code data when DELETE fail', function () {
+      var url = '/toto';
+      $httpBackend.expectDELETE(url).respond(200, 'success');
+
+      scope.properties.action = 'DELETE';
+      scope.properties.url = url;
+
+      scope.ctrl.action();
+      $timeout.flush();
+      $httpBackend.flush();
+      expect(scope.properties.responseStatusCode).toBe(200);
     });
 
     it('should throw error when trying to remove from collection that is not an array', function () {

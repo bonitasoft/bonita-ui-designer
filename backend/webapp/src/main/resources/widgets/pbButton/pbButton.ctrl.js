@@ -5,8 +5,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
   this.action = function action() {
-
-
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
       closeModal($scope.properties.closeOnSuccess);
@@ -102,7 +100,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     return $http(req)
       .success(function(data, status) {
         $scope.properties.dataFromSuccess = data;
-        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data });
+        $scope.properties.responseStatusCode = status;
+        $scope.properties.dataFromError = undefined;
+        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           redirectIfNeeded();
         }
@@ -110,7 +110,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       })
       .error(function(data, status) {
         $scope.properties.dataFromError = data;
-        notifyParentFrame({ message: 'error', status: status, dataFromError: data  });
+        $scope.properties.responseStatusCode = status;
+        $scope.properties.dataFromSuccess = undefined;
+        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
       })
       .finally(function() {
         vm.busy = false;

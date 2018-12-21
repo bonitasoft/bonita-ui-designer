@@ -107,6 +107,14 @@
       "bond": "interpolation"
     },
     {
+      "label": "HTTP status code",
+      "help": "Holds the http status code of the response",
+      "name": "responseStatusCode",
+      "type": "text",
+      "showFor": "['POST', 'PUT', 'GET', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
+      "bond": "variable"
+    },
+    {
       "label": "Data sent on click",
       "help": "Can be used to fulfill a contract",
       "type": "text",
