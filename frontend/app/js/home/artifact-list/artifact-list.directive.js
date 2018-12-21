@@ -106,7 +106,8 @@
      * @returns {boolean}
      */
     isValid(index) {
-      return !document.getElementById('page-name-input-' + index).getAttribute('uib-tooltip');
+      let el = document.getElementById('page-name-input-' + index);
+      return el !== null && !el.getAttribute('uib-tooltip');
     }
 
     isArtifactNameAlreadyExist(name, artifact, artifacts) {
