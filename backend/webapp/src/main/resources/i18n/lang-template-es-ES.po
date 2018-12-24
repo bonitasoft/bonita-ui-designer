@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-12-17 02:59\n"
+"PO-Revision-Date: 2018-12-24 02:29\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -859,6 +859,9 @@ msgstr "Grupo de widgets utilizados para definir la disposición de los elemento
 msgid "HTTP request"
 msgstr "Petición HTTP"
 
+msgid "HTTP status code"
+msgstr ""
+
 msgid "Handle time zone"
 msgstr "Gestionar la zona horaria"
 
@@ -873,6 +876,9 @@ msgstr "Aquí está el formato del mensaje publicado en el frame principal en JS
 
 msgid "Hidden"
 msgstr "Oculto"
+
+msgid "Holds the http status code of the response"
+msgstr ""
 
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
 msgstr "Contiene el contenido de la respuesta de error desde el punto final del error de carga. Ese valor puede utilizarse para guiar al usuario"

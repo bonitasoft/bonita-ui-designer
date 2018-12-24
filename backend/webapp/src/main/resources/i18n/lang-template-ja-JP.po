@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2018-12-17 03:07\n"
+"PO-Revision-Date: 2018-12-24 02:35\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -859,6 +859,9 @@ msgstr ""
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
 
+msgid "HTTP status code"
+msgstr ""
+
 msgid "Handle time zone"
 msgstr "タイムゾーン処理"
 
@@ -873,6 +876,9 @@ msgstr "これは、親フレームに JSON でポストしたメッセージの
 
 msgid "Hidden"
 msgstr "非表示"
+
+msgid "Holds the http status code of the response"
+msgstr ""
 
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
 msgstr "アップロード エラー エンドポイントからの応答内容を保持します。その値はガイダンス目的に使用することができます。"
