@@ -108,7 +108,7 @@
     },
     {
       "label": "HTTP status code",
-      "help": "Holds the http status code of the response",
+      "help": "Holds the HTTP status code of the response",
       "name": "responseStatusCode",
       "type": "text",
       "showFor": "['POST', 'PUT', 'GET', 'DELETE', 'Submit task', 'Start process'].indexOf(properties.action.value) > -1",
