@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2018-12-24 02:29\n"
+"PO-Revision-Date: 2018-12-26 03:00\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -877,7 +877,7 @@ msgstr "Aquí está el formato del mensaje publicado en el frame principal en JS
 msgid "Hidden"
 msgstr "Oculto"
 
-msgid "Holds the http status code of the response"
+msgid "Holds the HTTP status code of the response"
 msgstr ""
 
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
