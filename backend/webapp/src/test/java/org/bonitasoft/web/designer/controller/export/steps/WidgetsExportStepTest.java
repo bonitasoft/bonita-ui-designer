@@ -19,6 +19,7 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.*;
 
+import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
@@ -36,7 +37,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.omg.CORBA.portable.OutputStream;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetsExportStepTest {

@@ -196,6 +196,20 @@
             <version>1.16.16</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Required by Java 11 -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Required by Java 11 -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
