@@ -19,7 +19,8 @@
         <div palette-widget
              class="PaletteItem text-center"
              ng-repeat="widget in palette.currentSection.widgets | filterByComponentName:palette.currentSection.search | orderBy:'component.order'"
-             widget="widget">
+             widget="widget"
+             is-fragment="palette.isFragment()">
         </div>
     </div>
 </div>

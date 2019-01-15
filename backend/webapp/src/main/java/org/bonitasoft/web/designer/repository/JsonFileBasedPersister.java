@@ -24,7 +24,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -35,6 +34,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -82,12 +84,14 @@ public class JsonFileBasedPersister<T extends Identifiable> {
 
     public void saveInIndex(Path metadataPath, T content) throws IOException {
         Path indexPath = jsonFile(metadataPath, ".index");
-        Map<String, String> index;
-        if (!indexPath.toFile().exists()) {
-            index = new HashMap<>();
-        } else {
+        Map<String, String> index = new HashMap<>();
+        if (indexPath.toFile().exists()) {
             byte[] indexFileContent = readAllBytes(indexPath);
-            index = objectMapper.fromJsonToMap(indexFileContent);
+            try {
+                index = objectMapper.fromJsonToMap(indexFileContent);
+            } catch (JsonMappingException e) {
+                //index file is empty or not parseable
+            }
         }
         index.put(((HasUUID) content).getUUID(), content.getId());
         try{

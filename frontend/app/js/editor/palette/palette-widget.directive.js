@@ -27,6 +27,7 @@
     return {
       restrict: 'EA',
       scope: {
+        isFragment: '=isFragment',
         widget: '='
       },
       templateUrl: 'js/editor/palette/palette-widget.html',

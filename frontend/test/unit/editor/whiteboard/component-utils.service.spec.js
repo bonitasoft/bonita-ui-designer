@@ -6,7 +6,7 @@ describe('ComponentUtils Service', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', 'tabsContainerStructureMock', 'pageDataMock'));
 
-  beforeEach(inject(function($injector) {
+  beforeEach(inject(function ($injector) {
     service = $injector.get('componentUtils');
     resolutions = $injector.get('resolutions');
     $stateParams = $injector.get('$stateParams');
@@ -29,48 +29,48 @@ describe('ComponentUtils Service', function() {
     resolutions.setDefaultResolution('foo');
   }));
 
-  describe('test if we are the child of a container', function() {
-    it('should not break if the item is not a tabContainer nor a container and return false', function() {
-      expect(service.isChildOf('tab-1',{})).toBe(false);
+  describe('test if we are the child of a container', function () {
+    it('should not break if the item is not a tabContainer nor a container and return false', function () {
+      expect(service.isChildOf('tab-1', {})).toBe(false);
     });
 
-    it('should not break if the item is a container without rows and return false', function() {
-      expect(service.isChildOf('tab-1',{ type: 'container' })).toBe(false);
-      expect(service.isChildOf('tab-1',{ type: 'container', rows: [] })).toBe(false);
+    it('should not break if the item is a container without rows and return false', function () {
+      expect(service.isChildOf('tab-1', {type: 'container'})).toBe(false);
+      expect(service.isChildOf('tab-1', {type: 'container', rows: []})).toBe(false);
     });
 
-    it('should return false if a rows is undefined or a falsy value', function() {
+    it('should return false if a rows is undefined or a falsy value', function () {
       var item = {
         type: 'container',
-        rows: [[{}],[0]]
+        rows: [[{}], [0]]
       };
-      expect(service.isChildOf('tab-1',item)).toBe(false);
+      expect(service.isChildOf('tab-1', item)).toBe(false);
     });
 
-    it('should return true if we have a tab child of another one', function() {
-      expect(service.isChildOf('tab-1',tabsContainerStructureMockJSON)).toBe(true);
-      expect(service.isChildOf('tab-8',tabsContainerStructureMockJSON)).toBe(true);
-      expect(service.isChildOf('tab-9',tabsContainerStructureMockJSON)).toBe(true);
-      expect(service.isChildOf('tab-3',tabsContainerStructureMockJSON)).toBe(true);
-      expect(service.isChildOf('tab-7',tabsContainerStructureMockJSON)).toBe(true);
+    it('should return true if we have a tab child of another one', function () {
+      expect(service.isChildOf('tab-1', tabsContainerStructureMockJSON)).toBe(true);
+      expect(service.isChildOf('tab-8', tabsContainerStructureMockJSON)).toBe(true);
+      expect(service.isChildOf('tab-9', tabsContainerStructureMockJSON)).toBe(true);
+      expect(service.isChildOf('tab-3', tabsContainerStructureMockJSON)).toBe(true);
+      expect(service.isChildOf('tab-7', tabsContainerStructureMockJSON)).toBe(true);
     });
 
-    it('should return true if we find a container and it is the one', function() {
-      expect(service.isChildOf(150,tabsContainerStructureMockJSON)).toBe(true);
-      expect(service.isChildOf(1421,tabsContainerStructureMockJSON)).toBe(true);
+    it('should return true if we find a container and it is the one', function () {
+      expect(service.isChildOf(150, tabsContainerStructureMockJSON)).toBe(true);
+      expect(service.isChildOf(1421, tabsContainerStructureMockJSON)).toBe(true);
     });
 
-    it('should return false if the tab is not a child', function() {
-      expect(service.isChildOf('tab-25',tabsContainerStructureMockJSON)).toBe(false);
-      expect(service.isChildOf(32,tabsContainerStructureMockJSON)).toBe(false);
+    it('should return false if the tab is not a child', function () {
+      expect(service.isChildOf('tab-25', tabsContainerStructureMockJSON)).toBe(false);
+      expect(service.isChildOf(32, tabsContainerStructureMockJSON)).toBe(false);
     });
   });
 
-  describe('modal containers test', function() {
+  describe('modal containers test', function () {
     var modal, container, modalWithModal, containerWithModal, modalWithContainerWithModal, tabsContainerWithContainer,
       tabsContainerWithContainerWithModal;
 
-    beforeEach(function() {
+    beforeEach(function () {
       modal = {
         $$id: 'pbModalContainer-1',
         type: 'modalContainer',
@@ -123,6 +123,11 @@ describe('ComponentUtils Service', function() {
 
       tabsContainerWithContainer = {
         $$id: 'pbTabsContainer-6',
+        $$parentContainerRow: {
+          container: {
+            type: 'page',
+          }
+        },
         type: 'tabsContainer',
         id: 'pbTabsContainer',
         tabs: [
@@ -142,6 +147,11 @@ describe('ComponentUtils Service', function() {
 
       tabsContainerWithContainerWithModal = {
         $$id: 'pbTabsContainer-8',
+        $$parentContainerRow: {
+          container: {
+            type: 'page',
+          }
+        },
         type: 'tabsContainer',
         id: 'pbTabsContainer',
         tabs: [
@@ -160,7 +170,7 @@ describe('ComponentUtils Service', function() {
       };
     });
 
-    it('should return true if a modal container is our child', function() {
+    it('should return true if a modal container is our child', function () {
       expect(service.isChildOf('pbContainer-1', modal)).toBe(true);
       expect(service.isChildOf('pbContainer-1', modalWithModal)).toBe(true);
       expect(service.isChildOf('pbContainer-1', containerWithModal)).toBe(true);
@@ -168,225 +178,262 @@ describe('ComponentUtils Service', function() {
       expect(service.isChildOf('pbContainer-1', tabsContainerWithContainerWithModal)).toBe(true);
     });
 
-    it('should return false if a modal container is not our child', function() {
+    it('should return false if a modal container is not our child', function () {
       expect(service.isChildOf('pbContainer-99', modal)).toBe(false);
       expect(service.isChildOf('pbContainer-99', containerWithModal)).toBe(false);
       expect(service.isChildOf('pbContainer-99', tabsContainerWithContainerWithModal)).toBe(false);
     });
+  });
 
-    it('should return true if a modal container is containing a modal container', function() {
-      var modalWithTabsContainerWithContainerWithModal = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [[
-            tabsContainerWithContainerWithModal
-          ]]
-        }
+  describe('test if container contains a modal child ', function () {
+    it('should return false if many modal containers are at the root af a page', function () {
+      var modalAtRootOfPage = {
+        type: 'page',
+        name: 'page1',
+        id: 'page-id-1',
+        hasValidationError: false,
+        rows: [[
+          {
+            $$id: 'pbModalContainer-1',
+            $$parentContainerRow: {
+              container: {
+                type: 'page',
+              }
+            },
+            type: 'modalContainer',
+            id: 'pbModalContainer',
+            container: {
+              $$id: 'pbModalContainer-1',
+              rows: [[]]
+            }
+          },
+          {
+            $$id: 'pbModalContainer-2',
+            $$parentContainerRow: {
+              container: {
+                type: 'page',
+              }
+            },
+            type: 'modalContainer',
+            id: 'pbModalContainer',
+            container: {
+              $$id: 'pbModalContainer-2',
+              rows: [[]]
+            }
+          }
+        ]]
       };
 
-      expect(service.hasModalContainingModal(modalWithModal)).toBe(true);
-      expect(service.hasModalContainingModal(modalWithContainerWithModal)).toBe(true);
-      expect(service.hasModalContainingModal(modalWithTabsContainerWithContainerWithModal)).toBe(true);
+      expect(service.containsModalInContainer(modalAtRootOfPage)).toBe(false);
     });
 
-    it('should return false if a modal container is not containing a modal container', function() {
-      expect(service.hasModalContainingModal(modal)).toBe(false);
-      expect(service.hasModalContainingModal(container)).toBe(false);
-      expect(service.hasModalContainingModal(containerWithModal)).toBe(false);
-      expect(service.hasModalContainingModal(tabsContainerWithContainerWithModal)).toBe(false);
-      expect(service.hasModalContainingModal(tabsContainerWithContainer)).toBe(false);
+    it('should return true if a page contains a container containing a modal container', function () {
+      var pageContainingContainerContainingModal = {
+        type: 'page',
+        name: 'page1',
+        id: 'page-id-1',
+        hasValidationError: false,
+        rows: [[{
+          $$id: 'pbContainer-1',
+          $$parentContainerRow: {
+            container: {
+              type: 'page',
+            }
+          },
+          type: 'container',
+          id: 'pbContainer-1',
+          container: {
+            $$id: 'pbContainer-1',
+            rows: [[{
+              $$id: 'pbModalContainer-1',
+              $$parentContainerRow: {
+                container: {
+                  type: 'container',
+                }
+              },
+              type: 'modalContainer',
+              id: 'pbModalContainer',
+              container: {
+                $$id: 'pbContainer-1',
+                rows: [[]]
+              }
+            }]]
+          }
+        }]]
+      };
+
+      expect(service.containsModalInContainer(pageContainingContainerContainingModal)).toBe(true);
     });
 
-    it('should return true if a modal container is containing a modal container in the same row with another widget', function() {
+    it('should return true if a tab contains modal container', function () {
+      var pageContainingContainerContainingModal = {
+        type: 'page',
+        name: 'page1',
+        id: 'page-id-1',
+        hasValidationError: false,
+        rows: [
+          {
+            $$id: 'tabsContainer',
+            $$parentContainerRow: {
+              container: {
+                type: 'page',
+              }
+            },
+            type: 'tabsContainer',
+            tabs: [
+              {
+                container: {
+                  rows: [[]]
+                }
+              },
+              {
+                $$id: 'pbContainer-1',
+                $$parentContainerRow: {
+                  container: {
+                    type: 'container',
+                  }
+                },
+                type: 'container',
+                id: 'pbContainer-1',
+                container: {
+                  $$id: 'pbContainer-1',
+                  rows: [[{
+                    $$id: 'pbModalContainer-1',
+                    $$parentContainerRow: {
+                      container: {
+                        type: 'container',
+                      }
+                    },
+                    type: 'modalContainer',
+                    id: 'pbModalContainer',
+                    container: {
+                      $$id: 'pbContainer-1',
+                      rows: [[]]
+                    }
+                  }]]
+                }
+              }
+            ]
+          }]
+      };
+
+      expect(service.containsModalInContainer(pageContainingContainerContainingModal)).toBe(true);
+    });
+
+
+
+
+    it('should return true if a container is containing a modal container in the same row with another widget', function () {
       var modalWithWigetAndModalInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
+        type: 'page',
+        name: 'page1',
+        id: 'page-id-1',
+        hasValidationError: false,
+        $$parentContainerRow: {
+          container: {
+            type: 'page',
+          }
+        },
+        rows: [[
+          {
+            $$id: 'pbContainer-1',
+            $$parentContainerRow: {
+              container: {
+                type: 'container',
               }
-            ],
-            [
-              modal
-            ]
-          ]
-        }
+            },
+            type: 'container',
+            id: 'pbContainer-1',
+            container: {
+              $$id: 'pbContainer-1',
+              rows: [
+                [
+                  {
+                    $$id: 1337,
+                    $$parentContainerRow: {
+                      container: {
+                        type: 'container',
+                      }
+                    },
+                    id: 'pbTextarea',
+                    type: 'component'
+                  },
+                  {
+                    $$id: 'pbModalContainer-1',
+                    $$parentContainerRow: {
+                      container: {
+                        type: 'container',
+                      }
+                    },
+                    type: 'modalContainer',
+                    id: 'pbModalContainer',
+                    container: {
+                      $$id: 'pbContainer-1',
+                      rows: [[]]
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ]]
       };
-
-      var modalWithWigetAndContainerWithModalInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [
-              containerWithModal
-            ]
-          ]
-        }
-      };
-
-      var modalWithWigetAndModalWithModalInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [
-              modalWithModal
-            ]
-          ]
-        }
-      };
-
-      var modalWithWigetAndTabsContainerWithContainerWithModalInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [
-              tabsContainerWithContainerWithModal
-            ]
-          ]
-        }
-      };
-
-      expect(service.hasModalContainingModal(modalWithWigetAndModalInRow)).toBe(true);
-      expect(service.hasModalContainingModal(modalWithWigetAndContainerWithModalInRow)).toBe(true);
-      expect(service.hasModalContainingModal(modalWithWigetAndModalWithModalInRow)).toBe(true);
-      expect(service.hasModalContainingModal(modalWithWigetAndTabsContainerWithContainerWithModalInRow)).toBe(true);
+      expect(service.containsModalInContainer(modalWithWigetAndModalInRow)).toBe(true);
     });
+  });
 
-    it('should return false if a modal container is not containing a modal container in the same row with another widget', function() {
-      var modalWithWigetAndNothingInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [{}]
-          ]
-        }
-      };
+  describe('test if a modal is direct child of a container', function () {
+      var modal = {
+      $$id: 'pbModalContainer-1',
+      type: 'modalContainer',
+      id: 'pbModalContainer',
+      container: {
+        $$id: 'pbContainer-1',
+        rows: [[{}]]
+      }
+    };
 
-      var modalWithWigetAndContainerInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [
-              container
-            ]
-          ]
-        }
-      };
+    var container = {
+      type: 'container',
+      id: 'pbContainer',
+      $$id: 'pbContainer-2',
+      rows: [[{}]]
+    };
 
-      var modalWithWidgetAndTabsContainerWithContainerInRow = {
-        $$id: 'pbModalContainer-37',
-        type: 'modalContainer',
-        id: 'pbModalContainer',
-        container: {
-          $$id: 'pbContainer-37',
-          rows: [
-            [
-              {
-                $$id: 1337,
-                id: 'pbTextarea',
-                type: 'component'
-              }
-            ],
-            [
-              tabsContainerWithContainer
-            ]
-          ]
-        }
-      };
-
-      expect(service.hasModalContainingModal(modalWithWigetAndNothingInRow)).toBe(false);
-      expect(service.hasModalContainingModal(modalWithWigetAndContainerInRow)).toBe(false);
-      expect(service.hasModalContainingModal(modalWithWidgetAndTabsContainerWithContainerInRow)).toBe(false);
-    });
-
-    it('should return true if a modal is not at the root of the page', function() {
+    it('should return true if a modal is not at the root of the page', function () {
       modal.$$parentContainerRow = {
         container: {
           type: 'container'
         }
       };
-      expect(service.hasModalInSubContainers(modal)).toBe(true);
+      expect(service.isModalInContainer(modal)).toBe(true);
     });
 
-    it('should return false if a modal is at the root of the artifact', function() {
+    it('should return false if a modal is at the root of the artifact', function () {
       modal.$$parentContainerRow = {
         container: {
           type: 'page'
         }
       };
-      expect(service.hasModalInSubContainers(modal)).toBe(false);
+      expect(service.isModalInContainer(modal)).toBe(false);
       modal.$$parentContainerRow = {
         container: {
           type: 'form'
         }
       };
-      expect(service.hasModalInSubContainers(modal)).toBe(false);
+      expect(service.isModalInContainer(modal)).toBe(false);
       modal.$$parentContainerRow = {
         container: {
           type: 'layout'
         }
       };
-      expect(service.hasModalInSubContainers(modal)).toBe(false);
+      expect(service.isModalInContainer(modal)).toBe(false);
     });
+
+    it('should return false if it is not a modal', function () {
+      expect(service.isModalInContainer(container)).toBe(false);
+    });
+
   });
 
   describe('test if a component can move', function() {

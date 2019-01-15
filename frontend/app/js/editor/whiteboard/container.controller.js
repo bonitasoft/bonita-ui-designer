@@ -106,11 +106,11 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('ContainerDir
     return container && container.propertyValues && container.propertyValues.repeatedCollection && container.propertyValues.repeatedCollection.value;
   };
 
-  $scope.hasModalContainingModal = function(container) {
-    return container && (container.type === 'modalContainer' || container.type === 'fragment') && componentUtils.hasModalContainingModal(container);
+  $scope.containsModalInContainer = function(container) {
+    return container && componentUtils.containsModalInContainer(container);
   };
 
-  $scope.hasModalInSubContainers = function(container) {
-    return container && componentUtils.hasModalInSubContainers(container);
+  $scope.isModalInContainer = function(container) {
+    return container && componentUtils.isModalInContainer(container);
   };
 });

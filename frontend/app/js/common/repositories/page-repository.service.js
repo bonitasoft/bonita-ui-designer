@@ -30,7 +30,7 @@
       }
 
       save(artifact) {
-        artifact.hasValidationError = componentUtils.hasModalContainingModal(artifact);
+        artifact.hasValidationError = componentUtils.containsModalInContainer(artifact);
         return super.save(artifact);
       }
 

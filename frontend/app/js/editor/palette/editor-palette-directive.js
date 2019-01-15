@@ -39,7 +39,6 @@
   function EditorPaletteCtrl($scope, paletteService) {
 
     var palette = this;
-
     /**
      * The palette contains all the widgets that can be added to the page.
      */
@@ -49,7 +48,7 @@
     this.isActiveSection = isActiveSection;
     this.isClosed = isClosed;
     this.getIconClassName = getIconClassName;
-
+    this.isFragment = isFragment;
     resize();
 
     function toggleSection(section) {
@@ -69,6 +68,10 @@
 
     function isClosed() {
       return palette.currentSection === undefined;
+    }
+
+    function isFragment() {
+      return $scope.$parent.mode === 'fragment';
     }
 
     function getIconClassName(section) {

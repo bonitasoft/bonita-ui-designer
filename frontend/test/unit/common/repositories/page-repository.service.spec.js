@@ -133,6 +133,11 @@ describe('pageRepo', function() {
     page.rows[0].push(
       {
         $$id: 'pbModalContainer-1',
+        $$parentContainerRow: {
+          container: {
+            type: 'page',
+          }
+        },
         type: 'modalContainer',
         id: 'pbModalContainer',
         container: {
@@ -150,6 +155,11 @@ describe('pageRepo', function() {
     page.rows[0].push(
       {
         $$id: 'pbModalContainer-2',
+        $$parentContainerRow: {
+          container: {
+            type: 'page',
+          }
+        },
         type: 'modalContainer',
         id: 'pbModalContainer',
         container: {
@@ -167,6 +177,11 @@ describe('pageRepo', function() {
     page.rows[0][0].container.rows[0].push(
       {
         $$id: 'pbModalContainer-3',
+        $$parentContainerRow: {
+          container: {
+            type: 'container',
+          }
+        },
         type: 'modalContainer',
         id: 'pbModalContainer',
         container: {
@@ -184,6 +199,11 @@ describe('pageRepo', function() {
     page.rows[0][0].container.rows[0][0].container.rows[0].push(
       {
         $$id: 'pbModalContainer-4',
+        $$parentContainerRow: {
+          container: {
+            type: 'container',
+          }
+        },
         type: 'modalContainer',
         id: 'pbModalContainer',
         container: {
