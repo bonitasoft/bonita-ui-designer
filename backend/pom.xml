@@ -12,9 +12,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <jackson.version>2.5.0</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <handlebar.version>4.0.6</handlebar.version>
-        <spring.version>4.1.4.RELEASE</spring.version>
+        <spring.version>5.1.4.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
     </properties>
 
@@ -166,7 +166,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>4.12</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

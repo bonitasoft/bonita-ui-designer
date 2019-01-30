@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
-import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -59,8 +58,8 @@ public class AssetImporterTest {
     }
 
     public void createDirectoryAsset(String assetType) throws IOException {
-        temporaryFolder.newFolderPath("assets");
-        temporaryFolder.newFolderPath("assets/" + assetType);
+        temporaryFolder.newFolder("assets");
+        temporaryFolder.newFolder("assets/" ,assetType);
     }
 
     @Test

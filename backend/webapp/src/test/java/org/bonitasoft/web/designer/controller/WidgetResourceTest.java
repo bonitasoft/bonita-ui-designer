@@ -14,39 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
-import org.bonitasoft.web.designer.model.WidgetContainerRepository;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Property;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.mockito.Mock;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
@@ -69,6 +36,37 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.widget.Property;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.service.WidgetService;
+import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.Mock;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.WidgetResource}
@@ -302,7 +300,7 @@ public class WidgetResourceTest {
 
         mockMvc.perform(delete("/rest/widgets/customLabel"))
                 .andExpect(status().isConflict())
-                .andExpect(jsonPath("$[*].message").value("The widget cannot be deleted because it is used in 1 page, <person>"));
+                .andExpect(jsonPath("message").value("The widget cannot be deleted because it is used in 1 page, <person>"));
     }
 
     @Test
@@ -431,7 +429,7 @@ public class WidgetResourceTest {
                 .content(convertObjectToJsonBytes(aProperty().build())))
 
                 .andExpect(status().isForbidden())
-                .andExpect(jsonPath("$[*].message").value("Not allowed to modify a non custom widgets"));
+                .andExpect(jsonPath("message").value("Not allowed to modify a non custom widgets"));
     }
 
     @Test
@@ -443,7 +441,8 @@ public class WidgetResourceTest {
                 .content(convertObjectToJsonBytes(aProperty().build())))
 
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$[*].message").value("Widget [ toBeDeleted ] not found"));
+                .andExpect(jsonPath("message").value("Widget [ toBeDeleted ] not found"));
+
     }
 
     @Test

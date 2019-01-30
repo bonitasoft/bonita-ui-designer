@@ -112,7 +112,7 @@ public class LiveRepositoryUpdateTest {
         Migration<Page> migration = mock(Migration.class);
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         createPage("1.0.0");
-        folder.newFolder("pageJson/assets");
+        folder.newFolder("pageJson","assets");
         folder.newFile("pageJson/assets/whatever.json");
 
         liveRepositoryUpdate.migrate();

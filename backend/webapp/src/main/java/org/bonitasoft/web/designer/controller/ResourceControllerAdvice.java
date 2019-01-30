@@ -46,7 +46,7 @@ public class ResourceControllerAdvice {
      */
     public static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
         return headers;
     }
 
@@ -79,7 +79,7 @@ public class ResourceControllerAdvice {
     @ExceptionHandler(IOException.class)
     public ResponseEntity<ErrorMessage> handleIOException(IOException exception) {
         logger.error("Internal Server Error Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorMessage(exception),getHttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RepositoryException.class)
