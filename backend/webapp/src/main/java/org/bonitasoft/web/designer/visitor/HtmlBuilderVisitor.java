@@ -96,7 +96,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
         List<TabTemplate> tabTemplates = new ArrayList<>();
         for (Tab tab : tabsContainer.getTabs()) {
-            tabTemplates.add(new TabTemplate(tab.getTitle(), tab.getContainer().accept(this)));
+            tabTemplates.add(new TabTemplate(tab.getTitle(), tab.getTabId(), tab.getContainer().accept(this)));
         }
 
         return new TemplateEngine("tabsContainer.hbs.html")
@@ -232,10 +232,12 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     class TabTemplate {
 
         private final String title;
+        private String tabId;
         private final String content;
 
-        public TabTemplate(String title, String content) {
+        public TabTemplate(String title, String tabId, String content) {
             this.title = title;
+            this.tabId = tabId;
             this.content = content;
         }
 
@@ -245,6 +247,10 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
         public String getContent() {
             return content;
+        }
+
+        public String getTabId() {
+            return tabId;
         }
     }
 }

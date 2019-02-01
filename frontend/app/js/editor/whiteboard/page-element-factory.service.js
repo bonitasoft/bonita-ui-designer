@@ -63,6 +63,7 @@
     function createTabElement(title) {
       return {
         title: title,
+        tabId: title.replace(/\s/g,'').toLowerCase(),
         container: {
           id: 'pbContainer',
           type: 'container',

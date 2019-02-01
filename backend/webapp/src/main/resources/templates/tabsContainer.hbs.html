@@ -1,12 +1,43 @@
-<div pb-property-values='{{ reference }}'>
-    <div class="{{ dimensionAsCssClasses }}" ng-class="properties.cssClasses" ng-if="!properties.hidden">
-        <tabset>
-            {{#each tabTemplates}}
-                <tab>
-                    <tab-heading ui-translate>{{ title }}</tab-heading>
-                    {{{ content }}}
+{{=<% %>=}}
+<div pb-property-values='<% reference %>'>
+    <pb-tabs-container>
+        <div class="<% dimensionAsCssClasses %>" ng-class="properties.cssClasses" ng-if="!properties.hidden">
+            <tabset vertical="{{properties.vertical}}" type="{{properties.type}}">
+                <%#each tabTemplates%>
+                <tab ng-if="'<% tabId %>' && !getOptions('<% tabId %>').hidden && getOptions('<% tabId %>').dynamicTitle && getOptions('<% tabId %>').allowHtml"
+                    disable="getOptions('<% tabId %>').disabled">
+                    <tab-heading
+                        ng-bind-html="getOptions('<% tabId %>').dynamicTitle"
+                        ng-class="getOptions('<% tabId %>').cssClasses"
+                        ui-translate>
+                    </tab-heading>
+                    <%{ content }%>
                 </tab>
-            {{/each}}
-        </tabset>
-    </div>
+                <tab ng-if="'<% tabId %>' && !getOptions('<% tabId %>').hidden && getOptions('<% tabId %>').dynamicTitle && !getOptions('<% tabId %>').allowHtml"
+                    disable="getOptions('<% tabId %>').disabled">
+                    <tab-heading
+                        ng-bind="getOptions('<% tabId %>').dynamicTitle"
+                        ng-class="getOptions('<% tabId %>').cssClasses"
+                        ui-translate>
+                    </tab-heading>
+                    <%{ content }%>
+                </tab>
+                <tab ng-if="'<% tabId %>' && !getOptions('<% tabId %>').hidden && !getOptions('<% tabId %>').dynamicTitle"
+                     disable="getOptions('<% tabId %>').disabled">
+                    <tab-heading
+                        ng-class="getOptions('<% tabId %>').cssClasses"
+                        ui-translate>
+                        <% title %>
+                    </tab-heading>
+                    <%{ content }%>
+                </tab>
+                <tab ng-if="'<% tabId %>' == ''">
+                    <tab-heading ui-translate><% title %></tab-heading>
+                    <%{ content }%>
+                </tab>
+                <%/each%>
+            </tabset>
+        </div>
+    </pb-tabs-container>
 </div>
+<%={{ }}=%>

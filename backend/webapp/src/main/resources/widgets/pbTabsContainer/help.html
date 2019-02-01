@@ -1,0 +1,38 @@
+<uib-tabset class="tabs-left">
+    <uib-tab heading="{{ 'Basic usage' | translate }}" index="'basic-usage'">
+        <p translate>Use this container to create tabs which can be displayed over the page, form, or layout content.</p>
+        <p translate>The basic usage of this container is to define <em>Default title</em> for each tab. In this case, all tab titles will be statics and you can drag and drop any widgets you want to define the tab content.</p>
+        <p translate>if you want more options for each tab, refer to <em>Advanced usage</em>.</p>
+    </uib-tab>
+    <uib-tab heading="{{ 'Advanced usage' | translate }}" index="'advanced-usage'">
+        <p translate>The usage of advance options allows you to customize default display and behaviour of tabs based on data and/or JS expressions.</p>
+        <p translate>This is the list of accepted options you can configure for a given tab:
+            <ul>
+                <li><code>dynamicTitle</code> <em>(Defaults: display "Default title" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true).</em></li>
+                <li><code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML.</li>
+                <li><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>
+                <li><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.</li>
+                <li><code>cssClasses</code> <em>(Defaults: "")</em>: Add css classes on tab. This css class will be attached to <strong> ToBeSet</strong> html element.</li>
+            </ul>
+        </p>
+        <p translate><em>These options are optional.</em></p>
+        <p translate>"Advance tab options" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable.</p>
+        <p translate> Here you can find an example of a JS expression:</p>
+        <pre>
+return {
+    tab1: {
+        dynamicTitle: "&lt;b&gt;Dynamic tab title&lt;/b&gt;",
+        allowHtml: true,
+        hidden: false,
+        disabled: false,
+        cssClasses: ""
+    },
+    tab2: {
+        dynamicTitle: "Tab: " + $data.myVar
+    }
+};
+        </pre>
+        <p translate>Here we just configured 2 tabs identified as <code>tab1</code> and <code>tab2</code>, <em>these keys will have to be defined in each tab and will allow you to identify them</em>. We recommend you to set a user-friendly name such as "paymentDetails" instead of keeping tab1. You can notice that it is not necessary to define all options (allowHtml, hidden, disabled and cssClasses are not defined for tab2 in this example), in this case default value will be applied.</p>
+        <p translate>Then, you need to set this variable as input in the property "Advanced tab options" (on the tab container panel).</p>
+    </uib-tab>
+</uib-tabset>

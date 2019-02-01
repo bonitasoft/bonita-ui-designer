@@ -52,11 +52,11 @@ describe('tabsContainer', function() {
 
   it('should display the component', function() {
     // then we should have 2 tabs + one 'plus' button
-    expect(element.find('ul.nav.nav-tabs li').length).toBe(3);
-    expect(element.find('ul.nav.nav-tabs li:first').text().trim()).toBe('Tab 1');
-    expect(element.find('ul.nav.nav-tabs li:first').hasClass('active')).toBe(true);
-    expect(element.find('ul.nav.nav-tabs li:nth(1)').text().trim()).toBe('Tab 2');
-    expect(element.find('ul.nav.nav-tabs li:nth(1)').hasClass('active')).toBe(false);
+    expect(element.find('ul.nav li').length).toBe(3);
+    expect(element.find('ul.nav li:first').text().trim()).toBe('Tab 1');
+    expect(element.find('ul.nav li:first').hasClass('active')).toBe(true);
+    expect(element.find('ul.nav li:nth(1)').text().trim()).toBe('Tab 2');
+    expect(element.find('ul.nav li:nth(1)').hasClass('active')).toBe(false);
     expect(element.find('container').length).toBe(2);
   });
 
@@ -69,7 +69,7 @@ describe('tabsContainer', function() {
     };
     $rootScope.$apply();
 
-    element.find('ul.nav.nav-tabs li:nth(2) a').triggerHandler({ type: 'click' });
+    element.find('ul.nav li:nth(2) a').triggerHandler({ type: 'click' });
 
     expect($rootScope.tabsContainer.tabs.length).toBe(3);
   });
