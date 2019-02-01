@@ -1,7 +1,7 @@
 describe('checkbox', function () {
 
   it('should display checkbox that return a boolean value', function () {
-    browser.get('/bonita/preview/page/checkbox/');
+    browser.get('/bonita/preview/page/default-bonita-appName/checkbox/');
 
     var checkboxes = $$('pb-checkbox');
     expect(checkboxes.count()).toEqual(3); // one is hidden

@@ -1,7 +1,7 @@
 describe('autocomplete', function () {
 
   beforeEach(function () {
-    browser.get('/bonita/preview/page/autocomplete/');
+    browser.get('/bonita/preview/page/default-bonita-appName/autocomplete/');
   });
 
   describe('simple list', function() {

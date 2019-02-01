@@ -5,7 +5,7 @@ describe('formContainer', function() {
    * We can play with its visibility, its alignment, its text...
    */
   beforeEach(function() {
-    browser.get('/bonita/preview/page/formContainer/');
+    browser.get('/bonita/preview/page/default-bonita-appName/formContainer/');
   });
 
   it('should display the $form name', function() {

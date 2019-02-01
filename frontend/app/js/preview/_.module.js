@@ -19,7 +19,8 @@
   angular.module('bonitasoft.designer.preview', [
     'bonitasoft.designer.common.services',
     'bonitasoft.designer.common.repositories',
-    'ui.router'
+    'ui.router',
+    'ngStorage'
   ]);
 
 })();

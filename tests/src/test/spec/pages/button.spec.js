@@ -5,7 +5,7 @@ describe('button', function () {
   }
 
   beforeEach(function () {
-    browser.get('/bonita/preview/page/buttonAddRemove/');
+    browser.get('/bonita/preview/page/default-bonita-appName/buttonAddRemove/');
 
     var peoples = getPeoples();
     expect(peoples.count()).toBe(4);

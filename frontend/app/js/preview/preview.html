@@ -1,21 +1,35 @@
 <div class="Preview">
+
     <nav class="navbar Preview-header" role="navigation">
         <div class="navbar-header">
-            <span class="Preview-artifact-name" translate>Preview - {{pageName}}</span>
             <navbar-toggle on-click="isNavCollapsed = !isNavCollapsed"></navbar-toggle>
+            <span class="navbar-brand" translate>Preview - {{pageName}}</span>
         </div>
-        <div class="Preview-toolbar collapse navbar-collapse" uib-collapse="isNavCollapsed">
-            <ul class="nav navbar-nav">
-                <li><language-picker on-change="refreshIframe()"></language-picker></li>
-                <li>
-                    <resolutions-bar
+        <div class="container-fluid">
+            <form  class="nav navbar-form navbar-right collapse navbar-collapse" uib-collapse="isNavCollapsed">
+                <div class="input-group">
+                    <span class="input-group-addon Select-addon">
+                        View in application
+                    </span>
+                    <select class="form-control Select-control" ng-change="saveToStorageAndRefresh(pathToLivingApp)"
+                            ng-model="pathToLivingApp" uib-tooltip="{{selectedAppDisplayName}}" tooltip-placement="bottom">
+                        <option selected value="default-bonita-appName" translate>None</option>
+                        <option ng-repeat="app in apps" value="{{app.token}}">
+                            {{app.displayName}}
+                        </option>
+                    </select>
+                </div>
+                <language-picker on-change="refreshIframe()"></language-picker>
+                <resolutions-bar
                         on-change="updateResolutionInUrl"
                         id="resolutions"
                         class="btn-group Preview-resolutionBar">
                     </resolutions-bar>
-                </li>
-            </ul>
+            </form>
         </div>
     </nav>
+
     <iframe preview-localized-iframe class="Preview-viewport" ng-src="{{iframe.src}}" width="{{iframeWidth()}}" ></iframe>
 </div>
+
+

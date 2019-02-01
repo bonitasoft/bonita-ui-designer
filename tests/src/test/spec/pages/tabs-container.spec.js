@@ -1,7 +1,7 @@
 describe('tabsContainer', function () {
 
   beforeEach(function () {
-    browser.get('/bonita/preview/page/tabsContainer/');
+    browser.get('/bonita/preview/page/default-bonita-appName/tabsContainer/');
   });
   it('should display 1 tabsContainers with 2 tabs', function () {
 

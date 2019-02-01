@@ -118,6 +118,7 @@ describe('UI designer: home', function() {
     upload.click();
     //we need to wait for angular to finish processing modal
     browser.waitForAngular();
+    console.log('\n\n\n'+modal.isPresent()+'\n\n\n');
     expect(modal.isPresent()).toBe(false);
     widgets.count().then(function(nb) {
       expect(nb).toEqual(nbWidgets + 1);

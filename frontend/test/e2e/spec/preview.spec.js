@@ -7,7 +7,7 @@ describe('preview test', function() {
 
     // then we should have an iframe with a desktop width
     expect(preview.iframeWidth).toBe('100%');
-    expect(preview.iframeSrc).toContain('preview/page/person-page');
+    expect(preview.iframeSrc).toContain('preview/page/default-bonita-appName/person-page');
 
   });
 });

@@ -14,36 +14,28 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.HandlerMapping;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @Controller
 public class PreviewController {
@@ -69,7 +61,7 @@ public class PreviewController {
     /**
      * Send redirect to the Rest API
      */
-    @RequestMapping("/preview/{artifact}/API/**")
+    @RequestMapping("/preview/{previewableType}/{appName}/API/**")
     public void proxyAPICall(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
         try {
@@ -85,25 +77,25 @@ public class PreviewController {
         }
     }
 
-    @RequestMapping(value = "/preview/page/{id}", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "/preview/page/{appName}/{id}", produces = "text/html; charset=UTF-8")
     public ResponseEntity<String> previewPage(@PathVariable(value = "id") String id, HttpServletRequest httpServletRequest) {
         return previewer.render(id, pageRepository, httpServletRequest);
     }
 
-    @RequestMapping("/preview/page/{id}/assets/**")
+    @RequestMapping("/preview/page/{appName}/{id}/assets/**")
     public void servePageAsset(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
         Path filePath = pageRepositoryPath.resolve(pageId).resolve("assets").resolve(matchingPath);
         HttpFile.writeFileInResponse(request, response, filePath);
     }
 
-    @RequestMapping("/preview/{previableType}/{id}/widgets/**")
+    @RequestMapping("/preview/{previewableType}/{appName}/{id}/widgets/**")
     public void serveWidgetFiles(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
         HttpFile.writeFileInResponse(request, response, widgetRepositoryPath.resolve(matchingPath));
     }
 
-    @RequestMapping("/preview/page/{id}/js/**")
+    @RequestMapping("/preview/page/{appName}/{id}/js/**")
     public void servePageJs(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
         Path filePath = pageRepositoryPath.resolve(pageId).resolve("js").resolve(matchingPath);
@@ -111,21 +103,31 @@ public class PreviewController {
     }
 
     /**
-     * Returns fake css file for living app theme.css
+     * Returns the theme.css file present on the application
      */
-    @RequestMapping("/preview/page/theme/theme.css")
-    public void serveWidgetAsset(HttpServletResponse response) throws ServletException {
+    @RequestMapping("/preview/{previewableType}/{appName}/theme/theme.css")
+    public void serveWidgetAsset(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "appName") String appName) throws ServletException {
 
-        response.setHeader("Content-Type", "text/css");
-        response.setHeader("Content-Disposition", "inline; filename=\"theme.css\"");
-        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        response.setStatus(HttpStatus.OK.value());
-        try (PrintWriter writer = response.getWriter()) {
-            writer.println("/**");
-            writer.println("* Living application theme");
-            writer.print("*/");
-        } catch (IOException e) {
-            // fail silently
+        if (!appName.equals("default-bonita-appName")) {
+            try {
+                response.setContentType("text/css");
+                response.sendRedirect("/apps/" + appName + "/theme/theme.css?app=" + appName);
+            } catch (IOException ie) {
+
+            }
+        } else {
+            response.setHeader("Content-Type", "text/css");
+            response.setHeader("Content-Disposition", "inline; filename=\"theme.css\"");
+            response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+            response.setStatus(HttpStatus.OK.value());
+            try (PrintWriter writer = response.getWriter()) {
+                writer.println("/**");
+                writer.println("* Living application theme");
+                writer.print("*/");
+            } catch (IOException e) {
+                // fail silently
+            }
         }
     }
+
 }
