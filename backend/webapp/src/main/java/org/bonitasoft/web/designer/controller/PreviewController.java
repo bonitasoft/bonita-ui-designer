@@ -111,7 +111,7 @@ public class PreviewController {
         if (!appName.equals("default-bonita-appName")) {
             try {
                 response.setContentType("text/css");
-                response.sendRedirect("/apps/" + appName + "/theme/theme.css?app=" + appName);
+                response.sendRedirect("/apps/" + appName + "/theme/theme.css");
             } catch (IOException ie) {
 
             }
