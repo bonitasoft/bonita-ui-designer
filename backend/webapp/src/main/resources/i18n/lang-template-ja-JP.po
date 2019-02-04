@@ -11,7 +11,10 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-01-18 02:35\n"
+"PO-Revision-Date: 2019-02-04 02:37\n"
+
+msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
+msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -96,6 +99,9 @@ msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関す
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>成功時のレスポンス値</em>： この変数はリクエストが成功した場合 (コード 2XX) に設定されます"
+
+msgid "<em>These options are optional.</em>"
+msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> ヒント：</span> <em ng-non-bindable=\"\">{{dataName}}</em> 構文を使用して、URL 内にデータを使用できます。</p><p><span class=\"tip\"> ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> でユーザー独自のREST APIを作成し、それらをここで使用することも可能です。</p>"
@@ -208,6 +214,15 @@ msgstr "追加された生成物"
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
 
+msgid "Advanced tab key"
+msgstr ""
+
+msgid "Advanced tabs options"
+msgstr ""
+
+msgid "Advanced usage"
+msgstr ""
+
 msgid "Alignment"
 msgstr "配置"
 
@@ -313,6 +328,9 @@ msgstr "戻る"
 
 msgid "Back to default size"
 msgstr "デフォルトのサイズに戻す"
+
+msgid "Basic usage"
+msgstr ""
 
 msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
 msgstr ""
@@ -595,6 +613,9 @@ msgstr "デフォルト ラベル"
 msgid "Default name"
 msgstr "デフォルト名"
 
+msgid "Default title"
+msgstr ""
+
 msgid "Default value"
 msgstr "デフォルト値"
 
@@ -873,6 +894,12 @@ msgstr "ヘルプ"
 
 msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
 msgstr "これは、親フレームに JSON でポストしたメッセージの形式です（送信される前に文字列化のため、親フレームで<code> JSON.parse</code> を呼び出す必要があります) ："
+
+msgid "Here we just configured 2 tabs identified as <code>tab1</code> and <code>tab2</code>, <em>these keys will have to be defined in each tab and will allow you to identify them</em>. We recommend you to set a user-friendly name such as \"paymentDetails\" instead of keeping tab1. You can notice that it is not necessary to define all options (allowHtml, hidden, disabled and cssClasses are not defined for tab2 in this example), in this case default value will be applied."
+msgstr ""
+
+msgid "Here you can find an example of a JS expression:"
+msgstr ""
 
 msgid "Hidden"
 msgstr "非表示"
@@ -1178,6 +1205,9 @@ msgstr "タブ コンテナ： 複数のコンテンツ"
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "複数のウィジェットグループ、タブ内の各グループ"
 
+msgid "Must be an alphanumeric string"
+msgstr ""
+
 msgid "Name"
 msgstr "名前"
 
@@ -1208,6 +1238,9 @@ msgstr "いいえ"
 msgid "No Bonita REST API calls."
 msgstr ""
 
+msgid "No application selected"
+msgstr ""
+
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
 
@@ -1219,6 +1252,9 @@ msgstr "変数はありません"
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイムゾーンを反映し、実際の値と異なる場合があります。"
+
+msgid "None"
+msgstr ""
 
 msgid "Noteworthy changes"
 msgstr ""
@@ -1391,6 +1427,9 @@ msgstr "検索キーで案件リストを検索する"
 msgid "Search on name"
 msgstr "名前で検索"
 
+msgid "See <em>Tabs container help</em> for details of tabs container options. Specify a JSON structure corresponding to the options you want."
+msgstr ""
+
 msgid "See example 'date object initialization'"
 msgstr "「Date オブジェクトの初期化」 の例を参照してください。"
 
@@ -1553,6 +1592,9 @@ msgstr ""
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr ""
 
+msgid "Tab display"
+msgstr ""
+
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
 
@@ -1610,6 +1652,9 @@ msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプ
 
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
+
+msgid "The basic usage of this container is to define <em>Default title</em> for each tab. In this case, all tab titles will be statics and you can drag and drop any widgets you want to define the tab content."
+msgstr ""
 
 msgid "The caption will be displayed as such below the property label."
 msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
@@ -1673,6 +1718,9 @@ msgstr ""
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
 
+msgid "The usage of advance options allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
+msgstr ""
+
 msgid "The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly."
 msgstr "すべてのプロパティの値は、翻訳キーとしても使用されます。したがって、そのデフォルト値を保持しないように選択した場合は、状況に応じてアセットの <em>localization.json</em> を変更します。"
 
@@ -1694,6 +1742,9 @@ msgstr "この {{ artifact.type }} は、次の中で使用されているので
 msgid "The {{ artifactType }} has not been imported."
 msgstr "{{ artifactType }} はインポートされていません。"
 
+msgid "Then, you need to set this variable as input in the property \"Advanced tab options\" (on the tab container panel)."
+msgstr ""
+
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
@@ -1705,6 +1756,16 @@ msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<
 
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
+
+msgid "This is the list of accepted options you can configure for a given tab:\n"
+"            <ul>\n"
+"                <li><code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true).</li>\n"
+"                <li><code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML.</li>\n"
+"                <li><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>\n"
+"                <li><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.</li>\n"
+"                <li><code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong> ToBeSet</strong> html element.</li>\n"
+"            </ul>"
+msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -1911,6 +1972,9 @@ msgstr "双方向フィールドを使用し、プロパティの値と変数間
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
 msgstr "動的な値フィールドを使用し、コンスタント（デフォルト）または式を指定します。式のアイコン fx をクリックしてコンスタントから式に切り替えます。式からコンスタントに切り替えるには、コンスタントのアイコン X をクリックします。式はプロパティの値を動的にする変数を含めるか、または単に変数名だけにすることができます。パイプを使用して変数の値にフィルターを適用することができます。変数へのバインディングは、読み取り専用です。変数に書き込みをしたい場合は、双方向バインドを使用します。例:"
 
+msgid "Use advanced options to render dynamic tabs"
+msgstr ""
+
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr "ウィジェットの表示テキスト中に変数を埋め込み可能にしたい場合、この補完フィールドを使用します。この補完フィールドのテキストには、AngularJS の補完 (interpolation) で解釈される変数を含むことができます。その変数はページが表示されたとき、補完された値に置き換えられます。 二重の中かっこで囲まれた簡単な式として変数を指定します。 例: <em ng-non-bindable=\"\">{{ user.name | uppercase }}</em> さん、申し訳ありませんが、それを行うことはできません。"
 
@@ -1930,6 +1994,9 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
 msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
+msgstr ""
+
+msgid "Use this container to create tabs which can be displayed over the page, form, or layout content."
 msgstr ""
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
@@ -1988,6 +2055,9 @@ msgstr "変数"
 
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
+
+msgid "Vertical Display"
+msgstr ""
 
 msgid "View asset content"
 msgstr "アセットのコンテンツを表示"
@@ -2110,6 +2180,9 @@ msgstr "danger"
 msgid "default"
 msgstr "default"
 
+msgid "default-bonita-appName"
+msgstr ""
+
 msgid "email"
 msgstr "電子メール"
 
@@ -2139,6 +2212,9 @@ msgstr "http://"
 
 msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
 msgstr "ページ、フォームや UI デザイナーの外側のレイアウトを編集する場合、それを再インポートすることはできません。"
+
+msgid "if you want more options for each tab, refer to <em>Advanced usage</em>."
+msgstr ""
 
 msgid "info"
 msgstr "info"
@@ -2179,6 +2255,9 @@ msgstr ""
 msgid "password"
 msgstr "パスワード"
 
+msgid "pills"
+msgstr ""
+
 msgid "primary"
 msgstr "primary"
 
@@ -2196,6 +2275,9 @@ msgstr "インポートに成功しました。"
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
+
+msgid "tabs"
+msgstr ""
 
 msgid "text"
 msgstr "テキスト"
