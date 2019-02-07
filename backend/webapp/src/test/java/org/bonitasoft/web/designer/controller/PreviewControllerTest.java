@@ -74,7 +74,7 @@ public class PreviewControllerTest {
         when(previewer.render(eq("my-page"), eq(pageRepository), any(HttpServletRequest.class))).thenReturn(response);
 
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/my-page"))
+                .perform(get("/preview/page/no-app-selected/my-page"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Everything ok"))
                 .andExpect(content().encoding("UTF-8"));
@@ -86,7 +86,7 @@ public class PreviewControllerTest {
         Path expectedFile = pageRepositoryPath.resolve("ma-page/assets/js/timeshift.js");
 
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/ma-page/assets/js/timeshift.js"))
+                .perform(get("/preview/page/no-app-selected/ma-page/assets/js/timeshift.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
@@ -96,12 +96,12 @@ public class PreviewControllerTest {
 
     @Test
     public void should_respond_404_when_page_asset_is_not_found() throws Exception {
-        mockMvc.perform(get("preview/page/default-bonita-appName/ma-page/assets/js/unkknown.js")).andExpect(status().isNotFound());
+        mockMvc.perform(get("preview/page/no-app-selected/ma-page/assets/js/unkknown.js")).andExpect(status().isNotFound());
     }
 
     @Test
     public void should_respond_404_when_widget_asset_is_not_found() throws Exception {
-        mockMvc.perform(get("/preview/widget/default-bonita-appName/widget-id/assets/widget-id/js/asset.js")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/preview/widget/no-app-selected/widget-id/assets/widget-id/js/asset.js")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class PreviewControllerTest {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/assets/css/my-css-1.0.0.css");
 
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/page-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
+                .perform(get("/preview/page/no-app-selected/page-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
@@ -122,7 +122,7 @@ public class PreviewControllerTest {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/assets/css/my-css-1.0.0.css");
 
         mockMvc
-                .perform(get("/preview/aPreviewable/default-bonita-appName/previewable-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
+                .perform(get("/preview/aPreviewable/no-app-selected/previewable-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
@@ -134,7 +134,7 @@ public class PreviewControllerTest {
     public void should_load_widget_directive() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
 
-        mockMvc.perform(get("/preview/page/default-bonita-appName/page-id/widgets/pbLabel/pbLabel.js"))
+        mockMvc.perform(get("/preview/page/no-app-selected/page-id/widgets/pbLabel/pbLabel.js"))
 
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
@@ -147,7 +147,7 @@ public class PreviewControllerTest {
     public void should_load_widget_directive_for_any_previewable() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
 
-        mockMvc.perform(get("/preview/aPreviewable/default-bonita-appName/previewable-id/widgets/pbLabel/pbLabel.js"))
+        mockMvc.perform(get("/preview/aPreviewable/no-app-selected/previewable-id/widgets/pbLabel/pbLabel.js"))
 
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
@@ -158,7 +158,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
-        mockMvc.perform(get("/preview/page/default-bonita-appName/page-id/widgets/widget-id/assets/js/asset.js")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/preview/page/no-app-selected/page-id/widgets/widget-id/assets/js/asset.js")).andExpect(status().isNotFound());
     }
 
     @Test
@@ -168,7 +168,7 @@ public class PreviewControllerTest {
                 + "*/";
 
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/theme/theme.css"))
+                .perform(get("/preview/page/no-app-selected/theme/theme.css"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(expectedContent))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"theme.css\""))
@@ -179,28 +179,28 @@ public class PreviewControllerTest {
     @Test
     public void should_redirect_page_API_calls_to_the_real_API() throws Exception {
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/API/portal/page"))
+                .perform(get("/preview/page/no-app-selected/API/portal/page"))
                 .andExpect(redirectedUrl("/API/portal/page"));
     }
 
     @Test
     public void should_redirect_layout_API_calls_to_the_real_API() throws Exception {
         mockMvc
-                .perform(get("/preview/layout/default-bonita-appName/API/portal/page"))
+                .perform(get("/preview/layout/no-app-selected/API/portal/page"))
                 .andExpect(redirectedUrl("/API/portal/page"));
     }
 
     @Test
     public void should_redirect_API_calls_to_the_real_API_and_add_the_query_string() throws Exception {
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/API/portal/page?p=0&c=1"))
+                .perform(get("/preview/page/no-app-selected/API/portal/page?p=0&c=1"))
                 .andExpect(redirectedUrl("/API/portal/page?p=0&c=1"));
     }
 
     @Test
     public void should_temporarily_redirect_ADI_post_to_the_real_API() throws Exception {
         mockMvc
-                .perform(post("/preview/page/default-bonita-appName/API/portal/page?id=123"))
+                .perform(post("/preview/page/no-app-selected/API/portal/page?id=123"))
                 .andExpect(new ResultMatcher() {
 
                     @Override
@@ -216,7 +216,7 @@ public class PreviewControllerTest {
         Path expectedFile = pageRepositoryPath.resolve("ma-page/js/widgets-abc123.min.js");
 
         mockMvc
-                .perform(get("/preview/page/default-bonita-appName/ma-page/js/widgets-abc123.min.js"))
+                .perform(get("/preview/page/no-app-selected/ma-page/js/widgets-abc123.min.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))

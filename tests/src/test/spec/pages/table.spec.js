@@ -7,7 +7,7 @@ describe('table', function () {
   }
 
   beforeEach(function () {
-    browser.get('/bonita/preview/page/default-bonita-appName/table/');
+    browser.get('/bonita/preview/page/no-app-selected/table/');
   });
 
   it('should display a table filled with data that can be selected', function () {

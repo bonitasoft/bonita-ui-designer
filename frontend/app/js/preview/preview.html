@@ -7,29 +7,16 @@
         </div>
         <div class="container-fluid">
             <form  class="nav navbar-form navbar-right collapse navbar-collapse" uib-collapse="isNavCollapsed">
-                <div class="input-group">
-                    <span class="input-group-addon Select-addon">
-                        View in application
-                    </span>
-                    <select class="form-control Select-control" ng-change="saveToStorageAndRefresh(pathToLivingApp)"
-                            ng-model="pathToLivingApp" uib-tooltip="{{selectedAppDisplayName}}" tooltip-placement="bottom">
-                        <option selected value="default-bonita-appName" translate>None</option>
-                        <option ng-repeat="app in apps" value="{{app.token}}">
-                            {{app.displayName}}
-                        </option>
-                    </select>
-                </div>
+                <app-selector on-change="refreshIframe()"></app-selector>
                 <language-picker on-change="refreshIframe()"></language-picker>
                 <resolutions-bar
-                        on-change="updateResolutionInUrl"
-                        id="resolutions"
-                        class="btn-group Preview-resolutionBar">
-                    </resolutions-bar>
+                    on-change="updateResolutionInUrl"
+                    id="resolutions"
+                    class="btn-group Preview-resolutionBar">
+                </resolutions-bar>
             </form>
         </div>
     </nav>
 
     <iframe preview-localized-iframe class="Preview-viewport" ng-src="{{iframe.src}}" width="{{iframeWidth()}}" ></iframe>
 </div>
-
-

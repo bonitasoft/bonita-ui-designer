@@ -2177,9 +2177,6 @@ msgstr "danger"
 msgid "default"
 msgstr "default"
 
-msgid "default-bonita-appName"
-msgstr ""
-
 msgid "email"
 msgstr "email"
 

@@ -24,21 +24,13 @@
    * The preview controller. It handles the loading of the page model, the resolution changes and provides
    * common functions to the directives used inside the page.
    */
-  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo, $state, mode, $http, $localStorage, gettextCatalog) {
-
-    const NO_APP_TOKEN = gettextCatalog.getString('default-bonita-appName');
-    const NO_APP_DISPALY_NAME = gettextCatalog.getString('No application selected');
-
+  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo, $state, mode, appSelectorService) {
     $scope.iframe = {};
     $scope.refreshIframe = refreshIframe;
     $scope.buildIframeSrc = buildIframeSrc;
     $scope.iframeWidth = iframeWidth;
     $scope.updateResolutionInUrl = updateResolutionInUrl;
     $scope.isNavCollapsed = true;
-    $scope.pathToLivingApp = NO_APP_TOKEN;
-    $scope.selectedAppDisplayName = '';
-    $scope.apps = [];
-    $scope.saveToStorageAndRefresh = saveToStorageAndRefresh;
 
     artifactRepo
       .load(iframeParameters.id)
@@ -46,13 +38,6 @@
         $scope.pageName = response.data.name;
       });
 
-    let storage = $localStorage.bonitaUIDesigner;
-    if (storage && storage.bosAppName) {
-      $scope.pathToLivingApp = storage.bosAppName;
-      setApplicationDisplayName($scope.pathToLivingApp);
-    }
-
-    listAvailableApps();
     refreshIframe();
     webSocket.connect().then(() => {
       webSocket.subscribe('/previewableUpdates', (id) => {
@@ -72,7 +57,7 @@
      * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
      */
     function buildIframeSrc() {
-      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + $scope.pathToLivingApp + '/' + iframeParameters.id + '/' + buildIframeQueryString({ time: clock.now() }));
+      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + appSelectorService.getPathToLivingApp() + '/' + iframeParameters.id + '/' + buildIframeQueryString({ time: clock.now() }));
     }
 
     function buildIframeQueryString(additionalParams) {
@@ -99,29 +84,6 @@
         id: iframeParameters.id,
         mode: mode
       });
-    }
-
-    function listAvailableApps() {
-      $http.get('/API/living/application?preview=true&c=100').then((list) => $scope.apps = list.data);
-    }
-
-    function setApplicationDisplayName(appToken) {
-      if (NO_APP_TOKEN !== appToken) {
-        $http.get('/API/living/application?preview=true&c=1&p=0&f=token=' + appToken).then((response) => {
-          $scope.selectedAppDisplayName = response.data[0].displayName;
-        });
-      } else {
-        $scope.selectedAppDisplayName = NO_APP_DISPALY_NAME;
-      }
-    }
-
-    function saveToStorageAndRefresh(newAppToken) {
-      if (!$localStorage.bonitaUIDesigner) {
-        $localStorage.bonitaUIDesigner = {};
-      }
-      $localStorage.bonitaUIDesigner.bosAppName = newAppToken;
-      setApplicationDisplayName(newAppToken);
-      $scope.refreshIframe();
     }
   }
 })();

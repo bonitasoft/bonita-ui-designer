@@ -108,10 +108,10 @@ public class PreviewController {
     @RequestMapping("/preview/{previewableType}/{appName}/theme/theme.css")
     public void serveWidgetAsset(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "appName") String appName) throws ServletException {
 
-        if (!appName.equals("default-bonita-appName")) {
+        if (!appName.equals("no-app-selected")) {
             try {
                 response.setContentType("text/css");
-                response.sendRedirect("/apps/" + appName + "/theme/theme.css");
+                response.sendRedirect(request.getContextPath() + "/apps/" + appName + "/theme/theme.css");
             } catch (IOException ie) {
 
             }

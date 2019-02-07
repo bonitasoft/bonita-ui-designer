@@ -15,7 +15,7 @@ module.exports = function (gulp, config) {
     /^\/widgets\/.*/,                 // http://localhost:8080/widgets/...
     /^\/.*\/assets\/.*/,      // http://localhost:8080/.../assets/....
     /^\/preview\/.*/,
-    /^\/apps\/.*\/theme\/.*/,
+    /^\/apps\/.*\/theme\/.*/
   ];
 
   /**

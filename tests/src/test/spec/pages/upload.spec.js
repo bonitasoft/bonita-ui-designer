@@ -5,7 +5,7 @@ describe('upload', function() {
   var filePath =  path.resolve(__dirname, '../../fixtures/greeeen.jpg');
 
   beforeEach(function() {
-    browser.get('/bonita/preview/page/default-bonita-appName/upload/');
+    browser.get('/bonita/preview/page/no-app-selected/upload/');
   });
 
   it('should upload a file', function() {
