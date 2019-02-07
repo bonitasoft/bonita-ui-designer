@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-02-04 02:28\n"
+"PO-Revision-Date: 2019-02-07 02:58\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -97,9 +97,6 @@ msgstr "<em>Note sur les widgets</em> Date <em>et</em> Date Time : la traduction
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>Valeur de réponse en cas de succès</em> : la variable sera définie si la demande est à succès (code 2XX)"
-
-msgid "<em>These options are optional.</em>"
-msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans l'URL, employez la syntaxe <em ng-non-bindable=\"\">{{dataName}}</em></p> <p><span class=\"tip\"> Astuce :</span> Pour étendre les capacités de notre API REST, créez des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et utilisez-les ici</p>"
@@ -1760,7 +1757,7 @@ msgid "This is the list of accepted options you can configure for a given tab:\n
 "                <li><code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML.</li>\n"
 "                <li><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>\n"
 "                <li><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.</li>\n"
-"                <li><code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong> ToBeSet</strong> html element.</li>\n"
+"                <li><code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element.</li>\n"
 "            </ul>"
 msgstr ""
 
