@@ -1,6 +1,7 @@
 <div class="input-group">
     <span class="input-group-addon Select-addon">
         View in application
+        <i class="fa fa-info-circle ng-scope" uib-tooltip="In case your application is not available, please log in using a different account" tooltip-placement="bottom" tooltip-append-to-body="true"></i>
     </span>
     <select class="form-control Select-control" ng-change="setNewAppTokenAndRefresh(vm.pathToLivingApp)"
             ng-model="vm.pathToLivingApp" uib-tooltip="{{vm.selectedAppDisplayName}}" tooltip-placement="bottom">
