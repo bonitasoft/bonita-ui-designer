@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-02-08 02:58\n"
+"PO-Revision-Date: 2019-02-11 02:28\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -2175,9 +2175,6 @@ msgstr "danger"
 
 msgid "default"
 msgstr "par défaut"
-
-msgid "default-bonita-appName"
-msgstr ""
 
 msgid "email"
 msgstr "email"
