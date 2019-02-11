@@ -33,15 +33,42 @@
     vm.pathToLivingApp = appSelectorService.getPathToLivingApp();
     vm.apps = [];
 
-    listAvailableApps();
-    setApplicationDisplayName(vm.pathToLivingApp);
+    selectorInitialization();
 
-    function listAvailableApps() {
-      $http.get('./API/living/application?preview=true&c=100').then((list) => vm.apps = list.data);
+    function selectorInitialization() {
+      $http.get('./API/living/application?preview=true&c=200').then((list) => {
+        vm.apps = list.data;
+        initializeSelection(list.data);
+      }).catch(() => {
+        // If user is not connected
+        setDefaultPathToLivingApp();
+        setApplicationDisplayName(vm.pathToLivingApp);
+      });
+    }
+
+    function initializeSelection(appList) {
+      if (!isAppExistInList(appSelectorService.getPathToLivingApp, appList)) {
+        setDefaultPathToLivingApp();
+      }
+      setApplicationDisplayName(vm.pathToLivingApp);
+    }
+
+    function isAppExistInList(app, appList) {
+      for (let i = 0; i < appList.length; i++) {
+        if (appList[i].token === app) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function setDefaultPathToLivingApp() {
+      vm.pathToLivingApp = appSelectorService.getDefaultAppSelection().token;
+      appSelectorService.savePathToLivingApp(vm.pathToLivingApp);
     }
 
     $scope.setNewAppTokenAndRefresh = function(newAppToken) {
-      appSelectorService.setPathToLivingApp(newAppToken);
+      appSelectorService.savePathToLivingApp(newAppToken);
       setApplicationDisplayName(newAppToken);
       vm.onChange();
     };

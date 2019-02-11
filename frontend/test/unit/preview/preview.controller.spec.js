@@ -43,7 +43,7 @@ describe('PreviewCtrl', function() {
       mode: 'page'
     });
 
-    $httpBackend.expectGET('./API/living/application?preview=true&c=100').respond(200, []);
+    $httpBackend.expectGET('./API/living/application?preview=true&c=200').respond(200, []);
 
     webSocket.resolveConnection();
     $scope.$apply();

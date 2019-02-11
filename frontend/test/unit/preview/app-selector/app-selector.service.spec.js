@@ -20,7 +20,7 @@ describe('appSelectorService', function() {
   });
 
   it('should update the pathToLivingApp', function () {
-    appSelectorService.setPathToLivingApp('appPage1');
+    appSelectorService.savePathToLivingApp('appPage1');
 
     expect(appSelectorService.getPathToLivingApp()).toBe('appPage1');
     expect($localStorage.bonitaUIDesigner.bosAppName).toBe('appPage1');

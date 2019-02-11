@@ -21,14 +21,17 @@
 
     const NO_APP_SELECTED_DISPLAY_NAME = gettextCatalog.getString('No application selected');
     const NO_APP_SELECTED_PATH = 'no-app-selected';
-    var pathToLivingApp = NO_APP_SELECTED_PATH;
+    let pathToLivingApp = NO_APP_SELECTED_PATH;
 
     let storage = $localStorage.bonitaUIDesigner;
     if (storage && storage.bosAppName) {
       pathToLivingApp = storage.bosAppName;
+    } else {
+      $localStorage.bonitaUIDesigner = {};
+      $localStorage.bonitaUIDesigner.bosAppName = pathToLivingApp;
     }
 
-    function setPathToLivingApp(newPathToLivingApp) {
+    function savePathToLivingApp(newPathToLivingApp) {
       pathToLivingApp = newPathToLivingApp;
       saveToStorage(newPathToLivingApp);
     }
@@ -38,9 +41,6 @@
     }
 
     function saveToStorage(newPathToLivingApp) {
-      if (!$localStorage.bonitaUIDesigner) {
-        $localStorage.bonitaUIDesigner = {};
-      }
       $localStorage.bonitaUIDesigner.bosAppName = newPathToLivingApp;
     }
 
@@ -53,7 +53,7 @@
 
     return {
       getDefaultAppSelection,
-      setPathToLivingApp,
+      savePathToLivingApp,
       getPathToLivingApp
     };
   }

@@ -26,7 +26,7 @@ describe('appSelectorDirective', function() {
       ]
     };
 
-    $httpBackend.expectGET('./API/living/application?preview=true&c=100').respond(appsResponse);
+    $httpBackend.expectGET('./API/living/application?preview=true&c=200').respond(appsResponse);
 
     scope.refreshIframe = jasmine.createSpy('refreshIframe');
     let element = $compile('<app-selector on-change="refreshIframe()"></app-selector>')(scope);
