@@ -24,6 +24,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -38,7 +39,6 @@ import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourcePredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
 import org.bonitasoft.web.designer.controller.export.properties.ConstantPropertyValuePredicate;
-import org.bonitasoft.web.designer.controller.export.properties.PagePropertiesBuilder;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -72,7 +72,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PageResource extends AssetResource<Page> {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
-    public static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[/?]?[^/]*";   // matches ..... /API/{}/{}?...
+    public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /?]*)[/?]?[^/]*";// matches ..... /API/{}/{}?...
+    public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
+
     private PageRepository pageRepository;
     private SimpMessagingTemplate messagingTemplate;
     private ContractToPageMapper contractToPageMapper;
@@ -228,6 +230,12 @@ public class PageResource extends AssetResource<Page> {
         List<String> resources = newArrayList(transform(
                 filterValues(page.getData(), new BonitaResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
                 new BonitaResourceTransformer(BONITA_RESOURCE_REGEX)));
+
+        List<String> extension = newArrayList(transform(
+                filterValues(page.getData(), new BonitaResourcePredicate(EXTENSION_RESOURCE_REGEX)).values(),
+                new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX)));
+
+        resources.addAll(extension);
 
         Iterable<Component> components = componentVisitor.visit(page);
 
