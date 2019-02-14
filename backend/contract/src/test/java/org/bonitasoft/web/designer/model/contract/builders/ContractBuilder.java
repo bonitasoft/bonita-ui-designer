@@ -16,8 +16,13 @@ package org.bonitasoft.web.designer.model.contract.builders;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+
+import java.time.LocalDate;
 
 public class ContractBuilder {
 
@@ -51,7 +56,27 @@ public class ContractBuilder {
                         aLocalDateContractInput("creationLocalDate"),
                         aLocalDateTimeContractInput("creationLocalDateTime"),
                         aOffsetDateTimeContractInput("creationOffsetDateTime"),
-                        aLongContractInput("updateTime")).build()).build();
+                        aLongContractInput("updateTime")).build())
+                .build();
+
+    }
+
+    public static Contract aSimpleContractWithDataRef() {
+        return aContract().withInput(
+                aNodeContractInput("employeeInput")
+                .withDataReference(new DataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER))
+                .withInput(
+                        aContractInput("firstName").build(),
+                        aContractInput("lastName").build(),
+                        aContractInput("birthDate").withType(LocalDate.class.getName()).build(),
+                        aNodeContractInput("addresses")
+                                .mulitple()
+                                .withInput(aContractInput("street").build(),
+                                        aContractInput("zipcode").build(),
+                                                aContractInput("city").build())
+                                .build())
+                        .build())
+                .build();
 
     }
 

@@ -18,6 +18,9 @@ import java.io.IOException;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
@@ -34,7 +37,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class ContractDeserializer extends JsonDeserializer<Contract> {
 
     @Override
-    public Contract deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Contract deserialize(JsonParser parser, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
         ObjectCodec oc = parser.getCodec();
         ObjectNode treeNode = oc.readTree(parser);
         Contract contract = new Contract();
@@ -61,6 +65,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         nodeContractInput.setMandatory(mandatoryValue(childNode));
         nodeContractInput.setMultiple(multipleValue(childNode));
         nodeContractInput.setDescription(descriptionValue(childNode));
+        nodeContractInput.setDataReference(dataReference(childNode));
         return nodeContractInput;
     }
 
@@ -77,7 +82,8 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         try {
             inputType = Class.forName(classNameValue(childNode));
         } catch (ClassNotFoundException e) {
-            throw new IOException(String.format("Failed to create LeafContractInput with type %s", classNameValue(childNode)), e);
+            throw new IOException(
+                    String.format("Failed to create LeafContractInput with type %s", classNameValue(childNode)), e);
         }
         return inputType;
     }
@@ -109,6 +115,17 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     private String inputName(JsonNode contractInput) {
         JsonNode jsonNode = contractInput.get("name");
         return jsonNode != null ? jsonNode.asText("") : "";
+    }
+
+    private DataReference dataReference(JsonNode contractInput) {
+        JsonNode jsonNode = contractInput.get("dataReference");
+        if (jsonNode != null && !jsonNode.isNull()) {
+            return new DataReference(jsonNode.get("name").asText(),
+                    jsonNode.get("type").asText(),
+                    RelationType.valueOf(jsonNode.get("relationType").asText()),
+                    LoadingType.valueOf(jsonNode.get("loadingType").asText()));
+        }
+        return null;
     }
 
     @Override

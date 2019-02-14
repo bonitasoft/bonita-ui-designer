@@ -17,6 +17,9 @@ package org.bonitasoft.web.designer.model.contract.databind;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.junit.Test;
 
@@ -32,6 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 
 public class ContractDeserializerTest {
@@ -56,6 +60,24 @@ public class ContractDeserializerTest {
                 tuple("creationOffsetDateTime", OffsetDateTime.class.getName()),
                 tuple("updateTime", Long.class.getName()));
     }
+    
+    @Test
+    public void should_handle_serialization_of_a_contract_with_data_references() throws Exception {
+        Contract aSimpleContractWithDataRef = aSimpleContractWithDataRef();
+        byte[] serializedContract = new ObjectMapper().writeValueAsBytes(aSimpleContractWithDataRef);
+        ContractDeserializer contractDeserializer = new ContractDeserializer();
+
+        Contract contract = contractDeserializer.deserialize(new JsonFactory(new ObjectMapper()).createParser(serializedContract), null);
+
+        assertThat(contract.getInput()).extracting("name", "type","dataReference").containsExactly(
+                tuple("employeeInput", NodeContractInput.class.getName(),new DataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER)));
+        assertThat(find(contract.getInput(), instanceOf(NodeContractInput.class)).getInput()).extracting("name", "type").containsExactly(
+                tuple("firstName", String.class.getName()),
+                tuple("lastName", String.class.getName()),
+                tuple("birthDate", LocalDate.class.getName()),
+                tuple("addresses", NodeContractInput.class.getName()));
+    }
+
 
     @Test
     public void handle_contract_type() throws Exception {

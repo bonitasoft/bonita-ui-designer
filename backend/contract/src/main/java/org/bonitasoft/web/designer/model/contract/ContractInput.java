@@ -39,4 +39,5 @@ public interface ContractInput extends ContractInputContainer {
     void setMultiple(boolean multiple);
 
     void setMandatory(boolean mandatory);
+    
 }

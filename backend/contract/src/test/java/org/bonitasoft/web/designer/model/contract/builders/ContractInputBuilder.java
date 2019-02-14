@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.model.contract.builders;
 
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.DataReference;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
@@ -59,6 +60,13 @@ public class ContractInputBuilder {
 
     public ContractInputBuilder optional() {
         contractInput.setMandatory(false);
+        return this;
+    }
+    
+    public ContractInputBuilder withDataReference(DataReference dataReference) {
+        if(contractInput instanceof NodeContractInput) {
+            ((NodeContractInput) contractInput).setDataReference(dataReference);
+        }
         return this;
     }
 
