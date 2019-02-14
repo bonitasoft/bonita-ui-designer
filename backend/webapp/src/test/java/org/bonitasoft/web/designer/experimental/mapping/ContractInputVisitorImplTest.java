@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
 

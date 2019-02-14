@@ -21,10 +21,10 @@ import static com.google.common.collect.Lists.reverse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
@@ -46,6 +46,8 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
 
 @Named
 public class ContractInputToWidgetMapper {
@@ -128,23 +130,36 @@ public class ContractInputToWidgetMapper {
 
     private String buildPathForInputValue(ContractInput contractInput) {
         List<String> pathNames = newArrayList();
-        pathNames.add(contractInput.getName());
+        boolean parentHasDataRef = hasDataReference(contractInput);
+        pathNames.add(nameFromContractInput(contractInput));
         ContractInput pInput = contractInput.getParent();
         while (pInput != null) {
+            parentHasDataRef =  hasDataReference(pInput);
             if (pInput.isMultiple()) {
                 pathNames.add(ITEM_ITERATOR);
                 break;
             } else {
-                pathNames.add(pInput.getName());
+                pathNames.add(nameFromContractInput(pInput));
                 pInput = pInput.getParent();
             }
         }
         if (pathNames.isEmpty()) {
             return null;
         } else if (pInput == null) {
-            pathNames.add(FormInputData.NAME);
+            if(!parentHasDataRef) {
+                pathNames.add(FormInputData.NAME);
+            }
         }
         return on(".").join(reverse(pathNames));
+    }
+
+    private String nameFromContractInput(ContractInput contractInput) {
+        return hasDataReference(contractInput) ? ((NodeContractInput) contractInput).getDataReference().getName() : contractInput.getName();
+    }
+
+    private boolean hasDataReference(ContractInput contractInput) {
+        return contractInput instanceof NodeContractInput 
+                && ((NodeContractInput) contractInput).getDataReference() != null;
     }
 
     public boolean canCreateComponent(ContractInput contractInput) {

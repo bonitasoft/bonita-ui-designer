@@ -17,14 +17,18 @@ package org.bonitasoft.web.designer.experimental.mapping.strategy;
 import static java.lang.String.format;
 
 import java.util.Collections;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToContainerMapper;
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.experimental.mapping.Form;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessData;
 import org.bonitasoft.web.designer.experimental.mapping.data.ContextData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
+import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.TaskData;
 import org.bonitasoft.web.designer.experimental.mapping.data.TaskIdData;
@@ -34,11 +38,15 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import com.google.common.base.Strings;
 
 public class TaskFormCreationStrategy implements PageCreationStrategy {
 
@@ -47,7 +55,8 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
     private JacksonObjectMapper mapper;
     private DimensionFactory dimensionFactory;
 
-    public TaskFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
+    public TaskFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper,
+            ContractToContainerMapper contractToContainerMapper,
             JacksonObjectMapper mapper, DimensionFactory dimensionFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
@@ -57,14 +66,37 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
 
     @Override
     public Page create(String name, Contract contract) {
-        return new Form(name)
+        Form form = new Form(name)
                 .addData(new TaskIdData())
                 .addData(new TaskData())
                 .addData(new ContextData())
-                .addData(new FormInputData(mapper, contract))
                 .addData(new FormOutputData(contract))
                 .addNewRow(createTaskInformation())
                 .addNewRow(createFormContainer(contract));
+        if (shouldAddFormInputData(contract)) {
+            form.addData(new FormInputData(mapper, contract));
+        }
+        findBusinessData(contract)
+                .map(BusinessData::new)
+                .forEach(form::addData);
+        return form;
+    }
+
+    private boolean shouldAddFormInputData(Contract contract) {
+        FormInputVisitor visitor = new FormInputVisitor(mapper);
+        contract.accept(visitor);
+        return !visitor.isEmpty();
+    }
+
+    private Stream<String> findBusinessData(Contract contract) {
+        return contract.getInput().stream() //Only search for business data at the root level inputs
+                .filter(NodeContractInput.class::isInstance)
+                .map(NodeContractInput.class::cast)
+                .map(NodeContractInput::getDataReference)
+                .filter(Objects::nonNull)
+                .map(DataReference::getName)
+                .filter(data -> !Strings.isNullOrEmpty(data))
+                .distinct();
     }
 
     private Container createTaskInformation() {
@@ -74,17 +106,18 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         title.setLevel("Level 1");
         title.setText(format("{{ %s.displayName }}", TaskData.NAME));
         title.setAlignment(Alignment.CENTER);
-        container.getRows().add(Collections.<Element>singletonList(title.toComponent(dimensionFactory)));
+        container.getRows().add(Collections.<Element> singletonList(title.toComponent(dimensionFactory)));
 
         TextWidget description = new TextWidget();
         description.setText(format("{{ %s.displayDescription }}", TaskData.NAME));
-        container.getRows().add(Collections.<Element>singletonList(description.toComponent(dimensionFactory)));
+        container.getRows().add(Collections.<Element> singletonList(description.toComponent(dimensionFactory)));
 
         return container;
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(contract, ButtonAction.fromScope(FormScope.TASK));
+        Component submitButton = contractToWidgetMapper.createSubmitButton(contract,
+                ButtonAction.fromScope(FormScope.TASK));
         Container container = contractToContainerMapper.create(contract).addNewRow(submitButton);
         return new FormContainer().setContainer(container);
     }

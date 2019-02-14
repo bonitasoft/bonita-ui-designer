@@ -21,9 +21,12 @@ import static org.hibernate.validator.internal.util.CollectionHelper.newArrayLis
 
 import java.util.List;
 
+import org.bonitasoft.web.designer.model.contract.AbstractContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
+import com.google.common.base.Strings;
 
 public class FormOutputVisitor implements ContractInputVisitor {
 
@@ -31,16 +34,25 @@ public class FormOutputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        properties.add(createProperty(contractInput.getName()));
+        properties.add(createProperty(contractInput));
     }
 
     @Override
     public void visit(LeafContractInput contractInput) {
-        properties.add(createProperty(contractInput.getName()));
+        properties.add(createProperty(contractInput));
     }
 
-    private String createProperty(String name) {
-        return format("\t'%s': $data.formInput.%s", name, name);
+    private String createProperty(AbstractContractInput contractInput) {
+        String name = contractInput.getName();
+        return isANodeContractInputWithDataRef(contractInput) ?
+                        format("\t'%s': $data.%s", name, ((NodeContractInput) contractInput).getDataReference()
+                                .getName())
+                        : format("\t'%s': $data.formInput.%s", name, name);
+    }
+
+    private boolean isANodeContractInputWithDataRef(AbstractContractInput contractInput) {
+        return contractInput instanceof NodeContractInput
+                && ((NodeContractInput) contractInput).getDataReference() != null;
     }
 
     public String toJavascriptExpression() {

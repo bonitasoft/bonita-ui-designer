@@ -14,10 +14,8 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import com.google.common.collect.ImmutableSortedMap;
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
 
 public class WidgetContainer extends AbstractParametrizedWidget implements ParametrizedWidget {
 

@@ -59,7 +59,7 @@ public abstract class AbstractContractInput implements ContractInput {
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
     }
-
+    
     @JsonIgnore
     @Override
     public ContractInput getParent() {

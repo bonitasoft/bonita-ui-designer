@@ -188,6 +188,24 @@ public class ContractToPageMapperTest {
         Container container = (Container) page.getRows().get(0).get(0);
         assertThat(container.getRows().get(0)).isEqualTo(new ArrayList<>());
     }
+    
+    @Test
+    public void should_create_a_page_with_a_business_data_when_contract_contains_data_reference_on_a_task() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(), FormScope.TASK);
+
+        assertThat(page.getData()).contains(entry("employee",anURLData().value("../{{context.employee_ref.link}}").build()));
+    }
+    
+    @Test
+    public void should_create_a_page_without_formInput_when_contract_contains__only_data_reference_on_a_task() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(), FormScope.TASK);
+
+        assertThat(page.getData().keySet()).doesNotContain("formInput");
+    }
 
     private Container grabTaskInformation(Page page) {
         return (Container) page.getRows().get(0).get(0);

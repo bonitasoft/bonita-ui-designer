@@ -23,6 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,6 +67,23 @@ public class FormInputVisitorTest {
 
         assertThat(visitor.toJson())
                 .isEqualTo(objectMapper.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
+    }
+    
+    @Test
+    public void should_ignore_complex_types_with_dataRef_in_formInput() throws Exception {
+        Contract contract = aContract().withInput(
+                aNodeContractInput("person").withDataReference(new DataReference("person","org.test.Person",RelationType.COMPOSITION,LoadingType.EAGER)).withInput(
+                        aStringContractInput("name"),
+                        aNodeContractInput("details")
+                                .withInput(anIntegerContractInput("age"))
+                                .build())
+                        .build(),
+                aBooleanContractInput("accepted")).build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJson())
+                .isEqualTo(objectMapper.prettyPrint("{\"accepted\":false}"));
     }
 
     @Test

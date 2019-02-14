@@ -16,7 +16,10 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +30,9 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -34,8 +40,6 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContractInputToWidgetMapperTest {
 
@@ -192,6 +196,7 @@ public class ContractInputToWidgetMapperTest {
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$collection");
     }
+
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
         return new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
