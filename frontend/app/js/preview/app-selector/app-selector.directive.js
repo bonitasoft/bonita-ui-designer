@@ -33,21 +33,40 @@
     vm.pathToLivingApp = appSelectorService.getPathToLivingApp();
     vm.apps = [];
 
-    selectorInitialization();
+    retrieveAvailableUserApps();
 
-    function selectorInitialization() {
-      $http.get('./API/living/application?preview=true&c=200').then((list) => {
-        vm.apps = list.data;
-        initializeSelection(list.data);
-      }).catch(() => {
-        // If user is not connected
-        setDefaultPathToLivingApp();
-        setApplicationDisplayName(vm.pathToLivingApp);
-      });
+    function setFilteredApps(userProfiles, allApps) {
+      if (userProfiles.length !== 0) {
+        const userProfilesIds = userProfiles.map(profile => profile.id);
+        vm.apps = allApps.filter((app) => userProfilesIds.indexOf(app.profileId) >= 0);
+      }
     }
 
+    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
+    function retrieveAvailableUserApps() {
+      let allApps;
+      $http.get('./API/living/application?preview=true&c=200')
+        .catch(() => {
+          // If user is not connected
+          setDefaultPathToLivingApp();
+          setApplicationDisplayName(vm.pathToLivingApp);
+        }).then((response) => {
+          allApps = response.data;
+          return $http.get('./API/system/session/unusedId');
+        })
+        .then((response) => {
+          const userID = response.data.user_id; /* jshint ignore:line */
+          return $http.get('./API/portal/profile?p=0&c=200&f=user_id%3d' + userID);
+        })
+        .then((response) => {
+          setFilteredApps(response.data, allApps);
+          initializeSelection(vm.apps);
+        });
+    }
+    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+
     function initializeSelection(appList) {
-      if (!isAppExistInList(appSelectorService.getPathToLivingApp, appList)) {
+      if (!isAppExistInList(appSelectorService.getPathToLivingApp(), appList)) {
         setDefaultPathToLivingApp();
       }
       setApplicationDisplayName(vm.pathToLivingApp);
