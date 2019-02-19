@@ -20,7 +20,8 @@ public enum ButtonStyle {
     SUCCESS("success"),
     INFO("info"),
     WARNING("warning"),
-    DANGER("danger");
+    DANGER("danger"),
+    LINK("link");
 
     private String value;
 

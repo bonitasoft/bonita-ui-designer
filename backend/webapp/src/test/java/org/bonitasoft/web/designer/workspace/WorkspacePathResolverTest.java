@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.Path;
@@ -49,34 +49,37 @@ public class WorkspacePathResolverTest {
     public void should_have_a_default_value_if_property_is_not_set() throws Exception {
         when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
 
-        assertThat(workspacePathResolver.getWorkspacePath()).isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita"));
+        assertThat(workspacePathResolver.getWorkspacePath())
+                .isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita"));
     }
 
     @Test
     public void should_retrieve_widgets_repository_path_from_environment_variable() throws Exception {
         when(env.getProperty("repository.widgets")).thenReturn("/path/to/widgets");
 
-        assertThat(workspacePathResolver.getWidgetsRepositoryPath()).isEqualTo("/path/to/widgets");
+        assertThat(workspacePathResolver.getWidgetsRepositoryPath()).isEqualTo(Paths.get("/path/to/widgets"));
     }
 
     @Test
     public void should_resolve_widgets_repository_path() throws Exception {
         when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
 
-        assertThat(workspacePathResolver.getWidgetsRepositoryPath()).isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/widgets"));
+        assertThat(workspacePathResolver.getWidgetsRepositoryPath())
+                .isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/widgets"));
     }
 
     @Test
     public void should_resolve_pages_repository_path() throws Exception {
         when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
 
-        assertThat(workspacePathResolver.getPagesRepositoryPath()).isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/pages"));
+        assertThat(workspacePathResolver.getPagesRepositoryPath())
+                .isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/pages"));
     }
 
     @Test
     public void should_retrieve_pages_repository_path_from_environment_variable() throws Exception {
         when(env.getProperty("repository.pages")).thenReturn("path/to/pages");
 
-        assertThat(workspacePathResolver.getPagesRepositoryPath()).isEqualTo("path/to/pages");
+        assertThat(workspacePathResolver.getPagesRepositoryPath()).isEqualTo(Paths.get("path/to/pages"));
     }
 }

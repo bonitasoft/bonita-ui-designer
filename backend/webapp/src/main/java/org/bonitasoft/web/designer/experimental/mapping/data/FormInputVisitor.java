@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
@@ -55,7 +56,8 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        if (contractInput.getDataReference() == null) {
+        if (contractInput.getDataReference() == null
+                || !(contractInput.getDataReference() instanceof BusinessDataReference)) {
             if (contractInput.isMultiple()) {
                 properties.put(contractInput.getName(), EMPTY_LIST);
                 return;
@@ -80,7 +82,7 @@ public class FormInputVisitor implements ContractInputVisitor {
     public String toJson() throws IOException {
         return objectMapperWrapper.prettyPrint(properties);
     }
-    
+
     public boolean isEmpty() {
         return properties.isEmpty();
     }

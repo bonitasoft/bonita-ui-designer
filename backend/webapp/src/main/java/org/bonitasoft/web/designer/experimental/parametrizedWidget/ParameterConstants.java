@@ -39,5 +39,6 @@ public interface ParameterConstants {
     static final String FORCE_UTC_PARAMETER = "forceUTC";
     static final String TARGET_URL_ON_SUCCESS_PARAMETER = "targetUrlOnSuccess";
     static final String VALUE_TO_ADD_PARAMETER = "valueToAdd";
+    static final String URL_PARAMETER = "targetUrl";
 
 }

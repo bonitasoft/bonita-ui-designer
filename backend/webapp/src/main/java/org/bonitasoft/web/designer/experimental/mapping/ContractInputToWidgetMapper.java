@@ -18,9 +18,11 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,8 +32,10 @@ import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonStyle;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.LinkWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
@@ -40,6 +44,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContain
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -71,9 +76,32 @@ public class ContractInputToWidgetMapper {
         return contractInput.isMultiple() ? toMultipleComponent(contractInput, rows) : toSimpleComponent(contractInput);
     }
 
+    public Element toEditableDocument(LeafContractInput contractInput) {
+        WidgetContainer container = parametrizedWidgetFactory.createWidgetContainer();
+        container.setCssClasses("well");
+
+        Component linkWidget = createDocumentLink(contractInput).toComponent(dimensionFactory);
+        Component fileUploadWidget = toSimpleComponent(contractInput);
+
+        Container documentContainer = container.toContainer(dimensionFactory);
+        documentContainer.addNewRow(linkWidget);
+        documentContainer.addNewRow(fileUploadWidget);
+        return documentContainer;
+    }
+
+    private LinkWidget createDocumentLink(LeafContractInput contractInput) {
+        String dataRefName = contractInput.getDataReference().getName();
+        String documentUrl = String.format("\"../API/\" + context.%s_ref.url", dataRefName);
+        String linkText = String.format(
+                "<div data-toggle=\"tooltip\" title=\"Download previous revision\"> <i class=\"glyphicon glyphicon-download\"></i> {{context.%s_ref.fileName}} </div>",
+                dataRefName);
+        return parametrizedWidgetFactory.createLink(linkText, documentUrl, ButtonStyle.INFO);
+    }
+
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
         Container container = toMultipleContainer(contractInput);
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
+        rows.add(Collections.<Element> singletonList(
+                parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             component.setLabel("");
@@ -85,7 +113,7 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Requirable) {
             ((Requirable) component).setRequired(false);
         }
-        container.getRows().add(Lists.<Element>newArrayList(component.toComponent(dimensionFactory), createRemoveButton()));
+        container.getRows().add(Lists.<Element> newArrayList(component.toComponent(dimensionFactory), createRemoveButton()));
         return container;
     }
 
@@ -95,7 +123,8 @@ public class ContractInputToWidgetMapper {
 
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
-        multipleContainer.setRepeatedCollection(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+        multipleContainer.setRepeatedCollection(
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         return multipleContainer.toContainer(dimensionFactory);
     }
 
@@ -110,14 +139,17 @@ public class ContractInputToWidgetMapper {
     private Component toSimpleComponent(ContractInput contractInput) {
         AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (widget instanceof Valuable) {
-            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+            ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput)
+                    : buildPathForInputValue(contractInput));
         }
         return widget.toComponent(dimensionFactory);
     }
 
     public Container toContainer(NodeContractInput nodeContractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element>singletonList(parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent(dimensionFactory)));
-        return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput) : toSimpleContainer(nodeContractInput);
+        rows.add(Collections.<Element> singletonList(
+                parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent(dimensionFactory)));
+        return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput)
+                : toSimpleContainer(nodeContractInput);
     }
 
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
@@ -134,7 +166,7 @@ public class ContractInputToWidgetMapper {
         pathNames.add(nameFromContractInput(contractInput));
         ContractInput pInput = contractInput.getParent();
         while (pInput != null) {
-            parentHasDataRef =  hasDataReference(pInput);
+            parentHasDataRef = hasDataReference(pInput);
             if (pInput.isMultiple()) {
                 pathNames.add(ITEM_ITERATOR);
                 break;
@@ -146,7 +178,7 @@ public class ContractInputToWidgetMapper {
         if (pathNames.isEmpty()) {
             return null;
         } else if (pInput == null) {
-            if(!parentHasDataRef) {
+            if (!parentHasDataRef) {
                 pathNames.add(FormInputData.NAME);
             }
         }
@@ -154,16 +186,25 @@ public class ContractInputToWidgetMapper {
     }
 
     private String nameFromContractInput(ContractInput contractInput) {
-        return hasDataReference(contractInput) ? ((NodeContractInput) contractInput).getDataReference().getName() : contractInput.getName();
+        return hasDataReference(contractInput) ? ((NodeContractInput) contractInput).getDataReference().getName()
+                : contractInput.getName();
     }
 
     private boolean hasDataReference(ContractInput contractInput) {
-        return contractInput instanceof NodeContractInput 
+        return contractInput instanceof NodeContractInput
                 && ((NodeContractInput) contractInput).getDataReference() != null;
     }
 
     public boolean canCreateComponent(ContractInput contractInput) {
         return parametrizedWidgetFactory.isSupported(contractInput);
+    }
+
+    public boolean isDocumentToEdit(ContractInput contractInput) {
+        if (contractInput instanceof LeafContractInput) {
+            return ((LeafContractInput) contractInput).getDataReference() != null
+                    && Objects.equals(contractInput.getType(), File.class.getName());
+        }
+        return false;
     }
 
     public Component createRemoveButton() {
@@ -173,7 +214,8 @@ public class ContractInputToWidgetMapper {
 
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
-        addButton.setCollectionToModify(isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+        addButton.setCollectionToModify(
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }

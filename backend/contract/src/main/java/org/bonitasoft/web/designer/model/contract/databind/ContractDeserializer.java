@@ -16,11 +16,12 @@ package org.bonitasoft.web.designer.model.contract.databind;
 
 import java.io.IOException;
 
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
 import org.bonitasoft.web.designer.model.contract.DataReference;
-import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
@@ -74,6 +75,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         leafContractInput.setMandatory(mandatoryValue(childNode));
         leafContractInput.setMultiple(multipleValue(childNode));
         leafContractInput.setDescription(descriptionValue(childNode));
+        leafContractInput.setDataReference(dataReference(childNode));
         return leafContractInput;
     }
 
@@ -120,10 +122,14 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     private DataReference dataReference(JsonNode contractInput) {
         JsonNode jsonNode = contractInput.get("dataReference");
         if (jsonNode != null && !jsonNode.isNull()) {
-            return new DataReference(jsonNode.get("name").asText(),
-                    jsonNode.get("type").asText(),
-                    RelationType.valueOf(jsonNode.get("relationType").asText()),
-                    LoadingType.valueOf(jsonNode.get("loadingType").asText()));
+            boolean isBusinessDataRef = jsonNode.get("relationType") != null && !jsonNode.get("relationType").isNull();
+            return isBusinessDataRef
+                    ? new BusinessDataReference(jsonNode.get("name").asText(),
+                            jsonNode.get("type").asText(),
+                            RelationType.valueOf(jsonNode.get("relationType").asText()),
+                            LoadingType.valueOf(jsonNode.get("loadingType").asText()))
+                    : new DataReference(jsonNode.get("name").asText(),
+                            jsonNode.get("type").asText());
         }
         return null;
     }

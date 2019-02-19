@@ -17,9 +17,9 @@ package org.bonitasoft.web.designer.model.contract.databind;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.DataReference;
-import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.junit.Test;
 
@@ -70,7 +70,7 @@ public class ContractDeserializerTest {
         Contract contract = contractDeserializer.deserialize(new JsonFactory(new ObjectMapper()).createParser(serializedContract), null);
 
         assertThat(contract.getInput()).extracting("name", "type","dataReference").containsExactly(
-                tuple("employeeInput", NodeContractInput.class.getName(),new DataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER)));
+                tuple("employeeInput", NodeContractInput.class.getName(),new BusinessDataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER)));
         assertThat(find(contract.getInput(), instanceOf(NodeContractInput.class)).getInput()).extracting("name", "type").containsExactly(
                 tuple("firstName", String.class.getName()),
                 tuple("lastName", String.class.getName()),

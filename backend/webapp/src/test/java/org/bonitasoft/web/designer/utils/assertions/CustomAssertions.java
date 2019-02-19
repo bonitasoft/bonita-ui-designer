@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.utils.assertions;
 
-import java.nio.file.Path;
-
 import org.assertj.core.api.Assertions;
 import org.jsoup.nodes.Element;
 
@@ -48,9 +46,5 @@ public class CustomAssertions extends Assertions {
 
     public static JsAssert assertThatJs(String actual) {
         return new JsAssert(actual);
-    }
-
-    public static PathAssert assertThat(Path actual) {
-        return new PathAssert(actual);
     }
 }

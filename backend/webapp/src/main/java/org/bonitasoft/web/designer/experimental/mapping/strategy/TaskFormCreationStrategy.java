@@ -37,8 +37,8 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.DataReference;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -94,7 +94,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .map(NodeContractInput.class::cast)
                 .map(NodeContractInput::getDataReference)
                 .filter(Objects::nonNull)
-                .map(DataReference::getName)
+                .map(BusinessDataReference::getName)
                 .filter(data -> !Strings.isNullOrEmpty(data))
                 .distinct();
     }

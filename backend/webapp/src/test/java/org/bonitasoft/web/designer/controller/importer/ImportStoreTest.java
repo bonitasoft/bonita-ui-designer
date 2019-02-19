@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.controller.importer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -86,7 +85,7 @@ public class ImportStoreTest {
 
         importStore.remove(addedReport.getUUID());
 
-        assertThat(importFolder).doesNotExists();
+        assertThat(importFolder).doesNotExist();
     }
 
     @Test

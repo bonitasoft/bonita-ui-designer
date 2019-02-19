@@ -28,10 +28,8 @@ import java.util.Map;
 
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
-import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps.EntryTransformer;
 
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
@@ -57,6 +55,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(TARGET_URL_ON_SUCCESS_PARAMETER, ParameterType.INTERPOLATION);
         propertyParameters.put(TEXT_PARAMETER, ParameterType.INTERPOLATION);
         propertyParameters.put(LABEL_PARAMETER, ParameterType.INTERPOLATION);
+        propertyParameters.put(URL_PARAMETER, ParameterType.EXPRESSION);
     }
 
     private Map<String, PropertyValue> propertyValues = new HashMap<>();
@@ -68,6 +67,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     public AbstractParametrizedWidget() {
     }
 
+    @Override
     public String getWidgetId() {
         return widgetId;
     }
@@ -76,6 +76,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.dimension = dimension;
     }
 
+    @Override
     public Integer getDimension() {
         return dimension;
     }
@@ -142,7 +143,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
     private Map<String, Object> toMap() {
         try {
-            Map<String, Object> params = new HashMap<String, Object>();
+            Map<String, Object> params = new HashMap<>();
             BeanInfo info = Introspector.getBeanInfo(this.getClass());
             for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
                 Method reader = pd.getReadMethod();
@@ -161,7 +162,8 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
             @Override
             public PropertyValue transformEntry(String paramName, Object value) {
-                return propertyValues.containsKey(paramName) ? propertyValues.get(paramName) : createPropertyValue(getParameterType(paramName), value);
+                return propertyValues.containsKey(paramName) ? propertyValues.get(paramName)
+                        : createPropertyValue(getParameterType(paramName), value);
             }
         };
     }

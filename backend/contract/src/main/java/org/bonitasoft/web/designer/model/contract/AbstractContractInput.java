@@ -23,9 +23,18 @@ public abstract class AbstractContractInput implements ContractInput {
     private boolean multiple;
     private String description;
     private String name;
+    private DataReference dataReference;
 
     public AbstractContractInput(String name) {
         this.name = name;
+    }
+
+    public void setDataReference(DataReference dataReference) {
+        this.dataReference = dataReference;
+    }
+
+    public DataReference getDataReference() {
+        return dataReference;
     }
 
     @Override
@@ -48,24 +57,28 @@ public abstract class AbstractContractInput implements ContractInput {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
     }
 
+    @Override
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
     }
-    
+
     @JsonIgnore
     @Override
     public ContractInput getParent() {
         return parentInput;
     }
 
+    @Override
     @JsonIgnore
     public void setParent(ContractInput parentInput) {
         this.parentInput = parentInput;

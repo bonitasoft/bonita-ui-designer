@@ -21,7 +21,6 @@ import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Locale;
 
-import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
@@ -29,6 +28,8 @@ import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.experimental.widgets.PbUpload;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+
+import com.google.common.base.CaseFormat;
 
 public class ParametrizedWidgetFactory {
 
@@ -71,7 +72,8 @@ public class ParametrizedWidgetFactory {
     }
 
     public boolean isSupported(ContractInput input) {
-        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aLocalDateInput(input) || aLocalDateTimeInput(input) || aOffsetDateTimeInput(input) || aBooleanInput(input) || aFileInput(input);
+        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aLocalDateInput(input)
+                || aLocalDateTimeInput(input) || aOffsetDateTimeInput(input) || aBooleanInput(input) || aFileInput(input);
     }
 
     // contract sent by studio contain things like that "java.lang.Boolean" for type
@@ -137,7 +139,6 @@ public class ParametrizedWidgetFactory {
         inputComponent.setLabelPosition(LabelPosition.TOP);
         return inputComponent;
     }
-
 
     /**
      * @deprecated Type Date is deprecated in studio, prefer use type LocalDate.
@@ -217,6 +218,14 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setCollectionToModify("$collection");
         buttonComponent.setDimension(12);
         return buttonComponent;
+    }
+
+    public LinkWidget createLink(String text, String url, ButtonStyle style) {
+        LinkWidget linkComponent = new LinkWidget();
+        linkComponent.setText(text);
+        linkComponent.setTargetUrl(url);
+        linkComponent.setButtonStyle(style);
+        return linkComponent;
     }
 
 }

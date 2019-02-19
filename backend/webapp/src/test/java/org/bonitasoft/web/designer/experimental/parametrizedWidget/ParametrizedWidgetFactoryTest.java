@@ -16,7 +16,14 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
 import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;
@@ -32,7 +39,7 @@ import org.junit.rules.ExpectedException;
 
 public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
-   @Rule
+    @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
@@ -61,7 +68,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_datepicker_for_localdate_contract_input_with_description_keeping_default_placeholder() throws Exception {
+    public void create_a_datepicker_for_localdate_contract_input_with_description_keeping_default_placeholder()
+            throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         LeafContractInput contractInput = aLocalDateContractInput("name");
@@ -104,7 +112,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_a_datepicker_for_local_date_contract_input() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
+        AbstractParametrizedWidget component = elementFactory
+                .createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
 
         assertThat(component).isInstanceOf(DatePickerWidget.class);
     }
@@ -113,7 +122,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_a_datetimepicker_for_local_date_time_contract_input() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
+        AbstractParametrizedWidget component = elementFactory
+                .createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
 
         assertThat(component).isInstanceOf(DateTimePickerWidget.class);
     }
@@ -122,7 +132,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_a_checkbox_for_boolean_contract_input() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(new LeafContractInput("isValidated", Boolean.class));
+        AbstractParametrizedWidget component = elementFactory
+                .createParametrizedWidget(new LeafContractInput("isValidated", Boolean.class));
 
         assertThat(component).isInstanceOf(CheckboxWidget.class);
         assertThat(component.getLabel()).isEqualTo("Is Validated");
@@ -146,7 +157,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void should_create_a_datepicker_for_date_contract_input_with_date_format() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aDateContractInput("creationDate"));
+        DatePickerWidget component = (DatePickerWidget) elementFactory
+                .createParametrizedWidget(aDateContractInput("creationDate"));
 
         DatePickerWidgetAssert.assertThat(component).hasPlaceholder();
         DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
@@ -156,18 +168,19 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void should_create_a_datepicker_for_date_contract_input_with_local_date_format() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        DatePickerWidget component = (DatePickerWidget) elementFactory.createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
+        DatePickerWidget component = (DatePickerWidget) elementFactory
+                .createParametrizedWidget(aLocalDateContractInput("creationLocalDate"));
 
         DatePickerWidgetAssert.assertThat(component).hasPlaceholder();
         DatePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
     }
 
-
     @Test
     public void should_create_a_datetimepicker_for_date_contract_input_with_local_date_time_format() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory.createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
+        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory
+                .createParametrizedWidget(aLocalDateTimeContractInput("creationLocalDateTime"));
 
         DateTimePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
         DateTimePickerWidgetAssert.assertThat(component).hasTimeFormat("h:mm:ss a");
@@ -180,7 +193,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void should_create_a_datetimepicker_for_date_contract_input_with_off_date_time_format() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory.createParametrizedWidget(aOffsetDateTimeContractInput("creationOffSetDateTime"));
+        DateTimePickerWidget component = (DateTimePickerWidget) elementFactory
+                .createParametrizedWidget(aOffsetDateTimeContractInput("creationOffSetDateTime"));
         assertThat(component.isWithTimeZone()).isEqualTo(true);
         DateTimePickerWidgetAssert.assertThat(component).hasDateFormat("MM/dd/yyyy");
         DateTimePickerWidgetAssert.assertThat(component).hasTimeFormat("h:mm:ss a");
@@ -338,7 +352,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.SUCCESS.getValue()).isNotDisabled();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
 
-        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Add").hasAlignment(Alignment.RIGHT.getValue()).isDisplayed();
+        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Add").hasAlignment(Alignment.RIGHT.getValue())
+                .isDisplayed();
     }
 
     @Test
@@ -360,6 +375,22 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         PropertyValue PropertyValue = button.toPropertyValues().get("removeItem");
         assertThat(PropertyValue.getType()).isEqualTo("variable");
         assertThat(PropertyValue.getValue()).isEqualTo("$item");
+    }
+
+    @Test
+    public void should_create_link_widget() {
+        ParametrizedWidgetFactory elementFactory = createFactory();
+        String linkText = "linkText";
+        String linkUrl = "linkUrk";
+        ButtonStyle linkStyle = ButtonStyle.LINK;
+
+        LinkWidget link = elementFactory.createLink(linkText, linkUrl, linkStyle);
+
+        assertThat(link.getText()).isEqualTo(linkText);
+        assertThat(link.getTargetUrl()).isEqualTo(linkUrl);
+        assertThat(link.getButtonStyle()).isEqualTo(linkStyle.getValue());
+        assertThat(link.getDimension()).isEqualTo(12);
+        AbstractParametrizedWidgetAssert.assertThat(link).hasAlignment(Alignment.LEFT.getValue());
     }
 
     private ParametrizedWidgetFactory createFactory() {

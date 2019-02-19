@@ -14,37 +14,48 @@
  */
 package org.bonitasoft.web.designer.model.contract;
 
-public class DataReference {
+public class BusinessDataReference extends DataReference {
 
-    protected String name;
-    protected String type;
+    private RelationType relationType;
+    private LoadingType loadingType;
 
-    public DataReference(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public enum RelationType {
+        COMPOSITION, AGGREGATION
+    };
+
+    public enum LoadingType {
+        EAGER, LAZY
+    };
+
+    public BusinessDataReference(String name, String type, RelationType relationType, LoadingType loadingType) {
+        super(name, type);
+        this.relationType = relationType;
+        this.loadingType = loadingType;
     }
 
-    public String getName() {
-        return name;
+    public RelationType getRelationType() {
+        return relationType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRelationType(RelationType relationType) {
+        this.relationType = relationType;
     }
 
-    public String getType() {
-        return type;
+    public LoadingType getLoadingType() {
+        return loadingType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLoadingType(LoadingType loadingType) {
+        this.loadingType = loadingType;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((loadingType == null) ? 0 : loadingType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((relationType == null) ? 0 : relationType.hashCode());
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
@@ -57,11 +68,15 @@ public class DataReference {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DataReference other = (DataReference) obj;
+        BusinessDataReference other = (BusinessDataReference) obj;
+        if (loadingType != other.loadingType)
+            return false;
         if (name == null) {
             if (other.name != null)
                 return false;
         } else if (!name.equals(other.name))
+            return false;
+        if (relationType != other.relationType)
             return false;
         if (type == null) {
             if (other.type != null)

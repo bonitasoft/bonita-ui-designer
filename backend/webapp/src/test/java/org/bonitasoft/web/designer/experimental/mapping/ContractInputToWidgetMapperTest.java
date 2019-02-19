@@ -21,9 +21,14 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
@@ -31,10 +36,9 @@ import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.DataReference;
-import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -49,7 +53,8 @@ public class ContractInputToWidgetMapperTest {
     public void should_string_contract_input_create_an_input_widget_id() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Component element = (Component) contractInputToWidgetMapper.toElement(aStringContractInput("firstName"), Collections.<List<Element>> emptyList());
+        Component element = (Component) contractInputToWidgetMapper.toElement(aStringContractInput("firstName"),
+                Collections.<List<Element>> emptyList());
 
         assertThat(element.getId()).isEqualTo("pbInput");
     }
@@ -58,7 +63,8 @@ public class ContractInputToWidgetMapperTest {
     public void should_map_simple_numeric_input_to_an_input_widget_id() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Component element = (Component) contractInputToWidgetMapper.toElement(aLongContractInput("updateTime"), Collections.<List<Element>> emptyList());
+        Component element = (Component) contractInputToWidgetMapper.toElement(aLongContractInput("updateTime"),
+                Collections.<List<Element>> emptyList());
 
         assertThat(element.getId()).isEqualTo("pbInput");
     }
@@ -77,7 +83,8 @@ public class ContractInputToWidgetMapperTest {
     public void should_map_a_numeric_contract_input_to_an_input_with_number_type() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"), Collections.<List<Element>> emptyList());
+        Element element = contractInputToWidgetMapper.toElement(aLongContractInput("timestamp"),
+                Collections.<List<Element>> emptyList());
 
         assertThat(element.getPropertyValues().get("type").getValue()).isEqualTo("number");
     }
@@ -86,7 +93,8 @@ public class ContractInputToWidgetMapperTest {
     public void should_map_a_non_numeric_contract_input_to_an_input_with_text_type() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.toElement(aStringContractInput("name"), Collections.<List<Element>> emptyList());
+        Element element = contractInputToWidgetMapper.toElement(aStringContractInput("name"),
+                Collections.<List<Element>> emptyList());
 
         assertThat(element.getPropertyValues().get("type").getValue()).isEqualTo("text");
     }
@@ -95,7 +103,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_keep_default_placeholder_input_when_contract_input_have_description() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        LeafContractInput contractInput = (LeafContractInput) aStringContractInput("name");
+        LeafContractInput contractInput = aStringContractInput("name");
         contractInput.setDescription("name of the user");
         Element element = contractInputToWidgetMapper.toElement(contractInput, Collections.<List<Element>> emptyList());
         assertThat(element.getPropertyValues().get("placeholder").getValue()).isEqualTo(new PbInput().getPlaceholder());
@@ -136,7 +144,8 @@ public class ContractInputToWidgetMapperTest {
     public void should_string_contract_input_has_value_configured_on_sentData() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.toElement(aStringContractInput("firstName"), Collections.<List<Element>> emptyList());
+        Element element = contractInputToWidgetMapper.toElement(aStringContractInput("firstName"),
+                Collections.<List<Element>> emptyList());
 
         PropertyValue valueParameter = element.getPropertyValues().get("value");
         assertThat(valueParameter.getType()).isEqualTo("variable");
@@ -144,7 +153,8 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_configure_value_property_of_container_with_$item_when_generating_a_multiple_string_in_a_multiple_node_contract_input() throws Exception {
+    public void should_configure_value_property_of_container_with_$item_when_generating_a_multiple_string_in_a_multiple_node_contract_input()
+            throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         ContractInput contractInput = aContractInput("names").mulitple().withType(String.class.getName()).build();
@@ -160,10 +170,12 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_configure_value_property_of_container_with_sentData_when_generating_a_multiple_node_input() throws Exception {
+    public void should_configure_value_property_of_container_with_sentData_when_generating_a_multiple_node_input()
+            throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Container container = contractInputToWidgetMapper.toContainer((NodeContractInput) aNodeContractInput("employee").mulitple().build(),
+        Container container = contractInputToWidgetMapper.toContainer(
+                (NodeContractInput) aNodeContractInput("employee").mulitple().build(),
                 new ArrayList<List<Element>>());
 
         PropertyValue repeatedCollectionPropetyValue = container.getPropertyValues().get("repeatedCollection");
@@ -172,7 +184,8 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_configure_collection_property_of_add_button_with_iterator_if_in_a_repeated_container() throws Exception {
+    public void should_configure_collection_property_of_add_button_with_iterator_if_in_a_repeated_container()
+            throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         ContractInput skills = aNodeContractInput("skills").mulitple().build();
@@ -185,7 +198,8 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_configure_collection_property_of_remove_button_with_iterator_if_in_a_repeated_container() throws Exception {
+    public void should_configure_collection_property_of_remove_button_with_iterator_if_in_a_repeated_container()
+            throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         ContractInput skills = aNodeContractInput("skills").mulitple().build();
@@ -197,6 +211,46 @@ public class ContractInputToWidgetMapperTest {
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$collection");
     }
 
+    @Test
+    public void should_create_document_to_edit_container() {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        LeafContractInput fileContractInput = ContractInputBuilder.aFileContractInput("aDocument.txt");
+        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isFalse();
+        fileContractInput.setDataReference(new DataReference("myDoc", File.class.getName()));
+        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
+
+        Element element = contractInputToWidgetMapper.toEditableDocument(fileContractInput);
+        assertThat(element).isInstanceOf(Container.class);
+        Container container = (Container) element;
+        assertThat(container.getRows()).hasSize(2);
+        assertThat(container.getRows().stream().flatMap(Collection::stream)).allMatch(Component.class::isInstance);
+        assertThat(container.getRows().stream().flatMap(Collection::stream).map(Component.class::cast))
+                .extracting(Component::getId)
+                .containsExactlyInAnyOrder("pbLink", "pbUpload");
+
+        Optional<Map<String, PropertyValue>> linkProperties = container.getRows().stream()
+                .flatMap(Collection::stream)
+                .map(Component.class::cast)
+                .filter(component -> Objects.equals("pbLink", component.getId()))
+                .map(Component::getPropertyValues)
+                .findFirst();
+
+        assertThat(linkProperties).isPresent();
+        assertThat(linkProperties.get()).containsEntry("buttonStyle", createProperty("constant", "info"));
+        assertThat(linkProperties.get()).containsEntry("widgetId", createProperty("constant", "pbLink"));
+        assertThat(linkProperties.get()).containsEntry("text", createProperty("interpolation",
+                "<div data-toggle=\"tooltip\" title=\"Download previous revision\"> <i class=\"glyphicon glyphicon-download\"></i> {{context.myDoc_ref.fileName}} </div>"));
+        assertThat(linkProperties.get()).containsEntry("targetUrl",
+                createProperty("expression", "\"../API/\" + context.myDoc_ref.url"));
+    }
+
+    private PropertyValue createProperty(String type, String value) {
+        PropertyValue property = new PropertyValue();
+        property.setType(type);
+        property.setValue(value);
+        return property;
+    }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
         return new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);

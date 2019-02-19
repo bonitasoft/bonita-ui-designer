@@ -16,9 +16,9 @@ package org.bonitasoft.web.designer.model.contract.builders;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
-import org.bonitasoft.web.designer.model.contract.DataReference;
-import org.bonitasoft.web.designer.model.contract.DataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.DataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
@@ -64,7 +64,7 @@ public class ContractBuilder {
     public static Contract aSimpleContractWithDataRef() {
         return aContract().withInput(
                 aNodeContractInput("employeeInput")
-                .withDataReference(new DataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER))
+                .withDataReference(new BusinessDataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER))
                 .withInput(
                         aContractInput("firstName").build(),
                         aContractInput("lastName").build(),

@@ -22,18 +22,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class NodeContractInput extends AbstractContractInput implements ContractInput {
 
     private List<ContractInput> children = new ArrayList<>();
-    private DataReference dataReference;
 
     public NodeContractInput(String name) {
         super(name);
     }
 
-    public void setDataReference(DataReference dataReference) {
-        this.dataReference = dataReference;
-    }
-
-    public DataReference getDataReference() {
-        return dataReference;
+    @Override
+    public BusinessDataReference getDataReference() {
+        return (BusinessDataReference) super.getDataReference();
     }
 
     @Override
@@ -41,10 +37,12 @@ public class NodeContractInput extends AbstractContractInput implements Contract
         return NodeContractInput.class.getName();
     }
 
+    @Override
     public List<ContractInput> getInput() {
         return children;
     }
 
+    @Override
     @JsonIgnore
     public void addInput(ContractInput input) {
         input.setParent(this);

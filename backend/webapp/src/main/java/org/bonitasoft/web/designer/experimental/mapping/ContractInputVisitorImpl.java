@@ -37,6 +37,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
         this.container = container;
     }
 
+    @Override
     public void visit(NodeContractInput contractInput) {
         Container newContainer = contractInputToWidgetMapper.toContainer(contractInput,
                 container.getRows());
@@ -46,22 +47,28 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
             childInput.accept(containerContractInputVisitor);
         }
         if (contractInput.isMultiple()) {
-            newContainer.getRows().add(Collections.<Element>singletonList(contractInputToWidgetMapper.createRemoveButton()));
+            newContainer.getRows()
+                    .add(Collections.<Element> singletonList(contractInputToWidgetMapper.createRemoveButton()));
         }
         container.getRows().add(Collections.<Element> singletonList(newContainer));
         addButtonBar(contractInput);
     }
 
+    @Override
     public void visit(LeafContractInput contractInput) {
         if (contractInputToWidgetMapper.canCreateComponent(contractInput)) {
-            container.getRows().add(Collections.singletonList(contractInputToWidgetMapper.toElement(contractInput, container.getRows())));
+            Element element = contractInputToWidgetMapper.isDocumentToEdit(contractInput)
+                    ? contractInputToWidgetMapper.toEditableDocument(contractInput)
+                    : contractInputToWidgetMapper.toElement(contractInput, container.getRows());
+            container.getRows().add(Collections.singletonList(element));
             addButtonBar(contractInput);
         }
     }
 
     private void addButtonBar(ContractInput contractInput) {
         if (contractInput.isMultiple()) {
-            container.getRows().add(Lists.<Element>newArrayList(contractInputToWidgetMapper.createAddButton(contractInput)));
+            container.getRows()
+                    .add(Lists.<Element> newArrayList(contractInputToWidgetMapper.createAddButton(contractInput)));
         }
     }
 }
