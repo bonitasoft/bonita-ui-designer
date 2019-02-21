@@ -124,7 +124,12 @@ public class ParametrizedWidgetFactory {
     }
 
     public WidgetContainer createWidgetContainer() {
-        WidgetContainer container = new WidgetContainer();
+        return new WidgetContainer();
+    }
+
+    public WidgetContainer createWidgetContainer(String collection) {
+        WidgetContainer container = createWidgetContainer();
+        container.setRepeatedCollection(collection);
         return container;
     }
 

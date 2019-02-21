@@ -77,10 +77,17 @@ public class ContractInputToWidgetMapper {
     }
 
     public Element toEditableDocument(LeafContractInput contractInput) {
+        return contractInput.isMultiple()
+                ? toMultipleEditableDocument(contractInput)
+                : toSingleEditableDocument(contractInput);
+    }
+
+    private Element toSingleEditableDocument(LeafContractInput contractInput) {
         WidgetContainer container = parametrizedWidgetFactory.createWidgetContainer();
         container.setCssClasses("well");
 
-        Component linkWidget = createDocumentLink(contractInput).toComponent(dimensionFactory);
+        String documentRef = String.format("context.%s_ref", contractInput.getDataReference().getName());
+        Component linkWidget = createDocumentLink(documentRef).toComponent(dimensionFactory);
         Component fileUploadWidget = toSimpleComponent(contractInput);
 
         Container documentContainer = container.toContainer(dimensionFactory);
@@ -89,19 +96,41 @@ public class ContractInputToWidgetMapper {
         return documentContainer;
     }
 
-    private LinkWidget createDocumentLink(LeafContractInput contractInput) {
-        String dataRefName = contractInput.getDataReference().getName();
-        String documentUrl = String.format("\"../API/\" + context.%s_ref.url", dataRefName);
+    private Element toMultipleEditableDocument(LeafContractInput contractInput) {
+        WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
+
+        String collectionFromContext = String.format("context.%s_ref", contractInput.getDataReference().getName());
+        WidgetContainer existingDocumentsWidgetContainer = parametrizedWidgetFactory
+                .createWidgetContainer(collectionFromContext);
+        Component linkWidget = createDocumentLink("$item").toComponent(dimensionFactory);
+        Container existingDocumentsContainer = existingDocumentsWidgetContainer.toContainer(dimensionFactory);
+        existingDocumentsContainer.addNewRow(linkWidget);
+
+        Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
+        rootContainer.addNewRow(existingDocumentsContainer);
+
+        Component newDocumentsContainer = toMultipleComponent(contractInput);
+        rootContainer.addNewRow(newDocumentsContainer);
+
+        return rootContainer;
+    }
+
+    private LinkWidget createDocumentLink(String documentVar) {
+        String documentUrl = String.format("\"../API/\" + %s.url", documentVar);
         String linkText = String.format(
-                "<div data-toggle=\"tooltip\" title=\"Download previous revision\"> <i class=\"glyphicon glyphicon-download\"></i> {{context.%s_ref.fileName}} </div>",
-                dataRefName);
+                "<div data-toggle=\"tooltip\" title=\"{{'Download' | translate}}\"> <i class=\"glyphicon glyphicon-download\"></i> {{%s.fileName}} </div>",
+                documentVar);
         return parametrizedWidgetFactory.createLink(linkText, documentUrl, ButtonStyle.INFO);
     }
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
-        Container container = toMultipleContainer(contractInput);
         rows.add(Collections.<Element> singletonList(
                 parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
+        return toMultipleComponent(contractInput);
+    }
+
+    private Container toMultipleComponent(ContractInput contractInput) {
+        Container container = toMultipleContainer(contractInput);
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             component.setLabel("");
