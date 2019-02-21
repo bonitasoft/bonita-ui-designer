@@ -29,6 +29,7 @@ import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -61,8 +62,9 @@ public class WidgetResource extends AssetResource<Widget>{
                           WidgetService widgetService,
                           AssetService<Widget> widgetAssetService,
                           @Named("widgetPath") Path widgetPath,
-                          List<WidgetContainerRepository> widgetContainerRepositories) {
-        super(widgetAssetService, widgetRepository, null, Optional.<SimpMessagingTemplate>absent());
+                          List<WidgetContainerRepository> widgetContainerRepositories,
+                          AssetVisitor assetVisitor) {
+        super(widgetAssetService, widgetRepository, assetVisitor, Optional.<SimpMessagingTemplate>absent());
         this.widgetRepository = widgetRepository;
         this.objectMapper = objectMapper;
         this.widgetService = widgetService;
@@ -102,7 +104,9 @@ public class WidgetResource extends AssetResource<Widget>{
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.GET)
     public Widget get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
-        return widgetService.get(widgetId);
+        Widget widget = widgetService.get(widgetId);
+        widget.setAssets(assetVisitor.visit(widget));
+        return widget;
     }
 
     @RequestMapping(method = RequestMethod.POST)

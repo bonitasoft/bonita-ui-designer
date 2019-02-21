@@ -35,7 +35,8 @@ var paths = {
     'bower_components/angular-sha/src/angular-sha.js',
     'node_modules/angular-switcher/dist/angular-switcher.min.js',
     'node_modules/ngstorage/ngStorage.min.js',
-    'node_modules/angular-resizable/angular-resizable.min.js'
+    'node_modules/angular-resizable/angular-resizable.min.js',
+    'node_modules/angular-animate/angular-animate.min.js'
   ],
   css: [
     'node_modules/angular-switcher/dist/angular-switcher.min.css',

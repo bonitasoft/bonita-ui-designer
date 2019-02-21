@@ -36,6 +36,7 @@
     'gettext',
     'ngUpload',
     'ngCookies',
+    'ngAnimate',
     'angularMoment',
     'angularResizable'
   ]);

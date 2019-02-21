@@ -20,14 +20,20 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
+  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup, gettextCatalog) {
 
     var vm = this;
-    vm.component = artifact;
-    vm.component.assets = vm.component.assets || [];
-    vm.filters = assetsService.getFilters();
+    var assetListByType = [];
+    vm.types = assetsService.getFiltersTypes();
+    vm.scopeFilter = assetsService.getScopes();
+    vm.getAssetsByTypeForCurrentScope = getAssetsByTypeForCurrentScope;
+    vm.getAssetsCounterByTypeForCurrentScope = getAssetsCounterByTypeForCurrentScope;
+    vm.getNbrOfAssetsByType = getNbrOfAssetsByType;
+    vm.isEditable = isEditable;
     vm.isExternal = assetsService.isExternal;
     vm.isPageAsset = assetsService.isPageAsset;
+    vm.component = artifact;
+    vm.component.assets = vm.component.assets || [];
     vm.deactivateAsset = deactivateAsset;
     vm.incrementOrderAsset = incrementOrderAsset;
     vm.decrementOrderAsset = decrementOrderAsset;
@@ -39,19 +45,87 @@
     vm.openHelp = openHelp;
     vm.isEditable = isEditable;
     vm.isViewable = isViewable;
+    vm.assetAlreadyOnMove = false;
+
+    function getAssetsByTypeForCurrentScope(type) {
+      if (!assetListByType[type]) {
+        assetListByType[type] = [];
+      }
+      assetListByType[type].splice(0);
+
+      var filterResult = vm.component.assets.filter(function(asset) {
+        const scope = vm.scopeFilter[asset.scope];
+        return asset.type === type && scope && scope.filter;
+      });
+
+      filterResult.forEach(function(asset) {
+        assetListByType[type].push(asset);
+      });
+      return assetListByType[type];
+    }
+
+    function getAssetsCounterByTypeForCurrentScope(type) {
+      var assetNbrCurrentScope = getAssetsByTypeForCurrentScope(type).length;
+      var assetNbrTotal = getNbrOfAssetsByType(type);
+      if (assetNbrCurrentScope === assetNbrTotal) {
+        return assetNbrCurrentScope;
+      }
+
+      if (assetNbrCurrentScope !== assetNbrTotal) {
+        return assetNbrCurrentScope + ' ' + gettextCatalog.getString('of') + ' ' + assetNbrTotal;
+      }
+    }
+
+    function getNbrOfAssetsByType(type) {
+      var nbrOfAssets = vm.component.assets.filter(function(asset) {
+        return asset.type === type;
+      });
+      return nbrOfAssets.length;
+    }
 
     function incrementOrderAsset(asset) {
-      return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
+      if (vm.assetAlreadyOnMove) {
+        return;
+      }
+      return artifactRepo.incrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets.bind(null, asset));
     }
 
     function decrementOrderAsset(asset) {
-      return artifactRepo.decrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets);
+      if (vm.assetAlreadyOnMove) {
+        return;
+      }
+      return artifactRepo.decrementOrderAsset(vm.component.id, asset).then(refreshComponentAssets.bind(null, asset));
     }
 
-    function refreshComponentAssets() {
+    function refreshComponentAssets(asset) {
+      vm.assetAlreadyOnMove = true;
+      let memoryAssets = angular.copy(vm.component.assets);
       artifactRepo.loadAssets(vm.component).then(function(response) {
-        vm.component.assets = response;
+        response.forEach(asset => pushToArray(memoryAssets, asset));
+        vm.component.assets = memoryAssets;
       });
+      // Timeout is needeed to wait table refresh
+      setTimeout(() => addClassShaker(asset), 50);
+    }
+
+    function addClassShaker(asset) {
+      let element = document.getElementById(asset.id);
+      element.classList.add('moving-asset');
+      // Remove class move-asset to allow to move another asset time
+      setTimeout(() => {
+        element.classList.remove('moving-asset');
+        vm.assetAlreadyOnMove = false;
+      }, 1000);
+    }
+
+    function pushToArray(arr, obj) {
+      const index = arr.findIndex((e) => e.name === obj.name);
+
+      if (index === -1) {
+        arr.push(obj);
+      } else {
+        arr[index] = obj;
+      }
     }
 
     function deactivateAsset(asset) {
@@ -118,7 +192,8 @@
           assets: () => vm.component.assets,
           mode: () => mode,
           artifact: () => artifact,
-          assetRepo: () => assetRepo
+          assetRepo: () => assetRepo,
+          scope: () => vm.component.type
         }
       });
       modalInstance.result.then(updateList);
@@ -126,6 +201,7 @@
 
     function updateList(asset) {
       var replaced = false;
+      asset.scope = vm.component.type;
       vm.component.assets = vm.component.assets.map(function(item) {
         if (item.id === asset.id) {
           replaced = true;
@@ -149,12 +225,15 @@
       });
     }
 
-    function isEditable(asset, scope) {
-      return asset.type !== 'img' && asset.scope === scope;
+    function isEditable(asset) {
+      if (!asset.scope) {
+        return asset.type !== 'img';
+      }
+      return asset.type !== 'img' && (asset.scope && asset.scope === vm.component.type);
     }
 
-    function isViewable(asset, scope) {
-      return !asset.external && !isEditable(asset, scope);
+    function isViewable(asset) {
+      return !asset.external && !isEditable(asset);
     }
   }
 

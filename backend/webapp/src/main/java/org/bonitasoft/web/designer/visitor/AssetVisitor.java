@@ -82,6 +82,14 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
         return widget.getAssets();
     }
 
+    public Set<Asset> visit(Widget widget){
+        //Scope is not persisted
+        for (Asset asset : widget.getAssets()) {
+            asset.setScope(AssetScope.WIDGET);
+        }
+        return widget.getAssets();
+    }
+
     @Override
     public Set<Asset> visit(ModalContainer modalContainer) {
         Set<Asset> assets = new HashSet<>();

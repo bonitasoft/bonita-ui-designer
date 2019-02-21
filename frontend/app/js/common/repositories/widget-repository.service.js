@@ -50,14 +50,6 @@
           .then((response) => response.data.assets);
       }
 
-      incrementOrderAsset(widgetId, asset) {
-        return this.$http.put(`${this.baseUrl}/${widgetId}/assets/${asset.id}?increment=true`, asset);
-      }
-
-      decrementOrderAsset(widgetId, asset) {
-        return this.$http.put(`${this.baseUrl}/${widgetId}/assets/${asset.id}?decrement=true`, asset);
-      }
-
       addProperty(widgetId, property) {
         return this.$http.post(`${this.baseUrl}/${widgetId}/properties`, property);
       }

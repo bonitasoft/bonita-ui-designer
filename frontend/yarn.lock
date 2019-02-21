@@ -131,6 +131,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-animate@1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.4.7.tgz#4399e6dd39ca4cb51ccd58a19e09c3eaae0eeb8a"
+
 angular-gettext-tools@^2.2.0:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/angular-gettext-tools/-/angular-gettext-tools-2.3.6.tgz#beceb160315baf72d96bf723f21cf1c2841a5225"

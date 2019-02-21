@@ -23,6 +23,7 @@
             'type': 'css',
             'order': 1,
             'active': true,
+            'external': false,
             'componentId': 'customWidget',
             'scope': 'widget'
           },
@@ -41,6 +42,7 @@
             'type': 'img',
             'order': 3,
             'active': true,
+            'external': false,
             'scope': 'page'
           },
           {
@@ -49,6 +51,7 @@
             'type': 'css',
             'order': 4,
             'active': true,
+            'external': false,
             'scope': 'page'
           }
         ],

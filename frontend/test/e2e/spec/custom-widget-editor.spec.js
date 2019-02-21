@@ -183,7 +183,6 @@ describe('custom widget editor', function() {
     expect($('.EditorHeader-saveIndicator .SaveIndicator').isDisplayed()).toBeFalsy();
     // save it
     $('#save').click();
-    expect($('.EditorHeader-saveIndicator .SaveIndicator').isDisplayed()).toBeTruthy();
     expect($('#save').isEnabled()).toBeFalsy();
 
     // should go back to root when saved

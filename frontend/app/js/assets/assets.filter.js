@@ -15,19 +15,19 @@
 (function() {
 
   /**
-   * Filters the assets table in editor by type
+   * Filters the assets table in editor by scope
    */
   angular.module('bonitasoft.designer.assets').filter('assetFilter', function() {
 
     'use strict';
 
-    return function(assets, filters) {
-      if (!assets || !filters) {
+    return function(assets, scopes) {
+      if (!assets || !scopes) {
         return assets;
       }
       return assets.filter(function(asset) {
-        const filter = filters[asset.type];
-        return filter && filter.value;
+        const scope = scopes[asset.scope];
+        return scope && scope.filter;
       });
     };
   });

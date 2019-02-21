@@ -21,9 +21,9 @@
   function assetsServiceProvider() {
 
     var types = [
-      { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'javascript' },
-      { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'css' },
-      { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' }
+      { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'css', orderable: true },
+      { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'javascript', orderable: true },
+      { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', orderable: false }
     ];
 
     return {
@@ -38,12 +38,18 @@
         local: { key: false, value: gettextCatalog.getString('Local') }
       };
 
+      var scopes = {
+        page: { key: 'page', value: 'Page', filter: true },
+        widget: { key: 'widget', value: 'Widget', filter: false }
+      };
+
       return {
         isExternal: isExternal,
         isPageAsset: isPageAsset,
         getSources: () => sources,
         getTypes: () => types,
-        getFilters: createFilters,
+        getScopes: () => scopes,
+        getFiltersTypes: createFiltersTypes,
         assetToForm: assetToForm,
         formToAsset: formToAsset,
         getAssetTypesByMode: getAssetTypesByMode,
@@ -64,6 +70,7 @@
             external: true
           };
         }
+
         //An asset is identified by name and type. If user choose to change them we need to delete
         //the old asset and we need the old name and type
         return {
@@ -73,18 +80,20 @@
           external: isExternal(asset),
           order: asset.order,
           oldname: asset.name,
-          oldtype: asset.type
+          oldtype: asset.type,
+          scope: asset.scope || ''
         };
       }
 
       /**
        * Convert html form asset in business object which can be sent to the backend
        */
-      function formToAsset(formAsset) {
+      function formToAsset(formAsset, scope) {
         var asset = {
           id: formAsset.id,
           type: formAsset.type,
-          order: formAsset.order
+          order: formAsset.order,
+          scope: scope
         };
         if (formAsset.external) {
           asset.name = formAsset.name;
@@ -104,17 +113,18 @@
        * Page asset
        */
       function isPageAsset(asset) {
-        return !asset.componentId;
+        return asset && asset.scope === 'page';
       }
 
-      function createFilters() {
+      function createFiltersTypes() {
         return types
           .map(function transformToFilter(type) {
             return {
               key: type.key,
               value: {
                 label: type.value,
-                value: type.filter
+                value: type.filter,
+                orderable: type.orderable
               }
             };
           })

@@ -13,9 +13,9 @@ describe('utils', function() {
   describe('provider', function() {
 
     it('should allow registering new data types', function() {
-      var newDataType = {
+      var newDataType = [{
         key: 'foo', value: 'bar', filter: true, template: 'baz'
-      };
+      }];
 
       assetsServiceProvider.registerType(newDataType);
 
@@ -36,9 +36,9 @@ describe('utils', function() {
     it('getTypes should return a table with all the types ', function() {
       expect(assetsService.getTypes()).toEqual(
         [
-          { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'javascript' },
-          { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'css' },
-          { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html' }
+          { key: 'css', value: 'CSS', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'css', orderable: true },
+          { key: 'js', value: 'JavaScript', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', aceMode: 'javascript', orderable: true },
+          { key: 'img', value: 'Image', filter: true, widget: true, template: 'js/assets/generic-asset-form.html', orderable: false }
         ]);
     });
   });
@@ -46,7 +46,7 @@ describe('utils', function() {
   describe('assetToForm', function() {
     it('should return an object with default value for type and source', function() {
       expect(assetsService.assetToForm()).toEqual({
-        type: 'js',
+        type: 'css',
         external: true
       });
     });
@@ -57,7 +57,8 @@ describe('utils', function() {
         name: 'http://asset.css',
         type: 'css',
         order: 2,
-        external: true
+        external: true,
+        scope: 'page'
       };
       expect(assetsService.assetToForm(asset)).toEqual({
         id: 'UIID',
@@ -66,7 +67,8 @@ describe('utils', function() {
         external: true,
         oldname: 'http://asset.css',
         oldtype: 'css',
-        order: 2
+        order: 2,
+        scope: 'page'
       });
     });
 
@@ -75,7 +77,8 @@ describe('utils', function() {
         id: 'UIID',
         name: 'asset.css',
         type: 'css',
-        order: 2
+        order: 2,
+        scope: 'page'
       };
       expect(assetsService.assetToForm(asset)).toEqual({
         id: 'UIID',
@@ -84,7 +87,8 @@ describe('utils', function() {
         external: undefined,
         oldname: 'asset.css',
         oldtype: 'css',
-        order: 2
+        order: 2,
+        scope: 'page'
       });
     });
   });
@@ -96,12 +100,14 @@ describe('utils', function() {
         name: 'http://asset.css',
         type: 'css',
         external: true,
+        scope: 'page',
         order: 2
       };
-      expect(assetsService.formToAsset(formasset)).toEqual({
+      expect(assetsService.formToAsset(formasset, 'page')).toEqual({
         id: 'UIID',
         name: 'http://asset.css',
         type: 'css',
+        scope: 'page',
         order: 2,
         external: true
       });
@@ -202,8 +208,8 @@ describe('utils', function() {
   });
 
   it('should get a specific type', function() {
-    expect(assetsService.getType('js')).toBe(assetsService.getTypes()[0]);
-    expect(assetsService.getType('css')).toBe(assetsService.getTypes()[1]);
+    expect(assetsService.getType('css')).toBe(assetsService.getTypes()[0]);
+    expect(assetsService.getType('js')).toBe(assetsService.getTypes()[1]);
     expect(assetsService.getType('img')).toBe(assetsService.getTypes()[2]);
   });
 

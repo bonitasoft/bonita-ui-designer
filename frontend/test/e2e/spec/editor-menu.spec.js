@@ -39,7 +39,6 @@ describe('editor menu', function() {
 
     expect(editor.saveIndicator.isDisplayed()).toBeFalsy();
     $('#save').click();
-    expect(editor.saveIndicator.isDisplayed()).toBeTruthy();
     expect($('#save').isEnabled()).toBeFalsy();
   });
 

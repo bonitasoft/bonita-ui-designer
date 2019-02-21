@@ -1,8 +1,8 @@
 (function() {
   'use strict';
 
-  describe('assetType filter', function() {
-    var $filter, assets, filters;
+  describe('assetScope filter', function() {
+    var $filter, assets, scopes;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
@@ -10,61 +10,40 @@
       $filter = _$filter_;
 
       assets = [
-        { 'name': 'MyAbcExample.js', 'type': 'js' },
-        { 'name': 'MyAbcExample.css', 'type': 'css' },
-        { 'name': 'MyAbcExample.png', 'type': 'img' }
+        { 'name': 'MyAbcExample.js', 'type': 'js', 'scope':'page'},
+        { 'name': 'MyAbcExample.css', 'type': 'css', 'scope':'widget' },
+        { 'name': 'MyAbcExample.png', 'type': 'img', 'scope':'page' }
       ];
 
-      filters = {
-        js: { label: 'Javascript', value: true },
-        css: { label: 'CSS', value: true },
-        img: { label: 'Image', value: true }
+      scopes = {
+        page: { label: 'Page', filter: true },
+        widget: { label: 'Widget', filter: true }
       };
 
     }));
 
-    it('should not filter when no arg filters', function() {
+    it('should not filter when no arg scope', function() {
       expect($filter('assetFilter')(assets)).toEqual(assets);
     });
 
     it('should not filter when filtering items are true', function() {
-      expect($filter('assetFilter')(assets, filters)).toEqual(assets);
+      expect($filter('assetFilter')(assets, scopes)).toEqual(assets);
     });
 
-    it('should exclude css', function() {
-      filters.css.value = false;
+    it('should exclude asset who attach on page', function() {
+      scopes.page.filter = false;
 
-      expect($filter('assetFilter')(assets, filters)).toEqual([
-        { 'name': 'MyAbcExample.js', 'type': 'js' },
-        { 'name': 'MyAbcExample.png', 'type': 'img' }
+      expect($filter('assetFilter')(assets, scopes)).toEqual([
+        { 'name': 'MyAbcExample.css', 'type': 'css', 'scope':'widget' }
       ]);
     });
 
-    it('should exclude img', function() {
-      filters.img.value = false;
+    it('should exclude asset who attach on widget', function() {
+      scopes.widget.filter = false;
 
-      expect($filter('assetFilter')(assets, filters)).toEqual([
-        { 'name': 'MyAbcExample.js', 'type': 'js' },
-        { 'name': 'MyAbcExample.css', 'type': 'css' }
-      ]);
-    });
-
-    it('should exclude js', function() {
-      filters.js.value = false;
-
-      expect($filter('assetFilter')(assets, filters)).toEqual([
-        { 'name': 'MyAbcExample.css', 'type': 'css' },
-        { 'name': 'MyAbcExample.png', 'type': 'img' }
-      ]);
-    });
-
-    it('should exclude an asset with type which is not supported', function() {
-      assets.push({ 'name': 'foo.json', 'type': 'json' });
-
-      expect($filter('assetFilter')(assets, filters)).toEqual([
-        { 'name': 'MyAbcExample.js', 'type': 'js' },
-        { 'name': 'MyAbcExample.css', 'type': 'css' },
-        { 'name': 'MyAbcExample.png', 'type': 'img' }
+      expect($filter('assetFilter')(assets, scopes)).toEqual([
+        { 'name': 'MyAbcExample.js', 'type': 'js', 'scope':'page'},
+        { 'name': 'MyAbcExample.png', 'type': 'img', 'scope':'page' }
       ]);
     });
   });

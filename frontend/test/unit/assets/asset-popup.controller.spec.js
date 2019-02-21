@@ -1,6 +1,6 @@
 describe('AssetPopupCtrl', function() {
 
-  var $rootScope, $scope, asset, $uibModalInstance, assetsService, alerts, assetsServiceProvider, controller, assetRepo, $q, injector, assets;
+  var $rootScope, $scope, asset, $uibModalInstance, assetsService, alerts, assetsServiceProvider, controller, assetRepo, $q, injector, assets, scope;
 
   function createController(mode) {
     return injector.get('$controller')('AssetPopupCtrl', {
@@ -11,7 +11,8 @@ describe('AssetPopupCtrl', function() {
       assetsService: assetsService,
       mode: mode,
       artifact: { id: 12 },
-      assetRepo: assetRepo
+      assetRepo: assetRepo,
+      scope: scope
     });
   }
 
@@ -100,7 +101,7 @@ describe('AssetPopupCtrl', function() {
   it('should expose asset types to the scope', function() {
     expect(controller.assetTypes.map(function(type) {
       return type.key;
-    })).toEqual(['js', 'css', 'img']);
+    })).toEqual(['css', 'js', 'img']);
   });
 
   it('should expose only widget asset types to the scope when in widget mode', function() {
@@ -112,7 +113,7 @@ describe('AssetPopupCtrl', function() {
 
     expect(controller.assetTypes.map(function(type) {
       return type.key;
-    })).toEqual(['js', 'css', 'img']);
+    })).toEqual(['css', 'js', 'img']);
   });
   it('should validate url', function() {
     expect(controller.urlPattern.test('http://server:123/path')).toBe(true);

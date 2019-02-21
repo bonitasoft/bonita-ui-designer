@@ -90,6 +90,14 @@
         return this.$http.put(`${this.baseUrl}/${artifactId}/favorite`, false);
       }
 
+      incrementOrderAsset(artifactId, asset) {
+        return this.$http.put(`${this.baseUrl}/${artifactId}/assets/${asset.id}?increment=true`, asset);
+      }
+
+      decrementOrderAsset(artifactId, asset) {
+        return this.$http.put(`${this.baseUrl}/${artifactId}/assets/${asset.id}?decrement=true`, asset);
+      }
+
     }
 
     return Repository;

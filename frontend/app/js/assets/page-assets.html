@@ -9,8 +9,9 @@
     </div>
 
     <div class="Toolbar-filter">
-        <label class="checkbox-inline" ng-repeat="(key, filter) in vm.filters">
-            <input type="checkbox" ng-model="filter.value"> {{filter.label}}
+        <label class="checkbox-inline" ng-repeat="(key, filter) in vm.scopeFilter">
+            <input type="checkbox" ng-model="filter.filter">
+            <translate>{{filter.value}}</translate>
         </label>
     </div>
 </div>
@@ -18,52 +19,30 @@
 <table class="Table AssetTable">
     <thead>
     <th class="AssetTable-active" translate>Active</th>
-    <th class="AssetTable-name" translate>Name</th>
-    <th class="AssetTable-scope" translate>Widget</th>
-    <th class="AssetTable-type" translate>Type</th>
+    <th class="AssetTable-name text-left" translate>Name</th>
+    <th class="AssetTable-source" translate>Source</th>
+    <th class="AssetTable-scope" translate>Scope</th>
+    <th class="AssetTable-actions" translate>&nbsp;</th>
     <th class="AssetTable-actions">&nbsp;</th>
+    <th class="AssetTable-scrollbar">&nbsp;</th>
     </thead>
 </table>
 <div class="BottomPanel-scrollableView">
-    <table class="Table AssetTable">
-        <tbody>
-        <tr ng-class="{'text-muted':!asset.active}"
-            ng-repeat="asset in vm.component.assets | orderBy:['componentId','order'] | assetFilter:vm.filters as results">
-            <td class="AssetTable-active">
-                <input type="checkbox" ng-model="asset.active" ng-click="vm.deactivateAsset(asset)">
-            </td>
-            <td class="AssetTable-name">{{asset.name}}</td>
-            <td class="AssetTable-scope">
-                {{asset.componentId}}
-                <span ng-if="vm.isPageAsset(asset)" translate>Page level</span>
-            </td>
-            <td class="AssetTable-type">{{asset.type | assetType}}</td>
-            <td class="AssetTable-actions text-right">
-                <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
-                    <button file-download class="btn btn-bonita-asset" href="{{vm.getAssetUrl(asset)}}"
-                            title="{{'Download asset' | translate }}" ng-if="!vm.isExternal(asset)">
-                        <i class="fa fa-alias-import"></i>
-                    </button>
-                    <button class="btn btn-bonita-asset" ng-click="vm.openAssetPreviewPopup(asset)"
-                            title="{{ 'View asset content' | translate }}"
-                            ng-if="vm.isViewable(asset, 'page')">
-                        <i class="fa fa-search"></i>
-                    </button>
-                    <button class="btn btn-bonita-asset" ng-click="vm.openAssetEditPopup(asset)"
-                            title="{{ 'Edit asset' | translate }}"
-                            ng-if="vm.isEditable(asset, 'page')">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                    <button class="btn btn-bonita-asset" ng-click="vm.delete(asset)"
-                            title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr ng-if="results.length===0">
-            <td colspan="5" translate>No asset</td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-repeat="(key,type) in vm.types">
+        <asset-section type="type"
+                       id="key"
+                       scopes="vm.scopes"
+                       assets="vm.getAssetsByTypeForCurrentScope(key)"
+                       assets-count="vm.getAssetsCounterByTypeForCurrentScope(key)"
+                       on-delete="vm.delete(asset)"
+                       deactivate-asset="vm.deactivateAsset(asset)"
+                       increment-order-asset="vm.incrementOrderAsset(asset)"
+                       decrement-order-asset="vm.decrementOrderAsset(asset)"
+                       open-asset-edit-popup="vm.openAssetEditPopup(asset)"
+                       open-asset-preview-popup="vm.openAssetPreviewPopup(asset)"
+                       get-asset-url="vm.getAssetUrl(asset)"
+                       is-editable="vm.isEditable(asset)"
+                       is-viewable="vm.isViewable(asset)">
+        </asset-section>
+    </div>
 </div>

@@ -74,9 +74,9 @@
       return new AssetPopUp();
     },
 
-    editAsset: function(type, name) {
+    editAsset: function(name) {
       this.lines.filter(line => line.getText()
-        .then(text => text.indexOf(type) > -1 && text.indexOf(name) > -1 && text.indexOf('Page level') > -1))
+        .then(text => text.indexOf(name) > -1 && text.indexOf('Page level') > -1))
         .then(lines => lines[0].element(by.css('.fa-pencil')).click());
 
       return name.startsWith('http') ? new AssetPopUp() : new EditLocalAssetPopUp();
@@ -87,8 +87,11 @@
         return {
           name: assetElement.element(by.css('.AssetTable-name')).getText(),
           scope: assetElement.element(by.css('.AssetTable-scope')).getText(),
-          type: assetElement.element(by.css('.AssetTable-type')).getText(),
+          source: assetElement.element(by.css('.AssetTable-source')).getText(),
+          type: assetElement.element(by.css('.AssetTable-source')).getText(),
           actions: {
+            moveUp: assetElement.element(by.css('.AssetTable-actions i.fa-arrow-up')),
+            moveDown: assetElement.element(by.css('.AssetTable-actions i.fa-arrow-down')),
             delete: assetElement.element(by.css('.AssetTable-actions i.fa-trash')),
             view: assetElement.element(by.css('.AssetTable-actions i.fa-search')),
             download: assetElement.element(by.css('.AssetTable-actions i.fa-alias-import')),
@@ -114,13 +117,13 @@
 
     filters: {
       get: function() {
-        return this.sidebar.all(by.repeater('(key, filter) in vm.filters'));
+        return this.sidebar.all(by.repeater('(key, filter) in vm.scopeFilter'));
       }
     },
 
     lines: {
       get: function() {
-        return this.sidebar.all(by.repeater('asset in vm.component.assets'));
+        return this.sidebar.all(by.repeater('asset in vm.assets'));
       }
     },
 
@@ -133,8 +136,8 @@
       }
     },
 
-    // asset types in asset list
-    types: {
+    // asset level (page or widget) in asset list
+    level: {
       get: function() {
         return this.lines.map(function(line) {
           return line.all(by.tagName('td')).get(3).getText();
@@ -148,7 +151,7 @@
           let tds = line.all(by.tagName('td'));
           return {
             name: tds.get(1).getText(),
-            type: tds.get(3).getText()
+            source: tds.get(2).getText()
           };
         });
       }

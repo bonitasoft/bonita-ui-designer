@@ -1,3 +1,7 @@
+.AssetTable-scrollbar {
+  width: 13px;
+}
+
 .asset-preview-iframe {
   border: none;
   height: 70vh;
@@ -15,6 +19,7 @@
   width: 4em;
 }
 
+.AssetTable-order,
 .AssetTable-actions {
   width: 7.2em;
 }
@@ -23,7 +28,14 @@
   width: 20%;
 }
 
-.AssetTable-type {
+.Table tbody tr.AssetTable-type{
+  border-top-width: 5px;
+  background-color: @btn-bonita-asset-type-bg;
+  color: #fff;
+  line-height: 0.5em;
+}
+
+.AssetTable-source {
   width: 8em;
 }
 
@@ -35,5 +47,59 @@
   .EditAssetPopUp-saveIndicator {
     margin-left: 1em;
     color: #286090;
+  }
+}
+
+.AssetTable-scopeSeparated {
+  border-top: 1px dashed #777777;
+}
+
+.AssetTable-displayed.ng-hide {
+  max-height:0;
+  transition:max-height 0.35s ease;
+  overflow:hidden;
+  position:relative;
+}
+
+.AssetTable-displayed {
+  // set a value for max-height is mandatory to define a transition on max-height
+  max-height: 5000px;
+  transition: max-height 0.35s ease-in;
+  overflow:hidden;
+  position:relative;
+}
+
+.AssetTable-displayed.ng-hide-add {
+  animation-name: hide;
+  -webkit-animation-name: hide;
+
+  animation-duration: .5s;
+  -webkit-animation-duration: .5s;
+
+  animation-timing-function: ease-in;
+  -webkit-animation-timing-function: ease-in;
+}
+
+.AssetTable-displayed.ng-hide-remove {
+  animation-name: show;
+  -webkit-animation-name: show;
+
+  animation-duration: .5s;
+  -webkit-animation-duration: .5s;
+
+  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-out;
+}
+
+.moving-asset {
+  animation: move-asset-animation 1s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes move-asset-animation {
+  0% {
+    background-color: lighten(@color-alert-success,25%);
   }
 }

@@ -7,6 +7,7 @@
     "npm": ">=2.0.0"
   },
   "dependencies": {
+    "angular-animate": "1.4.7",
     "angular-resizable": "1.2.0",
     "angular-switcher": "0.2.7",
     "babel-polyfill": "6.3.14",

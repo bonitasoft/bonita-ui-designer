@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.singletonList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -42,6 +43,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -58,6 +61,7 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -83,13 +87,12 @@ public class WidgetResourceTest {
     @Mock
     private PageRepository pageRepository;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Mock
     private AssetService<Widget> widgetAssetService;
 
     private Path widgetRepositoryPath;
+
+    private AssetVisitor assetVisitor = new AssetVisitor(widgetRepository);
 
     @Before
     public void setUp() throws URISyntaxException {
@@ -101,7 +104,7 @@ public class WidgetResourceTest {
                 widgetService,
                 widgetAssetService,
                 widgetRepositoryPath,
-                singletonList((WidgetContainerRepository) pageRepository));
+                singletonList(pageRepository), assetVisitor);
         mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(pageRepository.getComponentName()).thenReturn("page");
@@ -155,12 +158,27 @@ public class WidgetResourceTest {
     @Test
     public void should_get_a_widget_by_its_id() throws Exception {
         Widget input = aWidget().id("input").build();
+
         when(widgetService.get("input")).thenReturn(input);
 
         mockMvc.perform(get("/rest/widgets/input"))
 
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJson(input)));
+    }
+
+    @Test
+    public void should_get_a_widget_with_asset_by_its_id() throws Exception {
+        Widget input = aWidget().id("input").assets(anAsset().withName("myScopeWidgetAsset").withType(AssetType.CSS))
+                .build();
+        when(widgetService.get("input")).thenReturn(input);
+
+        mockMvc.perform(get("/rest/widgets/input"))
+
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(input)))
+                .andExpect(jsonPath("assets[*].scope").exists())
+                .andExpect(jsonPath("assets[*].scope").value(everyItem(is("widget"))));
     }
 
     @Test

@@ -1,24 +1,24 @@
-(function() {
+(function () {
   'use strict';
 
-  describe('AssetCtrl', function() {
+  describe('AssetCtrl', function () {
     var $scope, $q, $uibModal, assetsService, artifactRepo, controller, component, assetRepo, assetEditPopup;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
-    beforeEach(inject(function($injector, _assetEditPopup_) {
+    beforeEach(inject(function ($injector, _assetEditPopup_) {
       $scope = $injector.get('$rootScope').$new();
       $q = $injector.get('$q');
       assetsService = $injector.get('assetsService');
       $uibModal = $injector.get('$uibModal');
-      component = { id: 12 };
+      component = {id: 12, type:'page'};
       artifactRepo = {
-        loadAssets: function() {
+        loadAssets: function () {
           return $q.when([
-            { id: '123', name: 'myAsset', scope: 'PAGE', active: true },
-            { id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false },
-            { id: '789', name: 'publicAsset', scope: 'WIDGET', active: true },
-            { id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false }
+            {id: '123', name: 'myAsset', scope: 'PAGE', active: true},
+            {id: '456', name: 'myPrivateDeactivatedAsset', scope: 'PAGE', active: false},
+            {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
+            {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
           ]);
         }
       };
@@ -26,9 +26,9 @@
       assetEditPopup = _assetEditPopup_;
     }));
 
-    describe('Page editor', function() {
+    describe('Page editor', function () {
 
-      beforeEach(inject(function($injector) {
+      beforeEach(inject(function ($injector) {
         $scope.page = {};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
@@ -45,21 +45,29 @@
         });
       }));
 
-      it('should expose filters', function() {
+      it('should expose types', function () {
         $scope.$digest();
-        expect(controller.filters).toEqual({
-          js: { label: 'JavaScript', value: true },
-          css: { label: 'CSS', value: true },
-          img: { label: 'Image', value: true }
+        expect(controller.types).toEqual({
+          css: {label: 'CSS', value: true, orderable: true},
+          js: {label: 'JavaScript', value: true, orderable: true},
+          img: {label: 'Image', value: true, orderable: false}
         });
       });
 
-      it('should open a data popup for asset preview', function() {
+      it('should expose scopeFilter', function () {
+        $scope.$digest();
+        expect(controller.scopeFilter).toEqual({
+          page: {key: 'page', value: 'Page', filter: true},
+          widget: {key: 'widget', value: 'Widget', filter: false}
+        });
+      });
+
+      it('should open a data popup for asset preview', function () {
         controller.openAssetPreviewPopup();
         expect($uibModal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset management', function() {
+      it('should open a data popup for asset management', function () {
         controller.openAssetPopup();
         expect($uibModal.open).toHaveBeenCalled();
       });
@@ -81,11 +89,11 @@
 
         controller.openAssetEditPopup(asset);
 
-        expect(assetEditPopup.open).toHaveBeenCalledWith({ asset, assetRepo, component });
+        expect(assetEditPopup.open).toHaveBeenCalledWith({asset, assetRepo, component});
       });
 
-      it('should delete an asset', function() {
-        var asset = { name: 'myasset.js' };
+      it('should delete an asset', function () {
+        var asset = {name: 'myasset.js'};
         assetRepo.deleteAsset.and.returnValue($q.when({}));
 
         controller.delete(asset);
@@ -94,38 +102,53 @@
         expect(assetRepo.deleteAsset).toHaveBeenCalledWith(12, asset);
       });
 
-      it('should get url for widget asset in page mode', function() {
-        var asset = { name: 'myasset.js', scope: 'widget', type: 'js', componentId: '11' };
+      it('should get url for widget asset in page mode', function () {
+        var asset = {name: 'myasset.js', scope: 'widget', type: 'js', componentId: '11'};
         var assetUrl = controller.getAssetUrl(asset);
 
         expect(assetUrl).toBe('rest/widgets/11/assets/js/myasset.js');
       });
 
-      it('should get page asset url', function() {
-        var asset = { name: 'myasset.js', scope: 'page', type: 'js' };
+      it('should get page asset url', function () {
+        var asset = {name: 'myasset.js', scope: 'page', type: 'js'};
         var assetUrl = controller.getAssetUrl(asset);
 
         expect(assetUrl).toBe('rest/pages/12/assets/js/myasset.js');
       });
 
+      it('should say if an asset is editable or not in page-editor', function () {
+        expect(controller.isEditable({type: 'img', scope: 'page'})).toBeFalsy();
+        expect(controller.isEditable({type: 'img', scope: 'widget'})).toBeFalsy();
+        expect(controller.isEditable({type: 'css', scope: 'page'})).toBeTruthy();
+        expect(controller.isEditable({type: 'css', scope: 'widget'})).toBeFalsy();
+        expect(controller.isEditable({type: 'js', scope: 'page'})).toBeTruthy();
+        expect(controller.isEditable({type: 'js', scope: 'widget'})).toBeFalsy();
+      });
+
+      it('should say if an asset is viewable or not in page-editor', function () {
+        expect(controller.isViewable({external: true})).toBeFalsy();
+        expect(controller.isViewable({type: 'img'})).toBeTruthy();
+        expect(controller.isViewable({type: 'css', scope: 'widget'})).toBeTruthy();
+      });
+
     });
 
-    describe('Widget editor', function() {
+    describe('Widget editor', function () {
 
-      beforeEach(inject(function($injector) {
+      beforeEach(inject(function ($injector) {
         $scope.widget = {};
-        var component = { id: 12, type: 'widget' };
+        var component = {id: 12, type: 'widget'};
         controller = $injector.get('$controller')('AssetCtrl', {
           $scope: $scope,
           artifact: component,
           artifactRepo: artifactRepo,
           mode: 'widget',
           assetsService: assetsService,
-          assetRepo
+          assetRepo: assetRepo
         });
       }));
 
-      it('should open a data popup for asset preview', function() {
+      it('should open a data popup for asset preview', function () {
         spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -133,7 +156,7 @@
         expect($uibModal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset management', function() {
+      it('should open a data popup for asset management', function () {
         spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -141,7 +164,7 @@
         expect($uibModal.open).toHaveBeenCalled();
       });
 
-      it('should open a data popup for asset preview', function() {
+      it('should open a data popup for asset preview', function () {
         spyOn($uibModal, 'open').and.returnValue({
           result: $q.when({})
         });
@@ -149,26 +172,27 @@
         expect($uibModal.open).toHaveBeenCalled();
       });
 
-      it('should get url for widget mode', function() {
-        var asset = { name: 'myasset.js', scope: 'page', type: 'js' };
+      it('should get url for widget mode', function () {
+        var asset = {name: 'myasset.js', scope: 'page', type: 'js'};
         var assetUrl = controller.getAssetUrl(asset);
 
         expect(assetUrl).toBe('rest/widgets/12/assets/js/myasset.js');
       });
-    });
 
-    it('should say if an asset is editable or not', function() {
-      expect(controller.isEditable({type: 'img'})).toBeFalsy();
-      expect(controller.isEditable({type: 'css'})).toBeTruthy();
-      expect(controller.isEditable({type: 'js'})).toBeTruthy();
-      expect(controller.isEditable({type: 'js', scope: 'page'}, 'page')).toBeTruthy();
-      expect(controller.isEditable({type: 'js', scope: 'widget'}, 'page')).toBeFalsy();
-    });
+      it('should say if an asset is editable or not in widget-editor', function () {
+        expect(controller.isEditable({type: 'img'})).toBeFalsy();
+        expect(controller.isEditable({type: 'css'})).toBeTruthy();
+        expect(controller.isEditable({type: 'js'})).toBeTruthy();
+        expect(controller.isEditable({type: 'js', scope: 'page'})).toBeFalsy();
+        expect(controller.isEditable({type: 'js', scope: 'widget'})).toBeTruthy();
+      });
 
-    it('should say if an asset is viewable or not', function() {
-      expect(controller.isViewable({external: true})).toBeFalsy();
-      expect(controller.isViewable({type: 'img'})).toBeTruthy();
-      expect(controller.isViewable({type: 'css', scope: 'widget'}, 'page')).toBeTruthy();
+      it('should say if an asset is viewable or not', function () {
+        expect(controller.isViewable({external: true})).toBeFalsy();
+        expect(controller.isViewable({type: 'img'})).toBeTruthy();
+        expect(controller.isViewable({type: 'css', scope: 'widget'})).toBeFalsy();
+        expect(controller.isViewable({type: 'img', scope: 'widget'})).toBeTruthy();
+      });
     });
   });
 })();

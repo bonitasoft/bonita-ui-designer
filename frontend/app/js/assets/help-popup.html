@@ -45,9 +45,9 @@
 
             <p>
                 <translate>To use a localization asset, replace the default localization.json file with a file of the same format
-                containing all the keys in the page and the translations into the target languages. The localization
-                asset is at page level. The format of the file must be:</translate>
-                <pre><code>{
+                    containing all the keys in the page and the translations into the target languages. The localization
+                    asset is at page level. The format of the file must be:</translate>
+            <pre><code>{
     "fr-FR": {
         "Title": "Titre",
         "Default label": "Libellé par défaut",
@@ -60,7 +60,7 @@
     }
     ...
 }</code></pre>
-                <translate>See the default localization asset for an example.</translate>
+            <translate>See the default localization asset for an example.</translate>
             </p>
         </uib-tab>
 
@@ -76,18 +76,10 @@
 
         <uib-tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
             <p translate>
-                The list contains both page assets and the assets of the custom widgets used in this page.
+                The list contains both page assets and the assets of the widgets used in this page.
             </p>
-            <p translate >
-                In the list, you can delete page assets only, view local assets, and edit external assets of a page.
-            </p>
-
             <p translate>
-                You can’t manually change the order of assets in a page.
-            </p>
-
-            <p translate >
-                At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header.
+                You can delete page assets only, view local assets, and edit external assets of a page.
             </p>
 
             <p translate>
@@ -108,6 +100,27 @@
             </p>
         </uib-tab>
 
+        <uib-tab heading="{{ 'Asset ordering' | translate }}" ng-if="isPage">
+            <p translate>
+                In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions.
+            </p>
+            <p translate>
+                Image or Localisation assets are not imported in index.html. So we don't need to reorder them.
+            </p>
+
+            <p translate>
+                At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript.
+                All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name).
+            </p>
+
+            <p translate>
+                Note: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages.
+                So if you want to reorder custom-widget assets, please go to widget editor.
+            </p>
+
+        </uib-tab>
+
+
         <uib-tab heading="{{ 'Custom services' | translate }}">
             <p>
                 <translate>To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module.</translate> <br><button ng-click="extensionsExamplesCollapsed = !extensionsExamplesCollapsed" type="button" class="btn btn-link" translate>Example: relative time filter</button>
@@ -126,18 +139,18 @@
                             <ul>
                                 <li translate>Import the moment.js library as an external asset.</li>
                                 <li>
-                                    <p translate>Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:</p>
-                                    <pre><code ng-non-bindable>angular.module('bonitasoft.ui.extensions')
+                        <p translate>Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:</p>
+                        <pre><code ng-non-bindable>angular.module('bonitasoft.ui.extensions')
   .filter('dateAgo', ['$window', function ($window) {
     return function dateAgo(input) {
       var compar = new Date(input);
       return $window.moment(compar).fromNow();
     };
 }]);</code></pre></li>
-                                <li translate>Import this JavaScript file as a local page asset.</li>
-                                <li translate>Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number</li>
-                                <li translate>To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code></li>
-                            </ul>
+                        <li translate>Import this JavaScript file as a local page asset.</li>
+                        <li translate>Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number</li>
+                        <li translate>To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code></li>
+                        </ul>
                         </p>
                     </div>
                 </div>
