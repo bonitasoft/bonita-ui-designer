@@ -11,9 +11,12 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-02-18 03:13\n"
+"PO-Revision-Date: 2019-02-25 03:08\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
+msgstr ""
+
+msgid "&nbsp;"
 msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
@@ -111,6 +114,9 @@ msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<s
 
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
+
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})</translate>"
+msgstr ""
 
 msgid "<span>Create a new variable</span>"
 msgstr "<span>新しい変数を作成</span>"
@@ -293,6 +299,9 @@ msgstr "アセットが保存されていません"
 msgid "Asset list"
 msgstr "アセット リスト"
 
+msgid "Asset ordering"
+msgstr ""
+
 msgid "Asset use"
 msgstr "アセットの使用"
 
@@ -302,11 +311,11 @@ msgstr "アセット"
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "アセットで、ページおよびフォームに web リソースを追加することができます。使用可能なアセットのタイプは、<strong>JavaScript</strong>、<strong>CSS</strong>、<strong>Image</strong>、および<strong>Localization</strong>（サブスクリプション版のみ）です。アセットは、<strong>ローカル</strong>（ページ アイテムに格納されているファイル） または外部（URL）に置くことができます。Localizationのアセットは常にローカルです。"
 
+msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
+msgstr ""
+
 msgid "At runtime, assets of a custom widget are loaded in the order defined."
 msgstr "カスタム ウィジェットのアセットは実行時に定義した順番でロードされます。"
-
-msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
-msgstr "カスタム ウィジェットのアセットは実行時にカスタム ウィジェット名のアルファベット順にロードされます。各カスタム ウィジェットのアセットはそれらがリストされている順にロードされ、その後、ページのアセットがロードされます。JavaScript と CSS のアセットはページヘッダー順にロードされます。"
 
 msgid "Attention:"
 msgstr "注意:"
@@ -952,6 +961,9 @@ msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代�
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
+msgid "Image or Localisation assets are not imported in index.html. So we don't need to reorder them."
+msgstr ""
+
 msgid "Import"
 msgstr "インポート"
 
@@ -991,6 +1003,9 @@ msgstr ""
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
 
+msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
+msgstr ""
+
 msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
 msgstr ""
 
@@ -999,9 +1014,6 @@ msgstr "フォーム コンテナのコンテンツの中で $form.$invalid を�
 
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
 msgstr "フラグメント エディタで、変数の有効範囲を「このフラグメントに固有」、または 「ページに公開」 に設定できます。"
-
-msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
-msgstr "このリストの中で、ページ アセットのみの削除、ローカル アセットの表示、およびページ外部アセットの編集ができます。"
 
 msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
 msgstr "プレビューの実行時に、選択した言語が表示されるテキストに自動的に適応されます。"
@@ -1187,6 +1199,12 @@ msgstr ""
 msgid "Modals"
 msgstr ""
 
+msgid "Move asset down"
+msgstr ""
+
+msgid "Move asset up"
+msgstr ""
+
 msgid "Move the row down"
 msgstr "行を下に移動"
 
@@ -1241,16 +1259,28 @@ msgstr ""
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
 
-msgid "No asset"
-msgstr "アセットはありません"
-
 msgid "No variable"
 msgstr "変数はありません"
+
+msgid "No {{label}} asset (no scope selected)."
+msgstr ""
+
+msgid "No {{label}} asset at page level."
+msgstr ""
+
+msgid "No {{label}} asset at widget level."
+msgstr ""
+
+msgid "No {{label}} asset."
+msgstr ""
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイムゾーンを反映し、実際の値と異なる場合があります。"
 
 msgid "None"
+msgstr ""
+
+msgid "Note: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr ""
 
 msgid "Noteworthy changes"
@@ -1414,6 +1444,9 @@ msgstr "{{ctrl.widget.name}} を別名で保存..."
 
 msgid "Saved"
 msgstr "保存しました"
+
+msgid "Scope"
+msgstr ""
 
 msgid "Search"
 msgstr "検索"
@@ -1683,8 +1716,8 @@ msgstr "インポートした {{ ::importReport.type }} には、新しい要素
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> で書式化された文字列変数です。"
 
-msgid "The list contains both page assets and the assets of the custom widgets used in this page."
-msgstr "リストはこのページで使用されるページアセットとカスタム ウィジェットのアセットの両方を含んでいます。"
+msgid "The list contains both page assets and the assets of the widgets used in this page."
+msgstr ""
 
 msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
 "            medium or large, which will control the width of the modal."
@@ -2080,9 +2113,6 @@ msgstr "ここの businessDataType は com.company.model.MyData、 queryName は
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "ここの businessVariableName は、プール レベルで定義されているビジネス変数の名前です。"
 
-msgid "Widget"
-msgstr "ウィジェット"
-
 msgid "Widget description"
 msgstr "ウィジェットの説明"
 
@@ -2108,6 +2138,9 @@ msgid "You can apply it to the following variable value types:"
 msgstr "次の変数の値型に適用することができます："
 
 msgid "You can change the type to be able to use this artifact as a process form or as an application page."
+msgstr ""
+
+msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
@@ -2139,9 +2172,6 @@ msgstr "実データが利用可能でない場合は、ホワイトボード �
 
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "1 つ以上のローカライゼーションのアセットを持つことはできません。新しいアセット ファイルをアップロードすると、既存のものが上書きされます。"
-
-msgid "You can’t manually change the order of assets in a page."
-msgstr "ページ内のアセットの順番は手動では変更できません。"
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
@@ -2240,6 +2270,9 @@ msgstr "いいえ"
 msgid "number"
 msgstr "数値"
 
+msgid "of"
+msgstr ""
+
 msgid "overwritten"
 msgstr ""
 
@@ -2309,5 +2342,14 @@ msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
 
 msgid "{{ctrl.page.name}} information"
+msgstr ""
+
+msgid "{{filter.value}}"
+msgstr ""
+
+msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
+msgstr ""
+
+msgid "{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})"
 msgstr ""
 

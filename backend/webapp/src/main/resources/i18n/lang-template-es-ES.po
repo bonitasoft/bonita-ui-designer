@@ -11,9 +11,12 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-02-18 03:00\n"
+"PO-Revision-Date: 2019-02-25 02:59\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
+msgstr ""
+
+msgid "&nbsp;"
 msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
@@ -111,6 +114,9 @@ msgstr "<span class=\"tip\"> Consejo:</span> Teclea<span class=\"key\"> $</span>
 
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran después de un <em>?</em> en la Url de la página."
+
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})</translate>"
+msgstr ""
 
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Crear una nueva variable</span>"
@@ -293,6 +299,9 @@ msgstr "No se ha guardado el asset"
 msgid "Asset list"
 msgstr "Lista de recursos"
 
+msgid "Asset ordering"
+msgstr ""
+
 msgid "Asset use"
 msgstr "Uso de recursos"
 
@@ -302,11 +311,11 @@ msgstr "Recursos"
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "Los recursos externos te permiten añadir recursos web a páginas y formularios. Los tipos disponibles son <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>imagen</strong> y (en las ediciones de suscripción) <strong>Localization </strong>. Los recursos externos pueden ser <strong>Locales</strong> (archivos almacenados en el artefacto de la página) o Externos (URL). El recurso Localization siempre es local."
 
+msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
+msgstr ""
+
 msgid "At runtime, assets of a custom widget are loaded in the order defined."
 msgstr "En tiempo de ejecución, los recursos de un widget personalizado se cargan en el orden definido."
-
-msgid "At runtime, custom widget assets are loaded in alphabetical order of the custom widgets. For each custom widget, the assets are loaded in the order they are listed. Then page assets are loaded. JavaScript and CSS assets are loaded in the page header."
-msgstr "En tiempo de ejecución, los recursos de los widget personalizado se cargan en orden alfabético de los widgets personalizados. Para cada widget personalizado, los recursos se cargan en el orden en que aparecen. A continuación, se cargan los recursos de la página. Los recursos de JavaScript y CSS están cargados en el encabezado de página."
 
 msgid "Attention:"
 msgstr "Atención:"
@@ -952,6 +961,9 @@ msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interp
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si especificas una expresión, el resultado debe ser un array de strings"
 
+msgid "Image or Localisation assets are not imported in index.html. So we don't need to reorder them."
+msgstr ""
+
 msgid "Import"
 msgstr "Importar"
 
@@ -991,6 +1003,9 @@ msgstr "En la carpeta:"
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
+msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
+msgstr ""
+
 msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
 msgstr "En el Studio, un formulario debe estar vinculado a un proceso o una tarea, utilizando el contrato; una página está vinculada a un descriptor de la aplicación."
 
@@ -999,9 +1014,6 @@ msgstr "En el contexto de un contenedor de formulario, utilice $form.$invalid co
 
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
 msgstr "En el editor de fragmentos, puedes establecer el ámbito de una variable como <i>específico de este fragmento</i> o <i>expuestos a la página</i>."
-
-msgid "In the list, you can delete page assets only, view local assets, and edit external assets of a page."
-msgstr "En la lista, solamente puede eliminar los recursos de la página, ver los recursos locales y editar los recursos externos de una página."
 
 msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
 msgstr "En la vista previa y en tiempo de ejecución, el texto se adaptará automáticamente al idioma seleccionado."
@@ -1186,6 +1198,12 @@ msgstr "Contenedor modal"
 msgid "Modals"
 msgstr "Modales"
 
+msgid "Move asset down"
+msgstr ""
+
+msgid "Move asset up"
+msgstr ""
+
 msgid "Move the row down"
 msgstr "Bajar la fila"
 
@@ -1240,16 +1258,28 @@ msgstr ""
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
 
-msgid "No asset"
-msgstr "No hay recursos"
-
 msgid "No variable"
 msgstr "Sin variables"
+
+msgid "No {{label}} asset (no scope selected)."
+msgstr ""
+
+msgid "No {{label}} asset at page level."
+msgstr ""
+
+msgid "No {{label}} asset at widget level."
+msgstr ""
+
+msgid "No {{label}} asset."
+msgstr ""
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "No: la zona horaria del usuario no es tenida en cuenta. <br>Sí: la pantalla/entrada refleja la zona horaria del usuario y puede ser diferente del valor"
 
 msgid "None"
+msgstr ""
+
+msgid "Note: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr ""
 
 msgid "Noteworthy changes"
@@ -1413,6 +1443,9 @@ msgstr "Guardar {{ctrl.widget.name}} como..."
 
 msgid "Saved"
 msgstr "Guardado"
+
+msgid "Scope"
+msgstr ""
 
 msgid "Search"
 msgstr "Búsqueda"
@@ -1682,8 +1715,8 @@ msgstr "El {{ ::importReport.type }} importado también contiene nuevos elemento
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
-msgid "The list contains both page assets and the assets of the custom widgets used in this page."
-msgstr "La lista contiene los recursos de página y los recursos de los widgets personalizados utilizados en esta página."
+msgid "The list contains both page assets and the assets of the widgets used in this page."
+msgstr ""
 
 msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
 "            medium or large, which will control the width of the modal."
@@ -2079,9 +2112,6 @@ msgstr "Donde businessDataType = com.company.model.MyData, queryName = nombre de
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "Donde businessVariableName es el nombre de la variable de negocio a nivel de Pool."
 
-msgid "Widget"
-msgstr "Widget"
-
 msgid "Widget description"
 msgstr "Descripción del widget"
 
@@ -2108,6 +2138,9 @@ msgstr "Se puede aplicar a los siguientes tipos de valor de la variable:"
 
 msgid "You can change the type to be able to use this artifact as a process form or as an application page."
 msgstr "Puede cambiar el tipo para poder usar este artefacto como un formulario de proceso o como una página de aplicación."
+
+msgid "You can delete page assets only, view local assets, and edit external assets of a page."
+msgstr ""
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Puede ampliar nuestras capacidades de la API REST creando <em>extensiones de API REST</em> en el menú <i>Desarrollo</i> del Studio y utilizarlas como variables de API externa en el UI Designer."
@@ -2138,9 +2171,6 @@ msgstr "Puede utilizar la propiedad <i>environment</i> inyectada en el scope den
 
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "No puede haber más de un recurso de localización. Cuando subes un archivo de recurso, se sobrescribe el existente."
-
-msgid "You can’t manually change the order of assets in a page."
-msgstr "No se puede cambiar manualmente el orden de los recursos de una página."
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
@@ -2240,6 +2270,9 @@ msgstr "no"
 msgid "number"
 msgstr "number"
 
+msgid "of"
+msgstr ""
+
 msgid "overwritten"
 msgstr "sobrescrito"
 
@@ -2312,4 +2345,13 @@ msgstr "contenido de {{asset.name}} <expand-modal></expand-modal>"
 
 msgid "{{ctrl.page.name}} information"
 msgstr "{{ctrl.page.name}} información"
+
+msgid "{{filter.value}}"
+msgstr ""
+
+msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
+msgstr ""
+
+msgid "{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})"
+msgstr ""
 
