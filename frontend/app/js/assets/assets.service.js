@@ -40,8 +40,35 @@
 
       var scopes = {
         page: { key: 'page', value: 'Page', filter: true },
-        widget: { key: 'widget', value: 'Widget', filter: false }
+        widget: { key: 'widget', value: 'Widget', filter: false },
+        baseFramework: { key: 'baseFramework', value: 'Base Framework', filter: false }
       };
+
+      let baseFrameworkAsset = [{
+        active: true,
+        external: false,
+        name: 'angular-1.3.18.js',
+        order: 0,
+        scope: 'baseFramework',
+        url: 'https://code.angularjs.org/1.3.18/docs/api',
+        type: 'js'
+      },{
+        active: true,
+        external: false,
+        name: 'bootstrap-3.3.6.css',
+        order: -1,
+        scope: 'baseFramework',
+        url: 'https://bootstrapdocs.com/v3.3.6/docs/getting-started/',
+        type: 'css'
+      },
+      {
+        active: true,
+        external: true,
+        name: '../theme/theme.css',
+        order: -2,
+        scope: 'baseFramework',
+        type: 'css'
+      }];
 
       return {
         isExternal: isExternal,
@@ -55,6 +82,8 @@
         getAssetTypesByMode: getAssetTypesByMode,
         getAssetUrl: getAssetUrl,
         getFormTemplates: createFormAssetTemplates,
+        getBaseFrameworkAsset: () => baseFrameworkAsset,
+        isBaseFramework: isBaseFramework,
         addWidgetAssetsToPage,
         removeAssetsFromPage,
         getType
@@ -114,6 +143,13 @@
        */
       function isPageAsset(asset) {
         return asset && asset.scope === 'page';
+      }
+
+      /**
+       * BaseFramework asset
+       */
+      function isBaseFramework(asset) {
+        return asset && asset.scope === 'baseFramework';
       }
 
       function createFiltersTypes() {

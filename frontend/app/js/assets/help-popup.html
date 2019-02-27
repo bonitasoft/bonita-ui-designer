@@ -76,7 +76,7 @@
 
         <uib-tab heading="{{ 'Asset list' | translate }}" ng-if="isPage">
             <p translate>
-                The list contains both page assets and the assets of the widgets used in this page.
+                The list contains page assets, the assets of the widgets used in this page and assets used by base framework.
             </p>
             <p translate>
                 You can delete page assets only, view local assets, and edit external assets of a page.
@@ -85,6 +85,14 @@
             <p translate>
                 You cannot have more than one localization asset. When you upload a new asset file, it overwrites the
                 existing one.
+            </p>
+
+            <p translate>
+                By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox.
+            </p>
+
+            <p translate>
+               You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact
             </p>
 
 

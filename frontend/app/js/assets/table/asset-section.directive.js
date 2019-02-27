@@ -18,9 +18,9 @@
       scope: {
         id: '=',
         type: '=',
-        scopes: '=',
+        scopeFilter: '=',
         assets: '=',
-        assetsCount: '&',
+        assetsCount: '=',
         onDelete: '&',
         deactivateAsset: '&',
         incrementOrderAsset: '&',

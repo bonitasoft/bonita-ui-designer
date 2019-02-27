@@ -17,10 +17,24 @@
     vm.key = $scope.id;
     vm.type = $scope.type;
     vm.assets = $scope.assets;
-    vm.assetsCount = $scope.assetsCount;
-    vm.scopes = $scope.scopes;
-
+    vm.scopeFilter = $scope.scopeFilter;
+    vm.isBaseFramework = assetsService.isBaseFramework;
     vm.getEmptyAssetMessage = getEmptyAssetMessage;
+    vm.getAssetToDisplay = getAssetToDisplay;
+    vm.getAssetsCounterByTypeForCurrentScope = getAssetsCounterByTypeForCurrentScope;
+    vm.redirectTo = redirectTo;
+
+    function redirectTo(url) {
+      window.open(url, '_blank');
+    }
+
+    function getAssetToDisplay() {
+      let assets = Array.concat(vm.assets, assetsService.getBaseFrameworkAsset().filter(function(asset) {
+        const scope = vm.scopeFilter[asset.scope];
+        return asset.type ===  vm.key && scope && scope.filter;
+      }));
+      return assets;
+    }
 
     // Details row
     vm.isExternal = assetsService.isExternal;
@@ -31,15 +45,30 @@
         return gettextCatalog.getString('No {{label}} asset.', { label: value.label });
       }
 
-      if (vm.scopes.page.filter && !vm.scopes.widget.filter) {
+      if (vm.scopeFilter.page.filter && !vm.scopeFilter.widget.filter) {
         return gettextCatalog.getString('No {{label}} asset at page level.', { label: value.label });
       }
 
-      if (!vm.scopes.page.filter && vm.scopes.widget.filter) {
+      if (!vm.scopeFilter.page.filter && vm.scopeFilter.widget.filter) {
         return gettextCatalog.getString('No {{label}} asset at widget level.', { label: value.label });
       }
-      if (!vm.scopes.page.filter && !vm.scopes.widget.filter) {
+      if (!vm.scopeFilter.page.filter && !vm.scopeFilter.widget.filter) {
         return gettextCatalog.getString('No {{label}} asset (no scope selected).', { label: value.label });
+      }
+    }
+
+    function getAssetsCounterByTypeForCurrentScope() {
+      let assetNbrCurrentScope = getAssetToDisplay().length;
+      let countBasedFramework = assetsService.getBaseFrameworkAsset().filter(function(asset) {
+        return asset.type === vm.key;
+      }).length;
+
+      let assetNbrTotal = countBasedFramework +  $scope.assetsCount;
+
+      if (assetNbrCurrentScope === assetNbrTotal) {
+        return assetNbrCurrentScope;
+      } else {
+        return gettextCatalog.getString('{{currentLength}} of {{totalNumber}}', { currentLength: assetNbrCurrentScope, totalNumber: assetNbrTotal });
       }
     }
   }

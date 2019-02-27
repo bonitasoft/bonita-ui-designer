@@ -58,7 +58,8 @@
         $scope.$digest();
         expect(controller.scopeFilter).toEqual({
           page: {key: 'page', value: 'Page', filter: true},
-          widget: {key: 'widget', value: 'Widget', filter: false}
+          widget: {key: 'widget', value: 'Widget', filter: false},
+          baseFramework: { key: 'baseFramework', value: 'Base Framework', filter: false}
         });
       });
 

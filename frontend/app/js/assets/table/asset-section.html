@@ -4,7 +4,7 @@
         ng-click="vm.type.value = !vm.type.value;">
         <td colspan="6" class="AssetTable-name" translate>
             <span ng-class="vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
-            <translate>{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})</translate>
+            <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>
         </td>
     </tr>
     </tbody>
@@ -12,12 +12,12 @@
 <div ng-show="vm.type.value" class="AssetTable-displayed">
     <table class="Table AssetTable">
         <tbody>
-        <tr ng-repeat="asset in vm.assets | orderBy:['type','componentId','order'] as results"
+        <tr ng-repeat="asset in vm.getAssetToDisplay() | orderBy:['type','componentId','order'] as results"
             ng-class="{'text-muted':!asset.active}"
             id="{{asset.id || asset.$$hashKey}}"
             >
             <td class="AssetTable-active">
-                <input type="checkbox" ng-model="asset.active" ng-click="deactivateAsset({'asset': asset})">
+                <input type="checkbox" ng-model="asset.active" ng-click="deactivateAsset({'asset': asset})" ng-disabled="vm.isBaseFramework(asset)">
             </td>
             <td class="AssetTable-name">{{asset.name}}</td>
             <td class="AssetTable-source">
@@ -26,6 +26,7 @@
             <td class="AssetTable-scope">
                 {{asset.componentId}}
                 <span ng-if="vm.isPageAsset(asset)" translate>Page level</span>
+                <span ng-if="vm.isBaseFramework(asset)" translate>Base framework</span>
             </td>
             <td class="AssetTable-order text-right">
                 <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
@@ -48,22 +49,29 @@
                 <div class="btn-group link-group btn-group-sm btn-group-bonita-asset">
                     <button file-download class="btn btn-bonita-asset" href="{{getAssetUrl({'asset': asset})}}"
                             title="{{'Download asset' | translate }}"
-                            ng-if="!vm.isExternal(asset)">
+                            ng-if="!vm.isExternal(asset) && !vm.isBaseFramework(asset)">
                         <i class="fa fa-alias-import"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup({'asset': asset})"
                             title="{{ 'View asset content' | translate }}"
-                            ng-if="isViewable({'asset': asset, 'scope': 'page'})">
+                            ng-if="isViewable({'asset': asset, 'scope': 'page'}) && !vm.isBaseFramework(asset)">
                         <i class="fa fa-search"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="openAssetEditPopup({'asset': asset})"
                             title="{{ 'Edit asset' | translate }}"
-                            ng-if="isEditable({'asset': asset, 'scope': 'page'})">
+                            ng-if="isEditable({'asset': asset, 'scope': 'page'})"
+                            ng-if="!vm.isBaseFramework(asset) && !vm.isBaseFramework(asset)">
                         <i class="fa fa-pencil"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="onDelete({'asset': asset})"
-                            title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)">
+                            title="{{ 'Delete asset' | translate }}" ng-if="vm.isPageAsset(asset)"
+                            ng-if="!vm.isBaseFramework(asset)">
                         <i class="fa fa-trash"></i>
+                    </button>
+                    <button class="btn btn-bonita-asset" ng-click="vm.redirectTo(asset.url)"
+                            title="{{ 'Open documentation ' | translate }}"
+                            ng-if="vm.isBaseFramework(asset) && asset.url">
+                        <i class="fa fa-link"></i>
                     </button>
                 </div>
             </td>

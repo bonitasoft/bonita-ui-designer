@@ -20,14 +20,13 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup, gettextCatalog) {
+  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
 
     var vm = this;
     var assetListByType = [];
     vm.types = assetsService.getFiltersTypes();
     vm.scopeFilter = assetsService.getScopes();
     vm.getAssetsByTypeForCurrentScope = getAssetsByTypeForCurrentScope;
-    vm.getAssetsCounterByTypeForCurrentScope = getAssetsCounterByTypeForCurrentScope;
     vm.getNbrOfAssetsByType = getNbrOfAssetsByType;
     vm.isEditable = isEditable;
     vm.isExternal = assetsService.isExternal;
@@ -43,7 +42,6 @@
     vm.openAssetPopup = openAddUpdateAssetPopup;
     vm.openAssetEditPopup = openAssetEditPopup;
     vm.openHelp = openHelp;
-    vm.isEditable = isEditable;
     vm.isViewable = isViewable;
     vm.assetAlreadyOnMove = false;
 
@@ -62,18 +60,6 @@
         assetListByType[type].push(asset);
       });
       return assetListByType[type];
-    }
-
-    function getAssetsCounterByTypeForCurrentScope(type) {
-      var assetNbrCurrentScope = getAssetsByTypeForCurrentScope(type).length;
-      var assetNbrTotal = getNbrOfAssetsByType(type);
-      if (assetNbrCurrentScope === assetNbrTotal) {
-        return assetNbrCurrentScope;
-      }
-
-      if (assetNbrCurrentScope !== assetNbrTotal) {
-        return assetNbrCurrentScope + ' ' + gettextCatalog.getString('of') + ' ' + assetNbrTotal;
-      }
     }
 
     function getNbrOfAssetsByType(type) {

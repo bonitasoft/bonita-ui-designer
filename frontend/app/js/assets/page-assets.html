@@ -31,9 +31,9 @@
     <div ng-repeat="(key,type) in vm.types">
         <asset-section type="type"
                        id="key"
-                       scopes="vm.scopes"
+                       scope-filter="vm.scopeFilter"
                        assets="vm.getAssetsByTypeForCurrentScope(key)"
-                       assets-count="vm.getAssetsCounterByTypeForCurrentScope(key)"
+                       assets-count="vm.getNbrOfAssetsByType(key)"
                        on-delete="vm.delete(asset)"
                        deactivate-asset="vm.deactivateAsset(asset)"
                        increment-order-asset="vm.incrementOrderAsset(asset)"
