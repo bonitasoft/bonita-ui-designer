@@ -759,12 +759,14 @@ public class PageResourceTest {
         data.put("aa", anApiData("../API/extension/group/list"));
         data.put("session", anApiData("../API/extension/user/group/unusedid"));
         data.put("ab", anApiData("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
+        data.put("user", anApiData("../API/identity/user/{{aaa}}/context"));
+        data.put("task", anApiData("../API/bpm/task/1/context"));
         page.setData(data);
         when(authRulesCollector.visit(page)).thenReturn(authRules);
 
         String properties = new String(pageResource.getResources(page.getId()).toString());
 
-        assertThat(properties).contains("[GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, POST|bpm/process]");
+        assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, POST|bpm/process]");
     }
 
     @Test

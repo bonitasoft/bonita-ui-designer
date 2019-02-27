@@ -72,7 +72,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PageResource extends AssetResource<Page> {
 
     protected static final Logger logger = LoggerFactory.getLogger(PageResource.class);
-    public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /?]*)[/?]?[^/]*";// matches ..... /API/{}/{}?...
+    public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /?]*)[\\S+]*";// matches ..... /API/{}/{}?...
     public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
 
     private PageRepository pageRepository;
