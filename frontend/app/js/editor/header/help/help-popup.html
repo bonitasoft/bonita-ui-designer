@@ -116,6 +116,12 @@
                 <span class="CalloutSubscription--title" translate>Subscription edition</span>
                 <translate>Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href="javascript:void(0);" ng-click="tabContainer.activeTab = 'localization'">localization section</a>).</translate>
             </p>
+            <p translate>
+                For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data.
+            </p>
+            <p translate>
+                E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>{{employee | lazyRef : 'addresses'}}</code>
+            </p>
         </uib-tab>
 
         <uib-tab heading="{{ 'Localization' | translate }}" index="'localization'">
