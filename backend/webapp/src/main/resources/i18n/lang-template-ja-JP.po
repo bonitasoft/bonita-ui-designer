@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-02-25 03:08\n"
+"PO-Revision-Date: 2019-03-01 03:08\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -115,7 +115,7 @@ msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<s
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
-msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})</translate>"
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>"
 msgstr ""
 
 msgid "<span>Create a new variable</span>"
@@ -335,6 +335,9 @@ msgstr "戻る"
 msgid "Back to default size"
 msgstr "デフォルトのサイズに戻す"
 
+msgid "Base framework"
+msgstr ""
+
 msgid "Basic usage"
 msgstr ""
 
@@ -358,6 +361,9 @@ msgstr ""
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI 生成物の表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
+
+msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
+msgstr ""
 
 msgid "CSS classes"
 msgstr "CSS クラス"
@@ -1304,6 +1310,9 @@ msgstr "１つの要素を１回選択し、右のプロパティパネルでそ
 msgid "Open Modal"
 msgstr ""
 
+msgid "Open documentation"
+msgstr ""
+
 msgid "Open help"
 msgstr "ヘルプを開く"
 
@@ -1716,7 +1725,7 @@ msgstr "インポートした {{ ::importReport.type }} には、新しい要素
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "ウィジェットの入力/出力 （その<em>値</em>）は、<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> で書式化された文字列変数です。"
 
-msgid "The list contains both page assets and the assets of the widgets used in this page."
+msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
 msgstr ""
 
 msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
@@ -2173,6 +2182,9 @@ msgstr "実データが利用可能でない場合は、ホワイトボード �
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "1 つ以上のローカライゼーションのアセットを持つことはできません。新しいアセット ファイルをアップロードすると、既存のものが上書きされます。"
 
+msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
+msgstr ""
+
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
 
@@ -2270,9 +2282,6 @@ msgstr "いいえ"
 msgid "number"
 msgstr "数値"
 
-msgid "of"
-msgstr ""
-
 msgid "overwritten"
 msgstr ""
 
@@ -2344,12 +2353,15 @@ msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
 msgid "{{ctrl.page.name}} information"
 msgstr ""
 
+msgid "{{currentLength}} of {{totalNumber}}"
+msgstr ""
+
 msgid "{{filter.value}}"
 msgstr ""
 
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 msgstr ""
 
-msgid "{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})"
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})"
 msgstr ""
 

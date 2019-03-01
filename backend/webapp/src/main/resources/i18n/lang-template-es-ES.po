@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-02-25 02:59\n"
+"PO-Revision-Date: 2019-03-01 02:59\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -115,7 +115,7 @@ msgstr "<span class=\"tip\"> Consejo:</span> Teclea<span class=\"key\"> $</span>
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran después de un <em>?</em> en la Url de la página."
 
-msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})</translate>"
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>"
 msgstr ""
 
 msgid "<span>Create a new variable</span>"
@@ -335,6 +335,9 @@ msgstr "Atrás"
 msgid "Back to default size"
 msgstr "Regresar al tamaño predeterminado"
 
+msgid "Base framework"
+msgstr ""
+
 msgid "Basic usage"
 msgstr ""
 
@@ -358,6 +361,9 @@ msgstr "Llamadas de la API REST de Bonita"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
+
+msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
+msgstr ""
 
 msgid "CSS classes"
 msgstr "Clases CSS"
@@ -1303,6 +1309,9 @@ msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de p
 msgid "Open Modal"
 msgstr "Abrir Modal"
 
+msgid "Open documentation"
+msgstr ""
+
 msgid "Open help"
 msgstr "Abrir ayuda"
 
@@ -1715,7 +1724,7 @@ msgstr "El {{ ::importReport.type }} importado también contiene nuevos elemento
 msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
 msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
-msgid "The list contains both page assets and the assets of the widgets used in this page."
+msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
 msgstr ""
 
 msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
@@ -2172,6 +2181,9 @@ msgstr "Puede utilizar la propiedad <i>environment</i> inyectada en el scope den
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "No puede haber más de un recurso de localización. Cuando subes un archivo de recurso, se sobrescribe el existente."
 
+msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
+msgstr ""
+
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
 
@@ -2270,9 +2282,6 @@ msgstr "no"
 msgid "number"
 msgstr "number"
 
-msgid "of"
-msgstr ""
-
 msgid "overwritten"
 msgstr "sobrescrito"
 
@@ -2346,12 +2355,15 @@ msgstr "contenido de {{asset.name}} <expand-modal></expand-modal>"
 msgid "{{ctrl.page.name}} information"
 msgstr "{{ctrl.page.name}} información"
 
+msgid "{{currentLength}} of {{totalNumber}}"
+msgstr ""
+
 msgid "{{filter.value}}"
 msgstr ""
 
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 msgstr ""
 
-msgid "{{vm.type.label}} ({{vm.assetsCount({'key': vm.key})}})"
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})"
 msgstr ""
 
