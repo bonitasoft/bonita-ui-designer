@@ -123,7 +123,7 @@
 
     lines: {
       get: function() {
-        return this.sidebar.all(by.repeater('asset in vm.getAssetToDisplay()'));
+        return this.sidebar.all(by.repeater('asset in assets'));
       }
     },
 

@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
 
-  function AssetCtrl($uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
+  function AssetCtrl($scope, $uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
 
     var vm = this;
     var assetListByType = [];
@@ -44,6 +44,11 @@
     vm.openHelp = openHelp;
     vm.isViewable = isViewable;
     vm.assetAlreadyOnMove = false;
+    vm.isAssetMatchSearchTerm = isAssetMatchSearchTerm;
+
+    function isAssetMatchSearchTerm(asset) {
+      return angular.lowercase(asset.name || '').indexOf(angular.lowercase($scope.searchTerm) || '') !== -1;
+    }
 
     function getAssetsByTypeForCurrentScope(type) {
       if (!assetListByType[type]) {
@@ -51,9 +56,11 @@
       }
       assetListByType[type].splice(0);
 
-      var filterResult = vm.component.assets.filter(function(asset) {
+      let allAssets = Array.concat(vm.component.assets, assetsService.getBaseFrameworkAsset());
+
+      var filterResult = allAssets.filter(function(asset) {
         const scope = vm.scopeFilter[asset.scope];
-        return asset.type === type && scope && scope.filter;
+        return asset.type === type && scope && scope.filter && vm.isAssetMatchSearchTerm(asset);
       });
 
       filterResult.forEach(function(asset) {
@@ -63,7 +70,9 @@
     }
 
     function getNbrOfAssetsByType(type) {
-      var nbrOfAssets = vm.component.assets.filter(function(asset) {
+      let allAssets = Array.concat(vm.component.assets, assetsService.getBaseFrameworkAsset());
+
+      var nbrOfAssets = allAssets.filter(function(asset) {
         return asset.type === type;
       });
       return nbrOfAssets.length;

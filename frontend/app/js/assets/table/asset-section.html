@@ -4,7 +4,7 @@
         ng-click="vm.type.value = !vm.type.value;">
         <td colspan="6" class="AssetTable-name" translate>
             <span ng-class="vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
-            <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>
+            <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>
         </td>
     </tr>
     </tbody>
@@ -12,7 +12,7 @@
 <div ng-show="vm.type.value" class="AssetTable-displayed">
     <table class="Table AssetTable">
         <tbody>
-        <tr ng-repeat="asset in vm.getAssetToDisplay() | orderBy:['type','componentId','order'] as results"
+        <tr ng-repeat="asset in assets | orderBy:['type','componentId','order'] as results"
             ng-class="{'text-muted':!asset.active}"
             id="{{asset.id || asset.$$hashKey}}"
             >
@@ -34,13 +34,13 @@
                             ng-click="incrementOrderAsset({'asset': asset})"
                             title="{{ 'Move asset down' | translate }}"
                             ng-if="vm.isPageAsset(asset) && vm.type.orderable"
-                            ng-disabled="{{$last || vm.assetAlreadyOnMove}}">
+                            ng-disabled="$last || vm.assetAlreadyOnMove || searchTerm">
                         <i class="fa fa-arrow-down"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="decrementOrderAsset({'asset': asset})"
                             title="{{ 'Move asset up' | translate }}"
                             ng-if="vm.isPageAsset(asset) && vm.type.orderable"
-                            ng-disabled="{{!vm.isPageAsset(results[$index - 1]) || vm.assetAlreadyOnMove}}">
+                            ng-disabled="!vm.isPageAsset(results[$index - 1]) || vm.assetAlreadyOnMove || searchTerm">
                         <i class="fa fa-arrow-up"></i>
                     </button>
                 </div>

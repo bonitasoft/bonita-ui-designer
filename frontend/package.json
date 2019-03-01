@@ -82,7 +82,7 @@
     "postinstall": "bower install",
     "build": "gulp --dist",
     "test": "gulp test",
-    "test-watch": "gulp test-watch",
+    "test-watch": "gulp test:watch",
     "pree2e": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.38",
     "e2e": "gulp e2e",
     "e2e:headless": "cross-env HEADLESS=true npm-run-all e2e",

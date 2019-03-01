@@ -16,11 +16,9 @@
     var vm = this;
     vm.key = $scope.id;
     vm.type = $scope.type;
-    vm.assets = $scope.assets;
     vm.scopeFilter = $scope.scopeFilter;
     vm.isBaseFramework = assetsService.isBaseFramework;
     vm.getEmptyAssetMessage = getEmptyAssetMessage;
-    vm.getAssetToDisplay = getAssetToDisplay;
     vm.getAssetsCounterByTypeForCurrentScope = getAssetsCounterByTypeForCurrentScope;
     vm.redirectTo = redirectTo;
 
@@ -28,20 +26,13 @@
       window.open(url, '_blank');
     }
 
-    function getAssetToDisplay() {
-      let assets = Array.concat(vm.assets, assetsService.getBaseFrameworkAsset().filter(function(asset) {
-        const scope = vm.scopeFilter[asset.scope];
-        return asset.type ===  vm.key && scope && scope.filter;
-      }));
-      return assets;
-    }
-
     // Details row
     vm.isExternal = assetsService.isExternal;
     vm.isPageAsset = assetsService.isPageAsset;
 
     function getEmptyAssetMessage(type, value) {
-      if (vm.assets.length === 0) {
+
+      if ($scope.assets.length === 0) {
         return gettextCatalog.getString('No {{label}} asset.', { label: value.label });
       }
 
@@ -58,12 +49,8 @@
     }
 
     function getAssetsCounterByTypeForCurrentScope() {
-      let assetNbrCurrentScope = getAssetToDisplay().length;
-      let countBasedFramework = assetsService.getBaseFrameworkAsset().filter(function(asset) {
-        return asset.type === vm.key;
-      }).length;
-
-      let assetNbrTotal = countBasedFramework +  $scope.assetsCount;
+      let assetNbrCurrentScope = $scope.assets.length;
+      let assetNbrTotal = $scope.assetsCount;
 
       if (assetNbrCurrentScope === assetNbrTotal) {
         return assetNbrCurrentScope;

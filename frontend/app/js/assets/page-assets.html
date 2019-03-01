@@ -14,6 +14,10 @@
             <translate>{{filter.value}}</translate>
         </label>
     </div>
+
+    <div>
+        <search value="searchTerm" placeholder="{{ 'Search' | translate }}"></search>
+    </div>
 </div>
 
 <table class="Table AssetTable">
@@ -31,6 +35,7 @@
     <div ng-repeat="(key,type) in vm.types">
         <asset-section type="type"
                        id="key"
+                       search-term="searchTerm"
                        scope-filter="vm.scopeFilter"
                        assets="vm.getAssetsByTypeForCurrentScope(key)"
                        assets-count="vm.getNbrOfAssetsByType(key)"

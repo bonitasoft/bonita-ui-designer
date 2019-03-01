@@ -83,57 +83,5 @@
         expect(controller.getEmptyAssetMessage('js', {label: 'javascript'})).toEqual('No javascript asset at widget level.');
       });
     });
-
-    describe('getAssetToDisplay', function(){
-      beforeEach(inject(function () {
-        $scope = {
-          type: 'js', id: 'js', assets: [
-            {name: 'asset1', scope: 'page'}, {name: 'asset2', scope: 'page'}
-          ],
-          scopeFilter: {
-            page: {filter: true},
-            widget: {filter: false},
-            baseFramework: {filter: true}
-          }
-        };
-        spyOn(assetsService, 'getBaseFrameworkAsset').and.returnValue([
-        {
-          active: true,
-          external: false,
-          name: 'angular-1.4.7.js',
-          order: 0,
-          scope: 'baseFramework',
-          type: 'js'
-        },{
-          active: true,
-          external: false,
-          name: 'bootstrap-3.3.6.css',
-          order: -1,
-          scope: 'baseFramework',
-          type: 'css'
-        },
-        {
-          active: true,
-          external: true,
-          name: '../theme/theme.css',
-          order: -2,
-          scope: 'baseFramework',
-          type: 'css'
-        }]);
-      }));
-
-      it('should return js page asset and js baseFramework page asset when filter page and baseFramework is selected', function () {
-        $scope.scopeFilter = {
-          page: {filter: true},
-          widget: {filter: false},
-          baseFramework: {filter: true}
-        };
-        createController($scope);
-
-        expect(controller.getAssetToDisplay()).toEqual([
-          {name: 'asset1', scope: 'page'}, {name: 'asset2', scope: 'page'}, { active: true, external: false, name: 'angular-1.4.7.js', order: 0, scope: 'baseFramework', type: 'js' }
-        ]);
-      });
-    });
   });
 })();

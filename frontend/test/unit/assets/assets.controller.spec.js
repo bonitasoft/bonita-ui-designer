@@ -63,6 +63,55 @@
         });
       });
 
+      describe('getAssetsByTypeForCurrentScope', function() {
+        beforeEach(inject(function () {
+          spyOn(assetsService, 'getBaseFrameworkAsset').and.returnValue([{
+            active: true,
+            external: false,
+            name: 'angular-1.3.18.js',
+            order: 0,
+            scope: 'baseFramework',
+            type: 'js'
+          }, {
+            active: true,
+            external: false,
+            name: 'bootstrap-3.3.6.css',
+            order: -1,
+            scope: 'baseFramework',
+            type: 'css'
+          }, {
+            active: true,
+            external: true,
+            name: '../theme/theme.css',
+            order: -2,
+            scope: 'baseFramework',
+            type: 'css'
+          }]);
+        }));
+
+        it('should return js baseFramework asset when baseFramework is selected', function () {
+          $scope.$digest();
+          controller.scopeFilter.baseFramework.filter = true;
+          expect(controller.getAssetsByTypeForCurrentScope('js')).toEqual([{ active: true, external: false, name: 'angular-1.3.18.js', order: 0, scope: 'baseFramework', type: 'js' }]);
+        });
+
+        it('should not return js baseFramework asset when baseFramework is selected and searchTerm is relevant', function () {
+          $scope.searchTerm = '1.3.1';
+
+          $scope.$digest();
+          controller.scopeFilter.baseFramework.filter = true;
+          expect(controller.getAssetsByTypeForCurrentScope('js')).toEqual([{ active: true, external: false, name: 'angular-1.3.18.js', order: 0, scope: 'baseFramework', type: 'js' }]);
+        });
+
+        it('should not return js baseFramework asset when baseFramework is selected and searchTerm is not relevant', function () {
+          $scope.searchTerm = 'react';
+
+          $scope.$digest();
+          controller.scopeFilter.baseFramework.filter = true;
+          expect(controller.getAssetsByTypeForCurrentScope('js')).toEqual([]);
+        });
+      });
+
       it('should open a data popup for asset preview', function () {
         controller.openAssetPreviewPopup();
         expect($uibModal.open).toHaveBeenCalled();

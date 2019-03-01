@@ -18,6 +18,7 @@
       scope: {
         id: '=',
         type: '=',
+        searchTerm: '=',
         scopeFilter: '=',
         assets: '=',
         assetsCount: '=',
