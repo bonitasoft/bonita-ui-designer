@@ -16,16 +16,20 @@ package org.bonitasoft.web.designer.experimental.mapping.strategy;
 
 import static java.lang.String.format;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToContainerMapper;
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.experimental.mapping.Form;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessData;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessDataLazyRef;
 import org.bonitasoft.web.designer.experimental.mapping.data.ContextData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
@@ -79,6 +83,21 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         findBusinessData(contract)
                 .map(BusinessData::new)
                 .forEach(form::addData);
+
+        List<BusinessDataLazyRef> lazyRefData = new ArrayList<>();
+        contract.getInput().stream()
+                .filter(NodeContractInput.class::isInstance)
+                .map(NodeContractInput.class::cast)
+                .filter(input -> input.getDataReference() != null)
+                .filter(input -> !Strings.isNullOrEmpty(input.getDataReference().getName()))
+                .flatMap(input -> input.getInput().stream())
+                .filter(NodeContractInput.class::isInstance)
+                .map(NodeContractInput.class::cast)
+                .forEach(input -> findBusinessDataLazyReferences(
+                        ((NodeContractInput) input.getParent()).getDataReference().getName(), input, lazyRefData));
+
+        lazyRefData.stream().forEach(form::addData);
+
         return form;
     }
 
@@ -97,6 +116,25 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .map(BusinessDataReference::getName)
                 .filter(data -> !Strings.isNullOrEmpty(data))
                 .distinct();
+    }
+
+    private void findBusinessDataLazyReferences(String path, NodeContractInput input,
+            List<BusinessDataLazyRef> lazyRefData) {
+        ContractInputDataHandler handler = new ContractInputDataHandler(input);
+        if (handler.hasLazyDataRef()
+                && handler.getParent() != null
+                && !handler.getParent().isMultiple()) { //Cannot retrieve lazy references if parent is multiple
+            lazyRefData.add(new BusinessDataLazyRef(path.replace(".", "_"), path, input.getDataReference().getName()));
+        }
+
+        input.getInput().stream()
+                .filter(NodeContractInput.class::isInstance)
+                .map(NodeContractInput.class::cast)
+                .forEach(child -> {
+                    String newPath = handler.inputValue();
+                    findBusinessDataLazyReferences(newPath, child,
+                            lazyRefData);
+                });
     }
 
     private Container createTaskInformation() {

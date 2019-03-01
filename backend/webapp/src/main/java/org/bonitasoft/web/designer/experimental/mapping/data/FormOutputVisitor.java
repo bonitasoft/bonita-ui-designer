@@ -15,47 +15,105 @@
 
 package org.bonitasoft.web.designer.experimental.mapping.data;
 
-import static com.google.common.base.Joiner.on;
 import static java.lang.String.format;
-import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.bonitasoft.web.designer.model.contract.AbstractContractInput;
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
-import com.google.common.base.Strings;
-
 public class FormOutputVisitor implements ContractInputVisitor {
 
-    private List<String> properties = newArrayList();
+    private List<OutputProperty> properties = new ArrayList<>();
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        properties.add(createProperty(contractInput));
+        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        properties.add(createProperty(handler));
+        if (handler.hasDataReference()) {
+            contractInput.getInput().stream()
+                    .filter(NodeContractInput.class::isInstance)
+                    .map(NodeContractInput.class::cast)
+                    .filter(input -> input.getDataReference() != null)
+                    .forEach(this::visitLazyRef);
+        }
+    }
+
+    private void visitLazyRef(NodeContractInput contractInput) {
+        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        if (handler.hasLazyDataRef()) {
+            properties.add(createProperty(handler));
+        }
+        if (handler.hasDataReference()) {
+            contractInput.getInput().stream()
+                    .filter(NodeContractInput.class::isInstance)
+                    .map(NodeContractInput.class::cast)
+                    .forEach(this::visitLazyRef);
+        }
     }
 
     @Override
     public void visit(LeafContractInput contractInput) {
-        properties.add(createProperty(contractInput));
+        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        properties.add(createProperty(handler));
     }
 
-    private String createProperty(AbstractContractInput contractInput) {
-        String name = contractInput.getName();
-        return isANodeContractInputWithDataRef(contractInput) ?
-                        format("\t'%s': $data.%s", name, ((NodeContractInput) contractInput).getDataReference()
-                                .getName())
-                        : format("\t'%s': $data.formInput.%s", name, name);
-    }
-
-    private boolean isANodeContractInputWithDataRef(AbstractContractInput contractInput) {
-        return contractInput instanceof NodeContractInput
-                && ((NodeContractInput) contractInput).getDataReference() != null;
+    private OutputProperty createProperty(ContractInputDataHandler handler) {
+        return handler.hasLazyDataRef()
+                ? new OutputProperty(format("output.%s = $data.%s;", handler.getPath(), handler.inputValue()), true)
+                : handler.hasDataReference()
+                        ? new OutputProperty(format("\t'%s': $data.%s", handler.getInputName(), handler.getRefName()))
+                        : new OutputProperty(
+                                format("\t'%s': $data.formInput.%s", handler.getInputName(), handler.getInputName()));
     }
 
     public String toJavascriptExpression() {
-        return format("return {\n%s\n};", on(",\n").join(properties));
+        StringBuilder outputExpressionBuffer = new StringBuilder();
+        outputExpressionBuffer.append(format("var output = {\n%s\n};\n",
+                properties.stream()
+                        .filter(OutputProperty::isRootProperty)
+                        .map(Object::toString)
+                        .collect(Collectors.joining(",\n"))));
+
+        properties.stream()
+                .filter(OutputProperty::isReference)
+                .map(Object::toString)
+                .forEach(referencedProperty -> outputExpressionBuffer.append(referencedProperty + "\n"));
+
+        outputExpressionBuffer.append("return output;");
+        return outputExpressionBuffer.toString();
+    }
+
+    private class OutputProperty {
+
+        private String property;
+        private boolean reference = false;
+
+        OutputProperty(String property, boolean reference) {
+            this.property = property;
+            this.reference = reference;
+        }
+
+        OutputProperty(String property) {
+            this(property, false);
+        }
+
+        @Override
+        public String toString() {
+            return property;
+        }
+
+        public boolean isRootProperty() {
+            return !reference;
+        }
+
+        public boolean isReference() {
+            return reference;
+        }
+
     }
 }

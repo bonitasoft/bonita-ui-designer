@@ -11,9 +11,9 @@
 			    	if(result[0] && result[0].href){
 			    		return '../' + result[0].href;
 			    	}
-				}
+			}
 				$log.warn('No lazy relation ',rel,' found');
-			 }
+		    }
 	        return undefined;
 	    };
     });

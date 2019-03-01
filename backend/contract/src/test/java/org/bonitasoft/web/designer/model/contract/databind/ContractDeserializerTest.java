@@ -75,6 +75,7 @@ public class ContractDeserializerTest {
                 tuple("firstName", String.class.getName()),
                 tuple("lastName", String.class.getName()),
                 tuple("birthDate", LocalDate.class.getName()),
+                tuple("manager", NodeContractInput.class.getName()),
                 tuple("addresses", NodeContractInput.class.getName()));
     }
 

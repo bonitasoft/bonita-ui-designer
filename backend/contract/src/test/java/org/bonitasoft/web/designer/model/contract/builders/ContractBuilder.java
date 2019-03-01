@@ -64,17 +64,35 @@ public class ContractBuilder {
     public static Contract aSimpleContractWithDataRef() {
         return aContract().withInput(
                 aNodeContractInput("employeeInput")
-                .withDataReference(new BusinessDataReference("employee","org.test.Employee",RelationType.COMPOSITION,LoadingType.EAGER))
-                .withInput(
-                        aContractInput("firstName").build(),
-                        aContractInput("lastName").build(),
-                        aContractInput("birthDate").withType(LocalDate.class.getName()).build(),
-                        aNodeContractInput("addresses")
-                                .mulitple()
-                                .withInput(aContractInput("street").build(),
-                                        aContractInput("zipcode").build(),
-                                                aContractInput("city").build())
-                                .build())
+                        .withDataReference(new BusinessDataReference("employee", "org.test.Employee",
+                                RelationType.COMPOSITION, LoadingType.EAGER))
+                        .withInput(
+                                aContractInput("firstName").build(),
+                                aContractInput("lastName").build(),
+                                aContractInput("birthDate").withType(LocalDate.class.getName()).build(),
+                                aNodeContractInput("manager")
+                                        .withDataReference(new BusinessDataReference("manager", "org.test.Employee",
+                                                RelationType.COMPOSITION, LoadingType.LAZY))
+                                        .withInput(aContractInput("firstName").build(),
+                                                aNodeContractInput("addresses")
+                                                .mulitple()
+                                                .withDataReference(new BusinessDataReference("addresses",
+                                                        "org.test.Address", RelationType.COMPOSITION, LoadingType.LAZY))
+                                                .build())
+                                        .build(),
+                                aNodeContractInput("addresses")
+                                        .withDataReference(new BusinessDataReference("addresses", "org.test.Address",
+                                                RelationType.COMPOSITION, LoadingType.LAZY))
+                                        .mulitple()
+                                        .withInput(aContractInput("street").build(),
+                                                aContractInput("zipcode").build(),
+                                                aContractInput("city").build(),
+                                                aNodeContractInput("country")
+                                                        .withDataReference(
+                                                                new BusinessDataReference("country", "org.test.Country",
+                                                                        RelationType.COMPOSITION, LoadingType.LAZY))
+                                                        .build())
+                                        .build())
                         .build())
                 .build();
 

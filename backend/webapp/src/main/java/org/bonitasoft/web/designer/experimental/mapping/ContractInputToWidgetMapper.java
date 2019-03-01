@@ -15,8 +15,6 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +25,6 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
@@ -153,9 +150,15 @@ public class ContractInputToWidgetMapper {
     private Container toMultipleContainer(ContractInput contractInput) {
         WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer();
         multipleContainer.setRepeatedCollection(
-                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : singleInputValue(contractInput));
         return multipleContainer.toContainer(dimensionFactory);
     }
+    
+    private String singleInputValue(ContractInput contractInput) {
+        ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
+       return contractInputDataHandler.inputValue();
+    }
+
 
     private boolean isParentMultiple(ContractInput contractInput) {
         return contractInput.getParent() != null && contractInput.getParent().isMultiple();
@@ -169,7 +172,7 @@ public class ContractInputToWidgetMapper {
         AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (widget instanceof Valuable) {
             ((Valuable) widget).setValue(isParentMultiple(contractInput) ? multipleInputValue(contractInput)
-                    : buildPathForInputValue(contractInput));
+                    : new ContractInputDataHandler(contractInput).inputValue());
         }
         return widget.toComponent(dimensionFactory);
     }
@@ -187,41 +190,6 @@ public class ContractInputToWidgetMapper {
         submitButton.setTargetUrlOnSuccess("/bonita");
         submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
         return submitButton.toComponent(dimensionFactory);
-    }
-
-    private String buildPathForInputValue(ContractInput contractInput) {
-        List<String> pathNames = newArrayList();
-        boolean parentHasDataRef = hasDataReference(contractInput);
-        pathNames.add(nameFromContractInput(contractInput));
-        ContractInput pInput = contractInput.getParent();
-        while (pInput != null) {
-            parentHasDataRef = hasDataReference(pInput);
-            if (pInput.isMultiple()) {
-                pathNames.add(ITEM_ITERATOR);
-                break;
-            } else {
-                pathNames.add(nameFromContractInput(pInput));
-                pInput = pInput.getParent();
-            }
-        }
-        if (pathNames.isEmpty()) {
-            return null;
-        } else if (pInput == null) {
-            if (!parentHasDataRef) {
-                pathNames.add(FormInputData.NAME);
-            }
-        }
-        return on(".").join(reverse(pathNames));
-    }
-
-    private String nameFromContractInput(ContractInput contractInput) {
-        return hasDataReference(contractInput) ? ((NodeContractInput) contractInput).getDataReference().getName()
-                : contractInput.getName();
-    }
-
-    private boolean hasDataReference(ContractInput contractInput) {
-        return contractInput instanceof NodeContractInput
-                && ((NodeContractInput) contractInput).getDataReference() != null;
     }
 
     public boolean canCreateComponent(ContractInput contractInput) {
@@ -244,7 +212,7 @@ public class ContractInputToWidgetMapper {
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
         addButton.setCollectionToModify(
-                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : buildPathForInputValue(contractInput));
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : new ContractInputDataHandler(contractInput).inputValue());
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }

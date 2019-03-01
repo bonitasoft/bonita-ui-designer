@@ -44,11 +44,18 @@ public class ContractToContainerMapperTest {
         assertThat(pValue.getType()).isEqualTo("variable");
         assertThat(pValue.getValue()).isEqualTo("employee.firstName");
 
-        List<Element> fifthRow = formContainer.getRows().get(4);
-        Container addressContainer = (Container) fifthRow.get(0);
+        List<Element> fourthRow = formContainer.getRows().get(4);
+        Container managerContainer = (Container) fourthRow.get(0);
+        Element managerfirstName = managerContainer.getRows().get(0).get(0);
+        pValue = managerfirstName.getPropertyValues().get("value");
+        assertThat(pValue.getType()).isEqualTo("variable");
+        assertThat(pValue.getValue()).isEqualTo("employee_manager.firstName");
+
+        List<Element> sixthRow = formContainer.getRows().get(6);
+        Container addressContainer = (Container) sixthRow.get(0);
         PropertyValue repeatedCollection = addressContainer.getPropertyValues().get("repeatedCollection");
         assertThat(repeatedCollection.getType()).isEqualTo("variable");
-        assertThat(repeatedCollection.getValue()).isEqualTo("employee.addresses");
+        assertThat(repeatedCollection.getValue()).isEqualTo("employee_addresses");
 
         Component streetInput = (Component) addressContainer.getRows().get(0).get(0);
         pValue = streetInput.getPropertyValues().get("value");

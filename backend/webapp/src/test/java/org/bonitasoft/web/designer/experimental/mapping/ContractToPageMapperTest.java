@@ -84,7 +84,7 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("formInput", aJSONData().value(objectMapper.prettyPrint("{\"names\":[]}")).build()));
-        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("return {\n\t'names': $data.formInput.names\n};").build()));
+        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("var output = {\n\t'names': $data.formInput.names\n};\nreturn output;").build()));
     }
 
     @Test
@@ -196,6 +196,10 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("employee",anURLData().value("../{{context.employee_ref.link}}").build()));
+        assertThat(page.getData()).contains(entry("employee_addresses",anURLData().value("{{employee|lazyRef:'addresses'}}").build()));
+        assertThat(page.getData()).contains(entry("employee_manager",anURLData().value("{{employee|lazyRef:'manager'}}").build()));
+        assertThat(page.getData()).contains(entry("employee_manager_addresses",anURLData().value("{{employee_manager|lazyRef:'addresses'}}").build()));
+        assertThat(page.getData()).doesNotContain(entry("employee_addresses_country",anURLData().value("{{employee_addresses|lazyRef:'country'}}").build()));
     }
     
     @Test

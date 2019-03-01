@@ -39,9 +39,10 @@ public class FormOutputVisitorTest {
 
         contract.accept(visitor);
 
-        assertThat(visitor.toJavascriptExpression()).isEqualTo("return {\n" +
+        assertThat(visitor.toJavascriptExpression()).isEqualTo("var output = {\n" +
                 "\t'accepted': $data.formInput.accepted\n" +
-                "};");
+                "};\n" +
+                "return output;");
     }
 
     @Test
@@ -58,29 +59,62 @@ public class FormOutputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJavascriptExpression())
-                .isEqualTo("return {\n" +
+                .isEqualTo("var output = {\n" +
                         "\t'person': $data.formInput.person,\n" +
                         "\t'accepted': $data.formInput.accepted\n" +
-                        "};");
+                        "};\n" +
+                        "return output;");
+
     }
-    
+
     @Test
     public void should_build_form_output_from_complex_types_with_data_reference() throws Exception {
         Contract contract = aContract().withInput(
-                aNodeContractInput("person").withDataReference(new BusinessDataReference("person","org.test.Person",RelationType.COMPOSITION,LoadingType.EAGER)).withInput(
-                        aStringContractInput("name"),
-                        aNodeContractInput("details")
-                                .withInput(anIntegerContractInput("age"))
-                                .build())
+                aNodeContractInput("person")
+                        .withDataReference(new BusinessDataReference("person", "org.test.Person",
+                                RelationType.COMPOSITION, LoadingType.EAGER))
+                        .withInput(
+                                aStringContractInput("name"),
+                                aNodeContractInput("details")
+                                        .withInput(anIntegerContractInput("age"))
+                                        .build())
                         .build(),
                 aBooleanContractInput("accepted")).build();
 
         contract.accept(visitor);
 
         assertThat(visitor.toJavascriptExpression())
-                .isEqualTo("return {\n" +
+                .isEqualTo("var output = {\n" +
                         "\t'person': $data.person,\n" +
                         "\t'accepted': $data.formInput.accepted\n" +
-                        "};");
+                        "};\n" +
+                        "return output;");
+    }
+
+    @Test
+    public void should_build_form_output_from_complex_types_with_lazy_data_reference() throws Exception {
+        Contract contract = aContract().withInput(
+                aNodeContractInput("personInput")
+                        .withDataReference(new BusinessDataReference("person", "org.test.Person",
+                                RelationType.COMPOSITION, LoadingType.EAGER))
+                        .withInput(
+                                aStringContractInput("name"),
+                                aNodeContractInput("detail")
+                                        .withDataReference(new BusinessDataReference("detail", "org.test.Detail",
+                                                RelationType.COMPOSITION, LoadingType.LAZY))
+                                        .withInput(anIntegerContractInput("age"))
+                                        .build())
+                        .build(),
+                aBooleanContractInput("accepted")).build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJavascriptExpression())
+                .isEqualTo("var output = {\n" +
+                        "\t'personInput': $data.person,\n" +
+                        "\t'accepted': $data.formInput.accepted\n" +
+                        "};\n" +
+                        "output.personInput.detail = $data.person_detail;\n"+
+                        "return output;");
     }
 }
