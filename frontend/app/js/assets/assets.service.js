@@ -56,7 +56,7 @@
         active: true,
         external: false,
         name: 'bootstrap-3.3.6.css',
-        order: -1,
+        order: -2,
         scope: 'baseFramework',
         url: 'https://bootstrapdocs.com/v3.3.6/docs/getting-started/',
         type: 'css'
@@ -65,7 +65,7 @@
         active: true,
         external: true,
         name: '../theme/theme.css',
-        order: -2,
+        order: -1,
         scope: 'baseFramework',
         type: 'css'
       }];
