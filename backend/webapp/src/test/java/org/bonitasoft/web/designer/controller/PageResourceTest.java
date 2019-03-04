@@ -48,6 +48,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -743,6 +744,29 @@ public class PageResourceTest {
         String properties = new String(pageResource.getResources(page.getId()).toString());
 
         assertThat(properties).contains("[GET|bpm/userTask, GET|living/application-menu, POST|bpm/process]");
+    }
+
+    @Test
+    public void should_add_bonita_api_extensions_resources_found_in_pages_widgets() throws Exception {
+        setUpPageForResourcesTests();
+        Set<String> authRules = new TreeSet<>();
+        authRules.add("POST|bpm/process");
+
+        HashMap<String, Data> data = new HashMap<>();
+        data.put("foo", anApiData("../API/extension/CA31/SQLToObject?filter=mine"));
+        // Not supported in plateform side. Prefer use queryParam like ?id=4
+        data.put("bar", anApiData("../API/extension/user/4"));
+        data.put("aa", anApiData("../API/extension/group/list"));
+        data.put("session", anApiData("../API/extension/user/group/unusedid"));
+        data.put("ab", anApiData("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
+        data.put("user", anApiData("../API/identity/user/{{aaa}}/context"));
+        data.put("task", anApiData("../API/bpm/task/1/context"));
+        page.setData(data);
+        when(authRulesCollector.visit(page)).thenReturn(authRules);
+
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, POST|bpm/process]");
     }
 
     @Test

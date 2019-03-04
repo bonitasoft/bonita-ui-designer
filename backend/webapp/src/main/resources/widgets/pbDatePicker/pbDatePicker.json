@@ -83,8 +83,7 @@
       "caption": "Includes the localized version of the Technical date format property, to guide the user",
       "type": "text",
       "defaultValue": "Enter a date (mm/dd/yyyy)",
-      "bond": "interpolation",
-      "showFor": "properties.readOnly.value === false"
+      "bond": "interpolation"
     },
     {
       "label": "Show Today button",
