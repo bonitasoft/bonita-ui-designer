@@ -17,7 +17,7 @@ describe('lazyRef filter', function () {
       'links' : [
         {
           'rel' : 'address',
-          'href' : 'an/url/to/data'
+          'href' : '/an/url/to/data'
         }
       ]
     };

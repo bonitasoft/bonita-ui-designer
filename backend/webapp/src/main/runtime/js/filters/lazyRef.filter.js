@@ -9,7 +9,7 @@
 		    	if(bo.links){
 			    	var result = bo.links.filter((ref) => ref.rel === rel);
 			    	if(result[0] && result[0].href){
-			    		return '../' + result[0].href;
+			    		return '..' + result[0].href;
 			    	}
 			}
 				$log.warn('No lazy relation ',rel,' found');
