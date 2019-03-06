@@ -93,7 +93,10 @@ public class JsonFileBasedPersister<T extends Identifiable> {
                 //index file is empty or not parseable
             }
         }
-        index.put(((HasUUID) content).getUUID(), content.getId());
+        String uuid = ((HasUUID) content).getUUID();
+        if(uuid != null && !uuid.isEmpty()) {
+            index.put(uuid, content.getId());
+        }
         try{
             write(indexPath, objectMapper.toJson(index));
         }catch (JsonGenerationException e){
