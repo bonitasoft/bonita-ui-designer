@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-03-01 03:08\n"
+"PO-Revision-Date: 2019-03-06 03:11\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -49,6 +49,9 @@ msgstr "<b><em>今日</em> のボタン</b> は、ユーザーの選択した日
 "            時刻が設定されていない場合を除いて、選択された時刻を変更しません。\n"
 "           その場合は、上下 5 分の最も近い値に丸められます。"
 
+msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgstr ""
+
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>プロセスのフォームとして使用するには</b>、Studioで関連するプロセス、またはヒューマン タスクにそれをマップします。それはポータルへのデプロイ時に、 .bar アーカイブ ファイル内に自動的にパッケージ化されます。"
 
@@ -64,14 +67,29 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
+msgid "<code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
+
+msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element."
+msgstr ""
+
+msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgstr ""
+
+msgid "<code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true)."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
+
+msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgstr ""
 
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM タスクの id です。BPM API のパラメータとして使用できます。"
@@ -115,7 +133,7 @@ msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<s
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
-msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>"
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr ""
 
 msgid "<span>Create a new variable</span>"
@@ -299,7 +317,7 @@ msgstr "アセットが保存されていません"
 msgid "Asset list"
 msgstr "アセット リスト"
 
-msgid "Asset ordering"
+msgid "Asset reordering"
 msgstr ""
 
 msgid "Asset use"
@@ -715,6 +733,9 @@ msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1
 msgid "Dynamic value"
 msgstr "動的な値"
 
+msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>{{employee | lazyRef : 'addresses'}}</code>"
+msgstr ""
+
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "各生成物は、<em>localization.json</em> アセットを持ち、このアセットは UI 上に表示されるすべて文字列のキーとサポート言語（デフォルト、日本語、フランス語、スペイン語など）の対訳を持っています。各言語は、言語セクションを持ち、ISO 639 の言語属性（たとえば、ja, fr-FR, es-ES） によって識別されます。新しい言語（キーとその対訳のセット）を追加するには、 <em>localization.json</em> をエクスポートして外部のエディタで編集し、同じファイル名でアップロードします。新しい言語のインストールの詳細については、 Bonita BPM ドキュメント サイトを参照してください。（キーワード："
 
@@ -813,6 +834,9 @@ msgstr "エラー応答のメッセージの値は、 'error'、そして、プ�
 
 msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
 msgstr "メッセージを処理する JavaScript コードの例は、デフォルトのアプリケーション レイアウト（これは、Bonita ポータル管理者プロファイルのリソース セクションで取得できます）内のアセット <em>layout.js</em> で見ることができます。"
+
+msgid "For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data."
+msgstr ""
 
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "特に日付書式に関しては、UI デザイナーは、 BDM または他の REST API から取得した日付を簡単に示する <em>uiDate</em> フィルターを装備しています。"
@@ -1286,7 +1310,7 @@ msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<b
 msgid "None"
 msgstr ""
 
-msgid "Note: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
 msgstr ""
 
 msgid "Noteworthy changes"
@@ -1796,14 +1820,7 @@ msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-msgid "This is the list of accepted options you can configure for a given tab:\n"
-"            <ul>\n"
-"                <li><code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true).</li>\n"
-"                <li><code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML.</li>\n"
-"                <li><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>\n"
-"                <li><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.</li>\n"
-"                <li><code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element.</li>\n"
-"            </ul>"
+msgid "This is the list of accepted options you can configure for a given tab:"
 msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
@@ -2362,6 +2379,6 @@ msgstr ""
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 msgstr ""
 
-msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})"
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr ""
 

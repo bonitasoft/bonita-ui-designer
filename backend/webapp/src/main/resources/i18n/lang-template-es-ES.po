@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-03-01 02:59\n"
+"PO-Revision-Date: 2019-03-06 03:00\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -49,6 +49,9 @@ msgstr "<b>El botón <em>Hoy</em></b> establece la fecha actual del usuario como
 "             No cambia la hora seleccionada, excepto cuando la hora no se ha establecido. \n"
 "             En ese caso, redondea hacia arriba o abajo el valor más cercano en 5 minutos."
 
+msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgstr ""
+
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>Para utilizar un formulario en un proceso</b>, mapéalo en el Studio con el proceso o tarea humana correspondientes. Será automáticamente empaquetado en el archivo .bar y estará listo para desplegarse en el portal."
 
@@ -64,14 +67,29 @@ msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: la zona 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"si\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo, yyyy-MM-ddTHH:mm:ssZ)."
 
+msgid "<code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
+
+msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element."
+msgstr ""
+
+msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgstr ""
+
+msgid "<code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true)."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está definida por las entradas de contrato y los atributos se inicializan con los valores predeterminados. Podría ser utilizado para establecer los valores iniciales de los campos del formulario. <br>Se pueden establecer los valores en <code>formInput</code> ya sea editando los valores predeterminado con valores constantes (útiles para prueba y depuración) o con valores de un objeto en una fuente externa que tenga el mismo modelo (como con una API externa BDM). <br>También se pueden establecer los valores iniciales de un formulario desde alguna otra fuente sin utilizar <code>formInput</code>. Sin embargo, entonces tendrás que editar <code>formOutput</code> manualmente."
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
+
+msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgstr ""
 
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> es un parámetro de URL. <br>Es el id de la tarea actual de BPM. Se puede utilizar como un parámetro de la API de BPM."
@@ -115,7 +133,7 @@ msgstr "<span class=\"tip\"> Consejo:</span> Teclea<span class=\"key\"> $</span>
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran después de un <em>?</em> en la Url de la página."
 
-msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})</translate>"
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr ""
 
 msgid "<span>Create a new variable</span>"
@@ -299,7 +317,7 @@ msgstr "No se ha guardado el asset"
 msgid "Asset list"
 msgstr "Lista de recursos"
 
-msgid "Asset ordering"
+msgid "Asset reordering"
 msgstr ""
 
 msgid "Asset use"
@@ -715,6 +733,9 @@ msgstr "Lista desplegable de valores disponibles. El usuario selecciona un valor
 msgid "Dynamic value"
 msgstr "Valor dinámico"
 
+msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>{{employee | lazyRef : 'addresses'}}</code>"
+msgstr ""
+
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita BPM</a>:"
 
@@ -813,6 +834,9 @@ msgstr "Para una respuesta de error, el valor del mensaje es 'error' y la propie
 
 msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
 msgstr "Para un ejemplo de código JavaScript para manejar el mensaje, echa un vistazo en el asset <em>layout.js</em> en el layout por defecto de una aplicación (se puede acceder en la sección Recursos usando el perfil del Administrador del Portal de Bonita)."
+
+msgid "For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data."
+msgstr ""
 
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "Para el formato de fecha en concreto, el UI Designer provee un filtro <em>uiDate</em> para mostrar fácilmente las fechas obtenidas de la BDM o cualquier otra API REST."
@@ -1285,7 +1309,7 @@ msgstr "No: la zona horaria del usuario no es tenida en cuenta. <br>Sí: la pant
 msgid "None"
 msgstr ""
 
-msgid "Note: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
 msgstr ""
 
 msgid "Noteworthy changes"
@@ -1795,14 +1819,7 @@ msgstr "Este ejemplo utiliza el ejemplo JSON proporcionado si seleccionas el tip
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
 
-msgid "This is the list of accepted options you can configure for a given tab:\n"
-"            <ul>\n"
-"                <li><code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true).</li>\n"
-"                <li><code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML.</li>\n"
-"                <li><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>\n"
-"                <li><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.</li>\n"
-"                <li><code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element.</li>\n"
-"            </ul>"
+msgid "This is the list of accepted options you can configure for a given tab:"
 msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
@@ -2364,6 +2381,6 @@ msgstr ""
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 msgstr ""
 
-msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope(vm.key)}})"
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr ""
 
