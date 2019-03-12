@@ -28,6 +28,7 @@ import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
@@ -56,7 +57,7 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        if (contractInput.getDataReference() == null
+        if (contractInput.getMode() == EditMode.CREATE || contractInput.getDataReference() == null
                 || !(contractInput.getDataReference() instanceof BusinessDataReference)) {
             if (contractInput.isMultiple()) {
                 properties.put(contractInput.getName(), EMPTY_LIST);

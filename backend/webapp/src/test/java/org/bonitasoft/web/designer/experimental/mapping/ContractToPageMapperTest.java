@@ -16,13 +16,22 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.DataBuilder.*;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
+import static org.bonitasoft.web.designer.builder.DataBuilder.aJSONData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.aUrlParameterData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.anExpressionData;
+import static org.bonitasoft.web.designer.builder.DataBuilder.anURLData;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.anExpressionPropertyValue;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
 
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
@@ -30,6 +39,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -37,6 +47,8 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {
@@ -55,7 +67,7 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(contractToWidgetMapper, contractToContainerMapper, objectMapper, new DimensionFactory());
+        return new ContractToPageMapper(contractToWidgetMapper, contractToContainerMapper, objectMapper, new DimensionFactory(), new BusinessQueryDataFactory());
     }
 
     @Test
@@ -193,7 +205,7 @@ public class ContractToPageMapperTest {
     public void should_create_a_page_with_a_business_data_when_contract_contains_data_reference_on_a_task() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(), FormScope.TASK);
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
         assertThat(page.getData()).contains(entry("employee",anURLData().value("../{{context.employee_ref.link}}").build()));
         assertThat(page.getData()).contains(entry("employee_addresses",anURLData().value("{{employee|lazyRef:'addresses'}}").build()));
@@ -203,10 +215,19 @@ public class ContractToPageMapperTest {
     }
     
     @Test
+    public void should_create_a_page_with_a_query_varaible_when_contract_contains_data_reference_with_aggregation() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createFormPage("myPage", aContractWithDataRefAndAggregation(EditMode.EDIT), FormScope.TASK);
+
+        assertThat(page.getData()).contains(entry("employee_query",anURLData().value("../API/bdm/businessData/org.test.Employee?q=find&p=0&c=99").build()));
+    }
+    
+    @Test
     public void should_create_a_page_without_formInput_when_contract_contains__only_data_reference_on_a_task() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
-        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(), FormScope.TASK);
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
         assertThat(page.getData().keySet()).doesNotContain("formInput");
     }

@@ -24,6 +24,7 @@ public abstract class AbstractContractInput implements ContractInput {
     private String description;
     private String name;
     private DataReference dataReference;
+    private EditMode mode = EditMode.CREATE;
 
     public AbstractContractInput(String name) {
         this.name = name;
@@ -72,6 +73,16 @@ public abstract class AbstractContractInput implements ContractInput {
         this.multiple = multiple;
     }
 
+    @Override
+    public void setMode(EditMode mode) {
+       this.mode  = mode;
+    }
+    
+    @Override
+    public EditMode getMode() {
+        return this.mode;
+    }
+    
     @JsonIgnore
     @Override
     public ContractInput getParent() {

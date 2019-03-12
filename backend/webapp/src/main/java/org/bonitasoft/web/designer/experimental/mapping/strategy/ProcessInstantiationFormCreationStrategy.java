@@ -18,6 +18,7 @@ import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMap
 import org.bonitasoft.web.designer.experimental.mapping.ContractToContainerMapper;
 import org.bonitasoft.web.designer.experimental.mapping.Form;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
@@ -33,24 +34,33 @@ public class ProcessInstantiationFormCreationStrategy implements PageCreationStr
     private ContractInputToWidgetMapper contractToWidgetMapper;
     private ContractToContainerMapper contractToContainerMapper;
     private JacksonObjectMapper mapper;
+    private BusinessQueryDataFactory businessQueryDataFactory;
 
-    public ProcessInstantiationFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper) {
+    public ProcessInstantiationFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper,
+            ContractToContainerMapper contractToContainerMapper,
+            JacksonObjectMapper mapper,
+            BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
         this.mapper = mapper;
+        this.businessQueryDataFactory = businessQueryDataFactory;
     }
 
     @Override
     public Page create(String name, Contract contract) {
-        return new Form(name)
+        Form form = new Form(name)
                 .addData(new FormInputData(mapper, contract))
                 .addData(new FormOutputData(contract))
                 .addNewRow(createFormContainer(contract));
+        businessQueryDataFactory.create(contract)
+                .stream()
+                .forEach(form::addData);
+        return form;
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(contract, ButtonAction.fromScope(FormScope.PROCESS));
+        Component submitButton = contractToWidgetMapper.createSubmitButton(contract,
+                ButtonAction.fromScope(FormScope.PROCESS));
         Container container = contractToContainerMapper.create(contract).addNewRow(submitButton);
         return new FormContainer().setContainer(container);
     }

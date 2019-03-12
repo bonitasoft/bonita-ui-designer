@@ -56,6 +56,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(TEXT_PARAMETER, ParameterType.INTERPOLATION);
         propertyParameters.put(LABEL_PARAMETER, ParameterType.INTERPOLATION);
         propertyParameters.put(URL_PARAMETER, ParameterType.EXPRESSION);
+        propertyParameters.put(AVAILABLE_VALUES_PARAMETER, ParameterType.EXPRESSION);
     }
 
     private Map<String, PropertyValue> propertyValues = new HashMap<>();

@@ -40,5 +40,6 @@ public interface ParameterConstants {
     static final String TARGET_URL_ON_SUCCESS_PARAMETER = "targetUrlOnSuccess";
     static final String VALUE_TO_ADD_PARAMETER = "valueToAdd";
     static final String URL_PARAMETER = "targetUrl";
+    static final String AVAILABLE_VALUES_PARAMETER = "availableValues";
 
 }

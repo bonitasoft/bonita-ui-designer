@@ -70,8 +70,8 @@ public class FormInputVisitorTest {
     }
     
     @Test
-    public void should_ignore_complex_types_with_dataRef_in_formInput() throws Exception {
-        Contract contract = aContract().withInput(
+    public void should_ignore_complex_types_with_dataRef_in_formInput_in_edit_mode() throws Exception {
+        Contract contract = aContract().inEditMode().withInput(
                 aNodeContractInput("person").withDataReference(new BusinessDataReference("person","org.test.Person",RelationType.COMPOSITION,LoadingType.EAGER)).withInput(
                         aStringContractInput("name"),
                         aNodeContractInput("details")

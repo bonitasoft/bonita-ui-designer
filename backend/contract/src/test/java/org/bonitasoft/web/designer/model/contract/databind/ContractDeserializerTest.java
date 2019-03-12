@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.model.contract.databind;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
@@ -63,7 +64,7 @@ public class ContractDeserializerTest {
     
     @Test
     public void should_handle_serialization_of_a_contract_with_data_references() throws Exception {
-        Contract aSimpleContractWithDataRef = aSimpleContractWithDataRef();
+        Contract aSimpleContractWithDataRef = aSimpleContractWithDataRef(EditMode.EDIT);
         byte[] serializedContract = new ObjectMapper().writeValueAsBytes(aSimpleContractWithDataRef);
         ContractDeserializer contractDeserializer = new ContractDeserializer();
 

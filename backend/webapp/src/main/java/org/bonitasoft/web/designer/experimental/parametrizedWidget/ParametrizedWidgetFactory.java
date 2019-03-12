@@ -20,14 +20,19 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryData;
 import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.experimental.widgets.PbUpload;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
 import com.google.common.base.CaseFormat;
 
@@ -35,9 +40,14 @@ public class ParametrizedWidgetFactory {
 
     public AbstractParametrizedWidget createParametrizedWidget(ContractInput input) {
         if (aTextInput(input)) {
-            InputWidget inputWidget = createInputWidget(input);
-            inputWidget.setType(InputType.TEXT);
-            return inputWidget;
+            if(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName()) 
+                    && ContractInputDataHandler.hasAggregatedParentRef(input)) {
+                return createSelectWidget((NodeContractInput) input.getParent());
+            }else {
+                InputWidget inputWidget = createInputWidget(input);
+                inputWidget.setType(InputType.TEXT);
+                return inputWidget;
+            }
         }
         if (aNumericInput(input)) {
             InputWidget inputWidget = createInputWidget(input);
@@ -72,8 +82,15 @@ public class ParametrizedWidgetFactory {
     }
 
     public boolean isSupported(ContractInput input) {
-        return aTextInput(input) || aNumericInput(input) || aDateInput(input) || aLocalDateInput(input)
-                || aLocalDateTimeInput(input) || aOffsetDateTimeInput(input) || aBooleanInput(input) || aFileInput(input);
+        return !ContractInputDataHandler.shouldGenerateWidgetForInput(input)
+                && ( aTextInput(input) 
+                || aNumericInput(input) 
+                || aDateInput(input) 
+                || aLocalDateInput(input)
+                || aLocalDateTimeInput(input) 
+                || aOffsetDateTimeInput(input) 
+                || aBooleanInput(input)
+                || aFileInput(input));
     }
 
     // contract sent by studio contain things like that "java.lang.Boolean" for type
@@ -231,6 +248,20 @@ public class ParametrizedWidgetFactory {
         linkComponent.setTargetUrl(url);
         linkComponent.setButtonStyle(style);
         return linkComponent;
+    }
+
+    protected SelectWidget createSelectWidget(NodeContractInput input) {
+        SelectWidget selectWidget = new SelectWidget();
+        String label = inputDisplayLabel(input);
+        selectWidget.setLabel(label);
+        selectWidget.setLabelPosition(LabelPosition.TOP);
+        selectWidget.setPlaceholder(String.format("Select a %s",label));
+        selectWidget.setAvailableValues(toBusinessQueryDataName(input.getDataReference()));
+        return selectWidget;
+    }
+
+    private String toBusinessQueryDataName(BusinessDataReference dataReference) {
+        return new BusinessQueryData(dataReference).name();
     }
 
 }

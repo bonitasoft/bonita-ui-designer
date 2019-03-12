@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.experimental.mapping;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.mapping.strategy.CaseOverviewPageCreationStrategy;
 import org.bonitasoft.web.designer.experimental.mapping.strategy.ProcessInstantiationFormCreationStrategy;
 import org.bonitasoft.web.designer.experimental.mapping.strategy.TaskFormCreationStrategy;
@@ -31,14 +32,16 @@ public class ContractToPageMapper {
     private ContractToContainerMapper contractToContainerMapper;
     private JacksonObjectMapper mapper;
     private DimensionFactory dimensionFactory;
+    private BusinessQueryDataFactory businessQueryDataFactory;
 
     @Inject
     public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper, DimensionFactory dimensionFactory) {
+            JacksonObjectMapper mapper, DimensionFactory dimensionFactory,BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
         this.mapper = mapper;
         this.dimensionFactory = dimensionFactory;
+        this.businessQueryDataFactory = businessQueryDataFactory;
     }
 
     public Page createFormPage(String name, Contract contract, FormScope scope) {
@@ -47,11 +50,11 @@ public class ContractToPageMapper {
                 return new CaseOverviewPageCreationStrategy(contractToContainerMapper).create(name, contract);
 
             case PROCESS:
-                return new ProcessInstantiationFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper).create(name, contract);
+                return new ProcessInstantiationFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, businessQueryDataFactory).create(name, contract);
 
             case TASK:
             default:
-                return new TaskFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, dimensionFactory).create(name, contract);
+                return new TaskFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, dimensionFactory, businessQueryDataFactory).create(name, contract);
         }
     }
 }

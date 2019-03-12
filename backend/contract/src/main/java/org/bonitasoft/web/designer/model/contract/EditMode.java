@@ -14,34 +14,9 @@
  */
 package org.bonitasoft.web.designer.model.contract;
 
-public interface ContractInput extends ContractInputContainer {
 
-    String getName();
+public enum EditMode {
 
-    String getType();
-
-    String getDescription();
-
-    EditMode getMode();
-    
-    boolean isMandatory();
-
-    boolean isMultiple();
-
-    void accept(ContractInputVisitor visitor);
-
-    ContractInput getParent();
-
-    void setParent(ContractInput parentInput);
-
-    void setType(String classname);
-
-    void setDescription(String description);
-
-    void setMultiple(boolean multiple);
-
-    void setMandatory(boolean mandatory);
-    
-    void setMode(EditMode mode);
+    CREATE,EDIT
     
 }

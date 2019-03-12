@@ -23,10 +23,10 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputVisitor;
-import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.Contract;
 import org.junit.Test;
 
 public class FormOutputVisitorTest {
@@ -47,7 +47,7 @@ public class FormOutputVisitorTest {
 
     @Test
     public void should_build_form_output_from_complex_types() throws Exception {
-        Contract contract = aContract().withInput(
+        Contract contract = aContract().inEditMode().withInput(
                 aNodeContractInput("person").withInput(
                         aStringContractInput("name"),
                         aNodeContractInput("details")
@@ -69,7 +69,7 @@ public class FormOutputVisitorTest {
 
     @Test
     public void should_build_form_output_from_complex_types_with_data_reference() throws Exception {
-        Contract contract = aContract().withInput(
+        Contract contract = aContract().inEditMode().withInput(
                 aNodeContractInput("person")
                         .withDataReference(new BusinessDataReference("person", "org.test.Person",
                                 RelationType.COMPOSITION, LoadingType.EAGER))
@@ -93,7 +93,7 @@ public class FormOutputVisitorTest {
 
     @Test
     public void should_build_form_output_from_complex_types_with_lazy_data_reference() throws Exception {
-        Contract contract = aContract().withInput(
+        Contract contract = aContract().inEditMode().withInput(
                 aNodeContractInput("personInput")
                         .withDataReference(new BusinessDataReference("person", "org.test.Person",
                                 RelationType.COMPOSITION, LoadingType.EAGER))

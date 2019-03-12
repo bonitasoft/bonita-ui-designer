@@ -30,6 +30,7 @@ import org.bonitasoft.web.designer.experimental.mapping.Form;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessData;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessDataLazyRef;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.mapping.data.ContextData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
@@ -58,14 +59,18 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
     private ContractToContainerMapper contractToContainerMapper;
     private JacksonObjectMapper mapper;
     private DimensionFactory dimensionFactory;
+    private BusinessQueryDataFactory businessQueryDataFactory;
 
     public TaskFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper,
             ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper, DimensionFactory dimensionFactory) {
+            JacksonObjectMapper mapper,
+            DimensionFactory dimensionFactory,
+            BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
         this.mapper = mapper;
         this.dimensionFactory = dimensionFactory;
+        this.businessQueryDataFactory = businessQueryDataFactory;
     }
 
     @Override
@@ -97,6 +102,10 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                         ((NodeContractInput) input.getParent()).getDataReference().getName(), input, lazyRefData));
 
         lazyRefData.stream().forEach(form::addData);
+
+        businessQueryDataFactory.create(contract)
+                .stream()
+                .forEach(form::addData);
 
         return form;
     }

@@ -22,6 +22,7 @@ import org.bonitasoft.web.designer.model.contract.BusinessDataReference.Relation
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
 import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
@@ -67,8 +68,10 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         nodeContractInput.setMultiple(multipleValue(childNode));
         nodeContractInput.setDescription(descriptionValue(childNode));
         nodeContractInput.setDataReference(dataReference(childNode));
+        nodeContractInput.setMode(inputMode(childNode));
         return nodeContractInput;
     }
+
 
     private LeafContractInput newLeafContractInput(JsonNode childNode, Class<?> inputType) {
         LeafContractInput leafContractInput = new LeafContractInput(inputName(childNode), inputType);
@@ -76,6 +79,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         leafContractInput.setMultiple(multipleValue(childNode));
         leafContractInput.setDescription(descriptionValue(childNode));
         leafContractInput.setDataReference(dataReference(childNode));
+        leafContractInput.setMode(inputMode(childNode));
         return leafContractInput;
     }
 
@@ -132,6 +136,11 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
                             jsonNode.get("type").asText());
         }
         return null;
+    }
+    
+    private EditMode inputMode(JsonNode contractInput) {
+        JsonNode jsonNode = contractInput.get("mode");
+        return jsonNode != null ? EditMode.valueOf(jsonNode.asText("")) : EditMode.CREATE;
     }
 
     @Override
