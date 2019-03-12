@@ -14,15 +14,22 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -62,8 +69,9 @@ public class WatcherTest {
 
         Path file = Files.createFile(subDirectory.resolve("file"));
 
-        Thread.sleep(SLEEP_DELAY);
-        assertThat(listener.getChanged()).containsExactly(file);
+        await()
+                .atLeast(SLEEP_DELAY, TimeUnit.MILLISECONDS)
+                .until(changedFilesContainsExactly(listener, file));
     }
 
     @Test
@@ -74,8 +82,20 @@ public class WatcherTest {
 
         Files.write(existingFile, "hello".getBytes(), StandardOpenOption.APPEND);
 
-        Thread.sleep(SLEEP_DELAY);
-        assertThat(listener.getChanged()).containsExactly(existingFile);
+        await()
+                .atLeast(SLEEP_DELAY, TimeUnit.MILLISECONDS)
+                .until(changedFilesContainsExactly(listener, existingFile));
+    }
+
+    private Callable<Boolean> changedFilesContainsExactly(PathListenerStub listener, Path expectedFile) {
+        return new Callable<Boolean>() {
+
+            public Boolean call() throws Exception {
+                List<Path> changed = listener.getChanged();
+                return changed.size() == 1
+                        && changed.contains(expectedFile);
+            }
+        };
     }
 
 }
