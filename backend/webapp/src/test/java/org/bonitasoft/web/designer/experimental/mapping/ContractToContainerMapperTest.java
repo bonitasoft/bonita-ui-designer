@@ -116,7 +116,7 @@ public class ContractToContainerMapperTest {
         assertThat(pValue.getType()).isEqualTo("variable");
         assertThat(pValue.getValue()).isEqualTo("employee.manager");
     }
-
+    
     private ContractToContainerMapper makeContractToContainerMapper() {
         return new ContractToContainerMapper(new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper));
     }

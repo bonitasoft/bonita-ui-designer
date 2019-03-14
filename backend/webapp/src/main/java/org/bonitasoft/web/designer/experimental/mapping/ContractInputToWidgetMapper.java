@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
+import org.bonitasoft.web.designer.experimental.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonStyle;
@@ -36,6 +37,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.LinkWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContainer;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -46,6 +48,7 @@ import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -187,10 +190,26 @@ public class ContractInputToWidgetMapper {
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FormOutputData.NAME);
+        submitButton.setPropertyValue("dataFromError",ParameterType.VARIABLE,SubmitErrorsListData.SUBMIT_ERROR_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
         submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
         return submitButton.toComponent(dimensionFactory);
     }
+    
+
+    public Component createSubmitErrorAlert() {
+        TextWidget widget = new TextWidget();
+        widget.setCssClasses("alert alert-danger col-lg-6 col-lg-offset-3");
+        widget.setPropertyValue("hidden",ParameterType.EXPRESSION, String.format("!%s.message",SubmitErrorsListData.SUBMIT_ERROR_DATA));
+        widget.setPropertyValue("allowHtml",ParameterType.CONSTANT, true);
+        StringBuffer sb = new StringBuffer();
+        sb.append(String.format("<strong>{{%s.message}}</strong>",SubmitErrorsListData.SUBMIT_ERROR_DATA));
+        sb.append("\n");
+        sb.append(String.format("{{%s}}",SubmitErrorsListData.NAME));
+        widget.setPropertyValue("text", ParameterType.INTERPOLATION,sb.toString());
+        return widget.toComponent(dimensionFactory);
+    }
+
 
     public boolean canCreateComponent(ContractInput contractInput) {
         return parametrizedWidgetFactory.isSupported(contractInput);

@@ -152,6 +152,7 @@ public class ParametrizedWidgetFactory {
 
     protected InputWidget createInputWidget(ContractInput input) {
         InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
+        inputWidget.setRequired(input.isMandatory());
         inputWidget.setPlaceholder(new PbInput().getPlaceholder());
         return inputWidget;
     }
@@ -256,6 +257,7 @@ public class ParametrizedWidgetFactory {
         selectWidget.setLabel(label);
         selectWidget.setLabelPosition(LabelPosition.TOP);
         selectWidget.setPlaceholder(String.format("Select a %s",label));
+        selectWidget.setRequired(input.isMandatory());
         selectWidget.setAvailableValues(toBusinessQueryDataName(input.getDataReference()));
         return selectWidget;
     }

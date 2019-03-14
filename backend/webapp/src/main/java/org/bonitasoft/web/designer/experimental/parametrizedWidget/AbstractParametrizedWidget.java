@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import static com.google.common.collect.Maps.transformEntries;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -25,12 +23,11 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-
-import com.google.common.collect.Maps.EntryTransformer;
 
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
@@ -139,7 +136,12 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     }
 
     protected Map<String, PropertyValue> toPropertyValues() {
-        return transformEntries(toMap(), toPropertyValue());
+        Map<String, PropertyValue> values = toMap().entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                                          e -> createPropertyValue(getParameterType(e.getKey()), e.getValue())));
+        values.putAll(propertyValues);
+        return values;
     }
 
     private Map<String, Object> toMap() {
@@ -156,17 +158,6 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         } catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             return Collections.emptyMap();
         }
-    }
-
-    private EntryTransformer<String, Object, PropertyValue> toPropertyValue() {
-        return new EntryTransformer<String, Object, PropertyValue>() {
-
-            @Override
-            public PropertyValue transformEntry(String paramName, Object value) {
-                return propertyValues.containsKey(paramName) ? propertyValues.get(paramName)
-                        : createPropertyValue(getParameterType(paramName), value);
-            }
-        };
     }
 
     private ParameterType getParameterType(String paramName) {

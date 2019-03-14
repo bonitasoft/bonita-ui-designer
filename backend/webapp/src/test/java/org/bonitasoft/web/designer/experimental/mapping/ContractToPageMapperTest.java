@@ -44,6 +44,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -63,7 +64,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
 
-        assertThat(getTaskFormContainerContent(page).getRows()).hasSize(5);
+        assertThat(getTaskFormContainerContent(page).getRows()).hasSize(6);
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
@@ -230,6 +231,28 @@ public class ContractToPageMapperTest {
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
         assertThat(page.getData().keySet()).doesNotContain("formInput");
+    }
+
+    @Test
+    public void should_create_a_Text_widget_for_submit_error() throws Exception {
+        ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
+
+        Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
+
+        assertThat(page.getData().keySet()).contains("submit_errors_list");
+       FormContainer formContainer = (FormContainer) page.getRows().get(1).get(0);
+       Component submitButton = (Component) formContainer.getContainer().getRows().get(2).get(0);
+       
+       assertThat(submitButton.getId()).isEqualTo("pbButton");
+       PropertyValue dataFromErrorProperty = submitButton.getPropertyValues().get("dataFromError");
+       assertThat(dataFromErrorProperty).isNotNull();
+       assertThat(dataFromErrorProperty.getValue()).isEqualTo("formOutput._submitError");
+       
+       Component errorText = (Component) formContainer.getContainer().getRows().get(3).get(0);
+       assertThat(errorText.getId()).isEqualTo("pbText");
+       PropertyValue hiddenProperty = errorText.getPropertyValues().get("hidden");
+       assertThat(hiddenProperty).isNotNull();
+       assertThat(hiddenProperty.getValue()).isEqualTo("!formOutput._submitError.message");
     }
 
     private Container grabTaskInformation(Page page) {

@@ -21,6 +21,7 @@ import org.bonitasoft.web.designer.experimental.mapping.FormScope;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
+import org.bonitasoft.web.designer.experimental.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
@@ -51,6 +52,7 @@ public class ProcessInstantiationFormCreationStrategy implements PageCreationStr
         Form form = new Form(name)
                 .addData(new FormInputData(mapper, contract))
                 .addData(new FormOutputData(contract))
+                .addData(new SubmitErrorsListData())
                 .addNewRow(createFormContainer(contract));
         businessQueryDataFactory.create(contract)
                 .stream()
@@ -61,7 +63,9 @@ public class ProcessInstantiationFormCreationStrategy implements PageCreationStr
     private FormContainer createFormContainer(Contract contract) {
         Component submitButton = contractToWidgetMapper.createSubmitButton(contract,
                 ButtonAction.fromScope(FormScope.PROCESS));
-        Container container = contractToContainerMapper.create(contract).addNewRow(submitButton);
+        Container container = contractToContainerMapper.create(contract)
+                .addNewRow(submitButton)
+                .addNewRow(contractToWidgetMapper.createSubmitErrorAlert());
         return new FormContainer().setContainer(container);
     }
 
