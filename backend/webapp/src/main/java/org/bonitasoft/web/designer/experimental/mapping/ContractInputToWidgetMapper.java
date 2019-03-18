@@ -147,7 +147,8 @@ public class ContractInputToWidgetMapper {
     }
 
     private String multipleInputValue(ContractInput contractInput) {
-        return contractInput.getParent() != null ? on(".").join(ITEM_ITERATOR, contractInput.getName()) : ITEM_ITERATOR;
+        return contractInput.getParent() != null && !(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, contractInput.getName()) 
+                && ContractInputDataHandler.hasAggregatedParentRef(contractInput)) ? on(".").join(ITEM_ITERATOR, contractInput.getName()) : ITEM_ITERATOR;
     }
 
     private Container toMultipleContainer(ContractInput contractInput) {
@@ -158,7 +159,7 @@ public class ContractInputToWidgetMapper {
     }
     
     private String singleInputValue(ContractInput contractInput) {
-        ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
+       ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
        return contractInputDataHandler.inputValue();
     }
 

@@ -45,6 +45,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -87,6 +88,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         if (shouldAddFormInputData(contract)) {
             form.addData(new FormInputData(mapper, contract));
         }
+        
         findBusinessData(contract)
                 .map(BusinessData::new)
                 .forEach(form::addData);
@@ -95,6 +97,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         contract.getInput().stream()
                 .filter(NodeContractInput.class::isInstance)
                 .map(NodeContractInput.class::cast)
+                .filter(input -> input.getMode() == EditMode.EDIT)
                 .filter(input -> input.getDataReference() != null)
                 .filter(input -> !Strings.isNullOrEmpty(input.getDataReference().getName()))
                 .flatMap(input -> input.getInput().stream())
@@ -104,6 +107,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                         ((NodeContractInput) input.getParent()).getDataReference().getName(), input, lazyRefData));
 
         lazyRefData.stream().forEach(form::addData);
+        
 
         businessQueryDataFactory.create(contract)
                 .stream()
@@ -122,6 +126,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         return contract.getInput().stream() //Only search for business data at the root level inputs
                 .filter(NodeContractInput.class::isInstance)
                 .map(NodeContractInput.class::cast)
+                .filter(in -> in.getMode() == EditMode.EDIT)
                 .map(NodeContractInput::getDataReference)
                 .filter(Objects::nonNull)
                 .map(BusinessDataReference::getName)
