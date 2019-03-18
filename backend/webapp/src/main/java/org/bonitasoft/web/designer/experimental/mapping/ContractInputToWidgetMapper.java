@@ -201,7 +201,7 @@ public class ContractInputToWidgetMapper {
         TextWidget widget = new TextWidget();
         widget.setCssClasses("alert alert-danger col-lg-6 col-lg-offset-3");
         widget.setPropertyValue("hidden",ParameterType.EXPRESSION, String.format("!%s.message",SubmitErrorsListData.SUBMIT_ERROR_DATA));
-        widget.setPropertyValue("allowHtml",ParameterType.CONSTANT, true);
+        widget.setPropertyValue("allowHTML",ParameterType.CONSTANT, true);
         StringBuffer sb = new StringBuffer();
         sb.append(String.format("<strong>{{%s.message}}</strong>",SubmitErrorsListData.SUBMIT_ERROR_DATA));
         sb.append("\n");
