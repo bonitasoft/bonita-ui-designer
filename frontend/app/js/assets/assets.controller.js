@@ -118,7 +118,13 @@
     }
 
     function pushToArray(arr, obj) {
-      const index = arr.findIndex((e) => e.id === obj.id);
+      const index = arr.findIndex((e) => {
+        if (e.id && obj.id) {
+          return e.id === obj.id;
+        } else {
+          return e.name === obj.name;
+        }
+      });
 
       if (index === -1) {
         arr.push(obj);
