@@ -99,6 +99,10 @@
         response.forEach(asset => pushToArray(memoryAssets, asset));
         vm.component.assets = memoryAssets;
       });
+      if (mode === 'widget') {
+        vm.assetAlreadyOnMove = false;
+        return;
+      }
       // Timeout is needeed to wait table refresh
       setTimeout(() => addClassShaker(asset), 50);
     }
@@ -114,7 +118,7 @@
     }
 
     function pushToArray(arr, obj) {
-      const index = arr.findIndex((e) => e.name === obj.name);
+      const index = arr.findIndex((e) => e.id === obj.id);
 
       if (index === -1) {
         arr.push(obj);
@@ -188,7 +192,7 @@
           mode: () => mode,
           artifact: () => artifact,
           assetRepo: () => assetRepo,
-          scope: () => vm.component.type
+          scope: () =>  mode
         }
       });
       modalInstance.result.then(updateList);
@@ -196,7 +200,7 @@
 
     function updateList(asset) {
       var replaced = false;
-      asset.scope = vm.component.type;
+      asset.scope = mode;
       vm.component.assets = vm.component.assets.map(function(item) {
         if (item.id === asset.id) {
           replaced = true;
@@ -224,7 +228,7 @@
       if (!asset.scope) {
         return asset.type !== 'img';
       }
-      return asset.type !== 'img' && (asset.scope && asset.scope === vm.component.type);
+      return asset.type !== 'img' && (asset.scope && asset.scope === mode);
     }
 
     function isViewable(asset) {

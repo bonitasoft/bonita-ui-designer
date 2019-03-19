@@ -54,13 +54,12 @@
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="openAssetPreviewPopup({'asset': asset})"
                             title="{{ 'View asset content' | translate }}"
-                            ng-if="isViewable({'asset': asset, 'scope': 'page'}) && !vm.isBaseFramework(asset)">
+                            ng-if="isViewable({'asset': asset, 'scope': vm.component.type}) && !vm.isBaseFramework(asset)">
                         <i class="fa fa-search"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="openAssetEditPopup({'asset': asset})"
                             title="{{ 'Edit asset' | translate }}"
-                            ng-if="isEditable({'asset': asset, 'scope': 'page'})"
-                            ng-if="!vm.isBaseFramework(asset) && !vm.isBaseFramework(asset)">
+                            ng-if="isEditable({'asset': asset, 'scope': vm.component.type}) && !vm.isBaseFramework(asset)">
                         <i class="fa fa-pencil"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="onDelete({'asset': asset})"
