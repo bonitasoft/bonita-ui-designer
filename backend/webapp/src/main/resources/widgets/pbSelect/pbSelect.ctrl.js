@@ -26,11 +26,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
 
   this.setSelectedValue = function (foundItem) {
     $timeout(function () {
-      if (angular.isDefined(foundItem)) {
-        $scope.properties.value = foundItem;
-      } else {
-        $scope.properties.value = null;
-      }
+        $scope.properties.value = angular.isDefined(foundItem) ? foundItem : null ;
     }, 0);
   };
 
@@ -58,11 +54,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
       var items = $scope.properties.availableValues;
       if (Array.isArray(items)) {
         var foundItem = ctrl.findSelectedItem(items);
-        $timeout(function () {
-          if (!angular.isDefined(foundItem)) {
-            $scope.properties.value = null;
-          }
-        }, 0);
+        ctrl.setSelectedValue(foundItem);
       }
     }
   });
