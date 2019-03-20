@@ -33,6 +33,8 @@ describe('pbParagraph', function () {
 
   it('should allow text alignment', function () {
     scope.properties.alignment = "right";
+	scope.properties.labelHidden = true;
+	
     var element = $compile('<pb-text></pb-text>')(scope);
     scope.$apply();
 

@@ -45,5 +45,10 @@ exports.config = {
         filePrefix: 'e2e',
         consolidateAll: true
       }));
+    //Migrate test workspace before integration tests
+    var request = require( "superagent" );
+    request.post('http://localhost:8083/bonita/rest/migration')
+      .send({})
+      .end();
   }
 };

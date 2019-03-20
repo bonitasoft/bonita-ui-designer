@@ -41,7 +41,6 @@ public class Migration<A extends DesignerArtifact> {
 
     public void migrate(A artifact) {
         if (artifact.getDesignerVersion() == null || version.isGreaterThan(artifact.getDesignerVersion())) {
-
             logger.info(format("[MIGRATION] %s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),

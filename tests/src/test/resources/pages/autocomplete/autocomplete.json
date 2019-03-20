@@ -402,13 +402,7 @@
     "type" : "css",
     "order" : 1,
     "external" : false
-  }, {
-    "id" : "27779e6e-4479-4415-966a-385bde2604bb",
-    "name" : "ui-bootstrap-tpls-0.13.0.min.js",
-    "type" : "js",
-    "order" : 2,
-    "external" : false
-  } ],
+  }],
   "inactiveAssets" : [ ],
   "data" : {
     "selectedUser" : {

@@ -22,22 +22,30 @@ import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 
-public class TextWidgetInterpretHTMLMigrationStep<T extends AbstractPage> implements MigrationStep<T>  {
+public class TextWidgetLabelMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
 
     private ComponentVisitor componentVisitor;
 
-    public TextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
+    public TextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
         this.componentVisitor = componentVisitor;
     }
+
     @Override
     public void migrate(AbstractPage page) {
         for (Component component : page.accept(componentVisitor)) {
-            if ("pbText".equals(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
-                PropertyValue interpretHTMLValue = new PropertyValue();
-                interpretHTMLValue.setType(BondType.CONSTANT.toJson());
-                interpretHTMLValue.setValue(Boolean.TRUE);
-                component.getPropertyValues().put("allowHTML", interpretHTMLValue);
+            if ("pbText".equals(component.getId())) {
+                updatePropertyValue(component, "labelHidden", BondType.CONSTANT, Boolean.TRUE);
+                updatePropertyValue(component, "label", BondType.INTERPOLATION, "");
+                updatePropertyValue(component, "labelPosition", BondType.CONSTANT, "top");
+                updatePropertyValue(component, "labelWidth", BondType.CONSTANT, 4);
             }
         }
+    }
+
+    private void updatePropertyValue(Component component, String propertyName, BondType bondType, Object defaultValue) {
+        PropertyValue labelHiddenValue = new PropertyValue();
+        labelHiddenValue.setType(bondType.toJson());
+        labelHiddenValue.setValue(defaultValue);
+        component.getPropertyValues().put(propertyName, labelHiddenValue);
     }
 }

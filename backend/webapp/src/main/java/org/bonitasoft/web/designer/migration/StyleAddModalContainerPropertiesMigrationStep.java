@@ -58,7 +58,7 @@ public class StyleAddModalContainerPropertiesMigrationStep implements MigrationS
                             "[MIGRATION] Adding modalContainer classes in asset [%s] to %s [%s] (introduced in 1.8.28)",
                             asset.getName(), artifact.getType(), artifact.getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error("An error occurred during migration",e);
                 }
             }
         }

@@ -110,12 +110,6 @@
     }
   } ] ],
   "assets" : [ {
-    "id" : "3a4c4ad5-de08-471f-8cc5-f6507de12614",
-    "name" : "style1.css",
-    "type" : "css",
-    "order" : 1,
-    "external" : false
-  }, {
     "id" : "88fc3b8d-3a4e-464a-909b-f97ef3f61ff1",
     "name" : "style.css",
     "type" : "css",

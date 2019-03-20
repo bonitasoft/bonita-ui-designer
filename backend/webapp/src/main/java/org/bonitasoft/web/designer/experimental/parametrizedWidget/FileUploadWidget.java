@@ -22,7 +22,7 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
     private int labelWidth = 1;
     private String placeholder;
     private String value;
-    private String url = "/bonita/API/formFileUpload";
+    private String url = "../API/formFileUpload";
     private boolean required = true;
 
     public FileUploadWidget() {

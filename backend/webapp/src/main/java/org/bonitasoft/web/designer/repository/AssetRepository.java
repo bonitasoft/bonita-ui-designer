@@ -79,8 +79,8 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     protected Path resolveExistingAssetPath(String componentId, Asset asset) {
         Path path = resolveAssetPath(componentId, asset);
         if (!exists(path)) {
-            throw new NotFoundException(format("Error when searching asset %s for %s [%s]: asset not found.",
-                    asset.getName(), repository.getComponentName(), componentId));
+            throw new NotFoundException(format("Error when searching asset %s for %s [%s]: asset not found in path '%s'",
+                    asset.getName(), repository.getComponentName(), componentId,path));
         }
         return path;
     }

@@ -147,7 +147,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         assertThat(component).isInstanceOf(FileUploadWidget.class);
         assertThat(component.getLabel()).isEqualTo("Document");
-        assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("/bonita/API/formFileUpload");
+        assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("../API/formFileUpload");
     }
 
     /**

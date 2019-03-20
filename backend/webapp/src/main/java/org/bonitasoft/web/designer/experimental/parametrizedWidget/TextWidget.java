@@ -21,6 +21,7 @@ public class TextWidget extends AbstractParametrizedWidget {
 
     public TextWidget() {
         super(LABEL_WIDGET_ID);
+        setLabelHidden(true);
     }
 
     public String getText() {

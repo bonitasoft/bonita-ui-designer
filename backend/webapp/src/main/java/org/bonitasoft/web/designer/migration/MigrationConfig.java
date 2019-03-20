@@ -17,13 +17,16 @@ package org.bonitasoft.web.designer.migration;
 import static java.util.Arrays.asList;
 
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
@@ -55,6 +58,11 @@ public class MigrationConfig {
     public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
+    
+    @Bean
+    public TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
+        return new TextWidgetLabelMigrationStep(componentVisitor);
+    }
 
     @Bean
     public LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate(JsonFileBasedLoader<Page> pageFileBasedLoader,
@@ -71,7 +79,8 @@ public class MigrationConfig {
             StyleAssetMigrationStep styleAssetMigrationStep,
             TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
             UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
-            PageUUIDMigrationStep pageUUIDMigrationStep, StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep) {
+            PageUUIDMigrationStep pageUUIDMigrationStep, StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep,
+            TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -79,8 +88,9 @@ public class MigrationConfig {
                 new Migration<>("1.5.7", styleAssetMigrationStep),
                 new Migration<>("1.5.10", uiBootstrapAssetMigrationStep),
                 new Migration<>("1.7.4", pageTextWidgetInterpretHTMLMigrationStep),
-                new Migration<>("1.7.25", pageUUIDMigrationStep)
-                ,new Migration<>("1.8.29", styleAddModalContainerPropertiesMigrationStep));
+                new Migration<>("1.7.25", pageUUIDMigrationStep),
+                new Migration<>("1.8.29", styleAddModalContainerPropertiesMigrationStep),
+                new Migration<>("1.9.24", pageTextWidgetLabelMigrationStep));
     }
 
     @Bean
