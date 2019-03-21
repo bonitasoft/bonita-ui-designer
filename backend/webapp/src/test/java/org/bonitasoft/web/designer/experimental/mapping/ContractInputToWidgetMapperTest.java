@@ -23,13 +23,9 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
@@ -37,6 +33,7 @@ import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
@@ -213,7 +210,7 @@ public class ContractInputToWidgetMapperTest {
     }
 
     @Test
-    public void should_create_single_document_to_edit_container() {
+    public void should_create_single_document_to_edit() {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         LeafContractInput fileContractInput = ContractInputBuilder.aFileContractInput("aDocument.txt");
@@ -222,28 +219,14 @@ public class ContractInputToWidgetMapperTest {
         assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
 
         Element element = contractInputToWidgetMapper.toEditableDocument(fileContractInput);
-        assertThat(element).isInstanceOf(Container.class);
-        Container container = (Container) element;
-        assertThat(container.getRows()).hasSize(2);
-        assertThat(container.getRows().stream().flatMap(Collection::stream)).allMatch(Component.class::isInstance);
-        assertThat(container.getRows().stream().flatMap(Collection::stream).map(Component.class::cast))
-                .extracting(Component::getId)
-                .containsExactlyInAnyOrder("pbLink", "pbUpload");
+        assertThat(element).isInstanceOf(Component.class);
+        Component fileUploadComponent = (Component) element;
+        assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
+        PropertyValue labelProperty = fileUploadComponent.getPropertyValues().get("label");
+        assertThat(labelProperty.getValue()).isEqualTo("My Doc &nbsp; {{context.myDoc_ref.url ? '<a class=\"pull-right\" href=\"../API/' + context.myDoc_ref.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download ' + context.myDoc_ref.fileName + '</a>' : ''}}");
 
-        Optional<Map<String, PropertyValue>> linkProperties = container.getRows().stream()
-                .flatMap(Collection::stream)
-                .map(Component.class::cast)
-                .filter(component -> Objects.equals("pbLink", component.getId()))
-                .map(Component::getPropertyValues)
-                .findFirst();
-
-        assertThat(linkProperties).isPresent();
-        assertThat(linkProperties.get()).containsEntry("buttonStyle", createProperty("constant", "info"));
-        assertThat(linkProperties.get()).containsEntry("widgetId", createProperty("constant", "pbLink"));
-        assertThat(linkProperties.get()).containsEntry("text", createProperty("interpolation",
-                "<div data-toggle=\"tooltip\" title=\"{{'Download' | translate}}\"> <i class=\"glyphicon glyphicon-download\"></i> {{context.myDoc_ref.fileName}} </div>"));
-        assertThat(linkProperties.get()).containsEntry("targetUrl",
-                createProperty("expression", "\"../API/\" + context.myDoc_ref.url"));
+        PropertyValue valueProperty = fileUploadComponent.getPropertyValues().get("value");
+        assertThat(valueProperty.getValue()).isEqualTo("context.myDoc_ref.newValue");
     }
 
     @Test
@@ -252,6 +235,7 @@ public class ContractInputToWidgetMapperTest {
 
         LeafContractInput fileContractInput = ContractInputBuilder.aFileContractInput("aDocument.txt");
         fileContractInput.setMultiple(true);
+        fileContractInput.setMode(EditMode.EDIT);
         assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isFalse();
         fileContractInput.setDataReference(new DataReference("myDoc", File.class.getName()));
         assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
@@ -260,42 +244,22 @@ public class ContractInputToWidgetMapperTest {
         assertThat(element).isInstanceOf(Container.class);
         Container container = (Container) element;
         assertThat(container.getRows()).hasSize(2);
-        assertThat(container.getRows().stream().flatMap(Collection::stream)).allMatch(Container.class::isInstance);
 
-        List<Container> containers = container.getRows().stream()
-                .flatMap(Collection::stream)
-                .map(Container.class::cast)
-                .collect(Collectors.toList());
-        assertThat(containers)
-                .extracting(Container::getPropertyValues)
-                .anySatisfy(propertiesMap -> Objects.equals(propertiesMap.get("repeatedCollection"), "context.myDoc_ref"));
-        assertThat(containers)
-                .extracting(Container::getPropertyValues)
-                .anySatisfy(
-                        propertiesMap -> Objects.equals(propertiesMap.get("repeatedCollection"), "formInput.aDocument.txt"));
+        Component title = (Component) container.getRows().get(0).get(0);
+        assertThat(title.getId()).isEqualTo("pbTitle");
+        Container multipleContainer = (Container) container.getRows().get(1).get(0);
+     
+        Map<String, PropertyValue> propertyValues = multipleContainer.getPropertyValues();
+        PropertyValue repeatedCollectionProperty = propertyValues.get("repeatedCollection");
+        assertThat(repeatedCollectionProperty.getValue()).isEqualTo("context.myDoc_ref");
+        
+        Component fileUploadComponent = (Component) multipleContainer.getRows().get(0).get(0);
+        assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
+        PropertyValue labelProperty = fileUploadComponent.getPropertyValues().get("label");
+        assertThat(labelProperty.getValue()).isEqualTo("{{$item.url ? '<a class=\"pull-right\" href=\"../API/' + $item.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download '+ $item.fileName + '</a>' : '' }}");
 
-        List<Component> components = containers.stream()
-                .map(Container::getRows)
-                .flatMap(Collection::stream)
-                .flatMap(Collection::stream)
-                .filter(Component.class::isInstance)
-                .map(Component.class::cast)
-                .collect(Collectors.toList());
-
-        assertThat(components).extracting("id").containsExactlyInAnyOrder("pbLink", "pbUpload", "pbButton");
-
-        Optional<Map<String, PropertyValue>> linkProperties = components.stream()
-                .filter(elt -> elt.getId().equals("pbLink"))
-                .map(Component::getPropertyValues)
-                .findFirst();
-
-        assertThat(linkProperties).isPresent();
-        assertThat(linkProperties.get()).containsEntry("buttonStyle", createProperty("constant", "info"));
-        assertThat(linkProperties.get()).containsEntry("widgetId", createProperty("constant", "pbLink"));
-        assertThat(linkProperties.get()).containsEntry("text", createProperty("interpolation",
-                "<div data-toggle=\"tooltip\" title=\"{{'Download' | translate}}\"> <i class=\"glyphicon glyphicon-download\"></i> {{$item.fileName}} </div>"));
-        assertThat(linkProperties.get()).containsEntry("targetUrl",
-                createProperty("expression", "\"../API/\" + $item.url"));
+        PropertyValue valueProperty = fileUploadComponent.getPropertyValues().get("value");
+        assertThat(valueProperty.getValue()).isEqualTo("$item.newValue");
     }
 
     private PropertyValue createProperty(String type, String value) {

@@ -68,6 +68,11 @@ public class Container extends Component implements ElementContainer {
         this.getRows().add(Collections.<Element>singletonList(element));
         return this;
     }
+    
+    public Container addNewRow(List<Element> elements) {
+        this.getRows().add(elements);
+        return this;
+    }
 
     @Override
     public boolean equals(final Object obj) {

@@ -84,11 +84,13 @@ public class FormOutputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJavascriptExpression())
-                .isEqualTo("var output = {\n" +
-                        "\t'person': $data.person,\n" +
-                        "\t'accepted': $data.formInput.accepted\n" +
-                        "};\n" +
-                        "return output;");
+                .isEqualTo("if( $data.person ){\n" +
+                        "\tvar output = {\n" +
+                        "\t\t'person': $data.person,\n" +
+                        "\t\t'accepted': $data.formInput.accepted\n" +
+                        "\t};\n" +
+                        "\treturn output;\n" +
+                        "}");
     }
 
     @Test
@@ -110,11 +112,13 @@ public class FormOutputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJavascriptExpression())
-                .isEqualTo("var output = {\n" +
-                        "\t'personInput': $data.person,\n" +
-                        "\t'accepted': $data.formInput.accepted\n" +
-                        "};\n" +
-                        "output.personInput.detail = $data.person_detail;\n"+
-                        "return output;");
+                .isEqualTo("if( $data.person && $data.person_detail ){\n" +
+                        "\tvar output = {\n" +
+                        "\t\t'personInput': $data.person,\n" +
+                        "\t\t'accepted': $data.formInput.accepted\n" +
+                        "\t};\n" +
+                        "\toutput.personInput.detail = $data.person_detail;\n"+
+                        "\treturn output;\n" +
+                        "}");
     }
 }

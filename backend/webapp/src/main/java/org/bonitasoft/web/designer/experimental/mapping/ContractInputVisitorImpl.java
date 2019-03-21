@@ -51,7 +51,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
                     .add(Collections.<Element> singletonList(contractInputToWidgetMapper.createRemoveButton()));
         }
         container.getRows().add(Collections.<Element> singletonList(newContainer));
-        addButtonBar(contractInput);
+        addButtonBar(contractInput,container);
     }
 
     @Override
@@ -61,11 +61,11 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
                     ? contractInputToWidgetMapper.toEditableDocument(contractInput)
                     : contractInputToWidgetMapper.toElement(contractInput, container.getRows());
             container.getRows().add(Collections.singletonList(element));
-            addButtonBar(contractInput);
+            addButtonBar(contractInput,element instanceof ElementContainer && contractInputToWidgetMapper.isDocumentToEdit(contractInput)? (ElementContainer) element: container);
         }
     }
 
-    private void addButtonBar(ContractInput contractInput) {
+    private void addButtonBar(ContractInput contractInput, ElementContainer container) {
         if (contractInput.isMultiple()) {
             container.getRows()
                     .add(Lists.<Element> newArrayList(contractInputToWidgetMapper.createAddButton(contractInput)));

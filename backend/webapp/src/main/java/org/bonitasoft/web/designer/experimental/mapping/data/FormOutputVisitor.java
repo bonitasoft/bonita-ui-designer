@@ -12,13 +12,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.bonitasoft.web.designer.experimental.mapping.data;
-
-import static java.lang.String.format;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
@@ -33,7 +31,7 @@ public class FormOutputVisitor implements ContractInputVisitor {
     @Override
     public void visit(NodeContractInput contractInput) {
         ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
-        properties.add(createProperty(handler));
+        properties.add(new OutputProperty((handler)));
         if (handler.hasDataReference()) {
             contractInput.getInput().stream()
                     .filter(NodeContractInput.class::isInstance)
@@ -46,7 +44,7 @@ public class FormOutputVisitor implements ContractInputVisitor {
     private void visitLazyRef(NodeContractInput contractInput) {
         ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
         if (handler.hasLazyDataRef()) {
-            properties.add(createProperty(handler));
+            properties.add(new OutputProperty(handler));
         }
         if (handler.hasDataReference()) {
             contractInput.getInput().stream()
@@ -59,61 +57,51 @@ public class FormOutputVisitor implements ContractInputVisitor {
     @Override
     public void visit(LeafContractInput contractInput) {
         ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
-        properties.add(createProperty(handler));
-    }
-
-    private OutputProperty createProperty(ContractInputDataHandler handler) {
-        return handler.hasLazyDataRef()
-                ? new OutputProperty(format("output.%s = $data.%s;", handler.getPath(), handler.inputValue()), true)
-                : handler.hasDataReference()
-                        ? new OutputProperty(format("\t'%s': $data.%s", handler.getInputName(), handler.getRefName()))
-                        : new OutputProperty(
-                                format("\t'%s': $data.formInput.%s", handler.getInputName(), handler.getInputName()));
+        properties.add(new OutputProperty(handler));
     }
 
     public String toJavascriptExpression() {
         StringBuilder outputExpressionBuffer = new StringBuilder();
-        outputExpressionBuffer.append(format("var output = {\n%s\n};\n",
-                properties.stream()
-                        .filter(OutputProperty::isRootProperty)
-                        .map(Object::toString)
-                        .collect(Collectors.joining(",\n"))));
+
+        String expressionDependencies = properties.stream()
+                .map(OutputProperty::getDependency)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.joining(" && "));
+        boolean addCheckDependencies = !expressionDependencies.isEmpty();
+        if(addCheckDependencies) {
+            outputExpressionBuffer.append("if( ");
+            outputExpressionBuffer.append(expressionDependencies);
+            outputExpressionBuffer.append(" ){\n");
+        }
+
+        outputExpressionBuffer.append(indent("var output = {\n",addCheckDependencies ? 1 : 0));
+        outputExpressionBuffer.append(properties.stream()
+                .filter(OutputProperty::isRootProperty)
+                .map(Object::toString)
+                .map(line -> indent(line, addCheckDependencies ? 1 : 0))
+                .collect(Collectors.joining(",\n")));
+        outputExpressionBuffer.append("\n");
+        outputExpressionBuffer.append(indent("};\n",addCheckDependencies ? 1 : 0));
 
         properties.stream()
                 .filter(OutputProperty::isReference)
                 .map(Object::toString)
+                .map(line -> indent(line, addCheckDependencies ? 1 : 0))
                 .forEach(referencedProperty -> outputExpressionBuffer.append(referencedProperty + "\n"));
 
-        outputExpressionBuffer.append("return output;");
+        outputExpressionBuffer.append(indent("return output;",addCheckDependencies ? 1 : 0));
+        if(addCheckDependencies) {
+            outputExpressionBuffer.append("\n}");
+        }
         return outputExpressionBuffer.toString();
     }
 
-    private class OutputProperty {
-
-        private String property;
-        private boolean reference = false;
-
-        OutputProperty(String property, boolean reference) {
-            this.property = property;
-            this.reference = reference;
+    private String indent(String value,int size) {
+        for(int i = 0 ; i < size ; i++) {
+            value = "\t" + value;
         }
-
-        OutputProperty(String property) {
-            this(property, false);
-        }
-
-        @Override
-        public String toString() {
-            return property;
-        }
-
-        public boolean isRootProperty() {
-            return !reference;
-        }
-
-        public boolean isReference() {
-            return reference;
-        }
-
+        return value;
     }
+
 }

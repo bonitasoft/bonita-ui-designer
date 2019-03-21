@@ -197,7 +197,8 @@ public class ParametrizedWidgetFactory {
     }
 
     private String inputDisplayLabel(ContractInput contractInput) {
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, contractInput.getName())
+        ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dataHandler.getRefName() != null ? dataHandler.getRefName() : dataHandler.getInputName())
                 .replaceAll("((?<=[a-z])(?=[A-Z]))|((?<=[A-Z])(?=[A-Z][a-z]))", " ");
     }
 

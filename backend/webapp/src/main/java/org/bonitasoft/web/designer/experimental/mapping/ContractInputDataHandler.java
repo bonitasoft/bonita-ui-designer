@@ -18,11 +18,13 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.reverse;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
+import org.bonitasoft.web.designer.model.contract.AbstractContractInput;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
@@ -40,14 +42,15 @@ public class ContractInputDataHandler {
 
     public boolean hasLazyDataRef() {
         return  hasDataReference()
+                &&  input instanceof NodeContractInput
                 && ((NodeContractInput) input).getDataReference().getLoadingType() == LoadingType.LAZY
                 && doesNotHaveAMultipleParent(input);
     }
 
     public boolean hasDataReference() {
         return input.getMode() == EditMode.EDIT 
-                && input instanceof NodeContractInput
-                && ((NodeContractInput) input).getDataReference() != null;
+                && input instanceof AbstractContractInput
+                && ((AbstractContractInput) input).getDataReference() != null;
     }
 
     public String inputValue() {
@@ -145,7 +148,10 @@ public class ContractInputDataHandler {
     }
 
     public String getRefName() {
-        return ((NodeContractInput) input).getDataReference().getName();
+        return input instanceof AbstractContractInput 
+                && ((AbstractContractInput) input).getDataReference() != null ?
+                        ((AbstractContractInput) input).getDataReference().getName() 
+                        : null;
     }
 
     public String getPath() {
@@ -172,5 +178,10 @@ public class ContractInputDataHandler {
 
     public EditMode getMode() {
         return input.getMode();
+    }
+
+    public boolean isDocumentEdition() {
+        return input.getMode() == EditMode.EDIT 
+                && Objects.equals(File.class.getName(),input.getType());
     }
 }

@@ -73,6 +73,9 @@ public class FormInputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(LeafContractInput contractInput) {
+        if (contractInput.getMode() == EditMode.EDIT && contractInput.getDataReference() != null) {
+            return;
+        }
         if (contractInput.isMultiple()) {
             properties.put(contractInput.getName(), EMPTY_LIST);
             return;

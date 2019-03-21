@@ -18,6 +18,7 @@ import static com.google.common.base.Joiner.on;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -30,10 +31,9 @@ import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonStyle;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.FileUploadWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.LinkWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
@@ -48,11 +48,8 @@ import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.collect.Lists;
 
 @Named
 public class ContractInputToWidgetMapper {
@@ -83,44 +80,35 @@ public class ContractInputToWidgetMapper {
     }
 
     private Element toSingleEditableDocument(LeafContractInput contractInput) {
-        WidgetContainer container = parametrizedWidgetFactory.createWidgetContainer();
-        container.setCssClasses("well");
-
-        String documentRef = String.format("context.%s_ref", contractInput.getDataReference().getName());
-        Component linkWidget = createDocumentLink(documentRef).toComponent(dimensionFactory);
-        Component fileUploadWidget = toSimpleComponent(contractInput);
-
-        Container documentContainer = container.toContainer(dimensionFactory);
-        documentContainer.addNewRow(linkWidget);
-        documentContainer.addNewRow(fileUploadWidget);
-        return documentContainer;
+        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory.createParametrizedWidget(contractInput);
+        fileUploadWidget.setValue(String.format("context.%s_ref.newValue",contractInput.getDataReference().getName()));
+        fileUploadWidget.setLabelHidden(false);
+        fileUploadWidget.setLabelWidth(4);
+        String inpuLabel = fileUploadWidget.getLabel();
+        fileUploadWidget.setLabel(inpuLabel + " &nbsp; {{context.%s_ref.url ? '<a class=\"pull-right\" href=\"../API/' + context.%s_ref.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download ' + context.%s_ref.fileName + '</a>' : ''}}"
+                .replaceAll("%s", contractInput.getDataReference().getName()));
+        fileUploadWidget.setRequired(false);
+        return fileUploadWidget.toComponent(dimensionFactory);
     }
 
     private Element toMultipleEditableDocument(LeafContractInput contractInput) {
         WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
-
-        String collectionFromContext = String.format("context.%s_ref", contractInput.getDataReference().getName());
-        WidgetContainer existingDocumentsWidgetContainer = parametrizedWidgetFactory
-                .createWidgetContainer(collectionFromContext);
-        Component linkWidget = createDocumentLink("$item").toComponent(dimensionFactory);
-        Container existingDocumentsContainer = existingDocumentsWidgetContainer.toContainer(dimensionFactory);
-        existingDocumentsContainer.addNewRow(linkWidget);
-
         Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
-        rootContainer.addNewRow(existingDocumentsContainer);
-
-        Component newDocumentsContainer = toMultipleComponent(contractInput);
-        rootContainer.addNewRow(newDocumentsContainer);
-
+        rootContainer.addNewRow(parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory));
+        
+        Container container = toMultipleContainer(contractInput);
+        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory.createParametrizedWidget(contractInput);
+        fileUploadWidget.setValue(ITEM_ITERATOR + ".newValue");
+        fileUploadWidget.setLabelHidden(false);
+        fileUploadWidget.setLabelWidth(4);
+        fileUploadWidget.setLabel("{{$item.url ? '<a class=\"pull-right\" href=\"../API/' + $item.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download '+ $item.fileName + '</a>' : '' }}");
+        fileUploadWidget.setRequired(false);
+        List<Element> row = new ArrayList<>();
+        row.add(fileUploadWidget.toComponent(dimensionFactory));
+        row.add(createRemoveButton());
+        container.getRows().add(row);
+        rootContainer.addNewRow(container);
         return rootContainer;
-    }
-
-    private LinkWidget createDocumentLink(String documentVar) {
-        String documentUrl = String.format("\"../API/\" + %s.url", documentVar);
-        String linkText = String.format(
-                "<div data-toggle=\"tooltip\" title=\"{{'Download' | translate}}\"> <i class=\"glyphicon glyphicon-download\"></i> {{%s.fileName}} </div>",
-                documentVar);
-        return parametrizedWidgetFactory.createLink(linkText, documentUrl, ButtonStyle.INFO);
     }
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
@@ -142,7 +130,10 @@ public class ContractInputToWidgetMapper {
         if (component instanceof Requirable) {
             ((Requirable) component).setRequired(false);
         }
-        container.getRows().add(Lists.<Element> newArrayList(component.toComponent(dimensionFactory), createRemoveButton()));
+        List<Element> row = new ArrayList<>();
+        row.add(component.toComponent(dimensionFactory));
+        row.add(createRemoveButton());
+        container.getRows().add(row);
         return container;
     }
 
@@ -160,7 +151,7 @@ public class ContractInputToWidgetMapper {
     
     private String singleInputValue(ContractInput contractInput) {
        ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
-       return contractInputDataHandler.inputValue();
+       return contractInputDataHandler.isDocumentEdition() ? String.format("context.%s_ref", contractInputDataHandler.getRefName()) : contractInputDataHandler.inputValue();
     }
 
 
@@ -231,8 +222,9 @@ public class ContractInputToWidgetMapper {
 
     public Component createAddButton(ContractInput contractInput) {
         ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
+        ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
         addButton.setCollectionToModify(
-                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : new ContractInputDataHandler(contractInput).inputValue());
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : dataHandler.isDocumentEdition() ? String.format("context.%s_ref", dataHandler.getRefName()) : dataHandler.inputValue());
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }
