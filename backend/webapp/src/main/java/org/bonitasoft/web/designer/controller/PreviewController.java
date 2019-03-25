@@ -103,19 +103,19 @@ public class PreviewController {
     }
 
     /**
-     * Returns the theme.css file present on the application
+     * Send redirect to the Application theme resources if an application is selected
+     * Else returns a default theme.css files.
      */
-    @RequestMapping("/preview/{previewableType}/{appName}/theme/theme.css")
-    public void serveWidgetAsset(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "appName") String appName) throws ServletException {
-
+    @RequestMapping("/preview/{previewableType}/{appName}/theme/**")
+    public void serveThemeResources(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "appName") String appName) throws ServletException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
         if (!appName.equals("no-app-selected")) {
             try {
-                response.setContentType("text/css");
-                response.sendRedirect(request.getContextPath() + "/apps/" + appName + "/theme/theme.css");
+                response.sendRedirect(request.getContextPath() + "/apps/" + appName + "/theme/" + matchingPath);
             } catch (IOException ie) {
 
             }
-        } else {
+        } else if ("theme.css".equals(matchingPath)){
             response.setHeader("Content-Type", "text/css");
             response.setHeader("Content-Disposition", "inline; filename=\"theme.css\"");
             response.setCharacterEncoding(StandardCharsets.UTF_8.toString());

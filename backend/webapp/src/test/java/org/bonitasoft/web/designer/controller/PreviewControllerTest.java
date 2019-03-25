@@ -177,6 +177,18 @@ public class PreviewControllerTest {
     }
 
     @Test
+    public void should_redirect_page_theme_calls_to_the_real_theme_resource() throws Exception {
+        String expectedContent = "/**" + System.lineSeparator()
+                + "* Living application theme" + System.lineSeparator()
+                + "*/";
+
+        mockMvc
+                .perform(get("/preview/page/myApp/theme/images/logo.png"))
+                .andExpect(redirectedUrl("/apps/myApp/theme/images/logo.png"));
+
+    }
+
+    @Test
     public void should_redirect_page_API_calls_to_the_real_API() throws Exception {
         mockMvc
                 .perform(get("/preview/page/no-app-selected/API/portal/page"))
@@ -198,7 +210,7 @@ public class PreviewControllerTest {
     }
 
     @Test
-    public void should_temporarily_redirect_ADI_post_to_the_real_API() throws Exception {
+    public void should_temporarily_redirect_API_post_to_the_real_API() throws Exception {
         mockMvc
                 .perform(post("/preview/page/no-app-selected/API/portal/page?id=123"))
                 .andExpect(new ResultMatcher() {
