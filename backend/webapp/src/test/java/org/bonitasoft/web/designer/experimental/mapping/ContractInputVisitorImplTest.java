@@ -23,8 +23,10 @@ import java.util.List;
 
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.bonitasoft.web.designer.model.contract.builders.ContractBuilder;
 import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -49,7 +51,8 @@ public class ContractInputVisitorImplTest {
     public void add_a_one_row_component_when_visiting_a_leaf_contract_input() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(ContractInputBuilder.aStringContractInput("name"));
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
+                .visit(ContractInputBuilder.aStringContractInput("name"));
 
         assertThat(page.getRows()).hasSize(1);
         assertThat(page.getRows().get(0)).hasSize(1);
@@ -60,13 +63,15 @@ public class ContractInputVisitorImplTest {
     public void do_nothing_when_visiting_a_leaf_contract_input_with_unsupported_type() throws Exception {
         Page page = new Page();
 
-        new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(new LeafContractInput("unsupported", IllegalArgumentException.class));
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
+                .visit(new LeafContractInput("unsupported", IllegalArgumentException.class));
 
         assertThat(page.getRows()).hasSize(0);
     }
 
     @Test
-    public void add_a_component_embedded_in_a_container_with_buttons_when_visiting_a_multiple_leaf_contract_input() throws Exception {
+    public void add_a_component_embedded_in_a_container_with_buttons_when_visiting_a_multiple_leaf_contract_input()
+            throws Exception {
         Page page = new Page();
 
         new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
@@ -97,7 +102,6 @@ public class ContractInputVisitorImplTest {
 
         List<Element> thirdRow = page.getRows().get(2);
         assertThat(thirdRow).hasSize(1);
-        System.out.println(thirdRow);
         Component addButton = (Component) thirdRow.get(0);
         assertThat(addButton.getId()).isEqualTo("pbButton");
         assertThat(addButton.getPropertyValues().get("valueToAdd").getValue()).isNull();
@@ -105,7 +109,8 @@ public class ContractInputVisitorImplTest {
     }
 
     @Test
-    public void add_a_children_components_embedded_in_a_container_when_visiting_a_node_contract_input() throws Exception {
+    public void add_a_children_components_embedded_in_a_container_when_visiting_a_node_contract_input()
+            throws Exception {
         Page page = new Page();
 
         new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
@@ -141,7 +146,8 @@ public class ContractInputVisitorImplTest {
     }
 
     @Test
-    public void add_a_children_components_embedded_in_a_container_with_buttons_when_visiting_a_multiple_node_contract_input() throws Exception {
+    public void add_a_children_components_embedded_in_a_container_with_buttons_when_visiting_a_multiple_node_contract_input()
+            throws Exception {
         Page page = new Page();
 
         new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(
@@ -191,7 +197,8 @@ public class ContractInputVisitorImplTest {
     }
 
     @Test
-    public void add_a_complex_children_components_embedded_in_a_container_when_visiting_a_multiple_complex_node_contract_input() throws Exception {
+    public void add_a_complex_children_components_embedded_in_a_container_when_visiting_a_multiple_complex_node_contract_input()
+            throws Exception {
         Page page = new Page();
 
         new ContractInputVisitorImpl(page, contractInputToWidgetMapper).visit(
@@ -213,8 +220,9 @@ public class ContractInputVisitorImplTest {
         assertThat(complexSecondRow.get(0)).isInstanceOf(Container.class);
 
         Container complexContainer = (Container) complexSecondRow.get(0);
-        assertThat(complexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
-                aDataPropertyValue("formInput.complex")));
+        assertThat(complexContainer.getPropertyValues())
+                .contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
+                        aDataPropertyValue("formInput.complex")));
         assertThat(complexContainer.getRows()).hasSize(6);
         assertThat(complexContainer.getRows().get(0)).hasSize(1);
 
@@ -232,6 +240,19 @@ public class ContractInputVisitorImplTest {
                 "  }," + System.lineSeparator() +
                 "  \"subcomplexMultiple\" : [ ]" + System.lineSeparator() +
                 "}");
+    }
+
+    @Test
+    public void should_not_add_simple_aggregated_relation_in_a_container() throws Exception {
+        Page page = new Page();
+
+        new ContractInputVisitorImpl(page, contractInputToWidgetMapper)
+                .visit((NodeContractInput) ContractBuilder.aContractWithDataRefAndAggregation(EditMode.CREATE).getInput().get(0));
+        
+        Container formContainer = (Container) page.getRows().get(1).get(0);
+        Component select = (Component) formContainer.getRows().get(3).get(0);
+        assertThat(select.getId()).isEqualTo("pbSelect");
+
     }
 
     private void checkComplexRemoveButton(Container complexContainer, int index) {
@@ -259,8 +280,9 @@ public class ContractInputVisitorImplTest {
         assertThat(subcomplexSecondRow.get(0)).isInstanceOf(Container.class);
 
         Container subComplexContainer = (Container) subcomplexSecondRow.get(0);
-        assertThat(subComplexContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
-                aDataPropertyValue(null)));
+        assertThat(subComplexContainer.getPropertyValues())
+                .contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
+                        aDataPropertyValue(null)));
         assertThat(subComplexContainer.getRows()).hasSize(1);
         assertThat(subComplexContainer.getRows().get(0)).hasSize(1);
 
@@ -277,8 +299,9 @@ public class ContractInputVisitorImplTest {
         assertThat(complexFourthRow.get(0)).isInstanceOf(Container.class);
 
         Container complexSecondContainer = (Container) complexFourthRow.get(0);
-        assertThat(complexSecondContainer.getPropertyValues()).contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
-                aDataPropertyValue("$item.subcomplexMultiple")));
+        assertThat(complexSecondContainer.getPropertyValues())
+                .contains(entry(ParameterConstants.REPEATED_COLLECTION_PARAMETER,
+                        aDataPropertyValue("$item.subcomplexMultiple")));
         assertThat(complexSecondContainer.getRows()).hasSize(2);
         assertThat(complexSecondContainer.getRows().get(0)).hasSize(1);
 

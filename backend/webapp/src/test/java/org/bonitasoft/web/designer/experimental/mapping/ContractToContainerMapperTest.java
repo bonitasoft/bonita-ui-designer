@@ -103,9 +103,8 @@ public class ContractToContainerMapperTest {
 
         Container container = contractToContainerMapper.create(aContractWithDataRefAndAggregation(EditMode.EDIT));
         Container formContainer = (Container) container.getRows().get(1).get(0);
-        List<Element> fourthRow = formContainer.getRows().get(4);
-        Container managerContainer = (Container) fourthRow.get(0);
-        Component managerSelect = (Component) managerContainer.getRows().get(0).get(0);
+        List<Element> fourthRow = formContainer.getRows().get(3);
+        Component managerSelect = (Component) fourthRow.get(0);
         assertThat(managerSelect.getId()).isEqualTo("pbSelect");
         
         PropertyValue pValue = managerSelect.getPropertyValues().get("availableValues");

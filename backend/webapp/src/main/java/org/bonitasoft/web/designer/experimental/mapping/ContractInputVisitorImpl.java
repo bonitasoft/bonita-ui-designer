@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import java.util.Collections;
+import java.util.Objects;
 
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
@@ -32,26 +33,43 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
 
     private ContractInputToWidgetMapper contractInputToWidgetMapper;
 
-    public ContractInputVisitorImpl(ElementContainer container, ContractInputToWidgetMapper contractInputToWidgetMapper) {
+    public ContractInputVisitorImpl(ElementContainer container,
+            ContractInputToWidgetMapper contractInputToWidgetMapper) {
         this.contractInputToWidgetMapper = contractInputToWidgetMapper;
         this.container = container;
     }
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        Container newContainer = contractInputToWidgetMapper.toContainer(contractInput,
-                container.getRows());
-        ContractInputVisitorImpl containerContractInputVisitor = new ContractInputVisitorImpl(newContainer,
-                contractInputToWidgetMapper);
-        for (ContractInput childInput : contractInput.getInput()) {
-            childInput.accept(containerContractInputVisitor);
+        if (shouldCreateContainer(contractInput)) {
+            Container newContainer = contractInputToWidgetMapper.toContainer(contractInput,
+                    container.getRows());
+            ContractInputVisitorImpl containerContractInputVisitor = new ContractInputVisitorImpl(newContainer,
+                    contractInputToWidgetMapper);
+            for (ContractInput childInput : contractInput.getInput()) {
+                childInput.accept(containerContractInputVisitor);
+            }
+            if (contractInput.isMultiple()) {
+                newContainer.getRows()
+                        .add(Collections.<Element> singletonList(contractInputToWidgetMapper.createRemoveButton()));
+            }
+            container.getRows().add(Collections.<Element> singletonList(newContainer));
+            addButtonBar(contractInput, container);
+        }else {
+            for (ContractInput childInput : contractInput.getInput()) {
+                childInput.accept(this);
+            }
         }
-        if (contractInput.isMultiple()) {
-            newContainer.getRows()
-                    .add(Collections.<Element> singletonList(contractInputToWidgetMapper.createRemoveButton()));
-        }
-        container.getRows().add(Collections.<Element> singletonList(newContainer));
-        addButtonBar(contractInput,container);
+    }
+
+    private boolean shouldCreateContainer(NodeContractInput contractInput) {
+        return !(!contractInput.isMultiple() 
+                && contractInput.getInput().size() == 1 
+                && contractInput.getInput().stream()
+                .filter(input -> Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName()))
+                .findFirst()
+                .filter(ContractInputDataHandler::hasAggregatedParentRef)
+                .isPresent());
     }
 
     @Override
@@ -61,7 +79,9 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
                     ? contractInputToWidgetMapper.toEditableDocument(contractInput)
                     : contractInputToWidgetMapper.toElement(contractInput, container.getRows());
             container.getRows().add(Collections.singletonList(element));
-            addButtonBar(contractInput,element instanceof ElementContainer && contractInputToWidgetMapper.isDocumentToEdit(contractInput)? (ElementContainer) element: container);
+            addButtonBar(contractInput,
+                    element instanceof ElementContainer && contractInputToWidgetMapper.isDocumentToEdit(contractInput)
+                            ? (ElementContainer) element : container);
         }
     }
 
