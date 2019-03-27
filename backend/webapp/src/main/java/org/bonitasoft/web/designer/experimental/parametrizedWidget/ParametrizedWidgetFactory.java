@@ -221,11 +221,13 @@ public class ParametrizedWidgetFactory {
         return buttonComponent;
     }
 
-    public ButtonWidget createAddButton() {
+    public ButtonWidget createAddButton(String text) {
         ButtonWidget buttonComponent = new ButtonWidget();
-        buttonComponent.setLabel("Add");
-        buttonComponent.setButtonStyle(ButtonStyle.SUCCESS);
-        buttonComponent.setAlignment(Alignment.RIGHT);
+        buttonComponent.setLabel(text == null || text.isEmpty()? 
+                "<span class=\"glyphicon glyphicon-plus\"></span>"
+                : "<span class=\"glyphicon glyphicon-plus\"></span> Add " + text);
+        buttonComponent.setButtonStyle(ButtonStyle.PRIMARY);
+        buttonComponent.setAlignment(Alignment.LEFT);
         buttonComponent.setAction(ButtonAction.ADD_TO_COLLECTION);
         buttonComponent.setDimension(12);
         return buttonComponent;
@@ -233,7 +235,7 @@ public class ParametrizedWidgetFactory {
 
     public ButtonWidget createRemoveButton() {
         ButtonWidget buttonComponent = new ButtonWidget();
-        buttonComponent.setLabel("Remove");
+        buttonComponent.setLabel("<span class=\"glyphicon glyphicon-remove\"></span>");
         buttonComponent.setButtonStyle(ButtonStyle.DANGER);
         buttonComponent.setAction(ButtonAction.REMOVE_FROM_COLLECTION);
         buttonComponent.setCollectionPosition("Item");

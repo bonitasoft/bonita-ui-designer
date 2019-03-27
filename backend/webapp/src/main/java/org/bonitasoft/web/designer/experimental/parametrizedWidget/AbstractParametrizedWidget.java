@@ -54,6 +54,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(LABEL_PARAMETER, ParameterType.INTERPOLATION);
         propertyParameters.put(URL_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(AVAILABLE_VALUES_PARAMETER, ParameterType.EXPRESSION);
+        propertyParameters.put(PLACEHOLDER_PARAMETER, ParameterType.CONSTANT);
     }
 
     private Map<String, PropertyValue> propertyValues = new HashMap<>();
@@ -164,7 +165,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         return propertyParameters.containsKey(paramName) ? propertyParameters.get(paramName) : ParameterType.CONSTANT;
     }
 
-    private PropertyValue createPropertyValue(ParameterType type, Object value) {
+    protected PropertyValue createPropertyValue(ParameterType type, Object value) {
         PropertyValue propertyValue = new PropertyValue();
         propertyValue.setType(type.getValue());
         propertyValue.setValue(value);

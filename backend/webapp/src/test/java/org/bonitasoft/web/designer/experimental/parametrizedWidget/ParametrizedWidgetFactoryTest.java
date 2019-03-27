@@ -346,13 +346,15 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_add_button() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createAddButton();
+        ButtonWidget button = elementFactory.createAddButton(null);
 
         assertThat(button.getDimension()).isEqualTo(12);
-        ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.SUCCESS.getValue()).isNotDisabled();
+        ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
 
-        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Add").hasAlignment(Alignment.RIGHT.getValue())
+        AbstractParametrizedWidgetAssert.assertThat(button)
+        .hasLabel( "<span class=\"glyphicon glyphicon-plus\"></span>")
+        .hasAlignment(Alignment.LEFT.getValue())
                 .isDisplayed();
     }
 
@@ -369,7 +371,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         AbstractParametrizedWidgetAssert.assertThat(button).hasAlignment(Alignment.RIGHT.getValue());
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.DANGER.getValue()).isNotDisabled();
-        AbstractParametrizedWidgetAssert.assertThat(button).hasLabel("Remove").isDisplayed();
+        AbstractParametrizedWidgetAssert.assertThat(button)
+        .hasLabel( "<span class=\"glyphicon glyphicon-remove\"></span>")
+        .isDisplayed();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.REMOVE_FROM_COLLECTION.getValue());
 
         PropertyValue PropertyValue = button.toPropertyValues().get("removeItem");

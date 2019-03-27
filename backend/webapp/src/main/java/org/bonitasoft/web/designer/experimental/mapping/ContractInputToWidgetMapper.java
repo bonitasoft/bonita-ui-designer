@@ -30,14 +30,17 @@ import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.experimental.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.experimental.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.AbstractParametrizedWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.FileUploadWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.FileViewerWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContainer;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -80,32 +83,60 @@ public class ContractInputToWidgetMapper {
     }
 
     private Element toSingleEditableDocument(LeafContractInput contractInput) {
-        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory.createParametrizedWidget(contractInput);
-        fileUploadWidget.setValue(String.format("context.%s_ref.newValue",contractInput.getDataReference().getName()));
-        fileUploadWidget.setLabelHidden(false);
+        WidgetContainer documentContainer = parametrizedWidgetFactory.createWidgetContainer();
+        TitleWidget docuementNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
+        docuementNameTitle.setLevel("Level 4");
+
+        FileViewerWidget fileViewerWidget = new FileViewerWidget();
+        fileViewerWidget.setShowPreview(false);
+        fileViewerWidget.setDocument(String.format("context.%s_ref", contractInput.getDataReference().getName()));
+
+        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
+                .createParametrizedWidget(contractInput);
+        fileUploadWidget.setValue(String.format("context.%s_ref.newValue", contractInput.getDataReference().getName()));
+        fileUploadWidget.setLabelHidden(true);
         fileUploadWidget.setLabelWidth(4);
-        String inpuLabel = fileUploadWidget.getLabel();
-        fileUploadWidget.setLabel(inpuLabel + " &nbsp; {{context.%s_ref.url ? '<a class=\"pull-right\" href=\"../API/' + context.%s_ref.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download ' + context.%s_ref.fileName + '</a>' : ''}}"
-                .replaceAll("%s", contractInput.getDataReference().getName()));
+        fileUploadWidget.setPlaceholder("Browse to update the file...");
         fileUploadWidget.setRequired(false);
-        return fileUploadWidget.toComponent(dimensionFactory);
+
+        return documentContainer.toContainer(dimensionFactory)
+                .addNewRow(docuementNameTitle.toComponent(dimensionFactory))
+                .addNewRow(fileViewerWidget.toComponent(dimensionFactory))
+                .addNewRow(fileUploadWidget.toComponent(dimensionFactory));
     }
 
     private Element toMultipleEditableDocument(LeafContractInput contractInput) {
         WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
         Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
-        rootContainer.addNewRow(parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory));
-        
+        TitleWidget documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
+        documentNameTitle.setLevel("Level 4");
+        rootContainer.addNewRow(documentNameTitle.toComponent(dimensionFactory));
+
         Container container = toMultipleContainer(contractInput);
-        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory.createParametrizedWidget(contractInput);
+
+        FileViewerWidget fileViewerWidget = new FileViewerWidget();
+        fileViewerWidget.setShowPreview(false);
+        fileViewerWidget.setDocument("$item");
+
+        container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
+
+        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
+                .createParametrizedWidget(contractInput);
         fileUploadWidget.setValue(ITEM_ITERATOR + ".newValue");
-        fileUploadWidget.setLabelHidden(false);
+        fileUploadWidget.setLabelHidden(true);
         fileUploadWidget.setLabelWidth(4);
-        fileUploadWidget.setLabel("{{$item.url ? '<a class=\"pull-right\" href=\"../API/' + $item.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download '+ $item.fileName + '</a>' : '' }}");
         fileUploadWidget.setRequired(false);
+        fileUploadWidget.setPlaceholder("Browse to update the file...");
+        fileUploadWidget.setDimension(11);
+
         List<Element> row = new ArrayList<>();
         row.add(fileUploadWidget.toComponent(dimensionFactory));
-        row.add(createRemoveButton());
+
+        ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
+        removeButton.setDimension(1);
+        removeButton.setAlignment(Alignment.LEFT);
+
+        row.add(removeButton.toComponent(dimensionFactory));
         container.getRows().add(row);
         rootContainer.addNewRow(container);
         return rootContainer;
@@ -138,8 +169,10 @@ public class ContractInputToWidgetMapper {
     }
 
     private String multipleInputValue(ContractInput contractInput) {
-        return contractInput.getParent() != null && !(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, contractInput.getName()) 
-                && ContractInputDataHandler.hasAggregatedParentRef(contractInput)) ? on(".").join(ITEM_ITERATOR, contractInput.getName()) : ITEM_ITERATOR;
+        return contractInput.getParent() != null
+                && !(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, contractInput.getName())
+                        && ContractInputDataHandler.hasAggregatedParentRef(contractInput))
+                                ? on(".").join(ITEM_ITERATOR, contractInput.getName()) : ITEM_ITERATOR;
     }
 
     private Container toMultipleContainer(ContractInput contractInput) {
@@ -148,12 +181,13 @@ public class ContractInputToWidgetMapper {
                 isParentMultiple(contractInput) ? multipleInputValue(contractInput) : singleInputValue(contractInput));
         return multipleContainer.toContainer(dimensionFactory);
     }
-    
-    private String singleInputValue(ContractInput contractInput) {
-       ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
-       return contractInputDataHandler.isDocumentEdition() ? String.format("context.%s_ref", contractInputDataHandler.getRefName()) : contractInputDataHandler.inputValue();
-    }
 
+    private String singleInputValue(ContractInput contractInput) {
+        ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
+        return contractInputDataHandler.isDocumentEdition()
+                ? String.format("context.%s_ref", contractInputDataHandler.getRefName())
+                : contractInputDataHandler.inputValue();
+    }
 
     private boolean isParentMultiple(ContractInput contractInput) {
         return contractInput.getParent() != null && contractInput.getParent().isMultiple();
@@ -182,26 +216,25 @@ public class ContractInputToWidgetMapper {
     public Component createSubmitButton(Contract contract, ButtonAction actionType) {
         ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(contract, actionType);
         submitButton.setDataToSend(FormOutputData.NAME);
-        submitButton.setPropertyValue("dataFromError",ParameterType.VARIABLE,SubmitErrorsListData.SUBMIT_ERROR_DATA);
+        submitButton.setPropertyValue("dataFromError", ParameterType.VARIABLE, SubmitErrorsListData.SUBMIT_ERROR_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
         submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
         return submitButton.toComponent(dimensionFactory);
     }
-    
 
     public Component createSubmitErrorAlert() {
         TextWidget widget = new TextWidget();
         widget.setCssClasses("alert alert-danger col-lg-6 col-lg-offset-3");
-        widget.setPropertyValue("hidden",ParameterType.EXPRESSION, String.format("!%s.message",SubmitErrorsListData.SUBMIT_ERROR_DATA));
-        widget.setPropertyValue("allowHTML",ParameterType.CONSTANT, true);
+        widget.setPropertyValue("hidden", ParameterType.EXPRESSION,
+                String.format("!%s.message", SubmitErrorsListData.SUBMIT_ERROR_DATA));
+        widget.setPropertyValue("allowHTML", ParameterType.CONSTANT, true);
         StringBuffer sb = new StringBuffer();
-        sb.append(String.format("<strong>{{%s.message}}</strong>",SubmitErrorsListData.SUBMIT_ERROR_DATA));
+        sb.append(String.format("<strong>{{%s.message}}</strong>", SubmitErrorsListData.SUBMIT_ERROR_DATA));
         sb.append("\n");
-        sb.append(String.format("{{%s}}",SubmitErrorsListData.NAME));
-        widget.setPropertyValue("text", ParameterType.INTERPOLATION,sb.toString());
+        sb.append(String.format("{{%s}}", SubmitErrorsListData.NAME));
+        widget.setPropertyValue("text", ParameterType.INTERPOLATION, sb.toString());
         return widget.toComponent(dimensionFactory);
     }
-
 
     public boolean canCreateComponent(ContractInput contractInput) {
         return parametrizedWidgetFactory.isSupported(contractInput);
@@ -221,14 +254,22 @@ public class ContractInputToWidgetMapper {
     }
 
     public Component createAddButton(ContractInput contractInput) {
-        ButtonWidget addButton = parametrizedWidgetFactory.createAddButton();
         ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
+        ButtonWidget addButton = parametrizedWidgetFactory
+                .createAddButton(dataHandler.isDocumentEdition() ? "File" : dataHandler.getRefType() != null ? toSimpleName(dataHandler.getRefType()) : null);
+
         addButton.setCollectionToModify(
-                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : dataHandler.isDocumentEdition() ? String.format("context.%s_ref", dataHandler.getRefName()) : dataHandler.inputValue());
+                isParentMultiple(contractInput) ? multipleInputValue(contractInput) : dataHandler.isDocumentEdition()
+                        ? String.format("context.%s_ref", dataHandler.getRefName()) : dataHandler.inputValue());
         if (contractHasInput(contractInput)) {
             addButton.setValueToAdd(getValueToAddFromContract(contractInput));
         }
         return addButton.toComponent(dimensionFactory);
+    }
+
+    private String toSimpleName(String refType) {
+        String[] parts = refType.split("\\.");
+        return parts[parts.length - 1];
     }
 
     private boolean contractHasInput(ContractInput contractInput) {

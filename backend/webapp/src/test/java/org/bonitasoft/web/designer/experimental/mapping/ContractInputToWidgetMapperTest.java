@@ -31,6 +31,9 @@ import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.DataReference;
 import org.bonitasoft.web.designer.model.contract.EditMode;
@@ -186,10 +189,15 @@ public class ContractInputToWidgetMapperTest {
             throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        ContractInput skills = aNodeContractInput("skills").mulitple().build();
+        ContractInput skills = aNodeContractInput("skills")
+                .withDataReference(new BusinessDataReference("skills","org.test.Skill",RelationType.COMPOSITION,LoadingType.EAGER))
+                .mulitple().build();
         aNodeContractInput("employee").mulitple().withInput(skills);
         Component button = contractInputToWidgetMapper.createAddButton(skills);
 
+        PropertyValue labelValue = button.getPropertyValues().get("label");
+        assertThat(labelValue.getValue()).isEqualTo("<span class=\"glyphicon glyphicon-plus\"></span> Add Skill");
+        
         PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
@@ -218,12 +226,22 @@ public class ContractInputToWidgetMapperTest {
         fileContractInput.setDataReference(new DataReference("myDoc", File.class.getName()));
         assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
 
-        Element element = contractInputToWidgetMapper.toEditableDocument(fileContractInput);
-        assertThat(element).isInstanceOf(Component.class);
-        Component fileUploadComponent = (Component) element;
+        Container container = (Container) contractInputToWidgetMapper.toEditableDocument(fileContractInput);
+       
+        Component titleComponent = (Component) container.getRows().get(0).get(0);
+        assertThat(titleComponent.getId()).isEqualTo("pbTitle");
+        PropertyValue textProperty = titleComponent.getPropertyValues().get("text");
+        assertThat(textProperty.getValue()).isEqualTo("My Doc");
+        
+        Component fileViewerComponent = (Component) container.getRows().get(1).get(0);
+        assertThat(fileViewerComponent.getId()).isEqualTo("pbFileViewer");
+        PropertyValue documentProperty = fileViewerComponent.getPropertyValues().get("document");
+        assertThat(documentProperty.getValue()).isEqualTo("context.myDoc_ref");
+        
+        Component fileUploadComponent = (Component) container.getRows().get(2).get(0);
         assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
-        PropertyValue labelProperty = fileUploadComponent.getPropertyValues().get("label");
-        assertThat(labelProperty.getValue()).isEqualTo("My Doc &nbsp; {{context.myDoc_ref.url ? '<a class=\"pull-right\" href=\"../API/' + context.myDoc_ref.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download ' + context.myDoc_ref.fileName + '</a>' : ''}}");
+        PropertyValue labelHiddenProperty = fileUploadComponent.getPropertyValues().get("labelHidden");
+        assertThat(labelHiddenProperty.getValue()).isEqualTo(Boolean.TRUE);
 
         PropertyValue valueProperty = fileUploadComponent.getPropertyValues().get("value");
         assertThat(valueProperty.getValue()).isEqualTo("context.myDoc_ref.newValue");
@@ -253,10 +271,16 @@ public class ContractInputToWidgetMapperTest {
         PropertyValue repeatedCollectionProperty = propertyValues.get("repeatedCollection");
         assertThat(repeatedCollectionProperty.getValue()).isEqualTo("context.myDoc_ref");
         
-        Component fileUploadComponent = (Component) multipleContainer.getRows().get(0).get(0);
+        Component fileViewerComponent = (Component) multipleContainer.getRows().get(0).get(0);
+        assertThat(fileViewerComponent.getId()).isEqualTo("pbFileViewer");
+        PropertyValue documentProperty = fileViewerComponent.getPropertyValues().get("document");
+        assertThat(documentProperty.getValue()).isEqualTo("$item");
+        
+        
+        Component fileUploadComponent = (Component) multipleContainer.getRows().get(1).get(0);
         assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
-        PropertyValue labelProperty = fileUploadComponent.getPropertyValues().get("label");
-        assertThat(labelProperty.getValue()).isEqualTo("{{$item.url ? '<a class=\"pull-right\" href=\"../API/' + $item.url + '\"> <i class=\"glyphicon glyphicon-download\"></i> Download '+ $item.fileName + '</a>' : '' }}");
+        PropertyValue labelHiddenProperty = fileUploadComponent.getPropertyValues().get("labelHidden");
+        assertThat(labelHiddenProperty.getValue()).isEqualTo(Boolean.TRUE);
 
         PropertyValue valueProperty = fileUploadComponent.getPropertyValues().get("value");
         assertThat(valueProperty.getValue()).isEqualTo("$item.newValue");

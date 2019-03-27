@@ -153,6 +153,13 @@ public class ContractInputDataHandler {
                         ((AbstractContractInput) input).getDataReference().getName() 
                         : null;
     }
+    
+    public String getRefType() {
+        return input instanceof AbstractContractInput 
+                && ((AbstractContractInput) input).getDataReference() != null ?
+                        ((AbstractContractInput) input).getDataReference().getType() 
+                        : null;
+    }
 
     public String getPath() {
         List<String> pathNames = newArrayList();

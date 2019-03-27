@@ -55,7 +55,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
             }
             container.getRows().add(Collections.<Element> singletonList(newContainer));
             addButtonBar(contractInput, container);
-        }else {
+        } else {
             for (ContractInput childInput : contractInput.getInput()) {
                 childInput.accept(this);
             }
@@ -63,13 +63,14 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
     }
 
     private boolean shouldCreateContainer(NodeContractInput contractInput) {
-        return !(!contractInput.isMultiple() 
-                && contractInput.getInput().size() == 1 
+        return !(!contractInput.isMultiple()
+                && contractInput.getInput().size() == 1
                 && contractInput.getInput().stream()
-                .filter(input -> Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName()))
-                .findFirst()
-                .filter(ContractInputDataHandler::hasAggregatedParentRef)
-                .isPresent());
+                        .filter(input -> Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME,
+                                input.getName()))
+                        .findFirst()
+                        .filter(ContractInputDataHandler::hasAggregatedParentRef)
+                        .isPresent());
     }
 
     @Override

@@ -42,5 +42,5 @@ public interface ParameterConstants {
     static final String URL_PARAMETER = "targetUrl";
     static final String AVAILABLE_VALUES_PARAMETER = "availableValues";
     static final String REQUIRED_PARAMETER = "required";
-
+    
 }
