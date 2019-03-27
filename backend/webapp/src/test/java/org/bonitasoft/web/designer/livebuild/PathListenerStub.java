@@ -15,19 +15,19 @@
 package org.bonitasoft.web.designer.livebuild;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class PathListenerStub implements PathListener {
-    final List<Path> changed = new ArrayList<>();
+    final Set<Path> changed = new HashSet<>();
 
     @Override
     public void onChange(Path path) throws Exception {
         changed.add(path);
     }
 
-    public List<Path> getChanged() {
+    public Set<Path> getChanged() {
         return changed;
     }
 }

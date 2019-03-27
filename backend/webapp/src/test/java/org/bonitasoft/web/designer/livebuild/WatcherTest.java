@@ -19,7 +19,7 @@ import static org.awaitility.Awaitility.await;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
@@ -29,10 +29,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class WatcherTest {
 
     private final static long POLLING_DELAY = 10;
@@ -42,7 +39,7 @@ public class WatcherTest {
 
     private static FileAlterationMonitor monitor = new FileAlterationMonitor(POLLING_DELAY);
 
-    private Watcher watcher = new Watcher(new ObserverFactory(), monitor);
+    private Watcher watcher;
     private Path subDirectory;
 
     @BeforeClass
@@ -58,6 +55,7 @@ public class WatcherTest {
     @Before
     public void setUp() throws Exception {
         subDirectory = Files.createDirectory(folder.toPath().resolve("un répertoire"));
+        watcher = new Watcher(new ObserverFactory(), monitor);
     }
 
     @Test
@@ -85,7 +83,7 @@ public class WatcherTest {
         return new Callable<Boolean>() {
 
             public Boolean call() throws Exception {
-                List<Path> changed = listener.getChanged();
+                Set<Path> changed = listener.getChanged();
                 return changed.size() == 1
                         && changed.contains(expectedFile);
             }
