@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static com.google.common.base.Joiner.on;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +45,7 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.WidgetContain
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -76,36 +76,46 @@ public class ContractInputToWidgetMapper {
         return contractInput.isMultiple() ? toMultipleComponent(contractInput, rows) : toSimpleComponent(contractInput);
     }
 
-    public Element toEditableDocument(LeafContractInput contractInput) {
+    public Element toDocument(LeafContractInput contractInput) {
         return contractInput.isMultiple()
-                ? toMultipleEditableDocument(contractInput)
-                : toSingleEditableDocument(contractInput);
+                ? toMultipleDocument(contractInput)
+                : toSingleDocument(contractInput);
     }
 
-    private Element toSingleEditableDocument(LeafContractInput contractInput) {
+    private Element toSingleDocument(LeafContractInput contractInput) {
         WidgetContainer documentContainer = parametrizedWidgetFactory.createWidgetContainer();
+        Container container = documentContainer.toContainer(dimensionFactory);
         TitleWidget docuementNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
         docuementNameTitle.setLevel("Level 4");
-
-        FileViewerWidget fileViewerWidget = new FileViewerWidget();
-        fileViewerWidget.setShowPreview(false);
-        fileViewerWidget.setDocument(String.format("context.%s_ref", contractInput.getDataReference().getName()));
-
+        if(contractInput.getMode() == EditMode.EDIT) {
+            container.addNewRow(docuementNameTitle.toComponent(dimensionFactory));
+        }
+        
+        if(contractInput.getMode() == EditMode.EDIT) {
+            FileViewerWidget fileViewerWidget = new FileViewerWidget();
+            fileViewerWidget.setShowPreview(false);
+            fileViewerWidget.setDocument(String.format("context.%s_ref", contractInput.getDataReference().getName()));
+            container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
+        }
+        
         FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
                 .createParametrizedWidget(contractInput);
-        fileUploadWidget.setValue(String.format("context.%s_ref.newValue", contractInput.getDataReference().getName()));
-        fileUploadWidget.setLabelHidden(true);
+        String value = contractInput.getMode() == EditMode.EDIT ?
+                String.format("context.%s_ref.newValue", contractInput.getDataReference().getName())
+                : isParentMultiple(contractInput) ? multipleInputValue(contractInput)
+                            : new ContractInputDataHandler(contractInput).inputValue();
+        fileUploadWidget.setValue(value);
+        fileUploadWidget.setLabelHidden(contractInput.getMode() == EditMode.EDIT);
         fileUploadWidget.setLabelWidth(4);
-        fileUploadWidget.setPlaceholder("Browse to update the file...");
-        fileUploadWidget.setRequired(false);
-
-        return documentContainer.toContainer(dimensionFactory)
-                .addNewRow(docuementNameTitle.toComponent(dimensionFactory))
-                .addNewRow(fileViewerWidget.toComponent(dimensionFactory))
-                .addNewRow(fileUploadWidget.toComponent(dimensionFactory));
+        fileUploadWidget.setLabel(docuementNameTitle.getText());
+        fileUploadWidget.setPlaceholder(contractInput.getMode() == EditMode.EDIT ? "Browse to update the file..." : "Browse to upload a new file..." );
+        fileUploadWidget.setRequired(contractInput.isMandatory());
+        container.addNewRow(fileUploadWidget.toComponent(dimensionFactory));
+        
+        return container;
     }
 
-    private Element toMultipleEditableDocument(LeafContractInput contractInput) {
+    private Element toMultipleDocument(LeafContractInput contractInput) {
         WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
         Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
         TitleWidget documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
@@ -114,19 +124,20 @@ public class ContractInputToWidgetMapper {
 
         Container container = toMultipleContainer(contractInput);
 
-        FileViewerWidget fileViewerWidget = new FileViewerWidget();
-        fileViewerWidget.setShowPreview(false);
-        fileViewerWidget.setDocument("$item");
-
-        container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
+        if(contractInput.getMode() == EditMode.EDIT) {
+            FileViewerWidget fileViewerWidget = new FileViewerWidget();
+            fileViewerWidget.setShowPreview(false);
+            fileViewerWidget.setDocument("$item");
+            container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
+        }
 
         FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
                 .createParametrizedWidget(contractInput);
-        fileUploadWidget.setValue(ITEM_ITERATOR + ".newValue");
+        fileUploadWidget.setValue(contractInput.getMode() == EditMode.EDIT ? ITEM_ITERATOR + ".newValue" : ITEM_ITERATOR);
         fileUploadWidget.setLabelHidden(true);
         fileUploadWidget.setLabelWidth(4);
         fileUploadWidget.setRequired(false);
-        fileUploadWidget.setPlaceholder("Browse to update the file...");
+        fileUploadWidget.setPlaceholder(contractInput.getMode() == EditMode.EDIT ? "Browse to update the file..." : "Browse to upload a new file..." );
         fileUploadWidget.setDimension(11);
 
         List<Element> row = new ArrayList<>();
@@ -240,14 +251,6 @@ public class ContractInputToWidgetMapper {
         return parametrizedWidgetFactory.isSupported(contractInput);
     }
 
-    public boolean isDocumentToEdit(ContractInput contractInput) {
-        if (contractInput instanceof LeafContractInput) {
-            return ((LeafContractInput) contractInput).getDataReference() != null
-                    && Objects.equals(contractInput.getType(), File.class.getName());
-        }
-        return false;
-    }
-
     public Component createRemoveButton() {
         ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
         return removeButton.toComponent(dimensionFactory);
@@ -256,7 +259,7 @@ public class ContractInputToWidgetMapper {
     public Component createAddButton(ContractInput contractInput) {
         ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
         ButtonWidget addButton = parametrizedWidgetFactory
-                .createAddButton(dataHandler.isDocumentEdition() ? "File" : dataHandler.getRefType() != null ? toSimpleName(dataHandler.getRefType()) : null);
+                .createAddButton(dataHandler.isDocument() ? "File" : dataHandler.getRefType() != null ? toSimpleName(dataHandler.getRefType()) : null);
 
         addButton.setCollectionToModify(
                 isParentMultiple(contractInput) ? multipleInputValue(contractInput) : dataHandler.isDocumentEdition()
@@ -289,5 +292,6 @@ public class ContractInputToWidgetMapper {
         }
         return null;
     }
+
 
 }

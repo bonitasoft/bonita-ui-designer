@@ -188,7 +188,10 @@ public class ContractInputDataHandler {
     }
 
     public boolean isDocumentEdition() {
-        return input.getMode() == EditMode.EDIT 
-                && Objects.equals(File.class.getName(),input.getType());
+        return isDocument() && input.getMode() == EditMode.EDIT;
+    }
+
+    public boolean isDocument() {
+        return Objects.equals(File.class.getName(),input.getType());
     }
 }

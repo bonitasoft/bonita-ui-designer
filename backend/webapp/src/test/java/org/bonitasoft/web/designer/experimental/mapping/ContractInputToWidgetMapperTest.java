@@ -222,11 +222,13 @@ public class ContractInputToWidgetMapperTest {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         LeafContractInput fileContractInput = ContractInputBuilder.aFileContractInput("aDocument.txt");
-        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isFalse();
+        ContractInputDataHandler dataHandler = new ContractInputDataHandler(fileContractInput);
+        assertThat(dataHandler.isDocumentEdition()).isFalse();
         fileContractInput.setDataReference(new DataReference("myDoc", File.class.getName()));
-        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
+        fileContractInput.setMode(EditMode.EDIT);
+        assertThat(dataHandler.isDocumentEdition()).isTrue();
 
-        Container container = (Container) contractInputToWidgetMapper.toEditableDocument(fileContractInput);
+        Container container = (Container) contractInputToWidgetMapper.toDocument(fileContractInput);
        
         Component titleComponent = (Component) container.getRows().get(0).get(0);
         assertThat(titleComponent.getId()).isEqualTo("pbTitle");
@@ -254,11 +256,11 @@ public class ContractInputToWidgetMapperTest {
         LeafContractInput fileContractInput = ContractInputBuilder.aFileContractInput("aDocument.txt");
         fileContractInput.setMultiple(true);
         fileContractInput.setMode(EditMode.EDIT);
-        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isFalse();
+        ContractInputDataHandler dataHandler = new ContractInputDataHandler(fileContractInput);
         fileContractInput.setDataReference(new DataReference("myDoc", File.class.getName()));
-        assertThat(contractInputToWidgetMapper.isDocumentToEdit(fileContractInput)).isTrue();
+        assertThat(dataHandler.isDocumentEdition()).isTrue();
 
-        Element element = contractInputToWidgetMapper.toEditableDocument(fileContractInput);
+        Element element = contractInputToWidgetMapper.toDocument(fileContractInput);
         assertThat(element).isInstanceOf(Container.class);
         Container container = (Container) element;
         assertThat(container.getRows()).hasSize(2);
@@ -284,13 +286,6 @@ public class ContractInputToWidgetMapperTest {
 
         PropertyValue valueProperty = fileUploadComponent.getPropertyValues().get("value");
         assertThat(valueProperty.getValue()).isEqualTo("$item.newValue");
-    }
-
-    private PropertyValue createProperty(String type, String value) {
-        PropertyValue property = new PropertyValue();
-        property.setType(type);
-        property.setValue(value);
-        return property;
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {

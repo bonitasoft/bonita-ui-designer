@@ -76,12 +76,13 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
     @Override
     public void visit(LeafContractInput contractInput) {
         if (contractInputToWidgetMapper.canCreateComponent(contractInput)) {
-            Element element = contractInputToWidgetMapper.isDocumentToEdit(contractInput)
-                    ? contractInputToWidgetMapper.toEditableDocument(contractInput)
+            ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
+            Element element = dataHandler.isDocument()
+                    ? contractInputToWidgetMapper.toDocument(contractInput)
                     : contractInputToWidgetMapper.toElement(contractInput, container.getRows());
             container.getRows().add(Collections.singletonList(element));
             addButtonBar(contractInput,
-                    element instanceof ElementContainer && contractInputToWidgetMapper.isDocumentToEdit(contractInput)
+                    element instanceof ElementContainer && dataHandler.isDocument()
                             ? (ElementContainer) element : container);
         }
     }
