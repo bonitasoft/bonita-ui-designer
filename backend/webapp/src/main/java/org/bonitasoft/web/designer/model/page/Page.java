@@ -25,7 +25,7 @@ public class Page extends AbstractPage implements HasUUID {
     private String uuid;
     private String type = "page";
     private String description = "Page generated with Bonita UI designer";
-    private String displayName = "";
+    private String displayName;
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getType() {
@@ -57,7 +57,7 @@ public class Page extends AbstractPage implements HasUUID {
 
     @JsonView({JsonViewPersistence.class})
     public String getDisplayName() {
-        return "".equals(displayName) ? this.getName() : displayName;
+        return displayName;
     }
 
     public void setDisplayName(String displayName) {

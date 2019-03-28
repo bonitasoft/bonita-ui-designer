@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.PageResource;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.GenerationException;
@@ -42,7 +43,7 @@ public class PagePropertiesBuilder {
         Properties properties = new Properties();
         properties.put("name", "custompage_" + page.getName());
         properties.put("contentType", String.valueOf(page.getType()).toLowerCase(Locale.ENGLISH));
-        properties.put("displayName", page.getDisplayName());
+        properties.put("displayName", StringUtils.isBlank(page.getDisplayName())? page.getName() : page.getDisplayName());
         properties.put("description", page.getDescription());
         properties.put("resources", resources.toString());
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

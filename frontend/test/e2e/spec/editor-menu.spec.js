@@ -132,9 +132,9 @@ describe('editor menu', function() {
     var submitButton = $('.modal-footer .btn-primary');
 
 
-    // button disabled when we enter a wrong display name
+    // button enable when no display name
     displayName.clear();
-    expect(submitButton.isEnabled()).toBeFalsy();
+    expect(submitButton.isEnabled()).toBeTruthy();
 
     // display name and description are changed
     displayName.clear();
