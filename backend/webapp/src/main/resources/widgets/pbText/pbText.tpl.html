@@ -12,7 +12,5 @@
 		<p ng-if="!properties.allowHTML" class="form-control-static col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}" ng-bind="properties.text | uiTranslate"></p>
     </div>
 </div>
-<div ng-if="properties.labelHidden">
-	<p ng-if="properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind-html="properties.text | uiTranslate"></p>
-	<p ng-if="!properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind="properties.text | uiTranslate"></p>
-</div>
+<p ng-if="properties.labelHidden && properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind-html="properties.text | uiTranslate"></p>
+<p ng-if="properties.labelHidden && !properties.allowHTML" class="text-{{ properties.alignment }}" ng-bind="properties.text | uiTranslate"></p>
