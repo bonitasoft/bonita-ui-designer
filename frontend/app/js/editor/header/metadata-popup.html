@@ -4,19 +4,16 @@
 <form class="form EditorHeader-editMetadata" name="editMetadata" novalidate>
     <div class="modal-body" id="modal-edit-metadata">
         <h4 translate>Metadata</h4>
-        <div class="form-group" ng-class="{'has-error': editMetadata.displayName.$invalid && editMetadata.displayName.$error.required}">
-            <label class="control-label control-label--required" for="page-displayName" translate>Display name</label>
-            <i class="fa fa-info-circle" uib-tooltip="{{'Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive.' | translate}}" tooltip-placement="right"></i>
+        <div class="form-group">
+            <label class="control-label" for="page-displayName" translate>Display name</label>
+            <i class="fa fa-info-circle" uib-tooltip="{{'Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback.' | translate}}" tooltip-placement="right"></i>
             <input
                 name="displayName"
                 ng-model="ctrl.displayName"
                 class="form-control"
                 id="page-displayName"
                 placeholder="{{ 'Page display name' | translate }}"
-                maxlength="255"
-                required/>
-            <span class="help-block" ng-show="editMetadata.displayName.$invalid
-            && editMetadata.displayName.$error.required" translate>Display name is required.</span>
+                maxlength="255"/>
         </div>
         <div class="form-group">
             <label for="page-description" translate>Description</label>
