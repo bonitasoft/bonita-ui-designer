@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-03-25 02:29\n"
+"PO-Revision-Date: 2019-04-01 02:00\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -91,6 +91,9 @@ msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un 
 msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
 msgstr ""
 
+msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
+msgstr ""
+
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> es un parámetro de URL. <br>Es el id de la tarea actual de BPM. Se puede utilizar como un parámetro de la API de BPM."
 
@@ -120,6 +123,9 @@ msgstr "<em>Nota sobre los widgets</em> Selector de fecha <em>y</em> Selector de
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>Valor de la respuesta exitosa</em>: la variable se establecerá si la petición es exitosa (código 2XX)"
+
+msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
+msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr ""
@@ -455,6 +461,9 @@ msgstr "opciones"
 msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
+msgid "Choose process document if the file is used by a process"
+msgstr ""
+
 msgid "Choose true if you want display this modal with an animation, false otherwise"
 msgstr "Elija verdadero si desea mostrar este modal con una animación, de lo contrario, falso"
 
@@ -688,6 +697,9 @@ msgstr "Determina la aplicación de destino. Se recomienda no hardcodearla."
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "Determina el tema de la aplicación que utilizará la página de destino. Se recomienda no hardcodearlo."
 
+msgid "Direct link to an external file"
+msgstr ""
+
 msgid "Disabled"
 msgstr "Desactivado"
 
@@ -703,14 +715,14 @@ msgstr "Mostrar nombre"
 msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
 msgstr "Nombre mostrado y la descripción se utilizan cuando se importa la página, formulario o layout en la página de recursos del portal. Para editarlos, haga clic en el botón nuevo \"Etiqueta\"."
 
-msgid "Display name is required."
-msgstr "Se necesita un nombre para mostrar."
-
 msgid "Display or hide the shortcut button to current day"
 msgstr "Mostrar u ocultar el botón de acceso directo al día actual"
 
 msgid "Display or hide the shortcut button to set date and time to now"
 msgstr "Mostrar u ocultar el botón de acceso directo para ajustar la fecha y hora ahora"
+
+msgid "Display the document in the page or a form"
+msgstr ""
 
 msgid "Displayed key"
 msgstr "Clave mostrada"
@@ -796,6 +808,9 @@ msgstr "Externo"
 msgid "External API"
 msgstr "API externa"
 
+msgid "External API (variable) or URL"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Este widget personalizado necesita módulos de angular adicionales (separados por comas)"
 
@@ -813,6 +828,15 @@ msgstr "Archivo"
 
 msgid "File chooser for uploading a document to a form"
 msgstr "Selector de archivos para subir un documento al formulario"
+
+msgid "File source"
+msgstr ""
+
+msgid "File unavailable"
+msgstr ""
+
+msgid "FileName"
+msgstr ""
 
 msgid "Filters"
 msgstr "Filtros"
@@ -1033,6 +1057,9 @@ msgstr "En la carpeta:"
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
+
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr ""
 
@@ -1152,6 +1179,9 @@ msgstr "Nivel 6"
 
 msgid "Link"
 msgstr "Enlace"
+
+msgid "Link to display or download a document"
+msgstr ""
 
 msgid "Linked to a process instantiation or a task, using the contract"
 msgstr "Vinculado a una instanciación de proceso o una tarea, utilizando el contrato"
@@ -1330,6 +1360,9 @@ msgstr "Clave de objeto para mostrar"
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de propiedades de la derecha."
 
+msgid "Only works with formats supported by the browser (by default PDF and image)"
+msgstr ""
+
 msgid "Open Modal"
 msgstr "Abrir Modal"
 
@@ -1393,6 +1426,9 @@ msgstr "Vista Previa"
 msgid "Preview - {{pageName}}"
 msgstr "Vista previa - {{pageName}}"
 
+msgid "Process document"
+msgstr ""
+
 msgid "Process form"
 msgstr "Formulario de proceso"
 
@@ -1416,6 +1452,9 @@ msgstr "Sólo lectura"
 
 msgid "Read-write binding, initialized or updated by users' input (bi-directional bond)"
 msgstr "Enlace de lectura-escritura, inicializado o actualizado por la entrada de los usuarios (enlace bidireccional)"
+
+msgid "Referenced in a case context (current case or other cases)"
+msgstr ""
 
 msgid "Relative time filter"
 msgstr "Filtro de tiempo relativo"
@@ -1560,6 +1599,9 @@ msgstr "Mostrar botón Ahora"
 
 msgid "Show Today button"
 msgstr "Mostrar botón Hoy"
+
+msgid "Show preview"
+msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
@@ -2065,6 +2107,9 @@ msgstr "Usar este widget para:"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
 msgstr "Utilizado en la lista de Recursos del portal. Parte del descriptor page.properties en el archivo de páginas exportadas."
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"

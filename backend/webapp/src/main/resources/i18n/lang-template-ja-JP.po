@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-03-25 02:37\n"
+"PO-Revision-Date: 2019-04-01 02:13\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -91,6 +91,9 @@ msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式
 msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
 msgstr ""
 
+msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
+msgstr ""
+
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM タスクの id です。BPM API のパラメータとして使用できます。"
 
@@ -120,6 +123,9 @@ msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関す
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>成功時のレスポンス値</em>： この変数はリクエストが成功した場合 (コード 2XX) に設定されます"
+
+msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
+msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr ""
@@ -455,6 +461,9 @@ msgstr "選択肢"
 msgid "Choices (comma separated)"
 msgstr "選択肢 (カンマで区切る)"
 
+msgid "Choose process document if the file is used by a process"
+msgstr ""
+
 msgid "Choose true if you want display this modal with an animation, false otherwise"
 msgstr ""
 
@@ -688,6 +697,9 @@ msgstr "ターゲット アプリケーションを指定します。ハード �
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "ターゲット ページで使用するアプリケーションのテーマを指定します。ハード コーディングしないことを推奨します。"
 
+msgid "Direct link to an external file"
+msgstr ""
+
 msgid "Disabled"
 msgstr "無効"
 
@@ -703,14 +715,14 @@ msgstr ""
 msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
 msgstr ""
 
-msgid "Display name is required."
-msgstr ""
-
 msgid "Display or hide the shortcut button to current day"
 msgstr "現在日にショートカット ボタンを表示または非表示"
 
 msgid "Display or hide the shortcut button to set date and time to now"
 msgstr "日付と時刻を現在の日時に設定するショートカット ボタンを表示または非表示"
+
+msgid "Display the document in the page or a form"
+msgstr ""
 
 msgid "Displayed key"
 msgstr "表示するキー"
@@ -796,6 +808,9 @@ msgstr "外部"
 msgid "External API"
 msgstr "External API"
 
+msgid "External API (variable) or URL"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジュール (カンマで区切る)"
 
@@ -813,6 +828,15 @@ msgstr "File"
 
 msgid "File chooser for uploading a document to a form"
 msgstr "フォームにドキュメントをアップロードするためのファイル選択ダイアログ"
+
+msgid "File source"
+msgstr ""
+
+msgid "File unavailable"
+msgstr ""
+
+msgid "FileName"
+msgstr ""
 
 msgid "Filters"
 msgstr "フィルター"
@@ -1033,6 +1057,9 @@ msgstr ""
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
 
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
+
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr ""
 
@@ -1153,6 +1180,9 @@ msgstr "レベル 6"
 
 msgid "Link"
 msgstr "リンク"
+
+msgid "Link to display or download a document"
+msgstr ""
 
 msgid "Linked to a process instantiation or a task, using the contract"
 msgstr ""
@@ -1331,6 +1361,9 @@ msgstr "表示するオブジェクトのキー"
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "１つの要素を１回選択し、右のプロパティパネルでそのプロパティを編集します。"
 
+msgid "Only works with formats supported by the browser (by default PDF and image)"
+msgstr ""
+
 msgid "Open Modal"
 msgstr ""
 
@@ -1394,6 +1427,9 @@ msgstr "プレビュー"
 msgid "Preview - {{pageName}}"
 msgstr "プレビュー - {{pageName}}"
 
+msgid "Process document"
+msgstr ""
+
 msgid "Process form"
 msgstr "プロセス フォーム"
 
@@ -1417,6 +1453,9 @@ msgstr "読み取り専用"
 
 msgid "Read-write binding, initialized or updated by users' input (bi-directional bond)"
 msgstr "読み取り/書き込みのバインディング、初期化、またはユーザーの入力 （双方向バインド）による更新"
+
+msgid "Referenced in a case context (current case or other cases)"
+msgstr ""
 
 msgid "Relative time filter"
 msgstr "例: 相対時間フィルター"
@@ -1561,6 +1600,9 @@ msgstr "現在のボタンを表示"
 
 msgid "Show Today button"
 msgstr "今日のボタンを表示"
+
+msgid "Show preview"
+msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr ""
@@ -2065,6 +2107,9 @@ msgid "Use this widget to:"
 msgstr "このウィジェットを使用:"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr ""
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
 msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"

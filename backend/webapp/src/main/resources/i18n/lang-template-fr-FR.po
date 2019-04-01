@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-03-25 02:28\n"
+"PO-Revision-Date: 2019-04-01 01:58\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -90,6 +90,9 @@ msgstr "<code>formOutput</code> est une expression JavaScript qui retourne un ob
 msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
 msgstr "<code>Caché</code> <em>(par défaut : faux)</em>: Définit si l'onglet est caché ou non."
 
+msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
+msgstr ""
+
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> est un paramètre d'URL. <br>C'est l'id de la tâche BPM courante. Vous pouvez l'utiliser comme paramètre d'API BPM."
 
@@ -119,6 +122,9 @@ msgstr "<em>Note sur les widgets</em> Date <em>et</em> Date Time : la traduction
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>Valeur de réponse en cas de succès</em> : la variable sera définie si la demande est à succès (code 2XX)"
+
+msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
+msgstr ""
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr "<p><span class=\"tip\"> Astuce :</span> Pour utiliser des variables dans l'URL, employez la syntaxe <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\"> Astuce :</span> Pour étendre les capacités de notre API REST, créez des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et utilisez-les ici</p>"
@@ -454,6 +460,9 @@ msgstr "Choix"
 msgid "Choices (comma separated)"
 msgstr "Choix (séparés par des virgules)"
 
+msgid "Choose process document if the file is used by a process"
+msgstr ""
+
 msgid "Choose true if you want display this modal with an animation, false otherwise"
 msgstr "Choisissez 'vrai' pour l'afficher avec animation, 'faux' pour la faire apparaître"
 
@@ -687,6 +696,9 @@ msgstr "Détermine l’application cible. Il est recommandé de ne pas le saisir
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "Détermine le thème de l’application qui sera utilisé par la page cible. Il est recommandé de ne pas le saisir en dur."
 
+msgid "Direct link to an external file"
+msgstr ""
+
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -702,14 +714,14 @@ msgstr "Nom affiché"
 msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
 msgstr "Le nom affiché et la description sont utilisés à l'importation de la page, du formulaire ou du layout dans la page « Ressources » du portail. Pour les éditer, cliquez sur le nouveau bouton « Etiquette »."
 
-msgid "Display name is required."
-msgstr "Le nom affiché est obligatoire."
-
 msgid "Display or hide the shortcut button to current day"
 msgstr "Afficher ou masquer le bouton de raccourci pour sélectionner la date du jour"
 
 msgid "Display or hide the shortcut button to set date and time to now"
 msgstr "Afficher ou masquer le bouton de raccourci pour régler la date et l’heure au moment présent"
+
+msgid "Display the document in the page or a form"
+msgstr ""
 
 msgid "Displayed key"
 msgstr "Clé affichée"
@@ -795,6 +807,9 @@ msgstr "Externe"
 msgid "External API"
 msgstr "API externe"
 
+msgid "External API (variable) or URL"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Modules AngularJS nécessaires pour ce widget personnalisé (séparés par des virgules)"
 
@@ -812,6 +827,15 @@ msgstr "Fichier"
 
 msgid "File chooser for uploading a document to a form"
 msgstr "Sélecteur de fichier pour télécharger un document vers un formulaire"
+
+msgid "File source"
+msgstr ""
+
+msgid "File unavailable"
+msgstr ""
+
+msgid "FileName"
+msgstr ""
 
 msgid "Filters"
 msgstr "Filtres"
@@ -1032,6 +1056,9 @@ msgstr "Dans le dossier :"
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En environnement de production, si l'utilisateur est connecté à Bonita Portal, les artefacts des interfaces utilisateur sont affichés dans la langue sélectionnée par l'utilisateur dans le portail ou dans la langue par défaut du portail."
 
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
+
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr ""
 
@@ -1151,6 +1178,9 @@ msgstr "Niveau 6"
 
 msgid "Link"
 msgstr "Lien"
+
+msgid "Link to display or download a document"
+msgstr ""
 
 msgid "Linked to a process instantiation or a task, using the contract"
 msgstr "Associé à l'instanciation d'un processus ou à une tâche, en utilisant le contrat"
@@ -1329,6 +1359,9 @@ msgstr "Clé de l'objet à afficher"
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Lorsque vous sélectionnez un élément, modifiez ses propriétés dans le panneau de propriétés sur la droite."
 
+msgid "Only works with formats supported by the browser (by default PDF and image)"
+msgstr ""
+
 msgid "Open Modal"
 msgstr "Ouvrir une fenêtre modale"
 
@@ -1392,6 +1425,9 @@ msgstr "Aperçu"
 msgid "Preview - {{pageName}}"
 msgstr "Aperçu  - {{pageName}}"
 
+msgid "Process document"
+msgstr ""
+
 msgid "Process form"
 msgstr "Formulaire de processus"
 
@@ -1415,6 +1451,9 @@ msgstr "Lecture seule"
 
 msgid "Read-write binding, initialized or updated by users' input (bi-directional bond)"
 msgstr "Liaison de type lecture / écriture, initialisée ou mise à jour par l’input de l'utilisateur (liaison bidirectionnelle)"
+
+msgid "Referenced in a case context (current case or other cases)"
+msgstr ""
 
 msgid "Relative time filter"
 msgstr "Filtre d'affichage de temps relatif"
@@ -1559,6 +1598,9 @@ msgstr "Afficher le bouton Maintenant"
 
 msgid "Show Today button"
 msgstr "Afficher le bouton Aujourd'hui"
+
+msgid "Show preview"
+msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Depuis Bonita 7.5.0, UI Bootstrap n’est plus fourni dans les pages du UI Designer."
@@ -2065,6 +2107,9 @@ msgstr "Utilisez ce widget pour :"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
 msgstr "Utilisé dans la liste des Ressources du portail. Fait partie du descripteur page.properties dans l'archive de la page exportée."
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
