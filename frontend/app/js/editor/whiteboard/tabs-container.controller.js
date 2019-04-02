@@ -67,4 +67,11 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
     $scope.openTab(tabs[previousTabIndex], event);
     tab.triggerRemoved();
   };
+
+  $scope.isPropertyExist = function(property) {
+    if (!$scope.tabsContainer.hasOwnProperty('propertyValues') || !$scope.tabsContainer.propertyValues.hasOwnProperty(property)) {
+      return false;
+    }
+    return $scope.tabsContainer.propertyValues[property].hasOwnProperty('value');
+  };
 });
