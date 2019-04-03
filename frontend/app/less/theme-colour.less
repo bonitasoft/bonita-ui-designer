@@ -75,6 +75,10 @@
 @btn-bonita-help-widget-bg:              lighten(@color-properties-bg, 10%);
 @btn-bonita-help-widget-border:          transparent;
 
+@btn-bonita-edit-widget-color:           #fff;
+@btn-bonita-edit-widget-bg:              lighten(@color-properties-bg, 10%);
+@btn-bonita-edit-widget-border:          transparent;
+
 @Artifact-button--favorite-color:        #ffe502;
 
 .btn-bonita-default {
@@ -109,6 +113,14 @@
 
   &:hover {
     background-color: lighten(@btn-bonita-help-widget-bg, 5%);
+  }
+}
+
+.btn-bonita-edit-widget {
+  .button-variant(@btn-bonita-edit-widget-color, @btn-bonita-edit-widget-bg, @btn-bonita-edit-widget-border);
+
+  &:hover {
+    background-color: lighten(@btn-bonita-edit-widget-bg, 5%);
   }
 }
 

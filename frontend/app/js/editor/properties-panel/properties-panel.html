@@ -6,20 +6,17 @@
                 popover-trigger="none" popover-is-open="widgetHelpPopover.isOpen" popover-placement="left-top" popover-class="PropertyPanel-help-popover">
             <i class="fa fa-question-circle"></i>
         </button>
+        <button ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" class="btn btn-xs btn-bonita-edit-widget PropertyPanel-edit-btn"
+                id="edit-widget"
+                tooltip-placement="top-right" uib-tooltip="{{ 'Edit widget' | translate }}"
+                tooltip-append-to-body="true">
+            <i class="fa fa-pencil"></i>
+        </button>
         <h3 class="PropertyPanel-title">
             {{ currentComponent.$$widget.name }}
         </h3>
     </div>
-    <div class="PropertyPanel-content">
-        <div class="row">
-            <div class="col-xs-12" ng-if="currentComponent.$$widget.custom">
-                <button class="btn btn-bonita-property" id="edit-custom-widget" ng-disabled="!canBeSaved(page)"
-                        ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>Edit the custom widget
-                </button>
-            </div>
-        </div>
-        <div ng-include="currentComponent.$$propertiesTemplateUrl"></div>
-    </div>
+    <div class="PropertyPanel-content" ng-include="currentComponent.$$propertiesTemplateUrl"></div>
 
 </div>
 

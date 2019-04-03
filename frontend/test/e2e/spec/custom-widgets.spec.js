@@ -11,7 +11,7 @@ describe('custom widget test', function() {
     editor.addCustomWidget('customAwesomeWidget');
 
     // then we should be able to edit it
-    $('#edit-custom-widget').click();
+    $('#edit-widget').click();
 
     // then we should go the custom widget edition
     expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
