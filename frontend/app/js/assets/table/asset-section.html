@@ -12,7 +12,7 @@
 <div ng-show="vm.type.value" class="AssetTable-displayed">
     <table class="Table AssetTable">
         <tbody>
-        <tr ng-repeat="asset in assets | orderBy:['type','componentId','order'] as results"
+        <tr ng-repeat="asset in assets | orderBy:['scope', 'componentId','order'] as results"
             ng-class="{'text-muted':!asset.active}"
             id="{{asset.id || asset.$$hashKey}}"
             >

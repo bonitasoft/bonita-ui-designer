@@ -55,7 +55,7 @@ describe('asset panel', function() {
 
       describe('for an asset', function () {
         it('should display the widget name in the table for a widget asset', function () {
-          let widgetAsset = assetPanel.lines.first();
+          let widgetAsset = assetPanel.lines.get(1);
           expect(widgetAsset.all(by.tagName('td')).get(SCOPE_COLUMN).getText()).toBe('customWidget');
         });
 
@@ -64,7 +64,7 @@ describe('asset panel', function() {
           var localAsset;
 
           beforeEach(function () {
-            localAsset = assetPanel.lines.get(1);
+            localAsset = assetPanel.lines.first();
           });
 
           it('should display action buttons for assets', function () {
