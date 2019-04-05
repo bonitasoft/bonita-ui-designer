@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
@@ -24,6 +23,10 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
 
 import org.bonitasoft.web.designer.experimental.assertions.AbstractParametrizedWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.ButtonWidgetAssert;
@@ -31,7 +34,15 @@ import org.bonitasoft.web.designer.experimental.assertions.DatePickerWidgetAsser
 import org.bonitasoft.web.designer.experimental.assertions.DateTimePickerWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.InputWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.TitleWidgetAssert;
+import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Rule;
 import org.junit.Test;
@@ -233,8 +244,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     @Test
     public void create_a_container_with_full_size() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
-
-        WidgetContainer container = elementFactory.createWidgetContainer();
+        ContractInput input = mock(ContractInput.class);
+        when(input.isMultiple()).thenReturn(false);
+        WidgetContainer container = elementFactory.createWidgetContainer(input);
 
         assertThat(container.getDimension()).isEqualTo(12);
     }
@@ -242,8 +254,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     @Test
     public void create_a_displayed_container() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
-
-        WidgetContainer container = elementFactory.createWidgetContainer();
+        ContractInput input = mock(ContractInput.class);
+        when(input.isMultiple()).thenReturn(false);
+        WidgetContainer container = elementFactory.createWidgetContainer(input);
 
         AbstractParametrizedWidgetAssert.assertThat(container).isDisplayed();
     }
@@ -252,7 +265,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_submit_button_with_submit_task_action_for_a_contract() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
+        ButtonWidget button = elementFactory.createSubmitButton(ButtonAction.SUBMIT_TASK);
 
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.SUBMIT_TASK.getValue());
     }
@@ -261,7 +274,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_submit_button_with_start_process_action_for_a_contract() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.START_PROCESS);
+        ButtonWidget button = elementFactory.createSubmitButton(ButtonAction.START_PROCESS);
 
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.START_PROCESS.getValue());
     }
@@ -270,7 +283,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     public void create_submit_button_with_submit_label() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        ButtonWidget button = elementFactory.createSubmitButton(aSimpleContract(), ButtonAction.START_PROCESS);
+        ButtonWidget button = elementFactory.createSubmitButton(ButtonAction.START_PROCESS);
 
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         AbstractParametrizedWidgetAssert.assertThat(button)
@@ -345,16 +358,17 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     @Test
     public void create_add_button() throws Exception {
         ParametrizedWidgetFactory elementFactory = createFactory();
-
-        ButtonWidget button = elementFactory.createAddButton(null);
+        ContractInput input = mock(ContractInput.class);
+        when(input.getName()).thenReturn("input");
+        ButtonWidget button = elementFactory.createAddButton(input);
 
         assertThat(button.getDimension()).isEqualTo(12);
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
 
         AbstractParametrizedWidgetAssert.assertThat(button)
-        .hasLabel( "<span class=\"glyphicon glyphicon-plus\"></span>")
-        .hasAlignment(Alignment.LEFT.getValue())
+                .hasLabel("<span class=\"glyphicon glyphicon-plus\"></span>")
+                .hasAlignment(Alignment.LEFT.getValue())
                 .isDisplayed();
     }
 
@@ -372,8 +386,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidgetAssert.assertThat(button).hasAlignment(Alignment.RIGHT.getValue());
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.DANGER.getValue()).isNotDisabled();
         AbstractParametrizedWidgetAssert.assertThat(button)
-        .hasLabel( "<span class=\"glyphicon glyphicon-remove\"></span>")
-        .isDisplayed();
+                .hasLabel("<span class=\"glyphicon glyphicon-remove\"></span>")
+                .isDisplayed();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.REMOVE_FROM_COLLECTION.getValue());
 
         PropertyValue PropertyValue = button.toPropertyValues().get("removeItem");
@@ -395,6 +409,92 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(link.getButtonStyle()).isEqualTo(linkStyle.getValue());
         assertThat(link.getDimension()).isEqualTo(12);
         AbstractParametrizedWidgetAssert.assertThat(link).hasAlignment(Alignment.LEFT.getValue());
+    }
+
+    @Test
+    public void should_create_read_only_widget_for_text_input() {
+        DataReference dataReference = new DataReference("reference", String.class.getName());
+        LeafContractInput input = new LeafContractInput("readOnlyText", String.class);
+        input.setReadonly(true);
+        input.setDataReference(dataReference);
+        input.setMode(EditMode.EDIT);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(TextWidget.class);
+        assertThat(widget.getHidden()).isEqualTo("!reference");
+        assertThat(widget.isLabelHidden()).isFalse();
+        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference}}");
+    }
+
+    @Test
+    public void should_create_read_only_widget_for_numeric_input() {
+        DataReference dataReference = new DataReference("reference", Integer.class.getName());
+        LeafContractInput input = new LeafContractInput("readOnlyInteger", Integer.class);
+        input.setReadonly(true);
+        input.setDataReference(dataReference);
+        input.setMode(EditMode.EDIT);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(TextWidget.class);
+        assertThat(widget.getHidden()).isEqualTo("!reference");
+        assertThat(widget.isLabelHidden()).isFalse();
+        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference}}");
+    }
+
+    @Test
+    public void should_create_read_only_widget_for_date_input() {
+        DataReference dataReference = new DataReference("reference", LocalDate.class.getName());
+        LeafContractInput input = new LeafContractInput("readOnlyDate", LocalDate.class);
+        input.setReadonly(true);
+        input.setDataReference(dataReference);
+        input.setMode(EditMode.EDIT);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(TextWidget.class);
+        assertThat(widget.getHidden()).isEqualTo("!reference");
+        assertThat(widget.isLabelHidden()).isFalse();
+        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference|uiDate}}");
+    }
+
+    @Test
+    public void should_create_read_only_widget_for_boolean_input() {
+        DataReference dataReference = new DataReference("reference", Boolean.class.getName());
+        LeafContractInput input = new LeafContractInput("readOnlyBoolean", Boolean.class);
+        input.setReadonly(true);
+        input.setDataReference(dataReference);
+        input.setMode(EditMode.EDIT);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(CheckboxWidget.class);
+        assertThat(widget.getHidden()).isEqualTo("!reference");
+        assertThat(widget.isLabelHidden()).isFalse();
+        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(widget.isReadOnly()).isTrue();
+        assertThat(((CheckboxWidget) widget).getValue()).isEqualTo("reference");
+    }
+
+    @Test
+    public void should_create_read_only_widget_for_aggregated_input() {
+        BusinessDataReference dataReference = new BusinessDataReference("aggregatedReference", Object.class.getName(),
+                RelationType.AGGREGATION, LoadingType.EAGER);
+        NodeContractInput parent = new NodeContractInput("aggregatedObject");
+        parent.setDataReference(dataReference);
+        parent.setDataReference(dataReference);
+        parent.setMode(EditMode.EDIT);
+        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, String.class);
+        input.setReadonly(true);
+        input.setMode(EditMode.EDIT);
+        parent.addInput(input);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(TextWidget.class);
+        assertThat(widget.getHidden()).isEqualTo("!aggregatedReference");
+        assertThat(widget.isLabelHidden()).isFalse();
+        assertThat(widget.getLabel()).isEqualTo("Aggregated Reference");
+        assertThat(((TextWidget) widget).getText()).isEqualTo("{{aggregatedReference}}");
     }
 
     private ParametrizedWidgetFactory createFactory() {

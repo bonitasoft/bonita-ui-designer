@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
@@ -114,7 +113,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_submit_button_have_contract_action() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
+        Element element = contractInputToWidgetMapper.createSubmitButton(ButtonAction.SUBMIT_TASK);
 
         assertThat(element.getPropertyValues().get("action").getValue()).isEqualTo("Submit task");
     }
@@ -123,7 +122,7 @@ public class ContractInputToWidgetMapperTest {
     public void should_submit_button_send_sentData_variable() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
+        Element element = contractInputToWidgetMapper.createSubmitButton(ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("dataToSend");
         assertThat(PropertyValue.getType()).isEqualTo("expression");
@@ -134,7 +133,7 @@ public class ContractInputToWidgetMapperTest {
     public void submit_button_should_redirect_to_bonita_on_success() throws Exception {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
-        Element element = contractInputToWidgetMapper.createSubmitButton(aSimpleContract(), ButtonAction.SUBMIT_TASK);
+        Element element = contractInputToWidgetMapper.createSubmitButton(ButtonAction.SUBMIT_TASK);
 
         PropertyValue PropertyValue = element.getPropertyValues().get("targetUrlOnSuccess");
         assertThat(PropertyValue.getType()).isEqualTo("interpolation");
@@ -190,14 +189,15 @@ public class ContractInputToWidgetMapperTest {
         ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
 
         ContractInput skills = aNodeContractInput("skills")
-                .withDataReference(new BusinessDataReference("skills","org.test.Skill",RelationType.COMPOSITION,LoadingType.EAGER))
+                .withDataReference(
+                        new BusinessDataReference("skills", "org.test.Skill", RelationType.COMPOSITION, LoadingType.EAGER))
                 .mulitple().build();
         aNodeContractInput("employee").mulitple().withInput(skills);
         Component button = contractInputToWidgetMapper.createAddButton(skills);
 
         PropertyValue labelValue = button.getPropertyValues().get("label");
         assertThat(labelValue.getValue()).isEqualTo("<span class=\"glyphicon glyphicon-plus\"></span> Add Skill");
-        
+
         PropertyValue repeatedCollectionPropetyValue = button.getPropertyValues().get("collectionToModify");
         assertThat(repeatedCollectionPropetyValue.getType()).isEqualTo("variable");
         assertThat(repeatedCollectionPropetyValue.getValue()).isEqualTo("$item.skills");
@@ -229,17 +229,17 @@ public class ContractInputToWidgetMapperTest {
         assertThat(dataHandler.isDocumentEdition()).isTrue();
 
         Container container = (Container) contractInputToWidgetMapper.toDocument(fileContractInput);
-       
+
         Component titleComponent = (Component) container.getRows().get(0).get(0);
         assertThat(titleComponent.getId()).isEqualTo("pbTitle");
         PropertyValue textProperty = titleComponent.getPropertyValues().get("text");
         assertThat(textProperty.getValue()).isEqualTo("My Doc");
-        
+
         Component fileViewerComponent = (Component) container.getRows().get(1).get(0);
         assertThat(fileViewerComponent.getId()).isEqualTo("pbFileViewer");
         PropertyValue documentProperty = fileViewerComponent.getPropertyValues().get("document");
         assertThat(documentProperty.getValue()).isEqualTo("context.myDoc_ref");
-        
+
         Component fileUploadComponent = (Component) container.getRows().get(2).get(0);
         assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
         PropertyValue labelHiddenProperty = fileUploadComponent.getPropertyValues().get("labelHidden");
@@ -268,17 +268,16 @@ public class ContractInputToWidgetMapperTest {
         Component title = (Component) container.getRows().get(0).get(0);
         assertThat(title.getId()).isEqualTo("pbTitle");
         Container multipleContainer = (Container) container.getRows().get(1).get(0);
-     
+
         Map<String, PropertyValue> propertyValues = multipleContainer.getPropertyValues();
         PropertyValue repeatedCollectionProperty = propertyValues.get("repeatedCollection");
         assertThat(repeatedCollectionProperty.getValue()).isEqualTo("context.myDoc_ref");
-        
+
         Component fileViewerComponent = (Component) multipleContainer.getRows().get(0).get(0);
         assertThat(fileViewerComponent.getId()).isEqualTo("pbFileViewer");
         PropertyValue documentProperty = fileViewerComponent.getPropertyValues().get("document");
         assertThat(documentProperty.getValue()).isEqualTo("$item");
-        
-        
+
         Component fileUploadComponent = (Component) multipleContainer.getRows().get(1).get(0);
         assertThat(fileUploadComponent.getId()).isEqualTo("pbUpload");
         PropertyValue labelHiddenProperty = fileUploadComponent.getPropertyValues().get("labelHidden");

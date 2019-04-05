@@ -43,9 +43,11 @@ public class TextWidgetLabelMigrationStep<T extends AbstractPage> implements Mig
     }
 
     private void updatePropertyValue(Component component, String propertyName, BondType bondType, Object defaultValue) {
-        PropertyValue labelHiddenValue = new PropertyValue();
-        labelHiddenValue.setType(bondType.toJson());
-        labelHiddenValue.setValue(defaultValue);
-        component.getPropertyValues().put(propertyName, labelHiddenValue);
+        if (!component.getPropertyValues().containsKey(propertyName)) {
+            PropertyValue labelHiddenValue = new PropertyValue();
+            labelHiddenValue.setType(bondType.toJson());
+            labelHiddenValue.setValue(defaultValue);
+            component.getPropertyValues().put(propertyName, labelHiddenValue);
+        }
     }
 }

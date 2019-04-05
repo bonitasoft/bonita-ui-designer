@@ -69,9 +69,9 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         nodeContractInput.setDescription(descriptionValue(childNode));
         nodeContractInput.setDataReference(dataReference(childNode));
         nodeContractInput.setMode(inputMode(childNode));
+        nodeContractInput.setReadonly(readOnlyValue(childNode));
         return nodeContractInput;
     }
-
 
     private LeafContractInput newLeafContractInput(JsonNode childNode, Class<?> inputType) {
         LeafContractInput leafContractInput = new LeafContractInput(inputName(childNode), inputType);
@@ -80,6 +80,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         leafContractInput.setDescription(descriptionValue(childNode));
         leafContractInput.setDataReference(dataReference(childNode));
         leafContractInput.setMode(inputMode(childNode));
+        leafContractInput.setReadonly(readOnlyValue(childNode));
         return leafContractInput;
     }
 
@@ -137,10 +138,15 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
         }
         return null;
     }
-    
+
     private EditMode inputMode(JsonNode contractInput) {
         JsonNode jsonNode = contractInput.get("mode");
         return jsonNode != null ? EditMode.valueOf(jsonNode.asText("")) : EditMode.CREATE;
+    }
+
+    private boolean readOnlyValue(JsonNode contractInput) {
+        JsonNode jsonNode = contractInput.get("readOnly");
+        return jsonNode != null ? jsonNode.asBoolean(false) : false;
     }
 
     @Override

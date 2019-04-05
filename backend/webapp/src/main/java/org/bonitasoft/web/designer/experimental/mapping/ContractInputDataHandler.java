@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.model.contract.AbstractContractInput;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
@@ -41,23 +42,23 @@ public class ContractInputDataHandler {
     }
 
     public boolean hasLazyDataRef() {
-        return  hasDataReference()
-                &&  input instanceof NodeContractInput
+        return hasDataReference()
+                && input instanceof NodeContractInput
                 && ((NodeContractInput) input).getDataReference().getLoadingType() == LoadingType.LAZY
                 && doesNotHaveAMultipleParent(input);
     }
 
     public boolean hasDataReference() {
-        return input.getMode() == EditMode.EDIT 
+        return input.getMode() == EditMode.EDIT
                 && input instanceof AbstractContractInput
                 && ((AbstractContractInput) input).getDataReference() != null;
     }
 
     public String inputValue() {
-        if(Objects.equals(PERSISTENCEID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
-                ContractInputDataHandler parentInput = getParent();
-                return parentInput.hasLazyDataRef() ? parentInput.inputName()
-                        : parentInput.buildPathForInputValue();
+        if (Objects.equals(PERSISTENCEID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
+            ContractInputDataHandler parentInput = getParent();
+            return parentInput.hasLazyDataRef() ? parentInput.inputName()
+                    : parentInput.buildPathForInputValue();
         }
         return hasLazyDataRef() ? inputName()
                 : buildPathForInputValue();
@@ -82,7 +83,7 @@ public class ContractInputDataHandler {
         return hasDataReference() && EditMode.EDIT == getMode() ? nameFromDataRef()
                 : input.getName();
     }
-    
+
     private boolean doesNotHaveAMultipleParent(ContractInput contractInput) {
         ContractInput current = contractInput.getParent();
         while (current != null && !current.isMultiple()) {
@@ -117,13 +118,12 @@ public class ContractInputDataHandler {
         while (!parentHasLazyDataRef && pInput != null) {
             parentHasDataRef = pInput.hasDataReference();
             if (pInput.isMultiple()) {
-                pathNames.add(ContractInputToWidgetMapper.ITEM_ITERATOR);
+                pathNames.add(ParametrizedWidgetFactory.ITEM_ITERATOR);
                 break;
-            } else {
-                parentHasLazyDataRef = pInput.hasLazyDataRef();
-                pathNames.add(pInput.inputName());
-                pInput = pInput.getParent();
             }
+            parentHasLazyDataRef = pInput.hasLazyDataRef();
+            pathNames.add(pInput.inputName());
+            pInput = pInput.getParent();
         }
         if (pathNames.isEmpty()) {
             return null;
@@ -148,16 +148,16 @@ public class ContractInputDataHandler {
     }
 
     public String getRefName() {
-        return input instanceof AbstractContractInput 
-                && ((AbstractContractInput) input).getDataReference() != null ?
-                        ((AbstractContractInput) input).getDataReference().getName() 
+        return input instanceof AbstractContractInput
+                && ((AbstractContractInput) input).getDataReference() != null
+                        ? ((AbstractContractInput) input).getDataReference().getName()
                         : null;
     }
-    
+
     public String getRefType() {
-        return input instanceof AbstractContractInput 
-                && ((AbstractContractInput) input).getDataReference() != null ?
-                        ((AbstractContractInput) input).getDataReference().getType() 
+        return input instanceof AbstractContractInput
+                && ((AbstractContractInput) input).getDataReference() != null
+                        ? ((AbstractContractInput) input).getDataReference().getType()
                         : null;
     }
 
@@ -168,10 +168,9 @@ public class ContractInputDataHandler {
         while (pInput != null) {
             if (pInput.isMultiple()) {
                 break;
-            } else {
-                pathNames.add(pInput.getName());
-                pInput = pInput.getParent();
             }
+            pathNames.add(pInput.getName());
+            pInput = pInput.getParent();
         }
         if (pathNames.isEmpty()) {
             return null;
@@ -192,6 +191,6 @@ public class ContractInputDataHandler {
     }
 
     public boolean isDocument() {
-        return Objects.equals(File.class.getName(),input.getType());
+        return Objects.equals(File.class.getName(), input.getType());
     }
 }

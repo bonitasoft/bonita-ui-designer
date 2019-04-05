@@ -61,8 +61,7 @@ public class ProcessInstantiationFormCreationStrategy implements PageCreationStr
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(contract,
-                ButtonAction.fromScope(FormScope.PROCESS));
+        Component submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.PROCESS));
         Container container = contractToContainerMapper.create(contract)
                 .addNewRow(submitButton)
                 .addNewRow(contractToWidgetMapper.createSubmitErrorAlert());

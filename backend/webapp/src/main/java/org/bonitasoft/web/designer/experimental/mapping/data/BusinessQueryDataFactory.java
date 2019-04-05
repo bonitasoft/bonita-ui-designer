@@ -40,6 +40,7 @@ public class BusinessQueryDataFactory {
         input.stream()
                 .filter(NodeContractInput.class::isInstance)
                 .map(NodeContractInput.class::cast)
+                .filter(child -> !child.isReadOnly())
                 .filter(child -> child.getDataReference() != null)
                 .filter(child -> !Strings.isNullOrEmpty(child.getDataReference().getName()))
                 .filter(child -> child.getDataReference().getRelationType() == RelationType.AGGREGATION)

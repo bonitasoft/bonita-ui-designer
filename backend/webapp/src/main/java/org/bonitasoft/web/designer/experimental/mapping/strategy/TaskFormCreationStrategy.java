@@ -88,7 +88,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
         if (shouldAddFormInputData(contract)) {
             form.addData(new FormInputData(mapper, contract));
         }
-        
+
         findBusinessData(contract)
                 .map(BusinessData::new)
                 .forEach(form::addData);
@@ -107,7 +107,6 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                         ((NodeContractInput) input.getParent()).getDataReference().getName(), input, lazyRefData));
 
         lazyRefData.stream().forEach(form::addData);
-        
 
         businessQueryDataFactory.create(contract)
                 .stream()
@@ -170,8 +169,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(contract,
-                ButtonAction.fromScope(FormScope.TASK));
+        Component submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.TASK));
         Container container = contractToContainerMapper.create(contract)
                 .addNewRow(submitButton)
                 .addNewRow(contractToWidgetMapper.createSubmitErrorAlert());

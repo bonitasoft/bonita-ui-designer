@@ -23,7 +23,7 @@ public interface ContractInput extends ContractInputContainer {
     String getDescription();
 
     EditMode getMode();
-    
+
     boolean isMandatory();
 
     boolean isMultiple();
@@ -41,7 +41,11 @@ public interface ContractInput extends ContractInputContainer {
     void setMultiple(boolean multiple);
 
     void setMandatory(boolean mandatory);
-    
+
     void setMode(EditMode mode);
-    
+
+    boolean isReadOnly();
+
+    void setReadonly(boolean readOnly);
+
 }

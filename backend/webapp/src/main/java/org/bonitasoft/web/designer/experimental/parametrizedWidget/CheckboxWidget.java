@@ -14,16 +14,23 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+import java.util.Map.Entry;
+import java.util.Objects;
+
 public class CheckboxWidget extends AbstractParametrizedWidget implements Valuable {
+
+    private static final String READ_ONLY_PROPERTY_NAME = "disabled";
 
     private Integer dimension = 12;
     private String label;
     private String value;
 
+    @Override
     public String getWidgetId() {
         return "pbCheckbox";
     }
 
+    @Override
     public void setDimension(Integer dimension) {
         this.dimension = dimension;
     }
@@ -33,10 +40,12 @@ public class CheckboxWidget extends AbstractParametrizedWidget implements Valuab
         return dimension;
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
 
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }
@@ -45,7 +54,18 @@ public class CheckboxWidget extends AbstractParametrizedWidget implements Valuab
         return value;
     }
 
+    @Override
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    protected String getEntryKey(Entry<String, Object> entry) {
+        String originalKey = entry.getKey();
+        if (Objects.equals(originalKey, ParameterConstants.READONLY_PARAMETER)) {
+            return READ_ONLY_PROPERTY_NAME;
+        }
+        return originalKey;
+    }
+
 }

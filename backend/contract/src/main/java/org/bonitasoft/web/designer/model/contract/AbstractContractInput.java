@@ -25,6 +25,7 @@ public abstract class AbstractContractInput implements ContractInput {
     private String name;
     private DataReference dataReference;
     private EditMode mode = EditMode.CREATE;
+    private boolean readOnly;
 
     public AbstractContractInput(String name) {
         this.name = name;
@@ -75,14 +76,14 @@ public abstract class AbstractContractInput implements ContractInput {
 
     @Override
     public void setMode(EditMode mode) {
-       this.mode  = mode;
+        this.mode = mode;
     }
-    
+
     @Override
     public EditMode getMode() {
         return this.mode;
     }
-    
+
     @JsonIgnore
     @Override
     public ContractInput getParent() {
@@ -93,5 +94,15 @@ public abstract class AbstractContractInput implements ContractInput {
     @JsonIgnore
     public void setParent(ContractInput parentInput) {
         this.parentInput = parentInput;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    @Override
+    public void setReadonly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }

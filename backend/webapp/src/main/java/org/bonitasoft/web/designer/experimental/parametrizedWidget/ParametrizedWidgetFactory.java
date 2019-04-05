@@ -14,63 +14,85 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.Date;
-import java.util.Locale;
+import static com.google.common.base.Joiner.on;
+
 import java.util.Objects;
 
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
-import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryData;
 import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbInput;
 import org.bonitasoft.web.designer.experimental.widgets.PbUpload;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.EditMode;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
 import com.google.common.base.CaseFormat;
 
 public class ParametrizedWidgetFactory {
 
+    public static final String ITEM_ITERATOR = "$item";
+
+    private ContractInputTypeResolver contractInputTypeResolver;
+
+    public ParametrizedWidgetFactory() {
+        contractInputTypeResolver = new ContractInputTypeResolver();
+    }
+
     public AbstractParametrizedWidget createParametrizedWidget(ContractInput input) {
-        if (aTextInput(input)) {
-            if(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName()) 
-                    && ContractInputDataHandler.hasAggregatedParentRef(input)) {
-                return createSelectWidget((NodeContractInput) input.getParent());
-            }else {
-                InputWidget inputWidget = createInputWidget(input);
-                inputWidget.setType(InputType.TEXT);
-                return inputWidget;
-            }
+        switch (contractInputTypeResolver.getContractInputType(input)) {
+            case TEXT:
+                return createWidgetForTextInput(input);
+            case NUMERIC:
+                return input.isReadOnly()
+                        ? createTextWidget(input)
+                        : createInputWidget(input, InputType.NUMBER);
+            case LOCAL_DATE:
+                return input.isReadOnly()
+                        ? createTextWidget(input)
+                        : createDatePicker(input);
+            case LOCAL_DATE_TIME:
+                return input.isReadOnly()
+                        ? createTextWidget(input)
+                        : createDateTimePicker(input, false);
+            case OFFSET_DATE_TIME:
+                return input.isReadOnly()
+                        ? createTextWidget(input)
+                        : createDateTimePicker(input, true);
+            case BOOLEAN:
+                return createCheckBox(input);
+            case FILE:
+                return createFileUploadWidget(input);
+            default:
+                throw new IllegalStateException(
+                        String.format("Unable to create a widget for contract input %s.", input.getName()));
         }
-        if (aNumericInput(input)) {
+    }
+
+    private AbstractParametrizedWidget createWidgetForTextInput(ContractInput input) {
+        if (Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName())
+                && ContractInputDataHandler.hasAggregatedParentRef(input)) {
+            return input.isReadOnly()
+                    ? createTextWidget(input.getParent())
+                    : createSelectWidget((NodeContractInput) input.getParent());
+        } else if (input.isReadOnly()) {
+            return createTextWidget(input);
+        } else {
             InputWidget inputWidget = createInputWidget(input);
-            inputWidget.setType(InputType.NUMBER);
+            inputWidget.setType(InputType.TEXT);
             return inputWidget;
         }
-        if (aLocalDateInput(input) || aDateInput(input)) {
-            return createDatePicker(input);
-        }
-        if (aLocalDateTimeInput(input)) {
-            return createDateTimePicker(input, false);
-        }
-        if (aOffsetDateTimeInput(input)) {
-            return createDateTimePicker(input, true);
-        }
+    }
 
-        if (aBooleanInput(input)) {
-            return createCheckBox(input);
-        }
-        if (aFileInput(input)) {
-            return createFileUploadWidget(input);
-        }
-        throw new IllegalArgumentException("Unsupported contract input type");
+    private TextWidget createTextWidget(ContractInput input) {
+        TextWidget textWidget = new TextWidget();
+        textWidget.setLabel(inputDisplayLabel(input));
+        textWidget.setLabelHidden(false);
+        addTextValue(input, textWidget);
+        return textWidget;
     }
 
     private FileUploadWidget createFileUploadWidget(ContractInput input) {
@@ -78,33 +100,38 @@ public class ParametrizedWidgetFactory {
         fileUploadWidget.setLabel(inputDisplayLabel(input));
         fileUploadWidget.setLabelPosition(LabelPosition.TOP);
         fileUploadWidget.setPlaceholder(new PbUpload().getPlaceholder());
+
+        String value;
+        if (input.isMultiple()) {
+            value = input.getMode() == EditMode.EDIT
+                    ? ITEM_ITERATOR + ".newValue"
+                    : ITEM_ITERATOR;
+        } else {
+            value = input.getMode() == EditMode.EDIT
+                    ? String.format("context.%s_ref.newValue", ((LeafContractInput) input).getDataReference().getName())
+                    : isParentMultiple(input)
+                            ? multipleInputValue(input)
+                            : new ContractInputDataHandler(input).inputValue();
+        }
+        fileUploadWidget.setValue(value);
+        fileUploadWidget.setLabelHidden(input.isMultiple() || input.getMode() == EditMode.EDIT);
+        fileUploadWidget.setLabelWidth(4);
+        fileUploadWidget.setPlaceholder(input.getMode() == EditMode.EDIT
+                ? "Browse to update the file..."
+                : "Browse to upload a new file...");
+        fileUploadWidget.setRequired(input.isMandatory());
         return fileUploadWidget;
     }
 
     public boolean isSupported(ContractInput input) {
-        return !ContractInputDataHandler.shouldGenerateWidgetForInput(input)
-                && ( aTextInput(input) 
-                || aNumericInput(input) 
-                || aDateInput(input) 
-                || aLocalDateInput(input)
-                || aLocalDateTimeInput(input) 
-                || aOffsetDateTimeInput(input) 
-                || aBooleanInput(input)
-                || aFileInput(input));
-    }
-
-    // contract sent by studio contain things like that "java.lang.Boolean" for type
-    private boolean aBooleanInput(ContractInput input) {
-        return input.getType() != null && input.getType().toLowerCase(Locale.ENGLISH).endsWith("boolean");
-    }
-
-    private boolean aFileInput(ContractInput input) {
-        return input.getType() != null && input.getType().equals(File.class.getName());
+        return contractInputTypeResolver.isSupported(input);
     }
 
     private CheckboxWidget createCheckBox(ContractInput input) {
         CheckboxWidget checkbox = new CheckboxWidget();
         checkbox.setLabel(inputDisplayLabel(input));
+        checkbox.setReadOnly(input.isReadOnly());
+        setValuableWidgetValue(input, checkbox);
         return checkbox;
     }
 
@@ -112,11 +139,11 @@ public class ParametrizedWidgetFactory {
         PbDatePicker reference = new PbDatePicker();
         DatePickerWidget datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
 
-        datePickerComponent.setReadonly(reference.getReadOnly());
         datePickerComponent.setDateFormat(reference.getDateFormat());
         datePickerComponent.setPlaceholder(reference.getPlaceholder());
         datePickerComponent.setShowToday(reference.getShowToday());
         datePickerComponent.setTodayLabel(reference.getTodayLabel());
+        setValuableWidgetValue(input, datePickerComponent);
 
         return datePickerComponent;
     }
@@ -130,23 +157,23 @@ public class ParametrizedWidgetFactory {
         dateTimePickerComponent.setDateFormat(reference.getDateFormat());
         dateTimePickerComponent.setTimeFormat(reference.getTimeFormat());
         dateTimePickerComponent.setWithTimeZone(withTimeZone);
-        dateTimePickerComponent.setReadonly(reference.getReadOnly());
         dateTimePickerComponent.setTodayLabel(reference.getTodayLabel());
         dateTimePickerComponent.setNowLabel(reference.getNowLabel());
         dateTimePickerComponent.setShowNow(reference.getShowNow());
         dateTimePickerComponent.setShowToday(reference.getShowToday());
         dateTimePickerComponent.setInlineInput(reference.getInlineInput());
+        setValuableWidgetValue(input, dateTimePickerComponent);
 
         return dateTimePickerComponent;
     }
 
-    public WidgetContainer createWidgetContainer() {
-        return new WidgetContainer();
-    }
-
-    public WidgetContainer createWidgetContainer(String collection) {
-        WidgetContainer container = createWidgetContainer();
-        container.setRepeatedCollection(collection);
+    public WidgetContainer createWidgetContainer(ContractInput contractInput) {
+        WidgetContainer container = new WidgetContainer();
+        if (contractInput.isMultiple()) {
+            container.setRepeatedCollection(isParentMultiple(contractInput)
+                    ? multipleInputValue(contractInput)
+                    : singleInputValue(contractInput));
+        }
         return container;
     }
 
@@ -154,51 +181,38 @@ public class ParametrizedWidgetFactory {
         InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
         inputWidget.setRequired(input.isMandatory());
         inputWidget.setPlaceholder(new PbInput().getPlaceholder());
+        setValuableWidgetValue(input, inputWidget);
+        return inputWidget;
+    }
+
+    private void setValuableWidgetValue(ContractInput input, AbstractParametrizedWidget widget) {
+        if (widget instanceof Valuable) {
+            String value = getValue(input);
+            ((Valuable) widget).setValue(value);
+            if (input.isReadOnly()) {
+                widget.setHidden(String.format("!%s", value));
+            }
+        }
+    }
+
+    protected InputWidget createInputWidget(ContractInput input, InputType type) {
+        InputWidget inputWidget = createInputWidget(input);
+        inputWidget.setType(type);
         return inputWidget;
     }
 
     private <T extends InputWidget> T inputDefaultWidgetParameters(ContractInput input, T inputComponent) {
         inputComponent.setLabel(inputDisplayLabel(input));
         inputComponent.setLabelPosition(LabelPosition.TOP);
+        inputComponent.setReadOnly(input.isReadOnly());
         return inputComponent;
-    }
-
-    /**
-     * @deprecated Type Date is deprecated in studio, prefer use type LocalDate.
-     */
-    @Deprecated
-    private boolean aDateInput(ContractInput input) {
-        return Date.class.getName().equals(input.getType());
-    }
-
-    private boolean aLocalDateInput(ContractInput input) {
-        return LocalDate.class.getName().equals(input.getType());
-    }
-
-    private boolean aLocalDateTimeInput(ContractInput input) {
-        return LocalDateTime.class.getName().equals(input.getType());
-    }
-
-    private boolean aOffsetDateTimeInput(ContractInput input) {
-        return OffsetDateTime.class.getName().equals(input.getType());
-    }
-
-    private boolean aNumericInput(ContractInput input) {
-        try {
-            Class<?> clazz = Class.forName(input.getType());
-            return Number.class.isAssignableFrom(clazz);
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
-
-    private boolean aTextInput(ContractInput input) {
-        return String.class.getName().equals(input.getType());
     }
 
     private String inputDisplayLabel(ContractInput contractInput) {
         ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dataHandler.getRefName() != null ? dataHandler.getRefName() : dataHandler.getInputName())
+        return CaseFormat.LOWER_CAMEL
+                .to(CaseFormat.UPPER_CAMEL,
+                        dataHandler.getRefName() != null ? dataHandler.getRefName() : dataHandler.getInputName())
                 .replaceAll("((?<=[a-z])(?=[A-Z]))|((?<=[A-Z])(?=[A-Z][a-z]))", " ");
     }
 
@@ -212,7 +226,7 @@ public class ParametrizedWidgetFactory {
         return createTitle(inputDisplayLabel(input));
     }
 
-    public ButtonWidget createSubmitButton(Contract contract, ButtonAction actionType) {
+    public ButtonWidget createSubmitButton(ButtonAction actionType) {
         ButtonWidget buttonComponent = new ButtonWidget();
         buttonComponent.setLabel("Submit");
         buttonComponent.setButtonStyle(ButtonStyle.PRIMARY);
@@ -221,16 +235,33 @@ public class ParametrizedWidgetFactory {
         return buttonComponent;
     }
 
-    public ButtonWidget createAddButton(String text) {
+    public ButtonWidget createAddButton(ContractInput contractInput) {
+        ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
+        String buttonText = dataHandler.isDocument()
+                ? "File"
+                : dataHandler.getRefType() != null
+                        ? toSimpleName(dataHandler.getRefType())
+                        : null;
         ButtonWidget buttonComponent = new ButtonWidget();
-        buttonComponent.setLabel(text == null || text.isEmpty()? 
-                "<span class=\"glyphicon glyphicon-plus\"></span>"
-                : "<span class=\"glyphicon glyphicon-plus\"></span> Add " + text);
+        buttonComponent.setLabel(buttonText == null || buttonText.isEmpty()
+                ? "<span class=\"glyphicon glyphicon-plus\"></span>"
+                : "<span class=\"glyphicon glyphicon-plus\"></span> Add " + buttonText);
         buttonComponent.setButtonStyle(ButtonStyle.PRIMARY);
         buttonComponent.setAlignment(Alignment.LEFT);
         buttonComponent.setAction(ButtonAction.ADD_TO_COLLECTION);
         buttonComponent.setDimension(12);
+        String collectionToModify = isParentMultiple(contractInput)
+                ? multipleInputValue(contractInput)
+                : dataHandler.isDocumentEdition()
+                        ? String.format("context.%s_ref", dataHandler.getRefName())
+                        : dataHandler.inputValue();
+        buttonComponent.setCollectionToModify(collectionToModify);
         return buttonComponent;
+    }
+
+    private String toSimpleName(String refType) {
+        String[] parts = refType.split("\\.");
+        return parts[parts.length - 1];
     }
 
     public ButtonWidget createRemoveButton() {
@@ -240,7 +271,7 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setAction(ButtonAction.REMOVE_FROM_COLLECTION);
         buttonComponent.setCollectionPosition("Item");
         buttonComponent.setAlignment(Alignment.RIGHT);
-        buttonComponent.setRemoveItem(ContractInputToWidgetMapper.ITEM_ITERATOR);
+        buttonComponent.setRemoveItem(ITEM_ITERATOR);
         buttonComponent.setCollectionToModify("$collection");
         buttonComponent.setDimension(12);
         return buttonComponent;
@@ -259,14 +290,48 @@ public class ParametrizedWidgetFactory {
         String label = inputDisplayLabel(input);
         selectWidget.setLabel(label);
         selectWidget.setLabelPosition(LabelPosition.TOP);
-        selectWidget.setPlaceholder(String.format("Select a %s",label));
+        selectWidget.setPlaceholder(String.format("Select a %s", label));
         selectWidget.setRequired(input.isMandatory());
         selectWidget.setAvailableValues(toBusinessQueryDataName(input.getDataReference()));
+        setValuableWidgetValue(input, selectWidget);
         return selectWidget;
     }
 
     private String toBusinessQueryDataName(BusinessDataReference dataReference) {
         return new BusinessQueryData(dataReference).name();
+    }
+
+    private String getValue(ContractInput contractInput) {
+        return isParentMultiple(contractInput)
+                ? multipleInputValue(contractInput)
+                : new ContractInputDataHandler(contractInput).inputValue();
+    }
+
+    private boolean isParentMultiple(ContractInput contractInput) {
+        return contractInput.getParent() != null && contractInput.getParent().isMultiple();
+    }
+
+    private String multipleInputValue(ContractInput contractInput) {
+        return contractInput.getParent() != null
+                && !(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, contractInput.getName())
+                        && ContractInputDataHandler.hasAggregatedParentRef(contractInput))
+                                ? on(".").join(ITEM_ITERATOR, contractInput.getName()) : ITEM_ITERATOR;
+    }
+
+    private String singleInputValue(ContractInput contractInput) {
+        ContractInputDataHandler contractInputDataHandler = new ContractInputDataHandler(contractInput);
+        return contractInputDataHandler.isDocumentEdition()
+                ? String.format("context.%s_ref", contractInputDataHandler.getRefName())
+                : contractInputDataHandler.inputValue();
+    }
+
+    private void addTextValue(ContractInput contractInput, TextWidget widget) {
+        String value = getValue(contractInput);
+        widget.setHidden(String.format("!%s", value));
+        if (contractInputTypeResolver.isDateInput(contractInput)) {
+            value = String.format("%s|uiDate", value);
+        }
+        widget.setText(String.format("{{%s}}", value));
     }
 
 }

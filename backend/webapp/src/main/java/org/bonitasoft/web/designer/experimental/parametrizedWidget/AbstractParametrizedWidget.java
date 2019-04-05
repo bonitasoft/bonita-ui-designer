@@ -23,6 +23,8 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
@@ -34,11 +36,11 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     private String widgetId;
     private Integer dimension = 12;
     private String label;
-    private boolean isDisplayed = true;
     private boolean labelHidden = false;
     private boolean readOnly = false;
     private String alignment = Alignment.LEFT.getValue();
     private String cssClasses = "";
+    private String hidden = "";
 
     private static final Map<String, ParameterType> propertyParameters = new HashMap<>();
 
@@ -55,6 +57,9 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(URL_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(AVAILABLE_VALUES_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(PLACEHOLDER_PARAMETER, ParameterType.CONSTANT);
+        propertyParameters.put(READONLY_PARAMETER, ParameterType.CONSTANT);
+        propertyParameters.put(LABEL_HIDDEN_PARAMETER, ParameterType.CONSTANT);
+        propertyParameters.put(HIDDEN_PARAMETER, ParameterType.EXPRESSION);
     }
 
     private Map<String, PropertyValue> propertyValues = new HashMap<>();
@@ -88,14 +93,6 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.label = label;
     }
 
-    public boolean getIsDisplayed() {
-        return isDisplayed;
-    }
-
-    public void setIsDisplayed(boolean isDisplayed) {
-        this.isDisplayed = isDisplayed;
-    }
-
     public boolean isLabelHidden() {
         return labelHidden;
     }
@@ -104,11 +101,11 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.labelHidden = labelHidden;
     }
 
-    public boolean isReadonly() {
+    public boolean isReadOnly() {
         return readOnly;
     }
 
-    public void setReadonly(boolean readOnly) {
+    public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
@@ -128,6 +125,14 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         this.cssClasses = cssClasses;
     }
 
+    public String getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(String hidden) {
+        this.hidden = hidden;
+    }
+
     public Component toComponent(DimensionFactory dimensionFactory) {
         Component component = new Component();
         component.setId(getWidgetId());
@@ -139,10 +144,13 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     protected Map<String, PropertyValue> toPropertyValues() {
         Map<String, PropertyValue> values = toMap().entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                                          e -> createPropertyValue(getParameterType(e.getKey()), e.getValue())));
+                .collect(Collectors.toMap(this::getEntryKey, this::createPropertyValue));
         values.putAll(propertyValues);
         return values;
+    }
+
+    protected String getEntryKey(Entry<String, Object> entry) {
+        return entry.getKey();
     }
 
     private Map<String, Object> toMap() {
@@ -163,6 +171,15 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
     private ParameterType getParameterType(String paramName) {
         return propertyParameters.containsKey(paramName) ? propertyParameters.get(paramName) : ParameterType.CONSTANT;
+    }
+
+    protected PropertyValue createPropertyValue(Entry<String, Object> entry) {
+        if (Objects.equals(entry.getKey(), HIDDEN_PARAMETER)) {
+            if (hidden == null || hidden.isEmpty()) {
+                return createPropertyValue(ParameterType.CONSTANT, false);
+            }
+        }
+        return createPropertyValue(getParameterType(entry.getKey()), entry.getValue());
     }
 
     protected PropertyValue createPropertyValue(ParameterType type, Object value) {
