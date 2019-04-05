@@ -6,7 +6,8 @@
                 popover-trigger="none" popover-is-open="widgetHelpPopover.isOpen" popover-placement="left-top" popover-class="PropertyPanel-help-popover">
             <i class="fa fa-question-circle"></i>
         </button>
-        <button ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" class="btn btn-xs btn-bonita-edit-widget PropertyPanel-edit-btn"
+        <button ng-if="currentComponent.$$widget.type !== 'container'"
+                ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" class="btn btn-xs btn-bonita-edit-widget PropertyPanel-edit-btn"
                 id="edit-widget"
                 tooltip-placement="top-right" uib-tooltip="{{ 'Edit widget' | translate }}"
                 tooltip-append-to-body="true">

@@ -10,6 +10,16 @@ describe('properties panel test', function() {
 
   });
 
+  it('should display edit button', function() {
+    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(true);
+    editor = PageEditor.get('empty');
+    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(false);
+    editor.addWidget('container');
+    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(false);
+    editor.addCustomWidget('customAwesomeWidget');
+    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(true);
+  });
+
   it('should display default properties on container', function() {
     editor.addWidget('container');
     editor.setWidth(12);
