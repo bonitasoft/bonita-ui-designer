@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-04-01 01:58\n"
+"PO-Revision-Date: 2019-04-08 01:58\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -759,14 +759,14 @@ msgstr "Modifier l'asset"
 msgid "Edit property"
 msgstr "Modifier la propriété"
 
-msgid "Edit the custom widget"
-msgstr "Modifier le widget personnalisé"
-
 msgid "Edit the display name and display description of a page, form, or layout from the Editor"
 msgstr "Modifier le nom d’affichage et la description d’une page, d'un formulaire ou d'un layout dans l'éditeur"
 
 msgid "Edit variable"
 msgstr "Modifier la variable"
+
+msgid "Edit widget"
+msgstr ""
 
 msgid "Editor organization"
 msgstr "Organisation de l'Editeur de page"
