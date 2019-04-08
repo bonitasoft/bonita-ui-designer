@@ -99,7 +99,7 @@ public class ContractInputToWidgetMapper {
     }
 
     private Element toMultipleDocument(LeafContractInput contractInput) {
-        WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer(contractInput);
+        WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
         Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
         TitleWidget documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
         documentNameTitle.setLevel("Level 4");

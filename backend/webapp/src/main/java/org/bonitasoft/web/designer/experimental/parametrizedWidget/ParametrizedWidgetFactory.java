@@ -177,6 +177,10 @@ public class ParametrizedWidgetFactory {
         return container;
     }
 
+    public WidgetContainer createWidgetContainer() {
+        return new WidgetContainer();
+    }
+
     protected InputWidget createInputWidget(ContractInput input) {
         InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
         inputWidget.setRequired(input.isMandatory());

@@ -264,6 +264,7 @@ public class ContractInputToWidgetMapperTest {
         assertThat(element).isInstanceOf(Container.class);
         Container container = (Container) element;
         assertThat(container.getRows()).hasSize(2);
+        assertThat(container.isRepeated()).isFalse();
 
         Component title = (Component) container.getRows().get(0).get(0);
         assertThat(title.getId()).isEqualTo("pbTitle");
