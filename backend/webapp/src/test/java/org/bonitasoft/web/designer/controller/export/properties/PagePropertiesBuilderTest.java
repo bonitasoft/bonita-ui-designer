@@ -102,7 +102,7 @@ public class PagePropertiesBuilderTest {
         dataMap.put("foo", anApiData("../API/bpm/userTask?filter=mine"));
         dataMap.put("bar", anApiData("../API/identity/user/1"));
         dataMap.put("other", anApiData("../API/identity/group/1?param=value"));
-        dataMap.put("archived", anApiData("../API/bpm/archivedUserTask?filter=mine&o=name DESC"));
+        dataMap.put("archived", anApiData("../API/bpm/archivedUserTask?filter=mine&o=name"));
 
         page.setData(dataMap);
 
@@ -122,15 +122,6 @@ public class PagePropertiesBuilderTest {
         String properties = new String(pagePropertiesBuilder.build(page));
 
         assertThat(properties).contains("resources=[GET|bpm/userTask, GET|living/application-menu, POST|bpm/process]");
-    }
-
-    @Test
-    public void should_not_add_a_resource_which_is_not_a_bonita_resource() throws Exception {
-        page.setData(singletonMap("foo", anApiData("../API/path/to/wathever/resource")));
-
-        String properties = new String(pagePropertiesBuilder.build(page));
-
-        assertThat(properties).contains("resources=[]");
     }
 
     @Test

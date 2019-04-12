@@ -39,7 +39,8 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 public class PagePropertiesBuilder {
 
     private static final String TEMPLATE_NAME = "page.hbs.properties";
-    private static final String BONITA_RESOURCE_REGEX = ".+/API/([^ /]*)/([^ /?]*)[/?]?[^/]*";   // matches ..... /API/{}/{}?...
+    public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /?]*)[\\S+]*";;// matches ..... /API/{}/{}?...
+    public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
     private TemplateEngine template;
     private ComponentVisitor componentVisitor;
     private AuthRulesCollector authRulesCollector;
@@ -56,6 +57,12 @@ public class PagePropertiesBuilder {
         List<String> resources = newArrayList(transform(
                 filterValues(page.getData(), new BonitaResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
                 new BonitaResourceTransformer(BONITA_RESOURCE_REGEX)));
+
+        List<String> extension = newArrayList(transform(
+                filterValues(page.getData(), new BonitaResourcePredicate(EXTENSION_RESOURCE_REGEX)).values(),
+                new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX)));
+
+        resources.addAll(extension);
 
         Iterable<Component> components = componentVisitor.visit(page);
 
