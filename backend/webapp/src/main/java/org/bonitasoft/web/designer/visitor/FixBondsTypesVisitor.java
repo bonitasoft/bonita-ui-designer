@@ -66,6 +66,9 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
         for (Property property : properties) {
             BondType bondType = property.getBond();
             PropertyValue propertyValue = component.getPropertyValues().get(property.getName());
+            if(propertyValue == null){
+                return null;
+            }
             if (EXPRESSION.equals(bondType)) {
                 bondType = CONSTANT;
             }
