@@ -152,7 +152,9 @@ public class ContractInputToWidgetMapper {
         }
         List<Element> row = new ArrayList<>();
         row.add(component.toComponent(dimensionFactory));
-        row.add(createRemoveButton());
+        if (!contractInput.isReadOnly()) {
+            row.add(createRemoveButton());
+        }
         container.getRows().add(row);
         return container;
     }

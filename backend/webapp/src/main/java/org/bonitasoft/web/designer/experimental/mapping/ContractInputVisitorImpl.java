@@ -49,7 +49,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
             for (ContractInput childInput : contractInput.getInput()) {
                 childInput.accept(containerContractInputVisitor);
             }
-            if (contractInput.isMultiple()) {
+            if (contractInput.isMultiple() && !contractInput.isReadOnly()) {
                 newContainer.getRows()
                         .add(Collections.<Element> singletonList(contractInputToWidgetMapper.createRemoveButton()));
             }
@@ -88,7 +88,7 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
     }
 
     private void addButtonBar(ContractInput contractInput, ElementContainer container) {
-        if (contractInput.isMultiple()) {
+        if (contractInput.isMultiple() && !contractInput.isReadOnly()) {
             container.getRows()
                     .add(Lists.<Element> newArrayList(contractInputToWidgetMapper.createAddButton(contractInput)));
         }

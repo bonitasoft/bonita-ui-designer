@@ -297,7 +297,11 @@ public class ParametrizedWidgetFactory {
         selectWidget.setPlaceholder(String.format("Select a %s", label));
         selectWidget.setRequired(input.isMandatory());
         selectWidget.setAvailableValues(toBusinessQueryDataName(input.getDataReference()));
-        setValuableWidgetValue(input, selectWidget);
+        if (input.isMultiple()) {
+            selectWidget.setValue(ITEM_ITERATOR);
+        } else {
+            setValuableWidgetValue(input, selectWidget);
+        }
         return selectWidget;
     }
 

@@ -482,7 +482,6 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
                 RelationType.AGGREGATION, LoadingType.EAGER);
         NodeContractInput parent = new NodeContractInput("aggregatedObject");
         parent.setDataReference(dataReference);
-        parent.setDataReference(dataReference);
         parent.setMode(EditMode.EDIT);
         LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, String.class);
         input.setReadonly(true);
@@ -495,6 +494,34 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(widget.isLabelHidden()).isFalse();
         assertThat(widget.getLabel()).isEqualTo("Aggregated Reference");
         assertThat(((TextWidget) widget).getText()).isEqualTo("{{aggregatedReference}}");
+    }
+
+    @Test
+    public void should_create_combo_in_container_for_multiple_aggregated_attribute_with_multiple_parent() {
+        BusinessDataReference rootReference = new BusinessDataReference("rootReference", Object.class.getName(),
+                RelationType.COMPOSITION, LoadingType.EAGER);
+        NodeContractInput root = new NodeContractInput("rootObject");
+        root.setDataReference(rootReference);
+        root.setMode(EditMode.EDIT);
+        root.setMultiple(true);
+
+        BusinessDataReference parentReference = new BusinessDataReference("parentReference", Object.class.getName(),
+                RelationType.AGGREGATION, LoadingType.EAGER);
+        NodeContractInput parent = new NodeContractInput("aggregatedObject");
+        parent.setMode(EditMode.EDIT);
+        parent.setMultiple(true);
+        parent.setDataReference(parentReference);
+        root.addInput(parent);
+
+        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, String.class);
+        input.setMode(EditMode.EDIT);
+        parent.addInput(input);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
+        assertThat(widget).isInstanceOf(SelectWidget.class);
+        SelectWidget selectWidget = (SelectWidget) widget;
+        assertThat(selectWidget.getAvailableValues()).isEqualTo("object_query");
+        assertThat(selectWidget.getValue()).isEqualTo(ParametrizedWidgetFactory.ITEM_ITERATOR);
     }
 
     private ParametrizedWidgetFactory createFactory() {
