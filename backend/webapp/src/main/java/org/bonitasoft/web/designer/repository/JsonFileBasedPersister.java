@@ -58,6 +58,12 @@ public class JsonFileBasedPersister<T extends Identifiable> {
      */
     public void save(Path directory, T content) throws IOException {
         content.setDesignerVersionIfEmpty(version);
+        // Split version before '_' to avoid patch tagged version compatible
+        String[] currentVersion;
+        if(version != null){
+            currentVersion = version.split("_");
+            content.setDesignerVersionIfEmpty(currentVersion[0]);
+        }
         validator.validate(content);
         try {
             write(jsonFile(directory, content.getId()), objectMapper.toPrettyJson(content, JsonViewPersistence.class));
