@@ -86,6 +86,11 @@ public class Workspace {
                 createWidget(widgetRepositorySourcePath, widget);
             } else {
                 Widget repoWidget = widgetRepository.get(widget.getId());
+                // Split version before '_' to avoid patch tagged version compatible
+                if(currentDesignerVersion != null){
+                    String[] currentVersion = currentDesignerVersion.split("_");
+                    currentDesignerVersion = currentVersion[0];
+                }
                 if (isBlank(repoWidget.getDesignerVersion()) || new Version(currentDesignerVersion).isGreaterThan(repoWidget.getDesignerVersion())) {
                     FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
                     createWidget(widgetRepositorySourcePath, widget);
