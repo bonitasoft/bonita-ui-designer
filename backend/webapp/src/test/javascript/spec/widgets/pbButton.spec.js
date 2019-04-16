@@ -545,6 +545,22 @@ describe('pbButton', function () {
       $httpBackend.flush();
     });
 
+	it('should assign and execute a userTask sending dataToSend', function () {
+      $location.absUrl = function () {
+        return 'http://localhost/bonita/portal/resource/taskInstance/ProcName/1.0/TaskName/content/?id=42&locale=en';
+      };
+
+      scope.properties.dataToSend = {'name': 'toto'};
+	  scope.properties.assign = true;
+      $httpBackend.expectPOST('../API/bpm/userTask/42/execution?assign=true', scope.properties.dataToSend).respond('success');
+
+      element.find('button').triggerHandler('click');
+
+      $timeout.flush();
+      $httpBackend.flush();
+    });
+
+
     it('should execute a userTask sending dataToSend and taking into account a specific user id', function () {
       $location.absUrl = function () {
         return 'http://localhost/bonita/portal/resource/taskInstance/ProcName/1.0/TaskName/content/?id=42&locale=en&user=1';

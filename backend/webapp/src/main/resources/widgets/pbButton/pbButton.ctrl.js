@@ -27,12 +27,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
   function openModal(modalId) {
     modalService.open(modalId);
-  };
+  }
 
   function closeModal(shouldClose) {
     if(shouldClose)
       modalService.close();
-  };
+  }
 
   function removeFromCollection() {
     if ($scope.properties.collectionToModify) {
@@ -162,11 +162,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var id;
     id = getUrlParam('id');
     if (id) {
-      doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', getUserParam()).then(function() {
+      var params = getUserParam();
+	    params.assign = $scope.properties.assign;
+      doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
         localStorageService.delete($window.location.href);
       });
     } else {
       $log.log('Impossible to retrieve the task id value from the URL');
     }
   }
+
 }

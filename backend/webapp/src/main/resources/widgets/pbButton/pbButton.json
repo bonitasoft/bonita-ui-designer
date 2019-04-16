@@ -97,6 +97,14 @@
       "defaultValue": "Submit task",
       "bond": "constant"
     },
+	{
+      "label": "Assign before Submit",
+      "help": "Automatically assign the Task to the current user before the execution",
+      "type": "boolean",
+      "name": "assign",
+	    "defaultValue": false,
+      "showFor": "['Submit task'].indexOf(properties.action.value) > -1"
+    },
     {
       "label": "URL to call",
       "caption": "Send data to this URL when the button is clicked",
