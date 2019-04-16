@@ -8,10 +8,10 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: ja\n"
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
-"Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
+"Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-03-25 02:38\n"
+"PO-Revision-Date: 2019-04-16 02:12\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$name}}' は既に存在します。"
@@ -650,9 +650,6 @@ msgid "Display name"
 msgstr ""
 
 msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
-msgstr ""
-
-msgid "Display name is required."
 msgstr ""
 
 msgid "Display or hide the shortcut button to current day"
@@ -1933,6 +1930,9 @@ msgid "Use this widget to:"
 msgstr "このウィジェットを使用:"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr ""
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
 msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"

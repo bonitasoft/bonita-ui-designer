@@ -8,10 +8,10 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
-"Last-Translator: bonitasoft <adoption@bonitasoft.com>\n"
+"Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-03-25 02:30\n"
+"PO-Revision-Date: 2019-04-16 02:00\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -651,9 +651,6 @@ msgstr "Mostrar nombre"
 
 msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
 msgstr "Nombre mostrado y la descripción se utilizan cuando se importa la página, formulario o layout en la página de recursos del portal. Para editarlos, haga clic en el botón nuevo \"Etiqueta\"."
-
-msgid "Display name is required."
-msgstr "Se necesita un nombre para mostrar."
 
 msgid "Display or hide the shortcut button to current day"
 msgstr "Mostrar u ocultar el botón de acceso directo al día actual"
@@ -1933,6 +1930,9 @@ msgstr "Usar este widget para:"
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
 msgstr "Utilizado en la lista de Recursos del portal. Parte del descriptor page.properties en el archivo de páginas exportadas."
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
+msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
