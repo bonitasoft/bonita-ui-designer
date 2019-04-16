@@ -34,7 +34,7 @@ public abstract class DesignerArtifact implements Identifiable {
     }
 
     public void setDesignerVersionIfEmpty(String version) {
-        if (isBlank(designerVersion)) {
+        if (isBlank(designerVersion) || designerVersion.split("_").length > 1) {
             setDesignerVersion(version);
         }
     }
