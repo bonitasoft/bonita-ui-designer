@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-04-16 01:58\n"
+"PO-Revision-Date: 2019-04-23 01:58\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -334,6 +334,9 @@ msgstr "Assets"
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "Les Assets vous permettent d'ajouter des ressources du web aux pages et aux formulaires. Les types d'assets disponibles sont <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> et (dans les éditions Souscription) <strong>localisztion</strong>. Un asset peut être <strong>Local</strong> (fichier stocké dans l'objet page) ou <strong>Externe</strong> (URL). L'asset de localisation est toujours local."
 
+msgid "Assign before Submit"
+msgstr ""
+
 msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
 msgstr "A l'exécution, les assets CSS et JavaScript sont chargés dans l'en-tête de la page, dans l'ordre visible sur cette liste : CSS d'abord puis JavaScript. Tous les assets sont chargés dans l'ordre de la liste, les assets de widgets avant les assets de page (dans l'ordre alphabétique du nom des widgets)."
 
@@ -342,6 +345,9 @@ msgstr "A l'exécution, les assets d'un widget personnalisé sont chargés dans 
 
 msgid "Attention:"
 msgstr "Attention :"
+
+msgid "Automatically assign the Task to the current user before the execution"
+msgstr ""
 
 msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
 msgstr "Disponible dans la palette, il s'ouvre au-dessus d'une page/formulaire/layout. Pour gérer ce type de containers, le widget Button possède deux nouvelles actions : \"Ouvrir une fenêtre modale\" et \"Fermer une fenêtre modale\"."

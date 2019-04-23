@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-04-16 02:00\n"
+"PO-Revision-Date: 2019-04-23 01:59\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -335,6 +335,9 @@ msgstr "Recursos"
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "Los recursos externos te permiten añadir recursos web a páginas y formularios. Los tipos disponibles son <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>imagen</strong> y (en las ediciones de suscripción) <strong>Localization </strong>. Los recursos externos pueden ser <strong>Locales</strong> (archivos almacenados en el artefacto de la página) o Externos (URL). El recurso Localization siempre es local."
 
+msgid "Assign before Submit"
+msgstr ""
+
 msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
 msgstr ""
 
@@ -343,6 +346,9 @@ msgstr "En tiempo de ejecución, los recursos de un widget personalizado se carg
 
 msgid "Attention:"
 msgstr "Atención:"
+
+msgid "Automatically assign the Task to the current user before the execution"
+msgstr ""
 
 msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
 msgstr "Disponibles en la paleta, se abre sobre el contenido de un página/formulario/layout. Para administrar dichos contenedores, el widget de botón añade dos acciones: \"Abrir modal\" y \"Cerrar el modal\"."
