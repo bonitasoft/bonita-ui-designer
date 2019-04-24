@@ -71,7 +71,7 @@ describe('custom widget editor', function() {
     expect(properties).toEqual(['qualifier', 'verb']);
   });
 
-  it('should allow to add a property', function() {
+  it('if custom only, should allow to add a property', function() {
     $('#create').click();
 
     $('#name').sendKeys('newProperty');
@@ -94,6 +94,10 @@ describe('custom widget editor', function() {
     expect($('.modal-body #help').getAttribute('value')).toBe('Tooltip for new property');
     expect($('.modal-body #caption').getAttribute('value')).toBe('Caption for new property');
     expect($('.modal-body #default').getAttribute('value')).toBe('Default value');
+
+    // Standard widget: create button should be disabled
+    widgetEditor = WidgetEditor.get('pbInput');
+    expect(element(by.css('#create:disabled')).isPresent()).toBeTruthy();
   });
 
   it('should allow to update a property', function() {
@@ -123,6 +127,11 @@ describe('custom widget editor', function() {
     expect(updated.all(by.tagName('div')).get(3).getText()).toBe('Type: choice');
     expect(updated.all(by.tagName('div')).get(4).getText()).toBe('Choices: red, green, blue');
     expect(updated.all(by.tagName('div')).get(5).getText()).toBe('Default value: red');
+
+    // Standard widget: update property should be disabled
+    widgetEditor = WidgetEditor.get('pbInput');
+    property = element.all(by.repeater('property in widget.properties')).first();
+    expect(property.element(by.css('#editProperty:disabled')).isPresent()).toBeTruthy();
   });
 
   it('should allow to choose property type only with some bond type while creating/updating a property', function() {
@@ -171,6 +180,11 @@ describe('custom widget editor', function() {
 
     var properties = getPropertyNamesInList();
     expect(properties).not.toContain(firstParamName);
+
+    // Standard widget: delete property should be disabled
+    widgetEditor = WidgetEditor.get('pbInput');
+    var property = element.all(by.repeater('property in widget.properties')).first();
+    expect(property.element(by.css('#deleteProperty:disabled')).isPresent()).toBeTruthy();
   });
 
   it('should allow to edit a widget template and controller', function() {
@@ -187,6 +201,11 @@ describe('custom widget editor', function() {
 
     // should go back to root when saved
     expect(browser.getCurrentUrl()).toMatch(/.*#\//);
+
+    // Standard widget: edit template and controller should be disabled
+    widgetEditor = WidgetEditor.get('pbInput');
+    expect(element(by.css('#template:read-only')).isPresent()).toBeTruthy();
+    expect(element(by.css('#controller:read-only')).isPresent()).toBeTruthy();
   });
 
   it('should save a widget as', function() {
@@ -243,6 +262,13 @@ describe('custom widget editor', function() {
     expect(localEditableAsset.element(by.css('button i.fa-search')).isPresent()).toBeFalsy();
     expect(localEditableAsset.element(by.css('button i.fa-pencil')).isPresent()).toBeTruthy();
     expect(localEditableAsset.element(by.css('button i.fa-trash')).isPresent()).toBeTruthy();
+
+    // Standard widget: edit/delete should be disabled
+    widgetEditor = WidgetEditor.get('pbDatePicker');
+    assets = widgetEditor.assets().list();
+    let firstAsset = assets.first();
+    expect(firstAsset.element(by.css('#editAsset')).isEnabled()).toBeFalsy();
+    expect(firstAsset.element(by.css('#deleteAsset')).isEnabled()).toBeFalsy();
   });
 
   it('should allow to edit a local asset', function () {

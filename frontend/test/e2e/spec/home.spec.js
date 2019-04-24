@@ -33,7 +33,7 @@ describe('home page', function() {
   it('should navigate to a widget', function() {
     $$('.ArtifactList-widget a').first().click();
 
-    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');
   });
 
   it('should create a layout', function() {
@@ -74,7 +74,7 @@ describe('home page', function() {
   it('should create a widget with widget tab selected', function() {
     home.openTab('widget');
     home.createDefault('testWidget');
-    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');
   });
 
   it('should not create a page with space or special characters in name', function() {
@@ -115,7 +115,7 @@ describe('home page', function() {
 
   it('should create a widget', function() {
     home.createWidget('test');
-    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');
   });
 
   it('should change sort order to alphabetical or chronological', () => {

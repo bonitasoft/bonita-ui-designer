@@ -10,14 +10,20 @@ describe('properties panel test', function() {
 
   });
 
-  it('should display edit button', function() {
-    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(true);
+  it('should display action button, then editAction if custom widget, or viewAction if standard widget', function() {
+    expect(element(by.css('#editAction')).isPresent()).toBe(false);
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
+    element(by.css('#widgetActionButton')).click();
+    expect(element(by.css('#viewAction')).isDisplayed()).toBe(true);
     editor = PageEditor.get('empty');
-    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(false);
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
     editor.addWidget('container');
-    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(false);
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
     editor.addCustomWidget('customAwesomeWidget');
-    expect(element(by.css('#edit-widget')).isDisplayed()).toBe(true);
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
+    element(by.css('#widgetActionButton')).click();
+    expect(element(by.css('#viewAction')).isPresent()).toBe(false);
+    expect(element(by.css('#editAction')).isDisplayed()).toBe(true);
   });
 
   it('should display default properties on container', function() {

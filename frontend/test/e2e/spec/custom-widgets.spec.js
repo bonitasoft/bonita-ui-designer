@@ -11,10 +11,11 @@ describe('custom widget test', function() {
     editor.addCustomWidget('customAwesomeWidget');
 
     // then we should be able to edit it
-    $('#edit-widget').click();
+    $('#widgetActionButton').click();
+    $('#editAction').click();
 
     // then we should go the custom widget edition
-    expect($('.EditorHeader-brand').getText()).toBe('CUSTOM WIDGET EDITOR');
+    expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');
   });
 
 });

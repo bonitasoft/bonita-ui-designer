@@ -8,14 +8,15 @@
                <i class="ui-icon ui-designer"></i>
             </a>
             <span class="EditorHeader-brand" translate>
-                Custom widget editor
+                widget editor
             </span>
             <h3 class="EditorHeader-name EditorHeader-name--custom">
                 <identicon name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
                 {{widget.name}}
             </h3>
             <div class="EditorHeader-actions">
-                <div class="btn-group" uib-dropdown>
+                <button ng-if="!widget.custom" id="saveas-bonita" type="button" class="btn btn-bonita-primary" ng-click="saveAs(widget)" translate>Save as...</button>
+                <div ng-if="widget.custom" class="btn-group" uib-dropdown>
                     <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
                     <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
                         <span class="fa fa-caret-down"></span>
@@ -27,6 +28,7 @@
                 </div>
                 <button type="button"
                         id="export"
+                        ng-disabled="!widget.custom"
                         class="btn btn-bonita-primary"
                         ng-click="saveAndExport()"
                         title="{{'Export'|translate}}">
@@ -51,15 +53,15 @@
                             <translate>Description</translate>
                             <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" uib-tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
                         </h4>
-                        <textarea class="form-control textarea--widget" ng-attr-placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
+                        <textarea class="form-control textarea--widget" ng-disabled="!widget.custom" ng-attr-placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
                     </div>
                     <div>
                         <h4 class="CustomEditor-section" translate>Template</h4>
-                        <ace-editor class="ace-editor--widget" mode="html" ng-model="widget.template" id="template"></ace-editor>
+                        <ace-editor id="template" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}" mode="html" readonly="{{!widget.custom}}" ng-model="widget.template"></ace-editor>
                     </div>
                     <div>
                         <h4 class="CustomEditor-section" translate>Controller</h4>
-                        <ace-editor class="ace-editor--widget" mode="javascript" ng-model="widget.controller" id="controller"></ace-editor>
+                        <ace-editor id="controller" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}"  mode="javascript" readonly="{{!widget.custom}}" ng-model="widget.controller"></ace-editor>
                     </div>
                 </form>
             </div>
@@ -72,7 +74,7 @@
                         <translate>Required angular modules</translate>
                         <i class="fa fa-info-circle CustomEditor-helper" uib-tooltip="{{'Extra angular modules needed by this custom widget (comma separated)' | translate }}" tooltip-append-to-body="true"></i>
                     </h4>
-                    <input type="text" class="form-control" id="requiredModules" ng-model="widget.requiredModules" ng-list>
+                    <input type="text" class="form-control" id="requiredModules" ng-disabled="!widget.custom" ng-model="widget.requiredModules" ng-list>
                 </div>
 
                 <table class="table table-striped">
@@ -81,7 +83,7 @@
                              <h4 class="CustomEditor-section" translate>Properties</h4>
                         </th>
                         <th class="col-xs-2 Property-actions">
-                            <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-click="createOrUpdate()">
+                            <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-disabled="!widget.custom" ng-click="createOrUpdate()">
                                 <i class="fa fa-plus"></i>
                                 <span translate>Create</span>
                             </button>
@@ -98,8 +100,8 @@
                                 <div ng-if="property.bond !== 'variable'"><small translate>Default value</small>: {{ property.defaultValue }}</div>
                             </td>
                             <td class="col-xs-2 Property-actions">
-                                <button class="btn btn-bonita-default" title="Update property" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-bonita-default" title="Delete property" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
+                                <button id="editProperty" class="btn btn-bonita-default" title="Update property" ng-disabled="!widget.custom" ng-click="createOrUpdate(property)"><i class="fa fa-pencil"></i></button>
+                                <button id="deleteProperty" class="btn btn-bonita-default" title="Delete property" ng-disabled="!widget.custom" ng-click="deleteParam(property)"><i class="fa fa-trash"></i></button>
                          </td>
                         </tr>
                     </tbody>

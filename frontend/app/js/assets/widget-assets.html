@@ -6,7 +6,7 @@
         </th>
         <th class="col-xs-4 Property-actions" colspan="2">
             <button class="btn btn-default btn-data--help" ng-click="vm.openHelp('widget')" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
-            <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-click="vm.openAssetPopup()">
+            <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-disabled="!widget.custom" ng-click="vm.openAssetPopup()">
                 <i class="fa fa-plus"></i>
                 <span translate>Add</span>
             </button>
@@ -23,8 +23,8 @@
     <tbody>
     <tr ng-repeat="asset in vm.component.assets | orderBy:'order' as results">
         <td>
-            <a ng-click="vm.decrementOrderAsset(asset)" ng-if="!$first" title="{{ 'Move asset up' | translate }}"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
-            <a ng-click="vm.incrementOrderAsset(asset)" ng-if="!$last" title="{{ 'Move asset down' | translate }}"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
+            <a ng-click="vm.decrementOrderAsset(asset)" ng-if="!$first && widget.custom" title="{{ 'Move asset up' | translate }}"><i class="fa fa-arrow-up asset-ordering-action clickable"></i></a>
+            <a ng-click="vm.incrementOrderAsset(asset)" ng-if="!$last && widget.custom" title="{{ 'Move asset down' | translate }}"><i class="fa fa-arrow-down asset-ordering-action clickable"></i></a>
         </td>
         <td>{{asset.name}}</td>
         <td>{{asset.type | assetType}}</td>
@@ -36,11 +36,11 @@
                     ng-if="vm.isViewable(asset)" ng-click="vm.openAssetPreviewPopup(asset)">
                 <i class="fa fa-search"></i>
             </button>
-            <button class="btn btn-bonita-default" ng-click="vm.openAssetEditPopup(asset)"
+            <button id="editAsset" class="btn btn-bonita-default" ng-disabled="!widget.custom" ng-click="vm.openAssetEditPopup(asset)"
                     title="{{ 'Update asset' | translate }}" ng-if="vm.isEditable(asset)">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-bonita-default" ng-click="vm.delete(asset)" title="{{ 'Delete asset' | translate }}">
+            <button id="deleteAsset" class="btn btn-bonita-default" ng-disabled="!widget.custom" ng-click="vm.delete(asset)" title="{{ 'Delete asset' | translate }}">
                 <i class="fa fa-trash"></i>
             </button>
         </td>

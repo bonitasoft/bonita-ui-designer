@@ -6,13 +6,21 @@
                 popover-trigger="none" popover-is-open="widgetHelpPopover.isOpen" popover-placement="left-top" popover-class="PropertyPanel-help-popover">
             <i class="fa fa-question-circle"></i>
         </button>
-        <button ng-if="currentComponent.$$widget.type !== 'container'"
-                ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" class="btn btn-xs btn-bonita-edit-widget PropertyPanel-edit-btn"
-                id="edit-widget"
-                tooltip-placement="top-right" uib-tooltip="{{ 'Edit widget' | translate }}"
-                tooltip-append-to-body="true">
-            <i class="fa fa-pencil"></i>
-        </button>
+
+        <div id="action" class="btn-group PropertyPanel-widget-action-btn" uib-dropdown>
+            <button ng-if="currentComponent.$$widget.type !== 'container' && currentComponent.type !== 'fragment'" id="widgetActionButton" type="button" class="btn btn-xs btn-bonita-action-widget" uib-dropdown-toggle
+                    tooltip-placement="top-right" uib-tooltip="{{ 'Widget actions' | translate }}"
+                    tooltip-append-to-body="true">
+                <span class="fa fa-ellipsis-v"/>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right PropertyPanel-widget-action-menu" role="menu" aria-labelledby="typeButton">
+                <li><a ng-if="!currentComponent.$$widget.custom" id="viewAction" class="clickable PropertyPanel-widget-action-item"
+                       ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)"  translate>View...</a></li>
+                <li><a ng-if="currentComponent.$$widget.custom" id="editAction" class="clickable PropertyPanel-widget-action-item"
+                       ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)"  translate>Edit...</a></li>
+                <li><a id="switchAction" class="clickable PropertyPanel-widget-action-item" ng-click="" translate>Switch...</a></li>
+            </ul>
+        </div>
         <h3 class="PropertyPanel-title">
             {{ currentComponent.$$widget.name }}
         </h3>

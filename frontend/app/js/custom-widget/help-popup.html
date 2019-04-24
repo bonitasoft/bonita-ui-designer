@@ -5,8 +5,11 @@
 <div class="modal-body">
     <uib-tabset class="tabs-left" active="tabContainer.activeTab">
         <uib-tab id="help-general" heading="{{ 'General' | translate }}" index="'general'">
-            <p translate>If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments.</p>
-            <p translate>Custom widget implementation is based on the AngularJS framework.</p>
+            <p translate>This page allows you to view a standard widget, or edit a custom widget.</p>
+            <p translate>If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to.
+                To do this, clone the standard widget by saving it with a different name, and modify it.
+                After creation, the custom widget is available in the palette for designing pages, forms or fragments.</p>
+            <p translate>Widget implementation is based on the AngularJS framework.</p>
             <p translate>For more information, see the AngularJS guide on
                 <a href="https://docs.angularjs.org/guide/templates">templates</a> and
                 <a href="https://docs.angularjs.org/guide/controller">controllers</a>.</p>
@@ -15,24 +18,25 @@
         </uib-tab>
         <uib-tab id="help-template" heading="{{ 'Template' | translate }}" index="'template'">
 
-            <p translate>The custom widget HTML template is defined here.</p>
+            <p translate>The widget HTML template is defined here.</p>
 
             <p translate>You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system.</p>
 
-            <p translate>Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty.</p>
+            <p translate>Widget properties defined on the right can be used as variables in a template with properties.newProperty.</p>
 
             <p translate>Functions exposed in the controller can be used with ctrl.newFunction().</p>
 
-            <p translate>You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available.</p>
+            <p translate>You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor.
+                It allows to create a mockup display for the whiteboard as the real use data will not be available.</p>
         </uib-tab>
         <uib-tab id="help-controller" heading="{{ 'Controller' | translate }}" index="'controller'">
-            <p translate>The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template.</p>
+            <p translate>The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template.</p>
 
-            <p translate>Custom widget properties defined on the right can be used as variables in a controller with $scope.properties.</p>
+            <p translate>Widget properties defined on the right can be used as variables in a controller with $scope.properties.</p>
 
             <p translate>To use AngularJS standard services, you must declare them in the main function arguments.</p>
 
-            <p translate>You can leave the controller empty if you do not need it.</p>
+            <p translate>Controller can be left empty if not needed.</p>
         </uib-tab>
         <uid-l10n-help-tab></uid-l10n-help-tab>
         <uib-tab id="help-migration" heading="{{ 'Migration' | translate }}" index="'migration'">
