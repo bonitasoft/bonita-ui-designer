@@ -8,7 +8,7 @@
 
     constructor($uibModalInstance, widget) {
       this.widget = widget;
-      this.newName = widget.name;
+      this.newName = widget.name.replace(/\s/g, '');
       _$uibModalInstance = $uibModalInstance;
     }
 
