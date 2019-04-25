@@ -30,6 +30,7 @@
     $scope.buildIframeSrc = buildIframeSrc;
     $scope.iframeWidth = iframeWidth;
     $scope.updateResolutionInUrl = updateResolutionInUrl;
+    $scope.openExpandedPreviewWindow = openExpandedPreviewWindow;
     $scope.isNavCollapsed = true;
 
     artifactRepo
@@ -76,6 +77,10 @@
 
     function closeWindow() {
       $window.close();
+    }
+
+    function openExpandedPreviewWindow() {
+      $window.open($scope.iframe.src, '_blank');
     }
 
     function updateResolutionInUrl(resolution) {

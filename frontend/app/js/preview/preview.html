@@ -6,7 +6,7 @@
             <span class="navbar-brand" translate>Preview - {{pageName}}</span>
         </div>
         <div class="container-fluid">
-            <form  class="nav navbar-form navbar-right collapse navbar-collapse" uib-collapse="isNavCollapsed">
+            <form class="nav navbar-form navbar-right collapse navbar-collapse" uib-collapse="isNavCollapsed">
                 <app-selector on-change="refreshIframe()"></app-selector>
                 <language-picker on-change="refreshIframe()"></language-picker>
                 <resolutions-bar
@@ -14,6 +14,14 @@
                     id="resolutions"
                     class="btn-group Preview-resolutionBar">
                 </resolutions-bar>
+                    <button class="btn btn-bonita-default"
+                       uib-tooltip="{{ 'Expand Preview in new window' | translate }}"
+                       tooltip-placement="bottom"
+                       tooltip-append-to-body="true"
+                            ng-click="openExpandedPreviewWindow()"
+                       >
+                        <i class="fa fa-lg fa-external-link"></i>
+                    </button>
             </form>
         </div>
     </nav>
