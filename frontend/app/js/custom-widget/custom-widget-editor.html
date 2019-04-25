@@ -50,17 +50,21 @@
                 <form id="widget-form" name="widgetForm">
                     <div>
                         <h4 class="CustomEditor-section">
-                            <translate>Description</translate>
+                            <span class="CustomEditor-section-underline" translate>Description</span>
                             <i class="fa fa-info-circle CustomEditor-helper" tooltip-placement="bottom" uib-tooltip="{{'This description will be displayed as a tooltip in the palette' | translate }}" tooltip-append-to-body="true"></i>
                         </h4>
                         <textarea class="form-control textarea--widget" ng-disabled="!widget.custom" ng-attr-placeholder="{{ 'Widget description' | translate }}" ng-model="widget.description"></textarea>
                     </div>
                     <div>
-                        <h4 class="CustomEditor-section" translate>Template</h4>
+                        <h4 class="CustomEditor-section">
+                            <span class="CustomEditor-section-underline" translate>Template</span>
+                        </h4>
                         <ace-editor id="template" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}" mode="html" readonly="{{!widget.custom}}" ng-model="widget.template"></ace-editor>
                     </div>
                     <div>
-                        <h4 class="CustomEditor-section" translate>Controller</h4>
+                        <h4 class="CustomEditor-section">
+                            <span class="CustomEditor-section-underline" translate>Controller</span>
+                        </h4>
                         <ace-editor id="controller" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}"  mode="javascript" readonly="{{!widget.custom}}" ng-model="widget.controller"></ace-editor>
                     </div>
                 </form>
@@ -71,7 +75,7 @@
 
                 <div class="form-group">
                     <h4 class="CustomEditor-section">
-                        <translate>Required angular modules</translate>
+                        <span class="CustomEditor-section-underline" translate>Required angular modules</span>
                         <i class="fa fa-info-circle CustomEditor-helper" uib-tooltip="{{'Extra angular modules needed by this custom widget (comma separated)' | translate }}" tooltip-append-to-body="true"></i>
                     </h4>
                     <input type="text" class="form-control" id="requiredModules" ng-disabled="!widget.custom" ng-model="widget.requiredModules" ng-list>
@@ -80,7 +84,9 @@
                 <table class="table table-striped">
                     <thead>
                         <th class="col-xs-10">
-                             <h4 class="CustomEditor-section" translate>Properties</h4>
+                             <h4 class="CustomEditor-section">
+                                 <span class="CustomEditor-section-underline" translate>Properties</span>
+                             </h4>
                         </th>
                         <th class="col-xs-2 Property-actions">
                             <button id="create" title="Create a new property" class="btn btn-bonita-primary" ng-disabled="!widget.custom" ng-click="createOrUpdate()">
