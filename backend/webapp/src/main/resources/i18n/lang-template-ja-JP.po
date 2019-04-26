@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-04-23 02:09\n"
+"PO-Revision-Date: 2019-04-26 02:08\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -539,6 +539,9 @@ msgstr ""
 msgid "Controller"
 msgstr "コントローラー"
 
+msgid "Controller can be left empty if not needed."
+msgstr ""
+
 msgid "Convert to ..."
 msgstr ""
 
@@ -595,18 +598,6 @@ msgstr "カスタム サービス"
 
 msgid "Custom widget"
 msgstr "カスタム ウィジェット"
-
-msgid "Custom widget editor"
-msgstr "カスタム ウィジェット エディタ"
-
-msgid "Custom widget implementation is based on the AngularJS framework."
-msgstr "カスタム ウィジェットの実装は、AngularJS フレームワークに基づいています。"
-
-msgid "Custom widget properties defined on the right can be used as variables in a controller with $scope.properties."
-msgstr "右側に定義されているカスタム ウィジェットのプロパティは、コント ローラー内では $scope.properties の変数として使用できます。"
-
-msgid "Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty."
-msgstr "右側に定義されているカスタム ウィジェットのプロパティは、テンプレート内では properties.newProperty の変数として使用できます。"
 
 msgid "Custom widgets"
 msgstr "カスタム ウィジェット"
@@ -772,7 +763,7 @@ msgstr ""
 msgid "Edit variable"
 msgstr "変数を編集"
 
-msgid "Edit widget"
+msgid "Edit..."
 msgstr ""
 
 msgid "Editor organization"
@@ -1012,8 +1003,8 @@ msgstr "チェックオンの場合、このポップアップはブラウザの
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr "ページが iframe 内に表示されている場合、 JavaScript postMessage がレスポンスのステータスとボタン ウィジェットのプロパティ値と一緒に <b>親</b> フレームに送信されます。Bonita ポータル、タスク リストまたはデフォルトのアプリケーション レイアウトは、このメッセージを異なって処理します。"
 
-msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
-msgstr "標準ウィジェットが、あなたのニーズを満たしていない場合、あなたの希望に沿ったカスタム ウィジェットを作成できます。作成後、そのカスタム ウィジェットはページ、フォーム、またはフラグメントの設計のため、パレット内で使用可能です。"
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms or fragments."
+msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代わりにエスケープされます"
@@ -1514,6 +1505,9 @@ msgstr "保存"
 msgid "Save as ..."
 msgstr "別名で保存..."
 
+msgid "Save as..."
+msgstr ""
+
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "{{ctrl.page.name}} を別名で保存..."
 
@@ -1703,6 +1697,9 @@ msgstr ""
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr ""
 
+msgid "Switch..."
+msgstr ""
+
 msgid "Tab display"
 msgstr ""
 
@@ -1776,11 +1773,8 @@ msgstr "<em>ラベル</em>、<em>テクニカルな日付書式</em>、<em>プ�
 msgid "The content of <em>Label</em>, <em>Technical date formats</em>, <em>Placeholder</em> properties, as well as the labels of buttons <em>Today/Now</em> are localized by default. Localized formats can be edited in the asset <em>localization.json</em>."
 msgstr "<em>ラベル</em>、<em>テクニカルな日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
 
-msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
-msgstr "コント ローラーは、AngularJS スコープを拡大し、カスタム ウィジェット テンプレート内で使用可能な関数を公開する JavaScript 関数です。"
-
-msgid "The custom widget HTML template is defined here."
-msgstr "カスタム ウィジェット HTML テンプレートは、ここで定義されます。"
+msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template."
+msgstr ""
 
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
 msgstr "デフォルトのアプリケーション レイアウトは、メッセージで送信され、そのウィンドウの位置に設定された<em>成功時のターゲットURL</em> を取得します。"
@@ -1838,6 +1832,9 @@ msgstr "すべてのプロパティの値は、翻訳キーとしても使用さ
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
 
+msgid "The widget HTML template is defined here."
+msgstr ""
+
 msgid "The widget has not been imported."
 msgstr "ウィジェットはインポートされていません。"
 
@@ -1876,6 +1873,9 @@ msgid "This modal is based on ui-bootstrap implementation. It is possible to cha
 msgstr ""
 
 msgid "This name already exists"
+msgstr ""
+
+msgid "This page allows you to view a standard widget, or edit a custom widget."
 msgstr ""
 
 msgid "This page is empty."
@@ -2169,6 +2169,9 @@ msgstr ""
 msgid "View asset content"
 msgstr "アセットのコンテンツを表示"
 
+msgid "View..."
+msgstr ""
+
 msgid "W3C website"
 msgstr "W3C webサイト"
 
@@ -2190,8 +2193,20 @@ msgstr "ここの businessDataType は com.company.model.MyData、 queryName は
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "ここの businessVariableName は、プール レベルで定義されているビジネス変数の名前です。"
 
+msgid "Widget actions"
+msgstr ""
+
 msgid "Widget description"
 msgstr "ウィジェットの説明"
+
+msgid "Widget implementation is based on the AngularJS framework."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a controller with $scope.properties."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a template with properties.newProperty."
+msgstr ""
 
 msgid "Widgets"
 msgstr "ウィジェット"
@@ -2228,9 +2243,6 @@ msgstr "データが補完が許されているウィジェットのプロパテ
 
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "フォームまたはページのコンテナ内にウィジェットをきれいに配置して、それらのウィジェットをグループ化できます。コンテナは、別のコンテナを含めることができます。"
-
-msgid "You can leave the controller empty if you do not need it."
-msgstr "必要がない場合は、コント ローラーは空のままにしておくことができます。"
 
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
@@ -2396,6 +2408,9 @@ msgid "warning"
 msgstr "warning"
 
 msgid "widget"
+msgstr ""
+
+msgid "widget editor"
 msgstr ""
 
 msgid "widgets"

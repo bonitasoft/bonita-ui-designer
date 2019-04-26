@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-04-23 01:59\n"
+"PO-Revision-Date: 2019-04-26 01:59\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -539,6 +539,9 @@ msgstr "Control"
 msgid "Controller"
 msgstr "Controller"
 
+msgid "Controller can be left empty if not needed."
+msgstr ""
+
 msgid "Convert to ..."
 msgstr "Convertir a..."
 
@@ -595,18 +598,6 @@ msgstr "Servicios personalizados"
 
 msgid "Custom widget"
 msgstr "Widget personalizado"
-
-msgid "Custom widget editor"
-msgstr "Editor widgets personalizados"
-
-msgid "Custom widget implementation is based on the AngularJS framework."
-msgstr "La implementación de un widget personalizado se basa en el framework AngularJS."
-
-msgid "Custom widget properties defined on the right can be used as variables in a controller with $scope.properties."
-msgstr "Las propiedades de un widget personalizado definidas a la derecha se pueden utilizar como variables en un controlador con $scope.properties."
-
-msgid "Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty."
-msgstr "Las propiedades de un widget personalizado definidas a la derecha se pueden utilizar como variables en las plantillas con properties.newProperty."
 
 msgid "Custom widgets"
 msgstr "Widgets personalizados"
@@ -772,7 +763,7 @@ msgstr "Editar el nombre mostrado y descripción de una página, formulario o la
 msgid "Edit variable"
 msgstr "Editar la variable"
 
-msgid "Edit widget"
+msgid "Edit..."
 msgstr ""
 
 msgid "Editor organization"
@@ -1012,8 +1003,8 @@ msgstr "Si está marcado, este popup no se mostrará nuevamente a menos que se l
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr "Si la página se muestra dentro de un iframe, se enviará un postMessage en JavaScript al marco <b>padre</b> con el estado de la respuesta y los valores de las propiedades del widget Button. El Bonita portal, la lista de tareas o el layout por defecto de las aplicaciones manejan este mensaje de manera diferente:"
 
-msgid "If the standard widgets do not meet your needs, you can create a custom widget to match exactly what you want to. After creation, a custom widget is available in the palette for designing pages, forms or fragments."
-msgstr "Si los widgets estándar no satisfacen sus necesidades, puede crear un widget personalizado para que coincida exactamente con lo que desea. Después de la creación, un widget personalizado está disponible en la paleta para el diseño de páginas, formularios o fragmentos."
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms or fragments."
+msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interpretado"
@@ -1513,6 +1504,9 @@ msgstr "Guardar"
 msgid "Save as ..."
 msgstr "Guardar como ..."
 
+msgid "Save as..."
+msgstr ""
+
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "Guardar {{ctrl.page.name}} como..."
 
@@ -1702,6 +1696,9 @@ msgstr "Resumen de las llamadas a la API REST de Bonita realizadas por la págin
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr "Resumen de las llamadas al API de REST de Bonita en una página, formulario o layout"
 
+msgid "Switch..."
+msgstr ""
+
 msgid "Tab display"
 msgstr ""
 
@@ -1775,11 +1772,8 @@ msgstr "El contenido de las propiedades de <em>Etiqueta</em>, <em>Formato técni
 msgid "The content of <em>Label</em>, <em>Technical date formats</em>, <em>Placeholder</em> properties, as well as the labels of buttons <em>Today/Now</em> are localized by default. Localized formats can be edited in the asset <em>localization.json</em>."
 msgstr "El contenido de las propiedades de <em>Etiqueta</em>, <em>Formato técnico de fecha</em>, <em>Placeholder</em>, así como las etiquetas de los botones <em>Hoy/Ahora</em> están localizados por defecto. Los formatos localizados pueden ser editados en el activo <em>localization.json</em>."
 
-msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template."
-msgstr "El controlador es una función JavaScript que aumenta el alcance de AngularJS y expone las funciones que se pueden utilizar en el template del widget personalizado."
-
-msgid "The custom widget HTML template is defined here."
-msgstr "El template HTML del widget personalizado se define aquí."
+msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template."
+msgstr ""
 
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
 msgstr "El layout por defecto de la aplicación recupera la <em>Dirección URL de destino en éxito</em> que fue enviada en el mensaje y establece su ubicación de la ventana con ella."
@@ -1837,6 +1831,9 @@ msgstr "Los valores de todas las propiedades también se utilizan como claves de
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "El whiteboard está organizado en <b>filas</b> que se pueden mover arriba y abajo, o eliminar."
 
+msgid "The widget HTML template is defined here."
+msgstr ""
+
 msgid "The widget has not been imported."
 msgstr "El widget no se ha importado."
 
@@ -1875,6 +1872,9 @@ msgid "This modal is based on ui-bootstrap implementation. It is possible to cha
 msgstr "La modal está basada en la implementación ui-bootstrap. Es posible modificar el tamaño y/o estilo de la modal."
 
 msgid "This name already exists"
+msgstr ""
+
+msgid "This page allows you to view a standard widget, or edit a custom widget."
 msgstr ""
 
 msgid "This page is empty."
@@ -2168,6 +2168,9 @@ msgstr ""
 msgid "View asset content"
 msgstr "Ver recurso"
 
+msgid "View..."
+msgstr ""
+
 msgid "W3C website"
 msgstr "Sitio web de W3C"
 
@@ -2189,8 +2192,20 @@ msgstr "Donde businessDataType = com.company.model.MyData, queryName = nombre de
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "Donde businessVariableName es el nombre de la variable de negocio a nivel de Pool."
 
+msgid "Widget actions"
+msgstr ""
+
 msgid "Widget description"
 msgstr "Descripción del widget"
+
+msgid "Widget implementation is based on the AngularJS framework."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a controller with $scope.properties."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a template with properties.newProperty."
+msgstr ""
 
 msgid "Widgets"
 msgstr "Widgets"
@@ -2227,9 +2242,6 @@ msgstr "Puede dar formato a los datos con los filtros cuando los datos se utiliz
 
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Se pueden agrupar widgets en un contenedor para definir la disposición de los widgets en un formulario o en una página. Un fragmento puede contener otros contenedores."
-
-msgid "You can leave the controller empty if you do not need it."
-msgstr "Puede dejar el controlador vacío si usted no lo necesita."
 
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Puede guardar el contenido de un contenedor como un fragmento reusable."
@@ -2397,6 +2409,9 @@ msgstr "warning"
 
 msgid "widget"
 msgstr "widget"
+
+msgid "widget editor"
+msgstr ""
 
 msgid "widgets"
 msgstr "widgets"
