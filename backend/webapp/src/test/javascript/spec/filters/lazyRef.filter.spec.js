@@ -36,13 +36,14 @@ describe('lazyRef filter', function () {
     expect( $log.warn).toHaveBeenCalledWith('No lazy relation ', 'perks',' found');
   });
 
-  it('should log a warning when no lazy relation are available', function () {
+  it('should not log a warning when no lazy relation are available', function () {
     expect(lazyRefFilter(aBoWithoutLinks,'perks')).toBe(undefined);
-    expect($log.warn).toHaveBeenCalledWith('No lazy relation ', 'perks',' found');
+    expect($log.warn).not.toHaveBeenCalled();
   });
 
-  it('should log a warning when the business object is not loaded', function () {
+  it('should not log a warning when the business object is not loaded', function () {
     expect(lazyRefFilter(undefined,'address')).toBe(undefined);
+    expect($log.warn).not.toHaveBeenCalled();
   });
 
 });
