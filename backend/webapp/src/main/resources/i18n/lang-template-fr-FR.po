@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-04-26 01:58\n"
+"PO-Revision-Date: 2019-05-02 01:59\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -785,6 +785,9 @@ msgstr "Contenu de l'erreur d'upload"
 
 msgid "Example: relative time filter"
 msgstr "Exemple : filtre \"temps relatif\""
+
+msgid "Expand Preview in new window"
+msgstr ""
 
 msgid "Export"
 msgstr "Exporter"

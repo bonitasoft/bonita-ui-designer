@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-04-26 01:59\n"
+"PO-Revision-Date: 2019-05-02 02:02\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -786,6 +786,9 @@ msgstr "Contenido del error de carga"
 
 msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
+
+msgid "Expand Preview in new window"
+msgstr ""
 
 msgid "Export"
 msgstr "Exportar"
