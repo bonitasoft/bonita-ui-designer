@@ -9,7 +9,7 @@
 
   .PropertyPanel-toggle {
     position: absolute;
-    top: 1em;
+    top: 50%;
     left: 0;
     transform: translateX(-90%);
     font-size: 24px;
@@ -65,9 +65,14 @@
 }
 
 .PropertyPanel-header {
-  margin: 0;
-  padding: 1em 1em 0;
+  padding: 0em 1em 0;
   line-height: 2.2;
+  border-bottom: 1px solid @color-properties-header-border;
+  background: @color-properties-header-bg;
+}
+
+.PropertyPanel-header h3 {
+  margin-top: 10px;
 }
 
 .PropertyPanel-title {
@@ -124,8 +129,7 @@ PropertyPanel-help-popover-body {
 }
 
 .PropertyPanel-widget-action-btn {
-  margin-top: 17px;
-  margin-bottom: 15px;
+  margin-top: 10px;
   font-size:  14px;
   float: right;
 }
