@@ -11,7 +11,7 @@
                 widget editor
             </span>
             <h3 class="EditorHeader-name EditorHeader-name--custom">
-                <identicon name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
+                <identicon ng-if="widget.custom" name="{{widget.id}}" size="30" foreground-color="[203, 213, 225, 255]" background-color="[0,0,0,0]"></identicon>
                 {{widget.name}}
             </h3>
             <div class="EditorHeader-actions">

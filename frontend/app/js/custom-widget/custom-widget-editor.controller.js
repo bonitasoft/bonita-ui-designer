@@ -24,6 +24,10 @@
     $scope.widget = artifact;
     $scope.bonds = BONDS;
 
+    if (!$scope.widget.custom) {
+      alerts.addInfo(gettextCatalog.getString('To edit this standard widget, save it first as a new custom widget'), 5000);
+    }
+
     var widgetRepo = artifactRepo;
 
     keyBindingService.bindGlobal(['ctrl+s', 'command+s'], function() {

@@ -30,7 +30,8 @@
       remove: remove,
       addError: addAlert.bind(null, gettext('error')),
       addSuccess: addAlert.bind(null, gettext('success')),
-      addWarning: addAlert.bind(null, gettext('warning'))
+      addWarning: addAlert.bind(null, gettext('warning')),
+      addInfo: addAlert.bind(null, gettext('info'))
     };
 
     /**
