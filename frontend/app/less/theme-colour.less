@@ -75,9 +75,9 @@
 @btn-bonita-help-widget-bg:              lighten(@color-properties-bg, 10%);
 @btn-bonita-help-widget-border:          transparent;
 
-@btn-bonita-edit-widget-color:           #fff;
-@btn-bonita-edit-widget-bg:              lighten(@color-properties-bg, 10%);
-@btn-bonita-edit-widget-border:          transparent;
+@btn-bonita-action-widget-color:         @btn-bonita-property-color;
+@btn-bonita-action-widget-bg:            @btn-bonita-property-bg;
+@btn-bonita-action-widget-border:        transparent;
 
 @Artifact-button--favorite-color:        #ffe502;
 
@@ -117,10 +117,10 @@
 }
 
 .btn-bonita-action-widget {
-  .button-variant(@btn-bonita-edit-widget-color, @btn-bonita-edit-widget-bg, @btn-bonita-edit-widget-border);
+  .button-variant(@btn-bonita-action-widget-color, @btn-bonita-action-widget-bg, @btn-bonita-action-widget-border);
 
   &:hover {
-    background-color: lighten(@btn-bonita-edit-widget-bg, 5%);
+    background-color: darken(@btn-bonita-action-widget-bg, 10%);
   }
 }
 
