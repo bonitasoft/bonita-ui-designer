@@ -17,8 +17,8 @@ describe('properties panel test', function() {
     expect(element(by.css('#viewAction')).isDisplayed()).toBe(true);
     editor = PageEditor.get('empty');
     expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
-    editor.addWidget('container');
-    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
+    editor.addWidget('pbContainer');
+    expect(element(by.css('#widgetActionButton')).isPresent()).toBe(false);
     editor.addCustomWidget('customAwesomeWidget');
     expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
     element(by.css('#widgetActionButton')).click();
