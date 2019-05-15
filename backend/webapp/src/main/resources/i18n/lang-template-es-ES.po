@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-05-13 01:29\n"
+"PO-Revision-Date: 2019-05-15 02:00\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -1928,6 +1928,9 @@ msgstr "Para mostrar (y no actualizar) una fecha obtenida de la API BDM (u otra 
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
+
+msgid "To edit this standard widget, save it first as a new custom widget"
+msgstr ""
 
 msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
 msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añada la primera modal al final, añada la segunda modal debajo de la primera, añada un botón en la primera modal que abra la segunda modal."
