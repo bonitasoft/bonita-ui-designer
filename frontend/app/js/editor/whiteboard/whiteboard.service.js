@@ -22,6 +22,7 @@
       onRemoveContainer: onRemoveContainer,
       onRemoveTabsContainer: onRemoveTabsContainer,
       onAddTabsContainer,
+      onAddModalContainer,
       onRemoveTab: onRemoveTab,
       onRemoveFormContainer: onRemoveFormContainer,
       onRemoveModalContainer: onRemoveModalContainer,
@@ -80,6 +81,10 @@
 
     function onAddTabsContainer(tabsContainer) {
       executeFunctionsForComponent(onWidgetAddFunctions, tabsContainer);
+    }
+
+    function onAddModalContainer(modalContainer) {
+      executeFunctionsForComponent(onWidgetAddFunctions, modalContainer);
     }
 
     function onRemoveTabsContainer(tabsContainer) {

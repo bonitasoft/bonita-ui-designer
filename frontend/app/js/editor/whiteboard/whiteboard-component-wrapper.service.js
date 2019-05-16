@@ -146,7 +146,7 @@
         $$propertiesTemplateUrl: 'js/editor/properties-panel/modal-container-properties-template.html',
         $$parentContainerRow: parentRow,
         triggerRemoved: whiteboardService.onRemoveModalContainer.bind(null, element),
-        triggerAdded: angular.noop
+        triggerAdded: whiteboardService.onAddModalContainer.bind(null, element),
       });
       service.wrapContainer({ id: 'pbContainer' }, element.container);
       return component;
