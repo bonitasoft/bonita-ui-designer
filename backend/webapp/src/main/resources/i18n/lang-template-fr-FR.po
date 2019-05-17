@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-04-16 01:59\n"
+"PO-Revision-Date: 2019-05-17 02:00\n"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -1931,7 +1931,7 @@ msgid "Used in the portal list of Resources. Part of the page.properties descrip
 msgstr "Utilisé dans la liste des Ressources du portail. Fait partie du descripteur page.properties dans l'archive de la page exportée."
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
-msgstr ""
+msgstr "Utilisé dans la liste des ressources du portail. Fait partie du descripteur de page.properties dans l'archive de la page exportée. S'il est vide, le nom technique de la page est utilisé à la place."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
