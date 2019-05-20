@@ -39,10 +39,9 @@ public class FormOutputVisitorTest {
 
         contract.accept(visitor);
 
-        assertThat(visitor.toJavascriptExpression()).isEqualTo("var output = {\n" +
-                "\t'accepted': $data.formInput.accepted\n" +
-                "};\n" +
-                "return output;");
+        assertThat(visitor.toJavascriptExpression()).isEqualTo("return {\n" +
+                "\taccepted: $data.formInput.accepted\n" +
+                "}");
     }
 
     @Test
@@ -59,11 +58,10 @@ public class FormOutputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJavascriptExpression())
-                .isEqualTo("var output = {\n" +
-                        "\t'person': $data.formInput.person,\n" +
-                        "\t'accepted': $data.formInput.accepted\n" +
-                        "};\n" +
-                        "return output;");
+                .isEqualTo("return {\n" +
+                        "\tperson: $data.formInput.person,\n" +
+                        "\taccepted: $data.formInput.accepted\n" +
+                        "}");
 
     }
 
@@ -76,6 +74,9 @@ public class FormOutputVisitorTest {
                         .withInput(
                                 aStringContractInput("name"),
                                 aNodeContractInput("details")
+                                .mulitple()
+                                .withDataReference(new BusinessDataReference("details", "org.test.Detail",
+                                        RelationType.COMPOSITION, LoadingType.EAGER))
                                         .withInput(anIntegerContractInput("age"))
                                         .build())
                         .build(),
@@ -85,11 +86,16 @@ public class FormOutputVisitorTest {
 
         assertThat(visitor.toJavascriptExpression())
                 .isEqualTo("if( $data.person ){\n" +
-                        "\tvar output = {\n" +
-                        "\t\t'person': $data.person,\n" +
-                        "\t\t'accepted': $data.formInput.accepted\n" +
-                        "\t};\n" +
-                        "\treturn output;\n" +
+                        "\treturn {\n" +
+                        "\t\t//map person variable to expected task contract input\n" +
+                        "\t\tperson: {\n" +
+                        "\t\t\tname: $data.person.name,\n" +
+                        "\t\t\tdetails: $data.person.details.map( it => ({\n" +
+                        "\t\t\t\tage: it.age\n" +
+                        "\t\t\t}))\n" +
+                        "\t\t},\n" +
+                        "\t\taccepted: $data.formInput.accepted\n" +
+                        "\t}\n" +
                         "}");
     }
 
@@ -104,7 +110,7 @@ public class FormOutputVisitorTest {
                                 aNodeContractInput("detail")
                                         .withDataReference(new BusinessDataReference("detail", "org.test.Detail",
                                                 RelationType.COMPOSITION, LoadingType.LAZY))
-                                        .withInput(anIntegerContractInput("age"))
+                                        .withInput(anIntegerContractInput("age"),aStringContractInput("carnation"))
                                         .build())
                         .build(),
                 aBooleanContractInput("accepted")).build();
@@ -113,12 +119,54 @@ public class FormOutputVisitorTest {
 
         assertThat(visitor.toJavascriptExpression())
                 .isEqualTo("if( $data.person && $data.person_detail ){\n" +
-                        "\tvar output = {\n" +
-                        "\t\t'personInput': $data.person,\n" +
-                        "\t\t'accepted': $data.formInput.accepted\n" +
-                        "\t};\n" +
-                        "\toutput.personInput.detail = $data.person_detail;\n"+
-                        "\treturn output;\n" +
+                		"\t//attach lazy references variables to parent variables\n"+
+                		"\t$data.person.detail = $data.person_detail;\n"+
+                        "\treturn {\n" +
+                		"\t\t//map person variable to expected task contract input\n"+
+                        "\t\tpersonInput: {\n" +
+                        "\t\t\tname: $data.person.name,\n" +
+                        "\t\t\tdetail: $data.person.detail ? {\n" +
+                        "\t\t\t\tage: $data.person.detail.age,\n" +
+                        "\t\t\t\tcarnation: $data.person.detail.carnation\n" +
+                        "\t\t\t} : null\n" +
+                        "\t\t},\n" +
+                        "\t\taccepted: $data.formInput.accepted\n" +
+                        "\t}\n" +
+                        "}");
+    }
+    
+    @Test
+    public void should_build_form_output_from_multiple_complex_types_with_data_reference() throws Exception {
+        Contract contract = aContract().inEditMode().withInput(
+                aNodeContractInput("persons")
+                        .mulitple()
+                        .withDataReference(new BusinessDataReference("persons", "org.test.Person",
+                                RelationType.COMPOSITION, LoadingType.EAGER))
+                        .withInput(
+                                aStringContractInput("name"),
+                                aNodeContractInput("details")
+                                .mulitple()
+                                .withDataReference(new BusinessDataReference("details", "org.test.Detail",
+                                        RelationType.COMPOSITION, LoadingType.EAGER))
+                                        .withInput(anIntegerContractInput("age"))
+                                        .build())
+                        .build(),
+                aBooleanContractInput("accepted")).build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJavascriptExpression())
+                .isEqualTo("if( $data.persons ){\n" +
+                        "\treturn {\n" +
+                        "\t\t//map persons variable to expected task contract input\n" +
+                        "\t\tpersons: $data.persons.map( it => ({\n" +
+                        "\t\t\tname: it.name,\n" +
+                        "\t\t\tdetails: it.details.map( it => ({\n" +
+                        "\t\t\t\tage: it.age\n" +
+                        "\t\t\t}))\n" +
+                        "\t\t})),\n" +
+                        "\t\taccepted: $data.formInput.accepted\n" +
+                        "\t}\n" +
                         "}");
     }
 }

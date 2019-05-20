@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.experimental.mapping.data;
 
+import static org.bonitasoft.web.designer.experimental.mapping.data.StringUtil.indent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,39 +71,36 @@ public class FormOutputVisitor implements ContractInputVisitor {
                 .distinct()
                 .collect(Collectors.joining(" && "));
         boolean addCheckDependencies = !expressionDependencies.isEmpty();
-        if(addCheckDependencies) {
+        if (addCheckDependencies) {
             outputExpressionBuffer.append("if( ");
             outputExpressionBuffer.append(expressionDependencies);
             outputExpressionBuffer.append(" ){\n");
         }
 
-        outputExpressionBuffer.append(indent("var output = {\n",addCheckDependencies ? 1 : 0));
-        outputExpressionBuffer.append(properties.stream()
-                .filter(OutputProperty::isRootProperty)
-                .map(Object::toString)
-                .map(line -> indent(line, addCheckDependencies ? 1 : 0))
-                .collect(Collectors.joining(",\n")));
-        outputExpressionBuffer.append("\n");
-        outputExpressionBuffer.append(indent("};\n",addCheckDependencies ? 1 : 0));
-
+        if (properties.stream().anyMatch(OutputProperty::isReference)) {
+            outputExpressionBuffer.append(
+                    indent("//attach lazy references variables to parent variables\n", addCheckDependencies ? 1 : 0));
+        }
         properties.stream()
                 .filter(OutputProperty::isReference)
                 .map(Object::toString)
                 .map(line -> indent(line, addCheckDependencies ? 1 : 0))
                 .forEach(referencedProperty -> outputExpressionBuffer.append(referencedProperty + "\n"));
 
-        outputExpressionBuffer.append(indent("return output;",addCheckDependencies ? 1 : 0));
-        if(addCheckDependencies) {
-            outputExpressionBuffer.append("\n}");
+        outputExpressionBuffer.append(indent("return {\n", addCheckDependencies ? 1 : 0));
+        outputExpressionBuffer.append(properties.stream()
+                .filter(OutputProperty::isRootProperty)
+                .map(Object::toString)
+                .map(expression -> indent(expression, addCheckDependencies ? 1 : 0))
+                .collect(Collectors.joining(",\n")));
+        outputExpressionBuffer.append("\n");
+        outputExpressionBuffer.append(indent("}", addCheckDependencies ? 1 : 0));
+
+        if (addCheckDependencies) {
+            outputExpressionBuffer.append("\n");
+            outputExpressionBuffer.append("}");
         }
         return outputExpressionBuffer.toString();
-    }
-
-    private String indent(String value,int size) {
-        for(int i = 0 ; i < size ; i++) {
-            value = "\t" + value;
-        }
-        return value;
     }
 
 }

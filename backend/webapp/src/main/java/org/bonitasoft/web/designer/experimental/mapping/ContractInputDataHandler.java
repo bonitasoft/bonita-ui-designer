@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
@@ -35,6 +36,7 @@ import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 public class ContractInputDataHandler {
 
     public static final String PERSISTENCEID_INPUT_NAME = "persistenceId_string";
+    public static final String ITERATOR_NAME = "it";
     private ContractInput input;
 
     public ContractInputDataHandler(ContractInput input) {
@@ -160,20 +162,24 @@ public class ContractInputDataHandler {
                         ? ((AbstractContractInput) input).getDataReference().getType()
                         : null;
     }
-
-    public String getPath() {
+    
+    public String getDataPath() {
         List<String> pathNames = newArrayList();
-        pathNames.add(input.getName());
-        ContractInput pInput = input.getParent();
-        while (pInput != null) {
-            if (pInput.isMultiple()) {
+        pathNames.add(getRefName() == null ? getInputName() : getRefName() );
+        ContractInputDataHandler parent = getParent();
+        while (parent != null) {
+            if(parent.isMultiple()) {
+                pathNames.add(ITERATOR_NAME);
                 break;
             }
-            pathNames.add(pInput.getName());
-            pInput = pInput.getParent();
+            pathNames.add(parent.getRefName() == null ? parent.getInputName() : parent.getRefName());
+            parent = parent.getParent();
         }
         if (pathNames.isEmpty()) {
             return null;
+        }
+        if(parent == null) {
+            pathNames.add("$data"); 
         }
         return on(".").join(reverse(pathNames));
     }
@@ -192,5 +198,12 @@ public class ContractInputDataHandler {
 
     public boolean isDocument() {
         return Objects.equals(File.class.getName(), input.getType());
+    }
+
+    public List<ContractInputDataHandler> getNonReadOnlyChildren() {
+       return input.getInput().stream()
+               .filter(input -> !input.isReadOnly())
+               .map(ContractInputDataHandler::new)
+               .collect(Collectors.toList());
     }
 }
