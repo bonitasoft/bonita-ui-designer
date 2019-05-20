@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-05-17 02:17\n"
+"PO-Revision-Date: 2019-05-20 01:37\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -1006,7 +1006,7 @@ msgstr "チェックオンの場合、このポップアップはブラウザの
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr "ページが iframe 内に表示されている場合、 JavaScript postMessage がレスポンスのステータスとボタン ウィジェットのプロパティ値と一緒に <b>親</b> フレームに送信されます。Bonita ポータル、タスク リストまたはデフォルトのアプリケーション レイアウトは、このメッセージを異なって処理します。"
 
-msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms or fragments."
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
@@ -1015,7 +1015,7 @@ msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代�
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
-msgid "Image or Localisation assets are not imported in index.html. So we don't need to reorder them."
+msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
 msgstr ""
 
 msgid "Import"

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-05-17 02:00\n"
+"PO-Revision-Date: 2019-05-20 01:28\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -1005,7 +1005,7 @@ msgstr "Si vous cochez cette case, la pop-up ne s’affichera plus, à moins que
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr "Si la page est affichée à l’intérieur d’un iframe, un postMessage JavaScript sera envoyé au cadre <b>parent</b> avec l’état de la réponse et les valeurs de propriétés du widget button. Bonita Portal, la liste des tâches ou le layout d’application par défaut gèrent ce message différemment :"
 
-msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms or fragments."
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
@@ -1014,7 +1014,7 @@ msgstr "Si vous choisissez « non », le code HTML sera être échappé au lie
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si vous spécifiez une expression, le résultat doit être un tableau de \"strings\""
 
-msgid "Image or Localisation assets are not imported in index.html. So we don't need to reorder them."
+msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
 msgstr ""
 
 msgid "Import"

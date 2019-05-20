@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-05-17 02:03\n"
+"PO-Revision-Date: 2019-05-20 01:29\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propiedad \"Opciones de pestaña avanzadas\" requiere un objeto JSON como entrada, para hacerlo dinámico puede definirlo en una Expresión Javascript o una variable JSON."
@@ -1006,8 +1006,8 @@ msgstr "Si está marcado, este popup no se mostrará nuevamente a menos que se l
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
 msgstr "Si la página se muestra dentro de un iframe, se enviará un postMessage en JavaScript al marco <b>padre</b> con el estado de la respuesta y los valores de las propiedades del widget Button. El Bonita portal, la lista de tareas o el layout por defecto de las aplicaciones manejan este mensaje de manera diferente:"
 
-msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms or fragments."
-msgstr "Si el widget estándar no satisface sus necesidades, puede crear un widget personalizado para coincidir exactamente con lo que desea. Para ello, clonar el widget estándar guardando un nombre diferente, y modificarlo. Después de la creación, el widget personalizado está disponible en la paleta para diseñar páginas, formularios o fragmentos."
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
+msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interpretado"
@@ -1015,8 +1015,8 @@ msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interp
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si especificas una expresión, el resultado debe ser un array de strings"
 
-msgid "Image or Localisation assets are not imported in index.html. So we don't need to reorder them."
-msgstr "Los assets de imagen o localización no se importan en index.html. Por lo tanto no necesitamos reordenarlos."
+msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
+msgstr ""
 
 msgid "Import"
 msgstr "Importar"
