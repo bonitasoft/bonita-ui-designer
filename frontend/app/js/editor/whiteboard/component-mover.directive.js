@@ -21,7 +21,8 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('componentMove
     replace: true,
     scope: {
       component: '=',
-      onDelete: '&'
+      onDelete: '&',
+      onSwitch: '&'
     },
     templateUrl: 'js/editor/whiteboard/component-mover.html',
     controller: 'ComponentMoverDirectiveCtrl'

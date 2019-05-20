@@ -1,0 +1,75 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}} </h3>
+</div>
+<div class="modal-body">
+    <div class="select-widget-to">
+        <div id="header-switch">
+            <div id="select-from">
+                <label for="widgetsFilterValue" translate>Switch to</label>
+                <div class="filter-input">
+                    <input id="widgetsFilterValue" type="text" list="widgetsDisplay"
+                           ng-model="ctrl.selectedWidget"
+                           class="form-control Search-input"
+                           placeholder="{{ 'Select a widget or start typing' | translate}}"
+                           autocomplete=off
+                    />
+                    <button type="button" ng-if="ctrl.isClearButtonVisible()"
+                            tabindex="-1"
+                            ng-click="ctrl.clearValue()"
+                            class="filter-clearButton"
+                            title="{{ 'Clear' | translate }}"
+                            aria-label="{{ 'Clear' | translate }}">
+                        <i aria-hidden="true" class="fa fa-times"></i>
+                    </button>
+                    <datalist id="widgetsDisplay">
+                        <option ng-repeat="widget in ctrl.widgetsToDisplay"
+                                value="{{widget.name}}"></option>
+                    </datalist>
+                </div>
+                <button
+                    id="show-properties-btn"
+                    type="button"
+                    ng-click="ctrl.showProperties()"
+                    ng-disabled="!ctrl.selectedWidget"
+                    class="btn btn-primary show-properties-btn"
+                    title="{{ 'Show properties' | translate }}"
+                    translate>Show properties
+                </button>
+            </div>
+            <button
+                id="reset-btn"
+                type="button"
+                ng-click="ctrl.reset()"
+                class="btn btn-link"
+                title="{{ 'Reset mapping to default' | translate }}"
+                translate>Reset mapping
+            </button>
+        </div>
+    </div>
+
+    <br/>
+    <p translate>
+        When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more.
+    </p>
+    <div class="switch-config">
+        <bo-switch-config
+            id="switch-component-config"
+            dictionary="{{ctrl.dictionary}}"
+            from="{{ ctrl.propertiesFrom }}"
+            to="{{ ctrl.propertiesTo}}"
+        ></bo-switch-config>
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <button type="button"
+            class="btn btn-primary"
+            ng-click="ctrl.applyConfig()"
+            translate>Switch
+    </button>
+    <button class="btn btn-link EditAssetPopUp-dismissBtn" type="button" ng-click="$dismiss()">
+        <span class="u-fadeIn" translate>Cancel</span>
+    </button>
+</div>

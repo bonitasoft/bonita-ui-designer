@@ -36,7 +36,9 @@ var paths = {
     'node_modules/angular-switcher/dist/angular-switcher.min.js',
     'node_modules/ngstorage/ngStorage.min.js',
     'node_modules/angular-resizable/angular-resizable.min.js',
-    'node_modules/angular-animate/angular-animate.min.js'
+    'node_modules/angular-animate/angular-animate.min.js',
+    'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
+    'node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js'
   ],
   css: [
     'node_modules/angular-switcher/dist/angular-switcher.min.css',

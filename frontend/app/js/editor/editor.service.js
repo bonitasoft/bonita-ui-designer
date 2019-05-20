@@ -29,7 +29,8 @@
       addPalette: addPalette,
       initialize: initialize,
       addWidgetAssetsToPage,
-      removeAssetsFromPage
+      removeAssetsFromPage,
+      createWidgetWrapper: createWidgetWrapper
     };
 
     function addPalette(key, repository) {
@@ -80,6 +81,14 @@
       components.register(containers);
       components.register(coreWidgets);
       components.register(customWidgets);
+    }
+
+    function createWidgetWrapper(component) {
+      let extended = properties.addCommonPropertiesTo(component);
+      return {
+        component: extended,
+        create: createWidget.bind(null, extended)
+      };
     }
 
     function paletteWidgetWrapper(name, order, component) {

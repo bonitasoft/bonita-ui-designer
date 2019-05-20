@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout, widgetRepo) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout, widgetRepo, editorService, gettextCatalog) {
 
   'use strict';
 
@@ -189,6 +189,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    */
   $scope.removeCurrentComponent = function(item, destinationRow) {
     var component = $scope.currentComponent || item;
+
     var currentRow = component.$$parentContainerRow.row;
     var componentIndex = currentRow.indexOf(component);
     currentRow.splice(componentIndex, 1);
@@ -200,6 +201,63 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     }
     $scope.currentComponent = null;
   };
+
+  /**
+   *
+   * @returns {boolean}
+   */
+  function isNotSupportedBrowsers() {
+    let ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1 || ua.indexOf('Edge/') > -1;
+  }
+
+  $scope.switchCurrentComponent = function(item) {
+    if (isNotSupportedBrowsers()) {
+      $uibModal.open({
+        templateUrl: 'js/editor/whiteboard/switchComponent/not-supported-browser-popup.html',
+        size: 'small',
+        backdrop: 'true'
+      });
+      return;
+    }
+    let component = $scope.currentComponent || item;
+    let modalInstance = $uibModal.open({
+      templateUrl: 'js/editor/whiteboard/switchComponent/switch-component-popup.html',
+      controller: 'SwitchComponentPopupController',
+      controllerAs: 'ctrl',
+      size: 'lg',
+      resolve: {
+        widgets: widgetRepo.all().then(items => items),
+        widgetFrom: angular.copy(component),
+        dictionary: gettextCatalog.strings
+      }
+    });
+
+    modalInstance.result.then(switchComponent.bind(null, component));
+  };
+
+  function switchComponent(component, resultData) {
+    let widgetTo = JSON.parse(resultData.mapping);
+    let row = component.$$parentContainerRow.row;
+    let index = row.findIndex(p => p.$$hashKey === component.$$hashKey);
+
+    widgetRepo.load(widgetTo.id).then(response => {
+      let newWidget = response.data;
+      $scope.removeCurrentComponent(component, row);
+      let compo = editorService.createWidgetWrapper(newWidget);
+      let newComponent = compo.create(component.$$parentContainerRow);
+
+      Object.keys(newComponent.propertyValues).forEach(p => {
+        newComponent.propertyValues[p] = widgetTo.options[p];
+      });
+
+      newComponent.dimension = resultData.dimension;
+      arrays.insertAtPosition(newComponent, index, row);
+      $scope.selectComponent(newComponent);
+      newComponent.triggerAdded();
+    });
+  }
 
   /**
    * Remove the row at the end of the current digest loop
@@ -293,6 +351,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   };
 
   $scope.isPropertyPanelClosed = false;
+
   function togglePropertyPanel() {
     $scope.isPropertyPanelClosed = !$scope.isPropertyPanelClosed;
   }
@@ -310,6 +369,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     componentClasses: $scope.componentClasses,
     removeCurrentRow: $scope.removeCurrentRow,
     removeCurrentComponent: $scope.removeCurrentComponent,
+    switchCurrentComponent: $scope.switchCurrentComponent,
     rowSize: $scope.rowSize,
     isCurrentRow: $scope.isCurrentRow,
     isCurrentComponent: $scope.isCurrentComponent,
@@ -327,11 +387,13 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
 
   var unregisterWidget = $scope.$watch(
     'currentComponent.$$widget',
-    function() { $scope.widgetHelpPopover.isOpen = false; }
+    function() {
+      $scope.widgetHelpPopover.isOpen = false;
+    }
   );
   $scope.$on('$destroy', unregisterWidget);
 
-  $scope.widgetHelpTemplateURL  = 'js/editor/properties-panel/widgetHelpTemplate.html';
+  $scope.widgetHelpTemplateURL = 'js/editor/properties-panel/widgetHelpTemplate.html';
 
   $scope.triggerWidgetHelp = function() {
     if ($scope.widgetHelpPopover.isOpen) {

@@ -183,11 +183,15 @@ module.exports = function (gulp, config) {
   });
 
   gulp.task('jshint', function () {
+    function notMinified(file) {
+      return !/(src-min|\.min\.js)/.test(file.path);
+    }
+
     return gulp.src(paths.js)
-      .pipe(jshint())
+      .pipe(gulpIf(notMinified, jshint()))
       .pipe(jshint.reporter('jshint-stylish'))
       .pipe(jshint.reporter('fail'))
-      .pipe(jscs())
+      .pipe(gulpIf(notMinified, jscs()))
       .pipe(jscs.reporter())
       .pipe(jscs.reporter('fail'));
   });

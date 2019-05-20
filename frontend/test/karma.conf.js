@@ -1,9 +1,13 @@
 /* globals process */
+process.env.CHROME_BIN = require('puppeteer').executablePath();
 module.exports = function(config) {
 
   'use strict';
 
   config.set({
+    plugin:[
+      require('karma-chrome-launcher'),
+    ],
     // base path, that will be used to resolve files and exclude
     basePath: '..',
 
@@ -98,15 +102,14 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
-    // Start these browsers, currently available:
-    // - Chrome
-    // - ChromeCanary
-    // - Firefox
-    // - Opera
-    // - Safari (only Mac)
-    // - PhantomJS
-    // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeWithoutSecurity'],
+    // you can define custom flags
+    customLaunchers: {
+      ChromeWithoutSecurity: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,

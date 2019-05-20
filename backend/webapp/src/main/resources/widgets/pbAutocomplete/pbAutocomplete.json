@@ -23,7 +23,7 @@
       "defaultValue": false
     },
     {
-      "label": "label Hidden",
+      "label": "Label hidden",
       "name": "labelHidden",
       "type": "boolean",
       "defaultValue": false,
