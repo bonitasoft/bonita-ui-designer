@@ -47,10 +47,10 @@
       let baseFrameworkAsset = [{
         active: true,
         external: false,
-        name: 'angular-1.3.18.js',
+        name: 'angular-1.3.18.min.js',
         order: 0,
         scope: 'baseFramework',
-        url: 'https://code.angularjs.org/1.3.18/docs/api',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=687&bos_redirect_product=bos&bos_redirect_major_version=7.9&bos_redirect_minor_version=',
         type: 'js'
       },{
         active: true,
@@ -58,7 +58,7 @@
         name: 'bootstrap-3.3.6.css',
         order: -2,
         scope: 'baseFramework',
-        url: 'https://bootstrapdocs.com/v3.3.6/docs/getting-started/',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=688&bos_redirect_product=bos&bos_redirect_major_version=&bos_redirect_minor_version=',
         type: 'css'
       },
       {
