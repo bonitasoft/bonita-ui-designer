@@ -196,7 +196,11 @@ public class ContractInputToWidgetMapper {
                 String.format("!%s.message", SubmitErrorsListData.SUBMIT_ERROR_DATA));
         widget.setPropertyValue("allowHTML", ParameterType.CONSTANT, true);
         StringBuffer sb = new StringBuffer();
-        sb.append(String.format("<strong>{{%s.message}}</strong>", SubmitErrorsListData.SUBMIT_ERROR_DATA));
+        sb.append("<strong>Debug message</strong>");
+        sb.append("\n");
+        sb.append("<br/>");
+        sb.append("\n");
+        sb.append(String.format("{{%s.message}}", SubmitErrorsListData.SUBMIT_ERROR_DATA));
         sb.append("\n");
         sb.append(String.format("{{%s}}", SubmitErrorsListData.NAME));
         widget.setPropertyValue("text", ParameterType.INTERPOLATION, sb.toString());
