@@ -100,7 +100,7 @@ public class OutputProperty {
 
     private String dataToContractInput(ContractInputDataHandler dataHandler) {
         if (!dataHandler.hasDataReference()) {
-            return String.format("%s: %s", dataHandler.getInputName(), dataHandler.getDataPath());
+            return String.format("%s: %s !== undefined ? %s : null", dataHandler.getInputName(), dataHandler.getDataPath(), dataHandler.getDataPath());
         }
         StringBuffer sb = new StringBuffer();
         if (dataHandler.isMultiple()) {

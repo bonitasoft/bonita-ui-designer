@@ -89,9 +89,9 @@ public class FormOutputVisitorTest {
                         "\treturn {\n" +
                         "\t\t//map person variable to expected task contract input\n" +
                         "\t\tperson: {\n" +
-                        "\t\t\tname: $data.person.name,\n" +
+                        "\t\t\tname: $data.person.name !== undefined ? $data.person.name : null,\n" +
                         "\t\t\tdetails: $data.person.details.map( it => ({\n" +
-                        "\t\t\t\tage: it.age\n" +
+                        "\t\t\t\tage: it.age !== undefined ? it.age : null\n" +
                         "\t\t\t}))\n" +
                         "\t\t},\n" +
                         "\t\taccepted: $data.formInput.accepted\n" +
@@ -124,10 +124,10 @@ public class FormOutputVisitorTest {
                         "\treturn {\n" +
                 		"\t\t//map person variable to expected task contract input\n"+
                         "\t\tpersonInput: {\n" +
-                        "\t\t\tname: $data.person.name,\n" +
+                        "\t\t\tname: $data.person.name !== undefined ? $data.person.name : null,\n" +
                         "\t\t\tdetail: $data.person.detail ? {\n" +
-                        "\t\t\t\tage: $data.person.detail.age,\n" +
-                        "\t\t\t\tcarnation: $data.person.detail.carnation\n" +
+                        "\t\t\t\tage: $data.person.detail.age !== undefined ? $data.person.detail.age : null,\n" +
+                        "\t\t\t\tcarnation: $data.person.detail.carnation !== undefined ? $data.person.detail.carnation : null\n" +
                         "\t\t\t} : null\n" +
                         "\t\t},\n" +
                         "\t\taccepted: $data.formInput.accepted\n" +
@@ -160,9 +160,9 @@ public class FormOutputVisitorTest {
                         "\treturn {\n" +
                         "\t\t//map persons variable to expected task contract input\n" +
                         "\t\tpersons: $data.persons.map( it => ({\n" +
-                        "\t\t\tname: it.name,\n" +
+                        "\t\t\tname: it.name !== undefined ? it.name : null,\n" +
                         "\t\t\tdetails: it.details.map( it => ({\n" +
-                        "\t\t\t\tage: it.age\n" +
+                        "\t\t\t\tage: it.age !== undefined ? it.age : null\n" +
                         "\t\t\t}))\n" +
                         "\t\t})),\n" +
                         "\t\taccepted: $data.formInput.accepted\n" +
