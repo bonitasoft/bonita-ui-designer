@@ -101,7 +101,6 @@
         tabs: [
           {
             title: 'Tab 1',
-            tabId: 'tab1',
             container: {
               id: 'pbContainer',
               type: 'container',
@@ -112,7 +111,6 @@
           },
           {
             title: 'Tab 2',
-            tabId: 'tab2',
             container: {
               id: 'pbContainer',
               type: 'container',
@@ -132,7 +130,6 @@
 
       expect(tab).toEqual({
         title: 'tab',
-        tabId: 'tab',
         container: {
           id: 'pbContainer',
           type: 'container',

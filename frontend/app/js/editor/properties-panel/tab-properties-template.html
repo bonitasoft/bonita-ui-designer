@@ -1,30 +1,4 @@
-<div class="form-group ">
-    <div class="property-label">
-        <label for="tab-title-input">
-            <translate>Default title</translate>
-            <i class="fa fa-info-circle" uib-tooltip="Static title displayed by default as plain text. To allow HTML or set a dynamic title, use advanced tabs options of tab container" tooltip-placement="top-right" tooltip-append-to-body="true"></i>
-        </label>
-    </div>
+<div class="form-group">
+    <label for="tab-title-input" translate>Title</label>
     <input ng-model="currentComponent.title" name="tab-title-input" class="form-control" id="tab-title-input">
 </div>
-<form name="idValidation">
-    <div class="form-group ">
-        <div class="property-label">
-            <label for="tab-id-input">
-                <translate>Advanced tab key</translate>
-                <i class="fa fa-info-circle" uib-tooltip="Unique key to identify this tab in advanced tab options" tooltip-placement="top-right" tooltip-append-to-body="true"></i>
-            </label>
-            <small class="help-block" translate>Must be an alphanumeric string</small>
-        </div>
-        <input ng-model="currentComponent.tabId" name="tabTitle" class="form-control" id="tab-id-input"
-               ng-pattern="/^[a-zA-Z0-9]+$/"
-               autocomplete="off"
-               ng-trim="false"
-               ng-model-options="{ debounce: 500 }"
-               uib-tooltip="{{idValidation.tabTitle.$valid ? '':'Should contains only alphanumeric characters with no space' | translate}}"
-               tooltip-trigger="input"
-               tooltip-is-open="idValidation.tabTitle.$invalid"
-               tooltip-class="tooltip-danger"
-               tooltip-placement="left">
-    </div>
-</form>

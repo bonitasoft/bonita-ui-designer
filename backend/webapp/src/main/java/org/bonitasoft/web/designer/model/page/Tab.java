@@ -26,7 +26,6 @@ public class Tab {
 
     private Container container = new Container();
     private String title;
-    private String tabId;
     private String id = UUID.randomUUID().toString();
 
     @JsonView({JsonViewPersistence.class})
@@ -75,14 +74,5 @@ public class Tab {
                 .append(container)
                 .append(title)
                 .toHashCode();
-    }
-
-    @JsonView({JsonViewPersistence.class})
-    public String getTabId() {
-        return tabId;
-    }
-
-    public void setTabId(String tabId) {
-        this.tabId = tabId;
     }
 }

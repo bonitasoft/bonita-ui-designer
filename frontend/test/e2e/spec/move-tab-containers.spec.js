@@ -35,7 +35,6 @@ describe('moving tab containers test', function() {
     lastContainer.click();
     //simulate mouseover to display the component toolbar
     browser.actions().mouseMove(lastContainer, { x: 1, y: 1 }).perform();
-
     expect(lastContainer.element(by.css('.move-left')).isPresent()).toBe(true);
     expect(lastContainer.element(by.css('.move-right')).isPresent()).toBe(false);
   });
