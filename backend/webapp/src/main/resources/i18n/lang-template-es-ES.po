@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-05-20 01:29\n"
+"PO-Revision-Date: 2019-05-21 02:03\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propiedad \"Opciones de pestaña avanzadas\" requiere un objeto JSON como entrada, para hacerlo dinámico puede definirlo en una Expresión Javascript o una variable JSON."
@@ -472,6 +472,9 @@ msgstr "Elija el documento del proceso si el archivo se utiliza en un proceso"
 
 msgid "Choose true if you want display this modal with an animation, false otherwise"
 msgstr "Elija verdadero si desea mostrar este modal con una animación, de lo contrario, falso"
+
+msgid "Clear"
+msgstr ""
 
 msgid "Clear search"
 msgstr "Limpiar búsqueda"
@@ -1210,6 +1213,9 @@ msgstr "Localización"
 msgid "Long number values (Milliseconds since epoch)"
 msgstr "Valores numéricos Long (en milisegundos desde Epoch)"
 
+msgid "Look what you're missing"
+msgstr ""
+
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
 
@@ -1489,6 +1495,12 @@ msgstr "Requerido"
 msgid "Required angular modules"
 msgstr "Módulos angular requeridos"
 
+msgid "Reset mapping"
+msgstr ""
+
+msgid "Reset mapping to default"
+msgstr ""
+
 msgid "Response"
 msgstr "Respuesta"
 
@@ -1549,6 +1561,9 @@ msgstr "Ver el recurso localización por defecto para obtener un ejemplo."
 msgid "Select"
 msgstr "seleccionar"
 
+msgid "Select a widget or start typing"
+msgstr ""
+
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "Selecciona un elemento en la pizarra, a continuación, establece allí sus propiedades"
 
@@ -1605,6 +1620,9 @@ msgstr "Mostrar botón Hoy"
 
 msgid "Show preview"
 msgstr "Mostrar vista previa"
+
+msgid "Show properties"
+msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
@@ -1698,6 +1716,15 @@ msgstr "Resumen de las llamadas a la API REST de Bonita realizadas por la págin
 
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr "Resumen de las llamadas al API de REST de Bonita en una página, formulario o layout"
+
+msgid "Switch"
+msgstr ""
+
+msgid "Switch to"
+msgstr ""
+
+msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
+msgstr ""
 
 msgid "Switch..."
 msgstr "Cambiar..."
@@ -1864,6 +1891,9 @@ msgstr "Esta descripción se mostrará como un tooltip en la paleta"
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "Este ejemplo utiliza el ejemplo JSON proporcionado si seleccionas el tipo JSON. <br>Busca la cadena 'Linux' en el array <code>environment</code> del objeto JSON <code>supportTicket</code>"
 
+msgid "This feature is not available on IE11 nor Microsoft Edge for the moment."
+msgstr ""
+
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
 
@@ -1969,6 +1999,9 @@ msgstr "Para seleccionar una fecha y una hora (por ejemplo, para planear una cit
 
 msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
 msgstr "Para seleccionar sólo una fecha (por ejemplo, fecha de nacimiento), utilice el widget de <em>Selector de fecha</em>."
+
+msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
+msgstr ""
 
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "Para actualizar un formulario en producción, exporte el formulario desde el UI Designer, impórtelo en el proceso correspondiente en el portal y luego asígnelo a la tarea o evento de inicio de proceso."
@@ -2183,6 +2216,9 @@ msgstr "Sitio web de W3C"
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "Cuando el contenido es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla"
 
+msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
+msgstr ""
+
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
 msgstr "Cuando se envía en el cuerpo JSON de una request, se serializa en una variable String con formato ISO 8601 con el tiempo establecido a medianoche UTC (por ejemplo, 2016-12-31T00:00:00.000Z)."
 
@@ -2340,9 +2376,6 @@ msgstr "si desea más opciones para cada pestaña, consulte <em>Uso Avanzado</em
 
 msgid "info"
 msgstr "info"
-
-msgid "label Hidden"
-msgstr "Ocultar etiqueta"
 
 msgid "large"
 msgstr "grande"

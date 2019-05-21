@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-05-20 01:37\n"
+"PO-Revision-Date: 2019-05-21 02:16\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr ""
@@ -471,6 +471,9 @@ msgid "Choose process document if the file is used by a process"
 msgstr ""
 
 msgid "Choose true if you want display this modal with an animation, false otherwise"
+msgstr ""
+
+msgid "Clear"
 msgstr ""
 
 msgid "Clear search"
@@ -1211,6 +1214,9 @@ msgstr "ローカライゼーション"
 msgid "Long number values (Milliseconds since epoch)"
 msgstr "Longの長整数値 (1970/01/01からのミリ秒単位の経過時間)"
 
+msgid "Look what you're missing"
+msgstr ""
+
 msgid "MM/dd/yyyy"
 msgstr "yyyy/MM/dd"
 
@@ -1490,6 +1496,12 @@ msgstr "必須"
 msgid "Required angular modules"
 msgstr "必要な AngularJS モジュール"
 
+msgid "Reset mapping"
+msgstr ""
+
+msgid "Reset mapping to default"
+msgstr ""
+
 msgid "Response"
 msgstr "レスポンス"
 
@@ -1550,6 +1562,9 @@ msgstr "デフォルト ローカライゼーション アセットの例を参�
 msgid "Select"
 msgstr "選択"
 
+msgid "Select a widget or start typing"
+msgstr ""
+
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "ホワイトボードの要素を選択し、ここでその要素のプロパティを設定します"
 
@@ -1605,6 +1620,9 @@ msgid "Show Today button"
 msgstr "今日のボタンを表示"
 
 msgid "Show preview"
+msgstr ""
+
+msgid "Show properties"
 msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
@@ -1698,6 +1716,15 @@ msgid "Summary of the Bonita REST API calls made by the page."
 msgstr ""
 
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
+msgstr ""
+
+msgid "Switch"
+msgstr ""
+
+msgid "Switch to"
+msgstr ""
+
+msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr ""
 
 msgid "Switch..."
@@ -1865,6 +1892,9 @@ msgstr "この説明はパレット内のツールチップとして表示され
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<br>次の例は、 <code>supportTicket</code> JSON オブジェクトの <code>environment</code> 配列内にある文字列 'Linux' を探すサンプルです。"
 
+msgid "This feature is not available on IE11 nor Microsoft Edge for the moment."
+msgstr ""
+
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
@@ -1970,6 +2000,9 @@ msgstr "日付と時間（たとえば、会議をスケジュールする）を
 
 msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
 msgstr "日付だけ（たとえば、誕生日）を選択するには、<em>日付選択</em> ウィジェットを使用します。"
+
+msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
+msgstr ""
 
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "運用中のフォームを更新するには、UI デザイナーからフォームをエクスポートし、ポータルの関連するプロセスにインポートし、関連するタスクまたはプロセス開始イベントにマップします。"
@@ -2184,6 +2217,9 @@ msgstr "W3C webサイト"
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
 
+msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
+msgstr ""
+
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
 msgstr "リクエストの JSON 本体に送信されると、真夜中の UTC に設定された時刻（たとえば、2016-12-31T00:00:00.000Z）が ISO 8601 で書式化された文字列変数にシリアル化されます。"
 
@@ -2340,9 +2376,6 @@ msgstr ""
 
 msgid "info"
 msgstr "info"
-
-msgid "label Hidden"
-msgstr "ラベルを非表示"
 
 msgid "large"
 msgstr ""

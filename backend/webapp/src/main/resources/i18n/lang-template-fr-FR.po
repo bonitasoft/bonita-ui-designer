@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-05-20 01:28\n"
+"PO-Revision-Date: 2019-05-21 02:00\n"
 
 msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
 msgstr "La propriété \"Options avancées sur les onglets\" a besoin d'un objet JSON en entrée. Pour le rendre dynamique, définissez-le \n"
@@ -76,7 +76,7 @@ msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab
 msgstr "<code>Classes CSS</code> <em>(par défaut: \"\")</em> : Ajouter des classes CSS sur l'onglet. Ces classes seront attachées à l'élément html <strong>tab-heading</strong> ."
 
 msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
-msgstr "<code>Désactivé</code> <em>(pas défaut : faux)</em>: Définit si l'onglet est activé (cliquable) ou non."
+msgstr "<code>Désactivé</code> <em>(par défaut : faux)</em>: Définit si l'onglet est activé (cliquable) ou non."
 
 msgid "<code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true)."
 msgstr "<code>Titre dynamique</code> <em>(par défaut : la valeur de \"Titre par défaut\")</em>: Dans le cas où cette option est utilisée, la valeur de \"Titre dynamique\" devient le nom de l'onglet affiché. Il peut être calculé dynamiquement pour avoir un rendu en html (si \"Interpréter le HTML\" est à \"vrai\")."
@@ -471,6 +471,9 @@ msgstr "Choisir document de processus si le fichier est utilisé par un processu
 
 msgid "Choose true if you want display this modal with an animation, false otherwise"
 msgstr "Choisissez 'vrai' pour l'afficher avec animation, 'faux' pour la faire apparaître"
+
+msgid "Clear"
+msgstr "Vider"
 
 msgid "Clear search"
 msgstr "Effacer la recherche"
@@ -1006,7 +1009,7 @@ msgid "If the page is displayed inside an iframe, a JavaScript postMessage will 
 msgstr "Si la page est affichée à l’intérieur d’un iframe, un postMessage JavaScript sera envoyé au cadre <b>parent</b> avec l’état de la réponse et les valeurs de propriétés du widget button. Bonita Portal, la liste des tâches ou le layout d’application par défaut gèrent ce message différemment :"
 
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
-msgstr ""
+msgstr "Si le widget standard ne répond pas exactement à vos besoins, vous pouvez créer un widget personnalisé. Après création, un widget personnalisé est mis à disposition dans la palette pour être ajouté à des pages, des formulaires, des layouts our des fragments."
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "Si vous choisissez « non », le code HTML sera être échappé au lieu d’être interprété"
@@ -1015,7 +1018,7 @@ msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si vous spécifiez une expression, le résultat doit être un tableau de \"strings\""
 
 msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
-msgstr ""
+msgstr "Les images et le fichier de traduction ne sont pas importés dans le fichier index.html. Nous n'avons donc pas besoin de les réorganiser."
 
 msgid "Import"
 msgstr "Importer"
@@ -1208,6 +1211,9 @@ msgstr "Localisation"
 
 msgid "Long number values (Milliseconds since epoch)"
 msgstr "Nombres Long (Millisecondes depuis epoch)"
+
+msgid "Look what you're missing"
+msgstr "Regardez ce que vous allez rater"
 
 msgid "MM/dd/yyyy"
 msgstr "dd/MM/yyyy"
@@ -1488,6 +1494,12 @@ msgstr "Obligatoire"
 msgid "Required angular modules"
 msgstr "Modules AngularJS requis"
 
+msgid "Reset mapping"
+msgstr "Réinitialiser"
+
+msgid "Reset mapping to default"
+msgstr "Réinitialiser les correspondances par défaut"
+
 msgid "Response"
 msgstr "Réponse"
 
@@ -1548,6 +1560,9 @@ msgstr "Voir l'asset de localisation par défaut pour obtenir un exemple."
 msgid "Select"
 msgstr "Sélectionner"
 
+msgid "Select a widget or start typing"
+msgstr "Sélectionnez un widget ou commencez à taper"
+
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "Sélectionnez un élément du tableau blanc puis utilisez cette zone pour définir ses propriétés"
 
@@ -1604,6 +1619,9 @@ msgstr "Afficher le bouton Aujourd'hui"
 
 msgid "Show preview"
 msgstr "Afficher l'aperçu"
+
+msgid "Show properties"
+msgstr "Afficher les propriétés"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Depuis Bonita 7.5.0, UI Bootstrap n’est plus fourni dans les pages du UI Designer."
@@ -1697,6 +1715,15 @@ msgstr "Résumé des appels à la REST API Bonita faits par la page."
 
 msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
 msgstr "Récapitulatif des appels à l’API REST de Bonita faits par une page, formulaire ou layout"
+
+msgid "Switch"
+msgstr "Remplacer"
+
+msgid "Switch to"
+msgstr "Remplacer par"
+
+msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
+msgstr "Remplacer {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 
 msgid "Switch..."
 msgstr "Echanger avec ..."
@@ -1863,6 +1890,9 @@ msgstr "Cette description apparaît en info-bulle dans la palette"
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "Cet exemple utilise l'exemple fourni par le type JSON. <br>Il recherche la chaîne « Linux » dans le tableau <code>environnement</code> de l'objet JSON <code>supportTicket</code>"
 
+msgid "This feature is not available on IE11 nor Microsoft Edge for the moment."
+msgstr "Cette fonctionnalité n'est pas disponible sur IE11 et Microsoft Edge pour le moment."
+
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
@@ -1969,6 +1999,9 @@ msgstr "Pour sélectionner une date et une heure (par exemple, pour planifier un
 
 msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
 msgstr "Pour sélectionner seulement une date (par exemple, une date de naissance), utilisez plutôt le widget <em>DATE</em>."
+
+msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
+msgstr "Pour remplacer ce widget, utilisez un autre navigateur: Google Chrome ou Mozilla Firefox."
 
 msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "Pour mettre à jour un formulaire en environnement de production, exportez-le depuis le UI Designer, importez-le dans le portail au niveau du processus cible, puis associez-le à la tâche cible ou à l'événement de début du processus."
@@ -2183,6 +2216,9 @@ msgstr "Site web du W3C"
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes du tableau"
 
+msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
+msgstr "Lorsque c'est possible, les propriétés du widget source sont appliquées à des propriétés identiques du widget cible. Vous pouvez éditer ou ajouter ces associations."
+
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
 msgstr "Quand elle est envoyée en JSON dans le corps de la requête, la valeur est convertie en une chaîne de caractères au format ISO 8601 avec l'heure à minuit UTC (par exemple : 2016-12-31T00:00:00.000Z)."
 
@@ -2341,9 +2377,6 @@ msgstr "pour plus d'options sur chaque onglet, reportez-vous à l'<em>Utilisatio
 msgid "info"
 msgstr "info"
 
-msgid "label Hidden"
-msgstr "Libellé masqué"
-
 msgid "large"
 msgstr "grande"
 
@@ -2451,8 +2484,8 @@ msgid "{{filter.value}}"
 msgstr "{{filter.value}}"
 
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
-msgstr ""
+msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
-msgstr ""
+msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 
