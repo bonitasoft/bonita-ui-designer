@@ -115,6 +115,7 @@
       angular.extend(tab, {
         $$parentTabsContainer: tabsContainer,
         $$widget: {
+          type: 'container',
           name: 'Tab'
         },
         $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html',
