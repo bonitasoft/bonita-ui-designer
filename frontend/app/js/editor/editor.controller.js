@@ -221,6 +221,8 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       });
       return;
     }
+    //Target are used in web-component but this keys doesn't exist. We need to add this key like this
+    gettextCatalog.getString('Target');
     let component = $scope.currentComponent || item;
     let modalInstance = $uibModal.open({
       templateUrl: 'js/editor/whiteboard/switchComponent/switch-component-popup.html',

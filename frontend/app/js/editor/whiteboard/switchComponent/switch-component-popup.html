@@ -31,7 +31,7 @@
                     id="show-properties-btn"
                     type="button"
                     ng-click="ctrl.showProperties()"
-                    ng-disabled="!ctrl.selectedWidget"
+                    ng-disabled="!ctrl.isBtnPropertiesEnabled()"
                     class="btn btn-primary show-properties-btn"
                     title="{{ 'Show properties' | translate }}"
                     translate>Show properties

@@ -38,7 +38,40 @@
 
             <p translate>Configure widgets using the <b>properties panel</b> on the right.</p>
 
-            <p translate>You can also create <b>custom widgets</b> from the home page.</p>
+            <p translate>You can also create custom widgets, from existing widgets by "saving as" or from scratch in the home page.</p>
+
+            <dl class="Guidance-definitionList">
+                <dt translate>View</dt>
+                <dd translate>To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel.
+                    From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own.
+                </dd>
+
+                <dt translate>Edit</dt>
+                <dd translate>To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel.</dd>
+
+                <dt translate>Switch <i class="fa fa-exchange"></i></dt>
+                <dd>
+                    <p transalte>
+                        To replace a widget by another one and keep the current configuration, use the Switch option:
+                    <ul>
+                        <li translate>Either select the widget to switch and click on <i class="fa fa-exchange"></i>.</li>
+                        <li translate>Or use the <b>Switch</b> menu option close to the widget name in the properties panel.</li>
+                    </ul>
+                    </p>
+
+                    <p translate>
+                        In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br/>
+                        Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>.
+                    </p>
+                    <p translate>
+                        When the switch is completed, chances are you will still have properties to fill out, in the properties panel.
+                    </p>
+                    <p class="alert alert-info" translate>
+                        Containers cannot be switched.
+                    </p>
+                </dd>
+            </dl>
+
         </uib-tab>
 
         <uib-tab heading="{{ 'Containers' | translate }}" index="'containers'">
@@ -120,7 +153,7 @@
                 For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data.
             </p>
             <p translate>
-                E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>{{employee | lazyRef : 'addresses'}}</code>
+                E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>
             </p>
         </uib-tab>
 

@@ -75,6 +75,11 @@
       this.selectedWidget = '';
     }
 
+    isBtnPropertiesEnabled() {
+      let selectedWidget = this.widgetsToDisplay.filter(w => w.name.toLowerCase() === this.selectedWidget.toLowerCase());
+      return selectedWidget.length > 0;
+    }
+
     showProperties() {
       if (!this.selectedWidget) {
         this.selectedWidget = '';
