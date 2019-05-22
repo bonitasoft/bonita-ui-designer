@@ -10,6 +10,7 @@
   "properties": [],
   "assets": [
     {
+      "id": "43021f86-b43e-43dd-840b-641c906bec69",
       "name": "ui-bootstrap-tpls-0.13.0.min.js",
       "type": "js",
       "order": 1

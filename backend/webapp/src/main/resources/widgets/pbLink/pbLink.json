@@ -149,6 +149,7 @@
   ],
   "assets": [
     {
+      "id": "828a0fdd-65e0-4140-9437-51901853759e",
       "name": "http-param-serializer.service.js",
       "type": "js",
       "order": 1

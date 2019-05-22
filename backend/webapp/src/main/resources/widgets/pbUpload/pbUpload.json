@@ -87,11 +87,13 @@
   ],
   "assets": [
     {
+      "id": "b6093067-8e54-4f97-92f7-0b3977db83fd",
       "name": "ng-upload-0.5.19-patched.min.js",
       "type": "js",
       "order": 1
     },
     {
+      "id": "95e9addb-6415-4d81-8f47-a9e9bcecafda",
       "name": "file-upload.css",
       "type": "css",
       "order": 1

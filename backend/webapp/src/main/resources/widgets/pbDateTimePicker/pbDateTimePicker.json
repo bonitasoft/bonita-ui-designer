@@ -169,21 +169,25 @@
   ],
   "assets": [
     {
+      "id": "1fe74b77-2e44-4479-8eb1-841126888139",
       "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.compat.min.js",
       "type": "js",
       "order": 1
     },
     {
+      "id": "07c3d209-086d-4806-ba9f-6e04680ae9ba",
       "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.tpl.min.js",
       "type": "js",
       "order": 2
     },
     {
+      "id": "d045b840-67b0-4828-a21b-e3e538763d7f",
       "name": "moment-2.11.2.min.js",
       "type": "js",
       "order": 3
     },
     {
+      "id": "655cef3c-86c1-44ec-a8b3-053836274f6e",
       "name": "angular-moment-0.10.3.min.js",
       "type": "js",
       "order": 4

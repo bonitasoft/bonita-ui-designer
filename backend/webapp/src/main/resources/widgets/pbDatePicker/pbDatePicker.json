@@ -105,11 +105,13 @@
   ],
   "assets": [
     {
+      "id": "80a1ea34-c90d-4ed8-a139-b5527202f135",
       "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.compat.min.js",
       "type": "js",
       "order": 1
     },
     {
+      "id": "fc1d2832-3f1c-4e8d-b2a4-e6841bccbe14",
       "name": "angular-strap-2.3.9-patched-dateTimePicker-setValidity.tpl.min.js",
       "type": "js",
       "order": 2
