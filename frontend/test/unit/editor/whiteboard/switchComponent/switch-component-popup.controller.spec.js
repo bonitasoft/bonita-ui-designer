@@ -198,11 +198,19 @@ describe('switchComponentPopupController', function () {
   });
 
   it('should display clear button when a widget is selected', function () {
-    controller.selectedWidget = 'pbInput';
+    controller.selectedWidget = 'Input';
     expect(controller.isClearButtonVisible()).toBeTruthy();
 
     controller.clearValue();
     expect(controller.isClearButtonVisible()).toBeFalsy();
+  });
+
+  it('should disabled switch button in popup when user never click on show properties button', function () {
+    controller.selectedWidget = 'autocomplete';
+    expect(controller.propertiesIsDisplay).toBeFalsy();
+
+    controller.showProperties();
+    expect(controller.propertiesIsDisplay).toBeTruthy();
   });
 
 });

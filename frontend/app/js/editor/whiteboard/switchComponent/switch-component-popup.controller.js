@@ -29,6 +29,7 @@
       // Get dictionary to give it on webComponent
       let dictionaryValues = Object.values(dictionary);
       this.dictionary = this._attachDictionary(dictionaryValues[0]);
+      this.propertiesIsDisplay = false;
 
     }
 
@@ -85,9 +86,11 @@
         this.selectedWidget = '';
         return;
       }
+
       let selectedWidget = this.widgetsToDisplay.filter(w => w.name.toLowerCase() === this.selectedWidget.toLowerCase());
       if (selectedWidget.length > 0) {
         this.propertiesTo = this.getWidget(selectedWidget[0].id);
+        this.propertiesIsDisplay = true;
       }
     }
 
