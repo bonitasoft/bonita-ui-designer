@@ -11,10 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-05-21 02:16\n"
-
-msgid "\"Advance tab options\" property requires a JSON Object as input, to make it dynamic you can define it in an Javascript Expression or a JSON variable."
-msgstr ""
+"PO-Revision-Date: 2019-05-23 02:09\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -67,29 +64,14 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
-msgid "<code>allowHtml</code> <em>(Defaults: false)</em>: Define if dynamicTitle will be rendered as HTML."
-msgstr ""
-
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
-
-msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will be attached to <strong>tab-heading</strong> html element."
-msgstr ""
-
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
-msgstr ""
-
-msgid "<code>dynamicTitle</code> <em>(Defaults: display \"Default title\" as text)</em>: In case this options is filled, it will be the tab title displayed. It can be calculated dynamically to display and render html (if allowHtml is set to true)."
-msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
-
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
-msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr ""
@@ -241,15 +223,6 @@ msgstr "追加された生成物"
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
 
-msgid "Advanced tab key"
-msgstr ""
-
-msgid "Advanced tabs options"
-msgstr ""
-
-msgid "Advanced usage"
-msgstr ""
-
 msgid "Alignment"
 msgstr "配置"
 
@@ -366,9 +339,6 @@ msgid "Back to default size"
 msgstr "デフォルトのサイズに戻す"
 
 msgid "Base framework"
-msgstr ""
-
-msgid "Basic usage"
 msgstr ""
 
 msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
@@ -533,6 +503,9 @@ msgstr "フォームに使用するコンテナ。 検証は削除されます�
 msgid "Containers"
 msgstr "コンテナ"
 
+msgid "Containers cannot be switched."
+msgstr ""
+
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -652,9 +625,6 @@ msgstr "デフォルト ラベル"
 msgid "Default name"
 msgstr "デフォルト名"
 
-msgid "Default title"
-msgstr ""
-
 msgid "Default value"
 msgstr "デフォルト値"
 
@@ -745,7 +715,7 @@ msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1
 msgid "Dynamic value"
 msgstr "動的な値"
 
-msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>{{employee | lazyRef : 'addresses'}}</code>"
+msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>"
 msgstr ""
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
@@ -753,6 +723,9 @@ msgstr "各生成物は、<em>localization.json</em> アセットを持ち、こ
 
 msgid "Each type or container has specific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
+
+msgid "Edit"
+msgstr ""
 
 msgid "Edit asset"
 msgstr "アセットを編集"
@@ -771,6 +744,9 @@ msgstr ""
 
 msgid "Editor organization"
 msgstr "エディタの構成設定"
+
+msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
+msgstr ""
 
 msgid "Enter ' + vm.mode + ' name"
 msgstr "vm.mode + ' 名を入力します"
@@ -958,12 +934,6 @@ msgstr "ヘルプ"
 msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
 msgstr "これは、親フレームに JSON でポストしたメッセージの形式です（送信される前に文字列化のため、親フレームで<code> JSON.parse</code> を呼び出す必要があります) ："
 
-msgid "Here we just configured 2 tabs identified as <code>tab1</code> and <code>tab2</code>, <em>these keys will have to be defined in each tab and will allow you to identify them</em>. We recommend you to set a user-friendly name such as \"paymentDetails\" instead of keeping tab1. You can notice that it is not necessary to define all options (allowHtml, hidden, disabled and cssClasses are not defined for tab2 in this example), in this case default value will be applied."
-msgstr ""
-
-msgid "Here you can find an example of a JS expression:"
-msgstr ""
-
 msgid "Hidden"
 msgstr "非表示"
 
@@ -1067,6 +1037,9 @@ msgid "In the Asset list, you can manually change the order of CSS and Javascrip
 msgstr ""
 
 msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr ""
+
+msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
 msgstr ""
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
@@ -1286,9 +1259,6 @@ msgstr "タブ コンテナ： 複数のコンテンツ"
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "複数のウィジェットグループ、タブ内の各グループ"
 
-msgid "Must be an alphanumeric string"
-msgstr ""
-
 msgid "Name"
 msgstr "名前"
 
@@ -1380,6 +1350,9 @@ msgid "Open help"
 msgstr "ヘルプを開く"
 
 msgid "Open modal"
+msgstr ""
+
+msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr ""
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
@@ -1543,9 +1516,6 @@ msgstr "検索キーで案件リストを検索する"
 
 msgid "Search on name"
 msgstr "名前で検索"
-
-msgid "See <em>Tabs container help</em> for details of tabs container options. Specify a JSON structure corresponding to the options you want."
-msgstr ""
 
 msgid "See example 'date object initialization'"
 msgstr "「Date オブジェクトの初期化」 の例を参照してください。"
@@ -1721,6 +1691,9 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
+msgid "Switch <i class=\"fa fa-exchange\"></i>"
+msgstr ""
+
 msgid "Switch to"
 msgstr ""
 
@@ -1730,11 +1703,11 @@ msgstr ""
 msgid "Switch..."
 msgstr ""
 
-msgid "Tab display"
-msgstr ""
-
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
+
+msgid "Target"
+msgstr ""
 
 msgid "Target URL on success"
 msgstr "成功時のターゲットURL"
@@ -1790,9 +1763,6 @@ msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプ
 
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
-
-msgid "The basic usage of this container is to define <em>Default title</em> for each tab. In this case, all tab titles will be statics and you can drag and drop any widgets you want to define the tab content."
-msgstr ""
 
 msgid "The caption will be displayed as such below the property label."
 msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
@@ -1853,9 +1823,6 @@ msgstr ""
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
 
-msgid "The usage of advance options allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
-msgstr ""
-
 msgid "The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly."
 msgstr "すべてのプロパティの値は、翻訳キーとしても使用されます。したがって、そのデフォルト値を保持しないように選択した場合は、状況に応じてアセットの <em>localization.json</em> を変更します。"
 
@@ -1880,9 +1847,6 @@ msgstr "この {{ artifact.type }} は、次の中で使用されているので
 msgid "The {{ artifactType }} has not been imported."
 msgstr "{{ artifactType }} はインポートされていません。"
 
-msgid "Then, you need to set this variable as input in the property \"Advanced tab options\" (on the tab container panel)."
-msgstr ""
-
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
@@ -1892,14 +1856,11 @@ msgstr "この説明はパレット内のツールチップとして表示され
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<br>次の例は、 <code>supportTicket</code> JSON オブジェクトの <code>environment</code> 配列内にある文字列 'Linux' を探すサンプルです。"
 
-msgid "This feature is not available on IE11 nor Microsoft Edge for the moment."
+msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
 msgstr ""
 
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
-
-msgid "This is the list of accepted options you can configure for a given tab:"
-msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -1959,6 +1920,9 @@ msgstr "BDM API （または別の API）から取得した日付を表示 （�
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "式として評価されたウィジェット プロパティで日付を表示するには、たとえば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
+
+msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
+msgstr ""
 
 msgid "To edit this standard widget, save it first as a new custom widget"
 msgstr ""
@@ -2021,6 +1985,9 @@ msgstr "このコンテナのウィジェット内でコレクション デー�
 
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "いくつかのページで同じアセットを使用するには、そのアセットをカスタム ウィジェットに追加することで、アプリケーションページまたはフォームでそのカスタム ウィジェットを使用できます。あるページにアセットを持つ追加する場合は、それらのアセットはそのページに自動でリンクされます。"
+
+msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
+msgstr ""
 
 msgid "Today"
 msgstr "今日"
@@ -2115,9 +2082,6 @@ msgstr "双方向フィールドを使用し、プロパティの値と変数間
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
 msgstr "動的な値フィールドを使用し、コンスタント（デフォルト）または式を指定します。式のアイコン fx をクリックしてコンスタントから式に切り替えます。式からコンスタントに切り替えるには、コンスタントのアイコン X をクリックします。式はプロパティの値を動的にする変数を含めるか、または単に変数名だけにすることができます。パイプを使用して変数の値にフィルターを適用することができます。変数へのバインディングは、読み取り専用です。変数に書き込みをしたい場合は、双方向バインドを使用します。例:"
 
-msgid "Use advanced options to render dynamic tabs"
-msgstr ""
-
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr ""
 
@@ -2137,9 +2101,6 @@ msgid "Use the palette on the left to drag and drop containers and widgets in th
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
 msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
-msgstr ""
-
-msgid "Use this container to create tabs which can be displayed over the page, form, or layout content."
 msgstr ""
 
 msgid "Use this widget to select a date (e.g., a date of birth)."
@@ -2202,7 +2163,7 @@ msgstr "変数"
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
 
-msgid "Vertical Display"
+msgid "View"
 msgstr ""
 
 msgid "View asset content"
@@ -2222,6 +2183,9 @@ msgstr ""
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
 msgstr "リクエストの JSON 本体に送信されると、真夜中の UTC に設定された時刻（たとえば、2016-12-31T00:00:00.000Z）が ISO 8601 で書式化された文字列変数にシリアル化されます。"
+
+msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
@@ -2265,8 +2229,8 @@ msgstr "行の内部のウィジェットまたはコンテナを削除すると
 msgid "Yes"
 msgstr "はい"
 
-msgid "You can also create <b>custom widgets</b> from the home page."
-msgstr "ホームページから<b>カスタム ウィジェット</b>も作成できます。"
+msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
+msgstr ""
 
 msgid "You can apply it to the following variable value types:"
 msgstr "次の変数の値型に適用することができます："
@@ -2371,9 +2335,6 @@ msgstr "http://"
 msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
 msgstr "ページ、フォームや UI デザイナーの外側のレイアウトを編集する場合、それを再インポートすることはできません。"
 
-msgid "if you want more options for each tab, refer to <em>Advanced usage</em>."
-msgstr ""
-
 msgid "info"
 msgstr "info"
 
@@ -2410,9 +2371,6 @@ msgstr ""
 msgid "password"
 msgstr "パスワード"
 
-msgid "pills"
-msgstr ""
-
 msgid "primary"
 msgstr "primary"
 
@@ -2430,9 +2388,6 @@ msgstr "インポートに成功しました。"
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
-
-msgid "tabs"
-msgstr ""
 
 msgid "text"
 msgstr "テキスト"
