@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-05-23 01:59\n"
+"PO-Revision-Date: 2019-05-24 02:00\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -504,7 +504,7 @@ msgid "Containers"
 msgstr "Contenedores"
 
 msgid "Containers cannot be switched."
-msgstr ""
+msgstr "No se pueden cambiar los contenedores."
 
 msgid "Content"
 msgstr "Contenido"
@@ -716,7 +716,7 @@ msgid "Dynamic value"
 msgstr "Valor dinámico"
 
 msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>"
-msgstr ""
+msgstr "Por ejemplo, dada una variable <em>employee</em> de tipo API externa que se obtiene del contexto de la tarea <code>../{{context.employee_ref.link}}</code>. Para recuperar todas las direcciones de <em>employee</em> que son lazy en el BDM, puede crear otra variable <em>employee_addresses</em> de tipo API externa con un parámetro en la url como <code>employee | lazyRef : 'addresses'</code>"
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita BPM</a>:"
@@ -725,7 +725,7 @@ msgid "Each type or container has specific behaviors"
 msgstr "Cada tipo de contenedor tiene comportamientos específicos"
 
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 msgid "Edit asset"
 msgstr "Actualizar recurso"
@@ -746,7 +746,7 @@ msgid "Editor organization"
 msgstr "Editor de Organización"
 
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
-msgstr ""
+msgstr "Seleccione el widget para cambiar y haga clic en <i class=\"fa fa-exchange\"></i>."
 
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Introduzca ' + vm.mode + ' nombre"
@@ -1040,7 +1040,7 @@ msgid "In the Studio, a form must be linked to a process or a task, using the co
 msgstr "En el Studio, un formulario debe estar vinculado a un proceso o una tarea, utilizando el contrato; una página está vinculada a un descriptor de la aplicación."
 
 msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
-msgstr ""
+msgstr "En el asistente, seleccione o busque el widget a cambiar, luego haga clic en <b>Mostrar propiedades</b>.<br> Siempre que sea posible, las propiedades en los widgets de origen se mapean con propiedades iguales en el widget de destino. Puede editar o mapear más, luego haga clic en <b>Cambiar</b>."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "En el contexto de un contenedor de formulario, utilice $form.$invalid como un valor booleano para comprobar la validez del formulario en una propiedad del widget"
@@ -1352,7 +1352,7 @@ msgid "Open modal"
 msgstr "Abrir modal"
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
-msgstr ""
+msgstr "O utilice la opción de menú <b>Cambiar</b> cerca del nombre del widget en el panel de propiedades."
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Ordenado por nombre de artefacto. <br/> Haz clic en ordenar por última actualización"
@@ -1691,7 +1691,7 @@ msgid "Switch"
 msgstr "Cambiar"
 
 msgid "Switch <i class=\"fa fa-exchange\"></i>"
-msgstr ""
+msgstr "Cambiar <i class=\"fa fa-exchange\"></i>"
 
 msgid "Switch to"
 msgstr "Cambiar a"
@@ -1706,7 +1706,7 @@ msgid "Tabular presentation of data from an array"
 msgstr "Presentación en formato tabla de una matriz de datos"
 
 msgid "Target"
-msgstr ""
+msgstr "Destino"
 
 msgid "Target URL on success"
 msgstr "Dirección URL de destino en éxito"
@@ -1856,7 +1856,7 @@ msgid "This example uses the JSON example provided if you select the type JSON.<
 msgstr "Este ejemplo utiliza el ejemplo JSON proporcionado si seleccionas el tipo JSON. <br>Busca la cadena 'Linux' en el array <code>environment</code> del objeto JSON <code>supportTicket</code>"
 
 msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
-msgstr ""
+msgstr "Esta característica no está disponible en Internet Explorer 11 ni Microsoft Edge por el momento."
 
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
@@ -1921,7 +1921,7 @@ msgid "To display the date in a widget property evaluated as an expression, use 
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
 
 msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
-msgstr ""
+msgstr "Para editar un widget personalizado, utilice la opción del menu <b>Edición</b> cerca del nombre del widget en el panel de propiedades."
 
 msgid "To edit this standard widget, save it first as a new custom widget"
 msgstr "Para editar este widget estándar, guárdalo primero como un nuevo widget personalizado"
@@ -1986,7 +1986,7 @@ msgid "To use the same asset in several pages, you can add it to a custom widget
 msgstr "Para utilizar el mismo recurso en varias páginas, puede agregar un widget personalizado y utilizar este widget personalizado en sus páginas o formularios de la aplicación. Cuando se agrega un widget personalizado con los recursos a una página, esos recursos se vinculan automáticamente a la página."
 
 msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
-msgstr ""
+msgstr "Para ver el código de un widget estándar, utilice la opción del menú <b>Ver</b> cerca del nombre del widget en el panel de propiedades. Desde ahí, para usar el widget estándar como base para un widget personalizado, haga clic en <b>Guardar como</b>, defina un nombre para el widget personalizado, y ya dispondrá de su widget custom."
 
 msgid "Today"
 msgstr "Hoy"
@@ -2163,7 +2163,7 @@ msgid "Variables can be bound to input fields to create conditional behavior bet
 msgstr "Las variables pueden estar enlazadas a los campos de entrada para crear un comportamiento condicional entre las propiedades del widget."
 
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 msgid "View asset content"
 msgstr "Ver recurso"
@@ -2184,7 +2184,7 @@ msgid "When sent in the JSON body of a request, it is serialized into an ISO 860
 msgstr "Cuando se envía en el cuerpo JSON de una request, se serializa en una variable String con formato ISO 8601 con el tiempo establecido a medianoche UTC (por ejemplo, 2016-12-31T00:00:00.000Z)."
 
 msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
-msgstr ""
+msgstr "Cuando el cambio se complete, puede ser que todavía tenga propiedades para completar en el panel de propiedades."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
@@ -2229,7 +2229,7 @@ msgid "Yes"
 msgstr "Sí"
 
 msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
-msgstr ""
+msgstr "También puede crear widgets personalizados, desde widgets existentes \"guardando como\" o desde cero en la página de inicio."
 
 msgid "You can apply it to the following variable value types:"
 msgstr "Se puede aplicar a los siguientes tipos de valor de la variable:"
