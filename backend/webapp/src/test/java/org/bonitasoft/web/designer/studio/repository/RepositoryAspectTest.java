@@ -104,7 +104,7 @@ public class RepositoryAspectTest {
 
     @Test
     public void should_trigger_delete_on_workspaceResourceHandler_when_deleting_a_widget() throws Exception {
-        widgetRepository.save(aWidget().id("widgetId1").build());
+        widgetRepository.save(aWidget().id("widgetId1").custom().build());
 
         widgetRepository.delete("widgetId1");
 

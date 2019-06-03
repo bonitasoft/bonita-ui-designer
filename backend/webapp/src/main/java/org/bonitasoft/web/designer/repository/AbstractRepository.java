@@ -223,4 +223,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
             throw new RepositoryException(format("Failed to gerenrate object ID"), e);
         }
     }
+    
+    public JsonFileBasedPersister<T> getPersister() {
+        return persister;
+    }
 }
