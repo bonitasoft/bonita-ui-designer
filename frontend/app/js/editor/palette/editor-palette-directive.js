@@ -49,7 +49,13 @@
     this.isClosed = isClosed;
     this.getIconClassName = getIconClassName;
     this.isFragment = isFragment;
+    this.updateSections = updateSections;
     resize();
+
+    $scope.$on('fragmentCreated', function() {
+      // Update fragments section
+      updateSections();
+    });
 
     function toggleSection(section) {
       palette.currentSection = palette.currentSection === section ? undefined : section;
@@ -57,7 +63,7 @@
     }
 
     function isActiveSection(section) {
-      return palette.currentSection === section;
+      return palette.currentSection && palette.currentSection.name === section.name;
     }
 
     function resize() {
@@ -76,6 +82,16 @@
 
     function getIconClassName(section) {
       return 'ui-' + section.name.replace(/ /g, '');   // remove white spaces
+    }
+
+    function updateSections() {
+      palette.sections = paletteService.getSections();
+      palette.sections.forEach(section => {
+        if (isActiveSection(section)) {
+          palette.currentSection = section;
+        }
+      });
+      resize();
     }
   }
 
