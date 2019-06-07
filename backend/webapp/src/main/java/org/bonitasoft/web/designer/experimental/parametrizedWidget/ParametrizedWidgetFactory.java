@@ -143,8 +143,6 @@ public class ParametrizedWidgetFactory {
         datePickerComponent.setPlaceholder(reference.getPlaceholder());
         datePickerComponent.setShowToday(reference.getShowToday());
         datePickerComponent.setTodayLabel(reference.getTodayLabel());
-        datePickerComponent.setRequired(input.isMandatory());
-
         setValuableWidgetValue(input, datePickerComponent);
 
         return datePickerComponent;
@@ -164,8 +162,6 @@ public class ParametrizedWidgetFactory {
         dateTimePickerComponent.setShowNow(reference.getShowNow());
         dateTimePickerComponent.setShowToday(reference.getShowToday());
         dateTimePickerComponent.setInlineInput(reference.getInlineInput());
-        dateTimePickerComponent.setRequired(input.isMandatory());
-
         setValuableWidgetValue(input, dateTimePickerComponent);
 
         return dateTimePickerComponent;
