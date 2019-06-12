@@ -20,6 +20,9 @@ import static java.util.Collections.EMPTY_LIST;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,11 +47,14 @@ public class FormInputVisitor implements ContractInputVisitor {
         defaultValues.put(Float.class.getName(), 0);
         defaultValues.put(Long.class.getName(), 0);
         defaultValues.put(Date.class.getName(), null);
+        defaultValues.put(LocalDate.class.getName(), null);
+        defaultValues.put(LocalDateTime.class.getName(), null);
+        defaultValues.put(OffsetDateTime.class.getName(), null);
         defaultValues.put(File.class.getName(), null);
     }
 
     private Map<String, Object> properties = newLinkedHashMap();
-
+   
     private JacksonObjectMapper objectMapperWrapper;
 
     public FormInputVisitor(JacksonObjectMapper objectMapperWrapper) {

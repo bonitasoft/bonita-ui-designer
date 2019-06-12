@@ -119,7 +119,7 @@ public class ParametrizedWidgetFactory {
         fileUploadWidget.setPlaceholder(input.getMode() == EditMode.EDIT
                 ? "Browse to update the file..."
                 : "Browse to upload a new file...");
-        fileUploadWidget.setRequired(input.isMandatory());
+        fileUploadWidget.setRequired(input.isMultiple() || input.isMandatory());
         return fileUploadWidget;
     }
 
@@ -143,6 +143,9 @@ public class ParametrizedWidgetFactory {
         datePickerComponent.setPlaceholder(reference.getPlaceholder());
         datePickerComponent.setShowToday(reference.getShowToday());
         datePickerComponent.setTodayLabel(reference.getTodayLabel());
+        datePickerComponent.setRequired(input.isMultiple() || input.isMandatory());
+        datePickerComponent.setLabelHidden(input.isMultiple());
+
         setValuableWidgetValue(input, datePickerComponent);
 
         return datePickerComponent;
@@ -162,6 +165,9 @@ public class ParametrizedWidgetFactory {
         dateTimePickerComponent.setShowNow(reference.getShowNow());
         dateTimePickerComponent.setShowToday(reference.getShowToday());
         dateTimePickerComponent.setInlineInput(reference.getInlineInput());
+        dateTimePickerComponent.setRequired(input.isMultiple() || input.isMandatory());
+        dateTimePickerComponent.setLabelHidden(input.isMultiple());
+
         setValuableWidgetValue(input, dateTimePickerComponent);
 
         return dateTimePickerComponent;
@@ -183,7 +189,8 @@ public class ParametrizedWidgetFactory {
 
     protected InputWidget createInputWidget(ContractInput input) {
         InputWidget inputWidget = inputDefaultWidgetParameters(input, new InputWidget());
-        inputWidget.setRequired(input.isMandatory());
+        inputWidget.setRequired(input.isMultiple() || input.isMandatory());
+        inputWidget.setLabelHidden(input.isMultiple());
         inputWidget.setPlaceholder(new PbInput().getPlaceholder());
         setValuableWidgetValue(input, inputWidget);
         return inputWidget;
@@ -295,7 +302,7 @@ public class ParametrizedWidgetFactory {
         selectWidget.setLabel(label);
         selectWidget.setLabelPosition(LabelPosition.TOP);
         selectWidget.setPlaceholder(String.format("Select a %s", label));
-        selectWidget.setRequired(input.isMandatory());
+        selectWidget.setRequired(input.isMultiple() || input.isMandatory());
         selectWidget.setAvailableValues(toBusinessQueryDataName(input.getDataReference()));
         if (input.isMultiple()) {
             selectWidget.setValue(ITEM_ITERATOR);

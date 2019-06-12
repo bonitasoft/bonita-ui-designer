@@ -19,12 +19,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
@@ -77,7 +75,13 @@ public class JacksonObjectMapper {
     }
 
     public String prettyPrint(Object object) throws IOException {
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+        try {
+            return objectMapper
+                    .writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        }finally {
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        }
     }
 
     public String prettyPrint(String json) throws IOException {

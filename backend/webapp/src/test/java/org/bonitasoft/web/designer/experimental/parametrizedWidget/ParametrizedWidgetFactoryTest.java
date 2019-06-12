@@ -524,6 +524,55 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(selectWidget.getValue()).isEqualTo(ParametrizedWidgetFactory.ITEM_ITERATOR);
     }
 
+    @Test
+    public void should_set_required_false_for_non_mandatory_contract_input() {
+        //DatePicker
+        LeafContractInput aLocalDateContractInput = aLocalDateContractInput("myDate");
+        aLocalDateContractInput.setMandatory(false);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(aLocalDateContractInput);
+        assertThat(widget).isInstanceOf(DatePickerWidget.class);
+        assertThat(((DatePickerWidget) widget).isRequired()).isFalse();
+
+        aLocalDateContractInput.setMandatory(true);
+        widget = createFactory().createParametrizedWidget(aLocalDateContractInput);
+        assertThat(widget).isInstanceOf(DatePickerWidget.class);
+        assertThat(((DatePickerWidget) widget).isRequired()).isTrue();
+
+        //DateTimePIcker
+        LeafContractInput aLocalDateTimeContractInput = aLocalDateTimeContractInput("myLocalDate");
+        aLocalDateTimeContractInput.setMandatory(false);
+
+        widget = createFactory().createParametrizedWidget(aLocalDateTimeContractInput);
+        assertThat(widget).isInstanceOf(DateTimePickerWidget.class);
+        assertThat(((DateTimePickerWidget) widget).isRequired()).isFalse();
+
+        aLocalDateTimeContractInput.setMandatory(true);
+        widget = createFactory().createParametrizedWidget(aLocalDateTimeContractInput);
+        assertThat(widget).isInstanceOf(DateTimePickerWidget.class);
+        assertThat(((DateTimePickerWidget) widget).isRequired()).isTrue();
+
+        //InputWidget
+        LeafContractInput aInputWidget = aStringContractInput("myString");
+        aInputWidget.setMandatory(false);
+
+        widget = createFactory().createParametrizedWidget(aInputWidget);
+        assertThat(widget).isInstanceOf(InputWidget.class);
+        assertThat(((InputWidget) widget).isRequired()).isFalse();
+
+        aInputWidget.setMandatory(true);
+        widget = createFactory().createParametrizedWidget(aInputWidget);
+        assertThat(widget).isInstanceOf(InputWidget.class);
+        assertThat(((InputWidget) widget).isRequired()).isTrue();
+
+        //Multiple
+        aInputWidget.setMultiple(true);
+        aInputWidget.setMandatory(false);
+        widget = createFactory().createParametrizedWidget(aInputWidget);
+        assertThat(widget).isInstanceOf(InputWidget.class);
+        assertThat(((InputWidget) widget).isRequired()).isTrue();
+    }
+
     private ParametrizedWidgetFactory createFactory() {
         return new ParametrizedWidgetFactory();
     }
