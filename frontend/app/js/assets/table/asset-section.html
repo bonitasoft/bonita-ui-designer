@@ -34,7 +34,7 @@
                             ng-click="incrementOrderAsset({'asset': asset})"
                             title="{{ 'Move asset down' | translate }}"
                             ng-if="vm.isPageAsset(asset) && vm.type.orderable"
-                            ng-disabled="$last || vm.assetAlreadyOnMove || searchTerm">
+                            ng-disabled="!vm.isPageAsset(results[$index + 1]) || vm.assetAlreadyOnMove || searchTerm">
                         <i class="fa fa-arrow-down"></i>
                     </button>
                     <button class="btn btn-bonita-asset" ng-click="decrementOrderAsset({'asset': asset})"

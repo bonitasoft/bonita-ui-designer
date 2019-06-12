@@ -37,7 +37,7 @@ angular.module('bonitasoft.designer.preview').factory('webSocket', function($roo
 
   var connect = function() {
     let deferred = $q.defer();
-    client.connect('', (frame) => deferred.resolve(frame), (err) => deferred.reject(err));
+    client.connect({}, (frame) => deferred.resolve(frame), (err) => deferred.reject(err));
     return deferred.promise;
   };
 
