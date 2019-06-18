@@ -35,7 +35,6 @@ import org.bonitasoft.web.designer.experimental.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParametrizedWidgetFactory;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.Requirable;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Valuable;
@@ -146,9 +145,6 @@ public class ContractInputToWidgetMapper {
         }
         if (component instanceof Valuable) {
             ((Valuable) component).setValue(ParametrizedWidgetFactory.ITEM_ITERATOR);
-        }
-        if (component instanceof Requirable) {
-            ((Requirable) component).setRequired(false);
         }
         List<Element> row = new ArrayList<>();
         row.add(component.toComponent(dimensionFactory));

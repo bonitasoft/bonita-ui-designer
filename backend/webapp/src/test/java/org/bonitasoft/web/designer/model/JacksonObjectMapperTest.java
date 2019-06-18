@@ -91,10 +91,11 @@ public class JacksonObjectMapperTest {
         assertThat(objectMapper.prettyPrint(object)).isEqualTo("{" + System.lineSeparator() +
                 "  \"id\" : \"id\"," + System.lineSeparator() +
                 "  \"name\" : \"Vincent\"," + System.lineSeparator() +
-                "  \"number\" : 1" + System.lineSeparator() +
+                "  \"number\" : 1," + System.lineSeparator() +
+                "  \"another\" : null" + System.lineSeparator() +
                 "}");
     }
-
+    
     @Test
     public void should_format_json_when_using_pretty_print_on_json() throws Exception {
         assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{" + System.lineSeparator() +

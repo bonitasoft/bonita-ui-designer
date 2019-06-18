@@ -17,17 +17,29 @@ package org.bonitasoft.web.designer.experimental.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
+
 import org.bonitasoft.web.designer.experimental.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FormInputVisitorTest {
 
@@ -66,17 +78,21 @@ public class FormInputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJson())
-                .isEqualTo(objectMapper.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
+                .isEqualTo(
+                        objectMapper.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
     }
-    
+
     @Test
     public void should_ignore_complex_types_with_dataRef_in_formInput_in_edit_mode() throws Exception {
         Contract contract = aContract().inEditMode().withInput(
-                aNodeContractInput("person").withDataReference(new BusinessDataReference("person","org.test.Person",RelationType.COMPOSITION,LoadingType.EAGER)).withInput(
-                        aStringContractInput("name"),
-                        aNodeContractInput("details")
-                                .withInput(anIntegerContractInput("age"))
-                                .build())
+                aNodeContractInput("person")
+                        .withDataReference(new BusinessDataReference("person", "org.test.Person", RelationType.COMPOSITION,
+                                LoadingType.EAGER))
+                        .withInput(
+                                aStringContractInput("name"),
+                                aNodeContractInput("details")
+                                        .withInput(anIntegerContractInput("age"))
+                                        .build())
                         .build(),
                 aBooleanContractInput("accepted")).build();
 
@@ -105,5 +121,31 @@ public class FormInputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJson()).isEqualTo(objectMapper.prettyPrint("{\"myFile\":null}"));
+    }
+
+    @Test
+    public void should_accept_non_mandatory_local_date() throws Exception {
+        LeafContractInput aLocalDateContractInput = aLocalDateContractInput("myDate");
+        LeafContractInput aLocalDateTimeContractInput = new LeafContractInput("myLocalDateTime", LocalDateTime.class);
+        LeafContractInput aOffsetDateTimeContractInput = new LeafContractInput("myOffsetDateTime", OffsetDateTime.class);
+        LeafContractInput aLegacyDateContractInput = new LeafContractInput("myLgacyDate", Date.class);
+
+        aLocalDateContractInput.setMandatory(false);
+        aLocalDateTimeContractInput.setMandatory(false);
+        aOffsetDateTimeContractInput.setMandatory(false);
+        aLegacyDateContractInput.setMandatory(false);
+
+        Contract contract = aContract().withInput(aLocalDateContractInput,
+                aLocalDateTimeContractInput,
+                aOffsetDateTimeContractInput,
+                aLegacyDateContractInput)
+                .build();
+
+        contract.accept(visitor);
+
+        assertThat(visitor.toJson()).contains("\"myDate\" : null");
+        assertThat(visitor.toJson()).contains("\"myLocalDateTime\" : null");
+        assertThat(visitor.toJson()).contains("\"myOffsetDateTime\" : null");
+        assertThat(visitor.toJson()).contains("\"myLgacyDate\" : null");
     }
 }

@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.studio.repository;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 import javax.inject.Inject;
@@ -23,9 +24,10 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.repository.AbstractRepository;
+import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.studio.workspace.LockedResourceException;
 import org.bonitasoft.web.designer.studio.workspace.ResourceNotFoundException;
 import org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler;
 import org.springframework.context.annotation.Profile;
@@ -48,21 +50,6 @@ public class RepositoryAspect {
         this.handler = handler;
     }
 
-    /*
-     * BS-14120
-     * Useless numerous notfications may lead to a localized studio crash,
-     * we decided to deactivate them until we find a proper solution for
-     * workspace management shared between studio and UIDesigner
-     */
-    //@Before("execution(* org.bonitasoft.web.designer.repository.Repository+.get(String))")
-    public void preOpen(JoinPoint joinPoint) {
-        try {
-            handler.preOpen(filePath(joinPoint));
-        } catch (ResourceNotFoundException | LockedResourceException e) {
-            throw new RepositoryException("An error occured while proceeding pre open action.", e);
-        }
-    }
-
     @After("execution(* org.bonitasoft.web.designer.repository.Repository+.updateLastUpdateAndSave(..)) ")
     public void postSaveAndUpdateDate(JoinPoint joinPoint) {
         try {
@@ -80,8 +67,10 @@ public class RepositoryAspect {
     @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository.delete(String))")
     public void delete(JoinPoint joinPoint) {
         try {
+            Object component = get(joinPoint);
             handler.delete(filePath(joinPoint));
-        } catch (ResourceNotFoundException e) {
+            getPersister(joinPoint).delete(resolvePathFolder(joinPoint), (Identifiable) component);
+        } catch (ResourceNotFoundException | IOException e) {
             throw new RepositoryException("An error occured while proceeding delete action.", e);
         }
     }
@@ -97,6 +86,18 @@ public class RepositoryAspect {
 
     private Path filePath(JoinPoint joinPoint) {
         return ((Repository<?>) joinPoint.getThis()).resolvePath(artifactId(joinPoint));
+    }
+    
+    private Path resolvePathFolder(JoinPoint joinPoint) {
+        return ((Repository<?>) joinPoint.getThis()).resolvePathFolder(artifactId(joinPoint));
+    }
+    
+    private Identifiable get(JoinPoint joinPoint){
+        return ((Repository<?>) joinPoint.getThis()).get(artifactId(joinPoint));
+    }
+    
+    private JsonFileBasedPersister getPersister(JoinPoint joinPoint){
+        return ((AbstractRepository) joinPoint.getThis()).getPersister();
     }
 
     private String artifactId(JoinPoint joinPoint) {

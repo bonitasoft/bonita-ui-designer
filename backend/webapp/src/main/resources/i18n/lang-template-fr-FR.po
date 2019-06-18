@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-05-24 01:58\n"
+"PO-Revision-Date: 2019-06-17 01:58\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -345,12 +345,6 @@ msgstr "De ce fait, si vous recevez un fragment, le renommez et le repartagez, i
 msgid "Bidirectional bond"
 msgstr "Binding bidirectionnel"
 
-msgid "Bonita 7.7"
-msgstr "Bonita 7.7"
-
-msgid "Bonita 7.8"
-msgstr "Bonita 7.8"
-
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
@@ -668,6 +662,9 @@ msgstr "Détermine le thème de l’application qui sera utilisé par la page ci
 msgid "Direct link to an external file"
 msgstr "Lien direct vers un fichier externe"
 
+msgid "Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured."
+msgstr ""
+
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -721,6 +718,9 @@ msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant 
 
 msgid "Each type or container has specific behaviors"
 msgstr "Chaque type de container a des comportements spécifiques"
+
+msgid "Easily create forms to edit business variables or documents, or display business variables in read-only"
+msgstr ""
 
 msgid "Edit"
 msgstr ""
@@ -778,6 +778,9 @@ msgstr "Formats exportés"
 
 msgid "Exposed"
 msgstr "Exposée"
+
+msgid "Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need."
+msgstr ""
 
 msgid "External"
 msgstr "Externe"
@@ -1271,6 +1274,9 @@ msgstr "Lien de navigation vers une autre page ou formulaire"
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, <br/> consectetur, <br/> adipisci velit..."
 
+msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
+msgstr ""
+
 msgid "New modal container to create pop-ins"
 msgstr "Nouveau container modal pour créer des pop-ins"
 
@@ -1348,6 +1354,9 @@ msgstr "Ouvrir l'aide"
 
 msgid "Open modal"
 msgstr "Ouvrir une fenêtre modale"
+
+msgid "Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes."
+msgstr ""
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr ""
@@ -1447,6 +1456,9 @@ msgstr "Supprimer l'onglet"
 
 msgid "Rename"
 msgstr "Renommer"
+
+msgid "Render a UID page ot form in the end-user browser"
+msgstr ""
 
 msgid "Repeat container content. Variable of type array"
 msgstr "Répéter le contenu du container. Variable de type tableau"
@@ -1694,6 +1706,9 @@ msgstr ""
 msgid "Switch to"
 msgstr "Remplacer par"
 
+msgid "Switch widget"
+msgstr ""
+
 msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "Remplacer {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 
@@ -1859,6 +1874,9 @@ msgstr ""
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the dedicated documentation.\" Et là tu dois faire un .bos redirect vers la bonne URL."
+msgstr ""
+
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
 msgstr "Ce container modal est basé sur l’implémentation de ui-bootstrap. Il est possible de changer la taille ou le style de la pop-in générée."
@@ -1929,6 +1947,9 @@ msgstr "Pour ouvrir une pop-in à partir d'une autre pop-in à l’exécution, p
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
+
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the dedicated documentation. (idem, bos redirect)"
+msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr "Pour continuer à faire fonctionner les artefacts existants, si vous migrez une page créée dans une version antérieure à 7.5.0 et contenant des widgets personnalisés, <em>ui-bootstrap-NPT-0.13.0.min.js</em> sera automatiquement ajouté comme un asset de la page. \n"
@@ -2085,6 +2106,9 @@ msgstr "Utilisez un champ de type interpolation pour saisir le texte à afficher
 
 msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "Utilisez des balises html basiques (si autorisé), <span ng-non-bindable>{{dataVariable}}</span> pour accéder aux données et des <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtres</a> pour les formater (ex. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
+
+msgid "Use provided UID widgets as a template for a custom widget"
+msgstr ""
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utilisez le UI Designer pour créer ou éditer les artefacts web : <b>pages d'application</b> pour composer des applications métier, <b>formulaires de processus</b> liés à l'instantiation du processus ou à l'exécution de tâches humaines, et <b>layouts d'application</b> appliqués à toutes les pages d'une application métier."
