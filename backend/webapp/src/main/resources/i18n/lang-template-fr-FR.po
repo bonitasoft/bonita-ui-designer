@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-06-17 01:58\n"
+"PO-Revision-Date: 2019-06-19 01:59\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1024,6 +1024,9 @@ msgstr "Dans un formulaire de processus, si vous avez défini des variables mét
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "En plus de la variable de la <em>valeur de réponse en cas de succès</em>, pour les requêtes <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Start process</em> et <em>Submit task</em> vous pouvez également définir une <em>URL cible en cas de succès</em> qui sera être utilisée pour définir l’emplacement de la fenêtre actuelle (frame) lorsque la requête est à succès."
+
+msgid "In case your application is not available, please log in using a different account"
+msgstr ""
 
 msgid "In folder:"
 msgstr "Dans le dossier :"
@@ -2190,6 +2193,9 @@ msgstr ""
 
 msgid "View asset content"
 msgstr "Voir le contenu de l'asset"
+
+msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
+msgstr ""
 
 msgid "View..."
 msgstr "Voir le code ..."

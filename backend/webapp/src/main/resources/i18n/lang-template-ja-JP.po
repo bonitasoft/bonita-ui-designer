@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-06-17 02:08\n"
+"PO-Revision-Date: 2019-06-19 02:15\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -1026,6 +1026,9 @@ msgstr "プロセス内にビジネス変数を定義した場合、プロセス
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
 msgstr "<em>成功時のレスポンス値</em> の変数に加え、 <em>POST</em>、<em>PUT</em>、<em>削除</em>、<em>プロセスを開始</em> 、<em>タスクを送信</em> のリクエストに対し、そのリクエストが成功したときに、現在のウィンドウ (フレーム) の場所に表示する<em>成功時のターゲットURL</em> を定義する可能性もあります。"
+
+msgid "In case your application is not available, please log in using a different account"
+msgstr ""
 
 msgid "In folder:"
 msgstr ""
@@ -2192,6 +2195,9 @@ msgstr ""
 
 msgid "View asset content"
 msgstr "アセットのコンテンツを表示"
+
+msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
+msgstr ""
 
 msgid "View..."
 msgstr ""
