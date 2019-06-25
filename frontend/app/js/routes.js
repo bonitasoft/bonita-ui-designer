@@ -33,7 +33,8 @@
               'fr': { lang: 'fr', file: 'lang-template-fr-FR.json' },
               'es': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
               'es-ES': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
-              'ja': { lang: 'ja', file: 'lang-template-ja-JP.json' }
+              'ja': { lang: 'ja', file: 'lang-template-ja-JP.json' },
+              'ja-JP': { lang: 'ja', file: 'lang-template-ja-JP.json' }
             };
             // narrow down which language is used or use en
             var language = languages[Object.keys(languages).reduce(function(previous, current) {
