@@ -19,6 +19,7 @@
   angular.module('bonitasoft.designer.assets', [
     'bonitasoft.designer.common.directives',
     'bonitasoft.designer.common.repositories',
+    'bonitasoft.designer.confirm-delete',
     'gettext',
     'ui.bootstrap'
   ]);

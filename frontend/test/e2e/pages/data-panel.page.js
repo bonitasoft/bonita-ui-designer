@@ -57,6 +57,7 @@
 
     deleteData: function(index) {
       this.lines.get(index).element(by.css('.delete-data')).click();
+      element(by.css('#confirm-delete')).click();
     },
 
     getData: function(index) {

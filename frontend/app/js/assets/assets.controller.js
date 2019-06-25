@@ -147,11 +147,25 @@
     }
 
     function deleteAsset(asset) {
-      assetRepo.deleteAsset(vm.component.id, asset).then(function() {
-        vm.component.assets = vm.component.assets.filter(function(actual) {
-          return actual.id !== asset.id;
-        });
+      let modalInstance = $uibModal.open({
+        templateUrl: 'js/confirm-delete/confirm-delete-popup.html',
+        controller: 'ConfirmDeletePopupController',
+        controllerAs: 'ctrl',
+        size: 'md',
+        resolve: {
+          artifact: () => asset.name,
+          type: () => 'asset'
+        }
       });
+
+      modalInstance.result.then(
+        () =>
+          assetRepo.deleteAsset(vm.component.id, asset).then(function() {
+            vm.component.assets = vm.component.assets.filter(function(actual) {
+              return actual.id !== asset.id;
+            });
+          })
+      );
     }
 
     function openAssetPreviewPopup(asset) {

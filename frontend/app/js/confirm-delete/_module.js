@@ -16,10 +16,7 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.bottom-panel.data-panel', [
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.confirm-delete',
+  angular.module('bonitasoft.designer.confirm-delete', [
     'gettext',
     'ui.bootstrap'
   ]);

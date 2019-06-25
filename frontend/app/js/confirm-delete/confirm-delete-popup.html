@@ -1,0 +1,12 @@
+<div id="confirm-delete-popup">
+    <div class="modal-header">
+        <h3 class="modal-title" translate>Confirm deletion</h3>
+    </div>
+    <div class="modal-body break-word" translate>
+        Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?
+    </div>
+    <div class="modal-footer">
+        <button id="confirm-delete" class="btn btn-primary" ng-click="ctrl.confirm()" name="delete" translate>Delete</button>
+        <button id="cancel-delete" class="btn btn-link" ng-click="ctrl.cancel()" name="cancel" translate>Cancel</button>
+    </div>
+</div>
