@@ -23,6 +23,8 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,8 +38,9 @@ import java.io.IOException;
 /**
  * Definition of the exception handlers
  */
+@Order(Ordered.LOWEST_PRECEDENCE)
 @ControllerAdvice
-public class ResourceControllerAdvice {
+public class ResourceControllerAdvice implements BonitaExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceControllerAdvice.class);
 
