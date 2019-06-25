@@ -42,6 +42,32 @@
       expect(data).toEqual(jasmine.objectContaining($scope.page.data.colin));
     });
 
+    it('should edit a data with default value', function() {
+      $scope.exposableData = true ;
+      $scope.page.data = {
+        $$name: 'myDataToEdit',
+        value: 'defaultValue',
+        exposed: false,
+        type: 'constant'
+      };
+      let dataToSave = {
+        $$name: 'myDataToEdit',
+        value: 'defaultValue',
+        exposed: true,
+        type: 'constant'
+      };
+      let expectedDataSaved = {
+        $$name: 'myDataToEdit',
+        value: '',
+        exposed: true,
+        type: 'constant'
+      };
+      $scope.save(dataToSave);
+      $scope.$apply();
+
+      expect(expectedDataSaved).toEqual(jasmine.objectContaining($scope.page.data.myDataToEdit));
+    });
+
     it('should delete a data', function() {
       $scope.page.data = { name: 'colin', value: 4 };
 
