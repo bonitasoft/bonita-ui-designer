@@ -1,0 +1,2466 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: bonita\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: bonita\n"
+"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
+"Language-Team: Portuguese, Brazilian\n"
+"Language: pt_BR\n"
+"PO-Revision-Date: 2019-06-18 02:25\n"
+
+msgid "&nbsp;"
+msgstr ""
+
+msgid "'{{newData.$$name}}' already exists"
+msgstr ""
+
+msgid "(displayed in editor's property panel)"
+msgstr ""
+
+msgid "(used in your template and controller)"
+msgstr ""
+
+msgid "../API/formFileUpload"
+msgstr ""
+
+msgid "7.5 Migration notes"
+msgstr "Notas de Migração 7.5"
+
+msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
+msgstr "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> variáveis de sequência de caracteres (com ou sem informações de hora)"
+
+msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
+"            For the time, it is rounded up or down to the closest 5 min value."
+msgstr ""
+
+msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
+"            It doesn't change the selected time, except when the time is not set.\n"
+"            In that case, it's rounded up or down to the closest 5 min value."
+msgstr "<b><em>hoje</em> botão</b> define a data selecionada para a data atual para o usuário.\n"
+"            Não muda o tempo selecionado, exceto quando o tempo não é definido.\n"
+"            Neste caso, isto é arredondado para cima ou para baixo com o valor mais próximo de 5 min."
+
+msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgstr ""
+
+msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
+msgstr ""
+
+msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
+msgstr ""
+
+msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
+msgstr ""
+
+msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
+msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horário do usuário é ignorado e o widget não contem qualquer informação do fuso horário (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
+
+msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
+msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
+
+msgid "<code>context</code> is an External API."
+msgstr ""
+
+msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
+msgstr ""
+
+msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
+msgstr ""
+
+msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
+msgstr ""
+
+msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
+msgstr ""
+
+msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
+msgstr ""
+
+msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
+msgstr ""
+
+msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
+msgstr "<em>data (não recomendado)</em> (baseado em <code>java.util.Date</code>)"
+
+msgid "<em>DATE ONLY</em> (based on <code>java.time.LocalDate</code>)"
+msgstr "<em>somente data</em> (baseado em <code>java.time.LocalDate</code>)"
+
+msgid "<em>DATE-TIME (NO TIME ZONE)</em> (based on <code>java.time.LocalDateTime</code>): set the property <em>Handle time zone</em> to \"No\""
+msgstr "<em>data e hora (sem fuso horário)</em> (baseado em <code>java.time.LocalDateTime</code>): defina a propriedade <em>fuso horário</em> para \"Não\""
+
+msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</code>): set the property <em>Handle time zone</em> to \"Yes\""
+msgstr "<em>data e hora (fuso horário)</em> (baseado em <code>java.time.OffsetDateTime</code>): defina a propriedade <em>fuso horário</em> para \"Sim\""
+
+msgid "<em>Failed response value</em>: the variable will be set if the request is unsuccessful (code 4XX)"
+msgstr ""
+
+msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
+msgstr ""
+
+msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
+msgstr ""
+
+msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
+msgstr ""
+
+msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
+msgstr ""
+
+msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
+msgstr ""
+
+msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
+msgstr ""
+
+msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
+msgstr ""
+
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
+msgstr ""
+
+msgid "<span>Create a new variable</span>"
+msgstr ""
+
+msgid "<strong>$collection</strong>: the current collection"
+msgstr ""
+
+msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
+msgstr ""
+
+msgid "<strong>$item</strong>: the element of the current iteration"
+msgstr ""
+
+msgid "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-ddTHH:mm:ss(Z)"
+msgstr ""
+
+msgid "A JSON object"
+msgstr ""
+
+msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
+msgstr ""
+
+msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
+msgstr ""
+
+msgid "A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard."
+msgstr "Um container modal não pode ser localizado em outro container. Recomendação: apague todos os containers modais na parte inferior do quadro."
+
+msgid "A modal container doesn't work when it is embedded in another container."
+msgstr "Um container modal não funciona quando é encaixado em um outro container."
+
+msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
+msgstr ""
+
+msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
+msgstr ""
+
+msgid "A server error occurred."
+msgstr ""
+
+msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
+msgstr ""
+
+msgid "A variable initialized with an External API is reloaded every time the URL value changes."
+msgstr ""
+
+msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
+
+msgid "A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr ""
+
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr ""
+
+msgid "API URL"
+msgstr ""
+
+msgid "Access to $form capabilities for form container"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)"
+msgstr ""
+
+msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
+msgstr ""
+
+msgid "Add a modal ID, as the button will need to open the right modal container. This ID must be unique within a given page, form, or layout."
+msgstr ""
+
+msgid "Add a new asset"
+msgstr ""
+
+msgid "Add a new tab"
+msgstr ""
+
+msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
+msgstr ""
+
+msgid "Add to collection"
+msgstr ""
+
+msgid "Add/Remove an Object to/from a collection"
+msgstr ""
+
+msgid "Added artifacts"
+msgstr ""
+
+msgid "Additional request parameters added to the query string"
+msgstr ""
+
+msgid "Alignment"
+msgstr ""
+
+msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
+msgstr ""
+
+msgid "All process data of a case: Search for a list of case variables"
+msgstr ""
+
+msgid "Alternate text"
+msgstr ""
+
+msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
+msgstr ""
+
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr ""
+
+msgid "Animation"
+msgstr ""
+
+msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
+"            following classes:"
+msgstr ""
+
+msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
+msgstr ""
+
+msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
+msgstr ""
+
+msgid "Any button can close a modal container that contains it when a success happens after any button action."
+msgstr ""
+
+msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
+msgstr ""
+
+msgid "Application URL token"
+msgstr ""
+
+msgid "Application layout"
+msgstr ""
+
+msgid "Application page"
+msgstr ""
+
+msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
+msgstr ""
+
+msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
+msgstr ""
+
+msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
+msgstr ""
+
+msgid "Artifact creation:"
+msgstr ""
+
+msgid "As used in the URL after the application token"
+msgstr ""
+
+msgid "Asset"
+msgstr ""
+
+msgid "Asset Name"
+msgstr ""
+
+msgid "Asset has not been saved"
+msgstr ""
+
+msgid "Asset list"
+msgstr ""
+
+msgid "Asset reordering"
+msgstr ""
+
+msgid "Asset use"
+msgstr ""
+
+msgid "Assets"
+msgstr ""
+
+msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and (in Subscription editions) <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
+msgstr ""
+
+msgid "Assign before Submit"
+msgstr ""
+
+msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
+msgstr ""
+
+msgid "At runtime, assets of a custom widget are loaded in the order defined."
+msgstr ""
+
+msgid "Attention:"
+msgstr ""
+
+msgid "Automatically assign the Task to the current user before the execution"
+msgstr ""
+
+msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
+msgstr "Disponível na paleta, abre sobre o conteúdo de um página/formulário/layout. Para gerenciar esses containers, o botão widget ganha duas ações: \"Abrir modal\" e \"Fechar modal\"."
+
+msgid "Available values"
+msgstr ""
+
+msgid "Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic)."
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Back to default size"
+msgstr ""
+
+msgid "Base framework"
+msgstr ""
+
+msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
+msgstr ""
+
+msgid "Bidirectional bond"
+msgstr ""
+
+msgid "Bonita BPM"
+msgstr ""
+
+msgid "Bonita REST API calls"
+msgstr ""
+
+msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
+msgstr ""
+
+msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
+msgstr ""
+
+msgid "CSS classes"
+msgstr ""
+
+msgid "Calendar for selecting a date (only)"
+msgstr ""
+
+msgid "Calendar for selecting a date and time"
+msgstr ""
+
+msgid "Call a business data (custom) query"
+msgstr ""
+
+msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
+msgstr ""
+
+msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
+msgstr ""
+
+msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
+msgstr ""
+
+msgid "Can be translated in subscription editions using the asset localization.json"
+msgstr ""
+
+msgid "Can be used to define the expected input format"
+msgstr ""
+
+msgid "Can be used to fulfill a contract"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Caption"
+msgstr ""
+
+msgid "Case Id"
+msgstr ""
+
+msgid "Case identifier could then be retrieved by {{myData.rootCaseId}}"
+msgstr ""
+
+msgid "Case overview"
+msgstr ""
+
+msgid "Change the type of a UI Designer artifact (page/form)"
+msgstr "Alterar o tipo de um artefato de UI Designer (página/formulário)"
+
+msgid "Changes need to be saved to enable the preview"
+msgstr ""
+
+msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr ""
+
+msgid "Check that the zip archive contains one of following files {{ infos.modelfiles }}."
+msgstr ""
+
+msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
+msgstr ""
+
+msgid "Check that the zip file structure matches a standard UI Designer export."
+msgstr ""
+
+msgid "Check the log files"
+msgstr ""
+
+msgid "Choices"
+msgstr ""
+
+msgid "Choices (comma separated)"
+msgstr ""
+
+msgid "Choose process document if the file is used by a process"
+msgstr ""
+
+msgid "Choose true if you want display this modal with an animation, false otherwise"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Clear search"
+msgstr ""
+
+msgid "Click <em>Add</em> to override."
+msgstr ""
+
+msgid "Click to bind to a constant"
+msgstr ""
+
+msgid "Click to bind to an expression"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Close Modal"
+msgstr ""
+
+msgid "Close modal"
+msgstr ""
+
+msgid "Close modal on success"
+msgstr ""
+
+msgid "Close modal when the action is successful"
+msgstr ""
+
+msgid "Collection"
+msgstr ""
+
+msgid "Collections"
+msgstr ""
+
+msgid "Column keys"
+msgstr ""
+
+msgid "Comma-separated list"
+msgstr ""
+
+msgid "Comma-separated list or bound an array data"
+msgstr ""
+
+msgid "Configure widgets using the <b>properties panel</b> on the right."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
+msgid "Constant"
+msgstr ""
+
+msgid "Container used for a form. Eases validation"
+msgstr ""
+
+msgid "Containers"
+msgstr ""
+
+msgid "Containers cannot be switched."
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+msgid "Control"
+msgstr ""
+
+msgid "Controller"
+msgstr ""
+
+msgid "Controller can be left empty if not needed."
+msgstr ""
+
+msgid "Convert to ..."
+msgstr ""
+
+msgid "Convert {{ctrl.page.name}}"
+msgstr ""
+
+msgid "Corrupted zip archive."
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
+msgstr ""
+
+msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
+msgstr ""
+
+msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
+msgstr ""
+
+msgid "Create a new UI Designer artifact"
+msgstr ""
+
+msgid "Create a new variable"
+msgstr ""
+
+msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
+msgstr ""
+
+msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
+msgstr ""
+
+msgid "Create an <b>application page</b> directly in the UI Designer"
+msgstr ""
+
+msgid "Create new artifact"
+msgstr ""
+
+msgid "Create new property"
+msgstr ""
+
+msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
+msgstr ""
+
+msgid "Current frame (_self)"
+msgstr ""
+
+msgid "Custom URL"
+msgstr ""
+
+msgid "Custom services"
+msgstr ""
+
+msgid "Custom widget"
+msgstr ""
+
+msgid "Custom widgets"
+msgstr ""
+
+msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
+msgstr ""
+
+msgid "DELETE"
+msgstr ""
+
+msgid "Data sent on click"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Date & time display"
+msgstr ""
+
+msgid "Date Placeholder"
+msgstr ""
+
+msgid "Date and time"
+msgstr "pouet pouet"
+
+msgid "Date and time can reflect the user time zone (e.g., a meeting day and time) or be absolute, identical everywhere (e.g., opening hours of a store somewhere).\n"
+"            This is controlled by the property <em>Handle time zone</em>."
+msgstr ""
+
+msgid "Date display"
+msgstr ""
+
+msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
+msgstr ""
+
+msgid "Date object"
+msgstr "Data do objeto"
+
+msgid "Date objects"
+msgstr "Objetos de data"
+
+msgid "Default"
+msgstr ""
+
+msgid "Default label"
+msgstr ""
+
+msgid "Default name"
+msgstr ""
+
+msgid "Default value"
+msgstr ""
+
+msgid "Default variables"
+msgstr ""
+
+msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
+msgstr ""
+
+msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
+msgstr ""
+
+msgid "Defines endpoint URL where the file will be uploaded"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete asset"
+msgstr ""
+
+msgid "Delete variable"
+msgstr ""
+
+msgid "Deletion is not possible"
+msgstr ""
+
+msgid "Describes the property"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Determines target application. It is recommended not to hard code it."
+msgstr ""
+
+msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
+msgstr ""
+
+msgid "Direct link to an external file"
+msgstr ""
+
+msgid "Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured."
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Discard changes"
+msgstr ""
+
+msgid "Display an image from assets or from a URL"
+msgstr ""
+
+msgid "Display name"
+msgstr ""
+
+msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
+msgstr "Nome de exibição e a descrição são usados quando a página, um formulário ou um layout são importados na página de Recursos do portal. Para editá-los, clique no novo botão \"Tag\"."
+
+msgid "Display or hide the shortcut button to current day"
+msgstr ""
+
+msgid "Display or hide the shortcut button to set date and time to now"
+msgstr ""
+
+msgid "Display the document in the page or a form"
+msgstr ""
+
+msgid "Displayed key"
+msgstr ""
+
+msgid "Do not show me this dialog again"
+msgstr ""
+
+msgid "Do you still want to import this {{ ::importReport.type }} now ?"
+msgstr ""
+
+msgid "Download asset"
+msgstr ""
+
+msgid "Drag and drop widgets or containers in rows"
+msgstr ""
+
+msgid "Dropdown list of available values. The user selects one value"
+msgstr ""
+
+msgid "Dynamic value"
+msgstr ""
+
+msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>"
+msgstr ""
+
+msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
+msgstr ""
+
+msgid "Each type or container has specific behaviors"
+msgstr ""
+
+msgid "Easily create forms to edit business variables or documents, or display business variables in read-only"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit asset"
+msgstr ""
+
+msgid "Edit property"
+msgstr ""
+
+msgid "Edit the display name and display description of a page, form, or layout from the Editor"
+msgstr "Editar o nome de exibição e exibir a descrição de uma página, formulário ou um layout do Editor"
+
+msgid "Edit variable"
+msgstr ""
+
+msgid "Edit..."
+msgstr ""
+
+msgid "Editor organization"
+msgstr ""
+
+msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
+msgstr ""
+
+msgid "Enter ' + vm.mode + ' name"
+msgstr ""
+
+msgid "Enter a date (mm/dd/yyyy)"
+msgstr ""
+
+msgid "Enter a time (h:mm:ss a)"
+msgstr ""
+
+msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
+msgstr ""
+
+msgid "Error on upload holder"
+msgstr ""
+
+msgid "Example: relative time filter"
+msgstr ""
+
+msgid "Expand Preview in new window"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Export {{ctrl.page.name}}"
+msgstr ""
+
+msgid "Exported formats"
+msgstr ""
+
+msgid "Exposed"
+msgstr ""
+
+msgid "Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need."
+msgstr ""
+
+msgid "External"
+msgstr ""
+
+msgid "External API"
+msgstr ""
+
+msgid "External API (variable) or URL"
+msgstr ""
+
+msgid "Extra angular modules needed by this custom widget (comma separated)"
+msgstr ""
+
+msgid "Failed response value"
+msgstr ""
+
+msgid "Favorites"
+msgstr ""
+
+msgid "Field where the user can enter information"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "File chooser for uploading a document to a form"
+msgstr ""
+
+msgid "File source"
+msgstr ""
+
+msgid "File unavailable"
+msgstr ""
+
+msgid "FileName"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "First"
+msgstr ""
+
+msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
+msgstr ""
+
+msgid "For HTTP requests and Start process / Submit task actions, you can store the response of the request in a variable using the properties:"
+msgstr ""
+
+msgid "For HTTP requests, the following methods are supported:"
+msgstr ""
+
+msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
+msgstr ""
+
+msgid "For an example of JavaScript code to handle the message, you can have a look at the asset <em>layout.js</em> in the default application layout (you can retrieve it in the resources section of Bonita Portal Administrator profile)."
+msgstr ""
+
+msgid "For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data."
+msgstr ""
+
+msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
+msgstr ""
+
+msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
+msgstr ""
+
+msgid "For more information, consult the official UI Designer overview documentation."
+msgstr ""
+
+msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
+msgstr ""
+
+msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
+msgstr ""
+
+msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
+msgstr "Para novos artefatos, você precisa adicionar o recurso você mesmo nos widgets personalizados ou nas páginas que o exigem."
+
+msgid "For the moment, you cannot implement custom widget containers."
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Format used to display the date"
+msgstr ""
+
+msgid "Format used to display the time"
+msgstr ""
+
+msgid "Forms"
+msgstr ""
+
+msgid "Frame"
+msgstr ""
+
+msgid "From the page or form editors, right by the \"Save\" button, a click on the arrow displays a new option \"Convert to...\". It has also been added in the \"Save as\" option to, for example, save a form as a case overview page."
+msgstr "Do editor de página ou formulário, bem pelo botão a direita \"Save\", um clique na seta exibe uma nova opção \"Converter para...\". Ele também foi adicionado na opção \"Salvar como\", por exemplo, salvar um formulário como uma página de resumo do caso."
+
+msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
+msgstr ""
+
+msgid "GET"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Get a case by its identifier"
+msgstr ""
+
+msgid "Get a human task by its identifier"
+msgstr ""
+
+msgid "Get all business variables defined in a case"
+msgstr ""
+
+msgid "Get current logged user"
+msgstr ""
+
+msgid "Get custom information of a user"
+msgstr ""
+
+msgid "Get professional details of a user"
+msgstr ""
+
+msgid "Go full screen"
+msgstr ""
+
+msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
+msgstr ""
+
+msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
+msgstr ""
+
+msgid "HTTP request"
+msgstr ""
+
+msgid "HTTP status code"
+msgstr ""
+
+msgid "Handle time zone"
+msgstr ""
+
+msgid "Headers"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
+msgstr ""
+
+msgid "Hidden"
+msgstr ""
+
+msgid "Holds the HTTP status code of the response"
+msgstr ""
+
+msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
+msgstr ""
+
+msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
+msgstr ""
+
+msgid "Holds the response when the request has failed"
+msgstr ""
+
+msgid "Holds the response when the request is successful"
+msgstr ""
+
+msgid "Home page"
+msgstr ""
+
+msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
+msgstr "No entanto, <b>a saída do widget é sempre um obejto de Data Javascript</b>. Então vai mudar o tipo da variável vinculado ao widget <em>Valor</em> para um objeto de data, quando o usuário seleciona uma data. Isso é necessário para garantir a compatibilidade com versões anteriores para páginas desenhadas com versões mais antigas do UI Designer."
+
+msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
+msgstr ""
+
+msgid "Human task form"
+msgstr ""
+
+msgid "Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
+
+msgid "Id must be unique, so those elements will be overwritten."
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
+
+msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
+msgstr ""
+
+msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
+msgstr ""
+
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
+msgstr ""
+
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
+msgstr ""
+
+msgid "If you specify an expression, the result must be an array of strings"
+msgstr ""
+
+msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Import a UI Designer artifact"
+msgstr ""
+
+msgid "Import error"
+msgstr ""
+
+msgid "Import the moment.js library as an external asset."
+msgstr ""
+
+msgid "Import this JavaScript file as a local page asset."
+msgstr ""
+
+msgid "Import {{ ::importReport.name }}"
+msgstr ""
+
+msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
+msgstr ""
+
+msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
+msgstr ""
+
+msgid "In a form, a page, or a layout, we recommend to drop modal containers at the bottom of the editor content."
+msgstr ""
+
+msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
+msgstr ""
+
+msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
+msgstr ""
+
+msgid "In folder:"
+msgstr "Na pasta:"
+
+msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
+msgstr ""
+
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
+
+msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
+msgstr ""
+
+msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr ""
+
+msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
+msgstr ""
+
+msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
+msgstr ""
+
+msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
+msgstr ""
+
+msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
+msgstr ""
+
+msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
+msgstr ""
+
+msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
+msgstr ""
+
+msgid "Includes the localized version of the Technical date format property, to guide the user"
+msgstr ""
+
+msgid "Includes the localized version of the Technical time format property, to guide the user"
+msgstr ""
+
+msgid "Incorrect zip structure."
+msgstr ""
+
+msgid "Inline"
+msgstr ""
+
+msgid "Input field with content completion from a given list"
+msgstr ""
+
+msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
+msgstr "Entrada: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatado String (yyyy-MM-dd), Data objeto ou número Longo <br>Saída: Data objeto (consulte a ajuda do widget)"
+
+msgid "Integration with Bonita platform"
+msgstr ""
+
+msgid "Interpolation"
+msgstr ""
+
+msgid "Interpret HTML"
+msgstr ""
+
+msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
+msgstr ""
+
+msgid "Invalid {{ infos.modelfile }} json file structure"
+msgstr ""
+
+msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
+msgstr ""
+
+msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
+msgstr ""
+
+msgid "Item"
+msgstr ""
+
+msgid "Item to remove"
+msgstr ""
+
+msgid "JSON"
+msgstr ""
+
+msgid "JSON descriptor to exchange between UI Designers"
+msgstr ""
+
+msgid "JSON specifications can be found on the"
+msgstr ""
+
+msgid "Javascript expression"
+msgstr ""
+
+msgid "Label"
+msgstr ""
+
+msgid "Label hidden"
+msgstr ""
+
+msgid "Label position"
+msgstr ""
+
+msgid "Label width"
+msgstr ""
+
+msgid "Last"
+msgstr ""
+
+msgid "Last Update:"
+msgstr ""
+
+msgid "Layouts"
+msgstr ""
+
+msgid "Level 1"
+msgstr ""
+
+msgid "Level 2"
+msgstr ""
+
+msgid "Level 3"
+msgstr ""
+
+msgid "Level 4"
+msgstr ""
+
+msgid "Level 5"
+msgstr ""
+
+msgid "Level 6"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Link to display or download a document"
+msgstr ""
+
+msgid "Linked to a process instantiation or a task, using the contract"
+msgstr ""
+
+msgid "Linked to an application descriptor."
+msgstr ""
+
+msgid "List of cases open for a process definition id"
+msgstr ""
+
+msgid "List of human task in ready state for current user (pending + assigned)"
+msgstr ""
+
+msgid "Living data"
+msgstr ""
+
+msgid "Loading {{mode}}..."
+msgstr ""
+
+msgid "Local"
+msgstr ""
+
+msgid "Localization"
+msgstr ""
+
+msgid "Long number values (Milliseconds since epoch)"
+msgstr "Valores de número longo (milissegundos desde período)"
+
+msgid "Look what you're missing"
+msgstr ""
+
+msgid "MM/dd/yyyy"
+msgstr ""
+
+msgid "Make sure the technical format value and its translations is a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date format</a>."
+msgstr ""
+
+msgid "Make sure the technical format values and their translations are valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">date/time formats</a>."
+msgstr ""
+
+msgid "Malformed json file"
+msgstr ""
+
+msgid "Mark as favorite"
+msgstr ""
+
+msgid "Max value"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Metadata"
+msgstr ""
+
+msgid "Migration"
+msgstr "Migrações"
+
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr "Milissegundos desde período (número ou sequência de caracteres variável)"
+
+msgid "Min value"
+msgstr ""
+
+msgid "Minified widgets JavaScript for optimized performance"
+msgstr ""
+
+msgid "Modal"
+msgstr ""
+
+msgid "Modal Id"
+msgstr ""
+
+msgid "Modal container"
+msgstr ""
+
+msgid "Modals"
+msgstr ""
+
+msgid "Move asset down"
+msgstr ""
+
+msgid "Move asset up"
+msgstr ""
+
+msgid "Move the row down"
+msgstr ""
+
+msgid "Move the row up"
+msgstr ""
+
+msgid "Multi-line, expandable, text input field"
+msgstr ""
+
+msgid "Multiple content for tabs container"
+msgstr ""
+
+msgid "Multiple groups of widgets, each group in a tab"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr ""
+
+msgid "Name must contains only alphanumeric characters with no space"
+msgstr ""
+
+msgid "Navigation link to another page or form"
+msgstr ""
+
+msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
+msgstr ""
+
+msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
+msgstr ""
+
+msgid "New modal container to create pop-ins"
+msgstr "Novo contêiner modal para criar pop-ins"
+
+msgid "New window (_blank)"
+msgstr ""
+
+msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
+msgstr ""
+
+msgid "No"
+msgstr "Não"
+
+msgid "No Bonita REST API calls."
+msgstr ""
+
+msgid "No application selected"
+msgstr ""
+
+msgid "No artifact found."
+msgstr ""
+
+msgid "No variable"
+msgstr ""
+
+msgid "No {{label}} asset (no scope selected)."
+msgstr ""
+
+msgid "No {{label}} asset at page level."
+msgstr ""
+
+msgid "No {{label}} asset at widget level."
+msgstr ""
+
+msgid "No {{label}} asset."
+msgstr ""
+
+msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
+msgstr ""
+
+msgid "Noteworthy changes"
+msgstr ""
+
+msgid "Now"
+msgstr ""
+
+msgid "Now button label"
+msgstr ""
+
+msgid "Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container"
+msgstr ""
+
+msgid "Object key to display"
+msgstr ""
+
+msgid "Once you select an element, edit its properties in the properties panel on the right."
+msgstr ""
+
+msgid "Only works with formats supported by the browser (by default PDF and image)"
+msgstr ""
+
+msgid "Open Modal"
+msgstr ""
+
+msgid "Open documentation"
+msgstr ""
+
+msgid "Open help"
+msgstr ""
+
+msgid "Open modal"
+msgstr ""
+
+msgid "Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes."
+msgstr ""
+
+msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
+msgstr ""
+
+msgid "Ordered by artifact name.<br/>Click to sort by last update"
+msgstr ""
+
+msgid "Ordered by last update.<br/>Click to sort by artifact name"
+msgstr ""
+
+msgid "Overridden artifacts"
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "POST"
+msgstr ""
+
+msgid "PUT"
+msgstr ""
+
+msgid "Page Name"
+msgstr ""
+
+msgid "Page description"
+msgstr ""
+
+msgid "Page display name"
+msgstr ""
+
+msgid "Page level"
+msgstr ""
+
+msgid "Page token"
+msgstr ""
+
+msgid "Pages"
+msgstr ""
+
+msgid "Parent frame (_parent)"
+msgstr ""
+
+msgid "Perform an HTTP request"
+msgstr ""
+
+msgid "Placeholder"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Preview - {{pageName}}"
+msgstr ""
+
+msgid "Process document"
+msgstr ""
+
+msgid "Process form"
+msgstr ""
+
+msgid "Process instantiation form"
+msgstr ""
+
+msgid "Process name"
+msgstr ""
+
+msgid "Process version"
+msgstr ""
+
+msgid "Properties"
+msgstr ""
+
+msgid "Property names must start with a letter and contain only alphanumeric characters"
+msgstr ""
+
+msgid "Read-only"
+msgstr ""
+
+msgid "Read-write binding, initialized or updated by users' input (bi-directional bond)"
+msgstr ""
+
+msgid "Referenced in a case context (current case or other cases)"
+msgstr ""
+
+msgid "Relative time filter"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Remove from collection"
+msgstr ""
+
+msgid "Remove tab"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Render a UID page ot form in the end-user browser"
+msgstr ""
+
+msgid "Repeat container content. Variable of type array"
+msgstr ""
+
+msgid "Repeat content for the plain container"
+msgstr ""
+
+msgid "Repeated container"
+msgstr ""
+
+msgid "Request"
+msgstr ""
+
+msgid "Required"
+msgstr ""
+
+msgid "Required angular modules"
+msgstr ""
+
+msgid "Reset mapping"
+msgstr ""
+
+msgid "Reset mapping to default"
+msgstr ""
+
+msgid "Response"
+msgstr ""
+
+msgid "Returned key"
+msgstr ""
+
+msgid "Row"
+msgstr ""
+
+msgid "Rows"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Save as ..."
+msgstr ""
+
+msgid "Save as..."
+msgstr ""
+
+msgid "Save {{ctrl.page.name}} as..."
+msgstr ""
+
+msgid "Save {{ctrl.widget.name}} as..."
+msgstr ""
+
+msgid "Saved"
+msgstr ""
+
+msgid "Scope"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Search a list of cases based on search indexes"
+msgstr ""
+
+msgid "Search on name"
+msgstr ""
+
+msgid "See example 'date object initialization'"
+msgstr ""
+
+msgid "See example 'functional programming'"
+msgstr ""
+
+msgid "See examples"
+msgstr ""
+
+msgid "See the default localization asset for an example."
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Select a widget or start typing"
+msgstr ""
+
+msgid "Select an element on the whiteboard, then set its properties here"
+msgstr ""
+
+msgid "Select an option"
+msgstr ""
+
+msgid "Select your .zip file"
+msgstr ""
+
+msgid "Select your file"
+msgstr ""
+
+msgid "Selected Row"
+msgstr ""
+
+msgid "Selected Value"
+msgstr ""
+
+msgid "Selected values"
+msgstr ""
+
+msgid "Send data to this URL when the button is clicked"
+msgstr ""
+
+msgid "Set of buttons for mutually exclusive options. The user selects one option"
+msgstr ""
+
+msgid "Set of checkboxes for options. The user selects zero or more"
+msgstr ""
+
+msgid "Set the input time on the same line as the input date"
+msgstr ""
+
+msgid "Short hint that describes the expected input format for the date"
+msgstr ""
+
+msgid "Short hint that describes the expected input format for the time"
+msgstr ""
+
+msgid "Short hint that describes the expected value"
+msgstr ""
+
+msgid "Short string or paragraph of text to be displayed. Can include HTML tags"
+msgstr ""
+
+msgid "Should contain time zone information only when 'Handle time zone' is set to 'yes'"
+msgstr "Deve conter informações de fuso horário, somente quando 'Identificador de fuso horário' é definida como 'Sim'"
+
+msgid "Show Now button"
+msgstr ""
+
+msgid "Show Today button"
+msgstr ""
+
+msgid "Show preview"
+msgstr ""
+
+msgid "Show properties"
+msgstr ""
+
+msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
+msgstr "Desde 7.5.0, UI Bootstrap já não constam nas páginas do UI Designer."
+
+msgid "Size"
+msgstr ""
+
+msgid "Source"
+msgstr ""
+
+msgid "Source Type"
+msgstr ""
+
+msgid "Space-separated list"
+msgstr ""
+
+msgid "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration"
+msgstr ""
+
+msgid "Specifies the case (process instance) Id"
+msgstr ""
+
+msgid "Specifies the legal number intervals between values"
+msgstr ""
+
+msgid "Specifies the process name"
+msgstr ""
+
+msgid "Specifies the process version"
+msgstr ""
+
+msgid "Specifies the task instance Id"
+msgstr ""
+
+msgid "Specifies the type of link to create"
+msgstr ""
+
+msgid "Specifies where to open the linked document"
+msgstr ""
+
+msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
+msgstr ""
+
+msgid "Standard widgets JavaScript for edition outside the UI Designer"
+msgstr ""
+
+msgid "Start a process"
+msgstr ""
+
+msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr ""
+
+msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
+msgstr ""
+
+msgid "Start process"
+msgstr ""
+
+msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories. You may rename existing artifacts so they benefit from this change too."
+msgstr "A partir da versão 7.7.0, o nome de um artefato de UI torna-se seu identificador exclusivo, em vez de um identificador aleatório. Isso os tornará mais fáceis de encontrar nos repositórios do Bonita. Você pode renomear os artefatos existentes para que eles também se beneficiem dessa mudança."
+
+msgid "Step"
+msgstr ""
+
+msgid "String"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Submit a task"
+msgstr ""
+
+msgid "Submit task"
+msgstr ""
+
+msgid "Subscription edition"
+msgstr ""
+
+msgid "Successful import"
+msgstr ""
+
+msgid "Successful response value"
+msgstr ""
+
+msgid "Summary of the Bonita REST API calls made by the page."
+msgstr ""
+
+msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
+msgstr "Resumo das chamadas para a Bonita API REST, feita em uma página, um formulário ou um layout"
+
+msgid "Switch"
+msgstr ""
+
+msgid "Switch <i class=\"fa fa-exchange\"></i>"
+msgstr ""
+
+msgid "Switch to"
+msgstr ""
+
+msgid "Switch widget"
+msgstr ""
+
+msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
+msgstr ""
+
+msgid "Switch..."
+msgstr ""
+
+msgid "Tabular presentation of data from an array"
+msgstr ""
+
+msgid "Target"
+msgstr ""
+
+msgid "Target URL on success"
+msgstr ""
+
+msgid "Task Id"
+msgstr ""
+
+msgid "Technical Format"
+msgstr "Formato técnico"
+
+msgid "Technical date format"
+msgstr ""
+
+msgid "Technical time format"
+msgstr ""
+
+msgid "Template"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Text used to structure the page or form content"
+msgstr ""
+
+msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
+msgstr ""
+
+msgid "The .zip archive of an exported page contains:"
+msgstr ""
+
+msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
+msgstr ""
+
+msgid "The <em>Open modal</em> action can be used to open any modal container on the page. To point towards the right one, specify the ID in the button's \"Modal ID\" property."
+msgstr ""
+
+msgid "The <em>Technical date format</em> and <em>Technical time format</em> properties define the format of the values displayed in the date and time inputs.\n"
+"            They should be valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date/time formats</a>."
+msgstr ""
+
+msgid "The <em>Technical date format</em> property define the format of the values displayed in the date input.\n"
+"        It should be a valid <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">AngularJS date format</a>."
+msgstr ""
+
+msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
+msgstr ""
+
+msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
+msgstr ""
+
+msgid "The UI Designer is displayed in the language of your Bonita Studio."
+msgstr ""
+
+msgid "The caption will be displayed as such below the property label."
+msgstr ""
+
+msgid "The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>."
+msgstr ""
+
+msgid "The content of <em>Label</em>, <em>Technical date formats</em>, <em>Placeholder</em> properties, as well as the labels of buttons <em>Today/Now</em> are localized by default. Localized formats can be edited in the asset <em>localization.json</em>."
+msgstr ""
+
+msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template."
+msgstr ""
+
+msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
+msgstr ""
+
+msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
+msgstr ""
+
+msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
+msgstr ""
+
+msgid "The imported {{ ::importReport.type }} also contains new elements."
+msgstr ""
+
+msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatted String variable."
+msgstr "A entrada/saída do widget (seu <em>Valor</em>) é que um <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> formatado como variável de sequência de caracteres."
+
+msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
+msgstr ""
+
+msgid "The modal size can be selected in the container <em>Size</em> properties. Options available are small,\n"
+"            medium or large, which will control the width of the modal."
+msgstr ""
+
+msgid "The modal style can be improved by using the <em>modal-body</em> specific class into the <em>CSS\n"
+"            Classes</em> property field."
+msgstr ""
+
+msgid "The name of the key to use as label. Can be empty"
+msgstr ""
+
+msgid "The name of the key to use as value. Leave it empty for whole object"
+msgstr ""
+
+msgid "The page has not been imported."
+msgstr ""
+
+msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
+msgstr ""
+
+msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
+msgstr ""
+
+msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
+msgstr "O mesmo botão \"Tag\" exibe um resumo de todas as chamadas de API REST feita pelo artefato atual para a Bonita API REST.\""
+
+msgid "The tooltip will be display as such, close to the property label."
+msgstr ""
+
+msgid "The values of all properties are also used as translation keys. As a result, if you choose not to keep the default values, update the asset <em>localization.json</em> accordingly."
+msgstr ""
+
+msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
+msgstr ""
+
+msgid "The widget HTML template is defined here."
+msgstr ""
+
+msgid "The widget has not been imported."
+msgstr ""
+
+msgid "The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr ""
+
+msgid "The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements."
+msgstr ""
+
+msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
+msgstr ""
+
+msgid "The {{ artifactType }} has not been imported."
+msgstr ""
+
+msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr ""
+
+msgid "This description will be displayed as a tooltip in the palette"
+msgstr ""
+
+msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
+msgstr ""
+
+msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
+msgstr ""
+
+msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
+msgstr ""
+
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the dedicated documentation.\" Et là tu dois faire un .bos redirect vers la bonne URL."
+msgstr ""
+
+msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
+"            of the modal."
+msgstr ""
+
+msgid "This name already exists"
+msgstr ""
+
+msgid "This page allows you to view a standard widget, or edit a custom widget."
+msgstr ""
+
+msgid "This page is empty."
+msgstr ""
+
+msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
+msgstr "Este widget pode ser usado para exibir/atualizar atributos de variável de negócios definidos em Modelo de Dados do Negócio (BDM) com os seguintes tipos:"
+
+msgid "This widget supports the following types for its <em>Value</em> property as input:"
+msgstr "Este widget suporta os seguintes tipos de propriedades de <em>Valor</em> como entrada:"
+
+msgid "This will also update the content of the preview window"
+msgstr ""
+
+msgid "Time Placeholder"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Title level"
+msgstr ""
+
+msgid "To add content, drag and drop components from the palette to the whiteboard above."
+msgstr ""
+
+msgid "To allow your user to download a document add a link widget with its url property bound to"
+msgstr ""
+
+msgid "To avoid them being overwritten, <i>rename</i> them before you import."
+msgstr ""
+
+msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
+"            modal</em> action."
+msgstr ""
+
+msgid "To control modal containers, the following methods are available in a button:"
+msgstr ""
+
+msgid "To control modal containers, the following methods are supported:"
+msgstr ""
+
+msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
+msgstr ""
+
+msgid "To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
+msgstr ""
+
+msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
+msgstr ""
+
+msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
+msgstr ""
+
+msgid "To edit this standard widget, save it first as a new custom widget"
+msgstr ""
+
+msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
+msgstr ""
+
+msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
+msgstr ""
+
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the dedicated documentation. (idem, bos redirect)"
+msgstr ""
+
+msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
+msgstr "Para manter as coisas funcionando, se você migrar uma página criada em uma versão anterior 7.5.0 e contendo widgets personalizados, <em>ui-bootstrap-tpls-0.13.0.min.js</em> será adicionado como um ativo da sua página automaticamente. Você pode removê-lo se você não precisar dele."
+
+msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
+msgstr ""
+
+msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
+msgstr ""
+
+msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
+msgstr ""
+
+msgid "To open a modal window it is enough to input a modal ID in the properties, to create a button,\n"
+"            select <em>Open modal</em> in the Action property, and fill in the right modal ID. The button should be\n"
+"            located outside of the modal container."
+msgstr ""
+
+msgid "To retrieve a document instance, create an External API variable with value"
+msgstr ""
+
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
+msgstr ""
+
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import."
+msgstr ""
+
+msgid "To select a date and a time (e.g., to schedule a meeting), use the <em>Date time picker</em> widget instead."
+msgstr ""
+
+msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</em> widget instead."
+msgstr ""
+
+msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
+msgstr ""
+
+msgid "To update a form during production, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
+msgstr ""
+
+msgid "To use AngularJS standard services, you must declare them in the main function arguments."
+msgstr ""
+
+msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
+msgstr ""
+
+msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
+msgstr ""
+
+msgid "To use the collection data in the widgets of this container, there are contextual variables that you can bind to the widget properties:"
+msgstr ""
+
+msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
+msgstr ""
+
+msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Today & Now"
+msgstr ""
+
+msgid "Today button label"
+msgstr ""
+
+msgid "Toggle properties panel"
+msgstr ""
+
+msgid "Tooltip"
+msgstr ""
+
+msgid "Top frame (_top)"
+msgstr ""
+
+msgid "Translate the given text"
+msgstr ""
+
+msgid "Treat as"
+msgstr ""
+
+msgid "Treat value as"
+msgstr ""
+
+msgid "Trigger for an action in a page or form"
+msgstr ""
+
+msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "UI Designer"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "URL parameter"
+msgstr ""
+
+msgid "URL parameter name"
+msgstr ""
+
+msgid "URL parameters"
+msgstr ""
+
+msgid "URL to call"
+msgstr ""
+
+msgid "URL used to perform the HTTP request when this button is clicked."
+msgstr ""
+
+msgid "Unique ID of this modal"
+msgstr ""
+
+msgid "Unique checkbox for an option. The user checks it or not"
+msgstr ""
+
+msgid "Unmark as favorite"
+msgstr ""
+
+msgid "Update asset"
+msgstr ""
+
+msgid "Usage"
+msgstr ""
+
+msgid "Use $collection to act on the collection of a repeated content"
+msgstr ""
+
+msgid "Use $item to remove the current item in a repeated collection"
+msgstr ""
+
+msgid "Use <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">Filters</a> to format the data (e.g. <span ng-non-bindable>columnKey|uiDate</span>)"
+msgstr ""
+
+msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
+msgstr ""
+
+msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
+msgstr ""
+
+msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
+msgstr ""
+
+msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
+msgstr ""
+
+msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
+msgstr ""
+
+msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
+msgstr ""
+
+msgid "Use provided UID widgets as a template for a custom widget"
+msgstr ""
+
+msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
+msgstr ""
+
+msgid "Use the characters: H (hour), h (hour in AM/PM), m (minutes) and optionally s (seconds), a (AM/PM)"
+msgstr ""
+
+msgid "Use the characters: M (month), d (day), y (year)"
+msgstr ""
+
+msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
+msgstr ""
+
+msgid "Use this container to create a pop-in window which can be opened or closed with a button, and displayed over the page, form, or layout content."
+msgstr ""
+
+msgid "Use this widget to select a date (e.g., a date of birth)."
+msgstr "Utilize este widget para selecionar uma data (por exemplo, uma data de nascimento)."
+
+msgid "Use this widget to select a date and a time (e.g., to schedule a meeting)."
+msgstr "Use este widget para selecionar uma data e uma hora (por exemplo, para agendar uma reunião)."
+
+msgid "Use this widget to:"
+msgstr ""
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr ""
+
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
+msgstr ""
+
+msgid "User id could then be obtained by using {{myData.user_id}}"
+msgstr ""
+
+msgid "Validation Errors"
+msgstr "Erro de Validação"
+
+msgid "Validation error on the page. Fix is recommended before export"
+msgstr "Erro de validação na página. Corrigir é recomendado antes da exportação"
+
+msgid "Validation error. Fix is recommended before export"
+msgstr "Erro de validação na página. Corrigir é recomendado antes da exportação"
+
+msgid "Value"
+msgstr ""
+
+msgid "Value Format"
+msgstr "Formato de valor"
+
+msgid "Value max length"
+msgstr ""
+
+msgid "Value min length"
+msgstr ""
+
+msgid "Value must be unique"
+msgstr ""
+
+msgid "Value to add"
+msgstr ""
+
+msgid "Variable in read-write binding with the property value"
+msgstr ""
+
+msgid "Variable names must start with a letter and contain only alphanumeric characters"
+msgstr ""
+
+msgid "Variable of type array"
+msgstr ""
+
+msgid "Variables"
+msgstr ""
+
+msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "View asset content"
+msgstr ""
+
+msgid "View..."
+msgstr ""
+
+msgid "W3C website"
+msgstr ""
+
+msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
+msgstr ""
+
+msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
+msgstr ""
+
+msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
+msgstr "Quando enviada no corpo de uma solicitação JSON, ele é serializado em uma variável de sequência de caracteres ISO 8601 formatado com o tempo definido para meia-noite UTC (por exemplo, 2016-12-31T00:00:00.000Z)."
+
+msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
+msgstr ""
+
+msgid "When you delete a row, the following rows move up"
+msgstr ""
+
+msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
+msgstr ""
+
+msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
+msgstr ""
+
+msgid "Where businessVariableName is the name of the business variable defined at pool level."
+msgstr ""
+
+msgid "Widget actions"
+msgstr ""
+
+msgid "Widget description"
+msgstr ""
+
+msgid "Widget implementation is based on the AngularJS framework."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a controller with $scope.properties."
+msgstr ""
+
+msgid "Widget properties defined on the right can be used as variables in a template with properties.newProperty."
+msgstr ""
+
+msgid "Widgets"
+msgstr ""
+
+msgid "Width"
+msgstr ""
+
+msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
+msgstr ""
+
+msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
+msgstr ""
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
+msgstr ""
+
+msgid "You can apply it to the following variable value types:"
+msgstr "Você pode aplicá-lo para os seguintes tipos de valores a variável:"
+
+msgid "You can change the type to be able to use this artifact as a process form or as an application page."
+msgstr ""
+
+msgid "You can delete page assets only, view local assets, and edit external assets of a page."
+msgstr ""
+
+msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
+msgstr ""
+
+msgid "You can format data with filters when data is used in widget property fields that allow interpolation <i class=\"fa fa-paragraph\"></i> or that are bound to a variable <i class=\"fa fa-link\"></i> ."
+msgstr ""
+
+msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
+msgstr ""
+
+msgid "You can save the content of a plain container as a reusable fragment."
+msgstr ""
+
+msgid "You can see the migration notes again by clicking on the help button"
+msgstr ""
+
+msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
+msgstr ""
+
+msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
+msgstr ""
+
+msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
+msgstr ""
+
+msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
+msgstr ""
+
+msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
+msgstr ""
+
+msgid "You have unsaved changes. Do you really want to leave ?"
+msgstr ""
+
+msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr ""
+
+msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
+msgstr ""
+
+msgid "_self"
+msgstr ""
+
+msgid "added"
+msgstr ""
+
+msgid "artifact"
+msgstr ""
+
+msgid "center"
+msgstr ""
+
+msgid "column"
+msgid_plural "columns"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "custom widgets"
+msgstr ""
+
+msgid "danger"
+msgstr ""
+
+msgid "default"
+msgstr ""
+
+msgid "email"
+msgstr ""
+
+msgid "error"
+msgstr ""
+
+msgid "expression or variable"
+msgstr ""
+
+msgid "form"
+msgstr ""
+
+msgid "formatted String variables"
+msgstr "variáveis de caracteres formatadas"
+
+msgid "fragment"
+msgstr ""
+
+msgid "h:mm:ss a"
+msgstr ""
+
+msgid "hidden"
+msgstr ""
+
+msgid "http://"
+msgstr ""
+
+msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
+msgstr ""
+
+msgid "info"
+msgstr ""
+
+msgid "large"
+msgstr ""
+
+msgid "layout"
+msgstr ""
+
+msgid "left"
+msgstr ""
+
+msgid "link"
+msgstr ""
+
+msgid "medium"
+msgstr ""
+
+msgid "name"
+msgstr ""
+
+msgid "no"
+msgstr ""
+
+msgid "number"
+msgstr ""
+
+msgid "overwritten"
+msgstr ""
+
+msgid "page"
+msgstr ""
+
+msgid "password"
+msgstr ""
+
+msgid "primary"
+msgstr ""
+
+msgid "right"
+msgstr ""
+
+msgid "small"
+msgstr ""
+
+msgid "success"
+msgstr ""
+
+msgid "successfully imported."
+msgstr ""
+
+msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
+msgstr ""
+
+msgid "text"
+msgstr ""
+
+msgid "top"
+msgstr ""
+
+msgid "view W3C's Json specification"
+msgstr ""
+
+msgid "warning"
+msgstr ""
+
+msgid "widget"
+msgstr ""
+
+msgid "widget editor"
+msgstr ""
+
+msgid "widgets"
+msgstr ""
+
+msgid "yes"
+msgstr ""
+
+msgid "{{ artifactType }}"
+msgid_plural "{{ artifactType }}s"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{ type }}"
+msgid_plural "{{ type }}s"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{ vm.page.type }} editor"
+msgstr ""
+
+msgid "{{asset.name}} content<expand-modal></expand-modal>"
+msgstr ""
+
+msgid "{{ctrl.page.name}} information"
+msgstr ""
+
+msgid "{{currentLength}} of {{totalNumber}}"
+msgstr ""
+
+msgid "{{filter.value}}"
+msgstr ""
+
+msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
+msgstr ""
+
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+msgstr ""
+

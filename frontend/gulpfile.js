@@ -90,7 +90,8 @@ var paths = {
     'en',
     'es-ES',
     'fr',
-    'ja'
+    'ja',
+    'pt-br'
   ].map(function(lang) {
       return 'node_modules/angular-i18n/angular-locale_' + lang + '.js';
     })
