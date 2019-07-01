@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: pt-BR\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-06-18 02:25\n"
+"PO-Revision-Date: 2019-07-01 01:51\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -269,6 +269,9 @@ msgid "Application page"
 msgstr ""
 
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
+msgstr ""
+
+msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
 msgstr ""
 
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -590,7 +593,7 @@ msgid "Date Placeholder"
 msgstr ""
 
 msgid "Date and time"
-msgstr "pouet pouet"
+msgstr ""
 
 msgid "Date and time can reflect the user time zone (e.g., a meeting day and time) or be absolute, identical everywhere (e.g., opening hours of a store somewhere).\n"
 "            This is controlled by the property <em>Handle time zone</em>."
@@ -1023,6 +1026,9 @@ msgid "In a process form, if you have defined business variables in your process
 msgstr ""
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
+msgstr ""
+
+msgid "In case your application is not available, please log in using a different account"
 msgstr ""
 
 msgid "In folder:"
@@ -2186,6 +2192,9 @@ msgid "View"
 msgstr ""
 
 msgid "View asset content"
+msgstr ""
+
+msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
 msgstr ""
 
 msgid "View..."
