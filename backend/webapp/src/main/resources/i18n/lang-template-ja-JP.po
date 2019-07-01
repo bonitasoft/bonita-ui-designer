@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-06-26 01:38\n"
+"PO-Revision-Date: 2019-07-01 01:38\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -601,6 +601,9 @@ msgstr "日時は、ユーザーのタイムゾーンを反映 （たとえば�
 msgid "Date display"
 msgstr "日付の表示"
 
+msgid "Date filter"
+msgstr ""
+
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "日付書式は、デフォルトでローカライズされます。ローカライズされた書式は <em>localization.json</em> で編集できます （<a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">ローカリゼーション セクション</a> を参照してください）。"
 
@@ -1141,6 +1144,9 @@ msgstr "最新更新日時："
 
 msgid "Layouts"
 msgstr "レイアウト"
+
+msgid "Lazy reference filter"
+msgstr ""
 
 msgid "Level 1"
 msgstr "レベル 1"

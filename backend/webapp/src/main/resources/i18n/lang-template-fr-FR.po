@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-06-26 01:28\n"
+"PO-Revision-Date: 2019-07-01 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -599,6 +599,9 @@ msgstr "La date et l'heure peuvent intégrer le fuseau horaire de l'utilisateur 
 msgid "Date display"
 msgstr "Affichage de la date"
 
+msgid "Date filter"
+msgstr ""
+
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
 
@@ -1138,6 +1141,9 @@ msgstr "Dernière mise à jour :"
 
 msgid "Layouts"
 msgstr "Layouts"
+
+msgid "Lazy reference filter"
+msgstr ""
 
 msgid "Level 1"
 msgstr "Niveau 1"
