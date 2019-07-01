@@ -8,8 +8,9 @@
   function createUrlParameterResolver(Resolver, ResolverService, $location, $rootScope) {
     class UrlParameterResolver extends Resolver {
       resolve() {
+        // Since decodeURIComponent does not decode '+', we have to replace '+' by '%20'
         function extractUrlParameter(param, str) {
-          return decodeURIComponent(str.replace(new RegExp('^(?:.*[&\\?]' + encodeURIComponent(param).replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'));
+          return decodeURIComponent(str.replace(/\+/g, '%20').replace(new RegExp('^(?:.*[&\\?]' + encodeURIComponent(param).replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'));
         }
         this.model[this.name] = extractUrlParameter(this.content || '', $location.absUrl());
       }

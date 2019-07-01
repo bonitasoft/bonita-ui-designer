@@ -33,4 +33,11 @@ describe('Service: urlParameterResolver', function() {
     $rootScope.$apply();
     expect(model.foo).toBe('http://www.google.com');
   });
+
+  it('should decode a parameter with '+'', () => {
+    barValue = 'My+Text';
+    $rootScope.$apply();
+    expect(model.foo).toBe('My Text');
+  });
+
 });
