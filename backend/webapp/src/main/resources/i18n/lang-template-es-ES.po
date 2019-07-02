@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-07-01 01:29\n"
+"PO-Revision-Date: 2019-07-01 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -604,6 +604,9 @@ msgstr "La fecha y hora puede reflejar la zona horaria del usuario (por ejemplo,
 msgid "Date display"
 msgstr "Pantalla de la fecha"
 
+msgid "Date filter"
+msgstr ""
+
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Por defecto, los formatos de fecha están localizados. Los formatos localizados se pueden editar en <em>localization.json</em> (consulte la <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\"> sección de localización</a> <translate>).</translate>."
 
@@ -1143,6 +1146,9 @@ msgstr "Última actualización:"
 
 msgid "Layouts"
 msgstr "Layouts"
+
+msgid "Lazy reference filter"
+msgstr ""
 
 msgid "Level 1"
 msgstr "Nivel 1"
@@ -1882,7 +1888,7 @@ msgstr "Esta característica no está disponible en Internet Explorer 11 ni Micr
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the dedicated documentation.\" Et là tu dois faire un .bos redirect vers la bonne URL."
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
@@ -1956,7 +1962,7 @@ msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añ
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
 
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the dedicated documentation. (idem, bos redirect)"
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."

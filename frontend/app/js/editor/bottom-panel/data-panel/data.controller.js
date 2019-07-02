@@ -42,7 +42,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
     $scope.page.data[data.$$name] = {
       exposed: data.exposed,
       type: data.type,
-      value: data.value
+      value:  $scope.isExposed(data) ? '' : data.value,
     };
   };
 

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-07-01 01:37\n"
+"PO-Revision-Date: 2019-07-01 01:38\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -604,6 +604,9 @@ msgstr "日時は、ユーザーのタイムゾーンを反映 （たとえば�
 msgid "Date display"
 msgstr "日付の表示"
 
+msgid "Date filter"
+msgstr ""
+
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "日付書式は、デフォルトでローカライズされます。ローカライズされた書式は <em>localization.json</em> で編集できます （<a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">ローカリゼーション セクション</a> を参照してください）。"
 
@@ -1144,6 +1147,9 @@ msgstr "最新更新日時："
 
 msgid "Layouts"
 msgstr "レイアウト"
+
+msgid "Lazy reference filter"
+msgstr ""
 
 msgid "Level 1"
 msgstr "レベル 1"
@@ -1883,7 +1889,7 @@ msgstr ""
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the dedicated documentation.\" Et là tu dois faire un .bos redirect vers la bonne URL."
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
@@ -1957,7 +1963,7 @@ msgstr ""
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
 
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the dedicated documentation. (idem, bos redirect)"
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."

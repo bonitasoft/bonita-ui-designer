@@ -126,35 +126,43 @@
             <p translate>
                 All <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter" target="_blank">angularJS filters</a> are available. Usage requires the use of <code>|</code> ("pipe"). E.g. <code>myVariable|lowercase</code>.
             </p>
-            <p translate>
-                For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API.
-            </p>
-            <p>
-                <translate>You can apply it to the following variable value types:</translate>
-                <ul>
-                    <li><a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> <translate>formatted String variables</translate></li>
-                    <li translate>Date object</li>
-                    <li translate>Milliseconds since Epoch (number or string  variable)</li>
-                </ul>
-            </p>
-            <p translate>
-                Two use cases :
-                <ul>
-                    <li><code>dateVariable|uiDate</code> applies a default <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li>
-                    <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">angularJS date filter</a>.<br/>
-                        E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li>
-                </ul>
-            </p>
-            <p class="CalloutSubscription">
-                <span class="CalloutSubscription--title" translate>Subscription edition</span>
-                <translate>Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href="javascript:void(0);" ng-click="tabContainer.activeTab = 'localization'">localization section</a>).</translate>
-            </p>
-            <p translate>
-                For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data.
-            </p>
-            <p translate>
-                E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>
-            </p>
+
+            <dt translate>Date filter</dt>
+            <dd>
+                <p translate>
+                    For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API.
+                </p>
+                <p>
+                    <translate>You can apply it to the following variable value types:</translate>
+                    <ul>
+                        <li><a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> <translate>formatted String variables</translate></li>
+                        <li translate>Date object</li>
+                        <li translate>Milliseconds since Epoch (number or string  variable)</li>
+                    </ul>
+                </p>
+                <p translate>
+                    Two use cases :
+                    <ul>
+                        <li><code>dateVariable|uiDate</code> applies a default <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li>
+                        <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href="https://code.angularjs.org/1.3.18/docs/api/ng/filter/date" target="_blank">angularJS date filter</a>.<br/>
+                            E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li>
+                    </ul>
+                </p>
+                <p class="CalloutSubscription">
+                    <span class="CalloutSubscription--title" translate>Subscription edition</span>
+                    <translate>Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href="javascript:void(0);" ng-click="tabContainer.activeTab = 'localization'">localization section</a>).</translate>
+                </p>
+            </dd>
+
+            <dt translate>Lazy reference filter</dt>
+            <dd>
+                <p translate>
+                    For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data.
+                </p>
+                <p translate>
+                    E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>
+                </p>
+            </dd>
         </uib-tab>
 
         <uib-tab heading="{{ 'Localization' | translate }}" index="'localization'">
