@@ -31,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.createDirectories;
@@ -134,6 +135,15 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public List<T> findByObjectId(String id) throws RepositoryException {
         try {
             return loader.findByObjectId(path, id);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while searching %ss using an object", getComponentName()), e);
+        }
+    }
+
+    @Override
+    public Map<String, List<T>> findByObjectIds(List<String> ids) throws RepositoryException {
+        try {
+            return loader.findByObjectIds(path, ids);
         } catch (IOException e) {
             throw new RepositoryException(format("Error while searching %ss using an object", getComponentName()), e);
         }

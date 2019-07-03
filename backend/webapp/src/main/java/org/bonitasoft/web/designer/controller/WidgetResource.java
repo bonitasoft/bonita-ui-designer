@@ -33,7 +33,12 @@ import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -41,8 +46,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
@@ -55,6 +64,7 @@ public class WidgetResource extends AssetResource<Widget>{
     private WidgetService widgetService;
     private Path widgetPath;
     private List<WidgetContainerRepository> widgetContainerRepositories;
+    private Map<String, Set<String>> widgetDependencies; // Map of widget -> dependencies (pages/fragments)
 
     @Inject
     public WidgetResource(JacksonObjectMapper objectMapper,
@@ -82,9 +92,7 @@ public class WidgetResource extends AssetResource<Widget>{
         byte[] json;
         List<Widget> widgets = widgetRepository.getAll();
         if ("light".equals(view)) {
-            for (Widget widget : widgets) {
-                fillWithUsedBy(widget);
-            }
+            fillWithUsedBy(widgets);
             json = objectMapper.toJson(widgets, JsonViewLight.class);
         } else {
             json = objectMapper.toJson(widgets);
@@ -99,6 +107,21 @@ public class WidgetResource extends AssetResource<Widget>{
     private void fillWithUsedBy(Widget widget) {
         for (WidgetContainerRepository<Identifiable> repository : widgetContainerRepositories) {
             widget.addUsedBy(repository.getComponentName(), repository.getArtifactsUsingWidget(widget.getId()));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void fillWithUsedBy(List<Widget> widgets) {
+        List<String> widgetIds = new ArrayList<>();
+        for (Widget widget : widgets) {
+            widgetIds.add(widget.getId());
+        }
+        Map<String, List<Identifiable>> map = new HashMap<>();
+        for (WidgetContainerRepository<Identifiable> repository : widgetContainerRepositories) {
+            map = repository.getArtifactsUsingWidgets(widgetIds);
+            for (Widget widget : widgets) {
+                widget.addUsedBy(repository.getComponentName(), map.get(widget.getId()));
+            }
         }
     }
 

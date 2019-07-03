@@ -24,6 +24,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import static java.lang.String.format;
 import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -51,13 +53,24 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
 
     @Override
     public List<T> findByObjectId(Path directory, String objectId) throws IOException {
-        //Object can be of type <E>
-        Path objectPath = resolve(directory, objectId);
-        List<T> objects = new ArrayList<>();
-
-        if (!exists(directory)) {
+        List<String> ids = new ArrayList<>();
+        ids.add(objectId);
+        Map<String, List<T>> map = findByObjectIds(directory, ids);
+        List<T> objects = map.get(objectId);
+        if (objects == null) {
             return emptyList();
+        } else {
+            return objects;
         }
+    }
+
+    @Override
+    public Map<String, List<T>> findByObjectIds(Path directory, List<String> objectIds) throws IOException {
+
+        if (!exists(directory) || objectIds.isEmpty()) {
+            return emptyMap();
+        }
+        Map<String, List<T>> map = new HashMap<>();
 
         //Each component has its own files in a directory named with its id
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory, "[!.]*")) {
@@ -65,17 +78,27 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
                 //The directory name is the component id
                 String id = componentDirectory.getFileName().toString();
                 Path componentFile = componentDirectory.resolve(id + ".json");
+                if (!exists(componentFile)) {
+                    continue;
+                }
 
-                //We consider only another objects
-                if (objectPath == null || !objectPath.equals(componentFile) && exists(componentFile)) {
-                    String content = new String(readAllBytes(componentFile));
-                    if (removeSpaces(content).contains(format("\"id\":\"%s\"", objectId))) {
-                        objects.add(objectMapper.fromJson(content.getBytes(), type));
+                String content = new String(readAllBytes(componentFile));
+                String contentWithoutSpaces = removeSpaces(content);
+                T object = objectMapper.fromJson(content.getBytes(), type);
+
+                for (String objectId : objectIds) {
+                    //We consider only another objects
+                    Path objectPath = resolve(directory, objectId);
+                    if (objectPath == null || !objectPath.equals(componentFile) && exists(componentFile)) {
+                        if (contentWithoutSpaces.contains(format("\"id\":\"%s\"", objectId))) {
+                            List<T> objects = map.computeIfAbsent(objectId, k -> new ArrayList<>());
+                            objects.add(object);
+                        }
                     }
                 }
             }
         }
-        return objects;
+        return map;
     }
 
     @Override

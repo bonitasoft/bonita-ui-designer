@@ -14,17 +14,19 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.widget.Widget;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.widget.Widget;
+import java.util.Map;
 
 @Named
 public class WidgetLoader extends AbstractLoader<Widget>{
@@ -44,6 +46,22 @@ public class WidgetLoader extends AbstractLoader<Widget>{
             }
         }
         return findIn;
+    }
+
+    @Override
+    public Map<String, List<Widget>> findByObjectIds(Path directory, List<String> objectIds) throws IOException {
+        Map<String, List<Widget>> map = new HashMap<>();
+        List<Widget> widgets = getAll(directory);
+        for (String objectId : objectIds) {
+            List<Widget> findIn = new ArrayList<>();
+            for (Widget otherWidget : widgets) {
+                if (otherWidget.getTemplate().contains("<" + Widget.spinalCase(objectId))) {
+                    findIn.add(otherWidget);
+                }
+            }
+            map.put(objectId, findIn);
+        }
+        return map;
     }
 
     @Override

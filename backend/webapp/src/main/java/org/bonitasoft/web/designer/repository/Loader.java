@@ -14,11 +14,12 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import org.bonitasoft.web.designer.model.Identifiable;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-
-import org.bonitasoft.web.designer.model.Identifiable;
+import java.util.Map;
 
 /**
  * Depending on the nature of a component we can have several directory where elements
@@ -42,6 +43,15 @@ public interface Loader<T extends Identifiable> {
      * @throws java.io.IOException
      */
     List<T> findByObjectId(Path directory, String objectId) throws IOException;
+
+    /**
+     * Returns a Map of object ids, with all the objects which contain an object id. Each object (widget, page, ...) has its
+     * own id. To increase performances, we just search if the id is in the text
+     * files. Only files which contain a reference are deserialized
+     *
+     * @throws java.io.IOException
+     */
+    Map<String, List<T>> findByObjectIds(Path directory, List<String> objectIds) throws IOException;
 
     /**
      * Find if an object is used in another objects. Each object (widget, page, ...) has its

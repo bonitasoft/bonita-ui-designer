@@ -14,11 +14,14 @@
  */
 package org.bonitasoft.web.designer.model;
 
-import java.util.List;
-
 import org.bonitasoft.web.designer.repository.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 public interface WidgetContainerRepository<T extends Identifiable> extends Repository<T> {
 
     List<T> getArtifactsUsingWidget(String widgetId);
+
+    Map<String, List<T>> getArtifactsUsingWidgets(List<String> widgetIds);
 }

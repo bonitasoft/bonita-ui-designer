@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
@@ -27,6 +21,13 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 
@@ -52,6 +53,10 @@ public class PageRepository extends AbstractRepository<Page> implements Refreshi
 
     public List<Page> getArtifactsUsingWidget(String widgetId) {
         return this.findByObjectId(widgetId);
+    }
+
+    public Map<String, List<Page>> getArtifactsUsingWidgets(List<String> widgetIds) {
+        return this.findByObjectIds(widgetIds);
     }
 
     @Override
