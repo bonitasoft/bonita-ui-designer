@@ -10,7 +10,9 @@ describe('HomeCtrl', function() {
     { id: 'widget1', name: 'Widget 1', type: 'widget', custom: true, favorite: false }
   ];
 
-  var artifacts = [...pages, ...widgets];
+  var fragments = [];
+
+  var artifacts = [...pages, ...widgets, ...fragments];
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
   beforeEach(inject(function($controller, $rootScope, $injector, $state) {
@@ -19,6 +21,7 @@ describe('HomeCtrl', function() {
     artifactStore = $injector.get('artifactStore');
     filter = $injector.get('$filter')('filter');
 
+    spyOn(artifactStore, 'loadRepository').and.returnValue($q.when(artifacts));
     spyOn(artifactStore, 'load').and.returnValue($q.when(artifacts));
 
     controller = $controller('HomeCtrl', { $scope, artifactStore });

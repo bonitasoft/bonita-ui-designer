@@ -18,7 +18,7 @@ angular.module('bonitasoft.designer.editor.common').factory('artifactNamingValid
 
   function isArtifactNameAlreadyUseForType(value, type, artifactsList) {
     return value && (artifactsList || [])
-      .filter(item => item.type === type)
+      .filter(item => item && (item.type === type))
       .some(item => item.name.toLowerCase() === value.toLowerCase());
   }
 

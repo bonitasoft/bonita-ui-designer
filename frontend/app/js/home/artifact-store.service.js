@@ -29,8 +29,17 @@
         .then((artifacts) => [].concat(...artifacts));
     }
 
+    loadRepository(repository) {
+      return this.$q.all([].concat(repository.all()))
+        .then((artifacts) => [].concat(...artifacts));
+    }
+
     registerRepository(repository) {
       this.repositories.push(repository);
+    }
+
+    getRepositories() {
+      return this.repositories;
     }
   }
   angular

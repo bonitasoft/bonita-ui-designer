@@ -20,6 +20,8 @@
 
   class HomeCtrl {
     constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, $window, gettextCatalog) {
+      this.$scope = $scope;
+      this.artifactStore = artifactStore;
 
       $scope.artifacts = {};
       $scope.$storage = $localStorage;
@@ -41,6 +43,21 @@
         }))
         .then(filterArtifacts);
 
+      /**
+       * Refresh all, repository per repository. This avoid to wait until all repos are loaded before displaying anything.
+       */
+      $scope.refreshAllRepositories = () => {
+        artifactStore.getRepositories().map(repository => {
+          artifactStore.loadRepository(repository)
+            .then((artifacts) => $scope.artifacts.all = ($scope.artifacts.all) ? $scope.artifacts.all.concat(artifacts) : artifacts)
+            .then(artifacts => artifacts.map(artifact => {
+              artifact.editionUrl = $state.href(`designer.${artifact.type}`, { id: artifact.id });
+              return artifact;
+            }))
+            .then(filterArtifacts);
+        });
+      };
+
       $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
       $scope.getActivatedArtifact = () => $scope.types.filter(type => type.active)[0];
       $scope.downloadArtifact = (url) => $window.location = url;
@@ -53,7 +70,8 @@
 
       $scope.search = '';
       $scope.$watch('search', () => filterArtifacts($scope.artifacts.all));
-      $scope.refreshAll();
+
+      $scope.refreshAllRepositories();
 
       $scope.getSortTooltipMessage = sortOrder =>
         (sortOrder === '-lastUpdate') ? gettextCatalog.getString('Ordered by last update.<br/>Click to sort by artifact name') :
