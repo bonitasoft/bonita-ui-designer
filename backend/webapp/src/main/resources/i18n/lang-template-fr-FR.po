@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-07-01 01:28\n"
+"PO-Revision-Date: 2019-07-03 02:00\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -271,7 +271,7 @@ msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Appliquer un filtre à la valeur d'une variable : <em>selectedUser | json</em>"
 
 msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
-msgstr ""
+msgstr "Etes-vous sûr(e) de vouloir supprimer <b>{{ctrl.artifact}}</b> {{ctrl.type}}?"
 
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "Etes-vous sûr(e) de vouloir supprimer {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -499,7 +499,7 @@ msgid "Containers"
 msgstr "Containers"
 
 msgid "Containers cannot be switched."
-msgstr ""
+msgstr "Impossible de remplacer un container."
 
 msgid "Content"
 msgstr "Contenu"
@@ -601,9 +601,6 @@ msgstr "La date et l'heure peuvent intégrer le fuseau horaire de l'utilisateur 
 
 msgid "Date display"
 msgstr "Affichage de la date"
-
-msgid "Date filter"
-msgstr ""
 
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
@@ -729,7 +726,7 @@ msgid "Easily create forms to edit business variables or documents, or display b
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 msgid "Edit asset"
 msgstr "Modifier l'asset"
@@ -750,7 +747,7 @@ msgid "Editor organization"
 msgstr "Organisation de l'Editeur de page"
 
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
-msgstr ""
+msgstr "Sélectionnez le widget à remplacer et cliquez sur <i class=\"fa fa-exchange\"></i>."
 
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Entrer le nom de ' + vm.mode + '"
@@ -1050,7 +1047,7 @@ msgid "In the Studio, a form must be linked to a process or a task, using the co
 msgstr "Dans le studio, un formulaire doit être associé à un processus ou une tâche en utilisant le contrat ; une page est associée à un descripteur d'application ou un processus (synthèse des cas)."
 
 msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
-msgstr ""
+msgstr "Dans l'assistant, sélectionnez ou saisissez le nom du widget à remplacer, puis cliquez sur <b>Afficher les propriétés</b>.<br> Lorsque c'est possible, les propriétés du widget source sont automatiquement associées à des propriétés similaires du widget cible. Vous pouvez modifier ce mapping, en ajouter, puis cliquer sur <b>Remplacer</b>."
 
 msgid "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property"
 msgstr "Dans le contexte d'un form container, utilisez $form. $invalid  dans une propriété de widget comme une valeur booléenne permettant de vérifier la validité du formulaire"
@@ -1144,9 +1141,6 @@ msgstr "Dernière mise à jour :"
 
 msgid "Layouts"
 msgstr "Layouts"
-
-msgid "Lazy reference filter"
-msgstr ""
 
 msgid "Level 1"
 msgstr "Niveau 1"
@@ -1371,7 +1365,7 @@ msgid "Open your preview in a browser tab to set new URL parameters, play with d
 msgstr ""
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
-msgstr ""
+msgstr "Ou utilisez l'option de menu <b>Remplacer</b> près du nom du widget, dans le panneau de propriétés."
 
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Classés par nom d’artefact. <br/> Cliquez pour trier par date de dernière mise à jour"
@@ -1713,7 +1707,7 @@ msgid "Switch"
 msgstr "Remplacer"
 
 msgid "Switch <i class=\"fa fa-exchange\"></i>"
-msgstr ""
+msgstr "Remplacer <i class=\"fa fa-exchange\"></i>"
 
 msgid "Switch to"
 msgstr "Remplacer par"
@@ -1725,13 +1719,13 @@ msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "Remplacer {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 
 msgid "Switch..."
-msgstr "Echanger avec ..."
+msgstr "Remplacer ..."
 
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
 
 msgid "Target"
-msgstr ""
+msgstr "Cible"
 
 msgid "Target URL on success"
 msgstr "URL cible en cas de succès"
@@ -1881,12 +1875,12 @@ msgid "This example uses the JSON example provided if you select the type JSON.<
 msgstr "Cet exemple utilise l'exemple fourni par le type JSON. <br>Il recherche la chaîne « Linux » dans le tableau <code>environnement</code> de l'objet JSON <code>supportTicket</code>"
 
 msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
-msgstr ""
+msgstr "Cette fonctionnalité n'est pas disponible sur Internet Explorer 11 ni Microsoft Edge pour le moment."
 
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the dedicated documentation.\" Et là tu dois faire un .bos redirect vers la bonne URL."
 msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
@@ -1949,7 +1943,7 @@ msgid "To display the date in a widget property evaluated as an expression, use 
 msgstr "Pour afficher la date dans une propriété de widget évaluée comme une expression, utilisez le filtre <code>dateAgo</code> sur la variable <code>updateDate</code> comme suit : <code>updateDate | dateAgo</code>"
 
 msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
-msgstr ""
+msgstr "Pour modifier un widget personnalisé, utilisez l'option de menu <b>Modifier</b> près du nom du widget, dans le panneau de propriétés."
 
 msgid "To edit this standard widget, save it first as a new custom widget"
 msgstr "Pour modifier ce widget standard, enregistrez-le d'abord en tant que nouveau widget personnalisé"
@@ -1960,7 +1954,7 @@ msgstr "Pour ouvrir une pop-in à partir d'une autre pop-in à l’exécution, p
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
 
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the dedicated documentation. (idem, bos redirect)"
 msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
@@ -2018,7 +2012,7 @@ msgid "To use the same asset in several pages, you can add it to a custom widget
 msgstr "Pour utiliser le même asset dans plusieurs pages, vous pouvez l'ajouter à un widget personnalisé et utiliser ce widget personnalisé dans vos pages d'application ou vos formulaire. Lorsque vous ajoutez un widget personnalisé contenant des assets, ceux-ci sont automatiquement associés à la page."
 
 msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
-msgstr ""
+msgstr "Pour voir le code d'un widget standard, utilisez l'option de menu <b>Voir le code ...</b> proche du nom du widget, dans le panneau de propriétés. De là, pour construire un widget personnalisé sur la base de ce code, cliquez sur <b>Enregistrer sous ...</b>, donnez un nom au widget personnalisé, et faites vos modifications."
 
 msgid "Today"
 msgstr "Aujourd’hui"
@@ -2198,7 +2192,7 @@ msgid "Variables can be bound to input fields to create conditional behavior bet
 msgstr "Les variables peuvent être bindées aux différents champs pour créer un comportement conditionnel entre propriétés de widgets."
 
 msgid "View"
-msgstr ""
+msgstr "Voir le code ..."
 
 msgid "View asset content"
 msgstr "Voir le contenu de l'asset"
@@ -2216,13 +2210,13 @@ msgid "When 'Content' is a list of objects, specifies the attributes to display 
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes du tableau"
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
-msgstr "Lorsque c'est possible, les propriétés du widget source sont appliquées à des propriétés identiques du widget cible. Vous pouvez éditer ou ajouter ces associations."
+msgstr "Lorsque c'est possible, les propriétés du widget source sont appliquées à des propriétés identiques du widget cible. Vous pouvez modifier ce mapping et/ou en ajouter."
 
 msgid "When sent in the JSON body of a request, it is serialized into an ISO 8601 formatted String variable with the time set to midnight UTC (e.g., 2016-12-31T00:00:00.000Z)."
 msgstr "Quand elle est envoyée en JSON dans le corps de la requête, la valeur est convertie en une chaîne de caractères au format ISO 8601 avec l'heure à minuit UTC (par exemple : 2016-12-31T00:00:00.000Z)."
 
 msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
-msgstr ""
+msgstr "Une fois le widget remplacé, il vous restera sans doute des propriétés à remplir, dans le panneau de propriétés."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
@@ -2267,7 +2261,7 @@ msgid "Yes"
 msgstr "Oui"
 
 msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
-msgstr ""
+msgstr "Vous pouvez également créer des widgets personnalisés, depuis les widgets existants avec \"Enregistrer sous ...\" ou depuis la page d'accueil."
 
 msgid "You can apply it to the following variable value types:"
 msgstr "Vous pouvez l’appliquer aux types de valeur de variable suivants :"
