@@ -188,13 +188,13 @@
             <artifactId>jsonassert</artifactId>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>org.awaitility</groupId>
-			<artifactId>awaitility</artifactId>
-			<version>3.1.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>3.1.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
@@ -446,4 +446,41 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dependencies</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bower-license license-checker</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <arguments>add --dev bower-license license-checker</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>list dependencies</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <arguments>
+                                        listDependencies
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
