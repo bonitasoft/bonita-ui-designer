@@ -117,6 +117,13 @@
                         <artifactId>frontend-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>install node and yarn</id>
+                                <goals>
+                                    <goal>install-node-and-yarn</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                            </execution>
+                            <execution>
                                 <id>bower-license license-checker</id>
                                 <goals>
                                     <goal>yarn</goal>
