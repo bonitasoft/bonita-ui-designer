@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-07-05 01:28\n"
+"PO-Revision-Date: 2019-07-12 01:58\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1494,7 +1494,7 @@ msgid "Reset mapping"
 msgstr "Réinitialiser"
 
 msgid "Reset mapping to default"
-msgstr "Réinitialiser les correspondances par défaut"
+msgstr "Réinitialiser le mapping"
 
 msgid "Response"
 msgstr "Réponse"
