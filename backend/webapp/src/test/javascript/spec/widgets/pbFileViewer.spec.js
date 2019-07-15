@@ -75,6 +75,38 @@ describe('FileViewer Widget', function() {
       expect(element.find('a[box-viewer]').text().trim()).toEqual('pdf-test.pdf');
     });
 
+    it('should download zip process documents initialized by an external system', function() {
+      scope.properties.type = 'Process document';
+      scope.properties.document = {
+        id: 'unused',
+        fileName: null,
+        url: 'http://westgov.org/zip/files/zip-test.zip'
+      };
+      scope.$apply();
+
+      expect(element.find('a[box-viewer]').length).toBe(0);
+      expect(element.find('a').attr('href')).toEqual('http://westgov.org/zip/files/zip-test.zip');
+      expect(element.find('a').attr('title')).toEqual('Download zip-test.zip');
+      expect(element.find('a').text().trim()).toEqual('zip-test.zip');
+      expect(element.find('span.FileViewer-previewNotAvailable').length).toBe(1);
+      expect(element.find('iframe').length).toBe(0);
+      expect(element.find('img').length).toBe(0);
+    });
+
+    it('should download zip documents with URL type', function() {
+      scope.properties.type = 'URL';
+      scope.properties.url = 'http://westgov.org/zip/files/zip-test.zip';
+      scope.$apply();
+
+      expect(element.find('a[box-viewer]').length).toBe(0);
+      expect(element.find('a').attr('href')).toEqual('http://westgov.org/zip/files/zip-test.zip');
+      expect(element.find('a').attr('title')).toEqual('Download zip-test.zip');
+      expect(element.find('a').text().trim()).toEqual('zip-test.zip');
+      expect(element.find('span.FileViewer-previewNotAvailable').length).toBe(1);
+      expect(element.find('iframe').length).toBe(0);
+      expect(element.find('img').length).toBe(0);
+    });
+
     it('should contain no preview on unsupported document', function() {
       scope.properties.document.fileName = 'bonita.docx';
       scope.properties.document.id = '321';
@@ -82,7 +114,7 @@ describe('FileViewer Widget', function() {
       scope.properties.type = 'Process document';
       scope.$apply();
       expect(element.find('a[box-viewer]').length).toBe(0);
-      expect(element.find('a').attr('href')).toEqual('../API/formsDocumentImage?document=321');
+      expect(element.find('a').attr('href')).toEqual('../API/documentDownload?fileName=bonita.docx&contentStorageId=321');
       expect(element.find('span.FileViewer-previewNotAvailable').length).toBe(1);
       expect(element.find('iframe').length).toBe(0);
       expect(element.find('img').length).toBe(0);
