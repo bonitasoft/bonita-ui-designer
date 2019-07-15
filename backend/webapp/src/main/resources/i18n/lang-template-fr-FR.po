@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-07-12 01:58\n"
+"PO-Revision-Date: 2019-07-15 01:58\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -457,16 +457,16 @@ msgid "Close"
 msgstr "Fermer"
 
 msgid "Close Modal"
-msgstr "Fermer la fenêtre modale"
+msgstr "Fermer une fenêtre modale"
 
 msgid "Close modal"
 msgstr "Fermer une fenêtre modale"
 
 msgid "Close modal on success"
-msgstr "Fermer la fenêtre modale en cas de succès"
+msgstr "Fermer une fenêtre modale en cas de succès"
 
 msgid "Close modal when the action is successful"
-msgstr "Fermer la fenêtre modale lorsque l'action a été réalisée avec succès"
+msgstr "Fermer une fenêtre modale lorsque l'action a été réalisée avec succès"
 
 msgid "Collection"
 msgstr "Collections"
@@ -1764,7 +1764,7 @@ msgid "The .zip archive of an exported page contains:"
 msgstr "L’archive .zip d’une page exportée contient :"
 
 msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
-msgstr "Sur le clic, l’action <em>Fermer la fenêtre modale</em> du bouton ferme le container modal dans lequel il est placé."
+msgstr "Sur le clic, l’action <em>Fermer une fenêtre modale</em> du bouton ferme le container modal dans lequel il est placé."
 
 msgid "The <em>Open modal</em> action can be used to open any modal container on the page. To point towards the right one, specify the ID in the button's \"Modal ID\" property."
 msgstr "L’action <em>Ouvrir une fenêtre modale</em> ouvre n’importe quel container modal situé dans la page, le formulaire ou le layout. Spécifiez son ID dans la propriété du bouton « ID du container modal »."
@@ -1931,7 +1931,7 @@ msgstr "Pour éviter de les écraser, <i>renommez</i>- les avant d'importer à n
 
 msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
 "            modal</em> action."
-msgstr "Pour fermer une fenêtre modale, placez un bouton à l’intérieur du container modal que vous souhaitez fermer, puis sélectionnez l’action <em> Fermer la fenêtre modale</em> ."
+msgstr "Pour fermer une fenêtre modale, placez un bouton à l’intérieur du container modal que vous souhaitez fermer, puis sélectionnez l’action <em> Fermer une fenêtre modale</em> ."
 
 msgid "To control modal containers, the following methods are available in a button:"
 msgstr "Pour contrôler un container modal, de nouvelles actions sont disponibles sur le bouton :"
