@@ -11,10 +11,10 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-07-15 02:26\n"
+"PO-Revision-Date: 2019-07-19 02:32\n"
 
 msgid "&nbsp;"
-msgstr ""
+msgstr "&nbsp;"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr ""
@@ -36,7 +36,8 @@ msgstr "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
-msgstr ""
+msgstr "<b><em>Agora</em> botão</b> define a data e hora selecionada para a data e hora atual do usuário.\n"
+"            Para o momento, ele é arredondado para cima ou baixo para o valor mais próximo de 5 min."
 
 msgid "<b><em>Today</em> button</b> sets the selected date to the current date for the user.\n"
 "            It doesn't change the selected time, except when the time is not set.\n"
@@ -46,7 +47,7 @@ msgstr "<b><em>hoje</em> botão</b> define a data selecionada para a data atual 
 "            Neste caso, isto é arredondado para cima ou para baixo com o valor mais próximo de 5 min."
 
 msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
-msgstr ""
+msgstr "<b>Nota</b>: Os ativos de widget personalizado são editáveis apenas no editor de widget. Você não pode modificá-los ao nível da página para evitar efeitos secundários em outras páginas. Então, se você quiser reordenar os ativos de widget personalizado, por favor, vá para o editor de widget."
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr ""
@@ -55,7 +56,7 @@ msgid "<b>To use a layout in a business application</b>, export it from the UI D
 msgstr ""
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
-msgstr ""
+msgstr "<b>Para usar uma página em uma aplicação de negócios</b>, exporte-o do Designer de UI, importe-o para recursos de Portal Bonita e da aplicação relevante, adicione-o à lista de páginas e a um menu de navegação."
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horário do usuário é ignorado e o widget não contem qualquer informação do fuso horário (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
@@ -73,7 +74,7 @@ msgid "<code>formOutput</code> is a JavaScript expression returning an object. <
 msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
-msgstr ""
+msgstr "<code>submit_errors_list</code> é uma expressão JavaScript formatando a carga de resposta para html quando um envio falhar."
 
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr ""
@@ -82,7 +83,7 @@ msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <
 msgstr ""
 
 msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
-msgstr ""
+msgstr "<em>Adicionar à coleção</em> ou <em>Remover da coleção</em> ações podem ser usadas para preparar os dados antes de enviá-los para o servidor (por exemplo, se você tiver um processo/tarefa de contrato com uma entrada que é múltipla). Nenhum pedido será enviado para o servidor. O botão só irá atualizar  <em>Coleção</em> dados que devem ser uma variável de tipo de matriz (<code>[]</code> em JSON)."
 
 msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
 msgstr "<em>data (não recomendado)</em> (baseado em <code>java.util.Date</code>)"
@@ -97,7 +98,7 @@ msgid "<em>DATE-TIME (TIME ZONE)</em> (based on <code>java.time.OffsetDateTime</
 msgstr "<em>data e hora (fuso horário)</em> (baseado em <code>java.time.OffsetDateTime</code>): defina a propriedade <em>fuso horário</em> para \"Sim\""
 
 msgid "<em>Failed response value</em>: the variable will be set if the request is unsuccessful (code 4XX)"
-msgstr ""
+msgstr "<em>Valor de resposta falhou</em>: a variável será definida se o pedido não for bem sucedido (código 4XX)"
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr ""

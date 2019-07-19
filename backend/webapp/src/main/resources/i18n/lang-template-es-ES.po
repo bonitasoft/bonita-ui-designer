@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-07-15 01:59\n"
+"PO-Revision-Date: 2019-07-19 02:00\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
