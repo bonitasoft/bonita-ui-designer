@@ -79,7 +79,6 @@ describe('properties service', function () {
       var aComponent = {properties};
 
       service.addCssPropertyTo(aComponent);
-      console.log(aComponent.properties);
       expect(aComponent.properties).toContain(properties);
       expect(aComponent.properties).toContain(
         {

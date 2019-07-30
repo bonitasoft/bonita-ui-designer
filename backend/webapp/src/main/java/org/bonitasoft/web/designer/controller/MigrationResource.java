@@ -14,16 +14,13 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.service.PageService;
-import org.bonitasoft.web.designer.service.WidgetService;
+import javax.inject.Inject;
+
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.inject.Inject;
 
 @RestController
 @RequestMapping("/rest/migration")

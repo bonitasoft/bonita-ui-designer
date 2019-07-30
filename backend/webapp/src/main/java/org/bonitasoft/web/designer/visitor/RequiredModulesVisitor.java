@@ -14,10 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -25,10 +21,14 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
 
@@ -61,8 +61,8 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
         Set<String> modules = new HashSet<>();
         Widget widget = widgetRepository.get(tabsContainer.getId());
         modules.addAll(widget.getRequiredModules());
-        for (Tab tab : tabsContainer.getTabs()) {
-            modules.addAll(tab.getContainer().accept(this));
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+            modules.addAll(tabContainer.accept(this));
         }
         return modules;
     }
@@ -73,6 +73,13 @@ public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
         Widget widget = widgetRepository.get(modalContainer.getId());
         modules.addAll(widget.getRequiredModules());
         modules.addAll(modalContainer.getContainer().accept(this));
+        return modules;
+    }
+
+    @Override
+    public Set<String> visit(TabContainer tabContainer) {
+        Set<String> modules = new HashSet<>();
+        modules.addAll(tabContainer.getContainer().accept(this));
         return modules;
     }
 

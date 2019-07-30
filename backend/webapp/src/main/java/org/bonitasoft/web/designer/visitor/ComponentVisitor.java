@@ -14,10 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static java.util.Collections.singleton;
-
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -25,8 +21,12 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static java.util.Collections.singleton;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the components used in a page
@@ -52,13 +52,18 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
 
     @Override
     public Iterable<Component> visit(TabsContainer tabsContainer) {
-        return flatten(transform(tabsContainer.getTabs(), new Function<Tab, Iterable<Component>>() {
+        return flatten(transform(tabsContainer.getTabList(), new Function<TabContainer, Iterable<Component>>() {
 
             @Override
-            public Iterable<Component> apply(Tab tab) {
-                return tab.getContainer().accept(ComponentVisitor.this);
+            public Iterable<Component> apply(TabContainer tabContainer) {
+                return tabContainer.accept(ComponentVisitor.this);
             }
         }));
+    }
+
+    @Override
+    public Iterable<Component> visit(TabContainer tabContainer) {
+        return tabContainer.getContainer().accept(this);
     }
 
     @Override

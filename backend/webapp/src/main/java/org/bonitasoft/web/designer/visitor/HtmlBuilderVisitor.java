@@ -14,14 +14,10 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.transform;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Ordering;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -34,7 +30,7 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
@@ -43,10 +39,13 @@ import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.transform;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
@@ -94,14 +93,24 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     @Override
     public String visit(TabsContainer tabsContainer) {
 
-        List<TabTemplate> tabTemplates = new ArrayList<>();
-        for (Tab tab : tabsContainer.getTabs()) {
-            tabTemplates.add(new TabTemplate(tab.getTitle(), tab.getContainer().accept(this)));
+        List<TabContainerTemplate> tabTemplates = new ArrayList<>();
+        for (TabContainer tab : tabsContainer.getTabList()) {
+            tabTemplates.add(new TabContainerTemplate(tab.accept(this)));
         }
 
-        return new TemplateEngine("tabsContainer.hbs.html")
+        String template = new TemplateEngine("tabsContainer.hbs.html")
                 .with("tabTemplates", tabTemplates)
                 .build(tabsContainer);
+
+        return template;
+    }
+
+
+    @Override
+    public String visit(TabContainer tabContainer) {
+        return new TemplateEngine("tabContainer.hbs.html")
+                .with("content", tabContainer.getContainer().accept(this))
+                .build(tabContainer);
     }
 
     @Override
@@ -229,18 +238,12 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         }
     }
 
-    class TabTemplate {
+    class TabContainerTemplate {
 
-        private final String title;
         private final String content;
 
-        public TabTemplate(String title, String content) {
-            this.title = title;
+        public TabContainerTemplate( String content) {
             this.content = content;
-        }
-
-        public String getTitle() {
-            return title;
         }
 
         public String getContent() {

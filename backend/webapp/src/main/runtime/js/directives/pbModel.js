@@ -37,6 +37,7 @@
         controllerAs: 'pbModelCtrl',
         // This is why we use a new scope. To avoid overriding parent modelCtrl.
         scope: true,
+        priority: 999,
         compile: pbModelCompile
       };
     });

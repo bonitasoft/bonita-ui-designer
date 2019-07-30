@@ -6,7 +6,7 @@
     .module('bonitasoft.designer.editor.whiteboard')
     .service('pageElementFactory', pageElementFactory);
 
-  function pageElementFactory(resolutions, properties) {
+  function pageElementFactory(resolutions, properties, components) {
 
     return {
       createWidgetElement: createWidgetElement,
@@ -14,7 +14,7 @@
       createTabsContainerElement: createTabsContainerElement,
       createModalContainerElement: createModalContainerElement,
       createFormContainerElement: createFormContainerElement,
-      createTabElement: createTabElement
+      createTabContainerElement: createTabContainerElement
     };
 
     function createElement(type, definition) {
@@ -51,18 +51,21 @@
     }
 
     function createTabsContainerElement(tabsContainer) {
-      var element = createElement('tabsContainer', tabsContainer);
-      return angular.extend(element, {
-        tabs: ['Tab 1', 'Tab 2'].map(createTabElement)
+      let tabsContainerElement = createElement('tabsContainer', tabsContainer);
+
+      let tabContainer = components.getById('pbTabContainer').component;
+      return angular.extend(tabsContainerElement, {
+        tabList: ['Tab 1', 'Tab 2'].map(title => createTabContainerElement(tabContainer, title))
       });
     }
 
-    /**
-     * Creates a new tab for the given tabs container, with the given title
-     */
-    function createTabElement(title) {
-      return {
-        title: title,
+    function createTabContainerElement(tabContainer, title) {
+      let element = createElement('tabContainer', tabContainer);
+      if (title) {
+        element.propertyValues.title.value = title;
+      }
+
+      return angular.extend(element, {
         container: {
           id: 'pbContainer',
           type: 'container',
@@ -70,7 +73,7 @@
             []
           ]
         }
-      };
+      });
     }
 
     function createFormContainerElement(formContainer) {

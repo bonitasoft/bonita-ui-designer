@@ -130,9 +130,10 @@ describe('ComponentUtils Service', function() {
         },
         type: 'tabsContainer',
         id: 'pbTabsContainer',
-        tabs: [
+        tabList: [
           {
-            title: 'Tab 1',
+            type: 'tabContainer',
+            id: 'pbTabContainer',
             container: {
               $$id: 'pbContainer-7',
               id: 'pbContainer',
@@ -154,9 +155,10 @@ describe('ComponentUtils Service', function() {
         },
         type: 'tabsContainer',
         id: 'pbTabsContainer',
-        tabs: [
+        tabList: [
           {
-            title: 'Tab 1',
+            type: 'tabContainer',
+            id: 'pbTabContainer',
             container: {
               $$id: 'pbContainer-9',
               id: 'pbContainer',
@@ -280,8 +282,10 @@ describe('ComponentUtils Service', function() {
               }
             },
             type: 'tabsContainer',
-            tabs: [
+            tabList: [
               {
+                type: 'tabContainer',
+                id: 'pbTabContainer',
                 container: {
                   rows: [[]]
                 }
@@ -688,7 +692,7 @@ describe('ComponentUtils Service', function() {
       expect(service.getVisibleComponents(pageJson).length).toBe(8);
       var tabContainer = pageJson.rows[3][0];
 
-      tabContainer.$$openedTab = tabContainer.tabs[1];
+      tabContainer.$$openedTab = tabContainer.tabList[1];
       expect(service.getVisibleComponents(pageJson).length).toBe(10);
     });
   });

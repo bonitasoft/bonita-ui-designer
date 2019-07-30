@@ -14,23 +14,23 @@
  */
 package org.bonitasoft.web.designer.visitors;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetIdVisitorTest {
@@ -72,12 +72,12 @@ public class WidgetIdVisitorTest {
         Container container1 = new Container();
         List<Element> row1 = Arrays.<Element>asList(createComponentWithWidget("foo"));
         container1.setRows(Arrays.asList(row1));
-        Tab tab1 = new Tab();
-        tab1.setContainer(container1);
+        TabContainer tabContainer1 = new TabContainer();
+        tabContainer1.setContainer(container1);
 
-        tabsContainer.setTabs(Arrays.asList(tab1));
+        tabsContainer.setTabList(Arrays.asList(tabContainer1));
 
-        assertThat(visitor.visit(tabsContainer)).containsExactly("pbTabsContainer","pbContainer","foo");
+        assertThat(visitor.visit(tabsContainer)).containsExactly("pbTabsContainer","pbContainer","foo","pbTabContainer");
     }
 
     @Test

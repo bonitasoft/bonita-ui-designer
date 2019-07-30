@@ -35,7 +35,7 @@ angular
               ]
             }
           },
-          tabs: [
+          tabList: [
             {
               container: {
                 rows: [

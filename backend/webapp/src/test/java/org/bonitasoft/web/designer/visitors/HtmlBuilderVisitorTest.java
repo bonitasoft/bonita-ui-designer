@@ -14,31 +14,7 @@
  */
 package org.bonitasoft.web.designer.visitors;
 
-import static com.google.common.collect.Sets.newHashSet;
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
-import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
-import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtmlBody;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtmlHead;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.toBody;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
-import java.util.Arrays;
-import java.util.Collections;
-
+import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -46,6 +22,7 @@ import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
@@ -67,7 +44,26 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.collect.Sets;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
+import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlBuilderVisitorTest {
@@ -183,10 +179,10 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_build_a_tabsContainer_html_when_visiting_a_tabsContainer() throws Exception {
+        TabContainer tab = aTabContainer().withId("1").with(aContainer().withReference("first-container")).withReference("tab-container-1").build();
+        TabContainer tab1 = aTabContainer().withId("2").with(aContainer().withReference("last-container")).withReference("tab-container-2").build();
 
-        assertThatHtmlBody(visitor.visit(aTabsContainer().with(
-                aTab().withId("1").withTitle("First").with(aContainer().withReference("first-container")),
-                aTab().withId("2").withTitle("Last").with(aContainer().withReference("last-container")))
+        assertThatHtmlBody(visitor.visit(aTabsContainer().with(tab,tab1)
                 .withReference("tabs-container-reference")
                 .build())).isEqualToBody(testResource.load("tabsContainerWithTwoTabs.html"));
     }
@@ -203,13 +199,14 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_add_elements_to_the_tab_container_tabs() throws Exception {
-
+        TabContainer tab = aTabContainer()
+                .withId("1")
+                .with(aContainer()
+                        .with(aRow().with(aParagraph().withReference("paragraph-reference")))
+                        .withReference("container-reference"))
+                .withReference("tab-reference").build();
         assertThatHtmlBody(visitor.visit(aTabsContainer()
-                .with(aTab()
-                        .withId("1")
-                        .with(aContainer()
-                                .with(aRow().with(aParagraph().withReference("paragraph-reference")))
-                                .withReference("container-reference")))
+                .with(tab)
                 .withReference("tabs-container-reference")
                 .build())).isEqualToBody(testResource.load("tabsContainerWithContent.html"));
     }

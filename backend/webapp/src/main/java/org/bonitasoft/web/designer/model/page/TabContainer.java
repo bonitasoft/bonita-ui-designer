@@ -19,48 +19,26 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
-import java.util.ArrayList;
-import java.util.List;
+@JsonTypeName("tabContainer")
+public class TabContainer extends Component {
 
-@JsonTypeName("tabsContainer")
-public class TabsContainer extends Component {
+    private Container container = new Container();
 
-    @Deprecated
-    private List<Tab> tabs;
-
-    private List<TabContainer> tabList = new ArrayList<>();
-
-    // We override this id to make import of old pages enable. We do this to fix faster.
-    // It would be better to create a migration step for each page or widget
-    // This migration step will be migrate all element before 1.4.21 to add id for each type tabsContainer.
     @Override
     public String getId() {
-        return "pbTabsContainer";
-    }
-
-    @Deprecated
-    @JsonView({JsonViewPersistence.class})
-    public List<Tab> getTabs() {
-        return tabs;
-    }
-
-    @Deprecated
-    public void setTabs(List<Tab> tabs) {
-        tabs.forEach(tab -> {
-            TabContainer newTabContainer = new TabContainer();
-            this.tabList.add(newTabContainer.convert(tab));
-        });
+        return "pbTabContainer";
     }
 
     @JsonView({JsonViewPersistence.class})
-    public List<TabContainer> getTabList() {
-        return tabList;
+    public Container getContainer() {
+        return container;
     }
 
-    public void setTabList(List<TabContainer> tabList) {
-        this.tabList = tabList;
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
     @Override
@@ -70,20 +48,33 @@ public class TabsContainer extends Component {
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof TabsContainer) {
-            final TabsContainer other = (TabsContainer) obj;
+        if (obj instanceof TabContainer) {
+            final TabContainer other = (TabContainer) obj;
             return new EqualsBuilder()
-                    .append(tabs, other.tabs)
+                    .append(container, other.container)
                     .isEquals();
         } else {
             return false;
         }
     }
 
+    public TabContainer convert(Tab tab){
+        // Migrate Tab to TabContainer
+        this.setContainer(tab.getContainer());
+
+        PropertyValue propertyValue = new PropertyValue();
+        propertyValue.setType(BondType.INTERPOLATION.toJson());
+        propertyValue.setValue(tab.getTitle());
+
+        this.getPropertyValues().put("title", propertyValue);
+
+        return this;
+    }
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(tabs)
+                .append(container)
                 .toHashCode();
     }
 }

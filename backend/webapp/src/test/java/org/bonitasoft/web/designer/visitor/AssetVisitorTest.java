@@ -21,7 +21,7 @@ import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
@@ -162,8 +162,8 @@ public class AssetVisitorTest {
         when(widgetRepository.get("pbTabsContainer")).thenReturn(aWidget().assets(anAsset().withName("bootstrap.min.js").withType(AssetType.JAVASCRIPT)).build());
         when(widgetRepository.get("pbContainer")).thenReturn(aWidget().build());
         Set<Asset> assets = assetVisitor.visit(aTabsContainer().with(
-                aTab().with(aContainer().with(component1)),
-                aTab().with(aContainer().with(component2))).build());
+                aTabContainer().withId("Tab 1").with(aContainer().with(component1)),
+                aTabContainer().withId("Tab 2").with(aContainer().with(component2))).build());
 
         assertThat(assets).extracting("name").containsOnly("myfile.js", "myfile.css", "bootstrap.min.js");
         assertThat(assets.iterator().next().getComponentId()).isNotEmpty();

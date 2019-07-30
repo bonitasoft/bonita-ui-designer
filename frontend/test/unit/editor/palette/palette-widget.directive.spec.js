@@ -22,7 +22,6 @@ describe('paletteWidget', function () {
 
     it('should display the widget in palette', function () {
       // then we should have
-      console.log(element.find('div[bo-draggable]'));
       expect(element.find('.display-widget').length).toBe(0);
       expect(element.find('div[bo-draggable]').attr('id')).toBe('w-input');
       expect(element.text()).toContain('input');

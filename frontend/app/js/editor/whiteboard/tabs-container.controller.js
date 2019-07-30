@@ -15,7 +15,7 @@
 /**
  * Controller of the tabsContainer directive
  */
-angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContainerDirectiveCtrl', function($scope, arrays, whiteboardComponentWrapper, pageElementFactory) {
+angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContainerDirectiveCtrl', function($scope, arrays, whiteboardComponentWrapper, pageElementFactory, components) {
 
   'use strict';
 
@@ -28,38 +28,39 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
     return $scope.tabsContainer.$$openedTab === tab;
   };
 
-  $scope.tabsContainer.$$openedTab = $scope.tabsContainer.tabs[0];
+  $scope.tabsContainer.$$openedTab = $scope.tabsContainer.tabList[0];
 
   $scope.moveTabLeftVisible = function(tab) {
-    return $scope.editor.isCurrentComponent(tab) && arrays.moveLeftPossible(tab, $scope.tabsContainer.tabs);
+    return $scope.editor.isCurrentComponent(tab) && arrays.moveLeftPossible(tab, $scope.tabsContainer.tabList);
   };
 
   $scope.moveTabRightVisible = function(tab) {
-    return $scope.editor.isCurrentComponent(tab) && arrays.moveRightPossible(tab, $scope.tabsContainer.tabs);
+    return $scope.editor.isCurrentComponent(tab) && arrays.moveRightPossible(tab, $scope.tabsContainer.tabList);
   };
 
   $scope.moveTabLeft = function(tab) {
-    arrays.moveLeft(tab, $scope.tabsContainer.tabs);
+    arrays.moveLeft(tab, $scope.tabsContainer.tabList);
   };
 
   $scope.moveTabRight = function(tab) {
-    arrays.moveRight(tab, $scope.tabsContainer.tabs);
+    arrays.moveRight(tab, $scope.tabsContainer.tabList);
   };
 
-  $scope.addTab = function(event) {
-    var tabs = $scope.tabsContainer.tabs;
-    var newTab = pageElementFactory.createTabElement('Tab ' + (tabs.length + 1));
-    whiteboardComponentWrapper.wrapTab(newTab, $scope.tabsContainer);
-    tabs.push(newTab);
-    $scope.openTab(newTab, event);
+  $scope.addTabContainer = function(event) {
+    let tabs = $scope.tabsContainer.tabList;
+    let tabContainer = components.getById('pbTabContainer').component;
+    let newTabElement = pageElementFactory.createTabContainerElement(tabContainer, 'Tab ' + (tabs.length + 1));
+    whiteboardComponentWrapper.wrapTabContainer(tabContainer, newTabElement);
+    tabs.push(newTabElement);
+    $scope.openTab(newTabElement, event);
   };
 
   $scope.isRemoveTabVisible = function(tab) {
-    return $scope.editor.isCurrentComponent(tab) && $scope.tabsContainer.tabs.length > 1;
+    return $scope.editor.isCurrentComponent(tab) && $scope.tabsContainer.tabList.length > 1;
   };
 
   $scope.removeTab = function(tab, event) {
-    var tabs = $scope.tabsContainer.tabs;
+    var tabs = $scope.tabsContainer.tabList;
     var index = tabs.indexOf(tab);
     index = index >= tabs.length ? tabs.length - 1 : index;
     var previousTabIndex = index === 0 ? 0 : index - 1;

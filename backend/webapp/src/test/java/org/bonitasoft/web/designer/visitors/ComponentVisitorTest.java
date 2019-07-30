@@ -20,7 +20,7 @@ import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 
 import org.bonitasoft.web.designer.model.page.Component;
@@ -65,7 +65,7 @@ public class ComponentVisitorTest {
     public void should_collect_component_from_a_tabs_container() throws Exception {
 
         Iterable<Component> components = componentVisitor.visit(aTabsContainer()
-                .with(aTab()
+                .with(aTabContainer()
                         .with(aContainer()
                                 .with(component)))
                 .build());

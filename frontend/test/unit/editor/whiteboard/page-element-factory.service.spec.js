@@ -1,18 +1,36 @@
-(function() {
+(function () {
 
   'use strict';
 
-  describe('page element factory', function() {
+  describe('page element factory', function () {
 
     var service;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor'));
 
-    beforeEach(inject(function(pageElementFactory) {
+    beforeEach(inject(function (pageElementFactory, components) {
       service = pageElementFactory;
+      components = components;
+      spyOn(components, 'getById').and.returnValue({
+        component: {
+          id: 'pbTabContainer',
+          properties: [
+            {
+              name: 'title',
+              bond: 'interpolation',
+              defaultValue: 'Tab X'
+            },
+            {
+              name: 'disabled',
+              bond: 'constant',
+              defaultValue: false
+            }
+          ]
+        }
+      });
     }));
 
-    it('should create a page element for a widget', function() {
+    it('should create a page element for a widget', function () {
       var widget = {
         id: 'aWidget',
         properties: [
@@ -29,14 +47,14 @@
       expect(element).toEqual({
         id: 'aWidget',
         type: 'component',
-        dimension: { xs: 12 },
+        dimension: {xs: 12},
         propertyValues: {
-          robert: { type: 'constant', value: 'manger' }
+          robert: {type: 'constant', value: 'manger'}
         }
       });
     });
 
-    it('should create a page element with component type for a widget', function() {
+    it('should create a page element with component type for a widget', function () {
       var widget = {
         id: 'aWidget',
         type: 'widget'
@@ -47,12 +65,12 @@
       expect(element).toEqual({
         id: 'aWidget',
         type: 'component',
-        dimension: { xs: 12 },
+        dimension: {xs: 12},
         propertyValues: {}
       });
     });
 
-    it('should create a page element for a container', function() {
+    it('should create a page element for a container', function () {
       var container = {
         id: 'pbContainer',
         properties: [
@@ -69,78 +87,92 @@
       expect(element).toEqual({
         id: 'pbContainer',
         type: 'container',
-        dimension: { xs: 12 },
+        dimension: {xs: 12},
         propertyValues: {
-          robert: { type: 'constant', value: 'manger' }
+          robert: {type: 'constant', value: 'manger'}
         },
         rows: [[]]
       });
     });
 
-    it('should create a page element for a tabsContainer', function() {
-      var tabsContainer = {
+    it('should create a page element for a tabsContainer', function () {
+      let tabsContainer = {
         id: 'pbTabsContainer',
         properties: [
           {
-            name: 'robert',
+            name: 'vertical',
             bond: 'constant',
-            defaultValue: 'manger'
+            defaultValue: false
+          },
+          {
+            name: 'type',
+            bond: 'constant',
+            defaultValue: 'tabs'
           }
         ]
       };
 
-      var element = service.createTabsContainerElement(tabsContainer);
-
+      let element = service.createTabsContainerElement(tabsContainer);
+      console.log(element);
       expect(element).toEqual({
         id: 'pbTabsContainer',
         type: 'tabsContainer',
-        dimension: { xs: 12 },
-        propertyValues: {
-          robert: { type: 'constant', value: 'manger' }
-        },
-        tabs: [
+        dimension: Object({xs: 12}),
+        propertyValues: Object({
+          vertical: Object({type: 'constant', value: false}),
+          type: Object({type: 'constant', value: 'tabs'})
+        }),
+        tabList: [Object({
+          id: 'pbTabContainer',
+          type: 'tabContainer',
+          dimension: Object({xs: 12}),
+          propertyValues: Object({
+            title: Object({type: 'interpolation', value: 'Tab 1'}),
+            disabled: Object({type: 'constant', value: false})
+          }),
+          container: Object({id: 'pbContainer', type: 'container', rows: [[]]})
+        }), Object({
+          id: 'pbTabContainer',
+          type: 'tabContainer',
+          dimension: Object({xs: 12}),
+          propertyValues: Object({title: Object({type: 'interpolation', value: 'Tab 2'}),
+            disabled: Object({type: 'constant', value: false})
+          }),
+          container: Object({id: 'pbContainer', type: 'container', rows: [[]]})
+        })]
+      });
+    });
+
+    it('should create a page element for a tabContainer', function () {
+      let tabContainer = {
+        id: 'pbTabContainer',
+        properties: [
           {
-            title: 'Tab 1',
-            container: {
-              id: 'pbContainer',
-              type: 'container',
-              rows: [
-                []
-              ]
-            }
+            name: 'title',
+            bond: 'interpolation',
+            defaultValue: 'Tab 1'
           },
           {
-            title: 'Tab 2',
-            container: {
-              id: 'pbContainer',
-              type: 'container',
-              rows: [
-                []
-              ]
-            }
+            name: 'disabled',
+            bond: 'constant',
+            defaultValue: false
           }
+
         ]
+      };
+
+      let element = service.createTabContainerElement(tabContainer, 'MyTitle');
+
+      expect(element).toEqual({
+        id: 'pbTabContainer',
+        type: 'tabContainer',
+        dimension: Object({xs: 12}),
+        propertyValues: Object({title: Object({type: 'interpolation', value: 'MyTitle'}), disabled: Object({type: 'constant', value: false})}),
+        container: Object({id: 'pbContainer', type: 'container', rows: [[]]})
       });
     });
 
-    it('should create a page element for a tab', function() {
-      var title = 'tab';
-
-      var tab = service.createTabElement(title);
-
-      expect(tab).toEqual({
-        title: 'tab',
-        container: {
-          id: 'pbContainer',
-          type: 'container',
-          rows: [
-            []
-          ]
-        }
-      });
-    });
-
-    it('should create a page element for a form container', function() {
+    it('should create a page element for a form container', function () {
       var formContainer = {
         id: 'pbFormContainer',
         properties: [
@@ -157,9 +189,9 @@
       expect(element).toEqual({
         id: 'pbFormContainer',
         type: 'formContainer',
-        dimension: { xs: 12 },
+        dimension: {xs: 12},
         propertyValues: {
-          robert: { type: 'constant', value: 'manger' }
+          robert: {type: 'constant', value: 'manger'}
         },
         container: {
           id: 'pbContainer',

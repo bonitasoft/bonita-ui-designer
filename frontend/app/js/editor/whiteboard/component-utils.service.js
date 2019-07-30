@@ -118,7 +118,7 @@
 
       // We normalize container and tabs container into an array of rows
       // For tabs, we merge rows of each tabs container
-      var rows = container.rows || (container.container && container.container.rows) || (container.tabs || [])
+      var rows = container.rows || (container.container && container.container.rows) || (container.tabList || [])
           .map(getTabRows)
           .reduce(flattenReducer, []);
 
@@ -163,7 +163,7 @@
       var rows = container.rows ||
         container.container && container.container.rows ||
         container.$$widget && container.$$widget.rows ||
-        (container.tabs || [])
+        (container.tabList || [])
           .map(getTabRows)
           .reduce(flattenReducer, []);
 

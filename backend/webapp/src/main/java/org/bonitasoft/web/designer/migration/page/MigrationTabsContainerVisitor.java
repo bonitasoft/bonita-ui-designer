@@ -12,8 +12,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitor;
+package org.bonitasoft.web.designer.migration.page;
 
+import static com.google.common.collect.Iterables.concat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -24,21 +30,9 @@ import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
-import org.bonitasoft.web.designer.model.widget.Property;
+import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
-import java.util.List;
-
-import static com.google.common.collect.Iterables.concat;
-import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
-import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
-
-public class FixBondsTypesVisitor implements ElementVisitor<Void> {
-
-    private List<Property> properties;
-
-    public FixBondsTypesVisitor(List<Property> properties) {
-        this.properties = properties;
-    }
+public class MigrationTabsContainerVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(Container container) {
@@ -50,12 +44,13 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(FormContainer formContainer) {
-        visit(formContainer.getContainer());
-        return null;
+        return visit(formContainer.getContainer());
     }
 
     @Override
     public Void visit(TabsContainer tabsContainer) {
+        createPropertyValue(tabsContainer, "vertical", BondType.CONSTANT, Boolean.FALSE);
+        createPropertyValue(tabsContainer, "type", BondType.CONSTANT, "tabs");
         for (TabContainer tab : tabsContainer.getTabList()) {
             visit(tab);
         }
@@ -63,38 +58,40 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
     }
 
     @Override
-    public Void visit(ModalContainer modalContainer) {
-        visit(modalContainer.getContainer());
-        return null;
+    public Void visit(TabContainer tabContainer) {
+        createPropertyValue(tabContainer, "cssClasses", BondType.CONSTANT, "");
+        createPropertyValue(tabContainer, "hidden", BondType.CONSTANT, false);
+        createPropertyValue(tabContainer, "disabled", BondType.CONSTANT, false);
+         visit(tabContainer.getContainer());
+         return null;
     }
 
     @Override
-    public Void visit(TabContainer tabContainer) {
-        visit(tabContainer.getContainer());
-        return null;
+    public Void visit(ModalContainer modalContainer) {
+         visit(modalContainer.getContainer());
+         return null;
     }
 
     @Override
     public Void visit(Component component) {
-        for (Property property : properties) {
-            BondType bondType = property.getBond();
-            PropertyValue propertyValue = component.getPropertyValues().get(property.getName());
-            if(propertyValue == null){
-                continue;
-            }
-            if (EXPRESSION.equals(bondType)) {
-                bondType = CONSTANT;
-            }
-            propertyValue.setType(bondType.toJson());
-        }
         return null;
     }
 
     @Override
-    public Void visit(Previewable previewable) {
+    public <P extends Previewable & Identifiable> Void visit(P previewable) {
         for (Element element : concat(previewable.getRows())) {
             element.accept(this);
         }
         return null;
     }
+
+    private void createPropertyValue(Component component, String propertyName, BondType bondType, Object defaultValue) {
+        if (!component.getPropertyValues().containsKey(propertyName)) {
+            PropertyValue newPropertyValue = new PropertyValue();
+            newPropertyValue.setType(bondType.toJson());
+            newPropertyValue.setValue(defaultValue);
+            component.getPropertyValues().put(propertyName, newPropertyValue);
+        }
+    }
 }
+

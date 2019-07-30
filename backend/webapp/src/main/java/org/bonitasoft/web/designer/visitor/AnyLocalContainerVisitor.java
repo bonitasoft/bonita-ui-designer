@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
-
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -26,8 +21,13 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.singletonList;
 
 /**
  * A visitor
@@ -49,13 +49,18 @@ public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element
     public Iterable<Element> visit(TabsContainer tabsContainer) {
         return concat(
                 singletonList(tabsContainer),
-                concat(transform(tabsContainer.getTabs(), new Function<Tab, Iterable<Element>>() {
+                concat(transform(tabsContainer.getTabList(), new Function<TabContainer, Iterable<Element>>() {
 
                     @Override
-                    public Iterable<Element> apply(Tab tab) {
-                        return tab.getContainer().accept(AnyLocalContainerVisitor.this);
+                    public Iterable<Element> apply(TabContainer tabContainer) {
+                        return tabContainer.accept(AnyLocalContainerVisitor.this);
                     }
                 })));
+    }
+
+    @Override
+    public Iterable<Element> visit(TabContainer tabContainer) {
+        return concat(singletonList(tabContainer), tabContainer.getContainer().accept(this));
     }
 
     @Override

@@ -71,7 +71,7 @@
                     'id':'pbTabsContainer',
                     'type': 'tabsContainer',
                     'dimension': {'xs': 12},
-                    'tabs': [
+                    'tabList': [
                       {
                         'title': 'Tab 1',
                         'container': {
@@ -162,6 +162,14 @@
       spyOn(alerts, 'addError');
     }));
 
+    beforeEach(inject(function (pageElementFactory, components) {
+      spyOn(components, 'getById').and.returnValue({
+        component: {
+          id: 'pbTabContainer'
+        }
+      });
+    }));
+
     it('should initialize a page', function() {
       var page = {};
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
@@ -186,7 +194,6 @@
       expect(tabsContainer.$$parentContainerRow.row).toBe(page.rows[0][0].rows[2]);
       expect(tabsContainer.$$id).toBe('pbTabsContainer-0');
       expect(tabsContainer.$$widget.name).toBe('Tabs container');
-      expect(tabsContainer.tabs[0].$$parentTabsContainer).toBe(tabsContainer);
 
       var formContainer = page.rows[1][0];
       expect(formContainer.$$id).toBe('pbFormContainer-0');

@@ -15,40 +15,40 @@
 package org.bonitasoft.web.designer.builder;
 
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 
-public class TabBuilder {
+public class TabContainerBuilder extends ElementBuilder<TabContainer>{
 
-    private Tab tab = new Tab();
+    private TabContainer tabContainer = new TabContainer();
 
-    private TabBuilder() {
+    private TabContainerBuilder() {
     }
 
-    public static TabBuilder aTab() {
-        return new TabBuilder();
+    public static TabContainerBuilder aTabContainer() {
+        return new TabContainerBuilder();
     }
 
-    public Tab build() {
-        return tab;
+    public TabContainer build() {
+        return tabContainer;
     }
 
-    public TabBuilder withId(String id) {
-        tab.setId(id);
+    public TabContainerBuilder withId(String id) {
+        tabContainer.setId(id);
         return this;
     }
 
-    public TabBuilder withTitle(String title) {
-        tab.setTitle(title);
+    public TabContainerBuilder with(ElementBuilder<Container> builder) {
+        tabContainer.setContainer(builder.build());
         return this;
     }
 
-    public TabBuilder with(ElementBuilder<Container> builder) {
-        tab.setContainer(builder.build());
+    public TabContainerBuilder with(Container container) {
+        tabContainer.setContainer(container);
         return this;
     }
 
-    public TabBuilder with(Container container) {
-        tab.setContainer(container);
-        return this;
+    @Override
+    protected TabContainer getElement() {
+        return tabContainer;
     }
 }

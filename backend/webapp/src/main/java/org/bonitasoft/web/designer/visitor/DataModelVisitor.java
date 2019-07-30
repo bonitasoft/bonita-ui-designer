@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.emptyMap;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -28,9 +22,15 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Collections.emptyMap;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the data used in a page
@@ -56,10 +56,15 @@ public class DataModelVisitor implements ElementVisitor<Map<String, Map<String, 
     @Override
     public Map<String, Map<String, Data>> visit(TabsContainer tabsContainer) {
         Map<String, Map<String, Data>> data = new HashMap<>();
-        for (Tab tab : tabsContainer.getTabs()) {
-            data.putAll(tab.getContainer().accept(this));
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+            data.putAll(tabContainer.accept(this));
         }
         return data;
+    }
+
+    @Override
+    public Map<String, Map<String, Data>> visit(TabContainer tabContainer) {
+        return tabContainer.getContainer().accept(this);
     }
 
     @Override

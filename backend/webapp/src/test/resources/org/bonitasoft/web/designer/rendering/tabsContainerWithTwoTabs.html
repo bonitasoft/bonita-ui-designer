@@ -1,14 +1,14 @@
 <div pb-property-values="tabs-container-reference">
     <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden">
-        <tabset>
-            <tab>
-                <tab-heading ui-translate="">First</tab-heading>
+        <tabset vertical="{{properties.vertical}}" type="{{properties.type}}">
+            <tab pb-property-values="tab-container-1" ng-hide="properties.hidden" disable="properties.disabled">
+                <tab-heading ng-bind="properties.title" ng-class="properties.cssClasses" ui-translate=""></tab-heading>
                 <div pb-property-values="first-container">
                     <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden"></div>
                 </div>
             </tab>
-            <tab>
-                <tab-heading ui-translate="">Last</tab-heading>
+            <tab pb-property-values="tab-container-2" ng-hide="properties.hidden" disable="properties.disabled">
+                <tab-heading ng-bind="properties.title" ng-class="properties.cssClasses" ui-translate=""></tab-heading>
                 <div pb-property-values="last-container">
                     <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden"></div>
                 </div>

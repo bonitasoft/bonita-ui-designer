@@ -1,4 +1,4 @@
-import aTab from '../../utils/builders/TabElementBuilder';
+import aTabContainer from '../../utils/builders/TabContainerElementBuilder';
 import aFormContainer from '../../utils/builders/FormContainerElementBuilder';
 import aTabsContainer from  '../../utils/builders/TabsContainerElementBuilder';
 import aContainer from  '../../utils/builders/ContainerElementBuilder';
@@ -104,7 +104,7 @@ describe('whiteboard service', function() {
     var aComponent = aWidget().id('aComponent');
     var anotherComponent = aWidget().id('anotherComponent');
     var aComponentAgain = aWidget().id('aComponentAgain');
-    var tab = aTab().withRow([aComponent, anotherComponent]).withRow([aComponentAgain]);
+    var tab = aTabContainer().withRow([aComponent, anotherComponent]).withRow([aComponentAgain]);
 
     whiteboardService.onRemoveTab(tab);
 
@@ -119,8 +119,8 @@ describe('whiteboard service', function() {
     var aComponentTab1Again = aWidget().id('aComponentAgain');
     var tab2Component = aWidget().id('tab2Component');
     var tabsContainer = aTabsContainer()
-      .withTab(aTab().withRow([aTab1Component, anotherTab1Component]).withRow([aComponentTab1Again]))
-      .withTab(aTab().withRow([tab2Component]));
+      .withTab(aTabContainer().withRow([aTab1Component, anotherTab1Component]).withRow([aComponentTab1Again]))
+      .withTab(aTabContainer().withRow([tab2Component]));
 
     whiteboardService.onRemoveTabsContainer(tabsContainer);
 

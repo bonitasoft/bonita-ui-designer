@@ -1,29 +1,29 @@
 angular.module('tabsContainerStructureMock',[])
     .value('tabsContainerStructureMockJSON', {
     $$id: 'tab-0',
-    tabs: [{
+    tabList: [{
           container: {
             rows: [
               [{
                 $$id: 'tab-1',
-                tabs: [{
+                tabList: [{
                   container: {
                     rows: [
                       [
                         {
                           $$id: 'tab-3',
-                          tabs: [{
+                          tabList: [{
                             container: {
                               rows: [
                                 [{
                                   $$id: 'tab-4',
-                                  tabs: [{
+                                  tabList: [{
                                     container: {
                                       rows: [
                                         [
                                           {
                                             $$id: 'tab-5',
-                                            tabs: [{
+                                            tabList: [{
                                               container: {
                                                 rows: [[]]
                                               }
@@ -43,7 +43,7 @@ angular.module('tabsContainerStructureMock',[])
                                         ],[
                                           {
                                             $$id: 'tab-9',
-                                            tabs: [{
+                                            tabList: [{
                                               container: {
                                                 rows: [[]]
                                               }
@@ -66,7 +66,7 @@ angular.module('tabsContainerStructureMock',[])
 
               [{
                 $$id: 'tab-6',
-                tabs: [{
+                tabList: [{
                   container: {
                     rows: [
                       [
@@ -83,7 +83,7 @@ angular.module('tabsContainerStructureMock',[])
                         },
                         {
                           $$id: 'tab-7',
-                          tabs: [{
+                          tabList: [{
                             container: {
                               rows: [
                                 [{

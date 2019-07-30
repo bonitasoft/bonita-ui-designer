@@ -1,21 +1,30 @@
 <div class="widget-wrapper">
     <component-mover component="tabsContainer" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(tabsContainer)"></component-mover>
-    <ul class="nav nav-tabs" role="tablist">
-        <li  class="tab-element" ng-repeat="tab in tabsContainer.tabs" ng-class="{'active': isOpened(tab), 'current-tab': editor.isCurrentComponent(tab)}">
+    <ul class="nav"
+        ng-class="{'nav-stacked': isPropertyExist('vertical') && tabsContainer.propertyValues.vertical.value,
+         'nav-pills': isPropertyExist('type') && tabsContainer.propertyValues.type.value == 'pills',
+         'nav-tabs': !isPropertyExist('type') || tabsContainer.propertyValues.type.value == 'tabs'}"
+        role="tablist">
+        <li  class="tab-element" ng-repeat="tab in tabsContainer.tabList" ng-class="{'active': isOpened(tab), 'current-tab': editor.isCurrentComponent(tab)}">
             <a class="clickable" ng-click="openTab(tab, $event)">
-                <button ng-click="moveTabLeft(tab)" ng-if="moveTabLeftVisible(tab)" class="fa fa-arrow-circle-left move-tab-left btn-tab"></button>
-                <button ng-click="moveTabRight(tab)" ng-if="moveTabRightVisible(tab)" class="fa fa-arrow-circle-right move-tab-right btn-tab"></button>
-                <span class="tab-title">{{ tab.title }}</span>
+                <button ng-click="moveTabLeft(tab)" ng-if="moveTabLeftVisible(tab)" class="fa move-tab-left btn-tab"
+                        ng-class="{'fa-arrow-circle-up': isPropertyExist('vertical') && tabsContainer.propertyValues.vertical.value,
+                         'fa-arrow-circle-left': !isPropertyExist('vertical') || !tabsContainer.propertyValues.vertical.value}">
+                </button>
+                <button ng-click="moveTabRight(tab)" ng-if="moveTabRightVisible(tab)" class="fa fa-arrow-circle-right move-tab-right btn-tab"
+                        ng-class="{'fa-arrow-circle-down': isPropertyExist('vertical') && tabsContainer.propertyValues.vertical.value,
+                         'fa-arrow-circle-right': !isPropertyExist || !tabsContainer.propertyValues.vertical.value}"></button>
+                <span class="tab-title">{{ tab.propertyValues.title.value }}</span>
                 <button title="{{ 'Remove tab' | translate }}"  ng-click="removeTab(tab)" ng-if="isRemoveTabVisible(tab)" class="fa fa-times-circle btn-tab"></button>
             </a>
         </li>
         <li class="tab-element">
-            <a class="clickable" ng-click="addTab($event)" title="{{ 'Add a new tab' | translate }}">
+            <a class="clickable" ng-click="addTabContainer($event)" title="{{ 'Add a new tab' | translate }}">
                 <i class="fa fa-plus"></i>
             </a>
         </li>
     </ul>
-    <div ng-repeat="tab in tabsContainer.tabs" ng-show="isOpened(tab)">
+    <div ng-repeat="tab in tabsContainer.tabList" ng-show="isOpened(tab)">
         <container container="tab.container" component="tabsContainer" editor="editor"></container>
     </div>
 </div>

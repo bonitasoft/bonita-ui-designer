@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.bonitasoft.web.designer.model.Assetable;
@@ -31,10 +26,15 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
@@ -65,9 +65,16 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
     public Set<Asset> visit(TabsContainer tabsContainer) {
         Set<Asset> assets = new HashSet<>();
         assets.addAll(linkAssetToComponent(tabsContainer.getId()));
-        for (Tab tab : tabsContainer.getTabs()) {
-            assets.addAll(tab.getContainer().accept(this));
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+            assets.addAll(tabContainer.accept(this));
         }
+        return assets;
+    }
+
+    @Override
+    public Set<Asset> visit(TabContainer tabContainer) {
+        Set<Asset> assets = new HashSet<>();
+        assets.addAll(tabContainer.getContainer().accept(this));
         return assets;
     }
 

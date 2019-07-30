@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -40,6 +41,7 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
@@ -90,7 +92,7 @@ public class DesignerConfig {
 
     @Bean
     public Class[] jacksonSubTypes() {
-        return new Class[]{Component.class, Container.class, FormContainer.class, TabsContainer.class, ModalContainer.class};
+        return new Class[]{Component.class, Container.class, FormContainer.class,  TabsContainer.class, TabContainer.class, ModalContainer.class};
     }
 
     @Bean

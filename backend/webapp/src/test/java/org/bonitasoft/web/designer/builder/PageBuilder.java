@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-import static java.util.Arrays.asList;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
-import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import com.google.common.base.Function;
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.TabContainer;
+import org.bonitasoft.web.designer.model.page.TabsContainer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,16 +33,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.base.Function;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetScope;
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Tab;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 
 public class PageBuilder {
 
@@ -176,16 +176,14 @@ public class PageBuilder {
 
         Container containerWithTwoRows = aContainer().with(row, row).build();
 
-        Tab tab = new Tab();
-        tab.setTitle("tab1");
-        tab.setContainer(containerWithTwoRows);
+        TabContainer tabContainer = new TabContainer();
+        tabContainer.setContainer(containerWithTwoRows);
 
-        Tab tab2 = new Tab();
-        tab.setTitle("tab2");
-        tab.setContainer(containerWithTwoRows);
+        TabContainer tabContainer2 = new TabContainer();
+        tabContainer2.setContainer(containerWithTwoRows);
 
         TabsContainer tabsContainer = new TabsContainer();
-        tabsContainer.setTabs(asList(tab, tab2));
+        tabsContainer.setTabList(asList(tabContainer, tabContainer2));
 
         FormContainer formContainer = new FormContainer();
         formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());

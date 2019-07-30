@@ -1,12 +1,13 @@
 describe('whiteboard component wrapper', function() {
 
-  var service, item, widget, parentRow, whiteboardService;
+  var service, item, widget, parentRow, whiteboardService, components;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
   beforeEach(inject(function($injector) {
     service = $injector.get('whiteboardComponentWrapper');
     whiteboardService = $injector.get('whiteboardService');
+    components = $injector.get('components');
   }));
 
   beforeEach(function() {
@@ -78,7 +79,9 @@ describe('whiteboard component wrapper', function() {
 
   it('should init a tabsContainer and its tabs', function() {
     spyOn(service, 'wrapContainer');
-    item.tabs = [{
+    spyOn(service, 'wrapTabContainer');
+    spyOn(components, 'getById').and.returnValue({component: {}});
+    item.tabList = [{
       title: 'tab1',
       container: {
         id: 'pbContainer',
@@ -111,28 +114,26 @@ describe('whiteboard component wrapper', function() {
     expect(item.$$parentContainerRow).toBe(parentRow);
     expect(item.triggerRemoved).toBeDefined();
     expect(item.triggerAdded).toBeDefined();
-    expect(service.wrapContainer.calls.count()).toBe(2);
+    expect(service.wrapTabContainer.calls.count()).toBe(2);
 
-    item.tabs.forEach(function(tab) {
-      expect(tab.$$parentTabsContainer).toBe(item);
-      expect(tab.$$widget.name).toBe('Tab');
-      expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
-      expect(tab.triggerRemoved).toBeDefined();
-      expect(tab.triggerAdded).toBeDefined();
-    });
   });
 
   it('should initialize a tab', function() {
-    var tab = { title: 'aTab' };
-    var tabContainer = { type: 'tabsContainer' };
+    spyOn(service, 'wrapContainer');
+    var tabContainerDefinition = {
+      id: 'pbTabContainer',
+      type: 'container'
+    };
 
-    service.wrapTab(tab, tabContainer);
+    service.wrapTabContainer(tabContainerDefinition, item, parentRow);
 
-    expect(tab.$$parentTabsContainer).toBe(tabContainer);
-    expect(tab.$$widget.name).toBe('Tab');
-    expect(tab.$$propertiesTemplateUrl).toBe('js/editor/properties-panel/tab-properties-template.html');
-    expect(tab.triggerRemoved).toBeDefined();
-    expect(tab.triggerAdded).toBeDefined();
+    expect(item.$$id).toBe('pbTabContainer-0');
+    expect(item.$$widget).toEqual(tabContainerDefinition);
+    expect(item.$$widget).not.toBe(tabContainerDefinition);
+    expect(item.$$templateUrl).toBeDefined();
+    expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(item.triggerRemoved).toBeDefined();
+    expect(item.triggerAdded).toBeDefined();
   });
 
 });

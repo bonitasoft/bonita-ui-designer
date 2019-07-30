@@ -57,7 +57,7 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.9.24";
+    String PAGE_HIGHER_MIGRATION_VERSION = "1.10.5";
 
     String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
 

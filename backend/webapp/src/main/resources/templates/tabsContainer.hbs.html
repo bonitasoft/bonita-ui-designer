@@ -1,12 +1,10 @@
-<div pb-property-values='{{ reference }}'>
-    <div class="{{ dimensionAsCssClasses }}" ng-class="properties.cssClasses" ng-if="!properties.hidden">
-        <tabset>
-            {{#each tabTemplates}}
-                <tab>
-                    <tab-heading ui-translate>{{ title }}</tab-heading>
-                    {{{ content }}}
-                </tab>
-            {{/each}}
+{{=<% %>=}}
+<div pb-property-values='<% reference %>'>
+    <div class="<% dimensionAsCssClasses %>" ng-class="properties.cssClasses" ng-if="!properties.hidden">
+        <tabset vertical="{{properties.vertical}}" type="{{properties.type}}">
+            <%#each tabTemplates%>
+                <%{ content }%>
+            <%/each%>
         </tabset>
     </div>
 </div>

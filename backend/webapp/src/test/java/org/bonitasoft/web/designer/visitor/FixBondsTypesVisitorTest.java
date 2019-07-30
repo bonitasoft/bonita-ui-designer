@@ -14,19 +14,18 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.widget.BondType;
+import org.junit.Test;
+
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.widget.BondType;
-import org.bonitasoft.web.designer.visitor.FixBondsTypesVisitor;
-import org.junit.Test;
 
 public class FixBondsTypesVisitorTest {
 
@@ -72,7 +71,7 @@ public class FixBondsTypesVisitorTest {
 
     @Test
     public void should_visit_container_from_tabs_container() {
-        fixBondsTypesVisitor.visit(aTabsContainer().with(aTab().with(aContainer().with(component))).build());
+        fixBondsTypesVisitor.visit(aTabsContainer().with(aTabContainer().with(aContainer().with(component))).build());
 
         assertThat(component.getPropertyValues().get("bar").getType()).isEqualTo("constant");
     }

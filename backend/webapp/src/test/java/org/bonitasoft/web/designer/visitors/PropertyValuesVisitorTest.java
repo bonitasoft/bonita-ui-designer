@@ -23,18 +23,12 @@ import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 
-import java.io.IOException;
-import java.util.HashMap;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.junit.Before;
@@ -127,12 +121,13 @@ public class PropertyValuesVisitorTest {
     @Test
     public void should_associate_component_property_values_contained_in_a_tab_with_its_id() throws Exception {
         assertThat(propertyValuesVisitor.visit(aTabsContainer()
-                .with(aTab().with(aContainer()
+                .with(aTabContainer().with(aContainer()
                         .with(aComponent().withReference("component-id").withPropertyValue("foo", "bar", "baz"))
-                        .withReference("container-id")))
+                        .withReference("container-id")).withReference("tab-id").build())
                 .withReference("tabs-container-id")
                 .build())).containsOnly(
                 entry("tabs-container-id", emptyMap()),
+                entry("tab-id", emptyMap()),
                 entry("container-id", emptyMap()),
                 entry("component-id", singletonMap("foo", propertyValue)));
     }

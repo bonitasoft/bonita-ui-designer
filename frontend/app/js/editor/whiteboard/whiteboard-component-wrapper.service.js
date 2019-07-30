@@ -27,8 +27,8 @@
       wrapWidget,
       wrapContainer,
       wrapTabsContainer,
+      wrapTabContainer,
       wrapModalContainer,
-      wrapTab,
       wrapFormContainer
     };
     return service;
@@ -92,10 +92,10 @@
       return component;
     }
 
-    function wrapTabsContainer(tabContainer, element, parentRow) {
+    function wrapTabsContainer(tabsContainer, element, parentRow) {
       var component = angular.extend(element, {
-        $$id: componentId.getNextId(tabContainer.id),
-        $$widget: angular.copy(tabContainer),
+        $$id: componentId.getNextId(tabsContainer.id),
+        $$widget: angular.copy(tabsContainer),
         $$templateUrl: 'js/editor/whiteboard/tabs-container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/component-properties-template.html',
         $$parentContainerRow: parentRow,
@@ -103,25 +103,27 @@
         triggerAdded: whiteboardService.onAddTabsContainer.bind(null, element),
       });
 
-      element.tabs.forEach(function(tab) {
-        service.wrapTab(tab, element);
-        service.wrapContainer({ id: 'pbContainer' }, tab.container);
+      var tabContainer = components.getById('pbTabContainer').component;
+      element.tabList.forEach(function(tabElement) {
+        service.wrapTabContainer(tabContainer, tabElement, parentRow);
       });
 
       return component;
     }
 
-    function wrapTab(tab, tabsContainer) {
-      angular.extend(tab, {
-        $$parentTabsContainer: tabsContainer,
-        $$widget: {
-          type: 'container',
-          name: 'Tab'
-        },
-        $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-properties-template.html',
-        triggerRemoved: whiteboardService.onRemoveTab.bind(null, tab),
+    function wrapTabContainer(tabContainer, element, parentRow) {
+      var component = angular.extend(element, {
+        $$id: componentId.getNextId(tabContainer.id),
+        $$widget: angular.copy(tabContainer),
+        $$templateUrl: 'js/editor/whiteboard/container-template.html',
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/tab-container-properties-template.html',
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveTabContainer.bind(null, element),
         triggerAdded: angular.noop
       });
+
+      service.wrapContainer({ id: 'pbContainer' }, element.container);
+      return component;
     }
 
     function wrapFormContainer(formContainer, element, parentRow) {

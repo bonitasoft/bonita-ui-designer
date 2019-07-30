@@ -28,7 +28,8 @@
       reset: reset,
       register: register,
       init: init,
-      get: get
+      get: get,
+      getById: getById
     };
 
     function register(items) {
@@ -52,6 +53,10 @@
 
     function get() {
       return componentsMap;
+    }
+
+    function getById(id) {
+      return componentsMap[id];
     }
   }
 

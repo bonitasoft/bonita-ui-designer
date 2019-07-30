@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.singletonMap;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -28,9 +22,15 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.Collections.singletonMap;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect property values in a page
@@ -60,11 +60,16 @@ public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<Str
     public Map<String, Map<String, PropertyValue>> visit(TabsContainer tabsContainer) {
         Map<String, Map<String, PropertyValue>> propertyValues = new HashMap<>();
         propertyValues.put(tabsContainer.getReference(), tabsContainer.getPropertyValues());
-        for (Tab tab : tabsContainer.getTabs()) {
-            if (tab.getContainer() != null) {
-                propertyValues.putAll(tab.getContainer().accept(this));
-            }
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+                propertyValues.putAll(tabContainer.accept(this));
         }
+        return propertyValues;
+    }
+
+    @Override
+    public Map<String, Map<String, PropertyValue>> visit(TabContainer tabContainer) {
+        Map<String, Map<String, PropertyValue>> propertyValues = tabContainer.getContainer().accept(this);
+        propertyValues.put(tabContainer.getReference(), tabContainer.getPropertyValues());
         return propertyValues;
     }
 

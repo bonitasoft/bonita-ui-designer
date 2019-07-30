@@ -112,6 +112,10 @@
           init: whiteboardComponentWrapper.wrapTabsContainer,
           create: createTabsContainer
         },
+        pbTabContainer: {
+          init: whiteboardComponentWrapper.wrapTabContainer,
+          create: createTabContainer
+        },
         pbFormContainer: {
           init: whiteboardComponentWrapper.wrapFormContainer,
           create: createFormContainer
@@ -152,6 +156,11 @@
     function createTabsContainer(tabsContainer, parentRow) {
       var element = pageElementFactory.createTabsContainerElement(tabsContainer);
       return whiteboardComponentWrapper.wrapTabsContainer(tabsContainer, element, parentRow);
+    }
+
+    function createTabContainer(tabContainer, parentRow) {
+      var element = pageElementFactory.createTabContainerElement(tabContainer);
+      return whiteboardComponentWrapper.wrapTabContainer(tabContainer, element, parentRow);
     }
 
     function createFormContainer(formContainer, parentRow) {

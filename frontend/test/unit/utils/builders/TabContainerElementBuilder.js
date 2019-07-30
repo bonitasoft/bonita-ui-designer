@@ -1,4 +1,4 @@
-class TabElementBuilder {
+class TabContainerElementBuilder {
 
   constructor() {
     this.container = {
@@ -7,8 +7,8 @@ class TabElementBuilder {
     this.triggerRemoved = jasmine.createSpy('triggerRemoved');
   }
 
-  static aTab() {
-    return new TabElementBuilder();
+  static aTabContainer() {
+    return new TabContainerElementBuilder();
   }
 
   withRow(row) {
@@ -22,4 +22,4 @@ class TabElementBuilder {
   }
 }
 
-export default TabElementBuilder.aTab;
+export default TabContainerElementBuilder.aTabContainer;

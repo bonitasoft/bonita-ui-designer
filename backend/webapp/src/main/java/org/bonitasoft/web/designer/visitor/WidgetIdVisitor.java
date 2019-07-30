@@ -14,20 +14,20 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.singleton;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.Collections.singleton;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the widget IDs used in a page
@@ -55,8 +55,8 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
     @Override
     public Set<String> visit(TabsContainer tabsContainer) {
         Set<String> widgetIds = new HashSet<>();
-        for (Tab tab : tabsContainer.getTabs()) {
-            widgetIds.addAll(tab.getContainer().accept(this));
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+            widgetIds.addAll(tabContainer.accept(this));
         }
         widgetIds.add(tabsContainer.getId());
         return widgetIds;
@@ -67,6 +67,14 @@ public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
         Set<String> widgetIds = new HashSet<>();
         widgetIds.addAll(modalContainer.getContainer().accept(this));
         widgetIds.add(modalContainer.getId());
+        return widgetIds;
+    }
+
+    @Override
+    public Set<String> visit(TabContainer tabContainer) {
+        Set<String> widgetIds = new HashSet<>();
+        widgetIds.addAll(tabContainer.getContainer().accept(this));
+        widgetIds.add(tabContainer.getId());
         return widgetIds;
     }
 

@@ -20,13 +20,14 @@ import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.visitor.AnyLocalContainerVisitor;
 import org.junit.Before;
@@ -65,12 +66,13 @@ public class AnyLocalContainerVisitorTest {
     @Test
     public void should_collect_tabs_containers_and_content() throws Exception {
         Container container = aContainer().build();
+        TabContainer tab = aTabContainer()
+                .with(container).build();
         TabsContainer tabsContainer = aTabsContainer()
-                .with(aTab()
-                        .with(container))
+                .with(tab)
                 .build();
 
-        assertThat(anyLocalContainerVisitor.visit(tabsContainer)).containsExactly(tabsContainer, container);
+        assertThat(anyLocalContainerVisitor.visit(tabsContainer)).containsExactly(tabsContainer, tab, container);
     }
 
     @Test

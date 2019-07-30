@@ -64,12 +64,29 @@ describe('tabs test', function() {
     expect($$('tabs-container li a .tab-title').get(2).getText()).toBe('Tab 3');
   });
 
+  it('should allow to set a vertical display', function() {
+    // When 'vertical' display is set, the css class 'nav-stacked' is added
+    expect($$('tabs-container ul').getAttribute('class')).toContain('nav nav-tabs');
+    $$('[data-property=vertical] input[type=radio]').last().click();
+    expect($$('tabs-container ul').getAttribute('class')).toContain('nav nav-tabs nav-stacked');
+
+  });
+
+  it('should allow to set a display type', function() {
+    // When 'type' is set to 'tabs', the css classes are 'nav nav-tabs'
+    // When 'type' is set to 'pills', the css classes are 'nav nav-pills'
+    expect($$('tabs-container ul').getAttribute('class')).toContain('nav nav-tabs');
+    element(by.css('[data-property=type] option[label="pills"]')).click();
+    expect($$('tabs-container ul').getAttribute('class')).toContain('nav nav-pills');
+
+  });
+
   it('should allow setting a tab title', function() {
     var firstTab = $$('tabs-container li a').first();
     firstTab.click();
 
-    $('#tab-title-input').clear();
-    $('#tab-title-input').sendKeys('Hello');
+    $('#property-title').clear();
+    $('#property-title').sendKeys('Hello');
     expect($$('tabs-container li a').first().getText()).toBe('Hello');
   });
 
@@ -88,7 +105,6 @@ describe('tabs test', function() {
     editor.drag('#pbTabsContainer-1').andDropOn('#pbTabsContainer-1 .widget-placeholder',true);
     expect($('#pbTabsContainer-0').isPresent()).toBe(true);
     expect($('#pbTabsContainer-1').isPresent()).toBe(true);
-
   });
 
   it('should not disappear if I take the parent tabContainer and push it in a container inside of itself', function() {
@@ -106,4 +122,5 @@ describe('tabs test', function() {
     expect($('#pbTabsContainer-1').isPresent()).toBe(true);
     expect($('#pbContainer-2').isPresent()).toBe(true);
   });
+
 });

@@ -14,13 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptySet;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -28,10 +21,16 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static java.util.Collections.emptySet;
 
 public class AuthRulesCollector implements ElementVisitor<Set<String>> {
 
@@ -54,9 +53,16 @@ public class AuthRulesCollector implements ElementVisitor<Set<String>> {
     @Override
     public Set<String> visit(TabsContainer tabsContainer) {
         Set<String> authRules = new HashSet<>();
-        for (Tab tab : tabsContainer.getTabs()) {
-            authRules.addAll(tab.getContainer().accept(this));
+        for (TabContainer tabContainer : tabsContainer.getTabList()) {
+            authRules.addAll(tabContainer.accept(this));
         }
+        return authRules;
+    }
+
+    @Override
+    public Set<String> visit(TabContainer tabContainer) {
+        Set<String> authRules = new HashSet<>();
+        authRules.addAll(tabContainer.getContainer().accept(this));
         return authRules;
     }
 

@@ -14,19 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
-import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabBuilder.aTab;
-import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Mockito.when;
-
-import java.util.Set;
-
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -37,6 +24,19 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
+import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthRulesCollectorTest {
@@ -98,8 +98,8 @@ public class AuthRulesCollectorTest {
         Component component2 = mockComponentFor(aWidget().authRules("GET|bpm/userTask"));
 
         Set<String> modules = authRulesCollector.visit(aTabsContainer().with(
-                aTab().with(aContainer().with(component1)),
-                aTab().with(aContainer().with(component2))).build());
+                aTabContainer().with(aContainer().with(component1)),
+                aTabContainer().with(aContainer().with(component2))).build());
 
         assertThat(modules).containsOnly("GET|living/application-menu", "POST|bpm/process", "GET|bpm/userTask");
     }

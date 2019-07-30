@@ -82,7 +82,7 @@ var AssetPanel = require('./asset-panel.page');
     // add a widget by its id
     addWidget: function(widgetId) {
       var editor = this;
-      var btn = $('.Palette-section[aria-label=widgets]');
+      var btn = $('.Palette-section[aria-label="widgets"]');
       btn.getAttribute('class').then(function(className) {
         if (!/.Palette-section--active/.test(className)) {
           btn.click();
@@ -118,7 +118,12 @@ var AssetPanel = require('./asset-panel.page');
       this.addElement('pbTabsContainer').to('.widget-placeholder', false, true);
     },
 
-    // add a Tabs container
+    // add a Tab container
+    addTabContainer: function() {
+      this.addElement('pbTabContainer').to('.widget-placeholder', false, true);
+    },
+
+    // add a Form container
     addFormContainer: function() {
       this.addElement('pbFormContainer').to('.widget-placeholder', false, true);
     },

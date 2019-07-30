@@ -16,7 +16,7 @@ package org.bonitasoft.web.designer.builder;
 
 import java.util.ArrayList;
 
-import org.bonitasoft.web.designer.model.page.Tab;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
 public class TabsContainerBuilder extends ElementBuilder<TabsContainer> {
@@ -27,16 +27,23 @@ public class TabsContainerBuilder extends ElementBuilder<TabsContainer> {
     private TabsContainerBuilder() {
         tabsContainer = new TabsContainer();
         tabsContainer.setId(id);
-        tabsContainer.setTabs(new ArrayList<Tab>());
+        tabsContainer.setTabList(new ArrayList<TabContainer>());
     }
 
     public static TabsContainerBuilder aTabsContainer() {
         return new TabsContainerBuilder();
     }
 
-    public TabsContainerBuilder with(TabBuilder... builders) {
-        for (TabBuilder builder : builders) {
-            tabsContainer.getTabs().add(builder.build());
+    public TabsContainerBuilder with(TabContainer... tabContainers) {
+        for (TabContainer tabContainer : tabContainers) {
+            tabsContainer.getTabList().add(tabContainer);
+        }
+        return this;
+    }
+
+    public TabsContainerBuilder with(TabContainerBuilder... builders) {
+        for (TabContainerBuilder builder : builders) {
+            tabsContainer.getTabList().add(builder.build());
         }
         return this;
     }

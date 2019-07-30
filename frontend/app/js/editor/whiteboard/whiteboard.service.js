@@ -22,6 +22,8 @@
       onRemoveContainer: onRemoveContainer,
       onRemoveTabsContainer: onRemoveTabsContainer,
       onAddTabsContainer,
+      onRemoveTabContainer: onRemoveTabContainer,
+      onAddTabContainer,
       onAddModalContainer,
       onRemoveTab: onRemoveTab,
       onRemoveFormContainer: onRemoveFormContainer,
@@ -83,13 +85,21 @@
       executeFunctionsForComponent(onWidgetAddFunctions, tabsContainer);
     }
 
+    function onAddTabContainer(tabContainer) {
+      executeFunctionsForComponent(onWidgetAddFunctions, tabContainer);
+    }
+
     function onAddModalContainer(modalContainer) {
       executeFunctionsForComponent(onWidgetAddFunctions, modalContainer);
     }
 
     function onRemoveTabsContainer(tabsContainer) {
-      tabsContainer.tabs.forEach(onRemoveTab);
+      tabsContainer.tabs.forEach(onRemoveTabContainer);
       executeFunctionsForComponent(onWidgetRemoveFunctions, tabsContainer);
+    }
+
+    function onRemoveTabContainer(tabContainer) {
+      onRemoveContainer(tabContainer.container);
     }
 
     function onRemoveTab(tab) {

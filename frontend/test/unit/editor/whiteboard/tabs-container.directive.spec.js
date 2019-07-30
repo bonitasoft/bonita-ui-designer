@@ -1,9 +1,13 @@
-import aTab from '../../utils/builders/TabElementBuilder';
+import aTabContainer from '../../utils/builders/TabContainerElementBuilder';
 
 describe('tabsContainer', function() {
-  var $compile, $rootScope, element;
+  var $compile, $rootScope, element, components;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
+
+  beforeEach(inject(function($injector) {
+    components = $injector.get('components');
+  }));
 
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
@@ -13,9 +17,14 @@ describe('tabsContainer', function() {
     var template = '<tabs-container tabs-container="tabsContainer" editor="editor"></tabs-container>';
     // when compiling with tabs container containing 2 tabs
     var tabsContainer = {
-      tabs: [
+      tabList: [
         {
-          title: 'Tab 1',
+          propertyValues: {
+            title: {
+              type: 'interpolation',
+              value: 'Tab 1'
+            }
+          },
           container: {
             rows: [
               []
@@ -23,7 +32,12 @@ describe('tabsContainer', function() {
           }
         },
         {
-          title: 'Tab 2',
+          propertyValues: {
+            title: {
+              type: 'interpolation',
+              value: 'Tab 2'
+            }
+          },
           container: {
             rows: [
               []
@@ -61,24 +75,37 @@ describe('tabsContainer', function() {
   });
 
   it('should add a new tab', function() {
+    spyOn(components, 'getById').and.returnValue({
+      component: {
+        id: 'pbTabContainer',
+        properties: [
+          {
+            name: 'title',
+            type: 'string',
+            bond: 'constant',
+            defaultValue: 'Tab X'
+          }
+        ]
+      }
+    });
     $rootScope.tabsContainer = {
-      tabs: [
-        aTab().title('tab-1'),
-        aTab().title('tab-2')
+      tabList: [
+        aTabContainer().title('tab-1'),
+        aTabContainer().title('tab-2')
       ]
     };
     $rootScope.$apply();
 
     element.find('ul.nav.nav-tabs li:nth(2) a').triggerHandler({ type: 'click' });
 
-    expect($rootScope.tabsContainer.tabs.length).toBe(3);
+    expect($rootScope.tabsContainer.tabList.length).toBe(3);
   });
 
   it('should remove a tab', function() {
     $rootScope.tabsContainer = {
-      tabs: [
-        aTab().title('tab-1'),
-        aTab().title('tab-2')
+      tabList: [
+        aTabContainer().title('tab-1'),
+        aTabContainer().title('tab-2')
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
@@ -86,14 +113,14 @@ describe('tabsContainer', function() {
 
     element.find('button.btn-tab.fa-times-circle').first().triggerHandler({ type: 'click' });
 
-    expect($rootScope.tabsContainer.tabs.length).toBe(1);
+    expect($rootScope.tabsContainer.tabList.length).toBe(1);
   });
 
   it('should show remove button when there is more than one tab', function() {
     $rootScope.tabsContainer = {
-      tabs: [
-        aTab().title('tab-1'),
-        aTab().title('tab-2')
+      tabList: [
+        aTabContainer().title('tab-1'),
+        aTabContainer().title('tab-2')
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
@@ -104,8 +131,8 @@ describe('tabsContainer', function() {
 
   it('should hide remove button when there is only one tab', function() {
     $rootScope.tabsContainer = {
-      tabs: [
-        aTab().title('tab-1'),
+      tabList: [
+        aTabContainer().title('tab-1'),
       ]
     };
     spyOn($rootScope.editor, 'isCurrentComponent').and.returnValue(true);
