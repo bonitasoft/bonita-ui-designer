@@ -7,17 +7,17 @@
     "npm": ">=2.0.0"
   },
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.2.7",
     "angular-animate": "1.4.7",
     "angular-resizable": "1.2.0",
     "angular-switcher": "0.2.7",
-    "babel-polyfill": "6.3.14",
     "mousetrap": "1.5.3",
     "ngstorage": "0.3.10"
   },
   "devDependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.7",
     "angular-i18n": "1.4.8",
     "babel-core": "6.3.17",
+    "babel-polyfill": "6.3.14",
     "babel-preset-bonita": "1.0.2",
     "bower": "^1.3.12",
     "browser-sync": "~1.7.1",
@@ -60,9 +60,9 @@
     "karma-cli": "0.0.4",
     "karma-commonjs": "0.0.13",
     "karma-coverage": "~0.2.6",
-    "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "0.3.8",
     "karma-junit-reporter": "~0.2.2",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-ng-html2js-preprocessor": "^0.1.0",
     "karma-source-map-support": "1.1.0",
     "lodash": "~2.4.1",
@@ -87,7 +87,9 @@
     "e2e": "gulp e2e",
     "e2e:headless": "cross-env HEADLESS=true npm-run-all e2e",
     "pot": "gulp pot",
-    "start": "gulp serve"
+    "start": "gulp serve",
+    "listDependencies": "bower-license -e json > ./ui-designer-frontend-dependencies.json",
+    "listDependenciesYarn": "license-checker --json --production > ./ui-designer-frontend-yarn-dependencies.json"
   },
   "repository": {
     "type": "git",

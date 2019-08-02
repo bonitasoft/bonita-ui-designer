@@ -41,6 +41,17 @@ function WidgetController($scope, $log, $window, $sce) {
     }
   };
 
+  controller.getDocumentDownloadUrl = function() {
+    if (isTypeProcessDocument() && controller.document) {
+      if (isInitializedByAnExternalSystem(controller.document)) {
+        return controller.document.url;
+      }
+      return "../API/" + controller.document.url;
+    } else {
+      return $scope.properties.url;
+    }
+  };
+
   controller.getTrustedDocumentViewUrl = function() {
     return $sce.trustAsResourceUrl(controller.getDocumentViewUrl());
   };

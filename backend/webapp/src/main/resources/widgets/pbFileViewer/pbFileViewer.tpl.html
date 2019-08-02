@@ -16,10 +16,10 @@
       {{ ctrl.fileName || ctrl.getDocumentViewUrl() }}
   </a>
   <a class="FileViewer-fileName"
-     title="{{'Download' | uiTranslate}} {{ ctrl.fileName || ctrl.getDocumentViewUrl() }}"
+     title="{{'Download' | uiTranslate}} {{ ctrl.fileName || ctrl.getDocumentDownloadUrl() }}"
      ng-if="!ctrl.isImage() && !ctrl.isPDF()"
-     ng-href="{{ctrl.getDocumentViewUrl()}}">
-      {{ ctrl.fileName || ctrl.getDocumentViewUrl() }}
+     ng-href="{{ctrl.getDocumentDownloadUrl()}}">
+      {{ ctrl.fileName || ctrl.getDocumentDownloadUrl() }}
   </a>
 
   <div ng-if="properties.showPreview && ctrl.isPDF() && !ctrl.isMobileDevice()">

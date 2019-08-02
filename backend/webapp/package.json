@@ -18,7 +18,8 @@
     "postinstall": "bower install",
     "build": "gulp",
     "pot": "gulp pot",
-    "start": "gulp serve"
+    "start": "gulp serve",
+    "listDependencies": "bower-license -e json > ./target/ui-designer-backend-webapp.json"
   },
   "engine": {
     "npm": ">=2.0.0"
@@ -40,6 +41,7 @@
     "gulp-ng-annotate": "~1.0.0",
     "gulp-order": "1.1.1",
     "gulp-plumber": "1.0.1",
+    "gulp-replace": "0.5.4",
     "gulp-shell": "~0.2.10",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "~1.0.1",
@@ -55,6 +57,7 @@
     "karma-jasmine": "~0.3.8",
     "karma-junit-reporter": "1.2.0",
     "karma-phantomjs-launcher": "1.0.4",
+    "license-checker": "^25.0.1",
     "log4js": "0.6.27",
     "optimist": "0.6.1",
     "phantomjs-prebuilt": "2.1.16",
@@ -63,10 +66,10 @@
     "widget-builder": "bonitasoft/widget-builder#2.0.1"
   },
   "dependencies": {
-    "jquery": "^3.0.0",
-    "merge-stream": "^0.1.7",
+    "gulp-if": "^1.2.5",
     "gulp-ng-html2js": "^0.2.0",
-    "gulp-if": "^1.2.5"
+    "jquery": "^3.0.0",
+    "merge-stream": "^0.1.7"
   },
   "jscsConfig": {
     "preset": "bonita",
