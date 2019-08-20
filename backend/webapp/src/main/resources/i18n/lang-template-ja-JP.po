@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-07-22 02:07\n"
+"PO-Revision-Date: 2019-08-20 02:10\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -697,6 +697,9 @@ msgstr "日付と時刻を現在の日時に設定するショートカット �
 msgid "Display the document in the page or a form"
 msgstr ""
 
+msgid "Display type"
+msgstr ""
+
 msgid "Displayed key"
 msgstr "表示するキー"
 
@@ -923,6 +926,9 @@ msgid "Group of widgets used to define the arrangement of the page elements. Its
 msgstr "ページ要素の配列定義に使用されるウィジェットのグループ。このコンテンツは配列で繰り返されます。"
 
 msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
+msgstr ""
+
+msgid "Group of widgets, inside a Tabs container"
 msgstr ""
 
 msgid "HTTP request"
@@ -1730,6 +1736,9 @@ msgstr ""
 msgid "Switch..."
 msgstr ""
 
+msgid "Tab x"
+msgstr ""
+
 msgid "Tabular presentation of data from an array"
 msgstr "配列データを表形式で表示"
 
@@ -2199,6 +2208,9 @@ msgstr "変数"
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
 
+msgid "Vertical display"
+msgstr ""
+
 msgid "View"
 msgstr ""
 
@@ -2410,6 +2422,9 @@ msgstr ""
 msgid "password"
 msgstr "パスワード"
 
+msgid "pills"
+msgstr ""
+
 msgid "primary"
 msgstr "primary"
 
@@ -2427,6 +2442,9 @@ msgstr "インポートに成功しました。"
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
+
+msgid "tabs"
+msgstr ""
 
 msgid "text"
 msgstr "テキスト"

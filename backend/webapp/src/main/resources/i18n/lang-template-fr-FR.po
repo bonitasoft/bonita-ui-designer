@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-07-22 01:58\n"
+"PO-Revision-Date: 2019-08-20 01:59\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -695,6 +695,9 @@ msgstr "Afficher ou masquer le bouton de raccourci pour régler la date et l’h
 msgid "Display the document in the page or a form"
 msgstr "Visualiser le document dans la page ou un formulaire"
 
+msgid "Display type"
+msgstr ""
+
 msgid "Displayed key"
 msgstr "Clé affichée"
 
@@ -922,6 +925,9 @@ msgstr "Groupe de widgets permettant de définir la disposition des éléments d
 
 msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
 msgstr "Groupe de widgets permettant de définir la disposition des éléments dans la page. Son contenu est affiché sous forme de pop-in."
+
+msgid "Group of widgets, inside a Tabs container"
+msgstr ""
 
 msgid "HTTP request"
 msgstr "Requête HTTP"
@@ -1727,6 +1733,9 @@ msgstr "Remplacer {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}
 msgid "Switch..."
 msgstr "Remplacer ..."
 
+msgid "Tab x"
+msgstr ""
+
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
 
@@ -2197,6 +2206,9 @@ msgstr "Variables"
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Les variables peuvent être bindées aux différents champs pour créer un comportement conditionnel entre propriétés de widgets."
 
+msgid "Vertical display"
+msgstr ""
+
 msgid "View"
 msgstr "Voir le code ..."
 
@@ -2409,6 +2421,9 @@ msgstr "page"
 msgid "password"
 msgstr "mot de passe"
 
+msgid "pills"
+msgstr ""
+
 msgid "primary"
 msgstr "primary"
 
@@ -2426,6 +2441,9 @@ msgstr "importé avec succès."
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket est un objet composé d'un <em>sujet</em>, d'un <em>niveau de sévérité </em>, d'un <em>environnement utilisateur</em>, d'un <em>contact</em> (<em>name</em> et <em>job title</em>), et d'une <em>URL</em> qui fournissent plus de détails sur le contact."
+
+msgid "tabs"
+msgstr ""
 
 msgid "text"
 msgstr "texte"

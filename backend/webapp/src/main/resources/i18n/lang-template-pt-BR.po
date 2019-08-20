@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-07-22 02:21\n"
+"PO-Revision-Date: 2019-08-20 02:25\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -698,6 +698,9 @@ msgstr "Exibir ou ocultar o botão de atalho para definir a data e hora para ago
 msgid "Display the document in the page or a form"
 msgstr "Exibir o documento na página ou um formulário"
 
+msgid "Display type"
+msgstr ""
+
 msgid "Displayed key"
 msgstr ""
 
@@ -925,6 +928,9 @@ msgstr ""
 
 msgid "Group of widgets used to define the arrangement of the page elements. Its content is display like in modal."
 msgstr "Grupo de widgets usado para definir a disposição dos elementos da página. Seu conteúdo é exibido como no modal."
+
+msgid "Group of widgets, inside a Tabs container"
+msgstr ""
 
 msgid "HTTP request"
 msgstr ""
@@ -1730,6 +1736,9 @@ msgstr "Mudar {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgid "Switch..."
 msgstr "Trocar..."
 
+msgid "Tab x"
+msgstr ""
+
 msgid "Tabular presentation of data from an array"
 msgstr ""
 
@@ -2205,6 +2214,9 @@ msgstr ""
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr ""
 
+msgid "Vertical display"
+msgstr ""
+
 msgid "View"
 msgstr "Visualização"
 
@@ -2417,6 +2429,9 @@ msgstr "página"
 msgid "password"
 msgstr ""
 
+msgid "pills"
+msgstr ""
+
 msgid "primary"
 msgstr ""
 
@@ -2433,6 +2448,9 @@ msgid "successfully imported."
 msgstr ""
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
+msgstr ""
+
+msgid "tabs"
 msgstr ""
 
 msgid "text"
