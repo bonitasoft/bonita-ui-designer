@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.controller;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -45,7 +44,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
@@ -62,9 +63,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.joda.time.Instant.parse;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.notNull;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -127,7 +126,10 @@ public class WidgetResourceTest {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").lastUpdate(parse("2015-02-02")).build();
         when(widgetRepository.getAll()).thenReturn(asList(input, label));
-        when(pageRepository.getArtifactsUsingWidget(anyString())).thenReturn(asList(aPage().withName("hello").build()));
+        String[] ids = {"input", "label"};
+        Map<String, List<Page>> map = new HashMap();
+        map.put("input", singletonList(aPage().withName("hello").build()));
+        when(pageRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map);
 
         mockMvc.perform(get("/rest/widgets?view=light"))
                 .andExpect(status().isOk())

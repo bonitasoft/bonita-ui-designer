@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import java.io.IOException;
-import java.nio.file.FileVisitor;
-import java.nio.file.Path;
-import java.util.List;
-
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
+import java.io.IOException;
+import java.nio.file.FileVisitor;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 public interface Repository<T extends Identifiable> {
 
@@ -73,6 +74,12 @@ public interface Repository<T extends Identifiable> {
      * @throws RepositoryException
      */
     List<T> findByObjectId(String objectId) throws RepositoryException;
+
+    /**
+     * Return a Map of object ids, with for each one all pages which contains this object
+     * @throws RepositoryException
+     */
+    Map<String, List<T>> findByObjectIds(List<String> objectIds) throws RepositoryException;
 
     /**
      * Find if an object is used in pages
