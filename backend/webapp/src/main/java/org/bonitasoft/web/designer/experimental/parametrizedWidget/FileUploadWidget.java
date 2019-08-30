@@ -14,6 +14,12 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+
 public class FileUploadWidget extends AbstractParametrizedWidget implements Valuable, Labeled, Requirable {
 
     static final String FILE_UPLOAD_WIDGET_ID = "pbUpload";
@@ -24,6 +30,7 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
     private String value;
     private String url = "../API/formFileUpload";
     private boolean required = true;
+    private Optional<String> requiredExpression = Optional.empty();
 
     public FileUploadWidget() {
         super(FILE_UPLOAD_WIDGET_ID);
@@ -41,6 +48,7 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
         return labelWidth;
     }
 
+    @Override
     public void setLabelWidth(int labelWidth) {
         this.labelWidth = labelWidth;
     }
@@ -57,6 +65,7 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
         return value;
     }
 
+    @Override
     public void setValue(String value) {
         this.value = value;
     }
@@ -73,7 +82,30 @@ public class FileUploadWidget extends AbstractParametrizedWidget implements Valu
         return required;
     }
 
+    @Override
     public void setRequired(boolean required) {
         this.required = required;
+    }
+
+    /**
+     * Dynamic read only state for the generated widget
+     */
+    public void setRequiredExpression(String requiredExpression) {
+        this.requiredExpression = Optional.ofNullable(requiredExpression);
+    }
+
+    /**
+     * For test purpose
+     */
+    protected Optional<String> getRequiredExpression() {
+        return requiredExpression;
+    }
+
+    @Override
+    protected PropertyValue createPropertyValue(Entry<String, Object> entry) {
+        if (Objects.equals(entry.getKey(), REQUIRED_PARAMETER) && requiredExpression.isPresent()) {
+            return createPropertyValue(ParameterType.EXPRESSION, requiredExpression.get());
+        }
+        return super.createPropertyValue(entry);
     }
 }

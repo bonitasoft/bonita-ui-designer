@@ -1,4 +1,4 @@
-# Bonita UI designer
+# Bonita UI designer [![Build Status](https://travis-ci.org/bonitasoft/bonita-ui-designer.svg?branch=master)](https://travis-ci.org/bonitasoft/bonita-ui-designer)
 
 The WYSIWYG web editor by Bonita.
 //TODO screenshot

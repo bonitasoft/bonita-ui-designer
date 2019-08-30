@@ -573,6 +573,24 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(((InputWidget) widget).isRequired()).isTrue();
     }
 
+    @Test
+    public void should_create_file_upload_with_required_expression_for_multiple_document_in_edit_mode() {
+        LeafContractInput documentsContractInput = aFileContractInput("documents");
+        documentsContractInput.setMultiple(true);
+        documentsContractInput.setMode(EditMode.EDIT);
+
+        AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(documentsContractInput);
+        assertThat(widget).isInstanceOf(FileUploadWidget.class);
+        assertThat(((FileUploadWidget) widget).getRequiredExpression()).isPresent();
+        assertThat(((FileUploadWidget) widget).getRequiredExpression().get())
+                .isEqualTo(String.format("!%s.id", ParametrizedWidgetFactory.ITEM_ITERATOR));
+
+        documentsContractInput.setMode(EditMode.CREATE);
+        widget = createFactory().createParametrizedWidget(documentsContractInput);
+        assertThat(widget).isInstanceOf(FileUploadWidget.class);
+        assertThat(((FileUploadWidget) widget).getRequiredExpression()).isNotPresent();
+    }
+
     private ParametrizedWidgetFactory createFactory() {
         return new ParametrizedWidgetFactory();
     }

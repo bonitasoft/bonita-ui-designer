@@ -119,7 +119,11 @@ public class ParametrizedWidgetFactory {
         fileUploadWidget.setPlaceholder(input.getMode() == EditMode.EDIT
                 ? "Browse to update the file..."
                 : "Browse to upload a new file...");
-        fileUploadWidget.setRequired(input.isMultiple() || input.isMandatory());
+        if (input.isMultiple() && Objects.equals(input.getMode(), EditMode.EDIT)) {
+            fileUploadWidget.setRequiredExpression(String.format("!%s.id", ITEM_ITERATOR)); // a document with an id is an existing document -> it is not mandatory to upload a new document
+        } else {
+            fileUploadWidget.setRequired(input.isMandatory() || input.isMultiple());
+        }
         return fileUploadWidget;
     }
 

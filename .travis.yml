@@ -1,0 +1,19 @@
+language: java
+jdk: openjdk8
+os: linux
+dist: xenial
+
+cache:
+  directories:
+    # Maven dependencies and wrappers
+    - $HOME/.m2
+before_cache:
+  # ensure that we do not keep bonitasoft artifacts across builds
+  - rm -rf $HOME/.m2/repository/org/bonitasoft
+
+branches:
+  only:
+    - master
+
+install: skip
+script: ./mvnw verify
