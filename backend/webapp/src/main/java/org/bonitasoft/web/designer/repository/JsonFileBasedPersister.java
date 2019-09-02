@@ -89,7 +89,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         return metadataPath;
     }
 
-    public void saveInIndex(Path metadataPath, T content) throws IOException {
+    public synchronized void saveInIndex(Path metadataPath, T content) throws IOException {
         Path indexPath = jsonFile(metadataPath, ".index");
         Map<String, String> index = new HashMap<>();
         if (indexPath.toFile().exists()) {
@@ -97,7 +97,10 @@ public class JsonFileBasedPersister<T extends Identifiable> {
             try {
                 index = objectMapper.fromJsonToMap(indexFileContent);
             } catch (JsonMappingException e) {
-                //index file is empty or not parseable
+                if(indexFileContent.length > 0) {  //file is not empty and cannot be parsed
+                    logger.error(String.format("Failed to parse '%s' file with content:\n%s", indexPath, new String(indexFileContent)), e);
+                }
+                //else file is empty, ignore exception
             }
         }
         String uuid = ((HasUUID) content).getUUID();
@@ -109,7 +112,6 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         }catch (JsonGenerationException e){
             logger.error(format("Cannot generate index for file %s. Maybe a migration is required.",content.getId()));
         }
-
     }
 
     protected void removeFromIndex(Path metadataPath, T content) throws IOException {
