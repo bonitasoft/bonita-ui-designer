@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-07-15 01:58\n"
+"PO-Revision-Date: 2019-09-16 01:59\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -142,6 +142,9 @@ msgstr "Un objet JSON"
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
+
+msgid "A containers widget cannot be edited"
+msgstr ""
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
