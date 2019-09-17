@@ -25,7 +25,11 @@
     $scope.bonds = BONDS;
 
     if (!$scope.widget.custom) {
-      alerts.addInfo(gettextCatalog.getString('To edit this standard widget, save it first as a new custom widget'), 5000);
+      if ($scope.widget.type === 'container') {
+        alerts.addInfo(gettextCatalog.getString('A containers widget cannot be edited'), 5000);
+      } else {
+        alerts.addInfo(gettextCatalog.getString('To edit this standard widget, save it first as a new custom widget'), 5000);
+      }
     }
 
     var widgetRepo = artifactRepo;

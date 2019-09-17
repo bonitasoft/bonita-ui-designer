@@ -15,7 +15,9 @@
                 {{widget.name}}
             </h3>
             <div class="EditorHeader-actions">
-                <button ng-if="!widget.custom" id="saveas-bonita" type="button" class="btn btn-bonita-primary" ng-click="saveAs(widget)" translate>Save as...</button>
+                <button ng-if="!widget.custom" id="saveas-bonita" type="button" class="btn btn-bonita-primary"
+                        ng-disabled="widget.type === 'container'"
+                        ng-click="saveAs(widget)" translate>Save as...</button>
                 <div ng-if="widget.custom" class="btn-group" uib-dropdown>
                     <button id="save" type="button" class="btn btn-bonita-primary" ng-click="save()" ng-disabled="!isPageDirty(widget)" translate>Save</button>
                     <button type="button" class="btn btn-bonita-primary uib-dropdown-toggle" uib-dropdown-toggle>
