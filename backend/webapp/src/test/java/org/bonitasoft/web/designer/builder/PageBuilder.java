@@ -17,13 +17,22 @@ package org.bonitasoft.web.designer.builder;
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
-import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,22 +42,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-import static java.util.Arrays.asList;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
-import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
-
 public class PageBuilder {
 
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
-    private Map<String, Data> data = new HashMap<>();
+    private Map<String, Variable> variables = new HashMap<>();
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
     private String uuid = UUID.randomUUID().toString();
@@ -100,13 +99,13 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withData(String name, Data data) {
-        this.data.put(name, data);
+    public PageBuilder withVariable(String name, Variable variable) {
+        this.variables.put(name, variable);
         return this;
     }
 
-    public PageBuilder withData(String name, DataBuilder data) {
-        return withData(name, data.build());
+    public PageBuilder withVariable(String name, VariableBuilder variableBuilder) {
+        return withVariable(name, variableBuilder.build());
     }
 
     public PageBuilder withName(String name) {
@@ -154,7 +153,7 @@ public class PageBuilder {
         Page page = new Page();
         page.setName(name);
         page.setRows(rows);
-        page.setData(data);
+        page.setVariables(variables);
         page.setId(id);
         page.setUUID(uuid);
         page.setAssets(assets);
@@ -190,8 +189,8 @@ public class PageBuilder {
 
         return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
                 .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).build())
-                .withData("aData", aConstantData().value("a value"))
-                .withData("anotherData", aConstantData().value(4))
+                .withVariable("aVariable", aConstantVariable().value("a value"))
+                .withVariable("anotherVariable", aConstantVariable().value("4"))
                 .build();
     }
 }

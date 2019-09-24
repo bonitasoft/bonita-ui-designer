@@ -15,7 +15,7 @@
 package org.bonitasoft.web.designer.controller.export.properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class BonitaResourceTransformerTest {
     @Test
     public void should_transform_mathing_two_groups_into_an_authorisation_resource_token() throws Exception {
 
-        String url = transformer.apply(aConstantData()
+        String url = transformer.apply(aConstantVariable()
                 .value("group1/group2")
                 .build());
 
@@ -42,7 +42,7 @@ public class BonitaResourceTransformerTest {
     @Test
     public void should_return_an_empty_string_the_url_value_do_not_matches() throws Exception {
 
-        String url = transformer.apply(aConstantData()
+        String url = transformer.apply(aConstantVariable()
                 .value("/path/to/whatever/resource")
                 .build());
 

@@ -22,6 +22,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -59,7 +60,7 @@ import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.bonitasoft.web.designer.visitor.DataModelVisitor;
+import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
 import org.bonitasoft.web.designer.visitor.EmptyPageFactory;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
@@ -109,6 +110,11 @@ public class DesignerConfig {
 
         //add Handler to migrate old json
         objectMapper.addHandler(new JacksonDeserializationProblemHandler());
+
+        //disable filter name check so that filtering is optional
+        SimpleFilterProvider simpleFilterProvider = new SimpleFilterProvider();
+        simpleFilterProvider.setFailOnUnknownId(false);
+        objectMapper.setFilters(simpleFilterProvider);
 
         return objectMapper;
     }
@@ -243,8 +249,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public DataModelVisitor dataModelVisitor() {
-        return new DataModelVisitor();
+    public VariableModelVisitor variableModelVisitor() {
+        return new VariableModelVisitor();
     }
 
     @Bean

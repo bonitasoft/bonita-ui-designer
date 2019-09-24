@@ -328,14 +328,16 @@
     }
   ],
   "inactiveAssets": [],
-  "data": {
+  "variables": {
     "aDate": {
       "type": "constant",
       "exposed": false
     },
     "init": {
       "type": "json",
-      "value": "{\n    \"dateMillis\": 1446708126923,\n    \"dateISO\": \"2015-09-30T00:00:00.000Z\"\n}",
+      "value": [
+        "{\n    \"dateMillis\": 1446708126923,\n    \"dateISO\": \"2015-09-30T00:00:00.000Z\"\n}"
+      ],
       "exposed": false
     }
   }

@@ -46,17 +46,17 @@
         expect($scope.isDataNameUnique('toto')).toBe(true);
       });
 
-      it('should init newData.value depending on the selectedType', function() {
+      it('should init newData.displayValue depending on the selectedType', function() {
         $scope.dataTypes.forEach(function(dataType) {
           $scope.updateValue(dataType.type);
-          expect($scope.newData.value).toBe(dataType.defaultValue);
+          expect($scope.newData.displayValue).toBe(dataType.defaultValue);
         });
       });
     });
 
     describe('Edit variable', function() {
-      var data = { $$name: 'users', value: '4', type: 'constant' };
-      var pageData = { users: { value: '4' } };
+      var data = { $$name: 'users', displayValue: '4', type: 'constant' };
+      var pageData = { users: { displayValue: '4' } };
       var controller;
 
       beforeEach(function() {
@@ -72,7 +72,7 @@
     });
 
     describe('save variable', function() {
-      var pageData = { users: { value: '4' } };
+      var pageData = { users: { value: ['4'] } };
       var data;
       var controller;
 
@@ -84,10 +84,10 @@
         var data = {
           $$name: 'user',
           type: 'constant',
-          value: 'silentBob'
+          displayValue: 'silentBob'
         };
 
-        $scope.save(data);
+        $scope.save(data, 'silentBob');
         expect($uibModalInstance.close).toHaveBeenCalledWith(data);
       });
     });

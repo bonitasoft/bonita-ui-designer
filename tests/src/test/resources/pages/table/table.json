@@ -88,19 +88,23 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "selectedRow": {
       "type": "constant",
       "exposed": false
     },
     "columns": {
       "type": "json",
-      "value": "[ \"id\", \"name\" ]",
+      "value": [
+        "[ \"id\", \"name\" ]"
+      ],
       "exposed": false
     },
     "repos": {
       "type": "json",
-      "value": "[\n  {\n    \"id\": 11336005,\n    \"name\": \"bonita-connectors\",\n    \"full_name\": \"bonitasoft/bonita-connectors\"\n  },\n  {\n    \"id\": 11336028,\n    \"name\": \"bonita-connectors-assembly\",\n    \"full_name\": \"bonitasoft/bonita-connectors-assembly\"\n  },\n  {\n    \"id\": 12897159,\n    \"name\": \"bonita-connectors-packaging\",\n    \"full_name\": \"bonitasoft/bonita-connectors-packaging\"\n  },\n  {\n    \"id\": 24060487,\n    \"name\": \"bonita-custom-page-seed\",\n    \"full_name\": \"bonitasoft/bonita-custom-page-seed\"\n  },\n  {\n    \"id\": 11337159,\n    \"name\": \"bonita-distrib\",\n    \"full_name\": \"bonitasoft/bonita-distrib\"\n  }\n]",
+      "value": [
+        "[\n  {\n    \"id\": 11336005,\n    \"name\": \"bonita-connectors\",\n    \"full_name\": \"bonitasoft/bonita-connectors\"\n  },\n  {\n    \"id\": 11336028,\n    \"name\": \"bonita-connectors-assembly\",\n    \"full_name\": \"bonitasoft/bonita-connectors-assembly\"\n  },\n  {\n    \"id\": 12897159,\n    \"name\": \"bonita-connectors-packaging\",\n    \"full_name\": \"bonitasoft/bonita-connectors-packaging\"\n  },\n  {\n    \"id\": 24060487,\n    \"name\": \"bonita-custom-page-seed\",\n    \"full_name\": \"bonitasoft/bonita-custom-page-seed\"\n  },\n  {\n    \"id\": 11337159,\n    \"name\": \"bonita-distrib\",\n    \"full_name\": \"bonitasoft/bonita-distrib\"\n  }\n]"
+      ],
       "exposed": false
     }
   }

@@ -145,15 +145,19 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "countries": {
       "type": "json",
-      "value": "[\n    {\n        \"name\": \"France\",\n        \"cities\": [\"Paris\", \"Grenoble\",\"Charnècles\"]\n    },\n    {\n        \"name\": \"Spain\",\n        \"cities\": [\"Barcelone\", \"Madrid\"]\n    }\n]",
+      "value": [
+        "[\n    {\n        \"name\": \"France\",\n        \"cities\": [\"Paris\", \"Grenoble\",\"Charnècles\"]\n    },\n    {\n        \"name\": \"Spain\",\n        \"cities\": [\"Barcelone\", \"Madrid\"]\n    }\n]"
+      ],
       "exposed": false
     },
     "country": {
       "type": "constant",
-      "value": "",
+      "value": [
+        ""
+      ],
       "exposed": false
     },
     "city": {

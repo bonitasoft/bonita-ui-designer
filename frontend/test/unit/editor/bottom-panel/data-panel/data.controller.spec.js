@@ -29,66 +29,66 @@
     }));
 
     it('should save a new data', function() {
-      $scope.page.data = {};
+      $scope.page.variables = {};
       var data = {
         $$name: 'colin',
-        value: 4,
+        displayValue: 4,
         exposed: false,
         type: 'constant'
       };
       $scope.save(data);
       $scope.$apply();
 
-      expect(data).toEqual(jasmine.objectContaining($scope.page.data.colin));
+      expect(data).toEqual(jasmine.objectContaining($scope.page.variables.colin));
     });
 
     it('should edit a data with default value', function() {
       $scope.exposableData = true ;
-      $scope.page.data = {
+      $scope.page.variables = {
         $$name: 'myDataToEdit',
-        value: 'defaultValue',
+        displayValue: 'defaultValue',
         exposed: false,
         type: 'constant'
       };
       let dataToSave = {
         $$name: 'myDataToEdit',
-        value: 'defaultValue',
+        displayValue: 'defaultValue',
         exposed: true,
         type: 'constant'
       };
       let expectedDataSaved = {
         $$name: 'myDataToEdit',
-        value: '',
+        displayValue: '',
         exposed: true,
         type: 'constant'
       };
       $scope.save(dataToSave);
       $scope.$apply();
 
-      expect(expectedDataSaved).toEqual(jasmine.objectContaining($scope.page.data.myDataToEdit));
+      expect(expectedDataSaved).toEqual(jasmine.objectContaining($scope.page.variables.myDataToEdit));
     });
 
     it('should delete a data', function() {
-      $scope.page.data = { name: 'colin', value: 4 };
+      $scope.page.variables = { name: 'colin', displayValue: 4 };
 
       $scope.delete('colin');
       $scope.$apply();
-      expect($scope.page.data.hasOwnProperty('colin')).toBe(false);
+      expect($scope.page.variables.hasOwnProperty('colin')).toBe(false);
     });
 
     it('should transform page data to an array', function () {
-      $scope.page.data = {
-        aKey: {type: 'constant', value: 'aValue'},
-        jsonExample: {type: 'json', value: '{}'},
-        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
+      $scope.page.variables = {
+        aKey: {type: 'constant', displayValue: 'aValue'},
+        jsonExample: {type: 'json', displayValue: '{}'},
+        urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
       var variables = $scope.getVariables();
 
       expect(variables).toEqual([
-        {type: 'constant', value: 'aValue'},
-        {type: 'json', value: '{}'},
-        {type: 'url', value: 'https://api.github.com/users/jnizet'}
+        {type: 'constant', displayValue: 'aValue'},
+        {type: 'json', displayValue: '{}'},
+        {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       ]);
       // each object should have a property non enumerable named name
       expect(variables[0].name).toEqual('aKey');
@@ -97,28 +97,28 @@
     });
 
     it('should filter variables by name', function () {
-      $scope.page.data = {
-        aKey: {type: 'constant', value: 'aValue'},
-        jsonExample: {type: 'json', value: '{}'},
-        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
+      $scope.page.variables = {
+        aKey: {type: 'constant', displayValue: 'aValue'},
+        jsonExample: {type: 'json', displayValue: '{}'},
+        urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
       var filtered = $scope.getVariables('aKey');
-      expect(filtered).toEqual([{type: 'constant', value: 'aValue'}]);
+      expect(filtered).toEqual([{type: 'constant', displayValue: 'aValue'}]);
 
       filtered = $scope.getVariables('unknownkey');
       expect(filtered).toEqual([]);
     });
 
     it('should filter variables by value', function() {
-      $scope.page.data = {
-        aKey: {type: 'constant', value: 'aValue'},
-        jsonExample: {type: 'json', value: '{}'},
-        urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'}
+      $scope.page.variables = {
+        aKey: {type: 'constant', displayValue: 'aValue'},
+        jsonExample: {type: 'json', displayValue: '{}'},
+        urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
       var filtered = $scope.getVariables('aValue');
-      expect(filtered).toEqual([{type: 'constant', value: 'aValue'}]);
+      expect(filtered).toEqual([{type: 'constant', displayValue: 'aValue'}]);
 
       filtered = $scope.getVariables('unknownvalue');
       expect(filtered).toEqual([]);
@@ -135,7 +135,7 @@
     it('should return none exposed data type', function() {
       var data = {
         $$name: 'colin',
-        value: 4,
+        displayValue: 4,
         exposed: false,
         type: 'constant'
       };
@@ -146,7 +146,7 @@
     it('should return (Exposed) for exposed data type', function() {
       var data = {
         $$name: 'colin',
-        value: 4,
+        displayValue: 4,
         exposed: true,
         type: 'constant'
       };

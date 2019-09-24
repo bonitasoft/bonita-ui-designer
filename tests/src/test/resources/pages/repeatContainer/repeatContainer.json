@@ -156,10 +156,12 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "collection": {
       "type": "json",
-      "value": "[\"hello\", \"designer\"]",
+      "value": [
+        "[\"hello\", \"designer\"]"
+      ],
       "exposed": false
     }
   }

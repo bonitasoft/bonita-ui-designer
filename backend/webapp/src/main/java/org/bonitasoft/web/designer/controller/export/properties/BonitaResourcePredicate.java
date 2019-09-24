@@ -18,9 +18,9 @@ import static java.lang.String.valueOf;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 import com.google.common.base.Predicate;
-import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 
-public class BonitaResourcePredicate implements Predicate<Data> {
+public class BonitaResourcePredicate implements Predicate<Variable> {
 
     private String bonitaResourceRegex;
 
@@ -29,7 +29,10 @@ public class BonitaResourcePredicate implements Predicate<Data> {
     }
 
     @Override
-    public boolean apply(Data data) {
-        return  URL.equals(data.getType()) && valueOf(data.getValue()).matches(bonitaResourceRegex);
+    public boolean apply(Variable variable) {
+        return  URL.equals(variable.getType())
+                && variable.getValue() != null
+                && !variable.getValue().isEmpty()
+                && valueOf(variable.getValue().get(0)).matches(bonitaResourceRegex);
     }
 }

@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.rendering;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.github.jknack.handlebars.Context;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Jackson2Helper;
@@ -30,8 +32,13 @@ public class TemplateEngine {
     private HashMap<String, Object> model = new HashMap<>();
 
     public TemplateEngine(String template) {
+        SimpleFilterProvider simpleFilterProvider = new SimpleFilterProvider();
+        simpleFilterProvider.setFailOnUnknownId(false);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setFilters(simpleFilterProvider);
+
         handlebars = new Handlebars(new ClassPathTemplateLoader("/", ""));
-        handlebars.registerHelper("json", Jackson2Helper.INSTANCE);
+        handlebars.registerHelper("json", new Jackson2Helper(objectMapper));
         handlebars.registerHelper("join", StringHelpers.join);
         handlebars.registerHelper("ifequal", IfEqualHelper.INSTANCE);
         handlebars.prettyPrint(true);

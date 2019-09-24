@@ -217,10 +217,12 @@
     "external" : false
   } ],
   "inactiveAssets" : [ ],
-  "data" : {
+  "variables" : {
     "datas" : {
       "type" : "json",
-      "value" : "[\n    {\n        \"mail\": \"aaaa.aaaabonitasoft.com\"\n    },\n    {\n        \"mail\": \"bbbb.bbbbbonitasoft.com\"\n    },\n    {\n        \"mail\": \"fabrice.rosito@bonitasoft.com\"\n    }\n]",
+      "value" : [
+        "[\n    {\n        \"mail\": \"aaaa.aaaabonitasoft.com\"\n    },\n    {\n        \"mail\": \"bbbb.bbbbbonitasoft.com\"\n    },\n    {\n        \"mail\": \"fabrice.rosito@bonitasoft.com\"\n    }\n]"
+      ],
       "exposed" : false
     }
   }

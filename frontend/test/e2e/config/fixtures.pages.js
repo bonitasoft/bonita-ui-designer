@@ -11,10 +11,10 @@
         type: 'page',
         lastUpdate: 1447944407862,
         favorite: true,
-        data: {
-          jsonExample: {type: 'json', value: '{}'},
-          urlExample: {type: 'url', value: 'https://api.github.com/users/jnizet'},
-          alreadyExistsData: {type: 'constant', value: 'aValue'}
+        variables: {
+          jsonExample: {type: 'json', displayValue: '{}'},
+          urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'},
+          alreadyExistsData: {type: 'constant', displayValue: 'aValue'}
         },
         assets: [
           {
@@ -277,7 +277,7 @@
         type: 'page',
         lastUpdate: 1447891242960,
         rows: [[]],
-        data: {}
+        variables: {}
       },
       {
         id: 'emptyForm',
@@ -285,7 +285,7 @@
         type: 'form',
         lastUpdate: 1447891242000,
         rows: [[]],
-        data: {}
+        variables: {}
       },
       {
         id: 'emptyLayout',
@@ -293,7 +293,7 @@
         type: 'layout',
         lastUpdate: 1447891242444,
         rows: [[]],
-        data: {}
+        variables: {}
       }
     ]
   );

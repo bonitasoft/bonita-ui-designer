@@ -23,7 +23,7 @@ describe('Service: expressionResolver', function () {
   it('should resolve expression with no dependency', () => {
     aData(model, 'myData', {
       type: 'expression',
-      value: 'return "myValue";'
+      displayValue: 'return "myValue";'
     });
 
     expect(model.myData).toBe('myValue');
@@ -32,7 +32,7 @@ describe('Service: expressionResolver', function () {
   it('should resolve expression with dependency', () => {
     aData(model, 'myData', {
       type: 'expression',
-      value: 'return $data.dep + " - myValue";'
+      displayValue: 'return $data.dep + " - myValue";'
     });
 
     expect(model.myData).toBe('depValue - myValue');
@@ -41,7 +41,7 @@ describe('Service: expressionResolver', function () {
   it('should translate text', () => {
     aData(model, 'myData', {
       type: 'expression',
-      value: 'return uiTranslate("Hello");'
+      displayValue: 'return uiTranslate("Hello");'
     });
     expect(model.myData).toBe('Hallo');
   });

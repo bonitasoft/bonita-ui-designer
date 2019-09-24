@@ -404,15 +404,19 @@
     "external" : false
   }],
   "inactiveAssets" : [ ],
-  "data" : {
+  "variables" : {
     "selectedUser" : {
       "type" : "json",
-      "value" : "{ \"name\": \"Paul\" }",
+      "value" : [
+        "{ \"name\": \"Paul\" }"
+      ],
       "exposed" : false
     },
     "users" : {
       "type" : "json",
-      "value" : "[\n {\"name\": \"Paul\", \"age\": 31},\n {\"name\": \"Hokusai\", \"age\": 32},\n {\"name\": \"Pablo\", \"age\": 33}\n]",
+      "value" : [
+        "[\n {\"name\": \"Paul\", \"age\": 31},\n {\"name\": \"Hokusai\", \"age\": 32},\n {\"name\": \"Pablo\", \"age\": 33}\n]"
+      ],
       "exposed" : false
     },
     "selectedCity" : {
@@ -425,7 +429,9 @@
     },
     "usersAsync" : {
       "type" : "url",
-      "value" : "../API/identity/user?s={{firstname}}",
+      "value" : [
+        "../API/identity/user?s={{firstname}}"
+      ],
       "exposed" : false
     }
   }

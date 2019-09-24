@@ -5,19 +5,19 @@ describe('Service: bindingsFactory', function () {
   var data = {
     foo: {
       type: 'variable',
-      value: 'bar'
+      displayValue: 'bar'
     },
     baz: {
       type: 'json',
-      value: '{ "foo": 5 }'
+      displayValue: '{ "foo": 5 }'
     },
     qux: {
       type: 'expression',
-      value: 'return $data.baz.foo * 3;'
+      displayValue: 'return $data.baz.foo * 3;'
     },
     collection: {
       type: 'json',
-      value: '["foo", "bar", "baz", "qux"]'
+      displayValue: '["foo", "bar", "baz", "qux"]'
     }
   };
 

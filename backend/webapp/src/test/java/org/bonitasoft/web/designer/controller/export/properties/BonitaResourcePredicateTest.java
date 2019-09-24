@@ -17,58 +17,58 @@ package org.bonitasoft.web.designer.controller.export.properties;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.data.DataType.*;
 
-import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BonitaResourcePredicateTest {
 
-    private Data data;
+    private Variable variable;
     private BonitaResourcePredicate predicate;
 
     @Before
     public void setUp() throws Exception {
-        data = new Data(URL, null);
+        variable = new Variable(URL, "");
         predicate = new BonitaResourcePredicate("matches");
     }
 
     @Test
     public void should_return_true_if_match_regex() throws Exception {
-        data.setType(URL);
-        data.setValue("matches");
+        variable.setType(URL);
+        variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(data)).isTrue();
+        assertThat(predicate.apply(variable)).isTrue();
     }
 
     @Test
     public void should_not_accept_url_not_accessing_bonita_api() throws Exception {
-        data.setType(URL);
-        data.setValue("do not match");
+        variable.setType(URL);
+        variable.setDisplayValue("do not match");
 
-        assertThat(predicate.apply(data)).isFalse();
+        assertThat(predicate.apply(variable)).isFalse();
     }
 
     @Test
     public void should_not_accept_a_constant_data() throws Exception {
-        data.setType(CONSTANT);
-        data.setValue("matches");
+        variable.setType(CONSTANT);
+        variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(data)).isFalse();
+        assertThat(predicate.apply(variable)).isFalse();
     }
 
     @Test
     public void should_not_accept_an_expression_data() throws Exception {
-        data.setType(EXPRESSION);
-        data.setValue("matches");
+        variable.setType(EXPRESSION);
+        variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(data)).isFalse();
+        assertThat(predicate.apply(variable)).isFalse();
     }
 
     @Test
     public void should_not_accept_a_JSON_data() throws Exception {
-        data.setType(JSON);
-        data.setValue("matches");
+        variable.setType(JSON);
+        variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(data)).isFalse();
+        assertThat(predicate.apply(variable)).isFalse();
     }
 }

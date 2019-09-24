@@ -40,6 +40,7 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
@@ -56,6 +57,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Data> data = new HashMap<>();
+    private Map<String, Variable> variables = new HashMap<>();
     private boolean hasValidationError = false;
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
@@ -138,26 +140,50 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         });
     }
 
+    @Deprecated
     @JsonView({JsonViewPersistence.class})
     public Map<String, Data> getData() {
         return data;
     }
 
+    @Deprecated
     public void setData(Map<String, Data> data) {
         this.data = data;
     }
 
-    @Override
+    @Deprecated
     public void addData(String name, Data value) {
         data.put(name, value);
     }
 
-    @Override
+    @Deprecated
     public void removeData(String dataName) throws NotFoundException {
         if (!data.containsKey(dataName)) {
             throw new NotFoundException("Data [" + dataName + "] doesn't exists for page [" + id + "]");
         }
         data.remove(dataName);
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public Map<String, Variable> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Map<String, Variable> variables) {
+        this.variables = variables;
+    }
+
+    @Override
+    public void addVariable(String name, Variable value) {
+        variables.put(name, value);
+    }
+
+    @Override
+    public void removeVariable(String variableName) throws NotFoundException {
+        if (!variables.containsKey(variableName)) {
+            throw new NotFoundException("Variable [" + variableName + "] doesn't exists for page [" + id + "]");
+        }
+        variables.remove(variableName);
     }
 
     /**

@@ -15,16 +15,10 @@
 package org.bonitasoft.web.designer.visitor;
 
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.ModalContainer;
-import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.TabContainer;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.model.page.TabContainer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,63 +27,63 @@ import java.util.Map;
 import static java.util.Collections.emptyMap;
 
 /**
- * An element visitor which traverses the tree of elements recursively to collect all the data used in a page
+ * An element visitor which traverses the tree of elements recursively to collect all the variables used in a page
  */
-public class DataModelVisitor implements ElementVisitor<Map<String, Map<String, Data>>>, PageFactory {
+public class VariableModelVisitor implements ElementVisitor<Map<String, Map<String, Variable>>>, PageFactory {
 
     @Override
-    public Map<String, Map<String, Data>> visit(Container container) {
-        Map<String, Map<String, Data>> data = new HashMap<>();
+    public Map<String, Map<String, Variable>> visit(Container container) {
+        Map<String, Map<String, Variable>> variables = new HashMap<>();
         for (List<Element> rows : container.getRows()) {
             for (Element element : rows) {
-                data.putAll(element.accept(this));
+                variables.putAll(element.accept(this));
             }
         }
-        return data;
+        return variables;
     }
 
     @Override
-    public Map<String, Map<String, Data>> visit(FormContainer formContainer) {
+    public Map<String, Map<String, Variable>> visit(FormContainer formContainer) {
         return formContainer.getContainer().accept(this);
     }
 
     @Override
-    public Map<String, Map<String, Data>> visit(TabsContainer tabsContainer) {
-        Map<String, Map<String, Data>> data = new HashMap<>();
+    public Map<String, Map<String, Variable>> visit(TabsContainer tabsContainer) {
+        Map<String, Map<String, Variable>> variables = new HashMap<>();
         for (TabContainer tabContainer : tabsContainer.getTabList()) {
-            data.putAll(tabContainer.accept(this));
+            variables.putAll(tabContainer.accept(this));
         }
-        return data;
+        return variables;
     }
 
     @Override
-    public Map<String, Map<String, Data>> visit(TabContainer tabContainer) {
+    public Map<String, Map<String, Variable>> visit(TabContainer tabContainer) {
         return tabContainer.getContainer().accept(this);
     }
 
     @Override
-    public Map<String, Map<String, Data>> visit(Component component) {
+    public Map<String, Map<String, Variable>> visit(Component component) {
         return emptyMap();
     }
 
     @Override
-    public <P extends Previewable & Identifiable> Map<String, Map<String, Data>> visit(P previewable) {
-        Map<String, Map<String, Data>> data = new HashMap<>();
-        data.put(previewable.getId(), previewable.getData());
+    public <P extends Previewable & Identifiable> Map<String, Map<String, Variable>> visit(P previewable) {
+        Map<String, Map<String, Variable>> variables = new HashMap<>();
+        variables.put(previewable.getId(), previewable.getVariables());
         Container container = new Container();
         container.setRows(previewable.getRows());
-        data.putAll(container.accept(this));
-        return data;
+        variables.putAll(container.accept(this));
+        return variables;
     }
 
     @Override
-    public Map<String, Map<String, Data>> visit(ModalContainer modalContainer) {
+    public Map<String, Map<String, Variable>> visit(ModalContainer modalContainer) {
         return modalContainer.getContainer().accept(this);
     }
 
     public <P extends Previewable & Identifiable> String generate(P previewable) {
         return new TemplateEngine("factory.hbs.js")
-                .with("name", "dataModel")
+                .with("name", "variableModel")
                 .with("resources", this.visit(previewable))
                 .build(this);
     }

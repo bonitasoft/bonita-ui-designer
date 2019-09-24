@@ -21,12 +21,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.config.DesignerConfigConditional;
-import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
-import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
-import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
-import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
+import org.bonitasoft.web.designer.migration.page.*;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -85,8 +80,10 @@ public class MigrationConfig {
             StyleAssetMigrationStep styleAssetMigrationStep,
             TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep,
             UIBootstrapAssetMigrationStep uiBootstrapAssetMigrationStep,
-            PageUUIDMigrationStep pageUUIDMigrationStep, StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep,
+            PageUUIDMigrationStep pageUUIDMigrationStep,
+            StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep,
             TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep,
+            DataToVariableMigrationStep dataToVariableMigrationStep,
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
@@ -98,7 +95,8 @@ public class MigrationConfig {
                 new Migration<>("1.7.25", pageUUIDMigrationStep),
                 new Migration<>("1.8.29", styleAddModalContainerPropertiesMigrationStep),
                 new Migration<>("1.9.24", pageTextWidgetLabelMigrationStep),
-                new Migration<>("1.10.5", dynamicTabsContainerMigrationStep));
+                new Migration<>("1.10.5", dynamicTabsContainerMigrationStep),
+                new Migration<>("1.10.12", dataToVariableMigrationStep));
     }
 
     @Bean

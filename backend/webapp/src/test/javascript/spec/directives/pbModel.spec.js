@@ -5,14 +5,14 @@ describe('Directive: model', function () {
       'bonitasoft.ui.services',
       'bonitasoft.ui.directives',
       function ($provide) {
-        $provide.value('dataModelFactory', {
+        $provide.value('variableModelFactory', {
           get: function (uuid) {
             return {
               'outerModel': data,
               'innerModel': {
                 baz: {
                   type: 'variable',
-                  value: 'qux'
+                  displayValue: 'qux'
                 }
               }
             }[uuid];
@@ -27,7 +27,7 @@ describe('Directive: model', function () {
   var $scope, modelFactory, $compile, data = {
     'foo': {
       type: 'variable',
-      value: 'bar'
+      displayValue: 'bar'
     }
   };
 

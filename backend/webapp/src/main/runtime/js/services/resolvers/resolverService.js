@@ -10,7 +10,7 @@
       this.resolvers[name] = Resolver;
     }
     createResolver(model, name, data) {
-      return this.resolvers[data.type](model, name, data.value);
+      return this.resolvers[data.type](model, name, data.displayValue);
     }
   }
 

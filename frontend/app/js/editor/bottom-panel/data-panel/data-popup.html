@@ -32,12 +32,12 @@
               <!-- string -->
               <label ng-switch-default class="control-label" for="value" translate>Value</label>
               <input ng-switch-default type="text" class="form-control" placeholder="{{'Value' | translate }}" id="value"
-                     name="value" ng-model="newData.value">
+                     name="value" ng-model="newData.displayValue">
 
               <!-- url parameter -->
               <label ng-switch-when="urlparameter" class="control-label" for="value" translate>URL parameter name</label>
               <input ng-switch-when="urlparameter" type="text" class="form-control" placeholder="{{'name' | translate}}"
-                     id="value" name="value" ng-model="newData.value">
+                     id="value" name="value" ng-model="newData.displayValue">
 
               <p class="help-block" ng-switch-when="urlparameter" translate>
                   <span class="tip">Tip:</span> URL parameters are located after a <em>?</em> in the page URL.
@@ -45,7 +45,7 @@
               <!-- url -->
               <label ng-switch-when="url" class="control-label" for="value" translate>API URL</label>
               <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="../API" id="value"
-                     name="value" ng-model="newData.value" required valid-url>
+                     name="value" ng-model="newData.displayValue" required valid-url>
 
               <div class="help-block" ng-switch-when="url" translate>
                   <p><span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p>
@@ -78,7 +78,7 @@
                   <label class="control-label DataPanel-valueLabel" for="value" translate>Value</label><expand-modal></expand-modal>
                 </div>
                 <div class="col-xs-12">
-                  <ace-editor class="ace-editor--data" autofocus mode="json" ng-model="newData.value"
+                  <ace-editor class="ace-editor--data" autofocus mode="json" ng-model="newData.displayValue"
                               ng-model-options="{debounce: 300}" name="object" class="form-control" required valid-json
                               id="value"></ace-editor>
                   <p class="help-block DataPanel--hideOnFullScreen" translate>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-xs-12">
                   <ace-editor class="ace-editor--data" autofocus mode="javascript" auto-completion="{{pageData}}"
-                              ng-model="newData.value" ng-model-options="{debounce: 300}" name="expression"
+                              ng-model="newData.displayValue" ng-model-options="{debounce: 300}" name="expression"
                               class="form-control" id="value"></ace-editor>
                   <p class="help-block DataPanel--hideOnFullScreen " translate>
                       <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use ctrl-space to trigger autocomplete.

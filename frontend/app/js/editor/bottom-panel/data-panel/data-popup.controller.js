@@ -35,11 +35,11 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     };
 
     $scope.updateValue = function(dataType) {
-      $scope.newData.value = dataTypeService.getDataDefaultValue(dataType);
+      $scope.newData.displayValue = dataTypeService.getDataDefaultValue(dataType);
     };
 
-    $scope.save = function(data) {
-      $uibModalInstance.close(data);
+    $scope.save = function(dataToSave) {
+      $uibModalInstance.close(dataToSave);
     };
 
     $scope.cancel = function() {

@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 
 /**
@@ -34,18 +35,18 @@ public interface Previewable {
     List<List<Element>> getRows();
 
     /**
-     * Gets the data used when previewing this previewable
-     */
-    Map<String, Data> getData();
-
-    /**
      * Gets the name of a previewable object
      */
     String getName();
 
-    void addData(String name, Data value);
+    /**
+     * Gets the variables used when previewing this previewable
+     */
+    Map<String, Variable> getVariables();
 
-    void removeData(String dataName) throws NotFoundException;
+    void addVariable(String name, Variable value);
+
+    void removeVariable(String variableName) throws NotFoundException;
 
     Set<String> getInactiveAssets();
 }

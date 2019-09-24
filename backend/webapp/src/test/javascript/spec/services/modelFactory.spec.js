@@ -5,43 +5,43 @@ describe('Service: modelFactory', function() {
   var dataModel, template, scope, $httpBackend, $compile, $location, $browser, modelFactory, data = {
       william: {
         type: 'constant',
-        value: 'william'
+        displayValue: 'william'
       },
       foo: {
         type: 'variable',
-        value: 'bar'
+        displayValue: 'bar'
       },
       baz: {
         type: 'json',
-        value: '{ "foo": 5 }'
+        displayValue: '{ "foo": 5 }'
       },
       qux: {
         type: 'expression',
-        value: 'return $data.baz.foo * 3;'
+        displayValue: 'return $data.baz.foo * 3;'
       },
       failingExpression: {
         type: 'expression',
-        value: 'return $data.unknown.value;'
+        displayValue: 'return $data.unknown.value;'
       },
       urlParamTime: {
         type: 'urlparameter',
-        value: 'time'
+        displayValue: 'time'
       },
       urlParamToto: {
         type: 'urlparameter',
-        value: 'toto'
+        displayValue: 'toto'
       },
       failingUrlParam: {
         type: 'urlparameter',
-        value: 'foo'
+        displayValue: 'foo'
       },
       arrayExpression: {
         type: 'expression',
-        value: 'return ["pierre", "paul", "jack"];'
+        displayValue: 'return ["pierre", "paul", "jack"];'
       },
       dateExpressionWithDependencies: {
         type: 'expression',
-        value: 'return { dob: Date.now(), name: $data.william }'
+        displayValue: 'return { dob: Date.now(), name: $data.william }'
       }
     },
     expectedHeaders = {
@@ -124,11 +124,11 @@ describe('Service: modelFactory', function() {
     beforeEach(function() {
       data.localBar = {
         type: 'url',
-        value: '/bonita/{{ foo }}/foo'
+        displayValue: '/bonita/{{ foo }}/foo'
       };
       data.bar = {
         type: 'url',
-        value: 'https://some.url.com/rest/{{ foo }}/foo'
+        displayValue: 'https://some.url.com/rest/{{ foo }}/foo'
       };
       dataModel = modelFactory.create(data);
       scope.properties = dataModel;

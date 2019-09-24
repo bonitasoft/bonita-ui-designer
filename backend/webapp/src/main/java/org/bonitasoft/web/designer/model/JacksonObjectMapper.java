@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -69,7 +70,8 @@ public class JacksonObjectMapper {
     public byte[] toPrettyJson(Object object, Class<?> serializationView) throws IOException {
         // Use UTF8 to accept any character and have platform-independent files.
         return objectMapper.writerWithView(serializationView)
-                .with(new DefaultPrettyPrinter())
+                .with(new DefaultPrettyPrinter()
+                    .withArrayIndenter(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE))
                 .writeValueAsString(object)
                 .getBytes(StandardCharsets.UTF_8);
     }

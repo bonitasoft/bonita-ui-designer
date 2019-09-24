@@ -173,14 +173,16 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "valeur": {
       "type": "constant",
       "exposed": false
     },
     "truthy": {
       "type": "constant",
-      "value": "true",
+      "value": [
+        "true"
+      ],
       "exposed": false
     }
   }

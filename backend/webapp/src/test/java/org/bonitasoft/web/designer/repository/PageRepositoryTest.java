@@ -14,21 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.nio.file.Files.exists;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import javax.validation.Validation;
-
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -45,6 +30,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.validation.Validation;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+
+import static java.nio.file.Files.exists;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageRepositoryTest {

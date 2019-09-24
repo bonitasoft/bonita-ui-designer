@@ -30,7 +30,7 @@
         <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name"
             class="DataPanel-variable">
             <td class="VariablesTable-name">{{variable.name}}</td>
-            <td class="VariablesTable-value">{{variable.value}}</td>
+            <td class="VariablesTable-value">{{variable.displayValue}}</td>
             <td class="VariablesTable-type" ng-class="{'VariablesTable-type--exposed': isExposed(variable)}">
                 {{getType(variable)}}
             </td>

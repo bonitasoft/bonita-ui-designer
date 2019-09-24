@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.readAllLines;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonMap;
@@ -56,12 +57,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -72,7 +68,8 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -726,8 +723,8 @@ public class PageResourceTest {
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
     }
 
-    private Data anApiData(String value) {
-        return new Data(URL, value);
+    private Variable anApiVariable(String value) {
+        return new Variable(URL, value);
     }
 
     private void setUpPageForResourcesTests() {
@@ -747,7 +744,7 @@ public class PageResourceTest {
         Set<String> authRules = new TreeSet<>();
         authRules.add("GET|living/application-menu");
         authRules.add("POST|bpm/process");
-        page.setData(singletonMap("foo", anApiData("../API/bpm/userTask?filter=mine")));
+        page.setVariables(singletonMap("foo", anApiVariable("../API/bpm/userTask?filter=mine")));
         when(authRulesCollector.visit(page)).thenReturn(authRules);
 
         String properties = new String(pageResource.getResources(page.getId()).toString());
@@ -761,16 +758,16 @@ public class PageResourceTest {
         Set<String> authRules = new TreeSet<>();
         authRules.add("POST|bpm/process");
 
-        HashMap<String, Data> data = new HashMap<>();
-        data.put("foo", anApiData("../API/extension/CA31/SQLToObject?filter=mine"));
+        HashMap<String, Variable> variables = new HashMap<>();
+        variables.put("foo", anApiVariable("../API/extension/CA31/SQLToObject?filter=mine"));
         // Not supported in plateform side. Prefer use queryParam like ?id=4
-        data.put("bar", anApiData("../API/extension/user/4"));
-        data.put("aa", anApiData("../API/extension/group/list"));
-        data.put("session", anApiData("../API/extension/user/group/unusedid"));
-        data.put("ab", anApiData("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
-        data.put("user", anApiData("../API/identity/user/{{aaa}}/context"));
-        data.put("task", anApiData("../API/bpm/task/1/context"));
-        page.setData(data);
+        variables.put("bar", anApiVariable("../API/extension/user/4"));
+        variables.put("aa", anApiVariable("../API/extension/group/list"));
+        variables.put("session", anApiVariable("../API/extension/user/group/unusedid"));
+        variables.put("ab", anApiVariable("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
+        variables.put("user", anApiVariable("../API/identity/user/{{aaa}}/context"));
+        variables.put("task", anApiVariable("../API/bpm/task/1/context"));
+        page.setVariables(variables);
         when(authRulesCollector.visit(page)).thenReturn(authRules);
 
         String properties = new String(pageResource.getResources(page.getId()).toString());
@@ -789,6 +786,30 @@ public class PageResourceTest {
     }
 
     @Test
+    public void should_show_the_correct_information_for_variables() throws Exception {
+        Path expectedFilePath = Paths.get(getClass().getResource("/page-with-variables/").toURI()).resolve("page-with-variables.json");
+        String expectedFileString = String.join("", readAllLines(expectedFilePath));
+
+        Map<String, Variable> variables = new HashMap<>();
+        variables.put("constantVar", new Variable(DataType.CONSTANT, "constantVariableValue"));
+        variables.put("jsonVar", new Variable(DataType.JSON, "{\"var1\":1, \"var2\":2, \"var3\":\"value3\"}"));
+        variables.put("jsVar", new Variable(DataType.EXPRESSION, "var variable = \"hello\"; return variable;"));
+        Page page = new Page();
+        page.setId("page-with-variables");
+        page.setVariables(variables);
+        page.setDesignerVersion("1.10.6");
+        page.setName("page");
+        page.setLastUpdate(new Instant(1514989634397L));
+        page.setRows(new ArrayList<>());
+
+        when(pageService.get("id")).thenReturn(page);
+
+        mockMvc.perform(get("/rest/pages/id"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expectedFileString));
+    }
+
+    @Test
     public void should_add_submit_task_resource_if_a_start_submit_task_is_contained_in_the_page() throws Exception {
         setUpPageForResourcesTests();
         when(componentVisitor.visit(page)).thenReturn(singleton(submitTaskComponent));
@@ -803,7 +824,7 @@ public class PageResourceTest {
         setUpPageForResourcesTests();
         when(componentVisitor.visit(page))
                 .thenReturn(asList(startProcessComponent, submitTaskComponent));
-        page.setData(singletonMap("foo", anApiData("/bonita/API/bpm/userTask")));
+        page.setVariables(singletonMap("foo", anApiVariable("/bonita/API/bpm/userTask")));
 
         String properties = new String(pageResource.getResources(page.getId()).toString());
 

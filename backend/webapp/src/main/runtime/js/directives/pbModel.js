@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('bonitasoft.ui.directives')
-    .directive('pbModel', function($parse, modelFactory, bindingsFactory, dataModelFactory, modelPropertiesFactory, bindingContextFactory) {
+    .directive('pbModel', function($parse, modelFactory, bindingsFactory, variableModelFactory, modelPropertiesFactory, bindingContextFactory) {
 
       function PbModelCtrl() {}
       PbModelCtrl.prototype.fill = function(rawData) {
@@ -16,7 +16,7 @@
       function pbModelCompile(tElement, tAttributes) {
         return {
           pre: function(scope, element, attrs, pbModelCtrl) {
-            pbModelCtrl.fill(dataModelFactory.get(tAttributes.pbModel));
+            pbModelCtrl.fill(variableModelFactory.get(tAttributes.pbModel));
             var pbModelProperties = modelPropertiesFactory.get(tAttributes.pbModelProperties);
             if (pbModelProperties && scope.$parent.pbModelCtrl) {
               bindingsFactory.create(

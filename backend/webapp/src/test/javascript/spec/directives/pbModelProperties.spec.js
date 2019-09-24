@@ -5,19 +5,19 @@ describe('Directive: modelProperties', function () {
       'bonitasoft.ui.services',
       'bonitasoft.ui.directives',
       function ($provide) {
-        $provide.value('dataModelFactory', {
+        $provide.value('variableModelFactory', {
           get: function (uuid) {
             return {
               'outerModel': {
                 'foo': {
                   type: 'variable',
-                  value: 'bar'
+                  displayValue: 'bar'
                 }
               },
               'innerModel': {
                 'qux': {
                   type: 'constant',
-                  value: 'Hello'
+                  displayValue: 'Hello'
                 }
               }
             }[uuid];

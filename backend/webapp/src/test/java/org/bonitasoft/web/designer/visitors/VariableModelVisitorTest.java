@@ -19,15 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.DataBuilder.aConstantData;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.when;
 
-import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.visitor.DataModelVisitor;
+import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,42 +35,42 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DataModelVisitorTest {
+public class VariableModelVisitorTest {
 
     @InjectMocks
-    private DataModelVisitor dataModelVisitor;
+    private VariableModelVisitor variableModelVisitor;
 
-    private Data data;
+    private Variable variable;
 
     @Before
     public void setUp() throws Exception {
-        data = aConstantData().value("bar").build();
+        variable = aConstantVariable().value("bar").build();
     }
 
     @Test
-    public void should_not_retrieve_any_data_model_when_visiting_a_component() throws Exception {
-        assertThat(dataModelVisitor.visit(aComponent().build())).isEmpty();
+    public void should_not_retrieve_any_variable_model_when_visiting_a_component() throws Exception {
+        assertThat(variableModelVisitor.visit(aComponent().build())).isEmpty();
     }
 
     @Test
-    public void should_retrieve_data_model_from_page() throws Exception {
+    public void should_retrieve_variable_model_from_page() throws Exception {
         Page page = aPage()
                 .withId("page-id")
-                .withData("foo", data)
+                .withVariable("foo", variable)
                 .build();
 
-        assertThat(dataModelVisitor.visit(page)).containsExactly(entry("page-id", singletonMap("foo", data)));
+        assertThat(variableModelVisitor.visit(page)).containsExactly(entry("page-id", singletonMap("foo", variable)));
     }
 
     @Test
     public void should_generate_a_factory_based_on_model_found_in_the_page() throws Exception {
         Page page = aPage()
                 .withId("page-id")
-                .withData("foo", data)
+                .withVariable("foo", variable)
                 .build();
 
-        assertThat(dataModelVisitor.generate(page)).isEqualTo(new TemplateEngine("factory.hbs.js")
-                .with("name", "dataModel")
-                .with("resources", singletonMap("page-id", singletonMap("foo", data))).build(this));
+        assertThat(variableModelVisitor.generate(page)).isEqualTo(new TemplateEngine("factory.hbs.js")
+                .with("name", "variableModel")
+                .with("resources", singletonMap("page-id", singletonMap("foo", variable))).build(this));
     }
 }

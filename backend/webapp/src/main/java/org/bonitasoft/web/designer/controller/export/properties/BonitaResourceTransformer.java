@@ -21,8 +21,9 @@ import java.util.regex.Matcher;
 
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.Variable;
 
-public class BonitaResourceTransformer implements Function<Data, String> {
+public class BonitaResourceTransformer implements Function<Variable, String> {
 
     private String bonitaResourceRegex;
 
@@ -31,8 +32,10 @@ public class BonitaResourceTransformer implements Function<Data, String> {
     }
 
     @Override
-    public String apply(Data data) {
-        Matcher api = compile(bonitaResourceRegex).matcher(valueOf(data.getValue()));
+    public String apply(Variable variable) {
+        String variableValue = (variable.getValue() != null && !variable.getValue().isEmpty())
+                ? variable.getValue().get(0) : "";
+        Matcher api = compile(bonitaResourceRegex).matcher(variableValue);
         return api.matches() ? "GET|" + api.group(1) + "/" + api.group(2) : "";
     }
 }

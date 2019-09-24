@@ -11,7 +11,7 @@ describe('Service: urlParameterResolver', function() {
     spyOn($location, 'absUrl').and.callFake(() => `/path#?bar=${barValue}`);
     let resolver = ResolverService.createResolver(model, 'foo', {
       type: 'urlparameter',
-      value: 'bar'
+      displayValue: 'bar'
     });
     resolver.resolve();
     resolver.watchDependencies();

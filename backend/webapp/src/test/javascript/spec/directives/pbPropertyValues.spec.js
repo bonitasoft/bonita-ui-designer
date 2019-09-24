@@ -13,7 +13,7 @@ describe('Directive: propertyValues', function () {
             }[uuid];
           }
         });
-        $provide.value('dataModelFactory', {
+        $provide.value('variableModelFactory', {
           get: function (uuid) {
             return {
               'dataModel': data
@@ -30,11 +30,11 @@ describe('Directive: propertyValues', function () {
   var data = {
     'foo': {
       type: 'variable',
-      value: 'bar'
+      displayValue: 'bar'
     },
     'collection': {
       type: 'json',
-      value: '["Vincent", "Amandine"]'
+      displayValue: '["Vincent", "Amandine"]'
     }
   };
 

@@ -68,7 +68,7 @@ public class PageTest {
 
         assertThat(pageAfterJsonProcessing.getName()).isEqualTo(myPage.getName());
         assertThat(pageAfterJsonProcessing.getId()).isEqualTo(myPage.getId());
-        assertThat(pageAfterJsonProcessing.getData()).isNotEmpty();
+        assertThat(pageAfterJsonProcessing.getVariables()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.getRows()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.isFavorite()).isFalse();
 
@@ -89,7 +89,7 @@ public class PageTest {
 
         assertThat(pageAfterJsonProcessing.getName()).isNotNull();
         assertThat(pageAfterJsonProcessing.getId()).isNotNull();
-        assertThat(pageAfterJsonProcessing.getData()).isNotEmpty();
+        assertThat(pageAfterJsonProcessing.getVariables()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.getRows()).isNotNull();
     }
 

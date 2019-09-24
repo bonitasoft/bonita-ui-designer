@@ -117,10 +117,12 @@
     "external" : false
   } ],
   "inactiveAssets" : [ ],
-  "data" : {
+  "variables" : {
     "aDate" : {
       "type" : "json",
-      "value" : "{\n    \"dateISO\": \"2007-03-01T16:17:00\"\n}",
+      "value" : [
+        "{\n    \"dateISO\": \"2007-03-01T16:17:00\"\n}"
+      ],
       "exposed" : false
     }
   }

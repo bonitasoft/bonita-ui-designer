@@ -11,7 +11,7 @@
     return {
       name: dataElement.element(by.exactBinding('variable.name')).getText(),
       type: dataElement.element(by.css('.VariablesTable-type')).getText(),
-      value: dataElement.element(by.exactBinding('variable.value')).getText()
+      value: dataElement.element(by.exactBinding('variable.displayValue')).getText()
     };
   }
 
@@ -103,10 +103,10 @@
 
     value: {
       get: function() {
-        return element(by.css('.modal-dialog')).element(by.model('newData.value'));
+        return element(by.css('.modal-dialog')).element(by.model('newData.displayValue'));
       },
       set: function(content) {
-        element(by.css('.modal-dialog')).element(by.model('newData.value')).clear().sendKeys(content);
+        element(by.css('.modal-dialog')).element(by.model('newData.displayValue')).clear().sendKeys(content);
       }
     },
 

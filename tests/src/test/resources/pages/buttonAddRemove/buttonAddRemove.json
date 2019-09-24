@@ -356,10 +356,12 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "collection": {
       "type": "json",
-      "value": "[ \"colin\", \"vincent\", \"guillaume\", \"lionel\" ]",
+      "value": [
+        "[ \"colin\", \"vincent\", \"guillaume\", \"lionel\" ]"
+      ],
       "exposed": false
     }
   }

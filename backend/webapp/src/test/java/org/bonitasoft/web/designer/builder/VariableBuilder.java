@@ -14,54 +14,54 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.data.Variable;
+
 import static org.bonitasoft.web.designer.model.data.DataType.*;
 
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.data.DataType;
-
-public class DataBuilder {
+public class VariableBuilder {
 
     private DataType type;
     private String value;
     private boolean exposed;
 
-    public DataBuilder(DataType type) {
+    public VariableBuilder(DataType type) {
         this.type = type;
     }
 
-    public static DataBuilder aConstantData() {
-        return new DataBuilder(CONSTANT);
+    public static VariableBuilder aConstantVariable() {
+        return new VariableBuilder(CONSTANT);
     }
 
-    public static DataBuilder aJSONData() {
-        return new DataBuilder(JSON);
+    public static VariableBuilder aJSONVariable() {
+        return new VariableBuilder(JSON);
     }
 
-    public static DataBuilder anURLData() {
-        return new DataBuilder(URL);
+    public static VariableBuilder anURLVariable() {
+        return new VariableBuilder(URL);
     }
 
-    public static DataBuilder aUrlParameterData() {
-        return new DataBuilder(DataType.URLPARAMETER);
+    public static VariableBuilder aUrlParameterVariable() {
+        return new VariableBuilder(DataType.URLPARAMETER);
     }
 
-    public static DataBuilder anExpressionData() {
-        return new DataBuilder(EXPRESSION);
+    public static VariableBuilder anExpressionVariable() {
+        return new VariableBuilder(EXPRESSION);
     }
 
-    public DataBuilder value(String value) {
+    public VariableBuilder value(String value) {
         this.value = value;
         return this;
     }
 
-    public DataBuilder exposed(boolean exposed) {
+    public VariableBuilder exposed(boolean exposed) {
         this.exposed = exposed;
         return this;
     }
 
-    public Data build() {
-        Data data = new Data(type, value);
-        data.setExposed(exposed);
-        return data;
+    public Variable build() {
+        Variable variable = new Variable(type, value);
+        variable.setExposed(exposed);
+        return variable;
     }
 }

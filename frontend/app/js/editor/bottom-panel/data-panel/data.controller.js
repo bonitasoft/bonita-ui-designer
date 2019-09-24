@@ -34,15 +34,15 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
     });
 
     modalInstance.result.then(
-      () => delete $scope.page.data[dataName]
+      () => delete $scope.page.variables[dataName]
     );
   };
 
   $scope.save = function(data) {
-    $scope.page.data[data.$$name] = {
+    $scope.page.variables[data.$$name] = {
       exposed: data.exposed,
       type: data.type,
-      value:  $scope.isExposed(data) ? '' : data.value,
+      displayValue: $scope.isExposed(data) ? '' : data.displayValue
     };
   };
 
@@ -56,8 +56,8 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       controller: 'DataPopupController',
       resolve: {
         mode: () => mode,
-        pageData: () => artifact.data,
-        data: () => key && angular.extend({}, artifact.data[key], { $$name: key })
+        pageData: () => artifact.variables,
+        data: () => key && angular.extend({}, artifact.variables[key], { $$name: key })
       }
     });
 
@@ -73,12 +73,12 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
         return angular.lowercase(value || '').indexOf(angular.lowercase(search) || '') !== -1;
       }
 
-      return contains(variable.name, serchTerm) || contains(variable.value, serchTerm);
+      return contains(variable.name, serchTerm) || contains(variable.displayValue, serchTerm);
     }
 
-    return Object.keys($scope.page.data)
+    return Object.keys($scope.page.variables)
       .map((name) => {
-        var variable = $scope.page.data[name];
+        var variable = $scope.page.variables[name];
         return Object.defineProperty(variable, 'name', { enumerable: false, value: name });
       })
       .filter(toMatchSearchTerm);

@@ -148,10 +148,12 @@
       }
     ]
   ],
-  "data": {
+  "variables": {
     "theValue": {
       "type": "constant",
-      "value": "Here is the preloaded text",
+      "value": [
+        "Here is the preloaded text"
+      ],
       "exposed": false
     },
     "alignment": {

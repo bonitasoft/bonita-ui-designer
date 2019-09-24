@@ -33,6 +33,9 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourcePredicate;
@@ -57,6 +60,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -213,10 +217,17 @@ public class PageResource extends AssetResource<Page> {
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
-    public Page get(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
+    public MappingJacksonValue get(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
         Page page = pageService.get(pageId);
         page.setAssets(assetVisitor.visit(page));
-        return page;
+
+        FilterProvider filters = new SimpleFilterProvider()
+                .addFilter("valueAsArray", SimpleBeanPropertyFilter.serializeAllExcept("value"))
+                .addFilter("deprecateData", SimpleBeanPropertyFilter.serializeAllExcept("data"));
+        MappingJacksonValue mapping = new MappingJacksonValue(page);
+        mapping.setFilters(filters);
+
+        return mapping;
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)
@@ -230,11 +241,11 @@ public class PageResource extends AssetResource<Page> {
     public List<String> getResources(@PathVariable("pageId") String pageId){
         Page page = pageService.get(pageId);
         List<String> resources = newArrayList(transform(
-                filterValues(page.getData(), new BonitaResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
+                filterValues(page.getVariables(), new BonitaResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
                 new BonitaResourceTransformer(BONITA_RESOURCE_REGEX)));
 
         List<String> extension = newArrayList(transform(
-                filterValues(page.getData(), new BonitaResourcePredicate(EXTENSION_RESOURCE_REGEX)).values(),
+                filterValues(page.getVariables(), new BonitaResourcePredicate(EXTENSION_RESOURCE_REGEX)).values(),
                 new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX)));
 
         resources.addAll(extension);
