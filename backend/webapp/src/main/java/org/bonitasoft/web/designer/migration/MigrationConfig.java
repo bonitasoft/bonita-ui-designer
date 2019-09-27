@@ -25,10 +25,7 @@ import org.bonitasoft.web.designer.migration.page.*;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
@@ -54,7 +51,7 @@ public class MigrationConfig {
     public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
-    
+
     @Bean
     public TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetLabelMigrationStep(componentVisitor);
@@ -101,7 +98,7 @@ public class MigrationConfig {
 
     @Bean
     public LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate(
-            WidgetLoader widgetLoader,
+            WidgetFileBasedLoader widgetLoader,
             WidgetRepository widgetRepository) {
         return new LiveRepositoryUpdate<>(widgetRepository, widgetLoader, widgetMigrationSteps);
     }
@@ -113,7 +110,8 @@ public class MigrationConfig {
     public List<Migration<Widget>> widgetMigrationStepsList() {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
-                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>())
+                new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>()),
+                new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep())
         );
     }
 

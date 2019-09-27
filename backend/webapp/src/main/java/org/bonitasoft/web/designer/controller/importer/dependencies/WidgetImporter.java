@@ -23,7 +23,7 @@ import java.util.List;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +31,11 @@ import org.slf4j.LoggerFactory;
 public class WidgetImporter extends ComponentDependencyImporter<Widget> {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetImporter.class);
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
     private WidgetRepository widgetRepository;
     private AssetImporter<Widget> widgetAssetImporter;
 
-    public WidgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
+    public WidgetImporter(WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
         super(widgetRepository);
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;

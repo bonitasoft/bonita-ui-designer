@@ -44,10 +44,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class JsonFileBasedPersister<T extends Identifiable> {
 
     @Value("${designer.version}")
-    private String version;
-    private JacksonObjectMapper objectMapper;
-    private BeanValidator validator;
-    private static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
+    protected String version;
+    protected JacksonObjectMapper objectMapper;
+    protected BeanValidator validator;
+    protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
 
     public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator) {
         this.objectMapper = objectMapper;

@@ -20,10 +20,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.BeanValidator;
-import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -89,11 +86,11 @@ public class WorkspaceTest {
         widgetRepository = new WidgetRepository(
                 pathResolver.getWidgetsRepositoryPath(),
                 widgetPersister,
-                new WidgetLoader(jacksonObjectMapper),
+                new WidgetFileBasedLoader(jacksonObjectMapper),
                 validator,
                 mock(Watcher.class));
 
-        workspace = new Workspace(pathResolver, widgetRepository, new WidgetLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
+        workspace = new Workspace(pathResolver, widgetRepository, new WidgetFileBasedLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
         ReflectionTestUtils.setField(workspace, "currentDesignerVersion", CURRENT_DESIGNER_VERSION);
     }
 

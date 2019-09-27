@@ -35,10 +35,7 @@ import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
@@ -69,7 +66,7 @@ public class ArtifactImporterTest {
     @Mock
     private JsonFileBasedLoader<Page> pageLoader;
     @Mock
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
     @Mock
     private WidgetRepository widgetRepository;
     private ArtifactImporter<Page> pageImporter;

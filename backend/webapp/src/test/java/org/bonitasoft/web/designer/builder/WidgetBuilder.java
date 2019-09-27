@@ -27,6 +27,7 @@ public class WidgetBuilder {
     private String name = "aName";
     private boolean custom = false;
     private String template = "<h1>this is a template</h1>";
+    private String controller;
     List<Property> properties = new ArrayList<>();
     private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
@@ -59,6 +60,11 @@ public class WidgetBuilder {
 
     public WidgetBuilder template(String template) {
         this.template = template;
+        return this;
+    }
+
+    public WidgetBuilder controller(String controller) {
+        this.controller = controller;
         return this;
     }
 
@@ -128,6 +134,9 @@ public class WidgetBuilder {
         widget.setHasHelp(hasHelp);
         widget.setType(type);
         widget.setPreviousDesignerVersion(previousDesignerVersion);
+        if (controller != null) {
+            widget.setController(controller);
+        }
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {

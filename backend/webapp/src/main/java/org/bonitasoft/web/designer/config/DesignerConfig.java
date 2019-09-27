@@ -47,13 +47,7 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
-import org.bonitasoft.web.designer.repository.AssetRepository;
-import org.bonitasoft.web.designer.repository.BeanValidator;
-import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
-import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.service.BondsTypesFixer;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
@@ -154,12 +148,17 @@ public class DesignerConfig {
 
     @Bean
     public JsonFileBasedPersister<Widget> widgetFileBasedPersister() {
-        return new JsonFileBasedPersister<>(objectMapperWrapper(), beanValidator());
+        return new WidgetFileBasedPersister(objectMapperWrapper(), beanValidator());
     }
 
     @Bean
     public JsonFileBasedLoader<Page> pageFileBasedLoader() {
         return new JsonFileBasedLoader<>(objectMapperWrapper(), Page.class);
+    }
+
+    @Bean
+    public JsonFileBasedLoader<Widget> widgetFileBasedLoader() {
+        return new WidgetFileBasedLoader(objectMapperWrapper());
     }
 
     @Bean
@@ -173,7 +172,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetImporter widgetElementImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
+    public WidgetImporter widgetElementImporter(WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository,
                                                 AssetImporter<Widget> widgetAssetImporter) {
         return new WidgetImporter(widgetLoader, widgetRepository, widgetAssetImporter);
     }
@@ -196,7 +195,7 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtifactImporter<Widget> widgetImporter(WidgetLoader widgetLoader, WidgetRepository widgetRepository,
+    public ArtifactImporter<Widget> widgetImporter(WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository,
                                                    WidgetService widgetService,
                                                    AssetImporter<Widget> widgetAssetImporter) {
         return new ArtifactImporter<>(widgetRepository, widgetService, widgetLoader, widgetAssetImporter);

@@ -28,17 +28,17 @@ import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 
 @Named
 public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
     private HtmlSanitizer htmlSanitizer;
     private TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
 
     @Inject
-    public WidgetDirectiveBuilder(Watcher watcher, WidgetLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
+    public WidgetDirectiveBuilder(Watcher watcher, WidgetFileBasedLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
         super(watcher);
         this.widgetLoader = widgetLoader;
         this.htmlSanitizer = htmlSanitizer;

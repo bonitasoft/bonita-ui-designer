@@ -41,7 +41,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
     public WidgetRepository(
             @Named("widgetPath") Path path,
             @Named("widgetFileBasedPersister") JsonFileBasedPersister<Widget> fileBasedRepository,
-            WidgetLoader widgetLoader,
+            @Named("widgetFileBasedLoader") JsonFileBasedLoader<Widget> widgetLoader,
             BeanValidator validator,
             Watcher watcher) {
         super(path, fileBasedRepository, widgetLoader, validator, watcher);

@@ -92,7 +92,7 @@ public class WidgetRepositoryTest {
         widgetRepository = new WidgetRepository(
                 widgetDirectory,
                 jsonFileRepository,
-                new WidgetLoader(objectMapper),
+                new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
                 watcher);
 

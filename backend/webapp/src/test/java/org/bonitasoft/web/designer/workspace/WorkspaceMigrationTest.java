@@ -59,7 +59,7 @@ public class WorkspaceMigrationTest {
 
     String PAGE_HIGHER_MIGRATION_VERSION = "1.10.12";
 
-    String WIDGET_HIGHER_MIGRATION_VERSION = "1.2.9";
+    String WIDGET_HIGHER_MIGRATION_VERSION = "1.10.12";
 
     @Before
     public void setUp() throws Exception {

@@ -19,7 +19,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,13 +47,13 @@ public class Workspace {
     private String currentDesignerVersion;
     private WorkspacePathResolver workspacePathResolver;
     private WidgetRepository widgetRepository;
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     private ResourceLoader resourceLoader;
     private AssetImporter<Widget> widgetAssetImporter;
 
     @Inject
-    public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetLoader widgetLoader,
+    public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
             WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;

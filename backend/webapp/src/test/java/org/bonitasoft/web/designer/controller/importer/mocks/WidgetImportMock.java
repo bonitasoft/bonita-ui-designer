@@ -28,7 +28,7 @@ import java.util.List;
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 public class WidgetImportMock {
@@ -36,11 +36,11 @@ public class WidgetImportMock {
     private static final String WIDGETS_FOLDER = "widgets";
 
     private Path unzippedPath;
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
     private WidgetRepository widgetRepository;
     private List<Widget> widgets = new ArrayList<>();
 
-    public WidgetImportMock(Path unzippedPath, WidgetLoader widgetLoader, WidgetRepository widgetRepository) throws IOException {
+    public WidgetImportMock(Path unzippedPath, WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository) throws IOException {
         this.unzippedPath = unzippedPath;
         this.widgetLoader = widgetLoader;
         this.widgetRepository = widgetRepository;

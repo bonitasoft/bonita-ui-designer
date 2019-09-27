@@ -25,10 +25,7 @@ import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.BeanValidator;
-import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 public class TemporaryWidgetRepository extends TemporaryFolder {
@@ -50,7 +47,7 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
         repository = new WidgetRepository(
                 this.toPath(),
                 new JsonFileBasedPersister<Widget>(objectMapper, mock(BeanValidator.class)),
-                new WidgetLoader(objectMapper),
+                new WidgetFileBasedLoader(objectMapper),
                 mock(BeanValidator.class),
                 mock(Watcher.class));
 

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Rule;
@@ -38,7 +38,7 @@ public class WidgetImporterTest {
     private WidgetRepository widgetRepository;
 
     @Mock
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
 
     @InjectMocks
     private WidgetImporter widgetImporter;

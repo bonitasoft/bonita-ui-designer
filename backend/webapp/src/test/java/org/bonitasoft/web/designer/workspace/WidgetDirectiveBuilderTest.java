@@ -35,7 +35,7 @@ import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.BeanValidator;
-import org.bonitasoft.web.designer.repository.WidgetLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Before;
 import org.junit.Rule;
@@ -70,9 +70,9 @@ public class WidgetDirectiveBuilderTest {
     @Before
     public void setup() throws Exception {
         JacksonObjectMapper jacksonObjectMapper = new DesignerConfig().objectMapperWrapper();
-        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetLoader(jacksonObjectMapper), htmlSanitizer);
+        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetFileBasedLoader(jacksonObjectMapper), htmlSanitizer);
 
-        WidgetLoader widgetLoader = new WidgetLoader(jacksonObjectMapper);
+        WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
 
         WidgetRepository repository = new WidgetRepository(
                 Paths.get(widgetRepositoryDirectory.getRoot().getPath()),

@@ -41,8 +41,8 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
 
     protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedLoader.class);
 
-    private JacksonObjectMapper objectMapper;
-    private Class<T> type;
+    protected JacksonObjectMapper objectMapper;
+    protected Class<T> type;
 
     public JsonFileBasedLoader(JacksonObjectMapper objectMapper, Class<T> type) {
         super(objectMapper, type);

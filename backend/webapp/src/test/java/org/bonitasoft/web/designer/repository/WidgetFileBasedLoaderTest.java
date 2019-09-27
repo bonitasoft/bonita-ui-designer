@@ -20,6 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -35,28 +38,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class WidgetLoaderTest {
+public class WidgetFileBasedLoaderTest {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private Path widgetDirectory;
-    private WidgetLoader widgetLoader;
+    private WidgetFileBasedLoader widgetLoader;
 
     @Before
     public void setUp() {
         widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
-        widgetLoader = new WidgetLoader(new DesignerConfig().objectMapperWrapper());
+        widgetLoader = new WidgetFileBasedLoader(new DesignerConfig().objectMapperWrapper());
     }
 
     private void addToDirectory(Path directory, Widget... widgets) throws Exception {
         for (Widget widget : widgets) {
             Path widgetDir = createDirectory(directory.resolve(widget.getId()));
-            writeWidgetMetadataInFile(widget, widgetDir.resolve(widget.getId() + ".json"));
+            writeWidgetInFile(widget, widgetDir.resolve(widget.getId() + ".json"));
         }
     }
 
-    private void writeWidgetMetadataInFile(Widget widget, Path path) throws IOException {
+    private void writeWidgetInFile(Widget widget, Path path) throws IOException {
         ObjectWriter writer = new ObjectMapper().writer();
         writer.writeValue(path.toFile(), widget);
     }
@@ -70,6 +73,40 @@ public class WidgetLoaderTest {
         Widget widget = widgetLoader.get(widgetDirectory.resolve("input/input.json"));
 
         assertThat(widget).isEqualTo(expectedWidget);
+    }
+
+    @Test
+    public void should_get_a_widget_with_template_and_controller_by_its_id() throws Exception {
+        String templateFileName = "input.tpl.html";
+        String controllerFileName = "input.ctrl.js";
+        Widget expectedWidget = aWidget().id("input").template("@" + templateFileName).controller("@" + controllerFileName).build();
+        addToDirectory(widgetDirectory, expectedWidget);
+        String htmlContent = "<div></div>";
+        Files.write(widgetDirectory.resolve(expectedWidget.getId()).resolve(templateFileName), htmlContent.getBytes(StandardCharsets.UTF_8));
+        String jsContent = "function ($scope) {}";
+        Files.write(widgetDirectory.resolve(expectedWidget.getId()).resolve(controllerFileName), jsContent.getBytes(StandardCharsets.UTF_8));
+
+        Widget widget = widgetLoader.get(widgetDirectory.resolve("input/input.json"));
+
+        assertThat(widget.getTemplate()).isEqualTo(htmlContent);
+        assertThat(widget.getController()).isEqualTo(jsContent);
+    }
+
+    @Test
+    public void should_load_a_widget_with_template_and_controller_by_its_id() throws Exception {
+        String templateFileName = "input.tpl.html";
+        String controllerFileName = "input.ctrl.js";
+        Widget expectedWidget = aWidget().id("input").template("@" + templateFileName).controller("@" + controllerFileName).build();
+        addToDirectory(widgetDirectory, expectedWidget);
+        String htmlContent = "<div></div>";
+        Files.write(widgetDirectory.resolve(expectedWidget.getId()).resolve(templateFileName), htmlContent.getBytes(StandardCharsets.UTF_8));
+        String jsContent = "function ($scope) {}";
+        Files.write(widgetDirectory.resolve(expectedWidget.getId()).resolve(controllerFileName), jsContent.getBytes(StandardCharsets.UTF_8));
+
+        Widget widget = widgetLoader.load(widgetDirectory.resolve("input/input.json"));
+
+        assertThat(widget.getTemplate()).isEqualTo(htmlContent);
+        assertThat(widget.getController()).isEqualTo(jsContent);
     }
 
     @Test
