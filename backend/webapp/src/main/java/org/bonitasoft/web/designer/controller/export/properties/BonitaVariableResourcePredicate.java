@@ -14,22 +14,25 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
+import static java.lang.String.valueOf;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
+
+import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.data.Variable;
 
-import com.google.common.base.Function;
+public class BonitaVariableResourcePredicate implements Predicate<Variable> {
 
-public class BonitaResourceTransformer implements Function<Variable, String> {
+    private String bonitaResourceRegex;
 
-    private ResourceURLFunction resourceURLFunction;
-
-    public BonitaResourceTransformer(String bonitaResourceRegex) {
-        this.resourceURLFunction = new ResourceURLFunction(bonitaResourceRegex);
+    public BonitaVariableResourcePredicate(String bonitaResourceRegex) {
+        this.bonitaResourceRegex = bonitaResourceRegex;
     }
 
     @Override
-    public String apply(Variable variable) {
-        String variableValue = (variable.getValue() != null && !variable.getValue().isEmpty())
-                ? variable.getValue().get(0) : "";
-        return resourceURLFunction.apply(variableValue);
+    public boolean apply(Variable variable) {
+        return URL.equals(variable.getType())
+                && variable.getValue() != null
+                && !variable.getValue().isEmpty()
+                && valueOf(variable.getValue().get(0)).matches(bonitaResourceRegex);
     }
 }

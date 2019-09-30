@@ -14,25 +14,29 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import static java.lang.String.valueOf;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.google.common.base.Predicate;
-import org.bonitasoft.web.designer.model.data.Variable;
 
-public class BonitaResourcePredicate implements Predicate<Variable> {
+public class ResourceURLFunction implements Function<String, String> {
+    
+    private Pattern pattern;
+    private String httpVerb;
 
-    private String bonitaResourceRegex;
+    public ResourceURLFunction(String pattern) {
+        this(pattern,"GET");
+    }
 
-    public BonitaResourcePredicate(String bonitaResourceRegex) {
-        this.bonitaResourceRegex = bonitaResourceRegex;
+    public ResourceURLFunction(String pattern, String httpVerb) {
+        this.httpVerb = httpVerb;
+        this.pattern = Pattern.compile(pattern);
     }
 
     @Override
-    public boolean apply(Variable variable) {
-        return  URL.equals(variable.getType())
-                && variable.getValue() != null
-                && !variable.getValue().isEmpty()
-                && valueOf(variable.getValue().get(0)).matches(bonitaResourceRegex);
+    public String apply(String value) {
+        Matcher api = pattern.matcher(value);
+        return api.matches() ? httpVerb+"|" + api.group(1) + "/" + api.group(2) : "";
     }
+
 }

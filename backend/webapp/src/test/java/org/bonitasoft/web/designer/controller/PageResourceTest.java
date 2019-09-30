@@ -57,13 +57,21 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.experimental.mapping.FormScope;
+import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -731,10 +739,10 @@ public class PageResourceTest {
         page = mockPageOfId("myPage");
         when(componentVisitor.visit(page)).thenReturn(Collections.<Component>emptyList());
         startProcessComponent = aComponent()
-                .withPropertyValue("foo", "constant", "Start process")
+                .withPropertyValue("action", "constant", "Start process")
                 .build();
         submitTaskComponent = aComponent()
-                .withPropertyValue("foo", "constant", "Submit task")
+                .withPropertyValue("action", "constant", "Submit task")
                 .build();
     }
 
@@ -760,7 +768,7 @@ public class PageResourceTest {
 
         HashMap<String, Variable> variables = new HashMap<>();
         variables.put("foo", anApiVariable("../API/extension/CA31/SQLToObject?filter=mine"));
-        // Not supported in plateform side. Prefer use queryParam like ?id=4
+        // Not supported platform side. Prefer use queryParam like ?id=4
         variables.put("bar", anApiVariable("../API/extension/user/4"));
         variables.put("aa", anApiVariable("../API/extension/group/list"));
         variables.put("session", anApiVariable("../API/extension/user/group/unusedid"));
@@ -773,6 +781,61 @@ public class PageResourceTest {
         String properties = new String(pageResource.getResources(page.getId()).toString());
 
         assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, POST|bpm/process]");
+    }
+    
+    @Test
+    public void should_add_bonita_api_extensions_resources_found_in_page_data_table_properties() throws Exception {
+        setUpPageForResourcesTests();
+        Component dataTableComponent = aComponent()
+                .withPropertyValue("apiUrl", "constant", "../API/extension/car")
+                .build();
+        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
+        
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[GET|extension/car]");
+    }
+    
+    @Test
+    public void should_add_bonita_api_extensions_resources_found_in_page_button_with_DELETE_action() throws Exception {
+        setUpPageForResourcesTests();
+        Component dataTableComponent = aComponent()
+                .withPropertyValue("action", "constant", "DELETE")
+                .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/bpm/document/1")
+                .build();
+        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
+        
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[DELETE|bpm/document]");
+    }
+    
+    @Test
+    public void should_add_bonita_api_extensions_resources_found_in_page_button_with_POST_action() throws Exception {
+        setUpPageForResourcesTests();
+        Component dataTableComponent = aComponent()
+                .withPropertyValue("action", "constant", "POST")
+                .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/extension/user")
+                .build();
+        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
+        
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[POST|extension/user]");
+    }
+    
+    @Test
+    public void should_add_bonita_api_extensions_resources_found_in_page_fileUpload_widget() throws Exception {
+        setUpPageForResourcesTests();
+        Component fileUploadComponent = aComponent()
+                .withWidgetId("pbUpload")
+                .withPropertyValue("url", ParameterType.CONSTANT.getValue(), "../API/extension/upload")
+                .build();
+        when(componentVisitor.visit(page)).thenReturn(singleton(fileUploadComponent));
+        
+        String properties = new String(pageResource.getResources(page.getId()).toString());
+
+        assertThat(properties).contains("[POST|extension/upload]");
     }
 
     @Test

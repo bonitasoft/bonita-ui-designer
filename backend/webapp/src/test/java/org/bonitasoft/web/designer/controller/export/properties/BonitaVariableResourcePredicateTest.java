@@ -21,15 +21,15 @@ import org.bonitasoft.web.designer.model.data.Variable;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BonitaResourcePredicateTest {
+public class BonitaVariableResourcePredicateTest {
 
     private Variable variable;
-    private BonitaResourcePredicate predicate;
+    private BonitaVariableResourcePredicate predicate;
 
     @Before
     public void setUp() throws Exception {
         variable = new Variable(URL, "");
-        predicate = new BonitaResourcePredicate("matches");
+        predicate = new BonitaVariableResourcePredicate("matches");
     }
 
     @Test
