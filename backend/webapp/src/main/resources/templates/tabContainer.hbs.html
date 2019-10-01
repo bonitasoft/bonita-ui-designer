@@ -1,6 +1,8 @@
 <tab pb-property-values='{{ reference }}' ng-hide="properties.hidden"
      disable="properties.disabled">
     <tab-heading ng-bind="properties.title" ng-class="properties.cssClasses" ui-translate></tab-heading>
+    <div ng-hide="properties.hidden">
     {{{ content }}}
+    </div>
 </tab>
 
