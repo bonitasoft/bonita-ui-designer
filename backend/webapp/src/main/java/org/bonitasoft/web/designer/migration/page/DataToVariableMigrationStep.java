@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Named;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.String.format;
 
@@ -51,6 +52,7 @@ public class DataToVariableMigrationStep implements MigrationStep<Page> {
     }
 
     private Variable convertDataToVariable(Data data) {
-        return new Variable(data.getType(), String.valueOf(data.getValue()));
+        String variableValue = Objects.toString(data.getValue(), null);
+        return new Variable(data.getType(), variableValue);
     }
 }

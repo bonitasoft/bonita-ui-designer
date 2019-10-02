@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.builder;
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -47,6 +48,8 @@ public class PageBuilder {
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
+    @Deprecated
+    private Map<String, Data> data = new HashMap<>();
     private Map<String, Variable> variables = new HashMap<>();
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
@@ -97,6 +100,17 @@ public class PageBuilder {
             this.inactiveAssets.add(id);
         }
         return this;
+    }
+
+    @Deprecated
+    public PageBuilder withData(String name, Data data) {
+        this.data.put(name, data);
+        return this;
+    }
+
+    @Deprecated
+    public PageBuilder withData(String name, DataBuilder data) {
+        return withData(name, data.build());
     }
 
     public PageBuilder withVariable(String name, Variable variable) {
@@ -153,6 +167,7 @@ public class PageBuilder {
         Page page = new Page();
         page.setName(name);
         page.setRows(rows);
+        page.setData(data);
         page.setVariables(variables);
         page.setId(id);
         page.setUUID(uuid);

@@ -52,6 +52,7 @@ public class Variable {
     }
 
     @JsonView({JsonViewPersistence.class})
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public List<String> getValue() {
         return getValueAsArray(displayValue);
     }
@@ -69,17 +70,11 @@ public class Variable {
     }
 
     private static List<String> getValueAsArray(String value) {
-        if (value == null) {
-            return Collections.emptyList();
-        }
-        return Arrays.asList(value.split("\\n"));
+        return (value != null) ? Arrays.asList(value.split("\\n")) : Collections.emptyList();
     }
 
     private static String getValueAsString(List<String> value) {
-        if (value == null) {
-            return null;
-        }
-        return String.join("\n", value);
+        return (value != null) ? String.join("\n", value): null;
     }
 
     @JsonView({JsonViewPersistence.class})
