@@ -18,6 +18,7 @@ package org.bonitasoft.web.designer.migration.page;
 import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,25 +31,25 @@ import java.util.Objects;
 import static java.lang.String.format;
 
 @Named
-public class DataToVariableMigrationStep implements MigrationStep<Page> {
+public class DataToVariableMigrationStep<T extends AbstractPage > implements MigrationStep<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(DataToVariableMigrationStep.class);
 
     @Override
-    public void migrate(Page page) {
+    public void migrate(T artifact) {
 
         logger.info(format(
                 "[MIGRATION] Convert all data to variables in page [%s]",
-                page.getName())
+                artifact.getName())
         );
 
-        Map<String, Data> data = page.getData();
+        Map<String, Data> data = artifact.getData();
 
         for (Map.Entry<String, Data> dataEntry: data.entrySet()) {
-            page.addVariable(dataEntry.getKey(), convertDataToVariable(dataEntry.getValue()));
+            artifact.addVariable(dataEntry.getKey(), convertDataToVariable(dataEntry.getValue()));
         }
 
-        page.setData(null);
+        artifact.setData(null);
     }
 
     private Variable convertDataToVariable(Data data) {

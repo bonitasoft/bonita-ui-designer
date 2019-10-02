@@ -80,7 +80,7 @@ public class MigrationConfig {
             PageUUIDMigrationStep pageUUIDMigrationStep,
             StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep,
             TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep,
-            DataToVariableMigrationStep dataToVariableMigrationStep,
+            DataToVariableMigrationStep<Page> dataToVariableMigrationStep,
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
