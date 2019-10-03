@@ -22,7 +22,8 @@
     'bonitasoft.designer.common.services',
     'gettext',
     'RecursionHelper',
-    'ui.router'
+    'ui.router',
+    'ngSanitize'
   ]);
 
 })();
