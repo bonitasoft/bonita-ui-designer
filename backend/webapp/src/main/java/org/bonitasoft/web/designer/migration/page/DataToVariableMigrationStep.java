@@ -15,20 +15,19 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import static java.lang.String.format;
+
+import java.util.Map;
+import java.util.Objects;
+
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Named;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-
-import static java.lang.String.format;
 
 @Named
 public class DataToVariableMigrationStep<T extends AbstractPage > implements MigrationStep<T> {
@@ -54,6 +53,8 @@ public class DataToVariableMigrationStep<T extends AbstractPage > implements Mig
 
     private Variable convertDataToVariable(Data data) {
         String variableValue = Objects.toString(data.getValue(), null);
-        return new Variable(data.getType(), variableValue);
+        Variable variable = new Variable(data.getType(), variableValue);
+        variable.setExposed(data.isExposed());
+        return variable;
     }
 }

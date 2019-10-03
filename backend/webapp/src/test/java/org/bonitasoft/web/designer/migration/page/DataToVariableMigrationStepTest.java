@@ -15,27 +15,27 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+
+import java.util.Arrays;
+
 import org.bonitasoft.web.designer.builder.DataBuilder;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Arrays;
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-
 @RunWith(MockitoJUnitRunner.class)
 public class DataToVariableMigrationStepTest {
 
-    DataToVariableMigrationStep dataToVariableMigrationStep;
+    DataToVariableMigrationStep<Page> dataToVariableMigrationStep;
 
     @Before
     public void setUp() throws Exception {
-        dataToVariableMigrationStep = new DataToVariableMigrationStep();
+        dataToVariableMigrationStep = new DataToVariableMigrationStep<Page>();
     }
 
     @Test
@@ -50,11 +50,14 @@ public class DataToVariableMigrationStepTest {
 
     @Test
     public void should_migrate_page_with_data_with_null_value() throws Exception {
-        Page pageWithData = aPage().withId("pageWithData").withData("myEmptyData", DataBuilder.aConstantData().build()).build();
+        Page pageWithData = aPage().withId("pageWithData").withData("myEmptyData", 
+                DataBuilder.aConstantData().exposed(true).build()).build();
 
         dataToVariableMigrationStep.migrate(pageWithData);
 
-        assertThat(pageWithData.getVariables().get("myEmptyData").getValue()).isEmpty();
+        Variable variable = pageWithData.getVariables().get("myEmptyData");
+        assertThat(variable.getValue()).isEmpty();
+        assertThat(variable.isExposed()).isTrue();
         assertThat(pageWithData.getData()).isNull();
     }
 
