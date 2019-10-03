@@ -3,20 +3,25 @@
         <thead>
             <tr>
                 <th ng-repeat="header in properties.headers">
-                    {{ header | uiTranslate }}
+                     <div ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></div>
+                  	 <div ng-if="!properties.allowHTML">{{ header | uiTranslate }}</div>
                 </th>
             </tr>
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
-                <td ng-repeat="column in properties.columnsKey track by $index">
+                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     {{ $eval(column, row) | uiTranslate }}
+                </td>
+                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
+                    <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
                 </td>
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
-                <td> {{ row | uiTranslate }} </td>
+                <td ng-if="!properties.allowHTML"> {{ row | uiTranslate }}</td>
+                <td ng-if="properties.allowHTML" ng-bind-html="row | uiTranslate"></td>
             </tr>
         </tbody>
     </table>

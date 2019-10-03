@@ -21,11 +21,20 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.config.DesignerConfigConditional;
-import org.bonitasoft.web.designer.migration.page.*;
-import org.bonitasoft.web.designer.model.page.AbstractPage;
+import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
+import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
+import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
+import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.*;
+import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
@@ -50,6 +59,11 @@ public class MigrationConfig {
     @Bean
     public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
+    }
+    
+    @Bean
+    public TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
+        return new TableWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
 
     @Bean
@@ -81,7 +95,8 @@ public class MigrationConfig {
             StyleAddModalContainerPropertiesMigrationStep styleAddModalContainerPropertiesMigrationStep,
             TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep,
             DataToVariableMigrationStep<Page> dataToVariableMigrationStep,
-            DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep) {
+            DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
+            TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -93,7 +108,8 @@ public class MigrationConfig {
                 new Migration<>("1.8.29", styleAddModalContainerPropertiesMigrationStep),
                 new Migration<>("1.9.24", pageTextWidgetLabelMigrationStep),
                 new Migration<>("1.10.5", dynamicTabsContainerMigrationStep),
-                new Migration<>("1.10.12", dataToVariableMigrationStep));
+                new Migration<>("1.10.12", dataToVariableMigrationStep),
+                new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep));
     }
 
     @Bean
