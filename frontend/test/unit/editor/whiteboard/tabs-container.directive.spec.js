@@ -88,10 +88,15 @@ describe('tabsContainer', function() {
         ]
       }
     });
+
     $rootScope.tabsContainer = {
       tabList: [
-        aTabContainer().title('tab-1'),
-        aTabContainer().title('tab-2')
+        { title: 'tab-1',
+          propertyValues: {title: {value: 'Tab 1'}}
+        },
+        { title: 'tab-2',
+          propertyValues: {title: {value: 'Tab 2'}}
+        }
       ]
     };
     $rootScope.$apply();

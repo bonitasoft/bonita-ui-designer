@@ -49,7 +49,14 @@ angular.module('bonitasoft.designer.editor.whiteboard').controller('TabsContaine
   $scope.addTabContainer = function(event) {
     let tabs = $scope.tabsContainer.tabList;
     let tabContainer = components.getById('pbTabContainer').component;
-    let newTabElement = pageElementFactory.createTabContainerElement(tabContainer, 'Tab ' + (tabs.length + 1));
+    let maxTabNumber = 1;
+    tabs.forEach((tab) => {
+      let tabNumber =  parseInt(tab.propertyValues.title.value.replace('Tab ', ''));
+      if (Number.isInteger(tabNumber) && (tabNumber > maxTabNumber)) {
+        maxTabNumber = tabNumber;
+      }
+    });
+    let newTabElement = pageElementFactory.createTabContainerElement(tabContainer, 'Tab ' + (maxTabNumber + 1));
     whiteboardComponentWrapper.wrapTabContainer(tabContainer, newTabElement);
     tabs.push(newTabElement);
     $scope.openTab(newTabElement, event);

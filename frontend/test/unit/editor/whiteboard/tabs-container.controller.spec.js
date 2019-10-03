@@ -89,8 +89,12 @@ describe('TabsContainerDirectiveCtrl', function() {
   it('should add tab at the end', function() {
     $scope.tabsContainer = {
       tabList: [
-        { name: 'tab-0' },
-        { name: 'tab-1' }
+        { name: 'tab-0',
+          propertyValues: {title: {value: 'Tab 1'}}
+        },
+        { name: 'tab-1',
+          propertyValues: {title: {value: 'Tab 2'}}
+        }
       ]
     };
 
@@ -99,6 +103,21 @@ describe('TabsContainerDirectiveCtrl', function() {
     expect($scope.tabsContainer.tabList.length).toBe(3);
     expect($scope.tabsContainer.tabList[2].propertyValues.title.value).toBe('Tab 3');
     expect($scope.tabsContainer.tabList[2].container.rows).toEqual([[]]);
+  });
+
+  it('when a tab is added, should NOT generate twice the same tab title', function () {
+    $scope.tabsContainer = {
+      tabList: [
+        {
+          name: 'tab-0',
+          propertyValues: {title: {value: 'Tab 2'}}
+        }
+      ]
+    };
+    $scope.addTabContainer();
+
+    expect($scope.tabsContainer.tabList.length).toBe(2);
+    expect($scope.tabsContainer.tabList[1].propertyValues.title.value).toBe('Tab 3');
   });
 
   it('should remove current tab and select previous one', function() {
