@@ -14,13 +14,11 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 
-@JsonFilter("deprecateData")
 public class Page extends AbstractPage implements HasUUID {
 
     //useful for the index and studio

@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
@@ -46,6 +47,8 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
+// BPO-118 Avoid data to be serialized as it is replaced by variable
+@JsonIgnoreProperties(value="data", allowSetters = true)
 public abstract class AbstractPage extends DesignerArtifact implements Previewable, Identifiable, ElementContainer, Assetable {
 
     private String id;

@@ -38,6 +38,7 @@ import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
@@ -92,5 +93,22 @@ public class PageRepositoryIT {
         assertThat(pageNode.at("/variables/aVariable/value").isArray()).isTrue();
         assertThat(pageNode.at("/variables/aVariable/value").elements().next().asText()).isEqualTo("a value");
         assertThat(pageNode.at("/variables/aVariable").has("displayValue")).isFalse();
+    }
+
+    @Test
+    public void should_not_contain_data_in_json_file_repository() throws Exception {
+        Page expectedPage = aFilledPage("page-id");
+
+        File pageFile = pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile();
+
+        assertThat(pageFile).doesNotExist();
+        repository.saveAll(Collections.singletonList(expectedPage));
+
+        //A json file has to be created in the repository
+        assertThat(pageFile).exists();
+
+        JsonNode pageNode = objectMapper.readTree(pageFile);
+
+        assertThat(pageNode.at("/data").asText()).isEqualTo("");
     }
 }

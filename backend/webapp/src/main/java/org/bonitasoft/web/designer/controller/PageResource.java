@@ -238,8 +238,7 @@ public class PageResource extends AssetResource<Page> {
         page.setAssets(assetVisitor.visit(page));
 
         FilterProvider filters = new SimpleFilterProvider()
-                .addFilter("valueAsArray", SimpleBeanPropertyFilter.serializeAllExcept("value"))
-                .addFilter("deprecateData", SimpleBeanPropertyFilter.serializeAllExcept("data"));
+                .addFilter("valueAsArray", SimpleBeanPropertyFilter.serializeAllExcept("value"));
         MappingJacksonValue mapping = new MappingJacksonValue(page);
         mapping.setFilters(filters);
 
