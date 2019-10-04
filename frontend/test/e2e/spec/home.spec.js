@@ -175,8 +175,10 @@ describe('home page', function() {
     btn.click();
 
     $$('.EditorHeader-exportForm .modal-footer button[name=export]').get(0).click();
-    browser.waitForAngular();
+    browser.ignoreSynchronization = true;
+
     expect($$('.EditorHeader-exportForm').count()).toBe(0);
+    browser.ignoreSynchronization = false;
   });
 
   it('should open a modal to confirm widget deletion', function() {

@@ -35,7 +35,8 @@
                 <legend class="CreateArtifact-label CreateArtifact-label--primary" translate>Favorites</legend>
                 <artifact-list artifacts="artifacts.all | filter:{name: search, favorite: 'true'} | orderBy:$storage.homeSortOrder"
                                existing-artifacts="artifacts.all"
-                               refresh-all="refreshAll">
+                               refresh-all="refreshAll"
+                               download-artifact="downloadArtifact">
                 </artifact-list>
             </section>
 
