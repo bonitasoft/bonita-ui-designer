@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-09-23 01:33\n"
+"PO-Revision-Date: 2019-10-06 02:18\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -1002,6 +1002,9 @@ msgstr ""
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代わりにエスケープされます"
+
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
+msgstr ""
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"

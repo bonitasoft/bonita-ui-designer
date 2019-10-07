@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-09-23 01:28\n"
+"PO-Revision-Date: 2019-10-06 01:59\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1000,6 +1000,9 @@ msgstr "Si le widget standard ne répond pas exactement à vos besoins, vous pou
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
 msgstr "Si vous choisissez « non », le code HTML sera être échappé au lieu d’être interprété"
+
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
+msgstr ""
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si vous spécifiez une expression, le résultat doit être un tableau de \"strings\""
