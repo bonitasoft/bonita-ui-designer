@@ -17,12 +17,7 @@ package org.bonitasoft.web.designer.model.page;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -47,8 +42,6 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
 
-// BPO-118 Avoid data to be serialized as it is replaced by variable
-@JsonIgnoreProperties(value="data", allowSetters = true)
 public abstract class AbstractPage extends DesignerArtifact implements Previewable, Identifiable, ElementContainer, Assetable {
 
     private String id;
@@ -59,7 +52,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private List<List<Element>> rows = new ArrayList<>();
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
-    private Map<String, Data> data = new HashMap<>();
+    private Map<String, Data> data = null;
     private Map<String, Variable> variables = new HashMap<>();
     private boolean hasValidationError = false;
 
@@ -146,25 +139,28 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     @Deprecated
     @JsonView({JsonViewPersistence.class})
     public Map<String, Data> getData() {
-        return data;
+        return null;
     }
 
     @Deprecated
     public void setData(Map<String, Data> data) {
-        this.data = data;
+        if (data != null) {
+            for (Map.Entry<String, Data> dataEntry: data.entrySet()) {
+                variables.put(dataEntry.getKey(), convertDataToVariable(dataEntry.getValue()));
+            }
+        }
+    }
+
+    private Variable convertDataToVariable(Data data) {
+        String variableValue = Objects.toString(data.getValue(), null);
+        Variable variable = new Variable(data.getType(), variableValue);
+        variable.setExposed(data.isExposed());
+        return variable;
     }
 
     @Deprecated
     public void addData(String name, Data value) {
-        data.put(name, value);
-    }
-
-    @Deprecated
-    public void removeData(String dataName) throws NotFoundException {
-        if (!data.containsKey(dataName)) {
-            throw new NotFoundException("Data [" + dataName + "] doesn't exists for page [" + id + "]");
-        }
-        data.remove(dataName);
+        variables.put(name, convertDataToVariable(value));
     }
 
     @JsonView({JsonViewPersistence.class})

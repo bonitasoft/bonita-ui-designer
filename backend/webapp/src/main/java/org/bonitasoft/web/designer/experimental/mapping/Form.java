@@ -33,6 +33,7 @@ public class Form extends Page {
         return this;
     }
 
+    @Deprecated
     public Form addData(PageData data) {
         this.addData(data.name(), data.create());
         return this;

@@ -35,13 +35,7 @@ import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class PageBuilder {
 
@@ -49,7 +43,7 @@ public class PageBuilder {
     private Set<Asset> assets = new HashSet<>();
     private Set<String> inactiveAssets = new HashSet<>();
     @Deprecated
-    private Map<String, Data> data = new HashMap<>();
+    private Map<String, Data> data = null;
     private Map<String, Variable> variables = new HashMap<>();
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
@@ -104,10 +98,17 @@ public class PageBuilder {
 
     @Deprecated
     public PageBuilder withData(String name, Data data) {
-        this.data.put(name, data);
+        variables.put(name, convertDataToVariable(data));
         return this;
     }
 
+    private Variable convertDataToVariable(Data data) {
+        String variableValue = Objects.toString(data.getValue(), null);
+        Variable variable = new Variable(data.getType(), variableValue);
+        variable.setExposed(data.isExposed());
+        return variable;
+    }
+    
     @Deprecated
     public PageBuilder withData(String name, DataBuilder data) {
         return withData(name, data.build());

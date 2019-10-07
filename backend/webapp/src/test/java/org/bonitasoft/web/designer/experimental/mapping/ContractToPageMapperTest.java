@@ -23,6 +23,7 @@ import static org.bonitasoft.web.designer.builder.DataBuilder.anURLData;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.anExpressionPropertyValue;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.*;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
@@ -96,8 +97,8 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("formInput", aJSONData().value(objectMapper.prettyPrint("{\"names\":[]}")).build()));
-        assertThat(page.getData()).contains(entry("formOutput", anExpressionData().value("return {\n\tnames: $data.formInput.names\n}").build()));
+        assertThat(page.getVariables()).contains(entry("formInput", aJSONVariable().value(objectMapper.prettyPrint("{\"names\":[]}")).build()));
+        assertThat(page.getVariables()).contains(entry("formOutput", anExpressionVariable().value("return {\n\tnames: $data.formInput.names\n}").build()));
     }
 
     @Test
@@ -106,7 +107,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("context", anURLData().value("../API/bpm/userTask/{{taskId}}/context").build()));
+        assertThat(page.getVariables()).contains(entry("context", anURLVariable().value("../API/bpm/userTask/{{taskId}}/context").build()));
     }
 
     @Test
@@ -115,7 +116,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("taskId", aUrlParameterData().value("id").build()));
+        assertThat(page.getVariables()).contains(entry("taskId", aUrlParameterVariable().value("id").build()));
     }
 
     @Test
@@ -124,7 +125,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.PROCESS);
 
-        assertThat(page.getData()).doesNotContain(entry("context", anURLData().value("/bonita/API/bpm/userTask/{{taskId}}/context").build()));
+        assertThat(page.getVariables()).doesNotContain(entry("context", anURLVariable().value("/bonita/API/bpm/userTask/{{taskId}}/context").build()));
     }
 
     @Test
@@ -133,7 +134,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.PROCESS);
 
-        assertThat(page.getData()).doesNotContain(entry("taskId", aUrlParameterData().value("id").build()));
+        assertThat(page.getVariables()).doesNotContain(entry("taskId", aUrlParameterVariable().value("id").build()));
     }
 
     @Test
@@ -142,7 +143,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContract().build(), FormScope.OVERVIEW);
 
-        assertThat(page.getData()).isEmpty();
+        assertThat(page.getVariables()).isEmpty();
     }
 
     @Test
@@ -165,7 +166,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("task", anURLData().value("../API/bpm/userTask/{{taskId}}").build()));
+        assertThat(page.getVariables()).contains(entry("task", anURLVariable().value("../API/bpm/userTask/{{taskId}}").build()));
     }
 
     @Test
@@ -201,36 +202,36 @@ public class ContractToPageMapperTest {
         Container container = (Container) page.getRows().get(0).get(0);
         assertThat(container.getRows().get(0)).isEqualTo(new ArrayList<>());
     }
-    
+
     @Test
     public void should_create_a_page_with_a_business_data_when_contract_contains_data_reference_on_a_task() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("employee",anURLData().value("../{{context.employee_ref.link}}").build()));
-        assertThat(page.getData()).contains(entry("employee_addresses",anURLData().value("{{employee|lazyRef:'addresses'}}").build()));
-        assertThat(page.getData()).contains(entry("employee_manager",anURLData().value("{{employee|lazyRef:'manager'}}").build()));
-        assertThat(page.getData()).contains(entry("employee_manager_addresses",anURLData().value("{{employee_manager|lazyRef:'addresses'}}").build()));
-        assertThat(page.getData()).doesNotContain(entry("employee_addresses_country",anURLData().value("{{employee_addresses|lazyRef:'country'}}").build()));
+        assertThat(page.getVariables()).contains(entry("employee",anURLVariable().value("../{{context.employee_ref.link}}").build()));
+        assertThat(page.getVariables()).contains(entry("employee_addresses",anURLVariable().value("{{employee|lazyRef:'addresses'}}").build()));
+        assertThat(page.getVariables()).contains(entry("employee_manager",anURLVariable().value("{{employee|lazyRef:'manager'}}").build()));
+        assertThat(page.getVariables()).contains(entry("employee_manager_addresses",anURLVariable().value("{{employee_manager|lazyRef:'addresses'}}").build()));
+        assertThat(page.getVariables()).doesNotContain(entry("employee_addresses_country",anURLVariable().value("{{employee_addresses|lazyRef:'country'}}").build()));
     }
-    
+
     @Test
     public void should_create_a_page_with_a_query_varaible_when_contract_contains_data_reference_with_aggregation() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithDataRefAndAggregation(EditMode.EDIT), FormScope.TASK);
 
-        assertThat(page.getData()).contains(entry("employee_query",anURLData().value("../API/bdm/businessData/org.test.Employee?q=find&p=0&c=99").build()));
+        assertThat(page.getVariables()).contains(entry("employee_query",anURLVariable().value("../API/bdm/businessData/org.test.Employee?q=find&p=0&c=99").build()));
     }
-    
+
     @Test
     public void should_create_a_page_without_formInput_when_contract_contains__only_data_reference_on_a_task() throws Exception {
         ContractToPageMapper contractToPageMapper = makeContractToPageMapper();
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
-        assertThat(page.getData().keySet()).doesNotContain("formInput");
+        assertThat(page.getVariables().keySet()).doesNotContain("formInput");
     }
 
     @Test
@@ -239,15 +240,15 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContractWithDataRef(EditMode.EDIT), FormScope.TASK);
 
-        assertThat(page.getData().keySet()).contains("submit_errors_list");
+        assertThat(page.getVariables().keySet()).contains("submit_errors_list");
        FormContainer formContainer = (FormContainer) page.getRows().get(1).get(0);
        Component submitButton = (Component) formContainer.getContainer().getRows().get(2).get(0);
-       
+
        assertThat(submitButton.getId()).isEqualTo("pbButton");
        PropertyValue dataFromErrorProperty = submitButton.getPropertyValues().get("dataFromError");
        assertThat(dataFromErrorProperty).isNotNull();
        assertThat(dataFromErrorProperty.getValue()).isEqualTo("formOutput._submitError");
-       
+
        Component errorText = (Component) formContainer.getContainer().getRows().get(3).get(0);
        assertThat(errorText.getId()).isEqualTo("pbText");
        PropertyValue hiddenProperty = errorText.getPropertyValues().get("hidden");

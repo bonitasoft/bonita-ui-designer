@@ -37,24 +37,12 @@ public class DataToVariableMigrationStep<T extends AbstractPage > implements Mig
     @Override
     public void migrate(T artifact) {
 
+        // This migration step is only needed to update the UID version so that the save is performed
+        // The conversion from data to variables is done in AbstractPage.setData
         logger.info(format(
                 "[MIGRATION] Convert all data to variables in page [%s]",
                 artifact.getName())
         );
 
-        Map<String, Data> data = artifact.getData();
-
-        for (Map.Entry<String, Data> dataEntry: data.entrySet()) {
-            artifact.addVariable(dataEntry.getKey(), convertDataToVariable(dataEntry.getValue()));
-        }
-
-        artifact.setData(null);
-    }
-
-    private Variable convertDataToVariable(Data data) {
-        String variableValue = Objects.toString(data.getValue(), null);
-        Variable variable = new Variable(data.getType(), variableValue);
-        variable.setExposed(data.isExposed());
-        return variable;
     }
 }
