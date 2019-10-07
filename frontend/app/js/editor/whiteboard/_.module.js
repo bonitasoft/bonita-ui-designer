@@ -20,6 +20,7 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.editor.common',
     'bonitasoft.designer.common.services',
+    'bonitasoft.designer.common.directives',
     'gettext',
     'RecursionHelper',
     'ui.router',
