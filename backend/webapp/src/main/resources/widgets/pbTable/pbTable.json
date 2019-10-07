@@ -43,6 +43,30 @@
       "name": "selectedRow",
       "type": "text",
       "bond": "variable"
+    },
+    {
+      "label" : "Zebra-striping",
+      "name" : "striped",
+      "help" : "Alternating gray and transparent backgrounds",
+      "type" : "boolean",
+      "defaultValue" : true,
+      "bond" : "constant"
+    },
+    {
+      "label" : "Condensed",
+      "name" : "condensed",
+      "help" : "Condensed table with half padding",
+      "type" : "boolean",
+      "defaultValue" : false,
+      "bond" : "constant"
+    },
+    {
+      "label" : "Bordered",
+      "name" : "bordered",
+      "help" : "Add borders all around the table and between all the columns.",
+      "type" : "boolean",
+      "defaultValue" : false,
+      "bond" : "constant"
     }
   ]
 }

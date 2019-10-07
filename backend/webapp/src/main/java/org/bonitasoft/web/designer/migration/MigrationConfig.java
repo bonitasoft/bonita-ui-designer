@@ -26,6 +26,7 @@ import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
@@ -65,6 +66,11 @@ public class MigrationConfig {
     public TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TableWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
+    
+    @Bean
+    public TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep(ComponentVisitor componentVisitor) {
+        return new TableWidgetStylesMigrationStep(componentVisitor);
+    }
 
     @Bean
     public TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
@@ -96,7 +102,8 @@ public class MigrationConfig {
             TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep,
             DataToVariableMigrationStep<Page> dataToVariableMigrationStep,
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
-            TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep) {
+            TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
+            TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -109,7 +116,8 @@ public class MigrationConfig {
                 new Migration<>("1.9.24", pageTextWidgetLabelMigrationStep),
                 new Migration<>("1.10.5", dynamicTabsContainerMigrationStep),
                 new Migration<>("1.10.12", dataToVariableMigrationStep),
-                new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep));
+                new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
+                new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep));
     }
 
     @Bean
