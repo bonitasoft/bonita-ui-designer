@@ -84,6 +84,18 @@ describe('pbLink', function() {
     expect(dom.find('a').attr('href')).toBe('http://localhost:8080/bonita/apps/myApp/mySecondPage');
   });
 
+  it('should set URL in layout when webapp name is custom and type is page', function() {
+    location.absUrl = function() {
+      return 'http://localhost:8080/my-webapp/apps/myApp/home';
+    };
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBeUndefined();
+    scope.properties.type = 'page';
+    scope.properties.pageToken = 'mySecondPage';
+    scope.$apply();
+    expect(dom.find('a').attr('href')).toBe('http://localhost:8080/my-webapp/apps/myApp/mySecondPage');
+  });
+
   it('should set URL when type is start process', function() {
     expect(dom.find('a').attr('href')).toBeUndefined();
     scope.properties.type = 'process';

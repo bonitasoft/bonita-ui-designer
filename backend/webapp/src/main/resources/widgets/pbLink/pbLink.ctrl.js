@@ -38,7 +38,8 @@ function PbLinkCtrl($scope, $location, $window, httpParamSerializer) {
     if (appTokenParam) {
       return appTokenParam;
     }
-    var urlMatches = $window.top.location.href.match('\/apps\/([^/]*)\/');
+    var appsURLPattern = '\/apps\/([^/]*)\/';
+    var urlMatches = $location.absUrl().match(appsURLPattern) || $window.top.location.href.match(appsURLPattern);
     if (urlMatches) {
       return urlMatches[1];
     }
@@ -63,12 +64,18 @@ function PbLinkCtrl($scope, $location, $window, httpParamSerializer) {
 
   function getPortalUrl() {
     var locationHref = $location.absUrl();
-    var indexOfPortal = locationHref.indexOf('/portal');
+    var indexOfPortal = locationHref.indexOf('/portal/');
     if (indexOfPortal >= 0) {
       return locationHref.substring(0, indexOfPortal);
     } else {
-      //Make the link work in case we are in the preview and the target process is deployed in the portal
-      return '/bonita';
+      //in case of a layout instead of a page/form, the servlet mapping is /apps/* instead of /portal/*
+      var indexOfApps = locationHref.indexOf('/apps/');
+      if (indexOfApps >= 0) {
+        return locationHref.substring(0, indexOfApps);
+      } else {
+        //Make the link work in case we are in the preview and the target process is deployed in the portal
+        return '/bonita';
+      }
     }
   }
 }
