@@ -21,7 +21,7 @@
       this.widgetFrom = widgetFrom;
       this.propertiesService = properties;
       this.selectedWidget = '';
-      this.widgetsToDisplay = this.widgets.sort((a, b) => a.name.localeCompare(b.name)).filter(w => w.id !== this.widgetFrom.$$widget.id && w.type !== 'container').map(item => {
+      this.widgetsToDisplay = this.widgets.sort((a, b) => a.name.localeCompare(b.name)).filter(w => w.id !== this.widgetFrom.$$widget.id && (w.type !== 'container' ||  w.type !== 'data model')).map(item => {
         return { id: item.id, name: item.name, custom: item.custom };
       });
       this.propertiesFrom = this._extractFromProperties(this.widgetFrom);

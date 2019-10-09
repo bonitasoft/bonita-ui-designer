@@ -31,7 +31,8 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: '{}' },
       { label: gettext('External API'), type: 'url', group: '--', defaultValue: '' },
       { label: gettext('Javascript expression'), type: 'expression', group: '--', defaultValue: 'return "hello";' },
-      { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: '' }
+      { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: '' },
+      { label: gettext('Business data'), type: 'businessdata', group: '--', defaultValue: '' }
     ];
 
     this.getDataTypes = function() {
@@ -50,7 +51,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
         .reduce(getDefaultValue, undefined);
     };
 
-    this.createData = function() {
+    this.save = function() {
       return {
         type: 'constant',
         exposed: false

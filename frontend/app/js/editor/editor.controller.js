@@ -17,7 +17,9 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window, artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService, $timeout, widgetRepo, editorService, gettextCatalog) {
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window,
+ artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
+ $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo) {
 
   'use strict';
 
@@ -157,11 +159,19 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    * @param index index of the element
    */
   $scope.addComponent = function(dragData, index) {
-    var newComponent = dragData.create($scope.currentContainerRow);
-    arrays.insertAtPosition(newComponent, index, $scope.currentContainerRow.row);
-    componentUtils.column.computeSizeItemInRow($scope.currentContainerRow.row);
-    $scope.selectComponent(newComponent);
-    newComponent.triggerAdded();
+    if (dragData.component && dragData.component.type === 'model') {
+      triggeredDataManagement(dragData.component);
+      if ($scope.currentContainerRow.row.length === 0) {
+        // Remove row to don't let empty row
+        removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
+      }
+    } else {
+      var newComponent = dragData.create($scope.currentContainerRow);
+      arrays.insertAtPosition(newComponent, index, $scope.currentContainerRow.row);
+      componentUtils.column.computeSizeItemInRow($scope.currentContainerRow.row);
+      $scope.selectComponent(newComponent);
+      newComponent.triggerAdded();
+    }
   };
 
   function removeRow(container, row) {
@@ -171,6 +181,24 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       rows.splice(rowIndex, 1);
       whiteboardService.triggerRowRemoved(row);
     }
+  }
+
+  function triggeredDataManagement(dataComponent) {
+    // Call dataRepo to get Query for this dataComponent Name
+    $scope.queries = [];
+    dataManagementRepo.getQueries(dataComponent.id).then(res => {
+      $scope.queries = res;
+      $uibModal.open({
+        templateUrl: 'js/editor/bottom-panel/data-panel/data-management-filter-popup.html',
+        controller: 'DataManagementPopupController',
+        controllerAs: 'ctrl',
+        resolve: {
+          businessData: () => dataComponent,
+          queriesForObject: () => $scope.queries,
+          pageData: () => $scope.page.variables,
+        }
+      });
+    });
   }
 
   /**

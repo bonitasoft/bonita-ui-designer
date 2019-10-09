@@ -1,6 +1,9 @@
 <section class="Palette-sections">
     <button class="Palette-section"
-            ng-class="{'Palette-section--active': palette.isActiveSection(section)}"
+            ng-class="{'Palette-section--active': palette.isActiveSection(section),
+                       'Palette-section-data': palette.isDataSection(section),
+                       'Palette-section-data--active':  palette.isActiveSection(section) && palette.isDataSection(section),
+                       }"
             ng-repeat="section in palette.sections track by $index | orderBy:'order'"
             ng-click="palette.toggleSection(section)"
             aria-label="{{section.name | translate}}"
@@ -14,13 +17,37 @@
 
 <div class="Palette-widgets"
      ng-if="palette.currentSection !== undefined">
-    <search value="palette.currentSection.search" placeholder="{{ 'Search' | translate }}"></search>
+    <div class="PanelHeader-header">
+        <div id="action" class="btn-group PanelHeader-widget-action-btn">
+        </div>
+        <h3 class="PanelHeader-title">
+            {{palette.currentSection.name}}
+
+        </h3>
+    </div>
+
+    <search ng-if="palette.currentSection !== undefined"
+            value="palette.currentSection.search" placeholder="{{ 'Search' | translate }}"></search>
     <div class="Palette-board">
         <div palette-widget
+             ng-if="!palette.isDataSection(palette.currentSection)"
              class="PaletteItem text-center"
              ng-repeat="widget in palette.currentSection.widgets | filterByComponentName:palette.currentSection.search | orderBy:'component.order'"
              widget="widget"
-             is-fragment="palette.isFragment()">
+             is-fragment="palette.isFragment()"
+             ng-if="palette.currentSection !== undefined"
+             value="palette.currentSection.search"
+        >
+        </div>
+        <div palette-model
+             ng-if="palette.isDataSection(palette.currentSection)"
+             class="PaletteItem PaletteItem-data text-center"
+             ng-repeat="widget in palette.currentSection.widgets | filterByComponentName:palette.currentSection.search | orderBy:'component.name'"
+             widget="widget"
+             ng-if="palette.currentSection !== undefined"
+             value="palette.currentSection.search"
+        >
         </div>
     </div>
 </div>
+

@@ -42,7 +42,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
     $scope.page.variables[data.$$name] = {
       exposed: data.exposed,
       type: data.type,
-      displayValue: $scope.isExposed(data) ? '' : data.displayValue
+      displayValue: $scope.isExposed(data) ? '' : (data.type === 'businessdata' ? JSON.stringify(data.variableInfo.data) : data.displayValue)
     };
   };
 
@@ -50,14 +50,15 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
 
   $scope.isExposed = data => $scope.exposableData && data.exposed;
 
-  $scope.openDataPopup = function(key) {
+  $scope.openDataPopup = function(variable) {
+    let varName = variable ? variable.name : undefined;
     var modalInstance = $uibModal.open({
       templateUrl: 'js/editor/bottom-panel/data-panel/data-popup.html',
       controller: 'DataPopupController',
       resolve: {
         mode: () => mode,
         pageData: () => artifact.variables,
-        data: () => key && angular.extend({}, artifact.variables[key], { $$name: key })
+        data: () => varName && angular.extend({}, artifact.variables[varName], { $$name: varName })
       }
     });
 
@@ -65,7 +66,10 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
 
   };
 
-  $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/editor/bottom-panel/data-panel/help-popup.html', size: 'lg' });
+  $scope.openHelp = () => $uibModal.open({
+    templateUrl: 'js/editor/bottom-panel/data-panel/help-popup.html',
+    size: 'lg'
+  });
 
   $scope.getVariables = (serchTerm) => {
     function toMatchSearchTerm(variable) {
@@ -84,8 +88,16 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       .filter(toMatchSearchTerm);
   };
 
+  $scope.displayValue = (data) => {
+    if (data.type === 'businessdata') {
+      let businessData = JSON.parse(data.displayValue);
+      return businessData.displayValue;
+    }
+    return data.displayValue;
+  };
+
   $scope.sort = (sortCriteria) => {
-    $scope.isReversedSorting = $scope.sortCriteria === sortCriteria ?  !$scope.isReversedSorting : false;
+    $scope.isReversedSorting = $scope.sortCriteria === sortCriteria ? !$scope.isReversedSorting : false;
     $scope.sortCriteria = sortCriteria;
   };
 

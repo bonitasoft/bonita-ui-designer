@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.editor')
     .service('editorService', editorService);
 
-  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts, gettext, whiteboardService, assetsService) {
+  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts, gettext, whiteboardService, assetsService, dataManagementRepo) {
 
     var paletteItems = {};
     var page;
@@ -38,7 +38,18 @@
     }
 
     function initialize(repo, id) {
-      return widgetRepo.all()
+      let allWidgets = widgetRepo.all();
+      let dataWidgets = dataManagementRepo.getDataObjects()
+        .then(addDataManagement);
+
+      return $q.all([dataWidgets, allWidgets])
+        .then(values => {
+          let widgets = [];
+          values.forEach((element) => {
+            widgets = widgets.concat(element);
+          });
+          return widgets;
+        })
         .then(initializePalette)
         .then(function() {
           var promises = Object.keys(paletteItems)
@@ -76,11 +87,30 @@
       var containers = widgets.filter((widget) => widget.type === 'container')
         .map(paletteContainerWrapper);
 
+      var dataManagement = widgets.filter((widget) => widget.type === 'model')
+        .map(paletteDataManagementWrapper.bind(null, gettext('data model'), 0));
+
       // reset the components map
       components.reset();
       components.register(containers);
       components.register(coreWidgets);
       components.register(customWidgets);
+      components.register(dataManagement);
+    }
+
+    function addDataManagement(data) {
+      let dataManagementWidgets = [];
+      data.forEach(obj => {
+        dataManagementWidgets.push({
+          id: obj.id,
+          name: obj.name,
+          description: obj.description,
+          qualifiedName: obj.qualifiedName,
+          type: 'model',
+        });
+      });
+
+      return dataManagementWidgets;
     }
 
     function createWidgetWrapper(component) {
@@ -99,6 +129,14 @@
         sectionOrder: order,
         init: whiteboardComponentWrapper.wrapWidget.bind(null, extended),
         create: createWidget.bind(null, extended)
+      };
+    }
+
+    function paletteDataManagementWrapper(name, order, component) {
+      return {
+        component: component,
+        sectionName: name,
+        sectionOrder: order
       };
     }
 
@@ -183,4 +221,5 @@
       }
     }
   }
-})();
+})
+();

@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
-  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples) {
+  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples, dataManagementRepo) {
 
     'use strict';
 
@@ -21,14 +21,21 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     $scope.example = $scope.apiExamples[0];
     $scope.examplesCollapsed = true;
     $scope.advancedExamplesCollapsed = true;
-
     $scope.dataTypes = dataTypeService.getDataTypes();
     $scope.getLabel = dataTypeService.getDataLabel;
-
     $scope.pageData = pageData;
     $scope.isNewData = data === undefined;
-    $scope.newData = data || dataTypeService.createData();
+    $scope.newData = data || dataTypeService.save();
     $scope.exposableData = mode !== 'page';
+
+    dataManagementRepo.getDataObjects().then(data => {
+      $scope.businessObjects = data;
+
+      if ($scope.newData.type === 'businessdata') {
+        let loadData = JSON.parse($scope.newData.displayValue);
+        $scope.updateBusinessObjectValue(loadData);
+      }
+    });
 
     $scope.isDataNameUnique = function(dataName) {
       return !dataName || !pageData[dataName];
@@ -40,6 +47,14 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
 
     $scope.save = function(dataToSave) {
       $uibModalInstance.close(dataToSave);
+    };
+
+    $scope.updateBusinessObjectValue = function(businessObject) {
+      $scope.newData.businessObject = $scope.businessObjects.filter(bo => bo.id === businessObject.id)[0];
+      $scope.newData.variableInfo = businessObject || {};
+      dataManagementRepo.getQueries(businessObject.id).then(res => {
+        $scope.newData.queries = res;
+      });
     };
 
     $scope.cancel = function() {

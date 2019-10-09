@@ -9,7 +9,7 @@ describe('data-type', function() {
   describe('getDataTypes', function() {
     it('should return an object of dataTypes', function() {
       var dataTypes = service.getDataTypes();
-      var TYPES = ['constant', 'url', 'expression', 'json', 'urlparameter'];
+      var TYPES = ['constant', 'url', 'expression', 'json', 'urlparameter', 'businessdata'];
       expect(Array.isArray(dataTypes)).toBe(true);
       dataTypes.forEach(function(dataType) {
         expect(dataType.hasOwnProperty('type')).toBe(true);
@@ -44,11 +44,11 @@ describe('data-type', function() {
     });
   });
 
-  describe('createData', function() {
+  describe('save', function() {
     it('should return a new object for data', function() {
-      expect(service.createData()).toBeDefined();
-      expect(service.createData().hasOwnProperty('type')).toBe(true);
-      expect(service.createData().hasOwnProperty('exposed')).toBe(true);
+      expect(service.save()).toBeDefined();
+      expect(service.save().hasOwnProperty('type')).toBe(true);
+      expect(service.save().hasOwnProperty('exposed')).toBe(true);
     });
   });
 

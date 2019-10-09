@@ -1,14 +1,14 @@
 <div class="PropertyPanel-inner" ng-show="currentComponent">
 
-    <div class="PropertyPanel-header">
-        <button ng-if="currentComponent.$$widget.hasHelp" ng-click="triggerWidgetHelp()" class="btn btn-xs btn-bonita-help-widget PropertyPanel-help-btn"
+    <div class="PanelHeader-header">
+        <button ng-if="currentComponent.$$widget.hasHelp" ng-click="triggerWidgetHelp()" class="btn btn-xs btn-bonita-help-widget PanelHeader-help-btn"
                 uib-popover-template="widgetHelpTemplateURL" type="button"
                 popover-trigger="none" popover-is-open="widgetHelpPopover.isOpen" popover-placement="left-top" popover-class="PropertyPanel-help-popover">
             <i class="fa fa-question-circle"></i>
         </button>
 
         <div ng-include="'js/editor/properties-panel/properties-panel-action-menu-template.html'"></div>
-        <h3 class="PropertyPanel-title">
+        <h3 class="PanelHeader-title">
             {{ currentComponent.$$widget.name }}
         </h3>
     </div>

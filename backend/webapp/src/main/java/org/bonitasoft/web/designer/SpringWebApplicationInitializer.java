@@ -47,20 +47,26 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
     public static final String BONITA_PORTAL_ORIGIN = "bonita.portal.origin";
 
     /**
+     * System property set by the studio to target bonita repository
+     */
+    public static final String BONITA_DATA_REPOSITORY_ORIGIN = "bonita.data.repository.origin";
+
+    /**
      * Can be set when developing using a remote bonita platform
      */
     public static final String BONITA_PORTAL_USER = "bonita.portal.origin.user";
     public static final String BONITA_PORTAL_PASSWORD = "bonita.portal.origin.password";
 
-    private static final String[] BANNER = { "",
+    private static final String[] BANNER = {"",
             "d8888b.  .d88b.  d8b   db d888888b d888888b  .d8b.    .d8888.  .d88b.  d88888b d888888b",
             "88  `8D .8P  Y8. 888o  88   `88'   `~~88~~' d8' `8b   88'  YP .8P  Y8. 88'     `~~88~~'",
             "88oooY' 88    88 88V8o 88    88       88    88ooo88   `8bo.   88    88 88ooo      88  ",
             "88~~~b. 88    88 88 V8o88    88       88    88~~~88     `Y8b. 88    88 88~~~      88  ",
             "88   8D `8b  d8' 88  V888   .88.      88    88   88   db   8D `8b  d8' 88         88   ",
-            "Y8888P'  `Y88P'  VP   V8P Y888888P    YP    YP   YP   `8888Y'  `Y88P'  YP         YP   " };
+            "Y8888P'  `Y88P'  VP   V8P Y888888P    YP    YP   YP   `8888Y'  `Y88P'  YP         YP   "};
 
     private static final Logger logger = LoggerFactory.getLogger(SpringWebApplicationInitializer.class);
+
 
     private static Properties prop = new Properties();
 
@@ -69,8 +75,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         //We can't use Spring to load the property file because we are before the context initialization
         try {
             prop.load(SpringWebApplicationInitializer.class.getClassLoader().getResourceAsStream("application.properties"));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Error on test environment initialization");
         }
     }
@@ -87,22 +92,25 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
         // Create the root context Spring
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(new Class<?>[] { ApplicationConfig.class });
+        rootContext.register(new Class<?>[]{ApplicationConfig.class});
 
         // Manage the lifecycle of the root application context
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         // Register and map the dispatcher servlet
         // Useful for REST API calls in the preview using relative URLs ../API/ and absolute /bonita/API
-        registerProxy(servletContext,"bonitaAPIProxy", "/API/*", "/bonita/API");
+        registerProxy(servletContext, "bonitaAPIProxy", "/API/*", "/bonita/API", getPortalOrigin());
         // Useful for Resources calls in the preview using absolute URLs /bonita
-        registerProxy(servletContext,"bonitaPortalProxy", "/portal/*", "/bonita/portal");
-        registerProxy(servletContext,"bonitaPortalJSProxy", "/portal.js/*", "/bonita/portal.js");
-        registerProxy(servletContext,"bonitaServicesProxy", "/services/*", "/bonita/services");
-        registerProxy(servletContext,"bonitaThemeProxy", "/theme/*", "/bonita/theme");
-        registerProxy(servletContext,"bonitaServerAPIProxy", "/serverAPI/*", "/bonita/serverAPI");
-        registerProxy(servletContext,"bonitaMobileProxy", "/mobile/*", "/bonita/mobile");
-        registerProxy(servletContext,"bonitaAppsProxy", "/apps/*", "/bonita/apps");
+        registerProxy(servletContext, "bonitaPortalProxy", "/portal/*", "/bonita/portal", getPortalOrigin());
+        registerProxy(servletContext, "bonitaPortalJSProxy", "/portal.js/*", "/bonita/portal.js", getPortalOrigin());
+        registerProxy(servletContext, "bonitaServicesProxy", "/services/*", "/bonita/services", getPortalOrigin());
+        registerProxy(servletContext, "bonitaThemeProxy", "/theme/*", "/bonita/theme", getPortalOrigin());
+        registerProxy(servletContext, "bonitaServerAPIProxy", "/serverAPI/*", "/bonita/serverAPI", getPortalOrigin());
+        registerProxy(servletContext, "bonitaMobileProxy", "/mobile/*", "/bonita/mobile", getPortalOrigin());
+        registerProxy(servletContext, "bonitaAppsProxy", "/apps/*", "/bonita/apps", getPortalOrigin());
+
+        // Useful for repository calls editor to get dataManagement infos
+        registerProxy(servletContext, "bonitaDataRepository", "/bdr", "/bdr", getDataRepositoryOrigin());
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
@@ -111,10 +119,10 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         dispatcher.addMapping("/");
     }
 
-    private void registerProxy(ServletContext servletContext, String servletName, String servletMapping, String targetUri) {
+    private void registerProxy(ServletContext servletContext, String servletName, String servletMapping, String targetUri, String targetOrigin) {
         ServletRegistration.Dynamic apiProxyRegistration = servletContext.addServlet(servletName, PreservingCookiePathProxyServlet.class);
         apiProxyRegistration.setLoadOnStartup(1);
-        apiProxyRegistration.setInitParameter("targetUri", getPortalOrigin() + targetUri);
+        apiProxyRegistration.setInitParameter("targetUri", targetOrigin + targetUri);
         apiProxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
         apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
         apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
@@ -132,11 +140,20 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
     }
 
     private String getPortalOrigin() {
-        String portalOrigin =  System.getProperty(BONITA_PORTAL_ORIGIN);
-        if(StringUtils.isNotBlank(portalOrigin)){
+        String portalOrigin = System.getProperty(BONITA_PORTAL_ORIGIN);
+        if (StringUtils.isNotBlank(portalOrigin)) {
             return portalOrigin;
         }
         logger.warn("System property " + BONITA_PORTAL_ORIGIN + " is not set. Same origin as UI Designer will be used for portal calls.");
+        return "";
+    }
+
+    private String getDataRepositoryOrigin() {
+        String repositoryOrigin = System.getProperty(BONITA_DATA_REPOSITORY_ORIGIN);
+        if (StringUtils.isNotBlank(repositoryOrigin)) {
+            return repositoryOrigin;
+        }
+        logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set. Same origin as UI Designer will be used for repository calls.");
         return "";
     }
 }

@@ -40,7 +40,8 @@
         sections[sectionName] = sections[sectionName] || {
           name: sectionName,
           order: componentsMap[item].sectionOrder,
-          widgets: []
+          widgets: [],
+          type: sectionName === 'data model' ? 'data' : 'component'
         };
 
         sections[sectionName].widgets = sections[sectionName].widgets.concat(componentsMap[item]);
@@ -51,6 +52,5 @@
         return sections[key];
       });
     }
-
   }
 })();

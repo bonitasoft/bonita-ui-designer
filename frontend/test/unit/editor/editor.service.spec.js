@@ -2,7 +2,7 @@
   'use strict';
 
   describe('editor service', function() {
-    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService, modalContainerStructureMockJSON;
+    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock;
 
     var labelWidget = {
       id: 'label',
@@ -38,6 +38,18 @@
         type: 'container'
       }
     ];
+
+    let dataManagementWidgets =  [{
+      id: 'Declarant',
+      name: 'Declarant',
+      custom: false,
+      type: 'model'
+    },{
+      id: 'Declaration',
+      name: 'Declaration',
+      custom: false,
+      type: 'model'
+    }];
 
     var json = {
       'data': {
@@ -151,6 +163,7 @@
 
       widgetRepo = $injector.get('widgetRepo');
       pageRepo = $injector.get('pageRepo');
+      dataManagementRepoMock = $injector.get('dataManagementRepo');
 
       editorService = $injector.get('editorService');
       components = $injector.get('components');
@@ -159,6 +172,7 @@
       whiteboardService = $injector.get('whiteboardService');
 
       spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
+      spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when(dataManagementWidgets));
       spyOn(alerts, 'addError');
     }));
 
@@ -171,7 +185,7 @@
     }));
 
     it('should initialize a page', function() {
-      var page = {};
+      let page = {};
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
       editorService.initialize(pageRepo, 'person')
         .then(function(data) {
@@ -226,7 +240,7 @@
       expect(components.reset.calls.count()).toBe(1);
 
       expect(components.register).toHaveBeenCalled();
-      expect(components.register.calls.count()).toBe(3);
+      expect(components.register.calls.count()).toBe(4);
     });
 
     it('should add an alert if initialize failed', function() {

@@ -28,7 +28,9 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
           rejection.headers('Content-Type').indexOf('application/json') === 0 &&
           angular.isDefined(rejection.data.message)) {
         alerts.addError(rejection.data.message);
-      } else if (EXCLUSION_PATTERNS.some(function(v) {
+      } else if (rejection.status === 500 && rejection.config.url.includes('bdr')) {
+        alerts.addWarning('Repository not connected, data management is not available');
+      }else if (EXCLUSION_PATTERNS.some(function(v) {
         return rejection.config.url.indexOf(v) < 0;
       })) {
         alerts.addError('Unexpected server error');

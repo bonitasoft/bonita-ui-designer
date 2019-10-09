@@ -30,14 +30,14 @@
         <tr ng-repeat="variable in getVariables(searchedData) | orderBy:sortCriteria:isReversedSorting as variables track by variable.name"
             class="DataPanel-variable">
             <td class="VariablesTable-name">{{variable.name}}</td>
-            <td class="VariablesTable-value">{{variable.displayValue}}</td>
+            <td class="VariablesTable-value">{{displayValue(variable)}}</td>
             <td class="VariablesTable-type" ng-class="{'VariablesTable-type--exposed': isExposed(variable)}">
                 {{getType(variable)}}
             </td>
             <td class="VariablesTable-actions">
                 <div class="btn-group link-group btn-group-sm pull-right">
                     <button class="btn update-data"
-                            ng-click="openDataPopup(variable.name)"
+                            ng-click="openDataPopup(variable)"
                             title="{{ 'Edit variable' | translate }}">
                         <i class="fa fa-pencil"></i>
                     </button>

@@ -33,7 +33,8 @@
 @import "../js/home/create/create";
 @import "../js/common/directives/save-indicator/save-indicator";
 @import "animations";
-
+@import "panelheader";
+@import "../js/editor/bottom-panel/data-panel/subset-business-data";
 
 @fa-font-path: "../../bower_components/font-awesome/fonts";
 
@@ -140,6 +141,14 @@ html, body {
   &.ui-tags{
     font-family: 'Glyphicons Halflings';
     .glyphicon-tags;
+    position: relative;
+    top: -.5px;
+    font-size: 85%;
+  }
+
+  &.ui-search{
+    font-family: 'Glyphicons Halflings';
+    .glyphicon-search;
     position: relative;
     top: -.5px;
     font-size: 85%;

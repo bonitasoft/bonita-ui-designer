@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public enum DataType {
 
-    CONSTANT, URL, JSON, EXPRESSION, URLPARAMETER ;
+    CONSTANT, URL, JSON, EXPRESSION, URLPARAMETER, BUSINESSDATA ;
 
     @JsonValue
     public String toJson() {

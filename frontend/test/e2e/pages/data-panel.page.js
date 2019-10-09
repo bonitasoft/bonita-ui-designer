@@ -11,7 +11,7 @@
     return {
       name: dataElement.element(by.exactBinding('variable.name')).getText(),
       type: dataElement.element(by.css('.VariablesTable-type')).getText(),
-      value: dataElement.element(by.exactBinding('variable.displayValue')).getText()
+      value: dataElement.element(by.exactBinding('displayValue(variable)')).getText()
     };
   }
 

@@ -1,0 +1,12 @@
+<div>
+    <div
+         uib-tooltip="{{ widget.component.description || widget.component.name | translate }}"
+         tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="right"
+         tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
+
+        <div id="{{ widget.component.id }}" bo-draggable-data="widget" bo-draggable>
+            <h5 class="PaletteItem-data-label">{{ widget.component.name }}</h5>
+        </div>
+    </div>
+</div>
+

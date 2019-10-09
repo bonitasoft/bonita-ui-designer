@@ -155,7 +155,7 @@ module.exports = function (gulp, config) {
    */
   gulp.task('bundle:js', ['bundle:html'], function () {
     var tpl = gulp.src(paths.dev + '/html/**/*.html')
-      //if errorHandler set to true, on error, pipe will not break
+    //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
       .pipe(html2js({
         moduleName: 'bonitasoft.designer.templates',
@@ -163,7 +163,7 @@ module.exports = function (gulp, config) {
       }));
 
     var js = gulp.src(paths.js)
-      //if errorHandler set to true, on error, pipe will not break
+    //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
       .pipe(order([
         '**/*.module.js',
@@ -172,9 +172,9 @@ module.exports = function (gulp, config) {
       .pipe(sourcemaps.init())
       .pipe(babel())
       .pipe(ngAnnotate({
-          'single_quotes': true,
-          add: true
-        }));
+        'single_quotes': true,
+        add: true
+      }));
 
     return merge(js, tpl)
       .pipe(concat('app.js'))

@@ -39,7 +39,12 @@
       }, {
         name: 'widget1'
       }]
-    }];
+    },{
+      name: 'section3',
+      order: 3,
+      widgets: []
+    }
+    ];
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
     beforeEach(inject(function($injector) {

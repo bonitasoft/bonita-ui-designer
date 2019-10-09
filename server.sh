@@ -1,7 +1,8 @@
 #!/bin/sh
 
 export PORTAL_ORIGIN=http://localhost:8081
-export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dbonita.portal.origin=$PORTAL_ORIGIN"
+export DATA_REPOSITORY_ORIGIN=http://localhost:4000
+export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dbonita.portal.origin=$PORTAL_ORIGIN -Dbonita.data.repository.origin=DATA_REPOSITORY_ORIGIN"
 
 # CURL is needed
 
@@ -14,7 +15,9 @@ waitJetty() {
   echo "Jetty started"
 }
 
-echo Using $bonita.portal.origin as portal origin. You can edit it in community/server.sh
+echo Using $PORTAL_ORIGIN as portal origin.
+echo Using $DATA_REPOSITORY_ORIGIN as data repository origin.
+echo You can edit this in community/server.sh
 yarnCrossPlatform="yarn"
 if [ "$OSTYPE" = "msys" ];then
    yarnCrossPlatform="yarn.cmd"

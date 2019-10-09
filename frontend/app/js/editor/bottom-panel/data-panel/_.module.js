@@ -20,6 +20,7 @@
     'bonitasoft.designer.common.repositories',
     'bonitasoft.designer.common.directives',
     'bonitasoft.designer.confirm-delete',
+    'bonitasoft.designer.common.filters',
     'gettext',
     'ui.bootstrap'
   ]);

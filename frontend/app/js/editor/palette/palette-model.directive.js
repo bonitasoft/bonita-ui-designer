@@ -16,16 +16,21 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor', [
-    'bonitasoft.designer.editor.common',
-    'bonitasoft.designer.editor.palette',
-    'bonitasoft.designer.editor.properties-panel',
-    'bonitasoft.designer.editor.header',
-    'bonitasoft.designer.editor.whiteboard',
-    'bonitasoft.designer.editor.bottom-panel',
-    'bonitasoft.designer.assets',
-    'bonitasoft.designer.common.repositories',
-    'gettext'
-  ]);
+  angular
+    .module('bonitasoft.designer.editor.palette')
+    .directive('paletteModel', paletteModel);
+
+  /**
+   * Element directive displaying a widget in the palette, with just its label for now.
+   */
+  function paletteModel() {
+    return {
+      restrict: 'EA',
+      scope: {
+        widget: '='
+      },
+      templateUrl: 'js/editor/palette/palette-model.html',
+    };
+  }
 
 })();

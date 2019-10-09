@@ -50,6 +50,7 @@
     this.getIconClassName = getIconClassName;
     this.isFragment = isFragment;
     this.updateSections = updateSections;
+    this.isDataSection = isDataSection;
     resize();
 
     $scope.$on('fragmentCreated', function() {
@@ -92,6 +93,10 @@
         }
       });
       resize();
+    }
+
+    function isDataSection(section) {
+      return section.type === 'data';
     }
   }
 
