@@ -24,7 +24,7 @@
 
     class DataManagementRepo {
       constructor() {
-        this.baseUrl = '/bdr';
+        this.baseUrl = './bdr';
         this.$http = $http;
         this.config = {
           headers: {

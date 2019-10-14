@@ -24,7 +24,7 @@ describe('DataManagementService', () => {
               ]
           }}}};
 
-    $httpBackend.whenPOST('/bdr').respond(Success.data);
+    $httpBackend.whenPOST('./bdr').respond(Success.data);
 
     dataManagementRepo.getDataObjects().then((data) => {
       expect(data.length).toEqual(4);
@@ -39,7 +39,7 @@ describe('DataManagementService', () => {
     let Success = {
       data: {}};
 
-    $httpBackend.whenPOST('/bdr').respond(Success.data);
+    $httpBackend.whenPOST('./bdr').respond(Success.data);
 
     dataManagementRepo.getDataObjects().then((data) =>
       expect(data).toEqual([]));
@@ -75,7 +75,7 @@ describe('DataManagementService', () => {
       }
     }};
 
-    $httpBackend.whenPOST('/bdr').respond(Success.data);
+    $httpBackend.whenPOST('./bdr').respond(Success.data);
 
     dataManagementRepo.getQueries('com_bonita_model_Customer').then((data) => {
       expect(data.additionalQuery.length).toEqual(1);
@@ -87,7 +87,7 @@ describe('DataManagementService', () => {
   });
 
   it('should return an empty array when try to load queries on business object with business data repository is on error', () => {
-        $httpBackend.whenPOST('/bdr').respond(500);
+        $httpBackend.whenPOST('./bdr').respond(500);
 
     dataManagementRepo.getQueries('com_bonita_model_Customer').then((data) => {
       expect(data).toEqual([]);
@@ -96,7 +96,7 @@ describe('DataManagementService', () => {
   });
 
   it('should return an empty array when try to load businessObject with business data repository is on error', () => {
-    $httpBackend.whenPOST('/bdr').respond(500);
+    $httpBackend.whenPOST('./bdr').respond(500);
 
     dataManagementRepo.getDataObjects().then((data) => {
       expect(data).toEqual([]);
