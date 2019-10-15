@@ -11,10 +11,19 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-10-06 02:01\n"
+"PO-Revision-Date: 2019-10-15 02:00\n"
+
+msgid "\"Find By\" queries on an attribute"
+msgstr ""
+
+msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
+msgstr ""
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
+
+msgid "'{{ctrl.newData.$$name}}' already exists"
+msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -211,6 +220,9 @@ msgstr "Añadir un nuevo asset"
 msgid "Add a new tab"
 msgstr "Añadir una pestaña nueva"
 
+msgid "Add borders all around the table and between all the columns."
+msgstr ""
+
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la parte inferior del panel de Recursos."
 
@@ -226,6 +238,9 @@ msgstr "Artefactos agregados"
 msgid "Additional request parameters added to the query string"
 msgstr "Parámetros adicionales de la petición añadidos a la cadena de consulta"
 
+msgid "Additionnal queries"
+msgstr ""
+
 msgid "Alignment"
 msgstr "Alineación"
 
@@ -237,6 +252,9 @@ msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
 
 msgid "Alternate text"
 msgstr "Texto alternativo"
+
+msgid "Alternating gray and transparent backgrounds"
+msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
@@ -359,6 +377,12 @@ msgstr "Bonita BPM"
 msgid "Bonita REST API calls"
 msgstr "Llamadas de la API REST de Bonita"
 
+msgid "Bordered"
+msgstr ""
+
+msgid "Business data"
+msgstr ""
+
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
 
@@ -437,6 +461,9 @@ msgstr "opciones"
 msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
+msgid "Choose a business object"
+msgstr ""
+
 msgid "Choose process document if the file is used by a process"
 msgstr "Elija el documento del proceso si el archivo se utiliza en un proceso"
 
@@ -457,6 +484,9 @@ msgstr "Haga clic para enlazar una constante"
 
 msgid "Click to bind to an expression"
 msgstr "Haga clic para enlazar una expresión"
+
+msgid "Click to display parameters for"
+msgstr ""
 
 msgid "Close"
 msgstr "Cerrar"
@@ -487,6 +517,12 @@ msgstr "Lista separada por comas"
 
 msgid "Comma-separated list or bound an array data"
 msgstr "Lista separada por comas o un array de datos enlazado"
+
+msgid "Condensed"
+msgstr ""
+
+msgid "Condensed table with half padding"
+msgstr ""
 
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configura los widgets mediante el <b>panel de propiedades</b> de la derecha."
@@ -553,6 +589,9 @@ msgstr "Cree una variable en el panel inferior. Utilizar una variable en una pro
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Crear una <b>Página de aplicación</b> directamente en el UI Designer"
+
+msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
+msgstr ""
 
 msgid "Create new artifact"
 msgstr "Crear un nuevo artefacto"
@@ -760,6 +799,9 @@ msgstr "Editor de Organización"
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr "Seleccione el widget para cambiar y haga clic en <i class=\"fa fa-exchange\"></i>."
 
+msgid "Element (c)"
+msgstr ""
+
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Introduzca ' + vm.mode + ' nombre"
 
@@ -768,6 +810,9 @@ msgstr "Introduzca una fecha (dd/mm/aaaa)"
 
 msgid "Enter a time (h:mm:ss a)"
 msgstr "Introduzca una hora (h:mm:ss)"
+
+msgid "Enter value"
+msgstr ""
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{{ infos.location.column }}</code>"
@@ -831,6 +876,9 @@ msgstr "Archivo no disponible"
 
 msgid "FileName"
 msgstr "Nombre de archivo"
+
+msgid "Filter the query results of"
+msgstr ""
 
 msgid "Filters"
 msgstr "Filtros"
@@ -1324,6 +1372,12 @@ msgstr "Ninguna aplicación seleccionada"
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
 
+msgid "No parameter is needed for this query"
+msgstr ""
+
+msgid "No queries"
+msgstr ""
+
 msgid "No variable"
 msgstr "Sin variables"
 
@@ -1417,11 +1471,17 @@ msgstr "Nombre para mostrar de la página"
 msgid "Page level"
 msgstr "Nivel de página"
 
+msgid "Page number (p)"
+msgstr ""
+
 msgid "Page token"
 msgstr "Token de la página"
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Parent frame (_parent)"
 msgstr "Frame padre (_parent)"
@@ -1549,6 +1609,9 @@ msgstr "Búsqueda"
 msgid "Search a list of cases based on search indexes"
 msgstr "Busca una lista de casos basándose en índices de búsqueda"
 
+msgid "Search by attribute or query name"
+msgstr ""
+
 msgid "Search on name"
 msgstr "Buscar por nombre"
 
@@ -1566,6 +1629,9 @@ msgstr "Ver el recurso localización por defecto para obtener un ejemplo."
 
 msgid "Select"
 msgstr "seleccionar"
+
+msgid "Select a query"
+msgstr ""
 
 msgid "Select a widget or start typing"
 msgstr "Seleccione un widget o comience a escribir"
@@ -2072,6 +2138,9 @@ msgstr "Dos casos de uso: <ul><li><code>dateVariable | uiDate</code> se aplica u
 msgid "Type"
 msgstr "Tipo"
 
+msgid "Type a"
+msgstr ""
+
 msgid "UI Designer"
 msgstr "UI Designer"
 
@@ -2200,6 +2269,9 @@ msgstr "Valor a agregar"
 
 msgid "Variable in read-write binding with the property value"
 msgstr "Variable en enlace de lectura y escritura con valor de la propiedad"
+
+msgid "Variable name"
+msgstr ""
 
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "Los nombres de las variables deben empezar con una letra y contener sólo caracteres alfanuméricos"
@@ -2336,6 +2408,9 @@ msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desd
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
 
+msgid "Zebra-striping"
+msgstr ""
+
 msgid "_self"
 msgstr "_self"
 
@@ -2358,6 +2433,9 @@ msgstr "Widgets personalizados"
 
 msgid "danger"
 msgstr "danger"
+
+msgid "data model"
+msgstr ""
 
 msgid "default"
 msgstr "default"
@@ -2458,6 +2536,9 @@ msgstr "text"
 msgid "top"
 msgstr "Arriba"
 
+msgid "value"
+msgstr ""
+
 msgid "view W3C's Json specification"
 msgstr "ver la especificación Json de W3C"
 
@@ -2488,6 +2569,12 @@ msgstr[1] "{{ type }}s"
 
 msgid "{{ vm.page.type }} editor"
 msgstr "Editor de {{ vm.page.type }}"
+
+msgid "{{\"Filter the query results of\" | translate}} <i>{{ctrl.variableInfo.query.name}}</i>"
+msgstr ""
+
+msgid "{{'Pagination' | translate}}"
+msgstr ""
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenido de {{asset.name}} <expand-modal></expand-modal>"

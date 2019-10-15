@@ -11,9 +11,18 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-10-06 02:18\n"
+"PO-Revision-Date: 2019-10-15 02:11\n"
+
+msgid "\"Find By\" queries on an attribute"
+msgstr ""
+
+msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
+msgstr ""
 
 msgid "&nbsp;"
+msgstr ""
+
+msgid "'{{ctrl.newData.$$name}}' already exists"
 msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
@@ -211,6 +220,9 @@ msgstr "新規アセットを追加"
 msgid "Add a new tab"
 msgstr "新規タブを追加"
 
+msgid "Add borders all around the table and between all the columns."
+msgstr ""
+
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
 
@@ -226,6 +238,9 @@ msgstr "追加された生成物"
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
 
+msgid "Additionnal queries"
+msgstr ""
+
 msgid "Alignment"
 msgstr "配置"
 
@@ -237,6 +252,9 @@ msgstr "案件の全プロセスデータ: 案件リストの変数を検索し�
 
 msgid "Alternate text"
 msgstr "代替テキスト"
+
+msgid "Alternating gray and transparent backgrounds"
+msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
@@ -359,6 +377,12 @@ msgstr "Bonita BPM"
 msgid "Bonita REST API calls"
 msgstr ""
 
+msgid "Bordered"
+msgstr ""
+
+msgid "Business data"
+msgstr ""
+
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI 生成物の表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
 
@@ -437,6 +461,9 @@ msgstr "選択肢"
 msgid "Choices (comma separated)"
 msgstr "選択肢 (カンマで区切る)"
 
+msgid "Choose a business object"
+msgstr ""
+
 msgid "Choose process document if the file is used by a process"
 msgstr ""
 
@@ -457,6 +484,9 @@ msgstr "クリックしてコンスタントにバインド"
 
 msgid "Click to bind to an expression"
 msgstr "クリックして式にバインド"
+
+msgid "Click to display parameters for"
+msgstr ""
 
 msgid "Close"
 msgstr "閉じる"
@@ -487,6 +517,12 @@ msgstr "カンマ区切りのリスト"
 
 msgid "Comma-separated list or bound an array data"
 msgstr "コンマで区切られたリストまたはバインド配列データ"
+
+msgid "Condensed"
+msgstr ""
+
+msgid "Condensed table with half padding"
+msgstr ""
 
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "右の<b>プロパティ パネル</b>を使用してウィジェットを構成設定します。"
@@ -553,6 +589,9 @@ msgstr "下部のパネルで変数を作成します。ウィジェット プ�
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "UI デザイナーで直接、<b>アプリケーション ページ</b> を作成します"
+
+msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
+msgstr ""
 
 msgid "Create new artifact"
 msgstr "新しい生成物を作成"
@@ -760,6 +799,9 @@ msgstr "エディタの構成設定"
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr ""
 
+msgid "Element (c)"
+msgstr ""
+
 msgid "Enter ' + vm.mode + ' name"
 msgstr "vm.mode + ' 名を入力します"
 
@@ -768,6 +810,9 @@ msgstr "日付（mm/dd/yyyy）を入力します"
 
 msgid "Enter a time (h:mm:ss a)"
 msgstr "時刻を入力 (h:mm:ss a)"
+
+msgid "Enter value"
+msgstr ""
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.column }}</code> 列でエラー"
@@ -830,6 +875,9 @@ msgid "File unavailable"
 msgstr ""
 
 msgid "FileName"
+msgstr ""
+
+msgid "Filter the query results of"
 msgstr ""
 
 msgid "Filters"
@@ -1325,6 +1373,12 @@ msgstr ""
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
 
+msgid "No parameter is needed for this query"
+msgstr ""
+
+msgid "No queries"
+msgstr ""
+
 msgid "No variable"
 msgstr "変数はありません"
 
@@ -1418,11 +1472,17 @@ msgstr ""
 msgid "Page level"
 msgstr "ページ レベル"
 
+msgid "Page number (p)"
+msgstr ""
+
 msgid "Page token"
 msgstr "ページ トークン"
 
 msgid "Pages"
 msgstr "ページ"
+
+msgid "Pagination"
+msgstr ""
 
 msgid "Parent frame (_parent)"
 msgstr "親フレーム (_parent)"
@@ -1550,6 +1610,9 @@ msgstr "検索"
 msgid "Search a list of cases based on search indexes"
 msgstr "検索キーで案件リストを検索する"
 
+msgid "Search by attribute or query name"
+msgstr ""
+
 msgid "Search on name"
 msgstr "名前で検索"
 
@@ -1567,6 +1630,9 @@ msgstr "デフォルト ローカライゼーション アセットの例を参�
 
 msgid "Select"
 msgstr "選択"
+
+msgid "Select a query"
+msgstr ""
 
 msgid "Select a widget or start typing"
 msgstr ""
@@ -2073,6 +2139,9 @@ msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデ�
 msgid "Type"
 msgstr "タイプ"
 
+msgid "Type a"
+msgstr ""
+
 msgid "UI Designer"
 msgstr "UI デザイナー"
 
@@ -2201,6 +2270,9 @@ msgstr "追加する値"
 
 msgid "Variable in read-write binding with the property value"
 msgstr "プロパティ値と read-write 双方向でバインディングする変数"
+
+msgid "Variable name"
+msgstr ""
 
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "変数名は、英文字で始まり英数字のみで命名する必要があります。"
@@ -2337,6 +2409,9 @@ msgstr "Studio でプロセス フォームの設計を開始する必要があ�
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
 
+msgid "Zebra-striping"
+msgstr ""
+
 msgid "_self"
 msgstr "_self"
 
@@ -2358,6 +2433,9 @@ msgstr "カスタム ウィジェット"
 
 msgid "danger"
 msgstr "danger"
+
+msgid "data model"
+msgstr ""
 
 msgid "default"
 msgstr "default"
@@ -2458,6 +2536,9 @@ msgstr "テキスト"
 msgid "top"
 msgstr "トップへ"
 
+msgid "value"
+msgstr ""
+
 msgid "view W3C's Json specification"
 msgstr "W3C の JSON 仕様を表示"
 
@@ -2486,6 +2567,12 @@ msgstr[0] "{{ type }}"
 
 msgid "{{ vm.page.type }} editor"
 msgstr "{{ vm.page.type }} エディタ"
+
+msgid "{{\"Filter the query results of\" | translate}} <i>{{ctrl.variableInfo.query.name}}</i>"
+msgstr ""
+
+msgid "{{'Pagination' | translate}}"
+msgstr ""
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
