@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q, artifactStore, artifactNamingValidatorService) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -33,6 +33,15 @@
 
       $scope.$on('$destroy', function() {
         keyBindingService.unbind(['ctrl+s', 'command+s']);
+      });
+
+      dataManagementRepo.getDataObjects().then(data => {
+        this.businessDataRepositoryOffline = data.error;
+        if (this.businessDataRepositoryOffline) {
+          this.$timeout(() => {
+            this.businessDataRepositoryOffline = !data.error;
+          }, 2000);
+        }
       });
     }
 

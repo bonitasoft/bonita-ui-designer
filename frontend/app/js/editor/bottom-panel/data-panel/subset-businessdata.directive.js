@@ -83,7 +83,8 @@
       bindToController: {
         businessData: '=',
         queriesForObject: '=',
-        variableInfo: '='
+        variableInfo: '=',
+        editBusinessDataQueries: '='
       },
       templateUrl: 'js/editor/bottom-panel/data-panel/subset-businessData.html',
       controller: SubsetBusinessDataController,

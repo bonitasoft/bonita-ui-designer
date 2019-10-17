@@ -16,6 +16,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
   .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples, dataManagementRepo) {
 
     'use strict';
+    const BUSINESS_DATA_TYPE = 'businessdata';
 
     $scope.apiExamples = apiExamples.get();
     $scope.example = $scope.apiExamples[0];
@@ -25,17 +26,57 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     $scope.getLabel = dataTypeService.getDataLabel;
     $scope.pageData = pageData;
     $scope.isNewData = data === undefined;
+    $scope.editBusinessDataQueries = true;
     $scope.newData = data || dataTypeService.save();
     $scope.exposableData = mode !== 'page';
+    $scope.offlineMode = false;
+    $scope.businessDataRepoIsEmpty = false;
 
     dataManagementRepo.getDataObjects().then(data => {
-      $scope.businessObjects = data;
-
-      if ($scope.newData.type === 'businessdata') {
-        let loadData = JSON.parse($scope.newData.displayValue);
-        $scope.updateBusinessObjectValue(loadData);
+      $scope.offlineMode = data.error;
+      if ($scope.newData.type === BUSINESS_DATA_TYPE) {
+        editBusinessDataVariable(data);
+      } else {
+        $scope.businessDataRepoIsEmpty = data.objects.length === 0;
+        $scope.editBusinessDataQueries = data.objects.length > 0;
+        $scope.businessObjects = data.objects;
       }
     });
+
+    function editBusinessDataVariable(data) {
+      let loadData = JSON.parse($scope.newData.displayValue);
+      // Check if any business object is define in data repository
+      if (data.objects.length === 0) {
+        $scope.businessObjects = [{
+          qualifiedName: loadData.qualifiedName,
+          name: loadData.businessObjectName,
+          id: loadData.id
+        }];
+        $scope.businessDataRepoIsEmpty = true;
+        $scope.editBusinessDataQueries = false;
+      } else {
+        $scope.businessObjects = data.objects;
+        // Find business Object
+        let selectBO = data.objects.filter(bo => loadData.qualifiedName === bo.qualifiedName);
+        if (selectBO.length === 0) {
+          $scope.editBusinessDataQueries = false;
+          $scope.businessObjects.push({
+            qualifiedName: loadData.qualifiedName,
+            name: loadData.businessObjectName,
+            id: loadData.id,
+            description: null
+          });
+        }
+      }
+
+      if ($scope.newData.type === BUSINESS_DATA_TYPE) {
+        $scope.updateBusinessObjectValue(loadData);
+      }
+    }
+
+    $scope.businessDataDisplayWarningError = function() {
+      return !$scope.editBusinessDataQueries || $scope.offlineMode || $scope.businessDataRepoIsEmpty;
+    };
 
     $scope.isDataNameUnique = function(dataName) {
       return !dataName || !pageData[dataName];

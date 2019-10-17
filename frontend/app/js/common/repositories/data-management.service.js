@@ -24,6 +24,7 @@
 
     class DataManagementRepo {
       constructor() {
+        this.isError = false;
         this.baseUrl = './bdr';
         this.$http = $http;
         this.config = {
@@ -34,30 +35,41 @@
       }
 
       getDataObjects() {
+        if (this.isError) {
+          return new Promise((resolve) => resolve({ error: true, objects: [] }));
+        }
+
         let query = `{ __schema{ types { name,kind,description } } }`;
         return this.$http.post(`${this.baseUrl}`, { 'query': query }, this.config)
           .then((response) => {
             let returnBusiness = [];
             if (!response || !response.data || !response.data.data || !response.data.data.__schema || !response.data.data.__schema.types) {
-              return returnBusiness;
+              return { error: false, objects: returnBusiness };
             }
 
             let businessObject = response.data.data.__schema.types;
             let boFilters = businessObject.filter(obj => this._isBusinessObject(obj));
             boFilters.forEach(bo => returnBusiness.push(
-              { qualifiedName: bo.name.split('_').join('.'),
+              {
+                qualifiedName: bo.name.split('_').join('.'),
                 name: bo.name.split('_').pop(),
                 id: bo.name,
-                description: bo.description }));
-            return returnBusiness;
+                description: bo.description
+              }));
+            return { error: false, objects: returnBusiness };
           })
           .catch((e) => {
+            this.isError = true;
             $log.log('Error during loading of BusinessData objects', e);
-            return [];
+            return { error: true, objects: [] };
           });
       }
 
       getQueries(businessObject) {
+        if (this.isError) {
+          return new Promise((resolve) => resolve({}));
+        }
+
         let query = `{queriesAttributeQuery: __type(name: "${businessObject}AttributeQuery") { ...typeFields }
                       queriesContraintQuery: __type(name: "${businessObject}ConstraintQuery") { ...typeFields }
                       queriesCustomQuery: __type(name: "${businessObject}CustomQuery") {  ...typeFields}}
@@ -65,16 +77,22 @@
         return this.$http.post(`${this.baseUrl}`, { 'query': query }, this.config)
           .then((response) => {
             let queries = { defaultQuery: [], additionalQuery: [] };
-            response.data.data.queriesAttributeQuery.fields.forEach(field => {
-              this._pushIn(field, queries);
-            });
-            if (response.data.data.queriesContraintQuery) {
+            if (!response || !response.data || !response.data.data) {
+              return queries;
+            }
+            let data = response.data.data;
+            if (data.queriesAttributeQuery && data.queriesAttributeQuery.fields) {
+              response.data.data.queriesAttributeQuery.fields.forEach(field => {
+                this._pushIn(field, queries);
+              });
+            }
+            if (data.queriesContraintQuery && data.queriesContraintQuery.fields) {
               response.data.data.queriesContraintQuery.fields.forEach(field => {
                 this._pushInAdditional(field, queries.additionalQuery);
               });
             }
 
-            if (response.data.data.queriesCustomQuery) {
+            if (data.queriesCustomQuery && data.queriesCustomQuery.fields) {
               response.data.data.queriesCustomQuery.fields.forEach(field => {
                 this._pushInAdditional(field, queries.additionalQuery);
               });
@@ -126,7 +144,6 @@
         });
         return res;
       }
-
     }
 
     return new DataManagementRepo();

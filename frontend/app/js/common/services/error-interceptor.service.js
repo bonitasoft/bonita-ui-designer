@@ -16,7 +16,7 @@
  * http response interceptor which extracts the error message from an error http response and adds it to the alerts
  * service
  */
-angular.module('bonitasoft.designer.common.services').factory('errorInterceptor', function($q, alerts) {
+angular.module('bonitasoft.designer.common.services').factory('errorInterceptor', function($q, alerts, $log) {
 
   'use strict';
 
@@ -29,7 +29,7 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
           angular.isDefined(rejection.data.message)) {
         alerts.addError(rejection.data.message);
       } else if (rejection.status === 500 && rejection.config.url.includes('bdr')) {
-        alerts.addWarning('Repository not connected, data management is not available');
+        $log.log('Unable to access business data. Restart Bonita Studio and try again.');
       }else if (EXCLUSION_PATTERNS.some(function(v) {
         return rejection.config.url.indexOf(v) < 0;
       })) {

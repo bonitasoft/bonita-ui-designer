@@ -110,7 +110,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         registerProxy(servletContext, "bonitaAppsProxy", "/apps/*", "/bonita/apps", getPortalOrigin());
 
         // Useful for repository calls editor to get dataManagement infos
-        registerProxy(servletContext, "bonitaDataRepository", "/bdr", "/bdr", getDataRepositoryOrigin());
+        registerBdrProxy(servletContext, "bonitaDataRepository", "/bdr", "/bdr", getDataRepositoryOrigin());
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
@@ -128,6 +128,14 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         apiProxyRegistration.setInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
         apiProxyRegistration.addMapping(servletMapping);
         addCredentials(apiProxyRegistration);
+    }
+
+    private void registerBdrProxy(ServletContext servletContext, String servletName, String servletMapping, String targetUri, String targetOrigin) {
+        ServletRegistration.Dynamic apiProxyRegistration = servletContext.addServlet(servletName, ProxyServlet.class);
+        apiProxyRegistration.setLoadOnStartup(1);
+        apiProxyRegistration.setInitParameter("targetUri", targetOrigin + targetUri);
+        apiProxyRegistration.setInitParameter(ProxyServlet.P_LOG, "true");
+        apiProxyRegistration.addMapping(servletMapping);
     }
 
     private void addCredentials(ServletRegistration.Dynamic apiProxyRegistration) {

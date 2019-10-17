@@ -172,7 +172,7 @@
       whiteboardService = $injector.get('whiteboardService');
 
       spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
-      spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when(dataManagementWidgets));
+      spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
     }));
 

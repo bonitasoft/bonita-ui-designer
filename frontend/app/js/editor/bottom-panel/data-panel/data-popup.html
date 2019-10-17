@@ -53,20 +53,49 @@
                 <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="../API" id="value"
                        name="value" ng-model="newData.displayValue" required valid-url>
                 <!-- Business Data -->
-                <div ng-switch-when="businessdata" class="form-group form-group--data">
-                    <label class="control-label" for="businessData" translate>Choose a business object</label>
+                <div ng-hide="offlineMode || businessDataRepoIsEmpty" ng-switch-when="businessdata"
+                     class="form-group form-group--data">
+                    <label class="control-label control-label--required" for="businessData" translate>Choose a business
+                        object</label>
                     <select id="businessData"
                             class="form-control"
                             ng-model="newData.businessObject"
                             ng-change="updateBusinessObjectValue(newData.businessObject)"
-                            ng-options="obj.name for obj in businessObjects"></select>
+                            ng-options="obj.name for obj in businessObjects"
+                            ng-disabled="businessDataDisplayWarningError()"
+                            required></select>
+                </div>
+                <div ng-switch-when="businessdata" ng-show="businessDataDisplayWarningError()"
+                     class="alert alert-warning warning-business-data" role="alert">
+                    <i class="fa fa-exclamation-triangle text-warning "></i>
+                    <div ng-if="!offlineMode && businessDataRepoIsEmpty">
+                        <translate>No Business Data Model currently deployed.</translate>
+                        <br/>
+                        <span ng-if=" newData.businessObject.name"><strong>{{newData.businessObject.name}}</strong> doesn't exist.</span>
+                        <br/>
+                        <translate>Import, define or deploy a Business Data Model in Bonita Studio.</translate>
+                    </div>
+                    <div ng-if="!offlineMode && !businessDataRepoIsEmpty">
+                        <translate><strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data Model currently deployed.</translate>
+                        <br/>
+                        <translate>You can only edit the query filters and pagination.</translate>
+                    </div>
+                    <div ng-if="offlineMode">
+                        <translate>Unable to access Business Data Model. Restart Bonita Studio and try again.</translate>
+                        <br/>
+                        <span ng-if="newData.businessObject" translate>
+                            You can only edit the query filters and pagination.
+                         </span>
+                    </div>
                 </div>
                 <subset-business-data ng-switch-when="businessdata" ng-if="newData.businessObject"
                                       business-data="newData.businessObject"
                                       queries-for-object="newData.queries"
-                                      variable-info="newData.variableInfo"></subset-business-data>
+                                      variable-info="newData.variableInfo"
+                                      edit-business-data-queries="editBusinessDataQueries"></subset-business-data>
 
                 <div class="help-block" ng-switch-when="url" translate>
+                    <p><span class="tip">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p>
                     <p><span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em
                         ng-non-bindable>{{dataName}}</em></p>
                     <p><span class="tip">Tip:</span> You can extend our REST API capabilities by creating <em>REST API
@@ -82,7 +111,6 @@
                             <select class="form-control"
                                     ng-options="example as example.description group by example.category for example in apiExamples"
                                     ng-model="example"></select>
-                            ng-model="example"></select>
                         </div>
                         <div>
                             <p>{{ example.before }}</p>
@@ -143,54 +171,54 @@
                             </p>
                         </div>
                     </section>
+                </div>
+                <!-- expression -->
+                <section ng-switch-when="expression" class="row">
+                    <div class="col-xs-12 DataPanel-expandableValue">
+                        <label class="control-label DataPanel-valueLabel" for="value" translate>Value</label>
+                        <expand-modal></expand-modal>
                     </div>
-                    <!-- expression -->
-                    <section ng-switch-when="expression" class="row">
-                        <div class="col-xs-12 DataPanel-expandableValue">
-                            <label class="control-label DataPanel-valueLabel" for="value" translate>Value</label>
-                            <expand-modal></expand-modal>
-                        </div>
-                        <div class="col-xs-12">
-                            <ace-editor class="ace-editor--data" autofocus mode="javascript"
-                                        auto-completion="{{pageData}}"
-                                        ng-model="newData.displayValue" ng-model-options="{debounce: 300}"
-                                        name="expression"
-                                        class="form-control" id="value"></ace-editor>
-                            <p class="help-block DataPanel--hideOnFullScreen " translate>
-                                <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use
-                                ctrl-space to trigger autocomplete.
+                    <div class="col-xs-12">
+                        <ace-editor class="ace-editor--data" autofocus mode="javascript"
+                                    auto-completion="{{pageData}}"
+                                    ng-model="newData.displayValue" ng-model-options="{debounce: 300}"
+                                    name="expression"
+                                    class="form-control" id="value"></ace-editor>
+                        <p class="help-block DataPanel--hideOnFullScreen " translate>
+                            <span class="tip">Tip:</span> Hit <span class="key">$</span> key to access data, use
+                            ctrl-space to trigger autocomplete.
+                        </p>
+                    </div>
+                    <section ng-switch-when="expression" class="DataPanel--hideOnFullScreen">
+                        <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link"
+                                translate>See example 'functional programming'
+                        </button>
+                        <div uib-collapse="examplesCollapsed">
+                            <p class="alert alert-default">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                <span translate>This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code></span>
                             </p>
-                        </div>
-                        <section ng-switch-when="expression" class="DataPanel--hideOnFullScreen">
-                            <button ng-click="examplesCollapsed = !examplesCollapsed" type="button" class="btn btn-link"
-                                    translate>See example 'functional programming'
-                            </button>
-                            <div uib-collapse="examplesCollapsed">
-                                <p class="alert alert-default">
-                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                    <span translate>This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code></span>
-                                </p>
-                                <pre>return $data.supportTicket.environment.some(function(env){
+                            <pre>return $data.supportTicket.environment.some(function(env){
    return env.indexOf("Linux") != -1;
 });</pre>
-                            </div>
-                            <br>
-                            <button ng-click="advancedExamplesCollapsed = !advancedExamplesCollapsed" type="button"
-                                    class="btn btn-link" translate>See example 'date object initialization'
-                            </button>
-                            <div uib-collapse="advancedExamplesCollapsed">
-                                <pre>return new Date();</pre>
-                            </div>
-                        </section>
+                        </div>
+                        <br>
+                        <button ng-click="advancedExamplesCollapsed = !advancedExamplesCollapsed" type="button"
+                                class="btn btn-link" translate>See example 'date object initialization'
+                        </button>
+                        <div uib-collapse="advancedExamplesCollapsed">
+                            <pre>return new Date();</pre>
+                        </div>
                     </section>
-                </div>
+                </section>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-bonita-default" ng-if="isNewData"
-                        ng-disabled="!addData.$valid || !isDataNameUnique(newData.$$name)" translate>Save
-                </button>
-                <button class="btn btn-bonita-default" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save
-                </button>
-                <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-bonita-default" ng-if="isNewData"
+                    ng-disabled="!addData.$valid || !isDataNameUnique(newData.$$name)" translate>Save
+            </button>
+            <button class="btn btn-bonita-default" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save
+            </button>
+            <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
+        </div>
 </form>

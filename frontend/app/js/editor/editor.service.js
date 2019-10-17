@@ -100,7 +100,7 @@
 
     function addDataManagement(data) {
       let dataManagementWidgets = [];
-      data.forEach(obj => {
+      data.objects.forEach(obj => {
         dataManagementWidgets.push({
           id: obj.id,
           name: obj.name,

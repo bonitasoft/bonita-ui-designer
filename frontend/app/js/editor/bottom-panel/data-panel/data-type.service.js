@@ -27,12 +27,12 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       return item.defaultValue;
     }
     var dataTypes = [
-      { label: gettext('String'), type: 'constant', group: ' ', defaultValue: '' },
-      { label: gettext('JSON'), type: 'json', group: ' ', defaultValue: '{}' },
-      { label: gettext('External API'), type: 'url', group: '--', defaultValue: '' },
-      { label: gettext('Javascript expression'), type: 'expression', group: '--', defaultValue: 'return "hello";' },
-      { label: gettext('URL parameter'), type: 'urlparameter', group: '--', defaultValue: '' },
-      { label: gettext('Business data'), type: 'businessdata', group: '--', defaultValue: '' }
+      { label: gettext('String'), type: 'constant', group: gettext('Static'), defaultValue: '' },
+      { label: gettext('JSON'), type: 'json', group: gettext('Static'), defaultValue: '{}' },
+      { label: gettext('External API'), type: 'url', group: gettext('Dynamic'), defaultValue: '' },
+      { label: gettext('Javascript expression'), type: 'expression', group: gettext('Dynamic'), defaultValue: 'return "hello";' },
+      { label: gettext('URL parameter'), type: 'urlparameter', group: gettext('Dynamic'), defaultValue: '' },
+      { label: gettext('Business data'), type: 'businessdata', group: gettext('Data Management'), defaultValue: '' },
     ];
 
     this.getDataTypes = function() {

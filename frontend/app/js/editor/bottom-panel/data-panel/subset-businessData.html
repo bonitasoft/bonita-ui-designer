@@ -1,9 +1,11 @@
 <div>
+    <span ng-show="ctrl.editBusinessDataQueries">
     <label class="control-label" translate>"{{ctrl.businessData.name}}" data to retrieve through this variable</label>
     <div class="search-businessObject">
         <search value="ctrl.searchedQuery" placeholder="{{ 'Search by attribute or query name' | translate }}"></search>
     </div>
-    <div class="data-management">
+    </span>
+    <div class="data-management" ng-show="ctrl.editBusinessDataQueries">
         <div class="queries-area">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -15,7 +17,7 @@
                     <ul>
                         <li class="query-name"
                             ng-class="{'active': ctrl.variableInfo.query.displayName === query.displayName}"
-                            ng-repeat="query in ctrl.getQueries(ctrl.queriesForObject.defaultQuery,ctrl.searchedQuery) | orderBy:'displayName'"
+                            ng-repeat="query in ctrl.getQueries(ctrl.queriesForObject.defaultQuery, ctrl.searchedQuery) | orderBy:'displayName'"
                             uib-tooltip="{{ 'Click to display parameters for' | translate }} {{query.displayName}}"
                             tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="top"
                             tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen"
@@ -44,7 +46,7 @@
                     <ul>
                         <li class="query-name"
                             ng-class="{'active': ctrl.variableInfo.query.displayName === query.displayName}"
-                            ng-repeat="query in ctrl.getQueries(ctrl.queriesForObject.additionalQuery,ctrl.searchedQuery) | orderBy:'displayName'"
+                            ng-repeat="query in ctrl.getQueries(ctrl.queriesForObject.additionalQuery, ctrl.searchedQuery) | orderBy:'displayName'"
                             uib-tooltip="{{ 'Click to display parameters for' | translate }} {{query.displayName}}"
                             tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="top"
                             tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen"
@@ -66,11 +68,11 @@
 
 <div class="panel panel-default">
     <span class="accordion-area"
-         ng-click="ctrl.advancedFilter = !ctrl.advancedFilter">
+          ng-click="ctrl.advancedFilter = !ctrl.advancedFilter">
         <i class="pull-left glyphicon"
            ng-class="{'glyphicon-chevron-down':ctrl.advancedFilter, 'glyphicon-chevron-right': !ctrl.advancedFilter}"
         ></i>
-        <label translate> {{"Filter the query results of" | translate}}
+        <label> {{"Filter the query results of" | translate}}
             <i>{{ctrl.variableInfo.query.name}}</i>
         </label>
     </span>
@@ -111,28 +113,10 @@
             <i class="pull-left glyphicon"
                ng-class="{'glyphicon-chevron-down':ctrl.advanced, 'glyphicon-chevron-right': !ctrl.advanced}"
             ></i>
-            <label translate> {{'Pagination' | translate}}
-            </label>
+            <label translate>Pagination</label>
         </div>
         <div class="query-pagination" ng-if="ctrl.advanced">
-            <div>
-                <label for="page"
-                       class="control-label control-label--required" translate>Page number (p)</label>
-                <span class="group-filters">
-                <input id="page" type="text"
-                       class="form-control"
-                       ng-model="ctrl.variableInfo.pagination.p"
-                       required
-                       placeholder="{{ 'Enter value' | translate}}"
-                       autocomplete=off
-                />
-                <div class="input-group-addon"
-                     title="{{ 'Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]'  | translate | mustachify:'[[':']]' }}">
-                    <i class="fa fa-paragraph"></i>
-                </div>
-            </span>
-            </div>
-            <div>
+            <div class="query-pagination-input">
                 <label for="count"
                        class="control-label control-label--required" translate>Element (c)</label>
                 <span class="group-filters">
@@ -149,13 +133,29 @@
                 </div>
             </span>
             </div>
+            <div class="query-pagination-input">
+                <label for="page"
+                       class="control-label control-label--required" translate>Page number (p)</label>
+                <span class="group-filters">
+                <input id="page" type="text"
+                       class="form-control"
+                       ng-model="ctrl.variableInfo.pagination.p"
+                       required
+                       placeholder="{{ 'Enter value' | translate}}"
+                       autocomplete=off
+                />
+                <div class="input-group-addon"
+                     title="{{ 'Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]'  | translate | mustachify:'[[':']]' }}">
+                    <i class="fa fa-paragraph"></i>
+                </div>
+            </span>
+            </div>
         </div>
     </div>
-
-    <p>
-        <span class="tip">Tip:</span> Now, add the widgets to the whiteboard that will use this variable.
-    </p>
-    <p>
-        <span class="tip">Tip:</span> The return type of this variable is an array.
-    </p>
 </div>
+<p>
+    <span class="tip">Tip:</span> Now, add the widgets to the whiteboard that will use this variable.
+</p>
+<p>
+    <span class="tip">Tip:</span> The return type of this variable is an array.
+</p>

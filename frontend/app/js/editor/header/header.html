@@ -50,6 +50,9 @@
         </div>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
+    <span class="BusinessDataStatus" ng-class="{ 'BusinessDataStatus--visible': vm.businessDataRepositoryOffline }">
+            <i class="glyphicon glyphicon-ban-circle"></i>&nbsp;<translate>Unable to connect to the Business Data Model</translate>
+    </span>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>
     </div>
