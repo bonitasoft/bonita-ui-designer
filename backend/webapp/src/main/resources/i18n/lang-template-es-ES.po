@@ -11,19 +11,19 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-10-15 02:00\n"
+"PO-Revision-Date: 2019-10-17 13:07\n"
 
 msgid "\"Find By\" queries on an attribute"
-msgstr ""
+msgstr "Consultas de \"Find By\" en un atributo"
 
 msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
-msgstr ""
+msgstr "Objetos\"{{ctrl.businessData.name}}\" a recuperar a través de esta variable"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
 msgid "'{{ctrl.newData.$$name}}' already exists"
-msgstr ""
+msgstr "'{{ctrl.newData.$$name}}' ya existe"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
@@ -221,7 +221,7 @@ msgid "Add a new tab"
 msgstr "Añadir una pestaña nueva"
 
 msgid "Add borders all around the table and between all the columns."
-msgstr ""
+msgstr "Añadir contorno alrededor de la tabla y entre todas las columnas."
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la parte inferior del panel de Recursos."
@@ -239,7 +239,7 @@ msgid "Additional request parameters added to the query string"
 msgstr "Parámetros adicionales de la petición añadidos a la cadena de consulta"
 
 msgid "Additionnal queries"
-msgstr ""
+msgstr "Consultas adicionales"
 
 msgid "Alignment"
 msgstr "Alineación"
@@ -254,7 +254,7 @@ msgid "Alternate text"
 msgstr "Texto alternativo"
 
 msgid "Alternating gray and transparent backgrounds"
-msgstr ""
+msgstr "Alterna fondo gris y transparente"
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
@@ -294,7 +294,7 @@ msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Aplica un filtro en el valor de una variable: <em>selectedUser | json</em>"
 
 msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
-msgstr ""
+msgstr "¿Estás seguro de eliminar el <b>{{ctrl.artifact}}</b> {{ctrl.type}}?"
 
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "¿Estás seguro de eliminar el {{ artifact.type }} <b>{{ artifact.name }}</b>?"
@@ -378,10 +378,10 @@ msgid "Bonita REST API calls"
 msgstr "Llamadas de la API REST de Bonita"
 
 msgid "Bordered"
-msgstr ""
+msgstr "Bordeado"
 
 msgid "Business data"
-msgstr ""
+msgstr "Datos de negocio"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
@@ -462,7 +462,7 @@ msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
 msgid "Choose a business object"
-msgstr ""
+msgstr "Elija un objeto de negocio"
 
 msgid "Choose process document if the file is used by a process"
 msgstr "Elija el documento del proceso si el archivo se utiliza en un proceso"
@@ -486,7 +486,7 @@ msgid "Click to bind to an expression"
 msgstr "Haga clic para enlazar una expresión"
 
 msgid "Click to display parameters for"
-msgstr ""
+msgstr "Haga clic para mostrar parámetros para"
 
 msgid "Close"
 msgstr "Cerrar"
@@ -519,10 +519,10 @@ msgid "Comma-separated list or bound an array data"
 msgstr "Lista separada por comas o un array de datos enlazado"
 
 msgid "Condensed"
-msgstr ""
+msgstr "Condensado"
 
 msgid "Condensed table with half padding"
-msgstr ""
+msgstr "Tabla Condensada con medio relleno"
 
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configura los widgets mediante el <b>panel de propiedades</b> de la derecha."
@@ -591,7 +591,7 @@ msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Crear una <b>Página de aplicación</b> directamente en el UI Designer"
 
 msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
-msgstr ""
+msgstr "Crear nueva variable de Datos de Negocio para manejar \"{{ctrl.businessData.name}}\""
 
 msgid "Create new artifact"
 msgstr "Crear un nuevo artefacto"
@@ -740,7 +740,7 @@ msgid "Display the document in the page or a form"
 msgstr "Muestra el documento en la página o formulario"
 
 msgid "Display type"
-msgstr ""
+msgstr "Tipo de visualización"
 
 msgid "Displayed key"
 msgstr "Clave mostrada"
@@ -800,7 +800,7 @@ msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange
 msgstr "Seleccione el widget para cambiar y haga clic en <i class=\"fa fa-exchange\"></i>."
 
 msgid "Element (c)"
-msgstr ""
+msgstr "Elemento (c)"
 
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Introduzca ' + vm.mode + ' nombre"
@@ -812,7 +812,7 @@ msgid "Enter a time (h:mm:ss a)"
 msgstr "Introduzca una hora (h:mm:ss)"
 
 msgid "Enter value"
-msgstr ""
+msgstr "Introduce valor"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{{ infos.location.column }}</code>"
@@ -878,7 +878,7 @@ msgid "FileName"
 msgstr "Nombre de archivo"
 
 msgid "Filter the query results of"
-msgstr ""
+msgstr "Filtrar los resultados de la consulta de"
 
 msgid "Filters"
 msgstr "Filtros"
@@ -980,7 +980,7 @@ msgid "Group of widgets used to define the arrangement of the page elements. Its
 msgstr "Grupo de widgets utilizados para definir la disposición de los elementos de la página. Su contenido se muestra como en modal."
 
 msgid "Group of widgets, inside a Tabs container"
-msgstr ""
+msgstr "Grupo de widgets, dentro de un Tabs container"
 
 msgid "HTTP request"
 msgstr "Petición HTTP"
@@ -1052,7 +1052,7 @@ msgid "If you choose 'no', HTML code will be escaped instead of being interprete
 msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interpretado"
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
-msgstr ""
+msgstr "Si selecciona 'no', el código HTML sera escapado en lugar de ser interpretado en las celdas"
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si especificas una expresión, el resultado debe ser un array de strings"
@@ -1373,10 +1373,10 @@ msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
 
 msgid "No parameter is needed for this query"
-msgstr ""
+msgstr "No se necesita ningún parámetro para esta consulta"
 
 msgid "No queries"
-msgstr ""
+msgstr "Sin consultas"
 
 msgid "No variable"
 msgstr "Sin variables"
@@ -1472,7 +1472,7 @@ msgid "Page level"
 msgstr "Nivel de página"
 
 msgid "Page number (p)"
-msgstr ""
+msgstr "Número de página (p)"
 
 msgid "Page token"
 msgstr "Token de la página"
@@ -1481,7 +1481,7 @@ msgid "Pages"
 msgstr "Páginas"
 
 msgid "Pagination"
-msgstr ""
+msgstr "Paginación"
 
 msgid "Parent frame (_parent)"
 msgstr "Frame padre (_parent)"
@@ -1610,7 +1610,7 @@ msgid "Search a list of cases based on search indexes"
 msgstr "Busca una lista de casos basándose en índices de búsqueda"
 
 msgid "Search by attribute or query name"
-msgstr ""
+msgstr "Buscar por atributo o nombre de consulta"
 
 msgid "Search on name"
 msgstr "Buscar por nombre"
@@ -1631,7 +1631,7 @@ msgid "Select"
 msgstr "seleccionar"
 
 msgid "Select a query"
-msgstr ""
+msgstr "Seleccione una consulta"
 
 msgid "Select a widget or start typing"
 msgstr "Seleccione un widget o comience a escribir"
@@ -1808,7 +1808,7 @@ msgid "Switch..."
 msgstr "Cambiar..."
 
 msgid "Tab x"
-msgstr ""
+msgstr "Tab x"
 
 msgid "Tabular presentation of data from an array"
 msgstr "Presentación en formato tabla de una matriz de datos"
@@ -2139,7 +2139,7 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Type a"
-msgstr ""
+msgstr "Introduce un"
 
 msgid "UI Designer"
 msgstr "UI Designer"
@@ -2271,7 +2271,7 @@ msgid "Variable in read-write binding with the property value"
 msgstr "Variable en enlace de lectura y escritura con valor de la propiedad"
 
 msgid "Variable name"
-msgstr ""
+msgstr "Nombre de Variable"
 
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "Los nombres de las variables deben empezar con una letra y contener sólo caracteres alfanuméricos"
@@ -2286,7 +2286,7 @@ msgid "Variables can be bound to input fields to create conditional behavior bet
 msgstr "Las variables pueden estar enlazadas a los campos de entrada para crear un comportamiento condicional entre las propiedades del widget."
 
 msgid "Vertical display"
-msgstr ""
+msgstr "Display Vertical"
 
 msgid "View"
 msgstr "Ver"
@@ -2409,7 +2409,7 @@ msgid "You will have to manage the minification and update the resources URL to 
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
 
 msgid "Zebra-striping"
-msgstr ""
+msgstr "Zebra-striping"
 
 msgid "_self"
 msgstr "_self"
@@ -2435,7 +2435,7 @@ msgid "danger"
 msgstr "danger"
 
 msgid "data model"
-msgstr ""
+msgstr "modelo de datos"
 
 msgid "default"
 msgstr "default"
@@ -2507,7 +2507,7 @@ msgid "password"
 msgstr "password"
 
 msgid "pills"
-msgstr ""
+msgstr "pills"
 
 msgid "primary"
 msgstr "primary"
@@ -2528,7 +2528,7 @@ msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</
 msgstr "supportTicket es un objeto compuesto por un <em>subject</em>, nivel de <em>severity</em>, <em>entorno</em> de usuario, <em>información de contacto</em> del reportero (<em>nombre</em> y <em>puesto</em>), y una <em>URL</em> que proporciona detalles adicionales sobre el contacto."
 
 msgid "tabs"
-msgstr ""
+msgstr "tabs"
 
 msgid "text"
 msgstr "text"
@@ -2537,7 +2537,7 @@ msgid "top"
 msgstr "Arriba"
 
 msgid "value"
-msgstr ""
+msgstr "valor"
 
 msgid "view W3C's Json specification"
 msgstr "ver la especificación Json de W3C"
