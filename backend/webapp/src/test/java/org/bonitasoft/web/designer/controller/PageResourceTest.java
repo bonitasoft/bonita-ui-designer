@@ -775,12 +775,14 @@ public class PageResourceTest {
         variables.put("ab", anApiVariable("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
         variables.put("user", anApiVariable("../API/identity/user/{{aaa}}/context"));
         variables.put("task", anApiVariable("../API/bpm/task/1/context"));
+        variables.put("case", anApiVariable("../API/bpm/case{{dynamicQueries(true,0)}}"));
+        variables.put("custom", anApiVariable("../API/extension/case{{dynamicQueries}}"));
         page.setVariables(variables);
         when(authRulesCollector.visit(page)).thenReturn(authRules);
 
         String properties = new String(pageResource.getResources(page.getId()).toString());
 
-        assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, POST|bpm/process]");
+        assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|bpm/case, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, GET|extension/case, POST|bpm/process]");
     }
     
     @Test
