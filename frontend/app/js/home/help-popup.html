@@ -75,6 +75,23 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita710open">
+                    <uib-accordion-heading>
+                        Bonita 7.10 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita710open, 'glyphicon-chevron-right': !status.bonita710open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Know your Business Data Model and retrieve Business Data information is simpler than never </dt>
+                    <p translate>With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable.</p>
+                    <dt translate>Improve collaboration on UID artifacts</dt>
+                    <p translate>With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage.</p>
+
+                    <dt translate>Tabs Container advancement</dt>
+                    <p translate>Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10">how to to learn more about customization.</a></p>
+
+                    <dt translate>Enhancements on table and data table</dt>
+                    <p translate>
+                    If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table.
+                    </p>
+                </uib-accordion-group>
                 <uib-accordion-group  is-open="status.bonita79open" heading="true">
                     <uib-accordion-heading>
                         Bonita 7.9 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita79open, 'glyphicon-chevron-right': !status.bonita79open}"></i>
@@ -96,7 +113,7 @@
                     <p translate>
                         Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured.
                     </p>
-                    <dt translate>Render a UID page ot form in the end-user browser</dt>
+                    <dt translate>Render a UID page of form in the end-user browser</dt>
                     <p translate>
                         Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes.
                     </p>

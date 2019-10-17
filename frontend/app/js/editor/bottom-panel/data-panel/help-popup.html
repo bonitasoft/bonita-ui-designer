@@ -14,7 +14,7 @@
             <p translate>Create a variable here. Using the variable in a widget property depends on the property value
                 type, described in the page editor general help, in the <i>Properties</i> section.</p>
 
-            <p translate>Available variables types are string and JSON (static), and External API, JavaScript
+            <p translate>Available variables types are string and JSON (static), and External API, Business data, JavaScript
                 expression, and URL parameter (dynamic).</p>
 
             <p translate>You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio
@@ -32,6 +32,7 @@
                     one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>.
                 </li>
                 <li translate>A variable initialized with an External API is reloaded every time the URL value changes.</li>
+                <li translate>A Business data variable is reloaded every time the filter value changes.</li>
             </ul>
         </uib-tab>
 
@@ -96,7 +97,7 @@
 					<br/>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter).
 					<br/>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span
                 ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li>
-					<li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. 
+					<li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM.
 					<br/>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span
                 ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li>
 				</ul>

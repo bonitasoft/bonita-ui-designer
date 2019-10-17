@@ -36,7 +36,7 @@
     };
   }
 
-  function EditorPaletteCtrl($scope, paletteService) {
+  function EditorPaletteCtrl($scope, paletteService, $uibModal) {
 
     var palette = this;
     /**
@@ -49,7 +49,6 @@
     this.isClosed = isClosed;
     this.getIconClassName = getIconClassName;
     this.isFragment = isFragment;
-    this.updateSections = updateSections;
     this.isDataSection = isDataSection;
     resize();
 
@@ -98,6 +97,12 @@
     function isDataSection(section) {
       return section.type === 'data';
     }
-  }
 
+    this.openHelp = function() {
+      $uibModal.open({
+        templateUrl: 'js/editor/palette/data-model-help-popup.html',
+        size: 'md'
+      });
+    };
+  }
 })();

@@ -18,6 +18,12 @@
 <div class="Palette-widgets"
      ng-if="palette.currentSection !== undefined">
     <div class="PanelHeader-header">
+        <button class="btn btn-xs btn-bonita-help-widget PanelHeader-help-btn"
+                ng-if="palette.isDataSection(palette.currentSection)"
+                ng-click="palette.openHelp()"
+                type="button">
+            <i class="fa fa-question-circle"></i>
+        </button>
         <div id="action" class="btn-group PanelHeader-widget-action-btn">
         </div>
         <h3 class="PanelHeader-title">

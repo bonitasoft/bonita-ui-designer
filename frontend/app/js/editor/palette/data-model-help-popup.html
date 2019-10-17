@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help data model</h3>
+</div>
+<div class="modal-body">
+    <dl class="Guidance-definitionList">
+        <p translate>
+            This panel displays the list of Business Objects that has been defined and deployed using Bonita Studio.
+        </p>
+
+        <dt translate>Use a Business Object</dt>
+        <p translate>Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data.</p>
+        <p translate>A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object</p>
+
+        <dt translate>Define how to retrieve Business Object</dt>
+        <p translate>Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query.</p>
+        <p translate>A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax.</p>
+        <p translate>You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0).</p>
+
+        <dt translate>Use your Business data</dt>
+        <p translate>Bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned).</p>
+    </dl>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
+</div>
