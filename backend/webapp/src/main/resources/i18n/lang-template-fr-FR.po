@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-09-16 01:59\n"
+"PO-Revision-Date: 2019-10-21 01:59\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -144,7 +144,7 @@ msgid "A binding is dynamic, so every time data changes, all variables are re-ev
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
 
 msgid "A containers widget cannot be edited"
-msgstr ""
+msgstr "Un container ne peut pas être modifié"
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
@@ -603,7 +603,7 @@ msgid "Date display"
 msgstr "Affichage de la date"
 
 msgid "Date filter"
-msgstr ""
+msgstr "Filtre d'affichage des dates"
 
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Les formats de date sont localisés par défaut. Les formats localisés peuvent être édités dans l'asset <em>localization.json</em> (reportez-vous à la section <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localisation'\"> localisation</a>)."
@@ -669,7 +669,7 @@ msgid "Direct link to an external file"
 msgstr "Lien direct vers un fichier externe"
 
 msgid "Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured."
-msgstr ""
+msgstr "Directement depuis le whiteboard ou depuis la section Propriétés du widget, remplacez un widget par un autre tout en gardant les propriétés déjà configurées."
 
 msgid "Disabled"
 msgstr "Désactivé"
@@ -726,7 +726,7 @@ msgid "Each type or container has specific behaviors"
 msgstr "Chaque type de container a des comportements spécifiques"
 
 msgid "Easily create forms to edit business variables or documents, or display business variables in read-only"
-msgstr ""
+msgstr "Créez facilement des formulaires pour éditer des variables métier ou des documents, ou encore afficher des variables métier en lecture seule"
 
 msgid "Edit"
 msgstr "Modifier"
@@ -786,7 +786,7 @@ msgid "Exposed"
 msgstr "Exposée"
 
 msgid "Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need."
-msgstr ""
+msgstr "Personnalisez nos widgets standard Bonita pour répondre aux besoins spécifiques de votre projet, en utilisant l'option <b>Voir le code</b> dans le panneau Propriétés de chaque widget standard. De là, enregistrez en tant que widget personnalisé et implémentez la variation du widget dont vous avez besoin."
 
 msgid "External"
 msgstr "Externe"
@@ -1032,7 +1032,7 @@ msgid "In addition to the <em>Successful response value</em> variable, for the <
 msgstr "En plus de la variable de la <em>valeur de réponse en cas de succès</em>, pour les requêtes <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Start process</em> et <em>Submit task</em> vous pouvez également définir une <em>URL cible en cas de succès</em> qui sera être utilisée pour définir l’emplacement de la fenêtre actuelle (frame) lorsque la requête est à succès."
 
 msgid "In case your application is not available, please log in using a different account"
-msgstr ""
+msgstr "Vous cherchez une autre application ? Connectez-vous avec un autre compte utilisateur"
 
 msgid "In folder:"
 msgstr "Dans le dossier :"
@@ -1146,7 +1146,7 @@ msgid "Layouts"
 msgstr "Layouts"
 
 msgid "Lazy reference filter"
-msgstr ""
+msgstr "Filtre de référencement de données en mode \"Lazy\""
 
 msgid "Level 1"
 msgstr "Niveau 1"
@@ -1287,7 +1287,7 @@ msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>conse
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, <br/> consectetur, <br/> adipisci velit..."
 
 msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
-msgstr ""
+msgstr "Nouveau filtre AngularJS intégré, permettant de résoudre les références à un objet métier en mode Lazy"
 
 msgid "New modal container to create pop-ins"
 msgstr "Nouveau container modal pour créer des pop-ins"
@@ -1368,7 +1368,7 @@ msgid "Open modal"
 msgstr "Ouvrir une fenêtre modale"
 
 msgid "Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes."
-msgstr ""
+msgstr "Ouvrez votre aperçu dans un nouvel onglet de votre navigateur, soit pour définir de nouveaux paramètres d'URL, soit pour jouer avec le sizing dynamique du navigateur, soit pour copier l'URL et la coller dans un autre navigateur à des fins de test."
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr "Ou utilisez l'option de menu <b>Remplacer</b> près du nom du widget, dans le panneau de propriétés."
@@ -1470,7 +1470,7 @@ msgid "Rename"
 msgstr "Renommer"
 
 msgid "Render a UID page ot form in the end-user browser"
-msgstr ""
+msgstr "Vérifier le rendu d'une page ou d'un formulaire dans le navigateur de l'utilisateur"
 
 msgid "Repeat container content. Variable of type array"
 msgstr "Répéter le contenu du container. Variable de type tableau"
@@ -1719,7 +1719,7 @@ msgid "Switch to"
 msgstr "Remplacer par"
 
 msgid "Switch widget"
-msgstr ""
+msgstr "Remplacer le widget"
 
 msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "Remplacer {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
@@ -1887,7 +1887,7 @@ msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> libra
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
 msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr ""
+msgstr "Cette amélioration est visible lors de la création du formulaire à partir de Bonita Studio. Pour chaque input de contrat, une nouvelle variable est automatiquement créée dans le UI Designer. Elle est de plus liée au widget créé simultanément. Pour plus d'informations, consultez la documentation dédiée <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">.</a>"
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -1961,7 +1961,7 @@ msgid "To extend a page or form with custom AngularJS services (such as filters,
 msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à un formulaire (tels que des filtres, des constantes ou des \"factories\"), utilisez le module <code>bonitasoft.ui.extensions</code>."
 
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr ""
+msgstr "Pour vous faciliter la gestion des objets imbriqués avec une référence en mode lazy, utilisez le filtre | lazyRef dans la variable correspondant à l'objet à récupérer. Pour plus d'informations, consultez la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">documentation dédiée.</a>"
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr "Pour continuer à faire fonctionner les artefacts existants, si vous migrez une page créée dans une version antérieure à 7.5.0 et contenant des widgets personnalisés, <em>ui-bootstrap-NPT-0.13.0.min.js</em> sera automatiquement ajouté comme un asset de la page. \n"
@@ -2120,7 +2120,7 @@ msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}<
 msgstr "Utilisez des balises html basiques (si autorisé), <span ng-non-bindable>{{dataVariable}}</span> pour accéder aux données et des <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtres</a> pour les formater (ex. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 
 msgid "Use provided UID widgets as a template for a custom widget"
-msgstr ""
+msgstr "Utilisez les widgets standard du UI Designer comme modèle pour créer un widget personnalisé"
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utilisez le UI Designer pour créer ou éditer les artefacts web : <b>pages d'application</b> pour composer des applications métier, <b>formulaires de processus</b> liés à l'instantiation du processus ou à l'exécution de tâches humaines, et <b>layouts d'application</b> appliqués à toutes les pages d'une application métier."
@@ -2204,7 +2204,7 @@ msgid "View asset content"
 msgstr "Voir le contenu de l'asset"
 
 msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
-msgstr ""
+msgstr "Visualiser dans l'application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
 
 msgid "View..."
 msgstr "Voir le code ..."
