@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-10-17 13:34\n"
+"PO-Revision-Date: 2019-10-21 02:11\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -118,7 +118,7 @@ msgstr "<em>成功時のレスポンス値</em>： この変数はリクエス�
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr ""
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
+msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
 msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -145,8 +145,14 @@ msgstr "<strong>$index</strong>: コレクションの現在の反復処理の�
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: 現在の反復処理の要素"
 
+msgid "<strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data Model currently deployed."
+msgstr ""
+
 msgid "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String variable yyyy-MM-ddTHH:mm:ss(Z)"
 msgstr " <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列変数 yyyy-MM-ddTHH:mm:ss(Z)"
+
+msgid "A Business data variable is reloaded every time the filter value changes."
+msgstr ""
 
 msgid "A JSON object"
 msgstr "JSON オブジェクト"
@@ -154,7 +160,10 @@ msgstr "JSON オブジェクト"
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
 
-msgid "A containers widget cannot be edited"
+msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object"
+msgstr ""
+
+msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
 msgstr ""
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
@@ -353,8 +362,8 @@ msgstr ""
 msgid "Available values"
 msgstr "使用可能な値"
 
-msgid "Available variables types are string and JSON (static), and External API, JavaScript expression, and URL parameter (dynamic)."
-msgstr "使用可能な変数のタイプは、string と JSON (静的)、およびExternal API 、Javascript expression、URL parameter(動的) です。"
+msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
+msgstr ""
 
 msgid "Back"
 msgstr "戻る"
@@ -370,6 +379,9 @@ msgstr ""
 
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
+
+msgid "Bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
+msgstr ""
 
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
@@ -539,6 +551,9 @@ msgstr "フォームに使用するコンテナ。 検証は削除されます�
 msgid "Containers"
 msgstr "コンテナ"
 
+msgid "Containers cannot be edited."
+msgstr ""
+
 msgid "Containers cannot be switched."
 msgstr ""
 
@@ -620,8 +635,14 @@ msgstr "カスタム ウィジェット"
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
 
+msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
+msgstr ""
+
 msgid "DELETE"
 msgstr "削除"
+
+msgid "Data Management"
+msgstr ""
 
 msgid "Data sent on click"
 msgstr "クリックで送られるデータ"
@@ -675,6 +696,9 @@ msgstr "デフォルト変数"
 
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "ウィジェットを表示する条件を定義する例： <em>userAge &gt; 18</em>"
+
+msgid "Define how to retrieve Business Object"
+msgstr ""
 
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myArrayVariable</em>"
@@ -754,11 +778,17 @@ msgstr "この {{ ::importReport.type }} をインポートしてもよろしい
 msgid "Download asset"
 msgstr "アセットをダウンロード"
 
+msgid "Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data."
+msgstr ""
+
 msgid "Drag and drop widgets or containers in rows"
 msgstr "行内にウィジェットまたはコンテナをドラック＆ドロップします。"
 
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1 つの値を選択します。"
+
+msgid "Dynamic"
+msgstr ""
 
 msgid "Dynamic value"
 msgstr "動的な値"
@@ -800,6 +830,9 @@ msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange
 msgstr ""
 
 msgid "Element (c)"
+msgstr ""
+
+msgid "Enhancements on table and data table"
 msgstr ""
 
 msgid "Enter ' + vm.mode + ' name"
@@ -997,6 +1030,9 @@ msgstr "ヘッダー"
 msgid "Help"
 msgstr "ヘルプ"
 
+msgid "Help data model"
+msgstr ""
+
 msgid "Here is the format of the message posted to the parent frame in JSON (in the parent frame you will need to call <code>JSON.parse</code> as it is stringified before being sent):"
 msgstr "これは、親フレームに JSON でポストしたメッセージの形式です（送信される前に文字列化のため、親フレームで<code> JSON.parse</code> を呼び出す必要があります) ："
 
@@ -1054,6 +1090,9 @@ msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代�
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
 msgstr ""
 
+msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
+msgstr ""
+
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
 
@@ -1077,6 +1116,12 @@ msgstr "ローカルなページアセットとして JavaScript ファイルを
 
 msgid "Import {{ ::importReport.name }}"
 msgstr "{{ ::importReport.name }} をインポート"
+
+msgid "Import, define or deploy a Business Data Model in Bonita Studio."
+msgstr ""
+
+msgid "Improve collaboration on UID artifacts"
+msgstr ""
 
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "サブスクリプションのエディションでは、作成した UI 生成物（ページ、フォーム、レイアウト） を翻訳し、エンドユーザー向けに UI を多言語で表示するための仕組があります。"
@@ -1186,6 +1231,9 @@ msgstr "JSONの仕様が見つかりません："
 
 msgid "Javascript expression"
 msgstr "JavaScript 式"
+
+msgid "Know your Business Data Model and retrieve Business Data information is simpler than never"
+msgstr ""
 
 msgid "Label"
 msgstr "ラベル"
@@ -1367,6 +1415,9 @@ msgstr "いいえ"
 msgid "No Bonita REST API calls."
 msgstr ""
 
+msgid "No Business Data Model currently deployed."
+msgstr ""
+
 msgid "No application selected"
 msgstr ""
 
@@ -1544,7 +1595,7 @@ msgstr "タブを削除"
 msgid "Rename"
 msgstr "名前を変更"
 
-msgid "Render a UID page ot form in the end-user browser"
+msgid "Render a UID page of form in the end-user browser"
 msgstr ""
 
 msgid "Repeat container content. Variable of type array"
@@ -1642,6 +1693,9 @@ msgstr "ホワイトボードの要素を選択し、ここでその要素のプ
 
 msgid "Select an option"
 msgstr "オプションを選択してください"
+
+msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
+msgstr ""
 
 msgid "Select your .zip file"
 msgstr "あなたの.zip ファイルを選択します"
@@ -1757,6 +1811,9 @@ msgstr "プロセスを開始"
 msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories. You may rename existing artifacts so they benefit from this change too."
 msgstr ""
 
+msgid "Static"
+msgstr ""
+
 msgid "Step"
 msgstr "ステップ"
 
@@ -1809,6 +1866,9 @@ msgid "Switch..."
 msgstr ""
 
 msgid "Tab x"
+msgstr ""
+
+msgid "Tabs Container advancement"
 msgstr ""
 
 msgid "Tabular presentation of data from an array"
@@ -1985,6 +2045,9 @@ msgstr ""
 
 msgid "This page is empty."
 msgstr "このページは空白です。"
+
+msgid "This panel displays the list of Business Objects that has been defined and deployed using Bonita Studio."
+msgstr ""
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
 msgstr "このウィジェットは、ビジネス データ モデル (BDM) に次の型で定義されているビジネス変数属性の表示/更新に使用できます。"
@@ -2163,6 +2226,12 @@ msgstr "コールするURL"
 msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "クリックされた時にHTTPリクエストを実行するために使用するURL"
 
+msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
+msgstr ""
+
+msgid "Unable to connect to the Business Data Model"
+msgstr ""
+
 msgid "Unique ID of this modal"
 msgstr ""
 
@@ -2192,6 +2261,9 @@ msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情�
 
 msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "データのアクセスには、<span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（たとえば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
+
+msgid "Use a Business Object"
+msgstr ""
 
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "双方向フィールドを使用し、プロパティの値と変数間の双方向で読み書きできるバインドを指定します。"
@@ -2231,6 +2303,9 @@ msgstr "日時を選択するためには、このウィジェットを使用し
 
 msgid "Use this widget to:"
 msgstr "このウィジェットを使用:"
+
+msgid "Use your Business data"
+msgstr ""
 
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
 msgstr ""
@@ -2352,6 +2427,12 @@ msgstr "幅"
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
 msgstr "（'app' パラメータ） を設定していない場合、URL から取得されます。テスト用のプレビュー URL のクエリ文字列で渡すことができます。"
 
+msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
+msgstr ""
+
+msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
+msgstr ""
+
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
 
@@ -2379,6 +2460,9 @@ msgstr "データが補完が許されているウィジェットのプロパテ
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "フォームまたはページのコンテナ内にウィジェットをきれいに配置して、それらのウィジェットをグループ化できます。コンテナは、別のコンテナを含めることができます。"
 
+msgid "You can only edit the query filters and pagination."
+msgstr ""
+
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
 
@@ -2387,6 +2471,12 @@ msgstr ""
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
+
+msgid "You can use Business data type to get a business data object."
+msgstr ""
+
+msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0)."
+msgstr ""
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
@@ -2567,12 +2657,6 @@ msgstr[0] "{{ type }}"
 
 msgid "{{ vm.page.type }} editor"
 msgstr "{{ vm.page.type }} エディタ"
-
-msgid "{{\"Filter the query results of\" | translate}} <i>{{ctrl.variableInfo.query.name}}</i>"
-msgstr ""
-
-msgid "{{'Pagination' | translate}}"
-msgstr ""
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
