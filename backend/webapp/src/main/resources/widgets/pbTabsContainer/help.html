@@ -1,32 +1,26 @@
 <uib-tabset class="tabs-left">
     <uib-tab heading="{{ 'Tabs container' | translate }}" index="'tab-container-usage'">
-        <p translate>Use this container to create tabs which can display content on the page, form, or layout.</p>
-        <p translate>It's possible to display tabs vertically or horizontally.</p>
+        <p translate>A TabsContainer is a container that has multiple panes, but shows only one pane at a time.</p>
+        <p translate>Using the Vertical Display property, it is possible to display tabs vertically or horizontally.</p>
         <p class="alert alert-info" translate>
             To Display the tab vertically and on the left of the content, you can read this <a
             href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10">how
             to learn more about customization</a>
         </p>
-        <p translate>Display type allow you to customize format type of tabs. It can be tabs style or pills style.</p>
-
-        <p translate>If you want more options for each tab, refer to <em>Tab properties usage</em>.</p>
+        <p translate>The Display Type property allows you to customize the tabs style ('tabs' or 'pills').</p>
     </uib-tab>
     <uib-tab heading="{{ 'Tab properties usage' | translate }}" index="'tab-properties-usage'">
-        <p translate>The Tab's properties allows you to customize default display and behaviour of tabs based on data
-            and/or JS expressions.</p>
-        <ul>
-            <li translate><code>Title</code>: it will be the tab title displayed. It can be calculated dynamically to
-                display and <b>render html</b>.
-            </li>
+        <p translate>The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions.</p>
+            <li translate><code>Title</code>: can be calculated dynamically to display and <b>render html</b>.</li>
             <li translate><code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not.</li>
-            <li translate><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be
-                activated.
+            <li translate><code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated.
             </li>
             <li translate><code>cssClasses</code> <em>(Defaults: "")</em>: Add css classes on tab. This css class will
                 be attached to <strong>tab-heading</strong> html element.
             </li>
         </ul>
-        <p translate> Here you can find an example of tab title to display a badge:</p>
+        <br/>
+        <p translate>Example of a tab title displaying a badge:</p>
         <ol>
             <li translate>Add the following class in style.css asset.</li>
 <pre>
