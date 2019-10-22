@@ -162,7 +162,7 @@ msgid "A configuration wizard appears: create a Business Data variable by provid
 msgstr ""
 
 msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
-msgstr ""
+msgstr "Un container ne peut pas être modifié"
 
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "Le nom d'un asset local ne doit contenir aucun caractère spécial ni espace. Le nom d'un asset externe doit être une URL standard."
@@ -1593,7 +1593,7 @@ msgid "Rename"
 msgstr "Renommer"
 
 msgid "Render a UID page of form in the end-user browser"
-msgstr ""
+msgstr "Vérifier le rendu d'une page ou d'un formulaire dans le navigateur de l'utilisateur"
 
 msgid "Repeat container content. Variable of type array"
 msgstr "Répéter le contenu du container. Variable de type tableau"
