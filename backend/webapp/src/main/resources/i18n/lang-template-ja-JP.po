@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-10-23 02:13\n"
+"PO-Revision-Date: 2019-10-25 02:16\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -73,14 +73,27 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
+msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
+
+msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+"                be attached to <strong>tab-heading</strong> html element."
+msgstr ""
+
+msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
+
+msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr ""
@@ -156,6 +169,9 @@ msgstr ""
 
 msgid "A JSON object"
 msgstr "JSON オブジェクト"
+
+msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
+msgstr ""
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
@@ -234,6 +250,9 @@ msgstr ""
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
+
+msgid "Add the following class in style.css asset."
+msgstr ""
 
 msgid "Add to collection"
 msgstr "コレクションに追加"
@@ -853,6 +872,9 @@ msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.c
 msgid "Error on upload holder"
 msgstr "アップロード ホルダーのエラー"
 
+msgid "Example of a tab title displaying a badge:"
+msgstr ""
+
 msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
@@ -1148,6 +1170,9 @@ msgid "In production, if the user is logged into Bonita Portal, UI artifacts are
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
+
+msgid "In tab title properties add the following value"
 msgstr ""
 
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
@@ -1865,10 +1890,16 @@ msgstr ""
 msgid "Switch..."
 msgstr ""
 
+msgid "Tab properties usage"
+msgstr ""
+
 msgid "Tab x"
 msgstr ""
 
 msgid "Tabs Container advancement"
+msgstr ""
+
+msgid "Tabs container"
 msgstr ""
 
 msgid "Tabular presentation of data from an array"
@@ -1925,6 +1956,9 @@ msgstr "<em>テクニカルな日付書式</em>のプロパティは、日付入
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
 msgstr "POST や PUT リクエストの<em>クリックで送信されたデータ</em> は、 JavaScript オブジェクト（JSON を使用可）にする必要があります。このデータは、リクエストの本文で送信されます。"
+
+msgid "The Display Type property allows you to customize the tabs style ('tabs' or 'pills')."
+msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
@@ -1986,6 +2020,9 @@ msgid "The property <em>Value to add</em> can either be a JavaScript Object or a
 msgstr "プロパティ <em>追加する値</em> は、コレクションに必要な形式に応じて JavaScript オブジェクトまたは文字列にすることができます。"
 
 msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
+msgstr ""
+
+msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
 msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
@@ -2066,6 +2103,10 @@ msgstr "タイトル"
 
 msgid "Title level"
 msgstr "タイトル レベル"
+
+msgid "To Display the tab vertically and on the left of the content, you can read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how\n"
+"            to learn more about customization</a>"
+msgstr ""
 
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "コンテンツを追加するには、コンポーネントをパレットからホワイトボードの上にドラッグ＆ドロップします。"
@@ -2315,6 +2356,9 @@ msgstr ""
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
+
+msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
+msgstr ""
 
 msgid "Validation Errors"
 msgstr ""
