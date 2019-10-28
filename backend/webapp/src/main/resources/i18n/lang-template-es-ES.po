@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /release-7.10.0/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-10-21 02:00\n"
+"PO-Revision-Date: 2019-10-27 03:03\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
@@ -73,14 +73,27 @@ msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: la zona 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"si\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo, yyyy-MM-ddTHH:mm:ssZ)."
 
+msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
+
+msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+"                be attached to <strong>tab-heading</strong> html element."
+msgstr ""
+
+msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está definida por las entradas de contrato y los atributos se inicializan con los valores predeterminados. Podría ser utilizado para establecer los valores iniciales de los campos del formulario. <br>Se pueden establecer los valores en <code>formInput</code> ya sea editando los valores predeterminado con valores constantes (útiles para prueba y depuración) o con valores de un objeto en una fuente externa que tenga el mismo modelo (como con una API externa BDM). <br>También se pueden establecer los valores iniciales de un formulario desde alguna otra fuente sin utilizar <code>formInput</code>. Sin embargo, entonces tendrás que editar <code>formOutput</code> manualmente."
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
+
+msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> es una expresión JavaScript formateando el payload de la respuesta a html cuando un envío falla."
@@ -156,6 +169,9 @@ msgstr "Una variable de datos de negocio se recarga cada vez que el valor del fi
 
 msgid "A JSON object"
 msgstr "Un objeto JSON"
+
+msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
+msgstr ""
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas las variables son reevaluadas y el UI se actualiza. En consecuencia:"
@@ -234,6 +250,9 @@ msgstr "Añadir contorno alrededor de la tabla y entre todas las columnas."
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la parte inferior del panel de Recursos."
+
+msgid "Add the following class in style.css asset."
+msgstr ""
 
 msgid "Add to collection"
 msgstr "Añadir a la colección"
@@ -853,6 +872,9 @@ msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{
 msgid "Error on upload holder"
 msgstr "Contenido del error de carga"
 
+msgid "Example of a tab title displaying a badge:"
+msgstr ""
+
 msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
 
@@ -1149,6 +1171,9 @@ msgstr "En producción, si el usuario está logueado en el Bonita Portal, los ar
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "En algunos casos, otros tipos de variables son creadas: <ul><li>Cuando una variable de negocio es editada en el formulario (ya que es especificada en el wizard de creación del contrato), una variable UI Designer se crea por cada variable (External API).<br>Por ejemplo, si la entrada de contrato ha sido creada desde una variable de negocio 'invoice' en el proceso, una variable <code>invoice</code> se creara en el formulario y su URL se configurará como <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br> si <code>invoice</code> contiene relaciones lazy, otras variables se generaran por cada relación lazy a resolver (usando el filtro <em>lazyRef</em>). <br> Por ejemplo, si 'invoice' tiene un 'customer' en relación lazy, una variable de tipo External API <code>invoice_customer</code> se creará. Su URL estará configurada como <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>Para mostrar un objeto agregado, un widget Select será generado para mostrar los <em> valores disponibles</em> del objeto. La variable (External API) ligada al widget se creará. Llamara al BDM. Por ejemplo, cuando el objeto Invoice tieen un objeto agregado de tipo Customer, una variable <code>customer_query</code> se crea con la URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. Por defecto usa la consulta <code>find</code> con la paginación por defecto (solo los 100 primeros objetos serán devueltos).</li></ul>"
+
+msgid "In tab title properties add the following value"
+msgstr ""
 
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr "En la lista de Assets, puede cambiar manualmente el orden de los assets de CSS y Javascript. Reordenar estos archivos pueden ser útil para reemplazar algunas clases css o funciones javascript."
@@ -1864,10 +1889,16 @@ msgstr "Cambiar {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgid "Switch..."
 msgstr "Cambiar..."
 
+msgid "Tab properties usage"
+msgstr ""
+
 msgid "Tab x"
 msgstr "Tab x"
 
 msgid "Tabs Container advancement"
+msgstr ""
+
+msgid "Tabs container"
 msgstr ""
 
 msgid "Tabular presentation of data from an array"
@@ -1924,6 +1955,9 @@ msgstr "La propiedad de <em>Formato técnico de fecha</em> define el formato de 
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
 msgstr "Los <em>Datos enviados al hacer click</em> para las peticiones POST y PUT debeN ser un objeto JavaScript (JSON puede ser utilizado). Esta información se enviará en el cuerpo de la solicitud."
+
+msgid "The Display Type property allows you to customize the tabs style ('tabs' or 'pills')."
+msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "El UI Designer genera <b>el código de la aplicación del estándar html, basado en AngularJS</b>. Exporta páginas si quieres personalizarlas aún más en tu entorno de desarrollo web favorito."
@@ -1986,6 +2020,9 @@ msgstr "La propiedad <em>Valor a agregar</em> puede ser un objeto de JavaScript 
 
 msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
 msgstr "El mismo botón de \"Etiqueta\" muestra un resumen de todas las llamadas al API REST hechas por el artefacto actual a la API REST Bonita.\""
+
+msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "La ayuda se mostrará como tal, cerca de la etiqueta de propiedad."
@@ -2066,6 +2103,10 @@ msgstr "Título"
 msgid "Title level"
 msgstr "Nivel de título"
 
+msgid "To Display the tab vertically and on the left of the content, you can read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how\n"
+"            to learn more about customization</a>"
+msgstr ""
+
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Para agregar contenido, arrastra y suelta los componentes de la paleta en la zona de trabajo."
 
@@ -2113,7 +2154,7 @@ msgid "To keep things working, if you migrate a page designed in a version older
 msgstr "Para mantener las paginas funcionando, si migras una página diseñada en una versión anterior a 7.5.0 que contiene custom widgets, se añadirá el fichero <em>ui-bootstrap-tpls-0.13.0.min.js</em> automáticamente a la página. Puede eliminarlo si no lo necesita."
 
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
-msgstr "Para cargar un asset local de imagen en un widget personalizado, necesita hacer referencia en la plantilla dentro de una etiqueta <code>&lt;img&gt;</code> con una ruta relativa como sigue: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
+msgstr ""
 
 msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
 msgstr "Para cargar una imagen para cualquier widget personalizado, añade un recurso de imagen a nivel de página. Accede a él con <code>asset/img/[nombre imagen]</code>."
@@ -2228,8 +2269,8 @@ msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace 
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
 msgstr ""
 
-msgid "Unable to connect to the Business Data Model"
-msgstr "No se puede conectar al Business Data Model"
+msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
+msgstr ""
 
 msgid "Unique ID of this modal"
 msgstr "ID única de este modal"
@@ -2271,7 +2312,7 @@ msgid "Use a dynamic value field to specify a constant (the default) or an expre
 msgstr "Utilice un campo de valor dinámico para especificar una constante (valor predeterminado) o una expresión. Haga clic en el icono de la expresión fx para cambiar de constante a expresión. Haga clic en el icono de constante X para cambiar de expresión a constante. Una expresión puede incluir una variable para hacer dinámico el valor de la propiedad, o puede ser simplemente el nombre de una variable. Puede aplicar un filtro a un valor de la variable usando pipe '|'. El enlace a la variable es de lectura. Si desea escribir en la variable, utilice un vínculo bidireccional. Ejemplos:"
 
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
-msgstr "Usa un campo de interpolación para introducir texto para mostrar en el widget. El texto puede incluir variables que se interpretan usando interpolación AngularJS. Cuando se muestra la página, las variables son reemplazadas por los valores interpolados. Especifique una variable como una expresión simple encerrada en dos llaves, usando el mismo formato que para un campo de valor dinámico. Ejemplo: Lo siento, <em ng-non-bindable>{{ user.name | uppercase }}</em>. Temo que no pueda hacerlo."
+msgstr ""
 
 msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "Utilice etiquetas HTML básicas, <span ng-non-bindable>{{dataVariable}}</span> para acceder a los datos, y <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtros</a> para formatearlos (ej. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
@@ -2314,6 +2355,9 @@ msgstr "Utilizado en la lista de recursos del portal. Parte del descriptor de pa
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
+
+msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
+msgstr ""
 
 msgid "Validation Errors"
 msgstr "Errores de validación"

@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: pt-BR\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /release-7.10.0/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-10-21 02:31\n"
+"PO-Revision-Date: 2019-10-27 03:58\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas \"Encontrar por\" em um atributo"
@@ -73,13 +73,26 @@ msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horári
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
 
+msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
+msgstr ""
+
+msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+"                be attached to <strong>tab-heading</strong> html element."
+msgstr ""
+
+msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr ""
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
+msgstr ""
+
+msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
 msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
@@ -155,6 +168,9 @@ msgid "A Business data variable is reloaded every time the filter value changes.
 msgstr "Uma variável de dados de negócio é recarregada toda vez que o valor do filtro muda."
 
 msgid "A JSON object"
+msgstr ""
+
+msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
 msgstr ""
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
@@ -233,6 +249,9 @@ msgid "Add borders all around the table and between all the columns."
 msgstr "Adicione bordas em torno da tabela e entre todas as colunas."
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
+msgstr ""
+
+msgid "Add the following class in style.css asset."
 msgstr ""
 
 msgid "Add to collection"
@@ -854,6 +873,9 @@ msgstr ""
 msgid "Error on upload holder"
 msgstr ""
 
+msgid "Example of a tab title displaying a badge:"
+msgstr ""
+
 msgid "Example: relative time filter"
 msgstr ""
 
@@ -1150,6 +1172,9 @@ msgstr "Em produção, se o usuário estiver logado no Portal Bonita, artefatos 
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "Em alguns casos, outros tipos de variáveis ​​são criados: <ul> <li> Quando a variável de negócios é editada no formulário (conforme especificado no assistente de criação de contrato), uma variável do UI Designer é criada para cada variável (API Externa).<br>Por exemplo, se a entrada do contrato foi criada a partir de uma variável de negócios 'fatura' no processo, uma variável <code>fatura</code> é criada no formulário e sua URL é definida como <span ng-non-bindable>../{{context.fatura_ref.link}}</span>. <br>Se <code>fatura</code> contiver relações ociosas, variáveis ​​adicionais serão geradas para cada relação ociosa a ser resolvida (usando o filtro <em>lazyRef</em>). <br>Por exemplo, se 'fatura' tiver uma relação 'cliente' ociosa, uma variável de API externa <code>fatura-cliente</code> será adicionada. Sua URL é definida como <span ng-non-bindable>{{fatura|lazyRef: 'cliente'}}</span>. </Li> <li> Para exibir um objeto agregado, um widget Selecionar é gerado para exibir o <em>valores disponíveis</em> do objeto. A variável (External API) ligada ao widget é criada. Consulta o BDM. <br>Por exemplo, quando o objeto Fatura possui um objeto agregado Cliente, uma variável <code>cliente_query </code> é criada com URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Cliente? q=procurar&p=0&c=99</span>. Por padrão, ele usa a consulta <code>procurar</code> com uma paginação padrão (somente os primeiros 100 objetos são retornados). </Li> </ul>"
+
+msgid "In tab title properties add the following value"
+msgstr ""
 
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr "Na lista de conteúdos, você pode alterar manualmente a ordem dos arquivos de páginas CSS e Javascript. Reordenar estes arquivos pode ser útil para substituir algumas classes css ou funções javascript."
@@ -1865,11 +1890,17 @@ msgstr "Mudar {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgid "Switch..."
 msgstr "Trocar..."
 
+msgid "Tab properties usage"
+msgstr ""
+
 msgid "Tab x"
 msgstr "Tab x"
 
 msgid "Tabs Container advancement"
 msgstr "Abas Avanço de contêiner"
+
+msgid "Tabs container"
+msgstr ""
 
 msgid "Tabular presentation of data from an array"
 msgstr ""
@@ -1925,6 +1956,9 @@ msgstr "A <em>data técnica</em> a propriedade define o formato dos valores exib
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
 msgstr "Os <em>dados enviados no clique</em> para solicitações POST e PUT devem ser um objeto JavaScript (JSON pode ser usado). Esses dados serão enviados no corpo da solicitação."
+
+msgid "The Display Type property allows you to customize the tabs style ('tabs' or 'pills')."
+msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr ""
@@ -1989,6 +2023,9 @@ msgstr "A propriedade <em>Valor para adicionar</em> pode ser um objeto JavaScrip
 
 msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
 msgstr "O mesmo botão \"Tag\" exibe um resumo de todas as chamadas de API REST feita pelo artefato atual para a Bonita API REST.\""
+
+msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr ""
@@ -2068,6 +2105,10 @@ msgid "Title"
 msgstr ""
 
 msgid "Title level"
+msgstr ""
+
+msgid "To Display the tab vertically and on the left of the content, you can read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how\n"
+"            to learn more about customization</a>"
 msgstr ""
 
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
@@ -2235,8 +2276,8 @@ msgstr ""
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
 msgstr "Não foi possível acessar o Modelo de Dados de Negócio. Reinicie o Bonita Studio e tente novamente."
 
-msgid "Unable to connect to the Business Data Model"
-msgstr "Não foi possível conectar ao Modelo de Dados de Negócio"
+msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
+msgstr ""
 
 msgid "Unique ID of this modal"
 msgstr "ID único deste modal"
@@ -2320,6 +2361,9 @@ msgid "Used in the portal list of Resources. Part of the page.properties descrip
 msgstr "Usado na lista de recursos do portal. Parte do descritor de página.properties no arquivo de página exportada. Se vazio, o nome técnico da página é usado como fallback."
 
 msgid "User id could then be obtained by using {{myData.user_id}}"
+msgstr ""
+
+msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
 msgstr ""
 
 msgid "Validation Errors"
