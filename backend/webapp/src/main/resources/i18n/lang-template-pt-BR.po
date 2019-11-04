@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-10-27 03:58\n"
+"PO-Revision-Date: 2019-11-03 03:35\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas \"Encontrar por\" em um atributo"
@@ -73,7 +73,17 @@ msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horári
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
 
+msgid "<code>Bordered</code><em>(Defaults: false)</em>: Display cells with border."
+msgstr ""
+
+msgid "<code>Condensed</code><em>(Defaults: false)</em>: Display cells without spacing."
+msgstr ""
+
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
+msgstr ""
+
+msgid "<code>Zebra-striping</code><em>(Defaults: true)</em>: Apply a Zebra style\n"
+"                (this style set a different background color on even and odd lines)."
 msgstr ""
 
 msgid "<code>context</code> is an External API."
@@ -658,6 +668,9 @@ msgstr ""
 msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
 msgstr "Personalize o título da aba ou adicione css dinamicamente, ocultar ou desativar abas de acordo com as condições são as novas capacidades de cada aba. Altere o formato da aba ou construa bons menus graças à exibição vertical, leia isto <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">como aprender mais sobre customização.</a>"
 
+msgid "Customize the default look and feel as follows:"
+msgstr ""
+
 msgid "DELETE"
 msgstr ""
 
@@ -876,6 +889,9 @@ msgstr ""
 msgid "Example of a tab title displaying a badge:"
 msgstr ""
 
+msgid "Example of border table:"
+msgstr ""
+
 msgid "Example: relative time filter"
 msgstr ""
 
@@ -1080,6 +1096,12 @@ msgstr ""
 msgid "Home page"
 msgstr ""
 
+msgid "How to customize Zebra-striping"
+msgstr ""
+
+msgid "How to customize border"
+msgstr ""
+
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "No entanto, <b>a saída do widget é sempre um obejto de Data Javascript</b>. Então vai mudar o tipo da variável vinculado ao widget <em>Valor</em> para um objeto de data, quando o usuário seleciona uma data. Isso é necessário para garantir a compatibilidade com versões anteriores para páginas desenhadas com versões mais antigas do UI Designer."
 
@@ -1146,6 +1168,12 @@ msgstr "Importar, definir ou implantar um Modelo de Dados de Negócio no Bonita 
 msgid "Improve collaboration on UID artifacts"
 msgstr "Melhorar colaboração em artefatos UID"
 
+msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
+msgstr ""
+
+msgid "In 'Classes CSS' property add the following value"
+msgstr ""
+
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr ""
 
@@ -1169,6 +1197,9 @@ msgstr "Na pasta:"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "Em produção, se o usuário estiver logado no Portal Bonita, artefatos da UI são exibidos no idioma do Portal selecionado pelo usuário ou na localidade do navegador."
+
+msgid "In some case, you want override your theme to display <b>one specific table</b>, to do this:"
+msgstr ""
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "Em alguns casos, outros tipos de variáveis ​​são criados: <ul> <li> Quando a variável de negócios é editada no formulário (conforme especificado no assistente de criação de contrato), uma variável do UI Designer é criada para cada variável (API Externa).<br>Por exemplo, se a entrada do contrato foi criada a partir de uma variável de negócios 'fatura' no processo, uma variável <code>fatura</code> é criada no formulário e sua URL é definida como <span ng-non-bindable>../{{context.fatura_ref.link}}</span>. <br>Se <code>fatura</code> contiver relações ociosas, variáveis ​​adicionais serão geradas para cada relação ociosa a ser resolvida (usando o filtro <em>lazyRef</em>). <br>Por exemplo, se 'fatura' tiver uma relação 'cliente' ociosa, uma variável de API externa <code>fatura-cliente</code> será adicionada. Sua URL é definida como <span ng-non-bindable>{{fatura|lazyRef: 'cliente'}}</span>. </Li> <li> Para exibir um objeto agregado, um widget Selecionar é gerado para exibir o <em>valores disponíveis</em> do objeto. A variável (External API) ligada ao widget é criada. Consulta o BDM. <br>Por exemplo, quando o objeto Fatura possui um objeto agregado Cliente, uma variável <code>cliente_query </code> é criada com URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Cliente? q=procurar&p=0&c=99</span>. Por padrão, ele usa a consulta <code>procurar</code> com uma paginação padrão (somente os primeiros 100 objetos são retornados). </Li> </ul>"
@@ -1740,6 +1771,9 @@ msgstr ""
 msgid "Send data to this URL when the button is clicked"
 msgstr ""
 
+msgid "Set <code>Bordered</code> properties at true."
+msgstr ""
+
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr ""
 
@@ -1848,6 +1882,12 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
+msgid "Style custom"
+msgstr ""
+
+msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
+msgstr ""
+
 msgid "Submit"
 msgstr ""
 
@@ -1895,6 +1935,9 @@ msgstr ""
 
 msgid "Tab x"
 msgstr "Tab x"
+
+msgid "Table"
+msgstr ""
 
 msgid "Tabs Container advancement"
 msgstr "Abas Avanço de contêiner"
@@ -2054,6 +2097,9 @@ msgstr ""
 msgid "The {{ artifactType }} has not been imported."
 msgstr ""
 
+msgid "Then, provide a comma-separated list for the columns keys indicating the attribute to display in each column."
+msgstr ""
+
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr ""
 
@@ -2137,6 +2183,10 @@ msgstr "Para exibir (e não atualizar) uma data e um horário recuperados da API
 msgid "To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Para exibir (e não atualizar) uma data recuperada da API do BDM (ou de outra API), você pode usar este widget <em>Seletor de data</em> com a propriedade <em>Somente leitura</em> definida como \" sim \"ou use um <em>texto</em>, <em>título</em> ou um widget <em>tabela</em> e formate o valor usando o <em>uiDate</em> <a href = \"javascript: void (0);\" open-help = \"filters\" editor-mode=\"page\"> filter</a>."
 
+msgid "To display the data, define the header properties with a comma-separated list of column headings,\n"
+"            bind the content to an array of JavaScript objects."
+msgstr ""
+
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr ""
 
@@ -2150,6 +2200,9 @@ msgid "To embed a pop-in into another pop-in at runtime, drop the first modal co
 msgstr "Para incorporar um pop-in em outro pop-in no tempo de execução, solte o primeiro container modal no final, solte o segundo container modal abaixo do primeiro, e solte o botão que abre o segundo pop-in dentro do primeiro container modal."
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
+msgstr ""
+
+msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr ""
 
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
@@ -2483,6 +2536,9 @@ msgstr "Com a nova seção de modelo de dados, listar seus objetos e arrastá-lo
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "Com a maneira mais recente de armazenar variáveis e widgets, as operações de diff e merge são mais claras graças a um armazenamento multilíngue."
 
+msgid "With this widget, you can display data from an array in tabular presentation."
+msgstr ""
+
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr ""
 
@@ -2541,6 +2597,9 @@ msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are
 msgstr "Você não pode mover, excluir ou desativar <b>Base framework</b> ativos. Eles estão aqui apenas para mostrar qual biblioteca é usada para construir seu artefato"
 
 msgid "You have unsaved changes. Do you really want to leave ?"
+msgstr ""
+
+msgid "You need to use this following css selector in your theme.css file:"
 msgstr ""
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
