@@ -1,6 +1,6 @@
 <div>
     <div
-         uib-tooltip="{{ widget.component.description || widget.component.name | translate }}"
+         uib-tooltip="{{ widget.component.qualifiedName || widget.component.name | translate }}"
          tooltip-popup-delay="1000" tooltip-append-to-body="true" tooltip-placement="right"
          tooltip-is-open="tooltipIsOpen" ng-mousedown="tooltipIsOpen = !tooltipIsOpen">
 
