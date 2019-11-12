@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-11-03 02:59\n"
+"PO-Revision-Date: 2019-11-11 03:00\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -72,17 +72,17 @@ msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> 
 msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"oui\"</b> : la <em>Valeur</em> du widget est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ)."
 
 msgid "<code>Bordered</code><em>(Defaults: false)</em>: Display cells with border."
-msgstr ""
+msgstr "<code>Bordered</code><em>(par défaut : false)</em>: Afficher la bordure des cellules."
 
 msgid "<code>Condensed</code><em>(Defaults: false)</em>: Display cells without spacing."
-msgstr ""
+msgstr "<code>Condensed</code><em>(par défaut : false)</em>: Supprimer les espaces dans les cellules."
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
 
 msgid "<code>Zebra-striping</code><em>(Defaults: true)</em>: Apply a Zebra style\n"
 "                (this style set a different background color on even and odd lines)."
-msgstr ""
+msgstr "<code>Zebra-striping</code><em>(par défaut : true)</em>: Appliquer un style \"rayures\" (couleur de fond différente entre lignes paires et impaires)."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
