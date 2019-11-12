@@ -6,13 +6,13 @@
         <p translate>Then, provide a comma-separated list for the columns keys indicating the attribute to display in each column.</p>
         <p translate>To get the data from a selected row, bind selected row to a variable.</p>
     </uib-tab>
-    <uib-tab heading="{{ 'Style custom' | translate }}" index="'style-properties-usage'">
+    <uib-tab heading="{{ 'Custom style' | translate }}" index="'style-properties-usage'">
         <p translate>Customize the default look and feel as follows:</p>
         <ul>
-            <li translate><code>Zebra-striping</code><em>(Defaults: true)</em>: Apply a Zebra style
+            <li translate><code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style
                 (this style set a different background color on even and odd lines).</li>
-            <li translate><code>Condensed</code><em>(Defaults: false)</em>: Display cells without spacing.</li>
-            <li translate><code>Bordered</code><em>(Defaults: false)</em>: Display cells with border.</li>
+            <li translate><code>Condensed</code><em>(Default: no)</em>: Display cells without spacing.</li>
+            <li translate><code>Bordered</code><em>(Default: no)</em>: Display cells with border.</li>
         </ul>
 
     </uib-tab>
@@ -51,7 +51,7 @@
     <uib-tab heading="{{ 'How to customize border' | translate }}" index="'border-custom-usage'">
         <p translate>Example of border table:</p>
         <ol>
-            <li translate>Set <code>Bordered</code> properties at true.</li>
+            <li translate>Set <code>Bordered</code> property at true.</li>
             <li translate>In 'Classes CSS' property add the following value</li>
             <pre>border-custom</pre>
             <li translate>Add the following class in style.css asset.</li>
