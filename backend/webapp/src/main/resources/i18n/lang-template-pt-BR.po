@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-11-11 04:33\n"
+"PO-Revision-Date: 2019-11-13 04:10\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas \"Encontrar por\" em um atributo"
@@ -73,28 +73,27 @@ msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horári
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
 
-msgid "<code>Bordered</code><em>(Defaults: false)</em>: Display cells with border."
-msgstr "<code>Borda</code><em>(Padrão: falso)</em>: Exibir células com borda."
+msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
+msgstr ""
 
-msgid "<code>Condensed</code><em>(Defaults: false)</em>: Display cells without spacing."
-msgstr "<code>Condensado</code><em>(Padrões: falso)</em>: Exibir células sem espaço."
+msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
+msgstr ""
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
 
-msgid "<code>Zebra-striping</code><em>(Defaults: true)</em>: Apply a Zebra style\n"
+msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
 "                (this style set a different background color on even and odd lines)."
-msgstr "<code>Zebra-striping</code><em>(Padrões: verdadeira)</em>: Aplicar um estilo Zebra\n"
-"                (este estilo define uma cor de fundo diferente em linhas pares e ímpares)."
+msgstr ""
 
 msgid "<code>context</code> is an External API."
 msgstr ""
 
-msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr ""
 
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: true)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -103,7 +102,7 @@ msgstr ""
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr ""
 
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
@@ -655,6 +654,9 @@ msgid "Custom URL"
 msgstr ""
 
 msgid "Custom services"
+msgstr ""
+
+msgid "Custom style"
 msgstr ""
 
 msgid "Custom widget"
@@ -1772,8 +1774,8 @@ msgstr ""
 msgid "Send data to this URL when the button is clicked"
 msgstr ""
 
-msgid "Set <code>Bordered</code> properties at true."
-msgstr "Definir propriedades <code>Bordas</code> em true."
+msgid "Set <code>Bordered</code> property at true."
+msgstr ""
 
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr ""
@@ -1882,9 +1884,6 @@ msgstr ""
 
 msgid "Style"
 msgstr ""
-
-msgid "Style custom"
-msgstr "Estilo personalizado"
 
 msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
 msgstr "O estilo de zebra-striping pode ser feito no arquivo theme.css para personalizar <b> todas </b> as tabelas."

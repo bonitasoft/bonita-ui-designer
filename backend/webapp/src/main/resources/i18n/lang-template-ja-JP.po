@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-11-11 03:36\n"
+"PO-Revision-Date: 2019-11-13 03:28\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -73,27 +73,27 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
-msgid "<code>Bordered</code><em>(Defaults: false)</em>: Display cells with border."
+msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr ""
 
-msgid "<code>Condensed</code><em>(Defaults: false)</em>: Display cells without spacing."
+msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
 msgstr ""
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
 
-msgid "<code>Zebra-striping</code><em>(Defaults: true)</em>: Apply a Zebra style\n"
+msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
 "                (this style set a different background color on even and odd lines)."
 msgstr ""
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
 
-msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr ""
 
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: true)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -102,7 +102,7 @@ msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>そ
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
 
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
@@ -654,6 +654,9 @@ msgstr "カスタム URL"
 
 msgid "Custom services"
 msgstr "カスタム サービス"
+
+msgid "Custom style"
+msgstr ""
 
 msgid "Custom widget"
 msgstr "カスタム ウィジェット"
@@ -1771,7 +1774,7 @@ msgstr "選択された値"
 msgid "Send data to this URL when the button is clicked"
 msgstr "ボタンがクリックされたときに、この URL にデータを送信します。"
 
-msgid "Set <code>Bordered</code> properties at true."
+msgid "Set <code>Bordered</code> property at true."
 msgstr ""
 
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
@@ -1881,9 +1884,6 @@ msgstr "文字列"
 
 msgid "Style"
 msgstr "スタイル"
-
-msgid "Style custom"
-msgstr ""
 
 msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
 msgstr ""
