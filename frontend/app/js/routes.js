@@ -34,7 +34,10 @@
               'es': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
               'es-ES': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
               'ja': { lang: 'ja', file: 'lang-template-ja-JP.json' },
-              'ja-JP': { lang: 'ja', file: 'lang-template-ja-JP.json' }
+              'ja-JP': { lang: 'ja', file: 'lang-template-ja-JP.json' },
+              'pt': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' },
+              'pt-BR': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' },
+              'pt_BR': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' }
             };
             // narrow down which language is used or use en
             var language = languages[Object.keys(languages).reduce(function(previous, current) {
