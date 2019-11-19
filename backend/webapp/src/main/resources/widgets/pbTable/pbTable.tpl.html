@@ -3,8 +3,8 @@
         <thead>
             <tr>
                 <th ng-repeat="header in properties.headers">
-                     <div ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></div>
-                  	 <div ng-if="!properties.allowHTML">{{ header | uiTranslate }}</div>
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
                 </th>
             </tr>
         </thead>
