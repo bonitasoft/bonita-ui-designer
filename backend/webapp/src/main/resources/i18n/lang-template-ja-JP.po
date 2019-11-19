@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-11-13 03:28\n"
+"PO-Revision-Date: 2019-11-18 03:30\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -93,7 +93,7 @@ msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab.
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr ""
 
-msgid "<code>disabled</code> <em>(Default: true)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."

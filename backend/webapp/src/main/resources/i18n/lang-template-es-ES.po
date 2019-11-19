@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-11-13 03:04\n"
+"PO-Revision-Date: 2019-11-18 03:05\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
@@ -93,8 +93,8 @@ msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab.
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr "<code>cssClasses</code> <em>(Por defecto: Ninguna)</em>: Agrega clases Css de encabezados. Esta clase Csss será asociada al elemento Html <strong>Encabezado de Columna</strong>."
 
-msgid "<code>disabled</code> <em>(Default: true)</em>: Whether tab is clickable and can be activated."
-msgstr "<code>disabled</code> <em>(Por defecto: activado)</em>: En caso que la pestaña sea activa."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está definida por las entradas de contrato y los atributos se inicializan con los valores predeterminados. Podría ser utilizado para establecer los valores iniciales de los campos del formulario. <br>Se pueden establecer los valores en <code>formInput</code> ya sea editando los valores predeterminado con valores constantes (útiles para prueba y depuración) o con valores de un objeto en una fuente externa que tenga el mismo modelo (como con una API externa BDM). <br>También se pueden establecer los valores iniciales de un formulario desde alguna otra fuente sin utilizar <code>formInput</code>. Sin embargo, entonces tendrás que editar <code>formOutput</code> manualmente."
