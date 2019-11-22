@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-11-13 04:10\n"
+"PO-Revision-Date: 2019-11-18 04:11\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas \"Encontrar por\" em um atributo"
@@ -62,7 +62,7 @@ msgid "<b>To use a form in a process</b>, map it in the studio to the relevant p
 msgstr ""
 
 msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
-msgstr ""
+msgstr "<b>Para usar um layout em uma aplicação de negócios</b>, exporte-o a partir do UI Designer, importe-o no portal como um recurso e mapeie-o como o layout da aplicação relevante."
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Para usar uma página em uma aplicação de negócios</b>, exporte-o do Designer de UI, importe-o para recursos de Portal Bonita e da aplicação relevante, adicione-o à lista de páginas e a um menu de navegação."
@@ -74,26 +74,28 @@ msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> 
 msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
 
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
-msgstr ""
+msgstr "<code>Borda</code><em>(Padrão: não)</em>: Exibir células com borda."
 
 msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
-msgstr ""
+msgstr "<code>Condensado</code><em>(Padrões: não)</em>: Exibir células sem espaço."
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
 
 msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
 "                (this style set a different background color on even and odd lines)."
-msgstr ""
+msgstr "<code>Zebra-striping</code><em>(Padrões: sim)</em>: Aplicar um estilo Zebra\n"
+"                (este estilo define uma cor de fundo diferente em linhas pares e ímpares)."
 
 msgid "<code>context</code> is an External API."
 msgstr ""
 
 msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
-msgstr ""
+msgstr "<code>cssClasses</code> <em>(Padrão: nenhum)</em>: Adicionar classes css na guia. Esta classe css será\n"
+"                anexada a <strong>guia título</strong> html."
 
-msgid "<code>disabled</code> <em>(Default: true)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -103,7 +105,7 @@ msgid "<code>formOutput</code> is a JavaScript expression returning an object. <
 msgstr ""
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
-msgstr ""
+msgstr "<code>oculto</code> <em>(Padrão: não)</em>: Se a aba está escondida ou não."
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> é uma expressão JavaScript formatando a carga de resposta para html quando um envio falhar."
@@ -321,13 +323,13 @@ msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr ""
 
 msgid "Application URL token"
-msgstr ""
+msgstr "Token da aplicação"
 
 msgid "Application layout"
-msgstr ""
+msgstr "Layout da aplicação"
 
 msgid "Application page"
-msgstr ""
+msgstr "Página da aplicação"
 
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr ""
@@ -336,7 +338,7 @@ msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
 msgstr "Tem certeza que deseja excluir o {{ctrl.artifact}}<b>{{ctrl.type}}</b> ?"
 
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
-msgstr ""
+msgstr "Tem certeza que deseja excluir o {{ artifact.type }}<b>{{ artifact.name }}</b>?"
 
 msgid "Array used to populate the table. Can be a list of objects. Use 'Column keys' to refine content"
 msgstr ""
@@ -345,7 +347,7 @@ msgid "Artifact creation:"
 msgstr ""
 
 msgid "As used in the URL after the application token"
-msgstr ""
+msgstr "Como usado na URL após o token do aplicativo"
 
 msgid "Asset"
 msgstr ""
@@ -633,7 +635,7 @@ msgid "Create a variable in the bottom panel. Using a variable in a widget prope
 msgstr ""
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
-msgstr ""
+msgstr "Criar uma <b>página de aplicação</b> diretamente no UI Designer"
 
 msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
 msgstr "Criar nova variável de dados de negócio para lidar \"{{ctrl.businessData.name}}\""
@@ -657,7 +659,7 @@ msgid "Custom services"
 msgstr ""
 
 msgid "Custom style"
-msgstr ""
+msgstr "Estilo personalizado"
 
 msgid "Custom widget"
 msgstr ""
@@ -675,7 +677,7 @@ msgid "Customize the default look and feel as follows:"
 msgstr "Personalizar a aparência padrão da seguinte forma:"
 
 msgid "DELETE"
-msgstr ""
+msgstr "EXCLUIR"
 
 msgid "Data Management"
 msgstr "Gerenciamento de dados"
@@ -743,13 +745,13 @@ msgid "Defines endpoint URL where the file will be uploaded"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Excluir"
 
 msgid "Delete asset"
-msgstr ""
+msgstr "Excluir asset"
 
 msgid "Delete variable"
-msgstr ""
+msgstr "Excluir a variável"
 
 msgid "Deletion is not possible"
 msgstr ""
@@ -764,10 +766,10 @@ msgid "Details"
 msgstr ""
 
 msgid "Determines target application. It is recommended not to hard code it."
-msgstr ""
+msgstr "Determina a aplicação de destino. Recomenda-se não codificá-la."
 
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
-msgstr ""
+msgstr "Determina o tema da aplicação que será usado pela página de destino. Recomenda-se não codificá-lo."
 
 msgid "Direct link to an external file"
 msgstr "Link direto para um arquivo externo"
@@ -1232,7 +1234,7 @@ msgid "In the scope of a page, form, or layout, a variable can be used to handle
 msgstr ""
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
-msgstr ""
+msgstr "Nesta lista, é possível usar as setas para reordenar os assets, ver os assets locais, editar os assets externos e excluir qualquer asset."
 
 msgid "Includes the localized version of the Technical date format property, to guide the user"
 msgstr "Inclui a versão localizada da propriedade de formato de data técnica, para orientar o usuário"
@@ -1466,7 +1468,7 @@ msgid "New window (_blank)"
 msgstr ""
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
-msgstr ""
+msgstr "Próxima página a ser exibida, para aplicações. No portal é ignorado como a navegação é gerenciada automaticamente"
 
 msgid "No"
 msgstr "Não"
@@ -1775,7 +1777,7 @@ msgid "Send data to this URL when the button is clicked"
 msgstr ""
 
 msgid "Set <code>Bordered</code> property at true."
-msgstr ""
+msgstr "Definir propriedad <code>Bordas</code> em sim."
 
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr ""
@@ -2004,7 +2006,7 @@ msgid "The Display Type property allows you to customize the tabs style ('tabs' 
 msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
-msgstr ""
+msgstr "O UI Designer gera o <b>código html padrão do aplicativo, baseado em AngularJS</b>. Exporte as páginas caso queira personalizá-las no seu ambiente de desenvolvimento web preferido."
 
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "O Designer de UI é exibido no idioma do seu Bonita Studio."
@@ -2077,7 +2079,7 @@ msgid "The values of all properties are also used as translation keys. As a resu
 msgstr "Os valores de todas as propriedades também são usados como chaves de tradução. Como resultado, se você escolher não manter os valores padrão, atualize o ativo <em>localization.json.</em> apropriadamente."
 
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
-msgstr ""
+msgstr "O quadro é organizado em <b>linhas</b> que você pode mover para cima e para baixo, ou excluir."
 
 msgid "The widget HTML template is defined here."
 msgstr "O modelo HTML do widget está definido aqui."
@@ -2092,7 +2094,7 @@ msgid "The {{ ::importReport.type }} to import contains elements with the same I
 msgstr "O {{ ::importReport.type }} para importar contém elementos com o mesmo Id que alguns elementos existentes."
 
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
-msgstr ""
+msgstr "O {{ artifact.type }} não pode ser excluído porque é usado em:"
 
 msgid "The {{ artifactType }} has not been imported."
 msgstr ""
@@ -2262,7 +2264,7 @@ msgid "To use the collection data in the widgets of this container, there are co
 msgstr ""
 
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
-msgstr ""
+msgstr "Para usar o mesmo asset em várias páginas, você pode adicioná-lo a uma widget personalizada e utilizar esta widget em páginas de aplicação ou formulários. Quando você adiciona uma widget personalizada com assets a uma página, esses assets são associados automaticamente a esta página."
 
 msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
 msgstr "Para ver o código de um widget padrão, use a opção de menu <b>Ver</b>, perto do nome do widget no painel de propriedades. A partir daí, para usar o widget padrão como base para um widget personalizado, clique em <b>Salvar como</b>, encontre um nome para o widget personalizado e faça dele o seu próprio."
@@ -2382,7 +2384,7 @@ msgid "Use provided UID widgets as a template for a custom widget"
 msgstr ""
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
-msgstr ""
+msgstr "Use o UI Designer para criar ou editar artefatos web: <b>páginas de aplicação</b> compor aplicações de negócio, <b>formulários des processo</b> ligado a instanciação do processo ou execução de tarefas humanas, bem como <b>layouts de aplicação</b>, aplicado a todas as páginas de um aplicação de negócios."
 
 msgid "Use the characters: H (hour), h (hour in AM/PM), m (minutes) and optionally s (seconds), a (AM/PM)"
 msgstr "Use os caracteres: H (hora), h (hora em AM/PM), m (minutos) e opcionalmente (segundos), um (AM/PM)"
@@ -2496,7 +2498,7 @@ msgid "When the switch is completed, chances are you will still have properties 
 msgstr "Quando a mudança for concluída, as chances ainda terão propriedades para preencher, no painel de propriedades."
 
 msgid "When you delete a row, the following rows move up"
-msgstr ""
+msgstr "Quando uma linha é excluída, as linhas seguintes são movidas para cima"
 
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr ""
@@ -2541,7 +2543,7 @@ msgid "With this widget, you can display data from an array in tabular presentat
 msgstr "Com este widget, você pode exibir dados de uma matriz na apresentação tabular."
 
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
-msgstr ""
+msgstr "Dentro de uma linha, quando você exclui uma widget ou um container, os elementos seguintes são movidos para a esquerda"
 
 msgid "Yes"
 msgstr "Sim"
