@@ -73,17 +73,27 @@ msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: la zona 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"si\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo, yyyy-MM-ddTHH:mm:ssZ)."
 
+msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
+msgstr "<code>Bordered</code><em>(Por defecto: desactivado)</em>: Muestra las celdas con bordes."
+
+msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
+msgstr "<code>Condensed</code><em>(Por defecto: desactivado)</em>: Muestra las celdas sin espaciado interlinea."
+
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
+
+msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
+"                (this style set a different background color on even and odd lines)."
+msgstr "<code>Zebra-striping</code><em>(Por defecto: activado)</em>: Aplica un estilo \"Cebra\" (colores diferentes para lineas alternantes)."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
 
-msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
-msgstr ""
+msgstr "<code>cssClasses</code> <em>(Por defecto: Ninguna)</em>: Agrega clases Css de encabezados. Esta clase Csss será asociada al elemento Html <strong>Encabezado de Columna</strong>."
 
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -92,8 +102,9 @@ msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está defini
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
 
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
-msgstr ""
+
+msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
+msgstr "<code>hidden</code> <em>(Por defecto: desactivado)</em>: En caso que la pestaña esté oculta o no."
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> es una expresión JavaScript formateando el payload de la respuesta a html cuando un envío falla."
@@ -645,6 +656,9 @@ msgstr "URL personalizada"
 msgid "Custom services"
 msgstr "Servicios personalizados"
 
+msgid "Custom style"
+msgstr "Estilo personalizado"
+
 msgid "Custom widget"
 msgstr "Widget personalizado"
 
@@ -656,6 +670,9 @@ msgstr "Los widgets personalizados no son claramente visibles en la pizarra pero
 
 msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
 msgstr "Personalizar el título de la pestaña o añadir css dinámicamente, ocultar o desactivar las pestañas de acuerdo a condiciones son las nuevas capacidades de cada pestaña(tab). Cambiar el formato de la pestaña o construir menús laterales agradables gracias a la visualización vertical, leer este <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">cómo aprender más sobre la personalización.</a>"
+
+msgid "Customize the default look and feel as follows:"
+msgstr "Personaliza el aspecto por defecto, como se muestra:"
 
 msgid "DELETE"
 msgstr "ELIMINAR"
@@ -875,6 +892,9 @@ msgstr "Contenido del error de carga"
 msgid "Example of a tab title displaying a badge:"
 msgstr ""
 
+msgid "Example of border table:"
+msgstr "Ejemplo de bordes de tabla:"
+
 msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
 
@@ -1079,6 +1099,12 @@ msgstr "Es la respuesta cuando la llamada se realiza correctamente"
 msgid "Home page"
 msgstr "Página de inicio"
 
+msgid "How to customize Zebra-striping"
+msgstr "Como personalizar las filas alternas"
+
+msgid "How to customize border"
+msgstr "Como personalizar el borde"
+
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "Sin embargo, <b>la salida del widget siempre es un objeto Javascript Date</b>. Así que va a cambiar el tipo de la variable atada al <em>Valor</em> del widget a un objeto Date cuando el usuario selecciona una fecha. Esto es necesario para asegurar la compatibilidad con versiones anteriores de páginas diseñadas con versiones antiguas del UI Designer."
 
@@ -1145,6 +1171,12 @@ msgstr "Importar, definir o desplegar un Modelo de Datos de Negocio (BDM) en Bon
 msgid "Improve collaboration on UID artifacts"
 msgstr "Mejorar la colaboración en artefactos UID"
 
+msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
+msgstr "En la propiedad 'Clases CSS', agregar la clase <code>zebra-custom</code>"
+
+msgid "In 'Classes CSS' property add the following value"
+msgstr "En la propiedad 'Clases CSS', agregar el siguiente valor"
+
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "En las ediciones de suscripción, para dar soporte con múltiples idiomas para los usuarios finales, se incluye un mecanismo para traducir los artefactos del UI Designer creados (páginas, formularios, layouts)."
 
@@ -1168,6 +1200,9 @@ msgstr "En la carpeta:"
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
+
+msgid "In some case, you want override your theme to display <b>one specific table</b>, to do this:"
+msgstr "En caso de que desee remplazar el tema para mostrar <b>una tabla específica</b>, puede hacer esto:"
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "En algunos casos, otros tipos de variables son creadas: <ul><li>Cuando una variable de negocio es editada en el formulario (ya que es especificada en el wizard de creación del contrato), una variable UI Designer se crea por cada variable (External API).<br>Por ejemplo, si la entrada de contrato ha sido creada desde una variable de negocio 'invoice' en el proceso, una variable <code>invoice</code> se creara en el formulario y su URL se configurará como <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br> si <code>invoice</code> contiene relaciones lazy, otras variables se generaran por cada relación lazy a resolver (usando el filtro <em>lazyRef</em>). <br> Por ejemplo, si 'invoice' tiene un 'customer' en relación lazy, una variable de tipo External API <code>invoice_customer</code> se creará. Su URL estará configurada como <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>Para mostrar un objeto agregado, un widget Select será generado para mostrar los <em> valores disponibles</em> del objeto. La variable (External API) ligada al widget se creará. Llamara al BDM. Por ejemplo, cuando el objeto Invoice tieen un objeto agregado de tipo Customer, una variable <code>customer_query</code> se crea con la URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. Por defecto usa la consulta <code>find</code> con la paginación por defecto (solo los 100 primeros objetos serán devueltos).</li></ul>"
@@ -1739,6 +1774,9 @@ msgstr "Valores seleccionados"
 msgid "Send data to this URL when the button is clicked"
 msgstr "Enviar datos a esta dirección URL cuando se hace clic en el botón"
 
+msgid "Set <code>Bordered</code> property at true."
+msgstr "Establece las propiedades <code>Bordered</code> como activadas."
+
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "Conjunto de botones (radio) de opciones mutuamente excluyentes. El usuario selecciona una opción"
 
@@ -1847,6 +1885,9 @@ msgstr "Cadena (String)"
 msgid "Style"
 msgstr "Estilo"
 
+msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
+msgstr "El estilo de colores alternos en las tablas, puede ser realizado en el fichero \"theme.css\", para personalizar <b>todas</b> las tablas."
+
 msgid "Submit"
 msgstr "Enviar"
 
@@ -1894,6 +1935,9 @@ msgstr ""
 
 msgid "Tab x"
 msgstr "Tab x"
+
+msgid "Table"
+msgstr "Tabla"
 
 msgid "Tabs Container advancement"
 msgstr ""
@@ -2051,6 +2095,9 @@ msgstr "El {{ artifact.type }} no se puede eliminar porque es utilizado en:"
 msgid "The {{ artifactType }} has not been imported."
 msgstr "El {{ artifactType }} no ha sido importado."
 
+msgid "Then, provide a comma-separated list for the columns keys indicating the attribute to display in each column."
+msgstr "Luego, proporcione una lista de las claves de columnas, separadas por coma, indicando el atributo a mostrar en cada columna."
+
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Hay un conjunto de <b>widgets por defecto</b> para mostrar información y para recogida de información de los usuarios finales. También se pueden crear <b>widgets personalizados</b>."
 
@@ -2132,6 +2179,11 @@ msgstr "Para mostrar (y no actualizar) una fecha y una hora obtenidas de la API 
 msgid "To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Para mostrar (y no actualizar) una fecha obtenida de la API BDM (u otra API), puede utilizar este widget de <em>Selector de fecha</em> con la propiedad <em>Sólo lectura</em> establecida a \"sí\" o utilizar un widget de <em>Texto</em>, <em>Título</em> o <em>Tabla</em> y dar formato al valor con el <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtro</a> <em>uiDate</em> proporcionado."
 
+msgid "To display the data, define the header properties with a comma-separated list of column headings,\n"
+"            bind the content to an array of JavaScript objects."
+msgstr "Para mostrar los datos, establezca las propiedades de los encabezados de columnas, con una lista separadas por coma,\n"
+"            enlace el contenido a un array de objetos JavaScript."
+
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
 
@@ -2146,6 +2198,9 @@ msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añ
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
+
+msgid "To get the data from a selected row, bind selected row to a variable."
+msgstr "Para recuperar los datos de una fila seleccionada, vincule el parametro \"fila seleccionada\" a una variable."
 
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
@@ -2269,8 +2324,8 @@ msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace 
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
 msgstr ""
 
-msgid "Unable to connect to the Business Data Model"
-msgstr "No se puede conectar al Business Data Model"
+msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
+msgstr "Imposible de conectarse al Modelo de Datos de Negocio. Intente reiniciar el Studio para resolver el error"
 
 msgid "Unique ID of this modal"
 msgstr "ID única de este modal"
@@ -2476,6 +2531,9 @@ msgstr "Con la nueva sección de modelos de datos, liste sus objetos y los haga 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "Con la nueva forma de almacenar variables y widgets, las operaciones de diff y merge son más claras gracias a un almacenamiento multilínea."
 
+msgid "With this widget, you can display data from an array in tabular presentation."
+msgstr "Con este widget, puede mostrar datos de un array en una presentación tabulada."
+
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
@@ -2535,6 +2593,9 @@ msgstr "No puedes mover, eliminar o desactivar assets del <b>framework base </b>
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
+
+msgid "You need to use this following css selector in your theme.css file:"
+msgstr "Necesita utilisar el siguiente selector css en su fichero \"theme.css\":"
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."

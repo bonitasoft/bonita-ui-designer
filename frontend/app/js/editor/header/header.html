@@ -50,9 +50,15 @@
         </div>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
-    <span class="BusinessDataStatus" ng-class="{ 'BusinessDataStatus--visible': vm.businessDataRepositoryOffline }">
-            <i class="glyphicon glyphicon-ban-circle"></i>&nbsp;<translate>Unable to connect to the Business Data Model</translate>
-    </span>
+    <div class="EditorHeader-status">
+            <span ng-if="vm.businessDataRepositoryOffline" class="BusinessDataStatus-offline"
+                  uib-tooltip="{{ 'Unable to connect to the Business Data Model. Restarting the Studio may solve this issue' | translate }}"
+                  tooltip-placement="bottom"
+                  tooltip-popup-delay="300">
+                      <span class="ui-icon ui-datamodel status"></span>
+                      <i class="glyphicon glyphicon-exclamation-sign decorator warning"></i>
+            </span>
+    </div>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>
     </div>

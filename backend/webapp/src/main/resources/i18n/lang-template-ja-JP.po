@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /release-7.10.0/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-11-13 03:27\n"
+"PO-Revision-Date: 2019-11-20 03:55\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -76,14 +76,27 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した�
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
 
+msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
+msgstr ""
+
+msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
+msgstr ""
+
+msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
+msgstr ""
+
+msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
+"                (this style set a different background color on even and odd lines)."
+msgstr ""
+
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> は、External API です。"
 
-msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
+msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr ""
 
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
 msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
@@ -92,7 +105,8 @@ msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>そ
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
 
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
+
+msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr ""
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
@@ -645,6 +659,9 @@ msgstr "カスタム URL"
 msgid "Custom services"
 msgstr "カスタム サービス"
 
+msgid "Custom style"
+msgstr ""
+
 msgid "Custom widget"
 msgstr "カスタム ウィジェット"
 
@@ -655,6 +672,9 @@ msgid "Custom widgets are not clearly visible on the whiteboard but you can see 
 msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
 
 msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
+msgstr ""
+
+msgid "Customize the default look and feel as follows:"
 msgstr ""
 
 msgid "DELETE"
@@ -875,6 +895,9 @@ msgstr "アップロード ホルダーのエラー"
 msgid "Example of a tab title displaying a badge:"
 msgstr ""
 
+msgid "Example of border table:"
+msgstr ""
+
 msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
@@ -1079,6 +1102,12 @@ msgstr "リクエストが成功した時、そのレスポンスを保持しま
 msgid "Home page"
 msgstr "ホームページ"
 
+msgid "How to customize Zebra-striping"
+msgstr ""
+
+msgid "How to customize border"
+msgstr ""
+
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "ただし、<b>ウィジェットの出力は常に Javascript の Date オブジェクトになります</b>。したがって、ユーザーが「日付」を選択したときは、ウィジェット <em>値</em> にバインドする変数の型を Date オブジェクトに変更します。これは、古いバージョンの UI デザイナーでデザインされたページとの下位互換性を確保するために必要です。"
 
@@ -1145,6 +1174,12 @@ msgstr ""
 msgid "Improve collaboration on UID artifacts"
 msgstr ""
 
+msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
+msgstr ""
+
+msgid "In 'Classes CSS' property add the following value"
+msgstr ""
+
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "サブスクリプションのエディションでは、作成した UI 生成物（ページ、フォーム、レイアウト） を翻訳し、エンドユーザー向けに UI を多言語で表示するための仕組があります。"
 
@@ -1168,6 +1203,9 @@ msgstr ""
 
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
+
+msgid "In some case, you want override your theme to display <b>one specific table</b>, to do this:"
+msgstr ""
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr ""
@@ -1740,6 +1778,9 @@ msgstr "選択された値"
 msgid "Send data to this URL when the button is clicked"
 msgstr "ボタンがクリックされたときに、この URL にデータを送信します。"
 
+msgid "Set <code>Bordered</code> property at true."
+msgstr ""
+
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "相互に排他的なオプションのボタンのセットです。ユーザーは 1 つのオプションを選択します。"
 
@@ -1848,6 +1889,9 @@ msgstr "文字列"
 msgid "Style"
 msgstr "スタイル"
 
+msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
+msgstr ""
+
 msgid "Submit"
 msgstr "送信"
 
@@ -1894,6 +1938,9 @@ msgid "Tab properties usage"
 msgstr ""
 
 msgid "Tab x"
+msgstr ""
+
+msgid "Table"
 msgstr ""
 
 msgid "Tabs Container advancement"
@@ -2052,6 +2099,9 @@ msgstr "この {{ artifact.type }} は、次の中で使用されているので
 msgid "The {{ artifactType }} has not been imported."
 msgstr "{{ artifactType }} はインポートされていません。"
 
+msgid "Then, provide a comma-separated list for the columns keys indicating the attribute to display in each column."
+msgstr ""
+
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
@@ -2133,6 +2183,10 @@ msgstr "BDM API （または別の API）から取得した日付と時刻を表
 msgid "To display (and not update) a date retrieved from the BDM API (or another API), you can either use this <em>Date picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "BDM API （または別の API）から取得した日付を表示 （更新なし）するためには、<em>日付選択</em> ウィジェットを使用して、その<em>読み取り専用</em> プロパティを「はい」にするか 、 <em>テキスト</em>、<em>タイトル</em> または <em>表</em> ウィジェットを使用して、 その値を <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> で書式化します。"
 
+msgid "To display the data, define the header properties with a comma-separated list of column headings,\n"
+"            bind the content to an array of JavaScript objects."
+msgstr ""
+
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "式として評価されたウィジェット プロパティで日付を表示するには、たとえば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
 
@@ -2147,6 +2201,9 @@ msgstr ""
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
+
+msgid "To get the data from a selected row, bind selected row to a variable."
+msgstr ""
 
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
@@ -2270,7 +2327,7 @@ msgstr "クリックされた時にHTTPリクエストを実行するために�
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
 msgstr ""
 
-msgid "Unable to connect to the Business Data Model"
+msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
 msgstr ""
 
 msgid "Unique ID of this modal"
@@ -2477,6 +2534,9 @@ msgstr ""
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr ""
 
+msgid "With this widget, you can display data from an array in tabular presentation."
+msgstr ""
+
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
 
@@ -2536,6 +2596,9 @@ msgstr ""
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
+
+msgid "You need to use this following css selector in your theme.css file:"
+msgstr ""
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"

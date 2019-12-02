@@ -37,11 +37,6 @@
 
       dataManagementRepo.getDataObjects().then(data => {
         this.businessDataRepositoryOffline = data.error;
-        if (this.businessDataRepositoryOffline) {
-          this.$timeout(() => {
-            this.businessDataRepositoryOffline = !data.error;
-          }, 2000);
-        }
       });
     }
 

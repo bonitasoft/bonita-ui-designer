@@ -59,7 +59,7 @@
 }
 
 .EditorHeader-form {
-  margin: 0 4rem;
+  margin: 1em;
 
   .form-control {
     display: inline-block;
@@ -117,13 +117,23 @@
   }
 }
 
-.BusinessDataStatus {
-  opacity: 0;
-  transition: opacity 0.5s linear;
+.BusinessDataStatus-offline {
   margin-right: 10px;
+  cursor: default;
+  white-space: nowrap;
+  padding: 5px;
 
-  &.BusinessDataStatus--visible {
-    opacity: 1;
-    transition: none;
+  .status {
+    font-size: 1.5em;
+  }
+
+  .decorator {
+    margin-left: -7px;
+    margin-top: 30px;
+    position: absolute;
+
+    &.warning {
+      color: orange;
+    }
   }
 }
