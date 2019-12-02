@@ -48,7 +48,11 @@ public abstract class AbstractLiveFileBuilder {
 
     private void buildIfNeeded(Path path) throws IOException {
         if (isBuildable(path.toFile().getPath())) {
-            build(path);
+            try {
+                build(path);
+            } catch (IOException ex) {
+                throw new IOException("Build error for " + path.toString(), ex);
+            }
         }
     }
 
