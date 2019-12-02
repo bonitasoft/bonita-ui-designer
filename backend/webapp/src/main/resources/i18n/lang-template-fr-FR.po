@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-11-18 03:01\n"
+"PO-Revision-Date: 2019-11-20 03:04\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
