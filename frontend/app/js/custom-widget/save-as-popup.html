@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="modal-footer" id="modal-delete-widget-controls">
-        <button class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || ctrl.newName == ctrl.widget.name" translate>Save</button>
+        <button class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="!newWidget.name.$dirty || newWidget.$invalid || ctrl.newName.toLowerCase() == ctrl.widget.name.toLowerCase()" translate>Save</button>
         <button class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
     </div>
 </form>
