@@ -27,7 +27,7 @@
     };
   }
 
-  function AppSelectorCtrl($scope, gettextCatalog, $localStorage, $http, appSelectorService) {
+  function AppSelectorCtrl($scope, gettextCatalog, $localStorage, $http, appSelectorService, $log) {
 
     var vm = this;
     vm.pathToLivingApp = appSelectorService.getPathToLivingApp();
@@ -51,16 +51,24 @@
           setDefaultPathToLivingApp();
           setApplicationDisplayName(vm.pathToLivingApp);
         }).then((response) => {
-          allApps = response.data;
-          return $http.get('./API/system/session/unusedId');
+          if (response) {
+            allApps = response.data;
+            return $http.get('./API/system/session/unusedId');
+          }
         })
         .then((response) => {
-          const userID = response.data.user_id; /* jshint ignore:line */
-          return $http.get('./API/portal/profile?p=0&c=200&f=user_id%3d' + userID);
+          if (response) {
+            const userID = response.data.user_id; /* jshint ignore:line */
+            return $http.get('./API/portal/profile?p=0&c=200&f=user_id%3d' + userID);
+          }
         })
         .then((response) => {
-          setFilteredApps(response.data, allApps);
-          initializeSelection(vm.apps);
+          if (response) {
+            setFilteredApps(response.data, allApps);
+            initializeSelection(vm.apps);
+          } else {
+            $log.error('Cannot connect to the Bonita server. Check a user is logged in.');
+          }
         });
     }
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
