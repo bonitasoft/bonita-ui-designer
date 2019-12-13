@@ -36,7 +36,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -96,7 +95,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
             byte[] indexFileContent = readAllBytes(indexPath);
             try {
                 index = objectMapper.fromJsonToMap(indexFileContent);
-            } catch (JsonMappingException e) {
+            } catch (Exception e) {
                 if(indexFileContent.length > 0) {  //file is not empty and cannot be parsed
                     logger.error(String.format("Failed to parse '%s' file with content:\n%s", indexPath, new String(indexFileContent)), e);
                 }
