@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
+import org.bonitasoft.web.designer.rendering.GenerationException;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -50,8 +52,8 @@ public abstract class AbstractLiveFileBuilder {
         if (isBuildable(path.toFile().getPath())) {
             try {
                 build(path);
-            } catch (IOException ex) {
-                throw new IOException("Build error for " + path.toString(), ex);
+            } catch (Exception ex) {
+                throw new GenerationException("Build error for " + path.getFileName(), ex);
             }
         }
     }
