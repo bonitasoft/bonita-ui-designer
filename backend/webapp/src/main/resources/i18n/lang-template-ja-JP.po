@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /release-7.10.0/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2019-11-20 03:55\n"
+"PO-Revision-Date: 2019-12-12 02:31\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -73,9 +73,6 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
 
-msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
-msgstr ""
-
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr ""
 
@@ -104,7 +101,6 @@ msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>そ
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
-
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr ""
@@ -2480,8 +2476,8 @@ msgstr ""
 msgid "W3C website"
 msgstr "W3C webサイト"
 
-msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
-msgstr "「コンテンツ」がオブジェクトのリストである場合、テーブルの列に表示する属性名を指定します"
+msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
+msgstr ""
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr ""

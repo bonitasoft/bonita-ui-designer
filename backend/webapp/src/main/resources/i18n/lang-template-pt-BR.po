@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2019-11-13 04:08\n"
+"PO-Revision-Date: 2019-12-12 02:35\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas \"Encontrar por\" em um atributo"
@@ -73,9 +73,6 @@ msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horári
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"sim\"</b>: o<em>valor</em> do widget é em UTC (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."
 
-msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
-msgstr ""
-
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr "<code>Borda</code><em>(Padrão: não)</em>: Exibir células com borda."
 
@@ -105,9 +102,6 @@ msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by 
 msgstr ""
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
-msgstr ""
-
-msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
 msgstr ""
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
@@ -2012,9 +2006,6 @@ msgid "The Display Type property allows you to customize the tabs style ('tabs' 
 msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
-msgstr ""
-
-msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "O UI Designer gera o <b>código html padrão do aplicativo, baseado em AngularJS</b>. Exporte as páginas caso queira personalizá-las no seu ambiente de desenvolvimento web preferido."
 
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
@@ -2494,7 +2485,7 @@ msgstr "Visualização..."
 msgid "W3C website"
 msgstr ""
 
-msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
+msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr ""
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."

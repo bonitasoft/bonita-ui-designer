@@ -7,11 +7,11 @@ msgstr ""
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /release-7.10.0/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-11-20 03:04\n"
+"PO-Revision-Date: 2019-12-12 02:28\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -71,9 +71,6 @@ msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"non\"</b> : le fuse
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"oui\"</b> : la <em>Valeur</em> du widget est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ)."
 
-msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
-msgstr "<code>Titre</code> : peut être calculé dynamiquement pour afficher un <b>rendu html</b>."
-
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr "<code>Bordure</code><em>(par défaut : non)</em>: Afficher les bordures des cellules."
 
@@ -94,15 +91,14 @@ msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab.
 "                be attached to <strong>tab-heading</strong> html element."
 msgstr "<code>Classes CSS</code> <em>(par défaut : aucune)</em> : Ajouter des classes CSS sur l'onglet. Ces classes CSS seront attachées à l'élément html <strong>tab-heading</strong> ."
 
-msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
-msgstr "<code>Désactivé</code> <em>(par défaut : non)</em>: Définit si l'onglet est activé (cliquable) ou non."
+msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
+msgstr ""
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> est un objet JSON. <br>Sa structure est définie par les inputs du contrat et ses attributs sont initialisés avec des valeurs par défaut. Il peut être utilisé pour définir les valeurs initiales des champs du formulaire. <br>Pour définir les valeurs de<code>formInput</code>, remplacez ces valeurs par défaut par des constantes (pour le test et debug) ou par les valeurs d'un objet ayant le même modèle, provenant d'une source externe (une external API de BDM, par exemple). <br>Vous pouvez également définir les valeurs initiales du formulaire à partir d'une autre source, sans utiliser <code>formInput</code>. Toutefois, vous devrez alors modifier manuellement la variable <code>formOutput</code>."
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> est une expression JavaScript qui retourne un objet. <br>Sa structure correspond aux exigences du contrat et est pré-remplie par <code>formInput</code> par défaut. Son but est d'agréger les champs du formulaire et de les soumettre à la tâche ou au processus pour remplir le contrat. A la soumission du formulaire, les valeurs entrées ou modifiées par l'utilisateur sont agrégées dans l'objet <code>formOutput</code> (tel que défini par la propriété <i>Données envoyées au clic</i> du bouton Submit) et envoyées au processus ou à la tâche"
-
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr "<code>Caché</code> <em>(par défaut : non)</em>: Définit si l'onglet est caché ou non."
@@ -2479,8 +2475,8 @@ msgstr "Voir le code ..."
 msgid "W3C website"
 msgstr "Site web du W3C"
 
-msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
-msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes du tableau"
+msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
+msgstr ""
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr "Lorsque c'est possible, les propriétés du widget source sont appliquées à des propriétés identiques du widget cible. Vous pouvez modifier ce mapping et/ou en ajouter."

@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2019-11-13 03:03\n"
+"PO-Revision-Date: 2019-12-12 02:28\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
@@ -101,7 +101,6 @@ msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está defini
 
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
-
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
 msgstr "<code>hidden</code> <em>(Por defecto: desactivado)</em>: En caso que la pestaña esté oculta o no."
@@ -2477,8 +2476,8 @@ msgstr "Ver..."
 msgid "W3C website"
 msgstr "Sitio web de W3C"
 
-msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns"
-msgstr "Cuando el contenido es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla"
+msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
+msgstr ""
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr "Cuando sea posible, las propiedades del widget objetivo se mapean con propiedades similares del widget de origen. Puede editar eso y mapear más."
