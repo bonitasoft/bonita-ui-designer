@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Bonitasoft adoption team (bonitasoft)\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2019-10-25 01:59\n"
+"PO-Revision-Date: 2019-12-12 02:28\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr ""
@@ -72,17 +72,17 @@ msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> 
 msgstr "<b>Lorsque <em>Gérer fuseaux horaires</em> est à \"oui\"</b> : la <em>Valeur</em> du widget est en UTC (par exemple, yyyy-MM-ddTHH:mm:ssZ)."
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
-msgstr ""
+msgstr "<code>Titre</code> : peut être calculé dynamiquement pour afficher un <b>rendu html</b>."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> est une API externe."
 
 msgid "<code>cssClasses</code> <em>(Defaults: \"\")</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
-msgstr ""
+msgstr "<code>Classes CSS</code> <em>(par défaut : \"\")</em> : Ajouter des classes CSS sur l'onglet. Ces classes CSS seront attachées à l'élément html <strong>tab-heading</strong> ."
 
 msgid "<code>disabled</code> <em>(Defaults: false)</em>: Whether tab is clickable and can be activated."
-msgstr ""
+msgstr "<code>Désactivé</code> <em>(par défaut : non)</em>: Définit si l'onglet est activé (cliquable) ou non."
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> est un objet JSON. <br>Sa structure est définie par les inputs du contrat et ses attributs sont initialisés avec des valeurs par défaut. Il peut être utilisé pour définir les valeurs initiales des champs du formulaire. <br>Pour définir les valeurs de<code>formInput</code>, remplacez ces valeurs par défaut par des constantes (pour le test et debug) ou par les valeurs d'un objet ayant le même modèle, provenant d'une source externe (une external API de BDM, par exemple). <br>Vous pouvez également définir les valeurs initiales du formulaire à partir d'une autre source, sans utiliser <code>formInput</code>. Toutefois, vous devrez alors modifier manuellement la variable <code>formOutput</code>."
@@ -91,7 +91,7 @@ msgid "<code>formOutput</code> is a JavaScript expression returning an object. <
 msgstr "<code>formOutput</code> est une expression JavaScript qui retourne un objet. <br>Sa structure correspond aux exigences du contrat et est pré-remplie par <code>formInput</code> par défaut. Son but est d'agréger les champs du formulaire et de les soumettre à la tâche ou au processus pour remplir le contrat. A la soumission du formulaire, les valeurs entrées ou modifiées par l'utilisateur sont agrégées dans l'objet <code>formOutput</code> (tel que défini par la propriété <i>Données envoyées au clic</i> du bouton Submit) et envoyées au processus ou à la tâche"
 
 msgid "<code>hidden</code> <em>(Defaults: false)</em>: Whether tab is hidden or not."
-msgstr ""
+msgstr "<code>Caché</code> <em>(par défaut : non)</em>: Définit si l'onglet est caché ou non."
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> est une expression JavaScript formatant le payload de la réponse en HTML lorsqu'une soumission échoue."
@@ -169,7 +169,7 @@ msgid "A JSON object"
 msgstr "Un objet JSON"
 
 msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
-msgstr ""
+msgstr "Un container TabsContainer est un container qui possède plusieurs panneaux, mais ne montre qu'un seul panneau à la fois."
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
@@ -250,7 +250,7 @@ msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel
 msgstr "Ajoutez des assets de type images, CSS ou JavaScript dans vos pages ou formulaires à partir du panneau Assets en bas."
 
 msgid "Add the following class in style.css asset."
-msgstr ""
+msgstr "Ajoutez la classe suivante dans l'asset style.css."
 
 msgid "Add to collection"
 msgstr "Ajouter à la collection "
@@ -871,7 +871,7 @@ msgid "Error on upload holder"
 msgstr "Contenu de l'erreur d'upload"
 
 msgid "Example of a tab title displaying a badge:"
-msgstr ""
+msgstr "Exemple de titre d'un onglet affichant un badge :"
 
 msgid "Example: relative time filter"
 msgstr "Exemple : filtre \"temps relatif\""
@@ -1171,7 +1171,7 @@ msgid "In some cases, other types of variables are created: <ul> <li> When the b
 msgstr "Dans certains cas, d'autres types de variables sont créées : <ul> <li> Quand la variable métier est éditée dans le formulaire (tel que spécifié dans l'assistant de création du contrat), une variable UI Designer est créée (de type External API).<br>Par exemple, si l'input de contrat a été créé à partir d'une variable métier 'facture' dans le processus, une variable <code>facture</code> est créée dans le formulaire, avec pour URL <span ng-non-bindable>../{{context.facture_ref.link}}</span>. <br>Si <code>facture</code> contient des relations lazy, d'autres variables sont créées pour chaque relation en lazy à résoudre (en utilisant le filtre <em>lazyRef</em>). <br>Par exemple, si 'facture' a une relation 'client' de type lazy, une variable External API <code>facture.client</code> est créée, avec pour URL <span ng-non-bindable>{facture|lazyRef:'client'}</span>. </li><li>Pour afficher un objet agrégé, un widget Select est généré. Il affichera les <em>valeurs disponibles</em> de l'objet. La variable (External API) liée au widget est créée pour requêter le BDM. <br>Par exemple, quand l'objet Facture a un objet agrégé Client, une variable <code>client_query</code> est créée avec, comme URL : <span ng-non-bindable>../API/bdm/businessData/com.company.model.Client?q=find&p=0&c=99</span>. Par défaut, elle utilise la requête <code>find</code> avec une pagination par défaut (seules les 100 premiers objets sont retournés).</li></ul>"
 
 msgid "In tab title properties add the following value"
-msgstr ""
+msgstr "Dans la propriété Titre de l'onglet, ajoutez la valeur suivante"
 
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr "Dans la liste des assets, vous pouvez manuellement modifier l'ordre des assets CSS et JavaScript de la page. Réordonner ces fichiers peut être utile pour écraser certaines classes CSS ou fonctions JavaScript."
@@ -1888,7 +1888,7 @@ msgid "Switch..."
 msgstr "Remplacer ..."
 
 msgid "Tab properties usage"
-msgstr ""
+msgstr "Utilisation des propriétés de l'onglet"
 
 msgid "Tab x"
 msgstr ""
@@ -1897,7 +1897,7 @@ msgid "Tabs Container advancement"
 msgstr ""
 
 msgid "Tabs container"
-msgstr ""
+msgstr "Tabs container"
 
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
@@ -1955,7 +1955,7 @@ msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaS
 msgstr "Les <em>données envoyées au clic</em> pour les demandes POST et PUT doivent être un objet JavaScript (un JSON peut être utilisé). Ces données seront envoyées dans le corps de la requête."
 
 msgid "The Display Type property allows you to customize the tabs style ('tabs' or 'pills')."
-msgstr ""
+msgstr "La propriété Type d'affichage permet de personnaliser le style des onglets ('onglets' ou 'pillules')."
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>. Vous pouvez donc exporter des pages dans votre environnement de développement web favori pour les personnaliser davantage."
@@ -2020,7 +2020,7 @@ msgid "The same \"Tag\" button displays a summary of all REST API calls made by 
 msgstr "Le même bouton « Etiquette» affiche un récapitulatif de tous les appels à l’API REST de Bonita faits par l'artefact"
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
-msgstr ""
+msgstr "Les propriétés d'onglet permettent de personnaliser l'affichage par défaut et le comportement des onglets en fonction de données et/ou d'expressions JavaScript."
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "L'info-bulle sera affiché comme tel, à proximité du libellé de la propriété."
@@ -2103,7 +2103,7 @@ msgstr "Niveau du titre"
 
 msgid "To Display the tab vertically and on the left of the content, you can read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how\n"
 "            to learn more about customization</a>"
-msgstr ""
+msgstr "Pour afficher les onglets verticalement et à gauche du contenu, consultez ce <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to learn more about customization</a>"
 
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Pour ajouter du contenu, faites un glisser-déposer des composants de la palette sur le whiteboard."
@@ -2356,7 +2356,7 @@ msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.user_id}}"
 
 msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
-msgstr ""
+msgstr "En utilisant la propriété Affichage vertical, il est possible d'afficher les onglets verticalement ou horizontalement."
 
 msgid "Validation Errors"
 msgstr "Erreurs de validation"
