@@ -227,24 +227,30 @@ describe('asset panel', function() {
       it('should allow to edit a local asset', () => {
         // should display asset file content
         let popup = assetPanel.editAsset('myStyle.css');
-        expect(popup.fileContent).toBe('.somecssrule {\n  color: blue\n}');
+        let someRule = '.somecssrule {\n  color: blue\n}';
+        expect(popup.fileContent).toBe(someRule);
 
         // should update content
         expect(popup.dismissBtn.getText()).toEqual('Close');
-        popup.fileContent = 'New content';
+        let someNewRule = '.somenewrule {color: red}';
+        // Warning: set fileContent add content (instead of overriding it) when the editor has the focus
+        popup.fileContent = someNewRule;
+        // Note: for some reasons, a ';' is added by selenium when a css rule is added
+        let expectedContent = someNewRule.concat(';', someRule);
+        expect(popup.fileContent).toBe(expectedContent);
         expect(popup.dismissBtn.getText()).toEqual('Discard changes');
         popup.save();
         expect(popup.isOpen()).toBeTruthy();
         popup.dismissBtn.click();
         assetPanel.editAsset('myStyle.css');
-        expect(popup.fileContent).toBe('New content');
+        expect(popup.fileContent).toBe(expectedContent);
 
         // should not update file content while clicking on cancel
         popup.fileContent = 'Again some fresh content';
         popup.dismissBtn.click();
         expect(popup.isOpen()).toBeFalsy();
         assetPanel.editAsset('myStyle.css');
-        expect(popup.fileContent).toBe('New content');
+        expect(popup.fileContent).toBe(expectedContent);
       });
     });
   });
