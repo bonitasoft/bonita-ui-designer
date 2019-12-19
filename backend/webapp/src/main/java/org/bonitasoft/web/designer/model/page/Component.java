@@ -28,6 +28,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 public class Component extends Element {
 
     private String id;
+    private String description;
 
     @JsonView({JsonViewPersistence.class})
     public String getId() {
@@ -36,6 +37,15 @@ public class Component extends Element {
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    @JsonView({JsonViewPersistence.class})
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -49,6 +59,7 @@ public class Component extends Element {
             final Component other = (Component) obj;
             return new EqualsBuilder()
                     .append(id, other.id)
+                    .append(description, other.description)
                     .append(getPropertyValues(), other.getPropertyValues())
                     .append(getDimension(), other.getDimension())
                     .isEquals();
@@ -61,6 +72,7 @@ public class Component extends Element {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
+                .append(description)
                 .append(getPropertyValues())
                 .append(getDimension())
                 .toHashCode();
@@ -70,6 +82,7 @@ public class Component extends Element {
     public String toString() {
         return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
                 .append("id", id)
+                .append("description", description)
                 .append("propertyValues", getPropertyValues())
                 .append("dimension", getDimension())
                 .toString();
