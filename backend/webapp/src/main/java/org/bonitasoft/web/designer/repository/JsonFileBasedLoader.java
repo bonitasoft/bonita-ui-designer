@@ -84,7 +84,12 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
 
                 String content = new String(readAllBytes(componentFile));
                 String contentWithoutSpaces = removeSpaces(content);
-                T object = objectMapper.fromJson(content.getBytes(), type);
+                T object;
+                try {
+                    object = objectMapper.fromJson(content.getBytes(), type);
+                } catch (IOException ex) {
+                    throw new IOException("Json mapping error for " + componentFile, ex);
+                }
 
                 for (String objectId : objectIds) {
                     //We consider only another objects

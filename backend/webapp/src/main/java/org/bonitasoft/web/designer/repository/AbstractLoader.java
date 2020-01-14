@@ -14,21 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.newDirectoryStream;
-import static java.nio.file.Files.readAllBytes;
-
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.OptionalInt;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Optional;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -39,6 +24,21 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.*;
 
 /**
  * Load a component
@@ -66,7 +66,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {
-            throw new NotFoundException(format("Could not load component, unexpected structure in the file [%s]", path.getFileName()));
+            throw new NotFoundException(format("File not found: [%s]", path.getFileName()));
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
         }
@@ -127,7 +127,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {
-            throw new NotFoundException(format("Could not load component, unexpected structure in the file [%s]", path.getFileName()));
+            throw new NotFoundException(format("File not found: [%s]", path.getFileName()));
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
         }

@@ -7,7 +7,7 @@
     }
 
     set fileContent(content) {
-      element(by.css('.EditAssetPopUp .ace_text-input')).clear().sendKeys(content);
+      element(by.css('.EditAssetPopUp .ace_text-input')).sendKeys(content);
     }
 
     save() {

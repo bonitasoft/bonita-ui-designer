@@ -53,6 +53,14 @@ describe('FileViewer Widget', function() {
       expect(element.find('img').length).toBe(0);
     });
 
+    it('should contain frame preview on PDF archived document', function() {
+      scope.properties.document.sourceObjectId = 'sourceId';
+      scope.$apply();
+      expect(element.find('a[box-viewer]').attr('href')).toEqual('../API/formsDocumentImage?document=sourceId');
+      expect(element.find('a[box-viewer]').attr('href')).not.toEqual('../API/formsDocumentImage?document=someId');
+      expect(element.find('img').length).toBe(0);
+    });
+
     it('should contain img preview on image URL', function() {
       scope.properties.type = 'URL';
       scope.properties.url = 'http://www.bonitasoft.com/referee.gif';

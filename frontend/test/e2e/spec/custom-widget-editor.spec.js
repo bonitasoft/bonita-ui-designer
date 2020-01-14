@@ -276,21 +276,26 @@ describe('custom widget editor', function() {
 
     // should display asset file content
     let popup = assets.editAsset('CSS', 'myStyle.css');
-    expect(popup.fileContent).toBe('.somecssrule {\n  color: blue\n}');
+    let someRule = '.somecssrule {\n  color: blue\n}';
+    expect(popup.fileContent).toBe(someRule);
 
     // should update content
-    popup.fileContent = 'New content';
+    let someNewRule = '.somenewrule {color: red}';
+    // Warning: set fileContent add content (instead of overriding it) when the editor has the focus
+    popup.fileContent = someNewRule;
     popup.save();
     expect(popup.isOpen()).toBeTruthy();
     popup.dismissBtn.click();
     assets.editAsset('CSS', 'myStyle.css');
-    expect(popup.fileContent).toBe('New content');
+    // Note: for some reasons, a ';' is added by selenium when a css rule is added
+    let expectedContent = someNewRule.concat(';', someRule);
+    expect(popup.fileContent).toBe(expectedContent);
 
     // should not update file content while clicking on cancel
     popup.fileContent = 'Again some fresh content';
     popup.dismissBtn.click();
     expect(popup.isOpen()).toBeFalsy();
     assets.editAsset('CSS', 'myStyle.css');
-    expect(popup.fileContent).toBe('New content');
+    expect(popup.fileContent).toBe(expectedContent);
   });
 });

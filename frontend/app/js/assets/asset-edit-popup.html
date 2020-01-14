@@ -6,7 +6,8 @@
     <div class="modal-body">
         <ace-editor class="EditAssetPopUp-editor"
                     mode="{{vm.aceMode}}"
-                    ng-model="vm.content">
+                    ng-model="vm.content"
+                    autofocus>
         </ace-editor>
     </div>
     <div class="modal-footer">
@@ -19,8 +20,8 @@
                 tooltip-append-to-body="true"
                 translate>Save</button>
         <button class="btn btn-link EditAssetPopUp-dismissBtn" type="button" ng-click="$dismiss()">
-            <span class="u-fadeIn" ng-if="!vm.hasChanged()" translate>Close</span>
-            <span class="u-fadeIn" ng-if="vm.hasChanged()" translate>Discard changes</span>
+            <span ng-if="!vm.hasChanged()" translate>Close</span>
+            <span ng-if="vm.hasChanged()" translate>Discard changes</span>
         </button>
     </div>
 
