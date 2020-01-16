@@ -26,12 +26,15 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Benjamin Parisel
  */
 @Named
 public class DirectivesCollector {
+
 
     public static String JS_FOLDER = "js";
     private WorkspacePathResolver pathResolver;
@@ -45,21 +48,19 @@ public class DirectivesCollector {
     }
 
     public List<String> buildUniqueDirectivesFiles(Previewable previewable, String pageId) {
-        Path pageWorkspace = pathResolver.getPagesRepositoryPath().resolve(pageId);
         String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable,
-                getDestinationFolderPath(pageWorkspace));
-        return Arrays.asList(JS_FOLDER + "/" + filename.toString());
+                getDestinationFolderPath(pathResolver.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER)));
+        return Arrays.asList(JS_FOLDER + "/" + filename);
     }
 
     protected Path getDestinationFolderPath(Path path) {
-        Path jsFolder = path.resolve(JS_FOLDER);
-        if (exists(jsFolder)) {
-            return jsFolder;
+        if (exists(path)) {
+            return path;
         }
         try {
-            return createDirectories(jsFolder);
+            return createDirectories(path);
         } catch (IOException e) {
-            throw new GenerationException("Error while create directories " + jsFolder.toString(), e);
+            throw new GenerationException("Error while create directories " + path.toString(), e);
         }
     }
 }

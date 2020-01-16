@@ -27,15 +27,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.controller.preview.Previewer;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,12 +56,16 @@ public class PreviewControllerTest {
 
     private Path widgetRepositoryPath;
     private Path pageRepositoryPath;
+    private Path tmpWorkspacePath;
+    @Mock
+    private WorkspacePathResolver pathResolver;
 
     @Before
     public void beforeEach() throws Exception {
         widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
         pageRepositoryPath = Paths.get(getClass().getResource("/workspace/pages").toURI());
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, widgetRepositoryPath, pageRepositoryPath)).build();
+        tmpWorkspacePath = Paths.get(getClass().getResource("/tmpWorkspace/pages").toURI());
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, widgetRepositoryPath, pageRepositoryPath, pathResolver)).build();
     }
 
     @Test
@@ -225,7 +225,8 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_minify_files_for_any_previawable() throws Exception {
-        Path expectedFile = pageRepositoryPath.resolve("ma-page/js/widgets-abc123.min.js");
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(tmpWorkspacePath);
+        Path expectedFile = tmpWorkspacePath.resolve("ma-page/js/widgets-abc123.min.js");
 
         mockMvc
                 .perform(get("/preview/page/no-app-selected/ma-page/js/widgets-abc123.min.js"))

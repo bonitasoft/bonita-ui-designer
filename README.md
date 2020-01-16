@@ -83,7 +83,7 @@ Also frontend e2e test could be launched via
 #### Run
 To run build standalone jar, just launch it as a standard jar :
 
-    java -jar backend/target/ui-designer-1.10.0-SNAPSHOT-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository]
+    java -jar backend/target/ui-designer-1.10.0-SNAPSHOT-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository][-Dbonita.data.repository.origin=datarepository.url]
 
 Application is now available at http://localhost:8080/designer/
 

@@ -171,4 +171,27 @@ public class WorkspaceTest {
         assertThat(contentOf(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json"))).isNotEqualTo(existingWidgetContent);
     }
 
+    @Test
+    public void should_delete_page_reference_when_page_doesnt_exist_anymore_but_any_file_stay_on_filesystem() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("pages","myPageToRemove","js");
+
+        workspace.cleanPageWorkspace();
+
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPageToRemove")).doesNotExist();
+    }
+
+    @Test
+    public void should_delete_only_js_folder_for_page_artifact_when_page_exist() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("pages","myPage","js");
+        temporaryFolder.newFilePath("pages/myPage/myPage.json");
+
+        workspace.cleanPageWorkspace();
+
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
+    }
+
+
 }

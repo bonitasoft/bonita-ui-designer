@@ -59,6 +59,7 @@ public class WorkspaceInitializerTest {
     public void should_initialize_workspace() throws Exception {
         workspaceInitializer.contextInitialized();
         verify(workspace).initialize();
+        verify(workspace).cleanPageWorkspace();
     }
 
     @Test

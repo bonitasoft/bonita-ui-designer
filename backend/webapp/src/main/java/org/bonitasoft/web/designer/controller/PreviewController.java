@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller;
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -41,21 +42,25 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public class PreviewController {
 
     protected static final Logger logger = LoggerFactory.getLogger(PreviewController.class);
+    public static final String JS_FOLDER = "js";
 
     private PageRepository pageRepository;
     private Previewer previewer;
     private Path widgetRepositoryPath;
     private Path pageRepositoryPath;
+    private WorkspacePathResolver pathResolver;
 
     @Inject
     public PreviewController(PageRepository pageRepository,
-            Previewer previewer,
-            @Named("widgetPath") Path widgetRepositoryPath,
-            @Named("pagesPath") Path pageRepositoryPath) {
+                             Previewer previewer,
+                             @Named("widgetPath") Path widgetRepositoryPath,
+                             @Named("pagesPath") Path pageRepositoryPath,
+                             WorkspacePathResolver pathResolver) {
         this.pageRepository = pageRepository;
         this.previewer = previewer;
         this.widgetRepositoryPath = widgetRepositoryPath;
         this.pageRepositoryPath = pageRepositoryPath;
+        this.pathResolver = pathResolver;
     }
 
     /**
@@ -98,7 +103,7 @@ public class PreviewController {
     @RequestMapping("/preview/page/{appName}/{id}/js/**")
     public void servePageJs(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
-        Path filePath = pageRepositoryPath.resolve(pageId).resolve("js").resolve(matchingPath);
+        Path filePath = pathResolver.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER).resolve(matchingPath);
         HttpFile.writeFileInResponse(request, response, filePath);
     }
 

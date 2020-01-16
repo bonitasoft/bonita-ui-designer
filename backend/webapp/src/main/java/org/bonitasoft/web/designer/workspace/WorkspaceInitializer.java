@@ -41,7 +41,7 @@ public class WorkspaceInitializer implements ServletContextAware {
     private List<LiveRepositoryUpdate> migrations;
 
     private ServletContext servletContext;
-    
+
     private boolean initialized = false;
 
     /**
@@ -60,11 +60,16 @@ public class WorkspaceInitializer implements ServletContextAware {
                 for (LiveRepositoryUpdate migration : migrations) {
                     migration.start();
                 }
+                cleanWorkspace();
                 initialized = true;
             } catch (IOException e) {
                 throw new DesignerInitializerException("Unable to initialize workspace", e);
             }
         }
+    }
+
+    public synchronized void cleanWorkspace(){
+        workspace.cleanPageWorkspace();
     }
 
     public synchronized void migrateWorkspace(){
