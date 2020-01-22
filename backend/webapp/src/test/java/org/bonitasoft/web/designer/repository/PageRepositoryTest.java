@@ -29,16 +29,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.validation.Validation;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static java.nio.file.Files.exists;
+import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -265,5 +269,18 @@ public class PageRepositoryTest {
         Page fetchedPage = repository.get(page.getId());
         assertThat(fetchedPage.isFavorite()).isFalse();
         assertThat(pagesPath.resolve(".metadata").resolve(".index.json").toFile()).exists();
+    }
+
+    @Test
+    public void should_refreshIndexing_repository() throws Exception {
+        List<Page> pages = new ArrayList<>();
+        Page page = aPage().withUUID("baz-uuid").withId("page1").build();
+        Page page2 = aPage().withUUID("foo-uuid").withId("page2").withName("page2").build();
+        pages.add(page);
+        pages.add(page2);
+
+        repository.refreshIndexing(pages);
+
+        verify(persister, times(1)).refreshIndexing(pagesPath.resolve(".metadata"), pages);
     }
 }

@@ -14,6 +14,15 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.lang.String.format;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
@@ -22,19 +31,11 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.format;
-
 @Named
 public class PageRepository extends AbstractRepository<Page> implements RefreshingRepository, WidgetContainerRepository<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(DesignerConfigConditional.class);
+    public static final String METADATA = ".metadata";
 
     @Inject
     public PageRepository(
@@ -65,16 +66,19 @@ public class PageRepository extends AbstractRepository<Page> implements Refreshi
             Page page = this.get(id);
             Path metadataPath = persister.updateMetadata(this.path.resolve(page.getId()), page);
             persister.saveInIndex(metadataPath, page);
-
         } catch (RepositoryException e) {
             logger.error(format("Cannot read page %s. Maybe a migration is required.", id), e);
         } catch (IOException e) {
             logger.error("Cannot update index file.", e);
         }
-
-
-
     }
 
+    public void refreshIndexing(List<Page> pages) {
+        try {
+            persister.refreshIndexing(this.path.resolve(METADATA), pages);
+        } catch (Exception e) {
+            logger.error("Cannot refresh workspace indexing.");
+        }
+    }
 
 }

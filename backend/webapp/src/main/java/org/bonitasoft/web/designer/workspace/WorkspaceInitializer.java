@@ -25,6 +25,8 @@ import javax.servlet.ServletContext;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.PageRepository;
 import org.springframework.web.context.ServletContextAware;
 
 /**
@@ -86,5 +88,10 @@ public class WorkspaceInitializer implements ServletContextAware {
     @Override
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
+    }
+
+    public synchronized void indexingArtifacts(List<Page> pages, PageRepository pageRepository) {
+        contextInitialized(); //Ensure that the workspace initialization is ended
+        pageRepository.refreshIndexing(pages);
     }
 }
