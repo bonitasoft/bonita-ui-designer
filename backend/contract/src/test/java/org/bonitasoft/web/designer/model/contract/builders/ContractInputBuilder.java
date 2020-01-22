@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.model.contract.builders;
 
-import org.bonitasoft.web.designer.model.contract.ContractInput;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
+
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
 public class ContractInputBuilder {
 
@@ -62,7 +62,7 @@ public class ContractInputBuilder {
         contractInput.setMandatory(false);
         return this;
     }
-    
+
     public ContractInputBuilder withDataReference(BusinessDataReference dataReference) {
         if(contractInput instanceof NodeContractInput) {
             ((NodeContractInput) contractInput).setDataReference(dataReference);
@@ -91,6 +91,12 @@ public class ContractInputBuilder {
 
     public static LeafContractInput aStringContractInput(String name) {
         return new LeafContractInput(name, String.class);
+    }
+
+    public static LeafContractInput aReadOnlyStringContractInput(String name) {
+        LeafContractInput leafContractInput = new LeafContractInput(name, String.class);
+        leafContractInput.setReadonly(true);
+        return leafContractInput;
     }
 
     public static LeafContractInput aMultipleStringContractInput(String name) {

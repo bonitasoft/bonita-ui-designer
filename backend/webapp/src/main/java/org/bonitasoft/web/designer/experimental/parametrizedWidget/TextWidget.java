@@ -18,6 +18,7 @@ public class TextWidget extends AbstractParametrizedWidget {
 
     private static final String LABEL_WIDGET_ID = "pbText";
     private String text;
+    private boolean allowHtml = true;
 
     public TextWidget() {
         super(LABEL_WIDGET_ID);
@@ -30,5 +31,13 @@ public class TextWidget extends AbstractParametrizedWidget {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean getAllowHtml() {
+        return allowHtml;
+    }
+
+    public void setAllowHtml(boolean allowHtml) {
+        this.allowHtml = allowHtml;
     }
 }
