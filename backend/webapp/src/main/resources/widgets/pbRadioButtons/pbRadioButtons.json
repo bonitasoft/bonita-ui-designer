@@ -96,5 +96,12 @@
       "type": "text",
       "bond": "variable"
     }
-  ]
+  ],
+  "assets": [
+    {
+      "id": "59AE32FFD97CCE2E9DD0A2B67C2F5361",
+      "name": "radio-buttons.css",
+      "type": "css",
+      "order": 1
+    }]
 }
