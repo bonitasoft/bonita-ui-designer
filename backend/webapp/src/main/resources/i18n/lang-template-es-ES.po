@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-01-27 13:57\n"
+"PO-Revision-Date: 2020-01-28 11:55\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
@@ -147,6 +147,12 @@ msgstr "<span class=\"tip\"> Consejo:</span> Sintaxis Array : [\"val1\", \"val2\
 
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\"> Consejo:</span> Teclea<span class=\"key\"> $</span> para acceder a los datos, utilizar ctrl-espacio para desencadenar el auto-completado."
+
+msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
+msgstr ""
+
+msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran después de un <em>?</em> en la Url de la página."

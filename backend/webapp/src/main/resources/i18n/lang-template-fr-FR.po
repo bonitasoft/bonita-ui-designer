@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-01-28 02:29\n"
+"PO-Revision-Date: 2020-01-28 11:50\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Requêtes \"Find By\" sur un attribut"
@@ -145,6 +145,12 @@ msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", \
 
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\">Astuce:</span> Utilisez la touche <span class=\"key\">$</span> pour accéder aux variables, utilisez ctrl-espace pour déclencher la complétion automatique."
+
+msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
+msgstr "<span class=\"tip\">Astuce:</span> Maintenant, ajouter les widgets qui utiliseront cette variable sur le whiteboard."
+
+msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
+msgstr "<span class=\"tip\">Astuce:</span> Le type de retour de cette variable est un tableau."
 
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent après un <em>?</em> dans l'URL de la page."
@@ -2474,7 +2480,7 @@ msgid "W3C website"
 msgstr "Site web du W3C"
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
-msgstr ""
+msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes de la table. Ces clés ne doivent pas être un nombre, ou commencer par un nombre"
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr "Lorsque c'est possible, les propriétés du widget source sont appliquées à des propriétés identiques du widget cible. Vous pouvez modifier ce mapping et/ou en ajouter."
