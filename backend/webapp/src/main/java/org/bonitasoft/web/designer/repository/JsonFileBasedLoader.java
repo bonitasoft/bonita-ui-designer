@@ -115,7 +115,9 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
             String objectId = index.get(uuid);
             if (objectId != null) {
                 Path componentFile = directory.resolve(format("%s/%s.json", objectId, objectId));
-                return objectMapper.fromJson(readAllBytes(componentFile), type);
+                if(componentFile.toFile().exists()){
+                    return objectMapper.fromJson(readAllBytes(componentFile), type);
+                }
             }
         } else {
             logger.info(format("index file not found [%s]. It will be created when needed of by the migration.", indexPath.toString()));

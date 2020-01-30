@@ -14,6 +14,19 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
+import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.migration.Version;
@@ -25,18 +38,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static java.nio.file.Files.createDirectories;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 
 @Named
 public class Workspace {
@@ -69,6 +70,35 @@ public class Workspace {
         ensureWidgetRepositoryFilled();
     }
 
+    /**
+     * Clean page Workspace:
+     * * generated files
+     * * Folder which don't have page descriptor
+     * Theses file could be stay here when user make any action directly on filesystem
+     */
+    public void cleanPageWorkspace() {
+        Path pageWorkspace = workspacePathResolver.getPagesRepositoryPath();
+        File file = new File(pageWorkspace.toString());
+        Arrays.stream(file.list()).forEach(pageFolder -> {
+            try {
+                if (isPageExist(pageWorkspace, pageFolder)) {
+                    // Clean Js folder, this folder can be exist in version before this fix
+                    FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).resolve("js").toFile());
+                } else {
+                    FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).toFile());
+                    logger.debug(String.format("Deleting folder [%s] with success", pageWorkspace.resolve(pageFolder).toString()));
+                }
+            } catch (IOException e) {
+                String error = String.format("Technical error when deleting file [%s]", pageWorkspace.resolve(pageFolder).resolve("js").toString());
+                logger.error(error, e);
+            }
+        });
+    }
+
+    private boolean isPageExist(Path pageWorkspace, String pageFolder) {
+        return pageWorkspace.resolve(pageFolder).resolve(pageFolder + ".json").toFile().exists();
+    }
+
     private void ensurePageRepositoryPresent() throws IOException {
         createDirectories(workspacePathResolver.getPagesRepositoryPath());
     }
@@ -87,7 +117,7 @@ public class Workspace {
             } else {
                 Widget repoWidget = widgetRepository.get(widget.getId());
                 // Split version before '_' to avoid patch tagged version compatible
-                if(currentDesignerVersion != null){
+                if (currentDesignerVersion != null) {
                     String[] currentVersion = currentDesignerVersion.split("_");
                     currentDesignerVersion = currentVersion[0];
                 }
@@ -106,7 +136,7 @@ public class Workspace {
 
         //Widget help is copied
         File sourceHelpFile = new File(widgetRepositorySourcePath.toString() + File.separator + widget.getId() + File.separator + "help.html");
-        if(widget.hasHelp() && sourceHelpFile.exists()) {
+        if (widget.hasHelp() && sourceHelpFile.exists()) {
             FileUtils.copyFile(sourceHelpFile, new File(widgetRepositoryPath.toString() + File.separator + "help.html"));
         }
 
@@ -120,5 +150,5 @@ public class Workspace {
             throw new RuntimeException(error, e);
         }
     }
-
 }
+

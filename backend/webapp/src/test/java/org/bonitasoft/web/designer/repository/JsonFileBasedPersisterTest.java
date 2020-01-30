@@ -18,6 +18,7 @@ import static java.nio.file.Files.readAllBytes;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
@@ -27,6 +28,8 @@ import static org.mockito.Mockito.spy;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.awaitility.Awaitility;
@@ -169,6 +172,37 @@ public class JsonFileBasedPersisterTest {
                     public void run() throws Throwable {
                         String index = new String(readAllBytes(metadataFolder.resolve(".index.json")));
                         assertThat(index).contains("\"baz-uuid\":\"baz-id\"").contains("\"foo-uuid\":\"foo-id\"");
+                    }
+                });
+    }
+
+    @Test
+    public void should_persist_all_artifact_id_in_index_when_refresh_indexing_is_called() throws Exception {
+        List<Page> pages = new ArrayList<>();
+        Page page = PageBuilder.aPage().withUUID("baz-uuid").withId("page1").build();
+        Page page2 = PageBuilder.aPage().withUUID("foo-uuid").withId("page2").withName("page2").build();
+        pages.add(page);
+        pages.add(page2);
+        JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<>(objectMapper, validator);
+        Path metadataFolder = repoDirectory.resolve(".metadata");
+        metadataFolder.toFile().mkdir();
+
+        new Thread(() -> {
+            try {
+                pageRepository.refreshIndexing(metadataFolder, pages);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        Awaitility.await()
+                .atMost(3, TimeUnit.SECONDS)
+                .untilAsserted(new ThrowingRunnable() {
+
+                    @Override
+                    public void run() throws Throwable {
+                        String index = new String(readAllBytes(metadataFolder.resolve(".index.json")));
+                        assertThat(index).contains("\"baz-uuid\":\"page1\"").contains("\"foo-uuid\":\"page2\"");
                     }
                 });
     }

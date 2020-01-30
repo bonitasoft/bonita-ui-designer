@@ -12,16 +12,16 @@ msgstr ""
 "PO-Revision-Date: 2020-01-28 12:54\n"
 
 msgid "\"Find By\" queries on an attribute"
-msgstr ""
+msgstr "Requêtes \"Find By\" sur un attribut"
 
 msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
-msgstr ""
+msgstr "Données \"{{ctrl.businessData.name}}\" à récupérer avec cette variable"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
 msgid "'{{ctrl.newData.$$name}}' already exists"
-msgstr ""
+msgstr "'{{ctrl.newData.$$name}}' existe déjà"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -145,6 +145,12 @@ msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", \
 
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\">Astuce:</span> Utilisez la touche <span class=\"key\">$</span> pour accéder aux variables, utilisez ctrl-espace pour déclencher la complétion automatique."
+
+msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
+msgstr "<span class=\"tip\">Astuce:</span> Maintenant, ajouter les widgets qui utiliseront cette variable sur le whiteboard."
+
+msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
+msgstr "<span class=\"tip\">Astuce:</span> Le type de retour de cette variable est un tableau."
 
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent après un <em>?</em> dans l'URL de la page."

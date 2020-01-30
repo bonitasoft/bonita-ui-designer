@@ -18,7 +18,7 @@
     </div>
 
     <div ng-if="!properties.inline" class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
-        <div ng-if="!properties.inline" class="checkbox" ng-repeat="choice in properties.availableValues track by $index">
+        <div ng-if="!properties.inline" class="checkbox checklist-margin" ng-repeat="choice in properties.availableValues track by $index">
             <label>
                 <input
                         type="checkbox"

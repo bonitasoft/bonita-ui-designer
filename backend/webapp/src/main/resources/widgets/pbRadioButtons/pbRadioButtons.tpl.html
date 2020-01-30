@@ -21,7 +21,7 @@
                 {{ (ctrl.getLabel(option) || option) | uiTranslate }}
             </label>
 
-            <div ng-if="!properties.inline" class="radio" ng-repeat="option in properties.availableValues track by $index">
+            <div ng-if="!properties.inline" class="radio radio-button-margin" ng-repeat="option in properties.availableValues track by $index">
                 <label>
                     <input
                         type="radio"

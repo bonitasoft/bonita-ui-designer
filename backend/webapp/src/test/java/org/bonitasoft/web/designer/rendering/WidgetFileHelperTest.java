@@ -96,5 +96,15 @@ public class WidgetFileHelperTest {
         assertThat(expectFileAlreadyExist).exists();
     }
 
+    @Test
+    public void should_delete_files_if_exists() throws Exception {
+        File assetsFolder = temporaryFolder.newFolder("maPage", "js");
+        File expectFileDeleted = temporaryFolder.newFile("maPage/js/widgets-4576.min.js");
+
+        WidgetFileHelper.deleteConcatenateFile(assetsFolder.toPath());
+
+        assertThat(expectFileDeleted).doesNotExist();
+    }
+
 
 }

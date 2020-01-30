@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.rendering;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -59,7 +58,7 @@ public class DirectivesCollectorTest {
     @Test
     public void should_build_directives_from_the_preview() throws IOException {
         Page page = aPage().build();
-        when( pathResolver.getPagesRepositoryPath().resolve(page.getId())).thenReturn(temporaryFolder.toPath());
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath());
         Path assets = temporaryFolder.toPath().resolve(page.getId()).resolve("js");
         when(directiveFileGenerator.generateAllDirectivesFilesInOne(page, assets)).thenReturn("widgets-123456.min.js");
 

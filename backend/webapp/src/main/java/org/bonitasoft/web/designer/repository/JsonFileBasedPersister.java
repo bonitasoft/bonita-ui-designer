@@ -21,7 +21,9 @@ import static org.apache.commons.io.FileUtils.forceMkdir;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -42,6 +44,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
  */
 public class JsonFileBasedPersister<T extends Identifiable> {
 
+    public static final String INDEX_METADATA = ".index";
     @Value("${designer.version}")
     protected String version;
     protected JacksonObjectMapper objectMapper;
@@ -55,13 +58,14 @@ public class JsonFileBasedPersister<T extends Identifiable> {
 
     /**
      * Save an identifiable object in a json file
+     *
      * @throws IOException
      */
     public void save(Path directory, T content) throws IOException {
         String versionToSet = version;
         // Split version before '_' to avoid patch tagged version compatible
         String[] currentVersion;
-        if(versionToSet != null){
+        if (versionToSet != null) {
             currentVersion = version.split("_");
             versionToSet = currentVersion[0];
         }
@@ -74,47 +78,66 @@ public class JsonFileBasedPersister<T extends Identifiable> {
                 //update index used by the studio to find artifacts given their UUID
                 saveInIndex(metadataPath, content);
             }
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             //Jackson can sent Runtime exception. We change this one to IO because this exception is caught higher
             throw new IOException(e);
         }
     }
 
     public Path updateMetadata(Path directory, T content) throws IOException {
-        Path metadataPath = directory.getParent().resolve(".metadata");
+        Path metadataPath = directory.getParent().resolve(PageRepository.METADATA);
         forceMkdir(metadataPath.toFile());
         write(jsonFile(metadataPath, content.getId()), objectMapper.toJson(content, JsonViewMetadata.class));
         return metadataPath;
     }
 
     public synchronized void saveInIndex(Path metadataPath, T content) throws IOException {
-        Path indexPath = jsonFile(metadataPath, ".index");
+        Path indexPath = jsonFile(metadataPath, INDEX_METADATA);
+        Map<String, String> index = loadIndex(indexPath);
+        try {
+            if (getUUIDIfExist(content) != null) {
+                index.put(getUUIDIfExist(content), content.getId());
+            }
+            writeIndexFile(indexPath, index);
+        } catch (JsonGenerationException e) {
+            logger.error(format("Cannot generate index for file %s. Maybe a migration is required.", content.getId()));
+        }
+    }
+
+    private synchronized void writeIndexFile(Path indexPath, Map<String, String> index) throws IOException {
+        try {
+            write(indexPath, objectMapper.toJson(index));
+        } catch (JsonGenerationException e) {
+            logger.error(format("Cannot generate index. Maybe a migration is required."));
+        }
+    }
+
+    private synchronized Map<String, String> loadIndex(Path indexPath) throws IOException {
         Map<String, String> index = new HashMap<>();
         if (indexPath.toFile().exists()) {
             byte[] indexFileContent = readAllBytes(indexPath);
             try {
                 index = objectMapper.fromJsonToMap(indexFileContent);
             } catch (Exception e) {
-                if(indexFileContent.length > 0) {  //file is not empty and cannot be parsed
+                if (indexFileContent.length > 0) {  //file is not empty and cannot be parsed
                     logger.error(String.format("Failed to parse '%s' file with content:\n%s", indexPath, new String(indexFileContent)), e);
                 }
                 //else file is empty, ignore exception
             }
         }
+        return index;
+    }
+
+    private String getUUIDIfExist(T content) {
         String uuid = ((HasUUID) content).getUUID();
-        if(uuid != null && !uuid.isEmpty()) {
-            index.put(uuid, content.getId());
+        if (uuid != null && !uuid.isEmpty()) {
+            return uuid;
         }
-        try{
-            write(indexPath, objectMapper.toJson(index));
-        }catch (JsonGenerationException e){
-            logger.error(format("Cannot generate index for file %s. Maybe a migration is required.",content.getId()));
-        }
+        return null;
     }
 
     protected void removeFromIndex(Path metadataPath, T content) throws IOException {
-        Path indexPath = jsonFile(metadataPath, ".index");
+        Path indexPath = jsonFile(metadataPath, INDEX_METADATA);
         Map<String, String> index;
         if (indexPath.toFile().exists()) {
             byte[] indexFileContent = readAllBytes(indexPath);
@@ -131,19 +154,19 @@ public class JsonFileBasedPersister<T extends Identifiable> {
 
     /**
      * delete an identifiable object in a json file
+     *
      * @throws IOException
      */
     public void delete(Path directory, T content) throws IOException {
         try {
-            Path metadataPath = directory.getParent().resolve(".metadata");
+            Path metadataPath = directory.getParent().resolve(PageRepository.METADATA);
             FileUtils.deleteQuietly(metadataPath.resolve(format("%s.json", content.getId())).toFile());
             FileUtils.deleteDirectory(directory.toFile());
             if (content instanceof HasUUID) {
                 //update index used by the studio to find artifacts given their UUID
                 removeFromIndex(metadataPath, content);
             }
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             //Jackson can sent Runtime exception. We change this one to IO because this exception is caught higher
             throw new IOException(e);
         }
@@ -153,4 +176,15 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         return directory.resolve(id + ".json");
     }
 
+    public synchronized void refreshIndexing(Path metadataFolder, List<T> pages) throws IOException {
+        Path indexPath = jsonFile(metadataFolder, INDEX_METADATA);
+        Map<String, String> refreshingIndex = new HashMap<>();
+        pages.forEach(page -> {
+            String uuidIfExist = getUUIDIfExist(page);
+            if (uuidIfExist!= null) {
+                refreshingIndex.put(uuidIfExist, page.getId());
+            }
+        });
+        writeIndexFile(indexPath, refreshingIndex);
+    }
 }

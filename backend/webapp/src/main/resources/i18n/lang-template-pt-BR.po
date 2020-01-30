@@ -150,6 +150,12 @@ msgstr ""
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr ""
 
+msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
+msgstr ""
+
+msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
+msgstr ""
+
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr ""
 

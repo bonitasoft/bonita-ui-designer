@@ -25,7 +25,7 @@ import org.springframework.core.env.Environment;
  * Resolve bonita page designer workspace Path.
  * Workspace directory should be specified via a system property <b>workspace</b>.
  * If not, default value is {user.home}/.bonita
- *
+ * <p>
  * Each repository folder can be changed as well by changing <b>repository.widgets</b>, <b>repository.pages</b>
  *
  * @author Colin Puy
@@ -35,6 +35,7 @@ public class WorkspacePathResolver {
 
     private static final String WIDGETS_DEFAULT_DIRECTORY = "widgets";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
+    private static final String TEMP_DIR = "workspace-uid";
 
     @Inject
     private Environment env;
@@ -45,6 +46,10 @@ public class WorkspacePathResolver {
             return Paths.get(env.getProperty("user.home"), ".bonita");
         }
         return Paths.get(workspace);
+    }
+
+    public Path getTemporaryWorkspacePath() {
+        return Paths.get(System.getProperty("java.io.tmpdir")).resolve(TEMP_DIR);
     }
 
     public Path getPagesRepositoryPath() {
@@ -60,5 +65,9 @@ public class WorkspacePathResolver {
             return Paths.get(alternativeDirectoryPath);
         }
         return getWorkspacePath().resolve(directoryName);
+    }
+
+    public Path getTmpPagesRepositoryPath() {
+        return getTemporaryWorkspacePath().resolve(PAGES_DEFAULT_DIRECTORY);
     }
 }

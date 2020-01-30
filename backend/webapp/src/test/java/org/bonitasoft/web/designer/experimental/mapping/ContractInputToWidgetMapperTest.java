@@ -19,6 +19,7 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractInputB
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aReadOnlyStringContractInput;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +58,17 @@ public class ContractInputToWidgetMapperTest {
                 Collections.<List<Element>> emptyList());
 
         assertThat(element.getId()).isEqualTo("pbInput");
+    }
+
+    @Test
+    public void should_read_only_string_contract_input_create_an_text_widget_id() throws Exception {
+        ContractInputToWidgetMapper contractInputToWidgetMapper = makeContractInputToWidgetMapper();
+
+        Component element = (Component) contractInputToWidgetMapper.toElement(aReadOnlyStringContractInput("firstName"),
+                Collections.<List<Element>> emptyList());
+
+        assertThat(element.getId()).isEqualTo("pbText");
+        assertThat(element.getPropertyValues().get("allowHtml").getValue()).isEqualTo(true);
     }
 
     @Test

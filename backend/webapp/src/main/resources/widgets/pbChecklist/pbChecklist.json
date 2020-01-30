@@ -88,5 +88,12 @@
       "type": "text",
       "bond": "variable"
     }
-  ]
+  ],
+  "assets": [
+    {
+      "id": "030EAB0F7CC04BD1C4411846C79CB2A1",
+      "name": "checklist.css",
+      "type": "css",
+      "order": 1
+    }]
 }

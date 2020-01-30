@@ -19,12 +19,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @Author Benjamin Parisel
  */
 public final class WidgetFileHelper {
 
     private static String FILENAME_PREFIX = "widgets-";
+    protected static final Logger logger = LoggerFactory.getLogger(WidgetFileHelper.class);
 
     public static Path writeFile(byte[] content, Path folderPath, String suffix) {
         Path path = folderPath.resolve(FILENAME_PREFIX + suffix + ".js");
@@ -36,13 +40,22 @@ public final class WidgetFileHelper {
 
     public static void deleteOldConcatenateFiles(Path path, String suffix) {
         String regex = "^" + FILENAME_PREFIX +"(?:(?!"+ suffix + ").)*\\.min\\.js$";
-
-        // Resource leak: 'files' is never closed under windows so we need to put Files.list into try catch
         try (Stream<Path> files = Files.list(path)) {
             files.filter(p -> p.getFileName().toString().matches(regex) && !Files.isDirectory(p))
                  .forEach(p ->deleteFile(p));
         } catch (IOException e) {
             throw new GenerationException("Error while filter file in folder " + path.toString(), e);
+        }
+    }
+
+    public static void deleteConcatenateFile(Path folder){
+        try (Stream<Path> files = Files.list(folder)) {
+            files.filter(p -> p.getFileName().toString().startsWith(FILENAME_PREFIX) && !Files.isDirectory(p))
+                    .forEach(p ->deleteFile(p));
+        } catch (IOException e) {
+            String error = String.format("Error while filter file in folder " + folder.toString());
+            logger.error(error, e);
+            throw new GenerationException(error, e);
         }
     }
 
