@@ -88,7 +88,7 @@
     "e2e:headless": "cross-env HEADLESS=true npm-run-all e2e",
     "pot": "gulp pot",
     "start": "gulp serve",
-    "listDependencies": "bower-license -e json > ./ui-designer-frontend-dependencies.json",
+    "listDependencies": "bower-license -e json > ./ui-designer-frontend-bower-dependencies.json",
     "listDependenciesYarn": "license-checker --json --production > ./ui-designer-frontend-yarn-dependencies.json"
   },
   "repository": {
