@@ -9,19 +9,19 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-01-28 12:54\n"
+"PO-Revision-Date: 2020-02-05 02:28\n"
 
 msgid "\"Find By\" queries on an attribute"
-msgstr "Requêtes \"Find By\" sur un attribut"
+msgstr ""
 
 msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
-msgstr "Données \"{{ctrl.businessData.name}}\" à récupérer avec cette variable"
+msgstr ""
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
 msgid "'{{ctrl.newData.$$name}}' already exists"
-msgstr "'{{ctrl.newData.$$name}}' existe déjà"
+msgstr ""
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
