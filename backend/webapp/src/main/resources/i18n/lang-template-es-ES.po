@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-01-28 12:55\n"
+"PO-Revision-Date: 2020-02-07 02:53\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
