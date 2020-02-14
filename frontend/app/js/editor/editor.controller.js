@@ -19,7 +19,7 @@
 
 angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window,
  artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
- $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo) {
+ $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService) {
 
   'use strict';
 
@@ -196,6 +196,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
           businessData: () => dataComponent,
           queriesForObject: () => $scope.queries,
           pageData: () => $scope.page.variables,
+          businessDataUpdateService: () => businessDataUpdateService
         }
       });
     });
