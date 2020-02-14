@@ -2,27 +2,9 @@
 # yarn lockfile v1
 
 
-"@bonitasoft/pagination-selector@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/pagination-selector/-/pagination-selector-1.0.2.tgz#bc8b4312a7492d90f822e4eaf1283edacd041503"
-  dependencies:
-    bootstrap "^4.3.1"
-    lit-element "^2.2.1"
-    lit-translate "^1.1.20"
-
-"@bonitasoft/query-selector@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/query-selector/-/query-selector-1.0.3.tgz#0d2231b081333dd79e06067beefb54aae409407b"
-  dependencies:
-    "@bonitasoft/pagination-selector" "^1.0.1"
-    "@bonitasoft/search-box" "^1.0.1"
-    bootstrap "^4.3.1"
-    lit-element "^2.2.1"
-    lit-translate "^1.1.20"
-
-"@bonitasoft/search-box@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/search-box/-/search-box-1.0.2.tgz#93ae9ba37b5e0cb856f3de4708d6a4723aeef23a"
+"@bonitasoft/query-selector@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/query-selector/-/query-selector-1.0.4.tgz#7813d8afa1a9d2b4aa14fab59dc1d11335f51d65"
   dependencies:
     bootstrap "^4.3.1"
     lit-element "^2.2.1"
