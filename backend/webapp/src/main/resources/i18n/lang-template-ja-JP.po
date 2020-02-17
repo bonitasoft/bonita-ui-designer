@@ -9,13 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-02-05 02:32\n"
-
-msgid "\"Find By\" queries on an attribute"
-msgstr ""
-
-msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
-msgstr ""
+"PO-Revision-Date: 2020-02-17 02:31\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -148,12 +142,6 @@ msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"�
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<span class=\"key\">$</span> キーを押します。オートコンプリートを使用するには、Ctrl+スペースキーを使用します。"
 
-msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
-msgstr ""
-
-msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
-msgstr ""
-
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
 
@@ -279,9 +267,6 @@ msgstr "追加された生成物"
 
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
-
-msgid "Additionnal queries"
-msgstr ""
 
 msgid "Alignment"
 msgstr "配置"
@@ -529,9 +514,6 @@ msgstr "クリックしてコンスタントにバインド"
 
 msgid "Click to bind to an expression"
 msgstr "クリックして式にバインド"
-
-msgid "Click to display parameters for"
-msgstr ""
 
 msgid "Close"
 msgstr "閉じる"
@@ -868,9 +850,6 @@ msgstr "エディタの構成設定"
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr ""
 
-msgid "Element (c)"
-msgstr ""
-
 msgid "Enhancements on table and data table"
 msgstr ""
 
@@ -882,9 +861,6 @@ msgstr "日付（mm/dd/yyyy）を入力します"
 
 msgid "Enter a time (h:mm:ss a)"
 msgstr "時刻を入力 (h:mm:ss a)"
-
-msgid "Enter value"
-msgstr ""
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.column }}</code> 列でエラー"
@@ -953,9 +929,6 @@ msgid "File unavailable"
 msgstr ""
 
 msgid "FileName"
-msgstr ""
-
-msgid "Filter the query results of"
 msgstr ""
 
 msgid "Filters"
@@ -1487,12 +1460,6 @@ msgstr ""
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
 
-msgid "No parameter is needed for this query"
-msgstr ""
-
-msgid "No queries"
-msgstr ""
-
 msgid "No variable"
 msgstr "変数はありません"
 
@@ -1586,17 +1553,11 @@ msgstr ""
 msgid "Page level"
 msgstr "ページ レベル"
 
-msgid "Page number (p)"
-msgstr ""
-
 msgid "Page token"
 msgstr "ページ トークン"
 
 msgid "Pages"
 msgstr "ページ"
-
-msgid "Pagination"
-msgstr ""
 
 msgid "Parent frame (_parent)"
 msgstr "親フレーム (_parent)"
@@ -1724,9 +1685,6 @@ msgstr "検索"
 msgid "Search a list of cases based on search indexes"
 msgstr "検索キーで案件リストを検索する"
 
-msgid "Search by attribute or query name"
-msgstr ""
-
 msgid "Search on name"
 msgstr "名前で検索"
 
@@ -1744,9 +1702,6 @@ msgstr "デフォルト ローカライゼーション アセットの例を参�
 
 msgid "Select"
 msgstr "選択"
-
-msgid "Select a query"
-msgstr ""
 
 msgid "Select a widget or start typing"
 msgstr ""
@@ -2300,9 +2255,6 @@ msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデ�
 msgid "Type"
 msgstr "タイプ"
 
-msgid "Type a"
-msgstr ""
-
 msgid "UI Designer"
 msgstr "UI デザイナー"
 
@@ -2732,9 +2684,6 @@ msgstr "テキスト"
 
 msgid "top"
 msgstr "トップへ"
-
-msgid "value"
-msgstr ""
 
 msgid "view W3C's Json specification"
 msgstr "W3C の JSON 仕様を表示"

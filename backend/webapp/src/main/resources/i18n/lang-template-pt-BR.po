@@ -9,13 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-02-05 02:38\n"
-
-msgid "\"Find By\" queries on an attribute"
-msgstr "Consultas \"Encontrar por\" em um atributo"
-
-msgid "\"{{ctrl.businessData.name}}\" data to retrieve through this variable"
-msgstr "\"{{ctrl.businessData.name}}\" dados para recuperar através desta variável"
+"PO-Revision-Date: 2020-02-17 02:36\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -150,12 +144,6 @@ msgstr ""
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr ""
 
-msgid "<span class=\"tip\">Tip:</span> Now, add the widgets to the whiteboard that will use this variable."
-msgstr ""
-
-msgid "<span class=\"tip\">Tip:</span> The return type of this variable is an array."
-msgstr ""
-
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr ""
 
@@ -281,9 +269,6 @@ msgstr ""
 
 msgid "Additional request parameters added to the query string"
 msgstr ""
-
-msgid "Additionnal queries"
-msgstr "Consultas adicionais"
 
 msgid "Alignment"
 msgstr ""
@@ -532,9 +517,6 @@ msgstr ""
 
 msgid "Click to bind to an expression"
 msgstr ""
-
-msgid "Click to display parameters for"
-msgstr "Clique para exibir parâmetros para"
 
 msgid "Close"
 msgstr ""
@@ -871,9 +853,6 @@ msgstr ""
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr "Selecione o widget para alternar e clique em <i class=\"fa fa-exchange\"></i>."
 
-msgid "Element (c)"
-msgstr "Elemento (c)"
-
 msgid "Enhancements on table and data table"
 msgstr "Aprimoramentos na tabela e nos dados da tabela"
 
@@ -885,9 +864,6 @@ msgstr ""
 
 msgid "Enter a time (h:mm:ss a)"
 msgstr "Digite uma hora (h:mm:ss a)"
-
-msgid "Enter value"
-msgstr "Inserir valor"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr ""
@@ -957,9 +933,6 @@ msgstr "Arquivo indisponível"
 
 msgid "FileName"
 msgstr "Nome do arquivo"
-
-msgid "Filter the query results of"
-msgstr "Filtrar os resultados da consulta de"
 
 msgid "Filters"
 msgstr "Filtro"
@@ -1489,12 +1462,6 @@ msgstr "Nenhuma aplicação selecionada"
 msgid "No artifact found."
 msgstr ""
 
-msgid "No parameter is needed for this query"
-msgstr "Nenhum parâmetro é necessário para esta consulta"
-
-msgid "No queries"
-msgstr "Sem consultas"
-
 msgid "No variable"
 msgstr ""
 
@@ -1588,17 +1555,11 @@ msgstr "Nome da exibição de página"
 msgid "Page level"
 msgstr ""
 
-msgid "Page number (p)"
-msgstr "Número da página (p)"
-
 msgid "Page token"
 msgstr ""
 
 msgid "Pages"
 msgstr ""
-
-msgid "Pagination"
-msgstr "Paginação"
 
 msgid "Parent frame (_parent)"
 msgstr ""
@@ -1726,9 +1687,6 @@ msgstr ""
 msgid "Search a list of cases based on search indexes"
 msgstr ""
 
-msgid "Search by attribute or query name"
-msgstr "Pesquisar por nome de atributo ou consulta"
-
 msgid "Search on name"
 msgstr ""
 
@@ -1746,9 +1704,6 @@ msgstr ""
 
 msgid "Select"
 msgstr ""
-
-msgid "Select a query"
-msgstr "Selecione uma consulta"
 
 msgid "Select a widget or start typing"
 msgstr "Selecione um widget ou comece a digitar"
@@ -2309,9 +2264,6 @@ msgstr "Dois casos de uso: <ul> <li><code>dateVariable|uiDate</code> aplica um p
 msgid "Type"
 msgstr ""
 
-msgid "Type a"
-msgstr "Digite uma"
-
 msgid "UI Designer"
 msgstr ""
 
@@ -2742,9 +2694,6 @@ msgstr ""
 
 msgid "top"
 msgstr ""
-
-msgid "value"
-msgstr "valor"
 
 msgid "view W3C's Json specification"
 msgstr ""
