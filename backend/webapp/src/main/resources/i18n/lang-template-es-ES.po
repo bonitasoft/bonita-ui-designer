@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-02-07 02:53\n"
+"PO-Revision-Date: 2020-02-25 17:22\n"
 
 msgid "\"Find By\" queries on an attribute"
 msgstr "Consultas de \"Find By\" en un atributo"
@@ -140,7 +140,7 @@ msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> o <i>myVar.myDocument_ref</i>"
 
 msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr ""
+msgstr "<p><span class=\"tip\">Ayuda:</span> Puedes usar el nuevo tipo <i>Business data</i> para obtener un objeto de negocio del Business Data Model (BDM)</p><p><span class=\"tip\">Ayuda:</span> Puedes usar datos en la URL, usando la sintaxis <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Ayuda:</span> Puedes ampliar nuestras capacidades API REST creando <em>extensiones REST API</em> en el menú de desarrollo <i></i> y usarlas aquí</p>"
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\"> Consejo:</span> Sintaxis Array : [\"val1\", \"val2\"], Sintaxis Object:  {\"clave\": \"valor\"}"
@@ -1943,7 +1943,7 @@ msgid "Table"
 msgstr "Tabla"
 
 msgid "Tabs Container advancement"
-msgstr ""
+msgstr "Mejoras en el Tabs Container"
 
 msgid "Tabs container"
 msgstr "Contenedor de pestañas"
@@ -2326,7 +2326,7 @@ msgid "URL used to perform the HTTP request when this button is clicked."
 msgstr "Dirección URL utilizada para realizar la solicitud HTTP cuando se hace clic en este botón."
 
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
-msgstr ""
+msgstr "Incapaz de acceder al Business Data Model. Reinicie Bonita Studio e intentelo de nuevo."
 
 msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
 msgstr "Imposible de conectarse al Modelo de Datos de Negocio. Intente reiniciar el Studio para resolver el error"
