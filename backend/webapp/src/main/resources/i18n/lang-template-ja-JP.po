@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-02-17 02:31\n"
+"PO-Revision-Date: 2020-02-25 17:40\n"
 
 msgid "&nbsp;"
 msgstr ""
