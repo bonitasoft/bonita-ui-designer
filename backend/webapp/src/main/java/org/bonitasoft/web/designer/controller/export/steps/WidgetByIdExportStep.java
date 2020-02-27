@@ -14,13 +14,14 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+import static java.lang.String.format;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.controller.export.ExcludeDescriptorFilePredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
@@ -40,7 +41,7 @@ public class WidgetByIdExportStep implements ExportStep<Widget> {
         zipper.addDirectoryToZip(
                 pathResolver.getWidgetsRepositoryPath().resolve(widget.getId()),
                 ALL_DIRECTORIES,
-                ALL_FILES,
-                RESOURCES + "/" + widget.getId());
+                new ExcludeDescriptorFilePredicate(format("%s.json",widget.getId())),
+                RESOURCES);
     }
 }

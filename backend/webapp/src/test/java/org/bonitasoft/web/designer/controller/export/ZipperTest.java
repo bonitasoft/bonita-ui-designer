@@ -149,6 +149,15 @@ public class ZipperTest {
     }
 
     @Test
+    public void should_zip_a_directory_and_filter_out_unaccepted_descriptorjsonfile() throws Exception {
+        String destinationInZip = "destinationInZip";
+        zipper.addDirectoryToZip(get(getClass().getResource("/workspace/widgets/pbLabel").toURI()), ALL_DIRECTORIES, new ExcludeDescriptorFilePredicate("pbLabel.json"), destinationInZip);
+
+        Path dest = unzip(out);
+        assertThat(dest.resolve(destinationInZip).toFile().list()).doesNotContain("pbLabel.json");
+    }
+
+    @Test
     public void should_zip_some_bytes() throws Exception {
         byte[] foo = "foobar".getBytes(StandardCharsets.UTF_8);
 
@@ -169,5 +178,4 @@ public class ZipperTest {
         verify(out).flush();
         verify(out).close();
     }
-
 }
