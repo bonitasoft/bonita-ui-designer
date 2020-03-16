@@ -14,18 +14,34 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-/**
- * @author Romain Bioteau
- */
-public class InputWidget extends AbstractParametrizedWidget implements Labeled, Valuable, Requirable {
+@Widget
+public class InputWidget extends LabelParametrizedWidget implements Labeled, Valuable, Requirable {
 
     static final String INPUT_WIDGET_ID = "pbInput";
-    private String labelPosition = LabelPosition.LEFT.getValue();
-    private int labelWidth = 1;
+
+    @WidgetProperty
+    private boolean readOnly = false;
+
+    @WidgetProperty
     private String type;
+
+    @WidgetProperty
     private String placeholder;
+
+    @WidgetProperty
     private String value;
+
+    @WidgetProperty
     private boolean required = true;
+
+    @WidgetProperty
+    private String labelPosition = LabelPosition.LEFT.getValue();
+
+    @WidgetProperty
+    private int labelWidth = 1;
+
+    @WidgetProperty
+    private boolean labelHidden = false;
 
     public InputWidget(String widgetId) {
         super(widgetId);
@@ -81,5 +97,23 @@ public class InputWidget extends AbstractParametrizedWidget implements Labeled, 
 
     public void setRequired(boolean required) {
         this.required = required;
+    }
+
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
+
+    public boolean isLabelHidden() {
+        return labelHidden;
+    }
+
+    public void setLabelHidden(boolean labelHidden) {
+        this.labelHidden = labelHidden;
     }
 }

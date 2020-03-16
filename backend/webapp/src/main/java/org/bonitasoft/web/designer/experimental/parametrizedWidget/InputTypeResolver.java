@@ -24,27 +24,27 @@ import java.util.Locale;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 
-public class ContractInputTypeResolver {
+public class InputTypeResolver {
 
-    public static enum ContractInputType {
+    public static enum InputType {
         TEXT, NUMERIC, LOCAL_DATE, LOCAL_DATE_TIME, OFFSET_DATE_TIME, BOOLEAN, FILE;
     }
 
-    public ContractInputType getContractInputType(ContractInput input) {
+    public InputType getContractInputType(ContractInput input) {
         if (aTextInput(input)) {
-            return ContractInputType.TEXT;
+            return InputType.TEXT;
         } else if (aNumericInput(input)) {
-            return ContractInputType.NUMERIC;
+            return InputType.NUMERIC;
         } else if (aLocalDateInput(input) || aDateInput(input)) {
-            return ContractInputType.LOCAL_DATE;
+            return InputType.LOCAL_DATE;
         } else if (aLocalDateTimeInput(input)) {
-            return ContractInputType.LOCAL_DATE_TIME;
+            return InputType.LOCAL_DATE_TIME;
         } else if (aOffsetDateTimeInput(input)) {
-            return ContractInputType.OFFSET_DATE_TIME;
+            return InputType.OFFSET_DATE_TIME;
         } else if (aBooleanInput(input)) {
-            return ContractInputType.BOOLEAN;
+            return InputType.BOOLEAN;
         } else if (aFileInput(input)) {
-            return ContractInputType.FILE;
+            return InputType.FILE;
         }
         throw new IllegalArgumentException(String.format("The type of the contract input %s is unknown", input.getName()));
     }

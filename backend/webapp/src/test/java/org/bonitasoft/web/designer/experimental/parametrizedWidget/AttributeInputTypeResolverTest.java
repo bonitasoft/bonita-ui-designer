@@ -15,13 +15,13 @@
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.BOOLEAN;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.FILE;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.LOCAL_DATE;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.LOCAL_DATE_TIME;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.NUMERIC;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.OFFSET_DATE_TIME;
-import static org.bonitasoft.web.designer.experimental.parametrizedWidget.ContractInputTypeResolver.ContractInputType.TEXT;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.BOOLEAN;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.FILE;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.LOCAL_DATE;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.LOCAL_DATE_TIME;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.NUMERIC;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.OFFSET_DATE_TIME;
+import static org.bonitasoft.web.designer.experimental.parametrizedWidget.InputTypeResolver.InputType.TEXT;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -34,75 +34,75 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ContractInputTypeResolverTest {
+public class AttributeInputTypeResolverTest {
 
-    private ContractInputTypeResolver contractInputTypeResolver;
+    private InputTypeResolver inputTypeResolver;
 
     @Before
     public void init() {
-        contractInputTypeResolver = new ContractInputTypeResolver();
+        inputTypeResolver = new InputTypeResolver();
     }
 
     @Test
     public void should_detect_text_input() {
         ContractInput input = new LeafContractInput("input", String.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(TEXT);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(TEXT);
     }
 
     @Test
     public void should_detect_numeric_input() {
         ContractInput input = new LeafContractInput("input", Integer.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(NUMERIC);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(NUMERIC);
     }
 
     @Test
     public void should_detect_local_date_input() {
         ContractInput input = new LeafContractInput("input", LocalDate.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE);
         input = new LeafContractInput("input", Date.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE);
     }
 
     @Test
     public void should_detect_date_time_input() {
         ContractInput input = new LeafContractInput("input", LocalDateTime.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE_TIME);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(LOCAL_DATE_TIME);
     }
 
     @Test
     public void should_detect_offset_date_time_input() {
         ContractInput input = new LeafContractInput("input", OffsetDateTime.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(OFFSET_DATE_TIME);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(OFFSET_DATE_TIME);
     }
 
     @Test
     public void should_detect_boolean_input() {
         ContractInput input = new LeafContractInput("input", Boolean.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(BOOLEAN);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(BOOLEAN);
     }
 
     @Test
     public void should_detect_file_input() {
         ContractInput input = new LeafContractInput("input", File.class);
-        assertThat(contractInputTypeResolver.getContractInputType(input)).isEqualTo(FILE);
+        assertThat(inputTypeResolver.getContractInputType(input)).isEqualTo(FILE);
     }
 
     @Test
     public void should_detect_date_input() {
         ContractInput input = new LeafContractInput("input", LocalDate.class);
-        assertThat(contractInputTypeResolver.isDateInput(input)).isTrue();
+        assertThat(inputTypeResolver.isDateInput(input)).isTrue();
 
         input = new LeafContractInput("input", Date.class);
-        assertThat(contractInputTypeResolver.isDateInput(input)).isTrue();
+        assertThat(inputTypeResolver.isDateInput(input)).isTrue();
 
         input = new LeafContractInput("input", LocalDateTime.class);
-        assertThat(contractInputTypeResolver.isDateInput(input)).isTrue();
+        assertThat(inputTypeResolver.isDateInput(input)).isTrue();
 
         input = new LeafContractInput("input", OffsetDateTime.class);
-        assertThat(contractInputTypeResolver.isDateInput(input)).isTrue();
+        assertThat(inputTypeResolver.isDateInput(input)).isTrue();
 
         input = new LeafContractInput("input", Boolean.class);
-        assertThat(contractInputTypeResolver.isDateInput(input)).isFalse();
+        assertThat(inputTypeResolver.isDateInput(input)).isFalse();
     }
 
 }

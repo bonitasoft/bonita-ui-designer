@@ -16,12 +16,19 @@ package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
 import java.util.Objects;
 
+@Widget
 public class LinkWidget extends AbstractParametrizedWidget {
 
     private static final String LINK_WIDGET_ID = "pbLink";
+    @WidgetProperty
     private String buttonStyle;
+    @WidgetProperty
     private String targetUrl;
+    @WidgetProperty
     private String text;
+    @WidgetProperty
+    private String alignment = Alignment.LEFT.getValue();
+
 
     public LinkWidget() {
         super(LINK_WIDGET_ID);
@@ -53,6 +60,14 @@ public class LinkWidget extends AbstractParametrizedWidget {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment.getValue();
     }
 
 }

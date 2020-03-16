@@ -31,6 +31,8 @@ import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilde
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.experimental.parametrizedWidget.Alignment;
@@ -178,7 +180,7 @@ public class ContractToPageMapperTest {
         title.setAlignment(Alignment.CENTER);
 
         Page page = contractToPageMapper.createFormPage("myPage", aSimpleContract(), FormScope.TASK);
-
+        assertThat(grabTaskInformation(page).getRows().get(0).get(0).getPropertyValues().containsKey("class")).isFalse();
         assertThat(grabTaskInformation(page).getRows().get(0).get(0)).isEqualToIgnoringGivenFields(title.toComponent(new DimensionFactory()), "reference");
     }
 

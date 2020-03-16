@@ -34,6 +34,28 @@
         };
       }
 
+      getDataObject(businessObject) {
+        let businessObjectReq = `{ __type(name: "${businessObject}") {
+                        name
+                        fields {
+                          name
+                          type { name, kind }
+                        }}}`;
+        return this.$http.post(`${this.baseUrl}`, { 'query': businessObjectReq }, this.config)
+          .then((response) => {
+            let resp = { error: false, businessObject: { name: businessObject } };
+            if (!response || !response.data || !response.data.data || !response.data.data.__type || !response.data.data.__type.fields) {
+              resp.businessObject.attributes = [];
+              return resp;
+            }
+            resp.businessObject.attributes = response.data.data.__type.fields;
+            return resp;
+          }).catch((e) => {
+            $log.log('Error during loading of attributes of BusinessData object' + businessObject, e);
+            return { error: true, businessObject: { name: businessObject, attributes: [] } };
+          });
+      }
+
       getDataObjects() {
         if (this.isError) {
           return new Promise((resolve) => resolve({ error: true, objects: [] }));

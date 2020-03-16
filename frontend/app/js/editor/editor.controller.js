@@ -19,7 +19,7 @@
 
 angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window,
  artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
- $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService) {
+ $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService, whiteboardComponentWrapper, uiGeneration) {
 
   'use strict';
 
@@ -160,11 +160,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    */
   $scope.addComponent = function(dragData, index) {
     if (dragData.component && dragData.component.type === 'model') {
-      triggeredDataManagement(dragData.component);
-      if ($scope.currentContainerRow.row.length === 0) {
-        // Remove row to don't let empty row
-        removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
-      }
+      triggeredDataManagement(dragData.component, index);
     } else {
       var newComponent = dragData.create($scope.currentContainerRow);
       arrays.insertAtPosition(newComponent, index, $scope.currentContainerRow.row);
@@ -183,7 +179,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     }
   }
 
-  function triggeredDataManagement(dataComponent) {
+  function triggeredDataManagement(dataComponent, index) {
     // Call dataRepo to get Query for this dataComponent Name
     $scope.queries = [];
     dataManagementRepo.getQueries(dataComponent.id).then(res => {
@@ -197,6 +193,42 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
           queriesForObject: () => $scope.queries,
           pageData: () => $scope.page.variables,
           businessDataUpdateService: () => businessDataUpdateService
+        }
+      }).result.then((data) => {
+        if (data) {
+          dataManagementRepo.getDataObject(dataComponent.id).then(res => {
+            if (res.businessObject) {
+              addDataManagementGeneratedUI(res.businessObject, index, data.variable);
+            }
+          });
+        } else {
+          if ($scope.currentContainerRow.row.length === 0) {
+            // Remove row to don't let empty row
+            removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
+          }
+        }
+      });
+    });
+  }
+
+  function addDataManagementGeneratedUI(businessObject, index, varName) {
+    // Needed to get information on pbContainer to wrap our generated content
+    widgetRepo.load('pbContainer').then(res => {
+      let containerRef = res.data;
+      uiGeneration.generateUI(businessObject, varName).then(res => {
+        if (!res.error) {
+          let container = res.element.container;
+          let row = $scope.currentContainerRow;
+          whiteboardComponentWrapper.wrapContainer(containerRef, container, row);
+          arrays.insertAtPosition(container, index, row.row);
+          componentUtils.column.computeSizeItemInRow(row.row);
+          $scope.selectComponent(container);
+          container.triggerAdded();
+          // generate Variable
+          let allVariable = res.element.businessObjectVariable;
+          Object.keys(allVariable).forEach(newVar => {
+            $scope.page.variables[newVar] = allVariable[newVar];
+          });
         }
       });
     });

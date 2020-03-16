@@ -14,14 +14,22 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-public class SelectWidget extends AbstractParametrizedWidget implements Labeled, Valuable, Requirable {
+@Widget
+public class SelectWidget extends LabelParametrizedWidget implements Labeled, Valuable, Requirable {
 
     static final String SELECT_WIDGET_ID = "pbSelect";
+
+    @WidgetProperty
     private String labelPosition = LabelPosition.LEFT.getValue();
+    @WidgetProperty
     private int labelWidth = 1;
+    @WidgetProperty
     private String placeholder;
+    @WidgetProperty
     private String value;
+    @WidgetProperty
     private boolean required = true;
+    @WidgetProperty
     private String availableValues;
 
     public SelectWidget() {
@@ -71,9 +79,9 @@ public class SelectWidget extends AbstractParametrizedWidget implements Labeled,
     public void setAvailableValues(String availableValues) {
         this.availableValues = availableValues;
     }
-    
+
     public String getAvailableValues() {
         return availableValues;
     }
-    
+
 }

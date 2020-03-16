@@ -14,12 +14,15 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+@Widget
 public class DatePickerWidget extends InputWidget {
 
     private static final String DATE_PICKER_WIDGET_ID = "pbDatePicker";
+    @WidgetProperty
     private String dateFormat;
+    @WidgetProperty
     private boolean showToday = true;
-    private boolean hidden = false;
+    @WidgetProperty
     private String todayLabel;
 
     public DatePickerWidget() {
@@ -49,4 +52,6 @@ public class DatePickerWidget extends InputWidget {
     public void setTodayLabel(String todayLabel) {
         this.todayLabel = todayLabel;
     }
+
+
 }

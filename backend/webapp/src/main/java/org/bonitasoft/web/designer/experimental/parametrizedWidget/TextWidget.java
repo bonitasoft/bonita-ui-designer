@@ -14,15 +14,30 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-public class TextWidget extends AbstractParametrizedWidget {
+
+@Widget
+public class TextWidget extends LabelParametrizedWidget {
 
     private static final String LABEL_WIDGET_ID = "pbText";
+
+    @WidgetProperty
     private String text;
+    @WidgetProperty
     private boolean allowHtml = true;
+    @WidgetProperty
+    private String alignment = Alignment.LEFT.getValue();
 
     public TextWidget() {
         super(LABEL_WIDGET_ID);
         setLabelHidden(true);
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment.getValue();
     }
 
     public String getText() {

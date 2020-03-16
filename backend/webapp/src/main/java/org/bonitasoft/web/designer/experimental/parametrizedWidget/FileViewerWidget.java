@@ -20,18 +20,23 @@ import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
+@Widget
 public class FileViewerWidget extends AbstractParametrizedWidget{
 
     static final String FILE_VIEWER_WIDGET_ID = "pbFileViewer";
 
     private static final String DOCUMENT_TYPE = "Process document";
+
+    @WidgetProperty
     private String document;
+
+    @WidgetProperty
     private boolean showPreview = false;
 
     public FileViewerWidget() {
         super(FILE_VIEWER_WIDGET_ID);
     }
-    
+
     public String getDocument() {
         return document;
     }
@@ -47,7 +52,7 @@ public class FileViewerWidget extends AbstractParametrizedWidget{
     public void setShowPreview(boolean showPreview) {
         this.showPreview = showPreview;
     }
-    
+
     @Override
     public Component toComponent(DimensionFactory dimensionFactory) {
         Component component = super.toComponent(dimensionFactory);

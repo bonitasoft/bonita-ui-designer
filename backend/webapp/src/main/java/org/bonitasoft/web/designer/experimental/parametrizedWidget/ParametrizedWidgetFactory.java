@@ -20,6 +20,8 @@ import java.util.Objects;
 
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessQueryData;
+import org.bonitasoft.web.designer.experimental.mapping.dataManagement.BusinessObjectDataHandler;
+import org.bonitasoft.web.designer.experimental.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.experimental.widgets.PbDatePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbDateTimePicker;
 import org.bonitasoft.web.designer.experimental.widgets.PbInput;
@@ -36,14 +38,14 @@ public class ParametrizedWidgetFactory {
 
     public static final String ITEM_ITERATOR = "$item";
 
-    private ContractInputTypeResolver contractInputTypeResolver;
+    private InputTypeResolver inputTypeResolver;
 
     public ParametrizedWidgetFactory() {
-        contractInputTypeResolver = new ContractInputTypeResolver();
+        inputTypeResolver = new InputTypeResolver();
     }
 
     public AbstractParametrizedWidget createParametrizedWidget(ContractInput input) {
-        switch (contractInputTypeResolver.getContractInputType(input)) {
+        switch (inputTypeResolver.getContractInputType(input)) {
             case TEXT:
                 return createWidgetForTextInput(input);
             case NUMERIC:
@@ -128,13 +130,13 @@ public class ParametrizedWidgetFactory {
     }
 
     public boolean isSupported(ContractInput input) {
-        return contractInputTypeResolver.isSupported(input);
+        return inputTypeResolver.isSupported(input);
     }
 
-    private CheckboxWidget createCheckBox(ContractInput input) {
+    protected CheckboxWidget createCheckBox(ContractInput input) {
         CheckboxWidget checkbox = new CheckboxWidget();
         checkbox.setLabel(inputDisplayLabel(input));
-        checkbox.setReadOnly(input.isReadOnly());
+        checkbox.setDisabled(input.isReadOnly());
         setValuableWidgetValue(input, checkbox);
         return checkbox;
     }
@@ -187,6 +189,8 @@ public class ParametrizedWidgetFactory {
         return container;
     }
 
+
+
     public WidgetContainer createWidgetContainer() {
         return new WidgetContainer();
     }
@@ -225,6 +229,7 @@ public class ParametrizedWidgetFactory {
 
     private String inputDisplayLabel(ContractInput contractInput) {
         ContractInputDataHandler dataHandler = new ContractInputDataHandler(contractInput);
+
         return CaseFormat.LOWER_CAMEL
                 .to(CaseFormat.UPPER_CAMEL,
                         dataHandler.getRefName() != null ? dataHandler.getRefName() : dataHandler.getInputName())
@@ -320,8 +325,8 @@ public class ParametrizedWidgetFactory {
         return new BusinessQueryData(dataReference).name();
     }
 
-    private String getValue(ContractInput contractInput) {
-        return isParentMultiple(contractInput)
+    protected String getValue(ContractInput contractInput) {
+       return isParentMultiple(contractInput)
                 ? multipleInputValue(contractInput)
                 : new ContractInputDataHandler(contractInput).inputValue();
     }
@@ -347,7 +352,7 @@ public class ParametrizedWidgetFactory {
     private void addTextValue(ContractInput contractInput, TextWidget widget) {
         String value = getValue(contractInput);
         widget.setHidden(String.format("!%s", value));
-        if (contractInputTypeResolver.isDateInput(contractInput)) {
+        if (inputTypeResolver.isDateInput(contractInput)) {
             value = String.format("%s|uiDate", value);
         }
         widget.setText(String.format("{{%s}}", value));

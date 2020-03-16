@@ -14,27 +14,9 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.model.page.Container;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-@Widget
-public class WidgetContainer extends AbstractParametrizedWidget implements ParametrizedWidget {
-
-    @WidgetProperty
-    private String repeatedCollection;
-
-    public String getRepeatedCollection() {
-        return repeatedCollection;
-    }
-
-    public void setRepeatedCollection(String repeatedCollection) {
-        this.repeatedCollection = repeatedCollection;
-    }
-
-    public Container toContainer(DimensionFactory dimensionFactory) {
-        Container container = new Container();
-        container.setDimension(dimensionFactory.create(getDimension()));
-        container.setPropertyValues(toPropertyValues());
-        return container;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+public @interface WidgetProperty {
 }

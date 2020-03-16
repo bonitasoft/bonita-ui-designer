@@ -61,7 +61,7 @@
         displayValue: this.hasData() ? JSON.stringify(this.variableInfo.data) : '{}',
       };
       this.removeListener();
-      this.$uibModalInstance.close();
+      this.$uibModalInstance.close({ data: this.variableInfo.data, variable: this.newData.$$name });
     }
 
     canBeSaved() {

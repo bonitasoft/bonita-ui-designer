@@ -20,17 +20,31 @@ import java.util.Optional;
 
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
-public class FileUploadWidget extends AbstractParametrizedWidget implements Valuable, Labeled, Requirable {
+@Widget
+public class FileUploadWidget extends LabelParametrizedWidget implements Valuable, Labeled, Requirable {
 
     static final String FILE_UPLOAD_WIDGET_ID = "pbUpload";
-
-    private String labelPosition = LabelPosition.LEFT.getValue();
-    private int labelWidth = 1;
-    private String placeholder;
-    private String value;
-    private String url = "../API/formFileUpload";
-    private boolean required = true;
     private Optional<String> requiredExpression = Optional.empty();
+
+
+    @WidgetProperty
+    private String labelPosition = LabelPosition.LEFT.getValue();
+
+    @WidgetProperty
+    private int labelWidth = 1;
+
+    @WidgetProperty
+    private String placeholder;
+
+    @WidgetProperty
+    private String value;
+
+    @WidgetProperty
+    private String url = "../API/formFileUpload";
+
+    @WidgetProperty
+    private boolean required = true;
+
 
     public FileUploadWidget() {
         super(FILE_UPLOAD_WIDGET_ID);

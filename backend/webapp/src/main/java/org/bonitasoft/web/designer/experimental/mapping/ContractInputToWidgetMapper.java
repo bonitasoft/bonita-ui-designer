@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -55,8 +54,8 @@ public class ContractInputToWidgetMapper {
 
     private static final Logger logger = LoggerFactory.getLogger(ParametrizedWidgetFactory.class);
 
-    private ParametrizedWidgetFactory parametrizedWidgetFactory;
-    private DimensionFactory dimensionFactory;
+    protected ParametrizedWidgetFactory parametrizedWidgetFactory;
+    protected DimensionFactory dimensionFactory;
     private JacksonObjectMapper objectMapperWrapper;
 
     @Inject
@@ -140,7 +139,7 @@ public class ContractInputToWidgetMapper {
         Container container = toMultipleContainer(contractInput);
         AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
-            component.setLabel("");
+            ((Labeled) component).setLabel("");
             ((Labeled) component).setLabelWidth(0);
         }
         if (component instanceof Valuable) {

@@ -14,21 +14,51 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-public class ButtonWidget extends AbstractParametrizedWidget {
+@Widget
+public class ButtonWidget extends LabelParametrizedWidget {
 
     private static final String BUTTON_WIDGET_ID = "pbButton";
+
+    @WidgetProperty
     private String buttonStyle;
+
+    @WidgetProperty
     private boolean disabled = false;
+
+    @WidgetProperty
     private String action;
+
+    @WidgetProperty
     private String dataToSend;
+
+    @WidgetProperty
     private String collectionToModify;
+
+    @WidgetProperty
     private String targetUrlOnSuccess;
+
+    @WidgetProperty
     private String collectionPosition;
+
+    @WidgetProperty
     private String valueToAdd;
+
+    @WidgetProperty
     private String removeItem;
+
+    @WidgetProperty
+    private String alignment = Alignment.LEFT.getValue();
 
     public ButtonWidget() {
         super(BUTTON_WIDGET_ID);
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment.getValue();
     }
 
     public String getButtonStyle() {

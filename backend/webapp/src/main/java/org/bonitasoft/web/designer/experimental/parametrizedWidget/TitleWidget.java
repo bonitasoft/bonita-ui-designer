@@ -14,14 +14,27 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+@Widget
 public class TitleWidget extends AbstractParametrizedWidget {
 
     private static final String LABEL_WIDGET_ID = "pbTitle";
+    @WidgetProperty
     private String text;
+    @WidgetProperty
     private String level = "Level 4";
+    @WidgetProperty
+    private String alignment = Alignment.LEFT.getValue();
 
     public TitleWidget() {
         super(LABEL_WIDGET_ID);
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment.getValue();
     }
 
     public String getText() {

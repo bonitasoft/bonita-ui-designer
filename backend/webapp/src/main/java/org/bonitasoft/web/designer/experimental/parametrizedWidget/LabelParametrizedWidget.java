@@ -14,27 +14,33 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
-import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.model.page.Container;
-
 @Widget
-public class WidgetContainer extends AbstractParametrizedWidget implements ParametrizedWidget {
+public class LabelParametrizedWidget extends AbstractParametrizedWidget {
 
     @WidgetProperty
-    private String repeatedCollection;
+    private String label;
 
-    public String getRepeatedCollection() {
-        return repeatedCollection;
+    @WidgetProperty
+    private boolean labelHidden;
+
+    public LabelParametrizedWidget(String widgetId) {
+        super(widgetId);
     }
 
-    public void setRepeatedCollection(String repeatedCollection) {
-        this.repeatedCollection = repeatedCollection;
+
+    public String getLabel() {
+        return label;
     }
 
-    public Container toContainer(DimensionFactory dimensionFactory) {
-        Container container = new Container();
-        container.setDimension(dimensionFactory.create(getDimension()));
-        container.setPropertyValues(toPropertyValues());
-        return container;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isLabelHidden() {
+        return labelHidden;
+    }
+
+    public void setLabelHidden(boolean labelHidden) {
+        this.labelHidden = labelHidden;
     }
 }

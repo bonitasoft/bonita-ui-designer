@@ -12,42 +12,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.experimental.parametrizedWidget;
+package org.bonitasoft.web.designer.experimental.mapping.data;
 
-@Widget
-public class CheckboxWidget extends LabelParametrizedWidget implements Valuable {
+import java.util.List;
 
-    private static final String LABEL_WIDGET_ID = "pbText";
+public class BusinessObject {
+    private String name;
+    private String variableName;
+    private List<BusinessObjectAttribute> attributes;
 
-
-    @WidgetProperty
-    private String value;
-
-    @WidgetProperty
-    private boolean disabled = false;
-
-    public CheckboxWidget() {
-        super(LABEL_WIDGET_ID);
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String getWidgetId() {
-        return "pbCheckbox";
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public List<BusinessObjectAttribute> getAttributes() {
+        return attributes;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setAttributes(List<BusinessObjectAttribute> attributes) {
+        this.attributes = attributes;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public String getVariableName() {
+        return variableName;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public void setVariableName(String variableName) {
+        this.variableName = variableName;
     }
 }

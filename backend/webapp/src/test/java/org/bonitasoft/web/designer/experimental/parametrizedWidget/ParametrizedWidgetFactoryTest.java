@@ -35,6 +35,7 @@ import org.bonitasoft.web.designer.experimental.assertions.DateTimePickerWidgetA
 import org.bonitasoft.web.designer.experimental.assertions.InputWidgetAssert;
 import org.bonitasoft.web.designer.experimental.assertions.TitleWidgetAssert;
 import org.bonitasoft.web.designer.experimental.mapping.ContractInputDataHandler;
+import org.bonitasoft.web.designer.experimental.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
@@ -59,6 +60,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aStringContractInput("name"));
 
+
         assertThat(component).isInstanceOf(InputWidget.class);
     }
 
@@ -72,10 +74,11 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
                 .hasLabelPosition(LabelPosition.TOP.getValue())
                 .hasLabelWidth(1)
                 .hasType(InputType.TEXT.getValue());
+
         AbstractParametrizedWidgetAssert.assertThat(component).isDisplayed()
                 .hasLabel("Name")
-                .isNotLabelHidden()
-                .isNotReadonly();
+                .isNotLabelHidden();
+        assertThat(component.isReadOnly()).isFalse();
     }
 
     @Test
@@ -147,7 +150,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
                 .createParametrizedWidget(new LeafContractInput("isValidated", Boolean.class));
 
         assertThat(component).isInstanceOf(CheckboxWidget.class);
-        assertThat(component.getLabel()).isEqualTo("Is Validated");
+        assertThat(((CheckboxWidget)component).getLabel()).isEqualTo("Is Validated");
     }
 
     @Test
@@ -157,7 +160,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aFileContractInput("document"));
 
         assertThat(component).isInstanceOf(FileUploadWidget.class);
-        assertThat(component.getLabel()).isEqualTo("Document");
+        assertThat(((FileUploadWidget)component).getLabel()).isEqualTo("Document");
         assertThat(((FileUploadWidget) component).getUrl()).isEqualTo("../API/formFileUpload");
     }
 
@@ -229,7 +232,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         TitleWidget component = elementFactory.createTitle(aStringContractInput("isValid"));
 
         TitleWidgetAssert.assertThat(component).hasText("Is Valid");
-        AbstractParametrizedWidgetAssert.assertThat(component).hasAlignment(LabelPosition.LEFT.getValue()).isDisplayed();
+
+        assertThat(component.getAlignment()).isEqualTo(Alignment.LEFT.getValue());
+        AbstractParametrizedWidgetAssert.assertThat(component).isDisplayed();
     }
 
     @Test
@@ -257,7 +262,6 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         ContractInput input = mock(ContractInput.class);
         when(input.isMultiple()).thenReturn(false);
         WidgetContainer container = elementFactory.createWidgetContainer(input);
-
         AbstractParametrizedWidgetAssert.assertThat(container).isDisplayed();
     }
 
@@ -286,9 +290,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         ButtonWidget button = elementFactory.createSubmitButton(ButtonAction.START_PROCESS);
 
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
+        assertThat(button.getAlignment()).isEqualTo(Alignment.CENTER.getValue());
         AbstractParametrizedWidgetAssert.assertThat(button)
                 .hasLabel("Submit")
-                .hasAlignment(Alignment.CENTER.getValue())
                 .isDisplayed();
     }
 
@@ -365,10 +369,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(button.getDimension()).isEqualTo(12);
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
-
+        assertThat(button.getAlignment()).isEqualTo(Alignment.LEFT.getValue());
         AbstractParametrizedWidgetAssert.assertThat(button)
                 .hasLabel("<span class=\"glyphicon glyphicon-plus\"></span>")
-                .hasAlignment(Alignment.LEFT.getValue())
                 .isDisplayed();
     }
 
@@ -383,7 +386,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(button.getRemoveItem()).isEqualTo("$item");
         assertThat(button.getCollectionToModify()).isEqualTo("$collection");
 
-        AbstractParametrizedWidgetAssert.assertThat(button).hasAlignment(Alignment.RIGHT.getValue());
+        assertThat(button.getAlignment()).isEqualTo(Alignment.RIGHT.getValue());
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.DANGER.getValue()).isNotDisabled();
         AbstractParametrizedWidgetAssert.assertThat(button)
                 .hasLabel("<span class=\"glyphicon glyphicon-remove\"></span>")
@@ -408,7 +411,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         assertThat(link.getTargetUrl()).isEqualTo(linkUrl);
         assertThat(link.getButtonStyle()).isEqualTo(linkStyle.getValue());
         assertThat(link.getDimension()).isEqualTo(12);
-        AbstractParametrizedWidgetAssert.assertThat(link).hasAlignment(Alignment.LEFT.getValue());
+        assertThat(link.getAlignment()).isEqualTo(Alignment.LEFT.getValue());
     }
 
     @Test
@@ -422,8 +425,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
         assertThat(widget).isInstanceOf(TextWidget.class);
         assertThat(widget.getHidden()).isEqualTo("!reference");
-        assertThat(widget.isLabelHidden()).isFalse();
-        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).isLabelHidden()).isFalse();
+        assertThat(((TextWidget) widget).getLabel()).isEqualTo("Reference");
         assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference}}");
     }
 
@@ -438,8 +441,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
         assertThat(widget).isInstanceOf(TextWidget.class);
         assertThat(widget.getHidden()).isEqualTo("!reference");
-        assertThat(widget.isLabelHidden()).isFalse();
-        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).isLabelHidden()).isFalse();
+        assertThat(((TextWidget) widget).getLabel()).isEqualTo("Reference");
         assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference}}");
     }
 
@@ -454,8 +457,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
         assertThat(widget).isInstanceOf(TextWidget.class);
         assertThat(widget.getHidden()).isEqualTo("!reference");
-        assertThat(widget.isLabelHidden()).isFalse();
-        assertThat(widget.getLabel()).isEqualTo("Reference");
+        assertThat(((TextWidget) widget).isLabelHidden()).isFalse();
+        assertThat(((TextWidget) widget).getLabel()).isEqualTo("Reference");
         assertThat(((TextWidget) widget).getText()).isEqualTo("{{reference|uiDate}}");
     }
 
@@ -470,9 +473,9 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
         assertThat(widget).isInstanceOf(CheckboxWidget.class);
         assertThat(widget.getHidden()).isEqualTo("!reference");
-        assertThat(widget.isLabelHidden()).isFalse();
-        assertThat(widget.getLabel()).isEqualTo("Reference");
-        assertThat(widget.isReadOnly()).isTrue();
+        assertThat(((CheckboxWidget) widget).isLabelHidden()).isFalse();
+        assertThat(((CheckboxWidget) widget).getLabel()).isEqualTo("Reference");
+        assertThat(((CheckboxWidget) widget).isDisabled()).isTrue();
         assertThat(((CheckboxWidget) widget).getValue()).isEqualTo("reference");
     }
 
@@ -491,8 +494,8 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidget widget = createFactory().createParametrizedWidget(input);
         assertThat(widget).isInstanceOf(TextWidget.class);
         assertThat(widget.getHidden()).isEqualTo("!aggregatedReference");
-        assertThat(widget.isLabelHidden()).isFalse();
-        assertThat(widget.getLabel()).isEqualTo("Aggregated Reference");
+        assertThat(((TextWidget) widget).isLabelHidden()).isFalse();
+        assertThat(((TextWidget) widget).getLabel()).isEqualTo("Aggregated Reference");
         assertThat(((TextWidget) widget).getText()).isEqualTo("{{aggregatedReference}}");
     }
 

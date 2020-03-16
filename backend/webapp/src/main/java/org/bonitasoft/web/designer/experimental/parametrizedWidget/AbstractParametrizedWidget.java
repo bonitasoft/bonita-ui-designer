@@ -18,10 +18,13 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -31,18 +34,19 @@ import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
+@Widget
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
 
     private String widgetId;
-    private Integer dimension = 12;
-    private String label;
-    private boolean labelHidden = false;
-    private boolean readOnly = false;
-    private String alignment = Alignment.LEFT.getValue();
-    private String cssClasses = "";
-    private String hidden = "";
 
-    private static final Map<String, ParameterType> propertyParameters = new HashMap<>();
+    @WidgetProperty
+    private String cssClasses = "";
+    @WidgetProperty
+    private String hidden = "";
+    @WidgetProperty
+    private Integer dimension = 12;
+
+    protected static final Map<String, ParameterType> propertyParameters = new HashMap<>();
 
     static {
         propertyParameters.put(COLLECTION_PARAMETER, ParameterType.VARIABLE);
@@ -57,8 +61,8 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(URL_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(AVAILABLE_VALUES_PARAMETER, ParameterType.EXPRESSION);
         propertyParameters.put(PLACEHOLDER_PARAMETER, ParameterType.CONSTANT);
-        propertyParameters.put(READONLY_PARAMETER, ParameterType.CONSTANT);
         propertyParameters.put(LABEL_HIDDEN_PARAMETER, ParameterType.CONSTANT);
+        propertyParameters.put(READONLY_PARAMETER, ParameterType.CONSTANT);
         propertyParameters.put(HIDDEN_PARAMETER, ParameterType.EXPRESSION);
     }
 
@@ -83,38 +87,6 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     @Override
     public Integer getDimension() {
         return dimension;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public boolean isLabelHidden() {
-        return labelHidden;
-    }
-
-    public void setLabelHidden(boolean labelHidden) {
-        this.labelHidden = labelHidden;
-    }
-
-    public boolean isReadOnly() {
-        return readOnly;
-    }
-
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
-    }
-
-    public String getAlignment() {
-        return alignment;
-    }
-
-    public void setAlignment(Alignment alignment) {
-        this.alignment = alignment.getValue();
     }
 
     public String getCssClasses() {
@@ -156,10 +128,13 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     private Map<String, Object> toMap() {
         try {
             Map<String, Object> params = new HashMap<>();
+            ArrayList<String> availableProperties = new ArrayList<>();
+            availableProperties.addAll(classesIntrospection(this.getClass()));
+
             BeanInfo info = Introspector.getBeanInfo(this.getClass());
             for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
                 Method reader = pd.getReadMethod();
-                if (reader != null) {
+                if (reader != null && availableProperties.contains(pd.getName())) {
                     params.put(pd.getName(), reader.invoke(this));
                 }
             }
@@ -167,6 +142,19 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         } catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             return Collections.emptyMap();
         }
+    }
+
+    private List<String> classesIntrospection(Class<?> aClass) {
+        ArrayList<String> list = new ArrayList<>();
+        for (Field field : aClass.getDeclaredFields()) {
+            if (field.isAnnotationPresent(WidgetProperty.class)) {
+                list.add(field.getName());
+            }
+        }
+        if (aClass.getSuperclass().isAnnotationPresent(Widget.class)) {
+            list.addAll(classesIntrospection(aClass.getSuperclass()));
+        }
+        return list;
     }
 
     private ParameterType getParameterType(String paramName) {

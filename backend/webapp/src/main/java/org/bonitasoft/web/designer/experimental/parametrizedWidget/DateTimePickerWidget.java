@@ -14,19 +14,36 @@
  */
 package org.bonitasoft.web.designer.experimental.parametrizedWidget;
 
+@Widget
 public class DateTimePickerWidget extends InputWidget {
 
     private static final String DATE_TIME_PICKER_WIDGET_ID = "pbDateTimePicker";
+
+    @WidgetProperty
     private String dateFormat;
+
+    @WidgetProperty
     private String timeFormat;
+
+    @WidgetProperty
     private boolean showNow = true;
+
+    @WidgetProperty
     private boolean showToday = true;
-    private boolean hidden = false;
+
+    @WidgetProperty
     private String nowLabel;
+
+    @WidgetProperty
     private String todayLabel;
 
+    @WidgetProperty
     private boolean withTimeZone = false;
+
+    @WidgetProperty
     private boolean inlineInput = true;
+
+    @WidgetProperty
     private String timePlaceholder;
 
     public DateTimePickerWidget() {
