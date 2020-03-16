@@ -172,5 +172,12 @@ export default [{
     'bond': 'variable'
   }],
   'type': 'widget'
-}
+},
+  {
+    'id': 'pbTabContainer',
+    'name': 'TabContainer',
+    'custom': false,
+    'properties': [],
+    'type': 'widget'
+  }
   ];
