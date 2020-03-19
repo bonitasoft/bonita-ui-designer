@@ -45,7 +45,7 @@ public class ComponentBuilder extends ElementBuilder<Component> {
         component.setId(id);
         return this;
     }
-    
+
     public ComponentBuilder withDescription(String description) {
         component.setDescription(description);
         return this;

@@ -38,7 +38,7 @@ public class Component extends Element {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     @JsonView({JsonViewPersistence.class})
     public String getDescription() {
         return description;

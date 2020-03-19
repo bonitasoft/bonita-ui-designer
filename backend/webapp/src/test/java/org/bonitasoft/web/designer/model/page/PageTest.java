@@ -95,16 +95,17 @@ public class PageTest {
         assertThat(pageAfterJsonProcessing.getRows()).isNotNull();
         assertThat(((Component) ((Container) pageAfterJsonProcessing.getRows().get(0).get(1)).getRows().get(1).get(1)).getDescription()).isNotNull().isNotEmpty();
     }
-    
+
     @Test
-    public void jsonview_persitence_should_persist_component_description() throws Exception {
+    public void jsonview_persitence_should_persist_component_name_and_description() throws Exception {
         Page pageInitial = PageBuilder.aPage().with(anInput().withDescription("A mandatory name input").build()).build();
 
         //We serialize and deserialize our object
         Page pageAfterJsonProcessing = objectMapper.readValue(
                 objectMapper.writeValueAsString(pageInitial),
                 Page.class);
-        assertThat(((Component) pageAfterJsonProcessing.getRows().get(0).get(0)).getDescription()).isNotNull().isNotEmpty();
+        Component component = (Component) pageAfterJsonProcessing.getRows().get(0).get(0);
+        assertThat(component.getDescription()).isNotNull().isNotEmpty();
     }
 
     @Test(expected = ConstraintValidationException.class)
