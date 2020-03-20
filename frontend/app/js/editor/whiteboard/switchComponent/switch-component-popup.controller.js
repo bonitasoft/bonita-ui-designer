@@ -21,7 +21,7 @@
       this.widgetFrom = widgetFrom;
       this.propertiesService = properties;
       this.selectedWidget = '';
-      this.widgetsToDisplay = this.widgets.sort((a, b) => a.name.localeCompare(b.name)).filter(w => w.id !== this.widgetFrom.$$widget.id && (w.type !== 'container' ||  w.type !== 'data model')).map(item => {
+      this.widgetsToDisplay = this.widgets.sort((a, b) => a.name.localeCompare(b.name)).filter(w => this._filterWidget(w)).map(item => {
         return { id: item.id, name: item.name, custom: item.custom };
       });
       this.propertiesFrom = this._extractFromProperties(this.widgetFrom);
@@ -31,6 +31,10 @@
       this.dictionary = this._attachDictionary(dictionaryValues[0]);
       this.propertiesIsDisplay = false;
 
+    }
+
+    _filterWidget(widget) {
+      return widget.id !== this.widgetFrom.$$widget.id && (widget.type !== 'container' ||  widget.type !== 'data model') && widget.id !== 'pbTabContainer';
     }
 
     _attachDictionary(dictionary) {
