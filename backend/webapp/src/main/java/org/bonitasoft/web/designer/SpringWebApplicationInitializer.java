@@ -110,7 +110,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         registerProxy(servletContext, "bonitaAppsProxy", "/apps/*", "/bonita/apps", getPortalOrigin());
 
         // Useful for repository calls editor to get dataManagement infos
-        registerBdrProxy(servletContext, "bonitaDataRepository", "/bdr", "/bdr", getDataRepositoryOrigin());
+        registerBdrProxy(servletContext, "bonitaDataRepository", "/bdm/*", "/bdm", getDataRepositoryOrigin());
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);

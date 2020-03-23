@@ -25,7 +25,7 @@
     class DataManagementRepo {
       constructor() {
         this.isError = false;
-        this.baseUrl = './bdr';
+        this.baseUrl = './bdm/graphql';
         this.$http = $http;
         this.config = {
           headers: {
