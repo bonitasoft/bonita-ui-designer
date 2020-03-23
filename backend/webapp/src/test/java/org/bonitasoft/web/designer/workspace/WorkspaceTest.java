@@ -175,10 +175,12 @@ public class WorkspaceTest {
     public void should_delete_page_reference_when_page_doesnt_exist_anymore_but_any_file_stay_on_filesystem() throws Exception {
         //Folder creation
         temporaryFolder.newFolderPath("pages","myPageToRemove","js");
+        temporaryFolder.newFilePath("pages/.gitignore");
 
         workspace.cleanPageWorkspace();
 
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPageToRemove")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".gitignore")).exists();
     }
 
     @Test
