@@ -55,7 +55,7 @@ public class Workspace {
 
     @Inject
     public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
-            WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
+                     WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
@@ -85,8 +85,11 @@ public class Workspace {
                     // Clean Js folder, this folder can be exist in version before this fix
                     FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).resolve("js").toFile());
                 } else {
-                    FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).toFile());
-                    logger.debug(String.format("Deleting folder [%s] with success", pageWorkspace.resolve(pageFolder).toString()));
+                    File f = pageWorkspace.resolve(pageFolder).toFile();
+                    if (f.isDirectory()) {
+                        FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).toFile());
+                        logger.debug(String.format("Deleting folder [%s] with success", pageWorkspace.resolve(pageFolder).toString()));
+                    }
                 }
             } catch (IOException e) {
                 String error = String.format("Technical error when deleting file [%s]", pageWorkspace.resolve(pageFolder).resolve("js").toString());
