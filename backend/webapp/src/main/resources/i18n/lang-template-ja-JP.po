@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-02-25 17:40\n"
+"PO-Revision-Date: 2020-03-24 02:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -1594,6 +1594,9 @@ msgstr "プロパティ"
 
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "プロパティ名は、英文字で始まり英数字のみで命名する必要があります。"
+
+msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
+msgstr ""
 
 msgid "Read-only"
 msgstr "読み取り専用"

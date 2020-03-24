@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-02-25 17:22\n"
+"PO-Revision-Date: 2020-03-24 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1593,6 +1593,9 @@ msgstr "Propiedades"
 
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "Los nombres de página deben empezar con una letra y contener sólo caracteres alfanuméricos"
+
+msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
+msgstr ""
 
 msgid "Read-only"
 msgstr "Sólo lectura"

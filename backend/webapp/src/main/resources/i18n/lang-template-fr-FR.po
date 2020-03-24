@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-02-25 17:15\n"
+"PO-Revision-Date: 2020-03-24 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1591,6 +1591,9 @@ msgstr "Propriétés"
 
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "Les noms des widgets personnalisés doivent commencer par une lettre et ne contenir que des caractères alphanumériques"
+
+msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
+msgstr ""
 
 msgid "Read-only"
 msgstr "Lecture seule"
