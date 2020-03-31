@@ -102,9 +102,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       });
       $scope.newData.lang = gettextCatalog.getCurrentLanguage();
 
-      let businessData = businessObject;
-      businessData.name = $scope.newData.$$name;
-      $scope.businessDataUpdate = businessDataUpdateService.create(businessData, $scope.variableInfo);
+      $scope.businessDataUpdate = businessDataUpdateService.create(businessObject, $scope.variableInfo);
 
       $scope.handleQueryChanged = (e) =>  {
         $scope.newData.variableInfo = $scope.businessDataUpdate.queryChanged(e);
