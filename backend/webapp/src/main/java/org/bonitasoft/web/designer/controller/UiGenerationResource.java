@@ -18,6 +18,7 @@ package org.bonitasoft.web.designer.controller;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObject;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObjectAttribute;
 import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObjectAttributeType;
+import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObjectRelationAttribute;
 import org.bonitasoft.web.designer.experimental.mapping.dataManagement.BusinessObjectContainer;
 import org.bonitasoft.web.designer.experimental.mapping.dataManagement.DataManagementGenerator;
 import org.bonitasoft.web.designer.experimental.mapping.dataManagement.NodeBusinessObjectInput;
@@ -55,40 +56,42 @@ public class UiGenerationResource {
         nbi.setDataName(businessObject.getVariableName());
 
         for (BusinessObjectAttribute att : businessObject.getAttributes()) {
-            if (att.getType().getKind().equals("SCALAR")) {
-                LeafContractInput lci = new LeafContractInput(att.getName(), getAttributeClass(att.getType()));
-                lci.setReadonly(true);
-                nbi.addInput(lci);
-            } else if (!att.getType().getKind().equals("NON_NULL")) {
-                // check NON_NULL since we get an issue with this: skip it for now. It will disappear soon when using
-                NodeBusinessObjectInput nbiChild = new NodeBusinessObjectInput(att.getType().getName());
+            if (att instanceof BusinessObjectRelationAttribute) {
+                BusinessObjectRelationAttribute relAtt = (BusinessObjectRelationAttribute) att;
+                NodeBusinessObjectInput nbiChild = new NodeBusinessObjectInput(relAtt.getReference());
                 nbiChild.setDataName(nbi.getDataNameSelected());
                 nbiChild.setReadonly(true);
                 nbi.addInput(nbiChild);
                 //TODO: Here call BDR POST to retrieve attribute for child object and add attributes to nbiChild
+            } else {
+                LeafContractInput lci = new LeafContractInput(att.getName(), getAttributeClass(att.getType()));
+                lci.setReadonly(true);
+                nbi.addInput(lci);
             }
         }
 
         return dataManagementGenerator.generate(nbi);
     }
 
-    private Class getAttributeClass(BusinessObjectAttributeType attType) {
-        switch (attType.getName()) {
-            case "String":
+    private Class getAttributeClass(String attType) {
+        switch (attType) {
+            case "STRING":
                 return String.class;
-            case "DateTime":
+            case "LOCALDATETIME":
+            case "OFFSETDATETIME":
                 return LocalDateTime.class;
-            case "Date":
+            case "LOCALDATE":
+            case "DATE":
                 return LocalDate.class;
-            case "Int":
+            case "INTEGER":
                 return Integer.class;
-            case "Long":
+            case "LONG":
                 return Long.class;
-            case "Double":
+            case "DOUBLE":
                 return Double.class;
-            case "Float":
+            case "FLOAT":
                 return Float.class;
-            case "Boolean":
+            case "BOOLEAN":
                 return Boolean.class;
             default:
                 throw new UnsupportedOperationException("Attribute type isn't supported");

@@ -43,11 +43,10 @@
 
     getDataManagementObject() {
       return {
-        displayValue: `${this.variableInfo.query.name} [${this.businessData.qualifiedName}]`,
+        displayValue: `${this.variableInfo.query.name} [${this.businessData.id}]`,
         businessObjectName: `${this.businessData.name}`,
         query: this.variableInfo.query,
         id: this.businessData.id,
-        qualifiedName: this.businessData.qualifiedName,
         filters: this.variableInfo.filters,
         pagination: this.variableInfo.pagination
       };

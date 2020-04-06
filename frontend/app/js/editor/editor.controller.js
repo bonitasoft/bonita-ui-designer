@@ -181,33 +181,30 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
 
   function triggeredDataManagement(dataComponent, index) {
     // Call dataRepo to get Query for this dataComponent Name
-    $scope.queries = [];
-    dataManagementRepo.getQueries(dataComponent.id).then(res => {
-      $scope.queries = res;
-      $uibModal.open({
-        templateUrl: 'js/editor/bottom-panel/data-panel/data-management-filter-popup.html',
-        controller: 'DataManagementPopupController',
-        controllerAs: 'ctrl',
-        resolve: {
-          businessData: () => dataComponent,
-          queriesForObject: () => $scope.queries,
-          pageData: () => $scope.page.variables,
-          businessDataUpdateService: () => businessDataUpdateService
-        }
-      }).result.then((data) => {
-        if (data) {
-          dataManagementRepo.getDataObject(dataComponent.id).then(res => {
-            if (res.businessObject) {
-              addDataManagementGeneratedUI(res.businessObject, index, data.variable);
-            }
-          });
-        } else {
-          if ($scope.currentContainerRow.row.length === 0) {
-            // Remove row to don't let empty row
-            removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
+    $scope.queries = dataManagementRepo.getQueries(dataComponent.id);
+    $uibModal.open({
+      templateUrl: 'js/editor/bottom-panel/data-panel/data-management-filter-popup.html',
+      controller: 'DataManagementPopupController',
+      controllerAs: 'ctrl',
+      resolve: {
+        businessData: () => dataComponent,
+        queriesForObject: () => $scope.queries,
+        pageData: () => $scope.page.variables,
+        businessDataUpdateService: () => businessDataUpdateService
+      }
+    }).result.then((data) => {
+      if (data) {
+        dataManagementRepo.getDataObject(dataComponent.id).then(res => {
+          if (res.businessObject) {
+            addDataManagementGeneratedUI(res.businessObject, index, data.variable);
           }
+        });
+      } else {
+        if ($scope.currentContainerRow.row.length === 0) {
+          // Remove row to don't let empty row
+          removeRow($scope.currentContainerRow.container, $scope.currentContainerRow.row);
         }
-      });
+      }
     });
   }
 

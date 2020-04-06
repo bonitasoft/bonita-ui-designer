@@ -14,30 +14,32 @@
  */
 package org.bonitasoft.web.designer.experimental.mapping.data;
 
-public class BusinessObjectAttribute {
-    private String name;
-    private String type;
+public class BusinessObjectRelationAttribute extends BusinessObjectAttribute {
+    private String reference;
+    private String fetchType;
 
-    public BusinessObjectAttribute(){}
-
-    public BusinessObjectAttribute(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public BusinessObjectRelationAttribute() {
     }
 
-    public String getName() {
-        return name;
+    public BusinessObjectRelationAttribute(String name, String type, String reference, String fetchType) {
+        super(name, type);
+        this.reference = reference;
+        this.fetchType = fetchType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getReference() {
+        return reference;
     }
 
-    public String getType() {
-        return type;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getFetchType() {
+        return fetchType;
+    }
+
+    public void setFetchType(String fetchType) {
+        this.fetchType = fetchType;
     }
 }

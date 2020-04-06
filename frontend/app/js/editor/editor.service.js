@@ -105,7 +105,6 @@
           id: obj.id,
           name: obj.name,
           description: obj.description,
-          qualifiedName: obj.qualifiedName,
           type: 'model',
         });
       });

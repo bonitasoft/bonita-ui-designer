@@ -49,7 +49,6 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       // Check if any business object is define in data repository
       if (data.objects.length === 0) {
         $scope.businessObjects = [{
-          qualifiedName: loadData.qualifiedName,
           name: loadData.businessObjectName,
           id: loadData.id
         }];
@@ -58,11 +57,10 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       } else {
         $scope.businessObjects = data.objects;
         // Find business Object
-        let selectBO = data.objects.filter(bo => loadData.qualifiedName === bo.qualifiedName);
+        let selectBO = data.objects.filter(bo => loadData.id === bo.id);
         if (selectBO.length === 0) {
           $scope.editBusinessDataQueries = false;
           $scope.businessObjects.push({
-            qualifiedName: loadData.qualifiedName,
             name: loadData.businessObjectName,
             id: loadData.id,
             description: null
@@ -97,9 +95,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     $scope.updateBusinessObjectValue = function(businessObject) {
       $scope.newData.businessObject = $scope.businessObjects.filter(bo => bo.id === businessObject.id)[0];
       $scope.newData.variableInfo = businessObject || {};
-      dataManagementRepo.getQueries(businessObject.id).then(res => {
-        $scope.newData.queries = res;
-      });
+      $scope.newData.queries = dataManagementRepo.getQueries(businessObject.id);
       $scope.newData.lang = gettextCatalog.getCurrentLanguage();
 
       $scope.businessDataUpdate = businessDataUpdateService.create(businessObject, $scope.variableInfo);

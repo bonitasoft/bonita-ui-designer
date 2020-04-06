@@ -59,8 +59,7 @@ public class BusinessObjectBuilder {
     }
 
     public BusinessObjectBuilder withAttributes(String name, String type, String scalar){
-        BusinessObjectAttribute boa = new BusinessObjectAttribute(name);
-        boa.setType(new BusinessObjectAttributeType(type,scalar));
+        BusinessObjectAttribute boa = new BusinessObjectAttribute(name, type);
         this.attributes.add(boa);
         return this;
     }

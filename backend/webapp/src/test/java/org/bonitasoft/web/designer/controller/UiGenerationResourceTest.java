@@ -56,7 +56,7 @@ public class UiGenerationResourceTest {
 
     @Test
     public void should_generate_business_object_ui() throws Exception {
-        BusinessObject bo = aBusinessObject("com_company_model_address").withVariableName("address").withAttributes("City", "String","SCALAR").build();
+        BusinessObject bo = aBusinessObject("com.company.model.address").withVariableName("address").withAttributes("City", "STRING","SCALAR").build();
 
         mockMvc
                 .perform(post("/rest/generation/businessobject")
