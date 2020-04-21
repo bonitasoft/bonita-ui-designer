@@ -24,7 +24,15 @@
                 type="button">
             <i class="fa fa-question-circle"></i>
         </button>
-        <div id="action" class="btn-group PanelHeader-widget-action-btn">
+        <div id="action" class="btn-group PanelHeader-data-model-btn">
+            <button class="btn-group btn btn-xs btn-bonita-action-widget"
+                    ng-if="palette.isDataSection(palette.currentSection)"
+                    uib-tooltip="{{ 'Explore Data Model in new window' | translate }}"
+                    tooltip-placement="right"
+                    tooltip-append-to-body="true"
+                    ng-click="palette.openVoyager()">
+                <i class="fa fa-external-link"></i>
+            </button>
         </div>
         <h3 class="PanelHeader-title">
             {{palette.currentSection.name}}
