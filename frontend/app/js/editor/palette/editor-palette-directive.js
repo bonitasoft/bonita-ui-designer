@@ -116,7 +116,7 @@
         };
         return this.$http.get('rest/bdr/url', config)
           .then((bdrUrl) => {
-            this.bdrUrl = bdrUrl.data.url + '/voyager';
+            this.bdrUrl = bdrUrl.data.url + '/bdm/graphical';
             this._openVoyagerWindow();
           });
       } else {
