@@ -42,9 +42,9 @@ import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaVariableResourcePredicate;
 import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunction;
-import org.bonitasoft.web.designer.experimental.mapping.ContractToPageMapper;
-import org.bonitasoft.web.designer.experimental.mapping.FormScope;
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
+import org.bonitasoft.web.designer.generator.mapping.ContractToPageMapper;
+import org.bonitasoft.web.designer.generator.mapping.FormScope;
+import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -266,7 +266,7 @@ public class PageResource extends AssetResource<Page> {
 
         resources.addAll(extension);
 
-        Iterable<Component> components = componentVisitor.visit(page);     
+        Iterable<Component> components = componentVisitor.visit(page);
 
         List<Component> componentList = newArrayList(components);
         if (componentList.stream()
@@ -326,7 +326,7 @@ public class PageResource extends AssetResource<Page> {
         return component -> component.getPropertyValues().containsKey("action") && Objects.equals(action,
                 String.valueOf(component.getPropertyValues().get("action").getValue()));
     }
-    
+
     private Predicate<? super Component> withId(String id) {
         return component -> Objects.equals(id,component.getId());
     }

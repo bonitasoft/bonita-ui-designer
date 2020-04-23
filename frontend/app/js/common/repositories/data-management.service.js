@@ -36,13 +36,13 @@
       }
 
       getDataObject(businessObjectName) {
-        let response = this.jsonResponse;
+        let response = this.jsonResponse.data;
         let businessObject = null;
         let resp = { error: false, businessObject: { name: businessObjectName, attributes: [] } };
-        if (!response || !response._businessObjects || response._businessObjects.length === 0) {
+        if (!response || !response.businessObjects || response.businessObjects.length === 0) {
           return resp;
         }
-        let objs = response._businessObjects;
+        let objs = response.businessObjects;
         for (let obj of objs) {
           if (obj.qualifiedName === businessObjectName) {
             businessObject = obj;
@@ -52,10 +52,19 @@
         if (!businessObject) {
           return resp;
         }
-        resp.businessObject.attributes = businessObject.attributes;
-        console.log('getDataObject(businessObject)=');
-        console.log(resp);
+
+        resp.businessObject.attributes = this.getAttributes(objs, businessObjectName);
         return resp;
+      }
+
+      getAttributes(allObjects, businessObjectName) {
+        let bo = Object.values(this._getBusinessObject(allObjects, businessObjectName))[0];
+        bo.attributes.forEach(attr => {
+          if (attr.reference) {
+            attr.attributes = this.getAttributes(allObjects, attr.reference);
+          }
+        });
+        return bo.attributes;
       }
 
       getDataObjects() {
@@ -155,6 +164,10 @@
       // For tests
       _setJsonResponse(resp) {
         this.jsonResponse = resp;
+      }
+
+      _getBusinessObject(allObjects, businessObjectName) {
+        return allObjects.filter(bo => bo.qualifiedName === businessObjectName);
       }
     }
 

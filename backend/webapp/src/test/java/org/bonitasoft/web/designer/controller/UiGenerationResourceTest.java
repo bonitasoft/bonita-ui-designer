@@ -25,10 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URISyntaxException;
 
-import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObject;
-import org.bonitasoft.web.designer.experimental.mapping.dataManagement.BusinessObjectContainer;
-import org.bonitasoft.web.designer.experimental.mapping.dataManagement.DataManagementGenerator;
-import org.bonitasoft.web.designer.experimental.mapping.dataManagement.NodeBusinessObjectInput;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,14 +55,14 @@ public class UiGenerationResourceTest {
 
     @Test
     public void should_generate_business_object_ui() throws Exception {
-        BusinessObject bo = aBusinessObject("com.company.model.address").withVariableName("address").withAttributes("City", "STRING","SCALAR").build();
+        BusinessObject bo = aBusinessObject().withNodeBusinessObjectInput(new NodeBusinessObjectInput("com_company_model_address", "address")).build();
 
         mockMvc
                 .perform(post("/rest/generation/businessobject")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(convertObjectToJsonBytes(bo)))
                 .andExpect(status().isOk());
-        verify(dataManagementGenerator).generate(any(NodeBusinessObjectInput.class));
+        verify(dataManagementGenerator).generate(any(BusinessObject.class));
 
     }
 

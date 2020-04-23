@@ -194,11 +194,10 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       }
     }).result.then((data) => {
       if (data) {
-        dataManagementRepo.getDataObject(dataComponent.id).then(res => {
-          if (res.businessObject) {
-            addDataManagementGeneratedUI(res.businessObject, index, data.variable);
-          }
-        });
+        let dataObject = dataManagementRepo.getDataObject(dataComponent.id);
+        if (dataObject.businessObject) {
+          addDataManagementGeneratedUI(dataObject.businessObject, index, data.variable);
+        }
       } else {
         if ($scope.currentContainerRow.row.length === 0) {
           // Remove row to don't let empty row

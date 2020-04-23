@@ -430,7 +430,7 @@
                 <configuration>
                     <sourceDirectory>${project.build.directory}/widget-schema/</sourceDirectory>
                     <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
-                    <targetPackage>org.bonitasoft.web.designer.experimental.widgets</targetPackage>
+                    <targetPackage>org.bonitasoft.web.designer.generator.widgets</targetPackage>
                     <annotationStyle>none</annotationStyle>
                     <includeAdditionalProperties>false</includeAdditionalProperties>
                     <includeHashcodeAndEquals>false</includeHashcodeAndEquals>

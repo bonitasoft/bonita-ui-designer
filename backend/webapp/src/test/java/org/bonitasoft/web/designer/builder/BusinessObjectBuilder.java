@@ -14,64 +14,65 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
-import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObject;
-import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObjectAttribute;
-import org.bonitasoft.web.designer.experimental.mapping.data.BusinessObjectAttributeType;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
 
 public class BusinessObjectBuilder {
 
-    private String name;
-    private String variableName;
-    private List<BusinessObjectAttribute> attributes = new ArrayList<>();
+    private NodeBusinessObjectInput rootNodeInput;
+    private BusinessObject businessObject;
 
 
-    private BusinessObjectBuilder() {
+    private BusinessObjectBuilder(BusinessObject businessObject) {
+        this.businessObject = businessObject;
     }
 
     public static BusinessObjectBuilder aBusinessObject() {
-        return new BusinessObjectBuilder();
+        return new BusinessObjectBuilder(new BusinessObject());
     }
 
-    public static BusinessObjectBuilder aBusinessObject(String name) {
-        BusinessObjectBuilder bo = new BusinessObjectBuilder();
-        bo.withName(name);
-        return bo;
-    }
-
-    public BusinessObjectBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public BusinessObjectBuilder withVariableName(String variableName) {
-        this.variableName = variableName;
-        return this;
-    }
-
-    public BusinessObjectBuilder withAttributes(BusinessObjectAttribute... attributes) {
-        for (BusinessObjectAttribute boa : attributes) {
-            this.attributes.add(boa);
+    public BusinessObjectBuilder withInput(ContractInput... contractInput) {
+        for (ContractInput input : contractInput) {
+            businessObject.addInput(input);
         }
         return this;
     }
 
-    public BusinessObjectBuilder withAttributes(String name, String type, String scalar){
-        BusinessObjectAttribute boa = new BusinessObjectAttribute(name, type);
-        this.attributes.add(boa);
+    public BusinessObjectBuilder withNodeBusinessObjectInput(NodeBusinessObjectInput rootNodeInput) {
+        this.rootNodeInput = rootNodeInput;
         return this;
     }
 
-    public BusinessObject build() {
-        BusinessObject bo = new BusinessObject();
-        bo.setName(name);
-        bo.setVariableName(variableName);
-        bo.setAttributes(attributes);
-        return bo;
+    public BusinessObjectBuilder withANodeBusinessObjectInput() {
+        this.rootNodeInput = new NodeBusinessObjectInput("com.company.model.person", "person");
+        return this;
+    }
+
+    public static ContractInputBuilder aBusinessObjectNodeInput(String name, String pageDataName) {
+        return new ContractInputBuilder(new NodeBusinessObjectInput(name, pageDataName));
     }
 
 
+    public static BusinessObject aSimpleBusinessObject() {
+        ContractInput a = aBusinessObjectNodeInput("com.company.model.ticket", "ticket").withInput(
+                aStringContractInput("title"),
+                aDateContractInput("creationDate"),
+                aLocalDateContractInput("creationLocalDate"),
+                aLocalDateTimeContractInput("creationLocalDateTime"),
+                aOffsetDateTimeContractInput("creationOffsetDateTime"),
+                aLongContractInput("updateTime")).build();
+
+        ContractInput b = aBusinessObjectNodeInput("com.company.model.person", "person").withInput(aContractInput("name").withDescription("employee name").build(), aBooleanContractInput("isValid"),a).build();
+
+        return aBusinessObject().withInput(b).build();
+    }
+
+    public BusinessObject build() {
+        return businessObject;
+    }
 }
 

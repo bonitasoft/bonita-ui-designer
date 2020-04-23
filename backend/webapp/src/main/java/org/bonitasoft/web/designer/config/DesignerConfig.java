@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
@@ -34,8 +33,6 @@ import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.experimental.mapping.ContractInputToWidgetMapper;
-import org.bonitasoft.web.designer.experimental.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
