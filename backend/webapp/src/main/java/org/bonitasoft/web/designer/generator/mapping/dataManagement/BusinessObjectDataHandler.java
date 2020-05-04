@@ -43,19 +43,30 @@ public class BusinessObjectDataHandler extends ContractInputDataHandler {
         pathNames.add(inputName());
 
         //multiple
-        NodeBusinessObjectInput name = ((NodeBusinessObjectInput) this.input.getParent());
+        NodeBusinessObjectInput inputParent = ((NodeBusinessObjectInput) this.input.getParent());
         BusinessObjectDataHandler pInput = getParent();
-        String prefix = pInput.isMultiple() ? name.getPageDataNameSelected() : name.getPageDataName();
+        String prefix = inputParent.isMultiple() ? inputParent.getPageDataNameSelected() : inputParent.getPageDataName();
 
         //Eager
-        if(name.getDataReference() != null && BusinessDataReference.LoadingType.EAGER.equals(name.getDataReference().getLoadingType())){
-            NodeBusinessObjectInput eagerParent = ((NodeBusinessObjectInput) name.getParent());
-            prefix = eagerParent.isMultiple() ? eagerParent.getPageDataNameSelected() : eagerParent.getPageDataName();
-            pathNames.add(name.getBusinessObjectAttributeName());
+        boolean hasEagerRef = hasEagerRef(inputParent);
+        while (pInput != null && hasEagerRef) {
+            NodeBusinessObjectInput nodeInput = (NodeBusinessObjectInput) pInput.input;
+            if (nodeInput.isMultiple()) {
+                prefix = nodeInput.getPageDataNameSelected();
+                break;
+            } else {
+                pathNames.add(nodeInput.getBusinessObjectAttributeName());
+            }
+            hasEagerRef = hasEagerRef(nodeInput);
+            pInput = pInput.getParent();
         }
-        pathNames.add(prefix);
 
+        pathNames.add(prefix);
         return on(".").join(reverse(pathNames));
+    }
+
+    private boolean hasEagerRef(NodeBusinessObjectInput inputParent) {
+        return inputParent.getDataReference() != null && BusinessDataReference.LoadingType.EAGER.equals(inputParent.getDataReference().getLoadingType());
     }
 
     @Override
