@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 
 import java.util.Arrays;
 import java.util.List;
@@ -121,34 +122,91 @@ public class BusinessObjectVisitorImplTest {
 
         Container detailsContainer = (Container) rootContainer.getRows().get(2).get(1);
 
-        assertThat(detailsContainer.getRows()).hasSize(4);
+        assertThat(detailsContainer.getRows()).hasSize(3);
         assertThat(detailsContainer.getDescription()).isNotEmpty();
     }
+
+    @Test
+    public void visit_business_object_with_complex_object() throws Exception {
+        Container container = new Container();
+
+        NodeBusinessObjectInput invoice = aInvoiceInvoiceLineProductInCompositionAndEager();
+
+        BusinessObjectVisitorImpl visitor = new BusinessObjectVisitorImpl(container, businessDataToWidgetMapper);
+
+        invoice.accept(visitor);
+        Container rootContainer = (Container) container.getRows().get(0).get(0);
+        assertThat(rootContainer.getRows()).hasSize(3);
+
+        Container invoiceDetailsContainer = (Container) rootContainer.getRows().get(2).get(1);
+
+        assertThat(invoiceDetailsContainer.getRows()).hasSize(2);
+        assertThat(invoiceDetailsContainer.getDescription()).isNotEmpty();
+
+        // Product Section
+        Container invoiceLineDetailsContainer = (Container) ((Container) invoiceDetailsContainer.getRows().get(1).get(0)).getRows().get(2).get(1);
+        assertThat(invoiceLineDetailsContainer.getRows()).hasSize(3);
+
+        Component quantity = (Component) invoiceLineDetailsContainer.getRows().get(1).get(0);
+        assertThat(quantity.getPropertyValues().get("value").getValue()).isEqualTo("invoice_invoiceLines_selected.price");
+        //assertThat(quantity.getPropertyValues().get("hidden").getValue()).isEqualTo("invoice_invoiceLines_selected.price");
+        Component price = (Component) invoiceLineDetailsContainer.getRows().get(1).get(0);
+        assertThat(price.getPropertyValues().get("value").getValue()).isEqualTo("invoice_invoiceLines_selected.price");
+
+
+        Container productDetailsContainer = (Container) ((Container) invoiceLineDetailsContainer.getRows().get(2).get(0)).getRows().get(1).get(1);
+        assertThat(productDetailsContainer.getRows()).hasSize(2);
+        Component productNameInput = (Component) productDetailsContainer.getRows().get(0).get(0);
+        assertThat(productNameInput.getPropertyValues().get("value").getValue()).isEqualTo("invoice_invoiceLines_selected.product.name");
+    }
+
+
+    private NodeBusinessObjectInput aInvoiceInvoiceLineProductInCompositionAndEager() {
+        NodeBusinessObjectInput node = new NodeBusinessObjectInput("com.company.model.invoice", "invoice");
+        node.addInput(new LeafContractInput("date", String.class));
+        node.setMultiple(true);
+        NodeBusinessObjectInput childNode = new NodeBusinessObjectInput("com.company.model.invoiceLine", "invoice_invoiceLines", "invoiceLine");
+        childNode.addInput(aContractInput("quantity").withType(Integer.class.getName()).build());
+        childNode.addInput(aContractInput("price").withType(Integer.class.getName()).build());
+        childNode.setDataReference(new BusinessDataReference("invoice_invoiceLines", "String", BusinessDataReference.RelationType.COMPOSITION,
+                BusinessDataReference.LoadingType.EAGER));
+        childNode.setMultiple(true);
+        node.addInput(childNode);
+
+        NodeBusinessObjectInput product = new NodeBusinessObjectInput("com.company.model.product", "invoice_invoiceLines", "product");
+        product.addInput(aContractInput("name").withType(String.class.getName()).build());
+        product.addInput(aContractInput("labels").mulitple().withType(String.class.getName()).build());
+        product.setDataReference(new BusinessDataReference("invoice_invoiceLines", "String", BusinessDataReference.RelationType.AGGREGATION,
+                BusinessDataReference.LoadingType.EAGER));
+        childNode.addInput(product);
+        return node;
+    }
+
 
     private NodeBusinessObjectInput aComplexNodeObjectInput() {
         NodeBusinessObjectInput person = new NodeBusinessObjectInput("com.company.model.person");
         person.setPageDataName("person");
+        person.setMultiple(true);
         person.addInput(new LeafContractInput("name", String.class));
         person.addInput(new LeafContractInput("lastName", String.class));
 
-        NodeBusinessObjectInput address = new NodeBusinessObjectInput("com.company.model.address", "person_address","address");
+        NodeBusinessObjectInput address = new NodeBusinessObjectInput("com.company.model.address", "person_address", "address");
         address.addInput(new LeafContractInput("city", String.class));
         address.addInput(new LeafContractInput("zipCode", Integer.class));
         address.setDataReference(new BusinessDataReference("address", "String", BusinessDataReference.RelationType.COMPOSITION, BusinessDataReference.LoadingType.EAGER));
 
         person.addInput(address);
 
-        NodeBusinessObjectInput sport = new NodeBusinessObjectInput("com.company.model.sport","person_sport","sport");
+        NodeBusinessObjectInput sport = new NodeBusinessObjectInput("com.company.model.sport", "person_sport", "sport");
         sport.addInput(new LeafContractInput("Name", String.class));
         sport.addInput(new LeafContractInput("needBalls", Boolean.class));
 
         LeafContractInput comments = new LeafContractInput("comments", Boolean.class);
         comments.setMultiple(true);
         sport.addInput(comments);
+
         sport.setPageDataName("sport");
         sport.setDataReference(new BusinessDataReference("sport", "String", BusinessDataReference.RelationType.AGGREGATION, BusinessDataReference.LoadingType.LAZY));
-
-        person.addInput(address);
         return person;
     }
 
