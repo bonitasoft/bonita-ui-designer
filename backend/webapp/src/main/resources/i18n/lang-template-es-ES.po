@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-03-24 02:28\n"
+"PO-Revision-Date: 2020-05-14 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -879,6 +879,9 @@ msgstr "Ejemplo: filtro de tiempo relativo"
 
 msgid "Expand Preview in new window"
 msgstr "Abrir vista previa en la nueva ventana"
+
+msgid "Explore Data Model in new window"
+msgstr ""
 
 msgid "Export"
 msgstr "Exportar"
