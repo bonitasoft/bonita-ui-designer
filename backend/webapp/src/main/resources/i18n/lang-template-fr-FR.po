@@ -6,16 +6,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-03-24 02:28\n"
+"PO-Revision-Date: 2020-05-14 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
 msgid "'{{ctrl.newData.$$name}}' already exists"
-msgstr ""
+msgstr "'{{ctrl.newData.$$name}}' existe déjà"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
@@ -877,6 +877,9 @@ msgstr "Exemple : filtre \"temps relatif\""
 
 msgid "Expand Preview in new window"
 msgstr "Agrandir l'aperçu dans une nouvelle fenêtre"
+
+msgid "Explore Data Model in new window"
+msgstr ""
 
 msgid "Export"
 msgstr "Exporter"

@@ -6,10 +6,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-03-24 02:29\n"
+"PO-Revision-Date: 2020-05-14 01:28\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -878,6 +878,9 @@ msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
 msgid "Expand Preview in new window"
+msgstr ""
+
+msgid "Explore Data Model in new window"
 msgstr ""
 
 msgid "Export"

@@ -6,10 +6,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: pt-BR\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-03-24 02:32\n"
+"PO-Revision-Date: 2020-05-14 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -882,6 +882,9 @@ msgstr ""
 
 msgid "Expand Preview in new window"
 msgstr "Expandir visualização em nova janela"
+
+msgid "Explore Data Model in new window"
+msgstr ""
 
 msgid "Export"
 msgstr ""
