@@ -1,7 +1,8 @@
 <form name="dataManagement" role="form" novalidate ng-submit="ctrl.save()" autocomplete="off">
     <div class="modal-header">
         <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" translate>Create new Business Data variable to handle  "{{ctrl.businessData.name}}"</h3>
+        <h3 class="modal-title" translate>Create a user interface to handle "{{ctrl.businessData.name}}"</h3>
+        <h5 translate>Please provide the information on how to retrieve elements of "{{ctrl.businessData.name}}"</h5>
     </div>
     <div class="modal-body">
         <div class="variable-area">
