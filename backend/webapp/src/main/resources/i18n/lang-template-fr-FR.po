@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-05-14 01:28\n"
+"PO-Revision-Date: 2020-05-19 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -84,7 +84,7 @@ msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab.
 msgstr "<code>Classes CSS</code> <em>(par défaut : aucune)</em> : Ajouter des classes CSS sur l'onglet. Ces classes CSS seront attachées à l'élément html <strong>tab-heading</strong> ."
 
 msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
-msgstr ""
+msgstr "<code>Désactivé</code> <em>(par défaut : non)</em>: Définit si l'onglet est activé (cliquable) ou non."
 
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> est un objet JSON. <br>Sa structure est définie par les inputs du contrat et ses attributs sont initialisés avec des valeurs par défaut. Il peut être utilisé pour définir les valeurs initiales des champs du formulaire. <br>Pour définir les valeurs de<code>formInput</code>, remplacez ces valeurs par défaut par des constantes (pour le test et debug) ou par les valeurs d'un objet ayant le même modèle, provenant d'une source externe (une external API de BDM, par exemple). <br>Vous pouvez également définir les valeurs initiales du formulaire à partir d'une autre source, sans utiliser <code>formInput</code>. Toutefois, vous devrez alors modifier manuellement la variable <code>formOutput</code>."
