@@ -21,21 +21,9 @@
                 </encoder>
             </appender>
 
-            <if condition='property("catalina.base").contains(".extract")'>
-                <then>
-                    <!-- If we use embedded tomcat we use 2 loggers console and file -->
-                    <root level="INFO">
-                        <appender-ref ref="CONSOLE"/>
-                        <appender-ref ref="LOGFILE"/>
-                    </root>
-                </then>
-                <else>
-                    <root level="INFO">
-                        <appender-ref ref="LOGFILE"/>
-                    </root>
-                </else>
-            </if>
-
+            <root level="INFO">
+                 <appender-ref ref="LOGFILE"/>
+            </root>
         </then>
         <else>
             <root level="INFO">
