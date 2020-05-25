@@ -45,6 +45,12 @@ public class BusinessObjectVisitorImpl implements ContractInputVisitor {
     public void visit(NodeContractInput contractInput) {
         NodeBusinessObjectInput node = (NodeBusinessObjectInput) contractInput;
 
+        // In some case, node don't have children: for example, if node has exceeded limit relation
+        // So we dont want get empty container
+        if(!node.hasChildren()){
+          return;
+        }
+
         Container c = new Container();
         String description = node.getParent() == null ?  node.getPageDataName(): node.getPageDataNameSelected().concat(".").concat(node.getBusinessObjectAttributeName());
         c.setDescription(BUSINESS_OBJECT_CONTAINER.displayValue(node.getName(), description));
