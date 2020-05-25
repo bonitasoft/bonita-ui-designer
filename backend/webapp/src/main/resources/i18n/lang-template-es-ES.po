@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-05-19 01:28\n"
+"PO-Revision-Date: 2020-05-25 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -881,7 +881,7 @@ msgid "Expand Preview in new window"
 msgstr "Abrir vista previa en la nueva ventana"
 
 msgid "Explore Data Model in new window"
-msgstr ""
+msgstr "Explorar Modelo de Datos en una nueva ventana"
 
 msgid "Export"
 msgstr "Exportar"
@@ -1598,7 +1598,7 @@ msgid "Property names must start with a letter and contain only alphanumeric cha
 msgstr "Los nombres de página deben empezar con una letra y contener sólo caracteres alfanuméricos"
 
 msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
-msgstr ""
+msgstr "Esta información sólo es visible en el editor de UI-Designer"
 
 msgid "Read-only"
 msgstr "Sólo lectura"
