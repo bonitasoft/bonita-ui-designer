@@ -12,7 +12,7 @@
     "angular-switcher": "0.2.7",
     "mousetrap": "1.5.3",
     "ngstorage": "0.3.10",
-    "@bonitasoft/query-selector": "^1.0.4"
+    "@bonitasoft/query-selector": "^1.0.5"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.7",
