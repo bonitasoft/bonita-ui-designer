@@ -8,15 +8,21 @@
 
     beforeEach(inject(function ($injector) {
 
+      let $scope = $injector.get('$rootScope').$new();
+      let gettextCatalog = $injector.get('gettextCatalog');
+      let businessDataUpdateService = $injector.get('businessDataUpdateService');
       $uibModalInstance = $injector.get('$uibModalInstance').create();
       let $controller = $injector.get('$controller');
 
       getController = function (businessData, queriesForObject, pageData) {
         return $controller('DataManagementPopupController', {
+          $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           businessData: businessData,
           queriesForObject: queriesForObject,
           pageData: pageData,
+          businessDataUpdateService: businessDataUpdateService,
+          gettextCatalog: gettextCatalog
         });
       };
     }));

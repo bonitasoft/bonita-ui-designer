@@ -143,7 +143,7 @@
       "name": "buttonStyle",
       "type": "choice",
       "defaultValue": "link",
-      "choiceValues": ["link", "primary", "success", "info", "warning", "danger"],
+      "choiceValues": ["link", "default", "primary", "success", "info", "warning", "danger"],
       "bond": "expression"
     }
   ],

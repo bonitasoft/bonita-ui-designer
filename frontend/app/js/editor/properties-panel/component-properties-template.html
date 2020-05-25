@@ -1,12 +1,19 @@
+<ng-include src="'js/editor/properties-panel/common-properties-template.html'"></ng-include>
+
 <div class="form-group">
     <label for="width">
         <translate>Width</translate>
-        <i class="fa fa-info-circle" tooltip-placement="top-right" uib-tooltip="{{ 'Specify the number of columns of the element. All elements can take up to 12 columns.' | translate }}" tooltip-append-to-body="true"></i>
+        <i class="fa fa-info-circle" tooltip-placement="top-right"
+           uib-tooltip="{{ 'Specify the number of columns of the element. All elements can take up to 12 columns.' | translate }}"
+           tooltip-append-to-body="true"></i>
     </label>
     <div class="inner-addon left-addon">
         <i class="fa fa-{{ resolution().icon }} bold text-normal"></i>
-        <input ng-model="currentComponent.dimension[resolution().key]" type="number" class="form-control property--width input-sm" id="width" min="1" max="12">
-        <div class="editor-field-icon-label" translate translate-n="currentComponent.dimension[resolution().key]" translate-plural="columns">column</div>
+        <input ng-model="currentComponent.dimension[resolution().key]" type="number"
+               class="form-control property--width input-sm" id="width" min="1" max="12">
+        <div class="editor-field-icon-label" translate translate-n="currentComponent.dimension[resolution().key]"
+             translate-plural="columns">column
+        </div>
     </div>
 </div>
 

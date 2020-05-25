@@ -15,7 +15,7 @@
           filters = filters + '&f=' + filter.name.concat('=', filter.value)
         );
 
-        return `../API/bdm/businessData/${content.qualifiedName}?q=${content.query.name}&p=${content.pagination.p}&c=${content.pagination.c}${filters}`;
+        return `../API/bdm/businessData/${content.id}?q=${content.query.name}&p=${content.pagination.p}&c=${content.pagination.c}${filters}`;
       }
 
       interpolateUrl() {

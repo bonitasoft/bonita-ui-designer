@@ -15,16 +15,27 @@
 (function() {
 
   class DataManagementPopupController {
-    constructor($uibModalInstance, businessData, queriesForObject, pageData) {
+    constructor($scope, $uibModalInstance, businessData, queriesForObject, pageData, businessDataUpdateService, gettextCatalog) {
       this.$uibModalInstance = $uibModalInstance;
       this.businessData = businessData;
       this.queriesForObject = queriesForObject;
       this.pageData = pageData;
       this.newData = { $$name: this.generateVariableName(this.businessData.name) };
       this.variableInfo = {};
+      this.businessDataUpdate = businessDataUpdateService.create(this.businessData, this.variableInfo);
+      this.lang = gettextCatalog.getCurrentLanguage();
+      this.validity = false;
+
+      this.handleQueryChanged = (e) =>  {
+        this.variableInfo = this.businessDataUpdate.queryChanged(e);
+        this.validity = this.businessDataUpdate.isDataValid(e);
+        $scope.$apply();
+      };
+
+      document.addEventListener('queryChanged', this.handleQueryChanged);
     }
 
-    /**
+     /**
      * Generate name with suffix when name isn't unique
      * @param name
      * @returns name_{Number}
@@ -49,7 +60,21 @@
         type: 'businessdata',
         displayValue: this.hasData() ? JSON.stringify(this.variableInfo.data) : '{}',
       };
+      this.removeListener();
+      this.$uibModalInstance.close({ data: this.variableInfo.data, variable: this.newData.$$name });
+    }
+
+    canBeSaved() {
+      return this.validity;
+    }
+
+    cancel() {
+      this.removeListener();
       this.$uibModalInstance.close();
+    }
+
+    removeListener() {
+      document.removeEventListener('queryChanged', this.handleQueryChanged);
     }
 
     isDataNameUnique(dataName) {

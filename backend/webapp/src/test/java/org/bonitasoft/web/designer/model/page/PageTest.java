@@ -16,9 +16,9 @@ package org.bonitasoft.web.designer.model.page;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -29,6 +29,8 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.junit.Before;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PageTest {
 
@@ -91,6 +93,19 @@ public class PageTest {
         assertThat(pageAfterJsonProcessing.getId()).isNotNull();
         assertThat(pageAfterJsonProcessing.getVariables()).isNotEmpty();
         assertThat(pageAfterJsonProcessing.getRows()).isNotNull();
+        assertThat(((Component) ((Container) pageAfterJsonProcessing.getRows().get(0).get(1)).getRows().get(1).get(1)).getDescription()).isNotNull().isNotEmpty();
+    }
+
+    @Test
+    public void jsonview_persitence_should_persist_component_name_and_description() throws Exception {
+        Page pageInitial = PageBuilder.aPage().with(anInput().withDescription("A mandatory name input").build()).build();
+
+        //We serialize and deserialize our object
+        Page pageAfterJsonProcessing = objectMapper.readValue(
+                objectMapper.writeValueAsString(pageInitial),
+                Page.class);
+        Component component = (Component) pageAfterJsonProcessing.getRows().get(0).get(0);
+        assertThat(component.getDescription()).isNotNull().isNotEmpty();
     }
 
     @Test(expected = ConstraintValidationException.class)

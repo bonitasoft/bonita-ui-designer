@@ -36,7 +36,7 @@
     };
   }
 
-  function EditorPaletteCtrl($scope, paletteService, $uibModal) {
+  function EditorPaletteCtrl($scope, paletteService, $uibModal, $window, $http) {
 
     var palette = this;
     /**
@@ -50,6 +50,8 @@
     this.getIconClassName = getIconClassName;
     this.isFragment = isFragment;
     this.isDataSection = isDataSection;
+    this.$http = $http;
+    this.bdrUrl = '';
     resize();
 
     $scope.$on('fragmentCreated', function() {
@@ -104,5 +106,27 @@
         size: 'md'
       });
     };
+
+    this.openVoyager = function() {
+      if (!this.bdrUrl) {
+        let config = {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        };
+        return this.$http.get('rest/bdr/url', config)
+          .then((bdrUrl) => {
+            this.bdrUrl = bdrUrl.data.url + '/bdm/graphical';
+            this._openVoyagerWindow();
+          });
+      } else {
+        this._openVoyagerWindow();
+      }
+    };
+
+    this._openVoyagerWindow = function() {
+      $window.open(this.bdrUrl, '_blank');
+    };
+
   }
 })();

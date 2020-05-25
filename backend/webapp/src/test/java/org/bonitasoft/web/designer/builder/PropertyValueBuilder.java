@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import org.bonitasoft.web.designer.experimental.parametrizedWidget.ParameterType;
+import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
 public class PropertyValueBuilder {

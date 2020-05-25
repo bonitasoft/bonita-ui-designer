@@ -187,7 +187,7 @@ public class PageBuilder {
     public static Page aFilledPage(String id) throws Exception {
         RowBuilder row = aRow().with(
                 aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6),
-                anInput().withPropertyValue("required", false).withPropertyValue("placeholder", "enter you're name").withDimension(6));
+                anInput().withDescription("A mandatory name input").withPropertyValue("required", false).withPropertyValue("placeholder", "enter you're name").withDimension(6));
 
         Container containerWithTwoRows = aContainer().with(row, row).build();
 

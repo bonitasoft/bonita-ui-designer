@@ -88,11 +88,9 @@
                          </span>
                     </div>
                 </div>
-                <subset-business-data ng-switch-when="businessdata" ng-if="newData.businessObject"
-                                      business-data="newData.businessObject"
-                                      queries-for-object="newData.queries"
-                                      variable-info="newData.variableInfo"
-                                      edit-business-data-queries="editBusinessDataQueries"></subset-business-data>
+                <div ng-switch-when="businessdata" ng-if="newData.businessObject">
+                    <div ng-include="'js/editor/bottom-panel/data-panel/query-selector-edition.html'"></div>
+                </div>
 
                 <div class="help-block" ng-switch-when="url" translate>
                     <p><span class="tip">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p>
@@ -215,9 +213,9 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-bonita-default" ng-if="isNewData"
-                    ng-disabled="!addData.$valid || !isDataNameUnique(newData.$$name)" translate>Save
+                    ng-disabled="!canBeSaved() || !isDataNameUnique(newData.$$name)" translate>Save
             </button>
-            <button class="btn btn-bonita-default" ng-if="!isNewData" ng-disabled="!addData.$valid" translate>Save
+            <button class="btn btn-bonita-default" ng-if="!isNewData" ng-disabled="!canBeSaved()" translate>Save
             </button>
             <button class="btn btn-link" type="button" ng-click="cancel()" translate>Cancel</button>
         </div>

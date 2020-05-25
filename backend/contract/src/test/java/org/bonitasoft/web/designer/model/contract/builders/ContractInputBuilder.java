@@ -29,7 +29,7 @@ public class ContractInputBuilder {
 
     private ContractInput contractInput;
 
-    private ContractInputBuilder(ContractInput contractInput) {
+    public ContractInputBuilder(ContractInput contractInput) {
         this.contractInput = contractInput;
     }
 

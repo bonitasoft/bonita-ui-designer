@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;

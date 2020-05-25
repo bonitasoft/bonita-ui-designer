@@ -218,5 +218,14 @@
       "bond": "variable",
       "showFor": "properties.action.value === 'Remove from collection' && properties.collectionPosition.value === 'Item'"
     }
+  ],
+  "assets": [
+    {
+      "id" : "fc0c7ee6-b579-4eb0-8271-5e30e85e6b08",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    }
   ]
 }

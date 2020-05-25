@@ -46,6 +46,11 @@ public class ComponentBuilder extends ElementBuilder<Component> {
         return this;
     }
 
+    public ComponentBuilder withDescription(String description) {
+        component.setDescription(description);
+        return this;
+    }
+
     @Override
     protected Component getElement() {
         return component;

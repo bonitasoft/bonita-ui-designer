@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.bonitasoft.web</groupId>
         <artifactId>ui-designer-backend</artifactId>
-        <version>1.10.0-SNAPSHOT</version>
+        <version>1.11.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>ui-designer-backend-webapp</artifactId>
@@ -430,7 +430,7 @@
                 <configuration>
                     <sourceDirectory>${project.build.directory}/widget-schema/</sourceDirectory>
                     <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
-                    <targetPackage>org.bonitasoft.web.designer.experimental.widgets</targetPackage>
+                    <targetPackage>org.bonitasoft.web.designer.generator.widgets</targetPackage>
                     <annotationStyle>none</annotationStyle>
                     <includeAdditionalProperties>false</includeAdditionalProperties>
                     <includeHashcodeAndEquals>false</includeHashcodeAndEquals>

@@ -25,13 +25,46 @@
     class DataManagementRepo {
       constructor() {
         this.isError = false;
-        this.baseUrl = './bdr';
+        this.baseUrl = './bdm/json';
         this.$http = $http;
         this.config = {
           headers: {
             'Content-Type': 'application/json',
           }
         };
+        this.jsonResponse = null;
+      }
+
+      getDataObject(businessObjectName) {
+        let response = this.jsonResponse.data;
+        let businessObject = null;
+        let resp = { error: false, businessObject: { name: businessObjectName, attributes: [] } };
+        if (!response || !response.businessObjects || response.businessObjects.length === 0) {
+          return resp;
+        }
+        let objs = response.businessObjects;
+        for (let obj of objs) {
+          if (obj.qualifiedName === businessObjectName) {
+            businessObject = obj;
+            break;
+          }
+        }
+        if (!businessObject) {
+          return resp;
+        }
+
+        resp.businessObject.attributes = this.getAttributes(objs, businessObjectName);
+        return resp;
+      }
+
+      getAttributes(allObjects, businessObjectName) {
+        let bo = Object.values(this._getBusinessObject(allObjects, businessObjectName))[0];
+        bo.attributes.forEach(attr => {
+          if (attr.reference) {
+            attr.attributes = this.getAttributes(allObjects, attr.reference);
+          }
+        });
+        return bo.attributes;
       }
 
       getDataObjects() {
@@ -39,24 +72,24 @@
           return new Promise((resolve) => resolve({ error: true, objects: [] }));
         }
 
-        let query = `{ __schema{ types { name,kind,description } } }`;
-        return this.$http.post(`${this.baseUrl}`, { 'query': query }, this.config)
+        // Query the BDR to get BDM info
+        return this.$http.get(`${this.baseUrl}`, this.config)
           .then((response) => {
+            this.jsonResponse = response;
             let returnBusiness = [];
-            if (!response || !response.data || !response.data.data || !response.data.data.__schema || !response.data.data.__schema.types) {
+            if (!response || !response.data || !response.data.businessObjects) {
               return { error: false, objects: returnBusiness };
             }
 
-            let businessObject = response.data.data.__schema.types;
-            let boFilters = businessObject.filter(obj => this._isBusinessObject(obj));
-            boFilters.forEach(bo => returnBusiness.push(
+            let businessObjects = response.data.businessObjects;
+            businessObjects.forEach(bo => returnBusiness.push(
               {
-                qualifiedName: bo.name.split('_').join('.'),
-                name: bo.name.split('_').pop(),
-                id: bo.name,
+                name: bo.name,
+                id: bo.qualifiedName,
                 description: bo.description
               }));
             return { error: false, objects: returnBusiness };
+
           })
           .catch((e) => {
             this.isError = true;
@@ -65,48 +98,39 @@
           });
       }
 
-      getQueries(businessObject) {
+      getQueries(businessObjectName) {
         if (this.isError) {
           return new Promise((resolve) => resolve({}));
         }
+        let response = this.jsonResponse;
 
-        let query = `{queriesAttributeQuery: __type(name: "${businessObject}AttributeQuery") { ...typeFields }
-                      queriesContraintQuery: __type(name: "${businessObject}ConstraintQuery") { ...typeFields }
-                      queriesCustomQuery: __type(name: "${businessObject}CustomQuery") {  ...typeFields}}
-                      fragment typeFields on __Type { fields { name args { name, type { ofType{ name } } } type { name } }}`;
-        return this.$http.post(`${this.baseUrl}`, { 'query': query }, this.config)
-          .then((response) => {
-            let queries = { defaultQuery: [], additionalQuery: [] };
-            if (!response || !response.data || !response.data.data) {
-              return queries;
-            }
-            let data = response.data.data;
-            if (data.queriesAttributeQuery && data.queriesAttributeQuery.fields) {
-              response.data.data.queriesAttributeQuery.fields.forEach(field => {
-                this._pushIn(field, queries);
-              });
-            }
-            if (data.queriesContraintQuery && data.queriesContraintQuery.fields) {
-              response.data.data.queriesContraintQuery.fields.forEach(field => {
-                this._pushInAdditional(field, queries.additionalQuery);
-              });
-            }
-
-            if (data.queriesCustomQuery && data.queriesCustomQuery.fields) {
-              response.data.data.queriesCustomQuery.fields.forEach(field => {
-                this._pushInAdditional(field, queries.additionalQuery);
-              });
-            }
-            return queries;
-          })
-          .catch((e) => {
-            $log.log('Error during loading of BusinessData queries', e);
-            return [];
+        let queries = { defaultQuery: [], additionalQuery: [] };
+        if (!response || !response.data || !response.data.businessObjects) {
+          return queries;
+        }
+        let businessObjects = response.data.businessObjects;
+        let businessObject = businessObjects.filter(bo => bo.qualifiedName === businessObjectName);
+        if (businessObject.length !== 1) {
+          return queries;
+        }
+        businessObject = businessObject[0];
+        if (businessObject.attributeQueries) {
+          businessObject.attributeQueries.forEach(field => {
+            this._pushIn(field, queries);
           });
-      }
+        }
+        if (businessObject.constraintQueries) {
+          businessObject.constraintQueries.forEach(field => {
+            this._pushInAdditional(field, queries.additionalQuery);
+          });
+        }
 
-      _isBusinessObject(businessObject) {
-        return !businessObject.name.startsWith('__') && businessObject.kind === 'OBJECT' && !businessObject.name.endsWith('Query');
+        if (businessObject.customQueries) {
+          businessObject.customQueries.forEach(field => {
+            this._pushInAdditional(field, queries.additionalQuery);
+          });
+        }
+        return queries;
       }
 
       _pushIn(query, objects) {
@@ -114,18 +138,18 @@
           objects.additionalQuery.push({
             displayName: query.name,
             query: query.name,
-            filters: this._createFilters(query.args)
+            filters: query.filters
           });
           return;
         }
         let displayName = query.name.split('findBy');
-        if (displayName.length > 1) {
-          displayName.shift();
+        if (displayName.length !== 2) {
+          return;
         }
         objects.defaultQuery.push({
-          displayName: displayName.join('').replace(/\b\w/g, l => l.toLowerCase()),
+          displayName: displayName[1].replace(/\b\w/g, l => l.toLowerCase()),
           query: query.name,
-          filters: this._createFilters(query.args)
+          filters: query.filters
         });
       }
 
@@ -133,16 +157,17 @@
         objects.push({
           displayName: query.name,
           query: query.name,
-          filters: this._createFilters(query.args)
+          filters: query.filters
         });
       }
 
-      _createFilters(args) {
-        let res = [];
-        args.forEach(arg => {
-          res.push({ name: arg.name, type: arg.type.ofType.name });
-        });
-        return res;
+      // For tests
+      _setJsonResponse(resp) {
+        this.jsonResponse = resp;
+      }
+
+      _getBusinessObject(allObjects, businessObjectName) {
+        return allObjects.filter(bo => bo.qualifiedName === businessObjectName);
       }
     }
 

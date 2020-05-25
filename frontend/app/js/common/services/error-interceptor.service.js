@@ -28,7 +28,7 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
           rejection.headers('Content-Type').indexOf('application/json') === 0 &&
           angular.isDefined(rejection.data.message)) {
         alerts.addError(rejection.data.message);
-      } else if (rejection.status === 500 && rejection.config.url.includes('bdr')) {
+      } else if (rejection.status === 500 && rejection.config.url.includes('bdm')) {
         $log.log('Unable to access business data. Restart Bonita Studio and try again.');
       }else if (EXCLUSION_PATTERNS.some(function(v) {
         return rejection.config.url.indexOf(v) < 0;

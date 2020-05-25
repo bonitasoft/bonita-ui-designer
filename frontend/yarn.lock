@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@bonitasoft/query-selector@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/query-selector/-/query-selector-1.0.4.tgz#7813d8afa1a9d2b4aa14fab59dc1d11335f51d65"
+  dependencies:
+    bootstrap "^4.3.1"
+    lit-element "^2.2.1"
+    lit-translate "^1.1.20"
+
 "@gulp-sourcemaps/map-sources@1.X":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/map-sources/-/map-sources-1.0.0.tgz#890ae7c5d8c877f6d384860215ace9d7ec945bda"
@@ -1123,6 +1131,10 @@ boom@2.x.x:
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
+
+bootstrap@^4.3.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.4.1.tgz#8582960eea0c5cd2bede84d8b0baf3789c3e8b01"
 
 bower-json@~0.4.0:
   version "0.4.0"
@@ -4500,6 +4512,22 @@ liftoff@^2.0.1:
     object.map "^1.0.0"
     rechoir "^0.6.2"
     resolve "^1.1.7"
+
+lit-element@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-2.2.1.tgz#79c94d8cfdc2d73b245656e37991bd1e4811d96f"
+  dependencies:
+    lit-html "^1.0.0"
+
+lit-html@^1.0.0, lit-html@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.1.2.tgz#2e3560a7075210243649c888ad738eaf0daa8374"
+
+lit-translate@^1.1.20:
+  version "1.1.21"
+  resolved "https://registry.yarnpkg.com/lit-translate/-/lit-translate-1.1.21.tgz#d0697f9a7aa0934e739abf07f4df86e566cbf4f5"
+  dependencies:
+    lit-html "^1.1.2"
 
 load-json-file@^1.0.0:
   version "1.1.0"
