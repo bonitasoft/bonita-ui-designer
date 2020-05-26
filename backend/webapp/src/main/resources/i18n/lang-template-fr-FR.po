@@ -9,7 +9,7 @@ msgstr ""
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-05-25 01:28\n"
+"PO-Revision-Date: 2020-05-26 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -547,7 +547,7 @@ msgid "Condensed"
 msgstr "Condensée"
 
 msgid "Condensed table with half padding"
-msgstr "Table condensée avec demi-rembourrage"
+msgstr "Table condensée avec demi-remplissage"
 
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configurez les widgets en utilisant le <b>panneau de propriétés</b> sur la droite."
@@ -652,7 +652,7 @@ msgid "Custom widgets are not clearly visible on the whiteboard but you can see 
 msgstr "Les widgets personnalisés n'apparaissent pas clairement sur le whiteboard ; cliquez sur Aperçu pour les visualiser."
 
 msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
-msgstr "Personnalisez le titre de l'onglet ou ajoutez css dynamiquement, masquez ou désactivez les onglets selon les conditions sont les nouvelles capacités de chaque onglet. Changez le format des onglets ou construisez de jolis menus latéraux grâce à l'affichage vertical, lisez ceci <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">comment en savoir plus sur la personnalisation.</a>"
+msgstr "Personnalisez le titre de l'onglet ou ajoutez  du css dynamiquement, masquez ou désactivez les onglets selon les conditions, sont les nouvelles capacités de chaque onglet. Changez le format des onglets ou construisez de jolis menus latéraux grâce à l'affichage vertical, lisez ceci <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">comment en savoir plus sur la personnalisation.</a>"
 
 msgid "Customize the default look and feel as follows:"
 msgstr "Personnaliser l'affichage comme suit :"
@@ -798,7 +798,7 @@ msgid "Download asset"
 msgstr "Télécharger l'asset"
 
 msgid "Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data."
-msgstr "Glissez et déposez un Objet Métier dans le tableau blanc ou créez une nouvelle variable de type Métier."
+msgstr "Glissez et déposez un Objet Métier dans le whiteboard ou créez une nouvelle variable de type Métier."
 
 msgid "Drag and drop widgets or containers in rows"
 msgstr "Glisser et déposer des widgets ou des containers dans les lignes"
@@ -1113,10 +1113,11 @@ msgid "If you choose 'no', HTML code will be escaped instead of being interprete
 msgstr "Si vous choisissez « non », le code HTML sera être échappé au lieu d’être interprété"
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
-msgstr "Si vous choisissez 'no', le code HTML sera échappé au lieu d'être interprété dans les cellules de la ligne"
+msgstr "Si vous choisissez 'non', le code HTML sera échappé au lieu d'être interprété dans les cellules de la ligne"
 
 msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
-msgstr "Si vous avez besoin d'ajouter des liens, des icônes, des actions ou des styles personnalisés, vous pouvez maintenant activer l'informatique html dans les cellules du tableau. De nouvelles propriétés de style sont disponibles pour différencier les lignes (alternance des couleurs), le contenu de la table de condensation ou même la bordure de vos cellules et tableaux."
+msgstr "Si vous avez besoin d'ajouter des liens, des icônes, des actions ou des styles personnalisés, vous pouvez maintenant activer la propriété \n"
+" interpréter le code html dans les cellules du tableau. De nouvelles propriétés de style sont disponibles pour différencier les lignes (alternance des couleurs), le contenu de la table de condensation ou même la bordure de vos cellules et tableaux."
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si vous spécifiez une expression, le résultat doit être un tableau de \"strings\""
@@ -2486,7 +2487,7 @@ msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass
 msgstr "Sera récupéré à partir de l’URL s'il n’est pas défini (paramètre « app »). Vous pouvez le passer dans l’URL de la fenêtre d'aperçu, pour vos tests."
 
 msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
-msgstr "Avec la nouvelle section du modèle de données, listez vos objets et glissez-les dans le tableau blanc (ou créez une nouvelle variable) pour introspecter votre Modèle de Données Métier et simplifier la récupération des données grâce à un assistant avancé. Utilisez cette variable plus tard comme toute autre variable."
+msgstr "Avec la nouvelle section du modèle de données, listez vos objets et glissez-les sur le whiteboard (ou créez une nouvelle variable) pour introspecter votre Modèle de Données Métier et simplifier la récupération des données grâce à un assistant avancé. Utilisez cette variable plus tard comme toute autre variable."
 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "Avec la nouvelle façon de stocker des variables et des widgets, les opérations de différence et de fusion sont plus claires grâce à un stockage multi-lignes."
