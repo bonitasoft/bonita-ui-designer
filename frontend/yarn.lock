@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@bonitasoft/query-selector@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/query-selector/-/query-selector-1.0.5.tgz#5ec8c7b745fbbca2aa863102959d65392a6f5a0a"
+"@bonitasoft/query-selector@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/query-selector/-/query-selector-1.0.8.tgz#a7bd63b7a52711aa26b147eb4fe63238c3214eff"
   dependencies:
     bootstrap "^4.4.1"
     lit-element "^2.3.1"
