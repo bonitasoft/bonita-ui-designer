@@ -6,10 +6,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /release-7.11.0/ui-designer/lang-template.pot\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-03-24 02:29\n"
+"PO-Revision-Date: 2020-05-26 15:04\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -178,7 +178,7 @@ msgstr ""
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
 
-msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object"
+msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
 msgstr ""
 
 msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
@@ -248,6 +248,9 @@ msgid "Add a new tab"
 msgstr "新規タブを追加"
 
 msgid "Add borders all around the table and between all the columns."
+msgstr ""
+
+msgid "Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation."
 msgstr ""
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
@@ -398,9 +401,6 @@ msgstr ""
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
 
-msgid "Bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
-msgstr ""
-
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
@@ -408,6 +408,9 @@ msgid "Bonita REST API calls"
 msgstr ""
 
 msgid "Bordered"
+msgstr ""
+
+msgid "Business Data Management enhancements"
 msgstr ""
 
 msgid "Business data"
@@ -611,6 +614,9 @@ msgstr "新しい UI デザイナーの生成物を作成します"
 msgid "Create a new variable"
 msgstr "新規変数を作成"
 
+msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
+msgstr ""
+
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr "ここで変数を作成します。ウィジェット プロパティ内での変数の使用は、このページ エディタの全般ヘルプ、<b>プロパティ</b> セクションで説明されているように、プロパティ値のタイプに依存します。"
 
@@ -619,9 +625,6 @@ msgstr "下部のパネルで変数を作成します。ウィジェット プ�
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "UI デザイナーで直接、<b>アプリケーション ページ</b> を作成します"
-
-msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
-msgstr ""
 
 msgid "Create new artifact"
 msgstr "新しい生成物を作成"
@@ -744,6 +747,9 @@ msgstr "プロパティについて説明"
 
 msgid "Description"
 msgstr "説明"
+
+msgid "Description field on widgets"
+msgstr ""
 
 msgid "Details"
 msgstr "詳細情報"
@@ -878,6 +884,9 @@ msgid "Example: relative time filter"
 msgstr "例: 相対時間フィルター"
 
 msgid "Expand Preview in new window"
+msgstr ""
+
+msgid "Explore Data Model in new window"
 msgstr ""
 
 msgid "Export"
@@ -1099,6 +1108,9 @@ msgstr "それらの要素は上書きされるので、Id は一意でなけれ
 msgid "Identifier"
 msgstr ""
 
+msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
+msgstr ""
+
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "チェックオンの場合、このポップアップはブラウザのキャッシュがクリーンナップされない限り、二度と表示されません。"
 
@@ -1112,6 +1124,9 @@ msgid "If you choose 'no', HTML code will be escaped instead of being interprete
 msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代わりにエスケープされます"
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
+msgstr ""
+
+msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr ""
 
 msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
@@ -1567,6 +1582,9 @@ msgstr "HTTP リクエストを実行"
 
 msgid "Placeholder"
 msgstr "プレース ホルダー"
+
+msgid "Please provide the information on how to retrieve elements of \"{{ctrl.businessData.name}}\""
+msgstr ""
 
 msgid "Preview"
 msgstr "プレビュー"
@@ -2063,6 +2081,9 @@ msgstr ""
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
 
+msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
+msgstr ""
+
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "この説明はパレット内のツールチップとして表示されます。"
 
@@ -2342,6 +2363,9 @@ msgstr "使用文字： H (時間)、h (午前/午後の時間)、m (分)、オ�
 msgid "Use the characters: M (month), d (day), y (year)"
 msgstr "使用文字： M (月)、d (日)、 y (年)"
 
+msgid "Use the generated user interface"
+msgstr ""
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
 
@@ -2432,6 +2456,9 @@ msgstr ""
 msgid "View..."
 msgstr ""
 
+msgid "Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern."
+msgstr ""
+
 msgid "W3C website"
 msgstr "W3C webサイト"
 
@@ -2510,6 +2537,9 @@ msgstr ""
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr ""
 
+msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
+msgstr ""
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
 
@@ -2534,7 +2564,7 @@ msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、
 msgid "You can use Business data type to get a business data object."
 msgstr ""
 
-msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0)."
+msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
 msgstr ""
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
