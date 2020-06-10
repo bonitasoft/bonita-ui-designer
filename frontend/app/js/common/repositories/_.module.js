@@ -16,6 +16,6 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.common.repositories', []);
+  angular.module('bonitasoft.designer.common.repositories', ['gettext']);
 
 })();

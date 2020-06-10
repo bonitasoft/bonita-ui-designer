@@ -20,13 +20,15 @@
     .module('bonitasoft.designer.common.repositories')
     .factory('dataManagementRepo', dataManagementRepo);
 
-  function dataManagementRepo($http, $log) {
+  function dataManagementRepo($http, $log, alerts, gettextCatalog) {
 
     class DataManagementRepo {
       constructor() {
         this.isError = false;
         this.baseUrl = './bdm/json';
         this.$http = $http;
+        this.maxDepth = 5;
+        this.allBusinessObjects = [];
         this.config = {
           headers: {
             'Content-Type': 'application/json',
@@ -36,35 +38,61 @@
       }
 
       getDataObject(businessObjectName) {
+
         let response = this.jsonResponse.data;
+        this.allBusinessObjects = response.businessObjects;
         let businessObject = null;
         let resp = { error: false, businessObject: { name: businessObjectName, attributes: [] } };
         if (!response || !response.businessObjects || response.businessObjects.length === 0) {
           return resp;
         }
-        let objs = response.businessObjects;
-        for (let obj of objs) {
+
+        for (let obj of this.allBusinessObjects) {
           if (obj.qualifiedName === businessObjectName) {
             businessObject = obj;
             break;
           }
         }
+
         if (!businessObject) {
           return resp;
         }
 
-        resp.businessObject.attributes = this.getAttributes(objs, businessObjectName);
+        let bo = Object.values(this._getBusinessObject(this.allBusinessObjects, businessObjectName))[0];
+        // Decrement max level relation
+        resp.businessObject.attributes = this.buildAttributes(bo, this.maxDepth);
         return resp;
       }
 
-      getAttributes(allObjects, businessObjectName) {
-        let bo = Object.values(this._getBusinessObject(allObjects, businessObjectName))[0];
-        bo.attributes.forEach(attr => {
-          if (attr.reference) {
-            attr.attributes = this.getAttributes(allObjects, attr.reference);
-          }
-        });
-        return bo.attributes;
+      buildAttributes(businessObject, depth) {
+        if (depth > 0) {
+          let attributes = [];
+          businessObject.attributes
+            .map(attr => this.createAttributeFromBo(attr, depth))
+            .forEach(createdAttr => attributes.push(Object.assign({}, createdAttr)));
+          return attributes;
+        } else {
+          alerts.addInfo(gettextCatalog.getString('This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear.', { number: this.maxDepth, numberAsText: 'Fifth' }), 5000);
+        }
+      }
+
+      createAttributeFromBo(attr, depth) {
+        // Relation business Object
+        if (attr.reference) {
+          let relationFields = this.createRelationField(attr, depth);
+          attr.ref = Math.random();
+          attr.attributes = Object.assign([], relationFields);
+        }
+        return Object.assign({}, attr);
+      }
+
+      createRelationField(attr, depth = 5) {
+        // Decrement depth
+        if (depth > 0) {
+          depth = depth - 1;
+          let bo = Object.values(this._getBusinessObject(this.allBusinessObjects, attr.reference))[0];
+          return this.buildAttributes(bo, depth);
+        }
       }
 
       getDataObjects() {
@@ -169,9 +197,10 @@
       _getBusinessObject(allObjects, businessObjectName) {
         return allObjects.filter(bo => bo.qualifiedName === businessObjectName);
       }
+
     }
 
-    return new DataManagementRepo();
+    return new DataManagementRepo(alerts,gettextCatalog);
   }
 
 })();

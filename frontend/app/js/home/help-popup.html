@@ -75,6 +75,17 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita711open">
+                    <uib-accordion-heading>
+                        Bonita 7.11 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita711open, 'glyphicon-chevron-right': !status.bonita711open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Business Data Management enhancements</dt>
+                    <p translate>Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern.</p>
+
+                    <dt translate>Description field on widgets</dt>
+                    <p translate>Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation.</p>
+
+                </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita710open">
                     <uib-accordion-heading>
                         Bonita 7.10 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita710open, 'glyphicon-chevron-right': !status.bonita710open}"></i>
