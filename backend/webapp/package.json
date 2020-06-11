@@ -28,7 +28,7 @@
     "angular-mocks": "1.3.18",
     "babel-polyfill": "6.3.14",
     "babel-preset-bonita": "1.0.2",
-    "bower": "1.3.12",
+    "bower": "1.8.8",
     "gulp": "~3.8.9",
     "gulp-angular-gettext": "^2.1.0",
     "gulp-babel": "6.1.1",
