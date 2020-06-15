@@ -180,8 +180,8 @@ msgstr "Um TabsContainer é um container que possui vários painéis, mas mostra
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr ""
 
-msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object"
-msgstr "Um assistente de configuração aparece: crie uma variável de dados de negócio fornecendo informações sobre como recuperar elementos deste objeto de negócio"
+msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
+msgstr "Um assistente de configuração aparece: crie uma variável de dados de negócio fornecendo informações sobre como recuperar elementos deste objeto de negócio."
 
 msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
 msgstr "Uma área de filtro é exibida, dependendo da sua seleção, você pode ter que inserir um ou vários valores de atributo. Você pode usar uma variável para preencher seu valor usando a sintaxe de interpolação."
@@ -251,6 +251,9 @@ msgstr ""
 
 msgid "Add borders all around the table and between all the columns."
 msgstr "Adicione bordas em torno da tabela e entre todas as colunas."
+
+msgid "Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation."
+msgstr "Adicione documentação às suas páginas fornecendo informações em um widget (por exemplo, como usá-lo), graças ao novo campo Descrição. Use estas informações para gerar documentação."
 
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr ""
@@ -401,9 +404,6 @@ msgstr "Por causa desta alteração, se você receber um fragmento, renomeá-lo 
 msgid "Bidirectional bond"
 msgstr ""
 
-msgid "Bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
-msgstr "Vincule sua variável de dados de negócio em propriedades do widget ou use sua variável em expressões javascript. Tenha cuidado, por padrão, cada variável de dados de negócio é uma matriz (mesmo se apenas um resultado da consulta for devolvido)."
-
 msgid "Bonita BPM"
 msgstr ""
 
@@ -412,6 +412,9 @@ msgstr "Chamadas Bonita REST API"
 
 msgid "Bordered"
 msgstr "Borda"
+
+msgid "Business Data Management enhancements"
+msgstr "Aprimoramentos do Gerenciamento de Dados Negócio"
 
 msgid "Business data"
 msgstr "Dados de negócio"
@@ -614,6 +617,9 @@ msgstr ""
 msgid "Create a new variable"
 msgstr ""
 
+msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
+msgstr "Criar uma interface de usuário para lidar com \"{{ctrl.businessData.name}}\""
+
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr ""
 
@@ -622,9 +628,6 @@ msgstr ""
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Criar uma <b>página de aplicação</b> diretamente no UI Designer"
-
-msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
-msgstr "Criar nova variável de dados de negócio para lidar \"{{ctrl.businessData.name}}\""
 
 msgid "Create new artifact"
 msgstr ""
@@ -747,6 +750,9 @@ msgstr ""
 
 msgid "Description"
 msgstr ""
+
+msgid "Description field on widgets"
+msgstr "Descrição do campo nos widgets"
 
 msgid "Details"
 msgstr ""
@@ -1105,6 +1111,9 @@ msgstr ""
 msgid "Identifier"
 msgstr "Identificador"
 
+msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
+msgstr "Se um objeto de negócio foi eliminado, uma interface de usuário é gerada para você. Você pode manter como está, modificá-lo ou removê-lo se não atender às suas necessidades."
+
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "Se marcado, este popup não será exibido novamente a menos que você limpe o cache do seu navegador"
 
@@ -1119,6 +1128,9 @@ msgstr "Se você escolher 'não', o código HTML será descartado em vez de ser 
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
 msgstr "Se você escolher 'não', o código HTML será escapado em vez de ser interpretado nas células da linha"
+
+msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
+msgstr "Se você criar sua própria interface de usuário, vincule sua variável de dados de negócio em propriedades do widget ou use sua variável em expressões javascript. Cuidado, por padrão, cada variável de dados de negócio é uma matriz (mesmo que apenas um resultado da consulta seja retornado)."
 
 msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
 msgstr "Se você precisa adicionar links, ícones, ações ou estilos personalizados, agora você é capaz como você pode habilitar a computação html em células de tabela. Novas propriedades de estilos estão disponíveis para diferenciar linhas (zebra-striping), conteúdo da tabela de condensadas ou até mesmo colocar bordas em suas células e tabela."
@@ -1572,6 +1584,9 @@ msgstr "Executar um pedido HTTP"
 
 msgid "Placeholder"
 msgstr ""
+
+msgid "Please provide the information on how to retrieve elements of \"{{ctrl.businessData.name}}\""
+msgstr "Forneça informações sobre como recuperar elementos de\"{{ctrl.businessData.name}}\""
 
 msgid "Preview"
 msgstr ""
@@ -2070,6 +2085,9 @@ msgstr "Em seguida, forneça uma lista separada por vírgulas para as chaves que
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr ""
 
+msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
+msgstr "Este objeto de negócio contém mais de {{number}} níveis de relações. {{numberAsText}} nível e além não aparecerão."
+
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr ""
 
@@ -2355,6 +2373,9 @@ msgstr "Use os caracteres: H (hora), h (hora em AM/PM), m (minutos) e opcionalme
 msgid "Use the characters: M (month), d (day), y (year)"
 msgstr "Use os caracteres: M (mês), d (dia), y (ano)"
 
+msgid "Use the generated user interface"
+msgstr "Usar a interface de usuário gerada"
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr ""
 
@@ -2445,6 +2466,9 @@ msgstr "Visualizar na aplicação <i class=\"fa fa-info-circle ng-scope\" uib-to
 msgid "View..."
 msgstr "Visualização..."
 
+msgid "Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern."
+msgstr "Visualize e explore seu Modelo de Dados de Negócio (BDM) em seu navegador. Em alguns cliques, gere interfaces de usuário a partir do BDM, usando o padrão master/details do padrão."
+
 msgid "W3C website"
 msgstr ""
 
@@ -2523,6 +2547,9 @@ msgstr "Você pode alterar o tipo para poder usar este artefato como um formulá
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "Você pode excluir apenas arquivos de página, ver arquivos locais e editar arquivos externos de uma página."
 
+msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
+msgstr "Você pode explorar o modelo de dados (com uma visualização gráfica) usando o ícone do gráfico no cabeçalho deste painel. Mostra as relações entre objetos comerciais e os seus atributos."
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr ""
 
@@ -2547,8 +2574,8 @@ msgstr ""
 msgid "You can use Business data type to get a business data object."
 msgstr "Você pode usar o tipo de dados de negócio para obter um objeto de dados de negócio."
 
-msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0)."
-msgstr "Você pode usar a seção Paginação para definir o número de elementos que você deseja por página (por padrão 10 elementos) e o número da página (por padrão, primeira página - índice 0)."
+msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
+msgstr "Você pode usar a seção Paginação para definir o número de elementos que você deseja por página (por padrão 10 elementos) e o número da página (por padrão primeira página - índice 0). Por exemplo, você pode vincular uma variável para obter uma página dinâmica: {{paginationVariable.pageNumber}}."
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr ""

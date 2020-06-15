@@ -131,7 +131,7 @@ public class OutputProperty {
         StringBuffer sb = new StringBuffer();
         sb.append(String.format("\t%s: {\n", handler.getInputName()));
         sb.append(
-                "\t\\tid: $data.context.%s_ref && $data.context.%s_ref.id ? $data.context.%s_ref.id.toString() : null,\n"
+                "\t\tid: $data.context.%s_ref && $data.context.%s_ref.id ? $data.context.%s_ref.id.toString() : null,\n"
                         .replaceAll("%s", handler.getRefName()));
         sb.append(
                 "\t\tfilename: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.filename ? $data.context.%s_ref.newValue.filename : null,\n"

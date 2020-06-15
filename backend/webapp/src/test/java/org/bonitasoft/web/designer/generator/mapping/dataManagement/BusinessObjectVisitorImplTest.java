@@ -127,7 +127,7 @@ public class BusinessObjectVisitorImplTest {
     }
 
     @Test
-    public void visit_business_object_with_complex_object() throws Exception {
+    public void visit_business_object_with_complex_object() {
         Container container = new Container();
 
         NodeBusinessObjectInput invoice = aInvoiceInvoiceLineProductInCompositionAndEager();
@@ -158,6 +158,32 @@ public class BusinessObjectVisitorImplTest {
         assertThat(productDetailsContainer.getRows()).hasSize(2);
         Component productNameInput = (Component) productDetailsContainer.getRows().get(0).get(0);
         assertThat(productNameInput.getPropertyValues().get("value").getValue()).isEqualTo("invoice_invoiceLines_selected.product.name");
+    }
+
+    @Test
+    public void should_no_generated_container_for_business_object_relation_when_it_dont_have_attribute() {
+        Container container = new Container();
+
+        NodeBusinessObjectInput node = new NodeBusinessObjectInput("com.company.model.customer");
+        node.setPageDataName("Customer");
+        node.addInput(new LeafContractInput("name", String.class));
+
+        NodeBusinessObjectInput childNode = new NodeBusinessObjectInput("com.company.model.adress", "adress", "adress");
+        childNode.setDataReference(new BusinessDataReference("customer_adress", "String", BusinessDataReference.RelationType.AGGREGATION,
+                BusinessDataReference.LoadingType.LAZY));
+        node.addInput(childNode);
+
+        BusinessObjectVisitorImpl visitor = new BusinessObjectVisitorImpl(container, businessDataToWidgetMapper);
+
+        node.accept(visitor);
+
+        Container rootContainer = (Container) container.getRows().get(0).get(0);
+        assertThat(rootContainer.getRows()).hasSize(3);
+
+        Container detailsContainer = (Container) rootContainer.getRows().get(2).get(1);
+
+        assertThat(detailsContainer.getRows()).hasSize(1);
+        assertThat(detailsContainer.getDescription()).isNotEmpty();
     }
 
 

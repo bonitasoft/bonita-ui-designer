@@ -248,6 +248,9 @@ msgstr "Ajouter un nouvel onglet"
 msgid "Add borders all around the table and between all the columns."
 msgstr "Ajouter des bordures autour de la table et entre toutes les colonnes."
 
+msgid "Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation."
+msgstr "Ajoutez de la documentation à vos pages en fournissant des informations sur un widget (par ex. comment l'utiliser), grâce au nouveau champ de description. Utilisez ces informations pour générer de la documentation."
+
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Ajoutez des assets de type images, CSS ou JavaScript dans vos pages ou formulaires à partir du panneau Assets en bas."
 
@@ -396,9 +399,6 @@ msgstr "De ce fait, si vous recevez un fragment, le renommez et le repartagez, i
 msgid "Bidirectional bond"
 msgstr "Binding bidirectionnel"
 
-msgid "Bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
-msgstr "Liez votre variable de données métier sur les propriétés des widgets ou utilisez votre variable dans les expressions javascript. Attention, par défaut, chaque variable de données métier est un tableau (même si un seul résultat de la requête est retourné)."
-
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
@@ -407,6 +407,9 @@ msgstr "Appels vers la REST API Bonita"
 
 msgid "Bordered"
 msgstr "Avec bordure"
+
+msgid "Business Data Management enhancements"
+msgstr "Améliorations de la gestion des données métier"
 
 msgid "Business data"
 msgstr "Données métier"
@@ -609,6 +612,9 @@ msgstr "Créer un nouvel artefact"
 msgid "Create a new variable"
 msgstr "Créer une nouvelle variable"
 
+msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
+msgstr "Créer une interface utilisateur pour gérer \"{{ctrl.businessData.name}}\""
+
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr "Créez une variable ici. L'utilisation de la variable dans une propriété de widget dépend du type de propriété, décrit dans l'aide générale de l'éditeur de page, dans la section <i>Propriétés</i>."
 
@@ -617,9 +623,6 @@ msgstr "Créez une variable dans le panneau du bas. L'utilisation de la variable
 
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Créez une <b>page d'application</b> directement dans le UI Designer"
-
-msgid "Create new Business Data variable to handle \"{{ctrl.businessData.name}}\""
-msgstr "Créer une nouvelle variable de données métier pour gérer \"{{ctrl.businessData.name}}\""
 
 msgid "Create new artifact"
 msgstr "Créer un nouvel artefact"
@@ -742,6 +745,9 @@ msgstr "Décrit la propriété"
 
 msgid "Description"
 msgstr "Description"
+
+msgid "Description field on widgets"
+msgstr "Champ de description sur les widgets"
 
 msgid "Details"
 msgstr "Détails"
@@ -1100,6 +1106,9 @@ msgstr "L'Id doit être unique, donc ces éléments seront écrasés."
 msgid "Identifier"
 msgstr "Identifiant"
 
+msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
+msgstr "Si un Objet Métier a été déposé, une interface utilisateur est générée pour vous. Vous pouvez le conserver tel quel, le modifier, ou le supprimer s'il ne répond pas à vos besoins."
+
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "Si vous cochez cette case, la pop-up ne s’affichera plus, à moins que vous ne vidiez le cache de votre navigateur"
 
@@ -1114,6 +1123,9 @@ msgstr "Si vous choisissez « non », le code HTML sera être échappé au lie
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
 msgstr "Si vous choisissez 'non', le code HTML sera échappé au lieu d'être interprété dans les cellules de la ligne"
+
+msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
+msgstr "Si vous créez votre propre interface utilisateur, liez votre variable de données Métier sur les propriétés du widget ou utilisez votre variable dans les expressions javascript. Attention, par défaut, chaque variable de données métier est un tableau (même si un seul résultat de la requête est retourné)."
 
 msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
 msgstr "Si vous avez besoin d'ajouter des liens, des icônes, des actions ou des styles personnalisés, vous pouvez maintenant activer la propriété \n"
@@ -1568,6 +1580,9 @@ msgstr "Effectue une requête HTTP"
 
 msgid "Placeholder"
 msgstr "Placeholder"
+
+msgid "Please provide the information on how to retrieve elements of \"{{ctrl.businessData.name}}\""
+msgstr "Veuillez fournir les informations sur la façon de récupérer les éléments de \"{{ctrl.businessData.name}}\""
 
 msgid "Preview"
 msgstr "Aperçu"
@@ -2064,6 +2079,9 @@ msgstr "Ensuite, fournir une liste séparée par des virgules pour les clés de 
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Le UI Designer propose un ensemble de <b>widgets standards</b> pour afficher des informations et recueillir des informations de la part des utilisateurs. Vous pouvez également créer <b>des widgets personnalisés</b>."
 
+msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
+msgstr "Cet objet Métier contient plus de {{number}} niveaux de relations. Le niveau {{numberAsText}} et au-delà n'apparaîtra pas."
+
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "Cette description apparaît en info-bulle dans la palette"
 
@@ -2345,6 +2363,9 @@ msgstr "Utilisez les caractères : H (heures), h (heure au format AM/PM), m (mi
 msgid "Use the characters: M (month), d (day), y (year)"
 msgstr "Utilisez les caractères : M (mois), d (jour), y (année)"
 
+msgid "Use the generated user interface"
+msgstr "Utiliser l'interface utilisateur générée"
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
 
@@ -2435,6 +2456,9 @@ msgstr "Visualiser dans l'application <i class=\"fa fa-info-circle ng-scope\" ui
 msgid "View..."
 msgstr "Voir le code ..."
 
+msgid "Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern."
+msgstr "Visualisez et explorez votre Modèle de Données Métier (BDM) dans votre navigateur. En quelques clics, générez des interfaces utilisateur à partir du BDM, en utilisant le modèle master/detail."
+
 msgid "W3C website"
 msgstr "Site web du W3C"
 
@@ -2513,6 +2537,9 @@ msgstr "Vous pouvez changer de type pour utiliser cet artefact en tant que formu
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "Vous pouvez uniquement supprimer un asset de page, voir les assets locaux et éditer les assets externes de la page."
 
+msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
+msgstr "Vous pouvez explorer le modèle de données (avec une vue graphique) en utilisant l'icône graphique dans l'en-tête de ce panneau. Il montre les relations entre les objets métiers et leurs attributs."
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
 
@@ -2537,8 +2564,9 @@ msgstr "Vous pouvez traduire tout le texte affiché dans un artefact composant l
 msgid "You can use Business data type to get a business data object."
 msgstr "Vous pouvez utiliser le type de données métier pour obtenir un objet de données métier."
 
-msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0)."
-msgstr "Vous pouvez utiliser la section Pagination pour définir le nombre d'éléments que vous voulez par page (par défaut 10 éléments) et le numéro de page (par défaut la première page - l'index 0)."
+
+msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
+msgstr "Vous pouvez utiliser la section Pagination pour définir le nombre d'éléments que vous voulez par page (par défaut 10 éléments) et le numéro de page (par défaut la première page - l'index 0). Par exemple, vous pouvez lier une variable pour obtenir une pagination dynamique : {{paginationVariable.pageNumber}}."
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "Vous pouvez utiliser les balises HTML standards ainsi que les directives, le scope, et le système d'interpolation d'AngularJS."

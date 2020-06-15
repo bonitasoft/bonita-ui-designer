@@ -74,4 +74,8 @@ public class NodeBusinessObjectInput extends NodeContractInput {
         NodeBusinessObjectInput node = (NodeBusinessObjectInput) nodeBusinessObjectInput.getParent();
         return node.isRootOrMultipleInput() ? node.getPageDataNameSelected() : node.getPageDataName();
     }
+
+    public boolean hasChildren(){
+        return this.getInput().size() > 0;
+    }
 }
