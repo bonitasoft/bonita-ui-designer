@@ -25,15 +25,15 @@ or
 
 * Build docker image:
 
-    docker build -t bonita/ui-designer
+        docker build -t bonita/ui-designer
 
 * Run it :
-
-    docker run -p 8080 bonita/ui-designer
+    
+        docker run --name uid -d -p 50000:8080 bonita/ui-designer
 
 ### Usage
 
-Application is now available at http://localhost:8080/designer/
+Application is now available at http://localhost:50000/bonita/
 
 Start creating your pages, take a look at the [Documentation][documentation].
 
