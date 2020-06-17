@@ -5,11 +5,13 @@ msgstr ""
 "Project-Id-Version: bonita\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: bonita\n"
+"X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-05-28 01:28\n"
+"PO-Revision-Date: 2020-06-17 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -176,8 +178,8 @@ msgstr "Un container TabsContainer est un container qui possède plusieurs panne
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
 
-msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object"
-msgstr "Un assistant de configuration s'affiche : créer une variable Business Data en fournissant des informations sur la façon de récupérer des éléments de cet objet métier"
+msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
+msgstr "Un assistant de configuration s'affiche : créer une variable Business Data en fournissant des informations sur la façon de récupérer des éléments de cet objet métier."
 
 msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
 msgstr "Une zone de filtre est affichée, selon votre sélection, vous devrez entrer une ou plusieurs valeurs d'attribut. Vous pouvez utiliser une variable pour remplir sa valeur en utilisant la syntaxe d'interpolation."
@@ -2563,7 +2565,6 @@ msgstr "Vous pouvez traduire tout le texte affiché dans un artefact composant l
 
 msgid "You can use Business data type to get a business data object."
 msgstr "Vous pouvez utiliser le type de données métier pour obtenir un objet de données métier."
-
 
 msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
 msgstr "Vous pouvez utiliser la section Pagination pour définir le nombre d'éléments que vous voulez par page (par défaut 10 éléments) et le numéro de page (par défaut la première page - l'index 0). Par exemple, vous pouvez lier une variable pour obtenir une pagination dynamique : {{paginationVariable.pageNumber}}."
