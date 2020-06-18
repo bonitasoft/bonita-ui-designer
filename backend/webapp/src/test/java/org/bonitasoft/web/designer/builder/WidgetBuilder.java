@@ -33,8 +33,10 @@ public class WidgetBuilder {
     private Instant lastUpdate;
     private Set<String> modules = new HashSet<>();
     private Set<String> authRules;
-    private String version;
+    private String uidVersion;
+    private String modelVersion;
     private String previousDesignerVersion;
+    private String previousArtifactVersion;
     private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
@@ -97,13 +99,23 @@ public class WidgetBuilder {
         return this;
     }
 
-    public WidgetBuilder version(String version) {
-        this.version = version;
+    public WidgetBuilder uidVersion(String version) {
+        this.uidVersion = version;
+        return this;
+    }
+
+    public WidgetBuilder modelVersion(String version) {
+        this.modelVersion = version;
         return this;
     }
 
     public WidgetBuilder previousDesignerVersion(String previousDesignerVersion) {
         this.previousDesignerVersion = previousDesignerVersion;
+        return this;
+    }
+
+    public WidgetBuilder previousArtifactVersion(String previousArtifactVersion) {
+        this.previousArtifactVersion = previousArtifactVersion;
         return this;
     }
 
@@ -129,11 +141,16 @@ public class WidgetBuilder {
         widget.setCustom(custom);
         widget.setTemplate(template);
         widget.setLastUpdate(lastUpdate);
-        widget.setDesignerVersion(version);
+        widget.setModelVersion(modelVersion);
+        widget.setDesignerVersion(uidVersion);
         widget.setFavorite(favorite);
         widget.setHasHelp(hasHelp);
         widget.setType(type);
-        widget.setPreviousDesignerVersion(previousDesignerVersion);
+        if (previousArtifactVersion != null) {
+            widget.setPreviousArtifactVersion(previousArtifactVersion);
+        } else {
+            widget.setPreviousDesignerVersion(previousDesignerVersion);
+        }
         if (controller != null) {
             widget.setController(controller);
         }

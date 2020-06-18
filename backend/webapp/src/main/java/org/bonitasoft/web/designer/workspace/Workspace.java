@@ -44,8 +44,8 @@ public class Workspace {
 
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
 
-    @Value("${designer.version}")
-    private String currentDesignerVersion;
+    @Value("${designer.modelVersion}")
+    protected String modelVersion;
     private WorkspacePathResolver workspacePathResolver;
     private WidgetRepository widgetRepository;
     private WidgetFileBasedLoader widgetLoader;
@@ -119,12 +119,7 @@ public class Workspace {
                 createWidget(widgetRepositorySourcePath, widget);
             } else {
                 Widget repoWidget = widgetRepository.get(widget.getId());
-                // Split version before '_' to avoid patch tagged version compatible
-                if (currentDesignerVersion != null) {
-                    String[] currentVersion = currentDesignerVersion.split("_");
-                    currentDesignerVersion = currentVersion[0];
-                }
-                if (isBlank(repoWidget.getDesignerVersion()) || new Version(currentDesignerVersion).isGreaterThan(repoWidget.getDesignerVersion())) {
+                if (isBlank(repoWidget.getArtifactVersion()) || new Version(modelVersion).isGreaterThan(repoWidget.getArtifactVersion())) {
                     FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
                     createWidget(widgetRepositorySourcePath, widget);
                 }

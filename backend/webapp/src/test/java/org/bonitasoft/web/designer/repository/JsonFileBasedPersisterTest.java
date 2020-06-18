@@ -50,7 +50,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedPersisterTest {
 
-    private static final String DESIGNER_VERSION = "2.0.0";
+    private static final String DESIGNER_VERSION = "1.0.0";
+    private static final String MODEL_VERSION = "2.0";
 
     private Path repoDirectory;
     private JacksonObjectMapper objectMapper;
@@ -65,7 +66,8 @@ public class JsonFileBasedPersisterTest {
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         repository = new JsonFileBasedPersister<>(objectMapper, validator);
 
-        ReflectionTestUtils.setField(repository, "version", DESIGNER_VERSION);
+        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
+        ReflectionTestUtils.setField(repository, "modelVersion", MODEL_VERSION);
     }
 
     @After
@@ -89,24 +91,42 @@ public class JsonFileBasedPersisterTest {
     }
 
     @Test
-    public void should_set_designer_version_while_saving_if_not_already_set() throws Exception {
+    public void should_not_set_model_version_while_saving_if_uid_version_does_not_support_model_version() throws Exception {
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
 
         repository.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
-        assertThat(savedObject.getDesignerVersion()).isEqualTo(DESIGNER_VERSION);
+        assertThat(savedObject.getModelVersion()).isEqualTo(null);
     }
 
     @Test
-    public void should_not_set_designer_version_while_saving_if_already_set() throws Exception {
+    public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
+        ReflectionTestUtils.setField(repository, "uidVersion", "1.12.0");
+
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
-        expectedObject.setDesignerVersion("alreadySetVersion");
 
         repository.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
-        assertThat(savedObject.getDesignerVersion()).isEqualTo("alreadySetVersion");
+        assertThat(savedObject.getModelVersion()).isEqualTo(MODEL_VERSION);
+
+        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
+    }
+
+    @Test
+    public void should_not_set_model_version_while_saving_if_already_set() throws Exception {
+        ReflectionTestUtils.setField(repository, "uidVersion", "1.12.0");
+
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
+        expectedObject.setModelVersion("alreadySetModelVersion");
+
+        repository.save(repoDirectory, expectedObject);
+
+        SimpleDesignerArtifact savedObject = getFromRepository("foo");
+        assertThat(savedObject.getModelVersion()).isEqualTo("alreadySetModelVersion");
+
+        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
     }
 
     @Test(expected = IOException.class)

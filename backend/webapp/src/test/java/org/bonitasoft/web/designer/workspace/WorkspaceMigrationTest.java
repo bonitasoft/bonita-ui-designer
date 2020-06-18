@@ -46,7 +46,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class WorkspaceMigrationTest {
 
     @Value("${designer.version}")
-    String version;
+    String uidVersion;
+
+    @Value("${designer.modelVersion}")
+    String modelVersion;
 
     @Inject
     WorkspaceInitializer workspaceInitializer;
@@ -57,9 +60,9 @@ public class WorkspaceMigrationTest {
     @Inject
     WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "1.10.18";
+    String PAGE_HIGHER_MIGRATION_VERSION = "2.0";
 
-    String WIDGET_HIGHER_MIGRATION_VERSION = "1.10.12";
+    String WIDGET_HIGHER_MIGRATION_VERSION = "2.0";
 
     @Before
     public void setUp() throws Exception {
@@ -72,8 +75,8 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("page_1_0_0");
 
-        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
-        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.0");
+        assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
         assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
@@ -105,7 +108,7 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("page_1_5_51");
 
-        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
         Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
         PropertyValue allowHTMLProperty = propertyValues.get("allowHTML");
 
@@ -119,8 +122,8 @@ public class WorkspaceMigrationTest {
 
         Widget widget = widgetRepository.get("widget_1_0_0");
 
-        assertThat(widget.getDesignerVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
-        assertThat(widget.getPreviousDesignerVersion()).isEqualTo("1.0.0");
+        assertThat(widget.getArtifactVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
+        assertThat(widget.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
         assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
 
@@ -150,8 +153,8 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("pageWithUIBootstrap");
 
-        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
-        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.1");
+        assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
         assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 
@@ -167,8 +170,8 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("pageWithUIBootstrapWidget");
 
-        assertThat(page.getDesignerVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
-        assertThat(page.getPreviousDesignerVersion()).isEqualTo("1.0.1");
+        assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
+        assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
         assertThat(transform(page.getAssets(), new Function<Asset, String>() {
 

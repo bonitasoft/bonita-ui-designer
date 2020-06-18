@@ -21,12 +21,13 @@ import static org.apache.commons.io.FileUtils.forceMkdir;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.migration.MigrationConfig;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -46,7 +47,9 @@ public class JsonFileBasedPersister<T extends Identifiable> {
 
     public static final String INDEX_METADATA = ".index";
     @Value("${designer.version}")
-    protected String version;
+    protected String uidVersion;
+    @Value("${designer.modelVersion}")
+    protected String modelVersion;
     protected JacksonObjectMapper objectMapper;
     protected BeanValidator validator;
     protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
@@ -62,14 +65,17 @@ public class JsonFileBasedPersister<T extends Identifiable> {
      * @throws IOException
      */
     public void save(Path directory, T content) throws IOException {
-        String versionToSet = version;
+        String versionToSet = uidVersion;
         // Split version before '_' to avoid patch tagged version compatible
-        String[] currentVersion;
         if (versionToSet != null) {
-            currentVersion = version.split("_");
+            String[] currentVersion = uidVersion.split("_");
             versionToSet = currentVersion[0];
         }
         content.setDesignerVersionIfEmpty(versionToSet);
+        String artifactVersion = content.getArtifactVersion();
+        if (artifactVersion == null || MigrationConfig.isSupportingModelVersion(artifactVersion)) {
+            content.setModelVersionIfEmpty(modelVersion);
+        }
         validator.validate(content);
         try {
             write(jsonFile(directory, content.getId()), objectMapper.toPrettyJson(content, JsonViewPersistence.class));

@@ -44,9 +44,9 @@ public class PageService implements ArtifactService {
 
     @Override
     public Page migrate(Identifiable page) {
-        String formerArtifactVersion = page.getDesignerVersion();
+        String formerArtifactVersion = page.getArtifactVersion();
         Page migratedPage = pageMigrationApplyer.migrate((Page) page);
-        if (!StringUtils.equals(formerArtifactVersion, migratedPage.getDesignerVersion())) {
+        if (!StringUtils.equals(formerArtifactVersion, migratedPage.getArtifactVersion())) {
             pageRepository.updateLastUpdateAndSave(migratedPage);
         }
         return migratedPage;

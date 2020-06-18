@@ -200,6 +200,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
                     .append(id, other.id)
                     .append(rows, other.rows)
                     .append(data, other.data)
+                    .append(getModelVersion(), other.getModelVersion())
                     .append(getDesignerVersion(), other.getDesignerVersion())
                     .isEquals();
         } else {
@@ -222,7 +223,8 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
                 .append("id", id)
                 .append("rows", rows)
                 .append("data", data)
-                .append("version", getDesignerVersion())
+                .append("modelVersion", getModelVersion())
+                .append("uidVersion", getDesignerVersion())
                 .toString();
     }
 

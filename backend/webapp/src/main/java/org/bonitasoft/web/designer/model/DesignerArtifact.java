@@ -16,13 +16,32 @@ package org.bonitasoft.web.designer.model;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.bonitasoft.web.designer.migration.Version;
 
 public abstract class DesignerArtifact implements Identifiable {
 
+    private String modelVersion;
     private String designerVersion;
-    private String previousDesignerVersion;
+    private String previousDesignerVersion; // used to be able to read 'old' artifacts
+    private String previousArtifactVersion;
     private boolean favorite = false;
+
+    @JsonView({ JsonViewPersistence.class })
+    public String getModelVersion() {
+        return modelVersion;
+    }
+
+    public void setModelVersion(String version) {
+        this.modelVersion = version;
+    }
+
+    public void setModelVersionIfEmpty(String version) {
+        if (isBlank(modelVersion) || modelVersion.split("_").length > 1) {
+            setModelVersion(version);
+        }
+    }
 
     @JsonView({ JsonViewPersistence.class })
     public String getDesignerVersion() {
@@ -40,12 +59,31 @@ public abstract class DesignerArtifact implements Identifiable {
     }
 
     @JsonView({ JsonViewPersistence.class })
+    public String getPreviousArtifactVersion() {
+        return previousArtifactVersion;
+    }
+
+    public void setPreviousArtifactVersion(String version) {
+        this.previousArtifactVersion = version;
+    }
+
+    @JsonView({ JsonViewPersistence.class })
     public String getPreviousDesignerVersion() {
         return previousDesignerVersion;
     }
 
     public void setPreviousDesignerVersion(String version) {
-        this.previousDesignerVersion = version;
+        this.previousArtifactVersion = version;
+    }
+
+    @JsonIgnore
+    public String getArtifactVersion() {
+        // Use model version if it is present
+        if (getModelVersion() != null) {
+            return getModelVersion();
+        } else {
+            return getDesignerVersion();
+        }
     }
 
     @Override

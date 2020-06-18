@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import org.bonitasoft.web.designer.migration.MigrationConfig;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
@@ -45,14 +46,18 @@ public class WidgetFileBasedPersister extends JsonFileBasedPersister<Widget> {
      */
     @Override
     public void save(Path directory, Widget content) throws IOException {
-        String versionToSet = version;
+        String versionToSet = uidVersion;
         // Split version before '_' to avoid patch tagged version compatible
         String[] currentVersion;
         if(versionToSet != null){
-            currentVersion = version.split("_");
+            currentVersion = uidVersion.split("_");
             versionToSet = currentVersion[0];
         }
         content.setDesignerVersionIfEmpty(versionToSet);
+        String artifactVersion = content.getArtifactVersion();
+        if (artifactVersion == null || MigrationConfig.isSupportingModelVersion(artifactVersion)) {
+            content.setModelVersionIfEmpty(modelVersion);
+        }
         validator.validate(content);
 
         String templateFileName = content.getId() + ".tpl.html";

@@ -48,8 +48,10 @@ public class PageBuilder {
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
     private String uuid = UUID.randomUUID().toString();
-    private String version;
+    private String uidVersion;
+    private String modelVersion;
     private String previousDesignerVersion;
+    private String previousArtifactVersion;
     private boolean favorite = false;
     private String type;
 
@@ -108,7 +110,7 @@ public class PageBuilder {
         variable.setExposed(data.isExposed());
         return variable;
     }
-    
+
     @Deprecated
     public PageBuilder withData(String name, DataBuilder data) {
         return withData(name, data.build());
@@ -138,13 +140,23 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withVersion(String version) {
-        this.version = version;
+    public PageBuilder withUidVersion(String version) {
+        this.uidVersion = version;
         return this;
     }
 
-    public PageBuilder withPreviousDesignerVersion(String previousDesignerVersion) {
-        this.previousDesignerVersion = previousDesignerVersion;
+    public PageBuilder withModelVersion(String version) {
+        this.modelVersion = version;
+        return this;
+    }
+
+    public PageBuilder withPreviousArtifactVersion(String previousArtifactVersion) {
+        this.previousArtifactVersion = previousArtifactVersion;
+        return this;
+    }
+
+    public PageBuilder withPreviousDesignerVersion(String previousArtifactVersion) {
+        this.previousDesignerVersion = previousArtifactVersion;
         return this;
     }
 
@@ -174,8 +186,13 @@ public class PageBuilder {
         page.setUUID(uuid);
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
-        page.setDesignerVersion(version);
-        page.setPreviousDesignerVersion(previousDesignerVersion);
+        page.setDesignerVersion(uidVersion);
+        page.setModelVersion(modelVersion);
+        if (previousArtifactVersion != null) {
+            page.setPreviousArtifactVersion(previousArtifactVersion);
+        } else {
+            page.setPreviousDesignerVersion(previousDesignerVersion);
+        }
         page.setFavorite(favorite);
 
         if (type != null) {

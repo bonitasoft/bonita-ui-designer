@@ -48,7 +48,7 @@ import static org.mockito.Mockito.when;
 
 public class WorkspaceTest {
 
-    private static final String CURRENT_DESIGNER_VERSION = "2.0.0";
+    private static final String CURRENT_MODEL_VERSION = "2.0";
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -91,7 +91,7 @@ public class WorkspaceTest {
                 mock(Watcher.class));
 
         workspace = new Workspace(pathResolver, widgetRepository, new WidgetFileBasedLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
-        ReflectionTestUtils.setField(workspace, "currentDesignerVersion", CURRENT_DESIGNER_VERSION);
+        ReflectionTestUtils.setField(workspace, "modelVersion", CURRENT_MODEL_VERSION);
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {
@@ -152,7 +152,7 @@ public class WorkspaceTest {
     @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_with_same_version() throws Exception {
         mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
-        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \""+ CURRENT_DESIGNER_VERSION + "\"}";
+        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \""+ CURRENT_MODEL_VERSION + "\"}";
         createWidget("pbLabel", existingWidgetContent);
 
         workspace.initialize();

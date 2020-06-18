@@ -63,7 +63,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetRepositoryTest {
 
-    private static final String DESIGNER_VERSION = "2.0.0";
+    private static final String DESIGNER_VERSION = "1.0.0";
+    private static final String MODEL_VERSION = "2.0";
 
     private WidgetRepository widgetRepository;
 
@@ -96,7 +97,8 @@ public class WidgetRepositoryTest {
                 new BeanValidator(validatorFactory.getValidator()),
                 watcher);
 
-        ReflectionTestUtils.setField(jsonFileRepository, "version", DESIGNER_VERSION);
+        ReflectionTestUtils.setField(jsonFileRepository, "uidVersion", DESIGNER_VERSION);
+        ReflectionTestUtils.setField(jsonFileRepository, "modelVersion", MODEL_VERSION);
     }
 
     @Test
@@ -182,23 +184,23 @@ public class WidgetRepositoryTest {
     }
 
     @Test
-    public void should_set_designer_version_while_saving_if_not_already_set() throws Exception {
-        Widget customLabel = aWidget().custom().id("customLabel").build();
+    public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
+        Widget customLabel = aWidget().custom().id("customLabel").uidVersion("1.12.0").build();
 
         createDirectories(widgetDirectory.resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
-        assertThat(customLabel.getDesignerVersion()).isEqualTo(DESIGNER_VERSION);
+        assertThat(customLabel.getModelVersion()).isEqualTo(MODEL_VERSION);
     }
 
     @Test
-    public void should_not_set_designer_version_while_saving_if_already_set() throws Exception {
+    public void should_not_set_model_version_while_saving_if_already_set() throws Exception {
         Widget customLabel = aWidget().custom().id("customLabel").build();
-        customLabel.setDesignerVersion("alreadySetVersion");
+        customLabel.setModelVersion("alreadySetModelVersion");
         createDirectories(widgetDirectory.resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
-        assertThat(customLabel.getDesignerVersion()).isEqualTo("alreadySetVersion");
+        assertThat(customLabel.getModelVersion()).isEqualTo("alreadySetModelVersion");
     }
 
     @Test(expected = IllegalArgumentException.class)

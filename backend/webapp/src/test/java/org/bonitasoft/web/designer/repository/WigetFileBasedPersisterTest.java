@@ -55,7 +55,7 @@ public class WigetFileBasedPersisterTest {
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         widgetPersister = new WidgetFileBasedPersister(objectMapper, validator);
 
-        ReflectionTestUtils.setField(widgetPersister, "version", DESIGNER_VERSION);
+        ReflectionTestUtils.setField(widgetPersister, "uidVersion", DESIGNER_VERSION);
     }
 
     @After

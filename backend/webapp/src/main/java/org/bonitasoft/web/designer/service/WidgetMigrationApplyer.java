@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.migration.Migration;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,13 +35,13 @@ public class WidgetMigrationApplyer {
 
     public Widget migrate(Widget widget) {
         long startTime = System.currentTimeMillis();
-        String formerArtifactVersion = widget.getDesignerVersion();
+        String formerArtifactVersion = widget.getArtifactVersion();
         for (Migration<Widget> migration : migrationList) {
             migration.migrate(widget);
         }
 
-        if (!StringUtils.equals(formerArtifactVersion, widget.getDesignerVersion())) {
-            widget.setPreviousDesignerVersion(formerArtifactVersion);
+        if (!StringUtils.equals(formerArtifactVersion, widget.getArtifactVersion())) {
+            widget.setPreviousArtifactVersion(formerArtifactVersion);
             logger.info(format("[MIGRATION] Widget %s has been terminated in %s seconds !", widget.getName(),(System.currentTimeMillis() - startTime)/ 1000.0f));
         }
 

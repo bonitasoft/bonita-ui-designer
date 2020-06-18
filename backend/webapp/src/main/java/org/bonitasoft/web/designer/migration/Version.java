@@ -28,6 +28,10 @@ public class Version {
         return this.version.compareTo(new DefaultArtifactVersion(version)) > 0;
     }
 
+    public boolean isGreaterOrEqualThan(String version) {
+        return this.version.compareTo(new DefaultArtifactVersion(version)) >= 0;
+    }
+
     @Override
     public String toString() {
         return version.toString();

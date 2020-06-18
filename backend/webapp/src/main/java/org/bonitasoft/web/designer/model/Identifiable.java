@@ -32,9 +32,21 @@ public interface Identifiable {
     String getName();
 
     /**
+     * Version of the model
+     */
+    String getModelVersion();
+
+    void setModelVersionIfEmpty(String version);
+
+    /**
      * Version of the designer
      */
     String getDesignerVersion();
+
+    /**
+     * Version of the artifact (either model version if any, or designer version)
+     */
+    String getArtifactVersion();
 
     /**
      * Generally a version is given when the component is created

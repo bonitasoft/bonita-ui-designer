@@ -32,27 +32,50 @@ public class WidgetMigrationApplyerTest {
 
     @Test
     public void should_migrate_a_widget(){
-        Migration<Widget> migrations = new Migration("1.2.0", mock(MigrationStep.class));
+        Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
-        Widget widget = WidgetBuilder.aWidget().id("customWidget").version("1.0.1").previousDesignerVersion("1.0.1").build();
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").uidVersion("1.0.1").previousDesignerVersion("1.0.0").build();
 
         widgetMigrationApplyer.migrate(widget);
 
-        Assert.assertEquals(widget.getPreviousDesignerVersion(),"1.0.1");
-        Assert.assertEquals(widget.getDesignerVersion(),"1.2.0");
-        Assert.assertEquals(widget.getDesignerVersion(),"1.2.0");
+        Assert.assertEquals(widget.getPreviousArtifactVersion(),"1.0.1");
+        Assert.assertEquals(widget.getArtifactVersion(),"2.0");
     }
 
     @Test
-    public void should_not_modify_previous_designer_version_when_no_migration_done_on_widget(){
-        Migration<Widget> migrations = new Migration("1.0.2", mock(MigrationStep.class));
+    public void should_migrate_a_widget_with_new_model_version(){
+        Migration<Widget> migrations = new Migration("2.1", mock(MigrationStep.class));
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
-        Widget widget = WidgetBuilder.aWidget().id("customWidget").version("1.0.2").previousDesignerVersion("1.0.2").build();
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").modelVersion("2.0").previousDesignerVersion("1.7.11").build();
 
         widgetMigrationApplyer.migrate(widget);
 
-        Assert.assertEquals(widget.getPreviousDesignerVersion(),"1.0.2");
-        Assert.assertEquals(widget.getDesignerVersion(),"1.0.2");
+        Assert.assertEquals(widget.getPreviousArtifactVersion(),"2.0");
+        Assert.assertEquals(widget.getArtifactVersion(),"2.1");
+    }
+
+    @Test
+    public void should_migrate_a_widget_with_no_previous_version(){
+        Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
+        WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").uidVersion("1.0.1").build();
+
+        widgetMigrationApplyer.migrate(widget);
+
+        Assert.assertEquals(widget.getPreviousArtifactVersion(),"1.0.1");
+        Assert.assertEquals(widget.getArtifactVersion(),"2.0");
+    }
+
+    @Test
+    public void should_not_modify_previous_model_version_when_no_migration_done_on_widget(){
+        Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
+        WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").modelVersion("2.0").previousArtifactVersion("2.0").build();
+
+        widgetMigrationApplyer.migrate(widget);
+
+        Assert.assertEquals(widget.getPreviousArtifactVersion(),"2.0");
+        Assert.assertEquals(widget.getArtifactVersion(),"2.0");
     }
 
 }

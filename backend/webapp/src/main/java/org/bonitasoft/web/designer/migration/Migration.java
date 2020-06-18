@@ -24,38 +24,63 @@ import org.slf4j.LoggerFactory;
 public class Migration<A extends DesignerArtifact> {
 
     private static final Logger logger = LoggerFactory.getLogger(Migration.class);
-    private final Version version;
+    private final Version newArtifactVersion;
     private final MigrationStep<A>[] migrationSteps;
 
     /**
-     * Associate one or more migration steps to a given version.
-     * Migration steps will be executed on models which version is lower or equal than the given version.
+     * Associate one or more migration steps to a given artifact version.
+     * Migration steps will be executed on models which artifact version is lower or equal than the given artifact version.
      *
-     * @param version   Latest tagged UI Designer version that does need migration
+     * @param newArtifactVersion   Latest artifact version that does need migration (can be UI designer version or model version)
      * @param migrationSteps    The migration steps that need to be executed
      */
-    public Migration(String version, MigrationStep<A>... migrationSteps) {
-        this.version = new Version(version);
+    public Migration(String newArtifactVersion, MigrationStep<A>... migrationSteps) {
+        this.newArtifactVersion = new Version(newArtifactVersion);
         this.migrationSteps = migrationSteps;
     }
 
     public void migrate(A artifact) {
-        if (artifact.getDesignerVersion() == null || version.isGreaterThan(artifact.getDesignerVersion())) {
+        String artifactVersion = artifact.getArtifactVersion();
+        if (artifactVersion == null || newArtifactVersion.isGreaterThan(artifactVersion)) {
             logger.info(format("[MIGRATION] %s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
                     artifact.getId(),
-                    artifact.getDesignerVersion(), version));
+                    getDisplayVersion(artifactVersion), getDisplayVersion(newArtifactVersion.toString())));
 
             for (MigrationStep<A> migrationStep : migrationSteps) {
                 migrationStep.migrate(artifact);
             }
 
-            artifact.setDesignerVersion(version.toString());
-            logger.info(format("[MIGRATION] %s <%s> version is now <%s>",
+            updateVersion(artifact);
+            logger.info(format("[MIGRATION] %s <%s> artifact version is now <%s>",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
-                    version));
+                    newArtifactVersion));
         }
+    }
+
+    private String getDisplayVersion(String artifactVersion) {
+        if (artifactVersion == null) {
+            return "null";
+        }
+        if (new Version(artifactVersion).isGreaterOrEqualThan(MigrationConfig.INITIAL_MODEL_VERSION)) {
+            return format("model version <%s>", artifactVersion);
+        } else {
+            return format("UI Designer version <%s>", artifactVersion);
+        }
+    }
+
+    private void updateVersion(A artifact) {
+        if (isModelVersionMigration()) {
+            artifact.setModelVersion(newArtifactVersion.toString());
+        } else {
+            // Migrating from a UID version to a newer UID version
+            artifact.setDesignerVersion(newArtifactVersion.toString());
+        }
+    }
+
+    private boolean isModelVersionMigration() {
+        return newArtifactVersion.isGreaterOrEqualThan(MigrationConfig.INITIAL_MODEL_VERSION);
     }
 }

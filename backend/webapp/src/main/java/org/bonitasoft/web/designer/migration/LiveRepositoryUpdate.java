@@ -20,7 +20,6 @@ import static org.apache.commons.lang3.StringUtils.contains;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
@@ -29,7 +28,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AbstractLoader;
 import org.bonitasoft.web.designer.repository.RefreshingRepository;
 import org.bonitasoft.web.designer.repository.Repository;
@@ -71,12 +69,12 @@ public class LiveRepositoryUpdate<A extends DesignerArtifact> implements Compara
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 if (isArtifactDescriptor(path)) {
                     final A artifact = loader.get(path);
-                    String formerArtifactVersion = artifact.getDesignerVersion();
+                    String formerArtifactVersion = artifact.getArtifactVersion();
                     for (Migration<A> migration : migrationList) {
                         migration.migrate(artifact);
                     }
-                    if (!StringUtils.equals(formerArtifactVersion, artifact.getDesignerVersion())) {
-                        artifact.setPreviousDesignerVersion(formerArtifactVersion);
+                    if (!StringUtils.equals(formerArtifactVersion, artifact.getArtifactVersion())) {
+                        artifact.setPreviousArtifactVersion(formerArtifactVersion);
                         repository.updateLastUpdateAndSave(artifact);
                     }
                 }

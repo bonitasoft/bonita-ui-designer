@@ -34,9 +34,7 @@ import java.util.List;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -491,7 +489,7 @@ public class AssetServiceTest {
     public void should_read_asset_content() throws IOException {
         Asset myAsset = anAsset().withType(CSS).withName("style.css").build();
         Page page = aPage()
-                .withVersion("1.7.9").withAsset(myAsset).build();
+                .withUidVersion("1.7.9").withAsset(myAsset).build();
 
         when(assetRepository.readAllBytes(page.getId(), myAsset)).thenReturn("myContentOfAsset".getBytes());
 

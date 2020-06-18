@@ -37,24 +37,23 @@ public class PageMigrationApplyer {
 
     public Page migrate(Page page) {
         long startTime = System.currentTimeMillis();
-        String formerArtifactVersion = page.getDesignerVersion();
+        String formerArtifactVersion = page.getArtifactVersion();
         for (Migration<Page> migration : migrationList) {
             migration.migrate(page);
         }
 
         migrateAllWidgetUsed(page);
 
-        updatePreviousDesignerVersionIfMigrationDone(page,formerArtifactVersion,startTime);
+        updatePreviousArtifactVersionIfMigrationDone(page,formerArtifactVersion,startTime);
 
         return page;
     }
 
-    protected Page updatePreviousDesignerVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime){
-        if (!StringUtils.equals(formerArtifactVersion, page.getDesignerVersion())) {
-            page.setPreviousDesignerVersion(formerArtifactVersion);
+    protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime){
+        if (!StringUtils.equals(formerArtifactVersion, page.getArtifactVersion())) {
+            page.setPreviousArtifactVersion(formerArtifactVersion);
             logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime) / 1000.0f));
         }
-        return page;
     }
 
     protected void migrateAllWidgetUsed(Page page) {

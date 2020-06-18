@@ -45,8 +45,8 @@ public class PageServiceTest {
 
     @Test
     public void should_migrate_found_page_when_get_is_called() {
-        Page page = PageBuilder.aPage().withId("myPage").withVersion("1.0.0").build();
-        Page migratedPage = PageBuilder.aPage().withId("myPage").withVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.0").build();
+        Page migratedPage = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.1").withPreviousArtifactVersion("1.0.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
         when(pageMigrationApplyer.migrate(page)).thenReturn(migratedPage);
 
@@ -58,8 +58,8 @@ public class PageServiceTest {
 
     @Test
     public void should_not_update_and_save_page_if_no_migration_done() {
-        Page page = PageBuilder.aPage().withId("myPage").withVersion("1.0.0").build();
-        Page migratedPage = PageBuilder.aPage().withId("myPage").withVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.0").build();
+        Page migratedPage = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.0").withPreviousArtifactVersion("1.0.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
         when(pageMigrationApplyer.migrate(page)).thenReturn(migratedPage);
 

@@ -50,6 +50,9 @@ import org.springframework.context.annotation.Configuration;
 @Conditional(DesignerConfigConditional.class)
 public class MigrationConfig {
 
+    public static String INITIAL_MODEL_VERSION = "2.0";
+    public static String INITIAL_UID_VERSION_USING_MODEL_VERSION = "1.12.0-snapshot";
+
     @Bean
     public BondMigrationStep<Page> pageBondMigrationStep(ComponentVisitor componentVisitor,
                                                          WidgetRepository widgetRepository,
@@ -61,12 +64,12 @@ public class MigrationConfig {
     public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
-    
+
     @Bean
     public TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TableWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
-    
+
     @Bean
     public TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep(ComponentVisitor componentVisitor) {
         return new TableWidgetStylesMigrationStep(componentVisitor);
@@ -75,6 +78,11 @@ public class MigrationConfig {
     @Bean
     public TextWidgetLabelMigrationStep<Page> pageTextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetLabelMigrationStep(componentVisitor);
+    }
+
+    @Bean
+    public AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
+        return new AddModelVersionMigrationStep();
     }
 
     @Bean
@@ -103,7 +111,8 @@ public class MigrationConfig {
             DataToVariableMigrationStep<Page> dataToVariableMigrationStep,
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
-            TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep) {
+            TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
+            AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -117,7 +126,8 @@ public class MigrationConfig {
                 new Migration<>("1.10.5", dynamicTabsContainerMigrationStep),
                 new Migration<>("1.10.12", dataToVariableMigrationStep),
                 new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
-                new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep));
+                new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
+                new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep));
     }
 
     @Bean
@@ -135,8 +145,8 @@ public class MigrationConfig {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>()),
-                new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep())
-        );
+                new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),
+                new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<Widget>()));
     }
 
     @Bean
@@ -153,4 +163,10 @@ public class MigrationConfig {
     public WidgetMigrationApplyer widgetMigrationApplyer() {
         return new WidgetMigrationApplyer(widgetMigrationSteps);
     }
+
+    public static boolean isSupportingModelVersion(String version) {
+        return version != null && new Version(version).isGreaterOrEqualThan(MigrationConfig.INITIAL_UID_VERSION_USING_MODEL_VERSION);
+    }
+
+
 }

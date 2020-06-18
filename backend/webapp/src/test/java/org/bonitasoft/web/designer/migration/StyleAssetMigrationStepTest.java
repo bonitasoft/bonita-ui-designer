@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.migration;
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -27,7 +26,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,7 +64,7 @@ public class StyleAssetMigrationStepTest {
 
     @Test
     public void should_add_new_style_asset_to_migrated_pages() throws Exception {
-        Page page = aPage().withVersion("1.4.7").build();
+        Page page = aPage().withUidVersion("1.4.7").build();
 
         step.migrate(page);
 
@@ -77,7 +75,7 @@ public class StyleAssetMigrationStepTest {
 
     @Test
     public void should_add_new_style_asset_with_different_name_while_already_existing() throws Exception {
-        Page page = aPage().withVersion("1.4.7")
+        Page page = aPage().withUidVersion("1.4.7")
                 .withAsset(anAsset().withType(CSS).withName("style.css"))
                 .withAsset(anAsset().withType(CSS).withName("style1.css")).build();
 
