@@ -14,16 +14,19 @@
  */
 package org.bonitasoft.web.designer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.Instant;
 
+@JsonIgnoreProperties(value={"password"}, allowSetters = true)
 public final class SimpleObject {
     private String id;
     private String name;
     private int number;
     private SimpleObject another;
+    private String password;
 
     public SimpleObject() {
     }
@@ -87,5 +90,14 @@ public final class SimpleObject {
 
     public void setLastUpdate(Instant lastUpdate) {
 
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

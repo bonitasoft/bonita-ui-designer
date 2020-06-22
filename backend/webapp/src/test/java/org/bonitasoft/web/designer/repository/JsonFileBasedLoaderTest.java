@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.extractProperty;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aFilledSimpleObject;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
@@ -77,6 +78,16 @@ public class JsonFileBasedLoaderTest {
         addToRepository(expectedObject);
 
         assertThat(loader.get(repoDirectory.resolve("id/id.json"))).isEqualTo(expectedObject);
+    }
+
+    @Test
+    public void test_loader() throws Exception {
+        SimpleDesignerArtifact a = new SimpleDesignerArtifact("id", "id", 5);
+        a.setDesignerVersion("1.12.0");
+        addToRepository(a);
+        SimpleDesignerArtifact pouet = loader.get(repoDirectory.resolve("id/id.json"));
+        assertThat(pouet.getDesignerVersion()).isEqualTo("1.12.0");
+        assertThat(pouet).isEqualTo(a);
     }
 
     @Test(expected = RepositoryException.class)

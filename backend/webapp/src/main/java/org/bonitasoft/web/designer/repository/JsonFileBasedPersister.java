@@ -71,6 +71,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
             String[] currentVersion = uidVersion.split("_");
             versionToSet = currentVersion[0];
         }
+
         content.setDesignerVersionIfEmpty(versionToSet);
         String artifactVersion = content.getArtifactVersion();
         if (artifactVersion == null || MigrationConfig.isSupportingModelVersion(artifactVersion)) {

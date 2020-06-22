@@ -17,12 +17,14 @@ package org.bonitasoft.web.designer.model;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.bonitasoft.web.designer.migration.Version;
 
+@JsonIgnoreProperties(value={"designerVersion"}, allowSetters = true)
 public abstract class DesignerArtifact implements Identifiable {
 
     private String modelVersion;
+    @JsonView({ JsonViewPersistence.class })
     private String designerVersion;
     private String previousDesignerVersion; // used to be able to read 'old' artifacts
     private String previousArtifactVersion;
@@ -43,7 +45,6 @@ public abstract class DesignerArtifact implements Identifiable {
         }
     }
 
-    @JsonView({ JsonViewPersistence.class })
     public String getDesignerVersion() {
         return designerVersion;
     }

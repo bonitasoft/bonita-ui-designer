@@ -95,7 +95,7 @@ public class JacksonObjectMapperTest {
                 "  \"another\" : null" + System.lineSeparator() +
                 "}");
     }
-    
+
     @Test
     public void should_format_json_when_using_pretty_print_on_json() throws Exception {
         assertThat(objectMapper.prettyPrint("{\"foo\":\"bar\"}")).isEqualTo("{" + System.lineSeparator() +
@@ -136,4 +136,25 @@ public class JacksonObjectMapperTest {
         objectMapper.checkValidJson(json.getBytes(StandardCharsets.UTF_8));
         // ok - no exception expected
     }
+
+    @Test
+    public void should_deserialize_json_with_password() throws Exception {
+        String json = "{\"name\": \"colin\", \"number\": 31, \"password\": \"abcd\"}";
+
+        SimpleObject object = objectMapper.fromJson(json.getBytes(StandardCharsets.UTF_8), SimpleObject.class);
+
+        assertThat(object.getName()).isEqualTo("colin");
+        assertThat(object.getNumber()).isEqualTo(31);
+        assertThat(object.getPassword()).isEqualTo("abcd");
+    }
+
+    @Test
+    public void should_serialize_into_object_with_ignore_password() throws Exception {
+        SimpleObject object = new SimpleObject("id", "Vincent", 1);
+        object.setPassword("abcd");
+
+        String expected = new String(objectMapper.toJson(object));
+        JSONAssert.assertEquals(expected, "{\"name\":\"Vincent\",\"number\":1, \"another\": null, \"id\": \"id\"}", false);
+    }
+
 }

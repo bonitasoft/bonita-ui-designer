@@ -43,6 +43,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LiveRepositoryUpdateTest {
@@ -69,13 +70,13 @@ public class LiveRepositoryUpdateTest {
 
     @Test
     public void should_migrate_a_page() throws Exception {
-        Migration<Page> migration = new Migration<>("1.0.2", mock(MigrationStep.class));
+        Migration<Page> migration = new Migration<>("2.1", mock(MigrationStep.class));
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
-        Page page = createPage("1.0.1");
+        Page page = createPage("2.0");
 
         liveRepositoryUpdate.migrate();
 
-        page.setDesignerVersion("1.0.2");
+        page.setModelVersion("2.1");
         verify(persister).save(folder.getRoot().toPath().resolve("pageJson"), page);
     }
 
@@ -106,7 +107,7 @@ public class LiveRepositoryUpdateTest {
         Migration<Page> migration = mock(Migration.class);
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         createPage("1.0.0");
-        folder.newFolder("pageJson","assets");
+        folder.newFolder("pageJson", "assets");
         folder.newFile("pageJson/assets/whatever.json");
 
         liveRepositoryUpdate.migrate();
@@ -137,14 +138,14 @@ public class LiveRepositoryUpdateTest {
         liveRepoList.add(pageLiveRepositoryUpdate);
         liveRepoList.add(widgetLiveRepositoryUpdate);
 
-        Assertions.assertThat(liveRepoList).containsExactly(pageLiveRepositoryUpdate,widgetLiveRepositoryUpdate);
-        Assertions.assertThat(liveRepoList.stream().sorted().collect(Collectors.toList())).containsExactly(widgetLiveRepositoryUpdate,pageLiveRepositoryUpdate);
+        Assertions.assertThat(liveRepoList).containsExactly(pageLiveRepositoryUpdate, widgetLiveRepositoryUpdate);
+        Assertions.assertThat(liveRepoList.stream().sorted().collect(Collectors.toList())).containsExactly(widgetLiveRepositoryUpdate, pageLiveRepositoryUpdate);
     }
 
     private Page createPage(String version) throws IOException {
         folder.newFolder("pageJson");
         File pageJson = folder.newFile("pageJson/pageJson.json");
-        write(pageJson.toPath(), format("{ \"id\": \"pageJson\", \"designerVersion\": \"%s\" }", version).getBytes());
+        write(pageJson.toPath(), format("{ \"id\": \"pageJson\", \"modelVersion\": \"%s\" }", version).getBytes());
         return loader.load(pageJson.getParentFile().toPath().resolve(pageJson.getName()));
     }
 }

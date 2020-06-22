@@ -32,9 +32,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PagePropertiesBuilderTest {
+
+    private static final String DESIGNER_VERSION = "1.12.1";
 
     @InjectMocks
     private PagePropertiesBuilder pagePropertiesBuilder;
@@ -49,6 +52,8 @@ public class PagePropertiesBuilderTest {
     public void setUp() throws Exception {
         page = new Page();
         page.setName("myPage");
+
+        ReflectionTestUtils.setField(pagePropertiesBuilder, "uidVersion", DESIGNER_VERSION);
     }
 
     private Data anApiData(String value) {
@@ -76,6 +81,7 @@ public class PagePropertiesBuilderTest {
     public void should_build_a_page_property_file_when_description_and_displayName_are_not_updated() throws Exception {
         page.setId("aPageId");
         page.setName("aPageName");
+        page.setDesignerVersion("1.12.1");
 
         String properties = new String(pagePropertiesBuilder.build(page));
         when(pageResource.getResources(page.getId())).thenReturn(Arrays.asList(""));
@@ -84,6 +90,15 @@ public class PagePropertiesBuilderTest {
         assertThat(properties).contains("displayName=aPageName" );
         assertThat(properties).contains("description=Page generated with Bonita UI designer");
         assertThat(properties).contains("resources=[]");
+        assertThat(properties).contains("designerVersion=1.12.1");
+    }
+
+    @Test
+    public void should_build_a_page_property_file_with_designerVersion() throws Exception {
+        page.setDesignerVersion("1.12.1");
+
+        String properties = new String(pagePropertiesBuilder.build(page));
+        assertThat(properties).contains("designerVersion=1.12.1");
     }
 
     @Test

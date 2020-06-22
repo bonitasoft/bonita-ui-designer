@@ -23,6 +23,7 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.controller.export.ExcludeDescriptorFilePredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.controller.export.properties.WidgetPropertiesBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
@@ -30,14 +31,18 @@ import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 public class WidgetByIdExportStep implements ExportStep<Widget> {
 
     private WorkspacePathResolver pathResolver;
+    private WidgetPropertiesBuilder widgetPropertiesBuilder;
 
     @Inject
-    public WidgetByIdExportStep(WorkspacePathResolver pathResolver) {
+    public WidgetByIdExportStep(WorkspacePathResolver pathResolver, WidgetPropertiesBuilder widgetPropertiesBuilder) {
         this.pathResolver = pathResolver;
+        this.widgetPropertiesBuilder = widgetPropertiesBuilder;
     }
 
     @Override
     public void execute(Zipper zipper, Widget widget) throws IOException {
+        byte[] widgetProperties = widgetPropertiesBuilder.build(widget);
+        zipper.addToZip(widgetProperties, "widget.properties");
         zipper.addDirectoryToZip(
                 pathResolver.getWidgetsRepositoryPath().resolve(widget.getId()),
                 ALL_DIRECTORIES,
