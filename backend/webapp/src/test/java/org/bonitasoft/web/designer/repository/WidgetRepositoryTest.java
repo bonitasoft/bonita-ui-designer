@@ -185,7 +185,7 @@ public class WidgetRepositoryTest {
 
     @Test
     public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
-        Widget customLabel = aWidget().custom().id("customLabel").uidVersion("1.12.0").build();
+        Widget customLabel = aWidget().custom().id("customLabel").designerVersion("1.12.0").build();
 
         createDirectories(widgetDirectory.resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);

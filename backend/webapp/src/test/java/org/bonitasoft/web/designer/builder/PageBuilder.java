@@ -48,7 +48,7 @@ public class PageBuilder {
     private String name = "pageName";
     private String id = UUID.randomUUID().toString();
     private String uuid = UUID.randomUUID().toString();
-    private String uidVersion;
+    private String designerVersion;
     private String modelVersion;
     private String previousDesignerVersion;
     private String previousArtifactVersion;
@@ -140,8 +140,8 @@ public class PageBuilder {
         return this;
     }
 
-    public PageBuilder withUidVersion(String version) {
-        this.uidVersion = version;
+    public PageBuilder withDesignerVersion(String version) {
+        this.designerVersion = version;
         return this;
     }
 
@@ -186,7 +186,7 @@ public class PageBuilder {
         page.setUUID(uuid);
         page.setAssets(assets);
         page.setInactiveAssets(inactiveAssets);
-        page.setDesignerVersion(uidVersion);
+        page.setDesignerVersion(designerVersion);
         page.setModelVersion(modelVersion);
         if (previousArtifactVersion != null) {
             page.setPreviousArtifactVersion(previousArtifactVersion);

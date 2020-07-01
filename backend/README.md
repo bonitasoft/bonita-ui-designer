@@ -198,3 +198,51 @@ DELETE /rest/pages/{pageId}/data/{dataName}
     * 200 OK
     * 404 page {pageId} not found or data {dataName} not found
     * 500 internal server error
+
+
+### Migration model
+#### Resource URI
+/rest/migration
+
+#### Migrate all artifacts
+POST /rest/migration
+
+#### Get migration status from an artifact json
+POST /rest/migration/status
+BODY json of any artifact
+
+* Response: json object with 2 booleans, stating if the artifact is compatible (i.e. can be migrated), 
+and if the artifact is to be migrated.
+For instance: {"compatible": "true", "migration": "true"}
+
+* Response code
+    * 200 OK
+    * 400 invalid json
+    
+#### Get migration status of a page
+GET /rest/migration/status/page/{pageId}
+
+* Response: see "Get migration status from an artifact json"
+
+* Response code
+    * 200 OK
+    * 404 Page not found
+    
+#### Get migration status of a widget
+GET /rest/migration/status/widget/{widgetId}
+
+* Response: see "Get migration status from an artifact json"
+
+* Response code
+    * 200 OK
+    * 404 Widget not found
+    
+#### Get migration status of a fragment
+GET /rest/migration/status/fragment/{fragmentId}
+
+* Response: see "Get migration status from an artifact json"
+
+* Response code
+    * 200 OK
+    * 404 Fragment not found
+    

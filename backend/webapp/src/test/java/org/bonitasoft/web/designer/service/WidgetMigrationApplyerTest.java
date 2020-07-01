@@ -34,7 +34,7 @@ public class WidgetMigrationApplyerTest {
     public void should_migrate_a_widget(){
         Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
-        Widget widget = WidgetBuilder.aWidget().id("customWidget").uidVersion("1.0.1").previousDesignerVersion("1.0.0").build();
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").designerVersion("1.0.1").previousDesignerVersion("1.0.0").build();
 
         widgetMigrationApplyer.migrate(widget);
 
@@ -58,7 +58,7 @@ public class WidgetMigrationApplyerTest {
     public void should_migrate_a_widget_with_no_previous_version(){
         Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
-        Widget widget = WidgetBuilder.aWidget().id("customWidget").uidVersion("1.0.1").build();
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").designerVersion("1.0.1").build();
 
         widgetMigrationApplyer.migrate(widget);
 

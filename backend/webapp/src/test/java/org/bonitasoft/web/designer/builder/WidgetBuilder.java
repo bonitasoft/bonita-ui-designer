@@ -33,7 +33,7 @@ public class WidgetBuilder {
     private Instant lastUpdate;
     private Set<String> modules = new HashSet<>();
     private Set<String> authRules;
-    private String uidVersion;
+    private String designerVersion;
     private String modelVersion;
     private String previousDesignerVersion;
     private String previousArtifactVersion;
@@ -99,8 +99,8 @@ public class WidgetBuilder {
         return this;
     }
 
-    public WidgetBuilder uidVersion(String version) {
-        this.uidVersion = version;
+    public WidgetBuilder designerVersion(String version) {
+        this.designerVersion = version;
         return this;
     }
 
@@ -142,7 +142,7 @@ public class WidgetBuilder {
         widget.setTemplate(template);
         widget.setLastUpdate(lastUpdate);
         widget.setModelVersion(modelVersion);
-        widget.setDesignerVersion(uidVersion);
+        widget.setDesignerVersion(designerVersion);
         widget.setFavorite(favorite);
         widget.setHasHelp(hasHelp);
         widget.setType(type);

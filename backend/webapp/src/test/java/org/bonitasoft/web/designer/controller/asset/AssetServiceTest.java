@@ -489,7 +489,7 @@ public class AssetServiceTest {
     public void should_read_asset_content() throws IOException {
         Asset myAsset = anAsset().withType(CSS).withName("style.css").build();
         Page page = aPage()
-                .withUidVersion("1.7.9").withAsset(myAsset).build();
+                .withDesignerVersion("1.7.9").withAsset(myAsset).build();
 
         when(assetRepository.readAllBytes(page.getId(), myAsset)).thenReturn("myContentOfAsset".getBytes());
 

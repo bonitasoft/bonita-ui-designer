@@ -224,7 +224,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
                 .append("rows", rows)
                 .append("data", data)
                 .append("modelVersion", getModelVersion())
-                .append("uidVersion", getDesignerVersion())
+                .append("designerVersion", getDesignerVersion())
                 .toString();
     }
 

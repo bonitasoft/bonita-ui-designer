@@ -40,7 +40,7 @@ public class PageMigrationApplyerTest {
     public void should_migrate_a_page() throws IOException {
         Migration<Page> migration = new Migration("2.0", mock(MigrationStep.class));
         PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
-        Page page = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
 
         migrationApplyer.migrate(page);
 
@@ -76,7 +76,7 @@ public class PageMigrationApplyerTest {
     public void should_migrate_all_custom_widget_uses_in_page_when_page_migration_is_done(){
         Migration<Page> migration = new Migration("2.0", mock(MigrationStep.class));
         PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
-        Page page = PageBuilder.aPage().withId("myPage").withUidVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
 
         Page migratedPage = migrationApplyer.migrate(page);
 

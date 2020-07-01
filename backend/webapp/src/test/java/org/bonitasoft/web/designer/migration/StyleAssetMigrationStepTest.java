@@ -64,7 +64,7 @@ public class StyleAssetMigrationStepTest {
 
     @Test
     public void should_add_new_style_asset_to_migrated_pages() throws Exception {
-        Page page = aPage().withUidVersion("1.4.7").build();
+        Page page = aPage().withDesignerVersion("1.4.7").build();
 
         step.migrate(page);
 
@@ -75,7 +75,7 @@ public class StyleAssetMigrationStepTest {
 
     @Test
     public void should_add_new_style_asset_with_different_name_while_already_existing() throws Exception {
-        Page page = aPage().withUidVersion("1.4.7")
+        Page page = aPage().withDesignerVersion("1.4.7")
                 .withAsset(anAsset().withType(CSS).withName("style.css"))
                 .withAsset(anAsset().withType(CSS).withName("style1.css")).build();
 

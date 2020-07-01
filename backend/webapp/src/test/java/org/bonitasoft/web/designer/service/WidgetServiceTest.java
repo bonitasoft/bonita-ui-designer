@@ -76,7 +76,7 @@ public class WidgetServiceTest {
 
     @Test
     public void should_migrate_found_widget_when_get_is_called() {
-        Widget widget = aWidget().id("widget").uidVersion("1.0.0").build();
+        Widget widget = aWidget().id("widget").designerVersion("1.0.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("1.0.0").build();
         when(widgetMigrationApplyer.migrate(widget)).thenReturn(widgetMigrated);
 
@@ -104,10 +104,10 @@ public class WidgetServiceTest {
 
     @Test
     public void should_migrate_all_custom_widget() throws Exception {
-        Widget widget1 = aWidget().id("widget1").uidVersion("1.0.0").build();
-        Widget widget2 = aWidget().id("widget2").uidVersion("1.0.0").build();
-        Widget widget1Migrated = aWidget().id("widget1").uidVersion("2.0").build();
-        Widget widget2Migrated = aWidget().id("widget2").uidVersion("2.0").build();
+        Widget widget1 = aWidget().id("widget1").designerVersion("1.0.0").build();
+        Widget widget2 = aWidget().id("widget2").designerVersion("1.0.0").build();
+        Widget widget1Migrated = aWidget().id("widget1").designerVersion("2.0").build();
+        Widget widget2Migrated = aWidget().id("widget2").designerVersion("2.0").build();
         when(widgetMigrationApplyer.migrate(widget1)).thenReturn(widget1Migrated);
         when(widgetMigrationApplyer.migrate(widget2)).thenReturn(widget2Migrated);
         when(widgetRepository.get("widget1")).thenReturn(widget1);

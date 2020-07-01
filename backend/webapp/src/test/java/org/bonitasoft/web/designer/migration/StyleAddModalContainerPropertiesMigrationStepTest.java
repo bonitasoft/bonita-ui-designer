@@ -56,7 +56,7 @@ public class StyleAddModalContainerPropertiesMigrationStepTest {
         Asset style = anAsset().withType(CSS).withName("style.css").build();
         String initContent = ".my-content {background: red}";
         Page page = aPage()
-                .withUidVersion("1.7.9").withAsset(style).build();
+                .withDesignerVersion("1.7.9").withAsset(style).build();
 
         when(pageAssetService.getAssetContent(page, style)).thenReturn(initContent);
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/migration/assets/css/styleAddModalContainerProperties.css");
