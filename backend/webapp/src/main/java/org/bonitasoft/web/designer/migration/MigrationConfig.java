@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
+import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
@@ -61,12 +62,12 @@ public class MigrationConfig {
     public TextWidgetInterpretHTMLMigrationStep<Page> pageTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
-    
+
     @Bean
     public TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         return new TableWidgetInterpretHTMLMigrationStep(componentVisitor);
     }
-    
+
     @Bean
     public TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep(ComponentVisitor componentVisitor) {
         return new TableWidgetStylesMigrationStep(componentVisitor);
@@ -88,6 +89,11 @@ public class MigrationConfig {
         return new DynamicTabsContainerMigrationStep();
     }
 
+    @Bean
+    public BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep() {
+        return new BusinessVariableMigrationStep<>();
+    }
+
     @Resource(name = "pageMigrationStepsList")
     protected List<Migration<Page>> pageMigrationSteps;
 
@@ -103,7 +109,8 @@ public class MigrationConfig {
             DataToVariableMigrationStep<Page> dataToVariableMigrationStep,
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
-            TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep) {
+            TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
+            BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -117,7 +124,8 @@ public class MigrationConfig {
                 new Migration<>("1.10.5", dynamicTabsContainerMigrationStep),
                 new Migration<>("1.10.12", dataToVariableMigrationStep),
                 new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
-                new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep));
+                new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
+                new Migration<>("1.11.40", pageBusinessVariableMigrationStep));
     }
 
     @Bean
