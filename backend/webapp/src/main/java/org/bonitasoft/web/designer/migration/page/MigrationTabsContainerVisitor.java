@@ -16,9 +16,6 @@ package org.bonitasoft.web.designer.migration.page;
 
 import static com.google.common.collect.Iterables.concat;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;

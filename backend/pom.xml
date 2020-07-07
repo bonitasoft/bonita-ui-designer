@@ -23,6 +23,7 @@
     <modules>
         <module>contract</module>
         <module>webapp</module>
+        <module>migrationReport</module>
     </modules>
 
     <dependencyManagement>

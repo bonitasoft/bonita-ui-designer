@@ -12,18 +12,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.bonitasoft.web.designer.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+import java.net.URISyntaxException;
+import java.util.Collections;
+
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.service.PageService;
+import org.bonitasoft.web.designer.service.WidgetService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,25 +51,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.net.URISyntaxException;
-import java.nio.file.NoSuchFileException;
-
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MigrationResourceTest {
@@ -63,7 +63,13 @@ public class MigrationResourceTest {
     private PageRepository pageRepository;
 
     @Mock
+    private PageService pageService;
+
+    @Mock
     private WidgetRepository widgetRepository;
+
+    @Mock
+    private WidgetService widgetService;
 
     @InjectMocks
     private MigrationResource MigrationResource;
@@ -174,7 +180,7 @@ public class MigrationResourceTest {
     }
 
     private void postStatusBadRequest() throws Exception {
-         mockMvc
+        mockMvc
                 .perform(post("/rest/migration/status")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{\"id\":\"test\"\"name\":\"test\",\"rows\":[],\"assets\":[],\"type\" : \"page\"}"))
@@ -190,12 +196,177 @@ public class MigrationResourceTest {
 
     private void getStatusRequestByIdInvalid(String artifactType, String artifactId) throws Exception {
         String url = String.format("/rest/migration/status/%s/%s", artifactType, artifactId);
-         mockMvc
+        mockMvc
                 .perform(get(url))
                 .andExpect(status().isNotFound());
     }
 
     private String getStatusReport(boolean compatible, boolean migration) {
         return new MigrationStatusReport(compatible, migration).toString();
+    }
+
+    @Test
+    public void should_return_200_when_page_migration_is_done_on_success() throws Exception {
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withName("page-name").build();
+        when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+        when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-page-to-migrate"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        verify(pageService).migrateWithReport(pageToMigrate);
+    }
+
+    @Test
+    public void should_return_200_when_migration_is_finished_with_warning() throws Exception {
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withName("page-name").build();
+        when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+        when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-page-to-migrate"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        verify(pageService).migrateWithReport(pageToMigrate);
+    }
+
+    @Test
+    public void should_return_500_when_an_error_occurs_during_page_migration() throws Exception {
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withDesignerVersion("1.1.9").withName("page-name").build();
+        when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+        when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-page-to-migrate"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().is(500));
+
+        verify(pageService).migrateWithReport(pageToMigrate);
+    }
+
+
+    @Test
+    public void should_return_200_when_widget_migration_is_done_on_success() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
+                Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-widget"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        verify(widgetService).migrateWithReport(widget);
+    }
+
+    @Test
+    public void should_return_200_when_widget_migration_is_finish_with_warning() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
+                Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-widget"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        verify(widgetService).migrateWithReport(widget);
+    }
+
+    @Test
+    public void should_return_500_when_an_error_occurs_during_widget_migration() throws Exception {
+        Widget widget = aWidget().id("my-widget").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
+                Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-widget"))));
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().is(500));
+
+        verify(widgetService).migrateWithReport(widget);
+    }
+
+    @Test
+    public void should_return_404_when_migration_is_trigger_but_page_id_doesnt_exist() throws Exception {
+        when(pageRepository.get("unknownPage")).thenThrow(new NotFoundException());
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/page/unknownPage").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().is(404));
+    }
+
+    @Test
+    public void should_return_404_when_migration_is_trigger_but_widget_id_doesnt_exist() throws Exception {
+        when(widgetRepository.get("unknownWidget")).thenThrow(new NotFoundException());
+
+        mockMvc
+                .perform(
+                        put("/rest/migration/widget/unknownWidget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().is(404));
+    }
+
+    @Test
+    public void should_not_process_migration_and_return_none_status_when_page_is_incompatible() throws Exception {
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("3.0").withName("page-name").build();
+        when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+
+        MvcResult result = mockMvc
+                .perform(
+                        put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+
+        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
+
+        verify(pageService, never()).migrateWithReport(pageToMigrate);
+    }
+
+    @Test
+    public void should_not_process_migration_and_return_none_status_when_page_not_needed_migration() throws Exception {
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("2.0.").withName("page-name").build();
+        when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+
+        MvcResult result = mockMvc
+                .perform(
+                        put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+
+        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
+        verify(pageService, never()).migrateWithReport(pageToMigrate);
+    }
+
+    @Test
+    public void should_not_process_migration_and_return_none_status_when_widget_version_is_incompatible() throws Exception {
+        Widget widget = aWidget().id("my-widget").modelVersion("3.0").custom().build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+        MvcResult result = mockMvc
+                .perform(
+                        put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+
+        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
+        verify(widgetService, never()).migrateWithReport(widget);
+    }
+
+    @Test
+        public void should_not_process_migration_and_return_none_status_when_widget_not_needed_migration() throws Exception {
+            Widget widget = aWidget().id("my-widget").modelVersion("2.0").custom().build();
+            when(widgetRepository.get("my-widget")).thenReturn(widget);
+
+            MvcResult result = mockMvc
+                    .perform(
+                            put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                    .andExpect(status().isOk()).andReturn();
+
+            Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
+            verify(widgetService, never()).migrateWithReport(widget);
     }
 }

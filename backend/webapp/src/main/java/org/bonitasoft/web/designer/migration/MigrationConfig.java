@@ -167,6 +167,4 @@ public class MigrationConfig {
     public static boolean isSupportingModelVersion(String version) {
         return version != null && new Version(version).isGreaterOrEqualThan(MigrationConfig.INITIAL_UID_VERSION_USING_MODEL_VERSION);
     }
-
-
 }

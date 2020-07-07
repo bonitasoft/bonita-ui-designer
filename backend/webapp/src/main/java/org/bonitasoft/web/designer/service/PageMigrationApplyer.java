@@ -16,10 +16,14 @@ package org.bonitasoft.web.designer.service;
 
 import static java.lang.String.format;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.migration.Migration;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,28 +39,27 @@ public class PageMigrationApplyer {
         this.migrationList = pageMigrationStepsList;
     }
 
-    public Page migrate(Page page) {
+    public MigrationResult<Page> migrate(Page page) {
         long startTime = System.currentTimeMillis();
         String formerArtifactVersion = page.getArtifactVersion();
+        List<MigrationStepReport> reports = new ArrayList<>();
         for (Migration<Page> migration : migrationList) {
-            migration.migrate(page);
+            reports.addAll(migration.migrate(page));
         }
 
-        migrateAllWidgetUsed(page);
-
-        updatePreviousArtifactVersionIfMigrationDone(page,formerArtifactVersion,startTime);
-
-        return page;
+        reports.addAll(migrateAllWidgetUsed(page));
+        updatePreviousArtifactVersionIfMigrationDone(page, formerArtifactVersion, startTime);
+        return new MigrationResult(page, reports);
     }
 
-    protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime){
+    protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime) {
         if (!StringUtils.equals(formerArtifactVersion, page.getArtifactVersion())) {
             page.setPreviousArtifactVersion(formerArtifactVersion);
             logger.info(format("[MIGRATION] Page %s has been terminated in %s seconds!", page.getName(), (System.currentTimeMillis() - startTime) / 1000.0f));
         }
     }
 
-    protected void migrateAllWidgetUsed(Page page) {
-       widgetService.migrateAllCustomWidgetUsedInPreviewable(page);
+    protected List<MigrationStepReport> migrateAllWidgetUsed(Page page) {
+        return widgetService.migrateAllCustomWidgetUsedInPreviewable(page);
     }
 }

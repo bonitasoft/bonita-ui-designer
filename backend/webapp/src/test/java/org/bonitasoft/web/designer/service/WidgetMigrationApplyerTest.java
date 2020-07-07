@@ -15,12 +15,20 @@
 package org.bonitasoft.web.designer.service;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Collections;
+import java.util.Optional;
 
+import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.migration.Migration;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,10 +39,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class WidgetMigrationApplyerTest {
 
     @Test
-    public void should_migrate_a_widget(){
-        Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
+    public void should_migrate_a_widget() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Optional<MigrationStepReport> stepReport = Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "customWidget"));
+        Migration<Widget> migrations = new Migration("2.0", mockMigrationStep);
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
         Widget widget = WidgetBuilder.aWidget().id("customWidget").designerVersion("1.0.1").previousDesignerVersion("1.0.0").build();
+        when(mockMigrationStep.migrate(widget)).thenReturn(stepReport);
 
         widgetMigrationApplyer.migrate(widget);
 
@@ -43,22 +54,29 @@ public class WidgetMigrationApplyerTest {
     }
 
     @Test
-    public void should_migrate_a_widget_with_new_model_version(){
-        Migration<Widget> migrations = new Migration("2.1", mock(MigrationStep.class));
+    public void should_migrate_a_widget_with_new_model_version() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Optional<MigrationStepReport> stepReport = Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "customWidget"));
+        Migration<Widget> migrations = new Migration("2.1", mockMigrationStep);
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
         Widget widget = WidgetBuilder.aWidget().id("customWidget").modelVersion("2.0").previousDesignerVersion("1.7.11").build();
+        when(mockMigrationStep.migrate(widget)).thenReturn(stepReport);
 
         widgetMigrationApplyer.migrate(widget);
+
 
         Assert.assertEquals(widget.getPreviousArtifactVersion(),"2.0");
         Assert.assertEquals(widget.getArtifactVersion(),"2.1");
     }
 
     @Test
-    public void should_migrate_a_widget_with_no_previous_version(){
-        Migration<Widget> migrations = new Migration("2.0", mock(MigrationStep.class));
+    public void should_migrate_a_widget_with_no_previous_version() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Optional<MigrationStepReport> stepReport = Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "customWidget"));
+        Migration<Widget> migrations = new Migration("2.0", mockMigrationStep);
         WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
         Widget widget = WidgetBuilder.aWidget().id("customWidget").designerVersion("1.0.1").build();
+        when(mockMigrationStep.migrate(widget)).thenReturn(stepReport);
 
         widgetMigrationApplyer.migrate(widget);
 
@@ -76,6 +94,24 @@ public class WidgetMigrationApplyerTest {
 
         Assert.assertEquals(widget.getPreviousArtifactVersion(),"2.0");
         Assert.assertEquals(widget.getArtifactVersion(),"2.0");
+    }
+
+    @Test
+    public void should_return_an_report_with_error_when_error_occurs_during_widget_migration() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Widget> migrations = new Migration("2.1", mockMigrationStep);
+        WidgetMigrationApplyer widgetMigrationApplyer = new WidgetMigrationApplyer(Collections.singletonList(migrations));
+        Widget widget = WidgetBuilder.aWidget().id("customWidget").modelVersion("2.0").previousArtifactVersion("1.0.1").build();
+        when(mockMigrationStep.migrate(widget)).thenThrow(new Exception());
+
+        MigrationResult result =  widgetMigrationApplyer.migrate(widget);
+
+        Widget migratedWidget = (Widget) result.getArtifact();
+        Assert.assertEquals(migratedWidget.getPreviousArtifactVersion(),"2.0");
+        Assert.assertEquals(migratedWidget.getArtifactVersion(),"2.1");
+        MigrationStepReport report = (MigrationStepReport) result.getMigrationStepReportList().get(0);
+        Assert.assertEquals(report.getMigrationStatus(),MigrationStatus.ERROR);
+        Assert.assertEquals(report.getArtifactId(),"customWidget");
     }
 
 }

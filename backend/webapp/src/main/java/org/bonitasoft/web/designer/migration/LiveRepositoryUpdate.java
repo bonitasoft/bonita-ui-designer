@@ -81,7 +81,6 @@ public class LiveRepositoryUpdate<A extends DesignerArtifact> implements Compara
                 return CONTINUE;
             }
         });
-
     }
 
     private void refresh(Repository<A> repository, Path path) {

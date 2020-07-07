@@ -15,27 +15,28 @@
 
 package org.bonitasoft.web.designer.migration;
 
+import static java.lang.String.format;
+
+import java.util.Optional;
+import javax.inject.Named;
+
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Named;
-
-import static java.lang.String.format;
-
 @Named
-public class SplitWidgetResourcesMigrationStep implements MigrationStep<Widget> {
+public class SplitWidgetResourcesMigrationStep extends AbstractMigrationStep<Widget> {
 
     private static final Logger logger = LoggerFactory.getLogger(SplitWidgetResourcesMigrationStep.class);
 
     @Override
-    public void migrate(Widget widget) {
-
+    public Optional<MigrationStepReport> migrate(Widget widget) {
         // This migration step is only needed to update the UID version so that the save is performed
         // (template and controller are extracted in the widget repository save)
-
         logger.info(format(
                 "[MIGRATION] Spliting controller and template into separate files for widget [%s]",
                 widget.getName()));
+        return Optional.of(MigrationStepReport.warningMigrationReport(widget.getId(), "Spliting controller and template into separate files for widget", this.getClass().getName()));
     }
 }

@@ -14,15 +14,18 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.migration.Migration;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,11 +40,12 @@ public class PageMigrationApplyerTest {
     private WidgetService widgetService;
 
     @Test
-    public void should_migrate_a_page() throws IOException {
-        Migration<Page> migration = new Migration("2.0", mock(MigrationStep.class));
+    public void should_migrate_a_page() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.0", mockMigrationStep);
         PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
-
+        when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
         migrationApplyer.migrate(page);
 
         Assert.assertEquals(page.getPreviousArtifactVersion(),"1.0.1");
@@ -49,10 +53,12 @@ public class PageMigrationApplyerTest {
     }
 
     @Test
-    public void should_migrate_a_page_with_new_model_version() throws IOException {
-        Migration<Page> migration = new Migration("2.1", mock(MigrationStep.class));
+    public void should_migrate_a_page_with_new_model_version() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.1", mockMigrationStep);
         PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").withPreviousArtifactVersion("1.7.11").build();
+        when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
 
         migrationApplyer.migrate(page);
 
@@ -73,15 +79,59 @@ public class PageMigrationApplyerTest {
     }
 
     @Test
-    public void should_migrate_all_custom_widget_uses_in_page_when_page_migration_is_done(){
-        Migration<Page> migration = new Migration("2.0", mock(MigrationStep.class));
+    public void should_migrate_all_custom_widget_uses_in_page_when_page_migration_is_done() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.0", mockMigrationStep);
         PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
+        when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
 
-        Page migratedPage = migrationApplyer.migrate(page);
+        MigrationResult result =  migrationApplyer.migrate(page);
+        Page migratedPage = (Page) result.getArtifact();
 
         verify(widgetService).migrateAllCustomWidgetUsedInPreviewable(migratedPage);
         Assert.assertEquals(migratedPage.getPreviousArtifactVersion(),"1.0.0");
         Assert.assertEquals(migratedPage.getArtifactVersion(),"2.0");
     }
+
+    @Test
+    public void should_migrate_a_page_and_generate_a_report_when_two_step_is_done_and_one_is_return_warning_status() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        MigrationStep mockMigrationStepWarning = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.0", mockMigrationStep,mockMigrationStepWarning);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
+        when(mockMigrationStep.migrate(page)).thenReturn(Optional.empty());
+        when(mockMigrationStepWarning.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.WARNING, "myPage", "You can remove xxx assets if you don't use it")));
+
+        MigrationResult result =  migrationApplyer.migrate(page);
+
+        Page migratedPage = (Page) result.getArtifact();
+        Assert.assertEquals(result.getFinalStatus(),MigrationStatus.WARNING);
+        Assert.assertEquals(result.getMigrationStepReportList().size(),2);
+        Assert.assertEquals(result.getMigrationStepReportListFilterByFinalStatus().size(),1);
+        Assert.assertEquals(((MigrationStepReport) result.getMigrationStepReportListFilterByFinalStatus().get(0)).getMigrationStatus(),MigrationStatus.WARNING);
+
+        Assert.assertEquals(migratedPage.getPreviousArtifactVersion(),"1.0.1");
+        Assert.assertEquals(migratedPage.getArtifactVersion(),"2.0");
+    }
+
+    @Test
+    public void should_return_an_report_with_error_when_error_occurs_during_migration_page() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.0", mockMigrationStep);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
+        when(mockMigrationStep.migrate(page)).thenThrow(new Exception());
+
+        MigrationResult result =  migrationApplyer.migrate(page);
+
+        Page migratedPage = (Page) result.getArtifact();
+        Assert.assertEquals(migratedPage.getPreviousArtifactVersion(),"1.0.1");
+        Assert.assertEquals(migratedPage.getArtifactVersion(),"2.0");
+        MigrationStepReport report = (MigrationStepReport) result.getMigrationStepReportList().get(0);
+        Assert.assertEquals(report.getMigrationStatus(),MigrationStatus.ERROR);
+        Assert.assertEquals(report.getArtifactId(),"myPage");
+    }
+
 }

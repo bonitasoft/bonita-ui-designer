@@ -19,11 +19,13 @@ import static java.lang.String.format;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.Optional;
 
 import com.google.common.collect.ImmutableMap;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
@@ -56,30 +58,34 @@ public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<
     }
 
     @Override
-    public void migrate(AbstractPage page) {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
+        try {
+            for (Component component : page.accept(componentVisitor)) {
+                Widget widget = widgetRepository.get(component.getId());
+                for (Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
+                    Property property = widget.getProperty(entry.getKey());
+                    String formerType = entry.getValue().getType();
 
-        for (Component component : page.accept(componentVisitor)) {
-            Widget widget = widgetRepository.get(component.getId());
-            for (Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
-                Property property = widget.getProperty(entry.getKey());
-                String formerType = entry.getValue().getType();
+                    migrationStrategies
+                            .get(property != null ? property.getBond() : BondType.EXPRESSION)
+                            .migrate(property, entry.getValue());
 
-                migrationStrategies
-                        .get(property != null ? property.getBond() : BondType.EXPRESSION)
-                        .migrate(property, entry.getValue());
-
-                logTypeChange(component.getId(), formerType, entry);
+                    logTypeChange(component.getId(), formerType, entry);
+                }
             }
-        }
 
-        for(Element element: page.accept(visitorFactory.createAnyContainerVisitor())) {
-            for (Map.Entry<String, PropertyValue> entry : element.getPropertyValues().entrySet()) {
-                migrationStrategies
-                        .get(BondType.EXPRESSION)
-                        .migrate(new Property(), entry.getValue());
+            for (Element element : page.accept(visitorFactory.createAnyContainerVisitor())) {
+                for (Map.Entry<String, PropertyValue> entry : element.getPropertyValues().entrySet()) {
+                    migrationStrategies
+                            .get(BondType.EXPRESSION)
+                            .migrate(new Property(), entry.getValue());
 
-                logTypeChange(element.getClass().getSimpleName(), entry.getValue().getType(), entry);
+                    logTypeChange(element.getClass().getSimpleName(), entry.getValue().getType(), entry);
+                }
             }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -92,5 +98,10 @@ public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<
                     formerType,
                     currentType));
         }
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "";
     }
 }

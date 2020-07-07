@@ -17,25 +17,25 @@ package org.bonitasoft.web.designer.migration.page;
 
 import static java.lang.String.format;
 
-import java.util.Map;
-import java.util.Objects;
-
+import java.util.Optional;
 import javax.inject.Named;
+import javax.swing.text.html.Option;
 
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
 import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.data.Data;
-import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named
-public class DataToVariableMigrationStep<T extends AbstractPage > implements MigrationStep<T> {
+public class DataToVariableMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(DataToVariableMigrationStep.class);
 
     @Override
-    public void migrate(T artifact) {
+    public Optional<MigrationStepReport> migrate(T artifact) {
 
         // This migration step is only needed to update the UID version so that the save is performed
         // The conversion from data to variables is done in AbstractPage.setData
@@ -43,6 +43,6 @@ public class DataToVariableMigrationStep<T extends AbstractPage > implements Mig
                 "[MIGRATION] Convert all data to variables in page [%s]",
                 artifact.getName())
         );
-
+        return Optional.empty();
     }
 }

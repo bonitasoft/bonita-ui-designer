@@ -16,9 +16,15 @@ package org.bonitasoft.web.designer.service;
 
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,12 +54,13 @@ public class PageServiceTest {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").build();
         Page migratedPage = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousArtifactVersion("1.0.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
-        when(pageMigrationApplyer.migrate(page)).thenReturn(migratedPage);
+        MigrationResult mr = new MigrationResult(migratedPage, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
+        when(pageMigrationApplyer.migrate(page)).thenReturn(mr);
 
         pageService.get("myPage");
 
         verify(pageMigrationApplyer).migrate(page);
-        verify(pageRepository).updateLastUpdateAndSave(migratedPage);
+        verify(pageRepository).updateLastUpdateAndSave((Page) mr.getArtifact());
     }
 
     @Test
@@ -61,11 +68,26 @@ public class PageServiceTest {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").build();
         Page migratedPage = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").withPreviousArtifactVersion("1.0.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
-        when(pageMigrationApplyer.migrate(page)).thenReturn(migratedPage);
+        MigrationResult mr = new MigrationResult(migratedPage, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
+        when(pageMigrationApplyer.migrate(page)).thenReturn(mr);
 
         pageService.get("myPage");
 
         verify(pageMigrationApplyer).migrate(page);
-        verify(pageRepository, never()).updateLastUpdateAndSave(migratedPage);
+        verify(pageRepository, never()).updateLastUpdateAndSave((Page) mr.getArtifact());
+    }
+
+    @Test
+    public void should_not_update_and_save_page_if_migration_is_on_error() {
+        Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").build();
+        Page migratedPage = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").withPreviousArtifactVersion("1.0.0").build();
+        when(pageRepository.get("myPage")).thenReturn(page);
+        MigrationResult mr = new MigrationResult(migratedPage, Arrays.asList(new MigrationStepReport(MigrationStatus.ERROR)));
+        when(pageMigrationApplyer.migrate(page)).thenReturn(mr);
+
+        pageService.get("myPage");
+
+        verify(pageMigrationApplyer).migrate(page);
+        verify(pageRepository, never()).updateLastUpdateAndSave((Page) mr.getArtifact());
     }
 }

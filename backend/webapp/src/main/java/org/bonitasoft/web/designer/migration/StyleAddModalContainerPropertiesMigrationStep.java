@@ -23,18 +23,21 @@ import java.io.SequenceInputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named
-public class StyleAddModalContainerPropertiesMigrationStep implements MigrationStep<Page> {
+public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(StyleAddModalContainerPropertiesMigrationStep.class);
 
@@ -46,34 +49,30 @@ public class StyleAddModalContainerPropertiesMigrationStep implements MigrationS
     }
 
     @Override
-    public void migrate(Page artifact) {
+    public Optional<MigrationStepReport> migrate(Page artifact) throws IOException {
         for (Asset asset : artifact.getAssets()) {
             if (asset.getName().equals("style.css")) {
-                try {
-                    String pageStyleCssContent = assetService.getAssetContent(artifact, asset);
-
-                    assetService.save(artifact, asset, getMigratedAssetContent(pageStyleCssContent));
-
-                    logger.info(format(
-                            "[MIGRATION] Adding modalContainer classes in asset [%s] to %s [%s] (introduced in 1.8.28)",
-                            asset.getName(), artifact.getType(), artifact.getName()));
-                } catch (IOException e) {
-                    logger.error("An error occurred during migration",e);
-                }
+                String pageStyleCssContent = assetService.getAssetContent(artifact, asset);
+                assetService.save(artifact, asset, getMigratedAssetContent(pageStyleCssContent));
+                logger.info(format(
+                        "[MIGRATION] Adding modalContainer classes in asset [%s] to %s [%s] (introduced in 1.8.28)",
+                        asset.getName(), artifact.getType(), artifact.getName()));
             }
         }
+        return Optional.empty();
     }
 
-    private byte[] getMigratedAssetContent(String styleCssContent) {
-        try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/migration/assets/css/styleAddModalContainerProperties.css");
-            List<InputStream> streams = Arrays.asList(
-                    new ByteArrayInputStream(styleCssContent.getBytes()),
-                    new ByteArrayInputStream(IOUtils.toByteArray(is)));
-            SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(streams));
-            return IOUtils.toByteArray(sis);
-        } catch (IOException e) {
-            throw new RuntimeException("Missing templates/page/assets/css/style.css from classpath", e);
-        }
+    @Override
+    public String getErrorMessage() {
+        return "Error during adding modalContainer classes in asset, Missing templates/page/assets/css/style.css from classpath";
+    }
+
+    private byte[] getMigratedAssetContent(String styleCssContent) throws IOException {
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/migration/assets/css/styleAddModalContainerProperties.css");
+        List<InputStream> streams = Arrays.asList(
+                new ByteArrayInputStream(styleCssContent.getBytes()),
+                new ByteArrayInputStream(IOUtils.toByteArray(is)));
+        SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(streams));
+        return IOUtils.toByteArray(sis);
     }
 }

@@ -15,7 +15,13 @@
 
 package org.bonitasoft.web.designer.migration;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+
 public interface MigrationStep<A> {
 
-    void migrate(A artifact);
+    Optional<MigrationStepReport> migrate(A artifact) throws Exception;
+
+    String getErrorMessage();
 }

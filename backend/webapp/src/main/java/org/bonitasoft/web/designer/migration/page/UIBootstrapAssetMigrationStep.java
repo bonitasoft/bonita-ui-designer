@@ -17,7 +17,11 @@ package org.bonitasoft.web.designer.migration.page;
 
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -31,12 +35,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 
 @Named
-public class UIBootstrapAssetMigrationStep implements MigrationStep<Page> {
+public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     public static final String ASSET_FILE_NAME = "ui-bootstrap-tpls-0.13.0.min.js";
 
@@ -57,25 +62,35 @@ public class UIBootstrapAssetMigrationStep implements MigrationStep<Page> {
     }
 
     @Override
-    public void migrate(Page page) {
+    public Optional<MigrationStepReport> migrate(Page page) {
+        try {
+            if (!pageHasAsset(page, "ui-bootstrap") && !widgetHasAsset(page, "ui-bootstrap")) {
+                Asset uiBootstrap = new Asset()
+                        .setName(ASSET_FILE_NAME)
+                        .setType(JAVASCRIPT);
 
-        if (!pageHasAsset(page, "ui-bootstrap") && !widgetHasAsset(page, "ui-bootstrap")) {
-            Asset uiBootstrap = new Asset()
-                    .setName(ASSET_FILE_NAME)
-                    .setType(JAVASCRIPT);
+                pageAssetService.save(page, uiBootstrap, getContent());
 
-            pageAssetService.save(page, uiBootstrap, getContent());
-
-            logger.info(format(
-                    "[MIGRATION] Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
-                    uiBootstrap.getType(), uiBootstrap.getName(), page.getName()));
+                String msg = format("Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
+                        uiBootstrap.getType(), uiBootstrap.getName(), page.getName());
+                logger.info(msg);
+                return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(),msg, this.getClass().getName()));
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw e;
         }
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "An error occurs during ui-bootstrap asset migration";
     }
 
     private boolean widgetHasAsset(Page page, String assetNameFilter) {
         for (Component component : page.accept(componentVisitor)) {
             Widget widget = widgetRepository.get(component.getId());
-            if(widget.isCustom()) {
+            if (widget.isCustom()) {
                 for (Asset asset : widget.getAssets()) {
                     if (asset.getName().contains(assetNameFilter) && JAVASCRIPT.equals(asset.getType())) {
                         return true;
@@ -87,7 +102,7 @@ public class UIBootstrapAssetMigrationStep implements MigrationStep<Page> {
     }
 
     private boolean pageHasAsset(Page page, String assetPrefix) {
-        for (Asset asset: page.getAssets()) {
+        for (Asset asset : page.getAssets()) {
             if (asset.getName().contains(assetPrefix) && JAVASCRIPT.equals(asset.getType())) {
                 return true;
             }

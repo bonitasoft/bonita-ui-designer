@@ -15,41 +15,51 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import javax.inject.Named;
+import java.util.Optional;
 import java.util.UUID;
 
 import static java.lang.String.format;
 
 @Named
-public class PageUUIDMigrationStep implements MigrationStep<Page> {
+public class PageUUIDMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(PageUUIDMigrationStep.class);
 
     @Override
-    public void migrate(Page page) {
-
-        if (StringUtils.isEmpty(page.getUUID())) {
-            String uuid;
-            try {
-                UUID.fromString(page.getId());
-                logger.info(format(
-                        "[MIGRATION] Adding UUID to page [%s] (using the same value as the page ID)",
-                        page.getName()));
-                uuid = page.getId();
-            } catch (IllegalArgumentException e) {
-                //The page ID is not a UUID - generating one
-                logger.info(format(
-                        "[MIGRATION] Adding generated UUID to page [%s]",
-                        page.getName()));
-                uuid = UUID.randomUUID().toString();
+    public Optional<MigrationStepReport> migrate(Page page) throws Exception {
+        try {
+            if (StringUtils.isEmpty(page.getUUID())) {
+                String uuid;
+                try {
+                    UUID.fromString(page.getId());
+                    logger.info(format(
+                            "[MIGRATION] Adding UUID to page [%s] (using the same value as the page ID)",
+                            page.getName()));
+                    uuid = page.getId();
+                } catch (IllegalArgumentException e) {
+                    //The page ID is not a UUID - generating one
+                    logger.info(format(
+                            "[MIGRATION] Adding generated UUID to page [%s]",
+                            page.getName()));
+                    uuid = UUID.randomUUID().toString();
+                }
+                page.setUUID(uuid);
             }
-            page.setUUID(uuid);
+            return Optional.empty();
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

@@ -17,24 +17,29 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssetExternalMigrationStep<A extends Identifiable & Assetable> implements MigrationStep<A> {
+public class AssetExternalMigrationStep<A extends Identifiable & Assetable> extends AbstractMigrationStep<A> {
 
     private static final Logger logger = LoggerFactory.getLogger(AssetExternalMigrationStep.class);
 
     @Override
-    public void migrate(A artifact) {
+    public Optional<MigrationStepReport> migrate(A artifact) {
         for (Asset asset : artifact.getAssets()) {
             asset.setExternal(isAssetURL(asset.getName()));
             logger.info(
                     format("[MIGRATION] Asset <%s> with id <%s> has been identified as %s (external property was introduced in 1.2)", asset.getName(), asset.getId(),
                             (asset.isExternal() ? "external" : "internal")));
         }
+        return Optional.empty();
     }
 
     public static boolean isAssetURL(String name) {

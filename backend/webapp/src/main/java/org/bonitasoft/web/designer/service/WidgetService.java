@@ -16,18 +16,20 @@ package org.bonitasoft.web.designer.service;
 
 import static java.util.Collections.singletonList;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
@@ -65,17 +67,31 @@ public class WidgetService implements ArtifactService {
 
     @Override
     public Widget migrate(Identifiable artifact) {
-        String formerArtifactVersion = artifact.getArtifactVersion();
-        Widget migratedWidget = widgetMigrationApplyer.migrate((Widget) artifact);
-        if (!StringUtils.equals(formerArtifactVersion, migratedWidget.getArtifactVersion())) {
-            widgetRepository.updateLastUpdateAndSave(migratedWidget);
-        }
-        return migratedWidget;
+        MigrationResult<Widget> migrationResult = migrateWithReport(artifact);
+        return migrationResult.getArtifact();
     }
 
-    public void migrateAllCustomWidgetUsedInPreviewable(Previewable previewable){
+    @Override
+    public MigrationResult<Widget> migrateWithReport(Identifiable artifact) {
+        String formerArtifactVersion = artifact.getArtifactVersion();
+        MigrationResult<Widget> migratedResult = widgetMigrationApplyer.migrate((Widget) artifact);
+        Widget migratedWidget = migratedResult.getArtifact();
+        if (!StringUtils.equals(formerArtifactVersion, migratedWidget.getArtifactVersion())  && !migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
+            widgetRepository.updateLastUpdateAndSave(migratedWidget);
+        }
+        return migratedResult;
+    }
+
+    public List<MigrationStepReport> migrateAllCustomWidgetUsedInPreviewable(Previewable previewable) {
+        List<MigrationStepReport> migrationStepReports = new ArrayList<>();
+
         widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
                 .stream()
-                .forEach(w->this.migrate(w));
+                .forEach(w -> {
+                    MigrationResult<Widget> result = this.migrateWithReport(w);
+                    migrationStepReports.addAll(result.getMigrationStepReportListFilterByFinalStatus());
+                });
+
+        return migrationStepReports;
     }
 }

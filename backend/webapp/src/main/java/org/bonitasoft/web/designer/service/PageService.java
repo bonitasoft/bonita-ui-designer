@@ -18,8 +18,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 
@@ -44,12 +45,19 @@ public class PageService implements ArtifactService {
 
     @Override
     public Page migrate(Identifiable page) {
+        MigrationResult<Page> migrationResult = migrateWithReport(page);
+        return migrationResult.getArtifact();
+    }
+
+    @Override
+    public MigrationResult<Page> migrateWithReport(Identifiable page) {
         String formerArtifactVersion = page.getArtifactVersion();
-        Page migratedPage = pageMigrationApplyer.migrate((Page) page);
-        if (!StringUtils.equals(formerArtifactVersion, migratedPage.getArtifactVersion())) {
+        MigrationResult<Page> migratedResult = pageMigrationApplyer.migrate((Page) page);
+        Page migratedPage = migratedResult.getArtifact();
+        if (!StringUtils.equals(formerArtifactVersion, migratedPage.getArtifactVersion()) && !migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
             pageRepository.updateLastUpdateAndSave(migratedPage);
         }
-        return migratedPage;
+        return migratedResult;
     }
 
 }

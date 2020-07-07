@@ -128,7 +128,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Page page,
-            @RequestParam(value = "duplicata", required = false) String sourcePageId)
+                                       @RequestParam(value = "duplicata", required = false) String sourcePageId)
             throws RepositoryException {
         // the page should not have an ID. If it has one, we ignore it and generate one using the name
         String pageId = pageRepository.getNextAvailableId(page.getName());
@@ -148,7 +148,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(value = "/contract/{scope}/{name}", method = RequestMethod.POST)
     public ResponseEntity<Page> create(@RequestBody Contract contract, @PathVariable("scope") String scope,
-            @PathVariable("name") String name)
+                                       @PathVariable("name") String name)
             throws RepositoryException {
         return create(contractToPageMapper.createFormPage(name, contract,
                 FormScope.valueOf(scope.toUpperCase(Locale.ENGLISH))), null);
@@ -156,7 +156,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.PUT)
     public ResponseEntity<Void> save(HttpServletRequest request, @PathVariable("pageId") String pageId,
-            @RequestBody Page page) throws RepositoryException {
+                                     @RequestBody Page page) throws RepositoryException {
         String newPageId;
         try {
             Page currentPage = pageService.get(pageId);
@@ -201,7 +201,7 @@ public class PageResource extends AssetResource<Page> {
 
     @RequestMapping(value = "/{pageId}/name", method = RequestMethod.PUT)
     public ResponseEntity<Void> rename(HttpServletRequest request, @PathVariable("pageId") String pageId,
-            @RequestBody String name) throws RepositoryException {
+                                       @RequestBody String name) throws RepositoryException {
         Page page = pageService.get(pageId);
         ResponseEntity<Void> responseEntity;
         if (!page.getName().equals(name)) {
@@ -310,7 +310,7 @@ public class PageResource extends AssetResource<Page> {
             return value.matches(BONITA_RESOURCE_REGEX)
                     ? new ResourceURLFunction(BONITA_RESOURCE_REGEX, httpVerb).apply(value)
                     : value.matches(EXTENSION_RESOURCE_REGEX)
-                            ? new ResourceURLFunction(EXTENSION_RESOURCE_REGEX, httpVerb).apply(value) : null;
+                    ? new ResourceURLFunction(EXTENSION_RESOURCE_REGEX, httpVerb).apply(value) : null;
         };
     }
 

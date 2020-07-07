@@ -15,14 +15,22 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class TextWidgetLabelMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
+public class TextWidgetLabelMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
     private ComponentVisitor componentVisitor;
 
@@ -31,15 +39,25 @@ public class TextWidgetLabelMigrationStep<T extends AbstractPage> implements Mig
     }
 
     @Override
-    public void migrate(AbstractPage page) {
-        for (Component component : page.accept(componentVisitor)) {
-            if ("pbText".equals(component.getId())) {
-                updatePropertyValue(component, "labelHidden", BondType.CONSTANT, Boolean.TRUE);
-                updatePropertyValue(component, "label", BondType.INTERPOLATION, "");
-                updatePropertyValue(component, "labelPosition", BondType.CONSTANT, "top");
-                updatePropertyValue(component, "labelWidth", BondType.CONSTANT, 4);
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws MigrationException {
+        try {
+            for (Component component : page.accept(componentVisitor)) {
+                if ("pbText".equals(component.getId())) {
+                    updatePropertyValue(component, "labelHidden", BondType.CONSTANT, Boolean.TRUE);
+                    updatePropertyValue(component, "label", BondType.INTERPOLATION, "");
+                    updatePropertyValue(component, "labelPosition", BondType.CONSTANT, "top");
+                    updatePropertyValue(component, "labelWidth", BondType.CONSTANT, 4);
+                }
             }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw e;
         }
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "An error occurred during add allowHtml property for Text Widget";
     }
 
     private void updatePropertyValue(Component component, String propertyName, BondType bondType, Object defaultValue) {

@@ -17,7 +17,12 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,15 +36,17 @@ public class Migration<A extends DesignerArtifact> {
      * Associate one or more migration steps to a given artifact version.
      * Migration steps will be executed on models which artifact version is lower or equal than the given artifact version.
      *
-     * @param newArtifactVersion   Latest artifact version that does need migration (can be UI designer version or model version)
-     * @param migrationSteps    The migration steps that need to be executed
+     * @param newArtifactVersion Latest artifact version that does need migration (can be UI designer version or model version)
+     * @param migrationSteps     The migration steps that need to be executed
      */
     public Migration(String newArtifactVersion, MigrationStep<A>... migrationSteps) {
         this.newArtifactVersion = new Version(newArtifactVersion);
         this.migrationSteps = migrationSteps;
     }
 
-    public void migrate(A artifact) {
+    public List<MigrationStepReport> migrate(A artifact) {
+        List<MigrationStepReport> msr = new ArrayList<>();
+
         String artifactVersion = artifact.getArtifactVersion();
         if (artifactVersion == null || newArtifactVersion.isGreaterThan(artifactVersion)) {
             logger.info(format("[MIGRATION] %s <%s> with id <%s> is being migrated from version <%s> to <%s>...",
@@ -49,15 +56,29 @@ public class Migration<A extends DesignerArtifact> {
                     getDisplayVersion(artifactVersion), getDisplayVersion(newArtifactVersion.toString())));
 
             for (MigrationStep<A> migrationStep : migrationSteps) {
-                migrationStep.migrate(artifact);
+                try {
+                    Optional<MigrationStepReport> reports = migrationStep.migrate(artifact);
+                    if (reports.isPresent()) {
+                        reports.ifPresent(stepReport -> {
+                            stepReport.setVersion(newArtifactVersion.toString());
+                            msr.add(stepReport);
+                        });
+                    } else {
+                        msr.add(MigrationStepReport.successMigrationReport());
+                    }
+                } catch (Exception e) {
+                    msr.add(MigrationStepReport.errorMigrationReport(artifact.getId(), migrationStep.getErrorMessage()));
+                }
             }
-
             updateVersion(artifact);
             logger.info(format("[MIGRATION] %s <%s> artifact version is now <%s>",
                     artifact.getClass().getSimpleName(),
                     artifact.getName(),
                     newArtifactVersion));
+
+            return msr;
         }
+        return msr;
     }
 
     private String getDisplayVersion(String artifactVersion) {

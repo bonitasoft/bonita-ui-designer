@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.Identifiable;
 
 public interface ArtifactService <T extends Identifiable> {
@@ -21,4 +22,6 @@ public interface ArtifactService <T extends Identifiable> {
     T get(String id);
 
     T migrate(T artifact);
+
+    MigrationResult<T> migrateWithReport(T artifact);
 }

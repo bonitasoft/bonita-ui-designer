@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
-import static java.util.UUID.randomUUID;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 
@@ -23,25 +22,19 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Set;
+import java.util.Optional;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.CharUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.AssetRepository;
-import org.bonitasoft.web.designer.repository.PageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Named
-public class StyleAssetMigrationStep implements MigrationStep<Page> {
+public class StyleAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(StyleAssetMigrationStep.class);
 
@@ -53,7 +46,7 @@ public class StyleAssetMigrationStep implements MigrationStep<Page> {
     }
 
     @Override
-    public void migrate(Page artifact) {
+    public Optional<MigrationStepReport> migrate(Page artifact) {
         Asset style = new Asset()
                 .setName(getAssetName(artifact))
                 .setType(CSS);
@@ -63,6 +56,7 @@ public class StyleAssetMigrationStep implements MigrationStep<Page> {
         logger.info(format(
                 "[MIGRATION] Adding default CSS asset [%s] to %s [%s] (introduced in 1.4.8)",
                 style.getName(), artifact.getType(), artifact.getName()));
+        return Optional.empty();
     }
 
     private String getAssetName(Page artifact) {

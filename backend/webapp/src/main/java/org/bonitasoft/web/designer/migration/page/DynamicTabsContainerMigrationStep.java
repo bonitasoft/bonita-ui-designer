@@ -15,16 +15,30 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class DynamicTabsContainerMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
+public class DynamicTabsContainerMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
-    public DynamicTabsContainerMigrationStep() {}
+    private static final Logger logger = LoggerFactory.getLogger(DynamicTabsContainerMigrationStep.class);
 
     @Override
-    public void migrate(AbstractPage page) {
-        MigrationTabsContainerVisitor collectTabsContainer = new MigrationTabsContainerVisitor();
-        page.accept(collectTabsContainer);
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
+        try {
+            MigrationTabsContainerVisitor collectTabsContainer = new MigrationTabsContainerVisitor();
+            page.accept(collectTabsContainer);
+            return Optional.empty();
+        } catch (Exception e) {
+            throw e;
+        }
+
     }
 }

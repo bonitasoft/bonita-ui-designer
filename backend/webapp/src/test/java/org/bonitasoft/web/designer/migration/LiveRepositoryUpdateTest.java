@@ -26,13 +26,20 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.*;
@@ -70,9 +77,12 @@ public class LiveRepositoryUpdateTest {
 
     @Test
     public void should_migrate_a_page() throws Exception {
-        Migration<Page> migration = new Migration<>("2.1", mock(MigrationStep.class));
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration<>("2.1", mockMigrationStep);
         LiveRepositoryUpdate<Page> liveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, singletonList(migration));
         Page page = createPage("2.0");
+        Optional<MigrationStepReport> stepReport = Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "pageJson"));
+        when(mockMigrationStep.migrate(page)).thenReturn(stepReport);
 
         liveRepositoryUpdate.migrate();
 

@@ -15,14 +15,22 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class TableWidgetStylesMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
+public class TableWidgetStylesMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
     private static final String STRIPED_PROPERTY = "striped";
     private static final String CONDENSED_PROPERTY = "condensed";
@@ -35,7 +43,7 @@ public class TableWidgetStylesMigrationStep<T extends AbstractPage> implements M
     }
 
     @Override
-    public void migrate(AbstractPage page) {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
         for (Component component : page.accept(componentVisitor)) {
             if (isProvidedTableWidget(component.getId())) {
                 setPropertyDefaultValue(component, STRIPED_PROPERTY, true);
@@ -43,6 +51,13 @@ public class TableWidgetStylesMigrationStep<T extends AbstractPage> implements M
                 setPropertyDefaultValue(component, BORDERED_PROPERTY, false);
             }
         }
+        return Optional.empty();
+
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "An error occurred during table widget style migration";
     }
 
     private void setPropertyDefaultValue(Component component, String property, boolean defaultValue) {

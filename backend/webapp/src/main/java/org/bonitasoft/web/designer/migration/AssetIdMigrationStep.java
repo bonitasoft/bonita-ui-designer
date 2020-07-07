@@ -17,26 +17,29 @@ package org.bonitasoft.web.designer.migration;
 
 import static java.lang.String.format;
 
+import java.util.Optional;
 import java.util.UUID;
 
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AssetIdMigrationStep<A extends Identifiable & Assetable> implements MigrationStep<A> {
+public class AssetIdMigrationStep<A extends Identifiable & Assetable> extends AbstractMigrationStep<A> {
 
     private static final Logger logger = LoggerFactory.getLogger(AssetIdMigrationStep.class);
 
     @Override
-    public void migrate(A artifact) {
-
+    public Optional<MigrationStepReport> migrate(A artifact) {
         for (Asset asset : artifact.getAssets()) {
             if (asset.getId() == null) {
                 asset.setId(UUID.randomUUID().toString());
                 logger.info(format("[MIGRATION] A uuid <%s> has been added to asset <%s> (Id was introduced in 1.0.2)", asset.getId(), asset.getName()));
             }
         }
+        return Optional.empty();
     }
 }

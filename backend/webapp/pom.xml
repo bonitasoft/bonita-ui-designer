@@ -23,6 +23,11 @@
         </dependency>
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-backend-migrationReport</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-frontend</artifactId>
             <version>${project.version}</version>
             <type>zip</type>

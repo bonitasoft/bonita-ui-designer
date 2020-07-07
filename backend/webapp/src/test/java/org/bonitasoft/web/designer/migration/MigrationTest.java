@@ -15,16 +15,20 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import static java.util.Collections.singletonList;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -44,6 +48,7 @@ public class MigrationTest {
 
     @Test
     public void should_migrate_a_page_with_a_version_lower_than_migration() throws Exception {
+        Mockito.when(migrationStep.migrate(Mockito.any(Page.class))).thenReturn(Optional.empty());
         page.setDesignerVersion("1.0.0");
 
         migration.migrate(page);
@@ -53,6 +58,7 @@ public class MigrationTest {
 
     @Test
     public void should_not_migrate_a_page_with_a_version_greater_than_migration() throws Exception {
+
         page.setDesignerVersion("1.0.2");
 
         migration.migrate(page);

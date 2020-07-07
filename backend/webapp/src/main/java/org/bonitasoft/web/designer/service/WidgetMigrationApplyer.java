@@ -16,10 +16,13 @@ package org.bonitasoft.web.designer.service;
 
 import static java.lang.String.format;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.migration.Migration;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,18 +36,18 @@ public class WidgetMigrationApplyer {
         this.migrationList = widgetMigrationStepsList;
     }
 
-    public Widget migrate(Widget widget) {
+    public MigrationResult<Widget> migrate(Widget widget) {
         long startTime = System.currentTimeMillis();
         String formerArtifactVersion = widget.getArtifactVersion();
+        List<MigrationStepReport> l = new ArrayList<>();
         for (Migration<Widget> migration : migrationList) {
-            migration.migrate(widget);
+            l.addAll(migration.migrate(widget));
         }
 
         if (!StringUtils.equals(formerArtifactVersion, widget.getArtifactVersion())) {
             widget.setPreviousArtifactVersion(formerArtifactVersion);
             logger.info(format("[MIGRATION] Widget %s has been terminated in %s seconds !", widget.getName(),(System.currentTimeMillis() - startTime)/ 1000.0f));
         }
-
-        return widget;
+        return new MigrationResult(widget,l);
     }
 }

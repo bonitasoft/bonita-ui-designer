@@ -15,21 +15,21 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import org.bonitasoft.web.designer.migration.MigrationConfig;
-import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.Assetable;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.page.AbstractPage;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.bonitasoft.web.designer.model.widget.BondType;
-import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import java.util.Optional;
 
-public class AddModelVersionMigrationStep<A extends DesignerArtifact> implements MigrationStep<A> {
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+
+import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class AddModelVersionMigrationStep<A extends DesignerArtifact> extends AbstractMigrationStep<A> {
 
     @Override
-    public void migrate(A artifact) {
+    public Optional<MigrationStepReport> migrate(A artifact) throws Exception {
         artifact.setModelVersion(MigrationConfig.INITIAL_MODEL_VERSION);
+        return Optional.empty();
     }
+
 }

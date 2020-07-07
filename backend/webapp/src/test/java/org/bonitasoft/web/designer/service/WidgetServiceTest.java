@@ -27,6 +27,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -78,21 +81,22 @@ public class WidgetServiceTest {
     public void should_migrate_found_widget_when_get_is_called() {
         Widget widget = aWidget().id("widget").designerVersion("1.0.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("1.0.0").build();
-        when(widgetMigrationApplyer.migrate(widget)).thenReturn(widgetMigrated);
-
         when(widgetRepository.get("widget")).thenReturn(widget);
+        MigrationResult<Widget> mr = new MigrationResult(widgetMigrated,  Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
+        when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
 
         widgetService.get("widget");
 
         verify(widgetMigrationApplyer).migrate(widget);
-        verify(widgetRepository).updateLastUpdateAndSave(widgetMigrated);
+        verify(widgetRepository).updateLastUpdateAndSave(mr.getArtifact());
     }
 
     @Test
     public void should_not_update_and_save_widget_if_no_migration_done() {
         Widget widget = aWidget().id("widget").modelVersion("2.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
-        when(widgetMigrationApplyer.migrate(widget)).thenReturn(widgetMigrated);
+        MigrationResult mr = new MigrationResult(widget, Arrays.asList(any(MigrationStepReport.class)));
+        when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
         when(widgetRepository.get("widget")).thenReturn(widget);
 
         widgetService.get("widget");
@@ -108,10 +112,11 @@ public class WidgetServiceTest {
         Widget widget2 = aWidget().id("widget2").designerVersion("1.0.0").build();
         Widget widget1Migrated = aWidget().id("widget1").designerVersion("2.0").build();
         Widget widget2Migrated = aWidget().id("widget2").designerVersion("2.0").build();
-        when(widgetMigrationApplyer.migrate(widget1)).thenReturn(widget1Migrated);
-        when(widgetMigrationApplyer.migrate(widget2)).thenReturn(widget2Migrated);
         when(widgetRepository.get("widget1")).thenReturn(widget1);
         when(widgetRepository.get("widget2")).thenReturn(widget2);
+        when(widgetMigrationApplyer.migrate(widget1)).thenReturn(new MigrationResult(widget1Migrated,  Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"widget1" ))));
+        when(widgetMigrationApplyer.migrate(widget2)).thenReturn(new MigrationResult(widget2Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"widget2" ))));
+
         Set<String> h = new HashSet<>(Arrays.asList("widget1", "widget1"));
         when(widgetRepository.getByIds(h)).thenReturn(Arrays.asList(widget1, widget2));
         Page page = aPage().with(
@@ -125,5 +130,19 @@ public class WidgetServiceTest {
 
         verify(widgetMigrationApplyer).migrate(widget1);
         verify(widgetMigrationApplyer).migrate(widget2);
+    }
+
+    @Test
+    public void should_not_update_and_save_widget_if_migration_finish_on_error() {
+        Widget widget = aWidget().id("widget").modelVersion("2.0").build();
+        Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
+        MigrationResult mr = new MigrationResult(widget, Arrays.asList(Arrays.asList(new MigrationStepReport(MigrationStatus.ERROR))));
+        when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
+        when(widgetRepository.get("widget")).thenReturn(widget);
+
+        widgetService.get("widget");
+
+        verify(widgetMigrationApplyer).migrate(widget);
+        verify(widgetRepository, never()).updateLastUpdateAndSave(widgetMigrated);
     }
 }

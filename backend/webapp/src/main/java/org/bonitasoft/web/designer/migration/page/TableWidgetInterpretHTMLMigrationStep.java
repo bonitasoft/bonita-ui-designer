@@ -15,32 +15,46 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Optional;
+
+import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
+import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class TableWidgetInterpretHTMLMigrationStep<T extends AbstractPage> implements MigrationStep<T>  {
+public class TableWidgetInterpretHTMLMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
     private ComponentVisitor componentVisitor;
 
     public TableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
         this.componentVisitor = componentVisitor;
     }
+
     @Override
-    public void migrate(AbstractPage page) {
-        for (Component component : page.accept(componentVisitor)) {
-            if (isProvidedTableWidget(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
-                PropertyValue interpretHTMLValue = new PropertyValue();
-                interpretHTMLValue.setType(BondType.CONSTANT.toJson());
-                interpretHTMLValue.setValue(Boolean.FALSE);
-                component.getPropertyValues().put("allowHTML", interpretHTMLValue);
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
+        try {
+            for (Component component : page.accept(componentVisitor)) {
+                if (isProvidedTableWidget(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
+                    PropertyValue interpretHTMLValue = new PropertyValue();
+                    interpretHTMLValue.setType(BondType.CONSTANT.toJson());
+                    interpretHTMLValue.setValue(Boolean.FALSE);
+                    component.getPropertyValues().put("allowHTML", interpretHTMLValue);
+                }
             }
+            return Optional.empty();
+        } catch (Exception e) {
+           throw e;
         }
     }
-    
+
     private boolean isProvidedTableWidget(String componentId) {
         return "pbTable".equals(componentId) || "pbDataTable".equals(componentId);
     }
