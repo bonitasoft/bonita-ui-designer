@@ -3,7 +3,6 @@
     <h3 class="modal-title" translate>Help</h3>
 </div>
 <div class="modal-body">
-
     <uib-tabset class="tabs-left">
         <uib-tab heading="{{ 'Overview' | translate }}">
             <p translate>
@@ -77,61 +76,91 @@
             <uib-accordion>
                 <uib-accordion-group is-open="status.bonita711open">
                     <uib-accordion-heading>
-                        Bonita 7.11 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita711open, 'glyphicon-chevron-right': !status.bonita711open}"></i>
+                        Bonita 7.11 <i class="pull-right glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': status.bonita711open, 'glyphicon-chevron-right': !status.bonita711open}"></i>
                     </uib-accordion-heading>
                     <dt translate>Business Data Management enhancements</dt>
-                    <p translate>Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern.</p>
+                    <p translate>Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks,
+                        generate user interfaces from the BDM, using the master/details pattern.</p>
 
                     <dt translate>Description field on widgets</dt>
-                    <p translate>Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation.</p>
+                    <p translate>Add documentation to your pages by providing information on a widget (e.g. how to use
+                        it), thanks to the new Description field. Use this information to generate documentation.</p>
 
                 </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita710open">
                     <uib-accordion-heading>
-                        Bonita 7.10 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita710open, 'glyphicon-chevron-right': !status.bonita710open}"></i>
+                        Bonita 7.10 <i class="pull-right glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': status.bonita710open, 'glyphicon-chevron-right': !status.bonita710open}"></i>
                     </uib-accordion-heading>
-                    <dt translate>Know your Business Data Model and retrieve Business Data information is simpler than never </dt>
-                    <p translate>With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable.</p>
+                    <dt translate>Know your Business Data Model and retrieve Business Data information is simpler than
+                        never
+                    </dt>
+                    <p translate>With the new data model section, list your objects and drag&drop them into whiteboard
+                        (or create a new variable) to introspect your Business Data Model and simplify the retrieval of
+                        data by proposing an advanced wizard to configure it. Use this variable later as any other
+                        variable.</p>
                     <dt translate>Improve collaboration on UID artifacts</dt>
-                    <p translate>With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage.</p>
+                    <p translate>With the newer way to store variables and widgets, the diff and merge operations are
+                        clearer thanks to a multiline storage.</p>
 
                     <dt translate>Tabs Container advancement</dt>
-                    <p translate>Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10">how to to learn more about customization.</a></p>
+                    <p translate>Customize tab title or add css dynamically, hide or disable tabs according to the
+                        conditions are the new capabilities of each tab. Change tab format or build nice side menus
+                        thanks to vertical display, read this <a
+                            href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10">how
+                            to to learn more about customization.</a></p>
 
                     <dt translate>Enhancements on table and data table</dt>
                     <p translate>
-                    If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table.
+                        If you need to add links, icons, actions or customize styles, now you are able as you can enable
+                        html computing into table cells. New stylings properties are available to differentiate lines
+                        (zebra-striping), condensate table contents or even border your cells and table.
                     </p>
                 </uib-accordion-group>
-                <uib-accordion-group  is-open="status.bonita79open" heading="true">
+                <uib-accordion-group is-open="status.bonita79open" heading="true">
                     <uib-accordion-heading>
-                        Bonita 7.9 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita79open, 'glyphicon-chevron-right': !status.bonita79open}"></i>
+                        Bonita 7.9 <i class="pull-right glyphicon"
+                                      ng-class="{'glyphicon-chevron-down': status.bonita79open, 'glyphicon-chevron-right': !status.bonita79open}"></i>
                     </uib-accordion-heading>
-                    <dt translate>Easily create forms to edit business variables or documents, or display business variables in read-only
+                    <dt translate>Easily create forms to edit business variables or documents, or display business
+                        variables in read-only
                     </dt>
                     <p translate>
-                        This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9">dedicated documentation.</a>
+                        This improvement is visible when creating the form from Bonita Studio. It will automatically
+                        create new variables in the UI Designer and bind them with the related widgets. For more
+                        information, read the <a
+                        href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9">dedicated
+                        documentation.</a>
                     </p>
                     <dt translate>Use provided UID widgets as a template for a custom widget</dt>
                     <p translate>
-                        Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need.
+                        Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu
+                        option <b>View</b> in the Properties panel of every standard widget. From there, save as your
+                        custom widget and implement the extension you need.
                     </p>
                     <dt translate>New embedded AngularJS filter to resolve the lazy references of a business object</dt>
                     <p translate>
-                        To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9">dedicated documentation.</a>
+                        To improve the management of embedded objects with lazy references, create a variable using the
+                        | lazyRef filter for the object to retrieve. For more information, read the <a
+                        href="https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9">dedicated
+                        documentation.</a>
                     </p>
                     <dt translate>Switch widget</dt>
                     <p translate>
-                        Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured.
+                        Directly from the whiteboard or from the widget properties section, switch from your current
+                        widget to another one and keep the properties already configured.
                     </p>
                     <dt translate>Render a UID page of form in the end-user browser</dt>
                     <p translate>
-                        Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes.
+                        Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing,
+                        and to reuse the same URL in another browser for testing purposes.
                     </p>
                 </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita78open">
                     <uib-accordion-heading>
-                        Bonita 7.8 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita78open, 'glyphicon-chevron-right': !status.bonita78open}"></i>
+                        Bonita 7.8 <i class="pull-right glyphicon"
+                                      ng-class="{'glyphicon-chevron-down': status.bonita78open, 'glyphicon-chevron-right': !status.bonita78open}"></i>
                     </uib-accordion-heading>
                     <dt translate>New modal container to create pop-ins</dt>
                     <p translate>
@@ -164,7 +193,8 @@
                 </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita77open">
                     <uib-accordion-heading>
-                        Bonita 7.7 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.bonita77open, 'glyphicon-chevron-right': !status.bonita77open}"></i>
+                        Bonita 7.7 <i class="pull-right glyphicon"
+                                      ng-class="{'glyphicon-chevron-down': status.bonita77open, 'glyphicon-chevron-right': !status.bonita77open}"></i>
                     </uib-accordion-heading>
                     <dt translate>Identifier</dt>
                     <p translate>
@@ -188,5 +218,10 @@
     </uib-tabset>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
+    <div>
+        <div class="modal-footer-info" translate>
+            <b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}
+        </div>
+        <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
+    </div>
 </div>

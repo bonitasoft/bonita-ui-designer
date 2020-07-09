@@ -58,7 +58,12 @@
         });
       };
 
-      $scope.openHelp = () => $uibModal.open({ templateUrl: 'js/home/help-popup.html', size: 'lg' });
+      $scope.openHelp = () => $uibModal.open({
+        templateUrl: 'js/home/help-popup.html',
+        controller: 'HelpPopupControllerCtrl',
+        controllerAs: 'ctrl',
+        size: 'lg' });
+
       $scope.getActivatedArtifact = () => $scope.types.filter(type => type.active)[0];
       $scope.downloadArtifact = (url) => $window.location = url;
 

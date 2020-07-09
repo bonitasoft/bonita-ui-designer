@@ -114,9 +114,9 @@
             'Content-Type': 'application/json',
           }
         };
-        return this.$http.get('rest/bdr/url', config)
-          .then((bdrUrl) => {
-            this.bdrUrl = bdrUrl.data.url + '/bdm/graphical';
+        return this.$http.get('rest/config', config)
+          .then((configReport) => {
+            this.bdrUrl = configReport.data.bdrUrl + '/bdm/graphical';
             this._openVoyagerWindow();
           });
       } else {
