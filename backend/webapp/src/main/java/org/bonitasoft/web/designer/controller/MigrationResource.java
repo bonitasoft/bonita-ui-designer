@@ -50,11 +50,16 @@ public class MigrationResource {
 
     private final PageRepository pageRepository;
     private final WidgetRepository widgetRepository;
-
     private final WorkspaceInitializer workspaceInitializer;
 
+    protected static String MODEL_VERSION;
+
+    // Do this to put modelVersion on static field
     @Value("${designer.modelVersion}")
-    protected static String modelVersion;
+    public void setModelVersion(String modelVersion) {
+        MODEL_VERSION = modelVersion;
+    }
+
     private final PageService pageService;
     private final WidgetService widgetService;
 
@@ -147,7 +152,7 @@ public class MigrationResource {
         if (artifactVersionNode == null) {
             artifactVersionNode = artifactNode.get("designerVersion");
         }
-        Version currentVersion = new Version(modelVersion);
+        Version currentVersion = new Version(MODEL_VERSION);
         Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
         return new ResponseEntity<>(getStatus(artifactVersion, currentVersion), HttpStatus.OK);
     }
@@ -156,9 +161,9 @@ public class MigrationResource {
         workspaceInitializer.migrateWorkspace();
     }
 
-    private static MigrationStatusReport getStatus(DesignerArtifact artifact) {
+    public static MigrationStatusReport getStatus(DesignerArtifact artifact) {
         Version artifactVersion = new Version(artifact.getArtifactVersion());
-        Version currentVersion = new Version(modelVersion);
+        Version currentVersion = new Version(MODEL_VERSION);
         return getStatus(artifactVersion, currentVersion);
     }
 

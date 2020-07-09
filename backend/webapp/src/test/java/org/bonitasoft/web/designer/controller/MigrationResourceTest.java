@@ -76,7 +76,7 @@ public class MigrationResourceTest {
 
     @Before
     public void setUp() throws URISyntaxException {
-        ReflectionTestUtils.setField(MigrationResource, "modelVersion", "2.0");
+        ReflectionTestUtils.setField(MigrationResource, "MODEL_VERSION", "2.0");
         mockMvc = mockServer(MigrationResource).build();
     }
 
