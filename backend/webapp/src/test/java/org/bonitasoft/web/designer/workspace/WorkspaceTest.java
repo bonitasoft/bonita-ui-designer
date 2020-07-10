@@ -195,5 +195,25 @@ public class WorkspaceTest {
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
     }
 
+    @Test
+    public void should_keep_file_with_a_reference_on_workspace_when_cleanup_is_called() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("pages",".metadata");
+        temporaryFolder.newFolderPath("pages","myPage");
+        temporaryFolder.newFilePath("pages/myPage/myPage.json");
+
+        temporaryFolder.newFilePath("pages/.metadata/.index.json");
+        temporaryFolder.newFilePath("pages/.metadata/myPage.json");
+        temporaryFolder.newFilePath("pages/.metadata/oldestPage.json");
+
+        workspace.cleanPageWorkspace();
+
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("oldestPage.json")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("myPage.json")).exists();
+    }
+
 
 }
