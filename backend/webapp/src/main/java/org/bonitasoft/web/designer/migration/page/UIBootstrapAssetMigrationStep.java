@@ -63,23 +63,19 @@ public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     @Override
     public Optional<MigrationStepReport> migrate(Page page) {
-        try {
-            if (!pageHasAsset(page, "ui-bootstrap") && !widgetHasAsset(page, "ui-bootstrap")) {
-                Asset uiBootstrap = new Asset()
-                        .setName(ASSET_FILE_NAME)
-                        .setType(JAVASCRIPT);
+        if (!pageHasAsset(page, "ui-bootstrap") && !widgetHasAsset(page, "ui-bootstrap")) {
+            Asset uiBootstrap = new Asset()
+                    .setName(ASSET_FILE_NAME)
+                    .setType(JAVASCRIPT);
 
-                pageAssetService.save(page, uiBootstrap, getContent());
+            pageAssetService.save(page, uiBootstrap, getContent());
 
-                String msg = format("Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
-                        uiBootstrap.getType(), uiBootstrap.getName(), page.getName());
-                logger.info(msg);
-                return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(),msg, this.getClass().getName()));
-            }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
+            String msg = format("Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
+                    uiBootstrap.getType(), uiBootstrap.getName(), page.getName());
+            logger.info(msg);
+            return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(),msg, this.getClass().getName()));
         }
+        return Optional.empty();
     }
 
     @Override

@@ -41,19 +41,15 @@ public class TextWidgetInterpretHTMLMigrationStep<T extends AbstractPage> extend
     }
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page) throws MigrationException {
-        try {
-            for (Component component : page.accept(componentVisitor)) {
-                if ("pbText".equals(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
-                    PropertyValue interpretHTMLValue = new PropertyValue();
-                    interpretHTMLValue.setType(BondType.CONSTANT.toJson());
-                    interpretHTMLValue.setValue(Boolean.TRUE);
-                    component.getPropertyValues().put("allowHTML", interpretHTMLValue);
-                }
+    public Optional<MigrationStepReport> migrate(AbstractPage page) {
+        for (Component component : page.accept(componentVisitor)) {
+            if ("pbText".equals(component.getId()) && !component.getPropertyValues().containsKey("allowHTML")) {
+                PropertyValue interpretHTMLValue = new PropertyValue();
+                interpretHTMLValue.setType(BondType.CONSTANT.toJson());
+                interpretHTMLValue.setValue(Boolean.TRUE);
+                component.getPropertyValues().put("allowHTML", interpretHTMLValue);
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
         }
+        return Optional.empty();
     }
 }

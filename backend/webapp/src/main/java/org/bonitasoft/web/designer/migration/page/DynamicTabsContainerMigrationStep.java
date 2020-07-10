@@ -31,14 +31,9 @@ public class DynamicTabsContainerMigrationStep<T extends AbstractPage> extends A
     private static final Logger logger = LoggerFactory.getLogger(DynamicTabsContainerMigrationStep.class);
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
-        try {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) {
             MigrationTabsContainerVisitor collectTabsContainer = new MigrationTabsContainerVisitor();
             page.accept(collectTabsContainer);
             return Optional.empty();
-        } catch (Exception e) {
-            throw e;
-        }
-
     }
 }

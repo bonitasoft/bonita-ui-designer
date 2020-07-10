@@ -43,7 +43,7 @@ public class TableWidgetStylesMigrationStep<T extends AbstractPage> extends Abst
     }
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) {
         for (Component component : page.accept(componentVisitor)) {
             if (isProvidedTableWidget(component.getId())) {
                 setPropertyDefaultValue(component, STRIPED_PROPERTY, true);
@@ -52,7 +52,6 @@ public class TableWidgetStylesMigrationStep<T extends AbstractPage> extends Abst
             }
         }
         return Optional.empty();
-
     }
 
     @Override

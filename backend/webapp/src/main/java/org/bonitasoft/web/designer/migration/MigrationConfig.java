@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
+import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
@@ -96,6 +97,11 @@ public class MigrationConfig {
         return new DynamicTabsContainerMigrationStep();
     }
 
+    @Bean
+    public BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep() {
+        return new BusinessVariableMigrationStep<>();
+    }
+
     @Resource(name = "pageMigrationStepsList")
     protected List<Migration<Page>> pageMigrationSteps;
 
@@ -112,6 +118,7 @@ public class MigrationConfig {
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
             TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
+            BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep,
             AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
@@ -127,6 +134,7 @@ public class MigrationConfig {
                 new Migration<>("1.10.12", dataToVariableMigrationStep),
                 new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
+                new Migration<>("1.11.40", pageBusinessVariableMigrationStep),
                 new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep));
     }
 

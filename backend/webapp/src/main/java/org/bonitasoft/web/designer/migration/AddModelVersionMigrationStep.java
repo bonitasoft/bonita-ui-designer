@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class AddModelVersionMigrationStep<A extends DesignerArtifact> extends AbstractMigrationStep<A> {
 
     @Override
-    public Optional<MigrationStepReport> migrate(A artifact) throws Exception {
+    public Optional<MigrationStepReport> migrate(A artifact) {
         artifact.setModelVersion(MigrationConfig.INITIAL_MODEL_VERSION);
         return Optional.empty();
     }

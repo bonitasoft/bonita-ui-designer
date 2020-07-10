@@ -39,20 +39,16 @@ public class TextWidgetLabelMigrationStep<T extends AbstractPage> extends Abstra
     }
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page) throws MigrationException {
-        try {
-            for (Component component : page.accept(componentVisitor)) {
-                if ("pbText".equals(component.getId())) {
-                    updatePropertyValue(component, "labelHidden", BondType.CONSTANT, Boolean.TRUE);
-                    updatePropertyValue(component, "label", BondType.INTERPOLATION, "");
-                    updatePropertyValue(component, "labelPosition", BondType.CONSTANT, "top");
-                    updatePropertyValue(component, "labelWidth", BondType.CONSTANT, 4);
-                }
+    public Optional<MigrationStepReport> migrate(AbstractPage page) {
+        for (Component component : page.accept(componentVisitor)) {
+            if ("pbText".equals(component.getId())) {
+                updatePropertyValue(component, "labelHidden", BondType.CONSTANT, Boolean.TRUE);
+                updatePropertyValue(component, "label", BondType.INTERPOLATION, "");
+                updatePropertyValue(component, "labelPosition", BondType.CONSTANT, "top");
+                updatePropertyValue(component, "labelWidth", BondType.CONSTANT, 4);
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
         }
+        return Optional.empty();
     }
 
     @Override
