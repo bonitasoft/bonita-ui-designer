@@ -80,6 +80,10 @@ public class Workspace {
         Path pageWorkspace = workspacePathResolver.getPagesRepositoryPath();
         File file = new File(pageWorkspace.toString());
         Arrays.stream(file.list()).forEach(pageFolder -> {
+            if (".metadata".equals(pageFolder)) {
+                cleanMetadataFolder(pageWorkspace, pageFolder);
+                return;
+            }
             try {
                 if (isPageExist(pageWorkspace, pageFolder)) {
                     // Clean Js folder, this folder can be exist in version before this fix
@@ -96,6 +100,32 @@ public class Workspace {
                 logger.error(error, e);
             }
         });
+    }
+
+    /**
+     * remove  metadata file without a artifact in workspace
+     * @param workspace
+     * @param folder
+     */
+    protected void cleanMetadataFolder(Path workspace, String folder) {
+        File metadataFolder = new File(workspace.resolve(folder).toString());
+        Arrays.stream(metadataFolder.listFiles()).forEach(file -> {
+            if (!workspace.resolve(removeExtension(file.getName())).resolve(file.getName()).toFile().exists()) {
+                if (!workspace.resolve(folder).resolve(file.getName()).toFile().delete()) {
+                    String error = String.format("Technical error when deleting file [%s]", workspace.resolve(folder).resolve("js").toString());
+                    logger.error(error);
+                }
+            }
+        });
+    }
+
+    private String removeExtension(String fileName) {
+        if (fileName.indexOf(".") > 0) {
+            return fileName.substring(0, fileName.lastIndexOf("."));
+        } else {
+            return fileName;
+        }
+
     }
 
     private boolean isPageExist(Path pageWorkspace, String pageFolder) {
