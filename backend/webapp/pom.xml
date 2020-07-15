@@ -317,12 +317,6 @@
                 <version>9.4.14.v20181114</version>
                 <configuration>
                     <scanIntervalSeconds>2</scanIntervalSeconds>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>repository.widgets</name>
-                            <value>${project.build.directory}/widgets-repository</value>
-                        </systemProperty>
-                    </systemProperties>
                 </configuration>
             </plugin>
             <plugin>
