@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-06-25 01:31\n"
+"PO-Revision-Date: 2020-07-15 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -60,6 +60,9 @@ msgstr "<b>Para usar um layout em uma aplicação de negócios</b>, exporte-o a 
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Para usar uma página em uma aplicação de negócios</b>, exporte-o do Designer de UI, importe-o para recursos de Portal Bonita e da aplicação relevante, adicione-o à lista de páginas e a um menu de navegação."
+
+msgid "<b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}"
+msgstr ""
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
 msgstr "<b>Com <em>fuso horário</em> , definido como \"não\"</b>: Fuso horário do usuário é ignorado e o widget não contem qualquer informação do fuso horário (por exemplo, aaaa-MM-DDTHH:mm:ssZ)."

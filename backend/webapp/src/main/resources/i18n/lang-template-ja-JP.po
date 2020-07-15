@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-06-25 01:29\n"
+"PO-Revision-Date: 2020-07-15 01:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -60,6 +60,9 @@ msgstr "<b>業務アプリケーションのレイアウトとして使用する
 
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
+
+msgid "<b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}"
+msgstr ""
 
 msgid "<b>With <em>Handle time zone</em> set to \"no\"</b>: User time zone is ignored and the value of the widget does not contain any time zone information (e.g., yyyy-MM-ddTHH:mm:ss)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定した場合</b>: ユーザーのタイム ゾーンは無視され、ウィジェットの値に任意のタイム ゾーン情報は含まれません（たとえば、yyyy-MM-ddTHH:mm:ss）。"
