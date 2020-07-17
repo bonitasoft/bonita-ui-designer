@@ -110,7 +110,8 @@ public class MigrationConfig {
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
             TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
-            BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep) {
+            BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep,
+            StyleUpdateInputRequiredLabelMigrationStep styleUpdateInputRequiredLabelMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -125,7 +126,8 @@ public class MigrationConfig {
                 new Migration<>("1.10.12", dataToVariableMigrationStep),
                 new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
-                new Migration<>("1.11.40", pageBusinessVariableMigrationStep));
+                new Migration<>("1.11.40", pageBusinessVariableMigrationStep),
+                new Migration<>("1.11.46", styleUpdateInputRequiredLabelMigrationStep));
     }
 
     @Bean
