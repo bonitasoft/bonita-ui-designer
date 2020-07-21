@@ -14,8 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.Loader;
@@ -74,8 +77,16 @@ public class ArtifactImporter<T extends Identifiable> {
         try {
             // first load everything
             T element = loader.load(resources.resolve(modelFile));
-            Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
+            if (element != null && element.getArtifactVersion() != null) {
+                MigrationStatusReport status = MigrationResource.getStatus((DesignerArtifact) element);
+                if (!status.isCompatible()) {
+                    ImportReport report = new ImportReport(element, null);
+                    report.setStatus(ImportReport.Status.INCOMPATIBLE);
+                    return report;
+                }
+            }
 
+            Map<DependencyImporter, List<?>> dependencies = loadArtefactDependencies(element, resources);
             ImportReport report = buildReport(element, dependencies);
             report.setUUID(anImport.getUUID());
 
@@ -91,6 +102,7 @@ public class ArtifactImporter<T extends Identifiable> {
                 report.setStatus(ImportReport.Status.CONFLICT);
             }
             return report;
+
         } catch (IOException | RepositoryException e) {
             String errorMessage = "Error while " + ((e instanceof IOException) ? "unzipping" : "saving") + " artefacts";
             logger.error(errorMessage + ", check uploaded content", e);
@@ -107,7 +119,8 @@ public class ArtifactImporter<T extends Identifiable> {
         }
     }
 
-    private void saveComponent(Path resources, T element, Map<DependencyImporter, List<?>> dependencies) throws IOException {
+    private void saveComponent(Path resources, T element, Map<DependencyImporter, List<?>> dependencies) throws
+            IOException {
         if (element instanceof HasUUID && repository.exists(element.getId())) {
             //If an element with the same ID already exist in the repository, generate a new ID
             String newId = repository.getNextAvailableId(element.getName());
@@ -129,7 +142,7 @@ public class ArtifactImporter<T extends Identifiable> {
 
     private ImportReport buildReport(T element, Map<DependencyImporter, List<?>> dependencies) {
         ImportReport report = ImportReport.from(element, dependencies);
-        if(element instanceof HasUUID) {
+        if (element instanceof HasUUID) {
             checkIfElementWithUUIDIsOverwritten(element, report);
         } else if (repository.exists(element.getId())) {
             setOverwritten(report, element.getId());

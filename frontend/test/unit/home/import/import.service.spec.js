@@ -120,6 +120,19 @@ describe('Import service', () => {
       expect(alerts.addSuccess).not.toHaveBeenCalled();
       expect(errorFn).not.toHaveBeenCalled();
     });
+
+    it('should display error popup when imported artifact is incompatible', function() {
+      var report = { overwritten: false,
+        element: { type: 'page' },
+        status: 'incompatible'
+      };
+      spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);
+      importArtifactService.manageImportResponse('page', false, report).then(successFn, angular.noop);
+      scope.$apply();
+
+      expect(alerts.addError).toHaveBeenCalled();
+      expect(alerts.addSuccess).not.toHaveBeenCalled();
+    });
   });
 
 });

@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
@@ -46,6 +47,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArtifactImporterTest {
@@ -62,6 +64,9 @@ public class ArtifactImporterTest {
 
     @Mock
     private PageService pageService;
+
+    @Mock
+    private MigrationResource migrationResource;
 
     @Mock
     private JsonFileBasedLoader<Page> pageLoader;
@@ -81,6 +86,7 @@ public class ArtifactImporterTest {
 
     @Before
     public void setUp() throws IOException {
+        ReflectionTestUtils.setField(migrationResource, "MODEL_VERSION", "2.0");
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
         DependencyImporter widgetDependencyImporter = new WidgetImporter(widgetLoader, widgetRepository, mock(AssetImporter.class));
@@ -275,5 +281,23 @@ public class ArtifactImporterTest {
         assertThat(page.getId()).isEqualTo("myPage1");
         verify(pageRepository).delete(existingPageInRepo.getId());
         verify(pageRepository).updateLastUpdateAndSave(any(Page.class));
+    }
+
+    @Test
+    public void should_return_incompatible_status_if_version_is_not_compatible_with_uid() throws Exception {
+        wMocks.mockWidgetsAsAddedDependencies();
+        Page page = pMocks.mockPageToBeImported();
+        page.setName("myPage");
+        page.setId("myPage");
+        page.setModelVersion("12.0.0");
+        when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
+        Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
+
+        ImportReport report = pageImporter.doImport(anImport);
+
+
+        assertThat(report.getStatus()).isEqualTo(ImportReport.Status.INCOMPATIBLE);
+        assertThat(page.getId()).isEqualTo("myPage");
+        verify(pageRepository,never()).updateLastUpdateAndSave(any(Page.class));
     }
 }

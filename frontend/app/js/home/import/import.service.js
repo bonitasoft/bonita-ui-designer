@@ -39,7 +39,6 @@
       //Even if a problem occurs in the backend a response is sent with a message
       //If the message has a type and a message this is an error
       if (service.isErrorResponse(response)) {
-
         alerts.addError({
           title: gettextCatalog.getString('Import error'),
           contentUrl: 'js/home/import/import-error-message.html',
@@ -50,16 +49,24 @@
         var importReportContext = angular.extend(response, {
           type: response.element.type || 'widget'   // TODO remove this when widget has type
         });
-        if (!checkForOverwrites || service.doesImportOverwriteExistingContent(response)) {
-          //
-          alerts.addSuccess({
-            title: gettextCatalog.getString('Successful import'),
-            contentUrl: 'js/home/import/import-success-message.html',
-            context: importReportContext
-          }, 15000);
-          deferred.resolve();
+        if (response.status === 'incompatible') {
+          alerts.addError({
+            title: gettextCatalog.getString('Import error: incompatible artifact'),
+            content: gettextCatalog.getString('Upgrade to a newer UI Designer version to import this {{type}}', { type: response.element.type })
+          });
+          deferred.reject();
         } else {
-          deferred.resolve(importReportContext);
+          if (!checkForOverwrites || service.doesImportOverwriteExistingContent(response)) {
+            //
+            alerts.addSuccess({
+              title: gettextCatalog.getString('Successful import'),
+              contentUrl: 'js/home/import/import-success-message.html',
+              context: importReportContext
+            }, 15000);
+            deferred.resolve();
+          } else {
+            deferred.resolve(importReportContext);
+          }
         }
       }
       return deferred.promise;

@@ -96,7 +96,7 @@ public class ImportReport {
     }
 
     public enum Status {
-        IMPORTED, CONFLICT;
+        IMPORTED, CONFLICT, INCOMPATIBLE;
 
         @JsonValue
         public String toString() {
