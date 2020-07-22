@@ -41,7 +41,7 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
   $scope.save = function(data) {
     $scope.page.variables[data.$$name] = {
       exposed: data.exposed,
-      type: data.type,
+      type: $scope.isExposed(data) ? 'constant' : data.type,
       displayValue: $scope.isExposed(data) ? '' : (data.type === 'businessdata' ? JSON.stringify(data.variableInfo.data) : data.displayValue)
     };
   };

@@ -119,7 +119,8 @@ public class MigrationConfig {
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
             TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
             BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep,
-            AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep) {
+            AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep,
+            StyleUpdateInputRequiredLabelMigrationStep styleUpdateInputRequiredLabelMigrationStep) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -135,6 +136,7 @@ public class MigrationConfig {
                 new Migration<>("1.10.16", pageTableWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.40", pageBusinessVariableMigrationStep),
+                new Migration<>("1.11.46", styleUpdateInputRequiredLabelMigrationStep),
                 new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep));
     }
 

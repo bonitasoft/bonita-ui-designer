@@ -18,7 +18,7 @@ input[type='number'].ng-invalid.ng-dirty, input[type='password'].ng-invalid.ng-d
 
 /* Add a red star after required inputs */
 .control-label--required:after {
-  content: "*";
+  content: " *";
   color: #C00;
 }
 .btn-invalid{
