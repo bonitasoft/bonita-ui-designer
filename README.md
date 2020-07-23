@@ -18,8 +18,8 @@ or
 ### Build
 
 #### Using Maven
-* Build it using maven `mvn clean package`
-* Run it using `java -jar backend/target/ui-designer-1.11.0-SNAPSHOT-standalone.jar`
+* Build it using maven `./mvnw clean package` 
+* Run it using `java -jar backend/webapp/target/ui-designer-1.11.0-SNAPSHOT-standalone.jar`
 
 #### Using Docker
 
