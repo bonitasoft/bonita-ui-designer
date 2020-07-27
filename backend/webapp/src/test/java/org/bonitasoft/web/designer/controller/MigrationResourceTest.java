@@ -171,6 +171,39 @@ public class MigrationResourceTest {
         getStatusRequestByIdInvalid("widget", "invalidWidgetId");
     }
 
+    @Test
+    public void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(pageRepository.get("myPage")).thenReturn(page);
+        // Get dependencies status
+        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, true));
+
+        ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
+        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(pageRepository.get("myPage")).thenReturn(page);
+        // Get dependencies status
+        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(false, false));
+
+        ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
+        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(pageRepository.get("myPage")).thenReturn(page);
+        // Get dependencies status
+        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, false));
+
+        ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
+        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+    }
+
     private ResultActions postStatusRequest(DesignerArtifact artifact) throws Exception {
         return mockMvc
                 .perform(post("/rest/migration/status")
@@ -189,6 +222,13 @@ public class MigrationResourceTest {
 
     private ResultActions getStatusRequestById(String artifactType, String artifactId) throws Exception {
         String url = String.format("/rest/migration/status/%s/%s", artifactType, artifactId);
+        return mockMvc
+                .perform(get(url))
+                .andExpect(status().isOk());
+    }
+
+    private ResultActions getStatusRequestByIdRecursive(String artifactType, String artifactId) throws Exception {
+        String url = String.format("/rest/migration/status/%s/%s?recursive=true", artifactType, artifactId);
         return mockMvc
                 .perform(get(url))
                 .andExpect(status().isOk());
@@ -238,6 +278,7 @@ public class MigrationResourceTest {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withDesignerVersion("1.1.9").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
         when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-page-to-migrate"))));
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(true, true));
 
         mockMvc
                 .perform(
@@ -317,6 +358,7 @@ public class MigrationResourceTest {
     public void should_not_process_migration_and_return_none_status_when_page_is_incompatible() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("3.0").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(false, false));
 
         MvcResult result = mockMvc
                 .perform(
@@ -332,6 +374,7 @@ public class MigrationResourceTest {
     public void should_not_process_migration_and_return_none_status_when_page_not_needed_migration() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("2.0.").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(true, false));
 
         MvcResult result = mockMvc
                 .perform(
@@ -346,6 +389,7 @@ public class MigrationResourceTest {
     public void should_not_process_migration_and_return_none_status_when_widget_version_is_incompatible() throws Exception {
         Widget widget = aWidget().id("my-widget").modelVersion("3.0").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, true));
 
         MvcResult result = mockMvc
                 .perform(
@@ -360,6 +404,7 @@ public class MigrationResourceTest {
         public void should_not_process_migration_and_return_none_status_when_widget_not_needed_migration() throws Exception {
             Widget widget = aWidget().id("my-widget").modelVersion("2.0").custom().build();
             when(widgetRepository.get("my-widget")).thenReturn(widget);
+            when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(true, false));
 
             MvcResult result = mockMvc
                     .perform(

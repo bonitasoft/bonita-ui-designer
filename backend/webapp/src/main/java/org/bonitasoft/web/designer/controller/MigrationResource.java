@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +53,7 @@ public class MigrationResource {
     private final WidgetRepository widgetRepository;
     private final WorkspaceInitializer workspaceInitializer;
 
-    protected static String MODEL_VERSION;
+    public static String MODEL_VERSION;
 
     // Do this to put modelVersion on static field
     @Value("${designer.modelVersion}")
@@ -95,7 +96,7 @@ public class MigrationResource {
     public static ResponseEntity<MigrationReport> migrateArtifact(String artifactId, DesignerArtifact designerArtifact, ArtifactService service) {
         MigrationReport mR;
         if (designerArtifact.getArtifactVersion() != null) {
-            MigrationStatusReport migrationStatusReport = getStatus(designerArtifact);
+            MigrationStatusReport migrationStatusReport = service.getStatus(designerArtifact);
             if (!migrationStatusReport.isCompatible()) {
                 mR = new MigrationReport(MigrationStatus.INCOMPATIBLE, designerArtifact.getId());
                 mR.setComments("Artifact is incompatible with actual version");
@@ -126,9 +127,14 @@ public class MigrationResource {
     }
 
     @RequestMapping(value = "/status/page/{pageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId) {
-        Page currentPage = pageRepository.get(pageId);
-        return getStatus(currentPage);
+    public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId,
+                                                @RequestParam(value = "recursive", required = false) boolean recursive) {
+        Page page = pageRepository.get(pageId);
+        if (recursive) {
+            return getStatusRecursive(page, pageService);
+        } else {
+            return getStatus(page);
+        }
     }
 
     @RequestMapping(value = "/status/widget/{widgetId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -152,22 +158,32 @@ public class MigrationResource {
         if (artifactVersionNode == null) {
             artifactVersionNode = artifactNode.get("designerVersion");
         }
-        Version currentVersion = new Version(MODEL_VERSION);
         Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
-        return new ResponseEntity<>(getStatus(artifactVersion, currentVersion), HttpStatus.OK);
+        return new ResponseEntity<>(getStatus(artifactVersion), HttpStatus.OK);
     }
 
     public void migrateAllArtifacts() {
         workspaceInitializer.migrateWorkspace();
     }
 
-    public static MigrationStatusReport getStatus(DesignerArtifact artifact) {
-        Version artifactVersion = new Version(artifact.getArtifactVersion());
-        Version currentVersion = new Version(MODEL_VERSION);
-        return getStatus(artifactVersion, currentVersion);
+    public static MigrationStatusReport getStatus(Version artifactVersion) {
+        return getStatus(artifactVersion, null, null);
     }
 
-    public static MigrationStatusReport getStatus(Version artifactVersion, Version currentVersion) {
+    public static MigrationStatusReport getStatus(DesignerArtifact artifact) {
+        Version artifactVersion = new Version(artifact.getArtifactVersion());
+        return getStatus(artifactVersion, artifact, null);
+    }
+
+    public static MigrationStatusReport getStatusRecursive(DesignerArtifact artifact, ArtifactService service) {
+        Version artifactVersion = new Version(artifact.getArtifactVersion());
+        return getStatus(artifactVersion, artifact, service);
+    }
+
+    private static MigrationStatusReport getStatus(Version artifactVersion, DesignerArtifact artifact, ArtifactService service) {
+
+        // Check status of this artifact
+        Version currentVersion = new Version(MODEL_VERSION);
         boolean migration = false;
         boolean compatible = true;
         if (artifactVersion == null || currentVersion.isGreaterThan(artifactVersion.toString())) {
@@ -176,6 +192,24 @@ public class MigrationResource {
         if (artifactVersion != null && artifactVersion.isGreaterThan(currentVersion.toString())) {
             compatible = false;
         }
-        return new MigrationStatusReport(compatible, migration);
+
+        MigrationStatusReport artifactReport = new MigrationStatusReport(compatible, migration);
+
+        if (service == null || artifact == null || !artifactReport.isCompatible()) {
+            // no dependencies check needed
+            return artifactReport;
+        }
+
+        // Check status of dependencies
+        MigrationStatusReport depReport = service.getStatus(artifact);
+        if (!depReport.isCompatible()) {
+            return depReport;
+        }
+        if (artifactReport.isMigration() != depReport.isMigration()) {
+            return new MigrationStatusReport(true, true);
+        } else if (artifactReport.isMigration()) {
+            return new MigrationStatusReport(true, true);
+        }
+        return new MigrationStatusReport(true, false);
     }
 }

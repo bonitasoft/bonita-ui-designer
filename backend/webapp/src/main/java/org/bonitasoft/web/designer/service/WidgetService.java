@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
@@ -82,16 +84,41 @@ public class WidgetService implements ArtifactService {
         return migratedResult;
     }
 
+    @Override
+    public MigrationStatusReport getStatus(Identifiable artifact) {
+        // not used since a widget has no dependencies
+        return null;
+    }
+
     public List<MigrationStepReport> migrateAllCustomWidgetUsedInPreviewable(Previewable previewable) {
         List<MigrationStepReport> migrationStepReports = new ArrayList<>();
 
         widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
-                .stream()
                 .forEach(w -> {
                     MigrationResult<Widget> result = this.migrateWithReport(w);
                     migrationStepReports.addAll(result.getMigrationStepReportListFilterByFinalStatus());
                 });
 
         return migrationStepReports;
+    }
+
+    public MigrationStatusReport getMigrationStatusOfCustomWidgetUsed(Previewable previewable) {
+        List<MigrationStatusReport> reports = new ArrayList<>();
+        widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
+                .forEach(widget -> {
+                    MigrationStatusReport report = MigrationResource.getStatus(widget);
+                    reports.add(report);
+                });
+
+        boolean migration = false;
+        for (MigrationStatusReport report : reports) {
+            if (!report.isCompatible()) {
+                return report;
+            }
+            if (!migration && report.isMigration()) {
+                migration = true;
+            }
+        }
+        return new MigrationStatusReport(true, migration);
     }
 }

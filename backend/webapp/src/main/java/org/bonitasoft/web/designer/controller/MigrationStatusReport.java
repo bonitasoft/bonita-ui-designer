@@ -16,11 +16,8 @@
 package org.bonitasoft.web.designer.controller;
 
 public class MigrationStatusReport {
-    boolean compatible;
-    boolean migration;
-
-    public MigrationStatusReport() {
-    }
+    private boolean compatible;
+    private boolean migration;
 
     public MigrationStatusReport(boolean compatible, boolean migration) {
         this.compatible = compatible;

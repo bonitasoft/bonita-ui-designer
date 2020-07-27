@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -50,6 +51,10 @@ public class PageMigrationApplyer {
         reports.addAll(migrateAllWidgetUsed(page));
         updatePreviousArtifactVersionIfMigrationDone(page, formerArtifactVersion, startTime);
         return new MigrationResult(page, reports);
+    }
+
+    public MigrationStatusReport getMigrationStatusDependencies(Page page) {
+        return widgetService.getMigrationStatusOfCustomWidgetUsed(page);
     }
 
     protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime) {

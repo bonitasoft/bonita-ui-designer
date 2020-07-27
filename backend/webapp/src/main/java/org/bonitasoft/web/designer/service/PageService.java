@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -58,6 +59,11 @@ public class PageService implements ArtifactService {
             pageRepository.updateLastUpdateAndSave(migratedPage);
         }
         return migratedResult;
+    }
+
+    @Override
+    public MigrationStatusReport getStatus(Identifiable identifiable) {
+        return pageMigrationApplyer.getMigrationStatusDependencies((Page) identifiable);
     }
 
 }
