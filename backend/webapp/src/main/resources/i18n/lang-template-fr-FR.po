@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-07-15 01:28\n"
+"PO-Revision-Date: 2020-07-27 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1150,6 +1150,9 @@ msgstr "Importer un artefact du UI Designer"
 
 msgid "Import error"
 msgstr "Erreur d'import"
+
+msgid "Import error: incompatible artifact"
+msgstr ""
 
 msgid "Import the moment.js library as an external asset."
 msgstr "Importez la librairie moment.js en tant qu'asset externe."
@@ -2322,6 +2325,9 @@ msgstr "Retirer des favoris"
 
 msgid "Update asset"
 msgstr "Modifier l'asset"
+
+msgid "Upgrade to a newer UI Designer version to import this {{type}}"
+msgstr ""
 
 msgid "Usage"
 msgstr "Utilisation"
