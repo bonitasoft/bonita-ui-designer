@@ -15,6 +15,11 @@
 
 package org.bonitasoft.web.designer.controller;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.bonitasoft.web.designer.model.JsonViewLight;
+
 public class MigrationStatusReport {
     private boolean compatible;
     private boolean migration;
@@ -24,18 +29,27 @@ public class MigrationStatusReport {
         this.migration = migration;
     }
 
+    public MigrationStatusReport() {
+        this.compatible = true;
+        this.migration = true;
+    }
+
+    @JsonView({ JsonViewLight.class })
     public boolean isCompatible() {
         return compatible;
     }
 
+    @JsonIgnore
     public void setCompatible(boolean compatible) {
         this.compatible = compatible;
     }
 
+    @JsonView({ JsonViewLight.class })
     public boolean isMigration() {
         return migration;
     }
 
+    @JsonIgnore
     public void setMigration(boolean migration) {
         this.migration = migration;
     }

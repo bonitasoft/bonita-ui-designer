@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
@@ -73,6 +74,7 @@ public class LiveRepositoryUpdateTest {
     @Before
     public void setUp() throws Exception {
         repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, mock(Watcher.class));
+        ReflectionTestUtils.setField(loader, "modelVersion", "2.0");
     }
 
     @Test

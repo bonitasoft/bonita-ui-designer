@@ -160,6 +160,7 @@ If you want to run the check manually :
 
 * Response code
     * 200 OK
+    * 422 Page is not compatible
     * 404 Page {pageId} not found
     
 #### Save a page model
@@ -171,6 +172,7 @@ If you want to run the check manually :
 
 * Response code
     * 204 OK
+    * 422 Page is not compatible
     * 500 internal server error
     
 #### Get page data
@@ -276,7 +278,7 @@ Get the migration status of a page. Optionally, if the 'recursive' query paramet
 * Response: see "Get migration status from an artifact json"
 
 * Response code
-    * 200 OK
+    * 200 OK    
     * 404 Page not found
     
 #### Get migration status of a widget
@@ -287,3 +289,23 @@ Get the migration status of a page. Optionally, if the 'recursive' query paramet
 * Response code
     * 200 OK
     * 404 Widget not found
+
+### Export artifact
+#### Resource URI
+#### Export a page
+    GET /export/page/{id}
+    
+* Response code
+    * 200 OK       
+    * 404 page not found
+    * 422 page incompatible with UID
+    * 500 internal server error
+
+#### Export a widget
+    GET /export/widget/{id}
+    
+* Response code
+    * 200 OK       
+    * 404 widget not found
+    * 422 widget incompatible with UID
+    * 500 internal server error   

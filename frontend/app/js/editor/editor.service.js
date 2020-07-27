@@ -62,7 +62,9 @@
           return repo.load(id);
         })
         .catch(function(error) {
-          alerts.addError(error.message);
+          if (error.status !== 422) {
+            alerts.addError(error.message);
+          }
           return $q.reject(error);
         })
         .then(function(response) {
@@ -75,7 +77,7 @@
 
     function initializePalette(widgets) {
       function filterCustomWidgets(val, item) {
-        return item.type === 'widget' && item.custom === val;
+        return item.type === 'widget' && item.custom === val && (!item.status || item.status.compatible);
       }
 
       var coreWidgets = widgets.filter(filterCustomWidgets.bind(null, false))

@@ -14,7 +14,22 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import com.google.common.base.Optional;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -30,7 +45,9 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,21 +56,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @RestController
 @RequestMapping("/rest/widgets")
@@ -74,7 +76,7 @@ public class WidgetResource extends AssetResource<Widget>{
                           @Named("widgetPath") Path widgetPath,
                           List<WidgetContainerRepository> widgetContainerRepositories,
                           AssetVisitor assetVisitor) {
-        super(widgetAssetService, widgetRepository, assetVisitor, Optional.<SimpMessagingTemplate>absent());
+        super(widgetAssetService, widgetRepository, assetVisitor, com.google.common.base.Optional.<SimpMessagingTemplate>absent());
         this.widgetRepository = widgetRepository;
         this.objectMapper = objectMapper;
         this.widgetService = widgetService;
@@ -126,10 +128,15 @@ public class WidgetResource extends AssetResource<Widget>{
     }
 
     @RequestMapping(value = "/{widgetId}", method = RequestMethod.GET)
-    public Widget get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
+    public ResponseEntity<Object> get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
         Widget widget = widgetService.get(widgetId);
+        Optional<ResponseEntity<Object>> objectResponseEntity = checkIfWidgetCompatible(widget);
+        if (objectResponseEntity.isPresent()) {
+            ResponseEntity response = objectResponseEntity.get();
+            return response;
+        }
         widget.setAssets(assetVisitor.visit(widget));
-        return widget;
+        return new ResponseEntity(widget,HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -223,5 +230,16 @@ public class WidgetResource extends AssetResource<Widget>{
 
     private boolean isPbWidgetId(String widgetId) {
         return widgetId.startsWith("pb");
+    }
+
+    private Optional<ResponseEntity<Object>> checkIfWidgetCompatible(Widget widget) {
+        if (widget.isCustom() && (widget.getStatus() != null && !widget.getStatus().isCompatible())) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.TEXT_PLAIN);
+            return Optional.of(
+                    new ResponseEntity(String.format("Widget %s is in an incompatible version. Newer UI Designer version is required.", widget.getId()),
+                            headers, HttpStatus.UNPROCESSABLE_ENTITY));
+        }
+        return java.util.Optional.empty();
     }
 }

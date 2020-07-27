@@ -71,6 +71,9 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
     public Widget get(Path path) {
         try {
             Widget widget = getWigetWithView(path, null);
+            if (widget.isCustom()) {
+                super.setMigrationStatus(widget);
+            }
             Path metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
             if (exists(metadata)) {
                 widget = objectMapper.assign(widget, readAllBytes(metadata));

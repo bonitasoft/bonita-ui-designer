@@ -16,12 +16,15 @@ package org.bonitasoft.web.designer.controller;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bonitasoft.web.designer.controller.export.Exporter;
+import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,13 +41,27 @@ public class ExportController {
         this.widgetExporter = widgetExporter;
     }
 
-    @RequestMapping(value="/export/page/{id}")
-    public void handleFileExportPage(@PathVariable("id") String id, HttpServletResponse resp) throws ServletException {
-        pageExporter.handleFileExport(id, resp);
+    @RequestMapping(value = "/export/page/{id}")
+    public ResponseEntity<String> handleFileExportPage(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
+        return handleExport(pageExporter, id, resp);
     }
 
-    @RequestMapping(value="/export/widget/{id}")
-    public void handleFileExportWidget(@PathVariable("id") String id, HttpServletResponse resp) throws ServletException {
-        widgetExporter.handleFileExport(id, resp);
+
+    @RequestMapping(value = "/export/widget/{id}")
+    public ResponseEntity<String> handleFileExportWidget(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
+        return handleExport(widgetExporter, id, resp);
+    }
+
+    protected ResponseEntity<String> handleExport(Exporter exporter, String id, HttpServletResponse resp){
+        try {
+            exporter.handleFileExport(id, resp);
+            return new ResponseEntity(String.format("%s export successfully",id), HttpStatus.OK);
+        } catch (ModelException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (NotFoundException e) {
+            return new ResponseEntity(String.format("Export failed, %s doesn't exist.", id), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity("Export failed. Check logs for more details", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

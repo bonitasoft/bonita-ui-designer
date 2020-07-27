@@ -7,7 +7,18 @@
   width: 100%;
   border-left: 7px solid transparent;
   border-collapse: collapse;
+
+  .Artifact-disabled{
+    cursor:not-allowed;
+    opacity: .70;
+  }
+
+  .Artifact-enabled{
+   cursor:pointer;
+  }
 }
+
+
 
 .ArtifactList-item:hover {
   border-left-color: @color-default-panel-item-active;
@@ -129,6 +140,11 @@
   color: @color-primary-panel-item-active;
 }
 
+.Artifact-button--primary-disabled:hover {
+  color: @color-primary-panel-item-action-icon;
+  cursor: not-allowed;
+}
+
 .Artifact-favoriteButton {
 
   &:hover {
@@ -153,12 +169,13 @@
 }
 
 .error-overlay:before {
-  content: "\f057";
-  color: @btn-bonita-primary-bg;
-  position: absolute;
-  font-size: 15px;
-  transform: translate(-100%, -180%);
-}
+   content: "\f057";
+   color: @btn-bonita-primary-bg;
+   position: absolute;
+   font-size: 15px;
+   transform: translate(-100%, -180%);
+ }
+
 
 .identicon-error-overlay:before {
   content: "\f057";
@@ -166,4 +183,36 @@
   position: absolute;
   font-size: 15px;
   transform: translate(-100%, -95%);
+}
+
+.identicon-forbidden-overlay:before {
+  content: "\f056";
+  color: @btn-bonita-primary-bg;
+  position: absolute;
+  font-size: 15px;
+  transform: translate(-100%, -95%);
+}
+
+.identicon-warning-overlay:before {
+  content: "\f071";
+  color: @color-alert-warning;
+  position: absolute;
+  font-size: 15px;
+  transform: translate(-100%, -95%);
+}
+
+.forbidden-overlay:before {
+  content: "\f056";
+  color: @btn-bonita-primary-bg;
+  position: absolute;
+  font-size: 15px;
+  transform: translate(-100%, -180%);
+}
+
+.warning-overlay:before {
+  content: "\f071";
+  color: @color-alert-warning;
+  position: absolute;
+  font-size: 15px;
+  transform: translate(-100%, -180%);
 }

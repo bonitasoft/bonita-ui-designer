@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import org.bonitasoft.web.designer.controller.ArtifactStatusResource;
 import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
@@ -29,6 +30,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.ArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -52,6 +54,8 @@ public class ArtifactImporter<T extends Identifiable> {
     private Loader<T> loader;
     private final ArtifactService<T> artifactService;
     private DependencyImporter[] dependencyImporters;
+    @Value("${designer.modelVersion}")
+    protected String modelVersion;
 
     public ArtifactImporter(Repository<T> repository, ArtifactService<T> artifactService, Loader<T> loader, DependencyImporter... dependencyImporters) {
         this.loader = loader;
@@ -78,7 +82,7 @@ public class ArtifactImporter<T extends Identifiable> {
             // first load everything
             T element = loader.load(resources.resolve(modelFile));
             if (element != null && element.getArtifactVersion() != null) {
-                MigrationStatusReport status = MigrationResource.getStatus((DesignerArtifact) element);
+                MigrationStatusReport status = ArtifactStatusResource.getStatus((DesignerArtifact) element, modelVersion);
                 if (!status.isCompatible()) {
                     ImportReport report = new ImportReport(element, null);
                     report.setStatus(ImportReport.Status.INCOMPATIBLE);

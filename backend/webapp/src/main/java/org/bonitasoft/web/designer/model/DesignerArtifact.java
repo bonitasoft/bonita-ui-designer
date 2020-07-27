@@ -18,19 +18,25 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 
-@JsonIgnoreProperties(value={"designerVersion"}, allowSetters = true)
+@JsonIgnoreProperties(value = {"designerVersion"}, allowSetters = true, ignoreUnknown = true)
 public abstract class DesignerArtifact implements Identifiable {
 
     private String modelVersion;
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     private String designerVersion;
     private String previousDesignerVersion; // used to be able to read 'old' artifacts
     private String previousArtifactVersion;
     private boolean favorite = false;
 
-    @JsonView({ JsonViewPersistence.class })
+    // This field is only in memory, we don't need to store it
+    private MigrationStatusReport status;
+
+    @JsonView({JsonViewPersistence.class})
     public String getModelVersion() {
         return modelVersion;
     }
@@ -59,7 +65,7 @@ public abstract class DesignerArtifact implements Identifiable {
         }
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getPreviousArtifactVersion() {
         return previousArtifactVersion;
     }
@@ -68,7 +74,7 @@ public abstract class DesignerArtifact implements Identifiable {
         this.previousArtifactVersion = version;
     }
 
-    @JsonView({ JsonViewPersistence.class })
+    @JsonView({JsonViewPersistence.class})
     public String getPreviousDesignerVersion() {
         return previousDesignerVersion;
     }
@@ -88,15 +94,26 @@ public abstract class DesignerArtifact implements Identifiable {
     }
 
     @Override
-    @JsonView({ JsonViewMetadata.class, JsonViewLight.class })
+    @JsonView({JsonViewMetadata.class, JsonViewLight.class})
     public boolean isFavorite() {
         return favorite;
     }
 
-    @JsonView({ JsonViewPersistence.class, JsonViewLight.class })
+    @JsonView({JsonViewPersistence.class, JsonViewLight.class})
     public abstract String getType();
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+
+    @JsonIgnore
+    public void setStatus(MigrationStatusReport status) {
+        this.status = status;
+    }
+
+    @JsonView({JsonViewLight.class})
+    public MigrationStatusReport getStatus() {
+        return this.status;
     }
 }

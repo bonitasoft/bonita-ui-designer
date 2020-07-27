@@ -16,6 +16,10 @@ package org.bonitasoft.web.designer.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Optional;
+import org.bonitasoft.web.designer.controller.ArtifactStatusResource;
+import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
@@ -24,6 +28,7 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -47,6 +52,9 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractLoader.class);
 
+    @Value("${designer.modelVersion}")
+    protected String modelVersion;
+
     private JacksonObjectMapper objectMapper;
     private Class<T> type;
 
@@ -59,6 +67,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         try {
             T artifact = objectMapper.fromJson(readAllBytes(path), type);
             Path metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
+            setMigrationStatus(artifact);
             if (exists(metadata)) {
                 artifact = objectMapper.assign(artifact, readAllBytes(metadata));
             }
@@ -80,6 +89,12 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         }
     }
 
+    protected T setMigrationStatus(T artifact) {
+        MigrationStatusReport report = ArtifactStatusResource.getStatus((DesignerArtifact) artifact, modelVersion);
+        ((DesignerArtifact) artifact).setStatus(report);
+        return artifact;
+    }
+
     @Override
     public List<T> getAll(Path directory) throws IOException {
         return getAll(directory, "[!.]*");
@@ -93,7 +108,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
                 String id = getComponentId(path);
                 Optional<T> e = tryGet(directory.resolve(format("%s/%s.json", id, id)));
                 if (e.isPresent()) {
-                    objects.add(e.get());
+                    objects.add(setMigrationStatus(e.get()));
                 } else {
                     logger.error(format("%s %s cannot be loaded, your repository may be corrupted",
                             type.getClass().getSimpleName(), id));

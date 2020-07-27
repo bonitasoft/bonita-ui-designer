@@ -26,13 +26,19 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bonitasoft.web.designer.controller.ArtifactStatusResource;
+import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.ArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 public class Exporter<T extends DesignerArtifact> {
 
@@ -40,6 +46,9 @@ public class Exporter<T extends DesignerArtifact> {
 
     private final ExportStep<T>[] exportSteps;
     private final ArtifactService<T> artifactService;
+
+    @Value("${designer.modelVersion}")
+    protected String modelVersion;
 
     private Repository<T> repository;
 
@@ -49,7 +58,7 @@ public class Exporter<T extends DesignerArtifact> {
         this.exportSteps = exportSteps;
     }
 
-    public void handleFileExport(String id, HttpServletResponse resp) throws ServletException {
+    public void handleFileExport(String id, HttpServletResponse resp) throws Exception {
         if (isBlank(id)) {
             throw new IllegalArgumentException("Id is needed to successfully export a component");
         }
@@ -62,8 +71,16 @@ public class Exporter<T extends DesignerArtifact> {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); Zipper zipper = new Zipper(outputStream)) {
             //The outputStream scope is local in the try-with-resource-block
             zipStream = outputStream;
-
             T identifiable = artifactService.get(id);
+            if (identifiable.getStatus() == null) {
+                identifiable.setStatus(ArtifactStatusResource.getStatus(identifiable, modelVersion));
+            }
+
+            if (!identifiable.getStatus().isCompatible()) {
+                String errorMessage = String.format("%s export failed. A newer UI Designer version is required.", identifiable.getName());
+                throw new ModelException(errorMessage);
+            }
+
             filename = getFileName(identifiable);
 
             // add json model
@@ -75,6 +92,9 @@ public class Exporter<T extends DesignerArtifact> {
             }
 
         } catch (Exception e) {
+            if (e instanceof ModelException) {
+                throw e;
+            }
             logger.error(format("Technical error on zip creation %s with id %s", repository.getComponentName(), id), e);
             throw new ExportException(e);
         }

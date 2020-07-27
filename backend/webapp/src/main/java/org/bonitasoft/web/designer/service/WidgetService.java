@@ -106,7 +106,7 @@ public class WidgetService implements ArtifactService {
         List<MigrationStatusReport> reports = new ArrayList<>();
         widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
                 .forEach(widget -> {
-                    MigrationStatusReport report = MigrationResource.getStatus(widget);
+                    MigrationStatusReport report = widget.getStatus();
                     reports.add(report);
                 });
 

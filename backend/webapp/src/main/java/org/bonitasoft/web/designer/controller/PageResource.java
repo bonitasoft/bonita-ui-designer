@@ -27,16 +27,20 @@ import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMo
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
@@ -73,12 +77,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.google.common.base.Optional;
-
 @RestController
 @RequestMapping("/rest/pages")
 public class PageResource extends AssetResource<Page> {
@@ -103,7 +101,7 @@ public class PageResource extends AssetResource<Page> {
             AssetService<Page> pageAssetService,
             AssetVisitor assetVisitor,
             ComponentVisitor componentVisitor, AuthRulesCollector authRulesCollector) {
-        super(pageAssetService, pageRepository, assetVisitor, Optional.of(messagingTemplate));
+        super(pageAssetService, pageRepository, assetVisitor, com.google.common.base.Optional.of(messagingTemplate));
         this.pageRepository = pageRepository;
         this.messagingTemplate = messagingTemplate;
         this.contractToPageMapper = contractToPageMapper;
@@ -160,6 +158,11 @@ public class PageResource extends AssetResource<Page> {
         String newPageId;
         try {
             Page currentPage = pageService.get(pageId);
+            Optional<ResponseEntity<Object>> objectResponseEntity = checkIfPageCompatible(currentPage);
+            if (objectResponseEntity.isPresent()) {
+                return (ResponseEntity) objectResponseEntity.get();
+            }
+
             if (currentPage.getName().equals(page.getName())) {
                 // the page should have the same ID as pageId.
                 newPageId = pageId;
@@ -203,6 +206,12 @@ public class PageResource extends AssetResource<Page> {
     public ResponseEntity<Void> rename(HttpServletRequest request, @PathVariable("pageId") String pageId,
                                        @RequestBody String name) throws RepositoryException {
         Page page = pageService.get(pageId);
+
+        Optional<ResponseEntity<Object>> objectResponseEntity = checkIfPageCompatible(page);
+        if (objectResponseEntity.isPresent()) {
+            return (ResponseEntity) objectResponseEntity.get();
+        }
+
         ResponseEntity<Void> responseEntity;
         if (!page.getName().equals(name)) {
             String newPageId = pageRepository.getNextAvailableId(name);
@@ -232,9 +241,15 @@ public class PageResource extends AssetResource<Page> {
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.GET)
-    public MappingJacksonValue get(@PathVariable("pageId") String pageId)
+    public ResponseEntity<Object> get(@PathVariable("pageId") String pageId)
             throws NotFoundException, RepositoryException {
         Page page = pageService.get(pageId);
+
+        Optional<ResponseEntity<Object>> objectResponseEntity = checkIfPageCompatible(page);
+        if (objectResponseEntity.isPresent()) {
+            return objectResponseEntity.get();
+        }
+
         page.setAssets(assetVisitor.visit(page));
 
         FilterProvider filters = new SimpleFilterProvider()
@@ -242,7 +257,8 @@ public class PageResource extends AssetResource<Page> {
         MappingJacksonValue mapping = new MappingJacksonValue(page);
         mapping.setFilters(filters);
 
-        return mapping;
+
+        return new ResponseEntity<>(mapping, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{pageId}", method = RequestMethod.DELETE)
@@ -328,7 +344,18 @@ public class PageResource extends AssetResource<Page> {
     }
 
     private Predicate<? super Component> withId(String id) {
-        return component -> Objects.equals(id,component.getId());
+        return component -> Objects.equals(id, component.getId());
+    }
+
+    private Optional<ResponseEntity<Object>> checkIfPageCompatible(Page page) {
+        if (page.getStatus() != null && !page.getStatus().isCompatible()) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.TEXT_PLAIN);
+            return Optional.of(
+                    new ResponseEntity(String.format("Page %s is in an incompatible version. Newer UI Designer version is required.", page.getId()),
+                    headers, HttpStatus.UNPROCESSABLE_ENTITY));
+        }
+        return Optional.empty();
     }
 
 }

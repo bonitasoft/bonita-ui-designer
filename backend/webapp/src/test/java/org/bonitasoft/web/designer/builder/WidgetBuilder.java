@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.builder;
 
 import com.google.common.collect.Sets;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.joda.time.Instant;
@@ -40,6 +41,7 @@ public class WidgetBuilder {
     private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
+    private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true,true);
 
     public static WidgetBuilder aWidget() {
         return new WidgetBuilder();
@@ -134,6 +136,21 @@ public class WidgetBuilder {
         return this;
     }
 
+    public WidgetBuilder withMigrationStatusReport(MigrationStatusReport migrationStatusReport){
+        this.migrationStatusReport = migrationStatusReport;
+        return this;
+    }
+
+    public WidgetBuilder isCompatible(boolean compatible){
+        this.migrationStatusReport.setCompatible(compatible);
+        return this;
+    }
+
+    public WidgetBuilder isMigration(boolean migration){
+        this.migrationStatusReport.setMigration(migration);
+        return this;
+    }
+
     public Widget build() {
         Widget widget = new Widget();
         widget.setId(id);
@@ -154,6 +171,7 @@ public class WidgetBuilder {
         if (controller != null) {
             widget.setController(controller);
         }
+        widget.setStatus(migrationStatusReport);
 
         if (assetBuilders != null) {
             for (AssetBuilder assetBuilder : assetBuilders) {

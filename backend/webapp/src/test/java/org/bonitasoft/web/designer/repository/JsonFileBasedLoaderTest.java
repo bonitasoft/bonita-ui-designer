@@ -43,6 +43,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedLoaderTest {
@@ -54,14 +55,12 @@ public class JsonFileBasedLoaderTest {
     private JacksonObjectMapper objectMapper;
     private JsonFileBasedLoader<SimpleDesignerArtifact> loader;
 
-    @Mock
-    private BeanValidator validator;
-
     @Before
     public void setUp() throws IOException {
         repoDirectory = temporaryFolder.newFolderPath("jsonrepository");
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         loader = new JsonFileBasedLoader<>(objectMapper, SimpleDesignerArtifact.class);
+        ReflectionTestUtils.setField(loader, "modelVersion", "2.0");
     }
 
     private void addToRepository(SimpleDesignerArtifact... pages) throws Exception {

@@ -21,6 +21,7 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -54,7 +55,8 @@ public class PageTest {
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
                 + "\"favorite\": true,"
-                + "\"hasValidationError\": false"
+                + "\"hasValidationError\": false,"
+                + "\"status\": {compatible:true, migration:true}"
                 + "}", false);
     }
 
@@ -141,6 +143,7 @@ public class PageTest {
         page.setUUID("UUID");
         page.setFavorite(true);
         page.setName("myPage");
+        page.setStatus(new MigrationStatusReport());
         return page;
     }
 }

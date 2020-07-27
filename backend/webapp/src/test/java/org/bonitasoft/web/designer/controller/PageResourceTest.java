@@ -34,24 +34,11 @@ import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.notNull;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -66,6 +53,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.fasterxml.jackson.core.FakeJsonProcessingException;
+import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
@@ -105,9 +94,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import com.fasterxml.jackson.core.FakeJsonProcessingException;
-import com.google.common.collect.Sets;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -361,9 +347,12 @@ public class PageResourceTest {
                 .andExpect(status().isInternalServerError());
     }
 
+
+
     @Test
     public void should_retrieve_a_page_representation_by_its_id() throws Exception {
         Page expectedPage = aFilledPage("my-page");
+        expectedPage.setStatus(new MigrationStatusReport(true, true));
         when(pageService.get("my-page")).thenReturn(expectedPage);
 
         mockMvc
@@ -380,6 +369,31 @@ public class PageResourceTest {
 
         mockMvc.perform(get("/rest/pages/my-page")).andExpect(status().isNotFound());
     }
+
+    @Test
+    public void should_respond_422_on_load_when_page_is_incompatible() throws Exception {
+        Page expectedPage = aFilledPage("my-page");
+        expectedPage.setStatus(new MigrationStatusReport(false, true));
+        when(pageService.get("my-page")).thenReturn(expectedPage);
+
+        mockMvc.perform(get("/rest/pages/my-page")).andExpect(status().is(422));
+    }
+
+    @Test
+    public void should_respond_422_on_save_when_page_is_incompatible() throws Exception {
+        Page pageToBeSaved = mockPageOfId("my-page");
+        pageToBeSaved.setStatus(new MigrationStatusReport(false,true));
+        ResultActions result = mockMvc
+                .perform(
+                        put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
+                                convertObjectToJsonBytes(pageToBeSaved)))
+                .andExpect(status().is(422));
+
+        verify(pageRepository, never()).updateLastUpdateAndSave(pageToBeSaved);
+
+        Assert.assertEquals(MediaType.TEXT_PLAIN.toString(), result.andReturn().getResponse().getContentType());
+    }
+
 
     @Test
     public void should_respond_404_not_found_when_delete_inexisting_page() throws Exception {
@@ -593,6 +607,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets_while_getting_a_page() throws Exception {
         Page page = mockPageOfId("my-page");
+        page.setStatus(new MigrationStatusReport(true, true));
         Asset[] assets = new Asset[]{
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
@@ -866,6 +881,7 @@ public class PageResourceTest {
         page.setName("page");
         page.setLastUpdate(new Instant(1514989634397L));
         page.setRows(new ArrayList<>());
+        page.setStatus(new MigrationStatusReport());
 
         when(pageService.get("id")).thenReturn(page);
 

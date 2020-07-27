@@ -158,6 +158,24 @@
        */
       this.$timeout(() => this.editionIndex = undefined, 100);
     }
+
+    getTooltipMessage(artifact) {
+      if (artifact.status && !artifact.status.compatible) {
+        return this.gettextCatalog.getString(`Not compatible with current UI Designer version. To open it, use a newer version of UI Designer.`);
+      } else if (artifact.status && artifact.status.migration) {
+        return this.gettextCatalog.getString(`Created with an older version of UI Designer. Open it for more details.`);
+      } else if (artifact.hasValidationError) {
+        return this.gettextCatalog.getString('Validation error. Fix is recommended before export');
+      } else {
+        return artifact.type;
+      }
+    }
+
+    openArtifact(artifact) {
+      if (!artifact.status || artifact.status.compatible) {
+        window.location = artifact.editionUrl;
+      }
+    }
   }
 
   angular.module('bonitasoft.designer.home').directive('artifactList', () => ({

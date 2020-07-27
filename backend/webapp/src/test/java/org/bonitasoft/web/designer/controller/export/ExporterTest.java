@@ -28,8 +28,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
+import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -43,6 +45,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExporterTest {
@@ -68,6 +71,7 @@ public class ExporterTest {
         when(pageRepository.getComponentName()).thenReturn("page");
 
         exporter = new Exporter<>(pageRepository, pageService, mock(ExportStep.class));
+        ReflectionTestUtils.setField(exporter, "modelVersion", "2.0");
     }
 
     private Page create(Page page) throws IOException {
@@ -115,6 +119,13 @@ public class ExporterTest {
         exporter.handleFileExport(page.getId(), response);
 
         assertThat(response.getContentType()).isEqualTo("application/zip");
+    }
+
+    @Test(expected = ModelException.class)
+    public void should_failed_when_page_is_not_compatible_with_product_model_version() throws Exception {
+        Page page = create(aPage().withModelVersion("5.0").isCompatible(false).build());
+
+        exporter.handleFileExport(page.getId(), response);
     }
 
     @Test

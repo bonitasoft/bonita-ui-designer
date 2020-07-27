@@ -67,7 +67,6 @@ public class WidgetServiceTest {
     @Before
     public void setUp() throws Exception {
         widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, widgetIdVisitor);
-        MigrationResource.MODEL_VERSION = "2.0";
     }
 
     @Test
@@ -167,7 +166,7 @@ public class WidgetServiceTest {
     public void should_get_correct_migration_status_when_dependency_is_not_compatible() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         Widget widget1 = aWidget().id("widget1").designerVersion("1.10.0").build();
-        Widget widget2 = aWidget().id("widget2").modelVersion("2.1").build(); //incompatible
+        Widget widget2 = aWidget().id("widget2").modelVersion("2.1").isCompatible(false).isMigration(false).build(); //incompatible
         Set<String> ids = new HashSet<>(Arrays.asList("widget1", "widget2"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget1, widget2));
         when(widgetIdVisitor.visit(page)).thenReturn(ids);
@@ -178,7 +177,7 @@ public class WidgetServiceTest {
 
     @Test
     public void should_get_correct_migration_status_when_dependency_is_not_to_migrate() throws Exception {
-        Widget widget = aWidget().id("widget").designerVersion("2.0").build();
+        Widget widget = aWidget().id("widget").designerVersion("2.0").isCompatible(true).isMigration(false).build();
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         Set<String> ids = new HashSet<>(Arrays.asList("widget"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget));

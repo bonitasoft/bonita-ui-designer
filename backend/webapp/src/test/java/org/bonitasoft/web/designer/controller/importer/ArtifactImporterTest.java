@@ -27,7 +27,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.bonitasoft.web.designer.controller.ArtifactStatusResource;
 import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
@@ -45,6 +47,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -86,7 +89,6 @@ public class ArtifactImporterTest {
 
     @Before
     public void setUp() throws IOException {
-        ReflectionTestUtils.setField(migrationResource, "MODEL_VERSION", "2.0");
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
         DependencyImporter widgetDependencyImporter = new WidgetImporter(widgetLoader, widgetRepository, mock(AssetImporter.class));
@@ -101,6 +103,7 @@ public class ArtifactImporterTest {
 
         wMocks = new WidgetImportMock(pageUnzippedPath, widgetLoader, widgetRepository);
         pMocks = new PageImportMock(pageUnzippedPath, pageLoader);
+        pageImporter.modelVersion = "2.0";
     }
 
     @Test
@@ -290,6 +293,7 @@ public class ArtifactImporterTest {
         page.setName("myPage");
         page.setId("myPage");
         page.setModelVersion("12.0.0");
+        page.setStatus(new MigrationStatusReport(false,false));
         when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
         Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
 

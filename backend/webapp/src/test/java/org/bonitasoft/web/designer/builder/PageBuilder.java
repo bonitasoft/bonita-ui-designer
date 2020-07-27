@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.builder;
 
 import com.google.common.base.Function;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.data.Data;
@@ -25,6 +26,7 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
@@ -54,6 +56,7 @@ public class PageBuilder {
     private String previousArtifactVersion;
     private boolean favorite = false;
     private String type;
+    private MigrationStatusReport migrationStatusReport = new MigrationStatusReport();
 
     private PageBuilder() {
     }
@@ -175,6 +178,20 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withMigrationStatusReport(MigrationStatusReport migrationStatusReport) {
+        this.migrationStatusReport = migrationStatusReport;
+        return this;
+    }
+
+    public PageBuilder isCompatible(boolean compatible) {
+        this.migrationStatusReport.setCompatible(compatible);
+        return this;
+    }
+
+    public PageBuilder isMigration(boolean migration) {
+        this.migrationStatusReport.setMigration(migration);
+        return this;
+    }
 
     public Page build() {
         Page page = new Page();
@@ -193,6 +210,8 @@ public class PageBuilder {
         } else {
             page.setPreviousDesignerVersion(previousDesignerVersion);
         }
+        page.setStatus(migrationStatusReport);
+
         page.setFavorite(favorite);
 
         if (type != null) {

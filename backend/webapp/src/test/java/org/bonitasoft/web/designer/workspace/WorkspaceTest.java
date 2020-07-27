@@ -89,9 +89,10 @@ public class WorkspaceTest {
                 new WidgetFileBasedLoader(jacksonObjectMapper),
                 validator,
                 mock(Watcher.class));
-
-        workspace = new Workspace(pathResolver, widgetRepository, new WidgetFileBasedLoader(jacksonObjectMapper), widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
+        WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
+        workspace = new Workspace(pathResolver, widgetRepository, widgetLoader, widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
         ReflectionTestUtils.setField(workspace, "modelVersion", CURRENT_MODEL_VERSION);
+        ReflectionTestUtils.setField(widgetLoader, "modelVersion", CURRENT_MODEL_VERSION);
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {

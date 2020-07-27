@@ -30,7 +30,10 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
         alerts.addError(rejection.data.message);
       } else if (rejection.status === 500 && rejection.config.url.includes('bdm')) {
         $log.log('Unable to access business data. Restart Bonita Studio and try again.');
-      }else if (EXCLUSION_PATTERNS.some(function(v) {
+      } else if (rejection.status === 422) {
+        alerts.addError(rejection.data);
+        $log.log(rejection.data);
+      } else if (EXCLUSION_PATTERNS.some(function(v) {
         return rejection.config.url.indexOf(v) < 0;
       })) {
         alerts.addError('Unexpected server error');
