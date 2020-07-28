@@ -17,7 +17,7 @@
 
   class AssetEditPopupCtrl {
 
-    constructor(asset, component, aceMode, $uibModalInstance, assetRepo, assetErrorManagement, $scope, keyBindingService) {
+    constructor(asset, component, aceMode, $uibModalInstance, assetRepo, assetErrorManagement, $scope, $rootScope, keyBindingService) {
       this.asset = asset;
       this.component = component;
       this.$uibModalInstance = $uibModalInstance;
@@ -36,6 +36,12 @@
         // prevent default browser action
         return false;
       });
+
+      $scope.$on('$destroy', function() {
+        keyBindingService.unbind(['ctrl+s', 'command+s']);
+        $rootScope.$emit('popup_editor_destroyed');
+      });
+
     }
 
     save() {
