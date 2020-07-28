@@ -1,0 +1,113 @@
+{
+  "designerVersion": "1.5-SNAPSHOT",
+  "id": "chart",
+  "name": "chart",
+  "type": "page",
+  "lastUpdate": 1440580270132,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 6,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "type": {
+            "type": "constant",
+            "value": "Doughnut"
+          },
+          "data": {
+            "type": "expression",
+            "value": "singleSerieData"
+          },
+          "labels": {
+            "type": "constant",
+            "value": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ]
+          }
+        },
+        "reference": "c50f803e-421b-44d1-a2b1-6ecc798140a8",
+        "id": "pbChart"
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "lg": 12,
+          "md": 12,
+          "sm": 12,
+          "xs": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          },
+          "type": {
+            "type": "constant",
+            "value": "Bar"
+          },
+          "data": {
+            "type": "expression",
+            "value": "multiSeriesData"
+          },
+          "labels": {
+            "type": "constant",
+            "value": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July"
+            ]
+          }
+        },
+        "reference": "2de3ca03-79ea-4f78-a0ac-97d735e5d974",
+        "id": "pbChart"
+      }
+    ]
+  ],
+  "assets": [],
+  "inactiveAssets": [],
+  "variables": {
+    "singleSerieData": {
+      "type": "json",
+      "value": [
+        "[65, 59, 80, 81, 56, 55, 40]"
+      ],
+      "exposed": false
+    },
+    "multiSeriesData": {
+      "type": "json",
+      "value": [
+        "[\n    [65, 59, 80, 81, 56, 55, 40],\n    [165, 159, 180, 181, 156, 155, 140]\n]"
+      ],
+      "exposed": false
+    }
+  }
+}
