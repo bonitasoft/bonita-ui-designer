@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $rootScope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -19,25 +19,38 @@
       this.pristine = true;
       this.dirty = false;
       this.scope = $scope;
+      this.rootScope = $rootScope;
       this.artifactNamingValidatorService = artifactNamingValidatorService;
       this.artifacts = [];
+      this.keyBindingService = keyBindingService;
+      this.scope = $scope;
 
       // load all artifact with same type
       artifactStore.load().then((artifacts) => this.artifacts = artifacts.filter(item => item.type === this.page.type));
 
-      keyBindingService.bindGlobal(['ctrl+s', 'command+s'], () => {
-        $scope.$apply(() => this.save(this.page));
-        // prevent default browser action
-        return false;
-      });
+      this.saveKeyBindings();
 
       $scope.$on('$destroy', function() {
         keyBindingService.unbind(['ctrl+s', 'command+s']);
       });
 
+      $rootScope.$on('popup_editor_destroyed', () => {
+        // popup editor (e.g. asset editor) reset the save key bindings, so we have to set it again here
+        this.saveKeyBindings();
+      });
+
       dataManagementRepo.getDataObjects().then(data => {
         this.businessDataRepositoryOffline = data.error;
       });
+    }
+
+    saveKeyBindings() {
+      this.keyBindingService.bindGlobal(['ctrl+s', 'command+s'], () => {
+        this.scope.$apply(() => this.save(this.page));
+        // prevent default browser action
+        return false;
+      });
+
     }
 
     back() {
