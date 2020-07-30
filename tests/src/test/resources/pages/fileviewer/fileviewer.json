@@ -1,0 +1,229 @@
+{
+  "designerVersion" : "1.5.7",
+  "id" : "fileviewer",
+  "name" : "fileviewer",
+  "type" : "form",
+  "lastUpdate" : 1508419602229,
+  "rows" : [ [ {
+    "type" : "formContainer",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : { },
+    "reference" : "1f6fd3fb-ad2e-4353-9ec4-5dea9e441611",
+    "id" : "pbFormContainer",
+    "container" : {
+      "type" : "container",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : { },
+      "reference" : "39059aee-366f-435f-91a1-a64670692a11",
+      "id" : "pbContainer",
+      "rows" : [ [ {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "Process document"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "document" : {
+            "type" : "variable",
+            "value" : "doc_image"
+          },
+          "showPreview" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "17b586cf-a941-4f08-bf42-e95f1c07364c",
+        "id" : "pbFileViewer"
+      } ] ]
+    }
+  }, {
+    "type" : "formContainer",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : { },
+    "reference" : "1f6fd3fb-ad2e-4353-9ec4-5dea9e441633",
+    "id" : "pbFormContainer",
+    "container" : {
+      "type" : "container",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : { },
+      "reference" : "39059aee-366f-435f-91a1-a64670692a33",
+      "id" : "pbContainer",
+      "rows" : [ [ {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "Process document"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "document" : {
+            "type" : "variable",
+            "value" : "doc_pdf"
+          },
+          "showPreview" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "5af7217a-db18-43ee-99f4-9446dbbce9cb",
+        "id" : "pbFileViewer"
+      } ] ]
+    }
+  }, {
+    "type" : "formContainer",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : { },
+    "reference" : "1f6fd3fb-ad2e-4353-9ec4-5dea9e4416de",
+    "id" : "pbFormContainer",
+    "container" : {
+      "type" : "container",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : { },
+      "reference" : "39059aee-366f-435f-91a1-a64670692ab9",
+      "id" : "pbContainer",
+      "rows" : [ [ {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "Process document"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "document" : {
+            "type" : "variable",
+            "value" : "doc_unknown"
+          },
+          "showPreview" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "f1cc0e6a-6203-4a3c-b7ae-a83af3e19e2f",
+        "id" : "pbFileViewer"
+      } ] ]
+    }
+  } ] ],
+  "assets" : [ {
+    "id" : "cf98f569-0695-4597-ad28-ad606bbce563",
+    "name" : "style.css",
+    "type" : "css",
+    "order" : 1,
+    "external" : false
+  } ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "taskId" : {
+      "type" : "urlparameter",
+      "value" : [
+        "id"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {\n\n};"
+      ],
+      "exposed" : false
+    },
+    "task" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}"
+      ],
+      "exposed" : false
+    },
+    "doc_unknown" : {
+      "type" : "json",
+      "value" : [
+        "{ \"id\": 3, \"processInstanceId\": 2001, \"name\": \"doc\", \"author\": 4, \"creationDate\": 1464016052929, \"fileName\": \"System--1.0.bar\", \"contentMimeType\": \"application/octet-stream\", \"contentStorageId\": \"3\", \"url\": \"documentDownload?fileName=System--1.0.bar&contentStorageId=3\", \"description\": \"\", \"version\": \"1\", \"index\": -1, \"contentFileName\": \"System--1.0.bar\" }"
+      ],
+      "exposed" : false
+    },
+    "doc_image" : {
+      "type" : "json",
+      "value" : [
+        "{ \"id\": 2, \"processInstanceId\": 2001, \"name\": \"doc\", \"author\": 4, \"creationDate\": 1464016052929, \"fileName\": \"bonita.jpg\", \"contentMimeType\": \"application/octet-stream\", \"contentStorageId\": \"2\", \"url\": \"documentDownload?fileName=bonita.jpg&contentStorageId=2\", \"description\": \"\", \"version\": \"1\", \"index\": -1, \"contentFileName\": \"bonita.jpg\" }"
+      ],
+      "exposed" : false
+    },
+    "doc_pdf" : {
+      "type" : "json",
+      "value" : [
+        "{ \"id\": 1, \"processInstanceId\": 2001, \"name\": \"doc\", \"author\": 4, \"creationDate\": 1464016052929, \"fileName\": \"Howto.pdf\", \"contentMimeType\": \"application/pdf\", \"contentStorageId\": \"1\", \"url\": \"documentDownload?fileName=Howto.pdf&contentStorageId=1\", \"description\": \"\", \"version\": \"1\", \"index\": -1, \"contentFileName\": \"Howto.pdf\" }"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{ }"
+      ],
+      "exposed" : false
+    }
+  }
+}

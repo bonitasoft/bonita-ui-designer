@@ -1,0 +1,8 @@
+<div class="text-{{ properties.alignment }}">
+    <button ng-class="'btn btn-' + properties.buttonStyle" ng-click="ctrl.saveInLocalStorage()" type="button"
+            ng-disabled="properties.disabled || !ctrl.isStorageAvailable()">
+        <span
+            ng-class="{glyphicon:true, 'glyphicon-floppy-disk':!ctrl.saving, 'glyphicon-floppy-saved':ctrl.saving}"></span>
+        <ng-bind-html ng-bind-html="properties.label | uiTranslate"></ng-bind-html>
+    </button>
+</div>
