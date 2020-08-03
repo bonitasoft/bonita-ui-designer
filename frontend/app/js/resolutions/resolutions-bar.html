@@ -1,0 +1,9 @@
+<button
+    ng-class="{'btn-bonita-primary': r.key === vm.currentResolution.key}"
+    ng-click="vm.update(r)"
+    class="btn btn-bonita-default"
+    aria-label="{{::r.tooltip}}"
+    ng-repeat="r in vm.resolutions track by $index"
+    uib-tooltip="{{::r.tooltip|translate}}"
+    tooltip-placement="bottom"
+    tooltip-append-to-body="true"><i class="fa fa-{{r.icon}}"></i></button>

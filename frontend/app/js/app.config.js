@@ -27,7 +27,39 @@
   angular.module('uidesigner', ['bonitasoft.designer'])
     .value('isIE9', isIE9)
     .config(configureModule)
-    .run(($rootScope, $uibModalStack) => {
+    .run(($rootScope, $uibModalStack, resolutions, gettext) => {
+      resolutions.registerResolutions([
+        {
+          key: 'xs',
+          label: 'Phone',
+          icon: 'mobile',
+          width: 320,
+          tooltip: gettext('Extra Small devices (width \u003C 768px)')
+        },
+        {
+          key: 'sm',
+          label: 'Tablet',
+          icon: 'tablet',
+          width: 768,
+          tooltip:  gettext('Small devices (width \u2265 768px)')
+        },
+        {
+          key: 'md',
+          label: 'Desktop',
+          icon: 'laptop',
+          width: 992,
+          tooltip:  gettext('Medium devices (width \u2265 992px)')
+        },
+        {
+          key: 'lg',
+          label: 'Large desktop',
+          icon: 'desktop',
+          width: 1200,
+          tooltip:  gettext('Large devices (width \u2265 1200px)')
+        }
+      ]);
+      resolutions.setDefaultResolution('md');
+      resolutions.setDefaultDimension({ xs: 12, sm: 12, md: 12, lg: 12 });
 
       // Close modals on location changes
       $rootScope.$on('$locationChangeStart', () => $uibModalStack.dismissAll());

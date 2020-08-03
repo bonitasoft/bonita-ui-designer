@@ -217,6 +217,6 @@ describe('editor test', function() {
     $('.btn-bonita-help').click();
 
     expect($('.modal-header .modal-title').getText()).toBe('Help');
-    expect($('#help-responsiveness').isPresent()).toBeFalsy();
+    expect($('#help-responsiveness').isPresent()).toBeTruthy();
   });
 });

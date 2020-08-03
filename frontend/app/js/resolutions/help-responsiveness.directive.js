@@ -13,32 +13,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 (function() {
-
   'use strict';
 
-  angular.module('bonitasoft.designer', [
-    'bonitasoft.designer.route',
-    'bonitasoft.designer.preview',
-    'bonitasoft.designer.home',
-    'bonitasoft.designer.custom-widget',
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.directives',
-    'bonitasoft.designer.common.filters',
-    'bonitasoft.designer.editor',
-    'bonitasoft.designer.templates',
-    'bonitasoft.designer.assets',
-    'bonitasoft.designer.resolution',
-    'ngSanitize',
-    'ui.router',
-    'ui.bootstrap',
-    'ui.ace',
-    'org.bonitasoft.dragAndDrop',
-    'gettext',
-    'ngUpload',
-    'ngCookies',
-    'ngAnimate',
-    'angularMoment',
-    'angularResizable'
-  ]);
-})();
+  angular
+    .module('bonitasoft.designer.resolution')
+    .directive('uidResponsiveHelpTab', () => ({
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'js/resolutions/help-responsiveness.html'
+      }));
+}());

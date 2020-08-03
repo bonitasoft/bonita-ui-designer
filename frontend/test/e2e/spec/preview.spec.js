@@ -6,8 +6,11 @@ describe('preview test', function() {
     var preview = Preview.getPage('person-page');
 
     // then we should have an iframe with a desktop width
-    expect(preview.iframeWidth).toBe('100%');
+    expect(preview.iframeWidth).toBe('992');
     expect(preview.iframeSrc).toContain('preview/page/no-app-selected/person-page');
+
+    $('i.fa-mobile').click();
+    expect(preview.iframeWidth).toBe('320');
 
   });
 });
