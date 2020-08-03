@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-07-30 01:31\n"
+"PO-Revision-Date: 2020-08-03 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -227,6 +227,9 @@ msgstr ""
 msgid "A server error occurred."
 msgstr ""
 
+msgid "A single entry will be created in the LocalStorage identified by the form URL."
+msgstr ""
+
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr ""
 
@@ -361,6 +364,9 @@ msgstr "Qualquer botão pode fechar um container modal que o contém quando um s
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr ""
 
+msgid "Any variable: myData or myData.attribute."
+msgstr ""
+
 msgid "Application URL token"
 msgstr "Token da aplicação"
 
@@ -467,6 +473,9 @@ msgid "Because of this change, if you receive a fragment, rename it and then sha
 msgstr "Por causa desta alteração, se você receber um fragmento, renomeá-lo e depois compartilhá-lo de volta, ele será considerado como um novo arquivo pelos outros Projetos Bonita ou Designers de UI."
 
 msgid "Bidirectional bond"
+msgstr ""
+
+msgid "Bind the <em>formInput</em> variable of your form."
 msgstr ""
 
 msgid "Bind the filter variable to the Data table widget Filter property."
@@ -766,6 +775,9 @@ msgstr ""
 
 msgid "Data Management"
 msgstr "Gerenciamento de dados"
+
+msgid "Data saved on click. You might bind it to the variable you use to initialize your form, e.g. 'formInput'"
+msgstr ""
 
 msgid "Data sent on click"
 msgstr ""
@@ -1072,6 +1084,9 @@ msgstr "Para solicitações HTTP e Iniciar processo / Enviar tarefas, você pode
 
 msgid "For HTTP requests, the following methods are supported:"
 msgstr "Para solicitações HTTP, os seguintes métodos são suportados:"
+
+msgid "For Instance to let users save the draft of the current form:"
+msgstr ""
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "Para uma resposta de erro, o valor da mensagem é 'erro' e a propriedade <em>dataFromSuccess</em> é substituída por uma propriedade <em>dataFromError</em>"
@@ -1850,11 +1865,20 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+msgid "Save a variable to the LocalStorage"
+msgstr ""
+
 msgid "Save as ..."
 msgstr ""
 
 msgid "Save as..."
 msgstr "Salvar Como..."
+
+msgid "Save data to / Load data from LocalStorage."
+msgstr ""
+
+msgid "Save draft"
+msgstr ""
 
 msgid "Save {{ctrl.page.name}} as..."
 msgstr ""
@@ -2730,6 +2754,9 @@ msgstr "Quando uma linha é excluída, as linhas seguintes são movidas para cim
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr ""
 
+msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
+msgstr ""
+
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr ""
 
@@ -2892,6 +2919,9 @@ msgstr ""
 
 msgid "form"
 msgstr "formulário"
+
+msgid "formInput"
+msgstr ""
 
 msgid "formatted String variables"
 msgstr "variáveis de caracteres formatadas"

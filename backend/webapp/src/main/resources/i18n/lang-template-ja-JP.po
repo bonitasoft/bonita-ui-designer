@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-07-30 01:29\n"
+"PO-Revision-Date: 2020-08-03 01:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -225,6 +225,9 @@ msgstr "プロパティの値は、コンスタント、動的な値、双方向
 msgid "A server error occurred."
 msgstr "サーバーエラーが発生しました。"
 
+msgid "A single entry will be created in the LocalStorage identified by the form URL."
+msgstr ""
+
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr "JavaScript 式で初期化される変数は、ページが読み込まれたときに実行されます。その後、その依存関係の 1 つが変更されたときは、その値が更新されます。<code>$data.XXX</code> を使用して、依存関係が作成されます。"
 
@@ -358,6 +361,9 @@ msgstr ""
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "任意の変数： <i>myData</i> または <i>myData.attribute</i>"
 
+msgid "Any variable: myData or myData.attribute."
+msgstr ""
+
 msgid "Application URL token"
 msgstr "アプリケーション URL トークン"
 
@@ -465,6 +471,9 @@ msgstr ""
 
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
+
+msgid "Bind the <em>formInput</em> variable of your form."
+msgstr ""
 
 msgid "Bind the filter variable to the Data table widget Filter property."
 msgstr ""
@@ -762,6 +771,9 @@ msgid "Data"
 msgstr ""
 
 msgid "Data Management"
+msgstr ""
+
+msgid "Data saved on click. You might bind it to the variable you use to initialize your form, e.g. 'formInput'"
 msgstr ""
 
 msgid "Data sent on click"
@@ -1069,6 +1081,9 @@ msgstr "HTTP リクエストやプロセスを開始 / タスクを送信に対�
 
 msgid "For HTTP requests, the following methods are supported:"
 msgstr "HTTP リクエストに対しては、次の方法がサポートされています："
+
+msgid "For Instance to let users save the draft of the current form:"
+msgstr ""
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "エラー応答のメッセージの値は、 'error'、そして、プロパティ <em>dataFromSuccess</em> は、プロパティ <em>dataFromError</em> に置き換えられます。"
@@ -1848,10 +1863,19 @@ msgstr "行"
 msgid "Save"
 msgstr "保存"
 
+msgid "Save a variable to the LocalStorage"
+msgstr ""
+
 msgid "Save as ..."
 msgstr "別名で保存..."
 
 msgid "Save as..."
+msgstr ""
+
+msgid "Save data to / Load data from LocalStorage."
+msgstr ""
+
+msgid "Save draft"
 msgstr ""
 
 msgid "Save {{ctrl.page.name}} as..."
@@ -2720,6 +2744,9 @@ msgstr "行を削除したら、それに続く行が上に移動します"
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Studio内のコントラクトをベースにフォームを生成した場合は、そのフォームには送信ボタンといくつかのデフォルト変数： <code>formInput</code>、 <code>formOutput</code>、 <code>taskId</code>、 および <code>context</code> が含まれます。"
 
+msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
+msgstr ""
+
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "ここの businessDataType は com.company.model.MyData、 queryName は BDM クエリ名、 filter は \"myParam=myValue\" です。"
 
@@ -2880,6 +2907,9 @@ msgid "expression or variable"
 msgstr "式または変数"
 
 msgid "form"
+msgstr ""
+
+msgid "formInput"
 msgstr ""
 
 msgid "formatted String variables"

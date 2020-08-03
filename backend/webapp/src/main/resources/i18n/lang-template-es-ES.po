@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-07-30 01:28\n"
+"PO-Revision-Date: 2020-08-03 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -225,6 +225,9 @@ msgstr "Un valor de propiedad es constante, dinámico, de un vínculo bidireccio
 msgid "A server error occurred."
 msgstr "Se produjo un error de servidor."
 
+msgid "A single entry will be created in the LocalStorage identified by the form URL."
+msgstr ""
+
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr "Una variable que se inicializa con una expresión de JavaScript se ejecuta cuando se carga la página. Entonces, cuando una de sus dependencias cambia, se actualiza su valor. Las dependencias se crean utilizando <code>$data.XXX</code>."
 
@@ -358,6 +361,9 @@ msgstr "Cualquier botón puede cerrar un contenedor modal en el cual esta conten
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Cualquier variable: <i>myData</i> ó <i>myData.attribute</i>"
 
+msgid "Any variable: myData or myData.attribute."
+msgstr ""
+
 msgid "Application URL token"
 msgstr "Token de URL de aplicación"
 
@@ -465,6 +471,9 @@ msgstr "Debido a este cambio, si usted recibe un fragmento, cámbielo el nombre 
 
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
+
+msgid "Bind the <em>formInput</em> variable of your form."
+msgstr ""
 
 msgid "Bind the filter variable to the Data table widget Filter property."
 msgstr ""
@@ -763,6 +772,9 @@ msgstr ""
 
 msgid "Data Management"
 msgstr "Data Management"
+
+msgid "Data saved on click. You might bind it to the variable you use to initialize your form, e.g. 'formInput'"
+msgstr ""
 
 msgid "Data sent on click"
 msgstr "Datos enviados al hacer click"
@@ -1069,6 +1081,9 @@ msgstr "Para las acciones Iniciar proceso / Enviar tarea / Peticiones HTTP, se p
 
 msgid "For HTTP requests, the following methods are supported:"
 msgstr "Para las Peticiones HTTP, se admiten los siguientes métodos:"
+
+msgid "For Instance to let users save the draft of the current form:"
+msgstr ""
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "Para una respuesta de error, el valor del mensaje es 'error' y la propiedad <em>dataFromSuccess</em> se sustituye por una propiedad <em>dataFromError</em>"
@@ -1847,11 +1862,20 @@ msgstr "Filas"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Save a variable to the LocalStorage"
+msgstr ""
+
 msgid "Save as ..."
 msgstr "Guardar como ..."
 
 msgid "Save as..."
 msgstr "Guardar como..."
+
+msgid "Save data to / Load data from LocalStorage."
+msgstr ""
+
+msgid "Save draft"
+msgstr ""
 
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "Guardar {{ctrl.page.name}} como..."
@@ -2721,6 +2745,9 @@ msgstr "Cuando se elimina una fila, las siguientes filas suben"
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Cuando se genera un formulario desde un contrato en el Studio, el formulario contiene un botón Enviar y algunas variables predeterminadas: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> y <code>context</code>"
 
+msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
+msgstr ""
+
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "Donde businessDataType = com.company.model.MyData, queryName = nombre de la consulta BDM, filter = \"myParam = myValue\""
 
@@ -2883,6 +2910,9 @@ msgstr "expresión o variable"
 
 msgid "form"
 msgstr "formulario"
+
+msgid "formInput"
+msgstr ""
 
 msgid "formatted String variables"
 msgstr "variables con formato tipo String"
