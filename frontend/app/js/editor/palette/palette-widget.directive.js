@@ -31,6 +31,12 @@
         widget: '='
       },
       templateUrl: 'js/editor/palette/palette-widget.html',
+      controller: ($scope, $sce, gettextCatalog) =>  {
+        $scope.dynamicTooltip = '';
+        if ($scope.widget.component) {
+          $scope.dynamicTooltip = $scope.widget.component.description ? $sce.trustAsHtml($scope.widget.component.name + '<br/><br/>' + gettextCatalog.getString($scope.widget.component.description)) : $scope.widget.component.name;
+        }
+      },
       link: function(scope) {
         scope.$watch('widget.component.icon', function(icon) {
           var blankIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 20"></svg>';
