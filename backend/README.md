@@ -271,9 +271,9 @@ For instance: {"compatible": "true", "migration": "true"}
     * 400 invalid json
     
 #### Get migration status of a page
-    GET /rest/migration/status/page/{pageId}[?recursive=true]
+    GET /rest/migration/status/page/{pageId}
 
-Get the migration status of a page. Optionally, if the 'recursive' query parameter is true, it also take into account the embedded artifacts (custom widgets or fragments)
+Get the migration status of a page. It also take into account the embedded artifacts (custom widgets or fragments)
 
 * Response: see "Get migration status from an artifact json"
 

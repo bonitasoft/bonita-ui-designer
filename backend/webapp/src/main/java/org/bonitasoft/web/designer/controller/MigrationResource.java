@@ -29,7 +29,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.service.ArtifactService;
+import org.bonitasoft.web.designer.service.AbstractArtifactService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
@@ -88,7 +88,8 @@ public class MigrationResource {
         return migrateArtifact(widgetId, widget, widgetService);
     }
 
-    public static ResponseEntity<MigrationReport> migrateArtifact(String artifactId, DesignerArtifact designerArtifact, ArtifactService service) {
+    public static ResponseEntity<MigrationReport> migrateArtifact(String artifactId, DesignerArtifact designerArtifact, AbstractArtifactService service) {
+        designerArtifact.setStatus(service.getStatus(designerArtifact));
         MigrationReport mR;
         if (designerArtifact.getArtifactVersion() != null && designerArtifact.getStatus() != null) {
             if (!designerArtifact.getStatus().isCompatible()) {
@@ -121,20 +122,13 @@ public class MigrationResource {
     }
 
     @RequestMapping(value = "/status/page/{pageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId,
-                                                @RequestParam(value = "recursive", required = false) boolean recursive) {
-        Page page = pageRepository.get(pageId);
-        if (recursive) {
-            return ArtifactStatusResource.getStatusRecursive(new Version(modelVersion),page, pageService);
-        } else {
-            return page.getStatus();
-        }
+    public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId) {
+        return pageService.getStatus(pageRepository.get(pageId));
     }
 
     @RequestMapping(value = "/status/widget/{widgetId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public MigrationStatusReport statusByWidgetId(@PathVariable("widgetId") String widgetId) {
-        Widget currentWidget = widgetRepository.get(widgetId);
-        return  currentWidget.getStatus();
+        return  widgetService.getStatus(widgetRepository.get(widgetId));
     }
 
     @RequestMapping(value = "/status", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -154,8 +148,23 @@ public class MigrationResource {
         }
         Version currentVersion = new Version(modelVersion);
         Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
-        return new ResponseEntity<>(ArtifactStatusResource.getStatus(artifactVersion, currentVersion), HttpStatus.OK);
+        return new ResponseEntity<>(compareVersions(artifactVersion, currentVersion), HttpStatus.OK);
     }
+
+    private MigrationStatusReport compareVersions(Version artifactVersion, Version currentVersion) {
+        // Check status of this artifact
+        boolean migration = false;
+        boolean compatible = true;
+        if (artifactVersion == null || currentVersion.isGreaterThan(artifactVersion.toString())) {
+            migration = true;
+        }
+        if (artifactVersion != null && artifactVersion.isGreaterThan(currentVersion.toString())) {
+            compatible = false;
+        }
+
+        return new MigrationStatusReport(compatible, migration);
+    }
+
 
     public void migrateAllArtifacts() {
         workspaceInitializer.migrateWorkspace();

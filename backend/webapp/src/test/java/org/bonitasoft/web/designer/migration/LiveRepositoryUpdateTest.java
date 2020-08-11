@@ -74,7 +74,6 @@ public class LiveRepositoryUpdateTest {
     @Before
     public void setUp() throws Exception {
         repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, mock(Watcher.class));
-        ReflectionTestUtils.setField(loader, "modelVersion", "2.0");
     }
 
     @Test

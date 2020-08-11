@@ -27,4 +27,7 @@ public interface ArtifactService <T extends Identifiable> {
     MigrationResult<T> migrateWithReport(T artifact);
 
     MigrationStatusReport getStatus(T artifact);
+
+    MigrationStatusReport getStatusWithoutDependencies(T artifact);
+
 }

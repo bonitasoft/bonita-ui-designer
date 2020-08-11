@@ -17,18 +17,18 @@ package org.bonitasoft.web.designer.service;
 import static java.util.Collections.singletonList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
-import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -36,7 +36,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
 @Named
-public class WidgetService implements ArtifactService {
+public class WidgetService extends AbstractArtifactService<Widget> {
 
     private final WidgetMigrationApplyer widgetMigrationApplyer;
     private WidgetIdVisitor widgetIdVisitor;
@@ -75,19 +75,19 @@ public class WidgetService implements ArtifactService {
 
     @Override
     public MigrationResult<Widget> migrateWithReport(Identifiable artifact) {
-        String formerArtifactVersion = artifact.getArtifactVersion();
+        Widget widgetToMigrate = (Widget)artifact;
+        widgetToMigrate.setStatus(getStatus(artifact));
+
+        if(!widgetToMigrate.getStatus().isMigration()){
+            return new MigrationResult<>(widgetToMigrate, Collections.emptyList());
+        }
+
         MigrationResult<Widget> migratedResult = widgetMigrationApplyer.migrate((Widget) artifact);
         Widget migratedWidget = migratedResult.getArtifact();
-        if (!StringUtils.equals(formerArtifactVersion, migratedWidget.getArtifactVersion())  && !migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
+        if (!migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
             widgetRepository.updateLastUpdateAndSave(migratedWidget);
         }
         return migratedResult;
-    }
-
-    @Override
-    public MigrationStatusReport getStatus(Identifiable artifact) {
-        // not used since a widget has no dependencies
-        return null;
     }
 
     public List<MigrationStepReport> migrateAllCustomWidgetUsedInPreviewable(Previewable previewable) {
@@ -105,10 +105,7 @@ public class WidgetService implements ArtifactService {
     public MigrationStatusReport getMigrationStatusOfCustomWidgetUsed(Previewable previewable) {
         List<MigrationStatusReport> reports = new ArrayList<>();
         widgetRepository.getByIds(widgetIdVisitor.visit(previewable))
-                .forEach(widget -> {
-                    MigrationStatusReport report = widget.getStatus();
-                    reports.add(report);
-                });
+                .forEach(widget -> reports.add(this.getStatus(widget)));
 
         boolean migration = false;
         for (MigrationStatusReport report : reports) {

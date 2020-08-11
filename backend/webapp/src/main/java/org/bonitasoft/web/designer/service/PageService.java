@@ -17,16 +17,17 @@ package org.bonitasoft.web.designer.service;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 
+import java.util.Collections;
+
 @Named
-public class PageService implements ArtifactService {
+public class PageService extends AbstractArtifactService<Page> {
 
     private final PageMigrationApplyer pageMigrationApplyer;
     private PageRepository pageRepository;
@@ -51,10 +52,16 @@ public class PageService implements ArtifactService {
 
     @Override
     public MigrationResult<Page> migrateWithReport(Identifiable page) {
-        String formerArtifactVersion = page.getArtifactVersion();
+        Page pageToMigrate = (Page)page;
+        pageToMigrate.setStatus(getStatus(page));
+
+        if(!pageToMigrate.getStatus().isMigration()){
+            return new MigrationResult<>(pageToMigrate, Collections.emptyList());
+        }
+
         MigrationResult<Page> migratedResult = pageMigrationApplyer.migrate((Page) page);
         Page migratedPage = migratedResult.getArtifact();
-        if (!StringUtils.equals(formerArtifactVersion, migratedPage.getArtifactVersion()) && !migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
+        if (!migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
             pageRepository.updateLastUpdateAndSave(migratedPage);
         }
         return migratedResult;
@@ -62,7 +69,11 @@ public class PageService implements ArtifactService {
 
     @Override
     public MigrationStatusReport getStatus(Identifiable identifiable) {
-        return pageMigrationApplyer.getMigrationStatusDependencies((Page) identifiable);
+
+        MigrationStatusReport pageStatusReport = super.getStatus(identifiable);
+        MigrationStatusReport depReport = pageMigrationApplyer.getMigrationStatusDependencies((Page) identifiable);
+
+        return mergeStatusReport(pageStatusReport, depReport);
     }
 
 }

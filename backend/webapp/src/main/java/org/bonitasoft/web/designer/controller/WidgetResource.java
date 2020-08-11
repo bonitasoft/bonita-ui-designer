@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -92,7 +93,11 @@ public class WidgetResource extends AssetResource<Widget>{
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view) throws RepositoryException, IOException {
         byte[] json;
-        List<Widget> widgets = widgetRepository.getAll();
+        List<Widget> widgets = widgetRepository.getAll().stream().map(w -> {
+            w.setStatus(widgetService.getStatus(w));
+            return w;
+        }).collect(Collectors.toList());
+
         if ("light".equals(view)) {
             fillWithUsedBy(widgets);
             json = objectMapper.toJson(widgets, JsonViewLight.class);

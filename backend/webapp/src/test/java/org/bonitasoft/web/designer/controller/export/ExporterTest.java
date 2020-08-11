@@ -71,7 +71,6 @@ public class ExporterTest {
         when(pageRepository.getComponentName()).thenReturn("page");
 
         exporter = new Exporter<>(pageRepository, pageService, mock(ExportStep.class));
-        ReflectionTestUtils.setField(exporter, "modelVersion", "2.0");
     }
 
     private Page create(Page page) throws IOException {

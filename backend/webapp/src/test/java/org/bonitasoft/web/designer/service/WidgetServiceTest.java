@@ -45,9 +45,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetServiceTest {
+
+    private static final String CURRENT_MODEL_VERSION = "2.0";
 
     @Mock
     private WidgetRepository widgetRepository;
@@ -67,13 +70,14 @@ public class WidgetServiceTest {
     @Before
     public void setUp() throws Exception {
         widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, widgetIdVisitor);
+        ReflectionTestUtils.setField(widgetService, "modelVersion", CURRENT_MODEL_VERSION);
     }
 
     @Test
     public void should_fix_bonds_types_on_save() {
         Property constantTextProperty = aProperty().name("text").bond(CONSTANT).build();
         Property interpolationTextProperty = aProperty().name("text").bond(INTERPOLATION).build();
-        Widget persistedWidget = aWidget().id("labelWidget").property(constantTextProperty).build();
+        Widget persistedWidget = aWidget().id("labelWidget").modelVersion("2.0").property(constantTextProperty).build();
         when(widgetRepository.get("labelWidget")).thenReturn(persistedWidget);
 
         widgetService.updateProperty("labelWidget", "text", interpolationTextProperty);
@@ -105,7 +109,7 @@ public class WidgetServiceTest {
 
         widgetService.get("widget");
 
-        verify(widgetMigrationApplyer).migrate(widget);
+        verify(widgetMigrationApplyer, never()).migrate(widget);
         verify(widgetRepository, never()).updateLastUpdateAndSave(widgetMigrated);
     }
 
@@ -138,9 +142,9 @@ public class WidgetServiceTest {
 
     @Test
     public void should_not_update_and_save_widget_if_migration_finish_on_error() {
-        Widget widget = aWidget().id("widget").modelVersion("2.0").build();
+        Widget widget = aWidget().id("widget").modelVersion("1.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
-        MigrationResult mr = new MigrationResult(widget, Arrays.asList(Arrays.asList(new MigrationStepReport(MigrationStatus.ERROR))));
+        MigrationResult mr = new MigrationResult(widget, Arrays.asList(new MigrationStepReport(MigrationStatus.ERROR)));
         when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
         when(widgetRepository.get("widget")).thenReturn(widget);
 

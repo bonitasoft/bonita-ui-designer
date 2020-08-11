@@ -98,11 +98,15 @@ public class MigrationResourceTest {
         // by id
         when(pageRepository.get("myPage"))
                 .thenReturn(aPage().withId("myPage").withName("myPage").withDesignerVersion("1.10.0").build());
+        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, true));
+
         result = getStatusRequestById("page", "myPage");
         Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
 
+        Widget widget2 = aWidget().id("myWidget").name("myWidget").designerVersion("1.10.0").build();
         when(widgetRepository.get("myWidget"))
-                .thenReturn(aWidget().id("myWidget").name("myWidget").designerVersion("1.10.0").build());
+                .thenReturn(widget2);
+        when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, true));
         result = getStatusRequestById("widget", "myWidget");
         Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
     }
@@ -120,13 +124,16 @@ public class MigrationResourceTest {
         Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
 
         // by id
+        Page page2 = aPage().withId("myPage").withName("myPage").isMigration(false).withModelVersion("2.0").build();
         when(pageRepository.get("myPage"))
-                .thenReturn(aPage().withId("myPage").withName("myPage").isMigration(false).withModelVersion("2.0").build());
+                .thenReturn(page2);
+        when(pageService.getStatus(page2)).thenReturn(new MigrationStatusReport(true, false));
         result = getStatusRequestById("page", "myPage");
         Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
 
-        when(widgetRepository.get("myWidget"))
-                .thenReturn(aWidget().id("myWidget").name("myWidget").isMigration(false).designerVersion("2.0").build());
+        Widget widget2 = aWidget().id("myWidget").name("myWidget").isMigration(false).designerVersion("2.0").build();
+        when(widgetRepository.get("myWidget")).thenReturn(widget2);
+        when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, false));
         result = getStatusRequestById("widget", "myWidget");
         Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
     }
@@ -146,11 +153,16 @@ public class MigrationResourceTest {
         // by id
         when(pageRepository.get("myPage"))
                 .thenReturn(aPage().withId("myPage").withName("myPage").isCompatible(false).isMigration(false).withModelVersion("2.1").build());
+        when(pageRepository.get("myPage"))
+                .thenReturn(page);
+        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(false, false));
         result = getStatusRequestById("page", "myPage");
         Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
 
         when(widgetRepository.get("myWidget"))
                 .thenReturn(aWidget().id("myWidget").name("myWidget").isCompatible(false).isMigration(false).designerVersion("2.1").build());
+        when(widgetRepository.get("myWidget")).thenReturn(widget);
+        when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, false));
         result = getStatusRequestById("widget", "myWidget");
         Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
     }
@@ -372,7 +384,7 @@ public class MigrationResourceTest {
 
     @Test
     public void should_not_process_migration_and_return_none_status_when_page_not_needed_migration() throws Exception {
-        Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("2.0.").withName("page-name").withMigrationStatusReport(new MigrationStatusReport(true,false)).build();
+        Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("2.0.").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
         when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(true, false));
 

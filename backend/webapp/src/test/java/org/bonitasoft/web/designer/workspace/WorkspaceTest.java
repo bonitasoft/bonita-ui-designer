@@ -74,7 +74,6 @@ public class WorkspaceTest {
     private Workspace workspace;
 
     private WidgetRepository widgetRepository;
-
     @Before
     public void setUp() throws URISyntaxException {
         MockitoAnnotations.initMocks(this);
@@ -92,7 +91,6 @@ public class WorkspaceTest {
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
         workspace = new Workspace(pathResolver, widgetRepository, widgetLoader, widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
         ReflectionTestUtils.setField(workspace, "modelVersion", CURRENT_MODEL_VERSION);
-        ReflectionTestUtils.setField(widgetLoader, "modelVersion", CURRENT_MODEL_VERSION);
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {

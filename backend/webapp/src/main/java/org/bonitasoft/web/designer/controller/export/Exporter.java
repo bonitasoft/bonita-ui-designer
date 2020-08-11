@@ -22,37 +22,28 @@ import static org.springframework.util.FileCopyUtils.copy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.bonitasoft.web.designer.controller.ArtifactStatusResource;
-import org.bonitasoft.web.designer.controller.MigrationResource;
-import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.repository.Repository;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.service.ArtifactService;
+import org.bonitasoft.web.designer.service.AbstractArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 public class Exporter<T extends DesignerArtifact> {
 
     private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
 
     private final ExportStep<T>[] exportSteps;
-    private final ArtifactService<T> artifactService;
-
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
+    private final AbstractArtifactService<T> artifactService;
 
     private Repository<T> repository;
 
-    public Exporter(Repository<T> repository, ArtifactService<T> artifactService, ExportStep<T>... exportSteps) {
+    public Exporter(Repository<T> repository, AbstractArtifactService<T> artifactService, ExportStep<T>... exportSteps) {
         this.repository = repository;
         this.artifactService = artifactService;
         this.exportSteps = exportSteps;
@@ -71,9 +62,9 @@ public class Exporter<T extends DesignerArtifact> {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); Zipper zipper = new Zipper(outputStream)) {
             //The outputStream scope is local in the try-with-resource-block
             zipStream = outputStream;
-            T identifiable = artifactService.get(id);
+            T identifiable = (T)artifactService.get(id);
             if (identifiable.getStatus() == null) {
-                identifiable.setStatus(ArtifactStatusResource.getStatus(identifiable, modelVersion));
+                identifiable.setStatus(artifactService.getStatus(identifiable));
             }
 
             if (!identifiable.getStatus().isCompatible()) {

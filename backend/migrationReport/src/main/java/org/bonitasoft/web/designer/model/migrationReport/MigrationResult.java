@@ -67,7 +67,7 @@ public class MigrationResult<T> {
     }
 
     private boolean containsMigrationStatus(MigrationStatus migrationStatus) {
-        List<MigrationStepReport> list = migrationStepReportList.stream().filter(stepReport -> migrationStatus.equals(stepReport.getMigrationStatus())).collect(Collectors.toList());
+        List<MigrationStepReport> list = migrationStepReportList.stream().filter(stepReport -> migrationStatus.getValue().equals(stepReport.getMigrationStatus().getValue())).collect(Collectors.toList());
         return list.size() > 0;
     }
 

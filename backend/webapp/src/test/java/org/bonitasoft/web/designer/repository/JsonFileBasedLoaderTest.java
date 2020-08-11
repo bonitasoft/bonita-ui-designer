@@ -60,7 +60,6 @@ public class JsonFileBasedLoaderTest {
         repoDirectory = temporaryFolder.newFolderPath("jsonrepository");
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         loader = new JsonFileBasedLoader<>(objectMapper, SimpleDesignerArtifact.class);
-        ReflectionTestUtils.setField(loader, "modelVersion", "2.0");
     }
 
     private void addToRepository(SimpleDesignerArtifact... pages) throws Exception {
