@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-08-03 01:29\n"
+"PO-Revision-Date: 2020-08-12 01:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -1037,6 +1037,9 @@ msgstr "External API"
 msgid "External API (variable) or URL"
 msgstr ""
 
+msgid "Extra Small devices (width < 768px)"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジュール (カンマで区切る)"
 
@@ -1132,6 +1135,9 @@ msgstr ""
 
 msgid "Forms"
 msgstr "フォーム"
+
+msgid "Four device types are available:"
+msgstr ""
 
 msgid "Frame"
 msgstr "フレーム"
@@ -1449,6 +1455,9 @@ msgstr "ラベル幅"
 msgid "Labels"
 msgstr ""
 
+msgid "Large devices (width ≥ 1200px)"
+msgstr ""
+
 msgid "Last"
 msgstr "最後の行"
 
@@ -1542,6 +1551,9 @@ msgstr "お気に入りに登録"
 msgid "Max value"
 msgstr "最大値"
 
+msgid "Medium devices (width ≥ 992px)"
+msgstr ""
+
 msgid "Message"
 msgstr "メッセージ"
 
@@ -1595,6 +1607,9 @@ msgstr "タブ コンテナ： 複数のコンテンツ"
 
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "複数のウィジェットグループ、タブ内の各グループ"
+
+msgid "Multiple screen size"
+msgstr ""
 
 msgid "Multiple set charts"
 msgstr ""
@@ -1926,6 +1941,9 @@ msgstr "ホワイトボードの要素を選択し、ここでその要素のプ
 msgid "Select an option"
 msgstr "オプションを選択してください"
 
+msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
+msgstr ""
+
 msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
 msgstr ""
 
@@ -2000,6 +2018,9 @@ msgid "Single set charts"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "Small devices (width ≥ 768px)"
 msgstr ""
 
 msgid "Sort"
@@ -2819,6 +2840,9 @@ msgstr "フォームまたはページのコンテナ内にウィジェットを
 msgid "You can only edit the query filters and pagination."
 msgstr ""
 
+msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
+msgstr ""
+
 msgid "You can provide a filter for users to update the displayed table to show only the rows that match\n"
 "            the filter. To do this :"
 msgstr ""
@@ -2897,6 +2921,9 @@ msgstr ""
 msgid "default"
 msgstr "default"
 
+msgid "desktop screens (1200px ≤ screenSize)"
+msgstr ""
+
 msgid "email"
 msgstr "電子メール"
 
@@ -2933,6 +2960,9 @@ msgstr "ページ、フォームや UI デザイナーの外側のレイアウ�
 msgid "info"
 msgstr "info"
 
+msgid "laptop screens (992px ≤ screenSize < 1200px)"
+msgstr ""
+
 msgid "large"
 msgstr ""
 
@@ -2946,6 +2976,9 @@ msgid "link"
 msgstr "link"
 
 msgid "medium"
+msgstr ""
+
+msgid "mobile screens (screenSize < 768px)"
 msgstr ""
 
 msgid "name"
@@ -2986,6 +3019,9 @@ msgstr "インポートに成功しました。"
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
+
+msgid "tablet screens (768px ≤ screenSize < 992px)"
+msgstr ""
 
 msgid "tabs"
 msgstr ""

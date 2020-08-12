@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-08-03 01:30\n"
+"PO-Revision-Date: 2020-08-12 01:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1040,6 +1040,9 @@ msgstr ""
 msgid "External API (variable) or URL"
 msgstr "API externa (variável) ou URL"
 
+msgid "Extra Small devices (width < 768px)"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr ""
 
@@ -1134,6 +1137,9 @@ msgid "Formatting toolbar"
 msgstr ""
 
 msgid "Forms"
+msgstr ""
+
+msgid "Four device types are available:"
 msgstr ""
 
 msgid "Frame"
@@ -1451,6 +1457,9 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
+msgid "Large devices (width ≥ 1200px)"
+msgstr ""
+
 msgid "Last"
 msgstr ""
 
@@ -1544,6 +1553,9 @@ msgstr ""
 msgid "Max value"
 msgstr ""
 
+msgid "Medium devices (width ≥ 992px)"
+msgstr ""
+
 msgid "Message"
 msgstr "Mensagem"
 
@@ -1596,6 +1608,9 @@ msgid "Multiple content for tabs container"
 msgstr ""
 
 msgid "Multiple groups of widgets, each group in a tab"
+msgstr ""
+
+msgid "Multiple screen size"
 msgstr ""
 
 msgid "Multiple set charts"
@@ -1928,6 +1943,9 @@ msgstr ""
 msgid "Select an option"
 msgstr ""
 
+msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
+msgstr ""
+
 msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
 msgstr "Selecione a consulta para recuperar Objeto de Negócio. As consultas podem ser uma consulta de atributo simples (ex: findByName) ou uma consulta adicional, como uma consulta personalizada."
 
@@ -2003,6 +2021,9 @@ msgstr ""
 
 msgid "Size"
 msgstr "Tamanho"
+
+msgid "Small devices (width ≥ 768px)"
+msgstr ""
 
 msgid "Sort"
 msgstr ""
@@ -2829,6 +2850,9 @@ msgstr ""
 msgid "You can only edit the query filters and pagination."
 msgstr "Você só pode editar os filtros de consulta e paginação."
 
+msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
+msgstr ""
+
 msgid "You can provide a filter for users to update the displayed table to show only the rows that match\n"
 "            the filter. To do this :"
 msgstr ""
@@ -2908,6 +2932,9 @@ msgstr "modelo de dados"
 msgid "default"
 msgstr ""
 
+msgid "desktop screens (1200px ≤ screenSize)"
+msgstr ""
+
 msgid "email"
 msgstr ""
 
@@ -2944,6 +2971,9 @@ msgstr "se você editar a página, formulário ou layout fora do Designer da UI,
 msgid "info"
 msgstr ""
 
+msgid "laptop screens (992px ≤ screenSize < 1200px)"
+msgstr ""
+
 msgid "large"
 msgstr "grande"
 
@@ -2958,6 +2988,9 @@ msgstr ""
 
 msgid "medium"
 msgstr "médio"
+
+msgid "mobile screens (screenSize < 768px)"
+msgstr ""
 
 msgid "name"
 msgstr ""
@@ -2996,6 +3029,9 @@ msgid "successfully imported."
 msgstr ""
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
+msgstr ""
+
+msgid "tablet screens (768px ≤ screenSize < 992px)"
 msgstr ""
 
 msgid "tabs"

@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-08-03 01:28\n"
+"PO-Revision-Date: 2020-08-12 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1037,6 +1037,9 @@ msgstr "API externa"
 msgid "External API (variable) or URL"
 msgstr "External API (variable) o URL"
 
+msgid "Extra Small devices (width < 768px)"
+msgstr ""
+
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Este widget personalizado necesita módulos de angular adicionales (separados por comas)"
 
@@ -1132,6 +1135,9 @@ msgstr ""
 
 msgid "Forms"
 msgstr "Formularios"
+
+msgid "Four device types are available:"
+msgstr ""
 
 msgid "Frame"
 msgstr "Frame"
@@ -1448,6 +1454,9 @@ msgstr "Ancho de etiqueta"
 msgid "Labels"
 msgstr ""
 
+msgid "Large devices (width ≥ 1200px)"
+msgstr ""
+
 msgid "Last"
 msgstr "Último"
 
@@ -1541,6 +1550,9 @@ msgstr "Marcar como favorito"
 msgid "Max value"
 msgstr "Valor máximo"
 
+msgid "Medium devices (width ≥ 992px)"
+msgstr ""
+
 msgid "Message"
 msgstr "Mensaje"
 
@@ -1594,6 +1606,9 @@ msgstr "Contenido múltiple para el contenedor de pestañas"
 
 msgid "Multiple groups of widgets, each group in a tab"
 msgstr "Varios grupos de widgets, cada grupo en una pestaña"
+
+msgid "Multiple screen size"
+msgstr ""
 
 msgid "Multiple set charts"
 msgstr ""
@@ -1925,6 +1940,9 @@ msgstr "Selecciona un elemento en la pizarra, a continuación, establece allí s
 msgid "Select an option"
 msgstr "Seleccione una opción"
 
+msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
+msgstr ""
+
 msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
 msgstr "Seleccione la consulta para recuperar el Objeto de Negocio. Las consultas pueden ser una consulta de atributos simple (ej: findByName) o una consulta adicional como una consulta personalizada."
 
@@ -2000,6 +2018,9 @@ msgstr ""
 
 msgid "Size"
 msgstr "Tamaño"
+
+msgid "Small devices (width ≥ 768px)"
+msgstr ""
 
 msgid "Sort"
 msgstr ""
@@ -2820,6 +2841,9 @@ msgstr "Se pueden agrupar widgets en un contenedor para definir la disposición 
 msgid "You can only edit the query filters and pagination."
 msgstr "Sólo puede editar los filtros de consulta y la paginación."
 
+msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
+msgstr ""
+
 msgid "You can provide a filter for users to update the displayed table to show only the rows that match\n"
 "            the filter. To do this :"
 msgstr ""
@@ -2899,6 +2923,9 @@ msgstr "modelo de datos"
 msgid "default"
 msgstr "default"
 
+msgid "desktop screens (1200px ≤ screenSize)"
+msgstr ""
+
 msgid "email"
 msgstr "email"
 
@@ -2935,6 +2962,9 @@ msgstr "si se edita la página, el formulario o el layout fuera del UI Designer,
 msgid "info"
 msgstr "info"
 
+msgid "laptop screens (992px ≤ screenSize < 1200px)"
+msgstr ""
+
 msgid "large"
 msgstr "grande"
 
@@ -2949,6 +2979,9 @@ msgstr "enlace"
 
 msgid "medium"
 msgstr "medio"
+
+msgid "mobile screens (screenSize < 768px)"
+msgstr ""
 
 msgid "name"
 msgstr "nombre"
@@ -2988,6 +3021,9 @@ msgstr "importado con éxito."
 
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket es un objeto compuesto por un <em>subject</em>, nivel de <em>severity</em>, <em>entorno</em> de usuario, <em>información de contacto</em> del reportero (<em>nombre</em> y <em>puesto</em>), y una <em>URL</em> que proporciona detalles adicionales sobre el contacto."
+
+msgid "tablet screens (768px ≤ screenSize < 992px)"
+msgstr ""
 
 msgid "tabs"
 msgstr "tabs"
