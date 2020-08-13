@@ -294,7 +294,25 @@
         lastUpdate: 1447891242444,
         rows: [[]],
         variables: {}
-      }
+      },
+      {
+        id: 'aPageToMigrate',
+        name: 'aPageToMigrate',
+        type: 'page',
+        status: { migration: true, compatible:true },
+        lastUpdate: 1447791242963,
+        rows: [[]],
+        variables: {}
+      },
+      {
+        id: 'aPageIncompatible',
+        name: 'aPageIncompatible',
+        type: 'page',
+        status: { migration: false, compatible:false },
+        lastUpdate: 1447791242960,
+        rows: [[]],
+        variables: {}
+      },
     ]
   );
 })();

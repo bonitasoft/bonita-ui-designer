@@ -23,6 +23,7 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.editor.header',
     'bonitasoft.designer.editor.common',
+    'bonitasoft.designer.confirm-popup',
     'ui.bootstrap',
     'ui.router',
     'ui.validate',

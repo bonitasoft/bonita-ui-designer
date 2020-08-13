@@ -48,16 +48,26 @@
             <i class="fa fa-times-circle error-icon"></i>
             <translate>Validation Errors</translate>
         </div>
-        <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
-    </div>
-    <div class="EditorHeader-status">
-            <span ng-if="vm.businessDataRepositoryOffline" class="BusinessDataStatus-offline"
+        <div class="EditorHeader-status">
+        <span ng-if="vm.lastReport().status" class="migration-report header-status-icon"
+              uib-tooltip="{{ 'Click to see migration report' | translate }}"
+              tooltip-placement="bottom"
+              tooltip-popup-delay="300"
+              ng-click="vm.openMigrationReport()">
+                      <span class="fa fa-wrench status"></span>
+                      <i ng-if="vm.lastReport().status === 'warning'" class="fa fa-exclamation-circle decorator icon warning"></i>
+                      <i ng-if="vm.lastReport().status === 'success'" class="fa fa-check-circle decorator icon success"></i>
+                      <i ng-if="vm.lastReport().status === 'error'" class="fa fa-times-circle decorator icon error"></i>
+            </span>
+            <span ng-if="vm.businessDataRepositoryOffline" class="header-status-icon"
                   uib-tooltip="{{ 'Unable to connect to the Business Data Model. Restarting the Studio may solve this issue' | translate }}"
                   tooltip-placement="bottom"
                   tooltip-popup-delay="300">
-                      <span class="ui-icon ui-datamodel status"></span>
-                      <i class="glyphicon glyphicon-exclamation-sign decorator warning"></i>
+                      <span class="fa fa-database status"></span>
+                      <i class="fa fa-exclamation-circle decorator warning icon"></i>
             </span>
+        </div>
+        <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
     </div>
     <div class="EditorHeader-resolutions">
         <div resolutions-bar id="resolutions" class="btn-group"></div>

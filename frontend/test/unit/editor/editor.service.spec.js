@@ -2,7 +2,8 @@
   'use strict';
 
   describe('editor service', function() {
-    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper, whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock;
+    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper,
+      whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock, migration;
 
     var labelWidget = {
       id: 'label',
@@ -170,10 +171,13 @@
       whiteboardComponentWrapper = $injector.get('whiteboardComponentWrapper');
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
+      migration = $injector.get('migration');
 
       spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
       spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
+      spyOn(pageRepo, 'migrate').and.returnValue($q.when({}));
+      spyOn(pageRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
     }));
 
     beforeEach(inject(function (pageElementFactory, components) {
@@ -186,6 +190,8 @@
 
     it('should initialize a page', function() {
       let page = {};
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
       editorService.initialize(pageRepo, 'person')
         .then(function(data) {
@@ -193,6 +199,8 @@
         });
 
       $rootScope.$apply();
+
+      expect(pageRepo.migrate).not.toHaveBeenCalled();
 
       expect(page.rows[0][0].$$id).toBe('pbContainer-0');
       expect(page.rows[0][0].$$widget.name).toBe('Container');
@@ -244,7 +252,22 @@
     });
 
     it('should add an alert if initialize failed', function() {
-      spyOn(pageRepo, 'load').and.returnValue($q.reject('load failed'));
+      let errorMessage = {};
+      errorMessage.message = 'load failed';
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
+      spyOn(pageRepo, 'load').and.returnValue($q.reject(errorMessage));
+
+      editorService.initialize(pageRepo, 'person');
+      $rootScope.$apply();
+
+      expect(alerts.addError).toHaveBeenCalled();
+    });
+
+    it('should add an alert if incompatible migration or migration error', function() {
+      let errorMessage = {};
+      errorMessage.message = 'incompatible or migration error';
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.reject(errorMessage));
 
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
@@ -259,6 +282,8 @@
       };
       spyOn(whiteboardService, 'contains').and.returnValue(false);
       spyOn(pageRepo, 'load').and.returnValue($q.when({data: page}));
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
       editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
@@ -275,6 +300,8 @@
       spyOn(whiteboardService, 'contains').and.returnValue(true);
       spyOn(pageRepo, 'load').and.returnValue($q.when({data: page}));
       editorService.initialize(pageRepo, 'person');
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
       $rootScope.$apply();
 
       editorService.removeAssetsFromPage({id: 'aWidgget'});
@@ -285,6 +312,8 @@
     it('should initialize a page with a modal container', function () {
       var page = {};
       spyOn(pageRepo, 'load').and.returnValue($q.when(modalContainerStructureMockJSON));
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
       editorService.initialize(pageRepo, 'person')
         .then(function (data) {
           page = data;
@@ -296,6 +325,42 @@
       expect(page.rows[0][0].container.rows[0][0].$$id).toBe('component-0');
       expect(page.rows[0][0].container.rows[0][0].id).toBe('pbInput');
       expect(page.rows[0][0].container.rows[0][0].$$widget).toEqual(inputwidget);
+    });
+
+    it('should migrate a page before initializing', function() {
+      let page = {};
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
+      pageRepo.migrationStatus = jasmine.createSpy().and.returnValue($q.when({data: {migration: true, compatible: true}}));
+      spyOn(pageRepo, 'load').and.returnValue($q.when(json));
+
+      editorService.initialize(pageRepo, 'person')
+        .then(function (data) {
+          page = data;
+        });
+
+      $rootScope.$apply();
+
+      expect(pageRepo.migrate).toHaveBeenCalled();
+      expect(migration.handleMigrationNotif).toHaveBeenCalled();
+    });
+
+    it('should not call migrate when user click on cancel in migration popup', function() {
+      let page = {};
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.reject('cancel'));
+      spyOn(migration, 'handleMigrationNotif');
+      pageRepo.migrationStatus = jasmine.createSpy().and.returnValue($q.when({data: {migration: true, compatible: true}}));
+      spyOn(pageRepo, 'load').and.returnValue($q.when(json));
+
+      editorService.initialize(pageRepo, 'person')
+        .then(function (data) {
+          page = data;
+        });
+
+      $rootScope.$apply();
+
+      expect(pageRepo.migrate).not.toHaveBeenCalled();
+      expect(migration.handleMigrationNotif).not.toHaveBeenCalled();
     });
   });
 })();

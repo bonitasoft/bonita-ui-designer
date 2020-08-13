@@ -16,15 +16,9 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.header', [
-    'bonitasoft.designer.editor.header.help',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.repositories',
+  angular.module('bonitasoft.designer.confirm-popup', [
     'gettext',
-    'ui.bootstrap',
-    'ui.router',
-    'ngStorage',
-    'angular.filter'
+    'ui.bootstrap'
   ]);
 
 })();

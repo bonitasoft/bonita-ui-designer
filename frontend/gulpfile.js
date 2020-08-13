@@ -39,7 +39,8 @@ var paths = {
     'node_modules/angular-animate/angular-animate.min.js',
     'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
     'node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js',
-    'node_modules/@bonitasoft/query-selector/lib/query-selector.es5.min.js'
+    'node_modules/@bonitasoft/query-selector/lib/query-selector.es5.min.js',
+    'node_modules/angular-filter/dist/angular-filter.min.js'
   ],
   css: [
     'node_modules/angular-switcher/dist/angular-switcher.min.css',

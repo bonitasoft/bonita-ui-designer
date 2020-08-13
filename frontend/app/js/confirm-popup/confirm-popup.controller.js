@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2019 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,19 +12,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 (function() {
+  class ConfirmPopupController {
+    constructor($scope, $uibModalInstance, artifact, type) {
+      this.$scope = $scope;
+      this.$uibModalInstance = $uibModalInstance;
+      this.artifact = artifact;
+      this.type = type;
+    }
 
-  'use strict';
+    confirm() {
+      this.$uibModalInstance.close(this.artifact);
+    }
 
-  angular.module('bonitasoft.designer.editor.header', [
-    'bonitasoft.designer.editor.header.help',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.repositories',
-    'gettext',
-    'ui.bootstrap',
-    'ui.router',
-    'ngStorage',
-    'angular.filter'
-  ]);
+    cancel() {
+      this.$uibModalInstance.dismiss('cancel');
+    }
 
+  }
+
+  angular.module('bonitasoft.designer.confirm-popup').controller('ConfirmPopupController', ConfirmPopupController);
 })();

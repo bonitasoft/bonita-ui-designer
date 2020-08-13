@@ -23,6 +23,17 @@
       // I18n
       $httpBackend.whenGET(/i18n\/.*-fr-FR.json/).respond({'fr': {'Create': 'Créer'}});
 
+      $httpBackend.whenGET(/rest\/migration\/status\/page\/aPageToMigrate/).respond(() => { return [200,{'compatible': true, 'migration': true},{}];});
+      $httpBackend.whenPUT(/rest\/migration\/page\/aPageToMigrate/).respond(() => { return [200,{ 'status': 'success', 'migrationStepReport':[] },{}];} );
+
+      $httpBackend.whenGET(/rest\/migration\/status\/page\/aPageIncompatible/).respond(() => { return [200,{'compatible': false, 'migration': false},{}];});
+
+      // Status
+      $httpBackend.whenGET(/rest\/migration\/status\/.*\/.*/).respond(() => { return [200,{'compatible': true, 'migration': false},{}];});
+
+      // Migration
+      $httpBackend.whenPUT(/rest\/migration\/.*\/.*/).respond(() => { return [200,{ 'comments': 'No migration is needed', 'status': 'none', 'migrationStepReport':[] },{}];} );
+
       /********************************************************************************************************
        *                                            WIDGETS
        * ******************************************************************************************************/
@@ -139,7 +150,7 @@
 
       // get all (light representation)
       $httpBackend.whenGET('rest/pages').respond(function() {
-        var response = pages.map(({id, name, type, lastUpdate, favorite}) => ({id, name, type, lastUpdate, favorite}));
+        var response = pages.map(({id, name, type, lastUpdate, favorite, status}) => ({id, name, type, lastUpdate, favorite, status}));
         return [200, response, {}];
       });
 

@@ -69,6 +69,14 @@
         return this.$http.get(`${this.baseUrl}/${id}`);
       }
 
+      migrate(id) {
+        return this.$http.put(`./rest/migration/${this.type}/${id}`);
+      }
+
+      migrationStatus(id) {
+        return this.$http.get(`./rest/migration/status/${this.type}/${id}`);
+      }
+
       all() {
         return this.$http.get(this.baseUrl)
           .then((response) => response.data);

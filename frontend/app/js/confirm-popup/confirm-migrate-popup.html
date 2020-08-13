@@ -1,0 +1,28 @@
+<div id="confirm-migrate-popup">
+    <div class="modal-header">
+        <h3 class="modal-title" translate>{{ctrl.artifact}} requires a migration</h3>
+    </div>
+    <div class="modal-body break-word" translate>
+        <b>{{ctrl.artifact}}</b> {{ctrl.type}} has been created in an older version of the UI Designer.
+        It needs to be migrated to the current version to be used with the latest features. This migration is automatic.
+        <br>
+        Note that once migrated, the page cannot be brought back to its previous state, and cannot be used in a previous version of the UI Designer.
+    </div>
+    <div class="modal-body checkbox">
+        <label uib-tooltip="{{'If checked, this popup will not be displayed again unless you clean up your browser cache' | translate}}"
+               tooltip-placement="top-left"
+               tooltip-append-to-body="true"
+               tooltip-popup-delay="300">
+            <input
+                name="doNotShowAgain"
+                ng-model="ctrl.doNotShowAgain"
+                id="doNotShowAgain"
+                type="checkbox">
+            <translate>Do not show me this dialog again</translate>
+        </label>
+    </div>
+    <div class="modal-footer">
+        <button id="confirm-migrate" class="btn btn-primary" ng-click="ctrl.confirm()" name="migrate" translate>Migrate</button>
+        <button id="cancel-confirm-migrate" class="btn btn-link" ng-click="ctrl.cancel()" name="cancel" translate>Cancel</button>
+    </div>
+</div>

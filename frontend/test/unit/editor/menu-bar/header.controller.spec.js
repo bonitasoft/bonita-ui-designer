@@ -4,11 +4,11 @@
 
   describe('Header controller', function () {
     var pageRepo, scope, controller, $q, $window, $uibModal, modalInstance, $stateParams, $state, $localStorage,
-      browserHistoryService, artifactStore, artifactNamingValidatorService, dataManagementRepo;
+      browserHistoryService, artifactStore, artifactNamingValidatorService, dataManagementRepo, migration;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal', 'bonitasoft.designer.editor.whiteboard', 'bonitasoft.designer.home'));
 
-    beforeEach(inject(function ($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_, _artifactStore_, _artifactNamingValidatorService_, _dataManagementRepo_) {
+    beforeEach(inject(function ($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_, _artifactStore_, _artifactNamingValidatorService_, _dataManagementRepo_, _migration_) {
       pageRepo = _pageRepo_;
       browserHistoryService = _browserHistoryService_;
       $q = _$q_;
@@ -24,9 +24,11 @@
       $localStorage = _$localStorage_;
       $localStorage.bonitaUIDesigner = {};
       modalInstance = $uibModalInstance.fake();
+      migration = _migration_;
 
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');
+      spyOn(migration, 'getLastReport');
 
       artifactStore = _artifactStore_;
       artifactNamingValidatorService = _artifactNamingValidatorService_;
@@ -49,7 +51,8 @@
         $localStorage: $localStorage,
         artifactStore: artifactStore,
         artifactNamingValidatorService: artifactNamingValidatorService,
-        dataManagementRepo: dataManagementRepo
+        dataManagementRepo: dataManagementRepo,
+        migration: migration,
       });
     }));
 
@@ -252,6 +255,17 @@
     it('should display business data model status when it\'s unable', function () {
       scope.$apply();
       expect(controller.businessDataRepositoryOffline).toEqual(false);
+    });
+
+    it('should open migration report on click when artifact was migrated', function () {
+      spyOn($uibModal, 'open').and.returnValue(modalInstance);
+
+      controller.openMigrationReport();
+      expect($uibModal.open).toHaveBeenCalled();
+      expect($uibModal.open.calls.mostRecent().args[0].templateUrl).toEqual('js/editor/header/migrationReport/migration-report-popup.controller.html');
+      expect($uibModal.open.calls.mostRecent().args[0].controller).toEqual('MigrationReportPopUpController');
+      modalInstance.close();
+      scope.$apply();
     });
   });
 })();

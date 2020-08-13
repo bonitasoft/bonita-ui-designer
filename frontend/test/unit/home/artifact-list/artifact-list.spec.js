@@ -2,7 +2,7 @@ describe('artifactListController', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
 
-  var $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element;
+  var $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo, $state, $timeout, $httpBackend, element, migration;
 
   beforeEach(inject(function($rootScope, $compile, $injector) {
 
@@ -16,6 +16,12 @@ describe('artifactListController', function() {
     $state = $injector.get('$state');
     $timeout = $injector.get('$timeout');
     $httpBackend = $injector.get('$httpBackend');
+    migration = $injector.get('migration');
+
+    spyOn(pageRepo, 'migrate').and.returnValue($q.when({}));
+    spyOn(pageRepo, 'migrationStatus').and.returnValue($q.when({}));
+    spyOn(migration, 'handleMigrationStatus');
+    spyOn(migration, 'handleMigrationNotif');
 
     $scope.refreshAll = jasmine.createSpy('refreshAll');
     $scope.downloadArtifact = jasmine.createSpy('downloadArtifact');

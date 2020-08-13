@@ -117,8 +117,8 @@
   }
 }
 
-.BusinessDataStatus-offline {
-  margin-right: 10px;
+.header-status-icon{
+  margin-left: 1rem;
   cursor: default;
   white-space: nowrap;
   padding: 5px;
@@ -128,12 +128,29 @@
   }
 
   .decorator {
-    margin-left: -7px;
-    margin-top: 30px;
+    margin-left: -5px;
+    margin-top: 13px;
     position: absolute;
+  }
+}
+.icon,.title{
+  &.warning{
+    color: @color-alert-warning;
+  }
+  &.error{
+    color: @color-alert-error;
+  }
+  &.success{
+    color: @color-alert-success;
+  }
+}
 
-    &.warning {
-      color: orange;
-    }
+.migration-report{
+  cursor: pointer;
+
+  .decorator {
+    margin-left: -13px;
+    margin-top: 13px;
+    position: absolute;
   }
 }

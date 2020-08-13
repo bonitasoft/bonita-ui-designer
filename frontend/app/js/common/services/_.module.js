@@ -18,7 +18,8 @@
 
   angular.module('bonitasoft.designer.common.services', [
     'gettext',
-    'dn.sha'
+    'dn.sha',
+    'ngStorage'
   ]);
 
 })();

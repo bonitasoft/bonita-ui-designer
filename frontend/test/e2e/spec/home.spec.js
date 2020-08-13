@@ -3,7 +3,7 @@ import { default as HomePage } from '../pages/home.page';
 describe('home page', function() {
 
   var home;
-  const PAGE_NAMES = [ 'Person', 'empty' ];
+  const PAGE_NAMES = [ 'Person', 'empty','aPageToMigrate', 'aPageIncompatible'];
   const WIDGET_NAMES = [ 'awesomeWidget', 'favoriteWidget' ];
 
   beforeEach(function() {
@@ -255,7 +255,7 @@ describe('home page', function() {
   });
 
   it('should filter widgets, pages and fragment by name', function() {
-    expect(home.getTabCounter('page')).toEqual('2');
+    expect(home.getTabCounter('page')).toEqual('4');
     expect(home.getTabCounter('widget')).toEqual('2');
     expect(home.getTabCounter('layout')).toEqual('1');
     expect(home.getTabCounter('form')).toEqual('1');
@@ -288,4 +288,34 @@ describe('home page', function() {
     $$('#empty .Artifact-favoriteButton').first().click();
     expect(home.getFavoritePageNames()).toEqual(['Person']);
   });
+
+  it('should open a migration confirm popup', function() {
+    let itemPageToMigrate = $$('#aPageToMigrate a').first();
+    itemPageToMigrate.click();
+
+    //The link should now be a visible input with the page name
+    let modal = $('#confirm-migrate-popup');
+    expect(modal.isPresent()).toBe(true);
+
+    let cancel= $('#cancel-confirm-migrate');
+    expect(cancel.isPresent()).toBe(true);
+    cancel.click();
+    expect(modal.isPresent()).toBe(false);
+
+
+    itemPageToMigrate.click();
+    expect($$('#confirm-migrate').first().isPresent()).toBe(true);
+    $('#confirm-migrate').click();
+    expect(modal.isPresent()).toBe(false);
+    expect(browser.getCurrentUrl()).toMatch(/.*\/pages\/aPageToMigrate/);
+  });
+
+  it('should not be clickable when item is not compatible', function() {
+    let aPageIncompatible = $$('#aPageIncompatible a.Artifact-disabled').first();
+    expect(aPageIncompatible.isPresent()).toBe(true);
+
+    aPageIncompatible.click();
+    expect(browser.getCurrentUrl()).toMatch(/.*\/home/);
+  });
+
 });

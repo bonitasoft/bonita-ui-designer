@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $rootScope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $rootScope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo, migration) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -24,6 +24,7 @@
       this.artifacts = [];
       this.keyBindingService = keyBindingService;
       this.scope = $scope;
+      this.migration = migration;
 
       // load all artifact with same type
       artifactStore.load().then((artifacts) => this.artifacts = artifacts.filter(item => item.type === this.page.type));
@@ -51,6 +52,10 @@
         return false;
       });
 
+    }
+
+    lastReport() {
+      return this.migration.getLastReport();
     }
 
     back() {
@@ -190,6 +195,18 @@
         return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(value, artifact.type, this.artifacts);
       }
       return false;
+    }
+
+    openMigrationReport() {
+      this.$uibModal.open({
+        templateUrl: 'js/editor/header/migrationReport/migration-report-popup.controller.html',
+        controller: 'MigrationReportPopUpController',
+        controllerAs: 'ctrl',
+        resolve: {
+          artifact: () => this.page,
+          migrationReport: () => this.lastReport()
+        }
+      });
     }
   }
 

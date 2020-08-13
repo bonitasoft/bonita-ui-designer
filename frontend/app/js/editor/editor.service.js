@@ -20,7 +20,8 @@
     .module('bonitasoft.designer.editor')
     .service('editorService', editorService);
 
-  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts, gettext, whiteboardService, assetsService, dataManagementRepo) {
+  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
+                         gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
 
     var paletteItems = {};
     var page;
@@ -41,7 +42,6 @@
       let allWidgets = widgetRepo.all();
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
-
       return $q.all([dataWidgets, allWidgets])
         .then(values => {
           let widgets = [];
@@ -51,23 +51,33 @@
           return widgets;
         })
         .then(initializePalette)
-        .then(function() {
+        .then(() => {
           var promises = Object.keys(paletteItems)
             .reduce(function(promises, key) {
               return promises.concat(paletteItems[key](id));
             }, []);
           return $q.all(promises);
         })
-        .then(function() {
+        .then(() => {
+          return repo.migrationStatus(id);
+        })
+        .then((response) => {
+          return migration.handleMigrationStatus(id, response.data).then(() => {
+            if (response.data.migration) {
+              repo.migrate(id).then(response =>  migration.handleMigrationNotif(id, response.data));
+            }
+          });
+        })
+        .then(() => {
           return repo.load(id);
         })
-        .catch(function(error) {
-          if (error.status !== 422) {
+        .catch((error) => {
+          if (error.message && error.status !== 422) {
             alerts.addError(error.message);
           }
           return $q.reject(error);
         })
-        .then(function(response) {
+        .then((response) => {
           whiteboardService.reset();
           page = response.data;
           whiteboardComponentWrapper.wrapPage(page);

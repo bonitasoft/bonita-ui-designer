@@ -140,11 +140,34 @@
         url: '/widget/:id',
         resolve: {
           /* @ngInject */
-          artifact: function(widgetRepo, $stateParams) {
-            return widgetRepo.load($stateParams.id).then(function(response) {
-              return response.data;
-            });
-          },
+          artifact: function(widgetRepo, $stateParams, migration, alerts, $q) {
+            let id = $stateParams.id;
+            if (!id.startsWith('custom')) {
+              return widgetRepo.load(id).then(function(response) {
+                return response.data;
+              });
+            } else {
+              return widgetRepo.migrationStatus(id)
+                .then((response) => {
+                  return migration.handleMigrationStatus(id, response.data).then(() => {
+                    if (response.data.migration) {
+                      widgetRepo.migrate(id).then(response =>  migration.handleMigrationNotif(id, response.data));
+                    }
+                  });
+                })
+                .then(() => {
+                  return widgetRepo.load(id);
+                })
+                .then((response) => {
+                  return response.data;
+                })
+                .catch((error) => {
+                  if (error.message && error.status !== 422) {
+                    alerts.addError(error.message);
+                  }
+                  return $q.reject(error);
+                });
+            }},
           /* @ngInject */
           artifactRepo: function(widgetRepo) {
             return widgetRepo;

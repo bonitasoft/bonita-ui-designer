@@ -1,6 +1,6 @@
 describe('The route config', function() {
 
-  var $rootScope, $location, $state, widgetRepo, pageRepo, editorService, $httpBackend, $q;
+  var $rootScope, $location, $state, widgetRepo, pageRepo, editorService, $httpBackend, $q, migration;
 
   beforeEach(angular.mock.module('uidesigner'));
 
@@ -13,8 +13,13 @@ describe('The route config', function() {
     editorService = $injector.get('editorService');
     $httpBackend = $injector.get('$httpBackend');
     $q = $injector.get('$q');
+    migration = $injector.get('migration');
 
     spyOn(editorService, 'initialize').and.returnValue({});
+    spyOn(widgetRepo, 'migrate').and.returnValue($q.when({}));
+    spyOn(widgetRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
+    spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when({}));
+    spyOn(migration, 'handleMigrationNotif');
   }));
 
   it('should resolve the necessary for the page editor', function() {
@@ -49,6 +54,8 @@ describe('The route config', function() {
 
     // then we should have
     // resolve widgets
+    expect(widgetRepo.load).toHaveBeenCalledWith('customLabel');
+    expect(widgetRepo.migrationStatus).toHaveBeenCalledWith('customLabel');
     expect(widgetRepo.load).toHaveBeenCalledWith('customLabel');
     expect($state.current.views['@designer'].controller).toBe('CustomWidgetEditorCtrl');
   });

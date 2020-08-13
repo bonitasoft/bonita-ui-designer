@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 class="modal-title title"
+        ng-class="{'success' : ctrl.migrationReport.status.toLowerCase() === 'success',
+         'warning': ctrl.migrationReport.status.toLowerCase() === 'warning',
+         'error' :ctrl.migrationReport.status.toLowerCase() === 'error'}"
+        translate>
+        Migration report</h3>
+</div>
+<div class="modal-body" id="modal-edit-metadata">
+    <div ng-if="ctrl.migrationReport.status.toLowerCase() === 'success'" id="success">
+        <p ng-if="ctrl.migrationReport.status.toLowerCase() === 'success'" translate><b>{{ctrl.artifact.name}}</b>
+            successfully migrated.</p>
+        <p translate="">Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>.
+        </p>
+        <p translate>You cannot import or use this artifact in older version anymore.</p>
+    </div>
+
+    <div ng-if="ctrl.migrationReport.status.toLowerCase() === 'warning'" id="warning">
+        <p translate=""><b>{{ctrl.artifact.name}}</b> was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b>
+            to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>
+            with some warning.</p>
+        <p translate>You cannot import or use this artifact in older version anymore.</p>
+    </div>
+
+    <div ng-if="ctrl.migrationReport.status.toLowerCase() === 'error'" id="error">
+        <p translate>An errors occurs during migration.</p>
+    </div>
+
+    <div ng-show="ctrl.migrationReport.status.toLowerCase() !== 'success'"
+         ng-repeat="(key, value) in ctrl.migrationReport.migrationStepReport | groupBy: 'artifactId'">
+        <b>{{key}}</b>
+        <div class="col-xs-offset-1" ng-repeat="step in value">
+            <i ng-if="step.migrationStatus.toLowerCase() === 'warning'"
+               class="fa fa-exclamation-circle warning icon"></i>
+            <i ng-if="step.migrationStatus.toLowerCase() === 'error'"
+               class="fa fa-times-circle error icon"></i>
+            <span>{{step.comments}}</p></span>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer" id="modal-export-page-controls">
+    <button class="btn btn-link" ng-click="$dismiss('cancel')" name="cancel" translate>Cancel</button>
+</div>
+

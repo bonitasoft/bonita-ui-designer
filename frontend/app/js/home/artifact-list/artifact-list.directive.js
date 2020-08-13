@@ -17,7 +17,8 @@
 
   class ArtifactListController {
 
-    constructor($uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidatorService) {
+    constructor($q, $uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidatorService, alerts, migration) {
+      this.$q = $q;
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
       this.$localStorage = $localStorage;
@@ -25,6 +26,8 @@
       this.gettextCatalog = gettextCatalog;
       this.$state = $state;
       this.artifactNamingValidatorService = artifactNamingValidatorService;
+      this.alerts = alerts;
+      this.migration = migration;
     }
 
     translateKeys(key) {
@@ -57,23 +60,26 @@
     }
 
     exportArtifact(artifact) {
-      if (this.showExportPopup(artifact.type)) {
-        var modalInstance = this.$uibModal.open({
-          templateUrl: 'js/editor/header/export-popup.html',
-          controller: 'ExportPopUpController',
-          controllerAs: 'ctrl',
-          resolve: {
-            page: () => artifact
+      this.handleMigration(artifact)
+        .then(() => {
+          if (this.showExportPopup(artifact.type)) {
+            var modalInstance = this.$uibModal.open({
+              templateUrl: 'js/editor/header/export-popup.html',
+              controller: 'ExportPopUpController',
+              controllerAs: 'ctrl',
+              resolve: {
+                page: () => artifact
+              }
+            });
+
+            modalInstance.result
+              .then(() => {
+                this.achieveExport(artifact);
+              });
+          } else {
+            this.achieveExport(artifact);
           }
         });
-
-        modalInstance.result
-          .then(() => {
-            this.achieveExport(artifact);
-          });
-      } else {
-        this.achieveExport(artifact);
-      }
     }
 
     showExportPopup(artifactType) {
@@ -127,26 +133,30 @@
      */
     renameItem(artifact) {
       if (artifact.newName !== artifact.name) {
-        this.getRepository(artifact.type)
-          .rename(artifact.id, artifact.newName)
-          .then(response => {
-            let location = response.headers('location');
-            if (location) {
-              let newId = location.substring(location.lastIndexOf('/') + 1);
-              artifact.newId = newId;
-            } else {
-              artifact.newId = artifact.id;
-            }
-          })
-          .catch(() => {
-            artifact.newName = artifact.name;
+        this.handleMigration(artifact)
+        .then(() => {
+          return this.getRepository(artifact.type)
+            .rename(artifact.id, artifact.newName);
+        })
+        .then(response => {
+          let location = response.headers('location');
+          if (location) {
+            let newId = location.substring(location.lastIndexOf('/') + 1);
+            artifact.newId = newId;
+          } else {
             artifact.newId = artifact.id;
-          })
-          .finally(() => {
-            artifact.name = artifact.newName;
-            artifact.id = artifact.newId;
-            artifact.editionUrl = this.$state.href(`designer.${ artifact.type }`, { id: artifact.id });
-          });
+          }
+        })
+        .then(this.refreshAll)
+        .catch(() => {
+          artifact.newName = artifact.name;
+          artifact.newId = artifact.id;
+        })
+        .finally(() => {
+          artifact.name = artifact.newName;
+          artifact.id = artifact.newId;
+          artifact.editionUrl = this.$state.href(`designer.${ artifact.type }`, { id: artifact.id });
+        });
       }
 
       /**
@@ -157,6 +167,16 @@
        * So with a defferd action, the input is hidden on blur even if we click on da edit button
        */
       this.$timeout(() => this.editionIndex = undefined, 100);
+    }
+
+    handleMigration(artifact) {
+      if (artifact.status && artifact.status.migration) {
+        return this.migration.handleMigrationStatus(artifact.name, artifact.status)
+          .then(() => this.getRepository(artifact.type).migrate(artifact.id))
+          .then(() => this.refreshAll());
+      } else {
+        return this.$q.resolve();
+      }
     }
 
     getTooltipMessage(artifact) {
