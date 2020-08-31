@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-08-12 01:29\n"
+"PO-Revision-Date: 2020-08-31 01:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -72,6 +72,15 @@ msgstr "<b><em>タイム ゾーンを処理</em>を「いいえ」に設定し�
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b><em>タイム ゾーンを処理</em>を「はい」に設定した場合</b>: ウィジェットの <em>値</em> は、UTCになります （たとえば、yyyy-MM-ddTHH:mm:ssZ）。"
+
+msgid "<b>{{ctrl.artifact.name}}</b> successfully migrated."
+msgstr ""
+
+msgid "<b>{{ctrl.artifact.name}}</b> was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b> with some warning."
+msgstr ""
+
+msgid "<b>{{ctrl.artifact}}</b> {{ctrl.type}} has been created in an older version of the UI Designer. It needs to be migrated to the current version to be used with the latest features. This migration is automatic. <br> Note that once migrated, the page cannot be brought back to its previous state, and cannot be used in a previous version of the UI Designer."
+msgstr ""
 
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr ""
@@ -334,6 +343,9 @@ msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
+
+msgid "An errors occurs during migration."
+msgstr ""
 
 msgid "An extended table widget that provides column sorting, filtering, and paging in addition to the\n"
 "            standard table widget capabilities."
@@ -603,6 +615,9 @@ msgstr "クリックしてコンスタントにバインド"
 
 msgid "Click to bind to an expression"
 msgstr "クリックして式にバインド"
+
+msgid "Click to see migration report"
+msgstr ""
 
 msgid "Close"
 msgstr "閉じる"
@@ -991,6 +1006,9 @@ msgstr "時刻を入力 (h:mm:ss a)"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.column }}</code> 列でエラー"
+
+msgid "Error during migration of . Check migration details to more details."
+msgstr ""
 
 msgid "Error on upload holder"
 msgstr "アップロード ホルダーのエラー"
@@ -1560,7 +1578,13 @@ msgstr "メッセージ"
 msgid "Metadata"
 msgstr ""
 
+msgid "Migrate"
+msgstr ""
+
 msgid "Migration"
+msgstr ""
+
+msgid "Migration report"
 msgstr ""
 
 msgid "Milliseconds since Epoch (number or string variable)"
@@ -2875,6 +2899,9 @@ msgstr "実データが利用可能でない場合は、ホワイトボード �
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "1 つ以上のローカライゼーションのアセットを持つことはできません。新しいアセット ファイルをアップロードすると、既存のものが上書きされます。"
 
+msgid "You cannot import or use this artifact in older version anymore."
+msgstr ""
+
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr ""
 
@@ -2889,6 +2916,9 @@ msgstr "Studio でプロセス フォームの設計を開始する必要があ�
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
+
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
 
 msgid "Zebra-striping"
 msgstr ""
@@ -2948,6 +2978,9 @@ msgstr ""
 msgid "h:mm:ss a"
 msgstr "h:mm:ss a"
 
+msgid "has been migrated successfully. Check migration details to more details."
+msgstr ""
+
 msgid "hidden"
 msgstr "非表示"
 
@@ -2959,6 +2992,9 @@ msgstr "ページ、フォームや UI デザイナーの外側のレイアウ�
 
 msgid "info"
 msgstr "info"
+
+msgid "is not compatible with this UI Designer version. A newer version is required."
+msgstr ""
 
 msgid "laptop screens (992px ≤ screenSize < 1200px)"
 msgstr ""
@@ -3063,6 +3099,9 @@ msgstr "{{ vm.page.type }} エディタ"
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
+
+msgid "{{ctrl.artifact}} requires a migration"
+msgstr ""
 
 msgid "{{ctrl.page.name}} information"
 msgstr ""

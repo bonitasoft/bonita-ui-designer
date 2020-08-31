@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-08-12 01:28\n"
+"PO-Revision-Date: 2020-08-31 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -72,6 +72,15 @@ msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"no\"</b>: la zona 
 
 msgid "<b>With <em>Handle time zone</em> set to \"yes\"</b>: the <em>Value</em> of the widget is in UTC (e.g., yyyy-MM-ddTHH:mm:ssZ)."
 msgstr "<b>Con <em>Manejar zona horaria</em> establecida en \"si\"</b>: el <em>Valor</em> del widget es en UTC (por ejemplo, yyyy-MM-ddTHH:mm:ssZ)."
+
+msgid "<b>{{ctrl.artifact.name}}</b> successfully migrated."
+msgstr ""
+
+msgid "<b>{{ctrl.artifact.name}}</b> was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b> with some warning."
+msgstr ""
+
+msgid "<b>{{ctrl.artifact}}</b> {{ctrl.type}} has been created in an older version of the UI Designer. It needs to be migrated to the current version to be used with the latest features. This migration is automatic. <br> Note that once migrated, the page cannot be brought back to its previous state, and cannot be used in a previous version of the UI Designer."
+msgstr ""
 
 msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr "<code>Bordered</code><em>(Por defecto: desactivado)</em>: Muestra las celdas con bordes."
@@ -334,6 +343,9 @@ msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
+
+msgid "An errors occurs during migration."
+msgstr ""
 
 msgid "An extended table widget that provides column sorting, filtering, and paging in addition to the\n"
 "            standard table widget capabilities."
@@ -603,6 +615,9 @@ msgstr "Haga clic para enlazar una constante"
 
 msgid "Click to bind to an expression"
 msgstr "Haga clic para enlazar una expresión"
+
+msgid "Click to see migration report"
+msgstr ""
 
 msgid "Close"
 msgstr "Cerrar"
@@ -991,6 +1006,9 @@ msgstr "Introduzca una hora (h:mm:ss)"
 
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{{ infos.location.column }}</code>"
+
+msgid "Error during migration of . Check migration details to more details."
+msgstr ""
 
 msgid "Error on upload holder"
 msgstr "Contenido del error de carga"
@@ -1559,8 +1577,14 @@ msgstr "Mensaje"
 msgid "Metadata"
 msgstr "Metadatos"
 
+msgid "Migrate"
+msgstr ""
+
 msgid "Migration"
 msgstr "Migración"
+
+msgid "Migration report"
+msgstr ""
 
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "Milisegundos desde Epoch (variable numérica o string)"
@@ -2876,6 +2900,9 @@ msgstr "Puede utilizar la propiedad <i>environment</i> inyectada en el scope den
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "No puede haber más de un recurso de localización. Cuando subes un archivo de recurso, se sobrescribe el existente."
 
+msgid "You cannot import or use this artifact in older version anymore."
+msgstr ""
+
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "No puedes mover, eliminar o desactivar assets del <b>framework base </b>. Están aquí sólo para mostrarte qué biblioteca se utiliza para construir tu artefacto"
 
@@ -2890,6 +2917,9 @@ msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desd
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
+
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
 
 msgid "Zebra-striping"
 msgstr "Zebra-striping"
@@ -2950,6 +2980,9 @@ msgstr "fragmento"
 msgid "h:mm:ss a"
 msgstr "H:mm:ss"
 
+msgid "has been migrated successfully. Check migration details to more details."
+msgstr ""
+
 msgid "hidden"
 msgstr "oculto"
 
@@ -2961,6 +2994,9 @@ msgstr "si se edita la página, el formulario o el layout fuera del UI Designer,
 
 msgid "info"
 msgstr "info"
+
+msgid "is not compatible with this UI Designer version. A newer version is required."
+msgstr ""
 
 msgid "laptop screens (992px ≤ screenSize < 1200px)"
 msgstr ""
@@ -3067,6 +3103,9 @@ msgstr "Editor de {{ vm.page.type }}"
 
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenido de {{asset.name}} <expand-modal></expand-modal>"
+
+msgid "{{ctrl.artifact}} requires a migration"
+msgstr ""
 
 msgid "{{ctrl.page.name}} information"
 msgstr "{{ctrl.page.name}} información"
