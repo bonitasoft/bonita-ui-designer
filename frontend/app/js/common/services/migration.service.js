@@ -63,7 +63,7 @@
       handleMigrationNotif(id, migrationReport) {
         this.lastReport = migrationReport;
         let status = migrationReport.status;
-        let successMessage = gettextCatalog.getString(`${id} has been migrated successfully. Check migration details to more details.`);
+        let successMessage = gettextCatalog.getString(`${id} has been migrated successfully. Check migration details <i class="fa fa-wrench status"></i> for more details.`);
         switch (status) {
           case 'success': {
             alerts.addInfo(successMessage, 5000);
@@ -71,7 +71,7 @@
           }
           case 'error': {
             let error = {};
-            error.message = gettextCatalog.getString(`Error during migration of ${id}. Check migration details to more details.`);
+            error.message = gettextCatalog.getString(`Error during migration of ${id}. Check migration details <i class="fa fa-wrench status"></i> for more details.`);
             throw(error);
           }
           default: {
