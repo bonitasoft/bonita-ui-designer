@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-08-31 01:29\n"
+"PO-Revision-Date: 2020-09-02 01:29\n"
 
 msgid "&nbsp;"
 msgstr ""
@@ -1007,7 +1007,7 @@ msgstr "時刻を入力 (h:mm:ss a)"
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.column }}</code> 列でエラー"
 
-msgid "Error during migration of . Check migration details to more details."
+msgid "Error during migration of . Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
 msgstr ""
 
 msgid "Error on upload holder"
@@ -2920,6 +2920,9 @@ msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、�
 msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr ""
 
+msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
+
 msgid "Zebra-striping"
 msgstr ""
 
@@ -2978,7 +2981,7 @@ msgstr ""
 msgid "h:mm:ss a"
 msgstr "h:mm:ss a"
 
-msgid "has been migrated successfully. Check migration details to more details."
+msgid "has been migrated successfully. Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
 msgstr ""
 
 msgid "hidden"
