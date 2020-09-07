@@ -34,7 +34,7 @@
   "homepage": "https://github.com/bonitasoft/bonita-form-builder",
   "dependencies": {
     "connect": "^3.3.5",
-    "http-proxy": "^1.11.1",
+    "http-proxy": "^1.18.1",
     "multiparty": "^4.1.2"
   },
   "babel": {
