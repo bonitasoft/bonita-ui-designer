@@ -52,7 +52,7 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "~1.0.1",
     "gulp-util": "^3.0.1",
-    "http-proxy": "^1.6.2",
+    "http-proxy": "^1.18.1",
     "jasmine-core": "2.4.1",
     "jasmine-reporters": "2.1.1",
     "jscs-preset-bonita": "1.0.2",
