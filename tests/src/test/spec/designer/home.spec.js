@@ -11,8 +11,6 @@ describe('UI designer: home', function() {
     return element.all(by.css('.ArtifactList-fragment'));
   }
 
-  path = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
-
   function getListedPages() {
     $('.tab-page').click();
     return element.all(by.css('.ArtifactList-page'));
