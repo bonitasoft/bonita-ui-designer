@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import javax.servlet.http.HttpServletResponse;
 
 import org.bonitasoft.web.designer.controller.export.Exporter;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
@@ -41,12 +42,14 @@ public class ExportControllerTest {
     private Exporter<Page> pageExporter;
     @Mock
     private Exporter<Widget> widgetExporter;
+    @Mock
+    private Exporter<Fragment> fragmentExporter;
 
     private ExportController exportController;
 
     @Before
     public void setUp() {
-        exportController = new ExportController(pageExporter, widgetExporter);
+        exportController = new ExportController(pageExporter, widgetExporter, fragmentExporter);
         mockMvc = mockServer(exportController).build();
     }
 
@@ -64,5 +67,13 @@ public class ExportControllerTest {
         mockMvc.perform(get("/export/widget/a-widget"));
 
         verify(widgetExporter).handleFileExport(eq("a-widget"), any(HttpServletResponse.class));
+    }
+
+    @Test
+    public void should_export_a_fragment() throws Exception {
+
+        mockMvc.perform(get("/export/fragment/a-fragment"));
+
+        verify(fragmentExporter).handleFileExport(eq("a-fragment"), any(HttpServletResponse.class));
     }
 }

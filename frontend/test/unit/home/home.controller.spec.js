@@ -39,6 +39,7 @@ describe('HomeCtrl', function() {
     expect($scope.artifacts).toEqual({
       all: artifacts,
       page: pages,
+      fragment: fragments,
       widget: widgets,
       form: [],
       layout: []

@@ -17,11 +17,11 @@
 
   class ArtifactStore {
 
-    constructor($q, pageRepo, widgetRepo) {
+    constructor($q, pageRepo, widgetRepo, fragmentRepo) {
       this.$q = $q;
       this.repositories = [pageRepo, {
         all: () => widgetRepo.customs()
-      }];
+      }, fragmentRepo];
     }
 
     load() {

@@ -1,0 +1,19 @@
+<div class="form-group">
+    <label class="control-label" translate>Expose fragment data to page?</label>
+    <div class="radio">
+        <label>
+            <input type="radio" name="exposed" id="exposedNo" ng-model="model" ng-value="false">
+            <span translate>No. This data will be specific to this fragment.</span>
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="exposed" id="exposedYes" ng-model="model" ng-value="true">
+            <span translate>Yes. You must bind this variable to a variable in the page, form, layout or fragment using this fragment.</span><br/> <button class="btn btn-link" type="button" ng-show="model" ng-click="collapseExample = !collapseExample" translate>See example</button>
+
+            <div class="well" uib-collapse="!(collapseExample && model)">
+              Insert the fragment in a page, if needed create a page variable, select the fragment in the page, and bind the page variable to this variable in the "bindable fragment data" section of the fragment property panel.
+            </div>
+        </label>
+    </div>
+</div>

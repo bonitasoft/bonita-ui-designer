@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller;
 
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.slf4j.Logger;
@@ -47,18 +48,24 @@ public class PreviewController {
     private PageRepository pageRepository;
     private Previewer previewer;
     private Path widgetRepositoryPath;
+    private Path fragmentRepositoryPath;
     private Path pageRepositoryPath;
     private WorkspacePathResolver pathResolver;
+    private FragmentRepository fragmentRepository;
 
     @Inject
     public PreviewController(PageRepository pageRepository,
+                             FragmentRepository fragmentRepository,
                              Previewer previewer,
                              @Named("widgetPath") Path widgetRepositoryPath,
+                             @Named("fragmentsPath") Path fragmentRepositoryPath,
                              @Named("pagesPath") Path pageRepositoryPath,
                              WorkspacePathResolver pathResolver) {
         this.pageRepository = pageRepository;
+        this.fragmentRepository = fragmentRepository;
         this.previewer = previewer;
         this.widgetRepositoryPath = widgetRepositoryPath;
+        this.fragmentRepositoryPath = fragmentRepositoryPath;
         this.pageRepositoryPath = pageRepositoryPath;
         this.pathResolver = pathResolver;
     }
@@ -105,6 +112,26 @@ public class PreviewController {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
         Path filePath = pathResolver.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER).resolve(matchingPath);
         HttpFile.writeFileInResponse(request, response, filePath);
+    }
+
+    @RequestMapping(value = "/preview/fragment/{appName}/{id}", produces = "text/html; charset=UTF-8")
+    public ResponseEntity<String> previewFragment(@PathVariable(value = "id") String id, HttpServletRequest
+            httpServletRequest) {
+        return previewer.render(id, fragmentRepository, httpServletRequest);
+    }
+
+    @RequestMapping("/preview/fragment/{appName}/{id}/widgets*")
+    public void serveFragmentWidgets(HttpServletRequest request, HttpServletResponse response, @PathVariable("id")
+            String id) throws IOException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
+        Path filePath = pathResolver.getTmpFragmentsRepositoryPath().resolve(id).resolve(matchingPath);
+        HttpFile.writeFileInResponse(request, response, filePath);
+    }
+
+    @RequestMapping("/preview/page/{appName}/{id}/fragments/**")
+    public void serveFragmentFiles(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
+        HttpFile.writeFileInResponse(request, response, fragmentRepositoryPath.resolve(matchingPath));
     }
 
     /**

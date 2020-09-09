@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitors;
+package org.bonitasoft.web.designer.visitor;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
@@ -21,14 +21,22 @@ import static org.assertj.core.data.MapEntry.entry;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.rendering.GenerationException;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.junit.Before;
@@ -36,6 +44,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,6 +52,9 @@ public class PropertyValuesVisitorTest {
 
     @Rule
     public TestResource testResource = new TestResource(this.getClass());
+
+    @Mock
+    private FragmentRepository fragmentRepository;
 
     @InjectMocks
     private PropertyValuesVisitor propertyValuesVisitor;
@@ -162,5 +174,49 @@ public class PropertyValuesVisitorTest {
                 entry("modalContainer-reference", emptyMap()),
                 entry("container-id", emptyMap()),
                 entry("component-id", singletonMap("foo", propertyValue)));
+    }
+
+    @Test
+    public void should_associate_fragment_property_values_with_its_id() throws Exception {
+        when(fragmentRepository.get("fragment-id")).thenReturn(aFragment().build());
+
+        assertThat(propertyValuesVisitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id")
+                .withReference("fragment-element-id")
+                .withPropertyValue("foo", "bar", "baz")
+                .build())).containsExactly(
+                entry("fragment-element-id", singletonMap("foo", propertyValue)));
+    }
+
+    @Test
+    public void should_associate_component_property_values_contained_in_a_fragment_with_its_id() throws Exception {
+        when(fragmentRepository.get("fragment-id")).thenReturn(aFragment()
+                .with(aRow().with(aComponent()
+                        .withReference("component-id")
+                        .withPropertyValue("foo", "bar", "baz")))
+                .build());
+
+        assertThat(propertyValuesVisitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id")
+                .withReference("fragment-element-id")
+                .build())).containsOnly(
+                entry("fragment-element-id", emptyMap()),
+                entry("component-id", singletonMap("foo", propertyValue)));
+    }
+
+    @Test(expected = GenerationException.class)
+    public void should_throw_a_generation_error_when_fragment_is_not_found() {
+        when(fragmentRepository.get("fragment-id")).thenThrow(new NotFoundException(""));
+
+        propertyValuesVisitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id").build());
+    }
+
+    @Test(expected = GenerationException.class)
+    public void should_throw_a_generation_error_when_there_is_a_repository_error_while_looking_for_a_fragment() {
+        when(fragmentRepository.get("fragment-id")).thenThrow(new RepositoryException("", new RuntimeException()));
+
+        propertyValuesVisitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id").build());
     }
 }

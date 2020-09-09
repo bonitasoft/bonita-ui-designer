@@ -1,0 +1,12 @@
+<div class="widget-container" ng-repeat="row in container.rows">
+  <div ng-repeat="component in row" ng-switch="component.type">
+    <component-preview ng-switch-when="component" id="{{ component.$$id }}" component="component" ng-class="preview.columnClasses(component)"></component-preview>
+    <container-preview ng-switch-when="container" id="{{ component.$$id }}" container="component" preview="preview" ng-class="preview.columnClasses(component)"></container-preview>
+    <tabs-container-preview ng-switch-when="tabsContainer" id="{{ component.$$id }}" tabs-container="component" preview="preview" ng-class="preview.columnClasses(component)"></tabs-container-preview>
+    <div ng-switch-when="fragment" ng-class="preview.columnClasses(component)">
+      <ng-include src="'js/editor/whiteboard/fragment-template.html'"></ng-include>
+    </div>
+    <form-container-preview ng-switch-when="formContainer" id="{{ component.$$id }}" form-container="component" ng-class="preview.columnClasses(component)"></form-container-preview>
+    <modal-container-preview ng-switch-when="modalContainer" id="{{ component.$$id }}" modal-container="component" ng-class="preview.columnClasses(component)"></modal-container-preview>
+  </div>
+</div>

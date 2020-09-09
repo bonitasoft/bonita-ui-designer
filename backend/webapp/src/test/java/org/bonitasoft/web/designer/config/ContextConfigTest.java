@@ -34,6 +34,7 @@ public class ContextConfigTest {
             //We want to personnalize the workspace directory
             System.setProperty("repository.pages", prop.getProperty("builddirectory") + "/test-classes/workspace/pages");
             System.setProperty("repository.widgets", prop.getProperty("builddirectory") + "/test-classes/workspace/widgets");
+            System.setProperty("repository.fragments", prop.getProperty("builddirectory") + "/test-classes/workspace/fragments");
         }
         catch (IOException e) {
             throw new RuntimeException("Error on test environment initialization");

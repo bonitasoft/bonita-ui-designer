@@ -107,7 +107,19 @@ var AssetPanel = require('./asset-panel.page');
       browser.actions().mouseMove(selectedItem).perform();
       $$('.component-element--selected .fa.fa-times-circle').first().click();
     },
+    addFragment: function(fragmentId, to) {
+      var editor = this;
+      var dropTarget = to || '.widget-placeholder';
 
+      var btn = $('.Palette-section[aria-label=fragments]');
+      btn.getAttribute('class').then(function(className) {
+        if (!/.Palette-section--active/.test(className)) {
+          btn.click();
+        }
+        expect($$('identicon[name="' + fragmentId + '"] img').first().getAttribute('src')).toContain('data:image/png;base64,');
+        editor.addElement(fragmentId).to(dropTarget);
+      });
+    },
     // add a container
     addContainer: function() {
       this.addElement('pbContainer').to('.widget-placeholder', false, true);
@@ -172,6 +184,11 @@ var AssetPanel = require('./asset-panel.page');
     containers: {
       get: function() {
         return element.all(by.tagName('container'));
+      }
+    },
+    fragments: {
+      get: function() {
+        return element.all(by.tagName('fragment'));
       }
     },
     // get all containers

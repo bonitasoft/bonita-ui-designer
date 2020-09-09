@@ -1,6 +1,6 @@
 describe('The route config', function() {
 
-  var $rootScope, $location, $state, widgetRepo, pageRepo, editorService, $httpBackend, $q, migration;
+  var $rootScope, $location, $state, widgetRepo, pageRepo, fragmentRepo, editorService, $httpBackend, $q, migration;
 
   beforeEach(angular.mock.module('uidesigner'));
 
@@ -10,6 +10,7 @@ describe('The route config', function() {
     $state = $injector.get('$state');
     widgetRepo = $injector.get('widgetRepo');
     pageRepo = $injector.get('pageRepo');
+    fragmentRepo = $injector.get('fragmentRepo');
     editorService = $injector.get('editorService');
     $httpBackend = $injector.get('$httpBackend');
     $q = $injector.get('$q');
@@ -88,4 +89,26 @@ describe('The route config', function() {
     $httpBackend.flush();
   });
 
+  it('should resolve the necessary for the fragment editor', function() {
+    // when we go to the editor
+    $location.url('en/fragments/person');
+    $rootScope.$apply();
+
+    // then we should call the resolve
+    // a page as there is a name in URL
+    expect(editorService.initialize).toHaveBeenCalledWith(fragmentRepo, 'person');
+
+    // a controller
+    expect($state.current.views['@designer'].controller).toBe('EditorCtrl');
+    expect($state.current.views['data@designer.fragment'].controller).toBe('DataCtrl');
+  });
+
+  it('should resolve the necessary for the fragment preview', function() {
+    // when we go to the editor
+    $location.path('en/preview/fragment/person');
+    $rootScope.$apply();
+
+    // a controller
+    expect($state.current.views['@designer'].controller).toBe('PreviewCtrl');
+  });
 });

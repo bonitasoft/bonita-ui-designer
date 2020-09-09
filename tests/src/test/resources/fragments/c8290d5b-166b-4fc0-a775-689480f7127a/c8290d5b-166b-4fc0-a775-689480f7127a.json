@@ -1,0 +1,61 @@
+{
+  "designerVersion": "1.5-SNAPSHOT",
+  "id": "c8290d5b-166b-4fc0-a775-689480f7127a",
+  "name": "person",
+  "lastUpdate": 1429523781393,
+  "rows": [
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "isReadonly": {
+            "type": "constant",
+            "value": false
+          },
+          "label": {
+            "type": "constant",
+            "value": "Name"
+          },
+          "labelPosition": {
+            "type": "constant",
+            "value": "left"
+          },
+          "labelWidth": {
+            "type": "constant",
+            "value": 4
+          },
+          "placeholder": {"type": "constant"},
+          "value": {
+            "type": "variable",
+            "value": "name"
+          },
+          "type": {
+            "type": "constant",
+            "value": "text"
+          },
+          "maxlength": {"type": "constant"},
+          "maxValue": {"type": "constant"},
+          "minValue": {"type": "constant"}
+        },
+        "reference": "3c4711fc-3bce-4198-8df2-2c897f2bfda8",
+        "id": "pbInput"
+      }
+    ]
+  ],
+  "variables": {
+    "name": {
+      "type": "constant",
+      "exposed": true
+    }
+  }
+}

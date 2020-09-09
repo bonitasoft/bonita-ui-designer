@@ -19,11 +19,13 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 import java.util.HashSet;
@@ -35,9 +37,11 @@ import static java.util.Collections.emptySet;
 public class AuthRulesCollector implements ElementVisitor<Set<String>> {
 
     private WidgetRepository widgetRepository;
+    private FragmentRepository fragmentRepository;
 
-    public AuthRulesCollector(WidgetRepository widgetRepository) {
+    public AuthRulesCollector(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
         this.widgetRepository = widgetRepository;
+        this.fragmentRepository = fragmentRepository;
     }
 
     @Override
@@ -84,6 +88,11 @@ public class AuthRulesCollector implements ElementVisitor<Set<String>> {
     @Override
     public <P extends Previewable & Identifiable> Set<String> visit(P previewable) {
         return visitRows(previewable.getRows());
+    }
+
+    @Override
+    public Set<String> visit(FragmentElement fragmentElement) {
+        return visitRows(fragmentRepository.get(fragmentElement.getId()).getRows());
     }
 
     protected <P extends Previewable & Identifiable> Set<String> visitRows(List<List<Element>> rows) {

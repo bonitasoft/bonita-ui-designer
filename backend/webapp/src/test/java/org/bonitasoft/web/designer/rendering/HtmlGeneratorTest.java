@@ -15,9 +15,11 @@
 package org.bonitasoft.web.designer.rendering;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.when;
 
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.jsoup.Jsoup;
@@ -52,6 +54,16 @@ public class HtmlGeneratorTest {
         when(htmlBuilderVisitor.build(page, "")).thenReturn("foobar");
 
         String generateHtml = generator.generateHtml(page);
+
+        assertThat(generateHtml).isEqualTo(format("foobar"));
+    }
+
+    @Test
+    public void should_generate_formatted_html_for_fragment_with_given_widgets() throws Exception {
+        Fragment fragment = aFragment().build();
+        when(htmlBuilderVisitor.build(fragment, "mycontext/")).thenReturn("foobar");
+
+        String generateHtml = generator.generateHtml("mycontext/", fragment);
 
         assertThat(generateHtml).isEqualTo(format("foobar"));
     }

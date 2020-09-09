@@ -3,8 +3,9 @@ import { default as HomePage } from '../pages/home.page';
 describe('home page', function() {
 
   var home;
-  const PAGE_NAMES = [ 'Person', 'empty','aPageToMigrate', 'aPageIncompatible'];
+  const PAGE_NAMES = [ 'Person', 'fragInFragInFrag', 'empty','aPageToMigrate', 'aPageIncompatible'];
   const WIDGET_NAMES = [ 'awesomeWidget', 'favoriteWidget' ];
+  const FRAGMENT_NAMES = [ 'fragWithTitleFrag', 'simpleFragment', 'personFragment', 'empty' ];
 
   beforeEach(function() {
     home = HomePage.get();
@@ -118,12 +119,12 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');
   });
 
-  it('should change sort order to alphabetical or chronological', () => {
+  it('should change sort order ', () => {
     expect($('.switcher').getAttribute('class')).toContain('active');
     $('.switcher .fa.fa-sort-alpha-asc').click();
 
     expect(home.getListedPageNames()).toEqual([...PAGE_NAMES].reverse());
-    expect(home.getFavoriteArtifactNames()).toEqual(['favoriteWidget', 'Person']);
+    expect(home.getFavoriteArtifactNames()).toEqual(['favoriteWidget', 'Person', 'personFragment']);
     expect(home.getListedWidgetNames()).toEqual(WIDGET_NAMES);
 
     //check the storage keeps the selected sort order
@@ -134,7 +135,7 @@ describe('home page', function() {
     expect($('.switcher').getAttribute('class')).toContain('active');
     expect(home.getListedWidgetNames()).toEqual(WIDGET_NAMES);
     expect(home.getListedPageNames()).toEqual(PAGE_NAMES);
-    expect(home.getFavoriteArtifactNames()).toEqual(['Person', 'favoriteWidget']);
+    expect(home.getFavoriteArtifactNames()).toEqual(['Person', 'personFragment', 'favoriteWidget']);
   });
 
   it('should forbid to create a widget with an already existing name', function() {
@@ -147,7 +148,7 @@ describe('home page', function() {
 
   it('should open a modal to confirm page deletion', function() {
     //We want to delete a page
-    $$('#person-page .Artifact-delete').first().click();
+    $$('#personPage .Artifact-delete').first().click();
     //A modal is opened with a confirmation message
     expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the page Person?');
   });
@@ -155,7 +156,7 @@ describe('home page', function() {
   it('should not delete page if user cancels deletion', function() {
     var numberOfPages = element.all(by.repeater('page in pages')).count();
     //We want to delete a page
-    $$('#person-page .Artifact-delete').first().click();
+    $$('#personPage .Artifact-delete').first().click();
     //A modal is opened and I click on Cancel
 
     //Disable animation for modal
@@ -171,7 +172,7 @@ describe('home page', function() {
   });
 
   it('should export a page', function() {
-    var btn = $$('#person-page .Artifact-export').first();
+    var btn = $$('#personPage .Artifact-export').first();
     btn.click();
 
     $$('.EditorHeader-exportForm .modal-footer button[name=export]').get(0).click();
@@ -193,7 +194,7 @@ describe('home page', function() {
 
   it('should rename a page', function() {
 
-    var btnRenamePage = $$('#person-page .Artifact-rename').first();
+    var btnRenamePage = $$('#personPage .Artifact-rename').first();
     btnRenamePage.click();
 
     //The link should now be a visible input with the page name
@@ -207,7 +208,7 @@ describe('home page', function() {
   });
 
   it('should not rename a page with space or special characters in name', function() {
-    $$('#person-page .Artifact-rename').first().click();
+    $$('#personPage .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     $('#page-name-input-0').clear();
@@ -228,7 +229,7 @@ describe('home page', function() {
 
   it('should remove the input to rename a page on blur', function() {
 
-    $$('#person-page .Artifact-rename').first().click();
+    $$('#personPage .Artifact-rename').first().click();
 
     //The link should now be a visible input with the page name
     var nameInput = $('#page-name-input-0');
@@ -243,7 +244,7 @@ describe('home page', function() {
   });
 
   it('should set autofocus on the input if we edit a page',  function() {
-    $$('#person-page .Artifact-rename').first().click();
+    $$('#personPage .Artifact-rename').first().click();
     var input = $('#page-name-input-0');
     expect(input.getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
   });
@@ -255,7 +256,7 @@ describe('home page', function() {
   });
 
   it('should filter widgets, pages and fragment by name', function() {
-    expect(home.getTabCounter('page')).toEqual('4');
+    expect(home.getTabCounter('page')).toEqual('5');
     expect(home.getTabCounter('widget')).toEqual('2');
     expect(home.getTabCounter('layout')).toEqual('1');
     expect(home.getTabCounter('form')).toEqual('1');
@@ -316,6 +317,108 @@ describe('home page', function() {
 
     aPageIncompatible.click();
     expect(browser.getCurrentUrl()).toMatch(/.*\/home/);
+  });
+
+  it('should list fragments', function() {
+    expect(home.getListedFragmentNames()).toEqual(FRAGMENT_NAMES);
+  });
+
+  it('should list favorite fragments', function() {
+    expect(home.getFavoriteFragmentNames()).toEqual(['personFragment']);
+  });
+
+  it('should navigate to a fragment', function() {
+    $$('.ArtifactList-fragment a').first().click();
+
+    expect($('.EditorHeader-brand').getText()).toBe('FRAGMENT EDITOR');
+  });
+
+  it('should create a fragment', function() {
+    home.createFragment('test');
+    expect($('.EditorHeader-brand').getText()).toBe('FRAGMENT EDITOR');
+  });
+
+  it('should forbid to create a fragment with an already existing name', function() {
+    $('.HomeCreate').click();
+    element(by.css('#type-fragment')).click();
+    $('.modal-body input[name="name"]').sendKeys('Personfragment');
+    expect($('.modal-footer button[type="submit"]').isEnabled()).toBeFalsy();
+    expect($('.tooltip-inner').getText()).toEqual('This name already exists');
+  });
+
+  it('should export a fragment', function() {
+    var btn = $$('.ArtifactList-fragment .Artifact-export').first();
+    btn.click();
+    browser.ignoreSynchronization = true;
+    expect($$('.EditorHeader-exportForm').count()).toBe(0);
+    browser.ignoreSynchronization = false;
+  });
+
+  it('should open a modal to confirm fragment deletion', function() {
+    //We want to delete a fragment
+    $$('.ArtifactList-fragment .Artifact-delete').first().click();
+    //A modal is opened with a confirmation message
+    expect($('#confirm-delete-popup .modal-body').getText()).toBe('Are you sure you want to delete the fragment personFragment?');
+  });
+
+  it('should rename a fragment', function() {
+
+    var btnRenameFragment = $$('.ArtifactList-fragment .Artifact-rename').first();
+    btnRenameFragment.click();
+
+    //The link should now be a visible input with the fragment name
+    var nameInput = $('form[name="renameArtifact"] input');
+    expect(nameInput.getAttribute('value')).toBe('personFragment');
+
+    // when entering invalid name, we should have a message
+    nameInput.sendKeys('Wrong name');
+    expect($('form[name="renameArtifact"] .tooltip-inner').isDisplayed()).toBeTruthy();
+
+    //We can change the name
+    nameInput.clear();
+    nameInput.sendKeys('Person2');
+
+    // It should remove the input
+    $('.HomeHeader-title').click();
+    expect(nameInput.isPresent()).toBe(false);
+    expect($$('.ArtifactList-fragment .Artifact-name').first().getText()).toBe('Person2');
+  });
+
+  it('should remove the input to rename a fragment on blur', function() {
+
+    //We want to rename a fragment
+    $$('.ArtifactList-fragment .Artifact-rename').first().click();
+    //The link should now be a visible input with the fragment name
+    var nameFragmentInput = $('form[name="renameArtifact"] input');
+    expect(nameFragmentInput.isPresent()).toBe(true);
+
+    browser
+      .executeScript('$(\'form[name="renameArtifact"] input\').blur();')
+      .then(function() {
+        expect(nameFragmentInput.isPresent()).toBe(false);
+      });
+  });
+
+  it('should set autofocus on the input if we edit a fragment', function() {
+    $$('.ArtifactList-fragment .Artifact-rename').first().click();
+    var input = $('form[name="renameArtifact"] input');
+    expect(input.getAttribute('id')).toEqual(browser.driver.switchTo().activeElement().getAttribute('id'));
+  });
+
+  it('should open help popup', function() {
+    $('.btn-bonita-help').click();
+
+    expect($('.modal-header .modal-title').getText()).toBe('Help');
+  });
+
+  it('should filter widgets, pages and fragment by name', function() {
+    home.search('noWidgetNoPagesAndNoFragmentHasANameLikeThat');
+    expect(home.getListedFragmentNames()).toEqual([]);
+    expect(home.getFavoriteFragmentNames()).toEqual([]);
+
+    home.search('so');   // 'so' is contained by 'PerSOn' and 'aweSOmeWidget'
+    expect(home.getListedFragmentNames()).toEqual(['personFragment']);
+    expect(home.getFavoriteFragmentNames()).toEqual(['personFragment']);
   });
 
 });

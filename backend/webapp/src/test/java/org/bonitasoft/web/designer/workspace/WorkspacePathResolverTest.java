@@ -82,4 +82,18 @@ public class WorkspacePathResolverTest {
 
         assertThat(workspacePathResolver.getPagesRepositoryPath()).isEqualTo(Paths.get("path/to/pages"));
     }
+
+    @Test
+    public void should_resolve_fragments_repository_path() throws Exception {
+        when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
+
+        assertThat(workspacePathResolver.getFragmentsRepositoryPath()).isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/fragments"));
+    }
+
+    @Test
+    public void should_retrieve_fragments_repository_path_from_environment_variable() throws Exception {
+        when(env.getProperty("repository.fragments")).thenReturn("path/to/fragments");
+
+        assertThat(workspacePathResolver.getFragmentsRepositoryPath()).isEqualTo(Paths.get("path/to/fragments"));
+    }
 }

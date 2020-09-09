@@ -136,4 +136,41 @@ describe('whiteboard component wrapper', function() {
     expect(item.triggerAdded).toBeDefined();
   });
 
+  it('should wrap a fragment component', function() {
+    spyOn(service, 'wrapContainer');
+    var parentRow = {};
+    var item = { rows: [] };
+    var fragment = {
+      id: 'f1',
+      type: 'fragment',
+      name: 'foo'
+    };
+
+    service.wrapFragment(fragment, item, parentRow);
+
+    expect(item.$$id).toBe('fragment-0');
+    expect(item.$$widget).toBeDefined();
+    expect(item.$$widget.name).toBe('foo');
+    expect(item.$$widget).toEqual(fragment);
+    expect(item.$$templateUrl).toBeDefined();
+    expect(item.$$parentContainerRow).toBe(parentRow);
+    expect(service.wrapContainer).toHaveBeenCalled();
+    expect(service.wrapContainer.calls.mostRecent().args[1]).toEqual(fragment);
+  });
+
+  it('should trigger "Init" when wrapping a fragment', function() {
+    spyOn(whiteboardService, 'triggerInitWidget');
+    spyOn(service, 'wrapContainer');
+    var fragment = {
+      id: 'f1',
+      type: 'fragment',
+      name: 'foo'
+    };
+
+    var wrapped = service.wrapFragment(fragment, { rows: [] }, {});
+
+    expect(whiteboardService.triggerInitWidget).toHaveBeenCalledWith(wrapped);
+  });
+
+
 });

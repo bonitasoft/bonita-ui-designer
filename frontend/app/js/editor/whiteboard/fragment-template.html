@@ -1,0 +1,10 @@
+<fragment id="{{ component.$$id }}"
+          class="container-element fragment-element"
+          fragment-name="{{component.id}}"
+          component="component"
+          editor="editor"
+          component-index="$index"
+          row="row"
+          ng-click="editor.selectComponent(component, $event)"
+          ng-class="{'component-element--selected': editor.isCurrentComponent(component)}">
+</fragment>

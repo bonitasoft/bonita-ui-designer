@@ -91,6 +91,21 @@ describe('dropZone directive', function() {
     expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 3);
   });
 
+  it('should add a fragment when the element is dropped before', function() {
+    var data = { type: 'fragment', fragment: 'fragment' };
+    directiveScope.componentIndex = 4;
+    directiveScope.dropBefore(data);
+    expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 4);
+  });
+
+  it('should add a fragment when the element is dropped after', function() {
+    var data = { type: 'fragment', fragment: 'fragment' };
+    directiveScope.componentIndex = 5;
+    directiveScope.dropAfter(data);
+
+    expect(scope.editor.addComponentToRow).toHaveBeenCalledWith(data, container, row, 6);
+  });
+
   describe('we drop a widget with a configuration', function() {
 
     var widgetConfig = {

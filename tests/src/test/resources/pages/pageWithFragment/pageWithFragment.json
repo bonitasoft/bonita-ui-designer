@@ -1,0 +1,68 @@
+{
+  "designerVersion": "1.5-SNAPSHOT",
+  "id": "pageWithFragment",
+  "name": "pageWithFragment",
+  "lastUpdate": 1429524789103,
+  "rows": [
+    [
+      {
+        "type": "fragment",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "hidden": {
+            "type": "constant",
+            "value": false
+          }
+        },
+        "reference": "2e55c97e-9464-4790-9157-2cc4125d8941",
+        "id": "c8290d5b-166b-4fc0-a775-689480f7127a",
+        "binding": {"name": "name"}
+      }
+    ],
+    [
+      {
+        "type": "component",
+        "dimension": {
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12
+        },
+        "propertyValues": {
+          "cssClasses": {
+            "type": "constant",
+            "value": ""
+          },
+          "text": {
+            "type": "interpolation",
+            "value": "Hello {{ name }}"
+          },
+          "alignment": {
+            "type": "constant",
+            "value": "left"
+          }
+        },
+        "reference": "8992adcc-f089-4dff-ba0d-c0cc6fe75ab9",
+        "id": "pbText"
+      }
+    ]
+  ],
+  "variables": {
+    "name": {
+      "type": "constant",
+      "value": [
+        "vincent"
+      ],
+      "exposed": false
+    }
+  }
+}

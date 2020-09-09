@@ -22,23 +22,30 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.google.common.collect.ObjectArrays;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
+import org.bonitasoft.web.designer.controller.export.steps.FragmentPropertiesExportStep;
+import org.bonitasoft.web.designer.controller.export.steps.FragmentsExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.HtmlExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
+import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
+import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabContainer;
@@ -48,13 +55,17 @@ import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.repository.*;
 import org.bonitasoft.web.designer.service.BondsTypesFixer;
+import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.bonitasoft.web.designer.visitor.ModelPropertiesVisitor;
+import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
 import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
-import org.bonitasoft.web.designer.visitor.EmptyPageFactory;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
@@ -66,6 +77,7 @@ import org.fedorahosted.tennera.jgettext.PoParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
@@ -80,13 +92,12 @@ import com.google.common.collect.Lists;
  * @author Guillaume EHRET
  */
 @Configuration
-@Conditional(DesignerConfigConditional.class)
 @EnableScheduling
 public class DesignerConfig {
 
     @Bean
     public Class[] jacksonSubTypes() {
-        return new Class[]{Component.class, Container.class, FormContainer.class,  TabsContainer.class, TabContainer.class, ModalContainer.class};
+        return new Class[]{FragmentElement.class, Component.class, Container.class, FormContainer.class,  TabsContainer.class, TabContainer.class, ModalContainer.class};
     }
 
     @Bean
@@ -151,6 +162,11 @@ public class DesignerConfig {
     }
 
     @Bean
+    public JsonFileBasedPersister<Fragment> fragmentFileBasedPersister() {
+        return new JsonFileBasedPersister<>(objectMapperWrapper(), beanValidator());
+    }
+
+    @Bean
     public JsonFileBasedLoader<Page> pageFileBasedLoader() {
         return new JsonFileBasedLoader<>(objectMapperWrapper(), Page.class);
     }
@@ -158,6 +174,11 @@ public class DesignerConfig {
     @Bean
     public JsonFileBasedLoader<Widget> widgetFileBasedLoader() {
         return new WidgetFileBasedLoader(objectMapperWrapper());
+    }
+
+    @Bean
+    public JsonFileBasedLoader<Fragment> fragmentFileBasedLoader() {
+        return new JsonFileBasedLoader<>(objectMapperWrapper(), Fragment.class);
     }
 
     @Bean
@@ -187,10 +208,9 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, PageService pageService,
-                                               WidgetImporter widgetImporter,
-                                               AssetImporter<Page> pageAssetImporter) {
-        return new ArtifactImporter<>(pageRepository, pageService, pageFileBasedLoader(), widgetImporter, pageAssetImporter);
+    public ArtifactImporter<Page> pageImporter(PageRepository pageRepository, PageService pageService, FragmentImporter fragmentImporter,
+                                               WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
+        return new ArtifactImporter<>(pageRepository, pageService, pageFileBasedLoader(), fragmentImporter, widgetImporter, pageAssetImporter);
     }
 
     @Bean
@@ -201,11 +221,18 @@ public class DesignerConfig {
     }
 
     @Bean
+    public FragmentImporter fragmentElementImporter(FragmentRepository fragmentRepository) {
+        return new FragmentImporter(fragmentFileBasedLoader(), fragmentRepository);
+    }
+
+    @Bean
     public Map<String, ArtifactImporter> artifactImporters(ArtifactImporter<Page> pageImporter,
-                                                           ArtifactImporter<Widget> widgetImporter) {
+                                                           ArtifactImporter<Widget> widgetImporter,
+                                                           ArtifactImporter<Fragment> fragmentImporter) {
         return ImmutableMap.<String, ArtifactImporter>builder()
                 .put("page", pageImporter)
                 .put("widget", widgetImporter)
+                .put("fragment", fragmentImporter)
                 .build();
     }
 
@@ -215,10 +242,10 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ExportStep<Page>[] pageExportSteps(WidgetsExportStep<Page> widgetsExportStep,
-                                              PagePropertiesExportStep pagePropertiesExportStep,
-                                              HtmlExportStep htmlExportStep, AssetExportStep assetExportStep) {
-        return new ExportStep[]{htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep};
+    public ExportStep<Page>[] pageExportSteps(FragmentsExportStep<Page> fragmentsExportStep, WidgetsExportStep<Page> widgetsExportStep,
+                                              PagePropertiesExportStep pagePropertiesExportStep, HtmlExportStep htmlExportStep,
+                                              AssetExportStep assetExportStep) {
+        return new ExportStep[]{htmlExportStep, widgetsExportStep, pagePropertiesExportStep, assetExportStep,fragmentsExportStep};
     }
 
     @Bean
@@ -232,41 +259,46 @@ public class DesignerConfig {
     }
 
     @Bean
-    public AssetVisitor assetVisitor(WidgetRepository widgetRepository) {
-        return new AssetVisitor(widgetRepository);
+    @Primary
+    public AssetVisitor assetVisitor(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
+        return new AssetVisitor(widgetRepository, fragmentRepository);
     }
 
     @Bean
-    public WidgetIdVisitor widgetIdVisitor() {
-        return new WidgetIdVisitor();
+    @Primary
+    public WidgetIdVisitor widgetIdVisitor(FragmentRepository fragmentRepository) {
+        return new WidgetIdVisitor(fragmentRepository);
     }
 
     @Bean
-    public ComponentVisitor componentVisitor() {
-        return new ComponentVisitor();
+    @Primary
+    public ComponentVisitor componentVisitor(FragmentRepository fragmentRepository) {
+        return new ComponentVisitor(fragmentRepository);
     }
 
     @Bean
-    public VariableModelVisitor variableModelVisitor() {
-        return new VariableModelVisitor();
+    @Primary
+    public VariableModelVisitor variableModelVisitor(FragmentRepository fragmentRepository) {
+        return new VariableModelVisitor(fragmentRepository);
     }
 
     @Bean
-    public PageFactory modelPropertiesFactory() {
-        return new EmptyPageFactory("modelProperties");
+    public PageFactory modelPropertiesFactory(FragmentRepository fragmentRepository) {
+        return new ModelPropertiesVisitor(fragmentRepository);
     }
 
     @Bean
-    public RequiredModulesVisitor requiredModulesVisitor(WidgetRepository widgetRepository) {
-        return new RequiredModulesVisitor(widgetRepository);
+    @Primary
+    public RequiredModulesVisitor requiredModulesVisitor(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
+        return new RequiredModulesVisitor(widgetRepository, fragmentRepository);
     }
 
     @Bean
-    public HtmlBuilderVisitor htmlBuilderVisitor(List<PageFactory> pageFactories,
+    public HtmlBuilderVisitor htmlBuilderVisitor(FragmentRepository fragmentRepository, List<PageFactory> pageFactories,
                                                  RequiredModulesVisitor requiredModulesVisitor,
                                                  DirectivesCollector directivesCollector, AssetVisitor assetVisitor, PageRepository pageRepository,
                                                  WidgetRepository widgetRepository) {
-        return new HtmlBuilderVisitor(pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector,
+        return new HtmlBuilderVisitor(fragmentRepository, pageFactories, requiredModulesVisitor, assetVisitor, directivesCollector,
                 pageAssetRepository(pageRepository), widgetAssetRepository(widgetRepository));
     }
 
@@ -278,13 +310,14 @@ public class DesignerConfig {
     }
 
     @Bean
-    public PropertyValuesVisitor propertyValuesVisitor() {
-        return new PropertyValuesVisitor();
+    @Primary
+    public PropertyValuesVisitor propertyValuesVisitor(FragmentRepository fragmentRepository) {
+        return new PropertyValuesVisitor(fragmentRepository);
     }
 
     @Bean
-    public AuthRulesCollector authRulesCollector(WidgetRepository widgetRepository) {
-        return new AuthRulesCollector(widgetRepository);
+    public AuthRulesCollector authRulesCollector(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
+        return new AuthRulesCollector(widgetRepository, fragmentRepository);
     }
 
     @Bean
@@ -312,9 +345,10 @@ public class DesignerConfig {
     }
 
     @Bean
-    public List<LiveRepositoryUpdate> liveRepositoriesUpdate(LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate,
-                                                           LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate) {
-        return Lists.<LiveRepositoryUpdate>newArrayList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate);
+    public List<LiveRepositoryUpdate> liveRepositoriesUpdate(LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate,
+                                                             LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate,
+                                                             LiveRepositoryUpdate<Fragment> fragmentLiveRepositoryUpdate) {
+        return Lists.<LiveRepositoryUpdate>newArrayList(pageLiveRepositoryUpdate, widgetLiveRepositoryUpdate, fragmentLiveRepositoryUpdate);
     }
 
     @Bean
@@ -326,4 +360,76 @@ public class DesignerConfig {
     public BondsTypesFixer<Page> pageBondsTypesFixer(PageRepository pageRepository) {
         return new BondsTypesFixer<>(pageRepository);
     }
+
+    @Bean
+    public Path fragmentsPath(WorkspacePathResolver workspacePathResolver) {
+        return workspacePathResolver.getFragmentsRepositoryPath();
+    }
+
+    @Bean
+    public FragmentChangeVisitor fragmentRenamingVisitor() {
+        return new FragmentChangeVisitor();
+    }
+
+    @Bean
+    public PageHasValidationErrorVisitor pageHasValidationErrorVisitor() {
+        return new PageHasValidationErrorVisitor();
+    }
+
+    @Bean
+    public ArtifactImporter<Fragment> fragmentImporter(FragmentRepository fragmentRepository, FragmentService fragmentService, FragmentImporter fragmentImporter, WidgetImporter widgetImporter) {
+        return new ArtifactImporter<>(fragmentRepository, fragmentService, fragmentFileBasedLoader(), fragmentImporter, widgetImporter);
+    }
+
+    @Bean
+    public FragmentsExportStep<Page> fragmentsExportStep(FragmentIdVisitor fragmentIdVisitor, WorkspacePathResolver workspacePathResolver, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
+        return new FragmentsExportStep<>(fragmentIdVisitor, workspacePathResolver, fragmentPropertiesExportStep);
+    }
+
+    @Bean
+    public WidgetsExportStep<Fragment> widgetsExportStepFragment(WorkspacePathResolver workspacePathResolver, WidgetIdVisitor widgetIdVisitor, DirectiveFileGenerator directiveFileGenerator) {
+        return new WidgetsExportStep<>(workspacePathResolver, widgetIdVisitor, directiveFileGenerator);
+    }
+
+    @Bean
+    public FragmentsExportStep<Fragment> fragmentsExportStepFragment(FragmentIdVisitor fragmentIdVisitor, WorkspacePathResolver workspacePathResolver, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
+        return new FragmentsExportStep<>(fragmentIdVisitor, workspacePathResolver, fragmentPropertiesExportStep);
+    }
+
+    @Bean
+    public Exporter<Fragment> fragmentExporter(FragmentRepository fragmentRepository, FragmentService fragmentService, JacksonObjectMapper objectMapper, WidgetsExportStep<Fragment> widgetsExportStepFragment, FragmentsExportStep<Fragment> fragmentsExportStepFragment) {
+        return new Exporter(fragmentRepository, fragmentService, widgetsExportStepFragment, fragmentsExportStepFragment);
+    }
+
+    @Bean
+    public FragmentIdVisitor fragmentIdVisitor(FragmentRepository fragmentRepository) {
+        return new FragmentIdVisitor(fragmentRepository);
+    }
+
+    @Bean
+    public List<Repository> fragmentsUsedByRepositories(PageRepository pageRepository, FragmentRepository fragmentRepository) {
+        return Lists.<Repository>newArrayList(pageRepository, fragmentRepository);
+    }
+
+    //TODO : check if we need this after localisation decision
+//    @Bean
+//    public Manager manager() {
+//        return Manager.getInstance();
+//    }
+//
+//    @Bean
+//    public FeatureManager featureManager() {
+//        return new FeatureManager(manager());
+//    }
+
+    @Bean
+    public DimensionFactory dimensionFactory() {
+        return new DimensionFactory();
+    }
+
+    @Bean
+    public BondsTypesFixer<Fragment> fragmentBondsTypesFixer(FragmentRepository fragmentRepository) {
+        return new BondsTypesFixer<>(fragmentRepository);
+    }
+
 }

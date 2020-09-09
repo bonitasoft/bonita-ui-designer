@@ -8,7 +8,7 @@
       // the 1.3 optimization needs to be disable for the e2e tests
       $compileProvider.debugInfoEnabled(true);
     })
-    .run(function($httpBackend, $localStorage, e2ehelper, pages, widgets, assets) {
+    .run(function($httpBackend, $localStorage, e2ehelper, pages, widgets, assets, fragments) {
 
       /********************************************************************************************************
        *                                          LOCAL STORAGE
@@ -162,7 +162,7 @@
       });
 
       // create new page
-      $httpBackend.whenPOST('rest/pages?duplicata=person-page').respond(function(method, url, data) {
+      $httpBackend.whenPOST('rest/pages?duplicata=personPage').respond(function(method, url, data) {
         var page = angular.fromJson(data);
         page.id = page.name;
         pages.push(page);
@@ -180,21 +180,46 @@
       // update page
       $httpBackend.whenPUT(/rest\/pages\/.*/).respond(200);
 
-      $httpBackend.whenDELETE('rest/pages/person-page').respond(200);
+      $httpBackend.whenDELETE('rest/pages/personPage').respond(200);
 
       // create/update person assets
-      $httpBackend.whenPOST('rest/pages/person-page/assets').respond(function(method, url, data) {
+      $httpBackend.whenPOST('rest/pages/personPage/assets').respond(function(method, url, data) {
         var asset = angular.fromJson(data);
         asset.id = asset.id || e2ehelper.uuid();
         return [201, asset, {}];
       });
 
+      /********************************************************************************************************
+       *                                            FRAGMENTS
+       * ******************************************************************************************************/
+      $httpBackend.whenGET('rest/fragments').respond(fragments);
+
+      $httpBackend.whenGET(/rest\/fragments\?notUsedBy=.*/).respond(fragments);
+
+      $httpBackend.whenGET('rest/fragments?view=light').respond(() => {
+        var response = fragments.map(({id, name, type, lastUpdate, favorite}) => ({id, name, type, lastUpdate, favorite}));
+        return [200, response, {}];
+      });
+
+      $httpBackend.whenPUT('rest/fragments/personFragment/name').respond(function(method, url, data) {
+        fragments[0].name = data;
+        return [200, fragments[0], {}];
+      });
+
+      $httpBackend.whenPOST('rest/fragments').respond(201, fragments[0]);
+
+      $httpBackend.whenDELETE('rest/fragments/personFragment').respond(200);
+
+      $httpBackend.whenGET('rest/fragments/personFragment').respond(fragments[0]);
+      $httpBackend.whenGET('rest/fragments/fragInFragInFragFragment').respond(fragments[2]);
+
+      $httpBackend.whenGET('export/fragment/personFragment').respond(200);
 
 
       /********************************************************************************************************
        *                                            EXPORT
        * ******************************************************************************************************/
-      $httpBackend.whenGET('export/page/person-page').respond(200);
+      $httpBackend.whenGET('export/page/personPage').respond(200);
 
     });
 

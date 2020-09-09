@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 class="modal-title break-word" translate>Save as fragment...</h3>
+</div>
+<form class="form" name="newFragment">
+    <div class="modal-body" id="modal-save-fragment">
+        <div class="form-group">
+            <label class="control-label" for="fragment-name" translate>Name</label>
+            <input
+                id="fragment-name"
+                name="name"
+                ng-model="ctrl.name"
+                artifact-name-validation="bottom-left"
+                class="form-control"
+                placeholder="{{ 'Fragment name' | translate }}"
+                required
+                autofocus>
+        </div>
+    </div>
+    <div class="modal-footer" id="modal-delete-page-controls">
+        <button id="save-fragment" class="btn btn-primary" ng-click="ctrl.ok()" ng-disabled="newFragment.$invalid" translate>Save</button>
+        <button class="btn btn-link" ng-click="$dismiss('cancel')" translate>Cancel</button>
+    </div>
+</form>

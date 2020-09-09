@@ -28,7 +28,10 @@ public class DimensionFactoryTest {
 
         Map<String, Integer> dimensions = dimensionFactory.create(12);
 
-        assertThat(dimensions).containsOnlyKeys("xs");
-        assertThat(dimensions).containsValue(12);
+        assertThat(dimensions).containsOnlyKeys("xs", "sm", "md", "lg");
+        assertThat(dimensions.get("xs")).isEqualTo(12);
+        assertThat(dimensions.get("sm")).isEqualTo(12);
+        assertThat(dimensions.get("md")).isEqualTo(12);
+        assertThat(dimensions.get("lg")).isEqualTo(12);
     }
 }

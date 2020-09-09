@@ -16,20 +16,24 @@ package org.bonitasoft.web.designer.controller;
 
 import java.io.IOException;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.AbstractArtifactService;
+import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
@@ -41,7 +45,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +55,9 @@ public class MigrationResource {
     private final PageRepository pageRepository;
     private final WidgetRepository widgetRepository;
     private final WorkspaceInitializer workspaceInitializer;
+    private final FragmentRepository fragmentRepository;
+    private final FragmentService fragmentService;
+
 
     @Value("${designer.modelVersion}")
     protected String modelVersion;
@@ -61,12 +67,15 @@ public class MigrationResource {
 
     @Inject
     public MigrationResource(
-            WorkspaceInitializer workspaceInitializer, PageRepository pageRepository, WidgetRepository widgetRepository, PageService pageService, WidgetService widgetService) {
+            WorkspaceInitializer workspaceInitializer, PageRepository pageRepository, WidgetRepository widgetRepository,
+            FragmentRepository fragmentRepository, PageService pageService, WidgetService widgetService, FragmentService fragmentService) {
         this.workspaceInitializer = workspaceInitializer;
         this.pageRepository = pageRepository;
         this.widgetRepository = widgetRepository;
+        this.fragmentRepository = fragmentRepository;
         this.pageService = pageService;
         this.widgetService = widgetService;
+        this.fragmentService = fragmentService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -149,6 +158,19 @@ public class MigrationResource {
         Version currentVersion = new Version(modelVersion);
         Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
         return new ResponseEntity<>(compareVersions(artifactVersion, currentVersion), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/status/fragment/{fragmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public MigrationStatusReport statusByFragmentId(@PathVariable("fragmentId") String fragmentId) {
+        Fragment fragment = fragmentRepository.get(fragmentId);
+        return fragmentService.getStatus(fragment);
+    }
+
+    @RequestMapping(value = "/fragment/{fragmentId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MigrationReport> migrateFragments(HttpServletRequest request, @PathVariable("fragmentId") String fragmentId) throws RepositoryException {
+        Fragment fragment = fragmentRepository.get(fragmentId);
+        return MigrationResource.migrateArtifact(fragmentId, fragment, fragmentService);
+
     }
 
     private MigrationStatusReport compareVersions(Version artifactVersion, Version currentVersion) {

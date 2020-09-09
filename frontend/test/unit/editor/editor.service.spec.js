@@ -3,7 +3,7 @@
 
   describe('editor service', function() {
     var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper,
-      whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock, migration;
+      whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock, migration, fragmentRepo;
 
     var labelWidget = {
       id: 'label',
@@ -154,6 +154,37 @@
       }
     };
 
+    let fragmentDef = {
+      id: 'f1',
+      type: 'fragment',
+      name: 'foo',
+      rows: [
+        [
+          {
+            type: 'component',
+            id: 'label'
+          }
+        ]
+      ]
+    };
+
+    let jsonFragment = {
+      'data': {
+        'rows': [
+          [
+            {
+              'type': 'component',
+              'dimension': { 'xs': 12, 'sm': null, 'md': null, 'lg': null },
+              'id': 'label',
+              'propertyValues': { 'initialValue': null, 'placeholder': null, 'required': false, 'maxlength': null, 'label': 'First name', 'labelPosition': 'left', 'labelWidth': 4 }
+            }
+          ]
+        ],
+        'id': 'f1',
+        'name': 'name'
+      }
+    };
+
     beforeEach(angular.mock.module('bonitasoft.designer.editor', 'modalContainerStructureMock' ));
 
     beforeEach(inject(function($injector) {
@@ -164,6 +195,7 @@
 
       widgetRepo = $injector.get('widgetRepo');
       pageRepo = $injector.get('pageRepo');
+      fragmentRepo = $injector.get('fragmentRepo');
       dataManagementRepoMock = $injector.get('dataManagementRepo');
 
       editorService = $injector.get('editorService');
@@ -172,10 +204,14 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
       migration = $injector.get('migration');
+      spyOn(fragmentRepo, 'load').and.returnValue($q.when(jsonFragment));
+      spyOn(fragmentRepo, 'all').and.returnValue($q.when({ data: [fragmentDef] }));
+      spyOn(fragmentRepo, 'allNotUsingElement').and.returnValue($q.when({ data: [fragmentDef] }));
 
       spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
       spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
+      spyOn(fragmentRepo, 'migrate').and.returnValue($q.when({}));
       spyOn(pageRepo, 'migrate').and.returnValue($q.when({}));
       spyOn(pageRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
     }));
@@ -223,17 +259,6 @@
       expect(formContainer.$$parentContainerRow.container).toBe(page);
     });
 
-    it('should add palette', function() {
-      var spy = jasmine.createSpy('bar');
-      spyOn(pageRepo, 'load').and.returnValue($q.when(json));
-
-      editorService.addPalette('foo', spy);
-      editorService.initialize(pageRepo, 'person');
-      $rootScope.$apply();
-
-      expect(spy).toHaveBeenCalled();
-    });
-
     it('should init components', function() {
 
       spyOn(components, 'register');
@@ -248,7 +273,7 @@
       expect(components.reset.calls.count()).toBe(1);
 
       expect(components.register).toHaveBeenCalled();
-      expect(components.register.calls.count()).toBe(4);
+      expect(components.register.calls.count()).toBe(5);
     });
 
     it('should add an alert if initialize failed', function() {
@@ -361,6 +386,18 @@
 
       expect(pageRepo.migrate).not.toHaveBeenCalled();
       expect(migration.handleMigrationNotif).not.toHaveBeenCalled();
+    });
+
+    it('should initialize a fragment', function() {
+      spyOn(fragmentRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
+      var fragment = {};
+      editorService.initialize(fragmentRepo, 'name')
+        .then(function(data) {
+          fragment = data;
+        });
+      $rootScope.$apply();
+
+      expect(fragment.rows[0][0].$$id).toBe('component-0');
     });
   });
 })();

@@ -15,7 +15,7 @@ describe('home create button', () => {
     $scope.refreshAll = jasmine.createSpy('refreshAll');
     $scope.filters = {};
     $scope.artifacts = {
-      all: [{ name: 'test', type: 'widget' }, { name: 'bonita', type: 'page' }]
+      all: [{ name: 'test', type: 'widget' }, { name: 'bonita', type: 'page' },  { name:'fragmentBontia', type: 'fragment' }]
     };
 
     element = $compile('<uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>')($scope);
@@ -90,6 +90,56 @@ describe('home create button', () => {
 
     expect(state.go).toHaveBeenCalledWith('designer.page', {
       id: generatedPageId
+    });
+  });
+
+  it('should expose data for view', () => {
+    expect(controller.type).toEqual(artifactFactories.getFactory('page'));
+    expect(controller.types).toEqual(artifactFactories.getFactories());
+  });
+
+  it('should check page name if it already exists', () => {
+
+    var type = artifactFactories.getFactory('page');
+    expect(controller.isArtifactNameAlreadyExist('bonita', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('Bonita', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeFalsy();
+  });
+
+  it('should check widget name if it already exists', () => {
+
+    var type = artifactFactories.getFactory('page');
+    expect(controller.isArtifactNameAlreadyExist('bonita', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeFalsy();
+
+    type = artifactFactories.getFactory('widget');
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeTruthy();
+    expect(controller.isArtifactNameAlreadyExist('Test', type)).toBeTruthy();
+
+    type = artifactFactories.getFactory('fragment');
+    expect(controller.isArtifactNameAlreadyExist('test', type)).toBeFalsy();
+
+    expect(controller.isArtifactNameAlreadyExist('fragmentBontia', type)).toBeTruthy();
+  });
+
+  it('should create a fragment and navigate to editor', () => {
+    let generatedFragmentId = '12321',
+      deferred = q.defer(),
+      fragmentRepo = jasmine.createSpyObj('fragmentRepo', ['create']);
+
+    fragmentRepo.create.and.returnValue(deferred.promise);
+
+    spyOn(artifactFactories.getFactory('fragment'), 'create').and.callThrough();
+    spyOn(state, 'go');
+    spyOn(repositories, 'get').and.returnValue(fragmentRepo);
+
+    deferred.resolve({ id: generatedFragmentId });
+
+    controller.create(artifactFactories.getFactory('fragment'), 'test');
+    $scope.$apply();
+
+    expect(state.go).toHaveBeenCalledWith('designer.fragment', {
+      id: generatedFragmentId
     });
   });
 });

@@ -1,21 +1,30 @@
-<div id="action" class="btn-group PanelHeader-widget-action-btn" uib-dropdown>
-    <button ng-if="currentComponent.$$widget.type !== 'container'" id="widgetActionButton" type="button"
+<div ng-controller="PropertyPanelActionMenuCtrl as actionMenuCtrl" id="action"
+     class="btn-group PanelHeader-widget-action-btn" uib-dropdown>
+    <button id="widgetActionButton" type="button"
+            ng-if="actionMenuCtrl.hasActionButton()"
             class="btn btn-xs btn-bonita-action-widget PanelHeader-widget-action-btn" uib-dropdown-toggle
-            tooltip-placement="top-right" uib-tooltip="{{ 'Widget actions' | translate }}"
+            tooltip-placement="top-right"
+            uib-tooltip="{{ (actionMenuCtrl.isFragment() ? 'Fragment' : 'Widget') + ' actions' | translate }}"
             tooltip-append-to-body="true">
-        <span class="fa fa-ellipsis-h"/>
+        <i class="fa fa-ellipsis-h"/>
     </button>
     <ul class="dropdown-menu dropdown-menu-right PropertyPanel-widget-action-menu" role="menu"
         aria-labelledby="typeButton">
-        <li><a ng-if="!currentComponent.$$widget.custom" id="viewAction"
+        <li><a ng-if="actionMenuCtrl.isViewable()" id="viewAction"
                class="clickable PropertyPanel-widget-action-item"
                ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>View...</a></li>
-        <li><a ng-if="currentComponent.$$widget.custom" id="editAction"
+        <li><a ng-if="actionMenuCtrl.isCustomEditable()" id="editAction"
                class="clickable PropertyPanel-widget-action-item"
                ng-click="saveAndEditCustomWidget(currentComponent.$$widget.id)" translate>Edit...</a></li>
-        <li><a id="switchAction"
+        <li><a ng-if="actionMenuCtrl.isSwitchable()" id="switchAction"
                class="clickable PropertyPanel-widget-action-item"
-               ng-click="switchCurrentComponent(currentComponent)"
-               translate>Switch...</a></li>
+               ng-click="switchCurrentComponent(currentComponent)" translate>Switch...</a></li>
+        <li><a ng-if="actionMenuCtrl.isFragmentEditable()" id="editFragmentAction"
+               class="clickable PropertyPanel-widget-action-item"
+               ng-click="actionMenuCtrl.saveAndEditFragment(currentComponent.id)" translate>Edit...</a></li>
+        <li><a id="saveAsFragmentAction"
+               ng-if="actionMenuCtrl.canBeSavedAsFragment()"
+               class="clickable PropertyPanel-widget-action-item"
+               ng-click="actionMenuCtrl.openSaveFragmentModal()" translate>Save as fragment...</a></li>
     </ul>
 </div>

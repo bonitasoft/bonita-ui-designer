@@ -43,7 +43,7 @@ describe('editor menu', function() {
   });
 
   it('should load a page', function() {
-    PageEditor.get('person-page');
+    PageEditor.get('personPage');
     // then we should have a page with two containers, each with one label and an input
     expect($$('#pbContainer-0').count()).toBe(1);
     expect($$('#pbContainer-0 label').count()).toBe(1);
@@ -61,7 +61,7 @@ describe('editor menu', function() {
   });
 
   it('should allow to edit page data', function() {
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     var dataPanel = editor.dataPanel();
 
@@ -69,7 +69,7 @@ describe('editor menu', function() {
   });
 
   it('should move an item to another row', function() {
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     editor.drag('.component:first').andDropOn('.dropRow--last',0,1);
     expect(editor.rows.count()).toBe(2);
@@ -80,7 +80,7 @@ describe('editor menu', function() {
 
   it('should drop an item next to another in the same row', function() {
 
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     editor.drag('.component:first').andDropOn('#component-4 .widget-wrapper:first-child .dropZone--right');
 
@@ -95,7 +95,7 @@ describe('editor menu', function() {
   });
 
   it('should save a page as', function() {
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     editor.menu.$('button.dropdown-toggle').click();
     editor.menu.$('#saveAs').click();
@@ -123,7 +123,7 @@ describe('editor menu', function() {
   });
 
   it('should edit page metadata', function() {
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     editor.menu.$('#metadata').click();
 
@@ -157,7 +157,7 @@ describe('editor menu', function() {
   });
 
   it('should convert page', function() {
-    var editor = PageEditor.get('person-page');
+    var editor = PageEditor.get('personPage');
 
     editor.menu.$('button.dropdown-toggle').click();
     editor.menu.$('#convert').click();

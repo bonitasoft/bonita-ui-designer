@@ -89,4 +89,20 @@ export default class Home {
   openTab(type) {
     $(`.tab-${type}`).click();
   }
+
+  createFragment(name){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys(name);
+    element(by.css('#type-fragment')).click();
+    $('.modal-footer button[type="submit"]').click();
+  }
+
+  getListedFragmentNames() {
+    this.openTab('fragment');
+    return $$('.Artifact-section .ArtifactList-fragment .Artifact-name').map((element) => element.getText());
+  }
+
+  getFavoriteFragmentNames() {
+    return $$('.Favorite-section .ArtifactList-fragment .Artifact-name').map((element) => element.getText());
+  }
 }

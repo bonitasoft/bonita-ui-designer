@@ -9,6 +9,11 @@
     return new Preview();
   };
 
+  Preview.getFragment = function(fragmentId) {
+    browser.get('#/en/preview/fragment/' + (fragmentId || 'empty'));
+    return new Preview();
+  };
+
   module.exports = Preview;
 
   Preview.prototype = Object.create({}, {

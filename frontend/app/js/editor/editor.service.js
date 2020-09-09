@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.editor')
     .service('editorService', editorService);
 
-  function editorService($q, widgetRepo, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
+  function editorService($q, widgetRepo, fragmentRepo, fragmentService, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
                          gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
 
     var paletteItems = {};
@@ -51,26 +51,18 @@
           return widgets;
         })
         .then(initializePalette)
-        .then(() => {
-          var promises = Object.keys(paletteItems)
-            .reduce(function(promises, key) {
-              return promises.concat(paletteItems[key](id));
-            }, []);
-          return $q.all(promises);
-        })
-        .then(() => {
-          return repo.migrationStatus(id);
-        })
+        //Retrieve and register fragments that can be dropped without cyclic dependencies
+        .then(() => fragmentRepo.allNotUsingElement(id))
+        .then((fragmentResponse) => fragmentService.register(fragmentResponse.data))
+        .then(() => repo.migrationStatus(id))
         .then((response) => {
           return migration.handleMigrationStatus(id, response.data).then(() => {
             if (response.data.migration) {
-              repo.migrate(id).then(response =>  migration.handleMigrationNotif(id, response.data));
+              repo.migrate(id).then(response => migration.handleMigrationNotif(id, response.data));
             }
           });
         })
-        .then(() => {
-          return repo.load(id);
-        })
+        .then(() => repo.load(id))
         .catch((error) => {
           if (error.message && error.status !== 422) {
             alerts.addError(error.message);
@@ -85,21 +77,21 @@
         });
     }
 
-    function initializePalette(widgets) {
+    function initializePalette(items) {
       function filterCustomWidgets(val, item) {
         return item.type === 'widget' && item.custom === val && (!item.status || item.status.compatible);
       }
 
-      var coreWidgets = widgets.filter(filterCustomWidgets.bind(null, false))
+      var coreWidgets = items.filter(filterCustomWidgets.bind(null, false))
         .map(paletteWidgetWrapper.bind(null, gettext('widgets'), 1));
 
-      var customWidgets = widgets.filter(filterCustomWidgets.bind(null, true))
+      var customWidgets = items.filter(filterCustomWidgets.bind(null, true))
         .map(paletteWidgetWrapper.bind(null, gettext('custom widgets'), 2));
 
-      var containers = widgets.filter((widget) => widget.type === 'container')
+      var containers = items.filter((widget) => widget.type === 'container')
         .map(paletteContainerWrapper);
 
-      var dataManagement = widgets.filter((widget) => widget.type === 'model')
+      var dataManagement = items.filter((widget) => widget.type === 'model')
         .map(paletteDataManagementWrapper.bind(null, gettext('data model'), 0));
 
       // reset the components map

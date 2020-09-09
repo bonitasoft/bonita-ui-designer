@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.controller.preview.Previewer;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
@@ -54,8 +55,12 @@ public class PreviewControllerTest {
     @Mock
     private PageRepository pageRepository;
 
+    @Mock
+    private FragmentRepository fragmentRepository;
+
     private Path widgetRepositoryPath;
     private Path pageRepositoryPath;
+    private Path fragmentRepositoryPath;
     private Path tmpWorkspacePath;
     @Mock
     private WorkspacePathResolver pathResolver;
@@ -64,8 +69,10 @@ public class PreviewControllerTest {
     public void beforeEach() throws Exception {
         widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
         pageRepositoryPath = Paths.get(getClass().getResource("/workspace/pages").toURI());
+        fragmentRepositoryPath = Paths.get(getClass().getResource("/workspace/fragments").toURI());
         tmpWorkspacePath = Paths.get(getClass().getResource("/tmpWorkspace/pages").toURI());
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, previewer, widgetRepositoryPath, pageRepositoryPath, pathResolver)).build();
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, fragmentRepository, previewer, widgetRepositoryPath,
+                fragmentRepositoryPath, pageRepositoryPath, pathResolver)).build();
     }
 
     @Test
@@ -235,5 +242,35 @@ public class PreviewControllerTest {
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"widgets-abc123.min.js\""))
                 .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_call_the_previewer_for_fragments() throws Exception {
+        ResponseEntity<String> response = new ResponseEntity<String>("Everything ok", HttpStatus.OK);
+        when(previewer.render(eq("my-fragment"), eq(fragmentRepository), any(HttpServletRequest.class))).thenReturn(response);
+
+        mockMvc
+                .perform(get("/preview/fragment/no-app-selected/my-fragment"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Everything ok"))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_load_fragment_directive() throws Exception {
+        Path expectedFile = fragmentRepositoryPath.resolve("person/person.js");
+
+        mockMvc.perform(get("/preview/page/no-app-selected/a-page/fragments/person/person.js"))
+                .andExpect(status().isOk())
+                .andExpect(content().bytes(readAllBytes(expectedFile)))
+                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
+                .andExpect(header().string("Content-Disposition", "inline; filename=\"person.js\""))
+                .andExpect(content().encoding("UTF-8"));
+    }
+
+    @Test
+    public void should_respond_404_not_found_when_fragment_directive_is_not_found() throws Exception {
+        mockMvc.perform(get("/preview/page/no-app-selected/a-page/fragments/unknown/unkwnon.js"))
+                .andExpect(status().isNotFound());
     }
 }

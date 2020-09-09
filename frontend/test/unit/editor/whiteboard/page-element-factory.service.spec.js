@@ -172,6 +172,32 @@
       });
     });
 
+    it('should create a page element for a fragment', function() {
+      var widget = {
+        id: 'aFragment',
+        type: 'fragment',
+        properties: [
+          {
+            name: 'robert',
+            bond: 'constant',
+            defaultValue: 'manger'
+          }
+        ]
+      };
+
+      var element = service.createFragmentElement(widget);
+
+      expect(element).toEqual({
+        id: 'aFragment',
+        type: 'fragment',
+        dimension: { xs: 12 },
+        propertyValues: {
+          robert: { type: 'constant', value: 'manger' }
+        },
+        binding: {}
+      });
+    });
+
     it('should create a page element for a form container', function () {
       var formContainer = {
         id: 'pbFormContainer',

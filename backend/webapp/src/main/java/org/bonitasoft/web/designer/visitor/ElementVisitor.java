@@ -18,6 +18,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
@@ -41,6 +42,8 @@ public interface ElementVisitor<T> {
     T visit(ModalContainer modalContainer);
 
     T visit(Component component);
+
+    T visit(FragmentElement fragmentElement);
 
     <P extends Previewable & Identifiable> T visit(P previewable);
 }

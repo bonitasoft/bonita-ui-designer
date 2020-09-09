@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Named;
@@ -24,6 +25,11 @@ import com.google.common.collect.ImmutableSortedMap;
 public class DimensionFactory {
 
     public Map<String, Integer> create(int dimension) {
-        return ImmutableSortedMap.of("xs", dimension);
+        Map<String, Integer> dimensions = new HashMap<>();
+        dimensions.put("xs", dimension);
+        dimensions.put("sm", dimension);
+        dimensions.put("md", dimension);
+        dimensions.put("lg", dimension);
+        return dimensions;
     }
 }

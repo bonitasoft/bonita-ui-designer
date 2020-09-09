@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li ng-repeat="tab in tabsContainer.tabList" ng-class="{active: isOpened(tab)}">
+        <a href ng-click="openTab(tab)">{{ tab.title }}</a>
+    </li>
+</ul>
+<div ng-repeat="tab in tabsContainer.tabList" ng-show="isOpened(tab)" class="tab-body">
+    <container-preview container="tab.container" preview="preview"></container-preview>
+</div>

@@ -19,6 +19,8 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
@@ -33,9 +35,12 @@ import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +53,8 @@ public class AssetVisitorTest {
 
     @Mock
     private WidgetRepository widgetRepository;
+    @Mock
+    private FragmentRepository fragmentRepository;
     @InjectMocks
     private AssetVisitor assetVisitor;
 
@@ -170,13 +177,6 @@ public class AssetVisitorTest {
 
     }
 
-    private Component mockComponentFor(WidgetBuilder widgetBuilder, String id, AssetBuilder... assetBuilders) throws Exception {
-        Widget widget = widgetBuilder.id(id).assets(assetBuilders).build();
-        Component component = aComponent().withWidgetId(widget.getId()).build();
-        when(widgetRepository.get(component.getId())).thenReturn(widget);
-        return component;
-    }
-
     @Test
     public void should_update_inactive_indicator_when_asset_is_inactive_in_a_page() throws Exception {
         Page page = aPage()
@@ -227,4 +227,32 @@ public class AssetVisitorTest {
         assertThat(assets).extracting("name").contains("myfile.js", "myfile.css", "myfileBis.js", "http://mycdn.com/myfile.js");
         assertThat(assets).extracting("active").contains(true, false, true, false);
     }
+
+    @Test
+    public void should_return_list_of_module_needed_by_widgets_in_fragment() throws Exception {
+        Component component1 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        Component component2 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
+        FragmentElement fragmentElement = aFragmentElement().withFragmentId("my-fragment").build();
+        Fragment fragment = aFragment().id("my-fragment").with(component1, component2).build();
+        when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
+
+        Set<Asset> assets = assetVisitor.visit(fragment);
+
+        assertThat(assets).extracting("name").containsOnly("myfile.js");
+    }
+
+    private Component mockComponentFor(WidgetBuilder widgetBuilder, String id, AssetBuilder... assetBuilders) throws Exception {
+        Widget widget = widgetBuilder.id(id).assets(assetBuilders).build();
+        Component component = aComponent().withWidgetId(widget.getId()).build();
+        when(widgetRepository.get(component.getId())).thenReturn(widget);
+        return component;
+    }
+
+    private Component mockComponentFor(WidgetBuilder widgetBuilder, AssetBuilder... assetBuilders) throws Exception {
+        Widget widget = widgetBuilder.id(UUID.randomUUID().toString()).assets(assetBuilders).build();
+        Component component = aComponent().withWidgetId(widget.getId()).build();
+        when(widgetRepository.get(component.getId())).thenReturn(widget);
+        return component;
+    }
+
 }

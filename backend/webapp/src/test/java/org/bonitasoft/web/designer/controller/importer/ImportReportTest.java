@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller.importer;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
@@ -27,8 +28,10 @@ import java.util.Map;
 
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
+import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
@@ -43,11 +46,14 @@ public class ImportReportTest {
     @Mock
     private WidgetImporter widgetImporter;
     @Mock
+    private FragmentImporter fragmentImporter;
+    @Mock
     private AssetImporter assetImporter;
 
     @Before
     public void setUp() throws Exception {
         when(widgetImporter.getComponentName()).thenReturn("widget");
+        when(fragmentImporter.getComponentName()).thenReturn("fragment");
     }
 
     private Widget existing(Widget widget) {
@@ -96,5 +102,52 @@ public class ImportReportTest {
 
         assertThat(report.getDependencies().getAdded()).isNull();
         assertThat(report.getDependencies().getOverwritten()).isNull();
+    }
+
+    private Fragment mockExistsInRepository(Fragment fragment) {
+        when(fragmentImporter.exists(fragment)).thenReturn(true);
+        when(fragmentImporter.getOriginalElementFromRepository(fragment)).thenReturn(fragment);
+        return fragment;
+    }
+
+    private Widget mockExistsInRepository(Widget widget) {
+        when(widgetImporter.exists(widget)).thenReturn(true);
+        when(widgetImporter.getOriginalElementFromRepository(widget)).thenReturn(widget);
+        return widget;
+    }
+
+    @Test
+    public void should_report_imported_element_when_it_is_a_fragment() throws Exception {
+        Fragment importedFragment = aFragment().build();
+
+        ImportReport report = ImportReport.from(importedFragment, new HashMap());
+
+        assertThat(report.getElement()).isEqualTo(importedFragment);
+    }
+
+    @Test
+    public void should_include_added_and_overwritten_widget_in_imported_dependencies() throws Exception {
+        Widget newWidget = aWidget().id("newOne").build();
+        Widget existingWidget = mockExistsInRepository(aWidget().id("existing").build());
+        Map<DependencyImporter, List<?>> dependencies = new HashMap<>();
+        dependencies.put(widgetImporter, asList(newWidget, existingWidget));
+
+        ImportReport report = ImportReport.from(aFragment().build(), dependencies);
+
+        assertThat(report.getDependencies().getAdded().get("widget")).containsOnly(newWidget);
+        assertThat(report.getDependencies().getOverwritten().get("widget")).containsOnly(existingWidget);
+    }
+
+    @Test
+    public void should_include_added_and_overwritten_fragments_in_imported_dependencies() throws Exception {
+        Fragment newFragment = aFragment().id("newOne").build();
+        Fragment existingFragment = mockExistsInRepository(aFragment().id("existing").build());
+        Map<DependencyImporter, List<?>> dependencies = new HashMap<>();
+        dependencies.put(fragmentImporter, asList(newFragment, existingFragment));
+
+        ImportReport report = ImportReport.from(aFragment().build(), dependencies);
+
+        assertThat(report.getDependencies().getAdded().get("fragment")).containsOnly(newFragment);
+        assertThat(report.getDependencies().getOverwritten().get("fragment")).containsOnly(existingFragment);
     }
 }

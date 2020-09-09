@@ -23,7 +23,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -34,7 +33,7 @@ import org.slf4j.LoggerFactory;
 @Named
 public class PageRepository extends AbstractRepository<Page> implements RefreshingRepository, WidgetContainerRepository<Page> {
 
-    private static final Logger logger = LoggerFactory.getLogger(DesignerConfigConditional.class);
+    private static final Logger logger = LoggerFactory.getLogger(PageRepository.class);
     public static final String METADATA = ".metadata";
 
     @Inject

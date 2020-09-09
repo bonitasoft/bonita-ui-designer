@@ -19,6 +19,7 @@ import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -46,11 +47,14 @@ import java.util.Map;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
@@ -80,6 +84,9 @@ public class WidgetResourceTest {
     @Mock WidgetService widgetService;
 
     @Mock
+    private FragmentRepository fragmentRepository;
+
+    @Mock
     private PageRepository pageRepository;
 
     @Mock
@@ -87,7 +94,7 @@ public class WidgetResourceTest {
 
     private Path widgetRepositoryPath;
 
-    private AssetVisitor assetVisitor = new AssetVisitor(widgetRepository);
+    private AssetVisitor assetVisitor = new AssetVisitor(widgetRepository, fragmentRepository);
 
     @Before
     public void setUp() throws URISyntaxException {
@@ -99,10 +106,11 @@ public class WidgetResourceTest {
                 widgetService,
                 widgetAssetService,
                 widgetRepositoryPath,
-                singletonList(pageRepository), assetVisitor);
+                asList(pageRepository, fragmentRepository), assetVisitor);
         mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(pageRepository.getComponentName()).thenReturn("page");
+        when(fragmentRepository.getComponentName()).thenReturn("fragment");
     }
 
     @Test
@@ -116,25 +124,6 @@ public class WidgetResourceTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
                 .andExpect(jsonPath("$[*].type").value(everyItem(is("widget"))));
-    }
-
-    @Test
-    public void should_serve_all_light_widgets_in_repository() throws Exception {
-        Widget input = aWidget().id("input").build();
-        Widget label = aWidget().id("label").lastUpdate(parse("2015-02-02")).build();
-        when(widgetRepository.getAll()).thenReturn(asList(input, label));
-        String[] ids = {"input", "label"};
-        Map<String, List<Page>> map = new HashMap();
-        map.put("input", singletonList(aPage().withName("hello").build()));
-        when(pageRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map);
-
-        mockMvc.perform(get("/rest/widgets?view=light"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
-                .andExpect(jsonPath("$[*].type").value(everyItem(is("widget"))))
-                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(parse("2015-02-02").getMillis())))
-                .andExpect(jsonPath("$[*].usedBy.page[*].name").value(hasItems("hello")));
     }
 
     @Test
@@ -709,4 +698,36 @@ public class WidgetResourceTest {
         mockMvc.perform(get("/rest/widgets/my-widget")).andExpect(status().is(422));
     }
 
+    @Test
+    public void should_serve_all_light_widgets_in_repository() throws Exception {
+        Widget input = aWidget().id("input").build();
+        Widget label = aWidget().id("label").lastUpdate(parse("2015-02-02")).build();
+        when(widgetRepository.getAll()).thenReturn(asList(input, label));
+        String[] ids = {"input", "label"};
+        Map<String, List<Page>> map = new HashMap();
+        map.put("input", singletonList(aPage().withName("hello").build()));
+        when(pageRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map);
+        Map<String, List<Fragment>> map2 = new HashMap();
+        map2.put("label", singletonList(aFragment().withName("helloFragment").build()));
+        when(fragmentRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map2);
+
+        mockMvc.perform(get("/rest/widgets?view=light"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
+                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(parse("2015-02-02").getMillis())))
+                .andExpect(jsonPath("$[*].usedBy.fragment[*].name").value(hasItems("helloFragment")))
+                .andExpect(jsonPath("$[*].usedBy.page[*].name").value(hasItems("hello")));
+    }
+
+    @Test
+    public void should_not_allow_to_delete_a_custom_widget_used_in_a_fragment() throws Exception {
+        when(widgetRepository.get("customLabel")).thenReturn(aWidget().custom().id("customLabel").build());
+        when(fragmentRepository.containsObject("customLabel")).thenReturn(true);
+        when(fragmentRepository.getArtifactsUsingWidget("customLabel")).thenReturn(singletonList(aFragment().withName("person").build()));
+
+        mockMvc.perform(delete("/rest/widgets/customLabel"))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("message").value("The widget cannot be deleted because it is used in 1 fragment, <person>"));
+    }
 }

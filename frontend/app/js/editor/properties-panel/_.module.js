@@ -20,6 +20,7 @@
     'bonitasoft.designer.templates',
     'bonitasoft.designer.editor.common',
     'bonitasoft.designer.common.filters',
+    'bonitasoft.designer.common.repositories',
     'gettext',
     'ui.bootstrap'
   ]);

@@ -14,16 +14,25 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.builder.FragmentBuilder;
+import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
 import org.junit.Rule;
@@ -47,12 +56,32 @@ public class DirectivesCollectorTest {
 
     @Mock
     private WorkspacePathResolver pathResolver;
+
+    @Mock
+    private FragmentRepository fragmentRepository;
+
+    @Mock
+    private FragmentIdVisitor fragmentIdVisitor;
+
     @Mock
     private DirectiveFileGenerator directiveFileGenerator;
 
     @Before
     public void beforeEach() throws IOException {
         when(pathResolver.getPagesRepositoryPath()).thenReturn(temporaryFolder.toPath());
+        collector = new DirectivesCollector(pathResolver,directiveFileGenerator,fragmentIdVisitor,fragmentRepository);
+
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
+        when( pathResolver.getTmpFragmentsRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("fragments"));
+
+        when(pathResolver.getFragmentsRepositoryPath())
+                .thenReturn(Paths.get(temporaryFolder.toPath().toString(),
+                        "fragments"));
+
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
+        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
+        when( pathResolver.getTmpFragmentsRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("fragments"));
     }
 
     @Test
@@ -65,5 +94,42 @@ public class DirectivesCollectorTest {
         List<String> imports = collector.buildUniqueDirectivesFiles(page, page.getId());
 
         Assertions.assertThat(imports).containsOnly("js/widgets-123456.min.js");
+    }
+
+    @Test
+    public void should_collect_widgets_directives_from_the_fragment_preview() throws Exception {
+        Fragment fragment = FragmentBuilder.aFragment().build();
+        when(directiveFileGenerator.generateAllDirectivesFilesInOne(fragment, temporaryFolder.toPath().resolve("fragments")
+                .resolve(fragment.getId())))
+                .thenReturn("widgets-654321");
+
+        List<String> imports = collector.buildUniqueDirectivesFiles(fragment, fragment.getId());
+
+        assertThat(imports).containsOnly("widgets-654321");
+    }
+
+    @Test
+    public void should_collect_widget_file_directive_and_fragment_file_when_fragment_will_be_use_in_page() throws IOException {
+        Page page = PageBuilder.aPage().build();
+        Fragment fragment = FragmentBuilder.aFragment().build();
+        initFileAndMockForPageWhoHasFragment(page,fragment);
+        List<String> expected = asList("js/widgets-123456.js",
+                "fragments/" + fragment.getId() + "/" + fragment.getId() + ".js");
+
+        List<String> imports = collector.buildUniqueDirectivesFiles(page, page.getId());
+
+        assertThat(imports).isEqualTo(expected);
+    }
+
+    private void initFileAndMockForPageWhoHasFragment(Page page, Fragment fragment) throws IOException {
+        Path pagePathAsset = temporaryFolder.toPath().resolve("pages").resolve(page.getId()).resolve("js");
+        Path fragmentsPath = temporaryFolder.toPath().resolve("fragments").resolve(fragment.getId());
+
+        when(directiveFileGenerator.generateAllDirectivesFilesInOne(page,pagePathAsset)).thenReturn("widgets-123456.js");
+        when(directiveFileGenerator.generateAllDirectivesFilesInOne(fragment,  fragmentsPath)).thenReturn("widgets-654321.js");
+
+        HashSet<String> fragmentIds = new HashSet<>(asList(fragment.getId()));
+        when(fragmentIdVisitor.visit(page)).thenReturn(fragmentIds);
+        when(fragmentRepository.getByIds(fragmentIds)).thenReturn(asList(fragment));
     }
 }

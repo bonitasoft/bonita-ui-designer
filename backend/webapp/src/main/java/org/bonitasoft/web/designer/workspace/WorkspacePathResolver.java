@@ -34,6 +34,7 @@ import org.springframework.core.env.Environment;
 public class WorkspacePathResolver {
 
     private static final String WIDGETS_DEFAULT_DIRECTORY = "widgets";
+    public static final String FRAGMENTS = "fragments";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
     private static final String TEMP_DIR = "workspace-uid";
 
@@ -58,6 +59,14 @@ public class WorkspacePathResolver {
 
     public Path getWidgetsRepositoryPath() {
         return getRepositoryPath(WIDGETS_DEFAULT_DIRECTORY, env.getProperty("repository.widgets"));
+    }
+
+    public Path getFragmentsRepositoryPath() {
+        return getRepositoryPath(FRAGMENTS, env.getProperty("repository.fragments"));
+    }
+
+    public Path getTmpFragmentsRepositoryPath() {
+        return getTemporaryWorkspacePath().resolve(FRAGMENTS);
     }
 
     protected Path getRepositoryPath(String directoryName, String alternativeDirectoryPath) {

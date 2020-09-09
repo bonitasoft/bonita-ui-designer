@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitors;
+package org.bonitasoft.web.designer.visitor;
 
 import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -20,6 +20,7 @@ import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabContainer;
@@ -28,12 +29,19 @@ import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.repository.AssetRepository;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
+import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
+import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
+import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -41,6 +49,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -54,11 +63,16 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.ResponsiveDimension.*;
+import static org.bonitasoft.web.designer.builder.ResponsiveDimension.lg;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -83,6 +97,21 @@ public class HtmlBuilderVisitorTest {
     @Mock
     private AssetRepository<Widget> widgetAssetRepository;
 
+    @Mock
+    private FragmentRepository fragmentRepository;
+
+    @Mock
+    private WidgetRepository widgetRepository;
+
+    @Mock
+    private PropertyValuesVisitor propertyValuesVisitor;
+
+    @Mock
+    private VariableModelVisitor variableModelVisitor;
+
+    @Mock
+    private WidgetIdVisitor widgetIdVisitor;
+
     private HtmlBuilderVisitor visitor;
 
     private static final byte[] assetsContent = new byte[0];
@@ -98,7 +127,7 @@ public class HtmlBuilderVisitorTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        visitor = new HtmlBuilderVisitor(asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector, pageAssetRepository, widgetAssetRepository);
+        visitor = new HtmlBuilderVisitor(fragmentRepository, asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector, pageAssetRepository, widgetAssetRepository);
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
         when(pageAssetRepository.readAllBytes(anyString(), any(Asset.class))).thenReturn(assetsContent);
         when(widgetAssetRepository.readAllBytes(any(Asset.class))).thenReturn(assetsContent);
@@ -115,11 +144,13 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_add_dimension_to_component() throws Exception {
+
         Element element = CustomAssertions.toBody(visitor.visit(aComponent("pbWidget")
-                .withDimension(3)
+                .withPropertyValue("property", "value")
+                .withDimensions(sm(3))
                 .build()));
 
-        assertThatHtmlBody(element.childNode(1).outerHtml()).hasClass("col-xs-3");
+        assertThatHtmlBody(element.childNode(1).outerHtml()).hasClass("col-xs-12", "col-sm-3");
     }
 
     @Test
@@ -156,9 +187,11 @@ public class HtmlBuilderVisitorTest {
 
     @Test
     public void should_add_dimension_to_the_container() throws GenerationException {
+        Container container = aContainer().withDimensions(xs(5), sm(7), md(9), lg(10)).build();
 
-        assertThatHtmlBody(visitor.visit(aContainer().withDimension(7).withReference("container-reference").build()))
-                .isEqualToBody(testResource.load("containerWithDimension.html"));
+        String html = visitor.visit(container);
+
+        assertThatHtmlBody(html).isEqualToBody(testResource.load("containerWithDimension.html"));
     }
 
     @Test
@@ -279,7 +312,7 @@ public class HtmlBuilderVisitorTest {
     public void should_add_dimension_to_the_formcontainer() throws GenerationException {
         FormContainer formContainer = aFormContainer()
                 .with(aContainer().withReference("container-reference").build())
-                .withDimension(5).build();
+                .withDimensions(xs(5), sm(7), md(9), lg(10)).build();
 
         String html = visitor.visit(formContainer);
 
@@ -446,5 +479,38 @@ public class HtmlBuilderVisitorTest {
         // The page should contain exactly these imports
         assertThat(head).contains(
                 "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script> \n");
+    }
+
+    @Test
+    public void should_get_html_from_main_container_of_associated_fragment() throws Exception {
+        when(fragmentRepository.get("fragment-id")).thenReturn(aFragment()
+                .id("fragment-id")
+                .withName("person")
+                .withVariable("aKey", aConstantVariable().value("aValue").exposed(true))
+                .build());
+
+        assertThatHtmlBody(visitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id")
+                .withBinding("fragmentVariable1", "pageVariable1")
+                .withReference("fragment-reference")
+                .build())).isEqualToBody(testResource.load("fragment.html"));
+    }
+
+    @Test(expected = GenerationException.class)
+    public void should_throw_generation_exception_when_associated_fragment_is_not_found() throws Exception {
+        when(fragmentRepository.get("unknown-fragment")).thenThrow(new NotFoundException("not found"));
+
+        visitor.visit(aFragmentElement()
+                .withFragmentId("unknown-fragment")
+                .build());
+    }
+
+    @Test(expected = GenerationException.class)
+    public void should_throw_generation_exception_when_error_occurs_while_getting_associated_fragment_from_repository() throws Exception {
+        when(fragmentRepository.get("bad-fragment")).thenThrow(new RepositoryException("error", new Exception()));
+
+        visitor.visit(aFragmentElement()
+                .withFragmentId("bad-fragment")
+                .build());
     }
 }

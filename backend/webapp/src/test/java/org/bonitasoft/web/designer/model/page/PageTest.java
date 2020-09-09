@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -83,6 +84,26 @@ public class PageTest {
 
     }
 
+    @Test
+    public void jsonview_persistence_page_with_fragment_should_manage_all_properties() throws Exception {
+        Page myPage = aPageWithFragmentElement();
+
+        //We serialize and deserialize our object
+        Page pageAfterJsonProcessing = objectMapper.readValue(
+                objectMapper.writerWithView(JsonViewPersistence.class).writeValueAsString(myPage),
+                Page.class);
+
+        assertThat(pageAfterJsonProcessing.getName()).isEqualTo(myPage.getName());
+        assertThat(pageAfterJsonProcessing.getId()).isEqualTo(myPage.getId());
+        assertThat(pageAfterJsonProcessing.getVariables()).isNotEmpty();
+        assertThat(pageAfterJsonProcessing.getRows()).isNotEmpty();
+
+        //A rows contains a list of elements. We verify the first
+        Element element = pageAfterJsonProcessing.getRows().get(0).get(0);
+        assertThat(element.getPropertyValues()).isNotNull();
+        assertThat(element.getDimension().get("xs")).isEqualTo(12);
+
+    }
     @Test
     public void jsonview_persitence_should_manage_all_fields() throws Exception {
         Page pageInitial = createAFilledPage();

@@ -219,4 +219,42 @@ describe('editor test', function() {
     expect($('.modal-header .modal-title').getText()).toBe('Help');
     expect($('#help-responsiveness').isPresent()).toBeTruthy();
   });
+
+  it('should allow adding fragment and set its width', () => {
+    editor.addFragment('personFragment');
+
+    expect($$('fragment').count()).toBe(1);
+    // we use element(by.xpath('..')) to get the parent node
+    expect($$('fragment').get(0).element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-12');
+
+    editor.setWidth(6);
+    // we use element(by.xpath('..')) to get the parent node
+    expect($$('fragment').get(0).element(by.xpath('../..')).getAttribute('class')).toContain('col-xs-6');
+  });
+
+  it('should allow adding fragment and bind page data to it', function() {
+    editor = PageEditor.get('personPage');
+    editor.addFragment('personFragment', '.dropRow--last');
+
+    editor.fragments.first().click();
+    $('fragment-data-binding-field input').sendKeys('j');
+    expect($$('fragment-data-binding-field li').count()).toBe(1);
+  });
+
+  it('should allow removing a fragment', function() {
+    editor.addFragment('personFragment');
+
+    expect($$('fragment').count()).toBe(1);
+
+    editor.removeWidget();
+    expect($$('fragment').count()).toBe(0);
+  });
+  describe('editor sp test', function() {
+    it('should open help popup and display multiscreen help',  function() {
+      $('.btn-bonita-help').click();
+
+      expect($('.modal-header .modal-title').getText()).toBe('Help');
+      expect($('#help-responsiveness').isPresent()).toBeTruthy();
+    });
+  });
 });

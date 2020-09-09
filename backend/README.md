@@ -206,6 +206,89 @@ If you want to run the check manually :
     * 200 OK
     * 404 page {pageId} not found or data {dataName} not found
     * 500 internal server error
+    
+### Fragments model
+#### Resource URI
+
+    /rest/fragments
+    
+#### Save a fragment
+    PUT /rest/fragments/{fragmentId}
+    with => 
+    BODY json representation of the model of the fragment 
+
+* Response : N/A
+
+* Response code
+    * 204 OK
+    * 422 Fragment is not compatible
+    * 500 internal server error
+
+#### Rename a fragment
+    PUT /rest/fragments/{fragmentId}/name
+    with =>
+    BODY new name
+
+* Response : N/A
+
+* Response code
+    * 200 OK
+    * 422 Fragment is not compatible
+    * 404 Fragment {fragmentId} not found
+    
+#### Get a fragment
+    GET /rest/fragments/{fragmentId}
+
+* Response : json representation of the model of the fragment
+
+* Response code
+    * 200 OK
+    * 422 Fragment is not compatible
+    * 404 Fragment {fragmentId} not found
+
+#### Get all fragments
+    
+    GET /rest/fragments/
+
+* Response : json representation of the model of all the fragment
+
+* Response code
+    * 200 OK
+
+#### Get fragment data
+
+    GET /rest/fragments/{fragmentId}/data
+
+* Response : array of data
+
+* Response code
+    * 200 OK
+    * 404 fragment {fragmentId} not found
+    * 500 internal server error
+    
+#### Save fragment data
+
+    PUT /rest/fragments/{fragmentId}/data/{dataName}
+    With => 
+    BODY { "value": fragment data value, "type": fragment data type }
+
+* Response : json representation of data
+
+* Response code
+    * 200 OK
+    * 404 fragment {fragmentId} not found
+    * 500 internal server error
+    
+#### Delete fragment data
+    
+    DELETE /rest/fragments/{fragmentId}/data/{dataName}
+
+* Response : json representation of data
+
+* Response code
+    * 200 OK
+    * 404 fragment {fragmentId} not found or data {dataName} not found
+    * 500 internal server error
 
 ### Migration model
 #### Resource URI
@@ -256,6 +339,32 @@ Migrate page and all children artifact (widget or fragment)
     * 404 widget not found
     * 500 internal server error
 
+#### Migrate one Fragment
+
+    PUT /rest/migration/fragment/{fragmentId}
+
+Migrate fragment and all children artifact (widget or fragment)
+
+* Response : json representation of migrationReport contains one of status in:
+       
+       
+     * none => No migration done
+     * incompatible => Fragment is incompatible with this uid version
+     * success => Migration success
+     * error => Error during migration, no changes is done
+     * warning => Migration success with warning for user              
+   
+
+
+
+
+
+
+* Response code
+    * 200 OK
+    * 404 fragment not found
+    * 500 internal server error
+    
 
 #### Get migration status from an artifact json
     POST /rest/migration/status
@@ -290,6 +399,16 @@ Get the migration status of a page. It also take into account the embedded artif
     * 200 OK
     * 404 Widget not found
 
+#### Get migration status of a fragment
+    GET /rest/migration/status/fragment/{fragmentId}
+
+Get the migration status of a fragment. It also take into account the embedded artifacts (custom widgets)
+* Response: see "Get migration status from an artifact json"
+
+* Response code
+    * 200 OK
+    * 404 Fragment not found
+    
 ### Export artifact
 #### Resource URI
 #### Export a page
@@ -309,3 +428,12 @@ Get the migration status of a page. It also take into account the embedded artif
     * 404 widget not found
     * 422 widget incompatible with UID
     * 500 internal server error   
+    
+#### Export a fragment
+    GET /export/fragment/{id}
+    
+* Response code
+    * 200 OK       
+    * 404 fragment not found
+    * 422 fragment incompatible with UID
+    * 500 internal server error

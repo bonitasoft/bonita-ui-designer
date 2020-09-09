@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.model.ModelException;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -34,11 +35,14 @@ public class ExportController {
 
     private Exporter<Page> pageExporter;
     private Exporter<Widget> widgetExporter;
+    private Exporter<Fragment> fragmentExporter;
 
     @Inject
-    public ExportController(@Named("pageExporter") Exporter<Page> pageExporter, @Named("widgetExporter") Exporter<Widget> widgetExporter) {
+    public ExportController(@Named("pageExporter") Exporter<Page> pageExporter, @Named("widgetExporter") Exporter<Widget> widgetExporter,
+                            @Named("fragmentExporter") Exporter<Fragment> fragmentExporter) {
         this.pageExporter = pageExporter;
         this.widgetExporter = widgetExporter;
+        this.fragmentExporter = fragmentExporter;
     }
 
     @RequestMapping(value = "/export/page/{id}")
@@ -50,6 +54,11 @@ public class ExportController {
     @RequestMapping(value = "/export/widget/{id}")
     public ResponseEntity<String> handleFileExportWidget(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
         return handleExport(widgetExporter, id, resp);
+    }
+
+    @RequestMapping(value = "/export/fragment/{id}")
+    public ResponseEntity<String> handleFileExportFragment(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
+        return handleExport(fragmentExporter, id, resp);
     }
 
     protected ResponseEntity<String> handleExport(Exporter exporter, String id, HttpServletResponse resp){

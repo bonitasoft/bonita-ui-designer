@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
@@ -34,10 +33,12 @@ public class PageMigrationApplyer {
     protected WidgetService widgetService;
     protected final List<Migration<Page>> migrationList;
     private static final Logger logger = LoggerFactory.getLogger(PageMigrationApplyer.class);
+    private final FragmentService fragmentService;
 
-    public PageMigrationApplyer(List<Migration<Page>> pageMigrationStepsList, WidgetService widgetService) {
+    public PageMigrationApplyer(List<Migration<Page>> pageMigrationStepsList, WidgetService widgetService, FragmentService fragmentService) {
         this.widgetService = widgetService;
         this.migrationList = pageMigrationStepsList;
+        this.fragmentService = fragmentService;
     }
 
     public MigrationResult<Page> migrate(Page page) {
@@ -49,12 +50,22 @@ public class PageMigrationApplyer {
         }
 
         reports.addAll(migrateAllWidgetUsed(page));
+        reports.addAll(migrateAllFragmentUsed(page));
         updatePreviousArtifactVersionIfMigrationDone(page, formerArtifactVersion, startTime);
         return new MigrationResult(page, reports);
     }
 
     public MigrationStatusReport getMigrationStatusDependencies(Page page) {
-        return widgetService.getMigrationStatusOfCustomWidgetUsed(page);
+        MigrationStatusReport widgetStatus = widgetService.getMigrationStatusOfCustomWidgetUsed(page);
+        MigrationStatusReport fragmentStatus = fragmentService.getMigrationStatusOfFragmentUsed(page);
+
+        if (!widgetStatus.isCompatible() || !fragmentStatus.isCompatible()) {
+            return new MigrationStatusReport(false, false);
+        }
+        if (widgetStatus.isMigration() || fragmentStatus.isMigration()) {
+            return new MigrationStatusReport();
+        }
+        return new MigrationStatusReport(true, false);
     }
 
     protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime) {
@@ -66,5 +77,9 @@ public class PageMigrationApplyer {
 
     protected List<MigrationStepReport> migrateAllWidgetUsed(Page page) {
         return widgetService.migrateAllCustomWidgetUsedInPreviewable(page);
+    }
+
+    private List<MigrationStepReport> migrateAllFragmentUsed(Page page) {
+        return fragmentService.migrateAllFragmentUsed(page);
     }
 }

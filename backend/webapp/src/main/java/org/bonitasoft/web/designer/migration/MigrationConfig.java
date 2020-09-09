@@ -17,26 +17,28 @@ package org.bonitasoft.web.designer.migration;
 import static java.util.Arrays.asList;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.bonitasoft.web.designer.config.DesignerConfigConditional;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
-import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
 import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
+import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
@@ -44,11 +46,10 @@ import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
-@Conditional(DesignerConfigConditional.class)
 public class MigrationConfig {
 
     public static String INITIAL_MODEL_VERSION = "2.0";
@@ -100,6 +101,73 @@ public class MigrationConfig {
     @Bean
     public BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep() {
         return new BusinessVariableMigrationStep<>();
+    }
+
+    @Bean
+    public BondMigrationStep<Fragment> fragmentBondMigrationStep(ComponentVisitor componentVisitor,
+                                                                 WidgetRepository widgetRepository,
+                                                                 VisitorFactory visitorFactory) {
+        return new BondMigrationStep(componentVisitor, widgetRepository, visitorFactory);
+    }
+
+    @Bean
+    public TextWidgetInterpretHTMLMigrationStep<Fragment> fragmentTextWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
+        return new TextWidgetInterpretHTMLMigrationStep(componentVisitor);
+    }
+
+    @Bean
+    public TableWidgetInterpretHTMLMigrationStep<Fragment> fragmentDataTableWidgetInterpretHTMLMigrationStep(ComponentVisitor componentVisitor) {
+        return new TableWidgetInterpretHTMLMigrationStep<Fragment>(componentVisitor);
+    }
+
+    @Bean
+    public TableWidgetStylesMigrationStep<Fragment> fragmentTableWidgetStylesMigrationStep(ComponentVisitor componentVisitor) {
+        return new TableWidgetStylesMigrationStep<Fragment>(componentVisitor);
+    }
+
+    @Bean
+    public TextWidgetLabelMigrationStep<Fragment> fragmentTextWidgetLabelMigrationStep(ComponentVisitor componentVisitor) {
+        return new TextWidgetLabelMigrationStep(componentVisitor);
+    }
+
+    @Bean
+    public AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
+        return new AddModelVersionMigrationStep<Fragment>();
+    }
+
+    @Bean
+    public DataExposedMigrationStep<Fragment> fragmentDataExposedMigrationStep() {
+        return new DataExposedMigrationStep();
+    }
+
+    @Bean
+    public LiveRepositoryUpdate<Fragment> fragmentLiveRepositoryUpdate(
+            JsonFileBasedLoader<Fragment> fragmentFileBasedLoader,
+            FragmentRepository fragmentRepository) {
+        return new LiveRepositoryUpdate(fragmentRepository, fragmentFileBasedLoader, fragmentMigrationSteps);
+    }
+
+    @Resource(name = "fragmentMigrationStepsList")
+    private List<Migration<Fragment>> fragmentMigrationSteps;
+
+    @Bean
+    public List<Migration<Fragment>> fragmentMigrationStepsList(BondMigrationStep<Fragment> fragmentBondMigrationStep,
+                                                                TextWidgetInterpretHTMLMigrationStep<Fragment> fragmentTextWidgetInterpretHTMLMigrationStep,
+                                                                TextWidgetLabelMigrationStep<Fragment> fragmentTextWidgetLabelMigrationStep,
+                                                                DataToVariableMigrationStep<Fragment> fragmentDataToVariableMigrationStep,
+                                                                TableWidgetInterpretHTMLMigrationStep<Fragment> fragmentTablesWidgetInterpretHTMLMigrationStep,
+                                                                TableWidgetStylesMigrationStep<Fragment> fragmentTableWidgetStylesMigrationStep,
+                                                                DataExposedMigrationStep<Fragment> dataExposedMigrationStep,
+                                                                AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep) {
+        return asList(
+                new Migration<>("1.0.3", fragmentBondMigrationStep),
+                new Migration<>("1.7.25", fragmentTextWidgetInterpretHTMLMigrationStep),
+                new Migration<>("1.9.24", fragmentTextWidgetLabelMigrationStep),
+                new Migration<>("1.10.12", fragmentDataToVariableMigrationStep),
+                new Migration<>("1.10.16", fragmentTablesWidgetInterpretHTMLMigrationStep),
+                new Migration<>("1.10.18", fragmentTableWidgetStylesMigrationStep),
+                new Migration<>("1.11.46", dataExposedMigrationStep),
+                new Migration<>(INITIAL_MODEL_VERSION, fragmentAddModelVersionMigrationStep));
     }
 
     @Resource(name = "pageMigrationStepsList")
@@ -165,13 +233,19 @@ public class MigrationConfig {
     }
 
     @Bean
-    public PageMigrationApplyer pageMigrationApplyer(WidgetService widgetService) {
-        return new PageMigrationApplyer(pageMigrationSteps, widgetService);
+    @Primary
+    public PageMigrationApplyer pageMigrationApplyer(WidgetService widgetService, FragmentService fragmentService) {
+        return new PageMigrationApplyer(pageMigrationSteps, widgetService, fragmentService);
     }
 
     @Bean
     public WidgetMigrationApplyer widgetMigrationApplyer() {
         return new WidgetMigrationApplyer(widgetMigrationSteps);
+    }
+
+    @Bean
+    public FragmentMigrationApplyer fragmentMigrationApplyer(WidgetService widgetService) {
+        return new FragmentMigrationApplyer(fragmentMigrationSteps, widgetService);
     }
 
     public static boolean isSupportingModelVersion(String version) {

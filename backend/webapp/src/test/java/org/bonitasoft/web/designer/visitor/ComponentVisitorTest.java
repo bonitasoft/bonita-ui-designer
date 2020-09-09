@@ -12,27 +12,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitors;
+package org.bonitasoft.web.designer.visitor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComponentVisitorTest {
+
+    @Mock
+    private FragmentRepository fragmentRepository;
+
     @InjectMocks
     private ComponentVisitor componentVisitor;
 
@@ -98,6 +107,18 @@ public class ComponentVisitorTest {
         Iterable<Component> components = componentVisitor.visit(aModalContainer()
                 .with(aContainer()
                         .with(component))
+                .build());
+
+        assertThat(components).containsExactly(component);
+    }
+
+    @Test
+    public void should_collect_component_from_a_fragment() throws Exception {
+        when(fragmentRepository.get("fragment-id")).thenReturn(aFragment()
+                .with(component).build());
+
+        Iterable<Component> components = componentVisitor.visit(aFragmentElement()
+                .withFragmentId("fragment-id")
                 .build());
 
         assertThat(components).containsExactly(component);

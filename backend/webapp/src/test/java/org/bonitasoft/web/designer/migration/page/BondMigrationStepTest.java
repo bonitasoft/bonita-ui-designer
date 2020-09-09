@@ -18,6 +18,8 @@ package org.bonitasoft.web.designer.migration.page;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -27,11 +29,13 @@ import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
 import static org.bonitasoft.web.designer.model.widget.BondType.VARIABLE;
 import static org.mockito.Mockito.when;
 
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.Property;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
@@ -46,6 +50,9 @@ public class BondMigrationStepTest {
 
     @Mock
     WidgetRepository widgetRepository;
+
+    @Mock
+    private FragmentRepository fragmentRepository;
 
     BondMigrationStep bondMigrationStep;
 
@@ -65,7 +72,7 @@ public class BondMigrationStepTest {
 
     @Before
     public void setUp() throws Exception {
-        bondMigrationStep = new BondMigrationStep(new ComponentVisitor(), widgetRepository, new VisitorFactory());
+        bondMigrationStep = new BondMigrationStep(new ComponentVisitor(fragmentRepository), widgetRepository, new VisitorFactory());
 
         when(widgetRepository.get("widgetId")).thenReturn(
                 aWidget().property(property).build());
@@ -125,5 +132,38 @@ public class BondMigrationStepTest {
         PropertyValue foo = container.getPropertyValues().get("foo");
         assertThat(foo.getType()).isEqualTo("expression");
         assertThat(foo.getValue()).isEqualTo("bar");
+    }
+
+    @Test
+    // see BS-14202 https://bonitasoft.atlassian.net/browse/BS-14202
+    public void should_migrate_a_page_containing_a_fragment() throws Exception {
+        property.setBond(CONSTANT);
+        property.setDefaultValue("baz");
+        Page page = aPage()
+                .with(aFragmentElement().withFragmentId("aFragment"))
+                .with(component).build();
+        when(fragmentRepository.get("aFragment")).thenReturn(aFragment().build());
+
+        bondMigrationStep.migrate(page);
+
+        PropertyValue foo = component.getPropertyValues().get("foo");
+        assertThat(foo.getType()).isEqualTo("constant");
+        assertThat(foo.getValue()).isEqualTo("baz");
+    }
+
+    @Test
+    public void should_migrate_a_fragment() throws Exception {
+        property.setBond(CONSTANT);
+        property.setDefaultValue("baz");
+        Fragment fragment = aFragment()
+                .with(aFragmentElement().withFragmentId("aFragment"))
+                .with(component).build();
+        when(fragmentRepository.get("aFragment")).thenReturn(aFragment().build());
+
+        bondMigrationStep.migrate(fragment);
+
+        PropertyValue foo = component.getPropertyValues().get("foo");
+        assertThat(foo.getType()).isEqualTo("constant");
+        assertThat(foo.getValue()).isEqualTo("baz");
     }
 }

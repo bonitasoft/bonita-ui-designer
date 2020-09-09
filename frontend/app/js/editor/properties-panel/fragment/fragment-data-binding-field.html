@@ -1,0 +1,19 @@
+<div class="form-group">
+    <label>{{ name }}</label>
+    <i ng-if="!!binding" class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="{{ 'Fragment data \'' + name + '\' will be bound to page data \'' + binding + '\', and thus not have it default value \'' + data.value + '\'' | translate }}"></i>
+    <i ng-if="!binding"  class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="{{ 'Fragment data \'' + name + '\' will keep its default value \'' + data.value + '\'' | translate }}"></i>
+
+    <div class="input-group input-group-sm linked">
+        <input name="paramValue" ng-model="binding" type="text"
+               uib-typeahead="key for key in getDataNames() | filter:$viewValue.trim()"
+               autofocus="linked"
+               class="form-control" />
+
+        <div class="input-group-btn">
+            <button class="btn btn-bonita-property"
+                    title="{{ 'Bound data' | translate }}" type="button">
+                <i class="fa" ng-class="{'fa-link': !!binding, 'fa-unlink': !binding}"></i>
+            </button>
+        </div>
+    </div>
+</div>

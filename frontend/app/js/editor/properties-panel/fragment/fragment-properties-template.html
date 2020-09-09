@@ -1,0 +1,12 @@
+<h4 translate>Bindable fragment data</h4>
+
+<fragment-data-binding-field
+    ng-repeat="(fragmentDataName, fragmentData) in currentComponent.$$widget.variables"
+    ng-if="fragmentData.exposed"
+    data-name="fragmentDataName"
+    data="fragmentData"
+    binding="currentComponent.binding[fragmentDataName]"
+    page-data="page.variables"></fragment-data-binding-field>
+
+
+<div ng-include="'js/editor/properties-panel/component-properties-template.html'"></div>

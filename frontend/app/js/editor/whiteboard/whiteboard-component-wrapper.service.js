@@ -29,7 +29,8 @@
       wrapTabsContainer,
       wrapTabContainer,
       wrapModalContainer,
-      wrapFormContainer
+      wrapFormContainer,
+      wrapFragment
     };
     return service;
 
@@ -87,7 +88,6 @@
         triggerRemoved: whiteboardService.onRemoveContainer.bind(null, element),
         triggerAdded: angular.noop
       });
-
       component.rows.forEach(wrapRow.bind(null, element));
       return component;
     }
@@ -153,6 +153,24 @@
       });
       service.wrapContainer({ id: 'pbContainer' }, element.container);
       return component;
+    }
+
+    function wrapFragment(definition, fragment, parentRow) {
+      let widg = angular.copy(definition);
+      let extended = angular.extend(fragment, {
+        $$id: componentId.getNextId('fragment'),
+        $$templateUrl: 'js/editor/whiteboard/fragment-template.html',
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/fragment/fragment-properties-template.html',
+        $$widget: widg,
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveContainer.bind(null, widg),
+        triggerAdded: whiteboardService.onAddWidget.bind(null, fragment)
+      });
+
+      service.wrapContainer({}, extended.$$widget);
+
+      whiteboardService.triggerInitWidget(extended);
+      return extended;
     }
 
   }

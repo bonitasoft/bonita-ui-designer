@@ -21,6 +21,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -71,6 +72,11 @@ public class MigrationTabsContainerVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(Component component) {
+        return null;
+    }
+
+    @Override
+    public Void visit(FragmentElement fragmentElement) {
         return null;
     }
 

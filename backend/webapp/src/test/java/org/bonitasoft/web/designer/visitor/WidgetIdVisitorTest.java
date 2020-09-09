@@ -12,28 +12,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitors;
+package org.bonitasoft.web.designer.visitor;
 
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetIdVisitorTest {
+
+    @Mock
+    private FragmentRepository fragmentRepository;
 
     @InjectMocks
     private WidgetIdVisitor visitor;
@@ -90,6 +98,19 @@ public class WidgetIdVisitorTest {
         assertThat(visitor.visit(modalContainer)).containsOnly("pbContainer", "foo", "bar", "pbModalContainer");
     }
 
+    @Test
+    public void should_traverse_fragment_element() {
+        FragmentElement fragmentElement = new FragmentElement();
+        fragmentElement.setId("fragment1");
+
+        List<Element> row1 = Arrays.<Element>asList(createComponentWithWidget("foo"));
+        Fragment fragment = new Fragment();
+        fragment.setRows(Arrays.asList(row1));
+
+        when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
+
+        assertThat(visitor.visit(fragmentElement)).containsExactly("foo");
+    }
 
     private Component createComponentWithWidget(String widgetId) {
         Component component = new Component();

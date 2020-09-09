@@ -14,12 +14,14 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.*;
 
 import java.util.Collections;
 import java.util.Optional;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
@@ -31,6 +33,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,11 +42,14 @@ public class PageMigrationApplyerTest {
     @Mock
     private WidgetService widgetService;
 
+    @Mock
+    private FragmentService fragmentService;
+
     @Test
     public void should_migrate_a_page() throws Exception {
         MigrationStep mockMigrationStep = mock(MigrationStep.class);
         Migration<Page> migration = new Migration("2.0", mockMigrationStep);
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
         when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
         migrationApplyer.migrate(page);
@@ -56,7 +62,7 @@ public class PageMigrationApplyerTest {
     public void should_migrate_a_page_with_new_model_version() throws Exception {
         MigrationStep mockMigrationStep = mock(MigrationStep.class);
         Migration<Page> migration = new Migration("2.1", mockMigrationStep);
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").withPreviousArtifactVersion("1.7.11").build();
         when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
 
@@ -69,7 +75,7 @@ public class PageMigrationApplyerTest {
     @Test
     public void should_not_modify_previous_model_version_when_no_migration_done() throws Exception {
         Migration<Page> migration = new Migration("2.0", mock(MigrationStep.class));
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").withPreviousArtifactVersion("2.0").build();
 
         migrationApplyer.migrate(page);
@@ -82,7 +88,7 @@ public class PageMigrationApplyerTest {
     public void should_migrate_all_custom_widget_uses_in_page_when_page_migration_is_done() throws Exception {
         MigrationStep mockMigrationStep = mock(MigrationStep.class);
         Migration<Page> migration = new Migration("2.0", mockMigrationStep);
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
         when(mockMigrationStep.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.SUCCESS, "myPage")));
 
@@ -99,7 +105,7 @@ public class PageMigrationApplyerTest {
         MigrationStep mockMigrationStep = mock(MigrationStep.class);
         MigrationStep mockMigrationStepWarning = mock(MigrationStep.class);
         Migration<Page> migration = new Migration("2.0", mockMigrationStep,mockMigrationStepWarning);
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
         when(mockMigrationStep.migrate(page)).thenReturn(Optional.empty());
         when(mockMigrationStepWarning.migrate(page)).thenReturn(Optional.of(new MigrationStepReport(MigrationStatus.WARNING, "myPage", "You can remove xxx assets if you don't use it")));
@@ -120,7 +126,7 @@ public class PageMigrationApplyerTest {
     public void should_return_an_report_with_error_when_error_occurs_during_migration_page() throws Exception {
         MigrationStep mockMigrationStep = mock(MigrationStep.class);
         Migration<Page> migration = new Migration("2.0", mockMigrationStep);
-        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.0.1").withPreviousDesignerVersion("1.0.0").build();
         when(mockMigrationStep.migrate(page)).thenThrow(new Exception());
 
@@ -134,4 +140,56 @@ public class PageMigrationApplyerTest {
         Assert.assertEquals(report.getArtifactId(),"myPage");
     }
 
+    @Test
+    public void should_migrate_widgets_and_fragment_when_parent_page_are_migrated() throws Exception {
+        MigrationStep mockMigrationStep = mock(MigrationStep.class);
+        Migration<Page> migration = new Migration("2.0", mockMigrationStep);
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(migration), widgetService, fragmentService);
+        Page page = aPage().withPreviousArtifactVersion("1.0.0").withDesignerVersion("1.0.0").build();
+        Mockito.when(mockMigrationStep.migrate(page)).thenReturn(Optional.empty());
+
+        migrationApplyer.migrate(page);
+
+        verify(fragmentService).migrateAllFragmentUsed(page);
+        verify(widgetService).migrateAllCustomWidgetUsedInPreviewable(page);
+        Assert.assertEquals(page.getPreviousArtifactVersion(), "1.0.0");
+        Assert.assertEquals(page.getArtifactVersion(), "2.0");
+    }
+
+    @Test
+    public void should_get_correct_migration_status_when_one_dependency_is_to_migrate() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(widgetService.getMigrationStatusOfCustomWidgetUsed(page)).thenReturn(new MigrationStatusReport(true, true));
+        when(fragmentService.getMigrationStatusOfFragmentUsed(page)).thenReturn(new MigrationStatusReport(true, false));
+
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(null), widgetService, fragmentService);
+        MigrationStatusReport status = migrationApplyer.getMigrationStatusDependencies(page);
+        Assert.assertEquals(getMigrationStatusReport(true, true), status.toString());
+    }
+
+    @Test
+    public void should_get_correct_migration_status_when_one_dependency_is_incompatible() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(widgetService.getMigrationStatusOfCustomWidgetUsed(page)).thenReturn(new MigrationStatusReport(false, false));
+        when(fragmentService.getMigrationStatusOfFragmentUsed(page)).thenReturn(new MigrationStatusReport(true, true));
+
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(null), widgetService, fragmentService);
+        MigrationStatusReport status = migrationApplyer.getMigrationStatusDependencies(page);
+        Assert.assertEquals(getMigrationStatusReport(false, false), status.toString());
+    }
+
+    @Test
+    public void should_get_correct_migration_status_when_dependencies_are_correct() throws Exception {
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        when(widgetService.getMigrationStatusOfCustomWidgetUsed(page)).thenReturn(new MigrationStatusReport(true, false));
+        when(fragmentService.getMigrationStatusOfFragmentUsed(page)).thenReturn(new MigrationStatusReport(true, false));
+
+        PageMigrationApplyer migrationApplyer = new PageMigrationApplyer(Collections.singletonList(null), widgetService, fragmentService);
+        MigrationStatusReport status = migrationApplyer.getMigrationStatusDependencies(page);
+        Assert.assertEquals(getMigrationStatusReport(true, false), status.toString());
+    }
+
+    private String getMigrationStatusReport(boolean compatible, boolean migration) {
+        return new MigrationStatusReport(compatible, migration).toString();
+    }
 }

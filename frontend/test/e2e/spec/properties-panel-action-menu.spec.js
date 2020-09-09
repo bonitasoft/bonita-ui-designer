@@ -18,7 +18,7 @@ describe('properties panel test', function() {
     editor = PageEditor.get('empty');
     expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
     editor.addWidget('pbContainer');
-    expect(element(by.css('#widgetActionButton')).isPresent()).toBe(false);
+    expect(element(by.css('#widgetActionButton')).isPresent()).toBe(true);
     editor.addCustomWidget('customAwesomeWidget');
     expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
     element(by.css('#widgetActionButton')).click();
@@ -42,6 +42,31 @@ describe('properties panel test', function() {
     expect(element(by.cssContainingText('.property-label label', 'Placeholder')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Value')).isPresent()).toBe(true);
     expect(element(by.cssContainingText('.property-label label', 'Type')).isPresent()).toBe(true);
+  });
+
+  it('should display action button, with the correct menu items, depending on the selected widget', function() {
+    expect(element(by.css('#widgetActionButton')).isPresent()).toBe(true);
+    element(by.css('#widgetActionButton')).click();
+    expect(element(by.css('#viewAction')).isDisplayed()).toBe(true);
+    expect(element(by.css('#editAction')).isPresent()).toBe(false);
+    expect(element(by.css('#saveAsFragmentAction')).isPresent()).toBe(false);
+
+    editor = PageEditor.get('empty');
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(false);
+
+    editor.addWidget('pbContainer');
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
+    element(by.css('#widgetActionButton')).click();
+    expect(element(by.css('#saveAsFragmentAction')).isDisplayed()).toBe(true);
+    expect(element(by.css('#editAction')).isPresent()).toBe(false);
+    expect(element(by.css('#viewAction')).isPresent()).toBe(false);
+
+    editor.addCustomWidget('customAwesomeWidget');
+    expect(element(by.css('#widgetActionButton')).isDisplayed()).toBe(true);
+    element(by.css('#widgetActionButton')).click();
+    expect(element(by.css('#editAction')).isDisplayed()).toBe(true);
+    expect(element(by.css('#viewAction')).isPresent()).toBe(false);
+    expect(element(by.css('#saveAsFragmentAction')).isPresent()).toBe(false);
   });
 
   it('should hide properties for label if we choose to hide it', function() {

@@ -23,10 +23,12 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
@@ -34,8 +36,12 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
+import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.AssetRepository;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +52,7 @@ import java.util.UUID;
 
 import static com.google.common.base.Joiner.on;
 import static com.google.common.collect.Lists.transform;
+import static org.bonitasoft.web.designer.model.widget.Widget.spinalCase;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
@@ -60,13 +67,16 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     private DirectivesCollector directivesCollector;
     private AssetRepository<Page> pageAssetRepository;
     private AssetRepository<Widget> widgetAssetRepository;
+    private FragmentRepository fragmentRepository;
 
-    public HtmlBuilderVisitor(List<PageFactory> pageFactories,
+    public HtmlBuilderVisitor(FragmentRepository fragmentRepository,
+                              List<PageFactory> pageFactories,
                               RequiredModulesVisitor requiredModulesVisitor,
                               AssetVisitor assetVisitor,
                               DirectivesCollector directivesCollector,
                               AssetRepository<Page> pageAssetRepository,
                               AssetRepository<Widget> widgetAssetRepository) {
+        this.fragmentRepository = fragmentRepository;
         this.pageFactories = pageFactories;
         this.requiredModulesVisitor = requiredModulesVisitor;
         this.assetVisitor = assetVisitor;
@@ -75,6 +85,21 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         this.widgetAssetRepository = widgetAssetRepository;
     }
 
+    @Override
+    public String visit(FragmentElement fragmentElement) {
+
+        try {
+            Fragment fragment = fragmentRepository.get(fragmentElement.getId());
+            return new TemplateEngine("fragment.hbs.html")
+                    .with("reference", fragmentElement.getReference())
+                    .with("dimensionAsCssClasses", fragmentElement.getDimensionAsCssClasses())
+                    .with("tagName", spinalCase(fragment.getDirectiveName()))
+                    .build(fragment);
+
+        } catch (RepositoryException | NotFoundException e) {
+            throw new GenerationException("Error while generating html for fragment " + fragmentElement.getId(), e);
+        }
+    }
     @Override
     public String visit(Container container) {
 

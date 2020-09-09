@@ -45,6 +45,7 @@ public class DesignerConfigTest {
         //We want to personnalize the workspace directory
         System.setProperty("repository.pages", prop.getProperty("builddirectory") + "/test-classes/workspace/pages");
         System.setProperty("repository.widgets", prop.getProperty("builddirectory") + "/test-classes/workspace/widgets");
+        System.setProperty("repository.fragments", prop.getProperty("builddirectory") + "/test-classes/workspace/fragments");
     }
 
     @Test
@@ -55,6 +56,7 @@ public class DesignerConfigTest {
         //The workspace has to be created
         assertThat(exists(Paths.get(prop.getProperty("builddirectory") + "/test-classes/workspace/pages")));
         assertThat(exists(Paths.get(prop.getProperty("builddirectory") + "/test-classes/workspace/widgets")));
+        assertThat(exists(Paths.get(prop.getProperty("builddirectory") + "/test-classes/workspace/fragments")));
     }
 
 }

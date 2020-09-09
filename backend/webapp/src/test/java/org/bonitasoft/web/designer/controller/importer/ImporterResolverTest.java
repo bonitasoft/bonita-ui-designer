@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Loader;
@@ -52,12 +53,14 @@ public class ImporterResolverTest {
     private ImporterResolver importerResolver;
     private ArtifactImporter<Page> pageArtifactImporter;
     private ArtifactImporter<Widget> widgetArtifactImporter;
+    private ArtifactImporter<Fragment> fragmentArtifactImporter;
 
     @Before
     public void setUp() throws Exception {
         pageArtifactImporter = new ArtifactImporter<Page>(mock(Repository.class), pageService, mock(Loader.class));
         widgetArtifactImporter = new ArtifactImporter<Widget>(mock(Repository.class), null, mock(Loader.class));
-        importerResolver = new ImporterResolver(new DesignerConfig().artifactImporters(pageArtifactImporter, widgetArtifactImporter));
+        fragmentArtifactImporter = new ArtifactImporter<Fragment>(mock(Repository.class), null, mock(Loader.class));
+        importerResolver = new ImporterResolver(new DesignerConfig().artifactImporters(pageArtifactImporter, widgetArtifactImporter, fragmentArtifactImporter));
     }
 
     @Test
@@ -100,6 +103,23 @@ public class ImporterResolverTest {
     }
 
     @Test
+    public void should_get_fragment_importer_from_artifact_type() throws Exception {
+        ArtifactImporter<Fragment> importer = importerResolver.getImporter("fragment");
+
+        assertThat(importer).isEqualTo(fragmentArtifactImporter);
+    }
+
+    @Test
+    public void should_get_fragment_importer_from_path() throws Exception {
+        Path resources = tempDir.newFolderPath("resources");
+        Files.createFile(resources.resolve("fragment.json"));
+
+        ArtifactImporter<Fragment> importer = importerResolver.getImporter(tempDir.toPath());
+
+        assertThat(importer).isEqualTo(fragmentArtifactImporter);
+    }
+
+    @Test
     public void should_get_ImportException_while_resources_folder_is_absent() throws Exception {
         exception.expect(ImportException.class);
         exception.expect(hasType(UNEXPECTED_ZIP_STRUCTURE));
@@ -117,7 +137,7 @@ public class ImporterResolverTest {
         } catch (ImportException e) {
             assertThat(e.getMessage()).isEqualTo("Could not load component, artifact model file not found");
             assertThat(e.getType()).isEqualTo(MODEL_NOT_FOUND);
-            assertThat((Collection<String>) e.getInfos().get("modelfiles")).containsOnly("page.json", "widget.json");
+            assertThat((Collection<String>) e.getInfos().get("modelfiles")).containsOnly("page.json", "widget.json", "fragment.json");
         }
     }
 }

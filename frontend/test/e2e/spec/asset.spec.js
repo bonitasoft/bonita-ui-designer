@@ -8,7 +8,7 @@ describe('asset panel', function() {
   let SCOPE_COLUMN = 3;
 
   beforeEach(function () {
-    editor = PageEditor.get('person-page');
+    editor = PageEditor.get('personPage');
     assetPanel = editor.assetPanel();
     //The asset panel is not opened by default
     assetPanel.open();
@@ -109,7 +109,7 @@ describe('asset panel', function() {
             let internalCSS = assetPanel.getAssetByName('myStyle.css');
             var iframe = $$('.ExportArtifact').first();
             internalCSS.actions.download.click();
-            expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/person-page\/assets\/css\/myStyle.css$/);
+            expect(iframe.getAttribute('src')).toMatch(/.*\/rest\/pages\/personPage\/assets\/css\/myStyle.css$/);
           });
 
         });
@@ -251,6 +251,24 @@ describe('asset panel', function() {
         expect(popup.isOpen()).toBeFalsy();
         assetPanel.editAsset('myStyle.css');
         expect(popup.fileContent).toBe(expectedContent);
+      });
+
+      it('should be updated while adding/removing fragments with assets', function() {
+        // adding two fragments with assets in a container
+        editor.addWidget('pbContainer');
+        editor.addFragment('personFragment', '.drop-container');
+        editor.addFragment('personFragment', '.dropZone--right');
+
+        // asset panel should list fragment's assets
+        expect(assetPanel.names).toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
+
+        // removing one customAwesomeWidget, asset panel should still list fragment's assets
+        editor.removeWidget();
+        expect(assetPanel.names).toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
+
+        // removing last customAwesomeWidget, asset panel should not list fragment's assets anymore
+        editor.removeWidget();
+        expect(assetPanel.names).not.toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
       });
     });
   });

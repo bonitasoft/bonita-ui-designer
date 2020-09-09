@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporte
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.WidgetFileHelper;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
@@ -50,17 +51,20 @@ public class Workspace {
     private WidgetRepository widgetRepository;
     private WidgetFileBasedLoader widgetLoader;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
+    private FragmentDirectiveBuilder fragmentDirectiveBuilder;
     private ResourceLoader resourceLoader;
     private AssetImporter<Widget> widgetAssetImporter;
 
     @Inject
     public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
-                     WidgetDirectiveBuilder widgetDirectiveBuilder, ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
+                     WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
+                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
         this.resourceLoader = resourceLoader;
         this.widgetDirectiveBuilder = widgetDirectiveBuilder;
+        this.fragmentDirectiveBuilder = fragmentDirectiveBuilder;
         this.widgetAssetImporter = widgetAssetImporter;
     }
 
@@ -68,6 +72,8 @@ public class Workspace {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
+        ensureFragmentRepositoryPresent();
+        cleanFragmentWorkspace();
     }
 
     /**
@@ -178,5 +184,46 @@ public class Workspace {
             throw new RuntimeException(error, e);
         }
     }
+
+    /**
+     * Clean fragment Workspace:
+     * * generated files
+     * * Folder which don't have fragment descriptor
+     * Theses file could be stay here when user make any action directly on filesystem
+     */
+    private void cleanFragmentWorkspace() {
+        Path fragWorkspace = workspacePathResolver.getFragmentsRepositoryPath();
+        Arrays.stream(new File(fragWorkspace.toString()).list()).forEach(fragment -> {
+            if (".metadata".equals(fragment)) {
+                cleanMetadataFolder(fragWorkspace, fragment);
+                return;
+            }
+            try {
+                if (isFragmentDescriptorExist(fragWorkspace, fragment)) {
+                    //Remove min.js file, this file can be here for oldest fragment than this fix
+                    WidgetFileHelper.deleteConcatenateFile(fragWorkspace.resolve(fragment));
+                } else {
+                    File f = fragWorkspace.resolve(fragment).toFile();
+                    if (f.isDirectory()) {
+                        FileUtils.deleteDirectory(fragWorkspace.resolve(fragment).toFile());
+                    }
+                    logger.debug(String.format("Deleted fragment folder [%s] with success", fragWorkspace.resolve(fragment).toString()));
+                }
+            } catch (IOException e) {
+                String error = String.format("Error while filter file in folder " + fragWorkspace.resolve(fragment).resolve(fragment).toString());
+                logger.error(error, e);
+            }
+        });
+    }
+
+    private void ensureFragmentRepositoryPresent() throws IOException {
+        createDirectories(workspacePathResolver.getFragmentsRepositoryPath());
+        fragmentDirectiveBuilder.start(workspacePathResolver.getFragmentsRepositoryPath());
+    }
+
+    private boolean isFragmentDescriptorExist(Path fragWorkspace, String fragment) {
+        return fragWorkspace.resolve(fragment).resolve(fragment + ".json").toFile().exists();
+    }
+
 }
 

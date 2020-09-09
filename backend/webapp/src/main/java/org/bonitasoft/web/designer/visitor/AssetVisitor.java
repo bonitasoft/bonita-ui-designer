@@ -24,11 +24,13 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 import java.util.HashSet;
@@ -39,9 +41,16 @@ import java.util.stream.Collectors;
 public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
     private WidgetRepository widgetRepository;
+    private FragmentRepository fragmentRepository;
 
-    public AssetVisitor(WidgetRepository widgetRepository) {
+    public AssetVisitor(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
         this.widgetRepository = widgetRepository;
+        this.fragmentRepository = fragmentRepository;
+    }
+
+    @Override
+    public Set<Asset> visit(FragmentElement fragmentElement) {
+        return visitRows(fragmentRepository.get(fragmentElement.getId()).getRows());
     }
 
     @Override

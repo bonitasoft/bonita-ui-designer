@@ -50,6 +50,13 @@
           value: gettext('Custom widget'),
           filterName: gettext('Custom widgets'),
           create: name => this.createWidget(name)
+        },
+        fragment: {
+          key: 'fragment',
+          state: 'fragment',
+          value: gettext('Fragment'),
+          filterName: gettext('Fragments'),
+          create: name => this.createFragment(name)
         }
       };
     }
@@ -103,6 +110,10 @@
           }
         ]
       };
+    }
+
+    createFragment(name) {
+      return { name, rows: [[]] };
     }
   }
   angular

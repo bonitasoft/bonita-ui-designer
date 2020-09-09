@@ -19,6 +19,7 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
@@ -33,6 +34,12 @@ import static java.util.Collections.singletonList;
  * A visitor
  */
 public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element>> {
+
+    @Override
+    public Iterable<Element> visit(FragmentElement fragmentElement) {
+        // we want only local containers so we don't want to search in fragment associated to fragmentElement
+        return emptyList();
+    }
 
     @Override
     public Iterable<Element> visit(Container container) {

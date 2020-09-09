@@ -42,7 +42,7 @@ import java.nio.file.StandardOpenOption;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -60,9 +60,13 @@ public class WorkspaceTest {
     @Mock
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     @Mock
+    private FragmentDirectiveBuilder fragmentDirectiveBuilder;
+    @Mock
     private ResourceLoader resourceLoader;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
+    @Mock
+    private Resource resource;
     @Mock
     private BeanValidator validator;
     //We use the real instance because we want to verify the folder and the directive files
@@ -75,12 +79,16 @@ public class WorkspaceTest {
 
     private WidgetRepository widgetRepository;
     @Before
-    public void setUp() throws URISyntaxException {
+    public void setUp() throws URISyntaxException, IOException {
         MockitoAnnotations.initMocks(this);
 
         //We mock the default directories
         when(pathResolver.getPagesRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "pages"));
         when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgets"));
+        when(pathResolver.getFragmentsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "fragments"));
+
+        when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
+        when(resourceLoader.getResource(anyString())).thenReturn(resource);
 
         widgetRepository = new WidgetRepository(
                 pathResolver.getWidgetsRepositoryPath(),
@@ -89,7 +97,7 @@ public class WorkspaceTest {
                 validator,
                 mock(Watcher.class));
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
-        workspace = new Workspace(pathResolver, widgetRepository, widgetLoader, widgetDirectiveBuilder, resourceLoader, widgetAssetImporter);
+        workspace = new Workspace(pathResolver, widgetRepository, widgetLoader, widgetDirectiveBuilder, fragmentDirectiveBuilder, resourceLoader, widgetAssetImporter);
         ReflectionTestUtils.setField(workspace, "modelVersion", CURRENT_MODEL_VERSION);
     }
 
@@ -214,5 +222,77 @@ public class WorkspaceTest {
         assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("myPage.json")).exists();
     }
 
+    @Test
+    public void should_ensure_that_folders_page_widgets_fragments_are_created() throws Exception {
+
+        workspace.initialize();
+
+        // no exception expected and we have 3 folders
+        assertThat(temporaryFolder.toPath().resolve("pages")).exists();
+        assertThat(temporaryFolder.toPath().resolve("widgets")).exists();
+        assertThat(temporaryFolder.toPath().resolve("fragments")).exists();
+    }
+
+    @Test
+    public void should_not_throw_exception_when_a_folder_exist_before_init_with_fragment() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("fragments");
+
+        workspace.initialize();
+
+        // no exception expected and we have fragment folder
+        assertThat(temporaryFolder.toPath().resolve("fragments")).exists();
+    }
+
+
+    @Test
+    public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_folder() throws Exception {
+        //We create the widget files
+        Path labelDir = temporaryFolder.newFolderPath("widgets", "pbLabel");
+        Path labelFile = labelDir.resolve("pbLabel.json");
+        String existingWidget = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + CURRENT_MODEL_VERSION + "\"}";
+        byte[] fileContent = existingWidget.getBytes(StandardCharsets.UTF_8);
+        write(labelFile, fileContent, StandardOpenOption.CREATE);
+
+        workspace.initialize();
+
+        assertThat(readAllBytes(labelFile)).isEqualTo(fileContent);
+        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+    }
+
+    @Test
+    public void should_delete_fragment_reference_when_fragment_doesnt_exist_anymore_but_any_file_stay_on_filesystem() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("fragments","myFragment");
+        temporaryFolder.newFilePath("fragments/myFragment/widgets-abcd487.min.js");
+
+        workspace.initialize();
+
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve("myFragment")).doesNotExist();
+    }
+
+    @Test
+    public void should_delete_only_js_file_for_fragment_artifact_when_fragment_descriptor_exist() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("fragments","myFragment");
+        temporaryFolder.newFolderPath("fragments",".metadata");
+        temporaryFolder.newFilePath("fragments/myFragment/widgets-abcd487.min.js");
+        temporaryFolder.newFilePath("fragments/myFragment/myFragment.json");
+        temporaryFolder.newFilePath("fragments/.metadata/myFragment.json");
+        temporaryFolder.newFilePath("fragments/.metadata/oldestFragment.json");
+        temporaryFolder.newFilePath("fragments/.DSSTORE");
+        temporaryFolder.newFilePath("fragments/.gitignore");
+
+
+        workspace.initialize();
+
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve("myFragment").resolve("widgets-abcd487.min.js")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve("myFragment")).exists();
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve(".DSSTORE")).exists();
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve(".gitignore")).exists();
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve(".metadata").resolve("oldestFragment.json")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("fragments").resolve(".metadata").resolve("myFragment.json")).exists();
+
+    }
 
 }

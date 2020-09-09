@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.model.widget;
 
 import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
@@ -29,6 +30,7 @@ import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.junit.Rule;
@@ -71,6 +73,18 @@ public class WidgetTest {
                 + "\"status\": {\"compatible\":true, \"migration\":true}"
                 + "}]"
                 + "}}", true);
+    }
+
+    @Test
+    public void jsonview_light_with_fragment_should_only_manage_id_name_hasValidationError_and_light_page() throws Exception {
+        String json = objectMapper.writerWithView(JsonViewLight.class).writeValueAsString(createAFilledWidgetWithFragment());
+
+        assertEquals(json,
+                "{\"id\":\"ID2\",\"name\":\"aName\",\"custom\":false,\"favorite\":false,\"type\":\"widget\",\"status\": {\"compatible\":true, \"migration\":true},"
+                        + "\"usedBy\":{"
+                        + "\"page\":[{\"id\":\"ID\",\"uuid\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\", \"favorite\":false, \"hasValidationError\": false,\"status\": {\"compatible\":true, \"migration\":true}}],"
+                        + "\"fragment\":[{\"id\":\"ID\",\"name\":\"father\",\"type\":\"fragment\", \"favorite\":false, \"hasValidationError\": false,\"status\": {\"compatible\":true, \"migration\":true}}],"
+                        + "\"widget\":[{\"id\":\"ID\",\"name\":\"aName\",\"custom\":false,\"favorite\":false, \"type\":\"widget\", \"status\": {\"compatible\":true, \"migration\":true}}]}}", true);
     }
 
     @Test
@@ -146,4 +160,24 @@ public class WidgetTest {
         widgetSon.setFavorite(true);
         return widgetSon;
     }
+
+    /**
+     * Create a filled widget with a value for all fields
+     */
+    private Widget createAFilledWidgetWithFragment() throws Exception {
+        Widget widget = aWidget().id("ID").build();
+
+        Widget widgetSon = aWidget().id("ID2").build();
+        Fragment fragment = aFragment().id("ID").withName("father").withHasValidationError(false).build();
+        Page page = aFilledPage("ID");
+        page.setUUID("UUID");
+        page.setName("myPage");
+        page.setHasValidationError(false);
+        widgetSon.addUsedBy("page", asList(page));
+        widgetSon.addUsedBy("fragment", asList(fragment));
+        widgetSon.addUsedBy("widget", asList(widget));
+        widgetSon.setDescription("#widget fils d'son père!");
+        return widgetSon;
+    }
+
 }

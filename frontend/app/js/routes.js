@@ -192,5 +192,41 @@
           }
         }
       });
+
+      $stateProvider.state('designer.fragment', {
+        url: '/fragments/:id',
+        resolve: {
+          /* @ngInject */
+          artifact: function(editorService, fragmentRepo, $stateParams) {
+            return editorService.initialize(fragmentRepo, $stateParams.id);
+          },
+          // injects the correct repo for a page or a fragment
+          /* @ngInject */
+          artifactRepo: function(fragmentRepo) {
+            return fragmentRepo;
+          },
+          /* @ngInject */
+          mode: function() {
+            return 'fragment';
+          }
+        },
+        views: {
+          // main view (ui-view in index.html)
+          '@designer': {
+            controller: 'EditorCtrl',
+            templateUrl: 'js/editor/editor.html'
+          },
+          //  sub view named in editor.html
+          'data@designer.fragment': {
+            controller: 'DataCtrl',
+            templateUrl: 'js/editor/bottom-panel/data-panel/data.html'
+          },
+          'header@designer.fragment': {
+            controller: 'EditorHeaderCtrl',
+            controllerAs: 'vm',
+            templateUrl: 'js/editor/header/header.html'
+          }
+        }
+      });
     });
 })();

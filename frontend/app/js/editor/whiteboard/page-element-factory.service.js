@@ -14,7 +14,8 @@
       createTabsContainerElement: createTabsContainerElement,
       createModalContainerElement: createModalContainerElement,
       createFormContainerElement: createFormContainerElement,
-      createTabContainerElement: createTabContainerElement
+      createTabContainerElement: createTabContainerElement,
+      createFragmentElement: createFragmentElement
     };
 
     function createElement(type, definition) {
@@ -100,6 +101,12 @@
           ]
         }
       });
+    }
+
+    function createFragmentElement(definition) {
+      var fragment = createWidgetElement(definition);
+      fragment.binding = {};
+      return fragment;
     }
 
   }

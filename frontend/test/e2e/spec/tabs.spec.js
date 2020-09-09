@@ -123,4 +123,40 @@ describe('tabs test', function() {
     expect($('#pbContainer-2').isPresent()).toBe(true);
   });
 
+  it('should not disappear if I drag it over a fragment or any widget', function() {
+
+    editor.addWidget('pbParagraph');
+    editor.setWidth(6);
+    editor.addFragment('personFragment');
+    editor.setWidth(6);
+
+    editor.drag('#pbTabsContainer-0').andDropOn('#fragment-0 .dropZone--right');
+    expect($('#fragment-0').isPresent()).toBe(true);
+    expect($('#pbTabsContainer-0').isPresent()).toBe(true);
+
+    editor.drag('#tabsContainer-0').andDropOn('#component-0 .dropZone--right');
+    expect($('#component-0').isPresent()).toBe(true);
+    expect($('#pbTabsContainer-0').isPresent()).toBe(true);
+
+  });
+
+  it('should not disappear if I drag it over a fragment or any into a tabContainer widget', function() {
+
+    editor.addElement('pbContainer').to('#pbTabsContainer-0 .widget-placeholder', true);
+
+    editor.addWidget('pbParagraph');
+    editor.setWidth(6);
+    editor.addFragment('personFragment');
+    editor.setWidth(6);
+
+    editor.drag('#pbTabsContainer-0').andDropOn('#fragment-0 .dropZone--right');
+    expect($('#fragment-0').isPresent()).toBe(true);
+    expect($('#pbTabsContainer-0').isPresent()).toBe(true);
+
+    editor.drag('#tabsContainer-0').andDropOn('#component-0 .dropZone--right');
+    expect($('#component-0').isPresent()).toBe(true);
+    expect($('#pbTabsContainer-0').isPresent()).toBe(true);
+
+  });
+
 });

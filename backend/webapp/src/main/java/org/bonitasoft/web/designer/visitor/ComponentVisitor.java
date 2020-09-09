@@ -19,10 +19,12 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.transform;
@@ -32,6 +34,17 @@ import static java.util.Collections.singleton;
  * An element visitor which traverses the tree of elements recursively to collect all the components used in a page
  */
 public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
+
+    private FragmentRepository fragmentRepository;
+
+    public ComponentVisitor(FragmentRepository fragmentRepository) {
+        this.fragmentRepository = fragmentRepository;
+    }
+
+    @Override
+    public Iterable<Component> visit(FragmentElement fragmentElement) {
+        return fragmentRepository.get(fragmentElement.getId()).accept(this);
+    }
 
     @Override
     public Iterable<Component> visit(Container container) {

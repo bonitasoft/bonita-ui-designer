@@ -19,12 +19,17 @@ import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +42,20 @@ import static java.util.Collections.singletonMap;
  */
 public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<String, PropertyValue>>>, PageFactory {
 
+    private FragmentRepository fragmentRepository;
+
+    public PropertyValuesVisitor(FragmentRepository fragmentRepository) {
+        this.fragmentRepository = fragmentRepository;
+    }
+
+    @Override
+    public Map<String, Map<String, PropertyValue>> visit(FragmentElement fragmentElement) {
+        try {
+            return fragmentRepository.get(fragmentElement.getId()).toContainer(fragmentElement).accept(this);
+        } catch (RepositoryException | NotFoundException e) {
+            throw new GenerationException("Error while generating property values for fragment " + fragmentElement.getId(), e);
+        }
+    }
     @Override
     public Map<String, Map<String, PropertyValue>> visit(Component component) {
         return singletonMap(component.getReference(), component.getPropertyValues());

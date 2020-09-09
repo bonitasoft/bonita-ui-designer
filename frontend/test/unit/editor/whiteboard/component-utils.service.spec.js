@@ -696,4 +696,36 @@ describe('ComponentUtils Service', function() {
       expect(service.getVisibleComponents(pageJson).length).toBe(10);
     });
   });
+
+  describe('isContainer', function() {
+    it('should return false for fragment', function() {
+      var fragment = {
+        type: 'fragment',
+        id: 'fragment-2',
+        name: 'name',
+        rows: []
+      };
+      expect(service.isContainer(fragment)).toBe(false);
+    });
+  });
+
+  describe('modal containers test', function() {
+    it ('should return true if a modal is inside a fragment', function() {
+      var modalInFragment = {
+        $$id: 'pbModalContainer-1',
+        type: 'modalContainer',
+        id: 'pbModalContainer',
+        $$parentContainerRow: {
+          container: {
+            type: 'fragment'
+          }
+        },
+        container: {
+          $$id: 'pbContainer-1',
+          rows: [[{}]]
+        }
+      };
+      expect(service.isModalInContainer(modalInFragment)).toBe(true);
+    });
+  });
 });

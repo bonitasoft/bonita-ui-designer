@@ -1,0 +1,8 @@
+<div class="widget-wrapper">
+  <identicon name="{{component.id}}" size="20" background-color="[0,0,0,0]" foreground-color="[200,200,200]" class="Component-marker" title="{{ component.name }}"></identicon>
+    <component-mover component="component" on-delete="editor.removeCurrentComponent()" ng-if="editor.isCurrentComponent(component)"></component-mover>
+    <div class="fragment-content">
+        <container-preview preview="preview" container="component.$$widget"></container-preview>
+    </div>
+    <drop-zone editor="editor" row="row" component-index="componentIndex"></drop-zone>
+</div>

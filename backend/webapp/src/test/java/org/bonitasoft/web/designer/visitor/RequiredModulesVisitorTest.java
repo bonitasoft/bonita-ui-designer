@@ -18,6 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
@@ -29,9 +31,12 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +49,8 @@ public class RequiredModulesVisitorTest {
 
     @Mock
     private WidgetRepository widgetRepository;
+    @Mock
+    private FragmentRepository fragmentRepository;
     @InjectMocks
     private RequiredModulesVisitor requiredModulesVisitor;
 
@@ -152,6 +159,19 @@ public class RequiredModulesVisitorTest {
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
 
         Set<String> modules = requiredModulesVisitor.visit(aPage().with(component1, component2).build());
+
+        assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
+    }
+
+    @Test
+    public void should_return_list_of_module_needed_by_widgets_in_fragment() throws Exception {
+        Component component1 = mockComponentFor(aWidget().modules("component1Module", "component1OtherModule"));
+        Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
+        FragmentElement fragmentElement = aFragmentElement().withFragmentId("my-fragment").build();
+        Fragment fragment = aFragment().id("my-fragment").with(component1, component2).build();
+        when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
+
+        Set<String> modules = requiredModulesVisitor.visit(fragment);
 
         assertThat(modules).containsOnly("component1Module", "component1OtherModule", "component2Module", "component2OtherModule");
     }

@@ -6,7 +6,7 @@
     .module('bonitasoft.designer.e2e')
     .value('pages', [
       {
-        id: 'person-page',
+        id: 'personPage',
         name: 'Person',
         type: 'page',
         lastUpdate: 1447944407862,
@@ -313,6 +313,49 @@
         rows: [[]],
         variables: {}
       },
+      {
+        designerVersion: '1.2.9-SNAPSHOT',
+        favorite: false,
+        id: 'fragInFragInFragFragment',
+        name: 'fragInFragInFrag',
+        type: 'page',
+        lastUpdate: 1447944407850,
+        rows: [
+          [{
+            'type': 'fragment',
+            'dimension': {
+              'xs': 12,
+              'sm': 12,
+              'md': 12,
+              'lg': 12
+            },
+            'propertyValues': {
+              'cssClasses': {
+                'type': 'constant',
+                'value': ''
+              },
+              'hidden': {
+                'type': 'constant',
+                'value': false
+              }
+            },
+            'reference': '9907799f-2574-4652-885a-04d9abd1a801',
+            'id': '002bdab8-d53f-4035-ad64-1e0635587cf0',
+            'binding': {}
+          }]
+        ],
+        assets: [{
+          'id': '85c96008-3807-4e31-9a5d-13bf1ed0b2d8',
+          'name': 'localization.json',
+          'type': 'json',
+          'scope': 'page',
+          'order': 0,
+          'active': true,
+          'external': false
+        }],
+        inactiveAssets: [],
+        variables: { }
+      }
     ]
   );
 })();

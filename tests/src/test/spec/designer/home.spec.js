@@ -4,6 +4,14 @@ var path = require('path');
 describe('UI designer: home', function() {
   var pagePath = path.resolve(__dirname, '../../fixtures/page-testImport.zip');
   var widgetPath = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
+  var fragmentPath =  path.resolve(__dirname, '../../fixtures/fragment-testImport.zip');
+
+  function getListedFragments() {
+    $('.tab-fragment').click();
+    return element.all(by.css('.ArtifactList-fragment'));
+  }
+
+  path = path.resolve(__dirname, '../../fixtures/widget-testImport.zip');
 
   function getListedPages() {
     $('.tab-page').click();
@@ -139,4 +147,55 @@ describe('UI designer: home', function() {
     });
   });
 
+  it('should create page', function(){
+    $('.HomeCreate').click();
+    $('.modal-body input[name="name"]').sendKeys('Test');
+    element(by.css('#type-fragment')).click();
+    $('.modal-footer button[type="submit"]').click();
+    expect($('.EditorHeader').isPresent()).toBeTruthy();
+  });
+
+  it('should list fragments', function(){
+    var elements = getListedFragments();
+    expect(elements.count()).toBeGreaterThan(0);
+  });
+
+  it('should import a fragment and display an import report', function(){
+    var button = $('.HomeImport');
+    var input = $('.file-upload-input');
+    var upload = element(by.cssContainingText('.modal-footer .btn', 'Import'));
+    var modal  = $('.modal');
+    var fragments = getListedFragments();
+
+    var nbFragment;
+
+    fragments.count().then(function(nb){
+      nbFragment = nb;
+    });
+
+    button.click();
+    input.sendKeys(fragmentPath);
+    upload.click();
+    expect(modal.isPresent()).toBe(false);
+    fragments.count().then(function(nb){
+      expect(nb).toEqual(nbFragment + 1);
+    });
+
+    expect($$('alerts .ui-alert-success p').first().getText()).toBe('Fragment testImport successfully imported.');
+
+    $('.ui-alert .close').click();
+
+    var nbElements;
+    getListedFragments().count().then(function(nb) {
+      nbElements = nb;
+    });
+    $$('.ArtifactList-fragment .Artifact-delete').get(0).click();
+    $('.modal-footer .btn-primary').click();
+    //we need to wait for angular to finish processing modal
+    browser.waitForAngular();
+    browser.executeScript('$(".modal").removeClass("fade");');
+    getListedFragments().count().then(function(nb) {
+      expect(nb).toBe(nbElements -1 );
+    });
+  });
 });

@@ -25,6 +25,7 @@ import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
@@ -275,6 +276,24 @@ public class PageResourceTest {
         verify(messagingTemplate).convertAndSend("/previewableUpdates", "my-page");
 
         Assert.assertEquals(MediaType.APPLICATION_JSON.toString(), result.andReturn().getResponse().getContentType());
+    }
+
+    @Test
+    public void should_save_a_page_with_fragment() throws Exception {
+        Page pageToBeSaved = aPageWithFragmentElement();
+        pageToBeSaved.setId(pageToBeSaved.getName());
+        when(pageService.get(pageToBeSaved.getName())).thenThrow(new NotFoundException());
+        when(pageRepository.getNextAvailableId(pageToBeSaved.getName())).thenReturn(pageToBeSaved.getName());
+
+        mockMvc
+                .perform(
+                        put("/rest/pages/" + pageToBeSaved.getName()).contentType(MediaType.APPLICATION_JSON_VALUE).content(
+                                convertObjectToJsonBytes(pageToBeSaved)))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        verify(pageRepository).updateLastUpdateAndSave(pageToBeSaved);
+        verify(messagingTemplate).convertAndSend("/previewableUpdates", pageToBeSaved.getName());
     }
 
     @Test

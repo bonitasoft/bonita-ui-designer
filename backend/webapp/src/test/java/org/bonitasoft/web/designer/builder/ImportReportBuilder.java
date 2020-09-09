@@ -44,6 +44,9 @@ public class ImportReportBuilder {
         return new ImportReportBuilder(builder.build());
     }
 
+    public static ImportReportBuilder anImportReportFor(FragmentBuilder builder) {
+        return new ImportReportBuilder(builder.build());
+    }
     public ImportReportBuilder withAdded(WidgetBuilder builder) {
         added.add(builder.build());
         return this;
