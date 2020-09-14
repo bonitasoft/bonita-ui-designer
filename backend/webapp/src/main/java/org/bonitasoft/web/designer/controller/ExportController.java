@@ -61,16 +61,16 @@ public class ExportController {
         return handleExport(fragmentExporter, id, resp);
     }
 
-    protected ResponseEntity<String> handleExport(Exporter exporter, String id, HttpServletResponse resp){
+    protected ResponseEntity<String> handleExport(Exporter exporter, String id, HttpServletResponse resp) {
         try {
             exporter.handleFileExport(id, resp);
-            return new ResponseEntity(String.format("%s export successfully",id), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (ModelException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity(e.getMessage(), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.OK);
         } catch (NotFoundException e) {
-            return new ResponseEntity(String.format("Export failed, %s doesn't exist.", id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(String.format("Export failed, %s doesn't exist.", id), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity("Export failed. Check logs for more details", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Export failed. Check logs for more details", ResourceControllerAdvice.getHttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
