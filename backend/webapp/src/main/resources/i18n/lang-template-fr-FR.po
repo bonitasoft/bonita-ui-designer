@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-09-02 01:28\n"
+"PO-Revision-Date: 2020-09-14 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -494,6 +494,9 @@ msgstr ""
 msgid "Bind to a Variable to filter the table 'Content'"
 msgstr ""
 
+msgid "Bindable fragment data"
+msgstr ""
+
 msgid "Bonita API"
 msgstr ""
 
@@ -505,6 +508,9 @@ msgstr "Appels vers la REST API Bonita"
 
 msgid "Bordered"
 msgstr "Avec bordure"
+
+msgid "Bound data"
+msgstr ""
 
 msgid "Business Data Management enhancements"
 msgstr "Améliorations de la gestion des données métier"
@@ -1038,6 +1044,9 @@ msgstr "Exporter {{ctrl.page.name}}"
 msgid "Exported formats"
 msgstr "Formats exportés"
 
+msgid "Expose fragment data to page?"
+msgstr ""
+
 msgid "Exposed"
 msgstr "Exposée"
 
@@ -1153,6 +1162,21 @@ msgid "Forms"
 msgstr "Formulaires"
 
 msgid "Four device types are available:"
+msgstr ""
+
+msgid "Fragment"
+msgstr ""
+
+msgid "Fragment data '' + name + '' will be bound to page data '' + binding + '', and thus not have it default value '' + data.value + ''"
+msgstr ""
+
+msgid "Fragment data '' + name + '' will keep its default value '' + data.value + ''"
+msgstr ""
+
+msgid "Fragment name"
+msgstr ""
+
+msgid "Fragments"
 msgstr ""
 
 msgid "Frame"
@@ -1693,6 +1717,9 @@ msgstr "Aucun asset {{label}} au niveau du widget."
 msgid "No {{label}} asset."
 msgstr "Aucun asset {{label}}."
 
+msgid "No. This data will be specific to this fragment."
+msgstr ""
+
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "Non : fuseau horaire de l’utilisateur ignoré <br>Oui : fuseau horaire de l’utilisateur reflété dans l'affichage/saisie qui peut être différent(e) de la valeur"
 
@@ -1906,6 +1933,9 @@ msgstr ""
 msgid "Save as ..."
 msgstr "Enregistrer sous..."
 
+msgid "Save as fragment..."
+msgstr ""
+
 msgid "Save as..."
 msgstr "Enregistrer sous ..."
 
@@ -1937,6 +1967,9 @@ msgid "Search on name"
 msgstr "Rechercher par nom"
 
 msgid "See <a href=\"https://github.com/chartjs/Chart.js/tree/v1.0.2/docs\" target=\"_blank\">chart.js</a> for details of the chart options for each type of chart. Specify a JSON structure corresponding to the options you want"
+msgstr ""
+
+msgid "See example"
 msgstr ""
 
 msgid "See example 'date object initialization'"
@@ -2798,9 +2831,6 @@ msgstr "Où businessDataType = com.company.model.MyData, queryName = nom de la r
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "Où businessVariableName est le nom de la variable métier définie au niveau du pool."
 
-msgid "Widget actions"
-msgstr "Actions"
-
 msgid "Widget description"
 msgstr "Description du widget"
 
@@ -2836,6 +2866,9 @@ msgstr "A l'intérieur d'une ligne, lorsque vous supprimez un widget ou un conta
 
 msgid "Yes"
 msgstr "Oui"
+
+msgid "Yes. You must bind this variable to a variable in the page, form, layout or fragment using this fragment."
+msgstr ""
 
 msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
 msgstr "Vous pouvez également créer des widgets personnalisés, depuis les widgets existants avec \"Enregistrer sous ...\" ou depuis la page d'accueil."
@@ -2978,6 +3011,9 @@ msgstr "variable String au format"
 
 msgid "fragment"
 msgstr "fragment"
+
+msgid "fragments"
+msgstr ""
 
 msgid "h:mm:ss a"
 msgstr "HH:mm:ss"
