@@ -66,13 +66,34 @@ describe('autocomplete', function () {
 
   describe('async', () => {
     // see https://bonitasoft.atlassian.net/browse/BS-16696
-    it('should display the right selection', () => {
+    it('should display the right suggestions', () => {
       const input = $('.test-async input');
       input.clear().sendKeys('walt');
       expect(labels()).toEqual([ 'walter.bates' ]);
 
       input.sendKeys(protractor.Key.BACK_SPACE);
       expect(labels()).toEqual([ 'walter.bates', 'thomas.wallis' ]);
+    });
+
+    it('should return the returned key of selection', () => {
+      const input = $('.test-async-with-returnedKey input');
+      input.clear().sendKeys('walter');
+      var values = $$('.dropdown-menu a');
+      values.get(0).click();
+
+      var p = $('.test-async-with-returnedKey p');
+      expect(p.getText()).toContain('4');
+    });
+
+    it('should return the full selected object if there is no returned key', () => {
+      const input = $('.test-async-without-returnedKey input');
+      input.clear().sendKeys('walter');
+      var values = $$('.dropdown-menu a');
+      values.get(0).click();
+
+      var p = $('.test-async-without-returnedKey p');
+      expect(p.getText()).toContain('walter.bates');
+      expect(p.getText()).toContain('4');
     });
   });
 });

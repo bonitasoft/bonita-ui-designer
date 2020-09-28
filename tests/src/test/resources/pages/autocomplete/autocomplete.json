@@ -1,6 +1,6 @@
 {
-  "designerVersion" : "1.5.10",
-  "previousDesignerVersion" : "1.5-SNAPSHOT",
+  "designerVersion" : "2.0",
+  "previousDesignerVersion" : "1.5.10",
   "id" : "autocomplete",
   "name" : "autocomplete",
   "type" : "page",
@@ -110,7 +110,10 @@
           "value" : "selectedCity"
         },
         "displayedKey" : {
-          "type" : "constant"
+          "type" : "interpolation"
+        },
+        "returnedKey" : {
+          "type" : "interpolation"
         }
       },
       "reference" : "c6e33872-f938-4fb9-bb34-1105863786dd",
@@ -249,7 +252,11 @@
           "value" : "selectedUser"
         },
         "displayedKey" : {
-          "type" : "constant",
+          "type" : "interpolation",
+          "value" : "name"
+        },
+        "returnedKey" : {
+          "type" : "interpolation",
           "value" : "name"
         },
         "required" : {
@@ -325,7 +332,7 @@
         },
         "text" : {
           "type" : "interpolation",
-          "value" : "Async typeahead"
+          "value" : "Async typeahead with same displayedKey and returnedKey"
         },
         "level" : {
           "type" : "constant",
@@ -384,16 +391,297 @@
           "value" : "usersAsync"
         },
         "displayedKey" : {
-          "type" : "constant",
+          "type" : "interpolation",
+          "value" : "userName"
+        },
+        "returnedKey" : {
+          "type" : "interpolation",
           "value" : "userName"
         },
         "value" : {
           "type" : "variable",
-          "value" : "firstname"
+          "value" : "searchedUser"
         }
       },
       "reference" : "31471322-21e4-4ab9-86e3-4beaf81fb166",
       "id" : "pbAutocomplete"
+    } ] ]
+  } ], [ {
+    "type" : "container",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : "test-async-with-returnedKey"
+      },
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      },
+      "repeatedCollection" : {
+        "type" : "variable",
+        "value" : ""
+      }
+    },
+    "reference" : "971ff351-8924-48f0-9a70-30dbc52a74fc",
+    "id" : "pbContainer",
+    "rows" : [ [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "Async typeahead with returnedKey"
+        },
+        "level" : {
+          "type" : "constant",
+          "value" : "Level 2"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "a48fc4b6-ef09-46fd-b2f3-7055439ddd9d",
+      "id" : "pbTitle"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "readOnly" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "required" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "labelHidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "label" : {
+          "type" : "interpolation",
+          "value" : "Async autocomplete"
+        },
+        "labelPosition" : {
+          "type" : "constant",
+          "value" : "top"
+        },
+        "labelWidth" : {
+          "type" : "constant",
+          "value" : 4
+        },
+        "placeholder" : {
+          "type" : "interpolation"
+        },
+        "availableValues" : {
+          "type" : "expression",
+          "value" : "usersAsync"
+        },
+        "displayedKey" : {
+          "type" : "interpolation",
+          "value" : "userName"
+        },
+        "returnedKey" : {
+          "type" : "interpolation",
+          "value" : "id"
+        },
+        "value" : {
+          "type" : "variable",
+          "value" : "searchedUser"
+        }
+      },
+      "reference" : "31471322-21e4-4ab9-86e3-4beaf81fb177",
+      "id" : "pbAutocomplete"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "user {{searchedUser|json}}"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "18bf9f7b-40f0-4242-aed2-4ab7f6095100",
+      "id" : "pbText"
+    } ] ]
+  } ], [ {
+    "type" : "container",
+    "dimension" : {
+      "xs" : 12
+    },
+    "propertyValues" : {
+      "cssClasses" : {
+        "type" : "constant",
+        "value" : "test-async-without-returnedKey"
+      },
+      "hidden" : {
+        "type" : "constant",
+        "value" : false
+      },
+      "repeatedCollection" : {
+        "type" : "variable",
+        "value" : ""
+      }
+    },
+    "reference" : "971ff351-8924-48f0-9a70-30dbc52a741d",
+    "id" : "pbContainer",
+    "rows" : [ [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "Async typeahead without returnedKey"
+        },
+        "level" : {
+          "type" : "constant",
+          "value" : "Level 2"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "a48fc4b6-ef09-46fd-b2f3-7055439dddae",
+      "id" : "pbTitle"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "readOnly" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "required" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "labelHidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "label" : {
+          "type" : "interpolation",
+          "value" : "Async autocomplete"
+        },
+        "labelPosition" : {
+          "type" : "constant",
+          "value" : "top"
+        },
+        "labelWidth" : {
+          "type" : "constant",
+          "value" : 4
+        },
+        "placeholder" : {
+          "type" : "interpolation"
+        },
+        "availableValues" : {
+          "type" : "expression",
+          "value" : "usersAsync"
+        },
+        "displayedKey" : {
+          "type" : "interpolation",
+          "value" : "userName"
+        },
+        "returnedKey" : {
+          "type" : "interpolation"
+        },
+        "value" : {
+          "type" : "variable",
+          "value" : "searchedUser"
+        }
+      },
+      "reference" : "31471322-21e4-4ab9-86e3-4beaf81fb188",
+      "id" : "pbAutocomplete"
+    } ], [ {
+      "type" : "component",
+      "dimension" : {
+        "xs" : 12,
+        "sm" : 12,
+        "md" : 12,
+        "lg" : 12
+      },
+      "propertyValues" : {
+        "cssClasses" : {
+          "type" : "constant",
+          "value" : ""
+        },
+        "hidden" : {
+          "type" : "constant",
+          "value" : false
+        },
+        "text" : {
+          "type" : "interpolation",
+          "value" : "user {{searchedUser|json}}"
+        },
+        "alignment" : {
+          "type" : "constant",
+          "value" : "left"
+        }
+      },
+      "reference" : "18bf9f7b-40f0-4242-aed2-4ab7f6095111",
+      "id" : "pbText"
     } ] ]
   } ] ],
   "assets" : [ {
@@ -423,14 +711,14 @@
       "type" : "constant",
       "exposed" : false
     },
-    "firstname" : {
+    "searchedUser" : {
       "type" : "constant",
       "exposed" : false
     },
     "usersAsync" : {
       "type" : "url",
       "value" : [
-        "../API/identity/user?s={{firstname}}"
+        "../API/identity/user?s={{searchedUser}}"
       ],
       "exposed" : false
     }

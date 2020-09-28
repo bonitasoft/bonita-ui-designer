@@ -19,6 +19,7 @@ import static java.util.Arrays.asList;
 import java.util.List;
 import javax.annotation.Resource;
 
+import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
 import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
@@ -83,6 +84,11 @@ public class MigrationConfig {
     }
 
     @Bean
+    public AutocompleteWidgetReturnedKeyMigrationStep<Page> pageAutocompleteWidgetReturnedKeyMigrationStep(ComponentVisitor componentVisitor) {
+        return new AutocompleteWidgetReturnedKeyMigrationStep(componentVisitor);
+    }
+
+    @Bean
     public AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
         return new AddModelVersionMigrationStep();
     }
@@ -131,6 +137,11 @@ public class MigrationConfig {
     }
 
     @Bean
+    public AutocompleteWidgetReturnedKeyMigrationStep<Fragment> fragmentAutocompleteWidgetReturnedKeyMigrationStep(ComponentVisitor componentVisitor) {
+        return new AutocompleteWidgetReturnedKeyMigrationStep(componentVisitor);
+    }
+
+    @Bean
     public AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
         return new AddModelVersionMigrationStep<Fragment>();
     }
@@ -157,6 +168,7 @@ public class MigrationConfig {
                                                                 DataToVariableMigrationStep<Fragment> fragmentDataToVariableMigrationStep,
                                                                 TableWidgetInterpretHTMLMigrationStep<Fragment> fragmentTablesWidgetInterpretHTMLMigrationStep,
                                                                 TableWidgetStylesMigrationStep<Fragment> fragmentTableWidgetStylesMigrationStep,
+                                                                AutocompleteWidgetReturnedKeyMigrationStep<Fragment> fragmentAutocompleteWidgetReturnedKeyMigrationStep,
                                                                 DataExposedMigrationStep<Fragment> dataExposedMigrationStep,
                                                                 AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep) {
         return asList(
@@ -167,6 +179,7 @@ public class MigrationConfig {
                 new Migration<>("1.10.16", fragmentTablesWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", fragmentTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.46", dataExposedMigrationStep),
+                new Migration<>("1.12.27", fragmentAutocompleteWidgetReturnedKeyMigrationStep),
                 new Migration<>(INITIAL_MODEL_VERSION, fragmentAddModelVersionMigrationStep));
     }
 
@@ -186,6 +199,7 @@ public class MigrationConfig {
             DynamicTabsContainerMigrationStep<Page> dynamicTabsContainerMigrationStep,
             TableWidgetInterpretHTMLMigrationStep<Page> pageTableWidgetInterpretHTMLMigrationStep,
             TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
+            AutocompleteWidgetReturnedKeyMigrationStep<Page> pageAutocompleteWidgetReturnedKeyMigrationStep,
             BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep,
             AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep,
             StyleUpdateInputRequiredLabelMigrationStep styleUpdateInputRequiredLabelMigrationStep) {
@@ -205,7 +219,7 @@ public class MigrationConfig {
                 new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.40", pageBusinessVariableMigrationStep),
                 new Migration<>("1.11.46", styleUpdateInputRequiredLabelMigrationStep),
-                new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep));
+                new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep, pageAutocompleteWidgetReturnedKeyMigrationStep));
     }
 
     @Bean

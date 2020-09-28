@@ -10,6 +10,22 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
     return typeof item === 'string' ? item : JSON.stringify(item);
   };
 
+  this.getValue = createGetter($scope.properties.returnedKey) || function (item) {
+    return item;
+  };
+
+  this.onSelectedCallback = function ($item, $model, $label) {
+    this.selectedItem = $item;
+  };
+
+  this.formatLabel = function ($model) {
+    if (this.selectedItem) {
+      return this.getLabel(this.selectedItem);
+    } else {
+      return this.getLabel($model);
+    }
+  };
+
   this.name = widgetNameFactory.getName('pbAutocomplete');
 
   if (!$scope.properties.isBound('value')) {

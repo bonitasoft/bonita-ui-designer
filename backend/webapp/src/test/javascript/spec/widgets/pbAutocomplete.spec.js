@@ -115,12 +115,13 @@ describe('pbAutocomplete', function () {
       expect(element.find('input').attr('required')).toBe('required');
     });
 
-    it('should use the typeahead directive if we have a availableValues for an autocomplete', function() {
+    it('should initialize the input if we have a availableValues and value for an autocomplete', function() {
 
       scope.properties = angular.extend(scope.properties, {
         availableValues: [{name: 'jeanne'}, {name: 'paul'}],
         value:  'paul',
-        displayedKey:  'name',
+        displayedKey: 'name',
+        returnedKey: 'name'
       });
 
       var element = $compile('<pb-autocomplete></pb-autocomplete>')(scope);
