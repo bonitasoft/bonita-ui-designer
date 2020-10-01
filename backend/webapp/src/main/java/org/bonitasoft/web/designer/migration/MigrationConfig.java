@@ -179,8 +179,7 @@ public class MigrationConfig {
                 new Migration<>("1.10.16", fragmentTablesWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", fragmentTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.46", dataExposedMigrationStep),
-                new Migration<>("1.12.27", fragmentAutocompleteWidgetReturnedKeyMigrationStep),
-                new Migration<>(INITIAL_MODEL_VERSION, fragmentAddModelVersionMigrationStep));
+                new Migration<>(INITIAL_MODEL_VERSION, fragmentAddModelVersionMigrationStep, fragmentAutocompleteWidgetReturnedKeyMigrationStep));
     }
 
     @Resource(name = "pageMigrationStepsList")
