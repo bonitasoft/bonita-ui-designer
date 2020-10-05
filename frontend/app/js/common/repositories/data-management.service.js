@@ -158,7 +158,21 @@
             this._pushInAdditional(field, queries.additionalQuery);
           });
         }
+
+        queries.defaultQuery = queries.defaultQuery.sort(this._sortByProperty('displayName'));
+        queries.additionalQuery = queries.additionalQuery.sort(this._sortByProperty('displayName'));
         return queries;
+      }
+
+      _sortByProperty(property) {
+        return function(a, b) {
+          if (a[property] > b[property]) {
+            return 1;
+          } else if (a[property] < b[property]) {
+            return -1;
+          }
+          return 0;
+        };
       }
 
       _pushIn(query, objects) {
