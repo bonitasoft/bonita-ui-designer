@@ -192,4 +192,22 @@ public class WidgetFileBasedLoaderTest {
 
         widgetLoader.load(widgetDirectory.resolve("wrongjson.json"));
     }
+
+    @Test(expected = NotFoundException.class)
+    public void should_throw_notfound_exception_when_widget_template_is_not_found() throws Exception {
+        Widget input = aWidget().id("input").build();
+        input.setTemplate("@missingTemplate.tpl.html");
+        addToDirectory(widgetDirectory, input);
+
+         widgetLoader.load(widgetDirectory.resolve("input/input.json"));
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void should_throw_notfound_exception_when_widget_controller_is_not_found() throws Exception {
+        Widget input = aWidget().id("input").build();
+        input.setController("@missingController.ctrl.js");
+        addToDirectory(widgetDirectory, input);
+
+        widgetLoader.load(widgetDirectory.resolve("input/input.json"));
+    }
 }

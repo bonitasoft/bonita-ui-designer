@@ -55,6 +55,9 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
         if (widget.getTemplate() != null && widget.getTemplate().startsWith("@")) {
             String templateFileName = widget.getTemplate().substring(1);
             Path templateFile = directory.resolve(format("%s", templateFileName));
+            if(!Files.exists(templateFile)){
+                throw new NotFoundException(format("Template not found for [%s]", templateFile.getFileName()));
+            }
             widget.setTemplate(new String(readAllBytes(templateFile)));
         }
     }
@@ -63,6 +66,9 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
         if (widget.getController() != null && widget.getController().startsWith("@")) {
             String controllerFileName = widget.getController().substring(1);
             Path controllerFile = directory.resolve(format("%s", controllerFileName));
+            if(!Files.exists(controllerFile)){
+                throw new NotFoundException(format("Controller not found for [%s]", controllerFile.getFileName()));
+            }
             widget.setController(new String(readAllBytes(controllerFile)));
         }
     }

@@ -102,6 +102,13 @@
       "name": "ui-bootstrap-tpls-0.13.0.min.js",
       "type": "js",
       "order": 1
+    },
+    {
+      "id" : "bc7af0534a60c8db2e89d0838bff20cc1424675f",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
     }
   ]
 }
