@@ -1,5 +1,5 @@
 # Bonita UI designer [![Build Status](https://travis-ci.org/bonitasoft/bonita-ui-designer.svg?branch=master)](https://travis-ci.org/bonitasoft/bonita-ui-designer)
-Pouet pouet
+Titi toto
 The WYSIWYG web editor by Bonita.
 //TODO screenshot
 
