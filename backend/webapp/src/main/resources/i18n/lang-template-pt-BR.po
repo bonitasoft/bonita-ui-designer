@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-09-16 01:30\n"
+"PO-Revision-Date: 2020-10-12 01:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -542,9 +542,6 @@ msgid "Call a business data (custom) query"
 msgstr ""
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
-msgstr ""
-
-msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
 msgstr ""
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
@@ -1749,6 +1746,9 @@ msgid "Number of array elements defines the number of times the container struct
 msgstr ""
 
 msgid "Object key to display"
+msgstr ""
+
+msgid "Object key to display. Leave it empty for whole object"
 msgstr ""
 
 msgid "Once you select an element, edit its properties in the properties panel on the right."

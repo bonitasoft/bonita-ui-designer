@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-09-16 01:28\n"
+"PO-Revision-Date: 2020-10-12 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -540,9 +540,6 @@ msgstr "Llama a una query (personalizada) de variables de negocio"
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
 msgstr "Puede ser una lista de objetos. Use 'clave a a mostrar'  para refinar las opciones y la 'clave de retorno' para refinar la selección"
-
-msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
-msgstr "Puede ser una lista de objetos. Use 'Clave mostrada' para refinar las sugerencias"
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "Puede ser una lista de objetos. Use 'clave a a mostrar'  para refinar las opciones y la 'clave de retorno' para refinar la selección"
@@ -1747,6 +1744,9 @@ msgstr "El número de elementos del array define el número de veces que se repi
 
 msgid "Object key to display"
 msgstr "Clave de objeto para mostrar"
+
+msgid "Object key to display. Leave it empty for whole object"
+msgstr ""
 
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de propiedades de la derecha."

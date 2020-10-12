@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-09-16 01:28\n"
+"PO-Revision-Date: 2020-10-12 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -538,9 +538,6 @@ msgstr "Appel d'une requête BDM (spécifique)"
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine options and 'Returned key' to refine selections"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser les options et « Clé retournée » pour préciser les sélections"
-
-msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions"
-msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions"
 
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions et « Clé retournée » pour préciser la sélection"
@@ -1746,6 +1743,9 @@ msgstr "Le nombre des éléments du tableau détermine le nombre des répétitio
 
 msgid "Object key to display"
 msgstr "Clé de l'objet à afficher"
+
+msgid "Object key to display. Leave it empty for whole object"
+msgstr ""
 
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Lorsque vous sélectionnez un élément, modifiez ses propriétés dans le panneau de propriétés sur la droite."
