@@ -32,6 +32,7 @@ import static java.lang.String.format;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.apache.commons.io.FileUtils.writeByteArrayToFile;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.when;
 
@@ -81,6 +82,18 @@ public class LocalizationFactoryTest {
 
         assertThat(localizationFactory.generate(page))
                 .isEqualTo(createFactory("{}"));
+    }
+
+    @Test
+    public void should_create_an_empty_string_for_fragments() throws Exception {
+        assertThat(localizationFactory.generate(aFragment().build()))
+                .isEqualTo("angular.module('bonitasoft.ui.services').factory('localizationFactory', function() {" + System.lineSeparator() +
+                        "  return {" + System.lineSeparator() +
+                        "    get: function() {" + System.lineSeparator() +
+                        "      return {};" + System.lineSeparator() +
+                        "    }" + System.lineSeparator() +
+                        "  };" + System.lineSeparator() +
+                        "});" + System.lineSeparator());
     }
 
     private String createFactory(String content) {

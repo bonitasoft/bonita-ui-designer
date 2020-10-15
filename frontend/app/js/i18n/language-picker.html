@@ -1,0 +1,10 @@
+
+    <div class="input-group">
+        <span class="input-group-addon Select-addon"
+              uib-tooltip="{{ 'Shows the languages for which there are translations in localization.json and Default, which is the source language of your page' | translate }}"
+              tooltip-placement="bottom"
+              tooltip-append-to-body="true">
+            <i class="glyphicon glyphicon-globe fa-lg" aria-hidden="true"></i>
+        </span>
+        <select class="form-control Select-control" ng-options="lang for lang in vm.langs" ng-model="vm.lang" ng-change="vm.chooseLang(vm.lang)"></select>
+    </div>

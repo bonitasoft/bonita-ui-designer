@@ -8,7 +8,7 @@ msgstr ""
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 61536\n"
+"X-Crowdin-File-ID: 61537\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
 "PO-Revision-Date: 2020-10-12 01:28\n"
@@ -29,7 +29,7 @@ msgid "(used in your template and controller)"
 msgstr "(utilizado en su plantilla y controller)"
 
 msgid "../API/"
-msgstr ""
+msgstr ".. /API/"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
@@ -38,7 +38,7 @@ msgid "7.5 Migration notes"
 msgstr "7.5 Notas Migración"
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
-msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
+msgstr "Variables String <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\"> ISO 8601</a> (con o sin información de tiempo)"
 
 msgid "<b><em>Now</em> button</b> sets the selected date and time to the current date and time for the user.\n"
 "            For the time, it is rounded up or down to the closest 5 min value."
@@ -86,30 +86,30 @@ msgid "<code>Bordered</code><em>(Default: no)</em>: Display cells with border."
 msgstr "<code>Bordered</code><em>(Por defecto: desactivado)</em>: Muestra las celdas con bordes."
 
 msgid "<code>Bordered</code><em>(Defaults: no)</em>: Display cells with border."
-msgstr ""
+msgstr "<code>Bordered</code><em>(Por defecto: desactivado)</em>: Muestra las celdas con bordes."
 
 msgid "<code>Condensed</code><em>(Default: no)</em>: Display cells without spacing."
-msgstr "<code>Condensed</code><em>(Por defecto: desactivado)</em>: Muestra las celdas sin espaciado interlinea."
+msgstr "<code>Condensed</code><em>(Por defecto: desactivado)</em>: Muestra las celdas sin espacio interlínea."
 
 msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spacing."
-msgstr ""
+msgstr "<code>Condensed</code><em>(Por defecto: desactivado)</em>: Muestra las celdas sin espacio interlínea."
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
-msgstr "<code>Título</code>: se puede calcular dinámicamente para mostrar y <b>renderizar html</b>."
+msgstr ""
 
 msgid "<code>Zebra-striping</code><em>(Default: yes)</em>: Apply a Zebra style\n"
 "                (this style set a different background color on even and odd lines)."
-msgstr "<code>Zebra-striping</code><em>(Por defecto: activado)</em>: Aplica un estilo \"Cebra\" (colores diferentes para lineas alternantes)."
+msgstr "<code>Zebra-striping</code><em>(Por defecto: activado)</em>Aplica un estilo \"Cebra\"  (Un color diferente para lineas intercaladas)."
 
 msgid "<code>Zebra-striping</code><em>(Defaults: yes)</em>: Apply a Zebra style (this style set a different background color on even and odd lines)."
-msgstr ""
+msgstr "<code>Zebra-striping</code><em>(Por defecto: activado)</em>Aplica un estilo \"Cebra\" (Un color diferente para lineas intercaladas)."
 
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
 
 msgid "<code>cssClasses</code> <em>(Default: none)</em>: Add css classes on tab. This css class will\n"
 "                be attached to <strong>tab-heading</strong> html element."
-msgstr "<code>cssClasses</code> <em>(Por defecto: Ninguna)</em>: Agrega clases Css de encabezados. Esta clase Csss será asociada al elemento Html <strong>Encabezado de Columna</strong>."
+msgstr "<code>cssClasses</code> <em>(Por defecto: ninguna)</em>Agrega clases Csss a las pestañas. Esta clase Css será asociada al elemento html <strong>tab-heading</strong>."
 
 msgid "<code>disabled</code> <em>(Default: no)</em>: Whether tab is clickable and can be activated."
 msgstr ""
@@ -121,7 +121,7 @@ msgid "<code>formOutput</code> is a JavaScript expression returning an object. <
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
 
 msgid "<code>hidden</code> <em>(Default: no)</em>: Whether tab is hidden or not."
-msgstr "<code>hidden</code> <em>(Por defecto: desactivado)</em>: En caso que la pestaña esté oculta o no."
+msgstr "<code>hidden</code> <em>(Por defecto: desactivado)</em>: Establecer una pestaña como oculta o no."
 
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> es una expresión JavaScript formateando el payload de la respuesta a html cuando un envío falla."
@@ -133,7 +133,7 @@ msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <
 msgstr "<em><b>Ejemplo</b></em>: Utilice la clave <em>button.submit.name</em> en la propiedad <b>Etiqueta</b> del botón Enviar. Use la clave <em>date.format</em> en la propiedad <b>formato de fecha</b> y <em>date.placeholder</em> en la propiedad de <b>placeholder</b> en un widget selector de fecha (datepicker). Luego, cambie el recurso <em>localization.json</em> para agregar las traducciones en inglés de <em>button.submit.name</em>, <em>date.format</em>, <em>date.placeholder</em>."
 
 msgid "<em>Add to collection</em> or <em>Remove from collection</em> actions can be used to prepare the data before sending it to the server (e.g. if you have a process/task contract with an input that is multiple). No request will be sent to the server. The button will just update the <em>Collection</em> data which must be a variable of type array (<code>[]</code> in JSON)."
-msgstr "Las acciones <em>Añadir a la colección</em> o <em>Eliminar de la colección de</em> pueden utilizarse para preparar los datos antes de enviarlos al servidor (por ejemplo, si usted tiene un contrato de tarea/proceso con una entrada que es múltiple). Ninguna petición se enviará al servidor. El botón sólo actualizará los datos de la <em>colección</em> que deben ser una variable de tipo array (<code>[]</code> en JSON)."
+msgstr "Las acciones <em>Añadir a la colección</em> o <em>Eliminar de la colección de</em> pueden utilizarse para preparar los datos antes de enviarlos al servidor (por ejemplo, si usted tiene un contrato de tarea/proceso con una entrada que es múltiple). Ninguna petición se enviará al servidor. El botón sólo actualizará los datos de la <em>Colección</em> que deben ser una variable de tipo array (<code>[]</code> en JSON)."
 
 msgid "<em>DATE (NOT RECOMMENDED)</em> (based on <code>java.util.Date</code>)"
 msgstr "<em>DATE (NOT RECOMMENDED)</em> (basado en <code>java.util.Date</code>)"
@@ -151,10 +151,13 @@ msgid "<em>Failed response value</em>: the variable will be set if the request i
 msgstr "<em>Valor de la respuesta fallida</em>: la variable se establecerá si la petición no tiene éxito (código 4XX)"
 
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
-msgstr "<em>Nota sobre los widgets</em> Selector de fecha <em>y</em> Selector de fecha y hora <em>:</em> las traducciones de la propiedad de <em>Placeholder</em> deben coincidir con el valor de las propiedades <em>Formato de fecha</em> (orden y número de letras). Sin embargo, la clave <em>Placeholder</em> debe ser diferente de la clave <em>Formato técnico de fecha</em> para evitar desajustes de las traducciones."
+msgstr "<em>Nota sobre los widgets</em> Date Picker <em>y</em> Date Time Picker <em>:</em> las traducciones de la propiedad de <em>Placeholder</em> deben coincidir con el valor de las propiedades <em>Formato de fecha</em> (orden y número de letras). Sin embargo, la clave <em>Placeholder</em> debe ser diferente de la clave <em>Formato de fecha</em> para evitar desajustes de las traducciones."
 
 msgid "<em>Successful response value</em>: the variable will be set if the request is successful (code 2XX)"
 msgstr "<em>Valor de la respuesta exitosa</em>: la variable se establecerá si la petición es exitosa (código 2XX)"
+
+msgid "<i class=\"fa fa-warning\"></i>&nbsp;By convention, the file has to be named <em>localization.json</em>"
+msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por Convención, el archivo tiene que llamarse <em>localization.json</em>"
 
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> o <i>myVar.myDocument_ref</i>"
@@ -193,7 +196,7 @@ msgid "A <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 86
 msgstr "Variable de tipo String formateada según <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a>: aaaa-MM-ddTHH:mm:ss(Z)"
 
 msgid "A Bonita REST API URL"
-msgstr ""
+msgstr "Una URL al API REST de Bonita"
 
 msgid "A Business data variable is reloaded every time the filter value changes."
 msgstr "Una variable de datos de negocio se recarga cada vez que el valor del filtro cambia."
@@ -202,7 +205,7 @@ msgid "A JSON object"
 msgstr "Un objeto JSON"
 
 msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
-msgstr "Un contenedor de tabs es un contenedor que tiene múltiples paneles, pero sólo muestra un panel a la vez."
+msgstr ""
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas las variables son reevaluadas y el UI se actualiza. En consecuencia:"
@@ -223,7 +226,7 @@ msgid "A modal container doesn't work when it is embedded in another container."
 msgstr "Un contenedor modal no funciona si esta embebido en otro contenedor."
 
 msgid "A multiple set chart shows one or more set of data"
-msgstr ""
+msgstr "Un gráfico conjunto múltiple muestra uno o más conjunto de datos"
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Una propiedad que requiere un valor constante se presenta en el panel de propiedades como un grupo de radio buttons, lista desplegable o selector de números (para la propiedad Width). Selecciona el valor deseado."
@@ -235,7 +238,7 @@ msgid "A server error occurred."
 msgstr "Se produjo un error de servidor."
 
 msgid "A single entry will be created in the LocalStorage identified by the form URL."
-msgstr ""
+msgstr "Se creará una única entrada en el LocalStorage identificado por la URL del formulario."
 
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr "Una variable que se inicializa con una expresión de JavaScript se ejecuta cuando se carga la página. Entonces, cuando una de sus dependencias cambia, se actualiza su valor. Las dependencias se crean utilizando <code>$data.XXX</code>."
@@ -244,7 +247,7 @@ msgid "A variable initialized with an External API is reloaded every time the UR
 msgstr "Una variable inicializada con una API externa se vuelve a cargar cada vez que cambia el valor de URL."
 
 msgid "A variable that contains a JSON array (single set) or JSON array of arrays (multiple sets) where each array is a set. The data can be obtained by a BDM query, API call (default or extension), or JavaScript that retrieves and formats external data"
-msgstr ""
+msgstr "Una variable que contiene un array JSON (conjunto simple) o un array de arrays JSON (conjunto múltiple) donde cada array es un conjunto. Los datos pueden obtenerse por una consulta BDM, llamada al API (por defecto o extensión del API) o por un JavaScript que recupera y formatea variables externas"
 
 msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
 msgstr "Un {{ ::importReport.overwrittenType }} con el mismo Id que <strong>{{ ::importReport.name }}</strong> ya existe."
@@ -259,7 +262,7 @@ msgid "API URL"
 msgstr "API URL"
 
 msgid "API request parameters"
-msgstr ""
+msgstr "Parámetros de la petición API"
 
 msgid "Access to $form capabilities for form container"
 msgstr "Acceso a capacidades $form desde el contenedor de formularios"
@@ -280,7 +283,7 @@ msgid "Add JavaScript assets for custom scripts. They will be loaded and made av
 msgstr "Añada recursos JavaScript para scripts personalizados. Serán cargados y estarán disponibles a nivel de página. Se pueden utilizar en las variables de tipo Expresión JavaScript. En el campo de valor de la variable, simplemente llame a la función y pase los parámetros requeridos."
 
 msgid "Add a modal ID, as the button will need to open the right modal container. This ID must be unique within a given page, form, or layout."
-msgstr "Añada un modal ID, ya que el botón necesita abrir el contenedor modal adecuado. Este ID debe ser único en una página, formulario o layout."
+msgstr "Añada un modal Id, ya que el botón necesita abrir un contenedor modal especifico. Este ID debe ser único en la página, formulario o layout."
 
 msgid "Add a new asset"
 msgstr "Añadir un nuevo asset"
@@ -290,7 +293,7 @@ msgstr "Añadir una pestaña nueva"
 
 msgid "Add a widget to the page where the user will specify the filter. This can be an Input widget\n"
 "                for free-form text, or a Select widget to choose from a preset list."
-msgstr ""
+msgstr "Añade un widget a la página, donde el usuario puede espificar un filtro. Este puede ser un Input Widget con texto en formato libre, o un widget Select para seleccionar de una lista predefinida."
 
 msgid "Add borders all around the table and between all the columns."
 msgstr "Añadir contorno alrededor de la tabla y entre todas las columnas."
@@ -302,7 +305,7 @@ msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel
 msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la parte inferior del panel de Recursos."
 
 msgid "Add the following class in style.css asset."
-msgstr "Añade la siguiente clase en el asset style.css"
+msgstr ""
 
 msgid "Add to collection"
 msgstr "Añadir a la colección"
@@ -314,19 +317,19 @@ msgid "Added artifacts"
 msgstr "Artefactos agregados"
 
 msgid "Additional request parameters added to the query string"
-msgstr "Parámetros adicionales de la petición añadidos a la cadena de consulta"
+msgstr "Parámetros de la petición adicional añadidos a la cadena de consulta"
 
 msgid "Advanced options"
-msgstr ""
+msgstr "Opciones Avanzadas"
 
 msgid "Alignment"
 msgstr "Alineación"
 
 msgid "Alignment toolbar"
-msgstr ""
+msgstr "Barra de herramientas de alineación"
 
 msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
-msgstr "Todos los <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\"> filtros angularJS</a> están disponibles. Para su utilización, use <code>|</code> (\"pipe\"). Por ejemplo, <code>myVariable | lowercase</code>."
+msgstr "Todos los <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">filtros angularJS</a> están disponibles. Para su utilización, use <code>|</code> (\"pipe\"). Por ejemplo, <code>myVariable | lowercase</code>."
 
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
@@ -339,7 +342,7 @@ msgstr "Alterna fondo gris y transparente"
 
 msgid "Alternatively, you can set the Data source to Variable and use a variable definition to point to\n"
 "            the table content."
-msgstr ""
+msgstr "Alternativamente, se puede configurar una fuente de datos a una variable y usar esta definicion para apuntar al contenido de una tabla."
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
@@ -349,7 +352,7 @@ msgstr ""
 
 msgid "An extended table widget that provides column sorting, filtering, and paging in addition to the\n"
 "            standard table widget capabilities."
-msgstr ""
+msgstr "Un widget de tabla extendido que provee ordenado por columnas, filtrado y paginado, adémas de las capacidades del widget de tabla estandar."
 
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
@@ -359,7 +362,7 @@ msgstr "Animación"
 
 msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
 "            following classes:"
-msgstr "Otra posibilidad es añadir contenedores diferentes dentro de una modal y especificar una de las clases siguiente:"
+msgstr "Otra opción es añadir distintos contenedores dentro de la modal y especificar alguna de la siguientes clases:"
 
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Bootstrap http://getbootstrap.com/css/#helper-classes"
@@ -368,13 +371,13 @@ msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Cualquier variable booleana: <i>myData</i> ó <i>myData.attribute</i>"
 
 msgid "Any button can close a modal container that contains it when a success happens after any button action."
-msgstr "Cualquier botón puede cerrar un contenedor modal en el cual esta contenido el botón, si la acción del botón es satisfactoria."
+msgstr "Cualquier botón puede cerrar un contenedor modal que lo contiene cuando la acción sea que realice satisfactoria."
 
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "Cualquier variable: <i>myData</i> ó <i>myData.attribute</i>"
 
 msgid "Any variable: myData or myData.attribute."
-msgstr ""
+msgstr "Cualquier variable: myData o myData.attribute."
 
 msgid "Application URL token"
 msgstr "Token de URL de aplicación"
@@ -449,22 +452,22 @@ msgid "Available values"
 msgstr "Valores Disponibles"
 
 msgid "Available values: <i>bold, italics, underline, strikeThrough, pre, quote</i>"
-msgstr ""
+msgstr "Valores disponibles: <i>bold, italics, underline, strikeThrough, pre, quote</i>"
 
 msgid "Available values: <i>h1, h2, h3, h4, h5, h6, p, ul, ol</i>"
-msgstr ""
+msgstr "Valores disponibles: <i>h1, h2, h3, h4, h5, h6, p, ul, ol</i>"
 
 msgid "Available values: <i>html, insertImage, insertLink, insertVideo, wordcount, charcount, undo, redo, clear</i>"
-msgstr ""
+msgstr "Valores disponibles: <i>html, insertImage, insertLink, insertVideo, wordcount, charcount, undo, redo, clear<i>"
 
 msgid "Available values: <i>justifyLeft, justifyCenter, justifyRight, indent, outdent</i>"
-msgstr ""
+msgstr "Valores disponibles: <i>justifyLeft, justifyCenter, justifyRight, indent, outdent</i>"
 
 msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
 msgstr "Los tipos de variables disponibles son string y JSON (estático), y API externa, Business data, expresión JavaScript y parámetro URL (dinámico)."
 
 msgid "BDM APIs are not yet sortable. For other APIs, test in the preview or refer to the BonitaBPM documentation 'REST API' pages"
-msgstr ""
+msgstr "Las APIs BDM no están clasificadas todavía. Para conocer otras APIs, prueba en la vista previa o consulta las páginas de 'API REST' en la documentación de BonitaBPM"
 
 msgid "Back"
 msgstr "Atrás"
@@ -473,7 +476,7 @@ msgid "Back to default size"
 msgstr "Regresar al tamaño predeterminado"
 
 msgid "Bar"
-msgstr ""
+msgstr "Bar"
 
 msgid "Base framework"
 msgstr "Framework Base"
@@ -485,46 +488,46 @@ msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
 
 msgid "Bind the <em>formInput</em> variable of your form."
-msgstr ""
+msgstr "Vincule las variables <em>formInput</em> del formulario."
 
 msgid "Bind the filter variable to the Data table widget Filter property."
-msgstr ""
+msgstr "Enlaza la variable de filtro a las propiedades filtro del widget Data Table."
 
 msgid "Bind the filter variable to the widget."
-msgstr ""
+msgstr "Enlaza la variable filtro al widget."
 
 msgid "Bind to a Variable to filter the table 'Content'"
-msgstr ""
+msgstr "Enlazar una Variable para filtrar el 'Contenido' de la tabla"
 
 msgid "Bindable fragment data"
-msgstr ""
+msgstr "Datos de fragmento enlazable"
 
 msgid "Bonita API"
-msgstr ""
+msgstr "Bonita API"
 
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
 msgid "Bonita REST API calls"
-msgstr "Llamadas de la API REST de Bonita"
+msgstr "Llamadas API REST de Bonita"
 
 msgid "Bordered"
 msgstr "Bordeado"
 
 msgid "Bound data"
-msgstr ""
+msgstr "Variables enlazadas"
 
 msgid "Business Data Management enhancements"
 msgstr "Mejoras en la gestión de datos de negocio (Business Data)"
 
 msgid "Business data"
-msgstr "Datos de negocio"
+msgstr "Business data"
 
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
 
 msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
-msgstr "Por defecto, sólo se muestran los assets de páginas. Para mostrar otros scopes activos, debemos marcar la casilla Widget o Base Framework."
+msgstr "Por defecto, sólo se muestran los activos de páginas. Para mostrar otros scopes activos, debemos marcar la casilla Widget o Base Framework."
 
 msgid "CSS classes"
 msgstr "Clases CSS"
@@ -632,10 +635,10 @@ msgid "Close modal"
 msgstr "Cierre modal"
 
 msgid "Close modal on success"
-msgstr "Cierre modal con éxito"
+msgstr "Cierre de modal exitoso"
 
 msgid "Close modal when the action is successful"
-msgstr "Cierre modal cuando la acción es exitosa"
+msgstr "Cierre modal cuando la acción sea exitosa"
 
 msgid "Collection"
 msgstr "Colección"
@@ -644,13 +647,13 @@ msgid "Collections"
 msgstr "Colecciones"
 
 msgid "Colors"
-msgstr ""
+msgstr "Colores"
 
 msgid "Column keys"
 msgstr "Claves de columna"
 
 msgid "Columns key"
-msgstr ""
+msgstr "Claves de columna"
 
 msgid "Comma-separated list"
 msgstr "Lista separada por comas"
@@ -659,13 +662,13 @@ msgid "Comma-separated list or bound an array data"
 msgstr "Lista separada por comas o un array de datos enlazado"
 
 msgid "Comma-separated list or variable"
-msgstr ""
+msgstr "Lista separada por comas o variable"
 
 msgid "Condensed"
-msgstr "Condensado"
+msgstr "Condensada"
 
 msgid "Condensed table with half padding"
-msgstr "Tabla Condensada con medio relleno"
+msgstr "Tabla Condensada con espaciado medio"
 
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configura los widgets mediante el <b>panel de propiedades</b> de la derecha."
@@ -720,7 +723,7 @@ msgstr "Crear un archivo JavaScript denominado <code>date-ago-filter.js</code> q
 
 msgid "Create a filter variable in the variable panel. If you are using an Input widget, this\n"
 "                variable has no value."
-msgstr ""
+msgstr "Crea una variable filtro en el panel de variables. Si usa un Input widget, esta variable no tiene ningún valor."
 
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "Crea un fragmento para reutilizar el mismo grupo de widgets con el mismo comportamiento en varias páginas o formularios."
@@ -786,22 +789,22 @@ msgid "DELETE"
 msgstr "ELIMINAR"
 
 msgid "Data"
-msgstr ""
+msgstr "Datos"
 
 msgid "Data Management"
 msgstr "Data Management"
 
 msgid "Data saved on click. You might bind it to the variable you use to initialize your form, e.g. 'formInput'"
-msgstr ""
+msgstr "Los datos se guardan en clic. Se puede enlazar a la variable que se utiliza para inicializar el formulario, por ejemplo, 'formInput'"
 
 msgid "Data sent on click"
 msgstr "Datos enviados al hacer click"
 
 msgid "Data source"
-msgstr ""
+msgstr "Data source"
 
 msgid "Data-Table"
-msgstr ""
+msgstr "Data-Table"
 
 msgid "Date"
 msgstr "Fecha"
@@ -824,7 +827,7 @@ msgid "Date display"
 msgstr "Pantalla de la fecha"
 
 msgid "Date filter"
-msgstr "Filtro de fecha"
+msgstr ""
 
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Por defecto, los formatos de fecha están localizados. Los formatos localizados se pueden editar en <em>localization.json</em> (consulte la <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\"> sección de localización</a> <translate>).</translate>."
@@ -854,7 +857,7 @@ msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "Define una condición para la visibilidad del widget, <em>userAge > 18</em>"
 
 msgid "Define how to retrieve Business Object"
-msgstr "Definir cómo recuperar el Business Object"
+msgstr "Defina cómo recuperar el Business Object"
 
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "Define las cabeceras de la tabla como el valor de una variable: <em>myArrayVariable</em>"
@@ -887,7 +890,7 @@ msgid "Details"
 msgstr "Detalles"
 
 msgid "Determines target application. It is recommended not to hard code it."
-msgstr "Determina la aplicación de destino. Se recomienda no hardcodearla."
+msgstr "Determina la aplicación de destino. Se recomienda no harcdodearla."
 
 msgid "Determines the application theme that will be used by the target page. It is recommended not to hard code it."
 msgstr "Determina el tema de la aplicación que utilizará la página de destino. Se recomienda no hardcodearlo."
@@ -896,7 +899,7 @@ msgid "Direct link to an external file"
 msgstr "Enlace directo a un archivo externo"
 
 msgid "Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured."
-msgstr "Directamente desde el whiteboard o desde la sección de propiedades del widget, cambie de su widget actual a otro y mantenga las propiedades ya configuradas."
+msgstr ""
 
 msgid "Disabled"
 msgstr "Desactivado"
@@ -935,13 +938,13 @@ msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "¿Todavía desea importar esta {{ ::importReport.type }} ?"
 
 msgid "Doughnut"
-msgstr ""
+msgstr "Doughnut"
 
 msgid "Download asset"
 msgstr "Descargar recursos externos"
 
 msgid "Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data."
-msgstr "Arrastra y suelta un Business Object en el whiteboard o crea una nueva variable de tipo de Business Data."
+msgstr "Arrastra y suelta un Business Object en el whiteboard o crea una nueva variable de tipo Business Data."
 
 msgid "Drag and drop widgets or containers in rows"
 msgstr "Arrastra y suelta widgets o contenedores en las filas"
@@ -963,13 +966,13 @@ msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con cl
 
 msgid "Each element of this property has to match an element of the Columns key property to figure out\n"
 "            which table column can be sorted upon."
-msgstr ""
+msgstr "Cada elemento de esta propiedad tiene que coincidir con un elemento de la propiedad de claves de columnas para definir que columna de la tabla puede ser ordenada."
 
 msgid "Each type or container has specific behaviors"
 msgstr "Cada tipo de contenedor tiene comportamientos específicos"
 
 msgid "Easily create forms to edit business variables or documents, or display business variables in read-only"
-msgstr "Crear fácilmente formularios para editar variables de negocio o documentos, o mostrar variables de negocio en sólo lectura"
+msgstr ""
 
 msgid "Edit"
 msgstr "Editar"
@@ -1017,10 +1020,10 @@ msgid "Error on upload holder"
 msgstr "Contenido del error de carga"
 
 msgid "Example of a tab title displaying a badge:"
-msgstr "Ejemplo de un título de pestaña que muestra un icono:"
+msgstr ""
 
 msgid "Example of border table:"
-msgstr "Ejemplo de bordes de tabla:"
+msgstr "Ejemplo de una tabla con bordes:"
 
 msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
@@ -1029,7 +1032,7 @@ msgid "Expand Preview in new window"
 msgstr "Abrir vista previa en la nueva ventana"
 
 msgid "Expendable text input field with HTML formatting, including style, image, links... This widget is based on textAngular."
-msgstr ""
+msgstr "Campo de texto reemplazable con formato HTML, incluyendo estilo, imagen, enlaces... Este widget se basa en textAngular."
 
 msgid "Explore Data Model in new window"
 msgstr "Explorar Modelo de Datos en una nueva ventana"
@@ -1044,13 +1047,13 @@ msgid "Exported formats"
 msgstr "Formatos exportados"
 
 msgid "Expose fragment data to page?"
-msgstr ""
+msgstr "¿Exponer datos del fragmento en la página?"
 
 msgid "Exposed"
 msgstr "Exponer"
 
 msgid "Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need."
-msgstr "Amplía los widgets estándar de Bonita para satisfacer las necesidades específicas de tu proyecto, utilizando la opción de menú <b>Ver</b> en el panel de propiedades de cada widget estándar. Desde ahí, guardar como su widget personalizado e implementar la extensión que necesita."
+msgstr ""
 
 msgid "External"
 msgstr "Externo"
@@ -1059,10 +1062,10 @@ msgid "External API"
 msgstr "API externa"
 
 msgid "External API (variable) or URL"
-msgstr "External API (variable) o URL"
+msgstr "API externa (variable) o URL"
 
 msgid "Extra Small devices (width < 768px)"
-msgstr ""
+msgstr "Dispositivos extra pequeños (width < 768px)"
 
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Este widget personalizado necesita módulos de angular adicionales (separados por comas)"
@@ -1083,7 +1086,7 @@ msgid "File chooser for uploading a document to a form"
 msgstr "Selector de archivos para subir un documento al formulario"
 
 msgid "File source"
-msgstr "Fuente de archivo"
+msgstr "Fuente del archivo"
 
 msgid "File unavailable"
 msgstr "Archivo no disponible"
@@ -1092,7 +1095,7 @@ msgid "FileName"
 msgstr "Nombre de archivo"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 msgid "Filters"
 msgstr "Filtros"
@@ -1110,7 +1113,7 @@ msgid "For HTTP requests, the following methods are supported:"
 msgstr "Para las Peticiones HTTP, se admiten los siguientes métodos:"
 
 msgid "For Instance to let users save the draft of the current form:"
-msgstr ""
+msgstr "Por ejemplo para permitir a los usuarios guardar el borrador del formulario actual:"
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "Para una respuesta de error, el valor del mensaje es 'error' y la propiedad <em>dataFromSuccess</em> se sustituye por una propiedad <em>dataFromError</em>"
@@ -1125,7 +1128,10 @@ msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em
 msgstr "Para el formato de fecha en concreto, el UI Designer provee un filtro <em>uiDate</em> para mostrar fácilmente las fechas obtenidas de la BDM o cualquier otra API REST."
 
 msgid "For example #FF0000, #0066FF"
-msgstr ""
+msgstr "Por ejemplo #FF0000, #0066FF"
+
+msgid "For instance, with a custom link widget :"
+msgstr "Por ejemplo, con un widget de enlace personalizado:"
 
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "Para obtener más información, consulte la <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\"> documentación</a>."
@@ -1155,28 +1161,28 @@ msgid "Format used to display the time"
 msgstr "Formato utilizado para mostrar la hora"
 
 msgid "Formatting toolbar"
-msgstr ""
+msgstr "Barra de herramientas de formato"
 
 msgid "Forms"
 msgstr "Formularios"
 
 msgid "Four device types are available:"
-msgstr ""
+msgstr "Existen cuatro tipos de dispositivo:"
 
 msgid "Fragment"
-msgstr ""
+msgstr "Fragmento"
 
 msgid "Fragment data '' + name + '' will be bound to page data '' + binding + '', and thus not have it default value '' + data.value + ''"
-msgstr ""
+msgstr "La variable de fragmento '' + name+ '' será linkada a la variable de la página '' + binding+ '', por lo tanto, no mantendrá su valor predeterminado  '' + data.value + ''"
 
 msgid "Fragment data '' + name + '' will keep its default value '' + data.value + ''"
-msgstr ""
+msgstr "La variable de fragmento '' + name+ '' mantendrá su valor predeterminado  '' + data.value + ''"
 
 msgid "Fragment name"
-msgstr ""
+msgstr "Nombre del fragmento"
 
 msgid "Fragments"
-msgstr ""
+msgstr "Fragmentos"
 
 msgid "Frame"
 msgstr "Frame"
@@ -1215,7 +1221,7 @@ msgid "Go full screen"
 msgstr "Ir a pantalla completa"
 
 msgid "Graphical display of numerical data to ease understanding. This widget is based on angular-chart-0.8.1, which is based on Chart.js. For information see http://jtblin.github.io/angular-chart.js/ and http://www.chartjs.org/docs/. Available chart types to display a single set of data are pie, doughnut, and polar area. For multiple sets of data, available chart types are bar, line, and radar."
-msgstr ""
+msgstr "Representación gráfica de datos numéricos para facilitar la comprensión. Este widget se basa en angular-chart-0.8.1, que, a su vez, se basa en Chart.js. Para obtener información, vea http://jtblin.github.io/angular-chart.js/ y http://www.chartjs.org/docs/. Los tipos de gráfico disponibles para mostrar un único conjunto de datos son \"Pie\", \"Doughnut\" y \"Polar area\". Para varios conjuntos de datos, los tipos de gráfico disponibles son \"Bar\", \"Line\" y \"Radar\"."
 
 msgid "Group of widgets used to define the arrangement of the page elements. Its content can be repeated over an array"
 msgstr "Grupo de widgets utilizados para definir la disposición de los elementos de página. Su contenido puede ser repetido sobre un array"
@@ -1269,10 +1275,10 @@ msgid "Home page"
 msgstr "Página de inicio"
 
 msgid "How to customize Zebra-striping"
-msgstr "Como personalizar las filas alternas"
+msgstr "Como personalizar el color de filas alternas"
 
 msgid "How to customize border"
-msgstr "Como personalizar el borde"
+msgstr "Como personalizar el borde de tablas"
 
 msgid "However, <b>the output of the widget is always a Javascript Date object</b>. So it will change the type of the variable bound to the widget <em>Value</em> to a Date object when the user selects a date. This is required in order to ensure backward compatibility for pages designed with older UI Designer versions."
 msgstr "Sin embargo, <b>la salida del widget siempre es un objeto Javascript Date</b>. Así que va a cambiar el tipo de la variable atada al <em>Valor</em> del widget a un objeto Date cuando el usuario selecciona una fecha. Esto es necesario para asegurar la compatibilidad con versiones anteriores de páginas diseñadas con versiones antiguas del UI Designer."
@@ -1299,7 +1305,7 @@ msgid "If checked, this popup will not be displayed again unless you clean up yo
 msgstr "Si está marcado, este popup no se mostrará nuevamente a menos que se limpie la caché del navegador"
 
 msgid "If the page is displayed inside an iframe, a JavaScript postMessage will be sent to the <b>parent</b> frame with the status of the response and the properties values of the button widget. Bonita portal, tasklist or the default application layout handle this message differently:"
-msgstr "Si la página se muestra dentro de un iframe, se enviará un postMessage en JavaScript al marco <b>padre</b> con el estado de la respuesta y los valores de las propiedades del widget Button. El Bonita portal, la lista de tareas o el layout por defecto de las aplicaciones manejan este mensaje de manera diferente:"
+msgstr "Si la página se muestra dentro de un iframe, se enviará un postMessage en JavaScript al frame <b>padre</b> con el estado de la respuesta y los valores de las propiedades del widget Button. El Bonita portal, la lista de tareas o el layout por defecto de las aplicaciones manejan este mensaje de manera diferente:"
 
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr "Si el widget estándar no satisface sus necesidades, puede crear un widget personalizado para coincidir exactamente con lo que desea. Para ello, clonar el widget estándar guardandolo con un nombre diferente, y modificarlo. Después de la creación, el widget personalizado está disponible en la paleta para diseñar páginas, formularios, layouts o fragmentos."
@@ -1314,7 +1320,7 @@ msgid "If you create your own user interface, bind your Business data variable o
 msgstr "Si crea su propia interfaz de usuario, vincule su variable Business Data con las propiedades del widget o utilice su variable en expresiones javascript. Tenga cuidado, por defecto, cada variable de Business Data es una colección (incluso si sólo se devuelve un unico resultado en la consulta)."
 
 msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
-msgstr "Si necesita añadir enlaces, iconos, acciones o estilos de personalización, ahora puede habilitar la computación html en las celdas de la tabla. Las nuevas propiedades de los estilos están disponibles para diferenciar las líneas (zebra-striping), el condensar el contenido de la tabla o incluso definir borders en las celdas y tabla."
+msgstr "Si necesita añadir enlaces, iconos, acciones o estilos personalizaods, ahora puede habilitar la computación html en las celdas de la tabla. Las nuevas propiedades de los estilos están disponibles para diferenciar las líneas (zebra-striping), el condensar el contenido de la tabla o incluso definir borders en las celdas y tabla."
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "Si especificas una expresión, el resultado debe ser un array de strings"
@@ -1344,19 +1350,19 @@ msgid "Import {{ ::importReport.name }}"
 msgstr "Importar {{ ::importReport.name }}"
 
 msgid "Import, define or deploy a Business Data Model in Bonita Studio."
-msgstr "Importar, definir o desplegar un Modelo de Datos de Negocio (BDM) en Bonita Studio."
+msgstr "Importe, defina o despliegue un Modelo de Datos de Negocio (BDM) en Bonita Studio."
 
 msgid "Improve collaboration on UID artifacts"
 msgstr "Mejorar la colaboración en artefactos UID"
 
 msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
-msgstr "En la propiedad 'Clases CSS', agregar la clase <code>zebra-custom</code>"
+msgstr "En la propiedad \"CSS CLasses\" agregar la clase <code>zebra-custom</code>"
 
 msgid "In 'CSS Classes' property add the following class <code>zebra-custom</code>"
-msgstr ""
+msgstr "En la propiedad \"CSS Classes\" agregar la clase <code>zebra-custom</code>"
 
 msgid "In 'Classes CSS' property add the following value"
-msgstr "En la propiedad 'Clases CSS', agregar el siguiente valor"
+msgstr "En la propiedad \"Clases CSS\" agregar el siguiente valor"
 
 msgid "In Subscription editions, to support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "En las ediciones de suscripción, para dar soporte con múltiples idiomas para los usuarios finales, se incluye un mecanismo para traducir los artefactos del UI Designer creados (páginas, formularios, layouts)."
@@ -1365,16 +1371,16 @@ msgid "In a JavaScript asset, you can specify a dependency on an Angular module.
 msgstr "En un recurso JavaScript, puede especificar una dependencia de un módulo Angular. Primero agrega el recurso JavaScript y luego añada el nombre del módulo en la sección dedicada. Puede encontrar los módulos disponibles en <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
 
 msgid "In a form, a page, or a layout, we recommend to drop modal containers at the bottom of the editor content."
-msgstr "En un formulario, página, o layaout, le recomendamos añadir los contenedores modales al final del editor."
+msgstr "Tanto en un formulario, página o layout, te recomendamos de añadir los contenedores modal al final (abajo) del editor de contenido."
 
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
 
 msgid "In addition to the <em>Successful response value</em> variable, for the <em>POST</em>,<em>PUT</em>,<em>DELETE</em>, <em>Start process</em> and <em>Submit task</em> requests you also have the possibility to define a <em>Target URL on success</em> that will be used to set the current window (frame) location when the request is successful."
-msgstr "Además de la variable <em>Valor de respuesta exitosa</em>, para las peticiones <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Iniciar proceso</em> y <em>Enviar tarea</em>, también es posible definir una <em>Dirección URL de destino en éxito</em> que se utiliza para establecer la ubicación actual de la ventana (frame) cuando la solicitud es exitosa."
+msgstr "Además de la variable <em>Valor de la respuesta exitosa</em>, para las peticiones <em>POST</em>, <em>PUT</em>, <em>DELETE</em>, <em>Iniciar proceso</em> y <em>Enviar tarea</em>, también es posible definir una <em>Dirección URL de destino en éxito</em> que se utiliza para establecer la ubicación actual de la ventana (frame) cuando la solicitud es exitosa."
 
 msgid "In case your application is not available, please log in using a different account"
-msgstr "En caso de que tu aplicación no esté disponible, por favor inicia sesión usando una cuenta diferente"
+msgstr ""
 
 msgid "In folder:"
 msgstr "En la carpeta:"
@@ -1383,16 +1389,16 @@ msgid "In production, if the user is logged into Bonita Portal, UI artifacts are
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
 msgid "In some case, you want override your theme to display <b>one specific table</b>, to do this:"
-msgstr "En caso de que desee remplazar el tema para mostrar <b>una tabla específica</b>, puede hacer esto:"
+msgstr "En caso de que desee remplazar el tema para <b>una tabla especifica</b>, puede realizar lo siguiente:"
 
 msgid "In some case, you want to override your theme to display <b>one</b> data-table with specific line color, to do this:"
-msgstr ""
+msgstr "En caso de que desee remplazar el tema para <b>una tabla especifica</b>, puede realizar lo siguiente:"
 
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "En algunos casos, otros tipos de variables son creadas: <ul><li>Cuando una variable de negocio es editada en el formulario (ya que es especificada en el wizard de creación del contrato), una variable UI Designer se crea por cada variable (External API).<br>Por ejemplo, si la entrada de contrato ha sido creada desde una variable de negocio 'invoice' en el proceso, una variable <code>invoice</code> se creara en el formulario y su URL se configurará como <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br> si <code>invoice</code> contiene relaciones lazy, otras variables se generaran por cada relación lazy a resolver (usando el filtro <em>lazyRef</em>). <br> Por ejemplo, si 'invoice' tiene un 'customer' en relación lazy, una variable de tipo External API <code>invoice_customer</code> se creará. Su URL estará configurada como <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>Para mostrar un objeto agregado, un widget Select será generado para mostrar los <em> valores disponibles</em> del objeto. La variable (External API) ligada al widget se creará. Llamara al BDM. Por ejemplo, cuando el objeto Invoice tieen un objeto agregado de tipo Customer, una variable <code>customer_query</code> se crea con la URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. Por defecto usa la consulta <code>find</code> con la paginación por defecto (solo los 100 primeros objetos serán devueltos).</li></ul>"
 
 msgid "In tab title properties add the following value"
-msgstr "En las propiedades del título de la pestaña añadir el siguiente valor"
+msgstr ""
 
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr "En la lista de Assets, puede cambiar manualmente el orden de los assets de CSS y Javascript. Reordenar estos archivos pueden ser útil para reemplazar algunas clases css o funciones javascript."
@@ -1422,7 +1428,7 @@ msgid "Includes the localized version of the Technical date format property, to 
 msgstr "Incluye la versión localizada de la propiedad Formato de fecha técnica, para guiar al usuario"
 
 msgid "Includes the localized version of the Technical time format property, to guide the user"
-msgstr "Incluye la versión localizada de la propiedad Formato de hora técnica, para guiar al usuario"
+msgstr "Incluye la versión localizada de la propiedad Formato de fecha técnica, para guiar al usuario"
 
 msgid "Incorrect zip structure."
 msgstr "Estructura zip incorrecta."
@@ -1491,10 +1497,10 @@ msgid "Label width"
 msgstr "Ancho de etiqueta"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 msgid "Large devices (width ≥ 1200px)"
-msgstr ""
+msgstr "Dispositivos grandes (width ≥ 1200px)"
 
 msgid "Last"
 msgstr "Último"
@@ -1506,10 +1512,10 @@ msgid "Layouts"
 msgstr "Layouts"
 
 msgid "Lazy reference filter"
-msgstr "Filtro de referencia Lazy"
+msgstr ""
 
 msgid "Legend hidden"
-msgstr ""
+msgstr "Leyenda escondida"
 
 msgid "Level 1"
 msgstr "Nivel 1"
@@ -1530,7 +1536,7 @@ msgid "Level 6"
 msgstr "Nivel 6"
 
 msgid "Line"
-msgstr ""
+msgstr "Linea"
 
 msgid "Link"
 msgstr "Enlace"
@@ -1545,7 +1551,7 @@ msgid "Linked to an application descriptor."
 msgstr "Vinculado a un descriptor de aplicación."
 
 msgid "List from column keys"
-msgstr ""
+msgstr "Lista de claves de columna"
 
 msgid "List of cases open for a process definition id"
 msgstr "Lista de casos abiertos por un identificador de definición de proceso"
@@ -1590,7 +1596,7 @@ msgid "Max value"
 msgstr "Valor máximo"
 
 msgid "Medium devices (width ≥ 992px)"
-msgstr ""
+msgstr "Dispositivos medianos (width ≥ 992px)"
 
 msgid "Message"
 msgstr "Mensaje"
@@ -1617,7 +1623,7 @@ msgid "Minified widgets JavaScript for optimized performance"
 msgstr "Widgets JavaScript miniaturizados para un rendimiento optimizado"
 
 msgid "Miscellaneous toolbar"
-msgstr ""
+msgstr "Barra de herramientas Miscelánea"
 
 msgid "Modal"
 msgstr "Modal"
@@ -1653,10 +1659,10 @@ msgid "Multiple groups of widgets, each group in a tab"
 msgstr "Varios grupos de widgets, cada grupo en una pestaña"
 
 msgid "Multiple screen size"
-msgstr ""
+msgstr "Múltiples tamaños de pantalla"
 
 msgid "Multiple set charts"
-msgstr ""
+msgstr "Gráficas de conjunto múltiple"
 
 msgid "Name"
 msgstr "Nombre"
@@ -1674,7 +1680,7 @@ msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>conse
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 
 msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
-msgstr "Nuevo filtro AngularJS incluido para resolver las referencias lazy de un objeto de negocio"
+msgstr ""
 
 msgid "New modal container to create pop-ins"
 msgstr "Nuevo contenedor modal para crear pop-ins"
@@ -1716,7 +1722,7 @@ msgid "No {{label}} asset."
 msgstr "No hay {{label}} asset."
 
 msgid "No. This data will be specific to this fragment."
-msgstr ""
+msgstr "No. Estos datos serán específicos a este fragmento."
 
 msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user time zone and may be different from value"
 msgstr "No: la zona horaria del usuario no es tenida en cuenta. <br>Sí: la pantalla/entrada refleja la zona horaria del usuario y puede ser diferente del valor"
@@ -1728,7 +1734,7 @@ msgid "Not compatible with current UI Designer version. To open it, use a newer 
 msgstr ""
 
 msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
-msgstr "Tenga en cuenta que reordenar los assets está desactivado cuando la lista es una lista de resultados de búsqueda. De hecho, reordenar sólo es relevante si se muestra la lista completa de los assets de la página."
+msgstr "Tenga en cuenta que reordenar los activos está desactivado cuando la lista es una lista de resultados de búsqueda. De hecho, reordenar sólo es relevante si se muestra la lista completa de los activos de la página."
 
 msgid "Noteworthy changes"
 msgstr "Cambios notables"
@@ -1752,7 +1758,7 @@ msgid "Once you select an element, edit its properties in the properties panel o
 msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de propiedades de la derecha."
 
 msgid "Only works with formats supported by the browser (by default PDF and image)"
-msgstr "Sólo funciona con formatos soportados por el navegador (por defecto PDF e imagen)"
+msgstr "Sólo funciona con los formatos soportados por el navegador (por defecto PDF y de imagen)"
 
 msgid "Open Modal"
 msgstr "Abrir Modal"
@@ -1767,7 +1773,7 @@ msgid "Open modal"
 msgstr "Abrir modal"
 
 msgid "Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes."
-msgstr "Abra su vista previa en una pestaña del navegador para establecer nuevos parámetros de URL, jugar con tamaño dinámico del navegador, y reutilizar la misma URL en otro navegador con fines de prueba."
+msgstr ""
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr "O utilice la opción de menú <b>Cambiar</b> cerca del nombre del widget en el panel de propiedades."
@@ -1803,7 +1809,7 @@ msgid "Page level"
 msgstr "Nivel de página"
 
 msgid "Page size"
-msgstr ""
+msgstr "Tamaño de página"
 
 msgid "Page token"
 msgstr "Token de la página"
@@ -1818,7 +1824,7 @@ msgid "Perform an HTTP request"
 msgstr "Llevar a cabo una petición HTTP"
 
 msgid "Pie"
-msgstr ""
+msgstr "Pie"
 
 msgid "Placeholder"
 msgstr "Placeholder"
@@ -1827,7 +1833,7 @@ msgid "Please provide the information on how to retrieve elements of \"{{ctrl.bu
 msgstr "Por favor, proporcione la información sobre cómo recuperar elementos de \"{{ctrl.businessData.name}}\""
 
 msgid "Polar Area"
-msgstr ""
+msgstr "Polar Area"
 
 msgid "Preview"
 msgstr "Vista Previa"
@@ -1836,7 +1842,7 @@ msgid "Preview - {{pageName}}"
 msgstr "Vista previa - {{pageName}}"
 
 msgid "Process document"
-msgstr "Documento de proceso"
+msgstr "Procesar documento"
 
 msgid "Process form"
 msgstr "Formulario de proceso"
@@ -1860,7 +1866,7 @@ msgid "Put usage of this widget. This information is only visible on UI-Designer
 msgstr "Esta información sólo es visible en el editor de UI-Designer"
 
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 msgid "Read-only"
 msgstr "Sólo lectura"
@@ -1929,22 +1935,22 @@ msgid "Save"
 msgstr "Guardar"
 
 msgid "Save a variable to the LocalStorage"
-msgstr ""
+msgstr "Guardar una variable en el LocalStorage"
 
 msgid "Save as ..."
 msgstr "Guardar como ..."
 
 msgid "Save as fragment..."
-msgstr ""
+msgstr "Guardar como fragmento..."
 
 msgid "Save as..."
 msgstr "Guardar como..."
 
 msgid "Save data to / Load data from LocalStorage."
-msgstr ""
+msgstr "Guardar los datos / Cargar los datos desde el LocalStorage."
 
 msgid "Save draft"
-msgstr ""
+msgstr "Guardar el borrador"
 
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "Guardar {{ctrl.page.name}} como..."
@@ -1968,10 +1974,10 @@ msgid "Search on name"
 msgstr "Buscar por nombre"
 
 msgid "See <a href=\"https://github.com/chartjs/Chart.js/tree/v1.0.2/docs\" target=\"_blank\">chart.js</a> for details of the chart options for each type of chart. Specify a JSON structure corresponding to the options you want"
-msgstr ""
+msgstr "Ver <a href=\"https://github.com/chartjs/Chart.js/tree/v1.0.2/docs\" target=\"_blank\">chart.js</a> para más detalles de las opciones de cada tipo de gráfico. Especifica una estructura JSON correspondiente a las opciones que desees"
 
 msgid "See example"
-msgstr ""
+msgstr "Ver ejemplo"
 
 msgid "See example 'date object initialization'"
 msgstr "Ver ejemplo de 'inicialización objeto fecha'"
@@ -1998,7 +2004,7 @@ msgid "Select an option"
 msgstr "Seleccione una opción"
 
 msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
-msgstr ""
+msgstr "Seleccione el icono de tipo de dispositivo en la barra superior, luego especifique la propiedad width para cada widget de la página o formulario. Cada configuración es independiente. Para especificar la propiedad width de un widget para todo tipo de dispositivo, establezca el valor para cada tipo de dispositivo por separado, o deje el valor por defecto."
 
 msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
 msgstr "Seleccione la consulta para recuperar el Objeto de Negocio. Las consultas pueden ser una consulta de atributos simple (ej: findByName) o una consulta adicional como una consulta personalizada."
@@ -2008,6 +2014,9 @@ msgstr "Seleccione su archivo .zip"
 
 msgid "Select your file"
 msgstr "Selecciona tu archivo"
+
+msgid "Select your localization.json"
+msgstr "Selecciona el localization.json"
 
 msgid "Selected Row"
 msgstr "Fila seleccionada"
@@ -2022,10 +2031,10 @@ msgid "Send data to this URL when the button is clicked"
 msgstr "Enviar datos a esta dirección URL cuando se hace clic en el botón"
 
 msgid "Set <code>Bordered</code> property at true."
-msgstr "Establece las propiedades <code>Bordered</code> como activadas."
+msgstr "Configurar la propiedad <code>Bordered</code> como activada."
 
 msgid "Set labels"
-msgstr ""
+msgstr "Etiquetas establecidas"
 
 msgid "Set of buttons for mutually exclusive options. The user selects one option"
 msgstr "Conjunto de botones (radio) de opciones mutuamente excluyentes. El usuario selecciona una opción"
@@ -2035,7 +2044,7 @@ msgstr "Conjunto de casillas de verificación para las opciones. El usuario sele
 
 msgid "Set the Data source to Bonita API to populate the data table with records from a Bonita REST\n"
 "            API."
-msgstr ""
+msgstr "Configurar la fuente de datos como Bonita API para poblar la tabla de datos con datos obtenidos del REST API Bonita."
 
 msgid "Set the input time on the same line as the input date"
 msgstr "Introduzca la hora y la fecha en la misma línea"
@@ -2067,23 +2076,26 @@ msgstr "Mostrar vista previa"
 msgid "Show properties"
 msgstr "Mostrar propiedades"
 
+msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
+msgstr "Muestra los idiomas para los cuales existen traducciones en localization.json y Default, que es la lengua de la fuente de su página"
+
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
 
 msgid "Single set charts"
-msgstr ""
+msgstr "Gráficas simples"
 
 msgid "Size"
 msgstr "Tamaño"
 
 msgid "Small devices (width ≥ 768px)"
-msgstr ""
+msgstr "Pequeños dispositivos (width ≥ 768px)"
 
 msgid "Sort"
-msgstr ""
+msgstr "Ordenar"
 
 msgid "Sortable columns"
-msgstr ""
+msgstr "Columnas ordenables"
 
 msgid "Source"
 msgstr "Origen"
@@ -2152,25 +2164,25 @@ msgid "Style"
 msgstr "Estilo"
 
 msgid "Style toolbar"
-msgstr ""
+msgstr "Barra de herramientas de estilo"
 
 msgid "Styling zebra-striping can be done in the theme.css file to customize <b>all</b> the tables."
-msgstr "El estilo de colores alternos en las tablas, puede ser realizado en el fichero \"theme.css\", para personalizar <b>todas</b> las tablas."
+msgstr "El estilo de colores de filas alternas puede ser configurado en el fichero theme.css para personalizar <b>todas</b> las tablas."
 
 msgid "Styling zebra-striping can be done in the theme.css file to customize all data-tables."
-msgstr ""
+msgstr "El estilo de colores alternos en las tablas, puede ser realizado en el fichero \"theme.css\", para personalizar todas las tablas."
 
 msgid "Subgroup of toolbar buttons for extra options"
-msgstr ""
+msgstr "Subgrupo de botones de la barra de herramientas para opciones extra"
 
 msgid "Subgroup of toolbar buttons to arrange the text layout"
-msgstr ""
+msgstr "Subgrupo de botones de la barra de herramientas para arreglar la disposición del texto"
 
 msgid "Subgroup of toolbar buttons to set how the text looks"
-msgstr ""
+msgstr "Subgrupo de botones de la barra de herramientas para establecer cómo se muestra el texto"
 
 msgid "Subgroup of toolbar buttons to structure the text"
-msgstr ""
+msgstr "Subgrupo de botones de la barra de herramientas para estructurar el texto"
 
 msgid "Submit"
 msgstr "Enviar"
@@ -2206,7 +2218,7 @@ msgid "Switch to"
 msgstr "Cambiar a"
 
 msgid "Switch widget"
-msgstr "Cambiar widget"
+msgstr ""
 
 msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "Cambiar {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
@@ -2215,7 +2227,7 @@ msgid "Switch..."
 msgstr "Cambiar..."
 
 msgid "Tab properties usage"
-msgstr "Uso de propiedades de la pestaña"
+msgstr ""
 
 msgid "Tab x"
 msgstr "Tab x"
@@ -2224,13 +2236,13 @@ msgid "Table"
 msgstr "Tabla"
 
 msgid "Table with pagination and filtering capabilities"
-msgstr ""
+msgstr "Tabla con capacidad de filtrado y paginación"
 
 msgid "Tabs Container advancement"
 msgstr "Mejoras en el Tabs Container"
 
 msgid "Tabs container"
-msgstr "Contenedor de pestañas"
+msgstr ""
 
 msgid "Tabular presentation of data from an array"
 msgstr "Presentación en formato tabla de una matriz de datos"
@@ -2269,7 +2281,7 @@ msgid "The .zip archive of an exported page contains:"
 msgstr "El archivo .zip de una página exportada contiene:"
 
 msgid "The <code>Sortable columns</code> property enables to list the columns which allow a sorted search."
-msgstr ""
+msgstr "La propiedad <code>Sortable columns</code> permite enlistar las columnas que permiten una busqueda ordenada."
 
 msgid "The <em>Close modal</em> action will close the modal container that contains the button when it is pressed."
 msgstr "La acción <em>Cerrar modal</em> cerrará la modal que contiene el botón cuando se presione."
@@ -2288,10 +2300,10 @@ msgstr "La propiedad de <em>Formato técnico de fecha</em> define el formato de 
 "             Debe ser un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">formato AngularJS de fecha</a> válido."
 
 msgid "The <em>data sent on click</em> for POST and PUT requests must be a JavaScript Object (JSON can be used). This data will be sent in the body of the request."
-msgstr "Los <em>Datos enviados al hacer click</em> para las peticiones POST y PUT debeN ser un objeto JavaScript (JSON puede ser utilizado). Esta información se enviará en el cuerpo de la solicitud."
+msgstr "Los <em>Datos enviados al hacer click</em> para las peticiones POST y PUT deben ser un objeto JavaScript (JSON puede ser utilizado). Esta información se enviará en el cuerpo de la solicitud."
 
 msgid "The Display Type property allows you to customize the tabs style ('tabs' or 'pills')."
-msgstr "La propiedad Display Type le permite personalizar el estilo de las pestañas ('pestañas' o 'pastillas')."
+msgstr ""
 
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "El UI Designer genera <b>el código de la aplicación del estándar html, basado en AngularJS</b>. Exporta páginas si quieres personalizarlas aún más en tu entorno de desarrollo web favorito."
@@ -2321,7 +2333,7 @@ msgid "The following documentation applies if you need to handle the behavior on
 msgstr "La siguiente documentación se aplica si se necesita manejar el comportamiento en el éxito (por ejemplo, si se construye su propia lista de tareas o cualquier página con un iframe para mostrar formularios)."
 
 msgid "The hex codes for the sector colors for single set charts, or for the set colors for multiple set charts. If not specified, default colors are used"
-msgstr ""
+msgstr "Códigos hexadecimales de los colores del sector para las gráficas simples, o de los colores establecidos para las gráficas múltiples. Si no se especifica, se utilizan los colores por defecto"
 
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "El {{ ::importReport.type }} importado también contiene nuevos elementos."
@@ -2330,7 +2342,10 @@ msgid "The input/output of the widget (its <em>Value</em>) is an <a href=\"https
 msgstr "La entrada y la salida del widget (su <em>Valor</em>) es una variable de tipo String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>."
 
 msgid "The legend shows the sector labels for single set charts, and the set labels for multiple set charts"
-msgstr ""
+msgstr "La leyenda muestra las etiquetas de sector para las gráficas simples y las etiquetas establecidas para las gráficas múltiples"
+
+msgid "The link text which is static is translated using the <em>ui-translate</em> directive. The link text title held inside the <em>properties.title</em> variable is translated using the <em>uiTranslate</em> filter."
+msgstr "El texto del enlace que es estático es traducido usando la directiva <em>ui-translate</em>. El título del texto del enlace contenidos dentro de la variable <em>properties.title</em> se traduce utilizando el filtro <em>uiTranslate</em>."
 
 msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
 msgstr "La lista contiene assets de páginas, los assets de los widgets utilizados en esta página y assets utilizados por el framework base."
@@ -2353,7 +2368,7 @@ msgid "The page has not been imported."
 msgstr "La página no ha sido importada."
 
 msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
-msgstr "El portal y la lista de tareas se redirijirá a la lista de procesos (acción <em>Iniciar proceso</em>) o actualizar la lista de tareas (acción <em>Enviar tarea</em>)."
+msgstr "El portal y la lista de tareas se redirijirá a la lista de procesos (acción <em>Iniciar proceso</em>) o actualizará la lista de tareas (acción <em>Enviar tarea</em>)."
 
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
 msgstr "La propiedad <em>Valor a agregar</em> puede ser un objeto de JavaScript o un String dependiendo del formato esperado de la colección que está construyendo."
@@ -2362,13 +2377,13 @@ msgid "The same \"Tag\" button displays a summary of all REST API calls made by 
 msgstr "El mismo botón de \"Etiqueta\" muestra un resumen de todas las llamadas al API REST hechas por el artefacto actual a la API REST Bonita.\""
 
 msgid "The scale labels for the x-axis for line and bar charts, ray labels for a radar chart, sector labels for single set charts"
-msgstr ""
+msgstr "Etiquetas del eje-x para gráficas de línea y de barras, etiquetas de rayo para un gráfico de radar, etiquetas de sector para gráficas simples"
 
 msgid "The sort is backend when datasource is Bonita API. It is frontend, otherwise."
-msgstr ""
+msgstr "El orden es realizado desde el backend cuando la fuente de datos es Bonita API. En cualquier otro caso, es realizado desde el frontend."
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
-msgstr "Las propiedades de la pestaña le permiten personalizar la visualización por defecto y el comportamiento de las pestañas basándose en datos y/o expresiones JS."
+msgstr ""
 
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "La ayuda se mostrará como tal, cerca de la etiqueta de propiedad."
@@ -2398,13 +2413,13 @@ msgid "The {{ artifactType }} has not been imported."
 msgstr "El {{ artifactType }} no ha sido importado."
 
 msgid "Then, provide a comma-separated list for the columns keys indicating the attribute to display in each column."
-msgstr "Luego, proporcione una lista de las claves de columnas, separadas por coma, indicando el atributo a mostrar en cada columna."
+msgstr "Luego, introduzca una lista de claves de columnas, separadas por coma, indicando los atributos a mostrar en cada columna."
 
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Hay un conjunto de <b>widgets por defecto</b> para mostrar información y para recogida de información de los usuarios finales. También se pueden crear <b>widgets personalizados</b>."
 
 msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
-msgstr "Este Business Object contiene más de {{number}} niveles de relaciones. El nivel {{numberAsText}} y más profundo no aparecerán."
+msgstr "Este Business object contiene más de {{number}} niveles de relaciones. El nivel {{numberAsText}} y más profundo no aparecerán."
 
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "Esta descripción se mostrará como un tooltip en la paleta"
@@ -2419,7 +2434,7 @@ msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> libra
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
 
 msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "Esta mejora es visible al crear el formulario desde Bonita Studio. Creará automáticamente nuevas variables en el UI Designer y las vinculará con los widgets relacionados. Para obtener más información, lea la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">documentación dedicada.</a>"
+msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -2438,10 +2453,10 @@ msgid "This panel displays the list of Business Objects that has been defined an
 msgstr "Este panel muestra la lista de Business Objects que se ha definido y desplegado usando Bonita Studio."
 
 msgid "This widget can be used to display/update business variable attributes defined in the Business Data Model (BDM) with the following types:"
-msgstr "Este widget se puede utilizar para mostrar/actualizar atributos de variables de negocio definidos en el modelo de datos de negocio (BDM) con los siguientes tipos:"
+msgstr "Este widget se puede utilizar para mostrar/ actualizar atributos de variables de negocio definidos en el modelo de datos de negocio (BDM) con los siguientes tipos:"
 
 msgid "This widget supports the following types for its <em>Value</em> property as input:"
-msgstr "Este widget soporta los siguientes tipos por su propiedad de <em>Valor</em> como entrada:"
+msgstr "Este widget soporta los siguientes tipos para su propiedad de <em>Valor</em> como entrada:"
 
 msgid "This will also update the content of the preview window"
 msgstr "También se actualizará el contenido de la ventana de previsualización"
@@ -2457,8 +2472,7 @@ msgstr "Nivel de título"
 
 msgid "To Display the tab vertically and on the left of the content, you can read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how\n"
 "            to learn more about customization</a>"
-msgstr "Para mostrar la pestaña verticalmente y a la izquierda del contenido, puedes leer <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">cómo\n"
-"            aprender más sobre personalización</a>"
+msgstr ""
 
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Para agregar contenido, arrastra y suelta los componentes de la paleta en la zona de trabajo."
@@ -2487,8 +2501,7 @@ msgstr "Para mostrar (y no actualizar) una fecha obtenida de la API BDM (u otra 
 
 msgid "To display the data, define the header properties with a comma-separated list of column headings,\n"
 "            bind the content to an array of JavaScript objects."
-msgstr "Para mostrar los datos, establezca las propiedades de los encabezados de columnas, con una lista separadas por coma,\n"
-"            enlace el contenido a un array de objetos JavaScript."
+msgstr "Para mostrar los datos, definir la propiedad header con una lista de encabezados de columbas, separado por comas, enlace el contenido a un array de objetos JavaScript."
 
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
@@ -2500,16 +2513,16 @@ msgid "To edit this standard widget, save it first as a new custom widget"
 msgstr "Para editar este widget estándar, guárdalo primero como un nuevo widget personalizado"
 
 msgid "To embed a pop-in into another pop-in at runtime, drop the first modal container at the bottom, drop the second modal container below the first one, and drop the button that opens the second pop-in within the first modal container."
-msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añada la primera modal al final, añada la segunda modal debajo de la primera, añada un botón en la primera modal que abra la segunda modal."
+msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añada la primera modal al final, añada la segunda modal debajo de la primera, y añada un botón en la primera modal que abra la segunda modal."
 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
 
 msgid "To get the data from a selected row, bind selected row to a variable."
-msgstr "Para recuperar los datos de una fila seleccionada, vincule el parametro \"fila seleccionada\" a una variable."
+msgstr "Para obtener los datos de una columna seleccionada, enlace el parámetro \"fila seleccionada\" a una variable."
 
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "Para mejorar la gestión de objetos embebidos con referencias lazy, cree una variable usando el filtro | lazyRef para que el objeto a recuperar. Para obtener más información, lea la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">documentación dedicada.</a>"
+msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr "Para mantener las paginas funcionando, si migras una página diseñada en una versión anterior a 7.5.0 que contiene custom widgets, se añadirá el fichero <em>ui-bootstrap-tpls-0.13.0.min.js</em> automáticamente a la página. Puede eliminarlo si no lo necesita."
@@ -2529,7 +2542,7 @@ msgid "To open a modal window it is enough to input a modal ID in the properties
 msgstr "Para abrir una modal es suficiente con declarar un modal ID en la propiedades, añadir un botón, seleccione <em>Abrir modal</em> en la propiedad acción, y configure el modal ID. El botón debe ubicarse fuera del contenedor modal."
 
 msgid "To pre-fill with a template, bind an HTML formatted variable"
-msgstr ""
+msgstr "Para pre-rellenar con una plantilla, enlaza una variable con formato HTML"
 
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Para devolver una instancia de documento, crea una variable External API con valor"
@@ -2667,7 +2680,7 @@ msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a 
 msgstr "Utilice <span ng-non-bindable>{{dataVariable}}</span> para acceder a los datos, y <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtros</a> para formatearlos (ej. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 
 msgid "Use a Business Object"
-msgstr "Usar un objeto de negocio"
+msgstr "Selecciona un Objeto de Negocio"
 
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "Utilice un campo bidireccional para especificar un enlace de lectura y escritura entre el valor de la propiedad y una variable."
@@ -2682,7 +2695,13 @@ msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}<
 msgstr "Utilice etiquetas HTML básicas, <span ng-non-bindable>{{dataVariable}}</span> para acceder a los datos, y <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtros</a> para formatearlos (ej. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 
 msgid "Use provided UID widgets as a template for a custom widget"
-msgstr "Usar los widgets UID proporcionados como plantilla para un widget personalizado"
+msgstr ""
+
+msgid "Use the <em>ui-translate</em> directive in custom widgets for static content to be translated"
+msgstr "Use la directiva <em>ui-translate</em> en los widgets personalizados para traducir contenido estático"
+
+msgid "Use the <em>uiTranslate</em> filter in custom widgets for dynamic content to be translated"
+msgstr "Use el filtro <em>uiTranslate</em> en los widgets personalizados para traducir contenido dinámico"
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utiliza el UI Designer para crear o editar artefactos web: <b>páginas de una aplicación</b> que conforman las aplicaciones de negocio, <b>formularios de proceso</b> vinculados con la creación de instancias de proceso o ejecución de tareas humanas, así como <b>layouts de una aplicación</b>, aplicados a todas las páginas de una aplicación de negocios."
@@ -2724,7 +2743,7 @@ msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
 
 msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
-msgstr "Usando la propiedad de Visualización Vertical, es posible mostrar pestañas vertical u horizontalmente."
+msgstr ""
 
 msgid "Validation Errors"
 msgstr "Errores de validación"
@@ -2754,13 +2773,13 @@ msgid "Value to add"
 msgstr "Valor a agregar"
 
 msgid "Variable"
-msgstr ""
+msgstr "Variable"
 
 msgid "Variable content formatted in HTML"
-msgstr ""
+msgstr "Contenido de la variable formateada en HTML"
 
 msgid "Variable for frontend paging and ordering or Bonita REST API URL for backend paging and ordering"
-msgstr ""
+msgstr "Variable para paginación y ordenación en el frontend; \"Bonita REST API URL\" para la paginación y la ordenación en el backend"
 
 msgid "Variable in read-write binding with the property value"
 msgstr "Variable en enlace de lectura y escritura con valor de la propiedad"
@@ -2790,7 +2809,7 @@ msgid "View asset content"
 msgstr "Ver recurso"
 
 msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
-msgstr "Ver en la aplicación <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
+msgstr ""
 
 msgid "View..."
 msgstr "Ver..."
@@ -2802,7 +2821,7 @@ msgid "W3C website"
 msgstr "Sitio web de W3C"
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
-msgstr "Cuando 'Contenido' es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla. Estas claves no deben ser un número, o comenzar con un número"
+msgstr ""
 
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr "Cuando sea posible, las propiedades del widget objetivo se mapean con propiedades similares del widget de origen. Puede editar eso y mapear más."
@@ -2815,7 +2834,7 @@ msgstr "Cuando el cambio se complete, puede ser que todavía tenga propiedades p
 
 msgid "When the table is displayed, each time the user updates the filter, the table display is\n"
 "            updated accordingly. The filter is applied to the table rows that are currently displayed."
-msgstr ""
+msgstr "Cuando la tabla es mostrada, cada vez que el usuario actualiza el filtro, la tabla es actualizada según la selección. El filtro es aplicado a las columnas de la tabla que se encuentran mostradas."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
@@ -2824,7 +2843,7 @@ msgid "When you generate a form from a contract in the Studio, the form contains
 msgstr "Cuando se genera un formulario desde un contrato en el Studio, el formulario contiene un botón Enviar y algunas variables predeterminadas: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> y <code>context</code>"
 
 msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
-msgstr ""
+msgstr "Cada vez que se vuelve a cargar este formulario, o sea por teclear F5, o sea por navegar lejos y volver otra vez, la entrada se recargará automáticamente desde el LocalStorage."
 
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "Donde businessDataType = com.company.model.MyData, queryName = nombre de la consulta BDM, filter = \"myParam = myValue\""
@@ -2847,6 +2866,9 @@ msgstr "Las propiedades del widget definidas en la derecha pueden ser utilizadas
 msgid "Widgets"
 msgstr "Widgets"
 
+msgid "Widgets use the l10n mechanism that loads the translated string during page start up."
+msgstr "Los widgets utilizan el mecanismo de l10n que carga la cadena traducida durante el comienzo de carga de la página."
+
 msgid "Width"
 msgstr "Ancho"
 
@@ -2854,7 +2876,7 @@ msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass
 msgstr "Será obtenido de la dirección URL si no ha sido establecido (parámetro 'app'). Puede pasarlo en la cadena de consulta de la dirección URL de la vista previa a modo de prueba."
 
 msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
-msgstr "Con la nueva sección de modelos de datos, liste sus objetos y los haga drag&drop sobre el whiteboard (o cree una nueva variable) para hacer instrospección de su Modelo de Datos de Negocio y simplificar la recuperación de datos proponiendo un asistente avanzado para configurarla. Use esta variable más tarde como cualquier otra variable."
+msgstr "Con la nueva sección de modelo de datos, liste sus objetos y arrastrelos al panel(o crear una nueva variable) para visualizar su Modelo de Datos de Negocio y simplificar la recuperación de datos proponiendo un asistente avanzado para configurarlo. Utilice esta variable más tarde como cualquier otra variable."
 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "Con la nueva forma de almacenar variables y widgets, las operaciones de diff y merge son más claras gracias a un almacenamiento multilínea."
@@ -2866,10 +2888,10 @@ msgid "Within a row, when you delete a widget or a container, the following elem
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
 msgid "Yes"
-msgstr "Sí"
+msgstr "Si"
 
 msgid "Yes. You must bind this variable to a variable in the page, form, layout or fragment using this fragment."
-msgstr ""
+msgstr "Sí. Se debe enlazar esta variable a una variable en la página, formulario, layout o fragmento utilizando este fragmento."
 
 msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
 msgstr "También puede crear widgets personalizados, desde widgets existentes \"guardando como\" o desde cero en la página de inicio."
@@ -2881,7 +2903,7 @@ msgid "You can change the type to be able to use this artifact as a process form
 msgstr "Puede cambiar el tipo para poder usar este artefacto como un formulario de proceso o como una página de aplicación."
 
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
-msgstr "Puede eliminar sólo assets de página, ver assets locales y editar assets externos de una página."
+msgstr "Puede eliminar sólo assets de página, ver activos locales y editar activos externos de una página."
 
 msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
 msgstr "Puede explorar el modelo de datos (con una vista gráfica) usando el icono del gráfico en la cabecera de este panel. Muestra las relaciones entre los objetos de negocio, y sus atributos."
@@ -2899,11 +2921,11 @@ msgid "You can only edit the query filters and pagination."
 msgstr "Sólo puede editar los filtros de consulta y la paginación."
 
 msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
-msgstr ""
+msgstr "Puede optimizar el comportamiento <i>responsive</i> del UI Designer para varios tamaños de pantalla, configurando un valor diferente en la propiedad <em>width</em> para cada tipo de dispositivo. Esto utiliza el mecanismo CSS de Bootstrap."
 
 msgid "You can provide a filter for users to update the displayed table to show only the rows that match\n"
 "            the filter. To do this :"
-msgstr ""
+msgstr "Puede proporcionar un filtro para que los usuarios actualicen la tabla mostrada para mostrar sólo los registros que coincidan con el filtro. Para hacer esto:"
 
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Puede guardar el contenido de un contenedor como un fragmento reusable."
@@ -2925,7 +2947,7 @@ msgstr "Puede usar etiquetas HTML estándar y las directivas, scope, interpolaci
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
 "            request."
-msgstr ""
+msgstr "Puede usar la propiedad <code>API request parameters</code> para pasar parámetros adicionales en la petición."
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Puede utilizar la propiedad <i>environment</i> inyectada en el scope dentro del editor de la pizarra. Esto permite crear una visualización de la maqueta de la pizarra porque los datos de uso real no están disponibles."
@@ -2943,7 +2965,7 @@ msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
 
 msgid "You need to use this following css selector in your theme.css file:"
-msgstr "Necesita utilisar el siguiente selector css en su fichero \"theme.css\":"
+msgstr "Necesita usar el siguiente selector css en el fichero theme.css:"
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
@@ -2990,7 +3012,7 @@ msgid "default"
 msgstr "default"
 
 msgid "desktop screens (1200px ≤ screenSize)"
-msgstr ""
+msgstr "pantalla escritorio (1200px ≤ screenSize)"
 
 msgid "email"
 msgstr "email"
@@ -3005,7 +3027,7 @@ msgid "form"
 msgstr "formulario"
 
 msgid "formInput"
-msgstr ""
+msgstr "formInput"
 
 msgid "formatted String variables"
 msgstr "variables con formato tipo String"
@@ -3014,7 +3036,7 @@ msgid "fragment"
 msgstr "fragmento"
 
 msgid "fragments"
-msgstr ""
+msgstr "fragmentos"
 
 msgid "h:mm:ss a"
 msgstr "H:mm:ss"
@@ -3029,7 +3051,7 @@ msgid "http://"
 msgstr "http://"
 
 msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
-msgstr "si se edita la página, el formulario o el layout fuera del UI Designer, no se podrá reimportarlo."
+msgstr "si se edita la página, el formulario o el layout fuera del UI Designer, no se podrá reimportar."
 
 msgid "info"
 msgstr "info"
@@ -3038,7 +3060,7 @@ msgid "is not compatible with this UI Designer version. A newer version is requi
 msgstr ""
 
 msgid "laptop screens (992px ≤ screenSize < 1200px)"
-msgstr ""
+msgstr "pantalla laptop (992px ≤ screenSize < 1200px)"
 
 msgid "large"
 msgstr "grande"
@@ -3056,7 +3078,7 @@ msgid "medium"
 msgstr "medio"
 
 msgid "mobile screens (screenSize < 768px)"
-msgstr ""
+msgstr "pantalla móvil (screenSize < 768px)"
 
 msgid "name"
 msgstr "nombre"
@@ -3098,7 +3120,7 @@ msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</
 msgstr "supportTicket es un objeto compuesto por un <em>subject</em>, nivel de <em>severity</em>, <em>entorno</em> de usuario, <em>información de contacto</em> del reportero (<em>nombre</em> y <em>puesto</em>), y una <em>URL</em> que proporciona detalles adicionales sobre el contacto."
 
 msgid "tablet screens (768px ≤ screenSize < 992px)"
-msgstr ""
+msgstr "pantalla tablet (768px ≤ screenSize < 992px)"
 
 msgid "tabs"
 msgstr "tabs"
@@ -3147,7 +3169,7 @@ msgid "{{ctrl.artifact}} requires a migration"
 msgstr ""
 
 msgid "{{ctrl.page.name}} information"
-msgstr "{{ctrl.page.name}} información"
+msgstr "información {{ctrl.page.name}}"
 
 msgid "{{currentLength}} of {{totalNumber}}"
 msgstr "{{currentLength}} de {{totalNumber}}"

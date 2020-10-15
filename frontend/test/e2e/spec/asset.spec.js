@@ -48,8 +48,8 @@ describe('asset panel', function() {
         assetPanel.filters.get(1).click();
       });
       describe('on filtering', function () {
-        it('should display a table with 4 assets', function () {
-          expect(assetPanel.lines.count()).toBe(4);
+        it('should display a table with 5 assets', function () {
+          expect(assetPanel.lines.count()).toBe(5);
         });
       });
 
@@ -271,6 +271,26 @@ describe('asset panel', function() {
         expect(assetPanel.names).not.toContain('awesome-gif.gif', 'https://awesome.cdn.com/cool.js');
       });
     });
+  });
+
+  it('should add a localization.json file', function() {
+    let popup = assetPanel.addAsset();
+
+    // wrong localization.json name
+    var form = element(by.name('addAsset'));
+    popup.type = 'Localization';
+    popup.file = path.resolve(__dirname, 'resources', 'newVacation-localization.json');
+
+    expect(form.element(by.css('div[ng-messages]')).isPresent()).toBeTruthy();
+    expect(form.element(by.css('div[ng-messages]')).getText()).toBe(' By convention, the file has to be named localization.json');
+    expect(popup.addBtn.isEnabled()).toBeFalsy();
+
+    // already added localization.json
+    popup.type = 'Localization';
+    popup.file = path.resolve(__dirname, 'resources', 'localization.json');
+
+    expect(element(by.css('div.text-warning')).getText()).toBe(' A Localization asset named localization.json is already added to assets.\nClick Add to override.');
+    expect(popup.addBtn.isEnabled()).toBeTruthy();
   });
 
 });

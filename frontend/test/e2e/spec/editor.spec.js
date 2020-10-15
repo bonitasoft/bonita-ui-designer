@@ -249,7 +249,7 @@ describe('editor test', function() {
     editor.removeWidget();
     expect($$('fragment').count()).toBe(0);
   });
-  describe('editor sp test', function() {
+  describe('editor test', function() {
     it('should open help popup and display multiscreen help',  function() {
       $('.btn-bonita-help').click();
 

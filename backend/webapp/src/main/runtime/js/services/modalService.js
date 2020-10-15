@@ -1,8 +1,6 @@
 (function() {
   'use strict';
 
-  //FIXME: Move this service in subscription package
-  // Use decorator to override button in sp
   function modalService() {
     var modals = {};
     var openModals = [];

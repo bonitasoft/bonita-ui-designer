@@ -18,6 +18,14 @@
         },
         assets: [
           {
+            'id': '7caa5385-e622-4202-a2e2-f07088f81854',
+            'name': 'localization.json',
+            'type': 'json',
+            'order': 0,
+            'active': true,
+            'scope': 'page'
+          },
+          {
             'id': '9b34734c-5cc0-441e-a2ba-a52e1b7eb1e3',
             'name': 'myWidgetStyle.css',
             'type': 'css',

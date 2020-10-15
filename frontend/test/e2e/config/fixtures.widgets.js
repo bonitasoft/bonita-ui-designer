@@ -323,7 +323,7 @@
         }, {
           label: 'Today button label',
           name: 'todayLabel',
-          help: 'Can be translated in subscription editions using the asset localization.json',
+          help: 'Can be translated using the asset localization.json',
           showFor: 'properties.showToday.value === true',
           type: 'text',
           defaultValue: 'Today',

@@ -1,0 +1,31 @@
+<div class="form-group" ng-init="vm.newAsset.external = false">
+
+    <label class="control-label control-label--required" for="file" translate>File</label>
+
+    <div class="input-group file-upload">
+        <input id="file" type="text" class="form-control"
+               placeholder="{{'Select your localization.json' | translate}}"
+               value="{{vm.newAsset.name}}"
+               readonly disabled>
+        <div class="input-group-btn">
+            <span class="btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
+                <input class="file-upload-input"
+                       ng-class="{'file-upload-input--disabled':$isUploading}"
+                       name="file"
+                       type="file"
+                       accept=".json"
+                       ng-model="vm.newAsset.name"
+                       required file-input-change
+                       ng-pattern="/^localization.json$/"/>
+                <i class="fa" ng-class="{'fa fa-spinner fa-pulse':$isUploading, 'fa-folder':!$isUploading}"/>
+            </span>
+        </div>
+    </div>
+    <div ng-messages="addAsset.file.$error" ng-if="addAsset.file.$invalid && addAsset.file.$dirty" role="alert">
+        <div ng-message="pattern" class="text-danger" translate><i class="fa fa-warning"></i>&nbsp;By convention, the file has to be named <em>localization.json</em></div>
+    </div>
+    <div class="text-warning" ng-if="vm.isExisting(vm.newAsset)">
+        <i class="fa fa-warning">&nbsp;</i><span ng-bind-html="vm.getWarningMessage(vm.newAsset)"></span>
+        <br/><translate>Click <em>Add</em> to override.</translate>
+    </div>
+</div>

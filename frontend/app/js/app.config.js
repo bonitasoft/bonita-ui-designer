@@ -66,7 +66,7 @@
     });
 
   /* @ngInject */
-  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $urlRouterProvider, $uibModalProvider) {
+  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $urlRouterProvider, assetsServiceProvider, $uibModalProvider) {
 
     /**
      * For the build, gulp replaces '%debugMode%' by false. For the dev no need to replace, it's eval to true.
@@ -84,6 +84,16 @@
 
     /* set default url */
     $urlRouterProvider.otherwise('/en/home');
+
+    assetsServiceProvider.registerType({
+      key: 'json',
+      value: 'Localization',
+      filter: true,
+      widget: false,
+      template: 'js/assets/l10n-asset-form.html',
+      aceMode: 'json',
+      orderable: false
+    });
 
     angular.extend($uibModalProvider.options, {
       backdrop: 'static',

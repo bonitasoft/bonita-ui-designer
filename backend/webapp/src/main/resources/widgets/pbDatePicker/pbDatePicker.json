@@ -97,7 +97,7 @@
       "label": "Today button label",
       "name": "todayLabel",
       "type": "text",
-      "help": "Can be translated in subscription editions using the asset localization.json",
+      "help": "Can be translated using the asset localization.json",
       "bond": "interpolation",
       "showFor": "properties.showToday.value === true",
       "defaultValue": "Today"

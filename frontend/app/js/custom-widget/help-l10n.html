@@ -1,0 +1,15 @@
+<!--don't know why but without the ng-if, there is a multidir error...-->
+<uib-tab id="help-l10n" ng-if="true"  heading="{{ 'Localization' | translate }}" index="localization">
+
+    <p translate>Widgets use the l10n mechanism that loads the translated string during page start up.</p>
+
+    <p translate>Use the <em>uiTranslate</em> filter in custom widgets for dynamic content to be translated</p>
+    <p translate>Use the <em>ui-translate</em> directive in custom widgets for static content to be translated</p>
+
+<p translate>For instance, with a custom link widget :</p>
+<pre ng-non-bindable><code type="html">&lt;div&gt;
+    &lt;a title=&quot;{{ properties.title | uiTranslate }}&quot; ui-translate&gt;Submit&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+<p translate>The link text which is static is translated using the <em>ui-translate</em> directive. The link text title held inside the <em>properties.title</em> variable is translated using the <em>uiTranslate</em> filter.</p>
+
+</uib-tab>
