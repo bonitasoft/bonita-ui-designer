@@ -1,0 +1,78 @@
+name: Publish binaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: base tag version to publish
+        default: 1.11.100
+        required: true
+      openStudioPr:
+        description: true to open a PR in studio repository
+        default: false
+        required: true
+      studioBaseBranch:
+        description: Only if openStudioPR is set to true (master || dev)
+        default: master
+        required: false
+  repository_dispatch:
+    types: [ github-publish ]
+
+jobs:
+  publishBinaries:
+    name: Build, publish and upload binairies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract parameter
+        id: init
+        run: |
+          if [ ${{ github.event.action }} == 'github-publish' ]
+            then
+                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.studioBaseBranch }})"
+            else
+                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.inputs.studioBaseBranch }})"
+            fi
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.init.outputs.tagVersion }}
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Publish artefact
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.ossrh_username }}
+          nexus_password: ${{ secrets.ossrh_password }}
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN  }}
+          file:
+            backend/webapp/target/{*-standalone.jar,*.war}
+          file_glob: true
+          tag: ${{ github.event.inputs.version }}
+          overwrite: true
+
+      - name: Open PR in studio Repository
+        if: ${{ success() && ( github.event.action == 'github-publish' || github.event.inputs.openStudioPr == 'true')}}
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GH_TOKEN_PAT }}
+          event-type: github-studio-pr
+          client-payload: '{"baseBranch":"${{ steps.init.outputs.studioBaseBranch }}", "releaseVersion": "${{ steps.init.outputs.tagVersion }}"}'
+
+      - name: Send message to Slack channel
+        uses: act10ns/slack@v1
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}

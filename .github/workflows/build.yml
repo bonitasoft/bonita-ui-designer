@@ -31,11 +31,9 @@ jobs:
             backend/webapp/target/*-standalone.jar
         if: ${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/dev'
       - name: Send message to Slack channel
-        uses: archive/github-actions-slack@v1.0.3
+        uses: act10ns/slack@v1
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
         with:
-          slack-bot-user-oauth-access-token: ${{ secrets.SLACK_WEBHOOK_URL }}
-#          For now it's on private slack
-          slack-channel: test-gh-action
-          slack-text: Hello! Something is burning on https://github.com/${{ github.repository}}/actions/runs/${{ github.run_id }} ! Take a look...
-          slack-optional-icon_emoji: ":fire:"
-        if: (${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/dev') && failed()
+          status: ${{ job.status }}

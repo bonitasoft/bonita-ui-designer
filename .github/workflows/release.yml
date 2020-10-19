@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: new version to release (keep --next-path to bump version)
+        default: --next-patch
+        required: true
+      publishBinaries:
+        description: true to Publish binaries
+        required: true
+        default: true
+
+jobs:
+  createGithubRelease:
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_UID_TOKEN }}
+
+      - name: Get tag version
+        id: newTagVersion
+        shell: bash
+        run: |
+          if [ ${{ github.event.inputs.version }} = '--next-patch' ]
+          then
+              echo "##[set-output name=value;]$(echo $(./script/next-patch-version.sh))"
+          else
+              echo "##[set-output name=value;]$(echo ${{ github.event.inputs.version }})"
+          fi
+
+      - name: Config git
+        run: |
+          git config --local user.email "ui-designer-bot@users.noreply.github.com"
+          git config --local user.name "ui-designer-bot"
+          git config pull.rebase true
+
+      - name: Update Version
+        shell: bash
+        run: |
+          ./script/update-version.sh ${{ steps.newTagVersion.outputs.value }}
+          git commit -a -m "other(${{ steps.newTagVersion.outputs.valuen }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
+          git push --tags
+
+      - name: changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+
+      - name: Create Release
+        uses: actions/create-release@latest
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.newTagVersion.outputs.value }}
+          release_name: Release ${{ steps.newTagVersion.outputs.value }}
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
+          draft: false
+          prerelease: true
+
+      - name: Publish artefact
+        if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GH_TOKEN_PAT }}
+          event-type: github-publish
+          client-payload: '{"studioBaseBranch":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
+
+      - name: Send message to Slack channel
+        uses: act10ns/slack@v1
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
