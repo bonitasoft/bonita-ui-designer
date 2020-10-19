@@ -1,0 +1,17 @@
+name: Crowdin download
+
+# Triggers the workflow every night
+on:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Runs Crowdin download
+      - name: Run Crowdin download
+        run: ./crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }} --branch=dev
