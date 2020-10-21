@@ -70,6 +70,19 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita712open">
+                    <uib-accordion-heading>
+                        Bonita 7.12 <i class="pull-right glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': status.bonita712open, 'glyphicon-chevron-right': !status.bonita712open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Migration enhancements</dt>
+                    <p translate>Upgrade between maintenance versions without migration.
+                        When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report) </p>
+
+                    <dt translate>Community edition features</dt>
+                    <p translate>Get all the advanced features such as fragments and localization in the community edition.</p>
+
+                </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita711open">
                     <uib-accordion-heading>
                         Bonita 7.11 <i class="pull-right glyphicon"
