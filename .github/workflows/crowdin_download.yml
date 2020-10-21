@@ -14,4 +14,4 @@ jobs:
 
       # Runs Crowdin download
       - name: Run Crowdin download
-        run: ./crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }}
+        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }}
