@@ -16,7 +16,7 @@ On each push/pull_request on master and dev branch, *build* is trigger
 
 === How to do a complete release ?
 
-To do a release, run *Release* action. You need to enter any parameters
+To do a release, run *Release* action. You need to enter all parameters (You can keep default value)
 
 |===
 |parameter|default value |mandatory|commentary
