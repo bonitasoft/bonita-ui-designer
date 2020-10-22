@@ -27,10 +27,22 @@ jobs:
           else
               echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.version }})"
               echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.inputs.baseBranche }})"
-              echo "github.ref => ${{ github.ref }})"
           fi
       - name: Print parameter
         id: initParameter
         run: |
           echo "studioBaseBranch => ${{ steps.init.outputs.studioBaseBranch}}"
           echo "tagVersion => ${{ steps.init.outputs.tagVersion}}"
+      - name: Check out Studio repository
+        uses: actions/checkout@master
+        with:
+          repository: bonitasoft/bonita-studio-sp
+          token: ${{ secrets.GH_TOKEN_PAT }}
+      - name: Open Studio PR
+        shell: bash
+        run: |
+          ./releng/update_uid_version.sh ${{ steps.init.outputs.tagVersion }} \
+                          --branch-name=${{ steps.init.outputs.studioBaseBranch }} \
+                          --github-api-token=${{ secret.GH_TOKEN_PAT }} \
+                          --git-user=${{ secret.GIT_USERNAME }} \
+                          --git-password=${{ secret.GIT_PASSWORD }}
