@@ -32,7 +32,7 @@ jobs:
         if: ${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/dev'
       - name: Send message to Slack channel
         uses: act10ns/slack@v1
-        if: ${{ failure() }}
+        if: ${{ failure() && ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
         with:
