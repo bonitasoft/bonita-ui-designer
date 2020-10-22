@@ -20,7 +20,7 @@ on:
 
 jobs:
   publishBinaries:
-    name: Build, publish and upload binairies
+    name: Build, publish and upload binaries
     runs-on: ubuntu-latest
     steps:
       - name: Extract parameter

@@ -9,8 +9,8 @@ On each push/pull_request on master and dev branch, *build* is trigger
 
 |===
 |Workflow name|description
-|Release| Create github release and could call `Publish binaries` workflow
-|Publish binaries|Push binaries on repository (maven central), as asset on github release and Could call `Open Studio PR` workflow
+|Release| Create github release and could optionally call `Publish binaries` workflow
+|Publish binaries|Push binaries on repository (maven central), as asset on github release and Could optionally call `Open Studio PR` workflow
 |Open Studio PR|Open a PR on studio repository with new uid release version
 |===
 
@@ -20,8 +20,8 @@ To do a release, run *Release* action. You need to enter any parameters
 
 |===
 |parameter|default value |mandatory|commentary
-|version|--next-patch|✅|Keep default value to bump minor version or replace with specific version ot
-|publishBinaries|true|✅|If true, binaries will be push on repository, added as github release asset. UID version in Studio is updated too.
+|version|--next-patch|✅|Keep default value to bump minor version or replace with specific version
+|publishBinaries|true|✅|If true, binaries will be pushed on the repository, added as a github release asset. UID version in Studio is updated too.
 |===
 
 

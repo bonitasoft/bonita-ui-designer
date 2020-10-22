@@ -4,7 +4,7 @@ We are pleased to receive any kind of contribution (issues, pull requests, sugge
 
 #### Commit message format
 
-Here is the expected commit format, please respect it, we rely on it to [automatically generate the changelog](https://github.com/lob/generate-changelog#usage):
+Here is the expected commit format, please follow it, we rely on it to [automatically generate the changelog](https://github.com/lob/generate-changelog#usage):
 
 ```
 type(category): description [flags]

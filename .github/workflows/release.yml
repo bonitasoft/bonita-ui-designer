@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           ./script/update-version.sh ${{ steps.newTagVersion.outputs.value }}
-          git commit -a -m "other(${{ steps.newTagVersion.outputs.valuen }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
+          git commit -a -m "other(${{ steps.newTagVersion.outputs.value }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
           git push --tags
 
       - name: changelog
