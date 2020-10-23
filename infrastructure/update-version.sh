@@ -39,4 +39,4 @@ find . -name "pom.xml" | while read pom; do replace_first_version $NEXT_VERSION 
 find . -name "package.json" | xargs sed -i "s/${CUR_VERSION}/${NEXT_VERSION}/g"
 find . -name "Dockerfile" | xargs sed -i "s/${CUR_VERSION}/${NEXT_VERSION}/g"
 find . -name "README.md" | xargs sed -i "s/${CUR_VERSION}/${NEXT_VERSION}/g"
-find -regex '/frontend/app/index.html' | xargs sed -i "s/meta name=\"version\" content=\"${CUR_VERSION}/meta name=\"version\" content=\"${NEXT_VERSION}/g"
+find . -wholename './frontend/app/index.html' | xargs sed -i "s/meta name=\"version\" content=\"${CUR_VERSION}/meta name=\"version\" content=\"${NEXT_VERSION}/g"

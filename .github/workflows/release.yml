@@ -1,4 +1,4 @@
-name: Release UID
+name: Release
 
 on:
   workflow_dispatch:

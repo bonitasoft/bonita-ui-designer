@@ -1,4 +1,4 @@
-name: 'Commit Message check'
+name: Commit Message check
 
 on:
   pull_request:

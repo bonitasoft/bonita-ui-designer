@@ -1,4 +1,4 @@
-name: Bump version in studio
+name: Bump version
 on:
   workflow_dispatch:
     inputs:
