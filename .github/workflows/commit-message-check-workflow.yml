@@ -1,4 +1,5 @@
-name: 'Commit Message Check'
+name: 'Commit Message check'
+
 on:
   pull_request:
     types:

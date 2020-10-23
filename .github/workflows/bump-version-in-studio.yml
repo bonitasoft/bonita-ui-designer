@@ -1,4 +1,4 @@
-name: Open Studio PR
+name: Bump version in studio
 on:
   workflow_dispatch:
     inputs:
