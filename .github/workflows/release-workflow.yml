@@ -25,7 +25,7 @@ jobs:
         run: |
           if [ ${{ github.event.inputs.version }} = '--next-patch' ]
           then
-              echo "##[set-output name=value;]$(echo $(./infrastucture/next-patch-version.sh))"
+              echo "##[set-output name=value;]$(echo $(./infrastructure/next-patch-version.sh))"
           else
               echo "##[set-output name=value;]$(echo ${{ github.event.inputs.version }})"
           fi
@@ -39,7 +39,7 @@ jobs:
       - name: Update Version
         shell: bash
         run: |
-          ./infrastucture/update-version.sh ${{ steps.newTagVersion.outputs.value }}
+          ./infrastructure/update-version.sh ${{ steps.newTagVersion.outputs.value }}
           git commit -a -m "other(${{ steps.newTagVersion.outputs.value }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
           git push --tags
 
