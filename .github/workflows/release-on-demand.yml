@@ -66,7 +66,7 @@ jobs:
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GH_TOKEN_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: github-publish
           client-payload: '{"studioBaseBranch":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
 

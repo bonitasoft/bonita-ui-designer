@@ -65,7 +65,7 @@ jobs:
         if: ${{ success() && ( github.event.action == 'github-publish' || github.event.inputs.openStudioPr == 'true')}}
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GH_TOKEN_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: github-studio-pr
           client-payload: '{"baseBranch":"${{ steps.init.outputs.studioBaseBranch }}", "releaseVersion": "${{ steps.init.outputs.tagVersion }}"}'
 
