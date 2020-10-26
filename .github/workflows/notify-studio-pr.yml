@@ -1,15 +1,5 @@
 name: Bump version
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: new version to release (keep --next-path to bump version)
-        default: '--next-patch'
-        required: true
-      baseBranche:
-        description: master || dev (Studio Base branch to update)
-        default: 'master'
-        required: true
   repository_dispatch:
      types: [ github-studio-pr ]
 jobs:
@@ -20,17 +10,21 @@ jobs:
       - name: Init
         id: init
         run: |
-          if [ ${{ github.event.action }} == 'github-studio-pr' ]
-          then
               echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
               echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.baseBranch }})"
-          else
-              echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.version }})"
-              echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.inputs.baseBranche }})"
-              echo "github.ref => ${{ github.ref }})"
-          fi
-      - name: Print parameter
-        id: initParameter
-        run: |
-          echo "studioBaseBranch => ${{ steps.init.outputs.studioBaseBranch}}"
-          echo "tagVersion => ${{ steps.init.outputs.tagVersion}}"
+      - name: Send message to Slack channel
+        uses: 8398a7/action-slack@v3
+      with:
+        status: custom
+        fields: workflow,job,commit,repo,ref
+        custom_payload: |
+          {
+            username: 'action-slack',
+            icon_emoji: ':octocat:',
+            attachments: [{
+              color: 'good',
+              text: `UI-Designer release ${{ github.event.client_payload.releaseVersion }} success. Next step: Open PR in bonita-studio on branch ${{github.event.client_payload.baseBranch}} repository and close nexus release`,
+            }]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

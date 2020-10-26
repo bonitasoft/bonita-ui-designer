@@ -7,10 +7,6 @@ on:
         description: base tag version to publish
         default: 1.11.100
         required: true
-      openStudioPr:
-        description: true to open a PR in studio repository
-        default: false
-        required: true
       pushMavenCentral:
         description: true to push on maven Central
         default: false
