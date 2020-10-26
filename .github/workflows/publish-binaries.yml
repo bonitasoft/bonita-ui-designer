@@ -11,10 +11,10 @@ on:
         description: true to open a PR in studio repository
         default: false
         required: true
-      studioBaseBranch:
-        description: Only if openStudioPR is set to true (master || dev)
-        default: master
-        required: false
+      pushMavenCentral:
+        description: true to push on maven Central
+        default: false
+        required: true
   repository_dispatch:
     types: [ github-publish ]
 
@@ -32,7 +32,8 @@ jobs:
                 echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.studioBaseBranch }})"
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
-                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.inputs.studioBaseBranch }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
+                echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
             fi
       - uses: actions/checkout@v2
         with:
@@ -44,6 +45,7 @@ jobs:
           java-version: 8
 
       - name: Publish artefact
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.gpg_private_key }}
@@ -51,21 +53,25 @@ jobs:
           nexus_username: ${{ secrets.ossrh_username }}
           nexus_password: ${{ secrets.ossrh_password }}
 
-      - name: Upload binaries to release
+      - name: Build binaries
+        if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
+        run: mvn -B package --file pom.xml
+
+      - name: Upload binaries to release note
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN  }}
           file:
             backend/webapp/target/{*-standalone.jar,*.war}
           file_glob: true
-          tag: ${{ github.event.inputs.version }}
+          tag: ${{ steps.init.outputs.tagVersion }}
           overwrite: true
 
       - name: Open PR in studio Repository
-        if: ${{ success() && ( github.event.action == 'github-publish' || github.event.inputs.openStudioPr == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           event-type: github-studio-pr
           client-payload: '{"baseBranch":"${{ steps.init.outputs.studioBaseBranch }}", "releaseVersion": "${{ steps.init.outputs.tagVersion }}"}'
 
