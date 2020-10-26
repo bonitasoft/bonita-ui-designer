@@ -1,0 +1,84 @@
+name: Publish Binaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: base tag version to publish
+        default: 1.11.100
+        required: true
+      openStudioPr:
+        description: true to open a PR in studio repository
+        default: false
+        required: true
+      pushMavenCentral:
+        description: true to push on maven Central
+        default: false
+        required: true
+  repository_dispatch:
+    types: [ github-publish ]
+
+jobs:
+  publishBinaries:
+    name: Build, publish and upload binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract parameter
+        id: init
+        run: |
+          if [ ${{ github.event.action }} == 'github-publish' ]
+            then
+                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.studioBaseBranch }})"
+            else
+                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
+                echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
+            fi
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.init.outputs.tagVersion }}
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Publish artefact
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.ossrh_username }}
+          nexus_password: ${{ secrets.ossrh_password }}
+
+      - name: Build binaries
+        if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
+        run: mvn -B package --file pom.xml
+
+      - name: Upload binaries to release note
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN  }}
+          file:
+            backend/webapp/target/{*-standalone.jar,*.war}
+          file_glob: true
+          tag: ${{ steps.init.outputs.tagVersion }}
+          overwrite: true
+
+      - name: Open PR in studio Repository
+        if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          event-type: github-studio-pr
+          client-payload: '{"baseBranch":"${{ steps.init.outputs.studioBaseBranch }}", "releaseVersion": "${{ steps.init.outputs.tagVersion }}"}'
+
+      - name: Send message to Slack channel
+        uses: act10ns/slack@v1
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}

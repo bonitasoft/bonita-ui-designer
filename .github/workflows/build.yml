@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branch:
+      - master
+      - dev
+      - release-*
+  pull_request:
+    branch:
+      - master
+      - dev
+      - release-*
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Build and tests
+        run: mvn -B clean verify -Pe2e,integration-test
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ui-designer-standalone
+          path: |
+            backend/webapp/target/*-standalone.jar
+        if: ${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/dev'
+      - name: Send message to Slack channel
+        uses: act10ns/slack@v1
+        if: ${{ failure() && ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}

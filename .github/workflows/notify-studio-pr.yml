@@ -1,0 +1,36 @@
+name: Bump version
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: new version to release (keep --next-path to bump version)
+        default: '--next-patch'
+        required: true
+      baseBranche:
+        description: master || dev (Studio Base branch to update)
+        default: 'master'
+        required: true
+  repository_dispatch:
+     types: [ github-studio-pr ]
+jobs:
+  openStudioPR:
+    name: Update Studio to bump ui-designer version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Init
+        id: init
+        run: |
+          if [ ${{ github.event.action }} == 'github-studio-pr' ]
+          then
+              echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
+              echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.baseBranch }})"
+          else
+              echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.version }})"
+              echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.inputs.baseBranche }})"
+              echo "github.ref => ${{ github.ref }})"
+          fi
+      - name: Print parameter
+        id: initParameter
+        run: |
+          echo "studioBaseBranch => ${{ steps.init.outputs.studioBaseBranch}}"
+          echo "tagVersion => ${{ steps.init.outputs.tagVersion}}"
