@@ -8,8 +8,8 @@ on:
 jobs:
   masterDownload:
     name: Crowdin download on master
-      strategy:
-        max-parallel: 1
+    strategy:
+      max-parallel: 1
     runs-on: ubuntu-latest
 
     steps:
