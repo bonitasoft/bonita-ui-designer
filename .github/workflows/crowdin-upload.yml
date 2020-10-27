@@ -1,0 +1,35 @@
+name: Crowdin upload
+
+# Triggers the workflow every night
+on:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  masterUpload:
+    name: Crowdin upload on master
+    strategy:
+      max-parallel: 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'master'
+
+      - name: Run Crowdin upload
+        run: ./infrastructure/crowdin/upload.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --branch=master --crowdin-project=bonita
+
+  devUpload:
+    name: Crowdin upload on dev
+    strategy:
+      max-parallel: 1
+    needs: masterUpload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'dev'
+
+      - name: Run Crowdin upload
+        run: ./infrastructure/crowdin/upload.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --branch=dev --crowdin-project=bonita
+
