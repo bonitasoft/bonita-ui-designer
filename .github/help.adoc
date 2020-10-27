@@ -8,10 +8,13 @@ On each push/pull_request on master and dev branch, *build* is trigger
 === Which workflow for which result ?
 
 |===
-|Workflow name|description
-|Release| Create github release and could optionally call `Publish binaries` workflow
-|Publish binaries|Push binaries on repository (maven central), as asset on github release and Could optionally call `Open Studio PR` workflow
-|Open Studio PR|Open a PR on studio repository with new uid release version
+|Workflow name|description|Start by
+|Build| Build project on each PR or commit on master/dev| automatically
+|Release| Create github release and could optionally call `Publish binaries` workflow| manually
+|Publish binaries|Push binaries on repository (maven central), as asset on github release and Could optionally call `Open Studio PR` workflow| manually or automatically
+|Crowdin download| Download from crowdin all translation on dev and master and open a PR|automatically each night
+|Crowdin upload| Upload on crowdin all translation for dev and master|automatically each night
+|Commit Message check| Check commit message when a PR is open|automatically
 |===
 
 === How to do a complete release ?
