@@ -52,10 +52,11 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.ossrh_username }}
           nexus_password: ${{ secrets.ossrh_password }}
+          maven_args: "-DskipTests"
 
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
-        run: mvn -B package --file pom.xml
+        run: mvn -B package --file pom.xml -DskipTests
 
       - name: Upload binaries to release note
         uses: svenstaro/upload-release-action@v2

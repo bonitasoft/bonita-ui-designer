@@ -22,9 +22,6 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @Author Benjamin Parisel
- */
 public final class WidgetFileHelper {
 
     private static String FILENAME_PREFIX = "widgets-";

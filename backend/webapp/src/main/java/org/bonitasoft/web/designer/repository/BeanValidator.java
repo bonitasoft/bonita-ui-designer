@@ -32,7 +32,7 @@ public class BeanValidator {
     }
 
     /**
-     * @throws @{@link ConstraintValidationException} if violations exists
+     * @throws ConstraintValidationException if violations exists
      */
     public void validate(Object o) {
         Set<ConstraintViolation<Object>> violations = validator.validate(o);
