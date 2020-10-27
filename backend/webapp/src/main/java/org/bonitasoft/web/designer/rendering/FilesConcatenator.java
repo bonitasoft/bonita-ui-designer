@@ -20,9 +20,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * @Author Benjamin Parisel
- */
 public final class FilesConcatenator {
 
     public static byte[] concat(List<Path> filePathToConcatenate) {

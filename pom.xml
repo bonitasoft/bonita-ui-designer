@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
 
     <name>Bonita UI-Designer</name>
+    <description>Wysiwyg editor for Bonita</description>
     <url>https://www.bonitasoft.com</url>
 
     <developers>
@@ -73,6 +74,46 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>OSSRH</serverId>
+                            <nexusUrl>https://oss.sonatype.org</nexusUrl>
+                            <stagingProfileId>1d6846c550a1de</stagingProfileId>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -108,7 +149,7 @@
     </distributionManagement>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:bonitasoft/bonita-ui-designer.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:bonitasoFft/bonita-ui-designer.git</developerConnection>
         <connection>scm:git:git@github.com:bonitasoft/bonita-ui-designer.git</connection>
         <url>https://github.com/bonitasoft/bonita-ui-designer</url>
         <tag>HEAD</tag>

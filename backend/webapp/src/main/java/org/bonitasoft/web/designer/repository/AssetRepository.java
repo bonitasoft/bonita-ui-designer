@@ -67,7 +67,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         validator.validate(asset);
         return resolveComponentPath(componentId).resolve("assets").resolve(asset.getType().getPrefix()).resolve(asset.getName());
     }
-    
+
     protected Path resolveAssetPath(Asset asset) {
         return resolveAssetPath(asset.getComponentId(), asset);
     }
@@ -128,7 +128,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         return Files.readAllBytes(resolveExistingAssetPath(asset));
     }
-    
+
     /**
      * Read resource content
      */
@@ -176,7 +176,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     }
 
     /**
-     *  {@linkplain AssetRepository<T>.refreshAssets} need to not set componentId for asset otherwise it makes page creation failing
+     *  {@linkplain #refreshAssets} need to not set componentId for asset otherwise it makes page creation failing
      *  AssetImporter need it
      *
      *  // TODO : to be refactored
