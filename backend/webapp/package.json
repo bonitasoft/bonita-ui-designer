@@ -46,7 +46,7 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "~1.0.1",
     "gulp-util": "^3.0.5",
-    "handlebars": "^4.0.0",
+    "handlebars": "^4.7.6",
     "jasmine-core": "^2.4.1",
     "jscs-preset-bonita": "1.0.2",
     "jsesc": "^0.5.0",
