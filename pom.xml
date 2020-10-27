@@ -111,7 +111,7 @@
                         <version>1.6.3</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>OSSRH</serverId>
+                            <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org</nexusUrl>
                             <stagingProfileId>1d6846c550a1de</stagingProfileId>
                         </configuration>
