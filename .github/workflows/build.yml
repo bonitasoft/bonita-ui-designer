@@ -2,12 +2,12 @@ name: Build
 
 on:
   push:
-    branch:
+    branches:
       - master
       - dev
       - release-*
   pull_request:
-    branch:
+    branches:
       - master
       - dev
       - release-*
