@@ -109,6 +109,9 @@
                         <version>1.6.3</version>
                         <extensions>true</extensions>
                         <configuration>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org</nexusUrl>
                             <stagingProfileId>1d6846c550a1de</stagingProfileId>
