@@ -64,13 +64,23 @@ jobs:
           tag: ${{ steps.init.outputs.tagVersion }}
           overwrite: true
 
-      - name: Open PR in studio Repository
+      - name: Send message to Slack channel
         if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
-        uses: peter-evans/repository-dispatch@v1
+        uses: 8398a7/action-slack@v3
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
-          event-type: github-studio-pr
-          client-payload: '{"baseBranch":"${{ steps.init.outputs.studioBaseBranch }}", "releaseVersion": "${{ steps.init.outputs.tagVersion }}"}'
+          status: custom
+          fields: workflow,job,commit,repo,ref
+          custom_payload: |
+            {
+              username: 'uid-release',
+              icon_emoji: ':rocket:',
+              attachments: [{
+                color: 'good',
+                text: `UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully.`,
+              }]
+            }
+        env:
+               SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Send message to Slack channel
         uses: act10ns/slack@v1
