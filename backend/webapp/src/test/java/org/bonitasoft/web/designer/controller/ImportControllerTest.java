@@ -161,7 +161,7 @@ public class ImportControllerTest {
         when(pathImporter.importFromPath(unzipedPath, pageImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value("UUIDZipFile"))
                 .andExpect(jsonPath("extractedDirName").doesNotExist())
@@ -185,7 +185,7 @@ public class ImportControllerTest {
         when(pathImporter.forceImportFromPath(unzipedPath, pageImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/page?force=true").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value("UUIDZipFile"))
                 .andExpect(jsonPath("extractedDirName").doesNotExist())
@@ -218,7 +218,7 @@ public class ImportControllerTest {
         when(pathImporter.importFromPath(unzipedPath, widgetImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/widget").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
@@ -232,7 +232,7 @@ public class ImportControllerTest {
         when(pathImporter.forceImportFromPath(unzipedPath, widgetImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/widget?force=true").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
@@ -247,7 +247,7 @@ public class ImportControllerTest {
         when(widgetImporter.forceImport(any(Import.class))).thenReturn(expectedReport);
 
         mockMvc.perform(post("/import/import-uuid/force"))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
@@ -318,7 +318,7 @@ public class ImportControllerTest {
         when(pathImporter.importFromPath(unzipedPath, widgetImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/artifact").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("element.id").value("aWidget"))
                 .andExpect(jsonPath("element.name").value("myWidgetName"));
@@ -346,7 +346,7 @@ public class ImportControllerTest {
         when(pathImporter.importFromPath(unzipedPath, fragmentImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/fragment").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN +";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value("UUIDZipFile"))
                 .andExpect(jsonPath("extractedDirName").doesNotExist())
@@ -368,7 +368,7 @@ public class ImportControllerTest {
         when(pathImporter.forceImportFromPath(unzipedPath, fragmentImporter)).thenReturn(expectedReport);
 
         mockMvc.perform(fileUpload("/import/fragment?force=true").file(file))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8"))
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("uuid").value("UUIDZipFile"))
                 .andExpect(jsonPath("extractedDirName").doesNotExist())

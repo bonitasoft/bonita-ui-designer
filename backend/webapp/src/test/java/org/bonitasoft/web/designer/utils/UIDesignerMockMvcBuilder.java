@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.web.accept.ContentNegotiationManager;
 
 public class UIDesignerMockMvcBuilder {
 
@@ -25,6 +26,6 @@ public class UIDesignerMockMvcBuilder {
         TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport(new DesignerConfig());
         return standaloneSetup(controllers)
                 .setMessageConverters(configuration.createMessageConverters())
-                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver());
+                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver(new ContentNegotiationManager()));
     }
 }

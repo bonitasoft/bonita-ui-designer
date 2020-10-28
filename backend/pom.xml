@@ -14,7 +14,7 @@
     <properties>
         <jackson.version>2.11.1</jackson.version>
         <handlebar.version>4.0.6</handlebar.version>
-        <spring.version>5.1.4.RELEASE</spring.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
         <uidModelVersion>2.0</uidModelVersion>
