@@ -1,4 +1,4 @@
-name: Crowdin download
+name: Crowdin download files
 
 # Triggers the workflow every night
 on:
@@ -6,21 +6,6 @@ on:
     - cron: '0 4 * * *'
 
 jobs:
-  masterDownload:
-    name: Crowdin download on master
-    strategy:
-      max-parallel: 1
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-            ref: 'master'
-
-      # Runs Crowdin download
-      - name: Run Crowdin download
-        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }}
-
   devDownload:
     name: Crowdin download on dev
     strategy:
