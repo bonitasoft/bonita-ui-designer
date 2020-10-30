@@ -11,7 +11,7 @@ On each push/pull_request on master and dev branch, *build* is trigger
 |Workflow name|description|Start by
 |Build| Build project on each PR or commit on master/dev| automatically
 |Release| Create github release and could optionally call `Publish binaries` workflow| manually
-|Publish binaries|Push binaries on repository (maven central), as asset on github release and Could optionally call `Open Studio PR` workflow| manually or automatically
+|Publish binaries|Push binaries on repository (maven central) and as asset on github release| manually or automatically
 |Crowdin download| Download from crowdin all translation on dev and master and open a PR|automatically each night
 |Crowdin upload| Upload on crowdin all translation for dev and master|automatically each night
 |Commit Message check| Check commit message when a PR is open|automatically
@@ -24,7 +24,7 @@ To do a release, run *Release* action. You need to enter all parameters (You can
 |===
 |parameter|default value |mandatory|commentary
 |version|--next-patch|✅|Keep default value to bump minor version or replace with specific version
-|publishBinaries|true|✅|If true, binaries will be pushed on the repository, added as a github release asset. UID version in Studio is updated too.
+|publishBinaries|true|✅|If true, binaries will be pushed on the repository, added as a github release asset.
 |===
 
 
