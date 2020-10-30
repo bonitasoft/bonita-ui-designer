@@ -12,8 +12,8 @@ On each push/pull_request on master and dev branch, *build* is trigger
 |Build| Build project on each PR or commit on master/dev| automatically
 |Release| Create github release and could optionally call `Publish binaries` workflow| manually
 |Publish binaries|Push binaries on repository (maven central) and as asset on github release| manually or automatically
-|Crowdin download| Download from crowdin all translation on dev and master and open a PR|automatically each night
-|Crowdin upload| Upload on crowdin all translation for dev and master|automatically each night
+|Crowdin download| Download from crowdin all translation on dev branch and open a PR|automatically each night
+|Crowdin upload| Upload on crowdin all translation for dev |automatically each night
 |Commit Message check| Check commit message when a PR is open|automatically
 |===
 

@@ -1,4 +1,4 @@
-name: Publish Binaries
+name: Publish Artefacts
 
 on:
   workflow_dispatch:
