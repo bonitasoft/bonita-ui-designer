@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 3 * * *'
 
+  workflow_dispatch:
+    inputs:
+
 jobs:
   devUpload:
     name: Crowdin upload on dev

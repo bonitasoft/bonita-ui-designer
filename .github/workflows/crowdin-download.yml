@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 4 * * *'
 
+  workflow_dispatch:
+    inputs:
+
 jobs:
   devDownload:
     name: Crowdin download on dev
