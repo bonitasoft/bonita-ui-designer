@@ -10,7 +10,6 @@ jobs:
     name: Crowdin download on dev
     strategy:
       max-parallel: 1
-    needs: masterDownload
     runs-on: ubuntu-latest
 
     steps:

@@ -131,7 +131,7 @@ echo "Uploading pot to $PROJECT crowdin project ..."
 upload_sources \
     "files[ui-designer/lang-template.pot]=@$BUILD_DIR/lang_template.pot" \
     "branch=$BRANCH_NAME" \
-    "export_patterns[ui-designer/lang-template.pot]=/ui-designer/community/lang-template-%locale%.po"
+    "export_patterns[ui-designer/lang-template.pot]=/ui-designer/lang-template-%locale%.po"
 
 if [ "$UPLOAD_TRANS" = true ]
 then
