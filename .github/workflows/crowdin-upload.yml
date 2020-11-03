@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: 'dev'
       - uses: actions/setup-node@v1
         with:
           # Mandatory to use a old node version with our actual dependencies
