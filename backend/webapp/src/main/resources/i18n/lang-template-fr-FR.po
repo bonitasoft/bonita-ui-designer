@@ -7,11 +7,11 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 61536\n"
+"X-Crowdin-File: /release-7.12.0/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 65058\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-10-19 01:28\n"
+"PO-Revision-Date: 2020-11-04 10:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -54,7 +54,7 @@ msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You
 msgstr "<b>Note</b> : Les assets des widgets personnalisés ne sont modifiables que dans l'éditeur de widget. Les modifier au niveau de la page pourrait induire des effets de bord sur d'autres pages. Donc pour réorganiser les assets des widgets personnalisés, ouvrez l'éditeur de widget."
 
 msgid "<b>To update a form during production</b>, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
-msgstr ""
+msgstr "<b>Pour mettre à jour un formulaire en cours de production</b>, exportez le formulaire depuis le UI Designer, importez-le dans le processus approprié du portail, puis associez-le à la tâche ou à l'événement de démarrage du processus."
 
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b> Pour utiliser un formulaire dans un processus</b>, associez-le dans le studio au pool ou à une tâche humaine. Il sera automatiquement packagé dans l'archive .bar prête à être déployée dans le portail."
@@ -158,7 +158,7 @@ msgid "<em>Successful response value</em>: the variable will be set if the reque
 msgstr "<em>Valeur de réponse en cas de succès</em> : la variable sera définie si la demande est à succès (code 2XX)"
 
 msgid "<i class=\"fa fa-warning\"></i>&nbsp;By convention, the file has to be named <em>localization.json</em>"
-msgstr ""
+msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Par convention, le fichier doit être nommé <em>localization.json</em>"
 
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
@@ -429,7 +429,7 @@ msgid "Assets"
 msgstr "Assets"
 
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
-msgstr ""
+msgstr "Les Assets vous permettent d'ajouter des ressources du web aux pages et aux formulaires. Les types d'assets disponibles sont <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> et <strong>localisztion</strong>. Un asset peut être <strong>Local</strong> (fichier stocké dans l'objet page) ou <strong>Externe</strong> (URL). L'asset de localisation est toujours local."
 
 msgid "Assign before Submit"
 msgstr "Assigner avant de soumettre"
@@ -549,7 +549,7 @@ msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and '
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions et « Clé retournée » pour préciser la sélection"
 
 msgid "Can be translated using the asset localization.json"
-msgstr ""
+msgstr "Peut être traduit à l'aide de l'asset localization.json"
 
 msgid "Can be used to define the expected input format"
 msgstr "Peut être utilisé pour expliquer le format d'entrée attendu"
@@ -1132,7 +1132,7 @@ msgid "For example #FF0000, #0066FF"
 msgstr "Par exemple, #FF0000, #0066FF"
 
 msgid "For instance, with a custom link widget :"
-msgstr ""
+msgstr "Par exemple, avec un widget personnalisé de type lien :"
 
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "Pour plus d’informations, consultez la <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\"> documentation</a>."
@@ -2015,7 +2015,7 @@ msgid "Select your file"
 msgstr "Sélectionnez votre fichier"
 
 msgid "Select your localization.json"
-msgstr ""
+msgstr "Sélectionnez votre fichier localization.json"
 
 msgid "Selected Row"
 msgstr "Ligne sélectionnée"
@@ -2076,7 +2076,7 @@ msgid "Show properties"
 msgstr "Afficher les propriétés"
 
 msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
-msgstr ""
+msgstr "Langues pour lesquelles le fichier localization.json contient des traductions, plus l'option \"par défaut\", la langue source de votre page"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Depuis Bonita 7.5.0, UI Bootstrap n’est plus fourni dans les pages du UI Designer."
@@ -2341,7 +2341,7 @@ msgid "The legend shows the sector labels for single set charts, and the set lab
 msgstr "La légende affiche les libellés des secteurs pour les graphiques simples et les libellés de chaque jeu de données pour les graphiques multiples"
 
 msgid "The link text which is static is translated using the <em>ui-translate</em> directive. The link text title held inside the <em>properties.title</em> variable is translated using the <em>uiTranslate</em> filter."
-msgstr ""
+msgstr "Le texte du lien qui est statique est traduit à l'aide de la directive <em>ui-translate</em>. Le titre du lien contenu dans la variable <em>properties.title</em> est traduit en utilisant le filtre <em>uiTranslate</em>."
 
 msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
 msgstr "La liste contient les assets de page, les assets des widgets utilisés dans la page et les assets qui viennent du framework Bonita."
@@ -2558,7 +2558,7 @@ msgid "To select only a date (e.g., a date of birth), use the <em>Date picker</e
 msgstr "Pour sélectionner seulement une date (par exemple, une date de naissance), utilisez plutôt le widget <em>DATE</em>."
 
 msgid "To support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
-msgstr ""
+msgstr "Pour supporter les langues variées des utilisateurs finaux, il inclut un mécanisme de traduction des artefacts composant les interfaces utilisateur (pages, formulaires, layouts)."
 
 msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
 msgstr "Pour remplacer ce widget, utilisez un autre navigateur: Google Chrome ou Mozilla Firefox."
@@ -2696,10 +2696,10 @@ msgid "Use provided UID widgets as a template for a custom widget"
 msgstr "Utilisez les widgets standard du UI Designer comme modèle pour créer un widget personnalisé"
 
 msgid "Use the <em>ui-translate</em> directive in custom widgets for static content to be translated"
-msgstr ""
+msgstr "Pour traduire du contenu statique dans les widgets personnalisés, utilisez la directive <em>ui-translate</em>"
 
 msgid "Use the <em>uiTranslate</em> filter in custom widgets for dynamic content to be translated"
-msgstr ""
+msgstr "Pour traduire du contenu dynamique dans les widgets personnalisés, utilisez le filtre <em>uiTranslate</em>"
 
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utilisez le UI Designer pour créer ou éditer les artefacts web : <b>pages d'application</b> pour composer des applications métier, <b>formulaires de processus</b> liés à l'instantiation du processus ou à l'exécution de tâches humaines, et <b>layouts d'application</b> appliqués à toutes les pages d'une application métier."
@@ -2865,7 +2865,7 @@ msgid "Widgets"
 msgstr "Widgets"
 
 msgid "Widgets use the l10n mechanism that loads the translated string during page start up."
-msgstr ""
+msgstr "Les widgets utilisent le mécanisme de l10n qui charge la chaîne traduite au démarrage de la page."
 
 msgid "Width"
 msgstr "Largeur"
