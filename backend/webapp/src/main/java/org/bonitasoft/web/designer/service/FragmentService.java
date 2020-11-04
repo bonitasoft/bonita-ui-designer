@@ -81,8 +81,7 @@ public class FragmentService extends AbstractArtifactService {
      * @param fragment        The fragment to migrate.
      * @param migrateChildren A boolean to indicate if we need to trigger migration of the widgets and fragments used
      *                        in the current fragment.
-     * @public
-     * @returns Returns the migrated Fragment.
+     * @return Returns the migrated Fragment.
      */
     public MigrationResult migrate(Identifiable fragment, boolean migrateChildren) {
         Fragment fragmentToMigrate = (Fragment)fragment;
