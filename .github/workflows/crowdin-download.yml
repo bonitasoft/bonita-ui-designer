@@ -17,6 +17,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Config git
+        run: |
+          git config --local user.email "ui-designer-bot@users.noreply.github.com"
+          git config --local user.name "ui-designer-bot"
+          git config pull.rebase true
       # Runs Crowdin download
       - name: Run Crowdin download
         run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }}
