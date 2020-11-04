@@ -9,6 +9,7 @@ on:
         required: true
 
 jobs:
+  updateVersion:     
     name: Update UID version
     runs-on: ubuntu-latest
     steps:
