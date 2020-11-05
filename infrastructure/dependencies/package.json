@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@bonitasoft/dependency-list-to-markdown": "^1.0.4"
+  }
+}
