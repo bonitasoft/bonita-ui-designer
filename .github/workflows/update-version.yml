@@ -1,0 +1,36 @@
+name: Update version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to bump (By convention, just update minor version)
+        default: 1.13.0
+        required: true
+
+jobs:
+  updateVersion:     
+    name: Update UID version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup checkout
+        uses: actions/checkout@v2
+      - name: Config git
+        run: |
+          git config --local user.email "ui-designer-bot@users.noreply.github.com"
+          git config --local user.name "ui-designer-bot"
+          git config pull.rebase true
+
+      - name: Update Version
+        shell: bash
+        run: |
+          ./infrastructure/update-version.sh ${{ github.event.inputs.version }}
+          git commit -a -m "chore(versioning) update version to ${{ github.event.inputs.version }}"
+          git push ${{ github.ref }}
+      - name: Send message to Slack channel
+        uses: act10ns/slack@v1
+        if: ${{ failure() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
