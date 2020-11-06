@@ -28,8 +28,8 @@ jobs:
       - name: Generate archives
         shell: bash
         run: |
-        ./infrastructure/dependencies/moveDependenciesReportsFiles.sh \
-        ./infrastructure/dependencies/dependencies.sh --version=${{ github.event.inputs.bonitaMinorVersion }} --source-folder=bonita-ui-designer-dependencies
+          ./infrastructure/dependencies/moveDependenciesReportsFiles.sh
+          ./infrastructure/dependencies/dependencies.sh --version=${{ github.event.inputs.bonitaMinorVersion }} --source-folder=bonita-ui-designer-dependencies
       - name: Archives zip
         uses: actions/upload-artifact@v2
         with:
