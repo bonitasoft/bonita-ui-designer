@@ -1,0 +1,52 @@
+= List Dependencies on UID
+
+Checkout branch or tag on which list dependencies
+
+    git checkout tags/your-tag-name
+
+== Generate dependencies reports
+
+Run
+
+    ./mvnw initialize -Pdependencies
+
+This command allow you to generate reports for maven dependencies and for npm dependencies on each module.
+
+== Generate dependencies reports
+
+Move each dependency report in one folder, to do this run:
+
+    ./infrastructure/dependencies/moveDependenciesReportsFiles.sh
+
+At this step, you get a folder name *bonita-ui-designer-dependencies* at the root of this project.
+
+== Summarize dependencies in markdown file
+
+Enter this following command line:
+
+[source,shell]
+----
+ cd infrastructure/dependencies/ && npm install && cd ../..
+----
+Then
+[source,shell]
+----
+./infrastructure/dependencies/dependencies.sh --version=${minorVersion} --source-folder=bonita-ui-designer-dependencies --file-name=${fileName}
+----
+👏👏 Congratulations you get your dependencies report.
+
+|===
+|parameter |description |mandatory
+
+|--version,
+|Added in title of generated page
+|✔️
+
+|--source-folder
+|Path to dependencies folder reports (ex: bonita-ui-designer-dependencies)
+|✔️
+
+|--file-name
+|File name generated (default: ui-designer-dependencies.md)
+|️
+|===

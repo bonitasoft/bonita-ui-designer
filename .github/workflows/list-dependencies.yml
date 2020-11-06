@@ -1,0 +1,44 @@
+name: Generate Dependencies report
+
+on:
+  workflow_dispatch:
+    inputs:
+      tagVersion:
+        description: keep empty to run report on input ref branch
+        default:
+        required: false
+      bonitaMinorVersion:
+        description: Enter Bonita minor version
+        default: 7.12
+        required: true
+
+jobs:
+  listDependencies:
+    name: List dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.tagVersion || github.ref }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Generate reports
+        run: mvn initialize -Pdependencies
+      - name: Generate archives
+        shell: bash
+        run: |
+        ./infrastructure/dependencies/moveDependenciesReportsFiles.sh \
+        ./infrastructure/dependencies/dependencies.sh --version=${{ github.event.inputs.bonitaMinorVersion }} --source-folder=bonita-ui-designer-dependencies
+      - name: Archives zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: ui-designer-dependencies-zip
+          path: |
+              bonita-ui-designer-dependencies/*
+      - name: Archives markdown
+        uses: actions/upload-artifact@v2
+        with:
+          name: ui-designer-dependencies-markdown
+          path: |
+            bonita-ui-designer-dependencies.md
