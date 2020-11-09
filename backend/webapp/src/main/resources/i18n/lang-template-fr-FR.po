@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-06-17 01:28\n"
+"PO-Revision-Date: 2020-11-09 02:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -656,8 +656,8 @@ msgstr "Widgets personnalisés"
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "Les widgets personnalisés n'apparaissent pas clairement sur le whiteboard ; cliquez sur Aperçu pour les visualiser."
 
-msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
-msgstr "Personnalisez le titre de l'onglet ou ajoutez  du css dynamiquement, masquez ou désactivez les onglets selon les conditions, sont les nouvelles capacités de chaque onglet. Changez le format des onglets ou construisez de jolis menus latéraux grâce à l'affichage vertical, lisez ceci <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">comment en savoir plus sur la personnalisation.</a>"
+msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
+msgstr "Personnalisez le titre de l'onglet ou ajoutez  du css dynamiquement, masquez ou désactivez les onglets selon les conditions, sont les nouvelles capacités de chaque onglet. Changez le format des onglets ou construisez de jolis menus latéraux grâce à l'affichage vertical, lisez ceci <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.10\">comment en savoir plus sur la personnalisation.</a>"
 
 msgid "Customize the default look and feel as follows:"
 msgstr "Personnaliser l'affichage comme suit :"
@@ -2096,8 +2096,8 @@ msgstr "Cette fonctionnalité n'est pas disponible sur Internet Explorer 11 ni M
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Ce filtre utilise la librairie <a href=\"http://momentjs.com/\"> moment.js</a> pour transformer l'affichage d'une heure relative. Par exemple, il transforme '01/01/2011' en 'il y a 4 ans'."
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "Cette amélioration est visible lors de la création du formulaire à partir de Bonita Studio. Pour chaque input de contrat, une nouvelle variable est automatiquement créée dans le UI Designer. Elle est de plus liée au widget créé simultanément. Pour plus d'informations, consultez la documentation dédiée <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">.</a>"
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgstr "Cette amélioration est visible lors de la création du formulaire à partir de Bonita Studio. Pour chaque input de contrat, une nouvelle variable est automatiquement créée dans le UI Designer. De plus, elle est liée au widget créé simultanément. Pour plus d'informations, consultez la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">documentation dédiée.</a>"
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -2185,8 +2185,8 @@ msgstr "Pour ajouter des services personnalisés de AngularJS à une page ou à 
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr "Pour récupérer les données d'une ligne sélectionnée, liez la ligne sélectionnée à une variable."
 
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "Pour vous faciliter la gestion des objets imbriqués avec une référence en mode lazy, utilisez le filtre | lazyRef dans la variable correspondant à l'objet à récupérer. Pour plus d'informations, consultez la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">documentation dédiée.</a>"
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgstr "Pour vous faciliter la gestion des objets imbriqués avec une référence en mode Lazy, utilisez le filtre | lazyRef dans la variable correspondant à l'objet à récupérer. Pour plus d'informations, consultez la <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">documentation dédiée.</a>"
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr "Pour continuer à faire fonctionner les artefacts existants, si vous migrez une page créée dans une version antérieure à 7.5.0 et contenant des widgets personnalisés, <em>ui-bootstrap-NPT-0.13.0.min.js</em> sera automatiquement ajouté comme un asset de la page. \n"
@@ -2512,7 +2512,7 @@ msgstr "Largeur"
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
 msgstr "Sera récupéré à partir de l’URL s'il n’est pas défini (paramètre « app »). Vous pouvez le passer dans l’URL de la fenêtre d'aperçu, pour vos tests."
 
-msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
+msgid "With the new data model section, list your objects and drag&amp;drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
 msgstr "Avec la nouvelle section du modèle de données, listez vos objets et glissez-les sur le whiteboard (ou créez une nouvelle variable) pour introspecter votre Modèle de Données Métier et simplifier la récupération des données grâce à un assistant avancé. Utilisez cette variable plus tard comme toute autre variable."
 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
