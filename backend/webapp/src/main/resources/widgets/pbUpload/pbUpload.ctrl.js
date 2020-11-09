@@ -87,6 +87,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
       $scope.properties.errorContent = angular.isString(response) ? response : response.message;
       return;
     }
+    // Restore error message when upload is complete
+    $scope.properties.errorContent = undefined;
     $scope.properties.value = response;
   }
 }
