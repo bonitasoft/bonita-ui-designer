@@ -1,6 +1,8 @@
 describe('App config', function() {
 
-    beforeEach(angular.mock.module('uidesigner'));
+    beforeEach(angular.mock.module('uidesigner',function($provide) {
+      $provide.value('features', mockFeatureServiceToReturn(false));
+    }));
 
     describe('UI_DESIGNER_SCREEN_SIZE', function() {
       var resolutions;
@@ -56,4 +58,19 @@ describe('App config', function() {
         });
       });
     });
-  });
+
+  function mockFeatureServiceToReturn(boolean) {
+    return {
+      init: function() {
+        return {
+          then: function(callback) {
+            callback();
+          }
+        };
+      },
+      isExperimentalMode: function() {
+        return boolean;
+      }
+    };
+  }
+});
