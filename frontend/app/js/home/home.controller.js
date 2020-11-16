@@ -26,6 +26,7 @@
       $scope.artifacts = {};
       $scope.$storage = $localStorage;
       $localStorage.homeSortOrder = $localStorage.homeSortOrder || '-lastUpdate';
+      $localStorage.experimentalMode = $localStorage.experimentalMode || false;
 
       /**
        * When something is deleted, we need to refresh every collection,

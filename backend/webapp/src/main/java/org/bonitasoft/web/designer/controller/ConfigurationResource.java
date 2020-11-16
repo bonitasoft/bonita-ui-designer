@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.BONITA_DATA_REPOSITORY_ORIGIN;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 @RestController
 @RequestMapping("/rest/config")
@@ -50,6 +51,12 @@ public class ConfigurationResource {
             bdrUrl = "";
         }
         return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/isExperimental", method = RequestMethod.GET)
+    public ResponseEntity<String> isExperimental() {
+        boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
+        return new ResponseEntity<>("{\"isExperimental\" : " + isExperimental + "}", HttpStatus.OK);
     }
 
 }

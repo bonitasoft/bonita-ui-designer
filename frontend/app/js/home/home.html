@@ -3,7 +3,8 @@
         <div class="HomeHeader-logo">
             <img src="img/logo.svg">
         </div>
-        <h1 class="HomeHeader-title" translate>UI Designer</h1>
+        <h1 class="HomeHeader-title" translate>UI Designer </h1>
+        <h1 ng-if="$storage.experimentalMode" class="HomeHeader-title"> Experimental</h1>
         <div class="HomeHeader-help">
             <button class="btn btn-bonita-help shaker" ng-click="openHelp()"
                     uib-tooltip="{{'Open help' | translate}}"
