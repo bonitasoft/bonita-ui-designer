@@ -17,7 +17,7 @@ waitJetty() {
 
 echo Using $PORTAL_ORIGIN as portal origin.
 echo Using $DATA_REPOSITORY_ORIGIN as data repository origin.
-echo You can edit this in community/server.sh
+echo You can edit this in server.sh
 yarnCrossPlatform="yarn"
 if [ "$OSTYPE" = "msys" ];then
    yarnCrossPlatform="yarn.cmd"
