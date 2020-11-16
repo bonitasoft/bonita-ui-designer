@@ -206,5 +206,22 @@ describe('pbUpload', function() {
       controller.forceSubmit(myEvent);
       expect(myEvent.target.value).toBe(null);
     });
+
+    it('should reset errorContent properties when upload is successful', function () {
+      var file = {
+        filename:'foobar',
+        tempPath: 'quux'
+      };
+
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+
+      scope.properties.errorContent = 'Error during upload';
+      scope.$apply();
+
+      controller.uploadComplete(file);
+
+      expect(scope.properties.errorContent).toBe(undefined);
+    });
   });
 });
