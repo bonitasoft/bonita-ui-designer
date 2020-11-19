@@ -8,7 +8,7 @@
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal', 'bonitasoft.designer.editor.whiteboard', 'bonitasoft.designer.home'));
 
-    beforeEach(inject(function ($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_, _artifactStore_, _artifactNamingValidatorService_, _dataManagementRepo_, _migration_) {
+    beforeEach(inject(function ($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_, _$localStorage_, $uibModalInstance, _$state_, _browserHistoryService_, _artifactStore_, _artifactNamingValidatorService_, _dataManagementRepo_, _migration_, $httpBackend) {
       pageRepo = _pageRepo_;
       browserHistoryService = _browserHistoryService_;
       $q = _$q_;
@@ -25,7 +25,7 @@
       $localStorage.bonitaUIDesigner = {};
       modalInstance = $uibModalInstance.fake();
       migration = _migration_;
-
+      $httpBackend.whenGET('./rest/config').respond(200, { isExperimental:false });
       spyOn(browserHistoryService, 'back');
       spyOn($state, 'go');
       spyOn(migration, 'getLastReport');

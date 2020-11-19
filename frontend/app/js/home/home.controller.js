@@ -19,14 +19,15 @@
   'use strict';
 
   class HomeCtrl {
-    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, $window, gettextCatalog) {
+    constructor($scope, $uibModal, artifactStore, artifactFactories, $filter, $state, $localStorage, $window, gettextCatalog, configuration) {
       this.$scope = $scope;
       this.artifactStore = artifactStore;
-
+      this.configuration = configuration;
       $scope.artifacts = {};
       $scope.$storage = $localStorage;
       $localStorage.homeSortOrder = $localStorage.homeSortOrder || '-lastUpdate';
-      $localStorage.experimentalMode = $localStorage.experimentalMode || false;
+
+      $scope.isExperimentalMode = () => this.configuration.isExperimentalModeEnabled();
 
       /**
        * When something is deleted, we need to refresh every collection,

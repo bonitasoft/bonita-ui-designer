@@ -5,17 +5,14 @@ describe('Resolution bar', function() {
   beforeEach(angular.mock.module('bonitasoft.designer.resolution'));
   beforeEach(angular.mock.module('uidesigner'));
 
-  beforeEach(inject(function($injector, _$stateParams_, _$httpBackend_) {
+  beforeEach(inject(function($injector, _$stateParams_) {
     resolutions = $injector.get('resolutions');
     var rootScope = $injector.get('$rootScope');
     var $compile = $injector.get('$compile');
     $stateParams = _$stateParams_;
-    var $httpBackend = _$httpBackend_;
 
     $scope = rootScope.$new();
     $scope.onChange = jasmine.createSpy('onChange');
-
-    $httpBackend.whenGET('rest/config/isExperimental').respond(200, { data:{ isExperimental:false }});
 
     element = $compile(`
         <resolutions-bar

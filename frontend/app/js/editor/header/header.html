@@ -9,8 +9,8 @@
         <span class="EditorHeader-brand" translate>
             {{ vm.page.type }} editor
         </span>
-        <span ng-if="vm.$localStorage.experimentalMode" class="EditorHeader-brand" translate>
-            Experimental
+        <span ng-if="vm.isExperimentalMode()" class="EditorHeader-brand" translate>
+            (Experimental)
         </span>
 
         <form name="formName" class="form-inline EditorHeader-form" autocomplete="off">

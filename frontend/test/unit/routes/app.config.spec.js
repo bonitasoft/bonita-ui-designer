@@ -1,6 +1,6 @@
 describe('The route config', function() {
 
-  var $rootScope, $location, $state, widgetRepo, pageRepo, fragmentRepo, editorService, $httpBackend, $q, migration, features;
+  var $rootScope, $location, $state, widgetRepo, pageRepo, fragmentRepo, editorService, $httpBackend, $q, migration;
 
   beforeEach(angular.mock.module('uidesigner'));
 
@@ -13,14 +13,10 @@ describe('The route config', function() {
     fragmentRepo = $injector.get('fragmentRepo');
     editorService = $injector.get('editorService');
     $httpBackend = $injector.get('$httpBackend');
-    features = $injector.get('features');
     $q = $injector.get('$q');
     migration = $injector.get('migration');
 
-    $httpBackend.whenGET('rest/config/isExperimental').respond(200, { data:{ isExperimental:false }});
-
     spyOn(editorService, 'initialize').and.returnValue({});
-    spyOn(features, 'init').and.returnValue({});
     spyOn(widgetRepo, 'migrate').and.returnValue($q.when({}));
     spyOn(widgetRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
     spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when({}));

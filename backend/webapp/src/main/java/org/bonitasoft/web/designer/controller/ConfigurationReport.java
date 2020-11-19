@@ -19,14 +19,16 @@ public class ConfigurationReport {
     private String uidVersion;
     private String modelVersion;
     private String bdrUrl;
+    private boolean experimentalMode;
 
     public ConfigurationReport() {
     }
 
-    public ConfigurationReport(String uidVersion, String modelVersion, String bdrUrl) {
+    public ConfigurationReport(String uidVersion, String modelVersion, String bdrUrl, boolean isExperimental) {
         this.uidVersion = uidVersion;
         this.modelVersion = modelVersion;
         this.bdrUrl = bdrUrl;
+        this.experimentalMode =  isExperimental;
     }
 
     public String getUidVersion() {
@@ -53,12 +55,21 @@ public class ConfigurationReport {
         this.bdrUrl = bdrUrl;
     }
 
+    public boolean isExperimentalMode() {
+        return experimentalMode;
+    }
+
+    public void setExperimentalMode(boolean experimentalMode) {
+        this.experimentalMode = experimentalMode;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"uidVersion\":" + uidVersion +
                 ",\"modelVersion\":" + modelVersion +
                 ",\"bdrUrl\":" + bdrUrl +
+                ",\"experimentalMode\":" + experimentalMode +
                 '}';
     }
 }

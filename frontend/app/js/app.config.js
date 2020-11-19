@@ -27,16 +27,7 @@
   angular.module('uidesigner', ['bonitasoft.designer'])
     .value('isIE9', isIE9)
     .config(configureModule)
-    .run(($rootScope, $uibModalStack, resolutions, gettext, features, $localStorage) => {
-
-      // Allow to enabled/disable experimental mode
-      features.init().then(function() {
-        $localStorage.experimentalMode = false;
-
-        if (features.isExperimentalMode()) {
-          $localStorage.experimentalMode = features.isExperimentalMode();
-        }
-      });
+    .run(($rootScope, $uibModalStack, resolutions, gettext) => {
 
       resolutions.registerResolutions([
         {

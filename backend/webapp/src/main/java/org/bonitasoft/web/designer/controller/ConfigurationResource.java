@@ -50,13 +50,7 @@ public class ConfigurationResource {
             logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set, or not a valid URL.");
             bdrUrl = "";
         }
-        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/isExperimental", method = RequestMethod.GET)
-    public ResponseEntity<String> isExperimental() {
         boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
-        return new ResponseEntity<>("{\"isExperimental\" : " + isExperimental + "}", HttpStatus.OK);
+        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl, isExperimental), HttpStatus.OK);
     }
-
 }
