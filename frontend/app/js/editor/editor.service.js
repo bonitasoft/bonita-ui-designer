@@ -21,7 +21,7 @@
     .service('editorService', editorService);
 
   function editorService($q, widgetRepo, fragmentRepo, fragmentService, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
-                         gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
+                         gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration, configuration) {
 
     var paletteItems = {};
     var page;
@@ -38,10 +38,32 @@
       paletteItems[key] = repository;
     }
 
-    function initialize(repo, id) {
-      let allWidgets = widgetRepo.all();
+    function loadNewWidgets(isExperimental){
+      let newWidgets = $q.defer();
+      let widgets = [];
+      if(isExperimental){
+        widgets.push({id:'pbInput',type:'widget',deprecated: false, name:'Input', custom:false});
+        widgets.push({id:'pbText',type:'widget',deprecated: false, name:'Text', custom:false});
+        widgets.push({id:'customDateWC',type:'widget',deprecated: false, name:'customDate', custom:true});
+        newWidgets.resolve(widgets);
+      }else{
+        newWidgets.resolve([]);
+      }
+      return newWidgets.promise;
+    }
+
+    function initialize(repo, id, isExperimental) {
+      // let allWidgets = widgetRepo.all();
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
+
+      let allWidgets;
+      if(!isExperimental){
+        allWidgets = widgetRepo.all();
+      }else{
+        allWidgets = loadNewWidgets(isExperimental)
+      }
+
       return $q.all([dataWidgets, allWidgets])
         .then(values => {
           let widgets = [];
@@ -82,7 +104,15 @@
         return item.type === 'widget' && item.custom === val && (!item.status || item.status.compatible);
       }
 
-      var coreWidgets = items.filter(filterCustomWidgets.bind(null, false))
+      function filterDeprecatedWidgets(item) {
+        return item.type === 'widget' && (!item.hasOwnProperty('deprecated') || !item.deprecated);
+      }
+
+      function filterNewWidgets(item) {
+        return item.type === 'widget' && (item.hasOwnProperty('deprecated') && item.deprecated === false);
+      }
+
+      var coreWidgets = items.filter(filterCustomWidgets.bind(null, false)).filter(filterDeprecatedWidgets.bind(null))
         .map(paletteWidgetWrapper.bind(null, gettext('widgets'), 1));
 
       var customWidgets = items.filter(filterCustomWidgets.bind(null, true))
@@ -91,6 +121,9 @@
       var containers = items.filter((widget) => widget.type === 'container')
         .map(paletteContainerWrapper);
 
+      var newWidgets = items.filter(filterCustomWidgets.bind(null, false)).filter(filterNewWidgets.bind(null))
+        .map(paletteWebComponentWrapper.bind(null, gettext('widgets'), 1));
+
       var dataManagement = items.filter((widget) => widget.type === 'model')
         .map(paletteDataManagementWrapper.bind(null, gettext('data model'), 0));
 
@@ -98,6 +131,7 @@
       components.reset();
       components.register(containers);
       components.register(coreWidgets);
+      components.register(newWidgets);
       components.register(customWidgets);
       components.register(dataManagement);
     }
@@ -132,6 +166,14 @@
         sectionOrder: order,
         init: whiteboardComponentWrapper.wrapWidget.bind(null, extended),
         create: createWidget.bind(null, extended)
+      };
+    }
+
+    function paletteWebComponentWrapper(name, order, component) {
+      return {
+        component: component,
+        sectionName: name,
+        sectionOrder: order
       };
     }
 
