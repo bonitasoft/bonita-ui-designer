@@ -91,9 +91,9 @@ public class WidgetResource extends AssetResource<Widget>{
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view) throws RepositoryException, IOException {
+    public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view, @RequestParam(value = "WC", defaultValue = "false") Boolean loadWCWidgets) throws RepositoryException, IOException {
         byte[] json;
-        List<Widget> widgets = widgetRepository.getAll().stream().map(w -> {
+        List<Widget> widgets = widgetRepository.getAll(loadWCWidgets).stream().map(w -> {
             w.setStatus(widgetService.getStatus(w));
             return w;
         }).collect(Collectors.toList());
@@ -109,6 +109,7 @@ public class WidgetResource extends AssetResource<Widget>{
         //{@link ResourceControllerAdvice#getHttpHeaders()}
         return new ResponseEntity<>(new String(json), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.OK);
     }
+
 
     @SuppressWarnings("unchecked")
     private void fillWithUsedBy(Widget widget) {

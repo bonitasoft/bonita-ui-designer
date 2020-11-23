@@ -30,6 +30,7 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,7 @@ import static java.lang.String.format;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.walkFileTree;
 import static org.apache.commons.io.FileUtils.copyDirectory;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 /**
  * File based repository
@@ -85,6 +87,18 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public List<T> getAll() throws RepositoryException {
         try {
             return loader.getAll(path);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
+        }
+    }
+
+    public List<T> getAll(boolean loadWCWidgets) throws RepositoryException {
+        try {
+            Path pathWc = path;
+            if(loadWCWidgets && Boolean.getBoolean(UID_EXPERIMENTAL)){
+                pathWc = Paths.get(path + "WC");
+            }
+            return loader.getAll(pathWc);
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
         }
@@ -233,7 +247,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
             throw new RepositoryException(format("Failed to gerenrate object ID"), e);
         }
     }
-    
+
     public JsonFileBasedPersister<T> getPersister() {
         return persister;
     }

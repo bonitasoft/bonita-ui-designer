@@ -40,6 +40,11 @@
           }));
       }
 
+      allWCWidgets() {
+        return this.$http.get(`${this.baseUrl}?WC=true`)
+          .then((response) => response.data);
+      }
+
       /**
        * Loads assets used by the widgets and by the widgets
        * Returns a promise

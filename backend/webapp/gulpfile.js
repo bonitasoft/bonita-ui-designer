@@ -24,7 +24,9 @@ var paths = {
     'src/main/runtime/css/**.css'
   ],
   widgets: ['src/main/resources/widgets/**/*.*'],
+  widgetsWC: ['src/main/resources/widgetsWC/**/*.*'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
+  widgetsWCJson: ['src/main/resources/widgetsWC/**/*.json'],
   widgetsHtml: ['src/main/resources/widgets/**/*.html'],
   karma: { configFile: __dirname + '/src/test/javascript/karma.conf.js' },
   tests: ['src/test/**/*.spec.js'],
@@ -34,7 +36,8 @@ var paths = {
     css: 'target/classes/META-INF/resources/runtime/css',
     fonts: 'target/classes/META-INF/resources/runtime/fonts',
     js: 'target/classes/META-INF/resources/runtime/js',
-    json: 'target/classes/widgets'
+    json: 'target/classes/widgets',
+    jsonWC: 'target/classes/widgetsWC',
   }
 };
 

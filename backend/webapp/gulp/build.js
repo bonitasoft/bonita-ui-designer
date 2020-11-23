@@ -23,8 +23,8 @@ module.exports = function(gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['jsonschema', 'runtime', 'widgets', 'pot']);
-  gulp.task('lint', ['jshint', 'jscs:lint']);
+  gulp.task('build', ['jsonschema','jsonschemaWC', 'runtime', 'widgets','widgetsWC', 'pot']);
+  gulp.task('lint', ['jscs:lint']);
 
   /**
    * Check for ddescribe and iit
@@ -41,6 +41,13 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest('target/widget-schema'));
   });
 
+  gulp.task('jsonschemaWC', function () {
+    return gulp.src(paths.widgetsWCJson)
+      .pipe(jsonSchema())
+      .pipe(flatten())
+      .pipe(gulp.dest('target/widgetWC-schema'));
+  });
+
   /**
    * Task to inline add widgets to the webapp for production and inline templates in json file
    */
@@ -48,6 +55,12 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.widgetsJson)
       .pipe(buildWidget())
       .pipe(gulp.dest(paths.dest.json));
+  });
+
+  gulp.task('widgetsWC', function () {
+    return gulp.src(paths.widgetsWCJson)
+      .pipe(buildWidget())
+      .pipe(gulp.dest(paths.dest.jsonWC));
   });
 
   gulp.task('pot', ['pot:json', 'pot:html']);
