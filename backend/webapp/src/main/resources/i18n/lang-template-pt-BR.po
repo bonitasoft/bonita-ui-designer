@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-11-20 02:33\n"
+"PO-Revision-Date: 2020-11-23 02:34\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -892,7 +892,7 @@ msgid "Expand Preview in new window"
 msgstr "Expandir visualização em nova janela"
 
 msgid "Explore Data Model in new window"
-msgstr ""
+msgstr "Explorar Modelo de Dados em uma nova janela"
 
 msgid "Export"
 msgstr ""
@@ -1618,7 +1618,7 @@ msgid "Property names must start with a letter and contain only alphanumeric cha
 msgstr ""
 
 msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
-msgstr ""
+msgstr "Colocar o uso deste widget. Esta informação só é visível no editor de UI-Designer"
 
 msgid "Read-only"
 msgstr ""
