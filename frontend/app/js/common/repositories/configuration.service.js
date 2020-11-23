@@ -54,6 +54,10 @@
         return this.configReport.bdrUrl;
       }
 
+      isExperimentalModeEnabled() {
+        return this.configReport.experimentalMode;
+      }
+
     }
 
     return new Configuration();

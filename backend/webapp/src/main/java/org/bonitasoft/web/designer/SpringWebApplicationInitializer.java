@@ -56,6 +56,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
      */
     public static final String BONITA_PORTAL_USER = "bonita.portal.origin.user";
     public static final String BONITA_PORTAL_PASSWORD = "bonita.portal.origin.password";
+    public static final String UID_EXPERIMENTAL = "uid.experimental";
 
     private static final String[] BANNER = {"",
             "d8888b.  .d88b.  d8b   db d888888b d888888b  .d8b.    .d8888.  .d88b.  d88888b d888888b",
@@ -88,6 +89,9 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         }
         logger.info(Strings.repeat("=", 100));
         logger.info(String.format("UI-DESIGNER : %s edition v.%s", prop.getProperty("designer.edition"), prop.getProperty("designer.version")));
+        if(Boolean.getBoolean(UID_EXPERIMENTAL)) {
+            logger.info(String.format("UI-DESIGNER : Running in experimental mode"));
+        }
         logger.info(Strings.repeat("=", 100));
 
         // Create the root context Spring

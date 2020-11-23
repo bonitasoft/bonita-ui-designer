@@ -3,7 +3,7 @@
   'use strict';
 
   class EditorHeaderCtrl {
-    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $rootScope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo, migration) {
+    constructor(mode, artifact, artifactRepo, $uibModal, $stateParams, $state, $window, $localStorage, browserHistoryService, keyBindingService, $scope, $rootScope, $timeout, $q, artifactStore, artifactNamingValidatorService, dataManagementRepo, migration, configuration) {
       'ngInject';
       this.mode = mode;
       this.page = artifact;
@@ -25,6 +25,8 @@
       this.keyBindingService = keyBindingService;
       this.scope = $scope;
       this.migration = migration;
+
+      this.isExperimentalMode = () => configuration.isExperimentalModeEnabled();
 
       // load all artifact with same type
       artifactStore.load().then((artifacts) => this.artifacts = artifacts.filter(item => item.type === this.page.type));

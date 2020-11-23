@@ -56,4 +56,4 @@ describe('App config', function() {
         });
       });
     });
-  });
+});

@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.BONITA_DATA_REPOSITORY_ORIGIN;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 @RestController
 @RequestMapping("/rest/config")
@@ -49,7 +50,7 @@ public class ConfigurationResource {
             logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set, or not a valid URL.");
             bdrUrl = "";
         }
-        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl), HttpStatus.OK);
+        boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
+        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl, isExperimental), HttpStatus.OK);
     }
-
 }

@@ -28,6 +28,7 @@
     .value('isIE9', isIE9)
     .config(configureModule)
     .run(($rootScope, $uibModalStack, resolutions, gettext) => {
+
       resolutions.registerResolutions([
         {
           key: 'xs',

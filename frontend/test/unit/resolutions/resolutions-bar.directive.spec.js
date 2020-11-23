@@ -13,10 +13,11 @@ describe('Resolution bar', function() {
 
     $scope = rootScope.$new();
     $scope.onChange = jasmine.createSpy('onChange');
+
     element = $compile(`
-        <resolutions-bar 
-            id="resolutions" 
-            on-change="onChange" 
+        <resolutions-bar
+            id="resolutions"
+            on-change="onChange"
             class="btn-group btn-group-lg">
         </resolutions-bar>`)($scope);
     $scope.$apply();
