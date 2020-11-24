@@ -85,8 +85,8 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
         try {
-            if(loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)){
-                loader.getAll(Paths.get(path + WIDGETS_WC_PATH_TRAILER));
+            if (loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)) {
+                return loader.getAll(Paths.get(path + WIDGETS_WC_PATH_TRAILER));
             }
             return loader.getAll(path);
         } catch (IOException e) {
