@@ -24,13 +24,14 @@ describe('The route config', function() {
   }));
 
   it('should resolve the necessary for the page editor', function() {
+    let stateParamV2;
     // when we go to the editor
     $location.url('en/pages/person?resolution=xs');
     $rootScope.$apply();
 
     // then we should call the resolve
     // a page as there is a name in URL
-    expect(editorService.initialize).toHaveBeenCalledWith(pageRepo, 'person');
+    expect(editorService.initialize).toHaveBeenCalledWith(pageRepo, 'person', stateParamV2);
 
     // a controller
     expect($state.current.views['@designer'].controller).toBe('EditorCtrl');

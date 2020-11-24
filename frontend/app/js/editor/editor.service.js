@@ -38,33 +38,10 @@
       paletteItems[key] = repository;
     }
 
-    // function loadNewWidgets(isExperimental){
-    //   let newWidgets = $q.defer();
-    //   let widgets = [];
-    //   if(isExperimental){
-    //     widgets.push({id:'pbInput',type:'widget', name:'Input', custom:false});
-    //     widgets.push({id:'pbText',type:'widget', name:'Text', custom:false});
-    //     widgets.push({id:'pbDate',type:'widget', name:'Date', custom:false});
-    //     widgets.push({id:'customDateWC',type:'widget', name:'customDate', custom:true});
-    //     newWidgets.resolve(widgets);
-    //   }else{
-    //     newWidgets.resolve([]);
-    //   }
-    //   return newWidgets.promise;
-    // }
-
     function initialize(repo, id, isWCWidgets) {
-      let allWidgets = widgetRepo.allWidgetsWc(isWCWidgets);
+      let allWidgets = widgetRepo.all(isWCWidgets);
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
-
-      //let allWidgets;
-      // if(!isExperimental){
-      //   allWidgets = widgetRepo.all();
-      // } else {
-      //   allWidgets = loadNewWidgets(isExperimental);
-      // }
-
       return $q.all([dataWidgets, allWidgets])
         .then(values => {
           let widgets = [];
@@ -107,15 +84,12 @@
 
       var coreWidgets = items.filter(filterCustomWidgets.bind(null, false))
         .map(paletteWidgetWrapper.bind(null, gettext('widgets'), 1));
-      console.log('coreWidgets', coreWidgets);
+
       var customWidgets = items.filter(filterCustomWidgets.bind(null, true))
         .map(paletteWidgetWrapper.bind(null, gettext('custom widgets'), 2));
 
       var containers = items.filter((widget) => widget.type === 'container')
         .map(paletteContainerWrapper);
-
-      // var newWidgets = items.filter(filterCustomWidgets.bind(null, false))
-      //   .map(paletteWebComponentWrapper.bind(null, gettext('widgets'), 1));
 
       var dataManagement = items.filter((widget) => widget.type === 'model')
         .map(paletteDataManagementWrapper.bind(null, gettext('data model'), 0));
@@ -124,7 +98,6 @@
       components.reset();
       components.register(containers);
       components.register(coreWidgets);
-      //components.register(newWidgets);
       components.register(customWidgets);
       components.register(dataManagement);
     }
@@ -161,14 +134,6 @@
         create: createWidget.bind(null, extended)
       };
     }
-
-    // function paletteWebComponentWrapper(name, order, component) {
-    //   return {
-    //     component: component,
-    //     sectionName: name,
-    //     sectionOrder: order
-    //   };
-    // }
 
     function paletteDataManagementWrapper(name, order, component) {
       return {

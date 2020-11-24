@@ -19,11 +19,11 @@ var gettextWidget = require('./gettext-widget.js');
 var buildWidget = require('widget-builder/src/index.js').buildWidget;
 var jsonSchema = require('widget-builder/src/index.js').jsonSchema;
 
-module.exports = function(gulp, config) {
+module.exports = function (gulp, config) {
 
   var paths = config.paths;
 
-  gulp.task('build', ['jsonschema','jsonschemaWC', 'runtime', 'widgets','widgetsWC', 'pot']);
+  gulp.task('build', ['jsonschema', 'runtime', 'widgets', 'pot']);
   gulp.task('lint', ['jscs:lint']);
 
   /**
@@ -41,35 +41,29 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest('target/widget-schema'));
   });
 
-  gulp.task('jsonschemaWC', function () {
-    return gulp.src(paths.widgetsWCJson)
-      .pipe(jsonSchema())
-      .pipe(flatten())
-      .pipe(gulp.dest('target/widgetWC-schema'));
-  });
+  gulp.task('widgets', ['widgetsWc', 'widgetsJs']);
 
   /**
    * Task to inline add widgets to the webapp for production and inline templates in json file
    */
-  gulp.task('widgets', function () {
-    return gulp.src(paths.widgetsJson)
-      .pipe(buildWidget())
-      .pipe(gulp.dest(paths.dest.json));
+  gulp.task('widgetsJs', function () {
+    return gulp.src(paths.widgetsJson).pipe(buildWidget()).pipe(gulp.dest(paths.dest.json));
   });
 
-  gulp.task('widgetsWC', function () {
-    return gulp.src(paths.widgetsWCJson)
-      .pipe(buildWidget())
-      .pipe(gulp.dest(paths.dest.jsonWC));
+  /**
+   * Task to move widgetWc in webapp for production
+   */
+  gulp.task('widgetsWc', function () {
+    return gulp.src(paths.widgetsWcJson).pipe(gulp.dest(paths.dest.jsonWC));
   });
 
   gulp.task('pot', ['pot:json', 'pot:html']);
 
   gulp.task('pot:json', function () {
     return gulp.src(paths.widgetsJson)
-      .pipe( gettextWidget.prepare() )
+      .pipe(gettextWidget.prepare())
       .pipe(concat('widgets.json', {newLine: ','}))
-      .pipe( gettextWidget.extract() )
+      .pipe(gettextWidget.extract())
       .pipe(gulp.dest('target/po'));
   });
 
@@ -92,7 +86,7 @@ module.exports = function(gulp, config) {
       .pipe(jshint.reporter('fail'));
   });
 
-  gulp.task('jscs:lint', function() {
+  gulp.task('jscs:lint', function () {
     return gulp.src(paths.runtimeFolder + '/**/*.js')
       .pipe(jscs())
       .pipe(jscs.reporter())
@@ -116,6 +110,7 @@ module.exports = function(gulp, config) {
     function notMinified(file) {
       return !/(src-min|\.min\.js)/.test(file.path);
     }
+
     return gulp.src(paths.vendor)
       .pipe(concat('vendor.min.js'))
       .pipe(gulpIf(notMinified, uglify()))

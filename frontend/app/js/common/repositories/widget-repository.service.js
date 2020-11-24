@@ -40,8 +40,8 @@
           }));
       }
 
-      allWidgetsWc() {
-        return this.$http.get(`${this.baseUrl}?widgetsWc=true`)
+      all(isWcWidgets) {
+        return this.$http.get(`${this.baseUrl}?widgetsWc=${isWcWidgets ? 'true' : 'false'}`)
           .then((response) => response.data);
       }
 
