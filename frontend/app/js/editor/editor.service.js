@@ -54,7 +54,7 @@
     // }
 
     function initialize(repo, id, isWCWidgets) {
-      let allWidgets = widgetRepo.allWCWidgets(isWCWidgets);
+      let allWidgets = widgetRepo.allWidgetsWc(isWCWidgets);
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
 
