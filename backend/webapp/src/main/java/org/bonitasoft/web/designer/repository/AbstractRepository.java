@@ -53,8 +53,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     protected Loader<T> loader;
     private Watcher watcher;
 
-    public static final String WC_WIDGETS_PATH_TRAILER = "WC";
-
     public AbstractRepository(Path path, JsonFileBasedPersister<T> persister, Loader<T> loader, BeanValidator validator, Watcher watcher) {
         this.path = path;
         this.persister = persister;
@@ -89,18 +87,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public List<T> getAll() throws RepositoryException {
         try {
             return loader.getAll(path);
-        } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
-        }
-    }
-
-    public List<T> getAll(boolean loadWcWidgets) throws RepositoryException {
-        try {
-            Path pathWc = path;
-            if(loadWcWidgets && Boolean.getBoolean(UID_EXPERIMENTAL)){
-                pathWc = Paths.get(path + WC_WIDGETS_PATH_TRAILER);
-            }
-            return loader.getAll(pathWc);
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
         }

@@ -59,12 +59,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetRepositoryTest {
 
     private static final String DESIGNER_VERSION = "1.0.0";
     private static final String MODEL_VERSION = "2.0";
+    private final boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
 
     private WidgetRepository widgetRepository;
 
@@ -132,7 +134,7 @@ public class WidgetRepositoryTest {
         Widget label = aWidget().id("label").build();
         addToRepository(input, label);
 
-        List<Widget> widgets = widgetRepository.getAll();
+        List<Widget> widgets = widgetRepository.getAll(isExperimental);
 
         assertThat(widgets).containsOnly(input, label);
     }
@@ -142,7 +144,7 @@ public class WidgetRepositoryTest {
         doThrow(new IOException()).when(objectMapper).fromJson(any(byte[].class), eq(Widget.class));
         addToRepository(aWidget().id("input").build());
 
-        widgetRepository.getAll();
+        widgetRepository.getAll(isExperimental);
     }
 
     @Test

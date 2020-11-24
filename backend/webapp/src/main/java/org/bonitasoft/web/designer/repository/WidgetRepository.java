@@ -17,9 +17,11 @@ package org.bonitasoft.web.designer.repository;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +38,8 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
+
+    public static final String WIDGETS_WC_PATH_TRAILER = "Wc";
 
     @Inject
     public WidgetRepository(
@@ -77,6 +81,17 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             return widget;
         }
 
+    }
+
+    public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
+        try {
+            if(loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)){
+                loader.getAll(Paths.get(path + WIDGETS_WC_PATH_TRAILER));
+            }
+            return loader.getAll(path);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
+        }
     }
 
     public List<Widget> getByIds(Set<String> widgetIds) {

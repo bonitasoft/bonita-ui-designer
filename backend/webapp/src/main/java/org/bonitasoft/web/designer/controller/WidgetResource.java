@@ -92,9 +92,9 @@ public class WidgetResource extends AssetResource<Widget>{
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view,
-                                         @RequestParam(value = "WC", defaultValue = "false") Boolean loadWcWidgets) throws RepositoryException, IOException {
+                                         @RequestParam(value = "widgetsWc", defaultValue = "false") Boolean widgetsWc) throws RepositoryException, IOException {
         byte[] json;
-        List<Widget> widgets = widgetRepository.getAll(loadWcWidgets).stream().map(w -> {
+        List<Widget> widgets = widgetRepository.getAll(widgetsWc).stream().map(w -> {
             w.setStatus(widgetService.getStatus(w));
             return w;
         }).collect(Collectors.toList());
