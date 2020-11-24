@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 65058\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-11-20 02:33\n"
+"PO-Revision-Date: 2020-11-23 02:34\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1041,7 +1041,7 @@ msgid "Expendable text input field with HTML formatting, including style, image,
 msgstr ""
 
 msgid "Explore Data Model in new window"
-msgstr ""
+msgstr "Explorar Modelo de Dados em uma nova janela"
 
 msgid "Export"
 msgstr ""
@@ -1866,7 +1866,7 @@ msgid "Property names must start with a letter and contain only alphanumeric cha
 msgstr ""
 
 msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
-msgstr ""
+msgstr "Colocar o uso deste widget. Esta informação só é visível no editor de UI-Designer"
 
 msgid "Radar"
 msgstr ""
