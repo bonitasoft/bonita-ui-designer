@@ -41,7 +41,8 @@
       }
 
       all(isWcWidgets) {
-        return this.$http.get(`${this.baseUrl}?widgetsWc=${isWcWidgets ? 'true' : 'false'}`)
+        let stateParamUrl = isWcWidgets ? '?widgetsWc=true' : '';
+        return this.$http.get(`${this.baseUrl}${stateParamUrl}`)
           .then((response) => response.data);
       }
 

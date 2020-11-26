@@ -30,6 +30,8 @@
 
       // Status
       $httpBackend.whenGET(/rest\/migration\/status\/.*\/.*/).respond(() => { return [200,{'compatible': true, 'migration': false},{}];});
+      // Config
+      $httpBackend.whenGET(/rest\/config/).respond(() => { return [200,{}];});
 
       // Migration
       $httpBackend.whenPUT(/rest\/migration\/.*\/.*/).respond(() => { return [200,{ 'comments': 'No migration is needed', 'status': 'none', 'migrationStepReport':[] },{}];} );
