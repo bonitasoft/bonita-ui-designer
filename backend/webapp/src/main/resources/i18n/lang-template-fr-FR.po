@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-11-20 03:30\n"
+"PO-Revision-Date: 2020-11-26 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -21,6 +21,9 @@ msgstr "'{{ctrl.newData.$$name}}' existe déjà"
 
 msgid "'{{newData.$$name}}' already exists"
 msgstr "'{{newData.$$name}}' existe déjà"
+
+msgid "(Experimental)"
+msgstr "(Expérimental)"
 
 msgid "(displayed in editor's property panel)"
 msgstr "(affiché dans le panneau de propriétés de l'éditeur)"
