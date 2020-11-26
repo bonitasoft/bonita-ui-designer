@@ -16,7 +16,9 @@ package org.bonitasoft.web.designer.workspace;
 
 import static java.nio.file.Files.createDirectories;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +74,10 @@ public class Workspace {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
+        if(Boolean.getBoolean(UID_EXPERIMENTAL)){
+            ensureWidgetWcRepositoryPresent();
+            ensureWidgetRepositoryFilledWC();
+        }
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
     }
@@ -146,6 +152,15 @@ public class Workspace {
         createDirectories(workspacePathResolver.getWidgetsRepositoryPath());
     }
 
+    private void ensureWidgetWcRepositoryPresent() throws IOException {
+        createDirectories(workspacePathResolver.getWidgetsWcRepositoryPath());
+    }
+
+    private void ensureWidgetRepositoryFilledWC() throws IOException {
+        Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_WC_RESOURCES).getURI());
+        FileUtils.copyDirectory(FileUtils.getFile(widgetRepositorySourcePath.toString()),FileUtils.getFile(workspacePathResolver.getWidgetsWcRepositoryPath().toString()));
+    }
+
     private void ensureWidgetRepositoryFilled() throws IOException {
         Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI());
         List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePath);
@@ -163,6 +178,8 @@ public class Workspace {
         }
         widgetDirectiveBuilder.start(workspacePathResolver.getWidgetsRepositoryPath());
     }
+
+
 
     private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
         Path widgetRepositoryPath = createDirectories(widgetRepository.resolvePath(widget.getId()));

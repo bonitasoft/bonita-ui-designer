@@ -20,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidgetWc;
-import static org.bonitasoft.web.designer.repository.WidgetRepository.WIDGETS_WC_PATH_TRAILER;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -51,6 +50,7 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
@@ -90,7 +90,7 @@ public class WidgetRepositoryTest {
     @Before
     public void setUp() throws IOException {
         widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
-        widgetDirectoryWc = createDirectory(Paths.get(widgetDirectory + WIDGETS_WC_PATH_TRAILER));
+        widgetDirectoryWc = createDirectory(Paths.get(widgetDirectory + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
         jsonFileRepository = new DesignerConfig().widgetFileBasedPersister();
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         // spying objectMapper to be able to simulate a json conversion error

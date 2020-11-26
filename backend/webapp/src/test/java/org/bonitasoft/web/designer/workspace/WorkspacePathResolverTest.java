@@ -69,6 +69,14 @@ public class WorkspacePathResolverTest {
     }
 
     @Test
+    public void should_resolve_widgetsWc_repository_path() throws Exception {
+        when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
+
+        assertThat(workspacePathResolver.getWidgetsWcRepositoryPath())
+                .isEqualTo(Paths.get(System.getProperty("user.home") + "/.bonita/widgetsWc"));
+    }
+
+    @Test
     public void should_resolve_pages_repository_path() throws Exception {
         when(env.getProperty("user.home")).thenReturn(System.getProperty("user.home"));
 

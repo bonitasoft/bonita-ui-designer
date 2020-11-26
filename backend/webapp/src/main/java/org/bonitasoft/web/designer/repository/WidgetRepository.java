@@ -35,6 +35,7 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
@@ -117,22 +118,22 @@ public class WidgetRepository extends AbstractRepository<Widget> {
         Widget widget = get(widgetId);
         Property existingProperty = widget.getProperty(propertyName);
         if (existingProperty == null) {
-            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
+            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));
         }
         widget.replaceProperty(existingProperty, property);
         updateLastUpdateAndSave(widget);
         return widget.getProperties();
-     }
+    }
 
     public List<Property> deleteProperty(String widgetId, String propertyName) {
         Widget widget = get(widgetId);
         Property param = widget.getProperty(propertyName);
         if (param == null) {
-            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
+            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));
         }
         widget.deleteProperty(param);
         updateLastUpdateAndSave(widget);
         return widget.getProperties();
-     }
+    }
 
 }

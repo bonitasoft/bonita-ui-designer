@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -42,6 +43,7 @@ import java.nio.file.StandardOpenOption;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -85,6 +87,7 @@ public class WorkspaceTest {
         //We mock the default directories
         when(pathResolver.getPagesRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "pages"));
         when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgets"));
+        when(pathResolver.getWidgetsWcRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgetsWc"));
         when(pathResolver.getFragmentsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "fragments"));
 
         when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
@@ -107,6 +110,11 @@ public class WorkspaceTest {
         when(resourceLoader.getResource(WebMvcConfiguration.WIDGETS_RESOURCES)).thenReturn(resource);
     }
 
+    private void mockWidgetsWcBasePath(Path path) throws IOException {
+        Resource resource = mock(Resource.class);
+        when(resource.getURI()).thenReturn(path.toUri());
+        when(resourceLoader.getResource(WebMvcConfiguration.WIDGETS_WC_RESOURCES)).thenReturn(resource);
+    }
 
     private void createWidget(String id, String content) throws IOException {
         Path labelFile = temporaryFolder.newFolderPath("widgets", id).resolve(id + ".json");
@@ -154,6 +162,29 @@ public class WorkspaceTest {
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/help.html")).exists();
         assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbMissingHelp/pbMissingHelp.json")).exists();
+    }
+
+
+    @Test
+    public void should_copy_widgetWc_to_widgetWc_repository_folder() throws Exception {
+        System.setProperty(UID_EXPERIMENTAL,"true");
+        mockWidgetsWcBasePath(Paths.get("src/test/resources/workspace/widgetsWc"));
+
+        workspace.initialize();
+
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.json")).exists();
+    }
+
+    @Test
+    public void should_not_copy_widgetWc_to_widgetWc_repository_folder_when_experimental_mode_is_not_set() throws Exception {
+        System.setProperty(UID_EXPERIMENTAL,"false");
+        mockWidgetsWcBasePath(Paths.get("src/test/resources/workspace/widgetsWc"));
+
+        workspace.initialize();
+
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.json")).doesNotExist();
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.json")).doesNotExist();
     }
 
     @Test
