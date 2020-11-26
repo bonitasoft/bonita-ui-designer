@@ -63,7 +63,7 @@ public class WorkspacePathResolver {
     }
 
     public Path getWidgetsWcRepositoryPath() {
-        return Paths.get(getRepositoryPath(WIDGETS_DEFAULT_DIRECTORY, env.getProperty("repository.widgets")) + WIDGETS_WC_SUFFIX);
+        return Paths.get(getWidgetsRepositoryPath() + WIDGETS_WC_SUFFIX);
     }
 
     public Path getFragmentsRepositoryPath() {

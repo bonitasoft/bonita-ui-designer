@@ -40,8 +40,6 @@ import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
 
-    public static final String WIDGETS_WC_PATH_TRAILER = "Wc";
-
     @Inject
     public WidgetRepository(
             @Named("widgetPath") Path path,
@@ -87,7 +85,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
     public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
         try {
             if (loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)) {
-                return loader.getAll(Paths.get(path + WIDGETS_WC_PATH_TRAILER));
+                return loader.getAll(Paths.get(path + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
             }
             return loader.getAll(path);
         } catch (IOException e) {

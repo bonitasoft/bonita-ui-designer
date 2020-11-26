@@ -37,7 +37,7 @@ var paths = {
     fonts: 'target/classes/META-INF/resources/runtime/fonts',
     js: 'target/classes/META-INF/resources/runtime/js',
     json: 'target/classes/widgets',
-    jsonWC: 'target/classes/widgetsWc',
+    jsonWc: 'target/classes/widgetsWc',
   }
 };
 

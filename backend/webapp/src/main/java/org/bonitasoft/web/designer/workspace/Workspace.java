@@ -76,7 +76,7 @@ public class Workspace {
         ensureWidgetRepositoryFilled();
         if(Boolean.getBoolean(UID_EXPERIMENTAL)){
             ensureWidgetWcRepositoryPresent();
-            ensureWidgetRepositoryFilledWC();
+            ensureWidgetRepositoryFilledWc();
         }
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
@@ -156,7 +156,7 @@ public class Workspace {
         createDirectories(workspacePathResolver.getWidgetsWcRepositoryPath());
     }
 
-    private void ensureWidgetRepositoryFilledWC() throws IOException {
+    private void ensureWidgetRepositoryFilledWc() throws IOException {
         Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_WC_RESOURCES).getURI());
         FileUtils.copyDirectory(FileUtils.getFile(widgetRepositorySourcePath.toString()),FileUtils.getFile(workspacePathResolver.getWidgetsWcRepositoryPath().toString()));
     }

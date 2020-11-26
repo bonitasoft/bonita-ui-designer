@@ -24,7 +24,7 @@ module.exports = function (gulp, config) {
   var paths = config.paths;
 
   gulp.task('build', ['jsonschema', 'runtime', 'widgets', 'pot']);
-  gulp.task('lint', ['jscs:lint']);
+  gulp.task('lint', ['jshint', 'jscs:lint']);
 
   /**
    * Check for ddescribe and iit
@@ -54,7 +54,7 @@ module.exports = function (gulp, config) {
    * Task to move widgetWc in webapp for production
    */
   gulp.task('widgetsWc', function () {
-    return gulp.src(paths.widgetsWcJson).pipe(gulp.dest(paths.dest.jsonWC));
+    return gulp.src(paths.widgetsWcJson).pipe(gulp.dest(paths.dest.jsonWc));
   });
 
   gulp.task('pot', ['pot:json', 'pot:html']);
