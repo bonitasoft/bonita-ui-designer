@@ -37,6 +37,7 @@ public class WorkspacePathResolver {
     public static final String FRAGMENTS = "fragments";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
     private static final String TEMP_DIR = "workspace-uid";
+    public static final String WIDGETS_WC_SUFFIX = "Wc";
 
     @Inject
     private Environment env;
@@ -59,6 +60,10 @@ public class WorkspacePathResolver {
 
     public Path getWidgetsRepositoryPath() {
         return getRepositoryPath(WIDGETS_DEFAULT_DIRECTORY, env.getProperty("repository.widgets"));
+    }
+
+    public Path getWidgetsWcRepositoryPath() {
+        return Paths.get(getWidgetsRepositoryPath() + WIDGETS_WC_SUFFIX);
     }
 
     public Path getFragmentsRepositoryPath() {

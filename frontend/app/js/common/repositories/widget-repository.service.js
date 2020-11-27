@@ -40,6 +40,12 @@
           }));
       }
 
+      all(isWcWidgets) {
+        let stateParamUrl = isWcWidgets ? '?widgetsWc=true' : '';
+        return this.$http.get(`${this.baseUrl}${stateParamUrl}`)
+          .then((response) => response.data);
+      }
+
       /**
        * Loads assets used by the widgets and by the widgets
        * Returns a promise

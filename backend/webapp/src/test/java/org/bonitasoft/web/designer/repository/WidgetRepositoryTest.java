@@ -19,6 +19,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidgetWc;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -49,6 +50,7 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
@@ -67,10 +69,12 @@ public class WidgetRepositoryTest {
     private static final String MODEL_VERSION = "2.0";
 
     private WidgetRepository widgetRepository;
+    private WidgetRepository widgetRepositoryWc;
 
     private JacksonObjectMapper objectMapper;
 
     private Path widgetDirectory;
+    private Path widgetDirectoryWc;
 
     private JsonFileBasedPersister<Widget> jsonFileRepository;
 
@@ -86,12 +90,19 @@ public class WidgetRepositoryTest {
     @Before
     public void setUp() throws IOException {
         widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
+        widgetDirectoryWc = createDirectory(Paths.get(widgetDirectory + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
         jsonFileRepository = new DesignerConfig().widgetFileBasedPersister();
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         // spying objectMapper to be able to simulate a json conversion error
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         widgetRepository = new WidgetRepository(
                 widgetDirectory,
+                jsonFileRepository,
+                new WidgetFileBasedLoader(objectMapper),
+                new BeanValidator(validatorFactory.getValidator()),
+                watcher);
+        widgetRepositoryWc = new WidgetRepository(
+                widgetDirectoryWc,
                 jsonFileRepository,
                 new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
@@ -131,18 +142,30 @@ public class WidgetRepositoryTest {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").build();
         addToRepository(input, label);
+        Widget inputWc = aWidgetWc().id("inputWc").build();
+        Widget labelWc = aWidgetWc().id("labelWc").build();
+        addToRepositoryWc(inputWc, labelWc);
 
-        List<Widget> widgets = widgetRepository.getAll();
-
+        System.setProperty("uid.experimental", "false");
+        List<Widget> widgets = widgetRepository.getAll(false);
         assertThat(widgets).containsOnly(input, label);
+        widgets = widgetRepository.getAll(true);
+        assertThat(widgets).containsOnly(input, label);
+
+        System.setProperty("uid.experimental", "true");
+        widgets = widgetRepository.getAll(false);
+        assertThat(widgets).containsOnly(input, label);
+        List<Widget> widgetsWc = widgetRepository.getAll(true);
+        assertThat(widgetsWc).containsOnly(inputWc, labelWc);
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_if_error_occurs_while_getting_all_widgets() throws Exception {
         doThrow(new IOException()).when(objectMapper).fromJson(any(byte[].class), eq(Widget.class));
         addToRepository(aWidget().id("input").build());
-
-        widgetRepository.getAll();
+        widgetRepository.getAll(false);
+        addToRepository(aWidgetWc().id("input").build());
+        widgetRepository.getAll(true);
     }
 
     @Test
@@ -473,18 +496,40 @@ public class WidgetRepositoryTest {
         }
     }
 
+    private void addToRepositoryWc(Widget... widgets) throws Exception {
+        for (Widget widget : widgets) {
+            addToRepositoryWc(widget);
+        }
+    }
+
     private Widget addToRepository(WidgetBuilder widget) throws Exception {
         return addToRepository(widget.build());
     }
 
     private Widget addToRepository(Widget widget) throws Exception {
+        return addToRepository(widgetDirectory, widgetRepository, widget);
+    }
+
+    private Widget addToRepositoryWc(Widget widget) throws Exception {
+        return addToRepository(widgetDirectoryWc, widgetRepositoryWc, widget);
+    }
+
+    private Widget addToRepository(Path widgetDirectory, WidgetRepository widgetRepository, Widget widget) throws Exception {
         Path widgetDir = createDirectory(widgetDirectory.resolve(widget.getId()));
         writeWidgetMetadataInFile(widget, widgetDir.resolve(widget.getId() + ".json"));
-        return getFromRepository(widget.getId());
+        return getFromRepository(widgetRepository, widget.getId());
     }
 
     private Widget getFromRepository(String widgetId) {
+        return getFromRepository(widgetRepository, widgetId);
+    }
+
+    private Widget getFromRepository(WidgetRepository widgetRepository, String widgetId) {
         return widgetRepository.get(widgetId);
+    }
+
+    private Widget getFromRepositoryWc(String widgetId) {
+        return widgetRepositoryWc.get(widgetId);
     }
 
     private void writeWidgetMetadataInFile(Widget widget, Path path) throws IOException {

@@ -429,7 +429,7 @@
             <plugin>
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>0.4.27</version>
+                <version>1.0.2</version>
                 <configuration>
                     <sourceDirectory>${project.build.directory}/widget-schema/</sourceDirectory>
                     <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>

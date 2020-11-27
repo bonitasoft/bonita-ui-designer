@@ -48,9 +48,10 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public final static String BACKEND_RESOURCES = "classpath:/META-INF/resources/";
     public final static String FRONTEND_RESOURCES = "classpath:/static/";
     public final static String WIDGETS_RESOURCES = "classpath:/widgets/";
+    public final static String WIDGETS_WC_RESOURCES = "classpath:/widgetsWc/";
 
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {BACKEND_RESOURCES, FRONTEND_RESOURCES};
-    
+
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -113,6 +114,11 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         if (!registry.hasMappingForPattern("/widgets/**")) {
             registry.addResourceHandler("/widgets/**")
                     .addResourceLocations(WIDGETS_RESOURCES);
+        }
+
+        if (!registry.hasMappingForPattern("/widgetsWc/**")) {
+            registry.addResourceHandler("/widgetsWc/**")
+                    .addResourceLocations(WIDGETS_WC_RESOURCES);
         }
 
         if (!registry.hasMappingForPattern("/**")) {

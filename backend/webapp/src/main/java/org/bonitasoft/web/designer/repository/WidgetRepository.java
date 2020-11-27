@@ -17,9 +17,11 @@ package org.bonitasoft.web.designer.repository;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +35,7 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
@@ -79,6 +82,17 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     }
 
+    public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
+        try {
+            if (loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)) {
+                return loader.getAll(Paths.get(path + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
+            }
+            return loader.getAll(path);
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
+        }
+    }
+
     public List<Widget> getByIds(Set<String> widgetIds) {
         List<Widget> result = new ArrayList<>();
         for (String widgetId : widgetIds) {
@@ -102,22 +116,22 @@ public class WidgetRepository extends AbstractRepository<Widget> {
         Widget widget = get(widgetId);
         Property existingProperty = widget.getProperty(propertyName);
         if (existingProperty == null) {
-            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
+            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));
         }
         widget.replaceProperty(existingProperty, property);
         updateLastUpdateAndSave(widget);
         return widget.getProperties();
-     }
+    }
 
     public List<Property> deleteProperty(String widgetId, String propertyName) {
         Widget widget = get(widgetId);
         Property param = widget.getProperty(propertyName);
         if (param == null) {
-            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId,  propertyName));
+            throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));
         }
         widget.deleteProperty(param);
         updateLastUpdateAndSave(widget);
         return widget.getProperties();
-     }
+    }
 
 }

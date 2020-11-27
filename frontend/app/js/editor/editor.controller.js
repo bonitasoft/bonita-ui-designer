@@ -287,7 +287,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       controllerAs: 'ctrl',
       size: 'lg',
       resolve: {
-        widgets: widgetRepo.all().then(items => items),
+        widgets: widgetRepo.all($stateParams.v2).then(items => items),
         widgetFrom: angular.copy(component),
         dictionary: gettextCatalog.strings
       }

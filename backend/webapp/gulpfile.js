@@ -23,7 +23,9 @@ var paths = {
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'src/main/runtime/css/**.css'
   ],
+  widgetsWc: ['src/main/resources/widgetsWc/**/*.*'],
   widgets: ['src/main/resources/widgets/**/*.*'],
+  widgetsWcJson: ['src/main/resources/widgetsWc/**/*.json'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
   widgetsHtml: ['src/main/resources/widgets/**/*.html'],
   karma: { configFile: __dirname + '/src/test/javascript/karma.conf.js' },
@@ -34,7 +36,8 @@ var paths = {
     css: 'target/classes/META-INF/resources/runtime/css',
     fonts: 'target/classes/META-INF/resources/runtime/fonts',
     js: 'target/classes/META-INF/resources/runtime/js',
-    json: 'target/classes/widgets'
+    json: 'target/classes/widgets',
+    jsonWc: 'target/classes/widgetsWc',
   }
 };
 

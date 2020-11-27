@@ -117,7 +117,7 @@ public class WidgetResourceTest {
     public void should_serve_all_widgets_in_repository() throws Exception {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").build();
-        when(widgetRepository.getAll()).thenReturn(asList(input, label));
+        when(widgetRepository.getAll(false)).thenReturn(asList(input, label));
 
         mockMvc.perform(get("/rest/widgets"))
                 .andExpect(status().isOk())
@@ -137,7 +137,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_internal_server_error_if_an_error_occurs_while_getting_widgets() throws Exception {
-        when(widgetRepository.getAll()).thenThrow(new RepositoryException("error occurs", new Exception()));
+        when(widgetRepository.getAll(false)).thenThrow(new RepositoryException("error occurs", new Exception()));
 
         mockMvc.perform(get("/rest/widgets")).andExpect(status().is(500));
     }
@@ -702,7 +702,7 @@ public class WidgetResourceTest {
     public void should_serve_all_light_widgets_in_repository() throws Exception {
         Widget input = aWidget().id("input").build();
         Widget label = aWidget().id("label").lastUpdate(parse("2015-02-02")).build();
-        when(widgetRepository.getAll()).thenReturn(asList(input, label));
+        when(widgetRepository.getAll(false)).thenReturn(asList(input, label));
         String[] ids = {"input", "label"};
         Map<String, List<Page>> map = new HashMap();
         map.put("input", singletonList(aPage().withName("hello").build()));
