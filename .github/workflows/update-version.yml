@@ -9,9 +9,9 @@ on:
         required: true
 
 jobs:
-  updateVersion:     
+  updateVersion:
     name: Update UID version
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
@@ -31,6 +31,6 @@ jobs:
         uses: act10ns/slack@v1
         if: ${{ failure() }}
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: ${{ job.status }}

@@ -10,7 +10,7 @@ on:
 jobs:
   check-commit-message:
     name: Check Commit Message
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1

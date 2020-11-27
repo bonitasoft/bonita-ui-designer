@@ -17,7 +17,7 @@ on:
 jobs:
   publishBinaries:
     name: Build, publish and upload binaries
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Extract parameter
         id: init
@@ -76,16 +76,8 @@ jobs:
               icon_emoji: ':rocket:',
               attachments: [{
                 color: 'good',
-                text: `UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully.`,
+                text: `UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. You can open a PR on studio repository if needed`,
               }]
             }
         env:
                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Send message to Slack channel
-        uses: act10ns/slack@v1
-        if: ${{ failure() }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
-        with:
-          status: ${{ job.status }}
