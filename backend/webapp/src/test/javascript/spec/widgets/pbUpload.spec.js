@@ -180,7 +180,7 @@ describe('pbUpload', function() {
       expect(scope.properties.errorContent).toEqual(error.message);
     });
 
-    it('should update the filename if the value changes (on deletion for intance)', function () {
+    it('should update the filename if the value changes (on deletion for instance)', function () {
       var element = $compile('<pb-upload></pb-upload>')(scope);
       var controller = element.controller('pbUpload');
 
@@ -193,6 +193,18 @@ describe('pbUpload', function() {
       expect(controller.filename).toBe(filename);
 
       scope.properties.value = undefined;
+      scope.$apply();
+      expect(controller.filename).toBeUndefined();
+    });
+
+    it('should update the filename if the value changes to null', function () {
+      var element = $compile('<pb-upload></pb-upload>')(scope);
+      var controller = element.controller('pbUpload');
+
+      scope.$apply();
+      expect(controller.filename).toBe('');
+
+      scope.properties.value = null;
       scope.$apply();
       expect(controller.filename).toBeUndefined();
     });

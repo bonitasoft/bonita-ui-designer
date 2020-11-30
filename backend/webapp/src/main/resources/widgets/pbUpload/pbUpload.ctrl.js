@@ -47,10 +47,11 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   //to the filename (example with the BS-14498)
   //we watch the value to update the filename and the upload widget state
   $scope.$watch(function(){return $scope.properties.value;}, function(newValue){
+    console.log('newValue', newValue);
     if (newValue && newValue.filename) {
       ctrl.filemodel = true;
       ctrl.filename = newValue.filename;
-    } else if (!angular.isDefined(newValue)) {
+    } else if (!angular.isDefined(newValue) || newValue === null) {
       delete ctrl.filemodel;
       delete ctrl.filename;
     }
