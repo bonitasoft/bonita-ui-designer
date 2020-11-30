@@ -6,4 +6,4 @@ FROM openjdk:8-jre-alpine
 EXPOSE 8080
 WORKDIR /data
 ADD ./backend/webapp/target/ui-designer-1.13.0-SNAPSHOT-standalone.jar /data/ui-designer-standalone.jar
-CMD java -jar ui-designer-standalone.jar
+CMD java -jar ui-designer-standalone.jar -Duid.experimental=true
