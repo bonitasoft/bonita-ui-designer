@@ -133,8 +133,8 @@
                     <version>1.6</version>
                     <configuration>
                         <installDirectory>${session.executionRootDirectory}</installDirectory>
-                        <nodeVersion>v8.7.0</nodeVersion>
-                        <yarnVersion>v1.2.1 </yarnVersion>
+                        <nodeVersion>v14.15.1</nodeVersion>
+                        <yarnVersion>v1.22.5</yarnVersion>
                     </configuration>
                 </plugin>
             </plugins>

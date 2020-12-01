@@ -34,13 +34,16 @@
       parser.href = url;
 
       var queries, parameters;
+
+
+
       queries = parser.search.replace(/^\?/, '').split('&');
 
       var ignoreTimeParameter = function(acc, current) {
         if(!current.startsWith('time=')) {
           var separator='';
           if (acc.length >0) {
-           separator = '&';
+            separator = '&';
           }
           return acc + separator + current;
         }

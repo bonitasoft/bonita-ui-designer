@@ -6,7 +6,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
   this.action = function action() {
     if ($scope.properties.action === 'Remove from collection') {
-      removeFromCollection();
+      // removeFromCollection();
       closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
@@ -31,7 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
   function closeModal(shouldClose) {
     if(shouldClose)
-      modalService.close();
+    {modalService.close();}
   }
 
   function removeFromCollection() {

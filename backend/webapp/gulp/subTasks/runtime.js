@@ -1,0 +1,99 @@
+const {src, parallel, dest, task} = require('gulp');
+const concat = require('gulp-concat');
+const gulpIf = require('gulp-if');
+const {config} = require('../config');
+const uglify = require('gulp-uglify');
+const html2js = require('gulp-ng-html2js');
+const plumber = require('gulp-plumber');
+const order = require('gulp-order');
+const sourcemaps = require('gulp-sourcemaps');
+const ngAnnotate = require('gulp-ng-annotate');
+const babel = require('gulp-babel');
+const merge = require('merge-stream');
+
+/**
+ * js task, concatenate and minimify vendor js files
+ */
+function notMinified(file) {
+  return !/(src-min|\.min\.js)/.test(file.path);
+}
+
+function vendor() {
+  return src(config.paths.vendor)
+    .pipe(concat('vendor.min.js'))
+    .pipe(gulpIf(notMinified, uglify()))
+    .pipe(dest(config.paths.dest.vendors));
+}
+
+function runtimeCss(){
+  return src(config.paths.css)
+    .pipe(dest(config.paths.dest.css));
+}
+
+function runtimeFonts(){
+  return src(config.paths.fonts)
+    .pipe(dest(config.paths.dest.fonts));
+}
+
+function runtimeJs(){
+  let tpl = src(config.paths.templates)
+    .pipe(html2js({
+      moduleName: 'bonitasoft.ui.templates'
+    }));
+
+  let app = src(config.paths.runtime)
+    .pipe(plumber())
+    .pipe(order([
+      '**/*.module.js',
+      '**/*.js'
+    ]))
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(ngAnnotate({
+      'single_quotes': true,
+      add: true
+    }));
+
+  return merge(app, tpl)
+    .pipe(concat('runtime.min.js'))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest(config.paths.dest.js));
+}
+
+exports.vendor = vendor;
+exports.runtimeCss = runtimeCss;
+exports.runtimeFonts = runtimeFonts;
+exports.runtimeJs = runtimeJs;
+
+task('runtime', parallel(vendor,runtimeCss,runtimeFonts,runtimeJs));
+exports.runtime= parallel(vendor,runtimeCss,runtimeFonts,runtimeJs);
+
+// /**
+//  * js task, concatenate and minimify js files
+//  */
+// gulp.task('runtime:js', function () {
+//   var tpl = gulp.src(paths.templates)
+//     .pipe(html2js({
+//       moduleName: 'bonitasoft.ui.templates'
+//     }));
+//
+//   var app = gulp.src(paths.runtime)
+//     .pipe(plumber())
+//     .pipe(order([
+//       '**/*.module.js',
+//       '**/*.js'
+//     ]))
+//     .pipe(sourcemaps.init())
+//     .pipe(babel())
+//     .pipe(ngAnnotate({
+//       'single_quotes': true,
+//       add: true
+//     }));
+//
+//   return merge(app, tpl)
+//     .pipe(concat('runtime.min.js'))
+//     .pipe(uglify())
+//     .pipe(sourcemaps.write('.'))
+//     .pipe(gulp.dest(paths.dest.js));
+// });
