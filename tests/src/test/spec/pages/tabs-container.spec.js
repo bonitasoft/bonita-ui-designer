@@ -9,10 +9,10 @@ describe('tabsContainer', function () {
     expect(navTabs.count()).toBe(2);
     navTabs.first().click();
     expect(element(by.css('.first-tab-content')).isDisplayed()).toBe(true);
-    expect(element(by.css('.second-tab-content')).isDisplayed()).toBe(false);
+    expect(element(by.css('.second-tab-content')).isPresent()).toBe(false);
 
     navTabs.last().click();
-    expect(element(by.css('.first-tab-content')).isDisplayed()).toBe(false);
+    expect(element(by.css('.first-tab-content')).isPresent()).toBe(false);
     expect(element(by.css('.second-tab-content')).isDisplayed()).toBe(true);
 
   });

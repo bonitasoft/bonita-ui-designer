@@ -20,6 +20,12 @@
       "type": "text",
       "defaultValue": "Tab x",
       "bond": "interpolation"
+    },
+    {
+      "label": "Active",
+      "name": "active",
+      "type": "text",
+      "bond": "variable"
     }
   ],
   "assets": [
