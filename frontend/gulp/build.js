@@ -6,7 +6,7 @@ var gulpIf = require('gulp-if');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var less = require('gulp-less');
-var autoPrefixer = require('gulp-autoprefixer');
+//var autoPrefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
 var babel = require('gulp-babel');
 var jshint = require('gulp-jshint');
@@ -90,7 +90,7 @@ module.exports = function (gulp, config) {
         fontName: 'bonita-ui-designer',
         centerHorizontally: true,
         normalize: true,
-        appendUnicode: true
+        prependUnicode: true
       }))
       .pipe(gulp.dest(paths.dev + '/font'));
   });
@@ -99,10 +99,11 @@ module.exports = function (gulp, config) {
     var lessPipe = gulp.src('app/less/main.less')
       .pipe(plumber())
       .pipe(less())
-      .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'))
-      .pipe(autoPrefixer({
+      .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'));
+    // TODO see package.json browserslist
+    /*.pipe(autoPrefixer({
         browsers: ['ie >= 9', '> 1%']
-      }));
+      }));*/
     var cssPipe = gulp.src(paths.css);
     return merge(lessPipe, cssPipe).pipe(concat('main.css'))
       .pipe(gulp.dest(paths.dev + '/css'));

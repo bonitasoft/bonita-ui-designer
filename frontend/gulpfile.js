@@ -134,7 +134,7 @@ require('./gulp/serve.js')(gulp, config);
 /**
  * Aliasing dev task
  */
-gulp.task('serve', 'dev');
+//gulp.task('serve', 'dev');
 
 gulp.task('default', gulp.series('clean', 'ddescriber', 'build'));
 
