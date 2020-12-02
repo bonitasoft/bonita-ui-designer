@@ -30,10 +30,6 @@ module.exports = function (gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
 
-  gulp.task('build', ['jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist']);
-
-  gulp.task('bundle', ['bundle:vendors', 'bundle:js', 'bundle:css', 'bundle:icons']);
-
   /**
    * Clean the directories created by tasks in this file
    */
@@ -48,11 +44,6 @@ module.exports = function (gulp, config) {
     return gulp.src(paths.tests)
       .pipe(ddescriber());
   });
-
-  /**
-   * Assets
-   */
-  gulp.task('assets', ['assets:font', 'assets:ace', 'assets:images', 'assets:licences', 'assets:favicon', 'assets:locales']);
 
   gulp.task('assets:locales', function () {
     return gulp.src(paths.locales)
@@ -82,19 +73,6 @@ module.exports = function (gulp, config) {
   gulp.task('assets:favicon', function () {
     return gulp.src(paths.assets.favicon)
       .pipe(gulp.dest(paths.dist));
-  });
-
-  /**
-   * Translate application
-   */
-
-  gulp.task('pot', ['bundle:html'], function () {
-    var files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
-      return files.concat(arr);
-    }, []);
-    return gulp.src(files)
-      .pipe(gettext.extract('lang-template.pot', {}))
-      .pipe(gulp.dest('build/po'));
   });
 
   /**
@@ -130,7 +108,7 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.dev + '/css'));
   });
 
-  gulp.task('dist:css', ['bundle:icons', 'bundle:css'], function () {
+  gulp.task('dist:css', gulp.series('bundle:icons', 'bundle:css'), function () {
     return gulp.src(paths.dev + '/css/*.css')
       .pipe(base64())
       .pipe(concat('page-builder.css'))
@@ -153,7 +131,7 @@ module.exports = function (gulp, config) {
    * bundle JS
    * concat generated templates and javascript files
    */
-  gulp.task('bundle:js', ['bundle:html'], function () {
+  gulp.task('bundle:js', gulp.series('bundle:html'), function () {
     var tpl = gulp.src(paths.dev + '/html/**/*.html')
     //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
@@ -212,7 +190,7 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.testFolder));
   });
 
-  gulp.task('dist:js', ['bundle:js'], function () {
+  gulp.task('dist:js', gulp.series('bundle:js'), function () {
     return gulp.src(paths.dev + '/js/app.js')
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
@@ -238,7 +216,7 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.dev + '/js'));
   });
 
-  gulp.task('dist:vendors', ['bundle:vendors'], function () {
+  gulp.task('dist:vendors', gulp.series('bundle:vendors'), function () {
 
     return gulp.src(paths.dev + '/js/vendors.js')
       .pipe(rename('vendors-' + timestamp + '.min.js'))
@@ -257,4 +235,27 @@ module.exports = function (gulp, config) {
       }))
       .pipe(gulp.dest(paths.dist));
   });
+
+  /**
+   * Assets
+   */
+  gulp.task('assets', gulp.series('assets:font', 'assets:ace', 'assets:images', 'assets:licences', 'assets:favicon', 'assets:locales'));
+
+  /**
+   * Translate application
+   */
+
+  gulp.task('pot', gulp.series('bundle:html'), function () {
+    var files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
+      return files.concat(arr);
+    }, []);
+    return gulp.src(files)
+      .pipe(gettext.extract('lang-template.pot', {}))
+      .pipe(gulp.dest('build/po'));
+  });
+
+  gulp.task('build', gulp.series('jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist'));
+
+  gulp.task('bundle', gulp.series('bundle:vendors', 'bundle:js', 'bundle:css', 'bundle:icons'));
+
 };

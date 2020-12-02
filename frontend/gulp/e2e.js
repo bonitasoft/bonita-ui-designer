@@ -15,40 +15,14 @@ module.exports = function(gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
 
-  /**
-   * Concatenate e2e libs
-   */
-  gulp.task('bundle:e2e', function () {
-    return gulp.src(paths.e2e)
-      .pipe(plumber())
-      .pipe(order([
-        '**/*.module.js',
-        '**/*.js'
-      ]))
-      .pipe(babel())
-      .pipe(concat('e2e.js'))
-      .pipe(gulp.dest(paths.test + '/js'));
+  gulp.task('e2e:ReportScafold', function(done) {
+    mkdirp('build/reports/e2e-tests', done);
   });
-
-  /**
-   * index file
-   */
-  gulp.task('index:e2e', function () {
-    return gulp.src('app/index.html')
-      .pipe(htmlreplace({
-        'js': 'js/page-builder-' + timestamp + '.min.js',
-        'vendors': 'js/vendors-' + timestamp + '.min.js',
-        'css': 'css/page-builder-' + timestamp + '.min.css',
-        'e2e': 'js/e2e.js'
-      }))
-      .pipe(gulp.dest(paths.test));
-  });
-
 
   /**
    * e2e Tests
    */
-  gulp.task('e2e', ['e2e:ReportScafold', 'build', 'bundle:e2e', 'index:e2e'], function () {
+  gulp.task('e2e', gulp.series('e2e:ReportScafold', 'build', 'bundle:e2e', 'index:e2e'), function () {
     var server = serveE2e(paths);
 
     return gulp.src([])
@@ -62,10 +36,6 @@ module.exports = function(gulp, config) {
       .on('end', function () {
         server.close();
       });
-  });
-
-  gulp.task('e2e:ReportScafold', function(done) {
-    mkdirp('build/reports/e2e-tests', done);
   });
 
 };

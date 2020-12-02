@@ -7,6 +7,8 @@ var multiparty = require('multiparty');
 module.exports = function (gulp, config) {
 
   require('./build.js')(gulp, config);
+  require('./index.js')(gulp, config);
+  require('./bundle.js')(gulp, config);
 
   var paths = config.paths;
 
@@ -126,7 +128,7 @@ module.exports = function (gulp, config) {
    * This task is not working with the WebSocket connection, but SockJS falls back on long-polling
    * so the live reload in preview still work
    */
-  gulp.task('serve:dev', ['bundle', 'assets', 'index:dev'], function () {
+  gulp.task('serve:dev', gulp.series('bundle', 'assets', 'index:dev'), function () {
     browserSyncInit(paths.dev, [
       paths.dev + '/**/*.js',
       paths.dev + '/**/*.css'
@@ -141,7 +143,7 @@ module.exports = function (gulp, config) {
   });
 
 
-  gulp.task('serve:e2e', ['build', 'bundle:e2e', 'index:e2e'], function () {
+  gulp.task('serve:e2e', gulp.series('build', 'bundle:e2e', 'index:e2e'), function () {
     return serveE2e(paths);
   });
 

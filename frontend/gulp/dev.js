@@ -1,16 +1,9 @@
 module.exports = function(gulp, config) {
 
   require('./serve.js')(gulp, config);
+  require('./index.js')(gulp, config);
 
   var paths = config.paths;
-
-  /**
-   * Index file
-   */
-  gulp.task('index:dev', function () {
-    return gulp.src('app/index.html')
-      .pipe(gulp.dest(config.paths.dev));
-  });
 
   gulp.task('watch', function() {
     gulp.watch(paths.js, ['bundle:js']);
@@ -20,7 +13,14 @@ module.exports = function(gulp, config) {
     gulp.watch(paths.images, ['bundle:icons']);
   });
 
-  gulp.task('dev', ['clean', 'watch'], function() {
+  gulp.task('serve:dev', gulp.series('bundle', 'assets', 'index:dev'), function () {
+    browserSyncInit(paths.dev, [
+      paths.dev + '/**/*.js',
+      paths.dev + '/**/*.css'
+    ], 'index.html');
+  });
+
+  gulp.task('dev', gulp.series('clean', 'watch'), function() {
     config.devMode = true;
     return gulp.start('serve:dev');
   });

@@ -15,7 +15,7 @@ module.exports = function(gulp, config) {
   /**
    * unit tests once and exit
    */
-  gulp.task('test', ['jshint:test'], function (done) {
+  gulp.task('test', gulp.series('jshint:test'), function (done) {
     return new Server({
       configFile: config.paths.karma,
       singleRun: true
@@ -25,7 +25,7 @@ module.exports = function(gulp, config) {
   /**
    * unit tests in autowatch mode
    */
-  gulp.task('test:watch', ['jshint:test'], function (done) {
+  gulp.task('test:watch', gulp.series('jshint:test'), function (done) {
     return  new Server({
       configFile: config.paths.karma,
       singleRun: false
