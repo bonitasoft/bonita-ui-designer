@@ -3,12 +3,11 @@ var merge = require('merge-stream');
 var replace = require('gulp-replace');
 var order = require('gulp-order');
 var gulpIf = require('gulp-if');
-var ngAnnotate = require('gulp-ng-annotate');
-var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate-patched');
+var uglify = require('gulp-uglify-es').default;
 var less = require('gulp-less');
 //var autoPrefixer = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
-var babel = require('gulp-babel');
 var jshint = require('gulp-jshint');
 var html2js = require('gulp-ng-html2js');
 var minifyHTML = require('gulp-minify-html');
@@ -111,14 +110,14 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.dev + '/css'));
   });
 
-  gulp.task('dist:css', gulp.series('bundle:icons', 'bundle:css'), function () {
+  gulp.task('dist:css', gulp.series('bundle:icons', 'bundle:css', function dist_css() {
     return gulp.src(paths.dev + '/css/*.css')
       .pipe(base64())
       .pipe(concat('page-builder.css'))
       .pipe(csso())
       .pipe(rename('page-builder-' + timestamp + '.min.css'))
       .pipe(gulp.dest(paths.dist + '/css'));
-  });
+  }));
 
   gulp.task('bundle:html', function () {
     var options = {
@@ -134,7 +133,7 @@ module.exports = function (gulp, config) {
    * bundle JS
    * concat generated templates and javascript files
    */
-  gulp.task('bundle:js', gulp.series('bundle:html'), function () {
+  gulp.task('bundle:js', gulp.series('bundle:html', function bundle_js() {
     var tpl = gulp.src(paths.dev + '/html/**/*.html')
     //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
@@ -151,7 +150,6 @@ module.exports = function (gulp, config) {
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
-      .pipe(babel())
       .pipe(ngAnnotate({
         'single_quotes': true,
         add: true
@@ -161,7 +159,7 @@ module.exports = function (gulp, config) {
       .pipe(concat('app.js'))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(paths.dev + '/js'));
-  });
+  }));
 
   gulp.task('jshint', function () {
     function notMinified(file) {
@@ -193,15 +191,14 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.testFolder));
   });
 
-  gulp.task('dist:js', gulp.series('bundle:js'), function () {
+  gulp.task('dist:js', gulp.series('bundle:js', function dist_js() {
     return gulp.src(paths.dev + '/js/app.js')
-      .pipe(debug())
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
       .pipe(uglify({output: {'ascii_only': true}}))   // preserve ascii unicode characters such as \u226E
       .pipe(header(config.banner))
       .pipe(gulp.dest(paths.dist + '/js'));
-  });
+  }));
 
   /**
    * Concatenate js vendor libs
@@ -212,7 +209,6 @@ module.exports = function (gulp, config) {
     }
 
     return gulp.src(paths.vendor)
-      .pipe(debug())
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(gulpIf(notMinified, uglify()))
@@ -221,12 +217,12 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(paths.dev + '/js'));
   });
 
-  gulp.task('dist:vendors', gulp.series('bundle:vendors'), function () {
+  gulp.task('dist:vendors', gulp.series('bundle:vendors', function dist_vendors() {
 
     return gulp.src(paths.dev + '/js/vendors.js')
       .pipe(rename('vendors-' + timestamp + '.min.js'))
       .pipe(gulp.dest(paths.dist + '/js'));
-  });
+  }));
 
   /**
    * Index
@@ -250,14 +246,14 @@ module.exports = function (gulp, config) {
    * Translate application
    */
 
-  gulp.task('pot', gulp.series('bundle:html'), function () {
+  gulp.task('pot', gulp.series('bundle:html', function pot() {
     var files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
       return files.concat(arr);
     }, []);
     return gulp.src(files)
       .pipe(gettext.extract('lang-template.pot', {}))
       .pipe(gulp.dest('build/po'));
-  });
+  }));
 
   gulp.task('build', gulp.series('jshint', 'assets', 'pot', 'dist:css', 'dist:js', 'dist:vendors', 'index:dist'));
 

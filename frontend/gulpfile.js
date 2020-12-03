@@ -7,7 +7,6 @@ var paths = {
   test: 'build/test',
   dist: 'build/dist',
   vendor: [
-    'node_modules/@babel/polyfill/dist/polyfill.min.js',
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/moment/min/moment.min.js',
     'bower_components/ace-builds/src-min-noconflict/ace.js',
