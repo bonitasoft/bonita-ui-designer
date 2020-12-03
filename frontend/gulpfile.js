@@ -7,7 +7,7 @@ var paths = {
   test: 'build/test',
   dist: 'build/dist',
   vendor: [
-    'node_modules/babel-polyfill/dist/polyfill.min.js',
+    'node_modules/@babel/polyfill/dist/polyfill.min.js',
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/moment/min/moment.min.js',
     'bower_components/ace-builds/src-min-noconflict/ace.js',
@@ -124,12 +124,11 @@ var config = {
 };
 
 require('./gulp/build.js')(gulp, config);
-/*
-require('./gulp/test.js')(gulp, config);
-require('./gulp/e2e.js')(gulp, config);
-require('./gulp/dev.js')(gulp, config);
-require('./gulp/serve.js')(gulp, config);
-*/
+// require('./gulp/test.js')(gulp, config);
+// require('./gulp/e2e.js')(gulp, config);
+// require('./gulp/dev.js')(gulp, config);
+// require('./gulp/serve.js')(gulp, config);
+
 
 /**
  * Aliasing dev task

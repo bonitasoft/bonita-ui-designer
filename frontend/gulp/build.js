@@ -26,6 +26,8 @@ var iconfontCss = require('gulp-iconfont-css');
 var base64 = require('gulp-base64');
 const jscs = require('gulp-jscs');
 
+const debug = require('gulp-debug');
+
 module.exports = function (gulp, config) {
   var paths = config.paths;
   var timestamp = config.timestamp;
@@ -193,6 +195,7 @@ module.exports = function (gulp, config) {
 
   gulp.task('dist:js', gulp.series('bundle:js'), function () {
     return gulp.src(paths.dev + '/js/app.js')
+      .pipe(debug())
       .pipe(rename('page-builder-' + timestamp + '.min.js'))
       .pipe(replace('\'%debugMode%\'', !utils.env.dist))
       .pipe(uglify({output: {'ascii_only': true}}))   // preserve ascii unicode characters such as \u226E
@@ -209,6 +212,7 @@ module.exports = function (gulp, config) {
     }
 
     return gulp.src(paths.vendor)
+      .pipe(debug())
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(gulpIf(notMinified, uglify()))
