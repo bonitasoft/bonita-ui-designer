@@ -17,7 +17,7 @@
         <spring.version>5.2.3.RELEASE</spring.version>
         <aspectj.version>1.8.5</aspectj.version>
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
-        <uidModelVersion>2.0</uidModelVersion>
+        <uidModelVersion>2.1</uidModelVersion>
     </properties>
 
     <modules>

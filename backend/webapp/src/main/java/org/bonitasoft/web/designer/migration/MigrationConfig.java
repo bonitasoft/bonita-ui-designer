@@ -88,10 +88,6 @@ public class MigrationConfig {
         return new AutocompleteWidgetReturnedKeyMigrationStep(componentVisitor);
     }
 
-    @Bean
-    public AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
-        return new AddModelVersionMigrationStep();
-    }
 
     @Bean
     public LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate(JsonFileBasedLoader<Page> pageFileBasedLoader,
@@ -142,11 +138,6 @@ public class MigrationConfig {
     }
 
     @Bean
-    public AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep(ComponentVisitor componentVisitor) {
-        return new AddModelVersionMigrationStep<Fragment>();
-    }
-
-    @Bean
     public DataExposedMigrationStep<Fragment> fragmentDataExposedMigrationStep() {
         return new DataExposedMigrationStep();
     }
@@ -169,8 +160,7 @@ public class MigrationConfig {
                                                                 TableWidgetInterpretHTMLMigrationStep<Fragment> fragmentTablesWidgetInterpretHTMLMigrationStep,
                                                                 TableWidgetStylesMigrationStep<Fragment> fragmentTableWidgetStylesMigrationStep,
                                                                 AutocompleteWidgetReturnedKeyMigrationStep<Fragment> fragmentAutocompleteWidgetReturnedKeyMigrationStep,
-                                                                DataExposedMigrationStep<Fragment> dataExposedMigrationStep,
-                                                                AddModelVersionMigrationStep<Fragment> fragmentAddModelVersionMigrationStep) {
+                                                                DataExposedMigrationStep<Fragment> dataExposedMigrationStep) {
         return asList(
                 new Migration<>("1.0.3", fragmentBondMigrationStep),
                 new Migration<>("1.7.25", fragmentTextWidgetInterpretHTMLMigrationStep),
@@ -179,7 +169,8 @@ public class MigrationConfig {
                 new Migration<>("1.10.16", fragmentTablesWidgetInterpretHTMLMigrationStep),
                 new Migration<>("1.10.18", fragmentTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.46", dataExposedMigrationStep),
-                new Migration<>(INITIAL_MODEL_VERSION, fragmentAddModelVersionMigrationStep, fragmentAutocompleteWidgetReturnedKeyMigrationStep));
+                new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep("INITIAL_MODEL_VERSION")),
+                new Migration<>("2.1", new AddModelVersionMigrationStep("2.1"), fragmentAutocompleteWidgetReturnedKeyMigrationStep));
     }
 
     @Resource(name = "pageMigrationStepsList")
@@ -200,8 +191,8 @@ public class MigrationConfig {
             TableWidgetStylesMigrationStep<Page> pageTableWidgetStylesMigrationStep,
             AutocompleteWidgetReturnedKeyMigrationStep<Page> pageAutocompleteWidgetReturnedKeyMigrationStep,
             BusinessVariableMigrationStep<Page> pageBusinessVariableMigrationStep,
-            AddModelVersionMigrationStep<Page> pageAddModelVersionMigrationStep,
-            StyleUpdateInputRequiredLabelMigrationStep styleUpdateInputRequiredLabelMigrationStep) {
+            StyleUpdateInputRequiredLabelMigrationStep styleUpdateInputRequiredLabelMigrationStep
+            ) {
         return asList(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Page>()),
                 new Migration<>("1.0.3", pageBondMigrationStep),
@@ -218,7 +209,8 @@ public class MigrationConfig {
                 new Migration<>("1.10.18", pageTableWidgetStylesMigrationStep),
                 new Migration<>("1.11.40", pageBusinessVariableMigrationStep),
                 new Migration<>("1.11.46", styleUpdateInputRequiredLabelMigrationStep),
-                new Migration<>(INITIAL_MODEL_VERSION, pageAddModelVersionMigrationStep, pageAutocompleteWidgetReturnedKeyMigrationStep));
+                new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep(INITIAL_MODEL_VERSION), pageAutocompleteWidgetReturnedKeyMigrationStep),
+                new Migration<>("2.1", new AddModelVersionMigrationStep("2.1")));
     }
 
     @Bean
@@ -237,7 +229,8 @@ public class MigrationConfig {
                 new Migration<>("1.0.2", new AssetIdMigrationStep<Widget>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<Widget>()),
                 new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),
-                new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<Widget>()));
+                new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<Widget>(INITIAL_MODEL_VERSION)),
+                new Migration<>("2.1", new AddModelVersionMigrationStep<Widget>("2.1")));
     }
 
     @Bean

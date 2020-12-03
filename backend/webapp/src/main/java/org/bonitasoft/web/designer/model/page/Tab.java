@@ -27,6 +27,7 @@ public class Tab {
     private Container container = new Container();
     private String title;
     private String id = UUID.randomUUID().toString();
+    private String active;
 
     @JsonView({JsonViewPersistence.class})
     public Container getContainer() {
@@ -55,6 +56,15 @@ public class Tab {
         this.id = id;
     }
 
+    @JsonView({JsonViewPersistence.class})
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Tab) {
@@ -62,6 +72,7 @@ public class Tab {
             return new EqualsBuilder()
                     .append(container, other.container)
                     .append(title, other.title)
+                    .append(active, other.active)
                     .isEquals();
         } else {
             return false;
@@ -73,6 +84,7 @@ public class Tab {
         return new HashCodeBuilder(17, 37)
                 .append(container)
                 .append(title)
+                .append(active)
                 .toHashCode();
     }
 }

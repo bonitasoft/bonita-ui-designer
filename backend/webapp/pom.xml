@@ -9,7 +9,7 @@
     </parent>
 
     <properties>
-        <uidModelVersion>2.0</uidModelVersion>
+        <uidModelVersion>2.1</uidModelVersion>
     </properties>
 
     <artifactId>ui-designer-backend-webapp</artifactId>

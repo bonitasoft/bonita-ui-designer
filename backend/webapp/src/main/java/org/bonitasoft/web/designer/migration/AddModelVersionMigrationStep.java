@@ -17,19 +17,21 @@ package org.bonitasoft.web.designer.migration;
 
 import java.util.Optional;
 
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AddModelVersionMigrationStep<A extends DesignerArtifact> extends AbstractMigrationStep<A> {
 
-    @Override
-    public Optional<MigrationStepReport> migrate(A artifact) {
-        artifact.setModelVersion(MigrationConfig.INITIAL_MODEL_VERSION);
-        return Optional.empty();
+    private String newModelVersion;
+
+    public AddModelVersionMigrationStep(String newModelVersion) {
+        super();
+        this.newModelVersion = newModelVersion;
     }
 
-}
+    @Override
+    public Optional<MigrationStepReport> migrate(A artifact) {
+        artifact.setModelVersion(this.newModelVersion);
+        return Optional.empty();
+    }
+   }
