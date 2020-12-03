@@ -125,14 +125,14 @@ var config = {
 require('./gulp/build.js')(gulp, config);
 // require('./gulp/test.js')(gulp, config);
 // require('./gulp/e2e.js')(gulp, config);
-// require('./gulp/dev.js')(gulp, config);
-// require('./gulp/serve.js')(gulp, config);
+require('./gulp/dev.js')(gulp, config);
+require('./gulp/serve.js')(gulp, config);
 
 
 /**
  * Aliasing dev task
  */
-//gulp.task('serve', 'dev');
+gulp.task('serve', gulp.series('dev'));
 
 gulp.task('default', gulp.series('clean', 'ddescriber', 'build'));
 

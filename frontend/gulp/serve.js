@@ -128,12 +128,12 @@ module.exports = function (gulp, config) {
    * This task is not working with the WebSocket connection, but SockJS falls back on long-polling
    * so the live reload in preview still work
    */
-  gulp.task('serve:dev', gulp.series('bundle', 'assets', 'index:dev'), function () {
+  gulp.task('serve:dev', gulp.series('bundle', 'assets', 'index:dev', function serve_dev() {
     browserSyncInit(paths.dev, [
       paths.dev + '/**/*.js',
       paths.dev + '/**/*.css'
     ], 'index.html');
-  });
+  }));
 
   gulp.task('serve:dist', function () {
     browserSyncInit('build/dist', [
@@ -143,9 +143,9 @@ module.exports = function (gulp, config) {
   });
 
 
-  gulp.task('serve:e2e', gulp.series('build', 'bundle:e2e', 'index:e2e'), function () {
+  gulp.task('serve:e2e', gulp.series('build', 'bundle:e2e', 'index:e2e', function serve_e2e() {
     return serveE2e(paths);
-  });
+  }));
 
   return {
     serveE2e: serveE2e,
