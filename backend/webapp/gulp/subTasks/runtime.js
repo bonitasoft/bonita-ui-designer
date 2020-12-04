@@ -2,7 +2,7 @@ const {src, parallel, dest, task} = require('gulp');
 const concat = require('gulp-concat');
 const gulpIf = require('gulp-if');
 const {config} = require('../config');
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 const html2js = require('gulp-ng-html2js');
 const plumber = require('gulp-plumber');
 const order = require('gulp-order');
@@ -21,7 +21,7 @@ function notMinified(file) {
 function vendor() {
   return src(config.paths.vendor)
     .pipe(concat('vendor.min.js'))
-    .pipe(gulpIf(notMinified, uglify()))
+    .pipe(gulpIf(notMinified, uglify().on('error', console.error)))
     .pipe(dest(config.paths.dest.vendors));
 }
 
@@ -56,7 +56,7 @@ function runtimeJs(){
 
   return merge(app, tpl)
     .pipe(concat('runtime.min.js'))
-    .pipe(uglify())
+    .pipe(uglify().on('error', console.error))
     .pipe(sourcemaps.write('.'))
     .pipe(dest(config.paths.dest.js));
 }
@@ -69,31 +69,3 @@ exports.runtimeJs = runtimeJs;
 task('runtime', parallel(vendor,runtimeCss,runtimeFonts,runtimeJs));
 exports.runtime= parallel(vendor,runtimeCss,runtimeFonts,runtimeJs);
 
-// /**
-//  * js task, concatenate and minimify js files
-//  */
-// gulp.task('runtime:js', function () {
-//   var tpl = gulp.src(paths.templates)
-//     .pipe(html2js({
-//       moduleName: 'bonitasoft.ui.templates'
-//     }));
-//
-//   var app = gulp.src(paths.runtime)
-//     .pipe(plumber())
-//     .pipe(order([
-//       '**/*.module.js',
-//       '**/*.js'
-//     ]))
-//     .pipe(sourcemaps.init())
-//     .pipe(babel())
-//     .pipe(ngAnnotate({
-//       'single_quotes': true,
-//       add: true
-//     }));
-//
-//   return merge(app, tpl)
-//     .pipe(concat('runtime.min.js'))
-//     .pipe(uglify())
-//     .pipe(sourcemaps.write('.'))
-//     .pipe(gulp.dest(paths.dest.js));
-// });
