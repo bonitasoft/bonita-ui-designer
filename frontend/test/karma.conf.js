@@ -16,6 +16,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
       'bower_components/jquery/dist/jquery.js',
       'bower_components/ace-builds/src-noconflict/ace.js',
       'bower_components/ace-builds/src-noconflict/ext-language_tools.js',
@@ -58,6 +59,13 @@ module.exports = function(config) {
     exclude: [
     ],
 
+    babelPreprocessor: {
+      options: {
+        presets: ['bonita'],
+        retainLines: true
+      }
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
     reporters: ['progress', 'junit', 'coverage'],
@@ -66,8 +74,8 @@ module.exports = function(config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
-      'app/js/**/*.js': ['coverage'],
-      'test/unit/**/*.js': ['commonjs'],
+      'app/js/**/*.js': ['babel', 'coverage'],
+      'test/unit/**/*.js': ['babel', 'commonjs'],
       'app/js/**/*.html': ['ng-html2js']
     },
 
