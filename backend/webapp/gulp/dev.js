@@ -1,47 +1,65 @@
-var fs = require('fs');
-var buildWidget = require('widget-builder/src/index').buildWidget;
-var shell = require('gulp-shell');
+const {widgets} = require('./subTasks/widgets');
+const {runtime, runtimeCss, runtimeJs} = require('./subTasks/runtime');
+const {task, series, src, dest, watch} = require('gulp');
+const shell = require('gulp-shell');
+const {config} = require('./config');
+const fs = require('fs');
+const { buildWidget } = require('widget-builder/src/index.js');
 
-module.exports = function(gulp, config) {
+function dev(){
+  return series(widgets,runtime,devHtml, devWatch, shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
+}
+/**
+ * dev task
+ * Watch js and html files and launch jetty, without automatic reloading
+ */
+task('dev',dev());
 
-  var paths = config.paths;
+exports.dev = dev;
 
-  require('./build.js')(gulp, config);
+/**
+ * Watch task.
+ */
+function devWatch(done) {
+  watch(config.paths.css, runtimeCss);
+  watch(config.paths.runtime, runtimeJs);
+  watch(config.paths.widgets, devWidgets);
+  watch(config.paths.widgetsWc, devWidgetsWc);
+  watch(config.paths.templates, devHtml);
+  done();
+}
 
-  /**
-   * dev task
-   * Watch js and html files and launch jetty, without automatic reloading
-   */
-  gulp.task('dev', ['widgets', 'runtime', 'dev:html', 'dev:watch'], shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
+/**
+ * html task, just updating the templates used by jetty
+ */
+function devHtml() {
+  return src(config.paths.templates).pipe(dest('target/classes/templates/'));
+}
 
-  /**
-   * Watch task.
-   */
-  gulp.task('dev:watch', function() {
-    gulp.watch(paths.css, ['runtime:css']);
-    gulp.watch(paths.runtime, ['runtime:js']);
-    gulp.watch(paths.widgets, ['dev:widgets']);
-    gulp.watch(paths.templates, ['dev:html']);
-  });
+/**
+ * Task to inline json and build a widgets repository for development.
+ */
+function devWidgets(done) {
+  // only copy widgets if the repository exist to let
+  // the application create and build them the first time.
+  if (fs.existsSync(config.paths.dev.widgets)) {
+    src(config.paths.widgetsJson)
+      .pipe(buildWidget())
+      .pipe(dest(config.paths.dev.widgets));
+  }
+  done();
+}
 
-  /**
-   * html task, just updating the templates used by jetty
-   */
-  gulp.task('dev:html', function() {
-    return gulp.src(paths.templates).pipe(gulp.dest('target/classes/templates/'));
-  });
+/**
+ * Task to inline json and build a widgets repository for development.
+ */
+function devWidgetsWc(done) {
+  // only copy widgets if the repository exist to let
+  // the application create and build them the first time.
+  if (fs.existsSync(config.paths.dev.widgetsWc)) {
+    src(config.paths.widgetsWcJson)
+      .pipe(dest(config.paths.dev.widgetsWc));
+  }
+  done();
+}
 
-  /**
-   * Task to inline json and build a widgets repository for development.
-   */
-  gulp.task('dev:widgets', function() {
-    // only copy widgets if the repository exist to let
-    // the application create and build them the first time.
-    if (fs.existsSync('target/widgets-repository')) {
-      gulp.src(paths.widgetsJson)
-        .pipe(buildWidget())
-        .pipe(gulp.dest('target/widgets-repository'));
-    }
-  });
-
-};

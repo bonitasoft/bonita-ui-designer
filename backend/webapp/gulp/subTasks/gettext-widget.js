@@ -22,7 +22,7 @@ function prepare() {
       '}'
     ];
 
-    file.contents = new Buffer(newfile.join(os.EOL));
+    file.contents = Buffer.from(newfile.join(os.EOL));
     cb(undefined, file);
   });
 
@@ -143,7 +143,7 @@ function extract() {
     });
 
     file.path = gutil.replaceExtension(file.path, '.pot');
-    file.contents = new Buffer(transform(i18n));
+    file.contents = Buffer.from(transform(i18n));
 
     cb(undefined, file);
 
