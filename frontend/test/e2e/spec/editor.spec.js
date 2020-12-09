@@ -207,7 +207,7 @@ describe('editor test', function() {
   it('should allow adding a custom widget', function() {
     editor.addCustomWidget('customAwesomeWidget');
 
-    expect($('#component-0 .widget-content').getInnerHtml()).toContain('My awesome widget just rocks!');
+    expect($('#component-0 .widget-content').getAttribute('innerHTML')).toContain('My awesome widget just rocks!');
 
     editor.removeWidget();
     expect($$('#component-0').count()).toBe(0);
