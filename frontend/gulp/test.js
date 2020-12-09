@@ -1,9 +1,9 @@
-var jshint = require('gulp-jshint');
-var Server = require('karma').Server;
+const jshint = require('gulp-jshint');
+const Server = require('karma').Server;
 
 module.exports = function(gulp, config) {
 
-  var paths = config.paths;
+  let paths = config.paths;
 
   gulp.task('jshint:test', function () {
     return gulp.src(paths.testFiles)

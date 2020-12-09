@@ -1,11 +1,15 @@
+const htmlreplace = require('gulp-html-replace');
+
 module.exports = function (gulp, config) {
+
+  let timestamp = config.timestamp;
 
   /**
    * Index file
    */
   gulp.task('index:dev', function () {
     return gulp.src('app/index.html')
-      .pipe(gulp.dest(config.paths.dev));
+      .pipe(gulp.dest(config.config.paths.dev));
   });
 
   gulp.task('index:e2e', function () {
@@ -16,7 +20,7 @@ module.exports = function (gulp, config) {
         'css': 'css/page-builder-' + timestamp + '.min.css',
         'e2e': 'js/e2e.js'
       }))
-      .pipe(gulp.dest(paths.test));
+      .pipe(gulp.dest(config.paths.test));
   });
 
 };

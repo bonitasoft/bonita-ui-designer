@@ -2,9 +2,8 @@ module.exports = function(gulp, config) {
 
   require('./serve.js')(gulp, config);
   require('./index.js')(gulp, config);
-  var log = require('fancy-log');
 
-  var paths = config.paths;
+  let paths = config.paths;
 
   gulp.task('watch', function(done) {
     gulp.watch(paths.js, gulp.series('bundle:js'));

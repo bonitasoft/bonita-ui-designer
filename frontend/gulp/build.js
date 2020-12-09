@@ -1,36 +1,35 @@
-var plumber = require('gulp-plumber');
-var merge = require('merge-stream');
-var replace = require('gulp-replace');
-var order = require('gulp-order');
-var gulpIf = require('gulp-if');
-var ngAnnotate = require('gulp-ng-annotate-patched');
-var uglify = require('gulp-uglify-es').default;
-var less = require('gulp-less');
-//var autoPrefixer = require('gulp-autoprefixer');
-var csso = require('gulp-csso');
-var jshint = require('gulp-jshint');
-var html2js = require('gulp-ng-html2js');
-var minifyHTML = require('gulp-minify-html');
-var sourcemaps = require('gulp-sourcemaps');
-var gettext = require('gulp-angular-gettext');
-var concat = require('gulp-concat');
-var htmlreplace = require('gulp-html-replace');
-var rename = require('gulp-rename');
-var utils = require('gulp-util');
-var del = require('del');
-var ddescriber = require('./ddescriber.js');
-var header = require('gulp-header');
-var iconfont = require('gulp-iconfont');
-var iconfontCss = require('gulp-iconfont-css');
-var base64 = require('gulp-base64');
+const plumber = require('gulp-plumber');
+const merge = require('merge-stream');
+const replace = require('gulp-replace');
+const order = require('gulp-order');
+const gulpIf = require('gulp-if');
+const ngAnnotate = require('gulp-ng-annotate-patched');
+const uglify = require('gulp-uglify-es').default;
+const less = require('gulp-less');
+//const autoPrefixer = require('gulp-autoprefixer');
+const csso = require('gulp-csso');
+const jshint = require('gulp-jshint');
+const html2js = require('gulp-ng-html2js');
+const minifyHTML = require('gulp-minify-html');
+const sourcemaps = require('gulp-sourcemaps');
+const gettext = require('gulp-angular-gettext');
+const concat = require('gulp-concat');
+const htmlreplace = require('gulp-html-replace');
+const rename = require('gulp-rename');
+const utils = require('gulp-util');
+const del = require('del');
+const ddescriber = require('./ddescriber.js');
+const header = require('gulp-header');
+const iconfont = require('gulp-iconfont');
+const iconfontCss = require('gulp-iconfont-css');
+const base64 = require('gulp-base64');
 const jscs = require('gulp-jscs');
-var babel = require('gulp-babel');
+const babel = require('gulp-babel');
 
-const debug = require('gulp-debug');
 
 module.exports = function (gulp, config) {
-  var paths = config.paths;
-  var timestamp = config.timestamp;
+  let paths = config.paths;
+  let timestamp = config.timestamp;
 
   /**
    * Clean the directories created by tasks in this file
@@ -98,7 +97,7 @@ module.exports = function (gulp, config) {
   });
 
   gulp.task('bundle:css', function () {
-    var lessPipe = gulp.src('app/less/main.less')
+    let lessPipe = gulp.src('app/less/main.less')
       .pipe(plumber())
       .pipe(less())
       .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'));
@@ -106,7 +105,7 @@ module.exports = function (gulp, config) {
     /*.pipe(autoPrefixer({
         browsers: ['ie >= 9', '> 1%']
       }));*/
-    var cssPipe = gulp.src(paths.css);
+    let cssPipe = gulp.src(paths.css);
     return merge(lessPipe, cssPipe).pipe(concat('main.css'))
       .pipe(gulp.dest(paths.dev + '/css'));
   });
@@ -121,7 +120,7 @@ module.exports = function (gulp, config) {
   }));
 
   gulp.task('bundle:html', function () {
-    var options = {
+    let options = {
       loose: true //preserve one whitespace, otherwise that breaks the UI
     };
 
@@ -135,7 +134,7 @@ module.exports = function (gulp, config) {
    * concat generated templates and javascript files
    */
   gulp.task('bundle:js', gulp.series('bundle:html', function bundle_js() {
-    var tpl = gulp.src(paths.dev + '/html/**/*.html')
+    let tpl = gulp.src(paths.dev + '/html/**/*.html')
     //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
       .pipe(html2js({
@@ -143,7 +142,7 @@ module.exports = function (gulp, config) {
         prefix: 'js/'
       }));
 
-    var js = gulp.src(paths.js)
+    let js = gulp.src(paths.js)
     //if errorHandler set to true, on error, pipe will not break
       .pipe(plumber({errorHandler: config.devMode}))
       .pipe(order([
@@ -249,7 +248,7 @@ module.exports = function (gulp, config) {
    */
 
   gulp.task('pot', gulp.series('bundle:html', function pot() {
-    var files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
+    let files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
       return files.concat(arr);
     }, []);
     return gulp.src(files)

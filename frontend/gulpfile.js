@@ -124,7 +124,7 @@ var config = {
 
 require('./gulp/build.js')(gulp, config);
 require('./gulp/test.js')(gulp, config);
-// require('./gulp/e2e.js')(gulp, config);
+require('./gulp/e2e.js')(gulp, config);
 require('./gulp/dev.js')(gulp, config);
 require('./gulp/serve.js')(gulp, config);
 

@@ -1,8 +1,8 @@
-var browserSync = require('browser-sync');
-var connect = require('connect');
-var serveStatic = require('serve-static');
-var http = require('http');
-var multiparty = require('multiparty');
+const browserSync = require('browser-sync');
+const connect = require('connect');
+const serveStatic = require('serve-static');
+const http = require('http');
+const multiparty = require('multiparty');
 
 module.exports = function (gulp, config) {
 
@@ -10,9 +10,9 @@ module.exports = function (gulp, config) {
   require('./index.js')(gulp, config);
   require('./bundle.js')(gulp, config);
 
-  var paths = config.paths;
+  let paths = config.paths;
 
-  var staticProxyfiedFiles = [
+  let staticProxyfiedFiles = [
     /^\/runtime\/.*/,               // http://localhost:8080/runtime/...
     /^\/widgets\/.*/,                 // http://localhost:8080/widgets/...
     /^\/.*\/assets\/.*/,      // http://localhost:8080/.../assets/....
@@ -23,7 +23,7 @@ module.exports = function (gulp, config) {
   /**
    * Web Server & livereload
    */
-  var proxy = require('http-proxy')
+  let proxy = require('http-proxy')
     .createProxyServer({}).on('error', function (err, req, res) {
       res.writeHead(500, {
         'Content-Type': 'text/plain'
@@ -56,8 +56,8 @@ module.exports = function (gulp, config) {
 
   function uploadMiddleware(req, res, next) {
     if (/\/API\/formFileUpload$/.test(req.url)) {
-      var form = new multiparty.Form();
-      var filename;
+      let form = new multiparty.Form();
+      let filename;
 
       form.on('error', function (error) {
         console.log('Error parsing form', error.stack);
@@ -104,7 +104,7 @@ module.exports = function (gulp, config) {
   }
 
   function serveE2e() {
-    var app = connect();
+    let app = connect();
     app.use(serveStatic(paths.test, {
       index: 'index.html'
     }));
@@ -116,7 +116,7 @@ module.exports = function (gulp, config) {
       next();
     });
 
-    var server = http.createServer(app);
+    let server = http.createServer(app);
     server.listen(config.protractor.port);
 
     console.log('Server started http://localhost:' + config.protractor.port);
