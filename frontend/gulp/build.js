@@ -24,6 +24,7 @@ var iconfont = require('gulp-iconfont');
 var iconfontCss = require('gulp-iconfont-css');
 var base64 = require('gulp-base64');
 const jscs = require('gulp-jscs');
+var babel = require('gulp-babel');
 
 const debug = require('gulp-debug');
 
@@ -150,6 +151,7 @@ module.exports = function (gulp, config) {
         '**/*.js'
       ]))
       .pipe(sourcemaps.init())
+      .pipe(babel())
       .pipe(ngAnnotate({
         'single_quotes': true,
         add: true
