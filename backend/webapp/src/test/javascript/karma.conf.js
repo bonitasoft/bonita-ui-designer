@@ -19,14 +19,13 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     files: [
-      'node_modules/@babel/polyfill/dist/polyfill.js',
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/jquery/dist/jquery.js',
       'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/angular-sanitize/angular-sanitize.min.js',
       'node_modules/angular-gettext/dist/angular-gettext.min.js',
       'node_modules/angular-cookies/angular-cookies.min.js',
-
       'src/main/runtime/js/**/*.module.js',
       'src/main/runtime/js/**/*.js',
       'target/widget-directives/**/*.js',
@@ -54,7 +53,7 @@ module.exports = function (config) {
 
     babelPreprocessor: {
       options: {
-        presets: ['@babel/preset-env'],
+        presets: ['babel-preset-env'],
         sourceMap: 'inline'
       }
     },

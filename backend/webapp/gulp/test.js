@@ -7,7 +7,7 @@ var Server = require('karma').Server;
 /**
  * Task to build widget directives for tests.
  */
-task('test:widgets', function() {
+task('test:widgets', function test_widgets() {
   return src(config.paths.widgetsJson)
     .pipe(buildWidget())
     .pipe(dest('target/widget-directives'));
@@ -16,11 +16,11 @@ task('test:widgets', function() {
 /**
  * Task to run unit tests.
  */
-task('test', series('test:widgets', function(done) {
+task('test', series('test:widgets', function _test(done) {
   return test(done);
 }));
 
-task('test:datepicker', series('test:widgets', function(done) {
+task('test:datepicker', series('test:widgets', function test_datepicker(done) {
   process.argv.push('--specs=src/test/javascript/spec/widgets/pbDatePicker.spec.js');
   return test(done);
 }));

@@ -94,7 +94,7 @@ var paths = {
     'ja',
     'pt-br'
   ].map(function(lang) {
-      return 'node_modules/angular-i18n/angular-locale_' + lang + '.js';
+      return 'node_modules/angular-i18n/angular-locale_' + lang.toLowerCase() + '.js';
     })
 };
 

@@ -14,7 +14,7 @@ task('build',parallel(runtime, 'jsonSchema', widgets, pot));
 /**
  * Check for ddescribe and iit
  */
-task('ddescriber', function () {
+task('ddescriber', function _ddescriber() {
   return src(config.paths.tests)
     .pipe(ddescriber());
 });
