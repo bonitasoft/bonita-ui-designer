@@ -53,7 +53,7 @@ module.exports = function (config) {
 
     babelPreprocessor: {
       options: {
-        presets: ['babel-preset-env'],
+        presets: ['bonita'],
         sourceMap: 'inline'
       }
     },

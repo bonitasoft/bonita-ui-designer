@@ -52,14 +52,14 @@ function creatproxyMiddleware(port) {
  * Check for ddescribe and iit
  */
 var registerDdescriberTask = function(gulp, config) {
-  gulp.task('ddescriber', function () {
+  gulp.task('ddescriber', function _ddescriber() {
     return gulp.src(config.paths.specs)
       .pipe(ddescriber());
   });
 };
 
 var registerTestTask = function(gulp, config) {
-  gulp.task('test', function() {
+  gulp.task('test', function _test() {
     var app = connect();
 
     app.use(fileuploadMiddleware);
@@ -88,8 +88,8 @@ var registerTasks = function(gulp, config) {
   registerDdescriberTask(gulp, config);
   registerTestTask(gulp, config);
 
-  gulp.task('default', ['ddescriber'], function() {
-    gulp.start(['test']);
+  gulp.task('default', gulp.series('ddescriber'), function _default() {
+    gulp.start(gulp.series('test'));
   });
 
 };
