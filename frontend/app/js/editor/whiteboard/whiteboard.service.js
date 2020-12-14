@@ -3,8 +3,8 @@
   'use strict';
 
   angular
-      .module('bonitasoft.designer.editor.whiteboard')
-      .service('whiteboardService', whiteboardService);
+    .module('bonitasoft.designer.editor.whiteboard')
+    .service('whiteboardService', whiteboardService);
 
   function whiteboardService($timeout, arrays) {
     var onWidgetRemoveFunctions = [];

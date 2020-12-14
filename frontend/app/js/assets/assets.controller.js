@@ -190,10 +190,10 @@
 
     function openLocalAssetEditPopup(asset) {
       assetEditPopup.open({
-          asset,
-          assetRepo,
-          component: vm.component
-        }
+        asset,
+        assetRepo,
+        component: vm.component
+      }
       );
     }
 

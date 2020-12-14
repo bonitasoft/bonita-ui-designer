@@ -2,15 +2,13 @@ import widgets from './widgets-mock';
 import widget from './widgetsFrom-mock';
 
 describe('switchComponentPopupController', function () {
-  let $scope;
   let widgetRepo;
   let modalInstance;
   let controller;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', 'bonitasoft.designer.common.repositories', 'mock.modal'));
 
-  beforeEach(inject(function ($rootScope, $controller, _widgetRepo_, _$uibModalInstance_, $q, _properties_) {
-    $scope = $rootScope.$new();
+  beforeEach(inject(function ($controller, _widgetRepo_, _$uibModalInstance_, $q, _properties_) {
 
     widgetRepo = _widgetRepo_;
     spyOn(widgetRepo, 'all').and.returnValue($q.when(widgets));

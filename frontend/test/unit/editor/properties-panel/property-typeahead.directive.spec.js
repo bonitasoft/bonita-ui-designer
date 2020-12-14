@@ -74,9 +74,9 @@ describe('property typeahead', () => {
   });
 
   it('should set the model when user type a ! and something that is in suggestions', () => {
-      element.find('input').val('!Alabama').trigger('input');
+    element.find('input').val('!Alabama').trigger('input');
 
-      expect(scope.model).toBe('!Alabama');
+    expect(scope.model).toBe('!Alabama');
   });
 
   it('should set the model when user select an entry from suggestions', () => {

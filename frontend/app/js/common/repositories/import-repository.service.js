@@ -17,8 +17,8 @@
   'use strict';
 
   angular
-      .module('bonitasoft.designer.common.repositories')
-      .service('importRepo', importRepo);
+    .module('bonitasoft.designer.common.repositories')
+    .service('importRepo', importRepo);
 
   function importRepo($http) {
     return {

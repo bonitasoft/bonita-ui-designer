@@ -18,8 +18,8 @@
   angular
     .module('bonitasoft.designer.i18n')
     .directive('uidL10nHelpTab', () => ({
-        restrict: 'E',
-        replace: true,
-        templateUrl: 'js/custom-widget/help-l10n.html'
-      }));
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'js/custom-widget/help-l10n.html'
+    }));
 }());

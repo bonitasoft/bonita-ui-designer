@@ -91,8 +91,8 @@
       }
 
       return asset && (assets || [])
-          .filter(onScope.bind(null, mode))
-          .some(hasSameTypeAndName.bind(null, asset));
+        .filter(onScope.bind(null, mode))
+        .some(hasSameTypeAndName.bind(null, asset));
     }
 
     function getWarningMessage(asset) {

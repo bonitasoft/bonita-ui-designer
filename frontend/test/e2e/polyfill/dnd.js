@@ -7,6 +7,7 @@
 (function($) {
   $.fn.simulateDragDrop = function(options) {
     return this.each(function() {
+      // eslint-disable-next-line new-cap
       new $.simulateDragDrop(this, options);
     });
   };

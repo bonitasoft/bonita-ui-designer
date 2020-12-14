@@ -34,6 +34,7 @@
     "jsSHA": "Caligatio/jsSHA#~2.0.1",
     "less.js": "less/less.js#1.7.0",
     "moment": "moment/moment#>=2.8.0 <2.10.0",
+    "gulp-eslint": "^6.0.0",
     "mousetrap": "1.5.3",
     "ng-sortable": "a5hik/ng-sortable#~1.1.7",
     "ngUpload": "twilson63/ngUpload#0.5.16",
@@ -45,6 +46,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.7",
     "angular-i18n": "1.4.8",
     "babel-core": "6.3.17",
+    "babel-eslint": "8",
     "babel-polyfill": "6.3.14",
     "babel-preset-bonita": "1.0.2",
     "browser-sync": "~1.7.1",
@@ -63,8 +65,6 @@
     "gulp-iconfont": "^10.0.3",
     "gulp-iconfont-css": "3.0.0",
     "gulp-if": "^3.0.0",
-    "gulp-jscs": "3.0.1",
-    "gulp-jshint": "^2.1.0",
     "gulp-less": "~4.0.1",
     "gulp-minify-html": "1.0.6",
     "gulp-ng-annotate-patched": "0.1.1",
@@ -117,8 +117,7 @@
     "e2e:headless": "cross-env HEADLESS=true npm-run-all e2e",
     "pot": "gulp pot",
     "start": "gulp serve",
-    "listDependencies": "license-checker --json --production --out ./ui-designer-frontend-dependencies.json",
-    "toto": "license-report --only=prod --output=table"
+    "listDependencies": "license-checker --json --production --out ./ui-designer-frontend-dependencies.json"
   },
   "repository": {
     "type": "git",
@@ -130,11 +129,6 @@
     "url": "https://github.com/bonitasoft/bonita-ui-designer/issues"
   },
   "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
-  "jscsConfig": {
-    "preset": "bonita",
-    "jsDoc": false,
-    "disallowUnusedParams": false
-  },
   "babel": {
     "presets": [
       "bonita"

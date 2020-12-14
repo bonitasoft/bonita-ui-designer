@@ -36,7 +36,8 @@
           name: 'ctxMetier'
         },
         metierId: {type: 'constant', displayValue: '1', exposed: false, name: 'metierId'},
-        metierId_1: {type: 'constant', displayValue: '1', exposed: false, name: 'metierId_1'} //jshint ignore:line
+        // eslint-disable-next-line camelcase
+        metierId_1: {type: 'constant', displayValue: '1', exposed: false, name: 'metierId_1'}
       };
       let queriesForObject = {
         additionalQuery: [

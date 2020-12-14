@@ -2,7 +2,7 @@
   'use strict';
 
   describe('editor service', function() {
-    var $rootScope, $httpBackend, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper,
+    var $rootScope, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper,
       whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock, migration, fragmentRepo;
 
     var labelWidget = {
@@ -13,7 +13,7 @@
 
     var inputwidget = {
       id: 'pbInput',
-        custom: false,
+      custom: false,
       type: 'widget'
     };
 
@@ -190,7 +190,6 @@
     beforeEach(inject(function($injector) {
       modalContainerStructureMockJSON = $injector.get('modalContainerStructureMockJSON');
       $rootScope = $injector.get('$rootScope');
-      $httpBackend = $injector.get('$httpBackend');
       $q = $injector.get('$q');
 
       widgetRepo = $injector.get('widgetRepo');
@@ -353,17 +352,12 @@
     });
 
     it('should migrate a page before initializing', function() {
-      let page = {};
       spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
       spyOn(migration, 'handleMigrationNotif');
       pageRepo.migrationStatus = jasmine.createSpy().and.returnValue($q.when({data: {migration: true, compatible: true}}));
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
-      editorService.initialize(pageRepo, 'person')
-        .then(function (data) {
-          page = data;
-        });
-
+      editorService.initialize(pageRepo, 'person');
       $rootScope.$apply();
 
       expect(pageRepo.migrate).toHaveBeenCalled();
@@ -371,16 +365,12 @@
     });
 
     it('should not call migrate when user click on cancel in migration popup', function() {
-      let page = {};
       spyOn(migration, 'handleMigrationStatus').and.returnValue($q.reject('cancel'));
       spyOn(migration, 'handleMigrationNotif');
       pageRepo.migrationStatus = jasmine.createSpy().and.returnValue($q.when({data: {migration: true, compatible: true}}));
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
-      editorService.initialize(pageRepo, 'person')
-        .then(function (data) {
-          page = data;
-        });
+      editorService.initialize(pageRepo, 'person');
 
       $rootScope.$apply();
 

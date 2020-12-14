@@ -1,13 +1,12 @@
 describe('open help directive', function() {
-  var $compile, element, scope, directiveScope, $uibModal, modalInstance;
+  var $compile, element, scope, directiveScope, $uibModal;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.header', 'mock.modal'));
-  beforeEach(inject(function(_$compile_, $rootScope, _$uibModal_, $uibModalInstance) {
+  beforeEach(inject(function(_$compile_, $rootScope, _$uibModal_) {
     $compile = _$compile_;
 
     scope = $rootScope.$new();
     $uibModal = _$uibModal_;
-    modalInstance = $uibModalInstance.fake();
 
     spyOn($uibModal, 'open');
   }));

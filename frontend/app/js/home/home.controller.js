@@ -82,7 +82,7 @@
 
       $scope.getSortTooltipMessage = sortOrder =>
         (sortOrder === '-lastUpdate') ? gettextCatalog.getString('Ordered by last update.<br/>Click to sort by artifact name') :
-           gettextCatalog.getString('Ordered by artifact name.<br/>Click to sort by last update');
+          gettextCatalog.getString('Ordered by artifact name.<br/>Click to sort by last update');
 
       function filterArtifacts(artifacts) {
         $scope.types.forEach((type) => $scope.artifacts[type.id] = $filter('filter')(artifacts || [], {

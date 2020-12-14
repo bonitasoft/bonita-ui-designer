@@ -84,7 +84,7 @@
     }
 
     function updateResolutionInUrl(resolution) {
-      $state.go(`designer.preview`, {
+      $state.go('designer.preview', {
         resolution: resolution.key,
         id: iframeParameters.id,
         mode: mode

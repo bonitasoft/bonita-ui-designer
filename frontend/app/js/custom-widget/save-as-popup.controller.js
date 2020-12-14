@@ -20,7 +20,7 @@
   }
 
   angular
-      .module('bonitasoft.designer.custom-widget')
-      .controller('saveWidgetAsPopUpCtrl', saveWidgetAsPopUpCtrl);
+    .module('bonitasoft.designer.custom-widget')
+    .controller('saveWidgetAsPopUpCtrl', saveWidgetAsPopUpCtrl);
 
 })();

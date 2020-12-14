@@ -21,7 +21,7 @@
     .service('editorService', editorService);
 
   function editorService($q, widgetRepo, fragmentRepo, fragmentService, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
-                         gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
+    gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
 
     var paletteItems = {};
     var page;

@@ -1,4 +1,4 @@
-const jshint = require('gulp-jshint');
+const eslint = require('gulp-eslint');
 const Server = require('karma').Server;
 const config = require('./config.js');
 const gulp = require('gulp');
@@ -27,17 +27,18 @@ function checkSingleTest() {
   });
 }
 
-function jshint_test() {
+function eslintTest() {
   return gulp.src(paths.testFiles)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
+    .pipe(gulp.dest(paths.testFolder));
 }
 
 /**
  * unit tests once and exit
  */
-const run = gulp.series(jshint_test, function _test(done) {
+const run = gulp.series(eslintTest, function _test(done) {
   return new Server({
     configFile: config.paths.karma,
     singleRun: true
@@ -47,7 +48,7 @@ const run = gulp.series(jshint_test, function _test(done) {
 /**
  * unit tests in autowatch mode
  */
-const watch = gulp.series(jshint_test, function test_watch(done) {
+const watch = gulp.series(eslintTest, function testWatch(done) {
   return new Server({
     configFile: config.paths.karma,
     singleRun: false

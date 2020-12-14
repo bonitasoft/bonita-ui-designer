@@ -52,7 +52,7 @@ class OpenPreviewCtrl {
   }
 
   getPreviewLocation() {
-    return this.$state.href(`designer.preview`, {
+    return this.$state.href('designer.preview', {
       resolution: this.resolutions.selected().key,
       id: this.artifactId,
       mode: this.mode

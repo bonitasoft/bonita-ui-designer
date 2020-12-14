@@ -1,15 +1,14 @@
 describe('home create button', () => {
 
-  var element, $scope, controller, q, artifactFactories, state, repositories, artifactNamingValidatorService;
+  var element, $scope, controller, q, artifactFactories, state, repositories;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'mock.modal'));
 
-  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_,_artifactNamingValidatorService_) {
+  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_) {
     q = $q;
     state = _$state_;
     artifactFactories = _artifactFactories_;
     repositories = _repositories_;
-    artifactNamingValidatorService = _artifactNamingValidatorService_;
 
     $scope = $rootScope.$new();
     $scope.refreshAll = jasmine.createSpy('refreshAll');

@@ -108,7 +108,7 @@ describe('Import service', () => {
 
     it('should resolve response processing when checkOverwrites is true and overwritten is true ', function() {
       var report = { overwritten: true,
-          element: { type: 'page' }
+        element: { type: 'page' }
       };
       var expectedReport = angular.extend(report, { type: 'page' });
       spyOn(importArtifactService, 'isErrorResponse').and.returnValue(false);

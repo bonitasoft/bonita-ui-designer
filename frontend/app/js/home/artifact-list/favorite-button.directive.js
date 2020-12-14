@@ -3,8 +3,8 @@
   'use strict';
 
   angular
-      .module('bonitasoft.designer.home')
-      .directive('favoriteButton', favoriteButton);
+    .module('bonitasoft.designer.home')
+    .directive('favoriteButton', favoriteButton);
 
   function favoriteButton() {
     return {

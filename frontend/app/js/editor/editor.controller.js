@@ -18,8 +18,8 @@
  */
 
 angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window,
- artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
- $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService, whiteboardComponentWrapper, uiGeneration) {
+  artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
+  $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService, whiteboardComponentWrapper, uiGeneration) {
 
   'use strict';
 

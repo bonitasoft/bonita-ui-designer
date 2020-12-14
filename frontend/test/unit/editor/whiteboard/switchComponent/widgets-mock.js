@@ -101,7 +101,7 @@ export default [{
   }],
   'type': 'widget'
 },
-  {
+{
   'id': 'pbAutocomplete',
   'name': 'Autocomplete',
   'custom': false,
@@ -173,11 +173,11 @@ export default [{
   }],
   'type': 'widget'
 },
-  {
-    'id': 'pbTabContainer',
-    'name': 'TabContainer',
-    'custom': false,
-    'properties': [],
-    'type': 'widget'
-  }
-  ];
+{
+  'id': 'pbTabContainer',
+  'name': 'TabContainer',
+  'custom': false,
+  'properties': [],
+  'type': 'widget'
+}
+];

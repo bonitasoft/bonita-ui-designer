@@ -109,12 +109,12 @@ describe('dropZone directive', function() {
   describe('we drop a widget with a configuration', function() {
 
     var widgetConfig = {
-      $$id: Date.now(),
-      $$widget: { name: 'widget' },
-      $$parentContainerRow: {
-        row: []
-      }
-    }, isMovableBoolean = true;
+        $$id: Date.now(),
+        $$widget: { name: 'widget' },
+        $$parentContainerRow: {
+          row: []
+        }
+      }, isMovableBoolean = true;
 
     beforeEach(function() {
       spyOn(componentUtils,'isMovable').and.returnValue(isMovableBoolean);

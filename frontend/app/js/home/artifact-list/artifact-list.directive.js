@@ -134,29 +134,29 @@
     renameItem(artifact) {
       if (artifact.newName !== artifact.name) {
         this.handleMigration(artifact)
-        .then(() => {
-          return this.getRepository(artifact.type)
-            .rename(artifact.id, artifact.newName);
-        })
-        .then(response => {
-          let location = response.headers('location');
-          if (location) {
-            let newId = location.substring(location.lastIndexOf('/') + 1);
-            artifact.newId = newId;
-          } else {
+          .then(() => {
+            return this.getRepository(artifact.type)
+              .rename(artifact.id, artifact.newName);
+          })
+          .then(response => {
+            let location = response.headers('location');
+            if (location) {
+              let newId = location.substring(location.lastIndexOf('/') + 1);
+              artifact.newId = newId;
+            } else {
+              artifact.newId = artifact.id;
+            }
+          })
+          .then(this.refreshAll)
+          .catch(() => {
+            artifact.newName = artifact.name;
             artifact.newId = artifact.id;
-          }
-        })
-        .then(this.refreshAll)
-        .catch(() => {
-          artifact.newName = artifact.name;
-          artifact.newId = artifact.id;
-        })
-        .finally(() => {
-          artifact.name = artifact.newName;
-          artifact.id = artifact.newId;
-          artifact.editionUrl = this.$state.href(`designer.${ artifact.type }`, { id: artifact.id });
-        });
+          })
+          .finally(() => {
+            artifact.name = artifact.newName;
+            artifact.id = artifact.newId;
+            artifact.editionUrl = this.$state.href(`designer.${ artifact.type }`, { id: artifact.id });
+          });
       }
 
       /**
@@ -181,9 +181,9 @@
 
     getTooltipMessage(artifact) {
       if (artifact.status && !artifact.status.compatible) {
-        return this.gettextCatalog.getString(`Not compatible with current UI Designer version. To open it, use a newer version of UI Designer.`);
+        return this.gettextCatalog.getString('Not compatible with current UI Designer version. To open it, use a newer version of UI Designer.');
       } else if (artifact.status && artifact.status.migration) {
-        return this.gettextCatalog.getString(`Created with an older version of UI Designer. Open it for more details.`);
+        return this.gettextCatalog.getString('Created with an older version of UI Designer. Open it for more details.');
       } else if (artifact.hasValidationError) {
         return this.gettextCatalog.getString('Validation error. Fix is recommended before export');
       } else {

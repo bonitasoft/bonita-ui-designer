@@ -1,5 +1,5 @@
 describe('PreviewCtrl', function() {
-  var ctrl, $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $timeout, $log, $window, $httpBackend;
+  let $scope, $q, $location, iframeParameters, webSocket, pageRequest, pageRepo, clock, $log, $window, $httpBackend;
 
   beforeEach(angular.mock.module('bonitasoft.designer.preview', 'mock.webSocket', 'bonitasoft.designer.editor.whiteboard'));
 
@@ -9,7 +9,6 @@ describe('PreviewCtrl', function() {
     $scope = $injector.get('$rootScope').$new();
     $scope.pathToLivingApp = 'no-app-selected';
     $location = $injector.get('$location');
-    $timeout = $injector.get('$timeout');
     $window = $injector.get('$window');
     $log = $injector.get('$log');
     pageRepo = $injector.get('pageRepo');
@@ -31,7 +30,7 @@ describe('PreviewCtrl', function() {
       id: '1337'
     };
 
-    ctrl = $injector.get('$controller')('PreviewCtrl', {
+    $injector.get('$controller')('PreviewCtrl', {
       $scope,
       $location,
       $log,

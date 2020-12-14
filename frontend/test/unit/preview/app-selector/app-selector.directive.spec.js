@@ -2,11 +2,10 @@ describe('appSelectorDirective', function() {
 
   'use strict';
 
-  var $localStorage, $httpBackend, appSelectorService, scope, $compile, vm, $scope, appsResponse, appSelector;
+  var $httpBackend, appSelectorService, scope, $compile, vm, $scope, appsResponse, appSelector;
 
   beforeEach(angular.mock.module('bonitasoft.designer.app-selector'));
   beforeEach(inject(function ($injector) {
-    $localStorage = $injector.get('$localStorage');
     $httpBackend = $injector.get('$httpBackend');
     appSelectorService = $injector.get('appSelectorService');
     $compile = $injector.get('$compile');
@@ -35,7 +34,8 @@ describe('appSelectorDirective', function() {
         }
       ];
       $httpBackend.expectGET('./API/living/application?preview=true&c=200').respond(appsResponse);
-      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});//jshint ignore:line
+      // eslint-disable-next-line camelcase
+      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});
       $httpBackend.expectGET('./API/portal/profile?p=0&c=200&f=user_id%3d4').respond([{id: '4'}]);
       appSelector = $compile('<app-selector on-change="refreshIframe()"></app-selector>')(scope);
 
@@ -73,7 +73,8 @@ describe('appSelectorDirective', function() {
         }
       ];
       $httpBackend.expectGET('./API/living/application?preview=true&c=200').respond(appsResponse);
-      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});//jshint ignore:line
+      // eslint-disable-next-line camelcase
+      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});
       $httpBackend.expectGET('./API/portal/profile?p=0&c=200&f=user_id%3d4').respond([{id: '4'}]);
       scope.refreshIframe = jasmine.createSpy('refreshIframe');
       appSelector = $compile('<app-selector on-change="refreshIframe()"></app-selector>')(scope);
@@ -123,7 +124,8 @@ describe('appSelectorDirective', function() {
 
       appsResponse = [];
       $httpBackend.expectGET('./API/living/application?preview=true&c=200').respond(appsResponse);
-      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});//jshint ignore:line
+      // eslint-disable-next-line camelcase
+      $httpBackend.expectGET('./API/system/session/unusedId').respond({user_id: '4'});
       $httpBackend.expectGET('./API/portal/profile?p=0&c=200&f=user_id%3d4').respond([{id: '4'}]);
       spyOn(appSelectorService, 'getPathToLivingApp').and.returnValue('app1');
       scope.refreshIframe = jasmine.createSpy('refreshIframe');

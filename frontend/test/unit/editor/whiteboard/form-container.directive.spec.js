@@ -1,12 +1,11 @@
 describe('formContainer', function() {
-  var $compile, $rootScope, $document, element;
+  var $compile, $rootScope, element;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
-    $document = _$document_;
 
     // given an element containing the directive
     var template = '<form-container id="{{ id }}" form-container="formContainer" editor="editor"></form-container>';

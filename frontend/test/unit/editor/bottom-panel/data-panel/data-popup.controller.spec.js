@@ -2,7 +2,7 @@
   'use strict';
   describe('DataPopupController', function() {
 
-    var $scope, $location, $uibModalInstance, getController;
+    let $scope, $uibModalInstance, getController;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.bottom-panel.data-panel', 'mock.modal'));
 
@@ -11,8 +11,7 @@
 
       $uibModalInstance = $injector.get('$uibModalInstance').create();
 
-      $location = $injector.get('$location');
-      var $controller = $injector.get('$controller');
+      let $controller = $injector.get('$controller');
 
       getController = function(pageData, data) {
         return $controller('DataPopupController', {
@@ -28,10 +27,9 @@
     describe('Variable creation', function() {
       var pageData = { users: { value: [] } };
       var data;
-      var controller;
 
       beforeEach(function() {
-        controller = getController(pageData, data);
+        getController(pageData, data);
       });
 
       it('should init scope data', function() {
@@ -57,10 +55,9 @@
     describe('Edit variable', function() {
       var data = { $$name: 'users', displayValue: '4', type: 'constant' };
       var pageData = { users: { displayValue: '4' } };
-      var controller;
 
       beforeEach(function() {
-        controller = getController(pageData, data);
+        getController(pageData, data);
       });
 
       it('should init scope data', function() {
@@ -74,10 +71,9 @@
     describe('save variable', function() {
       var pageData = { users: { value: ['4'] } };
       var data;
-      var controller;
 
       beforeEach(function() {
-        controller = getController(pageData, data);
+        getController(pageData, data);
       });
 
       it('should close modal', function() {

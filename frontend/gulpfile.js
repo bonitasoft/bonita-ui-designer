@@ -15,4 +15,5 @@ exports.pot = build.pot;
 exports.serve = dev.serve;
 exports.serve_dist = serve.dist;
 exports.serve_e2e = serve.e2e;
+exports.checkEslint = build.checkEslint;
 

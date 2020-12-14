@@ -7,11 +7,11 @@ const build = require('./build.js');
 let paths = config.paths;
 
 function watch(done) {
-  gulp.watch(paths.js, gulp.series(build.bundle_js));
-  gulp.watch(paths.templates, gulp.series(build.bundle_js));
+  gulp.watch(paths.js, gulp.series(build.bundleJs));
+  gulp.watch(paths.templates, gulp.series(build.bundleJs));
   gulp.watch(['app/index.html'], gulp.series(index.dev));
-  gulp.watch(paths.less, gulp.series(build.bundle_css));
-  gulp.watch(paths.assets.icons, gulp.series(build.bundle_icons));
+  gulp.watch(paths.less, gulp.series(build.bundleCss));
+  gulp.watch(paths.assets.icons, gulp.series(build.bundleIcons));
   done();
 }
 

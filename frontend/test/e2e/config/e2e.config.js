@@ -56,7 +56,7 @@
         return [200];
       });
 
-        // create new widget property
+      // create new widget property
       $httpBackend.whenPOST(/rest\/widgets\/.*\/properties/).respond(function(method, url, data) {
         var property = angular.fromJson(data);
         var widgetId = url.match(/rest\/widgets\/(.*)\/properties/)[1];
