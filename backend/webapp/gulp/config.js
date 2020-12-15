@@ -1,7 +1,7 @@
 const homedir = require('os').homedir();
 const path = require('path');
 
-var paths = {
+let paths = {
   templates: [
     'src/main/runtime/templates/*.html'
   ],
@@ -43,7 +43,6 @@ var paths = {
   }
 };
 
-exports.config = {
-  paths: paths,
-  javaArgs : ''
-};
+exports.paths = paths;
+exports.javaArgs = '';
+

@@ -1,9 +1,9 @@
 /* jshint node:true */
 var gulp = require('gulp');
-var ddescriber = require("../frontend/gulp/ddescriber.js");
 var protractor = require('gulp-protractor').protractor;
 var connect = require('connect');
 var http = require('http');
+var through = require("through2");
 
 var fileuploadMiddleware = require('./src/test/fixtures/middleware/fileupload.middleware');
 var apiUserMiddleware = require('./src/test/fixtures/middleware/api-user.middleware');
@@ -51,6 +51,19 @@ function creatproxyMiddleware(port) {
 /**
  * Check for ddescribe and iit
  */
+
+function ddescriber() {
+  return through.obj(function (file, enc, cb) {
+    var contents = file.contents.toString();
+    var err = null;
+
+    if (/.*ddescribe|iit|fit|fdescribe/.test(contents)) {
+      err = new Error('\033[31mddescribe or iit present in file ' + file.path + '\033[0m');
+    }
+    cb(err, file);
+  });
+}
+
 var registerDdescriberTask = function(gulp, config) {
   gulp.task('ddescriber', function _ddescriber() {
     return gulp.src(config.paths.specs)

@@ -44,18 +44,6 @@ or
 $ gulp test
 ```
 
-### Watch source files and tests
-
-```shell
-$ yarn run test-watch
-```
-
-or
-
-```shell
-$ gulp test-watch
-```
-
 ## Licensing 
 The build will check if the license is correctly added and up to date in each files, and fail if that's not the case. 
     

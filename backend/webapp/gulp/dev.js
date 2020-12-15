@@ -1,28 +1,17 @@
-const {widgets} = require('./subTasks/widgets');
-const {runtime, runtimeCss, runtimeJs} = require('./subTasks/runtime');
-const {task, series, src, dest, watch} = require('gulp');
+const widgets = require('./subTasks/widgets');
+const runtime = require('./subTasks/runtime');
+const {series, src, dest, watch} = require('gulp');
 const shell = require('gulp-shell');
-const {config} = require('./config');
+const config = require('./config');
 const fs = require('fs');
 const { buildWidget } = require('widget-builder/src/index.js');
-
-function dev(){
-  return series(widgets,runtime,devHtml, devWatch, shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
-}
-/**
- * dev task
- * Watch js and html files and launch jetty, without automatic reloading
- */
-task('dev',dev());
-
-exports.dev = dev;
 
 /**
  * Watch task.
  */
 function devWatch(done) {
-  watch(config.paths.css, runtimeCss);
-  watch(config.paths.runtime, runtimeJs);
+  watch(config.paths.css, runtime.runtimeCss);
+  watch(config.paths.runtime, runtime.runtimeJs);
   watch(config.paths.widgets, devWidgets);
   watch(config.paths.widgetsWc, devWidgetsWc);
   watch(config.paths.templates, devHtml);
@@ -62,4 +51,12 @@ function devWidgetsWc(done) {
   }
   done();
 }
+
+/**
+ * dev task
+ * Watch js and html files and launch jetty, without automatic reloading
+ */
+exports.runServer = series(widgets.copy, runtime.copy, devHtml, devWatch, shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
+
+
 

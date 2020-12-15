@@ -13,12 +13,10 @@
   },
   "homepage": "https://github.com/bonitasoft/bonita-ui-designer",
   "scripts": {
-    "test": "gulp test && gulp test:datepicker --timezone='America/Los_Angeles' && gulp test:datepicker --timezone='Asia/Bangkok'",
+    "test": "gulp test && gulp test_datepicker --timezone='America/Los_Angeles' && gulp test_datepicker --timezone='Asia/Bangkok'",
     "build": "gulp build",
     "pot": "gulp pot",
     "start": "gulp serve",
-    "linter": "gulp lint",
-    "linter:fix": "gulp lintFix",
     "listDependencies": "license-checker --production --json --out ./target/ui-designer-backend-webapp.json"
   },
   "engine": {

@@ -1,20 +1,29 @@
-const {widgets} = require('./subTasks/widgets');
-const {runtime} = require('./subTasks/runtime');
-const {pot} = require('./subTasks/pot');
-const {task, parallel, src} = require('gulp');
-const ddescriber = require('../../../frontend/gulp/ddescriber.js');
-const {config} = require('./config');
-
-/**
- * Build backend task
- */
-task('build',parallel(runtime, 'jsonSchema', widgets, pot));
-
+const widgets = require('./subTasks/widgets');
+const runtime = require('./subTasks/runtime');
+const pot = require('./subTasks/pot');
+const {parallel, src} = require('gulp');
+const config = require('./config');
+const through = require("through2");
 
 /**
  * Check for ddescribe and iit
  */
-task('ddescriber', function _ddescriber() {
+function checkTestsCompleteness() {
   return src(config.paths.tests)
-    .pipe(ddescriber());
-});
+    .pipe(checkSingleTest());
+}
+
+function checkSingleTest() {
+  return through.obj(function (file, enc, cb) {
+    var contents = file.contents.toString();
+    var err = null;
+
+    if (/.*ddescribe|iit|fit|fdescribe/.test(contents)) {
+      err = new Error('\033[31mddescribe or iit present in file ' + file.path + '\033[0m');
+    }
+    cb(err, file);
+  });
+}
+
+exports.checkTestsCompleteness = checkTestsCompleteness;
+exports.buildAll = parallel(runtime.copy, widgets.extractJsonSchema, widgets.copy, pot.copy);

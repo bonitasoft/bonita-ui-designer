@@ -1,6 +1,6 @@
 const { src, dest, parallel, task } = require('gulp');
 const { buildWidget } = require('widget-builder/src/index.js');
-const {config} = require('../config');
+const config = require('../config');
 const jsonSchema = require('widget-builder/src/index.js').jsonSchema;
 //Check if we can replace/remove
 const flatten = require('gulp-flatten');
@@ -18,25 +18,19 @@ function widgetsJs(){
  */
 function widgetsWc() {
   return src(config.paths.widgetsWcJson).pipe(dest(config.paths.dest.jsonWc))
-};
+}
 
 /**
  * Extract json schema
  */
-task('jsonSchema', () =>  {
+function extractJsonSchema() {
   return src(config.paths.widgetsJson)
     .pipe(jsonSchema())
     .pipe(flatten())
     .pipe(dest('target/widget-schema'));
-});
+}
 
-
-/**
- * Widget Task
- * Move widget file to dest folder app
- */
-task('widgets', parallel(widgetsWc,widgetsJs));
-
-exports.widgets = parallel(widgetsWc,widgetsJs);
-exports.moveWidgetWc = widgetsWc;
-exports.moveWidgetJs = widgetsJs;
+exports.copy = parallel(widgetsWc,widgetsJs);
+exports.moveWc = widgetsWc;
+exports.moveJs = widgetsJs;
+exports.extractJsonSchema = extractJsonSchema;

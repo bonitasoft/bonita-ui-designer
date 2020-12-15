@@ -1,5 +1,5 @@
 const { dest, src, parallel } = require('gulp');
-const {config} = require('../config');
+const config = require('../config');
 const gettextWidget = require('./gettext-widget.js');
 const gettext = require('gulp-angular-gettext');
 const concat = require('gulp-concat');
@@ -27,4 +27,4 @@ function potHtml() {
     .pipe(dest('target/po'));
 }
 
-exports.pot = parallel(potJson,potHtml);
+exports.copy = parallel(potJson,potHtml);

@@ -44,7 +44,7 @@ $ yarn run build
 ## Start built files
 
 ```shell
-$ gulp [default] serve:dist
+$ gulp [default] serve_dist
 ```
 
 This will serve the production page (build/dist/index.html), where the less files are compiled to css and all the source JS files are compiled to a single
@@ -60,7 +60,7 @@ stops the server.
 
 You can also start the app in e2e mode without launching e2e tests (if you want to launch e2e tests from your IDE)
 ```shell
-$ gulp serve:e2e
+$ gulp serve_e2e
 ```
 
 ## Execute unit-tests

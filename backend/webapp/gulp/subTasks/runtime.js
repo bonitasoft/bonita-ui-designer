@@ -1,7 +1,7 @@
-const {src, parallel, dest, task} = require('gulp');
+const {src, parallel, dest} = require('gulp');
 const concat = require('gulp-concat');
 const gulpIf = require('gulp-if');
-const {config} = require('../config');
+const config = require('../config');
 const uglify = require('gulp-uglify-es').default;
 const html2js = require('gulp-ng-html2js');
 const plumber = require('gulp-plumber');
@@ -65,7 +65,5 @@ exports.vendor = vendor;
 exports.runtimeCss = runtimeCss;
 exports.runtimeFonts = runtimeFonts;
 exports.runtimeJs = runtimeJs;
-
-task('runtime', parallel(vendor,runtimeCss,runtimeFonts,runtimeJs));
-exports.runtime= parallel(vendor,runtimeCss,runtimeFonts,runtimeJs);
+exports.copy = parallel(vendor,runtimeCss,runtimeFonts,runtimeJs);
 

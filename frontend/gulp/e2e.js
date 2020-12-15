@@ -1,34 +1,35 @@
 const mkdirp = require('mkdirp');
 const protractor = require('gulp-protractor').protractor;
+const gulp = require('gulp');
+const config = require('./config.js');
+const serve = require('./serve.js');
+const build = require('./build.js');
+const bundle = require('./bundle.js');
+const index = require('./index.js');
+let paths = config.paths;
 
-module.exports = function(gulp, config) {
+function e2e_ReportScafold(done) {
+  mkdirp('build/reports/e2e-tests', done);
+}
 
-  let serveE2e = require('./serve.js')(gulp, config).serveE2e;
-  require('./build.js')(gulp, config);
+/**
+ * e2e Tests
+ */
 
-  let paths = config.paths;
+const run = gulp.series(e2e_ReportScafold, build.buildAll, bundle.e2e, index.e2e, function _e2e() {
+  let server = serve.serverE2e(paths);
 
-  gulp.task('e2e:ReportScafold', function(done) {
-    mkdirp('build/reports/e2e-tests', done);
-  });
+  return gulp.src(["../test/e2e/spec/*.spec.js"])
+    .pipe(protractor({
+      configFile: 'test/e2e/protractor.conf.js',
+      args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
+    }))
+    .on('error', function (e) {
+      throw e;
+    })
+    .on('end', function () {
+      server.close();
+    });
+});
 
-  /**
-   * e2e Tests
-   */
-  gulp.task('e2e', gulp.series('e2e:ReportScafold', 'build', 'bundle:e2e', 'index:e2e', function _e2e() {
-    let server = serveE2e(paths);
-
-    return gulp.src(["../test/e2e/spec/*.spec.js"])
-      .pipe(protractor({
-        configFile: 'test/e2e/protractor.conf.js',
-        args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
-      }))
-      .on('error', function (e) {
-        throw e;
-      })
-      .on('end', function () {
-        server.close();
-      });
-  }));
-
-};
+exports.run = run;
