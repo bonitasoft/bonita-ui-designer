@@ -34,9 +34,6 @@
       parser.href = url;
 
       var queries, parameters;
-
-
-
       queries = parser.search.replace(/^\?/, '').split('&');
 
       var ignoreTimeParameter = function(acc, current) {

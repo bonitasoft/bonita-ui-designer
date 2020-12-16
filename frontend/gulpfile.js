@@ -1,18 +1,12 @@
 /* jshint node:true */
 /* jshint node:true */
 const gulp = require('gulp');
-
-
 const build = require('./gulp/build.js');
 const test = require('./gulp/test.js');
 const e2e = require('./gulp/e2e.js');
 const dev = require('./gulp/dev.js');
 const serve = require('./gulp/serve.js');
 
-
-/**
- * Aliasing dev task
- */
 exports.default = gulp.series(build.clean, test.checkCompleteness, build.buildAll);
 exports.test = test.run;
 exports.test_watch = test.watch;

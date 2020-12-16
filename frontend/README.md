@@ -1,4 +1,4 @@
-yarn install# Front end
+# Front end
 ## Prerequisites
 
 - Install node.js and yarn
