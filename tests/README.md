@@ -1,4 +1,4 @@
-# Page Designer Tests
+# UI Designer Integration Tests
 
 ## Run tests
 

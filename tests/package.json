@@ -23,7 +23,7 @@
   },
   "scripts": {
     "pretest": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.38",
-    "test": "gulp ddescriber && gulp test",
+    "test": "gulp checkTestsCompleteness && gulp test",
     "test:headless": "cross-env HEADLESS=true npm-run-all test"
   },
   "author": "",
