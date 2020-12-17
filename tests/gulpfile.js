@@ -1,14 +1,13 @@
 /* jshint node:true */
-var gulp = require('gulp');
-var ddescriber = require("../frontend/gulp/ddescriber.js");
-var protractor = require('gulp-protractor').protractor;
-var connect = require('connect');
-var http = require('http');
+const gulp = require('gulp');
+const protractor = require('gulp-protractor').protractor;
+const connect = require('connect');
+const http = require('http');
+const through = require("through2");
+const fileuploadMiddleware = require('./src/test/fixtures/middleware/fileupload.middleware');
+const apiUserMiddleware = require('./src/test/fixtures/middleware/api-user.middleware');
 
-var fileuploadMiddleware = require('./src/test/fixtures/middleware/fileupload.middleware');
-var apiUserMiddleware = require('./src/test/fixtures/middleware/api-user.middleware');
-
-var proxy = require('http-proxy')
+const proxy = require('http-proxy')
   .createProxyServer({
     target: {
       host: 'localhost',
@@ -18,7 +17,7 @@ var proxy = require('http-proxy')
     console.error(e);
   });
 
-var config = {
+const config = {
   paths: {
     specs: ['src/test/**/*.spec.js']
   },
@@ -33,7 +32,7 @@ var config = {
 /* proxyMiddleware forwards all requests to tomcat server
  except fake upload request */
 function creatproxyMiddleware(port) {
-  var proxy = require('http-proxy')
+  const proxy = require('http-proxy')
     .createProxyServer({
       target: {
         host: 'localhost',
@@ -51,52 +50,47 @@ function creatproxyMiddleware(port) {
 /**
  * Check for ddescribe and iit
  */
-var registerDdescriberTask = function(gulp, config) {
-  gulp.task('ddescriber', function () {
+
+function checkSingleTest() {
+  return through.obj(function (file, enc, cb) {
+    let contents = file.contents.toString();
+    let err = null;
+
+    if (/.*ddescribe|iit|fit|fdescribe/.test(contents)) {
+      err = new Error('\033[31mddescribe or iit present in file ' + file.path + '\033[0m');
+    }
+    cb(err, file);
+  });
+}
+
+function checkTestsCompleteness() {
     return gulp.src(config.paths.specs)
-      .pipe(ddescriber());
-  });
-};
+      .pipe(checkSingleTest());
+}
 
-var registerTestTask = function(gulp, config) {
-  gulp.task('test', function() {
-    var app = connect();
+function test() {
+  let app = connect();
 
-    app.use(fileuploadMiddleware);
-    app.use(apiUserMiddleware);
-    app.use(creatproxyMiddleware(config.tomcat.port));
+  app.use(fileuploadMiddleware);
+  app.use(apiUserMiddleware);
+  app.use(creatproxyMiddleware(config.tomcat.port));
 
-    var server = http.createServer(app).listen(config.protractor.port);
-    console.log('Server started http://localhost:%d', config.protractor.port);
-    return gulp.src(config.paths.specs)
-      .pipe(protractor({
-        configFile: 'protractor.conf.js'
-      }))
-      .on('error', function (e) {
-        console.log(e);
-        throw e;
-      })
-      .on('end', function () {
-        console.log('close upload server');
-        server.close();
-      });
-  });
-};
+  let server = http.createServer(app).listen(config.protractor.port);
+  console.log('Server started http://localhost:%d', config.protractor.port);
+  return gulp.src(config.paths.specs)
+    .pipe(protractor({
+      configFile: 'protractor.conf.js'
+    }))
+    .on('error', function (e) {
+      console.log(e);
+      throw e;
+    })
+    .on('end', function () {
+      console.log('close upload server');
+      server.close();
+    });
+}
 
-var registerTasks = function(gulp, config) {
-
-  registerDdescriberTask(gulp, config);
-  registerTestTask(gulp, config);
-
-  gulp.task('default', ['ddescriber'], function() {
-    gulp.start(['test']);
-  });
-
-};
-
-registerTasks(gulp, config);
-
-module.exports = {
-  config: config,
-  registerTasks: registerTasks
-};
+exports.default = gulp.series(checkTestsCompleteness, test);
+exports.checkTestsCompleteness = checkTestsCompleteness;
+exports.test = test;

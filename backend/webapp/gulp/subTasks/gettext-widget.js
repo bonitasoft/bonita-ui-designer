@@ -1,13 +1,13 @@
-var through = require('through2');
-var os = require('os');
-var path = require('path');
-var gutil = require('gulp-util');
+const through = require('through2');
+const os = require('os');
+const path = require('path');
+const gutil = require('gulp-util');
 
 
 function prepare() {
   return through.obj(function (file, enc, cb) {
-    var normalizedPath = path.relative(path.resolve(__dirname, '../../..'), file.path);
-    var widget;
+    let normalizedPath = path.relative(path.resolve(__dirname, '../../..'), file.path);
+    let widget;
 
     try {
       widget = JSON.parse(file.contents.toString());
@@ -15,14 +15,14 @@ function prepare() {
       cb(err, file);
       return;
     }
-    var newfile = [
+    let newfile = [
       '{',
       '  "__file" : "' + escape(normalizedPath) + '",',
       '  "__data" : ' + file.contents.toString(),
       '}'
     ];
 
-    file.contents = new Buffer(newfile.join(os.EOL));
+    file.contents = Buffer.from(newfile.join(os.EOL));
     cb(undefined, file);
   });
 
@@ -31,10 +31,10 @@ function prepare() {
 function extract() {
   return through.obj(function (file, enc, cb) {
 
-    var i18n = {};
-    var widgets;
-    var lines = file.contents.toString().split(os.EOL);
-    var lineNumber = 0;
+    let i18n = {};
+    let widgets;
+    let lines = file.contents.toString().split(os.EOL);
+    let lineNumber = 0;
 
     /**
      * parse line by line to find the matched pattern
@@ -43,7 +43,7 @@ function extract() {
      * @return {int}            lineNumber
      */
     function getLine(lines, pattern) {
-      var pos = 0;
+      let pos = 0;
       lines.some(function (line, index) {
         if (new RegExp(pattern).test(line)) {
           pos = index;
@@ -61,7 +61,7 @@ function extract() {
      * @return {String}      a gettext comment about the key to translate
      */
     function getInfo(key, path) {
-      var start = getLine(lines.slice(lineNumber), key);
+      let start = getLine(lines.slice(lineNumber), key);
       lineNumber = start + 1;
       return '#: ' + unescape(path) + ':' + lineNumber;
     }
@@ -97,11 +97,11 @@ function extract() {
     }
 
     widgets.forEach(function (widgetFile) {
-      var fileName = widgetFile.__file;
-      var widget = widgetFile.__data;
+      let fileName = widgetFile.__file;
+      let widget = widgetFile.__data;
 
       i18n = widget.properties.reduce(function (acc, property) {
-        var value;
+        let value;
         if (property.hasOwnProperty('label')) {
           value = property.label;
           acc[value] = (acc[value] || []).concat(getInfo('label', fileName));
@@ -114,7 +114,7 @@ function extract() {
           value = property.caption;
           acc[value] = (acc[value] || []).concat(getInfo('caption', fileName));
         }
-        if (property.hasOwnProperty('defaultValue') && typeof property.defaultValue == "string") {
+        if (property.hasOwnProperty('defaultValue') && typeof property.defaultValue === 'string') {
           value = property.defaultValue;
           acc[value] = (acc[value] || []).concat(getInfo('defaultValue', fileName));
         }
@@ -122,7 +122,7 @@ function extract() {
           value = property.choiceValues;
           acc = value.reduce(function (dict, choice) {
             // grouped choice values
-            if (typeof choice == "object") {
+            if (typeof choice === 'object') {
               dict[choice.label] = (acc[choice.label] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
               if (choice.group) {
                 dict[choice.group] = (acc[choice.group] || []).concat('#: ' + unescape(fileName) + ':' + lineNumber);
@@ -143,14 +143,12 @@ function extract() {
     });
 
     file.path = gutil.replaceExtension(file.path, '.pot');
-    file.contents = new Buffer(transform(i18n));
+    file.contents = Buffer.from(transform(i18n));
 
     cb(undefined, file);
 
   });
-};
-
-module.exports = {
-  extract: extract,
-  prepare: prepare
 }
+
+exports.extract = extract;
+exports.prepare = prepare;

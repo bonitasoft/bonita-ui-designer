@@ -31,7 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
   function closeModal(shouldClose) {
     if(shouldClose)
-      modalService.close();
+    {modalService.close();}
   }
 
   function removeFromCollection() {

@@ -40,7 +40,7 @@
         if(!current.startsWith('time=')) {
           var separator='';
           if (acc.length >0) {
-           separator = '&';
+            separator = '&';
           }
           return acc + separator + current;
         }

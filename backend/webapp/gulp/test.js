@@ -1,55 +1,42 @@
-var buildWidget = require('widget-builder/src/index').buildWidget;
+const {series, src, dest} = require('gulp');
+const config = require('./config');
+const { buildWidget } = require('widget-builder/src/index.js');
 var Server = require('karma').Server;
 
-module.exports = function(gulp, config) {
 
-  var paths = config.paths;
+/**
+ * Task to build widget directives for tests.
+ */
+function buildWidgets() {
+  return src(config.paths.widgetsJson)
+    .pipe(buildWidget())
+    .pipe(dest('target/widget-directives'));
+}
 
-  function test(done, watch) {
-    return new Server({
-      configFile: paths.karma.configFile,
-      singleRun: !watch
-    }, function (exitCode) {
-      if(exitCode === 0){
-        done();
-      } else {
-        process.exit(exitCode);
-      }
-    }).start();
-  }
+/**
+ * Task to run unit tests.
+ */
+const run = series(buildWidgets, function _test(done) {
+  return test(done);
+});
 
-  /**
-   * Task to run unit tests.
-   */
-  gulp.task('test', ['test:widgets'], function(done) {
-    return test(done);
-  });
+const datepicker = series(buildWidgets, function _datepicker(done) {
+  process.argv.push('--specs=src/test/javascript/spec/widgets/pbDatePicker.spec.js');
+  return test(done);
+});
 
-  gulp.task('test:datepicker', ['test:widgets'], function(done) {
-    process.argv.push('--specs=src/test/javascript/spec/widgets/pbDatePicker.spec.js');
-    return test(done);
-  });
+function test(done, watch) {
+  return new Server({
+    configFile: config.paths.karma.configFile,
+    singleRun: !watch
+  }, function (exitCode) {
+    if(exitCode === 0){
+      done();
+    } else {
+      process.exit(exitCode);
+    }
+  }).start();
+}
 
-  /**
-   * Task to run unit tests TDD style.
-   */
-  gulp.task('test:watch', ['test:widgets', 'test:watch:widgets'], function(done) {
-    return test(done, true);
-  });
-
-  /**
-   * Task to build widget directives for tests.
-   */
-  gulp.task('test:widgets', function() {
-    return gulp.src(paths.widgetsJson)
-      .pipe(buildWidget())
-      .pipe(gulp.dest('target/widget-directives'));
-  });
-
-  /**
-   * Task to build widget directives on change.
-   */
-  gulp.task('test:watch:widgets', function() {
-    gulp.watch(paths.widgets, ['test:widgets']);
-  });
-};
+exports.run = run;
+exports.datepicker = datepicker;

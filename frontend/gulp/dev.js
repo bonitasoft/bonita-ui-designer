@@ -1,28 +1,24 @@
-module.exports = function(gulp, config) {
+const gulp = require('gulp');
+const serve = require('./serve.js');
+const index = require('./index.js');
+const config = require('./config.js');
+const build = require('./build.js');
 
-  require('./serve.js')(gulp, config);
+let paths = config.paths;
 
-  var paths = config.paths;
+function watch(done) {
+  gulp.watch(paths.js, gulp.series(build.bundle_js));
+  gulp.watch(paths.templates, gulp.series(build.bundle_js));
+  gulp.watch(['app/index.html'], gulp.series(index.dev));
+  gulp.watch(paths.less, gulp.series(build.bundle_css));
+  gulp.watch(paths.assets.icons, gulp.series(build.bundle_icons));
+  done();
+}
 
-  /**
-   * Index file
-   */
-  gulp.task('index:dev', function () {
-    return gulp.src('app/index.html')
-      .pipe(gulp.dest(config.paths.dev));
-  });
+function setting(done) {
+  config.devMode = true;
+  done();
+}
 
-  gulp.task('watch', function() {
-    gulp.watch(paths.js, ['bundle:js']);
-    gulp.watch(paths.templates, ['bundle:js']);
-    gulp.watch(['app/index.html'], ['index:dev']);
-    gulp.watch(paths.less, ['bundle:css']);
-    gulp.watch(paths.images, ['bundle:icons']);
-  });
+exports.serve = gulp.series(build.clean, watch, setting, serve.dev);
 
-  gulp.task('dev', ['clean', 'watch'], function() {
-    config.devMode = true;
-    return gulp.start('serve:dev');
-  });
-
-};

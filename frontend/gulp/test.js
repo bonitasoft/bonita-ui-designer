@@ -1,34 +1,59 @@
-var jshint = require('gulp-jshint');
-var Server = require('karma').Server;
+const jshint = require('gulp-jshint');
+const Server = require('karma').Server;
+const config = require('./config.js');
+const gulp = require('gulp');
 
-module.exports = function(gulp, config) {
+let paths = config.paths;
 
-  var paths = config.paths;
+const through = require("through2");
 
-  gulp.task('jshint:test', function () {
-    return gulp.src(paths.testFiles)
-      .pipe(jshint())
-      .pipe(jshint.reporter('jshint-stylish'))
-      .pipe(jshint.reporter('fail'));
+/**
+ * Check for ddescribe and iit
+ */
+function checkCompleteness() {
+  return gulp.src(paths.tests)
+    .pipe(checkSingleTest());
+}
+
+function checkSingleTest() {
+  return through.obj(function (file, enc, cb) {
+    var contents = file.contents.toString();
+    var err = null;
+
+    if (/.*ddescribe|iit|fit|fdescribe/.test(contents)) {
+      err = new Error('\033[31mddescribe or iit present in file ' + file.path + '\033[0m');
+    }
+    cb(err, file);
   });
+}
 
-  /**
-   * unit tests once and exit
-   */
-  gulp.task('test', ['jshint:test'], function (done) {
-    return new Server({
-      configFile: config.paths.karma,
-      singleRun: true
-    }, done).start();
-  });
+function jshint_test() {
+  return gulp.src(paths.testFiles)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
+}
 
-  /**
-   * unit tests in autowatch mode
-   */
-  gulp.task('test:watch', ['jshint:test'], function (done) {
-    return  new Server({
-      configFile: config.paths.karma,
-      singleRun: false
-    }, done).start();
-  });
-};
+/**
+ * unit tests once and exit
+ */
+const run = gulp.series(jshint_test, function _test(done) {
+  return new Server({
+    configFile: config.paths.karma,
+    singleRun: true
+  }, done).start();
+});
+
+/**
+ * unit tests in autowatch mode
+ */
+const watch = gulp.series(jshint_test, function test_watch(done) {
+  return new Server({
+    configFile: config.paths.karma,
+    singleRun: false
+  }, done).start();
+});
+
+exports.checkCompleteness = checkCompleteness;
+exports.watch = watch;
+exports.run = run;

@@ -21,12 +21,11 @@ module.exports = function (config) {
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/jquery/dist/jquery.js',
-      'bower_components/angular/angular.min.js',
+      'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'bower_components/angular-sanitize/angular-sanitize.min.js',
-      'bower_components/angular-gettext/dist/angular-gettext.min.js',
-      'bower_components/angular-cookies/angular-cookies.min.js',
-
+      'node_modules/angular-sanitize/angular-sanitize.min.js',
+      'node_modules/angular-gettext/dist/angular-gettext.min.js',
+      'node_modules/angular-cookies/angular-cookies.min.js',
       'src/main/runtime/js/**/*.module.js',
       'src/main/runtime/js/**/*.js',
       'target/widget-directives/**/*.js',
@@ -50,6 +49,13 @@ module.exports = function (config) {
       // (these files will be instrumented by Istanbul)
       'src/main/runtime/js/**/*.js': ['babel', 'coverage'],
       'src/test/javascript/**/*.js': ['babel']
+    },
+
+    babelPreprocessor: {
+      options: {
+        presets: ['bonita'],
+        sourceMap: 'inline'
+      }
     },
 
     coverageReporter: {
@@ -86,3 +92,4 @@ module.exports = function (config) {
     browserNoActivityTimeout: 40000
   });
 };
+

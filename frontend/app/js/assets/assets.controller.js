@@ -56,7 +56,7 @@
       }
       assetListByType[type].splice(0);
 
-      let allAssets = Array.concat(vm.component.assets, assetsService.getBaseFrameworkAsset());
+      let allAssets = vm.component.assets.concat(assetsService.getBaseFrameworkAsset());
 
       var filterResult = allAssets.filter(function(asset) {
         const scope = vm.scopeFilter[asset.scope];
@@ -70,7 +70,7 @@
     }
 
     function getNbrOfAssetsByType(type) {
-      let allAssets = Array.concat(vm.component.assets, assetsService.getBaseFrameworkAsset());
+      let allAssets = vm.component.assets.concat(assetsService.getBaseFrameworkAsset());
 
       var nbrOfAssets = allAssets.filter(function(asset) {
         return asset.type === type;

@@ -1,70 +1,26 @@
-'use strict';
-
-var gulp = require('gulp');
-
-var paths = {
-  templates: [
-    'src/main/runtime/templates/*.html'
-  ],
-  runtime: ['src/main/runtime/**/*.js'],
-  runtimeFolder: 'src/main/runtime',
-  vendor: [
-    'node_modules/babel-polyfill/dist/polyfill.min.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/angular-messages/angular-messages.min.js',
-    'bower_components/angular-gettext/dist/angular-gettext.min.js',
-    'bower_components/angular-cookies/angular-cookies.min.js'
-  ],
-  fonts: [
-    'bower_components/bootstrap/dist/fonts/*.*'
-  ],
-  css: [
-    'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'src/main/runtime/css/**.css'
-  ],
-  widgetsWc: ['src/main/resources/widgetsWc/**/*.*'],
-  widgets: ['src/main/resources/widgets/**/*.*'],
-  widgetsWcJson: ['src/main/resources/widgetsWc/**/*.json'],
-  widgetsJson: ['src/main/resources/widgets/**/*.json'],
-  widgetsHtml: ['src/main/resources/widgets/**/*.html'],
-  karma: { configFile: __dirname + '/src/test/javascript/karma.conf.js' },
-  tests: ['src/test/**/*.spec.js'],
-
-  dest: {
-    vendors: 'target/classes/META-INF/resources/runtime/js',
-    css: 'target/classes/META-INF/resources/runtime/css',
-    fonts: 'target/classes/META-INF/resources/runtime/fonts',
-    js: 'target/classes/META-INF/resources/runtime/js',
-    json: 'target/classes/widgets',
-    jsonWc: 'target/classes/widgetsWc',
-  }
-};
-
-var config = {
-  paths: paths,
-  javaArgs : ''
-};
-
-require('./gulp/build.js')(gulp, config);
-require('./gulp/dev.js')(gulp, config);
-require('./gulp/test.js')(gulp, config);
-
-/**
- * aliasing dev task
- */
-gulp.task('serve', function() {
-  return gulp.start('dev');
-});
+const linter = require('./gulp/subTasks/linter.js');
+const build = require('./gulp/build.js');
+const dev = require('./gulp/dev.js');
+const test = require('./gulp/test.js');
+const pot = require('./gulp/subTasks/pot');
+const {series} = require('gulp');
 
 /**
  * Default task
  * Run by 'npm run build' called by maven build
+ * You can found this task in gulp/build.js file
  */
-gulp.task('default', ['ddescriber'], function() {
-  return gulp.start('build');
-});
+exports.default = series(build.checkTestsCompleteness, build.buildAll);
 
-module.exports = {
-  paths: paths
-};
+exports.serve = dev.runServer;
+
+exports.build = build.buildAll;
+
+exports.test = test.run;
+
+exports.test_datepicker = test.datepicker;
+
+exports.pot = pot.copy;
+
+
+

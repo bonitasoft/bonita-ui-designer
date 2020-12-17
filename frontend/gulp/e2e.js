@@ -1,71 +1,35 @@
-var plumber = require('gulp-plumber');
-var concat = require('gulp-concat');
-var htmlreplace = require('gulp-html-replace');
-var rename = require('gulp-rename');
-var mkdirp = require('mkdirp');
-var babel = require('gulp-babel');
-var protractor = require('gulp-protractor').protractor;
-var order = require('gulp-order');
+const mkdirp = require('mkdirp');
+const protractor = require('gulp-protractor').protractor;
+const gulp = require('gulp');
+const config = require('./config.js');
+const serve = require('./serve.js');
+const build = require('./build.js');
+const bundle = require('./bundle.js');
+const index = require('./index.js');
+let paths = config.paths;
 
-module.exports = function(gulp, config) {
+function e2e_ReportScafold(done) {
+  mkdirp('build/reports/e2e-tests', done);
+}
 
-  var serveE2e = require('./serve.js')(gulp, config).serveE2e;
-  require('./build.js')(gulp, config);
+/**
+ * e2e Tests
+ */
 
-  var paths = config.paths;
-  var timestamp = config.timestamp;
+const run = gulp.series(e2e_ReportScafold, build.buildAll, bundle.e2e, index.e2e, function _e2e() {
+  let server = serve.serverE2e(paths);
 
-  /**
-   * Concatenate e2e libs
-   */
-  gulp.task('bundle:e2e', function () {
-    return gulp.src(paths.e2e)
-      .pipe(plumber())
-      .pipe(order([
-        '**/*.module.js',
-        '**/*.js'
-      ]))
-      .pipe(babel())
-      .pipe(concat('e2e.js'))
-      .pipe(gulp.dest(paths.test + '/js'));
-  });
+  return gulp.src(["../test/e2e/spec/*.spec.js"])
+    .pipe(protractor({
+      configFile: 'test/e2e/protractor.conf.js',
+      args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
+    }))
+    .on('error', function (e) {
+      throw e;
+    })
+    .on('end', function () {
+      server.close();
+    });
+});
 
-  /**
-   * index file
-   */
-  gulp.task('index:e2e', function () {
-    return gulp.src('app/index.html')
-      .pipe(htmlreplace({
-        'js': 'js/page-builder-' + timestamp + '.min.js',
-        'vendors': 'js/vendors-' + timestamp + '.min.js',
-        'css': 'css/page-builder-' + timestamp + '.min.css',
-        'e2e': 'js/e2e.js'
-      }))
-      .pipe(gulp.dest(paths.test));
-  });
-
-
-  /**
-   * e2e Tests
-   */
-  gulp.task('e2e', ['e2e:ReportScafold', 'build', 'bundle:e2e', 'index:e2e'], function () {
-    var server = serveE2e(paths);
-
-    return gulp.src([])
-      .pipe(protractor({
-        configFile: 'test/e2e/protractor.conf.js',
-        args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
-      }))
-      .on('error', function (e) {
-        throw e;
-      })
-      .on('end', function () {
-        server.close();
-      });
-  });
-
-  gulp.task('e2e:ReportScafold', function(done) {
-    mkdirp('build/reports/e2e-tests', done);
-  });
-
-};
+exports.run = run;
