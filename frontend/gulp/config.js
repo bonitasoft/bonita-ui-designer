@@ -3,31 +3,31 @@ const paths = {
   test: 'build/test',
   dist: 'build/dist',
   vendor: [
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/moment/min/moment.min.js',
-    'bower_components/ace-builds/src-min-noconflict/ace.js',
-    'bower_components/ace-builds/src-min-noconflict/ext-language_tools.js',
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-sanitize/angular-sanitize.min.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/angular-recursion/angular-recursion.min.js',
-    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-    'bower_components/angular-ui-validate/dist/validate.js',
-    'bower_components/angular-ui-ace/ui-ace.min.js',
-    'bower_components/angular-cookies/angular-cookies.min.js',
-    'bower_components/ngUpload/ng-upload.min.js',
-    'bower_components/bonita-js-components/dist/bonita-lib-tpl.min.js',
-    'bower_components/angular-gettext/dist/angular-gettext.min.js',
-    'bower_components/stomp-websocket/lib/stomp.min.js',
-    'bower_components/sockjs/sockjs.min.js',
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/moment/min/moment.min.js',
+    'node_modules/ace-builds/src-min-noconflict/ace.js',
+    'node_modules/ace-builds/src-min-noconflict/ext-language_tools.js',
+    'node_modules/angular/angular.min.js',
+    'node_modules/angular-sanitize/angular-sanitize.min.js',
+    'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+    'node_modules/angular-recursion/angular-recursion.min.js',
+    'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js',
+    'node_modules/angular-ui-validate/dist/validate.js',
+    'node_modules/angular-ui-ace/ui-ace.min.js',
+    'node_modules/angular-cookies/angular-cookies.min.js',
+    'node_modules/ngUpload/ng-upload.min.js',
+    'node_modules/bonita-js-components/dist/bonita-lib-tpl.min.js',
+    'node_modules/angular-gettext/dist/angular-gettext.min.js',
+    'node_modules/stomp-websocket/lib/stomp.min.js',
+    'node_modules/sockjs/sockjs.min.js',
     'node_modules/mousetrap/mousetrap.js',
     'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
-    'bower_components/angular-moment/angular-moment.min.js',
-    'bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js',
-    'bower_components/jsSHA/src/sha1.js',
-    'bower_components/identicon.js/pnglib.js',
-    'bower_components/identicon.js/identicon.js',
-    'bower_components/angular-sha/src/angular-sha.js',
+    'node_modules/angular-moment/angular-moment.min.js',
+    'node_modules/angular-dynamic-locale/tmhDynamicLocale.min.js',
+    'node_modules/jsSHA/src/sha1.js',
+    'node_modules/identicon.js/pnglib.js',
+    'node_modules/identicon.js/identicon.js',
+    'node_modules/angular-sha/src/angular-sha.js',
     'node_modules/angular-switcher/dist/angular-switcher.min.js',
     'node_modules/ngstorage/ngStorage.min.js',
     'node_modules/angular-resizable/angular-resizable.min.js',
@@ -52,7 +52,7 @@ const paths = {
     'app/**/*.less'
   ],
   e2e: [
-    'bower_components/angular-mocks/angular-mocks.js',
+    'node_modules/angular-mocks/angular-mocks.js',
     'test/e2e/config/*.js',
     'test/e2e/polyfill/dnd.js'
   ],
@@ -63,11 +63,11 @@ const paths = {
   assets: {
     fonts: [
       'app/fonts/*.*',
-      'bower_components/font-awesome/fonts/*.*',
-      'bower_components/bootstrap/fonts/*.*'
+      'node_modules/font-awesome/fonts/*.*',
+      'node_modules/bootstrap/fonts/*.*'
     ],
     ace: [
-      'bower_components/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json,css}.js'
+      'node_modules/ace-builds/src-min-noconflict/{mode,worker}-{html,javascript,json,css}.js'
     ],
     licences: [
       'licences/**/*.*'

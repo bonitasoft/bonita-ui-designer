@@ -128,28 +128,6 @@
                                 <phase>initialize</phase>
                             </execution>
                             <execution>
-                                <id>bower-license license-checker</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>initialize</phase>
-                                <configuration>
-                                    <arguments>add --dev bower-license license-checker</arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>list bower dependencies</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>initialize</phase>
-                                <configuration>
-                                    <arguments>
-                                        listDependencies
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>list yarn dependencies</id>
                                 <goals>
                                     <goal>yarn</goal>
@@ -157,7 +135,7 @@
                                 <phase>initialize</phase>
                                 <configuration>
                                     <arguments>
-                                        listDependenciesYarn
+                                        listDependencies
                                     </arguments>
                                 </configuration>
                             </execution>

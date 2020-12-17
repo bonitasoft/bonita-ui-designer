@@ -12,8 +12,7 @@ cp -R ../backend/webapp/target/site/ ./bonita-ui-designer-backend-webapp-maven-d
 
 cp ../backend/webapp/target/ui-designer-backend-webapp.json .
 
-cp ../frontend/ui-designer-frontend-bower-dependencies.json .
-cp ../frontend/ui-designer-frontend-yarn-dependencies.json .
+cp ../frontend/ui-designer-frontend-dependencies.json .
 
 echo "Copy done"
 ls -lRh .

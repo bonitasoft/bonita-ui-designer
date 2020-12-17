@@ -4,7 +4,6 @@
 .project
 .settings/
 
-bower_components/
 node_modules/
 target/
 npm-debug.log
