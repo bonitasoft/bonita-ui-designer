@@ -63,7 +63,6 @@ function runtimeJs(){
 
 exports.vendor = vendor;
 exports.runtimeCss = runtimeCss;
-exports.runtimeFonts = runtimeFonts;
 exports.runtimeJs = runtimeJs;
 exports.copy = parallel(vendor,runtimeCss,runtimeFonts,runtimeJs);
 

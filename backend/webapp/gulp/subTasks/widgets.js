@@ -31,6 +31,4 @@ function extractJsonSchema() {
 }
 
 exports.copy = parallel(widgetsWc,widgetsJs);
-exports.moveWc = widgetsWc;
-exports.moveJs = widgetsJs;
 exports.extractJsonSchema = extractJsonSchema;

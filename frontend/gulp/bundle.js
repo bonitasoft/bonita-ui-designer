@@ -9,8 +9,8 @@ const config = require('./config.js');
 /**
  * Concatenate e2e libs
  */
-function bundle_e2e(done) {
-  gulp.src(config.paths.e2e)
+function bundle_e2e() {
+  return gulp.src(config.paths.e2e)
     .pipe(plumber())
     .pipe(order([
       '**/*.module.js',
@@ -19,7 +19,6 @@ function bundle_e2e(done) {
     .pipe(babel())
     .pipe(concat('e2e.js'))
     .pipe(gulp.dest(config.paths.test + '/js'));
-  done();
 }
 
 

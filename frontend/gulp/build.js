@@ -62,11 +62,9 @@ function bundle_css() {
     .pipe(plumber())
     .pipe(less())
     .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'));
-  // TODO see package.json browserslist
-  /*.pipe(autoPrefixer({
-      browsers: ['ie >= 9', '> 1%']
-    }));*/
+
   let cssPipe = gulp.src(paths.css);
+
   return merge(lessPipe, cssPipe).pipe(concat('main.css'))
     .pipe(gulp.dest(paths.dev + '/css'));
 }
@@ -135,22 +133,6 @@ function checkJshint() {
     .pipe(gulpIf(notMinified, jscs()))
     .pipe(jscs.reporter())
     .pipe(jscs.reporter('fail'));
-}
-
-function checkJscs() {
-  return gulp.src(paths.jsFolder + '/**/*.js')
-    .pipe(jscs({fix: true}))
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
-    .pipe(gulp.dest(paths.jsFolder));
-}
-
-function jscs_test() {
-  return gulp.src(paths.testFiles)
-    .pipe(jscs({fix: true}))
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
-    .pipe(gulp.dest(paths.testFolder));
 }
 
 const dist_js = gulp.series(bundle_js, function _dist_js() {
