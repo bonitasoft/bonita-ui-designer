@@ -18,8 +18,8 @@
   angular
     .module('bonitasoft.designer.resolution')
     .directive('uidResponsiveHelpTab', () => ({
-        restrict: 'E',
-        replace: true,
-        templateUrl: 'js/resolutions/help-responsiveness.html'
-      }));
+      restrict: 'E',
+      replace: true,
+      templateUrl: 'js/resolutions/help-responsiveness.html'
+    }));
 }());

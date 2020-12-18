@@ -117,9 +117,9 @@ describe('utils', function() {
   it('should add widget asset before page assets if not already added', function() {
     var page = {
       assets: [
-          { name: 'aJsAsset', type: 'js', componentId: 'anotherWidget', scope: 'widget' },
-          { name: 'anAsset', type: 'css', componentId: 'theWidget', scope: 'widget' }
-        ]
+        { name: 'aJsAsset', type: 'js', componentId: 'anotherWidget', scope: 'widget' },
+        { name: 'anAsset', type: 'css', componentId: 'theWidget', scope: 'widget' }
+      ]
     };
 
     var widget = {

@@ -2,20 +2,18 @@
   'use strict';
   describe('DataCtrl', function() {
 
-    var $scope, repository, $q, $location, $uibModal, gettextCatalog;
+    let $scope, repository, $q, $uibModal;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.bottom-panel.data-panel', 'bonitasoft.designer.editor.whiteboard'));
 
-    beforeEach(inject(function($rootScope, $controller, _$location_, _pageRepo_, _$q_, _$uibModal_, _gettextCatalog_) {
+    beforeEach(inject(function($rootScope, $controller, _pageRepo_, _$q_, _$uibModal_) {
       $scope = $rootScope.$new();
 
       $scope.addData = {
         $setPristine: angular.noop
       };
 
-      $location = _$location_;
       repository = _pageRepo_;
-      gettextCatalog = _gettextCatalog_;
       $q = _$q_;
       $uibModal = _$uibModal_;
 

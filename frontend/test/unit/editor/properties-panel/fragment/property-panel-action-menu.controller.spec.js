@@ -1,18 +1,16 @@
 describe('PropertyPanelActionMenuCtrl', function() {
-  var controller, $scope, fragmentRepo, $q, $state;
+  let controller, $scope, $q, $state;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel','bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function($controller, $rootScope, _fragmentRepo_, whiteboardComponentWrapper, _$q_, _$state_) {
+  beforeEach(inject(function($controller, $rootScope, whiteboardComponentWrapper, _$q_, _$state_) {
     $scope = $rootScope.$new();
-    fragmentRepo = _fragmentRepo_;
     $q = _$q_;
     $state = _$state_;
 
     controller = $controller('PropertyPanelActionMenuCtrl', {
       $scope: $scope,
       $state: $state,
-      fragmentRepo: _fragmentRepo_,
       whiteboardComponentWrapper: whiteboardComponentWrapper
     });
   }));
@@ -90,7 +88,7 @@ describe('PropertyPanelActionMenuCtrl', function() {
       },
       rows: []
     };
-     $scope.currentComponent = fragment;
+    $scope.currentComponent = fragment;
 
     // Check the action button and associated methods
     expect(controller.hasActionButton()).toBeTruthy();

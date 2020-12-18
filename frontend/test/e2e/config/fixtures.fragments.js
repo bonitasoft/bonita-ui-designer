@@ -3,44 +3,44 @@
   'use strict';
 
   angular
-  .module('bonitasoft.designer.e2e')
-  .value('fragments', [{
-    designerVersion: '1.5-SNAPSHOT',
-    id: 'personFragment',
-    name: 'personFragment',
-    type: 'fragment',
-    favorite: true,
-    lastUpdate: 1447943123163,
-    rows: [
-      [{
-        type: 'component',
-        dimension: {
-          lg: 12,
-          md: 12,
-          sm: 12,
-          xs: 12
+    .module('bonitasoft.designer.e2e')
+    .value('fragments', [{
+      designerVersion: '1.5-SNAPSHOT',
+      id: 'personFragment',
+      name: 'personFragment',
+      type: 'fragment',
+      favorite: true,
+      lastUpdate: 1447943123163,
+      rows: [
+        [{
+          type: 'component',
+          dimension: {
+            lg: 12,
+            md: 12,
+            sm: 12,
+            xs: 12
+          },
+          propertyValues: {
+            cssClasses: {
+              type: 'constant',
+              value: ''
+            },
+            hidden: {
+              type: 'constant',
+              value: false
+            },
+            text: {
+              type: 'constant',
+              value: 'Person'
+            },
+            alignment: {
+              type: 'constant',
+              value: 'center'
+            }
+          },
+          reference: '30d7b19d-00c1-4a26-a32d-2ab34a1e50ef',
+          id: 'pbParagraph'
         },
-        propertyValues: {
-          cssClasses: {
-            type: 'constant',
-            value: ''
-          },
-          hidden: {
-            type: 'constant',
-            value: false
-          },
-          text: {
-            type: 'constant',
-            value: 'Person'
-          },
-          alignment: {
-            type: 'constant',
-            value: 'center'
-          }
-        },
-        reference: '30d7b19d-00c1-4a26-a32d-2ab34a1e50ef',
-        id: 'pbParagraph'
-      },
         {
           type: 'component',
           dimension: {
@@ -71,52 +71,52 @@
           id: 'customAwesomeWidget'
         }
 
-      ]
-    ],
-    variables: {
-      user: {
-        type: 'constant',
-        displayValue: null,
-        exposed: true
+        ]
+      ],
+      variables: {
+        user: {
+          type: 'constant',
+          displayValue: null,
+          exposed: true
+        },
+        admin: {
+          type: 'constant',
+          displayValue: null,
+          exposed: false
+        }
       },
-      admin: {
-        type: 'constant',
-        displayValue: null,
-        exposed: false
-      }
-    },
-    assets: [
-      {
-        'id': '5fb991a8-6e91-4ef2-ab48-baba98f305eb',
-        'name': 'awesome-gif.gif',
-        'type': 'img',
-        'componentId': 'customAwesomeWidget',
-        'scope': 'widget',
-        'order': 1,
-        'active': true,
-        'external': false
-      },
-      {
-        'id': '5fb991a8-6e91-4ef2-ab48-baba98f305eb',
-        'name': 'https://awesome.cdn.com/cool.js',
-        'type': 'js',
-        'componentId': 'customAwesomeWidget',
-        'scope': 'widget',
-        'order': 1,
-        'active': true,
-        'external': false,
-      }]
+      assets: [
+        {
+          'id': '5fb991a8-6e91-4ef2-ab48-baba98f305eb',
+          'name': 'awesome-gif.gif',
+          'type': 'img',
+          'componentId': 'customAwesomeWidget',
+          'scope': 'widget',
+          'order': 1,
+          'active': true,
+          'external': false
+        },
+        {
+          'id': '5fb991a8-6e91-4ef2-ab48-baba98f305eb',
+          'name': 'https://awesome.cdn.com/cool.js',
+          'type': 'js',
+          'componentId': 'customAwesomeWidget',
+          'scope': 'widget',
+          'order': 1,
+          'active': true,
+          'external': false,
+        }]
     }, {
-    designerVersion: '1.5-SNAPSHOT',
-    id: 'empty',
-    name: 'empty',
-    type: 'fragment',
-    lastUpdate: 1430239099006,
-    rows: [[]],
-    variables: {},
-    assets: []
-   },
-   {
+      designerVersion: '1.5-SNAPSHOT',
+      id: 'empty',
+      name: 'empty',
+      type: 'fragment',
+      lastUpdate: 1430239099006,
+      rows: [[]],
+      variables: {},
+      assets: []
+    },
+    {
       designerVersion: '1.2.9-SNAPSHOT',
       favorite: false,
       id: 'fragWithTitleFrag',
@@ -236,5 +236,5 @@
         }
       }
     }]
-  );
+    );
 })();

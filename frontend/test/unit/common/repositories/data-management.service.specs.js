@@ -1,14 +1,12 @@
 describe('DataManagementService', () => {
 
-  var dataManagementRepo, $httpBackend, alerts, gettextCatalog;
+  let dataManagementRepo, $httpBackend;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories','bonitasoft.designer.common.services'));
 
-  beforeEach(inject(function (_dataManagementRepo_, _$httpBackend_, _alerts_, _gettextCatalog_) {
+  beforeEach(inject(function (_dataManagementRepo_, _$httpBackend_) {
     dataManagementRepo = _dataManagementRepo_;
     $httpBackend = _$httpBackend_;
-    gettextCatalog = _gettextCatalog_;
-    alerts = _alerts_;
   }));
 
   it('should load only real Business Object', () => {

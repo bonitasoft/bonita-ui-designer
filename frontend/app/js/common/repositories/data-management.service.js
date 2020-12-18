@@ -47,12 +47,11 @@
           return resp;
         }
 
-        for (let obj of this.allBusinessObjects) {
+        this.allBusinessObjects.forEach(obj => {
           if (obj.qualifiedName === businessObjectName) {
             businessObject = obj;
-            break;
           }
-        }
+        });
 
         if (!businessObject) {
           return resp;

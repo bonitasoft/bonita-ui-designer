@@ -1,12 +1,11 @@
 describe('SaveFragmentController', function () {
-  var saveFragmentController, container, $scope, fragmentRepo, $q, fragmentService, currentComponent;
+  let saveFragmentController, container, $scope, fragmentRepo, $q, currentComponent;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.properties-panel','bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function ($controller, $rootScope, _fragmentRepo_, _$q_, _fragmentService_) {
+  beforeEach(inject(function ($controller, $rootScope, _fragmentRepo_, _$q_) {
     $scope = $rootScope.$new();
     fragmentRepo = _fragmentRepo_;
-    fragmentService = _fragmentService_;
     $q = _$q_;
 
     container = {
@@ -31,7 +30,6 @@ describe('SaveFragmentController', function () {
       editor: editor,
       $uibModalInstance: $uibModalInstance,
       fragmentRepo: _fragmentRepo_,
-      fragmentService: _fragmentService_
     });
   }));
 

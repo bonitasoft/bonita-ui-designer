@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   describe('container', function() {
-    var $compile, $rootScope, element, directiveScope;
+    var $compile, $rootScope, element;
 
     beforeEach(function() {
       jasmine.addMatchers({
@@ -51,7 +51,6 @@
       };
 
       element = $compile(template)($rootScope);
-      directiveScope = element.isolateScope();
       $rootScope.$digest();
     }));
 

@@ -1,5 +1,5 @@
 describe('pageRepo', function() {
-  var $rootScope, pageRepo, $httpBackend, _componentUtils;
+  let pageRepo, $httpBackend;
 
   var json = {
     id: 'person',
@@ -7,11 +7,10 @@ describe('pageRepo', function() {
   };
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.editor.whiteboard'));
-  beforeEach(inject(function(_$rootScope_, $q, _pageRepo_, _$httpBackend_, componentUtils) {
-    $rootScope = _$rootScope_;
+  beforeEach(inject(function($q, _pageRepo_, _$httpBackend_) {
     pageRepo = _pageRepo_;
     $httpBackend = _$httpBackend_;
-    _componentUtils = componentUtils;
+
   }));
 
   it('should list the pages', function() {
@@ -113,6 +112,7 @@ describe('pageRepo', function() {
 
     // then we should have called the backend
     $httpBackend.flush();
+    expect(pageData.id).toEqual('person');
   });
 
   it('should verify if the page is valid on save',function() {

@@ -129,11 +129,11 @@ function serverE2e() {
  * so the live reload in preview still work
  */
 const dev = gulp.series(build.bundle, assets.copy, index.dev, function _dev() {
-    browserSyncInit(paths.dev, [
-      paths.dev + '/**/*.js',
-      paths.dev + '/**/*.css'
-    ], 'index.html');
-  });
+  browserSyncInit(paths.dev, [
+    paths.dev + '/**/*.js',
+    paths.dev + '/**/*.css'
+  ], 'index.html');
+});
 
 function dist() {
   browserSyncInit('build/dist', [
@@ -144,8 +144,8 @@ function dist() {
 
 
 const e2e = gulp.series(build.buildAll, bundle.e2e, index.e2e, function _e2e() {
-    return serverE2e(paths);
-  });
+  return serverE2e(paths);
+});
 
 exports.serverE2e = serverE2e;
 exports.dev = dev;

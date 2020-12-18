@@ -8,7 +8,7 @@ describe('Search', () => {
     $scope = $rootScope.$new();
     $timeout = _$timeout_;
     $scope.placeholder = 'foobar';
-    element = $compile(`<form name="form"><search value="search" placeholder="{{ placeholder }}"></search></form>`)($scope);
+    element = $compile('<form name="form"><search value="search" placeholder="{{ placeholder }}"></search></form>')($scope);
     $scope.$apply();
   }));
 

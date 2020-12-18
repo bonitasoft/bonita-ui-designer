@@ -42,21 +42,21 @@
   angular
     .module('bonitasoft.designer.editor.properties-panel')
     .directive('uidPropertyTypeahead', ($parse) => ({
-        scope: {},
-        replace: true,
-        templateUrl: 'js/editor/properties-panel/property-typeahead.html',
-        controller: PropertyTypeaheadCtrl,
-        controllerAs: 'vm',
-        bindToController: {
-          model: '=uidPropertyTypeaheadModel'
-        },
-        link: (scope, elem, attrs, ctrl) => {
-          let typeAheadValuesExpr = $parse(attrs.uidPropertyTypeaheadValues);
-          let deregister = scope.$parent.$watchCollection(typeAheadValuesExpr, (newValues) => {
-            ctrl.values = newValues;
-          });
-          scope.$on('$destroy', deregister);
-        }
-      })
+      scope: {},
+      replace: true,
+      templateUrl: 'js/editor/properties-panel/property-typeahead.html',
+      controller: PropertyTypeaheadCtrl,
+      controllerAs: 'vm',
+      bindToController: {
+        model: '=uidPropertyTypeaheadModel'
+      },
+      link: (scope, elem, attrs, ctrl) => {
+        let typeAheadValuesExpr = $parse(attrs.uidPropertyTypeaheadValues);
+        let deregister = scope.$parent.$watchCollection(typeAheadValuesExpr, (newValues) => {
+          ctrl.values = newValues;
+        });
+        scope.$on('$destroy', deregister);
+      }
+    })
     );
 })();

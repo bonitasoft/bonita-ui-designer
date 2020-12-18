@@ -1,5 +1,5 @@
 describe('paletteWidget', function () {
-  var $compile, $rootScope, element, directiveScope;
+  var $compile, $rootScope, element;
   describe('in page, form or layout editor', function () {
     beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
     beforeEach(inject(function (_$compile_, _$rootScope_) {
@@ -17,7 +17,6 @@ describe('paletteWidget', function () {
       };
       element = $compile(template)($rootScope);
       $rootScope.$digest();
-      directiveScope = element.isolateScope();
     }));
 
     it('should display the widget in palette', function () {
@@ -45,13 +44,12 @@ describe('paletteWidget', function () {
       // when compiling with an input
       $rootScope.widget = {
         component: {
-            id: 'pbModalContainer',
-            name: 'Modal container'
-          }
+          id: 'pbModalContainer',
+          name: 'Modal container'
+        }
       };
       element = $compile(template)($rootScope);
       $rootScope.$digest();
-      directiveScope = element.isolateScope();
     }));
 
     it('should hide modalContainer widget in palette in fragment editor', function () {

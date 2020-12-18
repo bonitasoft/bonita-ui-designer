@@ -1,14 +1,12 @@
 describe('Migration service', function() {
-  var migration, alerts, $localStorage, $q, $uibModal;
+  var migration, alerts, $localStorage;
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.services', 'ui.bootstrap.modal'));
 
   beforeEach(inject(function ($injector) {
     $localStorage = $injector.get('$localStorage');
-    $uibModal = $injector.get('$uibModal');
     alerts = $injector.get('alerts');
     migration = $injector.get('migration');
-    $q = $injector.get('$q');
   }));
 
   it('should do nothing when page is not migrable', function() {

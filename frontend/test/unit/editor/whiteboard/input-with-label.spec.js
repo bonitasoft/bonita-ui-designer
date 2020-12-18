@@ -1,5 +1,5 @@
 describe('input with label', function() {
-  var $compile, $rootScope, element, directiveScope;
+  var $compile, $rootScope, element;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
@@ -16,7 +16,6 @@ describe('input with label', function() {
 
     // when compiling with an input
     element = $compile(template)($rootScope);
-    directiveScope = element.isolateScope();
     $rootScope.$digest();
   }));
 

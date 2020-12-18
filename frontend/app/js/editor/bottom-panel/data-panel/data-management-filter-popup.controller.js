@@ -35,7 +35,7 @@
       document.addEventListener('queryChanged', this.handleQueryChanged);
     }
 
-     /**
+    /**
      * Generate name with suffix when name isn't unique
      * @param name
      * @returns name_{Number}

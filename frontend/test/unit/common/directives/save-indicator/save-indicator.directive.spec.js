@@ -8,7 +8,7 @@ describe('SaveIndicator', () => {
     $scope = $rootScope.$new();
     $timeout = _$timeout_;
 
-    let element = $compile(`<save-indicator></save-indicator>`)($scope);
+    let element = $compile('<save-indicator></save-indicator>')($scope);
     $scope.$apply();
     indicator = element.find('.SaveIndicator');
   }));

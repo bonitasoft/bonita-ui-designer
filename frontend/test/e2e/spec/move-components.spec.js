@@ -62,7 +62,8 @@ describe('moving components test', function() {
   it('should not allow moving an existing component on #editor', function() {
     // element is necessary to force the promise resolution
     var workspace = $('#editor');
-    var height;
+    // eslint-disable-next-line no-unused-vars
+    let height;
     workspace.getSize().then(function(size) {
       height = size.height;
     });

@@ -119,8 +119,8 @@
       // We normalize container and tabs container into an array of rows
       // For tabs, we merge rows of each tabs container
       var rows = container.rows || (container.container && container.container.rows) || (container.tabList || [])
-          .map(getTabRows)
-          .reduce(flattenReducer, []);
+        .map(getTabRows)
+        .reduce(flattenReducer, []);
 
       if (rows.length === 0) {
         return false;

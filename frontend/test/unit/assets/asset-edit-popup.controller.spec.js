@@ -1,14 +1,13 @@
 describe('AssetEditPopupCtrl', () => {
 
-  var assetsService, assetRepo, component, asset, $uibModalInstance, $q, $controller, $scope;
+  var  assetRepo, component, asset, $uibModalInstance, $q, $controller, $scope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.assets', 'mock.modal'));
 
-  beforeEach(inject(function(_$controller_, _$q_, _assetsService_, $rootScope, _$uibModalInstance_, AssetRepository) {
+  beforeEach(inject(function(_$controller_, _$q_, $rootScope, _$uibModalInstance_, AssetRepository) {
     $q = _$q_;
     $controller = _$controller_;
     assetRepo = new AssetRepository('a/base/url');
-    assetsService = _assetsService_;
     $scope = $rootScope;
     $uibModalInstance = _$uibModalInstance_.create();
 

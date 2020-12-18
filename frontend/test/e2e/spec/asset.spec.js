@@ -1,4 +1,3 @@
-/* jshint node: true */
 var PageEditor = require('../pages/editor.page.js');
 var path = require('path');
 

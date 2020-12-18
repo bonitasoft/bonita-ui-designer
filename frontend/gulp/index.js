@@ -8,12 +8,12 @@ let timestamp = config.timestamp;
  * Index file
  */
 
-function index_dev() {
+function indexDev() {
   return gulp.src('app/index.html')
     .pipe(gulp.dest(config.paths.dev));
 }
 
-function index_e2e() {
+function indexE2e() {
   return gulp.src('app/index.html')
     .pipe(htmlreplace({
       'js': 'js/page-builder-' + timestamp + '.min.js',
@@ -24,5 +24,5 @@ function index_e2e() {
     .pipe(gulp.dest(config.paths.test));
 }
 
-exports.e2e = index_e2e;
-exports.dev = index_dev;
+exports.e2e = indexE2e;
+exports.dev = indexDev;

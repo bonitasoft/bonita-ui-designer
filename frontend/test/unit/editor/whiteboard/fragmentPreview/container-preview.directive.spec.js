@@ -1,5 +1,5 @@
 describe('container preview', function() {
-  var $compile, $rootScope, element, directiveScope;
+  let $compile, $rootScope, element;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard'));
 
@@ -36,7 +36,6 @@ describe('container preview', function() {
     row.push($rootScope.container);
 
     element = $compile(template)($rootScope);
-    directiveScope = element.isolateScope();
     $rootScope.$digest();
   }));
 

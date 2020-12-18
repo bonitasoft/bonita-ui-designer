@@ -10,14 +10,13 @@
   'use strict';
 
   describe('AssetSectionCtrl', function () {
-    var $scope, $q, assetsService, controller, gettextCatalog, injector;
+    let $scope, assetsService, controller, gettextCatalog, injector;
 
     beforeEach(angular.mock.module('bonitasoft.designer.assets'));
 
     beforeEach(inject(function ($injector) {
       injector = $injector;
       $scope = $injector.get('$rootScope').$new();
-      $q = $injector.get('$q');
       gettextCatalog = $injector.get('gettextCatalog');
       assetsService = $injector.get('assetsService');
     }));

@@ -17,8 +17,8 @@ describe('AsserErrorManagement service', () => {
     assetErrorManagement.manageErrorsFromResponse(response)
 
       .then(
-      (promiseResponse) => expect(promiseResponse).toEqual(response),
-      () => fail('Promise should not be rejected'));
+        (promiseResponse) => expect(promiseResponse).toEqual(response),
+        () => fail('Promise should not be rejected'));
     $scope.$apply();
   });
 
@@ -28,11 +28,11 @@ describe('AsserErrorManagement service', () => {
     assetErrorManagement.manageErrorsFromResponse(response)
 
       .then(
-      () => fail('Promise should not be resolved'),
-      (promiseResponse) => {
-        expect(alerts.addError).toHaveBeenCalledWith(response.message);
-        expect(promiseResponse).toEqual(response);
-      });
+        () => fail('Promise should not be resolved'),
+        (promiseResponse) => {
+          expect(alerts.addError).toHaveBeenCalledWith(response.message);
+          expect(promiseResponse).toEqual(response);
+        });
     $scope.$apply();
   });
 
@@ -42,14 +42,14 @@ describe('AsserErrorManagement service', () => {
     assetErrorManagement.manageErrorsFromResponse(response)
 
       .then(
-      () => fail('Promise should not be resolved'),
-      (promiseResponse) => {
-        expect(alerts.addError).toHaveBeenCalledWith({
-          contentUrl: 'js/assets/malformed-json-error-message.html',
-          context: response
-        }, 12000);
-        expect(promiseResponse).toEqual(response);
-      });
+        () => fail('Promise should not be resolved'),
+        (promiseResponse) => {
+          expect(alerts.addError).toHaveBeenCalledWith({
+            contentUrl: 'js/assets/malformed-json-error-message.html',
+            context: response
+          }, 12000);
+          expect(promiseResponse).toEqual(response);
+        });
     $scope.$apply();
   });
 });

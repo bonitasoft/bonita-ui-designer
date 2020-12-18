@@ -9,7 +9,7 @@ describe('preview iframe directive', function() {
     scope = $rootScope.$new();
     i18n = _i18n_;
 
-     iframe = {
+    iframe = {
       location: {
         src: '/a/path/name'
       },

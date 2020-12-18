@@ -70,9 +70,9 @@ describe('AssetPopupCtrl', function() {
     $rootScope.$apply();
 
     expect(alerts.addError).toHaveBeenCalledWith({
-        contentUrl: 'js/assets/malformed-json-error-message.html',
-        context: response
-      }, 12000);
+      contentUrl: 'js/assets/malformed-json-error-message.html',
+      context: response
+    }, 12000);
     expect($uibModalInstance.dismiss).toHaveBeenCalled();
   });
 

@@ -1,5 +1,5 @@
 describe('HomeCtrl', function() {
-  var $scope, $q, artifactStore, controller, filter, $httpBackend;
+  var $scope, $q, artifactStore, $httpBackend;
 
   var pages = [
     { id: 'page1', name: 'Page 1', type: 'page' },
@@ -19,13 +19,12 @@ describe('HomeCtrl', function() {
     $scope = $rootScope.$new();
     $q = $injector.get('$q');
     artifactStore = $injector.get('artifactStore');
-    filter = $injector.get('$filter')('filter');
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET('./rest/config').respond(200, { isExperimental:false });
     spyOn(artifactStore, 'loadRepository').and.returnValue($q.when(artifacts));
     spyOn(artifactStore, 'load').and.returnValue($q.when(artifacts));
 
-    controller = $controller('HomeCtrl', { $scope, artifactStore });
+    $controller('HomeCtrl', { $scope, artifactStore });
     $scope.$digest();
     spyOn($state, 'href').and.callFake((state, params) => `${state}/${params.id}`);
   }));

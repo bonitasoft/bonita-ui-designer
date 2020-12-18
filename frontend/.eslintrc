@@ -29,8 +29,7 @@
     "require": false,
     "Promise": false,
     "exports": false,
-    "process": false,
-    "Buffer": false
+    "process": false
   },
   "rules": {
     "no-bitwise": 2,

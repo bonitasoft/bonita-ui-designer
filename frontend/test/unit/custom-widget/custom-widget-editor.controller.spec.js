@@ -1,6 +1,6 @@
 describe('CustomWidgetEditorCtrl', function() {
 
-  var $scope, alerts, $q, widgetRepo, $uibModal, modalInstance, $state, browserHistoryService;
+  var $scope, $q, widgetRepo, $uibModal, modalInstance, $state, browserHistoryService;
   var awesomeWidget = {
     template: '<div>hello</div>',
     properties: [],
@@ -10,13 +10,12 @@ describe('CustomWidgetEditorCtrl', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.custom-widget', 'mock.modal', 'bonitasoft.designer.editor.whiteboard'));
 
-  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _alerts_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
+  beforeEach(inject(function($rootScope, $controller, $timeout, _$q_, _widgetRepo_, _$uibModal_, $uibModalInstance, _$state_, _browserHistoryService_) {
     $scope = $rootScope.$new();
     $state = _$state_;
     browserHistoryService = _browserHistoryService_;
     $q = _$q_;
     widgetRepo = _widgetRepo_;
-    alerts = _alerts_;
     $uibModal = _$uibModal_;
     modalInstance = $uibModalInstance.create();
 

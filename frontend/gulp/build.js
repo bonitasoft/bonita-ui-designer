@@ -7,7 +7,6 @@ const ngAnnotate = require('gulp-ng-annotate-patched');
 const uglify = require('gulp-uglify-es').default;
 const less = require('gulp-less');
 const csso = require('gulp-csso');
-const jshint = require('gulp-jshint');
 const html2js = require('gulp-ng-html2js');
 const minifyHTML = require('gulp-minify-html');
 const sourcemaps = require('gulp-sourcemaps');
@@ -21,8 +20,9 @@ const header = require('gulp-header');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
 const base64 = require('gulp-base64');
-const jscs = require('gulp-jscs');
 const babel = require('gulp-babel');
+const eslint = require('gulp-eslint');
+
 const gulp = require('gulp');
 const assets = require('./assets.js');
 const config = require('./config.js');
@@ -40,7 +40,7 @@ function clean(done) {
 /**
  * Compile css
  */
-function bundle_icons() {
+function bundleIcons() {
   return gulp.src(paths.assets.icons)
     .pipe(iconfontCss({
       fontName: 'bonita-ui-designer',
@@ -57,7 +57,7 @@ function bundle_icons() {
     .pipe(gulp.dest(paths.dev + '/font'));
 }
 
-function bundle_css() {
+function bundleCss() {
   let lessPipe = gulp.src('app/less/main.less')
     .pipe(plumber())
     .pipe(less())
@@ -69,16 +69,16 @@ function bundle_css() {
     .pipe(gulp.dest(paths.dev + '/css'));
 }
 
-const dist_css = gulp.series(bundle_icons, bundle_css, function _dist_css() {
-    return gulp.src(paths.dev + '/css/*.css')
-      .pipe(base64())
-      .pipe(concat('page-builder.css'))
-      .pipe(csso())
-      .pipe(rename('page-builder-' + timestamp + '.min.css'))
-      .pipe(gulp.dest(paths.dist + '/css'));
-  });
+const distCss = gulp.series(bundleIcons, bundleCss, function _distCss() {
+  return gulp.src(paths.dev + '/css/*.css')
+    .pipe(base64())
+    .pipe(concat('page-builder.css'))
+    .pipe(csso())
+    .pipe(rename('page-builder-' + timestamp + '.min.css'))
+    .pipe(gulp.dest(paths.dist + '/css'));
+});
 
-function bundle_html() {
+function bundleHtml() {
   let options = {
     loose: true //preserve one whitespace, otherwise that breaks the UI
   };
@@ -92,62 +92,71 @@ function bundle_html() {
  * bundle JS
  * concat generated templates and javascript files
  */
-const bundle_js = gulp.series(bundle_html, function _bundle_js() {
-    let tpl = gulp.src(paths.dev + '/html/**/*.html')
-      //if errorHandler set to true, on error, pipe will not break
-      .pipe(plumber({errorHandler: config.devMode}))
-      .pipe(html2js({
-        moduleName: 'bonitasoft.designer.templates',
-        prefix: 'js/'
-      }));
+const bundleJs = gulp.series(bundleHtml, function _bundleJs() {
+  let tpl = gulp.src(paths.dev + '/html/**/*.html')
+  //if errorHandler set to true, on error, pipe will not break
+    .pipe(plumber({errorHandler: config.devMode}))
+    .pipe(html2js({
+      moduleName: 'bonitasoft.designer.templates',
+      prefix: 'js/'
+    }));
 
-    let js = gulp.src(paths.js)
-      //if errorHandler set to true, on error, pipe will not break
-      .pipe(plumber({errorHandler: config.devMode}))
-      .pipe(order([
-        '**/*.module.js',
-        '**/*.js'
-      ]))
-      .pipe(sourcemaps.init())
-      .pipe(babel())
-      .pipe(ngAnnotate({
-        'single_quotes': true,
-        add: true
-      }));
+  let js = gulp.src(paths.js)
+  //if errorHandler set to true, on error, pipe will not break
+    .pipe(plumber({errorHandler: config.devMode}))
+    .pipe(order([
+      '**/*.module.js',
+      '**/*.js'
+    ]))
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(ngAnnotate({
+      'single_quotes': true,
+      add: true
+    }));
 
-    return merge(js, tpl)
-      .pipe(concat('app.js'))
-      .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(paths.dev + '/js'));
-  });
+  return merge(js, tpl)
+    .pipe(concat('app.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(paths.dev + '/js'));
+});
 
-function checkJshint() {
+function checkEslint() {
   function notMinified(file) {
     return !/(src-min|\.min\.js)/.test(file.path);
   }
 
   return gulp.src(paths.js)
-    .pipe(gulpIf(notMinified, jshint()))
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'))
-    .pipe(gulpIf(notMinified, jscs()))
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'));
+    .pipe(gulpIf(notMinified, eslint()))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 }
 
-const dist_js = gulp.series(bundle_js, function _dist_js() {
-    return gulp.src(paths.dev + '/js/app.js')
-      .pipe(rename('page-builder-' + timestamp + '.min.js'))
-      .pipe(replace('\'%debugMode%\'', !utils.env.dist))
-      .pipe(uglify({output: {'ascii_only': true}}))   // preserve ascii unicode characters such as \u226E
-      .pipe(header(config.banner))
-      .pipe(gulp.dest(paths.dist + '/js'));
-  });
+function fixEsLint() {
+  function notMinified(file) {
+    return !/(src-min|\.min\.js)/.test(file.path);
+  }
+
+  return gulp.src(paths.js)
+    .pipe(gulpIf(notMinified, eslint({fix:true})))
+    .pipe(eslint.format())
+    .pipe(gulp.dest(file => file.base))
+    .pipe(eslint.failAfterError());
+}
+
+const distJs = gulp.series(bundleJs, function _distJs() {
+  return gulp.src(paths.dev + '/js/app.js')
+    .pipe(rename('page-builder-' + timestamp + '.min.js'))
+    .pipe(replace('\'%debugMode%\'', !utils.env.dist))
+    .pipe(uglify({output: {'ascii_only': true}}))   // preserve ascii unicode characters such as \u226E
+    .pipe(header(config.banner))
+    .pipe(gulp.dest(paths.dist + '/js'));
+});
 
 /**
  * Concatenate js vendor libs
  */
-function bundle_vendors() {
+function bundleVendors() {
   function notMinified(file) {
     return !/(src-min|\.min\.js)/.test(file.path);
   }
@@ -161,16 +170,16 @@ function bundle_vendors() {
     .pipe(gulp.dest(paths.dev + '/js'));
 }
 
-const dist_vendors = gulp.series(bundle_vendors, function _dist_vendors() {
-    return gulp.src(paths.dev + '/js/vendors.js')
-      .pipe(rename('vendors-' + timestamp + '.min.js'))
-      .pipe(gulp.dest(paths.dist + '/js'));
-  });
+const distVendors = gulp.series(bundleVendors, function _distVendors() {
+  return gulp.src(paths.dev + '/js/vendors.js')
+    .pipe(rename('vendors-' + timestamp + '.min.js'))
+    .pipe(gulp.dest(paths.dist + '/js'));
+});
 
 /**
  * Index
  */
-function index_dist() {
+function indexDist() {
   return gulp.src('app/index.html')
     .pipe(htmlreplace({
       'js': 'js/page-builder-' + timestamp + '.min.js',
@@ -185,7 +194,7 @@ function index_dist() {
  * Translate application
  */
 
-const pot = gulp.series(bundle_html, function _pot() {
+const pot = gulp.series(bundleHtml, function _pot() {
   let files = [paths.dev + '/html/**/*.html', paths.js].reduce(function (files, arr) {
     return files.concat(arr);
   }, []);
@@ -196,9 +205,11 @@ const pot = gulp.series(bundle_html, function _pot() {
 
 
 exports.clean = clean;
-exports.buildAll =  gulp.series(checkJshint, assets.copy, pot, dist_css, dist_js, dist_vendors, index_dist);
-exports.bundle = gulp.series(bundle_vendors, bundle_js, bundle_css, bundle_icons);
-exports.bundle_js = bundle_js;
-exports.bundle_css = bundle_css;
-exports.bundle_icons = bundle_icons;
+exports.buildAll =  gulp.series(checkEslint, assets.copy, pot, distCss, distJs, distVendors, indexDist);
+exports.bundle = gulp.series(bundleVendors, bundleJs, bundleCss, bundleIcons);
+exports.bundleJs = bundleJs;
+exports.bundleCss = bundleCss;
+exports.bundleIcons = bundleIcons;
 exports.pot = pot;
+exports.fixEsLint = fixEsLint;
+exports.checkEslint = checkEslint;

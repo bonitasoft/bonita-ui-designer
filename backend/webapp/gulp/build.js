@@ -1,5 +1,6 @@
 const widgets = require('./subTasks/widgets');
 const runtime = require('./subTasks/runtime');
+const linter = require('./subTasks/linter');
 const pot = require('./subTasks/pot');
 const {parallel, src} = require('gulp');
 const config = require('./config');
@@ -26,4 +27,4 @@ function checkSingleTest() {
 }
 
 exports.checkTestsCompleteness = checkTestsCompleteness;
-exports.buildAll = parallel(runtime.copy, widgets.extractJsonSchema, widgets.copy, pot.copy);
+exports.buildAll = parallel(linter.lint, runtime.copy, widgets.extractJsonSchema, widgets.copy, pot.copy);

@@ -1,5 +1,5 @@
 describe('fragment data binding field directive', function() {
-  var $compile, element, template, scope, directiveScope;
+  var $compile, element, template, scope;
 
   beforeEach(angular.mock.module('bonitasoft.designer.templates', 'bonitasoft.designer.editor.properties-panel'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
@@ -13,8 +13,6 @@ describe('fragment data binding field directive', function() {
     template = '<fragment-data-binding-field data-name="fragmentDataName" binding="binding" page-data="pageData" />';
     element = $compile(template)(scope);
     scope.$apply();
-
-    directiveScope = element.isolateScope();
   }));
 
   it('should display fragment data label', function() {

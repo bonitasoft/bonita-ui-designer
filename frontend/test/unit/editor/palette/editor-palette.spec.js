@@ -2,7 +2,7 @@
   'use strict';
 
   describe('editor-palette directive', function() {
-    var $compile, $scope, element, controller, paletteService, $controller;
+    var $compile, $scope, element, controller, paletteService;
     var paletteData = [{
       name: 'section1',
       order: 1,
@@ -49,7 +49,7 @@
     beforeEach(angular.mock.module('bonitasoft.designer.editor.palette'));
     beforeEach(inject(function($injector) {
       $compile = $injector.get('$compile');
-      $controller = $injector.get('$controller');
+      $injector.get('$controller');
       $scope = $injector.get('$rootScope').$new();
       paletteService = $injector.get('paletteService');
 

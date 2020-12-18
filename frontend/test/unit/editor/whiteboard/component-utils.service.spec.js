@@ -67,8 +67,7 @@ describe('ComponentUtils Service', function() {
   });
 
   describe('modal containers test', function () {
-    var modal, container, modalWithModal, containerWithModal, modalWithContainerWithModal, tabsContainerWithContainer,
-      tabsContainerWithContainerWithModal;
+    let modal, modalWithModal, containerWithModal, modalWithContainerWithModal,tabsContainerWithContainerWithModal;
 
     beforeEach(function () {
       modal = {
@@ -79,13 +78,6 @@ describe('ComponentUtils Service', function() {
           $$id: 'pbContainer-1',
           rows: [[{}]]
         }
-      };
-
-      container = {
-        type: 'container',
-        id: 'pbContainer',
-        $$id: 'pbContainer-2',
-        rows: [[{}]]
       };
 
       modalWithModal = {
@@ -119,31 +111,6 @@ describe('ComponentUtils Service', function() {
             containerWithModal
           ]]
         }
-      };
-
-      tabsContainerWithContainer = {
-        $$id: 'pbTabsContainer-6',
-        $$parentContainerRow: {
-          container: {
-            type: 'page',
-          }
-        },
-        type: 'tabsContainer',
-        id: 'pbTabsContainer',
-        tabList: [
-          {
-            type: 'tabContainer',
-            id: 'pbTabContainer',
-            container: {
-              $$id: 'pbContainer-7',
-              id: 'pbContainer',
-              type: 'container',
-              rows: [[
-                container
-              ]]
-            }
-          }
-        ]
       };
 
       tabsContainerWithContainerWithModal = {
@@ -387,7 +354,7 @@ describe('ComponentUtils Service', function() {
   });
 
   describe('test if a modal is direct child of a container', function () {
-      var modal = {
+    let modal = {
       $$id: 'pbModalContainer-1',
       type: 'modalContainer',
       id: 'pbModalContainer',

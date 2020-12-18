@@ -1,4 +1,4 @@
- /**
+/**
  * Copyright (C) 2015 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
@@ -48,7 +48,6 @@
       }
     }
 
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     function retrieveAvailableUserApps() {
       let allApps;
       $http.get('./API/living/application?preview=true&c=200')
@@ -64,7 +63,7 @@
         })
         .then((response) => {
           if (response) {
-            const userID = response.data.user_id; /* jshint ignore:line */
+            const userID = response.data.user_id;
             return $http.get('./API/portal/profile?p=0&c=200&f=user_id%3d' + userID);
           }
         })
@@ -77,7 +76,6 @@
           }
         });
     }
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 
     function initializeSelection(appList) {
       if (!isAppExistInList(appSelectorService.getPathToLivingApp(), appList)) {
