@@ -48,7 +48,6 @@
       }
     }
 
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     function retrieveAvailableUserApps() {
       let allApps;
       $http.get('./API/living/application?preview=true&c=200')
@@ -77,7 +76,6 @@
           }
         });
     }
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 
     function initializeSelection(appList) {
       if (!isAppExistInList(appSelectorService.getPathToLivingApp(), appList)) {

@@ -1,9 +1,7 @@
 angular.module('bonitasoft.ui.i18n').factory('i18n', function(gettextCatalog, $cookies, $window, localizationFactory, i18nCodeMapping, $locale) {
 
   return {
-    /*jshint camelcase:false*/
     init() {
-      // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
       let language = $cookies.BOS_Locale ||
         $window.navigator.language ||
         $window.navigator.userLanguage || // IE

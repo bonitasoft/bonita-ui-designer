@@ -24,17 +24,20 @@ This starts a server on port 3000 which allows serving the development page (ind
 
 ## Format code
 
-During build, a gulp task based on [JSCS](http://jscs.info/) is used to check the code is formatted properly.
-It is based on the [BonitaBPM jscs preset](https://github.com/bonitasoft/jscs-preset-bonita).
+During build, a gulp task based on Eslint is used to check the code is formatted properly.
 
-Use the gulp task to format code :
+Use the gulp task to check format code :
 
 ```shell
-$gulp jscs jscs:test
+$gulp checkEslint
 ```
 
-Fix code format issues by hand if the format error report shows any error.
+Use the gulp task to fix format code :
 
+```shell
+$gulp fixEsLint
+```
+u
 ## Build
 
 ```shell

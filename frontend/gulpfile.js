@@ -1,5 +1,3 @@
-/* jshint node:true */
-/* jshint node:true */
 const gulp = require('gulp');
 const build = require('./gulp/build.js');
 const test = require('./gulp/test.js');
@@ -16,4 +14,5 @@ exports.serve = dev.serve;
 exports.serve_dist = serve.dist;
 exports.serve_e2e = serve.e2e;
 exports.checkEslint = build.checkEslint;
+exports.fixEsLint = build.fixEsLint;
 

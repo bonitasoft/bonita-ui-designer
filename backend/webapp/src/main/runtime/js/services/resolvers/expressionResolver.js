@@ -14,7 +14,6 @@
       }
       resolve() {
         // use strict. Avoid pollution of the global object.
-        /* jshint evil: true */
         var expression = new Function(
           '$data',//inject all data
           'uiTranslate',//inject translate function
