@@ -61,7 +61,7 @@ function bundle_css() {
   let lessPipe = gulp.src('app/less/main.less')
     .pipe(plumber())
     .pipe(less())
-    .pipe(replace('../../bower_components/font-awesome/fonts', '../fonts'));
+    .pipe(replace('../../node_modules/font-awesome/fonts', '../fonts'));
 
   let cssPipe = gulp.src(paths.css);
 
