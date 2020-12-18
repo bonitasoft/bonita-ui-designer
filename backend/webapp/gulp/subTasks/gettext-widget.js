@@ -7,10 +7,9 @@ const gutil = require('gulp-util');
 function prepare() {
   return through.obj(function (file, enc, cb) {
     let normalizedPath = path.relative(path.resolve(__dirname, '../../..'), file.path);
-    let widget;
 
     try {
-      widget = JSON.parse(file.contents.toString());
+      JSON.parse(file.contents.toString());
     } catch (err) {
       cb(err, file);
       return;

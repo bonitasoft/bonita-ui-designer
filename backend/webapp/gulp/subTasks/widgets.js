@@ -1,4 +1,4 @@
-const { src, dest, parallel, task } = require('gulp');
+const { src, dest, parallel } = require('gulp');
 const { buildWidget } = require('widget-builder/src/index.js');
 const config = require('../config');
 const jsonSchema = require('widget-builder/src/index.js').jsonSchema;

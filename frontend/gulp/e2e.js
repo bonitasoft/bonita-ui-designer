@@ -8,7 +8,7 @@ const bundle = require('./bundle.js');
 const index = require('./index.js');
 let paths = config.paths;
 
-function e2e_ReportScafold(done) {
+function e2eReportScafold(done) {
   mkdirp('build/reports/e2e-tests', done);
 }
 
@@ -16,10 +16,10 @@ function e2e_ReportScafold(done) {
  * e2e Tests
  */
 
-const run = gulp.series(e2e_ReportScafold, build.buildAll, bundle.e2e, index.e2e, function _e2e() {
+const run = gulp.series(e2eReportScafold, build.buildAll, bundle.e2e, index.e2e, function _e2e() {
   let server = serve.serverE2e(paths);
 
-  return gulp.src(["../test/e2e/spec/*.spec.js"])
+  return gulp.src(['../test/e2e/spec/*.spec.js'])
     .pipe(protractor({
       configFile: 'test/e2e/protractor.conf.js',
       args: ['--baseUrl', 'http://localhost:' + config.protractor.port]

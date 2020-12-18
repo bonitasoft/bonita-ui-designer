@@ -28,7 +28,8 @@
     "protractor": false,
     "require": false,
     "Promise": false,
-    "exports": false
+    "exports": false,
+    "process": false
   },
   "rules": {
     "no-bitwise": 2,

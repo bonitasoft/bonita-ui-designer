@@ -17,7 +17,7 @@
     "it": false,
     "xit": false,
     "expect": false,
-    "Buffer": false,
+    "__dirname": false,
     "jasmine": false,
     "spyOn": false,
     "$$": false,
@@ -26,7 +26,11 @@
     "by": false,
     "element": false,
     "protractor": false,
-    "require": false
+    "require": false,
+    "Promise": false,
+    "exports": false,
+    "process": false,
+    "Buffer": false
   },
   "rules": {
     "no-bitwise": 2,

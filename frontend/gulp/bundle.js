@@ -9,7 +9,7 @@ const config = require('./config.js');
 /**
  * Concatenate e2e libs
  */
-function bundle_e2e() {
+function bundleE2e() {
   return gulp.src(config.paths.e2e)
     .pipe(plumber())
     .pipe(order([
@@ -22,4 +22,4 @@ function bundle_e2e() {
 }
 
 
-exports.e2e = bundle_e2e;
+exports.e2e = bundleE2e;
