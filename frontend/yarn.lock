@@ -4703,9 +4703,9 @@ iconv-lite@0.4.24, iconv-lite@^0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-identicon.js@redboul/identicon.js#1.0.0:
+identicon.js@bonitasoft/identicon.js#1.0.0:
   version "1.0.0"
-  resolved "https://codeload.github.com/redboul/identicon.js/tar.gz/d85be82aa8ec5344d1533842c08252d04e3f92d9"
+  resolved "https://codeload.github.com/bonitasoft/identicon.js/tar.gz/d85be82aa8ec5344d1533842c08252d04e3f92d9"
 
 ignore@^4.0.6:
   version "4.0.6"
