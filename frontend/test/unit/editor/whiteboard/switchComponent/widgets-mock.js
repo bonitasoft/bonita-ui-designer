@@ -174,6 +174,13 @@ export default [{
   'type': 'widget'
 },
 {
+  'id': 'pbText',
+  'name': 'Text',
+  'custom': false,
+  'properties': [],
+  'type': 'widget'
+},
+{
   'id': 'pbTabContainer',
   'name': 'TabContainer',
   'custom': false,

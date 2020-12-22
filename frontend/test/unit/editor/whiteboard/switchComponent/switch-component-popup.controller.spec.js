@@ -28,6 +28,11 @@ describe('switchComponentPopupController', function () {
       id: 'pbAutocomplete',
       name: 'Autocomplete',
       custom: false
+    },
+    {
+      id: 'pbText',
+      name: 'Text',
+      custom: false
     }]);
   });
 
@@ -55,13 +60,17 @@ describe('switchComponentPopupController', function () {
     });
   });
 
-  // TODO : This test was not running before, since it was embedded into an it. Check why we only get one widget here.
-  xit('should display by alphabetical sort widgets when user open popup', function () {
+  it('should display by alphabetical sort widgets when user open popup', function () {
     expect(controller.widgetsToDisplay).toEqual([{
       id: 'pbAutocomplete',
       name: 'Autocomplete',
       custom: false
-    }, {id: 'pbInput', name: 'Input', custom: true}]);
+    },
+    {
+      id: 'pbText',
+      name: 'Text',
+      custom: false
+    }]);
   });
 
   it('should get widgetTo properties when user select a widget', function () {
