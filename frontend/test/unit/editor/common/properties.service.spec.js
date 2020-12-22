@@ -41,56 +41,43 @@ describe('properties service', function () {
       anInterpolation: {value: 'default interpolation', type: 'interpolation'},
       aVariable: {value: 'default variable', type: 'variable'}
     });
+  });
 
-    it('should concat common properties to a component properties', function () {
-      var properties = [
-        {name: 'anExpression', defaultValue: 'default expression', bond: 'expression'},
-        {name: 'aConstant', defaultValue: 'default constant', bond: 'constant'}
-      ];
-      var aComponent = {properties};
+  it('should concat common properties to a component properties', function () {
+    var properties = [
+      {name: 'anExpression', defaultValue: 'default expression', bond: 'expression'},
+      {name: 'aConstant', defaultValue: 'default constant', bond: 'constant'}
+    ];
+    var aComponent = {properties};
 
-      service.addCommonPropertiesTo(aComponent);
+    service.addCommonPropertiesTo(aComponent);
+    expect(aComponent.properties).toContain(
+      {name: 'anExpression', defaultValue: 'default expression', bond: 'expression'},
+      {name: 'aConstant', defaultValue: 'default constant', bond: 'constant'},
+      {label: 'CSS classes', caption: 'Space-separated list', name: 'cssClasses', type: 'string', defaultValue: '', bond: 'expression', help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes' },
+      {label: 'Hidden', name: 'hidden', type: 'boolean', defaultValue: false, bond: 'expression' }
+    );
+  });
 
-      expect(aComponent.properties).toContain(properties);
-      expect(aComponent.properties).toContain([
-        {
-          label: 'CSS classes',
-          caption: 'Space-separated list',
-          name: 'cssClasses',
-          type: 'string',
-          defaultValue: '',
-          bond: 'expression',
-          help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes'
-        },
-        {
-          label: 'Hidden',
-          name: 'hidden',
-          type: 'boolean',
-          defaultValue: false,
-          bond: 'expression'
-        }]);
-    });
+  it('should concat default css properties to a component properties', function () {
+    var properties = [
+      {name: 'anExpression', defaultValue: 'default expression', bond: 'expression'},
+      {name: 'aConstant', defaultValue: 'default constant', bond: 'constant'}
+    ];
+    var aComponent = {properties};
 
-    it('should concat default css properties to a component properties', function () {
-      var properties = [
-        {name: 'anExpression', defaultValue: 'default expression', bond: 'expression'},
-        {name: 'aConstant', defaultValue: 'default constant', bond: 'constant'}
-      ];
-      var aComponent = {properties};
-
-      service.addCssPropertyTo(aComponent);
-      expect(aComponent.properties).toContain(properties);
-      expect(aComponent.properties).toContain(
-        {
-          label: 'CSS classes',
-          caption: 'Space-separated list',
-          name: 'cssClasses',
-          type: 'string',
-          defaultValue: '',
-          bond: 'expression',
-          help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes'
-        });
-    });
+    service.addCssPropertyTo(aComponent);
+    expect(aComponent.properties).toContain(properties[0], properties[1]);
+    expect(aComponent.properties).toContain(
+      {
+        label: 'CSS classes',
+        caption: 'Space-separated list',
+        name: 'cssClasses',
+        type: 'string',
+        defaultValue: '',
+        bond: 'expression',
+        help: 'Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes'
+      });
   });
 
   it('should say that a property value with type expression is bound', function () {
