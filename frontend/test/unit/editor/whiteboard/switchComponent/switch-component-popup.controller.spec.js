@@ -55,7 +55,7 @@ describe('switchComponentPopupController', function () {
     });
   });
 
-  // TODO : This test was not running before, since it was embedded into on iit. Check why we only get one widget here.
+  // TODO : This test was not running before, since it was embedded into an it. Check why we only get one widget here.
   xit('should display by alphabetical sort widgets when user open popup', function () {
     expect(controller.widgetsToDisplay).toEqual([{
       id: 'pbAutocomplete',
