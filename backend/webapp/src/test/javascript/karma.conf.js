@@ -18,6 +18,12 @@ module.exports = function (config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
+    client: {
+      jasmine: {
+        random: false
+      }
+    },
+
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/jquery/dist/jquery.js',

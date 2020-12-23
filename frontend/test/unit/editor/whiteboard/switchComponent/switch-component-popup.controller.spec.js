@@ -28,6 +28,11 @@ describe('switchComponentPopupController', function () {
       id: 'pbAutocomplete',
       name: 'Autocomplete',
       custom: false
+    },
+    {
+      id: 'pbText',
+      name: 'Text',
+      custom: false
     }]);
   });
 
@@ -53,15 +58,19 @@ describe('switchComponentPopupController', function () {
         step: Object({type: 'constant', value: 1, label: 'Step'})
       })
     });
+  });
 
-    it('should display by alphabetical sort widgets when user open popup', function () {
-      expect(controller.widgetsToDisplay).toEqual([{
-        id: 'pbAutocomplete',
-        name: 'Autocomplete',
-        custom: false
-      }, {id: 'pbInput', name: 'Input', custom: true}]);
-    });
-
+  it('should display by alphabetical sort widgets when user open popup', function () {
+    expect(controller.widgetsToDisplay).toEqual([{
+      id: 'pbAutocomplete',
+      name: 'Autocomplete',
+      custom: false
+    },
+    {
+      id: 'pbText',
+      name: 'Text',
+      custom: false
+    }]);
   });
 
   it('should get widgetTo properties when user select a widget', function () {

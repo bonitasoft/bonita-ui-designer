@@ -14,6 +14,12 @@ module.exports = function(config) {
     // frameworks to use
     frameworks: ['jasmine', 'commonjs'],
 
+    client: {
+      jasmine: {
+        random: false
+      }
+    },
+
     // list of files / patterns to load in the browser
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
