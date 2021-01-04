@@ -35,6 +35,8 @@ const paths = {
     'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
     'node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js',
     'node_modules/@bonitasoft/query-selector/lib/query-selector.es5.min.js',
+    'node_modules/@bonitasoft/pb-input/lib/pb-input.es5.min.js',
+    'node_modules/@bonitasoft/pb-text/lib/pb-text.es5.min.js',
     'node_modules/angular-filter/dist/angular-filter.min.js'
   ],
   css: [
