@@ -173,7 +173,9 @@ public class WorkspaceTest {
         workspace.initialize();
 
         assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.tpl.html")).exists();
         assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.json")).exists();
+        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.tpl.html")).exists();
     }
 
     @Test
