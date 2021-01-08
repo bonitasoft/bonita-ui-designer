@@ -48,6 +48,8 @@ function devWidgetsWc(done) {
   if (fs.existsSync(config.paths.dev.widgetsWc)) {
     src(config.paths.widgetsWcJson)
       .pipe(dest(config.paths.dev.widgetsWc));
+    src(config.paths.widgetsWcTpl)
+      .pipe(dest(config.paths.dev.widgetsWc));
   }
   done();
 }
