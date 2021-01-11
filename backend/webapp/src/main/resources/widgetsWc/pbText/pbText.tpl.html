@@ -1,4 +1,32 @@
-<pb-text label-hidden="{{properties.labelHidden}}" label="{{properties.label}}"
-         label-position="{{properties.labelPosition}}" label-width="{{properties.labelWidth}}"
-         text="{{properties.text}}" alignment="{{properties.alignment}}" allow-html>
-</pb-text>
+<pb-text ng-if="properties.labelHidden && properties.allowHTML"
+         label="{{properties.label}}"
+         label-hidden
+         allow-html
+         text="{{properties.text}}"
+         label-position="{{properties.labelPosition}}"
+         label-width="{{properties.labelWidth}}"
+         aligment="{{properties.alignment}}"
+></pb-text>
+<pb-text ng-if="!properties.labelHidden && !properties.allowHTML"
+         label="{{properties.label}}"
+         text="{{properties.text}}"
+         label-position="{{properties.labelPosition}}"
+         label-width="{{properties.labelWidth}}"
+         aligment="{{properties.alignment}}"
+></pb-text>
+<pb-text ng-if="!properties.labelHidden && properties.allowHTML"
+         label="{{properties.label}}"
+         allow-html
+         text="{{properties.text}}"
+         label-position="{{properties.labelPosition}}"
+         label-width="{{properties.labelWidth}}"
+         aligment="{{properties.alignment}}"
+></pb-text>
+<pb-text ng-if="properties.labelHidden && !properties.allowHTML"
+         label="{{properties.label}}"
+         label-hidden
+         text="{{properties.text}}"
+         label-position="{{properties.labelPosition}}"
+         label-width="{{properties.labelWidth}}"
+         aligment="{{properties.alignment}}"
+></pb-text>
