@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           # Mandatory to use a old node version with our actual dependencies
-          node-version: '8'
+          node-version: '14'
       - name: Install gettext
         run: sudo apt-get install gettext
       - name: Run Crowdin upload
