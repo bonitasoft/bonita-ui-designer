@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
+import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
+
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.generator.mapping.data.StringUtil.indent;
-
-import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 
 public class OutputProperty {
 

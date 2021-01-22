@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 

@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.migration.page;
 
-import static com.google.common.collect.Iterables.concat;
-
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -29,6 +27,8 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
+
+import static com.google.common.collect.Iterables.concat;
 
 public class MigrationTabsContainerVisitor implements ElementVisitor<Void> {
 

@@ -35,14 +35,12 @@ import org.springframework.web.context.ServletContextAware;
  * @author Colin Puy
  */
 @Named
-public class WorkspaceInitializer implements ServletContextAware {
+public class WorkspaceInitializer {
 
     @Inject
     private Workspace workspace;
 
-    private List<LiveRepositoryUpdate> migrations;
-
-    private ServletContext servletContext;
+    private List<LiveRepositoryUpdate<?>> migrations;
 
     private boolean initialized = false;
 
@@ -50,7 +48,7 @@ public class WorkspaceInitializer implements ServletContextAware {
      * List cannot be injected in constructor with @Inject so we use setter and @Resource to inject them
      */
     @Resource(name = "liveRepositoriesUpdate")
-    public void setMigrations(List<LiveRepositoryUpdate> migrations) {
+    public void setMigrations(List<LiveRepositoryUpdate<?>> migrations) {
         this.migrations = migrations;
     }
 
@@ -59,7 +57,7 @@ public class WorkspaceInitializer implements ServletContextAware {
         if(!initialized) {
             try {
                 workspace.initialize();
-                for (LiveRepositoryUpdate migration : migrations) {
+                for (LiveRepositoryUpdate<?> migration : migrations) {
                     migration.start();
                 }
                 cleanWorkspace();
@@ -76,18 +74,13 @@ public class WorkspaceInitializer implements ServletContextAware {
 
     public synchronized void migrateWorkspace(){
         contextInitialized(); //Ensure that the worksapce initialization is ended
-        for (LiveRepositoryUpdate migration :  migrations.stream().sorted().collect(Collectors.toList())) {
+        for (LiveRepositoryUpdate<?> migration :  migrations.stream().sorted().collect(Collectors.toList())) {
             try {
                 migration.migrate();
             } catch (IOException e) {
                 throw new DesignerInitializerException("Unable to migrate workspace", e);
             }
         }
-    }
-
-    @Override
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
     }
 
     public synchronized void indexingArtifacts(List<Page> pages, PageRepository pageRepository) {

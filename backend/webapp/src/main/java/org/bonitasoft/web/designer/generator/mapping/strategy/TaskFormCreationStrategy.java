@@ -14,14 +14,13 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import static java.lang.String.format;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
@@ -53,7 +52,7 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 
-import com.google.common.base.Strings;
+import static java.lang.String.format;
 
 public class TaskFormCreationStrategy implements PageCreationStrategy {
 

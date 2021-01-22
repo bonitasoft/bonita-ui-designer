@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.generator.mapping;
 import java.util.Collections;
 import java.util.Objects;
 
+import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
@@ -24,8 +25,6 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-
-import com.google.common.collect.Lists;
 
 public class ContractInputVisitorImpl implements ContractInputVisitor {
 

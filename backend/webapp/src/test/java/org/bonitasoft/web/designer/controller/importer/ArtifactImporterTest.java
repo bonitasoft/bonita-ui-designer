@@ -14,6 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
 import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
@@ -22,7 +27,6 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImport
 import org.bonitasoft.web.designer.controller.importer.mocks.PageImportMock;
 import org.bonitasoft.web.designer.controller.importer.mocks.WidgetImportMock;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
@@ -38,12 +42,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -51,7 +50,12 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ArtifactImporterTest {
@@ -60,6 +64,7 @@ public class ArtifactImporterTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
     @Rule
     public TemporaryFolder tempDir = new TemporaryFolder();
 
@@ -74,18 +79,27 @@ public class ArtifactImporterTest {
 
     @Mock
     private JsonFileBasedLoader<Page> pageLoader;
+
     @Mock
     private WidgetFileBasedLoader widgetLoader;
+
     @Mock
     private WidgetRepository widgetRepository;
+
     private ArtifactImporter<Page> pageImporter;
+
     private ArtifactImporter<Widget> widgetImporter;
 
     private Path pageImportPath;
+
     private Path widgetImportPath;
+
     private Path pageUnzippedPath;
+
     private Path widgetUnzippedPath;
+
     private WidgetImportMock wMocks;
+
     private PageImportMock pMocks;
 
     @Before
@@ -293,7 +307,7 @@ public class ArtifactImporterTest {
         page.setName("myPage");
         page.setId("myPage");
         page.setModelVersion("12.0.0");
-        when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
+        lenient().when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
         Import anImport = new Import(pageImporter, "import-uuid", pageImportPath);
         when(pageService.getStatusWithoutDependencies(page)).thenReturn(new MigrationStatusReport(false, false));
 
@@ -301,6 +315,6 @@ public class ArtifactImporterTest {
 
         assertThat(report.getStatus()).isEqualTo(ImportReport.Status.INCOMPATIBLE);
         assertThat(page.getId()).isEqualTo("myPage");
-        verify(pageRepository,never()).updateLastUpdateAndSave(any(Page.class));
+        verify(pageRepository, never()).updateLastUpdateAndSave(any(Page.class));
     }
 }

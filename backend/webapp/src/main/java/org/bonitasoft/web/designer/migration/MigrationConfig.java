@@ -14,9 +14,8 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import static java.util.Arrays.asList;
-
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
@@ -46,9 +45,12 @@ import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import static java.util.Arrays.asList;
 
 @Configuration
 public class MigrationConfig {
@@ -231,11 +233,6 @@ public class MigrationConfig {
                 new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<Widget>(INITIAL_MODEL_VERSION)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<Widget>("2.1")));
-    }
-
-    @Bean
-    public PageService pageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer) {
-        return new PageService(pageRepository, pageMigrationApplyer);
     }
 
     @Bean

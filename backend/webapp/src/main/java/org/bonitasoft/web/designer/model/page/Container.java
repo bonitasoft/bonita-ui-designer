@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-import static org.springframework.util.StringUtils.isEmpty;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +27,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static org.springframework.util.StringUtils.hasText;
 
 @JsonTypeName("container")
 public class Container extends Component implements ElementContainer {
@@ -61,14 +61,14 @@ public class Container extends Component implements ElementContainer {
     @JsonIgnore
     public boolean isRepeated() {
         return getPropertyValues().containsKey("repeatedCollection")
-                && !isEmpty(getPropertyValues().get("repeatedCollection").getValue());
+                && hasText((String)getPropertyValues().get("repeatedCollection").getValue());
     }
 
     public Container addNewRow(Element element) {
         this.getRows().add(Collections.<Element>singletonList(element));
         return this;
     }
-    
+
     public Container addNewRow(List<Element> elements) {
         this.getRows().add(elements);
         return this;

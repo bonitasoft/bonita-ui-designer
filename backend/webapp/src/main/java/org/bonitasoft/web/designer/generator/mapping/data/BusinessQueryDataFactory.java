@@ -20,12 +20,11 @@ import java.util.Set;
 
 import javax.inject.Named;
 
+import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-
-import com.google.common.base.Strings;
 
 @Named
 public class BusinessQueryDataFactory {

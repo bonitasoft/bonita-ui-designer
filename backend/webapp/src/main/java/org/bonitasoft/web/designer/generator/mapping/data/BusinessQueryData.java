@@ -14,15 +14,15 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.substringAfterLast;
-import static org.apache.commons.lang3.StringUtils.uncapitalize;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
-
 import java.util.Objects;
 
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.data.Data;
+
+import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.substringAfterLast;
+import static org.apache.commons.lang3.StringUtils.uncapitalize;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 
 public class BusinessQueryData implements PageData {

@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.studio.workspace;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.RestClientProperties;
+
 import org.springframework.web.client.RestTemplate;
 
 /**

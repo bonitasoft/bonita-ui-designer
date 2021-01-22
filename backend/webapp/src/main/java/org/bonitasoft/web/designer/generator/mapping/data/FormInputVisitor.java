@@ -15,9 +15,6 @@
 
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static com.google.common.collect.Maps.newLinkedHashMap;
-import static java.util.Collections.EMPTY_LIST;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -34,6 +31,9 @@ import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
+import static com.google.common.collect.Maps.newLinkedHashMap;
+import static java.util.Collections.EMPTY_LIST;
 
 public class FormInputVisitor implements ContractInputVisitor {
 

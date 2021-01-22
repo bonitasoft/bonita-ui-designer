@@ -15,42 +15,44 @@
 
 package org.bonitasoft.web.designer.controller;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.config.AppProperties.BonitaDataProperties;
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.BONITA_DATA_REPOSITORY_ORIGIN;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
-
 @RestController
 @RequestMapping("/rest/config")
+@RequiredArgsConstructor
 public class ConfigurationResource {
 
     protected static final Logger logger = LoggerFactory.getLogger(ConfigurationResource.class);
 
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
-    @Value("${designer.version}")
-    protected String uidVersion;
+    private final DesignerProperties designerProperties;
+    private final UidProperties uidProperties;
+    private final BonitaDataProperties bonitaDataProperties;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ConfigurationReport> getConfig() {
-        String bdrUrl = System.getProperty(BONITA_DATA_REPOSITORY_ORIGIN);
+        String bdrUrl = bonitaDataProperties.getOrigin();
         try {
             new URL(bdrUrl);
-        } catch (MalformedURLException e) {
-            logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set, or not a valid URL.");
+        }
+        catch (MalformedURLException e) {
+            logger.warn("System property bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }
-        boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
-        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl, isExperimental), HttpStatus.OK);
+        boolean isExperimental = uidProperties.isExperimental();
+        return new ResponseEntity<>(new ConfigurationReport(this.designerProperties.getVersion(), this.designerProperties.getModelVersion(), bdrUrl, isExperimental), HttpStatus.OK);
     }
 }

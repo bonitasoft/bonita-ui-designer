@@ -15,15 +15,12 @@
 
 package org.bonitasoft.web.designer.workspace;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Map;
+
 import javax.inject.Inject;
 
 import com.google.common.base.Function;
-import org.bonitasoft.web.designer.ApplicationConfig;
+import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -35,34 +32,37 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class })
-@WebAppConfiguration("file:target/test-classes")
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Main.class)
 public class WorkspaceMigrationTest {
 
     @Value("${designer.version}")
-    String uidVersion;
+    private String uidVersion;
 
     @Value("${designer.modelVersion}")
-    String modelVersion;
+    private String modelVersion;
 
     @Inject
-    WorkspaceInitializer workspaceInitializer;
+    private WorkspaceInitializer workspaceInitializer;
 
     @Inject
-    PageRepository pageRepository;
+    private PageRepository pageRepository;
 
     @Inject
-    WidgetRepository widgetRepository;
+    private WidgetRepository widgetRepository;
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "2.1";
+    private String PAGE_HIGHER_MIGRATION_VERSION = "2.1";
 
-    String WIDGET_HIGHER_MIGRATION_VERSION = "2.1";
+    private String WIDGET_HIGHER_MIGRATION_VERSION = "2.1";
 
     @Before
     public void setUp() throws Exception {

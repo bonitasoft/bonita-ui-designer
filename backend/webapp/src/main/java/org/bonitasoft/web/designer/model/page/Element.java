@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
-import static java.lang.String.format;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,6 +25,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
+
+import static java.lang.String.format;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

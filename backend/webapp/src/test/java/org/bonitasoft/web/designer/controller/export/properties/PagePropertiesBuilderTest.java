@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
-import static org.mockito.Mockito.when;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -31,8 +26,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.test.util.ReflectionTestUtils;
+
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PagePropertiesBuilderTest {
@@ -72,7 +74,7 @@ public class PagePropertiesBuilderTest {
 
         assertThat(properties).contains("contentType=page");
         assertThat(properties).contains("name=custompage_aPageName");
-        assertThat(properties).contains("displayName=a display name with special characters &'\"\\u00E9" );
+        assertThat(properties).contains("displayName=a display name with special characters &'\"\\u00E9");
         assertThat(properties).contains("description=a page description with special characters &'\"\\u00E9");
         assertThat(properties).contains("resources=[]");
     }
@@ -84,10 +86,10 @@ public class PagePropertiesBuilderTest {
         page.setDesignerVersion("1.12.1");
 
         String properties = new String(pagePropertiesBuilder.build(page));
-        when(pageResource.getResources(page.getId())).thenReturn(Arrays.asList(""));
+        lenient().when(pageResource.getResources(page.getId())).thenReturn(Arrays.asList(""));
         assertThat(properties).contains("contentType=page");
         assertThat(properties).contains("name=custompage_aPageName");
-        assertThat(properties).contains("displayName=aPageName" );
+        assertThat(properties).contains("displayName=aPageName");
         assertThat(properties).contains("description=Page generated with Bonita UI designer");
         assertThat(properties).contains("resources=[]");
         assertThat(properties).contains("designerVersion=1.12.1");
@@ -127,7 +129,6 @@ public class PagePropertiesBuilderTest {
     }
 
 
-
     @Test
     public void should_not_add_a_resource_which_is_not_a_bonita_resource() throws Exception {
         page.setData(singletonMap("foo", anApiData("../API/path/to/wathever/resource")));
@@ -137,7 +138,6 @@ public class PagePropertiesBuilderTest {
 
         assertThat(properties).contains("resources=[]");
     }
-
 
 
     @Test

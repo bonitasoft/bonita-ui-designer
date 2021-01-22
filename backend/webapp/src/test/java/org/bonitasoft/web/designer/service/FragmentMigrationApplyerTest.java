@@ -14,22 +14,24 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
 import java.util.Collections;
 import java.util.Optional;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
 import org.bonitasoft.web.designer.migration.Migration;
 import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.service.WidgetService;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentMigrationApplyerTest {
@@ -48,8 +50,8 @@ public class FragmentMigrationApplyerTest {
 
         migrationApplyer.migrate(fragment, false);
 
-        assertEquals(fragment.getPreviousArtifactVersion(),"1.0.0");
-        assertEquals(fragment.getArtifactVersion(),"2.0");
+        assertEquals(fragment.getPreviousArtifactVersion(), "1.0.0");
+        assertEquals(fragment.getArtifactVersion(), "2.0");
         verify(widgetService, never()).migrateAllCustomWidgetUsedInPreviewable(fragment);
     }
 
@@ -63,8 +65,8 @@ public class FragmentMigrationApplyerTest {
 
         migrationApplyer.migrate(fragment, false);
 
-        assertEquals(fragment.getPreviousArtifactVersion(),"2.0");
-        assertEquals(fragment.getArtifactVersion(),"2.1");
+        assertEquals(fragment.getPreviousArtifactVersion(), "2.0");
+        assertEquals(fragment.getArtifactVersion(), "2.1");
         verify(widgetService, never()).migrateAllCustomWidgetUsedInPreviewable(fragment);
     }
 
@@ -75,12 +77,12 @@ public class FragmentMigrationApplyerTest {
         FragmentMigrationApplyer migrationApplyer = new FragmentMigrationApplyer(Collections.singletonList(migration), widgetService);
 
         Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").withPreviousArtifactVersion("2.0").build();
-        when(mockMigrationStep.migrate(fragment)).thenReturn(Optional.empty());
+        lenient().when(mockMigrationStep.migrate(fragment)).thenReturn(Optional.empty());
 
         migrationApplyer.migrate(fragment, false);
 
-        assertEquals(fragment.getPreviousArtifactVersion(),"2.0");
-        assertEquals(fragment.getArtifactVersion(),"2.0");
+        assertEquals(fragment.getPreviousArtifactVersion(), "2.0");
+        assertEquals(fragment.getArtifactVersion(), "2.0");
         verify(widgetService, never()).migrateAllCustomWidgetUsedInPreviewable(fragment);
     }
 
@@ -96,8 +98,8 @@ public class FragmentMigrationApplyerTest {
 
         migrationApplyer.migrate(fragment, true);
 
-        assertEquals(fragment.getPreviousArtifactVersion(),"1.0.0");
-        assertEquals(fragment.getArtifactVersion(),"2.0");
+        assertEquals(fragment.getPreviousArtifactVersion(), "1.0.0");
+        assertEquals(fragment.getArtifactVersion(), "2.0");
         verify(widgetService).migrateAllCustomWidgetUsedInPreviewable(fragment);
 
     }

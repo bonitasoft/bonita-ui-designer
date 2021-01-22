@@ -19,8 +19,6 @@ import java.util.Map;
 
 import javax.inject.Named;
 
-import com.google.common.collect.ImmutableSortedMap;
-
 @Named
 public class DimensionFactory {
 

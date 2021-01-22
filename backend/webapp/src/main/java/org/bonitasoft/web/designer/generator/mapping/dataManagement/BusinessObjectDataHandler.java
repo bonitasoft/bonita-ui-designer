@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
-
 import java.util.List;
 import java.util.Objects;
 
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
+
+import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.reverse;
 
 public class BusinessObjectDataHandler extends ContractInputDataHandler {
 

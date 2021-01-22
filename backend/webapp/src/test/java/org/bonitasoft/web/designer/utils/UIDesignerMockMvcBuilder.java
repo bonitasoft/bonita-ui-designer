@@ -26,6 +26,7 @@ public class UIDesignerMockMvcBuilder {
         TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport(new DesignerConfig());
         return standaloneSetup(controllers)
                 .setMessageConverters(configuration.createMessageConverters())
-                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver(new ContentNegotiationManager()));
+                .setHandlerExceptionResolvers(configuration.handlerExceptionResolver(new ContentNegotiationManager()))
+                ;
     }
 }

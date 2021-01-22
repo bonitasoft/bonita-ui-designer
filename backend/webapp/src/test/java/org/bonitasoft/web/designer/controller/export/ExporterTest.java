@@ -14,21 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.apache.commons.io.FileUtils.deleteDirectory;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.bonitasoft.web.designer.controller.MigrationResource;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
 import org.bonitasoft.web.designer.model.ModelException;
@@ -43,15 +32,29 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.util.ReflectionTestUtils;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.apache.commons.io.FileUtils.deleteDirectory;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExporterTest {
 
     @Rule
     public TemporaryFolder repositoryFolder = new TemporaryFolder();
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Mock
     private PageRepository pageRepository;
@@ -62,9 +65,6 @@ public class ExporterTest {
     private Exporter<Page> exporter;
 
     private MockHttpServletResponse response = new MockHttpServletResponse();
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
@@ -77,7 +77,7 @@ public class ExporterTest {
         if (page.getId() == null) {
             page.setId("default-id");
         }
-        when(pageRepository.get(page.getId())).thenReturn(page);
+        lenient().when(pageRepository.get(page.getId())).thenReturn(page);
         when(pageService.get(page.getId())).thenReturn(page);
         when(pageRepository.resolvePath(page.getId())).thenReturn(repositoryFolder.toPath());
         write(repositoryFolder.toPath().resolve(format("%s.json", page.getId())), "foobar".getBytes());
@@ -177,6 +177,7 @@ public class ExporterTest {
     private class FakeStep implements ExportStep<Page> {
 
         private String content;
+
         private String filename;
 
         public FakeStep(String content, String filename) {

@@ -14,6 +14,11 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.bonitasoft.web.designer.model.Assetable;
@@ -32,11 +37,6 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 

@@ -19,7 +19,6 @@ import java.util.List;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Property;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.visitor.FixBondsTypesVisitor;
 

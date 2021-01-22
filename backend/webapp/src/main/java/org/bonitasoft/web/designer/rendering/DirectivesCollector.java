@@ -14,17 +14,12 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.String.format;
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.exists;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +28,12 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.exists;
 
 /**
  * @author Benjamin Parisel

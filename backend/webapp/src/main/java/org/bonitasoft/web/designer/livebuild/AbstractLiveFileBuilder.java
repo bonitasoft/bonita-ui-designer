@@ -14,17 +14,19 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import org.bonitasoft.web.designer.rendering.GenerationException;
-
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import lombok.extern.slf4j.Slf4j;
+import org.bonitasoft.web.designer.rendering.GenerationException;
+
 import static java.nio.file.FileVisitResult.CONTINUE;
 import static java.nio.file.Files.walkFileTree;
 
+@Slf4j
 public abstract class AbstractLiveFileBuilder {
 
     private final Watcher watcher;
@@ -34,9 +36,7 @@ public abstract class AbstractLiveFileBuilder {
     }
 
     public void start(final Path root) throws IOException {
-
-        walkFileTree(root, new SimpleFileVisitor<Path>() {
-
+        walkFileTree(root, new SimpleFileVisitor<>() {
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                 buildIfNeeded(path);
@@ -45,14 +45,15 @@ public abstract class AbstractLiveFileBuilder {
         });
 
         // now on build on change
-        watcher.watch(root, path -> buildIfNeeded(path));
+        watcher.watch(root, this::buildIfNeeded);
     }
 
     private void buildIfNeeded(Path path) throws IOException {
         if (isBuildable(path.toFile().getPath())) {
             try {
                 build(path);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new GenerationException("Build error for " + path.getFileName(), ex);
             }
         }

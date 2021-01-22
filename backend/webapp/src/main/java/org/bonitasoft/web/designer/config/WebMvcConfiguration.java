@@ -19,11 +19,13 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,12 +40,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 @Configuration
-@EnableWebMvc
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+public class WebMvcConfiguration implements WebMvcConfigurer { // extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
     public final static String BACKEND_RESOURCES = "classpath:/META-INF/resources/";
     public final static String FRONTEND_RESOURCES = "classpath:/static/";
@@ -55,7 +57,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    /**
+        /**
      * Jackson object mapper used to serialize or deserialize Json objects
      *
      * @see DesignerConfig#objectMapper()
@@ -72,33 +74,33 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-
-    /**
-     * This allows for mapping the DispatcherServlet to "/" (thus overriding the mapping of the container’s default Servlet), while still allowing static resource
-     * requests to be handled by the container’s default Servlet. It configures a DefaultServletHttpRequestHandler with a URL mapping of "/**" and the lowest priority
-     * relative to other URL mappings.
-     */
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    /**
-     * In Internet Explorer http requests are cached by default. It's a problem when we want to provide a REST API. This interceptor
-     * adds headers in the responses to desactivate the cache. NB :  static resources are cached but managed by the resource handlers
-     *
-     * @param registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        WebContentInterceptor interceptor = new WebContentInterceptor();
-        interceptor.setCacheSeconds(0);
-        interceptor.setUseExpiresHeader(true);
-        interceptor.setUseCacheControlHeader(true);
-        interceptor.setUseCacheControlNoStore(true);
-
-        registry.addInterceptor(interceptor);
-    }
+//
+//    /**
+//     * This allows for mapping the DispatcherServlet to "/" (thus overriding the mapping of the container’s default Servlet), while still allowing static resource
+//     * requests to be handled by the container’s default Servlet. It configures a DefaultServletHttpRequestHandler with a URL mapping of "/**" and the lowest priority
+//     * relative to other URL mappings.
+//     */
+//    @Override
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//        configurer.enable();
+//    }
+//
+//    /**
+//     * In Internet Explorer http requests are cached by default. It's a problem when we want to provide a REST API. This interceptor
+//     * adds headers in the responses to desactivate the cache. NB :  static resources are cached but managed by the resource handlers
+//     *
+//     * @param registry
+//     */
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        WebContentInterceptor interceptor = new WebContentInterceptor();
+//        interceptor.setCacheSeconds(0);
+//        interceptor.setUseExpiresHeader(true);
+//        interceptor.setUseCacheControlHeader(true);
+//        interceptor.setUseCacheControlNoStore(true);
+//
+//        registry.addInterceptor(interceptor);
+//    }
 
     /**
      * Add resources handler to help Spring to manage our static resources (from frontend and backend)
@@ -127,19 +129,19 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         }
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        if (this.resourceLoader.getResource("classpath:/static/index.html").exists()) {
-            // Use forward: prefix so that no view resolution is done
-            try {
-                logger.info("Adding welcome page: " + this.resourceLoader.getResource(FRONTEND_RESOURCES + "index.html").getURL());
-                registry.addViewController("/").setViewName("forward:/index.html");
-            } catch (IOException e) {
-                logger.error("The home page index.html was not found", e);
-            }
-        }
-    }
-
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        if (this.resourceLoader.getResource("classpath:/static/index.html").exists()) {
+//            // Use forward: prefix so that no view resolution is done
+//            try {
+//                logger.info("Adding welcome page: " + this.resourceLoader.getResource(FRONTEND_RESOURCES + "index.html").getURL());
+//                registry.addViewController("/").setViewName("forward:/index.html");
+//            } catch (IOException e) {
+//                logger.error("The home page index.html was not found", e);
+//            }
+//        }
+//    }
+//
     /**
      * Spring MVC use a default objectMapper. Objects passed to and returned from the controllers are converted to and from HTTP messages by HttpMessageConverter
      * instances. We must use our {{@link #objectMapper}} because of the subtypes.... So we declare two message converters

@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import java.util.Collections;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,8 +25,6 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
-
-import java.util.Collections;
 
 @Named
 public class PageService extends AbstractArtifactService<Page> {

@@ -14,21 +14,33 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.*;
+import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JsonViewLight;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
-
-import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
-import java.util.*;
-import java.util.regex.Pattern;
 
 import static com.google.common.collect.Iterables.find;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;

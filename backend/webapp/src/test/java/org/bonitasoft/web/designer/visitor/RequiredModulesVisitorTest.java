@@ -14,19 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
-import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
-import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Mockito.when;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,15 +29,31 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
+import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RequiredModulesVisitorTest {
 
     @Mock
     private WidgetRepository widgetRepository;
+
     @Mock
     private FragmentRepository fragmentRepository;
+
     @InjectMocks
     private RequiredModulesVisitor requiredModulesVisitor;
 
@@ -169,7 +172,7 @@ public class RequiredModulesVisitorTest {
         Component component2 = mockComponentFor(aWidget().modules("component2Module", "component2OtherModule"));
         FragmentElement fragmentElement = aFragmentElement().withFragmentId("my-fragment").build();
         Fragment fragment = aFragment().id("my-fragment").with(component1, component2).build();
-        when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
+        lenient().when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
 
         Set<String> modules = requiredModulesVisitor.visit(fragment);
 

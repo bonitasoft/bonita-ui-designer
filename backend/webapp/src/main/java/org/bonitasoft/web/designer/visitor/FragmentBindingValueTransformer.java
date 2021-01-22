@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import org.bonitasoft.web.designer.model.page.PropertyValue;
 import com.google.common.collect.Maps;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 
 public class FragmentBindingValueTransformer implements Maps.EntryTransformer<String, String, PropertyValue> {
 

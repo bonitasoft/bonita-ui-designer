@@ -14,9 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.bonitasoft.web.designer.model.data.DataType.URLPARAMETER;
-
 import org.bonitasoft.web.designer.model.data.Data;
+
+import static org.bonitasoft.web.designer.model.data.DataType.URLPARAMETER;
 
 public class TaskIdData implements PageData {
 

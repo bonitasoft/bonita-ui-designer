@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.repository;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,6 +27,8 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -40,14 +41,17 @@ import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
 
+    private UidProperties uidProperties;
+
     @Inject
     public WidgetRepository(
             @Named("widgetPath") Path path,
             @Named("widgetFileBasedPersister") JsonFileBasedPersister<Widget> fileBasedRepository,
             @Named("widgetFileBasedLoader") JsonFileBasedLoader<Widget> widgetLoader,
             BeanValidator validator,
-            Watcher watcher) {
+            Watcher watcher, UidProperties uidProperties) {
         super(path, fileBasedRepository, widgetLoader, validator, watcher);
+        this.uidProperties = uidProperties;
     }
 
     @Override
@@ -84,7 +88,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
         try {
-            if (loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)) {
+            if (loadWidgetsWc && uidProperties.isExperimental()) {
                 return loader.getAll(Paths.get(path + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
             }
             return loader.getAll(path);

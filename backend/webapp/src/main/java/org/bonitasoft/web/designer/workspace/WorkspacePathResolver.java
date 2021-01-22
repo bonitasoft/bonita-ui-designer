@@ -39,6 +39,8 @@ public class WorkspacePathResolver {
     private static final String TEMP_DIR = "workspace-uid";
     public static final String WIDGETS_WC_SUFFIX = "Wc";
 
+    public static final String I18N = "i18n";
+
     @Inject
     private Environment env;
 
@@ -72,6 +74,10 @@ public class WorkspacePathResolver {
 
     public Path getTmpFragmentsRepositoryPath() {
         return getTemporaryWorkspacePath().resolve(FRAGMENTS);
+    }
+
+    public Path getTmpI18nRepositoryPath() {
+        return getTemporaryWorkspacePath().resolve(I18N);
     }
 
     protected Path getRepositoryPath(String directoryName, String alternativeDirectoryPath) {

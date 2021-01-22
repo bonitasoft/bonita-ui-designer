@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,8 @@ public class StudioHealthCheck {
 
     @Scheduled(fixedRate = 20000)
     public void run() {
-        String statusURI = restClient.createURI("status/");
         if (restClient.isConfigured()) {
+            String statusURI = restClient.createURI("status/");
             RestTemplate restTemplate = restClient.getRestTemplate();
             try {
                 ResponseEntity<String> result = restTemplate.getForEntity(URI.create(statusURI), String.class);
@@ -54,7 +55,6 @@ public class StudioHealthCheck {
             } catch (RestClientException e) {
                 shutdown();
             }
-
         }
     }
 

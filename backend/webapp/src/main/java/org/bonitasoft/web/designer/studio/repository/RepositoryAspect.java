@@ -64,7 +64,8 @@ public class RepositoryAspect {
         postSaveAndUpdateDate(joinPoint);
     }
 
-    @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository.delete(String))")
+//    @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository+.delete(String))")
+    @Around("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
     public void delete(JoinPoint joinPoint) {
         try {
             Object component = get(joinPoint);
@@ -73,10 +74,10 @@ public class RepositoryAspect {
         } catch (ResourceNotFoundException | IOException e) {
             throw new RepositoryException("An error occured while proceeding delete action.", e);
         }
-    }
-    
-    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
-    public void postDelete(JoinPoint joinPoint) {
+//    }
+//
+//    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
+//    public void postDelete(JoinPoint joinPoint) {
         try {
             handler.postDelete(filePath(joinPoint));
         } catch (ResourceNotFoundException e) {
@@ -87,15 +88,15 @@ public class RepositoryAspect {
     private Path filePath(JoinPoint joinPoint) {
         return ((Repository<?>) joinPoint.getThis()).resolvePath(artifactId(joinPoint));
     }
-    
+
     private Path resolvePathFolder(JoinPoint joinPoint) {
         return ((Repository<?>) joinPoint.getThis()).resolvePathFolder(artifactId(joinPoint));
     }
-    
+
     private Identifiable get(JoinPoint joinPoint){
         return ((Repository<?>) joinPoint.getThis()).get(artifactId(joinPoint));
     }
-    
+
     private JsonFileBasedPersister getPersister(JoinPoint joinPoint){
         return ((AbstractRepository) joinPoint.getThis()).getPersister();
     }

@@ -22,6 +22,9 @@ import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.config.AppProperties;
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -49,7 +52,8 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
                 new JsonFileBasedPersister<Widget>(objectMapper, mock(BeanValidator.class)),
                 new WidgetFileBasedLoader(objectMapper),
                 mock(BeanValidator.class),
-                mock(Watcher.class));
+                mock(Watcher.class),
+                new UidProperties());
 
         when(pathResolver.getWidgetsRepositoryPath()).thenReturn(this.toPath());
     }

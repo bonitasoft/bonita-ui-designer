@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -30,10 +34,6 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static java.util.Collections.singletonMap;
 

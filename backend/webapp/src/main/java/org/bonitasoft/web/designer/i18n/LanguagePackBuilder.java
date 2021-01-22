@@ -14,16 +14,17 @@
  */
 package org.bonitasoft.web.designer.i18n;
 
-import static java.nio.file.Files.write;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+
+import static java.nio.file.Files.write;
 
 @Named
 public class LanguagePackBuilder extends AbstractLiveFileBuilder {

@@ -14,10 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static com.google.common.base.Joiner.on;
-
 import java.util.Objects;
 
+import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryData;
 import org.bonitasoft.web.designer.generator.widgets.PbDatePicker;
@@ -30,7 +29,7 @@ import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
-import com.google.common.base.CaseFormat;
+import static com.google.common.base.Joiner.on;
 
 public class ParametrizedWidgetFactory {
 

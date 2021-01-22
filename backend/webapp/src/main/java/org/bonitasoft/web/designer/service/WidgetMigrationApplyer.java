@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static java.lang.String.format;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +24,8 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 public class WidgetMigrationApplyer {
 

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.studio.workspace;
+package org.bonitasoft.web.designer.config;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,7 +22,7 @@ import org.springframework.core.env.Environment;
 @Named
 public class RestClientProperties {
 
-    protected static final String WORKSPACE_API_REST_URL = "workspace.api.rest.url";
+    public static final String WORKSPACE_API_REST_URL = "workspace.api.rest.url";
 
     @Inject
     private Environment env;

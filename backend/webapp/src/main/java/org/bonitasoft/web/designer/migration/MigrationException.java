@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

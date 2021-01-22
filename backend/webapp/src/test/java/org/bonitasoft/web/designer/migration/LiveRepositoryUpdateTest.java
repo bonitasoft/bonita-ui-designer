@@ -35,6 +35,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.config.AppProperties;
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -50,7 +53,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -134,14 +137,14 @@ public class LiveRepositoryUpdateTest {
 
         liveRepositoryUpdate.start();
 
+        verify(persister).saveInIndex(nullable(Path.class), any(Page.class));
         verify(persister).updateMetadata(any(Path.class), any(Page.class));
-        verify(persister).saveInIndex(any(Path.class), any(Page.class));
     }
 
     @Test
     public void should_order_LiveRepositoryUpdate() throws Exception {
         LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
-        Repository<Widget> wRepo = new WidgetRepository(folder.toPath(), mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class));
+        Repository<Widget> wRepo = new WidgetRepository(folder.toPath(), mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class),new UidProperties());
 
         LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate = new LiveRepositoryUpdate<>(wRepo, mock(WidgetFileBasedLoader.class), EMPTY_LIST);
 

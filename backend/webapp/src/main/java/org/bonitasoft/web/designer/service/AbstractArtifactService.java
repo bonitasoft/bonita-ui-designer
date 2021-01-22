@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.service;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.Identifiable;
+
 import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractArtifactService<T extends Identifiable> implements ArtifactService {

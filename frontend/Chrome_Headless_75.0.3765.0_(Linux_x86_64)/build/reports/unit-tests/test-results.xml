@@ -1,0 +1,742 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome Headless 75.0.3765.0 (Linux x86_64)" package="JavaScript unit tests" timestamp="2021-01-22T16:30:59" id="0" hostname="hugues-xps-13" tests="728" errors="0" failures="0" time="7.389">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/75.0.3765.0 Safari/537.36"/>
+  </properties>
+  <testcase name="App config UI_DESIGNER_SCREEN_SIZE should not register extra resolutions" time="0.065" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..App config UI_DESIGNER_SCREEN_SIZE"/>
+  <testcase name="App config UI_DESIGNER_SCREEN_SIZE should change default dimension" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..App config UI_DESIGNER_SCREEN_SIZE"/>
+  <testcase name="App config UI_DESIGNER_SCREEN_SIZE should change default resolution" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..App config UI_DESIGNER_SCREEN_SIZE"/>
+  <testcase name="AssetEditPopupCtrl should load local asset content" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetEditPopupCtrl"/>
+  <testcase name="AssetEditPopupCtrl should save local asset content" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetEditPopupCtrl"/>
+  <testcase name="AssetEditPopupCtrl should save local asset content and close pop up" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetEditPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should close modal" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should diplay error and close modal when response contains error after form submit" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should display a specific error while uploading a malformed json file for json asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should send external data to the caller when user want to save it" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should not save a non external asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should expose asset types to the scope" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should expose only widget asset types to the scope when in widget mode" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should validate url" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should expose form templates to the scope" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should tell that an asset on current scope already exists" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should reset new asset name when new asset source change" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should get a warning message for image asset" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPopupCtrl should get a warning message for other asset" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPopupCtrl"/>
+  <testcase name="AssetPreviewPopupCtrl should close modal" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPreviewPopupCtrl"/>
+  <testcase name="AssetPreviewPopupCtrl should get url for widget mode" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPreviewPopupCtrl"/>
+  <testcase name="AssetPreviewPopupCtrl should get url for widget asset in page mode" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPreviewPopupCtrl"/>
+  <testcase name="AssetPreviewPopupCtrl should get page asset url" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetPreviewPopupCtrl"/>
+  <testcase name="assetType filter should return &quot;JavaScript&quot; when given js" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetType filter"/>
+  <testcase name="assetType filter should return &quot;CSS&quot; when given css" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetType filter"/>
+  <testcase name="assetType filter should return &quot;Images&quot; when given img" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetType filter"/>
+  <testcase name="assetType filter should return &quot;&quot; when given undefined" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetType filter"/>
+  <testcase name="assetType filter should return &quot;&quot; when given unknown" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetType filter"/>
+  <testcase name="AssetCtrl Page editor should expose types" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should expose scopeFilter" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor getAssetsByTypeForCurrentScope should return js baseFramework asset when baseFramework is selected" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor getAssetsByTypeForCurrentScope"/>
+  <testcase name="AssetCtrl Page editor getAssetsByTypeForCurrentScope should not return js baseFramework asset when baseFramework is selected and searchTerm is relevant" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor getAssetsByTypeForCurrentScope"/>
+  <testcase name="AssetCtrl Page editor getAssetsByTypeForCurrentScope should not return js baseFramework asset when baseFramework is selected and searchTerm is not relevant" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor getAssetsByTypeForCurrentScope"/>
+  <testcase name="AssetCtrl Page editor should open a data popup for asset preview" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should open a data popup for asset management" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should open update asset popup while editing an external asset" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should open edit asset popup while editing a local asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should delete an asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should get url for widget asset in page mode" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should get page asset url" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should say if an asset is editable or not in page-editor" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Page editor should say if an asset is viewable or not in page-editor" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Page editor"/>
+  <testcase name="AssetCtrl Widget editor should open a data popup for asset preview" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="AssetCtrl Widget editor should open a data popup for asset management" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="AssetCtrl Widget editor should open a data popup for asset preview" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="AssetCtrl Widget editor should get url for widget mode" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="AssetCtrl Widget editor should say if an asset is editable or not in widget-editor" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="AssetCtrl Widget editor should say if an asset is viewable or not" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetCtrl Widget editor"/>
+  <testcase name="assetScope filter should not filter when no arg scope" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetScope filter"/>
+  <testcase name="assetScope filter should not filter when filtering items are true" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetScope filter"/>
+  <testcase name="assetScope filter should exclude asset who attach on page" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetScope filter"/>
+  <testcase name="assetScope filter should exclude asset who attach on widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..assetScope filter"/>
+  <testcase name="utils provider should allow registering new data types" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils provider"/>
+  <testcase name="utils data getSources should return a table containing Local and External" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils data"/>
+  <testcase name="utils data getTypes should return a table with all the types " time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils data"/>
+  <testcase name="utils assetToForm should return an object with default value for type and source" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils assetToForm"/>
+  <testcase name="utils assetToForm should return an object with external asset value " time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils assetToForm"/>
+  <testcase name="utils assetToForm should return an object with local asset value " time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils assetToForm"/>
+  <testcase name="utils formToAsset should return an asset" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils formToAsset"/>
+  <testcase name="utils should add widget asset before page assets if not already added" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils"/>
+  <testcase name="utils should not add widget asset to page if already added" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils"/>
+  <testcase name="utils should populate asset scope and componentId if not set while adding asset to page" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils"/>
+  <testcase name="utils should remove widget assets from page" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils"/>
+  <testcase name="utils should get a specific type" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils"/>
+  <testcase name="AsserErrorManagement service should resolve promise when no error has occured" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AsserErrorManagement service"/>
+  <testcase name="AsserErrorManagement service should diplay error and reject promise when response contains error after form submit" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AsserErrorManagement service"/>
+  <testcase name="AsserErrorManagement service should display a specific error while uploading a malformed json file for json asset" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AsserErrorManagement service"/>
+  <testcase name="AssetSectionCtrl getEmptyAssetMessage should display specific message when no assets found" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetSectionCtrl getEmptyAssetMessage"/>
+  <testcase name="AssetSectionCtrl getEmptyAssetMessage should display specific message when no scope is selected" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetSectionCtrl getEmptyAssetMessage"/>
+  <testcase name="AssetSectionCtrl getEmptyAssetMessage should display specific message when only page filter is active" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetSectionCtrl getEmptyAssetMessage"/>
+  <testcase name="AssetSectionCtrl getEmptyAssetMessage should display specific message when only widget filter is active" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetSectionCtrl getEmptyAssetMessage"/>
+  <testcase name="ace-editor directive should give default options and pass the wanted mode to ui-ace directive " time="0.114" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-editor directive"/>
+  <testcase name="ace-editor directive should hide print margin of ace editor when loaded" time="0.036" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-editor directive"/>
+  <testcase name="ace-editor directive should enable auto-complete if auto-completion data object is provided" time="0.026" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-editor directive"/>
+  <testcase name="ace-editor directive should unbind ctrl-alt-e key since it is used to type euros sign on windows" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-editor directive"/>
+  <testcase name="alert-content directive should display alert html content" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alert-content directive"/>
+  <testcase name="alert-content directive should display alert html content from template url" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alert-content directive"/>
+  <testcase name="alerts should display an error message" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should display an error object with html content" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should display a success message" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should display a success object with html content" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should display a warning message" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should display a warning object with html content" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should disappear" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="alerts should be closable" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts"/>
+  <testcase name="artifact name vaildation should display nothing when name is valid" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should display an error message in tooltip when name contain space" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should display an error message in tooltip when name contain special characters" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should display an error message in tooltip when name has more than 228 characters" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should display tooltip on top left by default" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should display tootlip on provided placement" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="artifact name vaildation should register extra validation messages" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact name vaildation"/>
+  <testcase name="directive autofocus should set focus on the input" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive autofocus"/>
+  <testcase name="directive autofocus should set the focus on an input after a watch" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive autofocus"/>
+  <testcase name="directive autofocus should set the focus on an ace-editor" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive autofocus"/>
+  <testcase name="compile template directive should compile directives and insert content" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..compile template directive"/>
+  <testcase name="compile template directive should compile directives and not insert content" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..compile template directive"/>
+  <testcase name="ExpandModal should add a expand button" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ExpandModal"/>
+  <testcase name="fileDownload directive should download expected url" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fileDownload directive"/>
+  <testcase name="fileDownload directive should intercept error if bad url" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fileDownload directive"/>
+  <testcase name="fileDownload directive should unregister event on element when scope is destroyed" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fileDownload directive"/>
+  <testcase name="IdenticonDirective should show an base 64 image" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..IdenticonDirective"/>
+  <testcase name="IdenticonDirective options should have background color passed" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..IdenticonDirective options"/>
+  <testcase name="IdenticonDirective options should have foreground color passed" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..IdenticonDirective options"/>
+  <testcase name="directive includeReplace should replace ng-include tag with template" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive includeReplace"/>
+  <testcase name="SaveIndicator should be hidden by default" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..SaveIndicator"/>
+  <testcase name="SaveIndicator should blink for one second while saved event is triggered" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..SaveIndicator"/>
+  <testcase name="Search directive should update value" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Search directive"/>
+  <testcase name="Search directive should clear value when clicking on clear button" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Search directive"/>
+  <testcase name="Search directive should display a placeholder" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Search directive"/>
+  <testcase name="mustachify filter should replace double brackets by curly braces" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..mustachify filter"/>
+  <testcase name="mustachify filter should replace specified characters by curly braces" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..mustachify filter"/>
+  <testcase name="AssetRepository should create an external asset" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetRepository"/>
+  <testcase name="AssetRepository should delete a local asset" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetRepository"/>
+  <testcase name="AssetRepository should delete an external asset" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetRepository"/>
+  <testcase name="AssetRepository should update a local asset content" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetRepository"/>
+  <testcase name="AssetRepository should load a local asset content" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..AssetRepository"/>
+  <testcase name="DataManagementService should load only real Business Object" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService should load an empty array when request is on error" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService should load queries when a businessData is given as parameter" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService should return an empty array when try to load queries on business object with business data repository is on error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService should return an empty array and error status when try to load businessObject with business data repository is on error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService should return an empty array and error status when try to load businessObject with business data repository is on error" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService"/>
+  <testcase name="DataManagementService dataManagementRepo retrieve attributes for relation businessObject should load all attributes when BO get 2 level" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService dataManagementRepo retrieve attributes for relation businessObject"/>
+  <testcase name="DataManagementService dataManagementRepo retrieve attributes for relation businessObject should cut businessObject attributes when BO get more than 5 level" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementService dataManagementRepo retrieve attributes for relation businessObject"/>
+  <testcase name="fragmentRepo should list the fragments" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should list the fragments not using a given element" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should list the fragments in light view" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should create a fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should save a page as fragment" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should delete a fragment" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should load a fragment" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should compute page export url" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should rename a fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should mark a fragment as favorite" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="fragmentRepo should unmark a fragment as favorite" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragmentRepo"/>
+  <testcase name="import repository service should force an import based on a uuid" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..import repository service"/>
+  <testcase name="import repository service should cancel an import based on a uuid" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..import repository service"/>
+  <testcase name="pageRepo should list the pages" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should create a page" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should duplicate a page" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should save a page" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should delete a page" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should load a page" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should verify if the page is valid on save" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should compute page export url" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should rename a page" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should list the page assets" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should deactivate an asset" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should mark a page as favorite" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should unmark a page as favorite" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="pageRepo should list the resources for a page" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..pageRepo"/>
+  <testcase name="repositories service should get page repository" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..repositories service"/>
+  <testcase name="repositories service should get widget repository" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..repositories service"/>
+  <testcase name="repositories service should get fragment repository" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..repositories service"/>
+  <testcase name="widgetRepo should save a widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should get all widgets" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should get all web components widgets" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should get widget by ID" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should create a widget with default template and controller" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should duplicate a widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should delete a widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should get all custom widgets" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should add a property to a widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should update a property of a widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should delete a property of a widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should compute widget export url" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should decrement order of an asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should increment order of an asset" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should mark a widget as favorite" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should unmark a widget as favorite" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="widgetRepo should get help content" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widgetRepo"/>
+  <testcase name="ace-data-completer should return an object with getCompletions " time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-data-completer"/>
+  <testcase name="ace-data-completer getCompletions should return each data in completions" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-data-completer getCompletions"/>
+  <testcase name="ace-data-completer getCompletions should return translate function in completions" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ace-data-completer getCompletions"/>
+  <testcase name="alerts success can be added as message" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts success"/>
+  <testcase name="alerts success can be added as object" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts success"/>
+  <testcase name="alerts success can be removed" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts success"/>
+  <testcase name="alerts success should be removed after a 8 seconds" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts success"/>
+  <testcase name="alerts error can be added as message" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts error"/>
+  <testcase name="alerts error can be added as object" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts error"/>
+  <testcase name="alerts error can be removed" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts error"/>
+  <testcase name="alerts error should be removed after 8 seconds" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts error"/>
+  <testcase name="alerts warning can be added as message" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts warning"/>
+  <testcase name="alerts warning can be added as object" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts warning"/>
+  <testcase name="alerts warning can be removed" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts warning"/>
+  <testcase name="alerts warning should be removed after a few seconds" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..alerts warning"/>
+  <testcase name="arrays Move an item to the left should move an item on its left if the array is full" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the left"/>
+  <testcase name="arrays Move an item to the left should move an item on its left if the array length = 2" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the left"/>
+  <testcase name="arrays Move an item to the left should not change the array if its length = 1" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the left"/>
+  <testcase name="arrays Move an item to the left should add the item if the item does not exist" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the left"/>
+  <testcase name="arrays Move an item to the left should add the item if the item does not exist and length is empty" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the left"/>
+  <testcase name="arrays Move an item to the right should move an item on its left if the array is full" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the right"/>
+  <testcase name="arrays Move an item to the right should move an item on its left if the array is length = 2" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the right"/>
+  <testcase name="arrays Move an item to the right should not change the array if its length = 1" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the right"/>
+  <testcase name="arrays Move an item to the right should add the item if the item does not exist" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the right"/>
+  <testcase name="arrays Move an item to the right should add the item if the item does not exist and length is empty" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to the right"/>
+  <testcase name="arrays Move an item to a custom position should fill an array if this one is empty" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to a custom position"/>
+  <testcase name="arrays Move an item to a custom position should move to a custom position" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays Move an item to a custom position"/>
+  <testcase name="arrays should remove one element in an array of Objects" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should not remove element in an empty array" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should not remove an empty element in an array of Objects" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should not remove an element when equalityTester not defined" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should remove two elements in an array of integer" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should remove first element of an array" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should do nothing when removing first element of an array that is not in array" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should insert an element in an array of integer at correct position" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should insert an element in an array of integer at the end if position is incorrect" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="arrays should insert an element in an array of integer at the end if position is not provided" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..arrays"/>
+  <testcase name="CustomWidgetEditorCtrl should navigate to home page" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should navigate back" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="errorInterceptor should add an error if JSON error response with message" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..errorInterceptor"/>
+  <testcase name="errorInterceptor should add a generic error if non-JSON error response" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..errorInterceptor"/>
+  <testcase name="errorInterceptor should add a generic error if JSON error without message" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..errorInterceptor"/>
+  <testcase name="Migration service should do nothing when page is not migrable" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should throw an error when artifact is not compatible" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should call migration confirmation when page is migrable" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should not call migration confirmation when page is migrable and notShowMeAgain is checked" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should clear lastReport when migrationStatus is called" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should fill lastReport when migration is on success" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Migration service should throw an error when migration is on error" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Migration service"/>
+  <testcase name="Resolution service should give all resolution in the right order" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution service"/>
+  <testcase name="Resolution service should get a resolution or return md by default" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution service"/>
+  <testcase name="Resolution service should return the default resolution if no resolution is selected" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution service"/>
+  <testcase name="Resolution service should return the selected resolution when a resolution is selected" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution service"/>
+  <testcase name="utils clamp should return a clamp value" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..utils clamp"/>
+  <testcase name="CustomWidgetEditorCtrl should navigate back" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should update a property" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should check if widget is dirty or pristine" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should add a property" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should delete a property" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should save a widget with its id" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should open a dialog to create a new property" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should open a dialog to save a widget as .." time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl should open help" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl"/>
+  <testcase name="CustomWidgetEditorCtrl isTypeSelectable should return false when selected bond is variable or interpolation" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl isTypeSelectable"/>
+  <testcase name="CustomWidgetEditorCtrl isTypeSelectable should return true when selected bond is expression or constant" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..CustomWidgetEditorCtrl isTypeSelectable"/>
+  <testcase name="PropertyEditorPopupCtrl should close the popup and pass params" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl should close the popup and pass params and reset default value" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl should dismiss the popup" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl should update type accordingly to selected bond" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl should expose popup types to scope" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl should expose currentParam to scope" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl"/>
+  <testcase name="PropertyEditorPopupCtrl isTypeChoicable should return false when type is not choice" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl isTypeChoicable"/>
+  <testcase name="PropertyEditorPopupCtrl isTypeChoicable should return false when type is choice and selected bond is variable or interpolation" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl isTypeChoicable"/>
+  <testcase name="PropertyEditorPopupCtrl isTypeChoicable should return true when selected bond is expression or constant and choice is type" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl isTypeChoicable"/>
+  <testcase name="PropertyEditorPopupCtrl isTypeSelectable should return false when selected bond is variable or interpolation" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl isTypeSelectable"/>
+  <testcase name="PropertyEditorPopupCtrl isTypeSelectable should return true when selected bond is expression or constant" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyEditorPopupCtrl isTypeSelectable"/>
+  <testcase name="Bottom panel should have 2 tabs for a page" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Bottom panel"/>
+  <testcase name="Bottom panel should have 1 tabs for a fragment" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Bottom panel"/>
+  <testcase name="Bottom panel should close bottom panel" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Bottom panel"/>
+  <testcase name="Bottom panel should open bottom panel" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Bottom panel"/>
+  <testcase name="DataManagementFilterPopupController Variable creation should return an error when variable name already exist" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementFilterPopupController Variable creation"/>
+  <testcase name="DataManagementFilterPopupController Variable creation should generate a new variable name when variable name already exist" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementFilterPopupController Variable creation"/>
+  <testcase name="DataManagementFilterPopupController Variable creation should generate a new variable name with suffix incrementation when variable name already exist" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementFilterPopupController Variable creation"/>
+  <testcase name="DataManagementFilterPopupController Variable creation should create a new variable when save button is click" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataManagementFilterPopupController Variable creation"/>
+  <testcase name="DataPopupController Variable creation should init scope data" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataPopupController Variable creation"/>
+  <testcase name="DataPopupController Variable creation should check variable name uniqness" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataPopupController Variable creation"/>
+  <testcase name="DataPopupController Variable creation should init newData.displayValue depending on the selectedType" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataPopupController Variable creation"/>
+  <testcase name="DataPopupController Edit variable should init scope data" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataPopupController Edit variable"/>
+  <testcase name="DataPopupController save variable should close modal" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataPopupController save variable"/>
+  <testcase name="data-type getDataTypes should return an object of dataTypes" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type getDataTypes"/>
+  <testcase name="data-type getDataLabel should return label for known types" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type getDataLabel"/>
+  <testcase name="data-type getDataLabel should return undefined for unknown types" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type getDataLabel"/>
+  <testcase name="data-type getDataDefaultValue should return label for known types" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type getDataDefaultValue"/>
+  <testcase name="data-type getDataDefaultValue should return undefined for unknown types" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type getDataDefaultValue"/>
+  <testcase name="data-type save should return a new object for data" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data-type save"/>
+  <testcase name="DataCtrl should save a new data" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should edit a data with default value" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should delete a data" time="0.033" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should transform page data to an array" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should filter variables by name" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should filter variables by value" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should open a data popup" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should return none exposed data type" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should return (Exposed) for exposed data type" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should sort based on a sort criteria" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should change sort order while sorting twice on same criteria" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should reset sort order while changing sort criteria" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="DataCtrl should be sorted by name by default" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DataCtrl"/>
+  <testcase name="exposableData should allow to expose a data" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..exposableData"/>
+  <testcase name="exposableData should allow to hide a data" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..exposableData"/>
+  <testcase name="validJSon should be valid if empty" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..validJSon"/>
+  <testcase name="validJSon should be valid if containing valid Json" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..validJSon"/>
+  <testcase name="validJSon should be invalid if containing bad formated json" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..validJSon"/>
+  <testcase name="Tab should be inactive when bottom panel is closed" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="Tab should be inactive when on a different state than the tab one" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="Tab should be active when current state is tab state" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="Tab should close bottom panel when activated while already active" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="Tab should open bottom panel when activated while bottom panel is closed" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="Tab should call tab state when activated" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Tab"/>
+  <testcase name="artifact naming validator service should return false when new artifact name don't exist" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact naming validator service"/>
+  <testcase name="artifact naming validator service should return true when new artifact name already exist" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifact naming validator service"/>
+  <testcase name="components service should reset registered components" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..components service"/>
+  <testcase name="components service should register components" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..components service"/>
+  <testcase name="components service should init a widget" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..components service"/>
+  <testcase name="components service throw an error when trying to init an unregistered component" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..components service"/>
+  <testcase name="properties service should compute a property value from widget property and populate propertyValue value with property default value" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service should compute a property value from widget property"/>
+  <testcase name="properties service should compute a property value from widget property and set propertyValue type to constant when property bond is expression" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service should compute a property value from widget property"/>
+  <testcase name="properties service should compute a property value from widget property and set propertyValue type to property bond otherwise" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service should compute a property value from widget property"/>
+  <testcase name="properties service should compute all property values of a component" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should concat common properties to a component properties" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should concat default css properties to a component properties" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should say that a property value with type expression is bound" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should say that a property value with type variable is bound" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should say that a property value with type constant is not bound" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="properties service should say that a property value with type interpolation is not bound" time="0.001" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..properties service"/>
+  <testcase name="EditorCtrl should get the right element classes" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should select the current row, and unselect the current component" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl On drag and drop should recalculate the components dimensions" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl On drag and drop"/>
+  <testcase name="EditorCtrl On drag and drop should push the element to the current row" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl On drag and drop"/>
+  <testcase name="EditorCtrl On drag and drop should push the element to the current row" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl On drag and drop"/>
+  <testcase name="EditorCtrl should select the component, and unselect the current row" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should select the tab, and unselect the current row" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl Add a widget should append a component to first row if page is empty" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl Add a widget should append a component and create a new row at the end" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl Add a widget should add a component to a row" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl Add a widget it should resize the last widget of a row if row is not full" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl Add a widget resize all the widgets in a row after added a widget to it" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl Add a widget should add a widget and do not change the length if we already have 12 col" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl Add a widget"/>
+  <testcase name="EditorCtrl should remove the current row" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should not remove row when there is only one in a container" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should remove the current component and trigger &quot;removed&quot; while removing it" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should not trigger &quot;removed&quot; while moving a component from a row to another" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should remove row when removing last component of a row" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should not remove row when moving component in the same row" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should tell if a row is the current row" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should compute row size" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should check if it is the current component" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should deselect a component" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should save a page using CTRL+s" time="0" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl">
+    <skipped/>
+  </testcase>
+  <testcase name="EditorCtrl should save and edit a custom widget" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should check that a page can be saved" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should open property panel when toggle while it is closed" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should close property panel when toggle while it is opened" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should open widget help popover while it is closed" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should close widget help popover while it is opened" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="EditorCtrl should close widget help popover when component changed while it is opened" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..EditorCtrl"/>
+  <testcase name="editor service should initialize a page" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should init components" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should add an alert if initialize failed" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should add an alert if incompatible migration or migration error" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should remove widget assets from page when widget is not in page anymore" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should not remove widget assets from page when widget still exists in page" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should initialize a page with a modal container" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should migrate a page before initializing" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should not call migrate when user click on cancel in migration popup" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="editor service should initialize a fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor service"/>
+  <testcase name="Header controller should navigate back" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should save a page" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should not save a page if not dirty" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should save a page changing its name" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should save and export page" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should save and export page without displaying message" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should avoid save then export if page is not dirty" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should save a page as ..." time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should update page metadata" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should remove reference attribute from every item" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should open convert popup" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should display business data model status when it's unable" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="Header controller should open migration report on click when artifact was migrated" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Header controller"/>
+  <testcase name="open help directive should open help popup on click" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..open help directive"/>
+  <testcase name="filterByComponentName filter should return all widgets when no search value" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..filterByComponentName filter"/>
+  <testcase name="filterByComponentName filter should return no widgets when search value is not in a widget component name" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..filterByComponentName filter"/>
+  <testcase name="filterByComponentName filter should return one widget when the search value is Form" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..filterByComponentName filter"/>
+  <testcase name="editor-palette directive should display palette sections" time="0.066" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive"/>
+  <testcase name="editor-palette directive should select the first sections as default" time="0.053" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive"/>
+  <testcase name="editor-palette directive should change a sections" time="0.055" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive"/>
+  <testcase name="editor-palette directive should close a sections" time="0.05" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive"/>
+  <testcase name="editor-palette directive controller should return sections" time="0.052" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should expose currentSection" time="0.061" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should toggle a section" time="0.049" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should close a section if currentSection is open" time="0.047" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should return correct active section" time="0.043" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should return correct active section" time="0.043" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="editor-palette directive controller should get section icon class name" time="0.043" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..editor-palette directive controller"/>
+  <testcase name="paletteWidget in page, form or layout editor should display the widget in palette" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..paletteWidget in page, form or layout editor"/>
+  <testcase name="paletteWidget in page, form or layout editor should display the widget in palette" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..paletteWidget in page, form or layout editor"/>
+  <testcase name="paletteWidget in fragment editor should hide modalContainer widget in palette in fragment editor" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..paletteWidget in fragment editor"/>
+  <testcase name="paletteService should get palette sections" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..paletteService"/>
+  <testcase name="fragment data binding field controller should initialize binding if undefined" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment data binding field controller"/>
+  <testcase name="fragment data binding field directive should display fragment data label" time="0.028" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment data binding field directive"/>
+  <testcase name="fragment data binding field directive should display bound page data and a linked icon" time="0.028" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment data binding field directive"/>
+  <testcase name="fragment data binding field directive should display a unlinked icon when not bound" time="0.026" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment data binding field directive"/>
+  <testcase name="SaveFragmentController should save container as a fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..SaveFragmentController"/>
+  <testcase name="PropertyPanelActionMenuCtrl container should have an action button with ability to save as fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyPanelActionMenuCtrl"/>
+  <testcase name="PropertyPanelActionMenuCtrl container with validation error should not be saved as fragment" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyPanelActionMenuCtrl"/>
+  <testcase name="PropertyPanelActionMenuCtrl fragment should have an action button with ability to edit" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyPanelActionMenuCtrl"/>
+  <testcase name="PropertyPanelActionMenuCtrl should save and edit a fragment" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PropertyPanelActionMenuCtrl"/>
+  <testcase name="widget property field controller should return the list of dataNames" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should create a constant property value when there is none for an expression bond" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should toggle the expression editor by changing parameter value type" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should store property value whenever we switch editor to come back to it" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should return true if the propertyValue is an expression" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should trigger a call to the right field template" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should trigger a call to choice-grouped field template when type is choice and choice values are objects" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should trigger a call to text field template if type is not supported" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should trigger a call to the right bond template" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller should return false if the propertyValue is an expression" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller"/>
+  <testcase name="widget property field controller check if we have a condition to display should return true if there is no condition" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller check if we have a condition to display"/>
+  <testcase name="widget property field controller check if we have a condition to display should true if the condition is valid" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller check if we have a condition to display"/>
+  <testcase name="widget property field controller check if we have a condition to display should false if the condition is not valid" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field controller check if we have a condition to display"/>
+  <testcase name="widget property field should display a boolean expression" time="0.03" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should allow switching to the expression editor when the property is of type expression" time="0.047" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should update propertyValue with expression content" time="0.036" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should update propertyValue with constant value" time="0.028" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should display a constant property" time="0.028" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should display a variable property" time="0.044" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should display an interpolation property" time="0.031" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="widget property field should display a textarea for interpolation html property" time="0.037" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..widget property field"/>
+  <testcase name="property typeahead should display suggestions based on user typing" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should display suggestions based on user typing and be case insensitive" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should display suggestions when user type a !" time="0.026" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should display suggestions on focus" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user type anything that is not in suggestions" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user type a ! and anything that is not in suggestions" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user type something that is in suggestions" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user type a ! and something that is in suggestions" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user select an entry from suggestions" time="0.021" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="property typeahead should set the model when user type a ! and select an entry from suggestions" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..property typeahead"/>
+  <testcase name="componentFactory should return an id for a given type" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentFactory"/>
+  <testcase name="componentFactory should return the incremented id for a given type" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentFactory"/>
+  <testcase name="ComponentMoverDirectiveCtrl should move the component left" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentMoverDirectiveCtrl"/>
+  <testcase name="ComponentMoverDirectiveCtrl should move the component right" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentMoverDirectiveCtrl"/>
+  <testcase name="componentMover should display the component mover and move the component" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentMover"/>
+  <testcase name="componentMover should delete the component" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentMover"/>
+  <testcase name="componentScopeBuilder should build a scope with an utility function range" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentScopeBuilder"/>
+  <testcase name="componentScopeBuilder should update scope properties when global property values are updated" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentScopeBuilder"/>
+  <testcase name="componentScopeBuilder should not break when editor does not exists" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..componentScopeBuilder"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should not break if the item is not a tabContainer nor a container and return false" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should not break if the item is a container without rows and return false" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should return false if a rows is undefined or a falsy value" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should return true if we have a tab child of another one" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should return true if we find a container and it is the one" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service test if we are the child of a container should return false if the tab is not a child" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if we are the child of a container"/>
+  <testcase name="ComponentUtils Service modal containers test should return true if a modal container is our child" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service modal containers test"/>
+  <testcase name="ComponentUtils Service modal containers test should return false if a modal container is not our child" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service modal containers test"/>
+  <testcase name="ComponentUtils Service test if container contains a modal child  should return false if many modal containers are at the root af a page" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if container contains a modal child "/>
+  <testcase name="ComponentUtils Service test if container contains a modal child  should return true if a page contains a container containing a modal container" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if container contains a modal child "/>
+  <testcase name="ComponentUtils Service test if container contains a modal child  should return true if a tab contains modal container" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if container contains a modal child "/>
+  <testcase name="ComponentUtils Service test if container contains a modal child  should return true if a container is containing a modal container in the same row with another widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if container contains a modal child "/>
+  <testcase name="ComponentUtils Service test if a modal is direct child of a container should return true if a modal is not at the root of the page" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a modal is direct child of a container"/>
+  <testcase name="ComponentUtils Service test if a modal is direct child of a container should return false if a modal is at the root of the artifact" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a modal is direct child of a container"/>
+  <testcase name="ComponentUtils Service test if a modal is direct child of a container should return false if it is not a modal" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a modal is direct child of a container"/>
+  <testcase name="ComponentUtils Service test if a component can move should call the isChildOf method" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service test if a component can move should return true if it is a child a component and not the current item" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service test if a component can move should return true if it is not a child a component and not the current item" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service test if a component can move should return false if it is not a child a component and the current item" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service test if a component can move should return false if it is a child not a component and the current item" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service test if a component can move should return false if it is a child not a component and the same id but not the current item" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service test if a component can move"/>
+  <testcase name="ComponentUtils Service find the width of a component should get the width of a component for the current resolution" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service find the width of a component"/>
+  <testcase name="ComponentUtils Service find the width of a component should get the width 1 if no component is passed as an argument" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service find the width of a component"/>
+  <testcase name="ComponentUtils Service find the width of a component should set the size" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service find the width of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should call resolutions .all" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should based the count on the current selected resolution" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should return the component col size for the current resolution" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should return 12 if no with is set" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should return defaultResolution resolution if no resolution is set" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns Find the size of a component should return defaultResolution if no resolution is set" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns Find the size of a component"/>
+  <testcase name="ComponentUtils Service expose an api for columns should get a className based on the number of columns" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns"/>
+  <testcase name="ComponentUtils Service expose an api for columns set the default size for a col in a row should distribute equaly the new colsize for each component for lg and md size" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns set the default size for a col in a row"/>
+  <testcase name="ComponentUtils Service expose an api for columns set the default size for a col in a row should increase the colsize for the last component if equal colsize is not possible " time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns set the default size for a col in a row"/>
+  <testcase name="ComponentUtils Service expose an api for columns set the default size for a col in a row should fill the remaining space if there is empty space in row " time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service expose an api for columns set the default size for a col in a row"/>
+  <testcase name="ComponentUtils Service isContainer should return true if a component is a container" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service isContainer"/>
+  <testcase name="ComponentUtils Service isEmpty should return true if a container is empty" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service isEmpty"/>
+  <testcase name="ComponentUtils Service isEmpty should return false if a container is not empty" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service isEmpty"/>
+  <testcase name="ComponentUtils Service getVisibleComponents should return a flat array of child components" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service getVisibleComponents"/>
+  <testcase name="ComponentUtils Service isContainer should return false for fragment" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service isContainer"/>
+  <testcase name="ComponentUtils Service modal containers test should return true if a modal is inside a fragment" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ComponentUtils Service modal containers test"/>
+  <testcase name="component should display the component in page" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..component"/>
+  <testcase name="component should display the component text property value when it is set" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..component"/>
+  <testcase name="ContainerDirectiveCtrl should verify that a container is empty" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl"/>
+  <testcase name="ContainerDirectiveCtrl should verify that a container is not empty" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl"/>
+  <testcase name="ContainerDirectiveCtrl should verify that a container is repeated when property value repeatedCollection has a value" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl"/>
+  <testcase name="ContainerDirectiveCtrl should verify that a container is not repeated otherwise" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl"/>
+  <testcase name="ContainerDirectiveCtrl We can move rows should move row up" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl We can move rows"/>
+  <testcase name="ContainerDirectiveCtrl We can move rows should move row down" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl We can move rows"/>
+  <testcase name="ContainerDirectiveCtrl We can edit rows should select the currrent row when we remove a row" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl We can edit rows"/>
+  <testcase name="ContainerDirectiveCtrl We can edit rows should select remove a row" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl We can edit rows"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop an item should not do anything if the current item is not movable" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop an item"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop an item should select the current row on drop" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop an item"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop an item should remove the current item on drop" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop an item"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row should select the current row if the item has a configuration and is movable" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row should do nothing if the item has a config and not movable" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration should select the current row" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration should add a widget if the type is widget" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration should not drop it if the container is not movable" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row The item has no configuration"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should not create a new row before if we push a non-movable container" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should not create a new row after if we push a non-movable container" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should push the content of a rows at a position if we drag before it" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should trigger dropAtEndOfTheRow if we drag before it" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should push the content of a rows after a position if we drag before it" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should trigger dropAtEndOfTheRow if we drag before it" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should update the array if the currentComponent has an ID. - after:component" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should update the array if the currentComponent has an ID. - before:component" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should update the array if the currentComponent has an ID. - after:container" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position should update the array if the currentComponent has an ID. - before:container" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ContainerDirectiveCtrl Drag and drop of items Drop at the end of a row We can drop before or after a position"/>
+  <testcase name="container should not show a movable row when there is only one" time="0.039" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should only show move down handle on the first row" time="0.034" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should only show move up handle on the last row" time="0.026" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should show both move handles on a middle row" time="0.035" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should show drop zones before and after the first row" time="0.024" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should show 1 drop zones all rows but the first" time="0.024" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="container should display a container in a container" time="0.029" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container"/>
+  <testcase name="data filters should return empty string for unknown data" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return empty string for data with no value" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return data value when data type is constant" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return data value when data type is interpolation" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return prefixed data value when data type is expression" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return prefixed data value when data type is variable" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="data filters should return prefixed data value wrapped in an array for collection or choice type" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..data filters"/>
+  <testcase name="dropZone directive should contains 2 drop zones" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should put right modifier on the second drop zone" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a widget when the element is dropped before" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a widget when the element is dropped after" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a container when the element is dropped before" time="0.017" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a container when the element is dropped after" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a tabs container when the element is dropped before" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a tabs container when the element is dropped after" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a fragment when the element is dropped before" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive should add a fragment when the element is dropped after" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive"/>
+  <testcase name="dropZone directive we drop a widget with a configuration should select the current row" time="0.03" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration"/>
+  <testcase name="dropZone directive we drop a widget with a configuration should remove the current item from the row" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration"/>
+  <testcase name="dropZone directive we drop a widget with a configuration should drop the current item in the row" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration"/>
+  <testcase name="dropZone directive we drop a widget with a configuration should drop the current item in the row" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration"/>
+  <testcase name="dropZone directive we drop a widget with a configuration should drop the current item in the row if componentIndex is defined" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row should not call the editor move position if the item cannot move" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row should not move on before sur the second item" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row should not move on before first item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row should not move on after first item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move First item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row should not move on before last item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row should not move on after last item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row should not move on after sur the first item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row should not move on before sur the last item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Second item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row should not move on after sur the second item" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row should not move on before last item" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row should not move on after last item" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Item will not move Last item in the row"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item should move at 1 if we are on the last item before" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item should move at 1 if we are on the second item after" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item should move at 2 if we are on the last item after" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row First item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Second item should move at 0 if we are on the first item before" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Second item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Second item should move at 0 if we are on the first item before" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Second item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item should move at 0 if we are on the first item before" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item should move at 0 if we are on the first item after" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item"/>
+  <testcase name="dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item should move at 1 if we are on the second item after" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive we drop a widget with a configuration change the position inside a row Move an item in the row Last item"/>
+  <testcase name="dropZone directive Can we drag and drop this item here ? should try to move an item if we drop a widget with a config" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..dropZone directive Can we drag and drop this item here ?"/>
+  <testcase name="formContainer should display the formContainer" time="0.021" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..formContainer"/>
+  <testcase name="fragment directive should display the component" time="0.025" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment directive"/>
+  <testcase name="fragment service should create a register fragment in palette" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment service"/>
+  <testcase name="fragment service should create a palette item" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment service"/>
+  <testcase name="fragment service should createFragment a fragment component" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..fragment service"/>
+  <testcase name="component preview should display the component in preview" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..component preview"/>
+  <testcase name="container preview should display the container in preview" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container preview"/>
+  <testcase name="container preview should display a container in a container" time="0.042" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..container preview"/>
+  <testcase name="tabs container preview should display the tabs container in preview" time="0.026" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabs container preview"/>
+  <testcase name="tabs container preview should switch between tabs" time="0.03" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabs container preview"/>
+  <testcase name="input with label should display the input with label on the left" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..input with label"/>
+  <testcase name="input with label should display the input with label on the left with a different width" time="0.017" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..input with label"/>
+  <testcase name="input with label should display the input with label on the left with a different label" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..input with label"/>
+  <testcase name="input with label should display the input with label on the top" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..input with label"/>
+  <testcase name="modal-container should display the modalContainer" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..modal-container"/>
+  <testcase name="page element factory should create a page element for a widget" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element with component type for a widget" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element for a container" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element for a tabsContainer" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element for a tabContainer" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element for a fragment" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="page element factory should create a page element for a form container" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..page element factory"/>
+  <testcase name="switchComponentPopupController should contains widgets available without widgetFrom name when user open popup" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="switchComponentPopupController should format widgetFrom properties when user open popup" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="switchComponentPopupController should display by alphabetical sort widgets when user open popup" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="switchComponentPopupController should get widgetTo properties when user select a widget" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="switchComponentPopupController should display clear button when a widget is selected" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="switchComponentPopupController should disabled switch button in popup when user never click on show properties button" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..switchComponentPopupController"/>
+  <testcase name="TabsContainerDirectiveCtrl should have the first tab opened, but not selected in the editor" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should open a tab and select it int he editor" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should be possible to move left only if current tab and not first tab" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should be possible to move right only if current tab and not first tab" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should move tab left" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should move tab right" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should add tab at the end" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl when a tab is added, should NOT generate twice the same tab title" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should remove current tab and select previous one" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should remove current tab and select first when deleting first tab" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should hide remove button when there is only one tab" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="TabsContainerDirectiveCtrl should show remove button when there is more than one tab" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..TabsContainerDirectiveCtrl"/>
+  <testcase name="tabsContainer should display the component" time="0.041" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabsContainer"/>
+  <testcase name="tabsContainer should add a new tab" time="0.035" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabsContainer"/>
+  <testcase name="tabsContainer should remove a tab" time="0.039" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabsContainer"/>
+  <testcase name="tabsContainer should show remove button when there is more than one tab" time="0.045" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabsContainer"/>
+  <testcase name="tabsContainer should hide remove button when there is only one tab" time="0.039" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..tabsContainer"/>
+  <testcase name="whiteboard component wrapper should initialize a widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should init a container" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should init a formContainer" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should init a tabsContainer and its tabs" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should initialize a tab" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should wrap a fragment component" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard component wrapper should trigger &quot;Init&quot; when wrapping a fragment" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard component wrapper"/>
+  <testcase name="whiteboard service should add widget to whiteboard widget list while initializing a widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should remove widget from whiteboard widget list while removing a widget" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should not remove widget from whiteboard widget list while removing a widget but not last" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should call registered functions while removing a widget" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should call registered functions while adding a widget" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should trigger onRemove on row components while removing a row" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should trigger onRemove on container components while removing a container" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should trigger onRemove on tab components while removing a tab" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should trigger onRemove on tabs containers components while removing a tabs container" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="whiteboard service should trigger onRemove on form container components while removing a form container" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..whiteboard service"/>
+  <testcase name="artifactListController should list all artifacts" time="0.066" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should open a confirmation dialog to confirm artifact deletion" time="0.065" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should export an artifact" time="0.054" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should export an artifact without displaying message" time="0.06" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should rename an artifact if the name has changed" time="0.082" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should revert the name if the rename of the artifact has failed" time="0.074" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should not rename an artifact if the name has not changed" time="0.067" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="artifactListController should show a message when there is no artifacts" time="0.048" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..artifactListController"/>
+  <testcase name="ArtifactStore should retrieve all artifacts" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ArtifactStore"/>
+  <testcase name="home create button should expose data for view" time="0.017" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should preselect type when activated artifact holds a valid type" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should check page name if it already exists with case-insensitive" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should check widget name if it already exists" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should create a widget and navigate to editor" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should create a page and navigate to editor" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should expose data for view" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should check page name if it already exists" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should check widget name if it already exists" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="home create button should create a fragment and navigate to editor" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home create button"/>
+  <testcase name="DeletionPopController should close the modal instance" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DeletionPopController"/>
+  <testcase name="DeletionPopController should dismiss the modal instance" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DeletionPopController"/>
+  <testcase name="DeletionPopController should populate artifact and his type" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DeletionPopController"/>
+  <testcase name="DeletionPopController should list elements which use artifact" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..DeletionPopController"/>
+  <testcase name="favorite button controller should mark an artifact as favorite" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..favorite button controller"/>
+  <testcase name="favorite button controller should unmark an artifact as favorite" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..favorite button controller"/>
+  <testcase name="favorite button controller should say if artifact is favorite or not" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..favorite button controller"/>
+  <testcase name="favorite button directive should toggle favorite state while clicking on it" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..favorite button directive"/>
+  <testcase name="favorite button directive should have a special class name when artifact is marked as favorite" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..favorite button directive"/>
+  <testcase name="directive fileInputChange should update " time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive fileInputChange"/>
+  <testcase name="HomeCtrl should refresh everything" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..HomeCtrl"/>
+  <testcase name="HomeCtrl should find type from activated tab" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..HomeCtrl"/>
+  <testcase name="home import controller should not open a modal when no report is returned" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should open a modal when import report is returned" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should refresh lists when second pop up is closed" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should not refresh lists when second pop up is canceled" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should expose data for view" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should manage importReport and close modal when upload is complete" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="home import controller should manage importReport and dismiss modal when upload is complete and import management failed" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..home import controller"/>
+  <testcase name="Import error messages service should get error message for SERVER_ERROR error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should get error message for PAGE_NOT_FOUND error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should get error message for UNEXPECTED_ZIP_STRUCTURE error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should get error message for CANNOT_OPEN_ZIP error" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should get error to display object for JSON_STRUCTURE error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should get error response message when type is unknown" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="Import error messages service should compute consequence according to artefact type" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import error messages service"/>
+  <testcase name="importReportItemList directive should join artifact names" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..importReportItemList directive"/>
+  <testcase name="Import artifact report controller should expose data for view" time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should force import" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should dismiss pop up on force import error" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should close pop up on force import success" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should say if a report has element with dependencies" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should return imported element type" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should return widget when element has no type" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import artifact report controller should return element name" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import artifact report controller"/>
+  <testcase name="Import Success Message Controller should join artifacts on names" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import Success Message Controller"/>
+  <testcase name="Import Success Message Controller should get overwritten state when element has been overwritten" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import Success Message Controller"/>
+  <testcase name="Import Success Message Controller should get added state when element has been added" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import Success Message Controller"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should print to user that element has been added" time="0.023" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should print to user that element has been overwritten" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should not display added dependencies section when no dependencies are added" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should display added dependencies" time="0.022" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should not display overwritten dependencies section when no dependencies are overwritten" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="ImportArtifactSuccessMessageTemplate should display overwritten dependencies" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..ImportArtifactSuccessMessageTemplate"/>
+  <testcase name="Import service should check error message" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service"/>
+  <testcase name="Import service when managing import response should reject response processing when it is an error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should get message from error message service when it is an error" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should resolve response processing when overwritten is false " time="0.01" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should set import report context type to 'widget' when import report element has no type" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should resolve response processing when checkOverwrites is false " time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should resolve response processing when checkOverwrites is true and overwritten is true " time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="Import service when managing import response should display error popup when imported artifact is incompatible" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Import service when managing import response"/>
+  <testcase name="i18n service should call registered callback while refreshing i18n" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should concat default language to available ones" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should set selected language if it is contained in available languages" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should set default language if it is not contained in available languages" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should get default languages" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should get default selected language" time="0.002" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should save selected language in a specific cookie with a specific path" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="i18n service should clean cookie for the specific path" time="0.003" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..i18n service"/>
+  <testcase name="lang select directive should select language and call function bind on on-change" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..lang select directive"/>
+  <testcase name="lang select directive should refresh available langs and selected lang when i18n service is refreshed" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..lang select directive"/>
+  <testcase name="lang select directive should select default land when cookie is set but lang not available in langs" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..lang select directive"/>
+  <testcase name="lang select directive should remove cookie used for preview but the one used by portal on destroy" time="0.011" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..lang select directive"/>
+  <testcase name="preview iframe directive should refresh i18n while it has been loaded" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..preview iframe directive"/>
+  <testcase name="preview iframe directive should set i18n cookie path from iframe location pathname" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..preview iframe directive"/>
+  <testcase name="preview iframe directive should unregister event on element when scope is destroyed" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..preview iframe directive"/>
+  <testcase name="appSelectorDirective When LocalStorage contains an application should initialise the pathToLivingApp correctly" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorDirective When LocalStorage contains an application"/>
+  <testcase name="appSelectorDirective When LocalStorage is empty  expect options to be available " time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorDirective When LocalStorage is empty "/>
+  <testcase name="appSelectorDirective When LocalStorage is empty  sets a new app token" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorDirective When LocalStorage is empty "/>
+  <testcase name="appSelectorDirective When LocalStorage is empty  sets the default app display name" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorDirective When LocalStorage is empty "/>
+  <testcase name="appSelectorDirective When LocalStorage contains an out off date application  set the default app display name " time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorDirective When LocalStorage contains an out off date application "/>
+  <testcase name="appSelectorService should contain the correct default path to appName" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorService"/>
+  <testcase name="appSelectorService should update the pathToLivingApp" time="0.004" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..appSelectorService"/>
+  <testcase name="directive openPreview directive default behaviour should create a new pop up when it has not been created yet" time="0.014" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive openPreview directive default behaviour"/>
+  <testcase name="directive openPreview directive default behaviour should create a new pop up when it has been closed" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive openPreview directive default behaviour"/>
+  <testcase name="directive openPreview directive default behaviour should focus the pop up when it has already been created" time="0.012" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..directive openPreview directive default behaviour"/>
+  <testcase name="PreviewCtrl should set the iframe's source" time="0.008" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should set the iframe's source with additionnal query parameters" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should update the iframe src when a notification is received" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should not update the iframe src when a notification is received for another id" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should refresh preview iframe" time="0.007" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should load the page name onLoad" time="0.005" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should fill the scope.pageName" time="0.006" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="PreviewCtrl should close the window when a notification is received" time="0.013" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..PreviewCtrl"/>
+  <testcase name="UidResponsiveHelpTab should display responiveness help if feature is activated" time="0.009" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..UidResponsiveHelpTab"/>
+  <testcase name="Resolution bar should load the current resolution" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar"/>
+  <testcase name="Resolution bar should load resolutions" time="0.019" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar"/>
+  <testcase name="Resolution bar should update the currentResolution on update" time="0.017" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar"/>
+  <testcase name="Resolution bar should call on-change when updating current resolution" time="0.025" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar"/>
+  <testcase name="Resolution bar should set current selected resolution based on state params" time="0.021" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar"/>
+  <testcase name="Resolution bar the dom created should create as many button we have in the resolutions" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar the dom created"/>
+  <testcase name="Resolution bar the dom created should update the resolution on click" time="0.02" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..Resolution bar the dom created"/>
+  <testcase name="The route config should resolve the necessary for the page editor" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should resolve the necessary for the page preview" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should redirect to custom widget editor" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should redirect to home otherwise" time="0.015" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should load french translations" time="0.018" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should load spanish translations" time="0.017" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should resolve the necessary for the fragment editor" time="0.016" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <testcase name="The route config should resolve the necessary for the fragment preview" time="0.021" classname="Chrome_Headless_75_0_3765_0_(Linux_x86_64)..The route config"/>
+  <system-out>
+    <![CDATA[Chrome Headless 75.0.3765.0 (Linux x86_64) LOG: Object{id: 'pbTabsContainer', type: 'tabsContainer', dimension: Object{xs: 12}, propertyValues: Object{vertical: Object{type: ..., value: ...}, type: Object{type: ..., value: ...}}, tabList: [Object{id: ..., type: ..., dimension: ..., propertyValues: ..., container: ...}, Object{id: ..., type: ..., dimension: ..., propertyValues: ..., container: ...}]}
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

@@ -14,20 +14,13 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.write;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.mockito.Mockito.*;
-
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -43,15 +36,25 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import com.google.common.io.Files;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.write;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AssetRepositoryTest {
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -59,8 +62,10 @@ public class AssetRepositoryTest {
 
     @Mock
     private BeanValidator validator;
+
     @Mock
     private PageRepository pageRepository;
+
     @InjectMocks
     private AssetRepository<Page> assetRepository;
 
@@ -97,7 +102,7 @@ public class AssetRepositoryTest {
         Path fileExpected = pagesPath.resolve("assets").resolve("js").resolve(asset.getName());
         assertThat(fileExpected.toFile()).doesNotExist();
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
-        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
+        lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.save(asset, "My example with special characters réè@# \ntest".getBytes(Charset.forName("UTF-8")));
 
@@ -120,7 +125,7 @@ public class AssetRepositoryTest {
         temporaryFolder.newFilePath("assets/js/" + asset.getName());
         assertThat(fileExpected.toFile()).exists();
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
-        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
+        lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
 
@@ -132,7 +137,7 @@ public class AssetRepositoryTest {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
-        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
+        lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
     }
@@ -146,7 +151,7 @@ public class AssetRepositoryTest {
         temporaryFolder.newFilePath("assets/js/" + asset.getName());
         assertThat(fileExpected.toFile()).exists();
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
-        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
+        lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assertThat(assetRepository.readAllBytes(asset)).isNotNull().isEmpty();
     }
@@ -161,7 +166,7 @@ public class AssetRepositoryTest {
         Page page = aPage().withId("page-id").build();
         Asset asset = aFilledAsset(page);
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
-        when(pageRepository.get(asset.getComponentId())).thenReturn(page);
+        lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.readAllBytes(asset);
     }
@@ -197,7 +202,7 @@ public class AssetRepositoryTest {
 
         assetRepository.findAssetPath(
 
-        "page-id", "http://mycdnserver.myasset.js", AssetType.JAVASCRIPT);
+                "page-id", "http://mycdnserver.myasset.js", AssetType.JAVASCRIPT);
     }
 
     @Test
@@ -222,7 +227,7 @@ public class AssetRepositoryTest {
         Asset asset = aFilledAsset(page);
         pagesPath.resolve(asset.getName());
         temporaryFolder.newFilePath(asset.getName());
-        when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
+        lenient().when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         when(pageRepository.get("page-id")).thenReturn(aPage().withAsset(asset).build());
 
         assetRepository.findAssetPath("page-id", "inexistant.js", AssetType.JAVASCRIPT);

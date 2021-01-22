@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.bonitasoft.web.designer.config.AppProperties;
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -43,7 +46,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetDirectiveBuilderTest {
@@ -79,7 +82,8 @@ public class WidgetDirectiveBuilderTest {
                 new DesignerConfig().widgetFileBasedPersister(),
                 widgetLoader,
                 validator,
-                mock(Watcher.class));
+                mock(Watcher.class),
+                new UidProperties());
 
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);

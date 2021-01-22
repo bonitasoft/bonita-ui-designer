@@ -15,20 +15,18 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
-import org.bonitasoft.web.designer.migration.MigrationException;
-import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
-import javax.inject.Named;
-import java.util.Optional;
-import java.util.UUID;
+import org.springframework.util.StringUtils;
 
 import static java.lang.String.format;
 

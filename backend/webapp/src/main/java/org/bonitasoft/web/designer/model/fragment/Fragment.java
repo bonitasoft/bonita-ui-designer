@@ -14,13 +14,10 @@
  */
 package org.bonitasoft.web.designer.model.fragment;
 
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bonitasoft.web.designer.model.page.FragmentElement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.base.Predicate;
@@ -30,6 +27,9 @@ import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
+
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 
 public class Fragment extends AbstractPage {

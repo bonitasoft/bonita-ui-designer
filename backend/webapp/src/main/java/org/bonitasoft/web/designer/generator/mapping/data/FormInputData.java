@@ -14,13 +14,13 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.bonitasoft.web.designer.model.data.DataType.JSON;
-
 import java.io.IOException;
 
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
+
+import static org.bonitasoft.web.designer.model.data.DataType.JSON;
 
 public class FormInputData implements PageData {
 

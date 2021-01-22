@@ -14,10 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +28,10 @@ import org.bonitasoft.web.designer.model.contract.BusinessDataReference.Relation
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
+import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.reverse;
 
 public class ContractInputDataHandler {
 

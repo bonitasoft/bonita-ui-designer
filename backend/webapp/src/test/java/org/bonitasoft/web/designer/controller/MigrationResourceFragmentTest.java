@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
@@ -135,7 +135,7 @@ public class MigrationResourceFragmentTest {
     public void should_not_process_migration_and_return_none_status_when_fragment_not_needed_migration() throws Exception {
         Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withModelVersion("2.0").withName("my-fragment").isMigration(false).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
-        when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
+        lenient().when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, false));
 
         MvcResult result = mockMvc

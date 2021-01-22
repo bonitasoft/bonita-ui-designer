@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,10 +13,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <jackson.version>2.11.1</jackson.version>
+        <spring-boot.version>2.4.2</spring-boot.version>
         <handlebar.version>4.0.6</handlebar.version>
-        <spring.version>5.2.3.RELEASE</spring.version>
-        <aspectj.version>1.8.5</aspectj.version>
+
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
         <uidModelVersion>2.1</uidModelVersion>
     </properties>
@@ -29,25 +29,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>3.0.1</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>18.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-joda</artifactId>
-                <version>${jackson.version}</version>
+                <version>29.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -90,32 +74,10 @@
                 <artifactId>joda-time</artifactId>
                 <version>2.7</version>
             </dependency>
-            <!-- Hibernate Validator is the reference implementation Bean Validation -->
-            <!-- Version 4.3.2 is taken as 5.x need el-2.2 that is provided by app server and may cause conflicts -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>4.3.2.Final</version>
-            </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>1.8.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.30</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>1.7.30</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
             </dependency>
             <!-- Spring -->
             <dependency>
@@ -123,42 +85,7 @@
                 <artifactId>javax.inject</artifactId>
                 <version>1</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-logging</artifactId>
-                        <groupId>commons-logging</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-websocket</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-messaging</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-artifact</artifactId>
@@ -167,27 +94,9 @@
 
             <!-- Tests dependencies -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.11.1</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>1.10.19</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -198,8 +107,8 @@
             </dependency>
             <dependency>
                 <groupId>com.github.dreamhead</groupId>
-                <artifactId>moco-core</artifactId>
-                <version>0.10.0</version>
+                <artifactId>moco-junit</artifactId>
+                <version>1.1.0</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
@@ -208,12 +117,15 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
-                <groupId>org.skyscreamer</groupId>
-                <artifactId>jsonassert</artifactId>
-                <version>1.2.3</version>
-                <scope>test</scope>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -250,6 +162,7 @@
                     <includes>
                         <include>**/src/*/**/bonitasoft/**/*.java</include>
                     </includes>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -268,7 +181,9 @@
         <profile>
             <id>coverage</id>
             <properties>
-                <sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
+                <sonar.jacoco.reportPath>
+                    ${project.build.directory}/coverage-reports/jacoco-ut.exec
+                </sonar.jacoco.reportPath>
             </properties>
             <build>
                 <plugins>
@@ -295,7 +210,9 @@
                                 </goals>
                                 <configuration>
                                     <dataFile>${sonar.jacoco.reportPath}</dataFile>
-                                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                                    <outputDirectory>
+                                        ${project.reporting.outputDirectory}/jacoco-ut
+                                    </outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

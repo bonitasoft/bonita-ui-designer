@@ -249,7 +249,7 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk());
 
         verify(widgetRepository).create(notNull(Widget.class));
-        verify(widgetAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-widget-source"), anyString());
+        verify(widgetAssetService).duplicateAsset(any(Path.class), nullable(Path.class), eq("my-widget-source"), anyString());
     }
 
     @Test
@@ -632,7 +632,7 @@ public class WidgetResourceTest {
                 .perform(get("/rest/widgets/widget-id/assets/js/asset.js?format=text"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
                 .andExpect(content().encoding("UTF-8"));
@@ -647,7 +647,7 @@ public class WidgetResourceTest {
                 .perform(get("/rest/widgets/widget-id/assets/js/asset.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_OCTET_STREAM_VALUE))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "attachment; filename=\"pbLabel.js\""))
                 .andExpect(content().encoding("UTF-8"));

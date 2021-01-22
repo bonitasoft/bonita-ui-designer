@@ -14,14 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.livebuild.PathListener;
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.joda.time.Instant;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,15 +22,21 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.livebuild.PathListener;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.joda.time.Instant;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.walkFileTree;
 import static org.apache.commons.io.FileUtils.copyDirectory;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 /**
  * File based repository
@@ -228,11 +226,11 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
-    public String getNextAvailableId(String name) throws RepositoryException {
+    public String getNextAvailableId(String name)  {
         try {
             return loader.getNextAvailableObjectId(path, name);
         } catch (IOException e) {
-            throw new RepositoryException(format("Failed to gerenrate object ID"), e);
+            throw new RepositoryException("Failed to generate object ID", e);
         }
     }
 

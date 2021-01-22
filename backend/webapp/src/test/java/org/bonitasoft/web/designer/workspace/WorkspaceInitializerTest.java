@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
+import static java.util.Arrays.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
@@ -28,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
 
@@ -51,8 +52,7 @@ public class WorkspaceInitializerTest {
 
     @Before
     public void initializeWorkspaceInitializer() {
-        workspaceInitializer.setServletContext(new MockServletContext(WAR_BASE_PATH, new FileSystemResourceLoader()));
-        workspaceInitializer.setMigrations(Arrays.<LiveRepositoryUpdate>asList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate));
+        workspaceInitializer.setMigrations(asList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate));
     }
 
     @Test

@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -24,10 +28,6 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static java.util.Collections.singleton;
 

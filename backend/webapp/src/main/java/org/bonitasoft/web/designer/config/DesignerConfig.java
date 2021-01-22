@@ -21,8 +21,13 @@ import java.util.Map;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.google.common.collect.ObjectArrays;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.export.Exporter;
 import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
@@ -34,8 +39,8 @@ import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportS
 import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
 import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
-import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
@@ -53,7 +58,16 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
-import org.bonitasoft.web.designer.repository.*;
+import org.bonitasoft.web.designer.repository.AssetRepository;
+import org.bonitasoft.web.designer.repository.BeanValidator;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
+import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.BondsTypesFixer;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
@@ -63,30 +77,23 @@ import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.ModelPropertiesVisitor;
-import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
-import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.ModelPropertiesVisitor;
 import org.bonitasoft.web.designer.visitor.PageFactory;
+import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
 import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
+import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.fedorahosted.tennera.jgettext.PoParser;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 
 /**
  * @author Guillaume EHRET
@@ -421,11 +428,6 @@ public class DesignerConfig {
 //    public FeatureManager featureManager() {
 //        return new FeatureManager(manager());
 //    }
-
-    @Bean
-    public DimensionFactory dimensionFactory() {
-        return new DimensionFactory();
-    }
 
     @Bean
     public BondsTypesFixer<Fragment> fragmentBondsTypesFixer(FragmentRepository fragmentRepository) {

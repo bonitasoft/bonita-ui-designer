@@ -14,13 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.util.UUID.randomUUID;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -45,22 +38,32 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.util.UUID.randomUUID;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
 
 public class AssetService<T extends Assetable> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
     public static final String ASSET_TYPE_IS_REQUIRED = "Asset type is required";
+
     public static final String ASSET_URL_IS_REQUIRED = "Asset URL is required";
+
     public static final String ASSET_ID_IS_REQUIRED = "Asset id is required";
 
-    public enum OrderType {
-        INCREMENT, DECREMENT
-    }
+    protected static final Logger logger = LoggerFactory.getLogger(AssetService.class);
 
     private Repository<T> repository;
+
     private AssetRepository<T> assetRepository;
+
     private AssetImporter<T> assetImporter;
+
     private JacksonObjectMapper mapper;
 
     public AssetService(Repository<T> repository, AssetRepository<T> assetRepository, AssetImporter<T> assetImporter, JacksonObjectMapper mapper) {
@@ -91,22 +94,16 @@ public class AssetService<T extends Assetable> {
                     .setType(assetType)
                     .setOrder(getNextOrder(component));
 
-            Optional<Asset> existingAsset = Iterables.<Asset>tryFind(component.getAssets(), new Predicate<Asset>() {
-
-
-                @Override
-                public boolean apply(Asset element) {
-                    return asset.equalsWithoutComponentId(element);
-                }
-            });
+            Optional<Asset> existingAsset = Iterables.tryFind(component.getAssets(), element -> asset.equalsWithoutComponentId(element));
             if (existingAsset.isPresent()) {
                 asset.setId(existingAsset.get().getId());
             }
 
             return save(component, asset, file.getBytes());
 
-        } catch (IOException e) {
-            logger.error("Asset creation" + e);
+        }
+        catch (IOException e) {
+            logger.error("Asset creation", e);
             throw new ServerImportException(
                     format("Error while uploading asset in %s [%s]", file.getOriginalFilename(), repository.getComponentName()),
                     e);
@@ -120,7 +117,8 @@ public class AssetService<T extends Assetable> {
     private void checkWellFormedJson(byte[] bytes) throws IOException {
         try {
             mapper.checkValidJson(bytes);
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             throw new MalformedJsonException(e);
         }
     }
@@ -132,13 +130,15 @@ public class AssetService<T extends Assetable> {
                 try {
                     existingAsset.setComponentId(component.getId());
                     assetRepository.delete(existingAsset);
-                } catch (NotFoundException | IOException e) {
+                }
+                catch (NotFoundException | IOException e) {
                     logger.warn(format("Asset to delete %s was not found", existingAsset.getName()), e);
                 }
             }
             component.getAssets().remove(existingAsset);
             return existingAsset;
-        } catch (NoSuchElementException e) {
+        }
+        catch (NoSuchElementException e) {
             //For a creation component does not contain the asset
         }
         return null;
@@ -161,7 +161,8 @@ public class AssetService<T extends Assetable> {
                     return asset.getId().equals(element.getId());
                 }
             }).setName(asset.getName()).setType(asset.getType()).setActive(asset.isActive());
-        } else {
+        }
+        else {
             asset.setId(randomUUID().toString());
             asset.setOrder(getNextOrder(component));
             component.getAssets().add(asset);
@@ -177,7 +178,8 @@ public class AssetService<T extends Assetable> {
         try {
             assetRepository.save(component.getId(), asset, content);
             return save(component, asset);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException("Error while saving internal asset", e);
         }
     }
@@ -202,7 +204,8 @@ public class AssetService<T extends Assetable> {
                 asset.setComponentId(targetArtifactId);
             }
             assetImporter.save(assets, artifactTargetPath);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException("Error on assets duplication", e);
         }
     }
@@ -270,7 +273,8 @@ public class AssetService<T extends Assetable> {
                 if (previous != null && OrderType.DECREMENT.equals(ordering)) {
                     previous.setOrder(previous.getOrder() + 1);
                 }
-            } else {
+            }
+            else {
                 previous = a;
             }
             i++;
@@ -291,7 +295,8 @@ public class AssetService<T extends Assetable> {
             if (previewable.getInactiveAssets().contains(assetId) && active) {
                 previewable.getInactiveAssets().remove(assetId);
                 repository.updateLastUpdateAndSave(component);
-            } else if (!previewable.getInactiveAssets().contains(assetId) && !active) {
+            }
+            else if (!previewable.getInactiveAssets().contains(assetId) && !active) {
                 previewable.getInactiveAssets().add(assetId);
                 repository.updateLastUpdateAndSave(component);
             }
@@ -300,5 +305,9 @@ public class AssetService<T extends Assetable> {
 
     public void loadDefaultAssets(T content) {
         assetRepository.refreshAssets(content);
+    }
+
+    public enum OrderType {
+        INCREMENT, DECREMENT
     }
 }

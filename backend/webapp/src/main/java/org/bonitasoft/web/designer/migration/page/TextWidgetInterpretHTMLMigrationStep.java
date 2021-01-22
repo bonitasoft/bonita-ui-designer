@@ -15,22 +15,15 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import static java.lang.String.format;
-
 import java.util.Optional;
 
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
-import org.bonitasoft.web.designer.migration.MigrationException;
-import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TextWidgetInterpretHTMLMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 

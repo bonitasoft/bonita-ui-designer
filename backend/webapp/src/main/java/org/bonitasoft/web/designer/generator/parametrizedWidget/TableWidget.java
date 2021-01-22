@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -23,6 +21,8 @@ import java.util.stream.Collectors;
 
 import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.EXPRESSION;
 
 @Widget
 public class TableWidget extends AbstractParametrizedWidget {

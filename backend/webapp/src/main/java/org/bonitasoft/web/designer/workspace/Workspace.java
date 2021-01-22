@@ -14,22 +14,18 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.createDirectories;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -39,8 +35,15 @@ import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+
+import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+//import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
 
 @Named
 public class Workspace {
@@ -57,10 +60,12 @@ public class Workspace {
     private ResourceLoader resourceLoader;
     private AssetImporter<Widget> widgetAssetImporter;
 
+    private UidProperties uidProperties;
+
     @Inject
     public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
-                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
+                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter,UidProperties uidProperties) {
         this.workspacePathResolver = workspacePathResolver;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
@@ -68,13 +73,14 @@ public class Workspace {
         this.widgetDirectiveBuilder = widgetDirectiveBuilder;
         this.fragmentDirectiveBuilder = fragmentDirectiveBuilder;
         this.widgetAssetImporter = widgetAssetImporter;
+        this.uidProperties = uidProperties;
     }
 
     public void initialize() throws IOException {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
-        if(Boolean.getBoolean(UID_EXPERIMENTAL)){
+        if(uidProperties.isExperimental()){
             ensureWidgetWcRepositoryPresent();
             ensureWidgetRepositoryFilledWc();
         }

@@ -14,43 +14,59 @@
  */
 package org.bonitasoft.web.designer.i18n;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.inject.Inject;
+
+import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(MockitoJUnitRunner.class)
-@WebAppConfiguration("file:target/test-classes")
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class I18nInitializerTest {
 
-    @Mock
-    LanguagePackBuilder languagePackBuilder;
+    @Inject
+    private I18nInitializer i18nInitializer;
 
-    @InjectMocks
-    I18nInitializer i18nInitializer;
+    @MockBean
+    private LanguagePackBuilder languagePackBuilder;
+
+    @SpyBean
+    private WorkspacePathResolver workspacePathResolver;
+
+    private String tempI18Dir;
+
+    @Before
+    public void setUp() throws Exception {
+        tempI18Dir = "target/test-classes/i18n";
+
+        when(workspacePathResolver.getTmpI18nRepositoryPath()).thenReturn(Paths.get(tempI18Dir));
+    }
 
     @Test
     public void should_start_live_build_on_po_directory() throws Exception {
-
         i18nInitializer.contextInitialized();
 
-        verify(languagePackBuilder).start(eq(Paths.get("target/test-classes/i18n").toAbsolutePath()));
+        verify(languagePackBuilder).start(eq(Paths.get(tempI18Dir).toAbsolutePath()));
     }
 
     @Test(expected = RuntimeException.class)
     public void should_throw_a_runtime_exception_on_io_error() throws Exception {
-        doThrow(new IOException()).when(languagePackBuilder).start(any(Path.class));
+        doThrow(IOException.class).when(languagePackBuilder).start(any());
 
         i18nInitializer.contextInitialized();
     }

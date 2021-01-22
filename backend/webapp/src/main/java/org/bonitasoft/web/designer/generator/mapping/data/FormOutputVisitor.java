@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.bonitasoft.web.designer.generator.mapping.data.StringUtil.indent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +23,8 @@ import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
+import static org.bonitasoft.web.designer.generator.mapping.data.StringUtil.indent;
 
 public class FormOutputVisitor implements ContractInputVisitor {
 

@@ -40,6 +40,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.config.AppProperties;
+import org.bonitasoft.web.designer.config.AppProperties.DesignerProperties;
+import org.bonitasoft.web.designer.config.AppProperties.UidProperties;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -59,7 +62,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -87,6 +90,8 @@ public class WidgetRepositoryTest {
     @Mock
     private Watcher watcher;
 
+    private UidProperties uidProperties;
+
     @Before
     public void setUp() throws IOException {
         widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
@@ -95,18 +100,19 @@ public class WidgetRepositoryTest {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         // spying objectMapper to be able to simulate a json conversion error
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
+        uidProperties = new UidProperties();
         widgetRepository = new WidgetRepository(
                 widgetDirectory,
                 jsonFileRepository,
                 new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
-                watcher);
+                watcher, uidProperties);
         widgetRepositoryWc = new WidgetRepository(
                 widgetDirectoryWc,
                 jsonFileRepository,
                 new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
-                watcher);
+                watcher,uidProperties);
 
         ReflectionTestUtils.setField(jsonFileRepository, "uidVersion", DESIGNER_VERSION);
         ReflectionTestUtils.setField(jsonFileRepository, "modelVersion", MODEL_VERSION);
@@ -146,13 +152,13 @@ public class WidgetRepositoryTest {
         Widget labelWc = aWidgetWc().id("labelWc").build();
         addToRepositoryWc(inputWc, labelWc);
 
-        System.setProperty("uid.experimental", "false");
+        uidProperties.setExperimental(false);
         List<Widget> widgets = widgetRepository.getAll(false);
         assertThat(widgets).containsOnly(input, label);
         widgets = widgetRepository.getAll(true);
         assertThat(widgets).containsOnly(input, label);
 
-        System.setProperty("uid.experimental", "true");
+        uidProperties.setExperimental(true);
         widgets = widgetRepository.getAll(false);
         assertThat(widgets).containsOnly(input, label);
         List<Widget> widgetsWc = widgetRepository.getAll(true);

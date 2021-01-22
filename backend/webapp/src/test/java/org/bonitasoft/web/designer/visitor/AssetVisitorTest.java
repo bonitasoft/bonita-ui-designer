@@ -26,6 +26,7 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import java.util.Set;
@@ -46,7 +47,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AssetVisitorTest {
@@ -234,7 +235,7 @@ public class AssetVisitorTest {
         Component component2 = mockComponentFor(aWidget(), anAsset().withName("myfile.js").withType(AssetType.JAVASCRIPT));
         FragmentElement fragmentElement = aFragmentElement().withFragmentId("my-fragment").build();
         Fragment fragment = aFragment().id("my-fragment").with(component1, component2).build();
-        when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
+        lenient().when(fragmentRepository.get(fragmentElement.getId())).thenReturn(fragment);
 
         Set<Asset> assets = assetVisitor.visit(fragment);
 

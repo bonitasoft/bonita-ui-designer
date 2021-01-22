@@ -15,18 +15,17 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import static java.lang.String.format;
-
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.google.common.collect.ImmutableMap;
-import org.bonitasoft.web.designer.migration.MigrationException;
 import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -35,6 +34,8 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 
 public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<T> {

@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import static org.bonitasoft.web.designer.generator.mapping.dataManagement.WidgetDescription.BUSINESS_OBJECT_CONTAINER;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -26,8 +24,8 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static org.bonitasoft.web.designer.generator.mapping.dataManagement.WidgetDescription.BUSINESS_OBJECT_CONTAINER;
 
 public class BusinessObjectVisitorImpl implements ContractInputVisitor {
 

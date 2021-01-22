@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.List;
+
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -26,8 +28,6 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
-
-import java.util.List;
 
 import static com.google.common.collect.Iterables.concat;
 import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;

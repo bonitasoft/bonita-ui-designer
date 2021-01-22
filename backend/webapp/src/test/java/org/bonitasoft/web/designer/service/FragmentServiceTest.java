@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -112,7 +112,7 @@ public class FragmentServiceTest {
         MigrationResult mr = new MigrationResult(fragmentMigrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"myFragmentBis")));
         MigrationResult parentMigrated = new MigrationResult(parentFragmentMigrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"myFragment")));
         when(fragmentRepository.get("myFragment")).thenReturn(parentFragment);
-        when(fragmentRepository.get("myFragmentBis")).thenReturn(fragment);
+        lenient().        when(fragmentRepository.get("myFragmentBis")).thenReturn(fragment);
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment)).thenReturn(new MigrationStatusReport(true,true));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(parentFragment)).thenReturn(new MigrationStatusReport(true,true));
         when(fragmentMigrationApplyer.migrate(parentFragment, true)).thenReturn(parentMigrated);
@@ -162,7 +162,7 @@ public class FragmentServiceTest {
         Fragment fragment1 = aFragment().id("fragment1").withDesignerVersion("1.10.0").build();
         Fragment fragment2 = aFragment().id("fragment2").withModelVersion("2.1").build(); //incompatible
         Set<String> ids = new HashSet<>(Arrays.asList("fragment2"));
-        when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment1)).thenReturn(new MigrationStatusReport(true,false));
+lenient().        when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment1)).thenReturn(new MigrationStatusReport(true,false));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment2)).thenReturn(new MigrationStatusReport(true,false));
         when(fragmentIdVisitor.visit(fragment1)).thenReturn(ids);
         when(fragmentRepository.getByIds(ids)).thenReturn(Arrays.asList(fragment2));
