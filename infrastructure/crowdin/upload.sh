@@ -32,7 +32,7 @@ cat_pot() {
 # $1 directory
 npm_pot() {
     cd $1
-    npm install && npm run pot
+    yarn install && npm run pot
     check_errors $? "Error while generating pot files"
     cd -
 }
