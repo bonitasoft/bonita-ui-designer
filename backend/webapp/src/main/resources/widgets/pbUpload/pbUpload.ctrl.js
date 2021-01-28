@@ -50,7 +50,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     if (newValue && newValue.filename) {
       ctrl.filemodel = true;
       ctrl.filename = newValue.filename;
-    } else if (!angular.isDefined(newValue)) {
+    } else if (!angular.isDefined(newValue) || newValue === null) {
       delete ctrl.filemodel;
       delete ctrl.filename;
     }
