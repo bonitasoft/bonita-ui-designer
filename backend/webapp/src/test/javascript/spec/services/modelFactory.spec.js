@@ -142,7 +142,7 @@ describe('Service: modelFactory', function() {
       }).respond(200, ['foo', 'bar', 'baz']);
       expect(dataModel.bar).toBeUndefined();
       $httpBackend.flush();
-      expect(dataModel.bar).toEqual(['foo', 'bar', 'baz']);
+      expect(dataModel.bar).toContain('foo', 'bar', 'baz');
     });
     it('should make a call to the url when url change with bonita CSRF Token', function() {
       $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');

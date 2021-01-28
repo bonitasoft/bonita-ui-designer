@@ -12,12 +12,25 @@
         return $interpolate(this.content, false, null, true)(this.model);
       }
 
+      processResponse(response){
+        let cloneData = Object.assign(response.data);
+        cloneData.__headers = Object.assign({},response.headers());
+        cloneData.__status = response.status;
+        this.model[this.name] = cloneData;
+        return this.model[this.name];
+      }
+
       resolve() {
-        var url = this.interpolateUrl();
+        let url = this.interpolateUrl();
         if (angular.isDefined(url)) {
-          return $http.get(url).success((data) => this.model[this.name] = data);
+          return $http.get(url).then((data) => {
+            return this.processResponse(data);
+          }).catch((data)=>{
+            return this.processResponse(data);
+          });
         }
       }
+
       watchDependencies() {
         if (this.hasDependencies()) {
           $rootScope.$watch(() => this.interpolateUrl(), () => this.resolve());
