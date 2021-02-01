@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-01 02:32\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -170,8 +170,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por convenção, o arquivo deve ser
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">Tip:</span> Voc~e pode usar novo tipo <i>Business data</i> para ter um objeto dados de negócio do Business Data Model</p> <p><span class=\"tip\">Tip:</span> Você pode usar a URL, usando a sintaxe <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> Você pode estender nossos recursos da API REST criando </em> extensões da API REST </em> no menu <i> Developmentt </i> do Studio e usá-las aqui </p>"
+msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p> <p><span class=\"tip\">Tip:</span> You can retrieve Status Code or Response Headers with <em>__status</em> and <em>__headers</em> on a variable (ex: variableName.__status)</p>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr ""
