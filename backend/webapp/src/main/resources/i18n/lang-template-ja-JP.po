@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-01 02:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -168,8 +168,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;ファイル名は規則で <em>loc
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> または <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">ヒント：</span> 新しい<i>ビジネスデータ</i> タイプを使用して、ビジネスデータモデルからビジネスデータオブジェクトを取得できます。</p> <p><span class=\"tip\">ヒント：</span>  <em ng-non-bindable>{{dataName}}</em></p>構文を使用してURL内にデータを使用できます。 <p><span class=\"tip\">ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> でユーザー独自のREST APIを作成し、それらをここで使用することも可能です。</p>"
+msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p> <p><span class=\"tip\">Tip:</span> You can retrieve Status Code or Response Headers with <em>__status</em> and <em>__headers</em> on a variable (ex: variableName.__status)</p>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"値2\"]、オブジェクトの文法：{\"キー1\": \"値1\", \"キー2\": \"値2\"}"

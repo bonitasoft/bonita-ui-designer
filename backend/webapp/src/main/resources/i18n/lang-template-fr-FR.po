@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-01 02:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -166,8 +166,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Par convention, le fichier doit êt
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">Astuce :</span> Vous pouvez utiliser le nouveau type <i>Business data</i> pour obtenir un objet de données métier à partir du Modèle de Données Métier</p> <p><span class=\"tip\">Astuce :</span> Vous pouvez utiliser des données dans l'URL, en utlisant la syntaxe <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Astuce :</span> Vous pouvez étendre nos capacités d'API REST en créant des <em>Extensions d'API REST</em> dans le menu Studio <i>Développement</i> et en les utilisant ici</p>"
+msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p> <p><span class=\"tip\">Tip:</span> You can retrieve Status Code or Response Headers with <em>__status</em> and <em>__headers</em> on a variable (ex: variableName.__status)</p>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\"> Astuce :</span> Syntaxe d'un tableau : [\"val1\", \"val2\"] ; Syntaxe d'un objet : {\"key\": \"valeur\"}"
@@ -474,7 +474,7 @@ msgid "BDM APIs are not yet sortable. For other APIs, test in the preview or ref
 msgstr "Les API BDM ne sont pas encore triables. Pour les autres API, faites un test avec l'aperçu ou consultez la documentation (mots-clés : «REST API»)"
 
 msgid "Back"
-msgstr "Précédent"
+msgstr "Retour"
 
 msgid "Back to default size"
 msgstr "Revenir à la taille par défaut"
