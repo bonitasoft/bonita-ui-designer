@@ -10,7 +10,7 @@
     <div ng-if="ctrl.migrationReport.status.toLowerCase() === 'success'" id="success">
         <p ng-if="ctrl.migrationReport.status.toLowerCase() === 'success'" translate><b>{{ctrl.artifact.name}}</b>
             successfully migrated.</p>
-        <p ng-if="ctrl.migrationReport.previousArtifactVersion" translate>Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>.
+        <p ng-if="ctrl.migrationReport.previousArtifactVersion" translate>Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>.
         <p ng-if="!ctrl.migrationReport.previousArtifactVersion" translate>Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>.
         </p>
         <p translate>You cannot import or use this artifact in older version anymore.</p>

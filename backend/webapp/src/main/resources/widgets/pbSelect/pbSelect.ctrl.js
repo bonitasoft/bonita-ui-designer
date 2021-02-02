@@ -27,7 +27,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   this.setSelectedValue = function (foundItem) {
     $timeout(function () {
         $scope.properties.value = angular.isDefined(foundItem) ? foundItem : null ;
-    }, 0);
+    }, 50);
   };
 
   $scope.$watchCollection('properties.availableValues', function(items) {

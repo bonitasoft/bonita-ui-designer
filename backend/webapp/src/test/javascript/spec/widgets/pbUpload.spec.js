@@ -1,6 +1,6 @@
 describe('pbUpload', function() {
 
-  var $compile, scope, dom;
+  let $compile, scope, dom;
 
   beforeEach(module('bonitasoft.ui.widgets'));
   beforeEach(module('bonitasoft.ui.services'));
@@ -25,25 +25,25 @@ describe('pbUpload', function() {
 
   describe('label', function() {
     it('should set the label value', function () {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var label = element.find('label');
+      let label = element.find('label');
       expect(label.text().trim()).toBe('upload');
     });
 
     it('should be on left by default', function () {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var label = element.find('label');
+      let label = element.find('label');
       expect(element.find('.form-horizontal').length).toBe(1);
     });
 
     it('should be on the top of the input', function () {
       scope.properties.labelPosition = 'top';
 
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
       expect(element.find('.form-horizontal').length).toBe(0);
@@ -52,7 +52,7 @@ describe('pbUpload', function() {
     it('should not be there when labelHidden is true', function () {
       scope.properties.labelHidden = true;
 
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
       expect(element.find('label').length).toBe(0);
@@ -63,48 +63,48 @@ describe('pbUpload', function() {
     it('should adapt its width to label size when on the left', function () {
       scope.properties.labelWidth = 3;
 
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var form = element.find('form');
+      let form = element.find('form');
       expect(form.parent().hasClass('col-xs-9')).toBeTruthy();
     });
 
     it('should be wrapped in full width div when label is hidden', function () {
       scope.properties.labelHidden = true;
 
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var form = element.find('form');
+      let form = element.find('form');
       expect(form.parent().hasClass('col-xs-12')).toBeTruthy();
     });
 
     it('should not be required by default', function () {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var input = element.find('input');
+      let input = element.find('input');
       expect(input.attr('required')).toBeFalsy();
     });
 
     it('should be required when requested', function () {
       scope.properties.required = true;
-      var element = $compile('<pb-upload></pb-upload>')(scope);
+      let element = $compile('<pb-upload></pb-upload>')(scope);
       scope.$apply();
 
-      var input = element.find('input[type=file]');
+      let input = element.find('input[type=file]');
       expect(input.attr('required')).toBeTruthy();
     });
 
     it('should validate required', function () {
       scope.properties.required = true;
 
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var input = element.find('input[type="file"]');
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let input = element.find('input[type="file"]');
       scope.$apply();
       expect(input.attr('class')).toMatch('ng-invalid-required');
-      var controller = element.controller('pbUpload');
+      let controller = element.controller('pbUpload');
       controller.uploadComplete({filename: 'toto.jpg'});
       scope.$apply();
 
@@ -114,12 +114,12 @@ describe('pbUpload', function() {
 
   describe('PBController', function(){
     it('should set the input when uploadComplete', function() {
-      var file = {
+      let file = {
         filename:'foobar',
         tempPath: 'quux'
       };
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
       controller.uploadComplete(file);
       scope.$apply();
       expect(element.find('input').val()).toBe('foobar');
@@ -127,12 +127,12 @@ describe('pbUpload', function() {
     });
 
     it('should clear the input', function() {
-      var file = {
+      let file = {
         filename:'foobar',
         tempPath: 'quux'
       };
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
       controller.uploadComplete(file);
       scope.$apply();
       expect(element.find('input').val()).toBe('foobar');
@@ -146,8 +146,8 @@ describe('pbUpload', function() {
     });
 
     it('should set a message when upload start', function() {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
 
       controller.startUploading();
       scope.$apply();
@@ -156,9 +156,9 @@ describe('pbUpload', function() {
     });
 
     it('should set a message when upload fails', function() {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
-      var errorBody = 'upload failed because of FileTooBigException';
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
+      let errorBody = 'upload failed because of FileTooBigException';
 
       controller.uploadComplete(errorBody);
       scope.$apply();
@@ -168,9 +168,9 @@ describe('pbUpload', function() {
     });
 
     it('should set a message when upload fails with a Json object', function() {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
-      var error = {
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
+      let error = {
         type: 'FileTooBigException',
         message: 'The given file is too big to be stored or processed'
       };
@@ -180,14 +180,14 @@ describe('pbUpload', function() {
       expect(scope.properties.errorContent).toEqual(error.message);
     });
 
-    it('should update the filename if the value changes (on deletion for intance)', function () {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
+    it('should update the filename if the value changes (on deletion for instance)', function () {
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
 
       scope.$apply();
       expect(controller.filename).toBe('');
 
-      var filename = 'myFile.txt';
+      let filename = 'myFile.txt';
       scope.properties.value = {filename: filename};
       scope.$apply();
       expect(controller.filename).toBe(filename);
@@ -197,14 +197,43 @@ describe('pbUpload', function() {
       expect(controller.filename).toBeUndefined();
     });
 
+    it('should update the filename if the value changes to null', function () {
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
+
+      scope.$apply();
+      expect(controller.filename).toBe('');
+
+      scope.properties.value = null;
+      scope.$apply();
+      expect(controller.filename).toBeUndefined();
+    });
+
     it('should set the event value to null on submit', function() {
-      var element = $compile('<pb-upload></pb-upload>')(scope);
-      var controller = element.controller('pbUpload');
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
       scope.$apply();
       spyOn(controller, 'submitForm');
-      var myEvent = {target: {value: 'value'}};
+      let myEvent = {target: {value: 'value'}};
       controller.forceSubmit(myEvent);
       expect(myEvent.target.value).toBe(null);
+    });
+
+    it('should reset errorContent properties when upload is successful', function () {
+      let file = {
+        filename:'foobar',
+        tempPath: 'quux'
+      };
+
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
+
+      scope.properties.errorContent = 'Error during upload';
+      scope.$apply();
+
+      controller.uploadComplete(file);
+
+      expect(scope.properties.errorContent).toBe(undefined);
     });
   });
 });
