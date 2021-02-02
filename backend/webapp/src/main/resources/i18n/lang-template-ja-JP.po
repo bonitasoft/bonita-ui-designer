@@ -303,11 +303,7 @@ msgstr "ユーザーがフィルターを指定するページにウィジェッ
 "                、またはプリセットリストから選んだウィジェットを選択します。"
 
 msgid "Add borders all around the table and between all the columns."
-<<<<<<< HEAD
 msgstr "テーブル全体と全てのカラムの間に枠線を追加します。"
-=======
-msgstr "表の周りとすべての列の間に枠線を追加します。"
->>>>>>> master
 
 msgid "Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation."
 msgstr ""
@@ -349,11 +345,7 @@ msgid "Alternate text"
 msgstr "代替テキスト"
 
 msgid "Alternating gray and transparent backgrounds"
-<<<<<<< HEAD
-msgstr "グレーと透明の交互な背景"
-=======
 msgstr "交互の灰色と透明な背景"
->>>>>>> master
 
 msgid "Alternatively, you can set the Data source to Variable and use a variable definition to point to\n"
 "            the table content."
@@ -379,12 +371,8 @@ msgstr "アニメーション"
 
 msgid "Another possibility would be adding different containers inside the modal and specify any of the\n"
 "            following classes:"
-<<<<<<< HEAD
 msgstr "別の可能性は、モーダル内に異なるコンテナを追加し、以下のクラス\n"
 "            のいずれかを指定する。:"
-=======
-msgstr "別の可能性はモーダル内に異なるコンテナを追加し、            以下のクラス:"
->>>>>>> master
 
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
@@ -393,11 +381,7 @@ msgid "Any boolean variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "任意のブール変数： <i>myData</i> または <i>myData.attribute</i>"
 
 msgid "Any button can close a modal container that contains it when a success happens after any button action."
-<<<<<<< HEAD
 msgstr "任意のボタンはボタンアクション後、成功した時にそれを含むモーダルコンテナを閉じることができます。"
-=======
-msgstr "任意のボタンはボタンがアクションし、成功した時にモーダルコンテナを閉じることができます。"
->>>>>>> master
 
 msgid "Any variable: <i>myData</i> or <i>myData.attribute</i>"
 msgstr "任意の変数： <i>myData</i> または <i>myData.attribute</i>"
@@ -418,11 +402,7 @@ msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "変数の値にフィルターを適用する例: <em>selectedUser | json</em>"
 
 msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
-<<<<<<< HEAD
 msgstr "<b>{{ctrl.artifact}}</b> {{ctrl.type}} を削除してよろしいですか？"
-=======
-msgstr "<b>{{ctrl.artifact}}</b> {{ctrl.type}} を削除してもよろしいですか？"
->>>>>>> master
 
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
@@ -810,13 +790,8 @@ msgstr "カスタム ウィジェット"
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
 
-<<<<<<< HEAD
 msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
 msgstr "タブのタイトルをカスタマイズしたり、CSSを動的に追加したり、条件に応じてタブを非表示にしたり、無効にしたりすることが各タブの新機能です。 垂直表示のおかげでタブのフォーマットを変更したり、素敵なサイドメニューを構築することができます。 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">カスタマイズの詳細についてはこちらをご覧ください。</a>"
-=======
-msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
-msgstr ""
->>>>>>> master
 
 msgid "Customize the default look and feel as follows:"
 msgstr ""
@@ -1735,7 +1710,6 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "No Bonita REST API calls."
-<<<<<<< HEAD
 msgstr "Bonita REST APIコールがありません。"
 
 msgid "No Business Data Model currently deployed."
@@ -1743,15 +1717,6 @@ msgstr "現在デプロイされたビジネス データ モデルはありま�
 
 msgid "No application selected"
 msgstr "アプリケーションが選択されていません。"
-=======
-msgstr "Bonita REST API コールはありません。"
-
-msgid "No Business Data Model currently deployed."
-msgstr "現在デプロイされているビジネス データ モデルはありません。"
-
-msgid "No application selected"
-msgstr "アプリケーションが選択されていません"
->>>>>>> master
 
 msgid "No artifact found."
 msgstr "生成物が見つかりません。"
@@ -1760,7 +1725,6 @@ msgid "No variable"
 msgstr "変数はありません"
 
 msgid "No {{label}} asset (no scope selected)."
-<<<<<<< HEAD
 msgstr "{{label}} アセット無し（スコープが選択されていません）。"
 
 msgid "No {{label}} asset at page level."
@@ -1771,18 +1735,6 @@ msgstr "ウィジェット レベルに {{label}} アセットはありません
 
 msgid "No {{label}} asset."
 msgstr " {{label}} アセットがありません。"
-=======
-msgstr "{{label}} アセットがありません（スコープが選択されていません）。"
-
-msgid "No {{label}} asset at page level."
-msgstr "{{label}} アセットがページレベルにありません。"
-
-msgid "No {{label}} asset at widget level."
-msgstr "ウィジェット レベルに {{label}} アセットがありません。"
-
-msgid "No {{label}} asset."
-msgstr " {{label}} アセットはありません。"
->>>>>>> master
 
 msgid "No. This data will be specific to this fragment."
 msgstr "いいえ、このデータはこのフラグメント固有のものです。"
@@ -1791,27 +1743,16 @@ msgid "No: user time zone is ignored. <br>Yes: display/input reflects the user t
 msgstr "[いいえ]: ユーザーのタイムゾーンは無視されます。<br>[はい]: 表示/入力はユーザーのタイムゾーンを反映し、実際の値と異なる場合があります。"
 
 msgid "None"
-<<<<<<< HEAD
 msgstr "＜なし＞"
-=======
-msgstr "何もない"
->>>>>>> master
 
 msgid "Not compatible with current UI Designer version. To open it, use a newer version of UI Designer."
 msgstr "現在のUI デザイナーのバージョンと互換性がありません。開くには、UI デザイナーの新しいバージョンを使用してください。"
 
 msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
-<<<<<<< HEAD
-msgstr "注意：検索結果リストの場合、アセットの並べ替えは無効になります。 実際、ページアセットの完全なリストが表示されている場合にのみ再並べ替えが関連します。"
-
-msgid "Noteworthy changes"
-msgstr "注意すべき変更"
-=======
 msgstr "検索結果リストの場合、アセットの並べ替えは無効になるので注意してください。 実際、ページアセットの完全なリストが表示されている場合にのみ並べ替えが関連します。"
 
 msgid "Noteworthy changes"
 msgstr "注目すべき変更"
->>>>>>> master
 
 msgid "Now"
 msgstr "今時点"
@@ -2507,13 +2448,8 @@ msgstr "この機能は、現在Internet Explorer 11またはMicrosoft Edgeで�
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-<<<<<<< HEAD
 msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr "この改善は、Bonita Studio からフォームを作成するときに表示されます。 UI デザイナーで自動的に新しい変数を作成し、関連するウィジェットとバインドします。 詳細については、 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">専用ドキュメントを参照。</a> "
-=======
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr ""
->>>>>>> master
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -2602,13 +2538,8 @@ msgstr "カスタム AngularJS サービス（フィルター、コンスタン�
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr ""
 
-<<<<<<< HEAD
 msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr "遅延参照で埋め込まれたオブジェクトの管理を改善するには、 | lazyRef フィルタを使用して変数を作成し、オブジェクトを取得します。 詳細については、 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">専用ドキュメント</a> を参照してください。"
-=======
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr ""
->>>>>>> master
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr ""
@@ -2964,13 +2895,8 @@ msgstr "幅"
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
 msgstr "（'app' パラメータ） を設定していない場合、URL から取得されます。テスト用のプレビュー URL のクエリ文字列で渡すことができます。"
 
-<<<<<<< HEAD
 msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
 msgstr "新しいデータモデルのセクションで オブジェクトを一覧表示し、ホワイトボードにドラッグ&ドロップ(または新しい変数を作成)することで、ビジネス データ モデルをイントロスペクトし、高度なウィザードを設定するためにデータの検索を簡素化できます。 後でこの変数を他の変数として使用します。"
-=======
-msgid "With the new data model section, list your objects and drag&amp;drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
-msgstr ""
->>>>>>> master
 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "変数とウィジェットを保存する新しい方法では、複数行のストレージにより差分とマージ操作が明確になります。"
@@ -3275,4 +3201,3 @@ msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
-
