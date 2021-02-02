@@ -42,11 +42,11 @@ jobs:
 
       - name: Publish artefact
         if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
-        run: mvnw deploy -DskipTests -DaltDeploymentRepository=bonita.releases::default::http://artifacts.rd.lan/maven/internal.releases/
+        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=bonita.releases::default::http://artifacts.rd.lan/maven/internal.releases/
 
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
-        run: mvnw -B package --file pom.xml -DskipTests
+        run: ./mvnw -B package --file pom.xml -DskipTests
 
       - name: Upload binaries to release note
         uses: svenstaro/upload-release-action@v2
