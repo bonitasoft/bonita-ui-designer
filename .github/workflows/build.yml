@@ -1,13 +1,15 @@
-name: Build dev
+name: Build
 
 on:
   push:
     branches:
       - dev
+      - master
       - release-*
   pull_request:
     branches:
       - dev
+      - master
       - release-*
 jobs:
   build:
@@ -19,18 +21,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
+
       - name: Build and tests
         run: ./mvnw -B clean verify -Pe2e,integration-test
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ui-designer-standalone
-          path: |
-            backend/webapp/target/*-standalone.jar
-        if: ${{ github.ref }} == 'refs/heads/dev'
+
       - name: Send message to Slack channel
         uses: act10ns/slack@v1
-        if: ${{ failure() && github.ref == 'refs/heads/dev' }}
+        if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
