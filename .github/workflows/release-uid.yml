@@ -15,7 +15,7 @@ on:
 jobs:
   createGithubRelease:
     name: Create release
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
