@@ -29,7 +29,6 @@ jobs:
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
                 echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
-                echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
             fi
       - uses: actions/checkout@v2
         with:
@@ -41,7 +40,7 @@ jobs:
           java-version: 8
 
       - name: Publish artefact
-        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish')}}
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.gpg_private_key }}
@@ -53,16 +52,6 @@ jobs:
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
         run: mvn -B package --file pom.xml -DskipTests
-
-      - name: Upload binaries to release note
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN  }}
-          file:
-            backend/webapp/target/{*-standalone.jar,*.war}
-          file_glob: true
-          tag: ${{ steps.init.outputs.tagVersion }}
-          overwrite: true
 
       - name: Send message to Slack channel
         if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
