@@ -29,6 +29,7 @@ jobs:
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
                 echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
+                echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
             fi
       - uses: actions/checkout@v2
         with:
