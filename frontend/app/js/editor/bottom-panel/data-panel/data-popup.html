@@ -93,12 +93,14 @@
                 </div>
 
                 <div class="help-block" ng-switch-when="url" translate>
-                    <p><span class="tip">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p>
-                    <p><span class="tip">Tip:</span> You can use data in the URL, by using the syntax <em
-                        ng-non-bindable>{{dataName}}</em></p>
-                    <p><span class="tip">Tip:</span> You can extend our REST API capabilities by creating <em>REST API
-                        extensions</em> in the Studio <i>Development</i> menu and use them here</p>
-                    <p><span class="tip">Tip:</span> You can retrieve Status Code or Response Headers with <em>__status</em> and <em>__headers</em> on a variable (ex: variableName.__status)</p>
+                    <p><span class="tip">Tips:</span></p>
+                    <ul>
+                        <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li>
+                        <li translate>You can use data in the URL with the <i><em
+                            ng-non-bindable>{{dataName}}</em></i> syntax.</li>
+                        <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li>
+                        <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li>
+                    </ul>
                 </div>
 
                 <section ng-switch-when="url">
