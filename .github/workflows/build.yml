@@ -23,7 +23,7 @@ jobs:
           java-version: 8
 
       - name: Build and tests
-        run: mvn -B clean verify -Pe2e,integration-test
+        run: ./mvnw -B clean verify -Pe2e,integration-test
 
       - name: Send message to Slack channel
         uses: act10ns/slack@v1

@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '12'
       - name: Generate reports
-        run: mvn initialize -Pdependencies
+        run: ./mvnw initialize -Pdependencies
       - name: Generate archives
         shell: bash
         run: |
