@@ -35,4 +35,4 @@ jobs:
           git config pull.rebase true
       # Runs Crowdin download
       - name: Run Crowdin download
-        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GH_PERSONNAL_ACCES_TOKEN }} --branch=${{ steps.init.outputs.baseBranch }}
+        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }} --branch=${{ steps.init.outputs.baseBranch }}
