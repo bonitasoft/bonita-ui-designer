@@ -61,10 +61,10 @@ fi
 
 # $1 github API Key
 pull_request() {
-  PR="{\"title\": \"[${BRANCH_NAME}] Translations update\", \"head\": \"feat/${BRANCH_NAME}/update-translations\", \"base\": \"${BRANCH_NAME}\"}"
+  PR="{\"title\": \"feat(l10n): [${BRANCH_NAME}] Translations update\", \"head\": \"feat/${BRANCH_NAME}/update-translations\", \"base\": \"${BRANCH_NAME}\"}"
   echo "Create new pull request $PR"
   curl -i -X POST -d "$PR" \
-     https://api.github.com/repos/bonitasoft/bonita-ui-designer/pulls?access_token=$1
+     https://api.github.com/repos/bonitasoft/bonita-ui-designer-internal/pulls?access_token=$1
 }
 
 # $1 directory
@@ -73,7 +73,7 @@ remove_comments() {
 }
 
 echo "***********************************************************************************"
-echo "UI DESIGNER TRANSLATION UPLOAD"
+echo "UI DESIGNER TRANSLATION DOWNLOAD"
 echo "***********************************************************************************"
 
 echo "Preparing environment..."
@@ -97,7 +97,7 @@ remove_comments $BASE_DIR/backend/webapp/src/main/resources/i18n
 modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)
 if [ $modifiedlines -gt 0 ]
 then
-    git commit -a -m "chore(l10n) update translations"
+    git commit -a -m "feat(l10n): update translations"
     git push origin feat/$BRANCH_NAME/update-translations --force
 
     pull_request $GITHUBKEY
