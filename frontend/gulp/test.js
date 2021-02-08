@@ -42,7 +42,9 @@ const run = gulp.series(eslintTest, function _test(done) {
   return new Server({
     configFile: config.paths.karma,
     singleRun: true
-  }, done).start();
+  }, function (exitCode) {
+    exitCode ? process.exit(exitCode) : done();
+  }).start();
 });
 
 /**
@@ -52,7 +54,9 @@ const watch = gulp.series(eslintTest, function testWatch(done) {
   return new Server({
     configFile: config.paths.karma,
     singleRun: false
-  }, done).start();
+  }, function (exitCode) {
+    exitCode ? process.exit(exitCode) : done();
+  }).start();
 });
 
 exports.checkCompleteness = checkCompleteness;

@@ -30,11 +30,7 @@ function test(done, watch) {
     configFile: config.paths.karma.configFile,
     singleRun: !watch
   }, function (exitCode) {
-    if(exitCode === 0){
-      done();
-    } else {
-      process.exit(exitCode);
-    }
+    exitCode ? process.exit(exitCode) : done();
   }).start();
 }
 
