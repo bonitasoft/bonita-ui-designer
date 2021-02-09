@@ -84,7 +84,7 @@
     "webdriver-manager": "12.0.6"
   },
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower install --allow-root",
     "build": "gulp --dist",
     "test": "gulp test",
     "test-watch": "gulp test:watch",
