@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-08 03:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -37,8 +37,11 @@ msgstr "../API/"
 msgid "../API/formFileUpload"
 msgstr ""
 
-msgid "7.5 Migration notes"
-msgstr "Notas de Migração 7.5"
+msgid "7.12.0"
+msgstr ""
+
+msgid "7.5.0"
+msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> variáveis de sequência de caracteres (com ou sem informações de hora)"
@@ -170,8 +173,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por convenção, o arquivo deve ser
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">Tip:</span> Voc~e pode usar novo tipo <i>Business data</i> para ter um objeto dados de negócio do Business Data Model</p> <p><span class=\"tip\">Tip:</span> Você pode usar a URL, usando a sintaxe <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> Você pode estender nossos recursos da API REST criando </em> extensões da API REST </em> no menu <i> Developmentt </i> do Studio e usá-las aqui </p>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax.</li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li> <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li> </ul>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr ""
@@ -675,6 +678,9 @@ msgstr ""
 
 msgid "Comma-separated list or variable"
 msgstr "Lista separada por vírgulas ou variáveis"
+
+msgid "Community edition features"
+msgstr ""
 
 msgid "Condensed"
 msgstr "Condensado"
@@ -1222,6 +1228,9 @@ msgstr ""
 msgid "Get all business variables defined in a case"
 msgstr ""
 
+msgid "Get all the advanced features such as fragments and localization in the community edition."
+msgstr ""
+
 msgid "Get current logged user"
 msgstr ""
 
@@ -1620,6 +1629,12 @@ msgstr "Migrar"
 
 msgid "Migration"
 msgstr "Migrações"
+
+msgid "Migration enhancements"
+msgstr ""
+
+msgid "Migration notes"
+msgstr ""
 
 msgid "Migration report"
 msgstr "Relatório de migração"
@@ -2091,6 +2106,9 @@ msgstr "Mostrar propriedades"
 msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
 msgstr "Mostra os idiomas para os quais há traduções em localization.json e Default, que é o idioma de origem da sua página"
 
+msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
+msgstr ""
+
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap já não constam nas páginas do UI Designer."
 
@@ -2533,6 +2551,9 @@ msgstr "Para incorporar um pop-in em outro pop-in no tempo de execução, solte 
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr ""
 
+msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
+msgstr ""
+
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr "Para obter os dados de uma linha selecionada, vincular a linha selecionada a uma variável."
 
@@ -2673,6 +2694,9 @@ msgid "Unmark as favorite"
 msgstr ""
 
 msgid "Update asset"
+msgstr ""
+
+msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
 msgstr ""
 
 msgid "Upgrade to a newer UI Designer version to import this {{type}}"
@@ -2926,6 +2950,9 @@ msgstr "Você pode excluir apenas arquivos de página, ver arquivos locais e edi
 msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
 msgstr "Você pode explorar o modelo de dados (com uma visualização gráfica) usando o ícone do gráfico no cabeçalho deste painel. Mostra as relações entre objetos comerciais e os seus atributos."
 
+msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
+msgstr ""
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr ""
 
@@ -2946,11 +2973,11 @@ msgid "You can provide a filter for users to update the displayed table to show 
 msgstr "Você pode fornecer um filtro para que os usuários atualizem a tabela exibida para mostrar apenas as linhas que correspondem\n"
 "            ao filtro. Para fazer isso:"
 
-msgid "You can save the content of a plain container as a reusable fragment."
+msgid "You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status)."
 msgstr ""
 
-msgid "You can see the migration notes again by clicking on the help button"
-msgstr "Você pode ver as notas de migração novamente clicando no botão de ajuda"
+msgid "You can save the content of a plain container as a reusable fragment."
+msgstr ""
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr ""
@@ -2960,6 +2987,9 @@ msgstr "Você pode usar o tipo de dados de negócio para obter um objeto de dado
 
 msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
 msgstr "Você pode usar a seção Paginação para definir o número de elementos que você deseja por página (por padrão 10 elementos) e o número da página (por padrão primeira página - índice 0). Por exemplo, você pode vincular uma variável para obter uma página dinâmica: {{paginationVariable.pageNumber}}."
+
+msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
+msgstr ""
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr ""
@@ -2993,8 +3023,8 @@ msgstr ""
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Você terá que gerenciar a minificação e atualizar a URL dos recursos para acionar a busca no cache."
 
-msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
-msgstr "Seu artefato foi migrado de <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> para <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
 
 msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "Seu artefato foi migrado para <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."

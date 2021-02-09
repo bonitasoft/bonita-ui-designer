@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-08 03:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -37,8 +37,11 @@ msgstr ".. /API/"
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
-msgid "7.5 Migration notes"
-msgstr "7.5 Notas Migración"
+msgid "7.12.0"
+msgstr ""
+
+msgid "7.5.0"
+msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
@@ -168,8 +171,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por Convención, el archivo tiene q
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> o <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">Ayuda:</span> Puedes usar el nuevo tipo <i>Business data</i> para obtener un objeto de negocio del Business Data Model (BDM)</p><p><span class=\"tip\">Ayuda:</span> Puedes usar datos en la URL, usando la sintaxis <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Ayuda:</span> Puedes ampliar nuestras capacidades API REST creando <em>extensiones REST API</em> en el menú de desarrollo <i></i> y usarlas aquí</p>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax.</li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li> <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li> </ul>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\"> Consejo:</span> Sintaxis Array : [\"val1\", \"val2\"], Sintaxis Object:  {\"clave\": \"valor\"}"
@@ -669,6 +672,9 @@ msgstr "Lista separada por comas o un array de datos enlazado"
 
 msgid "Comma-separated list or variable"
 msgstr "Lista separada por comas o variable"
+
+msgid "Community edition features"
+msgstr ""
 
 msgid "Condensed"
 msgstr "Condensado"
@@ -1214,6 +1220,9 @@ msgstr "Obtén una tarea humana por su identificador"
 msgid "Get all business variables defined in a case"
 msgstr "Obtener todas las variables del negocio definidas en un caso"
 
+msgid "Get all the advanced features such as fragments and localization in the community edition."
+msgstr ""
+
 msgid "Get current logged user"
 msgstr "Obtén el actual usuario logueado"
 
@@ -1612,6 +1621,12 @@ msgstr "Migrar"
 
 msgid "Migration"
 msgstr "Migración"
+
+msgid "Migration enhancements"
+msgstr ""
+
+msgid "Migration notes"
+msgstr ""
 
 msgid "Migration report"
 msgstr "Informe de Migración"
@@ -2082,6 +2097,9 @@ msgstr "Mostrar propiedades"
 msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
 msgstr "Muestra los idiomas para los cuales existen traducciones en localization.json y Default, que es la lengua de la fuente de su página"
 
+msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
+msgstr ""
+
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
 
@@ -2520,6 +2538,9 @@ msgstr "Para embeber una modal dentro de otra modal en tiempo de ejecución, añ
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
 
+msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
+msgstr ""
+
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr "Para recuperar los datos de una fila seleccionada, vincule el parametro \"fila seleccionada\" a una variable."
 
@@ -2659,6 +2680,9 @@ msgstr "Desmarcar como Favorito"
 
 msgid "Update asset"
 msgstr "Editar recurso"
+
+msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
+msgstr ""
 
 msgid "Upgrade to a newer UI Designer version to import this {{type}}"
 msgstr "Actualizar a una nueva versión del UI Designer para importar este {{type}}"
@@ -2910,6 +2934,9 @@ msgstr "Puede eliminar sólo assets de página, ver assets locales y editar asse
 msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
 msgstr "Puede explorar el modelo de datos (con una vista gráfica) usando el icono del gráfico en la cabecera de este panel. Muestra las relaciones entre los objetos de negocio, y sus atributos."
 
+msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
+msgstr ""
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Puede ampliar nuestras capacidades de la API REST creando <em>extensiones de API REST</em> en el menú <i>Desarrollo</i> del Studio y utilizarlas como variables de API externa en el UI Designer."
 
@@ -2929,11 +2956,11 @@ msgid "You can provide a filter for users to update the displayed table to show 
 "            the filter. To do this :"
 msgstr "Puede proporcionar un filtro para que los usuarios actualicen la tabla mostrada para mostrar sólo los registros que coincidan con el filtro. Para hacer esto:"
 
+msgid "You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status)."
+msgstr ""
+
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Puede guardar el contenido de un contenedor como un fragmento reusable."
-
-msgid "You can see the migration notes again by clicking on the help button"
-msgstr "Puedes ver las notas de migración de nuevo haciendo clic en el botón de ayuda"
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "Puedes traducir todo el texto mostrado en un artefacto del UI Designer: etiquetas, placeholders, los valores disponibles de una lista. Puede ser \"localizado\" (locale) incluso el formato de fecha del widget Date Picker."
@@ -2943,6 +2970,9 @@ msgstr "Puede utilizar el tipo Business data para obtener un objeto de negocio."
 
 msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
 msgstr "Puede utilizar la sección Paginación para definir el número de elementos que desea por página (por defecto 10 elementos) y el número de página (por defecto primera página - índice 0). Por ejemplo, puede enlazar una variable para obtener una paginación dinámica: {{paginationVariable.pageNumber}}."
+
+msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
+msgstr ""
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "Puede usar etiquetas HTML estándar y las directivas, scope, interpolación de AngularJS."
@@ -2975,8 +3005,8 @@ msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desd
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
 
-msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
-msgstr "Tu artefacto fue migrado de <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> a <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
 
 msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "Tu artefacto fue migrado a <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."

@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2020-12-15 03:30\n"
+"PO-Revision-Date: 2021-02-08 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -37,7 +37,10 @@ msgstr "../API/"
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
 
-msgid "7.5 Migration notes"
+msgid "7.12.0"
+msgstr ""
+
+msgid "7.5.0"
 msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
@@ -168,8 +171,8 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;ファイル名は規則で <em>loc
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> または <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tip:</span> You can use new <i>Business data</i> type to get a business data object from Business Data Model</p> <p><span class=\"tip\">Tip:</span> You can use data in the URL, by using the syntax <em ng-non-bindable>{{dataName}}</em></p> <p><span class=\"tip\">Tip:</span> You can extend our REST API capabilities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them here</p>"
-msgstr "<p><span class=\"tip\">ヒント：</span> 新しい<i>ビジネスデータ</i> タイプを使用して、ビジネスデータモデルからビジネスデータオブジェクトを取得できます。</p> <p><span class=\"tip\">ヒント：</span>  <em ng-non-bindable>{{dataName}}</em></p>構文を使用してURL内にデータを使用できます。 <p><span class=\"tip\">ヒント：</span> Studio <i>の開発</i> メニューで <em>REST API 拡張</em> でユーザー独自のREST APIを作成し、それらをここで使用することも可能です。</p>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax.</li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li> <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li> </ul>"
+msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"値2\"]、オブジェクトの文法：{\"キー1\": \"値1\", \"キー2\": \"値2\"}"
@@ -345,7 +348,7 @@ msgid "Alternate text"
 msgstr "代替テキスト"
 
 msgid "Alternating gray and transparent backgrounds"
-msgstr "交互の灰色と透明な背景"
+msgstr "グレーと透明の交互な背景"
 
 msgid "Alternatively, you can set the Data source to Variable and use a variable definition to point to\n"
 "            the table content."
@@ -674,6 +677,9 @@ msgstr "コンマで区切られたリストまたはバインド配列データ
 msgid "Comma-separated list or variable"
 msgstr "カンマで区切られたリストまたは変数"
 
+msgid "Community edition features"
+msgstr ""
+
 msgid "Condensed"
 msgstr "コンデンス"
 
@@ -790,8 +796,8 @@ msgstr "カスタム ウィジェット"
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
 
-msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
-msgstr "タブのタイトルをカスタマイズしたり、CSSを動的に追加したり、条件に応じてタブを非表示にしたり、無効にしたりすることが各タブの新機能です。 垂直表示のおかげでタブのフォーマットを変更したり、素敵なサイドメニューを構築することができます。 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&bos_redirect_product=bos&bos_redirect_major_version=7.10\">カスタマイズの詳細についてはこちらをご覧ください。</a>"
+msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
+msgstr ""
 
 msgid "Customize the default look and feel as follows:"
 msgstr ""
@@ -1222,6 +1228,9 @@ msgstr "ヒューマン タスクIDでヒューマン タスクを取得する"
 msgid "Get all business variables defined in a case"
 msgstr "案件で定義されているすべてのビジネス変数を取得します"
 
+msgid "Get all the advanced features such as fragments and localization in the community edition."
+msgstr ""
+
 msgid "Get current logged user"
 msgstr "現在のログインユーザーを取得する"
 
@@ -1625,6 +1634,12 @@ msgstr "マイグレート（移行）"
 msgid "Migration"
 msgstr ""
 
+msgid "Migration enhancements"
+msgstr ""
+
+msgid "Migration notes"
+msgstr ""
+
 msgid "Migration report"
 msgstr "マイグレーション レポート"
 
@@ -1749,10 +1764,10 @@ msgid "Not compatible with current UI Designer version. To open it, use a newer 
 msgstr "現在のUI デザイナーのバージョンと互換性がありません。開くには、UI デザイナーの新しいバージョンを使用してください。"
 
 msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
-msgstr "検索結果リストの場合、アセットの並べ替えは無効になるので注意してください。 実際、ページアセットの完全なリストが表示されている場合にのみ並べ替えが関連します。"
+msgstr "注意：検索結果リストの場合、アセットの並べ替えは無効になります。 実際、ページアセットの完全なリストが表示されている場合にのみ再並べ替えが関連します。"
 
 msgid "Noteworthy changes"
-msgstr "注目すべき変更"
+msgstr "注意すべき変更"
 
 msgid "Now"
 msgstr "今時点"
@@ -2094,6 +2109,9 @@ msgstr "プロパティを表示"
 
 msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
 msgstr "localization.json 内に存在する翻訳対象言語とデフォルト言語（あなたのページのソース言語）を表示します"
+
+msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
+msgstr ""
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr ""
@@ -2448,8 +2466,8 @@ msgstr "この機能は、現在Internet Explorer 11またはMicrosoft Edgeで�
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "この改善は、Bonita Studio からフォームを作成するときに表示されます。 UI デザイナーで自動的に新しい変数を作成し、関連するウィジェットとバインドします。 詳細については、 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&bos_redirect_product=bos&bos_redirect_major_version=7.9\">専用ドキュメントを参照。</a> "
+msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgstr ""
 
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
@@ -2535,11 +2553,14 @@ msgstr "実行時にポップインを別のポップインに埋め込むには
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
 
+msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
+msgstr ""
+
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr ""
 
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr "遅延参照で埋め込まれたオブジェクトの管理を改善するには、 | lazyRef フィルタを使用して変数を作成し、オブジェクトを取得します。 詳細については、 <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&bos_redirect_product=bos&bos_redirect_major_version=7.9\">専用ドキュメント</a> を参照してください。"
+msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
+msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr ""
@@ -2676,6 +2697,9 @@ msgstr "お気に入りのマークを解除"
 
 msgid "Update asset"
 msgstr "アセットを更新"
+
+msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
+msgstr ""
 
 msgid "Upgrade to a newer UI Designer version to import this {{type}}"
 msgstr "この {{type}} をインポートするには、新しい UI デザイナーのバージョンにアップグレードしてください"
@@ -2895,8 +2919,8 @@ msgstr "幅"
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
 msgstr "（'app' パラメータ） を設定していない場合、URL から取得されます。テスト用のプレビュー URL のクエリ文字列で渡すことができます。"
 
-msgid "With the new data model section, list your objects and drag&drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
-msgstr "新しいデータモデルのセクションで オブジェクトを一覧表示し、ホワイトボードにドラッグ&ドロップ(または新しい変数を作成)することで、ビジネス データ モデルをイントロスペクトし、高度なウィザードを設定するためにデータの検索を簡素化できます。 後でこの変数を他の変数として使用します。"
+msgid "With the new data model section, list your objects and drag&amp;drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
+msgstr ""
 
 msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
 msgstr "変数とウィジェットを保存する新しい方法では、複数行のストレージにより差分とマージ操作が明確になります。"
@@ -2928,6 +2952,9 @@ msgstr "ページアセットのみを削除やローカルアセットの表示
 msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
 msgstr ""
 
+msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
+msgstr ""
+
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
 
@@ -2948,11 +2975,11 @@ msgid "You can provide a filter for users to update the displayed table to show 
 msgstr "ユーザーが表示されたテーブルを更新して、フィルターに一致する行のみを表示するための \n"
 "             フィルターを提供できます。 これを実行するには ："
 
+msgid "You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status)."
+msgstr ""
+
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
-
-msgid "You can see the migration notes again by clicking on the help button"
-msgstr "ヘルプボタンをクリックすると、マイグレーション ノートを再度見ることができます。"
 
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
@@ -2961,6 +2988,9 @@ msgid "You can use Business data type to get a business data object."
 msgstr "ビジネス データ タイプを使用してビジネス データ オブジェクトを取得できます。"
 
 msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
+msgstr ""
+
+msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
 msgstr ""
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
@@ -2995,8 +3025,8 @@ msgstr "Studio でプロセス フォームの設計を開始する必要があ�
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
 
-msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
-msgstr "アーティファクトが<b> {{ctrl.migrationReport.previousArtifactVersion}} </ b>から<b> {{ctrl.migrationReport.newArtifactVersion}} </b>にマイグレートされました。"
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr ""
 
 msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "アーティファクトは <b>{{ctrl.migrationReport.newArtifactVersion}}</b> にマイグレートされました。"
@@ -3201,3 +3231,4 @@ msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+
