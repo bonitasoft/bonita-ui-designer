@@ -13,7 +13,7 @@ jobs:
     name: Crowdin download on dev
     strategy:
       max-parallel: 1
-    runs-on: self-hosted
+    runs-on: [self-hosted, uid-runner]
 
     steps:
       - name: Extract parameter
