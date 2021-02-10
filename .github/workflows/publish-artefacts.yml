@@ -17,7 +17,7 @@ on:
 jobs:
   publishBinaries:
     name: Build, publish and upload binaries
-    runs-on: self-hosted
+    runs-on: [self-hosted, uid-runner]
     steps:
       - name: Extract parameter
         id: init

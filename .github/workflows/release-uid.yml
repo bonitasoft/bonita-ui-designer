@@ -15,7 +15,7 @@ on:
 jobs:
   createGithubRelease:
     name: Create release
-    runs-on: self-hosted
+    runs-on: [self-hosted, uid-runner]
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
