@@ -11,7 +11,7 @@ on:
 jobs:
   updateVersion:
     name: Update UID version
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, uid-runner]
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
