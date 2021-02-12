@@ -22,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     private ResourceLoader resourceLoader;
+
+    @Autowired
+    private WorkspaceUidProperties workspaceUidProperties;
 
     /**
      * Jackson object mapper used to serialize or deserialize Json objects
@@ -103,12 +107,12 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     /**
      * Add resources handler to help Spring to manage our static resources (from frontend and backend)
      */
+    @SneakyThrows
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         if (!registry.hasMappingForPattern("/i18n/*")) {
             registry.addResourceHandler("/i18n/*")
-                    .addResourceLocations("classpath:/i18n/");
+                    .addResourceLocations( workspaceUidProperties.getTmpI18nPath().toUri().toString());
         }
 
         if (!registry.hasMappingForPattern("/widgets/**")) {
@@ -162,7 +166,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     }
 
-    public static List<MediaType> supportedMediaTypes(){
+    public static List<MediaType> supportedMediaTypes() {
         return Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")), new MediaType("text", "plain", Charset.forName("UTF-8")));
     }
 

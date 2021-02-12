@@ -18,10 +18,10 @@ import static java.nio.file.Files.write;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 
@@ -29,17 +29,19 @@ import org.bonitasoft.web.designer.livebuild.Watcher;
 public class LanguagePackBuilder extends AbstractLiveFileBuilder {
 
     private LanguagePackFactory languagePackFactory;
+    private WorkspaceUidProperties workspaceUidProperties;
 
     @Inject
-    public LanguagePackBuilder(Watcher watcher, LanguagePackFactory languagePackFactory) {
+    public LanguagePackBuilder(Watcher watcher, LanguagePackFactory languagePackFactory, WorkspaceUidProperties workspaceUidProperties) {
         super(watcher);
         this.languagePackFactory = languagePackFactory;
+        this.workspaceUidProperties = workspaceUidProperties;
     }
 
     @Override
     public void build(Path poFile) throws IOException {
-        write(
-                Paths.get(poFile.toString().replace(".po", ".json")),
+        String jsonFileName = poFile.getFileName().toString().replace(".po", ".json");
+        write(workspaceUidProperties.getTmpI18nPath().resolve(jsonFileName),
                 languagePackFactory.create(poFile.toFile()).toJson());
     }
 

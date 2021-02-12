@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.config;
 
+import static java.nio.file.Files.createDirectories;
+
+import java.io.IOException;
 import java.nio.file.Path;
 import javax.inject.Named;
 
@@ -36,5 +39,9 @@ public class WorkspaceUidProperties {
 
     public Path getTmpPagesRepositoryPath() {
         return path.resolve(PAGES_DEFAULT_DIRECTORY);
+    }
+
+    public Path getTmpI18nPath() throws IOException {
+        return createDirectories(path.resolve("i18n"));
     }
 }
