@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer;
 
+import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
+import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_USER;
+import static org.bonitasoft.web.designer.config.UiDesignerProperties.*;
+
 import java.io.IOException;
 import java.util.Properties;
 import javax.servlet.MultipartConfigElement;
@@ -31,9 +35,6 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
-import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_PORTAL_USER;
-
 /**
  * Spring WebApplicationInitializer implementation initializes Spring context by
  * adding a Spring ContextLoaderListener to the ServletContext.
@@ -41,22 +42,6 @@ import static org.bonitasoft.web.designer.PreservingCookiePathProxyServlet.P_POR
 public class SpringWebApplicationInitializer implements WebApplicationInitializer {
 
 
-    /**
-     * System property set by the studio to target bonita portal
-     */
-    public static final String BONITA_PORTAL_ORIGIN = "bonita.portal.origin";
-
-    /**
-     * System property set by the studio to target bonita repository
-     */
-    public static final String BONITA_DATA_REPOSITORY_ORIGIN = "bonita.data.repository.origin";
-
-    /**
-     * Can be set when developing using a remote bonita platform
-     */
-    public static final String BONITA_PORTAL_USER = "bonita.portal.origin.user";
-    public static final String BONITA_PORTAL_PASSWORD = "bonita.portal.origin.password";
-    public static final String UID_EXPERIMENTAL = "uid.experimental";
 
     private static final String[] BANNER = {"",
             "d8888b.  .d88b.  d8b   db d888888b d888888b  .d8b.    .d8888.  .d88b.  d88888b d888888b",
@@ -87,9 +72,12 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         for (String line : BANNER) {
             logger.info(line);
         }
+
+        //UiDesignerProperties uiDesignerProperties = UiDesignerProperties.create(prop);
+
         logger.info(Strings.repeat("=", 100));
         logger.info(String.format("UI-DESIGNER : %s edition v.%s", prop.getProperty("designer.edition"), prop.getProperty("designer.version")));
-        if(Boolean.getBoolean(UID_EXPERIMENTAL)) {
+        if(Boolean.getBoolean("designer.experimental")) {
             logger.info(String.format("UI-DESIGNER : Running in experimental mode"));
         }
         logger.info(Strings.repeat("=", 100));
@@ -152,20 +140,20 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
     }
 
     private String getPortalOrigin() {
-        String portalOrigin = System.getProperty(BONITA_PORTAL_ORIGIN);
+        String portalOrigin = System.getProperty(BONITA_PORTAL_URL);
         if (StringUtils.isNotBlank(portalOrigin)) {
             return portalOrigin;
         }
-        logger.warn("System property " + BONITA_PORTAL_ORIGIN + " is not set. Same origin as UI Designer will be used for portal calls.");
+        logger.warn("System property " + BONITA_PORTAL_URL + " is not set. Same origin as UI Designer will be used for portal calls.");
         return "";
     }
 
     private String getDataRepositoryOrigin() {
-        String repositoryOrigin = System.getProperty(BONITA_DATA_REPOSITORY_ORIGIN);
+        String repositoryOrigin = System.getProperty(BONITA_BDM_URL);
         if (StringUtils.isNotBlank(repositoryOrigin)) {
             return repositoryOrigin;
         }
-        logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set. Same origin as UI Designer will be used for repository calls.");
+        logger.warn("System property " + BONITA_BDM_URL + " is not set. Same origin as UI Designer will be used for repository calls.");
         return "";
     }
 }

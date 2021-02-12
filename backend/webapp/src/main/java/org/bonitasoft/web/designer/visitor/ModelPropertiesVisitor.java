@@ -14,17 +14,26 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
+import static com.google.common.collect.Maps.filterKeys;
+import static com.google.common.collect.Maps.transformEntries;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
@@ -32,18 +41,9 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.google.common.collect.Maps.filterKeys;
-import static com.google.common.collect.Maps.transformEntries;
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the data used in a page

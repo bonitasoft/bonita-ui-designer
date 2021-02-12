@@ -14,10 +14,11 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.readAllBytes;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -28,11 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptyMap;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file

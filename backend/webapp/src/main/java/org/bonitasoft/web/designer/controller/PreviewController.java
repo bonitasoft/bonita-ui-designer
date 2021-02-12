@@ -14,11 +14,23 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -26,18 +38,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
-import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @Controller
 public class PreviewController {
@@ -50,24 +50,21 @@ public class PreviewController {
     private Path widgetRepositoryPath;
     private Path fragmentRepositoryPath;
     private Path pageRepositoryPath;
-    private WorkspacePathResolver pathResolver;
+    private WorkspaceUidProperties workspaceUidProperties;
     private FragmentRepository fragmentRepository;
 
     @Inject
     public PreviewController(PageRepository pageRepository,
                              FragmentRepository fragmentRepository,
                              Previewer previewer,
-                             @Named("widgetPath") Path widgetRepositoryPath,
-                             @Named("fragmentsPath") Path fragmentRepositoryPath,
-                             @Named("pagesPath") Path pageRepositoryPath,
-                             WorkspacePathResolver pathResolver) {
+                             WorkspaceProperties workspaceProperties, WorkspaceUidProperties workspaceUidProperties) {
         this.pageRepository = pageRepository;
         this.fragmentRepository = fragmentRepository;
         this.previewer = previewer;
-        this.widgetRepositoryPath = widgetRepositoryPath;
-        this.fragmentRepositoryPath = fragmentRepositoryPath;
-        this.pageRepositoryPath = pageRepositoryPath;
-        this.pathResolver = pathResolver;
+        this.widgetRepositoryPath = workspaceProperties.getWidgets().getDir();
+        this.fragmentRepositoryPath = workspaceProperties.getFragments().getDir();
+        this.pageRepositoryPath = workspaceProperties.getPages().getDir();
+        this.workspaceUidProperties = workspaceUidProperties;
     }
 
     /**
@@ -110,7 +107,7 @@ public class PreviewController {
     @RequestMapping("/preview/page/{appName}/{id}/js/**")
     public void servePageJs(HttpServletRequest request, HttpServletResponse response, @PathVariable("id") String pageId) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
-        Path filePath = pathResolver.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER).resolve(matchingPath);
+        Path filePath = workspaceUidProperties.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER).resolve(matchingPath);
         HttpFile.writeFileInResponse(request, response, filePath);
     }
 
@@ -124,7 +121,7 @@ public class PreviewController {
     public void serveFragmentWidgets(HttpServletRequest request, HttpServletResponse response, @PathVariable("id")
             String id) throws IOException {
         String matchingPath = RequestMappingUtils.extractPathWithinPattern(request);
-        Path filePath = pathResolver.getTmpFragmentsRepositoryPath().resolve(id).resolve(matchingPath);
+        Path filePath = workspaceUidProperties.getTmpFragmentsRepositoryPath().resolve(id).resolve(matchingPath);
         HttpFile.writeFileInResponse(request, response, filePath);
     }
 

@@ -14,13 +14,14 @@
  */
 package org.bonitasoft.web.designer.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class FakePageRepository extends PageRepository {
@@ -28,7 +29,7 @@ public class FakePageRepository extends PageRepository {
     private final Map<String, Page> repo;
 
     public FakePageRepository() {
-        super(null, null, null, null, null);
+        super(new WorkspaceProperties(), null, null, null, null);
         repo = new HashMap<>();
     }
 

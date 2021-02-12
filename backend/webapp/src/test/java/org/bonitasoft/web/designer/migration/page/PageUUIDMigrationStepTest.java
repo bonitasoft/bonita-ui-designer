@@ -15,16 +15,16 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+
+import java.util.UUID;
+
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageUUIDMigrationStepTest {

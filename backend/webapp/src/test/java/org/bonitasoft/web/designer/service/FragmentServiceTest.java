@@ -21,17 +21,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.service.FragmentService;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentServiceTest {
@@ -58,8 +56,7 @@ public class FragmentServiceTest {
 
     @Before
     public void setUp() {
-        fragmentService = new FragmentService(fragmentRepository, fragmentMigrationApplyer, fragmentIdVisitor);
-        ReflectionTestUtils.setField(fragmentService, "modelVersion", "2.0");
+        fragmentService = new FragmentService(fragmentRepository, fragmentMigrationApplyer, fragmentIdVisitor, new UiDesignerProperties("1.13.1","2.0"));
     }
 
     @Test

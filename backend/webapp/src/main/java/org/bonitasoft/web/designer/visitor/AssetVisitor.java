@@ -14,6 +14,14 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.bonitasoft.web.designer.model.Assetable;
@@ -33,16 +41,13 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+@Named
 public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
-    private WidgetRepository widgetRepository;
-    private FragmentRepository fragmentRepository;
+    private final WidgetRepository widgetRepository;
+    private final FragmentRepository fragmentRepository;
 
+    @Inject
     public AssetVisitor(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
         this.widgetRepository = widgetRepository;
         this.fragmentRepository = fragmentRepository;
@@ -82,9 +87,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
     @Override
     public Set<Asset> visit(TabContainer tabContainer) {
-        Set<Asset> assets = new HashSet<>();
-        assets.addAll(tabContainer.getContainer().accept(this));
-        return assets;
+        return new HashSet<>(tabContainer.getContainer().accept(this));
     }
 
     @Override
@@ -120,7 +123,6 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
             asset.setComponentId(widget.getId());
             asset.setScope(AssetScope.WIDGET);
             return asset;
-
         }).collect(Collectors.toList());
     }
 
@@ -130,13 +132,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
         if (previewable instanceof Assetable) {
             Set<Asset> pageAssets = ((Assetable) previewable).getAssets();
-            assets.addAll(Collections2.transform(pageAssets, new Function<Asset, Asset>() {
-
-                @Override
-                public Asset apply(Asset asset) {
-                    return asset.setScope(AssetScope.PAGE);
-                }
-            }));
+            assets.addAll(Collections2.transform(pageAssets, asset -> asset.setScope(AssetScope.PAGE)));
             assets.addAll(visitRows(previewable.getRows()));
 
             //User can exclude assets or specify a specific order in the page

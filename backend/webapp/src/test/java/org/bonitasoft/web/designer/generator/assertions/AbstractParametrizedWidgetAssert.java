@@ -16,10 +16,9 @@ package org.bonitasoft.web.designer.generator.assertions;
 
 import static java.lang.String.format;
 
+import com.google.common.base.Strings;
 import org.assertj.core.api.AbstractAssert;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.AbstractParametrizedWidget;
-
-import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.LabelParametrizedWidget;
 
 /**

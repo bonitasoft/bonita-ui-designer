@@ -46,8 +46,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -94,18 +94,21 @@ public class WidgetResourceTest {
 
     private Path widgetRepositoryPath;
 
+    private WorkspaceProperties workspaceProperties;
+
     private AssetVisitor assetVisitor = new AssetVisitor(widgetRepository, fragmentRepository);
 
     @Before
     public void setUp() throws URISyntaxException {
         initMocks(this);
-        widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getWidgets().setDir(Paths.get(getClass().getResource("/workspace/widgets").toURI()));
         WidgetResource widgetResource = new WidgetResource(
                 new DesignerConfig().objectMapperWrapper(),
                 widgetRepository,
                 widgetService,
                 widgetAssetService,
-                widgetRepositoryPath,
+                workspaceProperties,
                 asList(pageRepository, fragmentRepository), assetVisitor);
         mockMvc = UIDesignerMockMvcBuilder.mockServer(widgetResource).build();
         when(widgetRepository.getComponentName()).thenReturn("widget");
@@ -625,7 +628,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_load_widget_asset_on_disk_with_content_type_text() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
         when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
         mockMvc
@@ -640,7 +643,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_download_widget_asset() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
         when(widgetAssetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
         mockMvc

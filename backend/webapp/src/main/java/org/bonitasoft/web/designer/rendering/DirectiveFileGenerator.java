@@ -19,26 +19,28 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 /**
  * @author Benjamin Parisel
  */
+@Named
 public class DirectiveFileGenerator {
 
-    private WorkspacePathResolver pathResolver;
+    private Path widgetPath;
     private WidgetRepository widgetRepository;
     private WidgetIdVisitor widgetIdVisitor;
 
     @Inject
-    public DirectiveFileGenerator(WorkspacePathResolver pathResolver, WidgetRepository widgetRepository,
-                WidgetIdVisitor widgetIdVisitor) {
-        this.pathResolver = pathResolver;
+    public DirectiveFileGenerator(WorkspaceProperties workspaceProperties, WidgetRepository widgetRepository,
+                                  WidgetIdVisitor widgetIdVisitor) {
+        this.widgetPath = workspaceProperties.getWidgets().getDir();
         this.widgetRepository = widgetRepository;
         this.widgetIdVisitor = widgetIdVisitor;
     }
@@ -47,7 +49,7 @@ public class DirectiveFileGenerator {
         return widgetRepository.getByIds(widgetIdVisitor.visit(previewable)).stream()
                 .filter(widget -> !"pbContainer".equals(widget.getId()))
                 .map(w -> Paths.get(w.getId()).resolve(w.getId()+".js"))
-                .map(file -> pathResolver.getWidgetsRepositoryPath().resolve(file))
+                .map(file -> widgetPath.resolve(file))
                 .collect(Collectors.toList());
     }
 

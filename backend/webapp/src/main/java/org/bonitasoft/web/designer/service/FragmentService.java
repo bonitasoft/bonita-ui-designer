@@ -17,19 +17,19 @@ package org.bonitasoft.web.designer.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Previewable;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 
 
 @Named
@@ -40,7 +40,8 @@ public class FragmentService extends AbstractArtifactService {
     private FragmentRepository fragmentRepository;
 
     @Inject
-    public FragmentService(FragmentRepository fragmentRepository, FragmentMigrationApplyer fragmentMigrationApplyer, FragmentIdVisitor fragmentIdVisitor) {
+    public FragmentService(FragmentRepository fragmentRepository, FragmentMigrationApplyer fragmentMigrationApplyer, FragmentIdVisitor fragmentIdVisitor, UiDesignerProperties uiDesignerProperties) {
+        super(uiDesignerProperties);
         this.fragmentRepository = fragmentRepository;
         this.fragmentMigrationApplyer = fragmentMigrationApplyer;
         this.fragmentIdVisitor = fragmentIdVisitor;

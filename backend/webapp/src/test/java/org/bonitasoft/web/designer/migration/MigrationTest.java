@@ -21,8 +21,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
 
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;

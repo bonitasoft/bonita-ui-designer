@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.readAllBytes;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -31,12 +31,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.google.common.io.Files;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,8 +54,9 @@ public class DirectiveFileGeneratorTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private DirectiveFileGenerator generator;
-    @Mock
-    private WorkspacePathResolver pathResolver;
+
+    private WorkspaceProperties workspaceProperties = new WorkspaceProperties();
+
     @Mock
     private WidgetRepository widgetRepository;
     @Mock
@@ -63,9 +64,9 @@ public class DirectiveFileGeneratorTest {
 
     @Before
     public void beforeEach() {
-        generator = new DirectiveFileGenerator(pathResolver, widgetRepository, widgetIdVisitor);
-        when(pathResolver.getPagesRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString()));
-        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString()));
+        workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.toPath().toString()));
+        workspaceProperties.getWidgets().setDir(Paths.get(temporaryFolder.toPath().toString()));
+        generator = new DirectiveFileGenerator(workspaceProperties, widgetRepository, widgetIdVisitor);
     }
 
     @Test
@@ -103,7 +104,7 @@ public class DirectiveFileGeneratorTest {
 
         String filename = generator.generateAllDirectivesFilesInOne(page, path);
 
-        assertThat(new String(readAllBytes(path.resolve(filename)),"UTF-8")).isEqualTo(expected);
+        assertThat(new String(readAllBytes(path.resolve(filename)), "UTF-8")).isEqualTo(expected);
         assertThat(filename).isEqualTo("widgets-0f2d4ba1fa1992794df3dca7a9b8e4ec735b4746.min.js");
     }
 

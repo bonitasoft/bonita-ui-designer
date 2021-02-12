@@ -26,8 +26,6 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BusinessObjectVisitorImpl implements ContractInputVisitor {
 

@@ -20,12 +20,14 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.mockito.Mockito.*;
 
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import org.bonitasoft.web.designer.utils.rule.TemporaryFragmentRepository;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFragmentRepository;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,10 +38,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentsExportStepTest {
 
-    private WorkspacePathResolver pathResolver = mock(WorkspacePathResolver.class);
+    private WorkspaceProperties workspaceProperties = new WorkspaceProperties();
 
     @Rule
-    public TemporaryFragmentRepository repository = new TemporaryFragmentRepository(pathResolver);
+    public TemporaryFragmentRepository repository = new TemporaryFragmentRepository(workspaceProperties);
 
     private FragmentsExportStep step;
 
@@ -51,7 +53,9 @@ public class FragmentsExportStepTest {
 
     @Before
     public void beforeEach() {
-        step = new FragmentsExportStep(new FragmentIdVisitor(repository.toRepository()), pathResolver, fragmentPropertiesExportStep);
+        step = new FragmentsExportStep(new FragmentIdVisitor(repository.toRepository()),
+                workspaceProperties.getFragments().getDir(),
+                fragmentPropertiesExportStep);
         zipper = spy(new Zipper(mock(OutputStream.class)));
     }
 

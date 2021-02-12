@@ -14,16 +14,7 @@
  */
 package org.bonitasoft.web.designer.model.contract.builders;
 
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,7 +45,7 @@ public class ContractBuilder {
         }
         return this;
     }
-    
+
     public ContractBuilder inEditMode() {
         editMode = EditMode.EDIT;
         return this;
@@ -164,5 +155,5 @@ public class ContractBuilder {
         return aContract().withInput(aMultipleStringContractInput("names")).build();
     }
 
-   
+
 }

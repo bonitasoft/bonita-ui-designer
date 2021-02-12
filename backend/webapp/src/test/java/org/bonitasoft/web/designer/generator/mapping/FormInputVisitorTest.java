@@ -17,18 +17,13 @@ package org.bonitasoft.web.designer.generator.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
@@ -38,8 +33,6 @@ import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FormInputVisitorTest {
 

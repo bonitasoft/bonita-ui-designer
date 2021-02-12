@@ -14,6 +14,14 @@
  */
 package org.bonitasoft.web.designer.migration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
+import static org.mockito.Mockito.verify;
+
+import java.io.IOException;
+
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -27,14 +35,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
-import static org.mockito.Mockito.verify;
-
-import java.io.IOException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StyleAssetMigrationStepTest {

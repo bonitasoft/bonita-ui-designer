@@ -19,7 +19,6 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 

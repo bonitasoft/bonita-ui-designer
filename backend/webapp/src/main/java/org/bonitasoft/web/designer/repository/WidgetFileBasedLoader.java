@@ -14,6 +14,18 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.readAllBytes;
+
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
@@ -24,29 +36,14 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
-
 /**
  * This Persister is used to manage the persistence logic for a widget. Each of them are serialized in a json file
- */
+*/
 public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetFileBasedLoader.class);
 
-    @Inject
+
     public WidgetFileBasedLoader(JacksonObjectMapper objectMapper) {
         super(objectMapper, Widget.class);
     }

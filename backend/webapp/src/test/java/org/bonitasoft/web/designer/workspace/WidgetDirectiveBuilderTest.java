@@ -14,9 +14,7 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
+import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
@@ -29,6 +27,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -73,13 +73,14 @@ public class WidgetDirectiveBuilderTest {
         widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetFileBasedLoader(jacksonObjectMapper), htmlSanitizer);
 
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
-
+        WorkspaceProperties workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getWidgets().setDir(Paths.get(widgetRepositoryDirectory.getRoot().getPath()));
         WidgetRepository repository = new WidgetRepository(
-                Paths.get(widgetRepositoryDirectory.getRoot().getPath()),
-                new DesignerConfig().widgetFileBasedPersister(),
+                workspaceProperties,
+                new DesignerConfig().widgetFileBasedPersister(new UiDesignerProperties("1.13.0","2.0")),
                 widgetLoader,
                 validator,
-                mock(Watcher.class));
+                mock(Watcher.class), mock(UiDesignerProperties.class));
 
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);

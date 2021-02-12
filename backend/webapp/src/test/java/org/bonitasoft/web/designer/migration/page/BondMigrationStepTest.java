@@ -23,10 +23,7 @@ import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragme
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
-import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
-import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
-import static org.bonitasoft.web.designer.model.widget.BondType.VARIABLE;
+import static org.bonitasoft.web.designer.model.widget.BondType.*;
 import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.model.fragment.Fragment;

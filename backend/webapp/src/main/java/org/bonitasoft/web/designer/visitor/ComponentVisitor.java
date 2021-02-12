@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static java.util.Collections.singleton;
+
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -25,10 +29,6 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static java.util.Collections.singleton;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the components used in a page

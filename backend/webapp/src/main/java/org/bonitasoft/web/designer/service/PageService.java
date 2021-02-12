@@ -14,17 +14,17 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import java.util.Collections;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
-
-import java.util.Collections;
 
 @Named
 public class PageService extends AbstractArtifactService<Page> {
@@ -33,7 +33,8 @@ public class PageService extends AbstractArtifactService<Page> {
     private PageRepository pageRepository;
 
     @Inject
-    public PageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer) {
+    public PageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer, UiDesignerProperties uiDesignerProperties) {
+        super(uiDesignerProperties);
         this.pageRepository = pageRepository;
         this.pageMigrationApplyer = pageMigrationApplyer;
     }

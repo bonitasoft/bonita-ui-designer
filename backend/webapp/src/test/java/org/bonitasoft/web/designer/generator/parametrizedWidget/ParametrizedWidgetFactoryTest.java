@@ -15,14 +15,7 @@
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

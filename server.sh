@@ -3,7 +3,7 @@
 export PORTAL_ORIGIN=http://localhost:8081
 export DATA_REPOSITORY_ORIGIN=http://localhost:4000
 export EXPERIMENTAL=true
-export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dbonita.portal.origin=$PORTAL_ORIGIN -Dbonita.data.repository.origin=$DATA_REPOSITORY_ORIGIN -Duid.experimental=$EXPERIMENTAL"
+export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Ddesigner.bonita.portal.origin=$PORTAL_ORIGIN -Ddesigner.bonita.bdm.url=$DATA_REPOSITORY_ORIGIN -Ddesigner.experimental=$EXPERIMENTAL"
 # CURL is needed
 
 url=http://localhost:8080/rest/pages

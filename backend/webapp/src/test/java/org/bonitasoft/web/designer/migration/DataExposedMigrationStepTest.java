@@ -19,10 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Arrays;
 
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.migration.DataExposedMigrationStep;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

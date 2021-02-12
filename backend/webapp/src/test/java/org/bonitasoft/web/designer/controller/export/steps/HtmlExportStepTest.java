@@ -16,8 +16,8 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;

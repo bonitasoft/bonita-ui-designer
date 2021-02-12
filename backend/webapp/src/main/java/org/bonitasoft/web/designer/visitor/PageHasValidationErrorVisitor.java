@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import java.util.List;
+
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -23,8 +25,6 @@ import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
-
-import java.util.List;
 
 /**
  * An element visitor which traverses the tree of elements recursively to find out if a page still contains elements that have a validation error

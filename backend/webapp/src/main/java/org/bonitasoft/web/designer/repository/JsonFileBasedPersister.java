@@ -25,9 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.MigrationConfig;
-import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -35,10 +36,7 @@ import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -46,17 +44,15 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 public class JsonFileBasedPersister<T extends Identifiable> {
 
     public static final String INDEX_METADATA = ".index";
-    @Value("${designer.version}")
-    protected String uidVersion;
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
     protected JacksonObjectMapper objectMapper;
     protected BeanValidator validator;
+    protected UiDesignerProperties uiDesignerProperties;
     protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
 
-    public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator) {
+    public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator, UiDesignerProperties uiDesignerProperties) {
         this.objectMapper = objectMapper;
         this.validator = validator;
+        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     /**
@@ -65,17 +61,17 @@ public class JsonFileBasedPersister<T extends Identifiable> {
      * @throws IOException
      */
     public void save(Path directory, T content) throws IOException {
-        String versionToSet = uidVersion;
+        String versionToSet = uiDesignerProperties.getVersion();
         // Split version before '_' to avoid patch tagged version compatible
         if (versionToSet != null) {
-            String[] currentVersion = uidVersion.split("_");
+            String[] currentVersion = versionToSet.split("_");
             versionToSet = currentVersion[0];
         }
 
         content.setDesignerVersionIfEmpty(versionToSet);
         String artifactVersion = content.getArtifactVersion();
         if (artifactVersion == null || MigrationConfig.isSupportingModelVersion(artifactVersion)) {
-            content.setModelVersionIfEmpty(modelVersion);
+            content.setModelVersionIfEmpty(uiDesignerProperties.getModelVersion());
         }
         validator.validate(content);
         try {

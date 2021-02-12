@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.io.Files;
-import org.bonitasoft.web.designer.rendering.FilesConcatenator;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Rule;
 import org.junit.Test;

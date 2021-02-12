@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import java.io.IOException;
+
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -32,8 +34,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.io.IOException;
 
 /**
  * Definition of the exception handlers

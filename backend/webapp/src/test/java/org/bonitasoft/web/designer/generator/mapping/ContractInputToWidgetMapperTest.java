@@ -15,11 +15,7 @@
 package org.bonitasoft.web.designer.generator.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aReadOnlyStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
 
 import java.io.File;
 import java.util.ArrayList;

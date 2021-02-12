@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.importer.mocks;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;

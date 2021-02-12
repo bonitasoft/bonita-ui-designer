@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.studio.repository;
 
 import java.io.IOException;
 import java.nio.file.Path;
-
 import javax.inject.Inject;
 
 import org.aspectj.lang.JoinPoint;
@@ -74,7 +73,7 @@ public class RepositoryAspect {
             throw new RepositoryException("An error occured while proceeding delete action.", e);
         }
     }
-    
+
     @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
     public void postDelete(JoinPoint joinPoint) {
         try {
@@ -87,15 +86,15 @@ public class RepositoryAspect {
     private Path filePath(JoinPoint joinPoint) {
         return ((Repository<?>) joinPoint.getThis()).resolvePath(artifactId(joinPoint));
     }
-    
+
     private Path resolvePathFolder(JoinPoint joinPoint) {
         return ((Repository<?>) joinPoint.getThis()).resolvePathFolder(artifactId(joinPoint));
     }
-    
+
     private Identifiable get(JoinPoint joinPoint){
         return ((Repository<?>) joinPoint.getThis()).get(artifactId(joinPoint));
     }
-    
+
     private JsonFileBasedPersister getPersister(JoinPoint joinPoint){
         return ((AbstractRepository) joinPoint.getThis()).getPersister();
     }

@@ -19,11 +19,10 @@ import static java.lang.String.format;
 
 import java.util.Optional;
 
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

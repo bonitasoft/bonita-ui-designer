@@ -15,15 +15,12 @@
 
 package org.bonitasoft.web.designer.workspace;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Map;
+
 import javax.inject.Inject;
 
-import com.google.common.base.Function;
 import org.bonitasoft.web.designer.ApplicationConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -35,21 +32,22 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfig.class })
 @WebAppConfiguration("file:target/test-classes")
 public class WorkspaceMigrationTest {
 
-    @Value("${designer.version}")
-    String uidVersion;
-
-    @Value("${designer.modelVersion}")
-    String modelVersion;
+    @Inject
+    UiDesignerProperties uiDesignerProperties;
 
     @Inject
     WorkspaceInitializer workspaceInitializer;
@@ -72,19 +70,12 @@ public class WorkspaceMigrationTest {
 
     @Test
     public void should_migrate_a_page() {
-
         Page page = pageRepository.get("page_1_0_0");
 
         assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
-        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
-
-            @Override
-            public String apply(Asset asset) {
-                return asset.getId();
-            }
-        })).doesNotContainNull();
+        assertThat(transform(page.getAssets(), Asset::getId)).doesNotContainNull();
     }
 
     @Test
@@ -94,13 +85,7 @@ public class WorkspaceMigrationTest {
 
         Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
 
-        assertThat(transform(propertyValues.values(), new Function<PropertyValue, String>() {
-
-            @Override
-            public String apply(PropertyValue value) {
-                return value.getType();
-            }
-        })).doesNotContain("data");
+        assertThat(transform(propertyValues.values(), PropertyValue::getType)).doesNotContain("data");
     }
 
     @Test
@@ -125,13 +110,7 @@ public class WorkspaceMigrationTest {
         assertThat(widget.getArtifactVersion()).isEqualTo(WIDGET_HIGHER_MIGRATION_VERSION);
         assertThat(widget.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
-        assertThat(transform(widget.getAssets(), new Function<Asset, String>() {
-
-            @Override
-            public String apply(Asset asset) {
-                return asset.getId();
-            }
-        })).doesNotContainNull();
+        assertThat(transform(widget.getAssets(), Asset::getId)).doesNotContainNull();
     }
 
     @Test
@@ -139,13 +118,7 @@ public class WorkspaceMigrationTest {
 
         Page page = pageRepository.get("page_1_0_1");
 
-        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
-
-            @Override
-            public String apply(Asset asset) {
-                return asset.getName();
-            }
-        })).contains(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME);
+        assertThat(transform(page.getAssets(), Asset::getName)).contains(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME);
     }
 
     @Test
@@ -156,13 +129,7 @@ public class WorkspaceMigrationTest {
         assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
-        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
-
-            @Override
-            public String apply(Asset asset) {
-                return asset.getName();
-            }
-        })).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
+        assertThat(transform(page.getAssets(), Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
     }
 
     @Test
@@ -173,12 +140,6 @@ public class WorkspaceMigrationTest {
         assertThat(page.getArtifactVersion()).isEqualTo(PAGE_HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
-        assertThat(transform(page.getAssets(), new Function<Asset, String>() {
-
-            @Override
-            public String apply(Asset asset) {
-                return asset.getName();
-            }
-        })).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(1);
+        assertThat(transform(page.getAssets(), Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(1);
     }
 }

@@ -19,17 +19,15 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 import java.net.URISyntaxException;
 import java.util.Collections;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -49,7 +47,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -69,6 +66,9 @@ public class MigrationResourceTest {
     private WidgetRepository widgetRepository;
 
     @Mock
+    private UiDesignerProperties uiDesignerProperties;
+
+    @Mock
     private WidgetService widgetService;
 
     @InjectMocks
@@ -76,7 +76,7 @@ public class MigrationResourceTest {
 
     @Before
     public void setUp() throws URISyntaxException {
-        ReflectionTestUtils.setField(MigrationResource, "modelVersion", "2.0");
+        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
         mockMvc = mockServer(MigrationResource).build();
     }
 

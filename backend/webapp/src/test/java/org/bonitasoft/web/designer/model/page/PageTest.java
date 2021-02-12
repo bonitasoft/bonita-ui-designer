@@ -20,6 +20,7 @@ import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
@@ -31,8 +32,6 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.junit.Before;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PageTest {
 

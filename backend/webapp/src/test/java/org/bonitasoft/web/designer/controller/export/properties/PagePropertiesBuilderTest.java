@@ -23,23 +23,21 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.PageResource;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PagePropertiesBuilderTest {
 
     private static final String DESIGNER_VERSION = "1.12.1";
 
-    @InjectMocks
     private PagePropertiesBuilder pagePropertiesBuilder;
 
     private Page page;
@@ -47,13 +45,16 @@ public class PagePropertiesBuilderTest {
     @Mock
     private PageResource pageResource;
 
+    private UiDesignerProperties uiDesignerProperties;
+
 
     @Before
     public void setUp() throws Exception {
         page = new Page();
         page.setName("myPage");
-
-        ReflectionTestUtils.setField(pagePropertiesBuilder, "uidVersion", DESIGNER_VERSION);
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        pagePropertiesBuilder = new PagePropertiesBuilder(pageResource,uiDesignerProperties);
     }
 
     private Data anApiData(String value) {

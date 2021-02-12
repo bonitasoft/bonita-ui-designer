@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.repository;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.extractProperty;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aFilledSimpleObject;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
@@ -28,7 +27,6 @@ import static org.mockito.Mockito.spy;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -41,9 +39,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedLoaderTest {

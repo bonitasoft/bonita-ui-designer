@@ -16,8 +16,8 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.mockito.Mockito.*;
 
 import java.nio.file.Path;

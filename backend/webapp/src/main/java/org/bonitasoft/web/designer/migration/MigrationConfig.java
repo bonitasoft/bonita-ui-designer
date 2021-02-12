@@ -41,7 +41,6 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
-import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
@@ -231,11 +230,6 @@ public class MigrationConfig {
                 new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<Widget>(INITIAL_MODEL_VERSION)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<Widget>("2.1")));
-    }
-
-    @Bean
-    public PageService pageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer) {
-        return new PageService(pageRepository, pageMigrationApplyer);
     }
 
     @Bean

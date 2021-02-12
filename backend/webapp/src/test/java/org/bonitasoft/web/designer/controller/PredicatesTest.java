@@ -15,8 +15,8 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.controller.Predicates.propertyEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.controller.Predicates.propertyEqualTo;
 
 import org.junit.Test;
 

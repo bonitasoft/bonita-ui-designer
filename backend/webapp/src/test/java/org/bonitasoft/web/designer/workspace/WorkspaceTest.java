@@ -14,24 +14,12 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.config.WebMvcConfiguration;
-import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.*;
-import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.test.util.ReflectionTestUtils;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -40,13 +28,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WebMvcConfiguration;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.BeanValidator;
+import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 public class WorkspaceTest {
 
@@ -57,8 +59,8 @@ public class WorkspaceTest {
 
     @Mock
     private Environment env;
-    @Mock
-    private WorkspacePathResolver pathResolver;
+
+    private WorkspaceProperties workspaceProperties;
     @Mock
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     @Mock
@@ -67,12 +69,14 @@ public class WorkspaceTest {
     private ResourceLoader resourceLoader;
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
+
+    private UiDesignerProperties uiDesignerProperties;
     @Mock
     private Resource resource;
     @Mock
     private BeanValidator validator;
     //We use the real instance because we want to verify the folder and the directive files
-    private JsonFileBasedPersister<Widget> widgetPersister = new DesignerConfig().widgetFileBasedPersister();
+    private JsonFileBasedPersister<Widget> widgetPersister;
     //We use a real instance of object mapper
     private JacksonObjectMapper jacksonObjectMapper = new DesignerConfig().objectMapperWrapper();
     //Class on test
@@ -84,24 +88,27 @@ public class WorkspaceTest {
     public void setUp() throws URISyntaxException, IOException {
         MockitoAnnotations.initMocks(this);
 
-        //We mock the default directories
-        when(pathResolver.getPagesRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "pages"));
-        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgets"));
-        when(pathResolver.getWidgetsWcRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "widgetsWc"));
-        when(pathResolver.getFragmentsRepositoryPath()).thenReturn(Paths.get(temporaryFolder.toPath().toString(), "fragments"));
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setModelVersion(CURRENT_MODEL_VERSION);
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.toPath().toString(), "pages"));
+        workspaceProperties.getWidgets().setDir(Paths.get(temporaryFolder.toPath().toString(), "widgets"));
+        workspaceProperties.getWidgetsWc().setDir(Paths.get(temporaryFolder.toPath().toString(), "widgetsWc"));
+        workspaceProperties.getFragments().setDir(Paths.get(temporaryFolder.toPath().toString(), "fragments"));
+
+        widgetPersister = new DesignerConfig().widgetFileBasedPersister(uiDesignerProperties);
 
         when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
         when(resourceLoader.getResource(anyString())).thenReturn(resource);
 
         widgetRepository = new WidgetRepository(
-                pathResolver.getWidgetsRepositoryPath(),
+                workspaceProperties,
                 widgetPersister,
                 new WidgetFileBasedLoader(jacksonObjectMapper),
                 validator,
-                mock(Watcher.class));
+                mock(Watcher.class), mock(UiDesignerProperties.class));
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
-        workspace = new Workspace(pathResolver, widgetRepository, widgetLoader, widgetDirectiveBuilder, fragmentDirectiveBuilder, resourceLoader, widgetAssetImporter);
-        ReflectionTestUtils.setField(workspace, "modelVersion", CURRENT_MODEL_VERSION);
+        workspace = new Workspace(workspaceProperties, widgetRepository, widgetLoader, widgetDirectiveBuilder, fragmentDirectiveBuilder, resourceLoader, widgetAssetImporter,uiDesignerProperties);
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {
@@ -157,36 +164,36 @@ public class WorkspaceTest {
         mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
 
         workspace.initialize();
-
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/pbText.json")).exists();
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbText/help.html")).exists();
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbMissingHelp/pbMissingHelp.json")).exists();
+        Path widgetsPath = workspaceProperties.getWidgets().getDir();
+        assertThat(widgetsPath.resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(widgetsPath.resolve("pbText/pbText.json")).exists();
+        assertThat(widgetsPath.resolve("pbText/help.html")).exists();
+        assertThat(widgetsPath.resolve("pbMissingHelp/pbMissingHelp.json")).exists();
     }
 
 
     @Test
     public void should_copy_widgetWc_to_widgetWc_repository_folder() throws Exception {
-        System.setProperty(UID_EXPERIMENTAL,"true");
+        uiDesignerProperties.setExperimental(true);
         mockWidgetsWcBasePath(Paths.get("src/test/resources/workspace/widgetsWc"));
 
         workspace.initialize();
-
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.tpl.html")).exists();
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.json")).exists();
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.tpl.html")).exists();
+        Path widgetsWcPath = workspaceProperties.getWidgetsWc().getDir();
+        assertThat(widgetsWcPath.resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(widgetsWcPath.resolve("pbLabel/pbLabel.tpl.html")).exists();
+        assertThat(widgetsWcPath.resolve("pbText/pbText.json")).exists();
+        assertThat(widgetsWcPath.resolve("pbText/pbText.tpl.html")).exists();
     }
 
     @Test
     public void should_not_copy_widgetWc_to_widgetWc_repository_folder_when_experimental_mode_is_not_set() throws Exception {
-        System.setProperty(UID_EXPERIMENTAL,"false");
+        uiDesignerProperties.setExperimental(false);
         mockWidgetsWcBasePath(Paths.get("src/test/resources/workspace/widgetsWc"));
 
         workspace.initialize();
-
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbLabel/pbLabel.json")).doesNotExist();
-        assertThat(pathResolver.getWidgetsWcRepositoryPath().resolve("pbText/pbText.json")).doesNotExist();
+        Path widgetsWcPath = workspaceProperties.getWidgetsWc().getDir();
+        assertThat(widgetsWcPath.resolve("pbLabel/pbLabel.json")).doesNotExist();
+        assertThat(widgetsWcPath.resolve("pbText/pbText.json")).doesNotExist();
     }
 
     @Test
@@ -197,7 +204,7 @@ public class WorkspaceTest {
 
         workspace.initialize();
 
-        assertThat(contentOf(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json"))).isEqualTo(existingWidgetContent);
+        assertThat(contentOf(workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.json"))).isEqualTo(existingWidgetContent);
     }
 
     @Test
@@ -208,7 +215,7 @@ public class WorkspaceTest {
 
         workspace.initialize();
 
-        assertThat(contentOf(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json"))).isNotEqualTo(existingWidgetContent);
+        assertThat(contentOf(workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.json"))).isNotEqualTo(existingWidgetContent);
     }
 
     @Test
@@ -290,7 +297,7 @@ public class WorkspaceTest {
         workspace.initialize();
 
         assertThat(readAllBytes(labelFile)).isEqualTo(fileContent);
-        assertThat(pathResolver.getWidgetsRepositoryPath().resolve("pbLabel/pbLabel.json")).exists();
+        assertThat(workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.json")).exists();
     }
 
     @Test

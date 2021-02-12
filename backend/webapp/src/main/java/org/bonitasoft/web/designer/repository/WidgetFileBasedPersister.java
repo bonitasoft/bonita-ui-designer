@@ -14,6 +14,13 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.nio.file.Files.write;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.MigrationConfig;
 import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -23,12 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
-import static java.nio.file.Files.write;
-
 /**
  * This Persister is used to manage the persistence logic for a widget. Each of them are serialized in a json file
  */
@@ -36,8 +37,8 @@ public class WidgetFileBasedPersister extends JsonFileBasedPersister<Widget> {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetFileBasedPersister.class);
 
-    public WidgetFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator) {
-        super(objectMapper, validator);
+    public WidgetFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator, UiDesignerProperties uiDesignerProperties) {
+        super(objectMapper, validator, uiDesignerProperties);
     }
 
     /**
@@ -46,17 +47,17 @@ public class WidgetFileBasedPersister extends JsonFileBasedPersister<Widget> {
      */
     @Override
     public void save(Path directory, Widget content) throws IOException {
-        String versionToSet = uidVersion;
+        String versionToSet = this.uiDesignerProperties.getVersion();
         // Split version before '_' to avoid patch tagged version compatible
         String[] currentVersion;
         if(versionToSet != null){
-            currentVersion = uidVersion.split("_");
+            currentVersion = versionToSet.split("_");
             versionToSet = currentVersion[0];
         }
         content.setDesignerVersionIfEmpty(versionToSet);
         String artifactVersion = content.getArtifactVersion();
         if (artifactVersion == null || MigrationConfig.isSupportingModelVersion(artifactVersion)) {
-            content.setModelVersionIfEmpty(modelVersion);
+            content.setModelVersionIfEmpty(this.uiDesignerProperties.getModelVersion());
         }
         validator.validate(content);
 

@@ -31,7 +31,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "org.bonitasoft.web.designer")
+@ComponentScan(basePackageClasses = ApplicationConfig.class)
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class ApplicationConfig {
 

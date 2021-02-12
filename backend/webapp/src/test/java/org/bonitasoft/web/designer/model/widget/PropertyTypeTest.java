@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Locale;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 public class PropertyTypeTest {
 

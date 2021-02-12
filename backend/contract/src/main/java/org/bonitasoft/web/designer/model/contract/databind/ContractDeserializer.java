@@ -16,16 +16,6 @@ package org.bonitasoft.web.designer.model.contract.databind;
 
 import java.io.IOException;
 
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
-import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
-import org.bonitasoft.web.designer.model.contract.DataReference;
-import org.bonitasoft.web.designer.model.contract.EditMode;
-import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -35,6 +25,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
+import org.bonitasoft.web.designer.model.contract.DataReference;
+import org.bonitasoft.web.designer.model.contract.EditMode;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
 public class ContractDeserializer extends JsonDeserializer<Contract> {
 

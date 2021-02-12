@@ -14,7 +14,20 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.readAllLines;
+import static org.apache.commons.io.FileUtils.deleteQuietly;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.spy;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.After;
@@ -23,28 +36,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.readAllLines;
-import static org.apache.commons.io.FileUtils.deleteQuietly;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Mockito.spy;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WigetFileBasedPersisterTest {
+public class WidgetFileBasedPersisterTest {
 
     private static final String DESIGNER_VERSION = "2.0.0";
 
     private Path repoDirectory;
     private JacksonObjectMapper objectMapper;
     private WidgetFileBasedPersister widgetPersister;
+    private UiDesignerProperties uiDesignerProperties;
 
     @Mock
     private BeanValidator validator;
@@ -53,9 +54,9 @@ public class WigetFileBasedPersisterTest {
     public void setUp() throws IOException {
         repoDirectory = Files.createTempDirectory("jsonrepository");
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
-        widgetPersister = new WidgetFileBasedPersister(objectMapper, validator);
-
-        ReflectionTestUtils.setField(widgetPersister, "uidVersion", DESIGNER_VERSION);
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        widgetPersister = new WidgetFileBasedPersister(objectMapper, validator,uiDesignerProperties);
     }
 
     @After

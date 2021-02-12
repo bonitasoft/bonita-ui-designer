@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
@@ -31,7 +32,6 @@ import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryWidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,11 +42,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetsExportStepTest {
 
-    private WorkspacePathResolver pathResolver = mock(WorkspacePathResolver.class);
+    @Mock
     private FragmentRepository fragmentRepository;
 
+    private final WorkspaceProperties workspaceProperties = new WorkspaceProperties();
+
     @Rule
-    public TemporaryWidgetRepository repository = new TemporaryWidgetRepository(pathResolver);
+    public TemporaryWidgetRepository repository = new TemporaryWidgetRepository(workspaceProperties);
 
     private WidgetsExportStep step;
 
@@ -58,7 +60,9 @@ public class WidgetsExportStepTest {
 
     @Before
     public void beforeEach() {
-        step = new WidgetsExportStep(pathResolver, new WidgetIdVisitor(fragmentRepository), directiveFileGenerator);
+        step = new WidgetsExportStep(
+                workspaceProperties.getWidgets().getDir(),
+                new WidgetIdVisitor(fragmentRepository), directiveFileGenerator);
         zipper = spy(new Zipper(mock(OutputStream.class)));
     }
 

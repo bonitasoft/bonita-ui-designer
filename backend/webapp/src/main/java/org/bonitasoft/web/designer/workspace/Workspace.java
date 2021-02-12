@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.workspace;
 
 import static java.nio.file.Files.createDirectories;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
 
@@ -30,6 +29,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -39,7 +40,6 @@ import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 
 @Named
@@ -47,34 +47,34 @@ public class Workspace {
 
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
 
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
-    private WorkspacePathResolver workspacePathResolver;
+    private final UiDesignerProperties uiDesignerProperties;
     private WidgetRepository widgetRepository;
     private WidgetFileBasedLoader widgetLoader;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     private FragmentDirectiveBuilder fragmentDirectiveBuilder;
     private ResourceLoader resourceLoader;
     private AssetImporter<Widget> widgetAssetImporter;
+    private WorkspaceProperties workspaceProperties;
 
     @Inject
-    public Workspace(WorkspacePathResolver workspacePathResolver, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
+    public Workspace(WorkspaceProperties workspaceProperties, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
-                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter) {
-        this.workspacePathResolver = workspacePathResolver;
+                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter, UiDesignerProperties uiDesignerProperties) {
+        this.workspaceProperties = workspaceProperties;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
         this.resourceLoader = resourceLoader;
         this.widgetDirectiveBuilder = widgetDirectiveBuilder;
         this.fragmentDirectiveBuilder = fragmentDirectiveBuilder;
         this.widgetAssetImporter = widgetAssetImporter;
+        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     public void initialize() throws IOException {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
-        if(Boolean.getBoolean(UID_EXPERIMENTAL)){
+        if(this.uiDesignerProperties.isExperimental()){
             ensureWidgetWcRepositoryPresent();
             ensureWidgetRepositoryFilledWc();
         }
@@ -89,7 +89,7 @@ public class Workspace {
      * Theses file could be stay here when user make any action directly on filesystem
      */
     public void cleanPageWorkspace() {
-        Path pageWorkspace = workspacePathResolver.getPagesRepositoryPath();
+        Path pageWorkspace = workspaceProperties.getPages().getDir();
         File file = new File(pageWorkspace.toString());
         Arrays.stream(file.list()).forEach(pageFolder -> {
             if (".metadata".equals(pageFolder)) {
@@ -145,20 +145,21 @@ public class Workspace {
     }
 
     private void ensurePageRepositoryPresent() throws IOException {
-        createDirectories(workspacePathResolver.getPagesRepositoryPath());
+        createDirectories(workspaceProperties.getPages().getDir());
     }
 
     private void ensureWidgetRepositoryPresent() throws IOException {
-        createDirectories(workspacePathResolver.getWidgetsRepositoryPath());
+        createDirectories(workspaceProperties.getWidgets().getDir());
     }
 
     private void ensureWidgetWcRepositoryPresent() throws IOException {
-        createDirectories(workspacePathResolver.getWidgetsWcRepositoryPath());
+        createDirectories(workspaceProperties.getWidgetsWc().getDir());
     }
 
     private void ensureWidgetRepositoryFilledWc() throws IOException {
         Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_WC_RESOURCES).getURI());
-        FileUtils.copyDirectory(FileUtils.getFile(widgetRepositorySourcePath.toString()),FileUtils.getFile(workspacePathResolver.getWidgetsWcRepositoryPath().toString()));
+        FileUtils.copyDirectory(FileUtils.getFile(widgetRepositorySourcePath.toString()),
+                workspaceProperties.getWidgetsWc().getDir().toFile());
     }
 
     private void ensureWidgetRepositoryFilled() throws IOException {
@@ -170,13 +171,13 @@ public class Workspace {
                 createWidget(widgetRepositorySourcePath, widget);
             } else {
                 Widget repoWidget = widgetRepository.get(widget.getId());
-                if (isBlank(repoWidget.getArtifactVersion()) || new Version(modelVersion).isGreaterThan(repoWidget.getArtifactVersion())) {
+                if (isBlank(repoWidget.getArtifactVersion()) || new Version(uiDesignerProperties.getModelVersion()).isGreaterThan(repoWidget.getArtifactVersion())) {
                     FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
                     createWidget(widgetRepositorySourcePath, widget);
                 }
             }
         }
-        widgetDirectiveBuilder.start(workspacePathResolver.getWidgetsRepositoryPath());
+        widgetDirectiveBuilder.start(workspaceProperties.getWidgets().getDir());
     }
 
 
@@ -209,7 +210,7 @@ public class Workspace {
      * Theses file could be stay here when user make any action directly on filesystem
      */
     private void cleanFragmentWorkspace() {
-        Path fragWorkspace = workspacePathResolver.getFragmentsRepositoryPath();
+        Path fragWorkspace = workspaceProperties.getFragments().getDir();
         Arrays.stream(new File(fragWorkspace.toString()).list()).forEach(fragment -> {
             if (".metadata".equals(fragment)) {
                 cleanMetadataFolder(fragWorkspace, fragment);
@@ -234,8 +235,9 @@ public class Workspace {
     }
 
     private void ensureFragmentRepositoryPresent() throws IOException {
-        createDirectories(workspacePathResolver.getFragmentsRepositoryPath());
-        fragmentDirectiveBuilder.start(workspacePathResolver.getFragmentsRepositoryPath());
+        Path fragmentsPath= workspaceProperties.getFragments().getDir();
+        createDirectories(fragmentsPath);
+        fragmentDirectiveBuilder.start(fragmentsPath);
     }
 
     private boolean isFragmentDescriptorExist(Path fragWorkspace, String fragment) {

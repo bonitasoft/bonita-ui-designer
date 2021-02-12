@@ -20,20 +20,19 @@ import static org.mockito.Mockito.*;
 import java.util.Arrays;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageServiceTest {
@@ -51,9 +50,7 @@ public class PageServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        pageService = new PageService(pageRepository, pageMigrationApplyer);
-
-        ReflectionTestUtils.setField(pageService, "modelVersion", CURRENT_MODEL_VERSION);
+        pageService = new PageService(pageRepository, pageMigrationApplyer, new UiDesignerProperties("1.13.0",CURRENT_MODEL_VERSION));
     }
 
     @Test

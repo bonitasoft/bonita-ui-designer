@@ -22,13 +22,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -47,7 +46,8 @@ public class WidgetService extends AbstractArtifactService<Widget> {
     public WidgetService(WidgetRepository widgetRepository,
                          List<BondsTypesFixer> bondsTypesFixers,
                          WidgetMigrationApplyer widgetMigrationApplyer,
-                         WidgetIdVisitor widgetIdVisitor) {
+                         WidgetIdVisitor widgetIdVisitor, UiDesignerProperties uiDesignerProperties) {
+        super(uiDesignerProperties);
         this.widgetRepository = widgetRepository;
         this.bondsTypesFixers = bondsTypesFixers;
         this.widgetMigrationApplyer = widgetMigrationApplyer;

@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 import java.io.IOException;
 import javax.inject.Inject;

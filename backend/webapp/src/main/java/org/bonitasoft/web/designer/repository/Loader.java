@@ -14,12 +14,12 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.bonitasoft.web.designer.model.Identifiable;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+
+import org.bonitasoft.web.designer.model.Identifiable;
 
 /**
  * Depending on the nature of a component we can have several directory where elements

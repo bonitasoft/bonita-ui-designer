@@ -19,39 +19,33 @@ import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
-import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 public class WidgetsExportStep<T extends AbstractPage> implements ExportStep<T> {
 
-    private WorkspacePathResolver pathResolver;
+    private Path widgetsPath;
     private WidgetIdVisitor widgetIdVisitor;
     private DirectiveFileGenerator directiveFileGenerator;
 
-    @Inject
-    public WidgetsExportStep(WorkspacePathResolver pathResolver, WidgetIdVisitor widgetIdVisitor,
+    public WidgetsExportStep(Path widgetsPath, WidgetIdVisitor widgetIdVisitor,
                              DirectiveFileGenerator directiveFileGenerator) {
-        this.pathResolver = pathResolver;
+        this.widgetsPath = widgetsPath;
         this.widgetIdVisitor = widgetIdVisitor;
         this.directiveFileGenerator = directiveFileGenerator;
     }
 
     @Override
     public void execute(Zipper zipper, T page) throws IOException {
-        Path widgetsRepositoryPath = pathResolver.getWidgetsRepositoryPath();
         zipper.addDirectoryToZip(
-                widgetsRepositoryPath,
-                new IncludeChildDirectoryPredicate(widgetsRepositoryPath, widgetIdVisitor.visit(page)),
+                widgetsPath,
+                new IncludeChildDirectoryPredicate(widgetsPath, widgetIdVisitor.visit(page)),
                 ALL_FILES,
                 RESOURCES + "/widgets");
 

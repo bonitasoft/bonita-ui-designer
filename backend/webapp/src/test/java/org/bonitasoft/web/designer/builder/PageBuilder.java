@@ -14,6 +14,25 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+import static java.util.Arrays.asList;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -26,18 +45,6 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-import static java.util.Arrays.asList;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
-import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
-
-import java.util.*;
 
 public class PageBuilder {
 

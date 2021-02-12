@@ -15,13 +15,7 @@
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.BOOLEAN;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.FILE;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.LOCAL_DATE;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.LOCAL_DATE_TIME;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.NUMERIC;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.OFFSET_DATE_TIME;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.TEXT;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.InputTypeResolver.InputType.*;
 
 import java.io.File;
 import java.time.LocalDate;

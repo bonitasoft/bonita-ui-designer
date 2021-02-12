@@ -24,14 +24,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Collections;
 
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.service.FragmentService;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.service.FragmentService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -59,10 +59,13 @@ public class MigrationResourceFragmentTest {
     @Mock
     private FragmentService fragmentService;
 
+    @Mock
+    private UiDesignerProperties uiDesignerProperties;
+
     @Before
     public void setUp() {
         mockMvc = mockServer(migrationResource).build();
-        ReflectionTestUtils.setField(migrationResource, "modelVersion", "2.0");
+        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
     }
 
     @Test
@@ -119,7 +122,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_not_process_migration_and_return_none_status_when_fragment_version_is_incompatible() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withModelVersion("3.0").withName("my-fragment").withMigrationStatusReport(new MigrationStatusReport(false,true)).build();
+        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withModelVersion("3.0").withName("my-fragment").withMigrationStatusReport(new MigrationStatusReport(false, true)).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(false, false));
 
@@ -149,7 +152,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_artifact_status_when_migration_required() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withMigrationStatusReport(new MigrationStatusReport(true,true)).build();
+        Fragment fragment = aFragment().id("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withMigrationStatusReport(new MigrationStatusReport(true, true)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
@@ -168,7 +171,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_artifact_status_when_no_migration_required() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true,false)).build();
+        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
@@ -177,7 +180,7 @@ public class MigrationResourceFragmentTest {
 
         // by id
         mockMvc = mockServer(migrationResource).build();
-        Fragment fragment2 =aFragment().id("myFragment").withName("myFragment").withDesignerVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true,false)).build();
+        Fragment fragment2 = aFragment().id("myFragment").withName("myFragment").withDesignerVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
         when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(true, false));

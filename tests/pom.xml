@@ -69,9 +69,9 @@
                                 <argument>
                                     ${basedir}/../backend/webapp/target/ui-designer-${project.version}-standalone.jar
                                 </argument>
-                                <argument>-Drepository.pages=${project.build.directory}/pages/</argument>
-                                <argument>-Drepository.fragments=${project.build.directory}/fragments/</argument>
-                                <argument>-Drepository.widgets=${project.build.directory}/widgets</argument>
+                                <argument>-Ddesigner.workspace.pages.dir=${project.build.directory}/pages/</argument>
+                                <argument>-Ddesigner.workspace.fragments.dir=${project.build.directory}/fragments/</argument>
+                                <argument>-Ddesigner.workspace.widgets.dir=${project.build.directory}/widgets</argument>
                                 <argument>-httpPort=8083</argument>
                             </arguments>
                         </configuration>

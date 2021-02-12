@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import javax.inject.Named;
+
+@Named
 public class VisitorFactory {
 
     public AnyLocalContainerVisitor createAnyContainerVisitor() {

@@ -14,16 +14,8 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.base.Optional;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.bonitasoft.web.designer.repository.exception.JsonReadException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.lang.String.format;
+import static java.nio.file.Files.*;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -37,8 +29,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.base.Optional;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.repository.exception.JsonReadException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Load a component

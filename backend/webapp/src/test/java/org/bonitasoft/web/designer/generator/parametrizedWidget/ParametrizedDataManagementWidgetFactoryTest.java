@@ -16,7 +16,7 @@
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -25,7 +25,6 @@ import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

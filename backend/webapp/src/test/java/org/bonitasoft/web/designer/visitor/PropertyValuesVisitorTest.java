@@ -38,7 +38,6 @@ import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
-import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

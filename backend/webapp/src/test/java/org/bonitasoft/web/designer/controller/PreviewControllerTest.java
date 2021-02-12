@@ -29,10 +29,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.preview.Previewer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,21 +59,23 @@ public class PreviewControllerTest {
     @Mock
     private FragmentRepository fragmentRepository;
 
-    private Path widgetRepositoryPath;
-    private Path pageRepositoryPath;
-    private Path fragmentRepositoryPath;
-    private Path tmpWorkspacePath;
-    @Mock
-    private WorkspacePathResolver pathResolver;
+   private Path tmpWorkspacePath;
+
+    private WorkspaceProperties workspaceProperties;
+    private WorkspaceUidProperties workspaceUidProperties;
 
     @Before
     public void beforeEach() throws Exception {
-        widgetRepositoryPath = Paths.get(getClass().getResource("/workspace/widgets").toURI());
-        pageRepositoryPath = Paths.get(getClass().getResource("/workspace/pages").toURI());
-        fragmentRepositoryPath = Paths.get(getClass().getResource("/workspace/fragments").toURI());
-        tmpWorkspacePath = Paths.get(getClass().getResource("/tmpWorkspace/pages").toURI());
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, fragmentRepository, previewer, widgetRepositoryPath,
-                fragmentRepositoryPath, pageRepositoryPath, pathResolver)).build();
+        tmpWorkspacePath = Paths.get(getClass().getResource("/tmpWorkspace").toURI());
+
+        workspaceProperties = new WorkspaceProperties();
+        workspaceUidProperties = new WorkspaceUidProperties();
+        workspaceUidProperties.setPath(tmpWorkspacePath);
+        workspaceProperties.getPages().setDir(Paths.get(getClass().getResource("/workspace/pages").toURI()));
+        workspaceProperties.getWidgets().setDir(Paths.get(getClass().getResource("/workspace/widgets").toURI()));
+        workspaceProperties.getFragments().setDir(Paths.get(getClass().getResource("/workspace/fragments").toURI()));
+
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, fragmentRepository, previewer, workspaceProperties, workspaceUidProperties)).build();
     }
 
     @Test
@@ -90,7 +93,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_page_asset_on_disk() throws Exception {
-        Path expectedFile = pageRepositoryPath.resolve("ma-page/assets/js/timeshift.js");
+        Path expectedFile = workspaceProperties.getPages().getDir().resolve("ma-page/assets/js/timeshift.js");
 
         mockMvc
                 .perform(get("/preview/page/no-app-selected/ma-page/assets/js/timeshift.js"))
@@ -113,7 +116,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_asset_included_in_page_on_disk() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/assets/css/my-css-1.0.0.css");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/assets/css/my-css-1.0.0.css");
 
         mockMvc
                 .perform(get("/preview/page/no-app-selected/page-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
@@ -126,7 +129,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_asset_included_in_any_previewable_on_disk() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/assets/css/my-css-1.0.0.css");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/assets/css/my-css-1.0.0.css");
 
         mockMvc
                 .perform(get("/preview/aPreviewable/no-app-selected/previewable-id/widgets/pbLabel/assets/css/my-css-1.0.0.css"))
@@ -139,7 +142,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_directive() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
 
         mockMvc.perform(get("/preview/page/no-app-selected/page-id/widgets/pbLabel/pbLabel.js"))
 
@@ -152,7 +155,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_directive_for_any_previewable() throws Exception {
-        Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
+        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
 
         mockMvc.perform(get("/preview/aPreviewable/no-app-selected/previewable-id/widgets/pbLabel/pbLabel.js"))
 
@@ -232,8 +235,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_widget_minify_files_for_any_previawable() throws Exception {
-        when( pathResolver.getTmpPagesRepositoryPath()).thenReturn(tmpWorkspacePath);
-        Path expectedFile = tmpWorkspacePath.resolve("ma-page/js/widgets-abc123.min.js");
+        Path expectedFile = workspaceUidProperties.getTmpPagesRepositoryPath().resolve("ma-page/js/widgets-abc123.min.js");
 
         mockMvc
                 .perform(get("/preview/page/no-app-selected/ma-page/js/widgets-abc123.min.js"))
@@ -258,7 +260,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_load_fragment_directive() throws Exception {
-        Path expectedFile = fragmentRepositoryPath.resolve("person/person.js");
+        Path expectedFile = workspaceProperties.getFragments().getDir().resolve("person/person.js");
 
         mockMvc.perform(get("/preview/page/no-app-selected/a-page/fragments/person/person.js"))
                 .andExpect(status().isOk())

@@ -24,7 +24,6 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -32,6 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.bonitasoft.web.designer.config.DesignerConfig;
@@ -51,8 +51,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.springframework.mock.web.MockMultipartFile;
-
-import com.google.common.collect.Lists;
 
 @RunWith(JUnitParamsRunner.class)
 public class AssetServiceTest {

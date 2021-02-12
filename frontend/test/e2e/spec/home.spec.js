@@ -1,4 +1,4 @@
-import { default as HomePage } from '../pages/home.page';
+import {default as HomePage} from '../pages/home.page';
 
 describe('home page', function() {
 

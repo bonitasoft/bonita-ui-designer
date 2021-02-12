@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 
 /**
  * @author Colin Puy

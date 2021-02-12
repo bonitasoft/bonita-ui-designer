@@ -14,15 +14,13 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.eq;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -30,15 +28,13 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import java.io.File;
 import java.io.IOException;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
-import org.bonitasoft.web.designer.workspace.FragmentDirectiveBuilder;
-import org.bonitasoft.web.designer.workspace.HtmlSanitizer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

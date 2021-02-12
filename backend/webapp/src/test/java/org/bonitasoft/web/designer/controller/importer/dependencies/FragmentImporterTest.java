@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.importer.dependencies;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.repository.FragmentRepository;

@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.*;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.EXPRESSION;
 
 import java.util.List;
 import java.util.Map;

@@ -15,14 +15,20 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import static java.lang.String.format;
+import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
-import org.bonitasoft.web.designer.migration.MigrationException;
-import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -30,15 +36,6 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
-
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 
 @Named
 public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {

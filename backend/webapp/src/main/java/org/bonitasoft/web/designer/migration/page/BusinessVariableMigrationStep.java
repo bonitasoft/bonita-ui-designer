@@ -15,11 +15,16 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import javax.inject.Named;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
-import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
@@ -27,12 +32,6 @@ import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Named;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Named
 public class BusinessVariableMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<Page> {

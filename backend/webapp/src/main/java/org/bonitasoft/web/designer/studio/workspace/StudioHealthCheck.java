@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.studio.workspace;
 
 import java.net.URI;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;

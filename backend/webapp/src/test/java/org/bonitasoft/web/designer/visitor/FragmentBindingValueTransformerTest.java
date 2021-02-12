@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.visitor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.bonitasoft.web.designer.visitor.FragmentBindingValueTransformer;
 import org.junit.Test;
 
 public class FragmentBindingValueTransformerTest {

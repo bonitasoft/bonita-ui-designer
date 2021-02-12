@@ -49,7 +49,6 @@ import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunct
 import org.bonitasoft.web.designer.generator.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.generator.mapping.FormScope;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
-import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -64,7 +63,6 @@ import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

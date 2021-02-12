@@ -28,7 +28,6 @@ import static org.mockito.Mockito.when;
 
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

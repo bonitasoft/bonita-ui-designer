@@ -14,10 +14,23 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.Collections;
+import javax.inject.Inject;
+import javax.validation.Validation;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.ApplicationConfig;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
@@ -28,19 +41,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.inject.Inject;
-import javax.validation.Validation;
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfig.class, DesignerConfig.class })
@@ -55,21 +55,20 @@ public class PageRepositoryIT {
 
     private JsonFileBasedLoader<Page> loader;
 
-    private Path pagesPath;
-
     private PageRepository repository;
+    private WorkspaceProperties workspaceProperties;
 
     @Inject
     private ObjectMapper objectMapper;
 
     @Before
     public void setUp() throws Exception {
-        pagesPath = Paths.get(temporaryFolder.getRoot().getPath());
-        persister = spy(new DesignerConfig().pageFileBasedPersister());
+        persister = spy(new DesignerConfig().pageFileBasedPersister(mock(UiDesignerProperties.class)));
         loader = spy(new DesignerConfig().pageFileBasedLoader());
-
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
         repository = new PageRepository(
-                pagesPath,
+                workspaceProperties,
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),
@@ -80,7 +79,7 @@ public class PageRepositoryIT {
     public void should_save_variables_values_as_array_in_a_json_file_repository() throws Exception {
         Page expectedPage = aFilledPage("page-id");
 
-        File pageFile = pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile();
+        File pageFile = workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile();
 
         assertThat(pageFile).doesNotExist();
         repository.saveAll(Collections.singletonList(expectedPage));
@@ -99,7 +98,7 @@ public class PageRepositoryIT {
     public void should_not_contain_data_in_json_file_repository() throws Exception {
         Page expectedPage = aFilledPage("page-id");
 
-        File pageFile = pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile();
+        File pageFile = workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile();
 
         assertThat(pageFile).doesNotExist();
         repository.saveAll(Collections.singletonList(expectedPage));

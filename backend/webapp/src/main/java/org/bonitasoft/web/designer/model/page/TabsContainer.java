@@ -14,15 +14,15 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @JsonTypeName("tabsContainer")
 public class TabsContainer extends Component {

@@ -18,7 +18,6 @@ package org.bonitasoft.web.designer.controller;
 import static org.springframework.web.servlet.HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE;
 import static org.springframework.web.servlet.HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE;
 
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.AntPathMatcher;

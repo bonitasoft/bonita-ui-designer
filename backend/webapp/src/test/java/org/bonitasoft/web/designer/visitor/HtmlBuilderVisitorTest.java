@@ -14,6 +14,31 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.ResponsiveDimension.*;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
+import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.util.Arrays;
+import java.util.Collections;
+
 import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
@@ -35,13 +60,6 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
-import org.bonitasoft.web.designer.visitor.PageFactory;
-import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
-import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
-import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
-import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -49,35 +67,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import static com.google.common.collect.Sets.newHashSet;
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.*;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
-import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.ResponsiveDimension.*;
-import static org.bonitasoft.web.designer.builder.ResponsiveDimension.lg;
-import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
-import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
-import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
-import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlBuilderVisitorTest {

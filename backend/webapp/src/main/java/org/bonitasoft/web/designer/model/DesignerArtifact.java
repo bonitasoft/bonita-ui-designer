@@ -18,9 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 
 @JsonIgnoreProperties(value = {"designerVersion"}, allowSetters = true, ignoreUnknown = true)

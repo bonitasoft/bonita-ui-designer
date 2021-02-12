@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.bonitasoft.web.designer.builder.PageBuilder;
-import org.bonitasoft.web.designer.controller.MigrationResource;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -45,7 +45,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetServiceTest {
@@ -69,8 +68,7 @@ public class WidgetServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, widgetIdVisitor);
-        ReflectionTestUtils.setField(widgetService, "modelVersion", CURRENT_MODEL_VERSION);
+        widgetService = new WidgetService(widgetRepository, singletonList(bondsTypesFixer), widgetMigrationApplyer, widgetIdVisitor, new UiDesignerProperties("1.13.0", CURRENT_MODEL_VERSION));
     }
 
     @Test
@@ -90,7 +88,7 @@ public class WidgetServiceTest {
         Widget widget = aWidget().id("widget").designerVersion("1.0.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("1.0.0").build();
         when(widgetRepository.get("widget")).thenReturn(widget);
-        MigrationResult<Widget> mr = new MigrationResult(widgetMigrated,  Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
+        MigrationResult<Widget> mr = new MigrationResult(widgetMigrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
         when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
 
         widgetService.get("widget");
@@ -122,8 +120,8 @@ public class WidgetServiceTest {
         Widget widget2Migrated = aWidget().id("widget2").designerVersion("2.0").build();
         when(widgetRepository.get("widget1")).thenReturn(widget1);
         when(widgetRepository.get("widget2")).thenReturn(widget2);
-        when(widgetMigrationApplyer.migrate(widget1)).thenReturn(new MigrationResult(widget1Migrated,  Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"widget1" ))));
-        when(widgetMigrationApplyer.migrate(widget2)).thenReturn(new MigrationResult(widget2Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS,"widget2" ))));
+        when(widgetMigrationApplyer.migrate(widget1)).thenReturn(new MigrationResult(widget1Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS, "widget1"))));
+        when(widgetMigrationApplyer.migrate(widget2)).thenReturn(new MigrationResult(widget2Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS, "widget2"))));
 
         Set<String> h = new HashSet<>(Arrays.asList("widget1", "widget1"));
         when(widgetRepository.getByIds(h)).thenReturn(Arrays.asList(widget1, widget2));

@@ -17,8 +17,8 @@ package org.bonitasoft.web.designer.controller.export;
 import static java.nio.file.Paths.get;
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

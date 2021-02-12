@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import static org.bonitasoft.web.designer.model.data.DataType.*;
+
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
-
-import static org.bonitasoft.web.designer.model.data.DataType.*;
 
 public class VariableBuilder {
 

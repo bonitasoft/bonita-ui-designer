@@ -18,38 +18,34 @@ import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import javax.inject.Inject;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 
 public class FragmentsExportStep<T extends AbstractPage> implements ExportStep<T> {
 
     private FragmentIdVisitor fragmentIdVisitor;
-    private WorkspacePathResolver pathResolver;
+    private Path fragmentsPath;
     private FragmentPropertiesExportStep fragmentPropertiesExportStep;
 
-    @Inject
-    public FragmentsExportStep(FragmentIdVisitor fragmentIdVisitor, WorkspacePathResolver pathResolver, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
+    public FragmentsExportStep(FragmentIdVisitor fragmentIdVisitor, Path fragmentsPath, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
         this.fragmentIdVisitor = fragmentIdVisitor;
-        this.pathResolver = pathResolver;
+        this.fragmentsPath = fragmentsPath;
         this.fragmentPropertiesExportStep = fragmentPropertiesExportStep;
     }
 
     @Override
     public void execute(Zipper zipper, T page) throws IOException {
-        Path fragmentsRepositoryPath = pathResolver.getFragmentsRepositoryPath();
         if (page instanceof Fragment) {
             fragmentPropertiesExportStep.execute(zipper, (Fragment) page);
         }
 
         zipper.addDirectoryToZip(
-                fragmentsRepositoryPath,
-                new IncludeChildDirectoryPredicate(fragmentsRepositoryPath, fragmentIdVisitor.visit(page)),
+                fragmentsPath,
+                new IncludeChildDirectoryPredicate(fragmentsPath, fragmentIdVisitor.visit(page)),
                 ALL_FILES,
                 RESOURCES + "/fragments");
     }

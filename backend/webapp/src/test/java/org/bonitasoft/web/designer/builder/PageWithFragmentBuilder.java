@@ -15,12 +15,12 @@
 package org.bonitasoft.web.designer.builder;
 
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 
-import org.bonitasoft.web.designer.model.page.FragmentElement;
 import com.google.common.collect.ImmutableSortedMap;
 import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
 
 

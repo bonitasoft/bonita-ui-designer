@@ -16,18 +16,13 @@ package org.bonitasoft.web.designer.generator.mapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.anExpressionPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
 import static org.bonitasoft.web.designer.builder.VariableBuilder.*;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
@@ -45,8 +40,6 @@ import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {

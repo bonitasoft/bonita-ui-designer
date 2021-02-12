@@ -15,20 +15,20 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import static org.bonitasoft.web.designer.config.UiDesignerProperties.BONITA_BDM_URL;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.BONITA_DATA_REPOSITORY_ORIGIN;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/config")
@@ -36,21 +36,28 @@ public class ConfigurationResource {
 
     protected static final Logger logger = LoggerFactory.getLogger(ConfigurationResource.class);
 
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
-    @Value("${designer.version}")
-    protected String uidVersion;
+    protected final UiDesignerProperties uiDesignerProperties;
+
+    public ConfigurationResource(UiDesignerProperties uiDesignerProperties) {
+        this.uiDesignerProperties = uiDesignerProperties;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ConfigurationReport> getConfig() {
-        String bdrUrl = System.getProperty(BONITA_DATA_REPOSITORY_ORIGIN);
+
+        String bdrUrl = this.uiDesignerProperties.getBonita().getBdm().getUrl();
         try {
             new URL(bdrUrl);
         } catch (MalformedURLException e) {
-            logger.warn("System property " + BONITA_DATA_REPOSITORY_ORIGIN + " is not set, or not a valid URL.");
+            logger.warn("System property " + BONITA_BDM_URL + " is not set, or not a valid URL.");
             bdrUrl = "";
         }
-        boolean isExperimental = Boolean.getBoolean(UID_EXPERIMENTAL);
-        return new ResponseEntity<>(new ConfigurationReport(this.uidVersion, this.modelVersion, bdrUrl, isExperimental), HttpStatus.OK);
+
+        return new ResponseEntity<>(new ConfigurationReport(this.uiDesignerProperties.getVersion(), this.uiDesignerProperties.getModelVersion(), bdrUrl, this.uiDesignerProperties.isExperimental()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllConfig() {
+        return new ResponseEntity(this.uiDesignerProperties, HttpStatus.OK);
     }
 }

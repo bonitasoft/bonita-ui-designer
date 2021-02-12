@@ -14,10 +14,7 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import static com.github.dreamhead.moco.Moco.by;
-import static com.github.dreamhead.moco.Moco.httpserver;
-import static com.github.dreamhead.moco.Moco.status;
-import static com.github.dreamhead.moco.Moco.uri;
+import static com.github.dreamhead.moco.Moco.*;
 import static com.github.dreamhead.moco.Runner.runner;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -26,6 +23,8 @@ import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.github.dreamhead.moco.HttpServer;
+import com.github.dreamhead.moco.Runner;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,9 +35,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
-
-import com.github.dreamhead.moco.HttpServer;
-import com.github.dreamhead.moco.Runner;
 
 /**
  * @author Romain Bioteau

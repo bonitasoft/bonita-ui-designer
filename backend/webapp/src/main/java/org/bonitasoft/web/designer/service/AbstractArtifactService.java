@@ -14,15 +14,18 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractArtifactService<T extends Identifiable> implements ArtifactService {
 
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
+    protected UiDesignerProperties uiDesignerProperties;
+
+    public AbstractArtifactService(UiDesignerProperties uiDesignerProperties) {
+        this.uiDesignerProperties = uiDesignerProperties;
+    }
 
     public MigrationStatusReport getStatus(Identifiable artifact) {
         return getArtifactStatus(artifact);
@@ -33,8 +36,8 @@ public abstract class AbstractArtifactService<T extends Identifiable> implements
         if(artifact.getArtifactVersion() == null){
             return new MigrationStatusReport(true,true);
         }
-        boolean migration = new Version(modelVersion).isGreaterThan(artifact.getArtifactVersion());
-        boolean compatible = !new Version(artifact.getArtifactVersion()).isGreaterThan(modelVersion);
+        boolean migration = new Version(uiDesignerProperties.getModelVersion()).isGreaterThan(artifact.getArtifactVersion());
+        boolean compatible = !new Version(artifact.getArtifactVersion()).isGreaterThan(uiDesignerProperties.getModelVersion());
 
         return new MigrationStatusReport(compatible, migration);
     }

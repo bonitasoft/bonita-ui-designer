@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.google.common.io.Files;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -44,8 +45,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.google.common.io.Files;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AssetRepositoryTest {

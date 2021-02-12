@@ -12,21 +12,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.generator.mapping;
+package org.bonitasoft.web.designer.config;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.file.Path;
 import javax.inject.Named;
 
-@Named
-public class DimensionFactory {
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
-    public Map<String, Integer> create(int dimension) {
-        Map<String, Integer> dimensions = new HashMap<>();
-        dimensions.put("xs", dimension);
-        dimensions.put("sm", dimension);
-        dimensions.put("md", dimension);
-        dimensions.put("lg", dimension);
-        return dimensions;
+@Data
+@Named
+public class WorkspaceUidProperties {
+
+    public static final String FRAGMENTS = "fragments";
+    private static final String PAGES_DEFAULT_DIRECTORY = "pages";
+
+    @Value("${designer.workspace-uid.path}")
+    private Path path;
+
+    public Path getTmpFragmentsRepositoryPath() {
+        return path.resolve(FRAGMENTS);
+    }
+
+    public Path getTmpPagesRepositoryPath() {
+        return path.resolve(PAGES_DEFAULT_DIRECTORY);
     }
 }

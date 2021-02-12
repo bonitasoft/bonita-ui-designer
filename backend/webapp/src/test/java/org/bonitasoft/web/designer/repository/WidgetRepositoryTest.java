@@ -41,6 +41,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -50,7 +52,6 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
@@ -60,7 +61,6 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetRepositoryTest {
@@ -69,12 +69,8 @@ public class WidgetRepositoryTest {
     private static final String MODEL_VERSION = "2.0";
 
     private WidgetRepository widgetRepository;
-    private WidgetRepository widgetRepositoryWc;
 
     private JacksonObjectMapper objectMapper;
-
-    private Path widgetDirectory;
-    private Path widgetDirectoryWc;
 
     private JsonFileBasedPersister<Widget> jsonFileRepository;
 
@@ -87,29 +83,28 @@ public class WidgetRepositoryTest {
     @Mock
     private Watcher watcher;
 
+    private UiDesignerProperties uiDesignerProperties;
+
+    private WorkspaceProperties workspaceProperties;
+
     @Before
     public void setUp() throws IOException {
-        widgetDirectory = Paths.get(temporaryFolder.getRoot().getPath());
-        widgetDirectoryWc = createDirectory(Paths.get(widgetDirectory + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
-        jsonFileRepository = new DesignerConfig().widgetFileBasedPersister();
+        workspaceProperties = new WorkspaceProperties();
+        String path = temporaryFolder.getRoot().getPath();
+        workspaceProperties.getWidgets().setDir(Paths.get(path));
+
+        workspaceProperties.getWidgetsWc().setDir(createDirectories(Paths.get(path).resolve("Wc")));
+        uiDesignerProperties = new UiDesignerProperties(DESIGNER_VERSION, MODEL_VERSION);
+        jsonFileRepository = new DesignerConfig().widgetFileBasedPersister(uiDesignerProperties);
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         // spying objectMapper to be able to simulate a json conversion error
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         widgetRepository = new WidgetRepository(
-                widgetDirectory,
+                workspaceProperties,
                 jsonFileRepository,
                 new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),
-                watcher);
-        widgetRepositoryWc = new WidgetRepository(
-                widgetDirectoryWc,
-                jsonFileRepository,
-                new WidgetFileBasedLoader(objectMapper),
-                new BeanValidator(validatorFactory.getValidator()),
-                watcher);
-
-        ReflectionTestUtils.setField(jsonFileRepository, "uidVersion", DESIGNER_VERSION);
-        ReflectionTestUtils.setField(jsonFileRepository, "modelVersion", MODEL_VERSION);
+                watcher, uiDesignerProperties);
     }
 
     @Test
@@ -146,13 +141,13 @@ public class WidgetRepositoryTest {
         Widget labelWc = aWidgetWc().id("labelWc").build();
         addToRepositoryWc(inputWc, labelWc);
 
-        System.setProperty("uid.experimental", "false");
+        uiDesignerProperties.setExperimental(false);
         List<Widget> widgets = widgetRepository.getAll(false);
         assertThat(widgets).containsOnly(input, label);
         widgets = widgetRepository.getAll(true);
         assertThat(widgets).containsOnly(input, label);
 
-        System.setProperty("uid.experimental", "true");
+        uiDesignerProperties.setExperimental(true);
         widgets = widgetRepository.getAll(false);
         assertThat(widgets).containsOnly(input, label);
         List<Widget> widgetsWc = widgetRepository.getAll(true);
@@ -172,7 +167,7 @@ public class WidgetRepositoryTest {
     public void should_save_a_custom_widget() throws Exception {
         Widget customLabel = aWidget().custom().id("customLabel").build();
 
-        createDirectories(widgetDirectory.resolve("customLabel"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(jsonFile(customLabel)).exists();
@@ -199,7 +194,7 @@ public class WidgetRepositoryTest {
         Widget customInput = aWidget().custom().id("customInput").build();
 
         //For the first widget a directory is present... for the second it will be created during the saving
-        createDirectories(widgetDirectory.resolve("customLabel"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("customLabel"));
         widgetRepository.saveAll(asList(customInput, customLabel));
 
         assertThat(jsonFile(customLabel)).exists();
@@ -210,7 +205,7 @@ public class WidgetRepositoryTest {
     public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
         Widget customLabel = aWidget().custom().id("customLabel").designerVersion("1.12.0").build();
 
-        createDirectories(widgetDirectory.resolve("customLabel"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(customLabel.getModelVersion()).isEqualTo(MODEL_VERSION);
@@ -220,7 +215,7 @@ public class WidgetRepositoryTest {
     public void should_not_set_model_version_while_saving_if_already_set() throws Exception {
         Widget customLabel = aWidget().custom().id("customLabel").build();
         customLabel.setModelVersion("alreadySetModelVersion");
-        createDirectories(widgetDirectory.resolve("customLabel"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
         assertThat(customLabel.getModelVersion()).isEqualTo("alreadySetModelVersion");
@@ -264,7 +259,7 @@ public class WidgetRepositoryTest {
     @Test
     public void should_allow_to_save_a_widget_with_name_containing_space() throws Exception {
         Widget widget = aWidget().name("hello world").build();
-        createDirectories(widgetDirectory.resolve("anId"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("anId"));
         widgetRepository.updateLastUpdateAndSave(widget);
     }
 
@@ -274,10 +269,10 @@ public class WidgetRepositoryTest {
         customLabel.setController("$scope.hello = 'Hello'");
         customLabel.setTemplate("<div>{{ hello + 'there'}}</div>");
         customLabel.setCustom(true);
-        createDirectories(widgetDirectory.resolve("customLabel"));
+        createDirectories(workspaceProperties.getWidgets().getDir().resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
         // emulate js generation
-        write(widgetDirectory.resolve("customLabel").resolve("customLabel.js"), objectMapper.toJson(""));
+        write(workspaceProperties.getWidgets().getDir().resolve("customLabel").resolve("customLabel.js"), objectMapper.toJson(""));
 
         widgetRepository.delete("customLabel");
 
@@ -466,7 +461,7 @@ public class WidgetRepositoryTest {
 
         widgetRepository.watch(pathListener);
 
-        verify(watcher).watch(widgetDirectory, pathListener);
+        verify(watcher).watch(workspaceProperties.getWidgets().getDir(), pathListener);
     }
 
     @Test
@@ -507,29 +502,25 @@ public class WidgetRepositoryTest {
     }
 
     private Widget addToRepository(Widget widget) throws Exception {
-        return addToRepository(widgetDirectory, widgetRepository, widget);
+        return addToRepository(workspaceProperties.getWidgets().getDir(), widgetRepository, widget, false);
     }
 
     private Widget addToRepositoryWc(Widget widget) throws Exception {
-        return addToRepository(widgetDirectoryWc, widgetRepositoryWc, widget);
+        return addToRepository(workspaceProperties.getWidgetsWc().getDir(), widgetRepository, widget, true);
     }
 
-    private Widget addToRepository(Path widgetDirectory, WidgetRepository widgetRepository, Widget widget) throws Exception {
+    private Widget addToRepository(Path widgetDirectory, WidgetRepository widgetRepository, Widget widget, boolean loadWcWidget) throws Exception {
         Path widgetDir = createDirectory(widgetDirectory.resolve(widget.getId()));
         writeWidgetMetadataInFile(widget, widgetDir.resolve(widget.getId() + ".json"));
-        return getFromRepository(widgetRepository, widget.getId());
+        return getFromRepository(widgetRepository, widget.getId(),loadWcWidget);
     }
 
     private Widget getFromRepository(String widgetId) {
-        return getFromRepository(widgetRepository, widgetId);
+        return getFromRepository(widgetRepository, widgetId, false);
     }
 
-    private Widget getFromRepository(WidgetRepository widgetRepository, String widgetId) {
-        return widgetRepository.get(widgetId);
-    }
-
-    private Widget getFromRepositoryWc(String widgetId) {
-        return widgetRepositoryWc.get(widgetId);
+    private Widget getFromRepository(WidgetRepository widgetRepository, String widgetId, boolean loadWcWidget) {
+        return widgetRepository.get(widgetId, loadWcWidget);
     }
 
     private void writeWidgetMetadataInFile(Widget widget, Path path) throws IOException {
@@ -542,10 +533,10 @@ public class WidgetRepositoryTest {
     }
 
     private File jsonFile(String widgetId) {
-        return widgetDirectory.resolve(widgetId).resolve(widgetId + ".json").toFile();
+        return workspaceProperties.getWidgets().getDir().resolve(widgetId).resolve(widgetId + ".json").toFile();
     }
 
     private File jsFile(Widget widget) {
-        return widgetDirectory.resolve(widget.getId()).resolve(widget.getId() + ".js").toFile();
+        return workspaceProperties.getWidgets().getDir().resolve(widget.getId()).resolve(widget.getId() + ".js").toFile();
     }
 }

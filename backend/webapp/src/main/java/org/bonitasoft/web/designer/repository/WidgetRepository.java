@@ -17,17 +17,17 @@ package org.bonitasoft.web.designer.repository;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.bonitasoft.web.designer.SpringWebApplicationInitializer.UID_EXPERIMENTAL;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -35,19 +35,22 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {
+    private WorkspaceProperties workspaceProperties;
+    private UiDesignerProperties uiDesignerProperties;
 
     @Inject
     public WidgetRepository(
-            @Named("widgetPath") Path path,
+            WorkspaceProperties workspaceProperties,
             @Named("widgetFileBasedPersister") JsonFileBasedPersister<Widget> fileBasedRepository,
             @Named("widgetFileBasedLoader") JsonFileBasedLoader<Widget> widgetLoader,
             BeanValidator validator,
-            Watcher watcher) {
-        super(path, fileBasedRepository, widgetLoader, validator, watcher);
+            Watcher watcher, UiDesignerProperties uiDesignerProperties) {
+        super(workspaceProperties.getWidgets().getDir(), fileBasedRepository, widgetLoader, validator, watcher);
+        this.workspaceProperties = workspaceProperties;
+        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     @Override
@@ -82,10 +85,23 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     }
 
+    public Widget get(String id, boolean loadWidgetsWc) throws NotFoundException, RepositoryException {
+        try {
+            if (loadWidgetsWc) {
+                return loader.get(workspaceProperties.getWidgetsWc().getDir().resolve(format("%s/%s.json", id, id)));
+            }
+            return this.get(id);
+        } catch (NoSuchFileException e) {
+            throw new NotFoundException(format("Non existing %s [%s]", getComponentName(), id));
+        } catch (IOException e) {
+            throw new RepositoryException(format("Error while getting %s [%s]", getComponentName(), id), e);
+        }
+    }
+
     public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
         try {
-            if (loadWidgetsWc && Boolean.getBoolean(UID_EXPERIMENTAL)) {
-                return loader.getAll(Paths.get(path + WorkspacePathResolver.WIDGETS_WC_SUFFIX));
+            if (loadWidgetsWc && uiDesignerProperties.isExperimental()) {
+                return loader.getAll(workspaceProperties.getWidgetsWc().getDir());
             }
             return loader.getAll(path);
         } catch (IOException e) {

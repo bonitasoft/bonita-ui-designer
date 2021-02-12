@@ -14,6 +14,14 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static java.util.Collections.emptySet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -25,25 +33,17 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Collections.emptySet;
-
 /**
  * An element visitor which traverses the tree of elements recursively to collect rename reference of fragment
  *
  * @author Benjamin Parisel
  */
+@Named
 public class FragmentChangeVisitor implements ElementVisitor<Set<String>> {
 
     private String newFragmentId;
-    private boolean newHasValidationError;
-    private String fragmentToReplace;
 
-    public FragmentChangeVisitor() {
-    }
+    private String fragmentToReplace;
 
     @Override
     public Set<String> visit(Container container) {
@@ -63,9 +63,8 @@ public class FragmentChangeVisitor implements ElementVisitor<Set<String>> {
 
     @Override
     public Set<String> visit(TabsContainer tabsContainer) {
-        Set<String> fragmentIds = new HashSet<>();
         for (TabContainer tabContainer : tabsContainer.getTabList()) {
-            fragmentIds.addAll(tabContainer.accept(this));
+            tabContainer.accept(this);
         }
         return emptySet();
     }
@@ -136,6 +135,5 @@ public class FragmentChangeVisitor implements ElementVisitor<Set<String>> {
     }
 
     public void setNewHasValidationError(boolean newHasValidationError) {
-        this.newHasValidationError = newHasValidationError;
     }
 }

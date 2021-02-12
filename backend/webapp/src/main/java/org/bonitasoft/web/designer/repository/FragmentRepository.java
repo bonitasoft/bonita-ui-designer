@@ -14,21 +14,21 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.google.common.base.Predicate;
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.WidgetContainerRepository;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Lists.newArrayList;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Lists.newArrayList;
+import com.google.common.base.Predicate;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.WidgetContainerRepository;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 
 
 @Named
@@ -36,12 +36,12 @@ public class FragmentRepository extends AbstractRepository<Fragment> implements 
 
     @Inject
     public FragmentRepository(
-            @Named("fragmentsPath") Path path,
+            WorkspaceProperties workspaceProperties,
             @Named("fragmentFileBasedPersister") JsonFileBasedPersister<Fragment> persister,
             @Named("fragmentFileBasedLoader") JsonFileBasedLoader<Fragment> loader,
             BeanValidator validator,
             Watcher watcher) {
-        super(path, persister, loader, validator, watcher);
+        super(workspaceProperties.getFragments().getDir(), persister, loader, validator, watcher);
     }
 
     @Override

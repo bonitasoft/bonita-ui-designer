@@ -16,26 +16,28 @@ package org.bonitasoft.web.designer.controller.export.properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetPropertiesBuilderTest {
 
     private static final String DESIGNER_VERSION = "1.12.1";
 
-    @InjectMocks
-    private WidgetPropertiesBuilder widgetPropertiesBuilder;
 
+    private WidgetPropertiesBuilder widgetPropertiesBuilder;
+    private UiDesignerProperties uiDesignerProperties;
     private Widget widget;
 
     @Before
     public void setUp() throws Exception {
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        widgetPropertiesBuilder = new WidgetPropertiesBuilder(uiDesignerProperties);
         widget = new Widget();
         widget.setName("myWidget");
     }
@@ -43,8 +45,6 @@ public class WidgetPropertiesBuilderTest {
     @Test
     public void should_build_a_well_formed_page_property_file() throws Exception {
         widget.setDesignerVersion("1.12.1");
-
-        ReflectionTestUtils.setField(widgetPropertiesBuilder, "uidVersion", DESIGNER_VERSION);
 
         byte[] a = widgetPropertiesBuilder.build(widget);
         String properties = new String(a);

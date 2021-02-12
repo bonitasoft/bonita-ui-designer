@@ -25,9 +25,9 @@ By default mvn task will check for _ddescribe_ and _iit_ in spec files and fail 
 You can easily add a test by running the app as usual from the current directory : 
  
     java -jar ../backend/webapp/target/ui-designer-1.13.0-SNAPSHOT-standalone.jar -httpPort=8083 \
-        -Drepository.pages=src/test/resources/pages/ \
-        -Drepository.fragments=src/test/resources/fragments/ \
-        -Drepository.widgets=./target/widgets 
+        -Ddesigner.workspace.pages.dir=src/test/resources/pages/ \
+        -Ddesigner.workspace.fragments.dir=src/test/resources/fragments/ \
+        -Ddesigner.workspace.widgets.dir=./target/widgets 
     
 Once started, you can go to [your browser](http://localhost:8083/bonita/) and add a new page.
 The page is gonna be saved in `src/test/resources/pages` with a UUID. 

@@ -16,17 +16,20 @@ package org.bonitasoft.web.designer.utils.rule;
 
 import static java.lang.String.format;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.*;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
+import org.bonitasoft.web.designer.repository.BeanValidator;
+import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 public class TemporaryWidgetRepository extends TemporaryFolder {
 
@@ -34,24 +37,25 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
 
     private WidgetRepository repository;
 
-    private WorkspacePathResolver pathResolver;
+    private WorkspaceProperties workspaceProperties;
 
-    public TemporaryWidgetRepository(WorkspacePathResolver pathResolver) {
-        this.pathResolver = pathResolver;
+    public TemporaryWidgetRepository(WorkspaceProperties workspaceProperties) {
+        this.workspaceProperties = workspaceProperties;
     }
 
     @Override
     protected void before() throws Throwable {
         super.before();
 
+        workspaceProperties.getWidgets().setDir(this.toPath());
+
         repository = new WidgetRepository(
-                this.toPath(),
-                new JsonFileBasedPersister<Widget>(objectMapper, mock(BeanValidator.class)),
+                workspaceProperties,
+                new JsonFileBasedPersister<>(objectMapper, mock(BeanValidator.class),new UiDesignerProperties("1.13.0","2.0")),
                 new WidgetFileBasedLoader(objectMapper),
                 mock(BeanValidator.class),
-                mock(Watcher.class));
+                mock(Watcher.class), mock(UiDesignerProperties.class));
 
-        when(pathResolver.getWidgetsRepositoryPath()).thenReturn(this.toPath());
     }
 
     public Path resolveWidgetJson(String id) {

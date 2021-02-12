@@ -25,10 +25,10 @@ import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 

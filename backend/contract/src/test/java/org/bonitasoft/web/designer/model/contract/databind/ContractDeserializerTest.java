@@ -14,30 +14,28 @@
  */
 package org.bonitasoft.web.designer.model.contract.databind;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.contract.EditMode;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-import org.junit.Test;
+import static com.google.common.base.Predicates.instanceOf;
+import static com.google.common.collect.Iterables.find;
+import static com.google.common.collect.Lists.newArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
-import static com.google.common.base.Predicates.instanceOf;
-import static com.google.common.collect.Iterables.find;
-import static com.google.common.collect.Lists.newArrayList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
+import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
+import org.bonitasoft.web.designer.model.contract.Contract;
+import org.bonitasoft.web.designer.model.contract.EditMode;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.junit.Test;
 
 public class ContractDeserializerTest {
 
@@ -61,7 +59,7 @@ public class ContractDeserializerTest {
                 tuple("creationOffsetDateTime", OffsetDateTime.class.getName()),
                 tuple("updateTime", Long.class.getName()));
     }
-    
+
     @Test
     public void should_handle_serialization_of_a_contract_with_data_references() throws Exception {
         Contract aSimpleContractWithDataRef = aSimpleContractWithDataRef(EditMode.EDIT);

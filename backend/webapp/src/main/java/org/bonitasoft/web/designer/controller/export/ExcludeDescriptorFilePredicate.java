@@ -15,8 +15,6 @@
 package org.bonitasoft.web.designer.controller.export;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.util.Set;
 
 public class ExcludeDescriptorFilePredicate implements Zipper.FilePredicate {
 

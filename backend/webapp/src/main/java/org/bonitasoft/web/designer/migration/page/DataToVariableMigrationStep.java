@@ -19,11 +19,8 @@ import static java.lang.String.format;
 
 import java.util.Optional;
 import javax.inject.Named;
-import javax.swing.text.html.Option;
 
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
-import org.bonitasoft.web.designer.migration.MigrationStep;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.slf4j.Logger;

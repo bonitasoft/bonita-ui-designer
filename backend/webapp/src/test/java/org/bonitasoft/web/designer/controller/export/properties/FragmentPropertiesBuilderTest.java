@@ -16,13 +16,12 @@ package org.bonitasoft.web.designer.controller.export.properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -30,13 +29,18 @@ public class FragmentPropertiesBuilderTest {
 
     private static final String DESIGNER_VERSION = "1.12.1";
 
-    @InjectMocks
     private FragmentPropertiesBuilder fragmentPropertiesBuilder;
 
     private Fragment fragment;
 
+    private UiDesignerProperties uiDesignerProperties;
+
     @Before
     public void setUp() throws Exception {
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        fragmentPropertiesBuilder = new FragmentPropertiesBuilder(uiDesignerProperties);
+
         fragment = new Fragment();
         fragment.setName("myFragment");
     }
@@ -44,8 +48,6 @@ public class FragmentPropertiesBuilderTest {
     @Test
     public void should_build_a_well_formed_page_property_file() throws Exception {
         fragment.setDesignerVersion("1.12.1");
-
-        ReflectionTestUtils.setField(fragmentPropertiesBuilder, "uidVersion", DESIGNER_VERSION);
 
         byte[] a = fragmentPropertiesBuilder.build(fragment);
         String properties = new String(a);

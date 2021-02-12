@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.bonitasoft.web.designer.controller.ErrorMessage;
 import org.junit.Test;
 
 public class ErrorMessageTest {

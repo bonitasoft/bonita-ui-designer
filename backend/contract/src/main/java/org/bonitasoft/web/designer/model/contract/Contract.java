@@ -17,10 +17,9 @@ package org.bonitasoft.web.designer.model.contract;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bonitasoft.web.designer.model.contract.databind.ContractDeserializer;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.bonitasoft.web.designer.model.contract.databind.ContractDeserializer;
 
 @JsonDeserialize(using = ContractDeserializer.class)
 public class Contract implements ContractInputContainer {

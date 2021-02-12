@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -104,7 +105,7 @@ public class ImporterResolverTest {
 
     @Test
     public void should_get_fragment_importer_from_artifact_type() throws Exception {
-        ArtifactImporter<Fragment> importer = importerResolver.getImporter("fragment");
+        ArtifactImporter<? extends DesignerArtifact> importer = importerResolver.getImporter("fragment");
 
         assertThat(importer).isEqualTo(fragmentArtifactImporter);
     }
@@ -114,7 +115,7 @@ public class ImporterResolverTest {
         Path resources = tempDir.newFolderPath("resources");
         Files.createFile(resources.resolve("fragment.json"));
 
-        ArtifactImporter<Fragment> importer = importerResolver.getImporter(tempDir.toPath());
+        ArtifactImporter<? extends DesignerArtifact> importer = importerResolver.getImporter(tempDir.toPath());
 
         assertThat(importer).isEqualTo(fragmentArtifactImporter);
     }

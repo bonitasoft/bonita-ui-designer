@@ -16,45 +16,47 @@ package org.bonitasoft.web.designer.utils.rule;
 
 import static java.lang.String.format;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.nio.file.Path;
 
-import org.bonitasoft.web.designer.builder.FragmentBuilder;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.builder.FragmentBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.repository.BeanValidator;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 
 public class TemporaryFragmentRepository extends TemporaryFolder {
 
-    private JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    private final JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
 
     private FragmentRepository repository;
 
-    private WorkspacePathResolver pathResolver;
+    private final WorkspaceProperties workspaceProperties;
 
-    public TemporaryFragmentRepository(WorkspacePathResolver pathResolver) {
-        this.pathResolver = pathResolver;
+
+    public TemporaryFragmentRepository(WorkspaceProperties workspaceProperties) {
+        this.workspaceProperties = workspaceProperties;
     }
 
     @Override
     protected void before() throws Throwable {
         super.before();
 
+        workspaceProperties.getFragments().setDir(this.toPath());
+
         repository = new FragmentRepository(
-                this.toPath(),
-                new JsonFileBasedPersister<Fragment>(objectMapper, mock(BeanValidator.class)),
+                workspaceProperties,
+                new JsonFileBasedPersister<>(objectMapper, mock(BeanValidator.class),new UiDesignerProperties("1.13.0","2.0")),
                 new JsonFileBasedLoader<>(objectMapper, Fragment.class),
                 mock(BeanValidator.class),
                 mock(Watcher.class));
 
-        when(pathResolver.getFragmentsRepositoryPath()).thenReturn(this.toPath());
     }
 
     public FragmentRepository toRepository() {

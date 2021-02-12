@@ -16,8 +16,8 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.BACKEND_RESOURCES;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

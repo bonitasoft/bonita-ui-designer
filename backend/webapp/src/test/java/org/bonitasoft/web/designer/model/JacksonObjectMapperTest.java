@@ -22,9 +22,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runners.JUnit4;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class JacksonObjectMapperTest {

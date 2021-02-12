@@ -15,6 +15,7 @@ backend/webapp/src/test/resources/i18n/*.json
 
 frontend/node/
 frontend/build/
+frontend/Chrome_Headless*
 
 tests/build/
 tests/node/

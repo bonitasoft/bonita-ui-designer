@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.bonitasoft.web.designer.livebuild.PathListener;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
 import java.io.IOException;
 import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+
+import org.bonitasoft.web.designer.livebuild.PathListener;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 public interface Repository<T extends Identifiable> {
 

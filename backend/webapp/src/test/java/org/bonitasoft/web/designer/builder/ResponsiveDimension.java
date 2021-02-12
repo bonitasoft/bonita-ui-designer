@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import org.bonitasoft.web.designer.builder.Dimension;
-
 public class ResponsiveDimension  {
 
     public static Dimension xs(Integer value) {

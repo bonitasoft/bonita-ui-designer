@@ -15,9 +15,9 @@
 package org.bonitasoft.web.designer.repository;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFilledFragment;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
@@ -28,11 +28,13 @@ import java.util.Arrays;
 import java.util.List;
 import javax.validation.Validation;
 
+import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
@@ -53,18 +55,17 @@ public class FragmentRepositoryTest {
 
     private JsonFileBasedLoader<Fragment> loader;
 
-    private Path fragmentsPath;
-
+    private WorkspaceProperties workspaceProperties;
     private FragmentRepository repository;
 
     @Before
     public void setUp() throws Exception {
-        fragmentsPath = Paths.get(temporaryFolder.getRoot().getPath());
-        persister = Mockito.spy(new DesignerConfig().fragmentFileBasedPersister());
+        persister = Mockito.spy(new DesignerConfig().fragmentFileBasedPersister(mock(UiDesignerProperties.class)));
         loader = Mockito.spy(new DesignerConfig().fragmentFileBasedLoader());
-
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getFragments().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
         repository = new FragmentRepository(
-                fragmentsPath,
+                workspaceProperties,
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),
@@ -150,11 +151,11 @@ public class FragmentRepositoryTest {
     public void should_save_a_fragment_in_a_json_file_repository() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
 
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
         repository.updateLastUpdateAndSave(expectedFragment);
 
         //A json file has to be created in the repository
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
         Assertions.assertThat(expectedFragment.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
     }
 
@@ -174,7 +175,7 @@ public class FragmentRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_while_saving_a_fragment() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
-        doThrow(new IOException()).when(persister).save(fragmentsPath.resolve(expectedFragment.getId()), expectedFragment);
+        doThrow(new IOException()).when(persister).save(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()), expectedFragment);
 
         repository.updateLastUpdateAndSave(expectedFragment);
     }
@@ -195,10 +196,10 @@ public class FragmentRepositoryTest {
     @Test
     public void should_save_all_fragment_in_a_json_file_repository() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
         repository.saveAll(Arrays.asList(expectedFragment));
         //A json file has to be created in the repository
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
         Assertions.assertThat(expectedFragment.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
     }
 
@@ -211,9 +212,9 @@ public class FragmentRepositoryTest {
     public void should_delete_a_fragment_with_his_json_file_repository() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
         addToRepository(expectedFragment);
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
         repository.delete(expectedFragment.getId());
-        assertThat(fragmentsPath.resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).doesNotExist();
     }
 
     @Test(expected = NotFoundException.class)
@@ -224,14 +225,14 @@ public class FragmentRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_on_object_included_search() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
-        doThrow(new IOException()).when(loader).contains(fragmentsPath, expectedFragment.getId());
+        doThrow(new IOException()).when(loader).contains(workspaceProperties.getFragments().getDir(), expectedFragment.getId());
         repository.containsObject(expectedFragment.getId());
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_on_object_included_search_list() throws Exception {
         Fragment expectedFragment = aFilledFragment("fragment-id");
-        doThrow(new IOException()).when(loader).findByObjectId(fragmentsPath, expectedFragment.getId());
+        doThrow(new IOException()).when(loader).findByObjectId(workspaceProperties.getFragments().getDir(), expectedFragment.getId());
         repository.findByObjectId(expectedFragment.getId());
     }
 

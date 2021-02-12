@@ -18,7 +18,6 @@ import static java.nio.file.Files.readAllBytes;
 import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
@@ -36,6 +35,7 @@ import org.awaitility.Awaitility;
 import org.awaitility.core.ThrowingRunnable;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -45,7 +45,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedPersisterTest {
@@ -59,15 +58,16 @@ public class JsonFileBasedPersisterTest {
 
     @Mock
     private BeanValidator validator;
+    private UiDesignerProperties uiDesignerProperties;
 
     @Before
     public void setUp() throws IOException {
         repoDirectory = Files.createTempDirectory("jsonrepository");
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
-        repository = new JsonFileBasedPersister<>(objectMapper, validator);
-
-        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
-        ReflectionTestUtils.setField(repository, "modelVersion", MODEL_VERSION);
+        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        uiDesignerProperties.setModelVersion(MODEL_VERSION);
+        repository = new JsonFileBasedPersister<>(objectMapper, validator, uiDesignerProperties);
     }
 
     @After
@@ -102,8 +102,7 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
-        ReflectionTestUtils.setField(repository, "uidVersion", "1.12.0");
-
+        uiDesignerProperties.setVersion("1.12.0");
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
 
         repository.save(repoDirectory, expectedObject);
@@ -111,12 +110,11 @@ public class JsonFileBasedPersisterTest {
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject.getModelVersion()).isEqualTo(MODEL_VERSION);
 
-        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
     }
 
     @Test
     public void should_not_set_model_version_while_saving_if_already_set() throws Exception {
-        ReflectionTestUtils.setField(repository, "uidVersion", "1.12.0");
+        uiDesignerProperties.setVersion("1.12.0");
 
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
         expectedObject.setModelVersion("alreadySetModelVersion");
@@ -126,7 +124,6 @@ public class JsonFileBasedPersisterTest {
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
         assertThat(savedObject.getModelVersion()).isEqualTo("alreadySetModelVersion");
 
-        ReflectionTestUtils.setField(repository, "uidVersion", DESIGNER_VERSION);
     }
 
     @Test(expected = IOException.class)
@@ -166,7 +163,7 @@ public class JsonFileBasedPersisterTest {
     public void should_support_parrelel_index_saves() throws Exception {
         Page page1 = PageBuilder.aPage().withUUID("baz-uuid").withName("baz").withId("baz-id").build();
         Page page2 = PageBuilder.aPage().withUUID("foo-uuid").withName("foo").withId("foo-id").build();
-        JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<Page>(objectMapper, validator);
+        JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<Page>(objectMapper, validator, uiDesignerProperties);
         Path metadataFolder = repoDirectory.resolve(".metadata");
         metadataFolder.toFile().mkdir();
         new Thread(() -> {
@@ -186,13 +183,9 @@ public class JsonFileBasedPersisterTest {
 
         Awaitility.await()
                 .atMost(3, TimeUnit.SECONDS)
-                .untilAsserted(new ThrowingRunnable() {
-
-                    @Override
-                    public void run() throws Throwable {
-                        String index = new String(readAllBytes(metadataFolder.resolve(".index.json")));
-                        assertThat(index).contains("\"baz-uuid\":\"baz-id\"").contains("\"foo-uuid\":\"foo-id\"");
-                    }
+                .untilAsserted(() -> {
+                    String index = new String(readAllBytes(metadataFolder.resolve(".index.json")));
+                    assertThat(index).contains("\"baz-uuid\":\"baz-id\"").contains("\"foo-uuid\":\"foo-id\"");
                 });
     }
 
@@ -203,7 +196,7 @@ public class JsonFileBasedPersisterTest {
         Page page2 = PageBuilder.aPage().withUUID("foo-uuid").withId("page2").withName("page2").build();
         pages.add(page);
         pages.add(page2);
-        JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<>(objectMapper, validator);
+        JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<>(objectMapper, validator, uiDesignerProperties);
         Path metadataFolder = repoDirectory.resolve(".metadata");
         metadataFolder.toFile().mkdir();
 

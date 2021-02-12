@@ -28,11 +28,11 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 /**
  * @author Benjamin Parisel
@@ -42,16 +42,16 @@ public class DirectivesCollector {
 
 
     public static String JS_FOLDER = "js";
-    private WorkspacePathResolver pathResolver;
+    private WorkspaceUidProperties workspaceUidProperties;
     private DirectiveFileGenerator directiveFileGenerator;
     private final FragmentRepository fragmentRepository;
     private final FragmentIdVisitor fragmentIdVisitor;
 
 
     @Inject
-    public DirectivesCollector(WorkspacePathResolver pathResolver, DirectiveFileGenerator directiveFileGenerator,
+    public DirectivesCollector(WorkspaceUidProperties workspaceUidProperties, DirectiveFileGenerator directiveFileGenerator,
                                FragmentIdVisitor fragmentIdVisitor, FragmentRepository fragmentRepository) {
-        this.pathResolver = pathResolver;
+        this.workspaceUidProperties = workspaceUidProperties;
         this.directiveFileGenerator = directiveFileGenerator;
         this.fragmentRepository = fragmentRepository;
         this.fragmentIdVisitor = fragmentIdVisitor;
@@ -59,11 +59,11 @@ public class DirectivesCollector {
 
     public List<String> buildUniqueDirectivesFiles(Previewable previewable, String pageId) {
         if (previewable instanceof Fragment) {
-            String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable, getDestinationFolderPath(pathResolver.getTmpFragmentsRepositoryPath().resolve(pageId)));
+            String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable, getDestinationFolderPath(workspaceUidProperties.getTmpFragmentsRepositoryPath().resolve(pageId)));
             return Arrays.asList(filename);
         } else {
             String filename = directiveFileGenerator.generateAllDirectivesFilesInOne(previewable,
-                    getDestinationFolderPath(pathResolver.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER)));
+                    getDestinationFolderPath(workspaceUidProperties.getTmpPagesRepositoryPath().resolve(pageId).resolve(JS_FOLDER)));
             return newArrayList(concat(Arrays.asList(JS_FOLDER + "/" + filename), collectFragment(previewable)));
         }
     }

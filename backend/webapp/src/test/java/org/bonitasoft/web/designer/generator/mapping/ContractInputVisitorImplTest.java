@@ -21,6 +21,7 @@ import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpol
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.contract.EditMode;
@@ -34,8 +35,6 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContractInputVisitorImplTest {
 

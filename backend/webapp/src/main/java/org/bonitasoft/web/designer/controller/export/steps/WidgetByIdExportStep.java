@@ -18,24 +18,25 @@ import static java.lang.String.format;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.export.ExcludeDescriptorFilePredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.controller.export.properties.WidgetPropertiesBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.workspace.WorkspacePathResolver;
 
 @Named
 public class WidgetByIdExportStep implements ExportStep<Widget> {
 
-    private WorkspacePathResolver pathResolver;
+    private Path widgetsPath;
     private WidgetPropertiesBuilder widgetPropertiesBuilder;
 
     @Inject
-    public WidgetByIdExportStep(WorkspacePathResolver pathResolver, WidgetPropertiesBuilder widgetPropertiesBuilder) {
-        this.pathResolver = pathResolver;
+    public WidgetByIdExportStep(WorkspaceProperties workspaceProperties, WidgetPropertiesBuilder widgetPropertiesBuilder) {
+        this.widgetsPath = workspaceProperties.getWidgets().getDir();
         this.widgetPropertiesBuilder = widgetPropertiesBuilder;
     }
 
@@ -44,7 +45,7 @@ public class WidgetByIdExportStep implements ExportStep<Widget> {
         byte[] widgetProperties = widgetPropertiesBuilder.build(widget);
         zipper.addToZip(widgetProperties, "widget.properties");
         zipper.addDirectoryToZip(
-                pathResolver.getWidgetsRepositoryPath().resolve(widget.getId()),
+                widgetsPath.resolve(widget.getId()),
                 ALL_DIRECTORIES,
                 new ExcludeDescriptorFilePredicate(format("%s.json",widget.getId())),
                 RESOURCES);

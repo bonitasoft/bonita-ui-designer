@@ -27,10 +27,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -74,14 +74,14 @@ public class WidgetResource extends AssetResource<Widget>{
                           WidgetRepository widgetRepository,
                           WidgetService widgetService,
                           AssetService<Widget> widgetAssetService,
-                          @Named("widgetPath") Path widgetPath,
+                          WorkspaceProperties workspaceProperties,
                           List<WidgetContainerRepository> widgetContainerRepositories,
                           AssetVisitor assetVisitor) {
         super(widgetAssetService, widgetRepository, assetVisitor, com.google.common.base.Optional.<SimpMessagingTemplate>absent());
         this.widgetRepository = widgetRepository;
         this.objectMapper = objectMapper;
         this.widgetService = widgetService;
-        this.widgetPath = widgetPath;
+        this.widgetPath = workspaceProperties.getWidgets().getDir();
         this.widgetContainerRepositories = widgetContainerRepositories;
     }
 

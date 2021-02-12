@@ -14,13 +14,17 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.joda.time.Instant;
-
-import java.util.*;
 
 public class WidgetBuilder {
 

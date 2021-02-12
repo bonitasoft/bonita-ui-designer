@@ -14,8 +14,24 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.nio.file.Files.exists;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.Mockito.*;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.validation.Validation;
+
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -29,24 +45,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import javax.validation.Validation;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageRepositoryTest {
@@ -62,18 +61,17 @@ public class PageRepositoryTest {
 
     private JsonFileBasedLoader<Page> loader;
 
-    private Path pagesPath;
-
     private PageRepository repository;
+    private WorkspaceProperties workspaceProperties;
 
     @Before
     public void setUp() throws Exception {
-        pagesPath = Paths.get(temporaryFolder.getRoot().getPath());
-        persister = spy(new DesignerConfig().pageFileBasedPersister());
+        persister = spy(new DesignerConfig().pageFileBasedPersister(mock(UiDesignerProperties.class)));
         loader = spy(new DesignerConfig().pageFileBasedLoader());
-
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
         repository = new PageRepository(
-                pagesPath,
+                workspaceProperties,
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),
@@ -123,12 +121,12 @@ public class PageRepositoryTest {
     @Test
     public void should_save_a_page_in_a_json_file_repository() throws Exception {
         Page page = aFilledPage("page-id");
-        assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getPages().getDir().resolve(page.getId()).resolve(page.getId() + ".json").toFile()).doesNotExist();
 
         repository.updateLastUpdateAndSave(page);
 
         //A json file has to be created in the repository
-        assertThat(pagesPath.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getPages().getDir().resolve(page.getId()).resolve(page.getId() + ".json").toFile()).exists();
         assertThat(page.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
         assertThat(exists(Paths.get(repository.resolvePath(page.getId()).toString(), "assets", "css", "style.css"))).isTrue();
     }
@@ -153,7 +151,7 @@ public class PageRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_while_saving_a_page() throws Exception {
         Page expectedPage = aFilledPage("page-id");
-        doThrow(new IOException()).when(persister).save(pagesPath.resolve(expectedPage.getId()), expectedPage);
+        doThrow(new IOException()).when(persister).save(workspaceProperties.getPages().getDir().resolve(expectedPage.getId()), expectedPage);
 
         repository.updateLastUpdateAndSave(expectedPage);
     }
@@ -189,11 +187,11 @@ public class PageRepositoryTest {
     public void should_save_all_page_in_a_json_file_repository() throws Exception {
         Page expectedPage = aFilledPage("page-id");
 
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
         repository.saveAll(Collections.singletonList(expectedPage));
 
         //A json file has to be created in the repository
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
         assertThat(expectedPage.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
     }
 
@@ -202,19 +200,19 @@ public class PageRepositoryTest {
         Page expectedPage = aFilledPage("page-id");
         addToRepository(expectedPage);
 
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
         repository.delete(expectedPage.getId());
-        assertThat(pagesPath.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getPages().getDir().resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
     }
 
     @Test
     public void should_delete_page_metadata_when_deleting_a_page() throws Exception {
         Page expectedPage = addToRepository(aFilledPage("page-id"));
-        assertThat(pagesPath.resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).exists();
+        assertThat(workspaceProperties.getPages().getDir().resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).exists();
 
         repository.delete(expectedPage.getId());
 
-        assertThat(pagesPath.resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
+        assertThat(workspaceProperties.getPages().getDir().resolve(".metadata").resolve(expectedPage.getId() + ".json").toFile()).doesNotExist();
     }
 
     @Test(expected = NotFoundException.class)
@@ -225,7 +223,7 @@ public class PageRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_on_object_included_search() throws Exception {
         Page expectedPage = aFilledPage("page-id");
-        doThrow(new IOException()).when(loader).contains(pagesPath, expectedPage.getId());
+        doThrow(new IOException()).when(loader).contains(workspaceProperties.getPages().getDir(), expectedPage.getId());
 
         repository.containsObject(expectedPage.getId());
     }
@@ -233,7 +231,7 @@ public class PageRepositoryTest {
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_when_error_occurs_on_object_included_search_list() throws Exception {
         Page expectedPage = aFilledPage("page-id");
-        doThrow(new IOException()).when(loader).findByObjectId(pagesPath, expectedPage.getId());
+        doThrow(new IOException()).when(loader).findByObjectId(workspaceProperties.getPages().getDir(), expectedPage.getId());
 
         repository.findByObjectId(expectedPage.getId());
     }
@@ -261,14 +259,14 @@ public class PageRepositoryTest {
     @Test
     public void should_refresh_repository() throws Exception {
         Page page = addToRepository(aPage());
-        pagesPath.resolve(".metadata").resolve(page.getId() + ".json").toFile().delete();
-        pagesPath.resolve(".metadata").resolve(".index.json").toFile().delete();
+        workspaceProperties.getPages().getDir().resolve(".metadata").resolve(page.getId() + ".json").toFile().delete();
+        workspaceProperties.getPages().getDir().resolve(".metadata").resolve(".index.json").toFile().delete();
 
         repository.refresh(page.getId());
 
         Page fetchedPage = repository.get(page.getId());
         assertThat(fetchedPage.isFavorite()).isFalse();
-        assertThat(pagesPath.resolve(".metadata").resolve(".index.json").toFile()).exists();
+        assertThat(workspaceProperties.getPages().getDir().resolve(".metadata").resolve(".index.json").toFile()).exists();
     }
 
     @Test
@@ -281,6 +279,6 @@ public class PageRepositoryTest {
 
         repository.refreshIndexing(pages);
 
-        verify(persister, times(1)).refreshIndexing(pagesPath.resolve(".metadata"), pages);
+        verify(persister, times(1)).refreshIndexing(workspaceProperties.getPages().getDir().resolve(".metadata"), pages);
     }
 }

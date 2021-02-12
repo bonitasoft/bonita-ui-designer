@@ -29,7 +29,6 @@ import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
-import org.bonitasoft.web.designer.visitor.AnyLocalContainerVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

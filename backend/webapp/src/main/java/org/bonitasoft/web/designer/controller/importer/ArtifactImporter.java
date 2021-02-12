@@ -14,6 +14,19 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
+import static java.lang.String.format;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
+import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
@@ -28,19 +41,6 @@ import org.bonitasoft.web.designer.service.AbstractArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.JSON_STRUCTURE;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.PAGE_NOT_FOUND;
-import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
 
 public class ArtifactImporter<T extends Identifiable> {
 

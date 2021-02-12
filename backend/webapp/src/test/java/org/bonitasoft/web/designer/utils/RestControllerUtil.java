@@ -14,26 +14,10 @@
  */
 package org.bonitasoft.web.designer.utils;
 
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.supportedMediaTypes;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
-import org.springframework.context.support.StaticApplicationContext;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 
 /**

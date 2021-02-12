@@ -14,13 +14,13 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
 import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,14 +30,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
 import com.google.common.collect.ImmutableSortedMap;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 

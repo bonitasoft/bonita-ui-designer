@@ -20,16 +20,21 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
 
+@Named
 public class FragmentImporter extends ComponentDependencyImporter<Fragment> {
 
     private JsonFileBasedLoader<Fragment> fragmentLoader;
     private FragmentRepository fragmentRepository;
 
+    @Inject
     public FragmentImporter(JsonFileBasedLoader<Fragment> fragmentLoader, FragmentRepository fragmentRepository) {
         super(fragmentRepository);
         this.fragmentLoader = fragmentLoader;

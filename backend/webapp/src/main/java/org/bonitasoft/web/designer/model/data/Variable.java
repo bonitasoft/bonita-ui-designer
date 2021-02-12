@@ -14,15 +14,19 @@
  */
 package org.bonitasoft.web.designer.model.data;
 
-import com.fasterxml.jackson.annotation.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @JsonFilter("valueAsArray")
 public class Variable {

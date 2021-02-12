@@ -18,10 +18,9 @@ import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.controller.export.properties.FragmentPropertiesBuilder;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.controller.export.Zipper;
-import org.bonitasoft.web.designer.controller.export.steps.FragmentPropertiesExportStep;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

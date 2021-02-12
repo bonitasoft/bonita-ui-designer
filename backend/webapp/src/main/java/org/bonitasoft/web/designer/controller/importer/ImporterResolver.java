@@ -18,38 +18,40 @@ import static com.google.common.collect.Collections2.transform;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.MODEL_NOT_FOUND;
 import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import com.google.common.base.Function;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 
 @Named
 public class ImporterResolver {
 
-    private Map<String, ArtifactImporter> artifactImporters;
+    private Map<String, ArtifactImporter<? extends DesignerArtifact>> artifactImporters;
 
     @Inject
-    public ImporterResolver(@Value("#{artifactImporters}") Map<String, ArtifactImporter> artifactImporters) {
+    public ImporterResolver(
+            @Value("#{artifactImporters}")
+                    Map<String, ArtifactImporter<? extends DesignerArtifact>> artifactImporters) {
         this.artifactImporters = artifactImporters;
     }
 
-    public ArtifactImporter getImporter(String artifactType) {
-        ArtifactImporter importer = artifactImporters.get(artifactType);
+    public ArtifactImporter<? extends DesignerArtifact> getImporter(String artifactType) {
+        ArtifactImporter<? extends DesignerArtifact> importer = artifactImporters.get(artifactType);
         if (importer == null) {
             throw new NotFoundException();
         }
         return importer;
     }
 
-    public ArtifactImporter getImporter(Path extractDir) {
+    public ArtifactImporter<? extends DesignerArtifact> getImporter(Path extractDir) {
         Path resources = resolveImportPath(extractDir);
-        for (Map.Entry<String, ArtifactImporter> entry : artifactImporters.entrySet()) {
+        for (Map.Entry<String, ArtifactImporter<? extends DesignerArtifact>> entry : artifactImporters.entrySet()) {
             if (Files.exists(resources.resolve(entry.getKey() + ".json"))) {
                 return entry.getValue();
             }
@@ -64,12 +66,6 @@ public class ImporterResolver {
     }
 
     private Collection<String> getModelFiles() {
-        return transform(artifactImporters.keySet(), new Function<String, String>() {
-
-            @Override
-            public String apply(String s) {
-                return s + ".json";
-            }
-        });
+        return transform(artifactImporters.keySet(), key -> key + ".json");
     }
 }

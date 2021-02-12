@@ -14,31 +14,30 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
-import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static com.google.common.collect.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.FragmentElementBuilder.aFragmentElement;
+import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aPropertyValue;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.mockito.Mockito.when;
 
 import java.util.Map;
 
-import org.bonitasoft.web.designer.builder.FragmentBuilder;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.visitor.ModelPropertiesVisitor;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

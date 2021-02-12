@@ -26,24 +26,27 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
-import org.bonitasoft.web.designer.controller.MigrationStatusReport;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.*;
+import org.bonitasoft.web.designer.repository.BeanValidator;
+import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
+import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
 import org.junit.Rule;
@@ -51,7 +54,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LiveRepositoryUpdateTest {
@@ -71,9 +73,14 @@ public class LiveRepositoryUpdateTest {
 
     PageRepository repository;
 
+    private WorkspaceProperties workspaceProperties;
+
     @Before
     public void setUp() throws Exception {
-        repository = new PageRepository(folder.toPath(), persister, loader, beanValidator, mock(Watcher.class));
+        workspaceProperties = new WorkspaceProperties();
+        workspaceProperties.getPages().setDir(folder.toPath());
+        workspaceProperties.getWidgets().setDir(folder.toPath());
+        repository = new PageRepository(workspaceProperties, persister, loader, beanValidator, mock(Watcher.class));
     }
 
     @Test
@@ -141,7 +148,8 @@ public class LiveRepositoryUpdateTest {
     @Test
     public void should_order_LiveRepositoryUpdate() throws Exception {
         LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
-        Repository<Widget> wRepo = new WidgetRepository(folder.toPath(), mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class));
+
+        Repository<Widget> wRepo = new WidgetRepository(workspaceProperties, mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class), mock(UiDesignerProperties.class));
 
         LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate = new LiveRepositoryUpdate<>(wRepo, mock(WidgetFileBasedLoader.class), EMPTY_LIST);
 

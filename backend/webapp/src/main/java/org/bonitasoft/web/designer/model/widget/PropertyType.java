@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
+import java.util.Locale;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.util.Locale;
 
 /**
  * Available widget property types.

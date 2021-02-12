@@ -14,15 +14,13 @@
  */
 package org.bonitasoft.web.designer.model.fragment;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.utils.ListUtil.asList;
 
 import java.util.ArrayList;
 
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.builder.PageBuilder;
@@ -30,9 +28,10 @@ import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.junit.Test;
 import org.junit.runner.RunWith;

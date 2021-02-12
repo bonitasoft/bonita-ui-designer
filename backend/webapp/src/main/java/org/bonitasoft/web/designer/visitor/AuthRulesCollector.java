@@ -14,6 +14,15 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+import static java.util.Collections.emptySet;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -28,17 +37,13 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Collections.emptySet;
-
+@Named
 public class AuthRulesCollector implements ElementVisitor<Set<String>> {
 
-    private WidgetRepository widgetRepository;
-    private FragmentRepository fragmentRepository;
+    private final WidgetRepository widgetRepository;
+    private final FragmentRepository fragmentRepository;
 
+    @Inject
     public AuthRulesCollector(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
         this.widgetRepository = widgetRepository;
         this.fragmentRepository = fragmentRepository;

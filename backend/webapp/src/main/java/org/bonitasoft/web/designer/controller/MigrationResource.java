@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -37,7 +38,6 @@ import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,17 +58,14 @@ public class MigrationResource {
     private final FragmentRepository fragmentRepository;
     private final FragmentService fragmentService;
 
-
-    @Value("${designer.modelVersion}")
-    protected String modelVersion;
-
     private final PageService pageService;
     private final WidgetService widgetService;
+    private final UiDesignerProperties uiDesignerProperties;
 
     @Inject
     public MigrationResource(
             WorkspaceInitializer workspaceInitializer, PageRepository pageRepository, WidgetRepository widgetRepository,
-            FragmentRepository fragmentRepository, PageService pageService, WidgetService widgetService, FragmentService fragmentService) {
+            FragmentRepository fragmentRepository, PageService pageService, WidgetService widgetService, FragmentService fragmentService, UiDesignerProperties uiDesignerProperties) {
         this.workspaceInitializer = workspaceInitializer;
         this.pageRepository = pageRepository;
         this.widgetRepository = widgetRepository;
@@ -76,6 +73,7 @@ public class MigrationResource {
         this.pageService = pageService;
         this.widgetService = widgetService;
         this.fragmentService = fragmentService;
+        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -155,7 +153,7 @@ public class MigrationResource {
         if (artifactVersionNode == null) {
             artifactVersionNode = artifactNode.get("designerVersion");
         }
-        Version currentVersion = new Version(modelVersion);
+        Version currentVersion = new Version(this.uiDesignerProperties.getModelVersion());
         Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
         return new ResponseEntity<>(compareVersions(artifactVersion, currentVersion), HttpStatus.OK);
     }

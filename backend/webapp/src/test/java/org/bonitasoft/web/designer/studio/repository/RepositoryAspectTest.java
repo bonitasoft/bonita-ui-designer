@@ -17,15 +17,11 @@ package org.bonitasoft.web.designer.studio.repository;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.Path;
 import java.util.Arrays;
-
 import javax.inject.Inject;
 
 import org.bonitasoft.web.designer.ApplicationConfig;
@@ -52,7 +48,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * @author Romain Bioteau
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class, DesignerConfig.class })
+@ContextConfiguration(classes = { ApplicationConfig.class})
 @WebAppConfiguration("src/test/resources")
 @ActiveProfiles(profiles = "studio")
 public class RepositoryAspectTest {

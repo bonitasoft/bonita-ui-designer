@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.model;
 
-import org.bonitasoft.web.designer.repository.Repository;
-
 import java.util.List;
 import java.util.Map;
+
+import org.bonitasoft.web.designer.repository.Repository;
 
 public interface WidgetContainerRepository<T extends Identifiable> extends Repository<T> {
 
