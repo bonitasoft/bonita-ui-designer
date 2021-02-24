@@ -22,7 +22,6 @@
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-backend-webapp</artifactId>
             <version>${project.version}</version>
-            <classifier>exec-war</classifier>
         </dependency>
     </dependencies>
 
@@ -65,14 +64,14 @@
                             <healthcheckUrl>http://localhost:8083/bonita</healthcheckUrl>
                             <arguments>
                                 <argument>java</argument>
-                                <argument>-jar</argument>
-                                <argument>
-                                    ${basedir}/../backend/webapp/target/ui-designer-${project.version}-standalone.jar
-                                </argument>
                                 <argument>-Ddesigner.workspace.pages.dir=${project.build.directory}/pages/</argument>
                                 <argument>-Ddesigner.workspace.fragments.dir=${project.build.directory}/fragments/</argument>
                                 <argument>-Ddesigner.workspace.widgets.dir=${project.build.directory}/widgets</argument>
-                                <argument>-httpPort=8083</argument>
+                                <argument>-jar</argument>
+                                <argument>
+                                    ${basedir}/../backend/webapp/target/ui-designer-${project.version}.jar
+                                </argument>
+                                <argument>--server.port=8083</argument>
                             </arguments>
                         </configuration>
                     </execution>

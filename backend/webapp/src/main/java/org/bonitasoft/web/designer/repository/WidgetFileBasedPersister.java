@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.nio.file.Files.write;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -28,7 +26,10 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.util.StringUtils;
+
+import static java.nio.file.Files.write;
 
 /**
  * This Persister is used to manage the persistence logic for a widget. Each of them are serialized in a json file

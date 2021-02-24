@@ -14,14 +14,11 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static java.util.Collections.singleton;
+import javax.inject.Named;
 
-import com.google.common.base.Function;
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
@@ -30,16 +27,18 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static java.util.Collections.singleton;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the components used in a page
  */
+@Named
+@RequiredArgsConstructor
 public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
 
-    private FragmentRepository fragmentRepository;
-
-    public ComponentVisitor(FragmentRepository fragmentRepository) {
-        this.fragmentRepository = fragmentRepository;
-    }
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public Iterable<Component> visit(FragmentElement fragmentElement) {
@@ -49,13 +48,7 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
     @Override
     public Iterable<Component> visit(Container container) {
         // transform a list of list of elements into a list of components by visiting element contents
-        return flatten(transform(flatten(container.getRows()), new Function<Element, Iterable<Component>>() {
-
-            @Override
-            public Iterable<Component> apply(Element element) {
-                return element.accept(ComponentVisitor.this);
-            }
-        }));
+        return flatten(transform(flatten(container.getRows()), element -> element.accept(ComponentVisitor.this)));
     }
 
     @Override
@@ -65,13 +58,7 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
 
     @Override
     public Iterable<Component> visit(TabsContainer tabsContainer) {
-        return flatten(transform(tabsContainer.getTabList(), new Function<TabContainer, Iterable<Component>>() {
-
-            @Override
-            public Iterable<Component> apply(TabContainer tabContainer) {
-                return tabContainer.accept(ComponentVisitor.this);
-            }
-        }));
+        return flatten(transform(tabsContainer.getTabList(), tabContainer -> tabContainer.accept(ComponentVisitor.this)));
     }
 
     @Override

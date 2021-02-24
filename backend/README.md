@@ -11,16 +11,16 @@ You should note that `*` is used only if more than 20 classes are used, and that
  and `javax` packages, and then the other imports.
 
 
-### Jetty
-To start a jetty server
+### Sprint boot 
+To start a Sprint boot application server
 
-    mvn jetty:run
+    mvn spring-boot:run
     
-For debugging purpose
+Or you can run `Start backend` IntelliJ target configuration. (Same for debugging)
+    
+Default configuration launch springboot application on `http://localhost:8080/bonita`
 
-    mvnDebug jetty:run
-    
-Default configuration launch jetty on http://localhost:8080/, source code is _watched_ every two seconds to enable hot reload of modified code
+Note: You can update application.properties to change properties value. You can also override this values with environment variable in Edit Configuration > Environment > Vm option. 
 
 ### Gulp
 While editing backend js files, extra build steps are performed when building war. For development purpose you can launch jetty via gulp. This will 'watch' js files and rebuild them every time a change happens

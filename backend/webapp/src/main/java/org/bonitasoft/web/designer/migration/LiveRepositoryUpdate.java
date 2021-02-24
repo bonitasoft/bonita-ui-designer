@@ -15,9 +15,6 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static org.apache.commons.lang3.StringUtils.contains;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -32,6 +29,9 @@ import org.bonitasoft.web.designer.repository.AbstractLoader;
 import org.bonitasoft.web.designer.repository.RefreshingRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+
+import static java.nio.file.FileVisitResult.CONTINUE;
+import static org.apache.commons.lang3.StringUtils.contains;
 
 
 public class LiveRepositoryUpdate<A extends DesignerArtifact> implements Comparable<LiveRepositoryUpdate> {

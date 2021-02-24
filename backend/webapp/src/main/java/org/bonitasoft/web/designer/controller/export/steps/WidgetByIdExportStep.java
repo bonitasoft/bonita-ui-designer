@@ -14,11 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
-
 import java.io.IOException;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,6 +25,9 @@ import org.bonitasoft.web.designer.controller.export.ExcludeDescriptorFilePredic
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.controller.export.properties.WidgetPropertiesBuilder;
 import org.bonitasoft.web.designer.model.widget.Widget;
+
+import static java.lang.String.format;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 
 @Named
 public class WidgetByIdExportStep implements ExportStep<Widget> {

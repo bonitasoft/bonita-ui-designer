@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.emptySet;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +34,8 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+
+import static java.util.Collections.emptySet;
 
 @Named
 public class AuthRulesCollector implements ElementVisitor<Set<String>> {

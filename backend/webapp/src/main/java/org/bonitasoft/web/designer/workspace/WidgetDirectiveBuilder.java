@@ -14,13 +14,10 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.lang.String.valueOf;
-import static java.nio.file.Files.write;
-import static java.nio.file.Paths.get;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,6 +26,10 @@ import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+
+import static java.lang.String.valueOf;
+import static java.nio.file.Files.write;
+import static java.nio.file.Paths.get;
 
 @Named
 public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {

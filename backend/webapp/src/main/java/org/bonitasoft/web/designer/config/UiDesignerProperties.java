@@ -14,22 +14,23 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.NoArgsConstructor;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @Named
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "designer")
 public class UiDesignerProperties {
 
     public UiDesignerProperties(String version, String modelVersion) {
         this.version = version;
         this.modelVersion = modelVersion;
     }
-
-    public UiDesignerProperties() {}
 
     /**
      * System property set by the studio to target bonita repository
@@ -46,54 +47,32 @@ public class UiDesignerProperties {
     public static final String BONITA_PORTAL_PASSWORD = "designer.bonita.portal.password";
 
 
-    @Value("${designer.edition}")
     private String edition;
-
-    @Value("${designer.version}")
     private String version;
-
-    @Value("${designer.modelVersion}")
     private String modelVersion;
-
-    @Value("${designer.experimental}")
     private boolean experimental;
 
-    @Inject
     private BonitaProperties bonita = new BonitaProperties();
-    @Inject
     private WorkspaceProperties workspaceProperties = new WorkspaceProperties();
-    @Inject
     private WorkspaceUidProperties workspaceUidProperties = new WorkspaceUidProperties();
 
     @Data
-    @Named
     public static class BonitaProperties {
-        @Inject
         private PortalProperties portal = new PortalProperties();
-        @Inject
         private BdmProperties bdm = new BdmProperties();
 
     }
 
     @Data
-    @Named
     public static class PortalProperties {
 
-        @Value("${designer.bonita.portal.url}")
-        private String bonitaPortalUrl;
-
-        @Value("${designer.bonita.portal.user}")
-        private String bonitaPortalUser;
-
-        @Value("${designer.bonita.portal.password}")
-        private String bonitaPortalPassword;
-
+        private String url;
+        private String user;
+        private String password;
     }
 
     @Data
-    @Named
     public static class BdmProperties {
-        @Value("${designer.bonita.bdm.url}")
         private String url;
     }
 

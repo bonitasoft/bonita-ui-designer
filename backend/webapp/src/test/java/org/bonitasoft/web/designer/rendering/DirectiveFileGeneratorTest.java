@@ -14,14 +14,6 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Mockito.when;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,7 +34,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static java.nio.file.Files.readAllBytes;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Benjamin Parisel
@@ -59,6 +59,7 @@ public class DirectiveFileGeneratorTest {
 
     @Mock
     private WidgetRepository widgetRepository;
+
     @Mock
     private WidgetIdVisitor widgetIdVisitor;
 

@@ -14,10 +14,11 @@
  */
 package org.bonitasoft.web.designer.repository.exception;
 
-import static org.apache.commons.lang3.StringUtils.chop;
-
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
+
+import static org.apache.commons.lang3.StringUtils.chop;
 
 public class ConstraintValidationException extends RuntimeException {
 

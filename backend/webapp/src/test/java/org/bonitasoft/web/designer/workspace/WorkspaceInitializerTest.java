@@ -14,11 +14,7 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -26,16 +22,15 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.core.io.FileSystemResourceLoader;
-import org.springframework.mock.web.MockServletContext;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static java.util.Arrays.asList;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WorkspaceInitializerTest {
-
-    private static final String WAR_BASE_PATH = "src/main/webapp";
 
     @Mock
     private LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate;
@@ -46,13 +41,11 @@ public class WorkspaceInitializerTest {
     @Mock
     private Workspace workspace;
 
-    @InjectMocks
     private WorkspaceInitializer workspaceInitializer;
 
     @Before
     public void initializeWorkspaceInitializer() {
-        workspaceInitializer.setServletContext(new MockServletContext(WAR_BASE_PATH, new FileSystemResourceLoader()));
-        workspaceInitializer.setMigrations(Arrays.<LiveRepositoryUpdate>asList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate));
+        workspaceInitializer = new WorkspaceInitializer(workspace, asList(pageRepositoryLiveUpdate, widgetRepositoryLiveUpdate));
     }
 
     @Test

@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
+import org.bonitasoft.web.designer.model.data.Data;
+
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
-
-import org.bonitasoft.web.designer.model.data.Data;
 
 public class TaskData implements PageData {
 

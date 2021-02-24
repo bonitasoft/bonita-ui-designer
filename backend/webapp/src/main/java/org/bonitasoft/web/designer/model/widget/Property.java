@@ -14,10 +14,9 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -26,6 +25,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.hibernate.validator.constraints.NotBlank;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 public class Property {
 

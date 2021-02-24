@@ -13,11 +13,11 @@ const config = require('./config.js');
 let paths = config.paths;
 
 let staticProxyfiedFiles = [
-  /^\/runtime\/.*/,               // http://localhost:8080/runtime/...
+  /^\/bonita\/runtime\/.*/,               // http://localhost:8080/runtime/...
   /^\/widgets\/.*/,                 // http://localhost:8080/widgets/...
   /^\/.*\/assets\/.*/,      // http://localhost:8080/.../assets/....
   /^\/preview\/.*/,
-  /^\/apps\/.*\/theme\/.*/
+  /^\/bonita\/apps\/.*\/theme\/.*/
 ];
 
 /**
@@ -49,7 +49,11 @@ function proxyMiddleware(req, res, next) {
   if (req.url === '/' || matchStaticFile(req) && !matchStaticProxyfied(req)) {
     next();
   } else {
-    proxy.web(req, res, {target: 'http://127.0.0.1:8080'});
+    // We have the runtime files prefixed with '/bonita', so we need to remove this here
+    // (a bit ugly, a better solution is welcome)
+    req.url = req.url.replace(/^\/bonita/, '');
+    //TODO would be better to use the server.port from application.properties instead of hardcode it
+    proxy.web(req, res, {target: 'http://127.0.0.1:8080/bonita'});
   }
 }
 

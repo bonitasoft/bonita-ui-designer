@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.generator.mapping.data;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.inject.Named;
 
 import com.google.common.base.Strings;

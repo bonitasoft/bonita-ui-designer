@@ -14,24 +14,22 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.createDirectories;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.controller.utils.CopyResources;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -40,47 +38,64 @@ import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.core.io.ResourceLoader;
 
+import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.EXTRACT_BACKEND_RESOURCES;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_RESOURCES;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.WIDGETS_WC_RESOURCES;
+
+@Slf4j
 @Named
 public class Workspace {
 
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
 
     private final UiDesignerProperties uiDesignerProperties;
+    private final WorkspaceProperties workspaceProperties;
     private WidgetRepository widgetRepository;
     private WidgetFileBasedLoader widgetLoader;
+    private WorkspaceUidProperties workspaceUidProperties;
+    private CopyResources copyResources;
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
     private FragmentDirectiveBuilder fragmentDirectiveBuilder;
     private ResourceLoader resourceLoader;
     private AssetImporter<Widget> widgetAssetImporter;
-    private WorkspaceProperties workspaceProperties;
+    private Path extractPath;
 
     @Inject
     public Workspace(WorkspaceProperties workspaceProperties, WidgetRepository widgetRepository, WidgetFileBasedLoader widgetLoader,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
-                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter, UiDesignerProperties uiDesignerProperties) {
+                     ResourceLoader resourceLoader, AssetImporter<Widget> widgetAssetImporter, UiDesignerProperties uiDesignerProperties, WorkspaceUidProperties workspaceUidProperties, CopyResources copyResources) {
         this.workspaceProperties = workspaceProperties;
         this.widgetRepository = widgetRepository;
         this.widgetLoader = widgetLoader;
+        this.copyResources = copyResources;
         this.resourceLoader = resourceLoader;
         this.widgetDirectiveBuilder = widgetDirectiveBuilder;
         this.fragmentDirectiveBuilder = fragmentDirectiveBuilder;
         this.widgetAssetImporter = widgetAssetImporter;
+        this.workspaceUidProperties = workspaceUidProperties;
         this.uiDesignerProperties = uiDesignerProperties;
+        this.extractPath = workspaceUidProperties.getExtractPath();
     }
 
     public void initialize() throws IOException {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
-        if(this.uiDesignerProperties.isExperimental()){
+        if (this.uiDesignerProperties.isExperimental()) {
             ensureWidgetWcRepositoryPresent();
             ensureWidgetRepositoryFilledWc();
         }
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
+        extractResourcesForExport();
     }
+
+
 
     /**
      * Clean page Workspace:
@@ -116,6 +131,7 @@ public class Workspace {
 
     /**
      * remove  metadata file without a artifact in workspace
+     *
      * @param workspace
      * @param folder
      */
@@ -157,15 +173,20 @@ public class Workspace {
     }
 
     private void ensureWidgetRepositoryFilledWc() throws IOException {
-        Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_WC_RESOURCES).getURI());
+
+        copyResources.copyResources(extractPath, WIDGETS_WC_RESOURCES);
+
+        Path widgetRepositorySourcePath = extractPath.resolve(WIDGETS_WC_RESOURCES);
         FileUtils.copyDirectory(FileUtils.getFile(widgetRepositorySourcePath.toString()),
                 workspaceProperties.getWidgetsWc().getDir().toFile());
     }
 
     private void ensureWidgetRepositoryFilled() throws IOException {
-        Path widgetRepositorySourcePath = Paths.get(resourceLoader.getResource(WIDGETS_RESOURCES).getURI());
-        List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePath);
 
+        copyResources.copyResources(extractPath, WIDGETS_RESOURCES);
+        Path widgetRepositorySourcePath = extractPath.resolve(WIDGETS_RESOURCES);
+
+        List<Widget> widgets = widgetLoader.getAll(widgetRepositorySourcePath);
         for (Widget widget : widgets) {
             if (!widgetRepository.exists(widget.getId())) {
                 createWidget(widgetRepositorySourcePath, widget);
@@ -179,7 +200,6 @@ public class Workspace {
         }
         widgetDirectiveBuilder.start(workspaceProperties.getWidgets().getDir());
     }
-
 
 
     private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
@@ -235,13 +255,17 @@ public class Workspace {
     }
 
     private void ensureFragmentRepositoryPresent() throws IOException {
-        Path fragmentsPath= workspaceProperties.getFragments().getDir();
+        Path fragmentsPath = workspaceProperties.getFragments().getDir();
         createDirectories(fragmentsPath);
         fragmentDirectiveBuilder.start(fragmentsPath);
     }
 
     private boolean isFragmentDescriptorExist(Path fragWorkspace, String fragment) {
         return fragWorkspace.resolve(fragment).resolve(fragment + ".json").toFile().exists();
+    }
+
+    private void extractResourcesForExport() throws IOException {
+        copyResources.copyResources(extractPath,EXTRACT_BACKEND_RESOURCES);
     }
 
 }

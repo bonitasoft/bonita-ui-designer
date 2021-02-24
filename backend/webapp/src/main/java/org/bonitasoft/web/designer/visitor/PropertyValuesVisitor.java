@@ -14,12 +14,13 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.singletonMap;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -37,16 +38,16 @@ import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
+import static java.util.Collections.singletonMap;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect property values in a page
  */
+@Named
+@RequiredArgsConstructor
 public class PropertyValuesVisitor implements ElementVisitor<Map<String, Map<String, PropertyValue>>>, PageFactory {
 
-    private FragmentRepository fragmentRepository;
-
-    public PropertyValuesVisitor(FragmentRepository fragmentRepository) {
-        this.fragmentRepository = fragmentRepository;
-    }
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public Map<String, Map<String, PropertyValue>> visit(FragmentElement fragmentElement) {

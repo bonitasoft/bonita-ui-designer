@@ -14,14 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
-import static org.springframework.util.FileCopyUtils.copy;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +28,12 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.service.AbstractArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
+import static org.springframework.util.FileCopyUtils.copy;
 
 public class Exporter<T extends DesignerArtifact> {
 

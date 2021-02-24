@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
-import static java.nio.file.Files.walkFileTree;
-import static java.nio.file.Paths.get;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,6 +24,9 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import static java.nio.file.Files.walkFileTree;
+import static java.nio.file.Paths.get;
 
 public class Zipper implements AutoCloseable {
 

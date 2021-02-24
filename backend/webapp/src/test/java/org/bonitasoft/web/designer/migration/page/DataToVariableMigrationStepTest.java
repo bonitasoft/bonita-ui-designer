@@ -26,7 +26,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataToVariableMigrationStepTest {
@@ -50,7 +50,7 @@ public class DataToVariableMigrationStepTest {
 
     @Test
     public void should_migrate_page_with_data_with_null_value() throws Exception {
-        Page pageWithData = aPage().withId("pageWithData").withData("myEmptyData", 
+        Page pageWithData = aPage().withId("pageWithData").withData("myEmptyData",
                 DataBuilder.aConstantData().exposed(true).build()).build();
 
         dataToVariableMigrationStep.migrate(pageWithData);

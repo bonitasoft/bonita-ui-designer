@@ -14,12 +14,13 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.emptyMap;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -37,16 +38,16 @@ import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
+import static java.util.Collections.emptyMap;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the variables used in a page
  */
+@Named
+@RequiredArgsConstructor
 public class VariableModelVisitor implements ElementVisitor<Map<String, Map<String, Variable>>>, PageFactory {
 
-    private FragmentRepository fragmentRepository;
-
-    public VariableModelVisitor(FragmentRepository fragmentRepository) {
-        this.fragmentRepository = fragmentRepository;
-    }
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public Map<String, Map<String, Variable>> visit(FragmentElement fragmentElement) {

@@ -15,10 +15,9 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import static java.lang.String.format;
-
 import java.util.Optional;
 import java.util.UUID;
+
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
@@ -26,7 +25,10 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.util.StringUtils;
+
+import static java.lang.String.format;
 
 @Named
 public class PageUUIDMigrationStep extends AbstractMigrationStep<Page> {

@@ -22,6 +22,7 @@ import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObje
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

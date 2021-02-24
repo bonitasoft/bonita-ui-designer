@@ -14,20 +14,22 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static com.google.common.collect.Collections2.transform;
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.MODEL_NOT_FOUND;
-import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Value;
+
+import static com.google.common.collect.Collections2.transform;
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.MODEL_NOT_FOUND;
+import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver.resolveImportPath;
 
 @Named
 public class ImporterResolver {

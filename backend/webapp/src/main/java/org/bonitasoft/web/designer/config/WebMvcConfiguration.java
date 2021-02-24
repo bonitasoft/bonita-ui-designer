@@ -15,49 +15,48 @@
 package org.bonitasoft.web.designer.config;
 
 
-import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet;
+import org.mitre.dsmiley.httpproxy.ProxyServlet;
+
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.WebContentInterceptor;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
+import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_USER;
 
 @Configuration
-@EnableWebMvc
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
-    public final static String BACKEND_RESOURCES = "classpath:/META-INF/resources/";
-    public final static String FRONTEND_RESOURCES = "classpath:/static/";
-    public final static String WIDGETS_RESOURCES = "classpath:/widgets/";
-    public final static String WIDGETS_WC_RESOURCES = "classpath:/widgetsWc/";
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {BACKEND_RESOURCES, FRONTEND_RESOURCES};
+    public static final String BACKEND_RESOURCES = "classpath:/META-INF/resources/";
 
-    @Autowired
-    private ResourceLoader resourceLoader;
+    public static final String EXTRACT_BACKEND_RESOURCES = "META-INF/resources";
 
-    @Autowired
-    private WorkspaceUidProperties workspaceUidProperties;
+    public static final String FRONTEND_RESOURCES = "classpath:/static/";
+
+    public static final String WIDGETS_RESOURCES = "widgets";
+
+    public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
+
+    public static final String I18N_RESOURCES = "i18n";
+
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { BACKEND_RESOURCES, FRONTEND_RESOURCES };
 
     /**
      * Jackson object mapper used to serialize or deserialize Json objects
@@ -66,6 +65,16 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
      */
     @Inject
     public ObjectMapper objectMapper;
+
+    @Inject
+    private WorkspaceUidProperties workspaceUidProperties;
+
+    @Inject
+    private UiDesignerProperties uiDesignerProperties;
+
+    public static List<MediaType> supportedMediaTypes() {
+        return Arrays.asList(MediaType.APPLICATION_JSON_UTF8, new MediaType("text", "plain", StandardCharsets.UTF_8));
+    }
 
     /**
      * To use multipart (based on Servlet 3.0) we need to mark the DispatcherServlet with a {@link javax.servlet.MultipartConfigElement} in programmatic Servlet
@@ -78,33 +87,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * This allows for mapping the DispatcherServlet to "/" (thus overriding the mapping of the container’s default Servlet), while still allowing static resource
-     * requests to be handled by the container’s default Servlet. It configures a DefaultServletHttpRequestHandler with a URL mapping of "/**" and the lowest priority
-     * relative to other URL mappings.
-     */
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    /**
-     * In Internet Explorer http requests are cached by default. It's a problem when we want to provide a REST API. This interceptor
-     * adds headers in the responses to desactivate the cache. NB :  static resources are cached but managed by the resource handlers
-     *
-     * @param registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        WebContentInterceptor interceptor = new WebContentInterceptor();
-        interceptor.setCacheSeconds(0);
-        interceptor.setUseExpiresHeader(true);
-        interceptor.setUseCacheControlHeader(true);
-        interceptor.setUseCacheControlNoStore(true);
-
-        registry.addInterceptor(interceptor);
-    }
-
-    /**
      * Add resources handler to help Spring to manage our static resources (from frontend and backend)
      */
     @SneakyThrows
@@ -112,7 +94,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if (!registry.hasMappingForPattern("/i18n/*")) {
             registry.addResourceHandler("/i18n/*")
-                    .addResourceLocations( workspaceUidProperties.getTmpI18nPath().toUri().toString());
+                    .addResourceLocations(workspaceUidProperties.getTmpI18nPath().toUri().toString());
         }
 
         if (!registry.hasMappingForPattern("/widgets/**")) {
@@ -131,19 +113,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         }
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        if (this.resourceLoader.getResource("classpath:/static/index.html").exists()) {
-            // Use forward: prefix so that no view resolution is done
-            try {
-                logger.info("Adding welcome page: " + this.resourceLoader.getResource(FRONTEND_RESOURCES + "index.html").getURL());
-                registry.addViewController("/").setViewName("forward:/index.html");
-            } catch (IOException e) {
-                logger.error("The home page index.html was not found", e);
-            }
-        }
-    }
-
     /**
      * Spring MVC use a default objectMapper. Objects passed to and returned from the controllers are converted to and from HTTP messages by HttpMessageConverter
      * instances. We must use our {{@link #objectMapper}} because of the subtypes.... So we declare two message converters
@@ -155,7 +124,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         //Add a converter for the String sent via HTTP
-        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
         stringConverter.setWriteAcceptCharset(false);  // see SPR-7316
         converters.add(stringConverter);
 
@@ -166,8 +135,88 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     }
 
-    public static List<MediaType> supportedMediaTypes() {
-        return Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")), new MediaType("text", "plain", Charset.forName("UTF-8")));
+
+    /**
+     * Useful for REST API calls in the preview using relative URLs ../API/ and absolute /bonita/API
+     */
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaAPIProxy() {
+        return newProxyServlet("API");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaPortalProxy() {
+        return newProxyServlet("portal");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaPortalJSProxy() {
+        return newProxyServlet("portal.js");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaServicesProxy() {
+        return newProxyServlet("services");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaThemeProxy() {
+        return newProxyServlet("theme");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaServerAPIProxy() {
+        return newProxyServlet("serverAPI");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaMobileProxy() {
+        return newProxyServlet("mobile");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bonitaAppsProxy() {
+        return newProxyServlet("apps");
+    }
+
+    @Bean
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> bdrProxyServlet() {
+
+        ServletRegistrationBean<PreservingCookiePathProxyServlet> servletRegistration =
+                new ServletRegistrationBean<>(new PreservingCookiePathProxyServlet(), "/bdm/*");
+        servletRegistration.setLoadOnStartup(1);
+        servletRegistration.addInitParameter("targetUri", uiDesignerProperties.getBonita().getBdm().getUrl() + "/bdm");
+        servletRegistration.addInitParameter(ProxyServlet.P_LOG, "true");
+        servletRegistration.setName("bonitaDataRepository");
+
+        return servletRegistration;
+    }
+
+    private String getPortalUrl() {
+        return uiDesignerProperties.getBonita().getPortal().getUrl();
+    }
+
+    public ServletRegistrationBean<PreservingCookiePathProxyServlet> newProxyServlet(String resourceName) {
+        ServletRegistrationBean<PreservingCookiePathProxyServlet> servletRegistration =
+                new ServletRegistrationBean<>(new PreservingCookiePathProxyServlet(), "/" + resourceName + "/*");
+        servletRegistration.setLoadOnStartup(1);
+        servletRegistration.addInitParameter("targetUri", getPortalUrl() + "/bonita/" + resourceName);
+        servletRegistration.addInitParameter(ProxyServlet.P_LOG, "true");
+        servletRegistration.addInitParameter(ProxyServlet.P_PRESERVECOOKIES, "true");
+        servletRegistration.addInitParameter(ProxyServlet.P_PRESERVEHOST, "true");
+        servletRegistration.setName("bonita-" + resourceName + "-Proxy");
+        addCredentials(servletRegistration);
+
+        return servletRegistration;
+    }
+
+    private void addCredentials(ServletRegistrationBean<?> servletRegistration) {
+        String portalUser = uiDesignerProperties.getBonita().getPortal().getUser();
+        String portalPassword = uiDesignerProperties.getBonita().getPortal().getPassword();
+        if (!StringUtils.isBlank(portalUser) && !StringUtils.isBlank(portalPassword)) {
+            servletRegistration.addInitParameter(P_PORTAL_USER, portalUser);
+            servletRegistration.addInitParameter(P_PORTAL_PASSWORD, portalPassword);
+        }
     }
 
 }

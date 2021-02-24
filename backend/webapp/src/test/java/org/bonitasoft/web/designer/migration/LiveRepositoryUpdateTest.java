@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
+
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -141,8 +142,8 @@ public class LiveRepositoryUpdateTest {
 
         liveRepositoryUpdate.start();
 
+        verify(persister).saveInIndex(nullable(Path.class), any(Page.class));
         verify(persister).updateMetadata(any(Path.class), any(Page.class));
-        verify(persister).saveInIndex(any(Path.class), any(Page.class));
     }
 
     @Test

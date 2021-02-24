@@ -14,10 +14,8 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
-
 import java.io.IOException;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +23,9 @@ import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
+
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 @Named
 public class AssetExportStep implements ExportStep<Page> {

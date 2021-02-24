@@ -14,27 +14,32 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import static com.github.dreamhead.moco.Moco.*;
-import static com.github.dreamhead.moco.Runner.runner;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
-
-import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.github.dreamhead.moco.HttpServer;
+import com.github.dreamhead.moco.RestServer;
 import com.github.dreamhead.moco.Runner;
-import org.junit.AfterClass;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.core.env.Environment;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.util.SocketUtils;
 import org.springframework.web.client.RestTemplate;
+
+import static com.github.dreamhead.moco.Moco.by;
+import static com.github.dreamhead.moco.Moco.match;
+import static com.github.dreamhead.moco.Moco.status;
+import static com.github.dreamhead.moco.Moco.uri;
+import static com.github.dreamhead.moco.MocoRest.restServer;
+import static java.net.URLEncoder.encode;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Romain Bioteau
@@ -42,45 +47,46 @@ import org.springframework.web.client.RestTemplate;
 @RunWith(MockitoJUnitRunner.class)
 public class StudioWorkspaceResourceHandlerTest {
 
+    private static RestServer server;
+
+    //    @Rule
+//    public MocoJunitRunner runner = MocoJunitRunner.restRunner(server);
+    public Runner runner;
+
     private StudioWorkspaceResourceHandler studioWorkspaceResourceHandler;
 
     private RestClient restClient;
 
-    private static Runner runner;
-
-    private HttpServer server;
-
     private Path filePath;
 
-    @InjectMocks
-    private RestClientProperties restClientProperties;
-
     @Mock
-    private Environment env;
+    private WorkspaceProperties workspaceProperties;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        if(server == null){
-            server = httpserver();
-            runner = runner(server);
-            runner.start();
-        }
 
-        restClient = new RestClient(new RestTemplate(), restClientProperties);
+        final int port = SocketUtils.findAvailableTcpPort();
+        server = restServer(port);
+        runner = Runner.runner(server);
+        runner.start();
+
+        when(workspaceProperties.getApiUrl()).thenReturn("http://localhost:" + server.port() + "/workspace");
+
+        server.response(status(HttpStatus.NOT_FOUND.value()));
+
+        restClient = new RestClient(new RestTemplate(), workspaceProperties);
+
+        studioWorkspaceResourceHandler = new StudioWorkspaceResourceHandler(restClient);
 
         filePath = Paths.get("path", "to", "file");
 
-        studioWorkspaceResourceHandler = new StudioWorkspaceResourceHandler(
-                restClient);
-
-        when(env.getProperty(RestClientProperties.WORKSPACE_API_REST_URL)).thenReturn("http://localhost:"+server.port()+"/workspace");
     }
 
-    @AfterClass
-    public static void stopServer() throws Exception {
+    @After
+    public void stopServer() throws Exception {
         if (runner != null) {
             runner.stop();
         }
@@ -89,7 +95,7 @@ public class StudioWorkspaceResourceHandlerTest {
     @Test
     public void should_doPost_doNothing_if_rest_client_is_not_configured()
             throws Exception {
-        when(env.getProperty(RestClientProperties.WORKSPACE_API_REST_URL)).thenReturn(null);
+        lenient().when(workspaceProperties.getApiUrl()).thenReturn(null);
 
         studioWorkspaceResourceHandler.doPost(filePath, WorkspaceResourceEvent.POST_CLOSE);
     }
@@ -97,7 +103,7 @@ public class StudioWorkspaceResourceHandlerTest {
     @Test
     public void should_doGet_doNothing_if_rest_client_is_not_configured()
             throws Exception {
-        when(env.getProperty(RestClientProperties.WORKSPACE_API_REST_URL)).thenReturn(null);
+        lenient().when(workspaceProperties.getApiUrl()).thenReturn(null);
 
         studioWorkspaceResourceHandler.doGet(filePath, StudioWorkspaceResourceHandler.GET_LOCK_STATUS);
     }
@@ -184,7 +190,7 @@ public class StudioWorkspaceResourceHandlerTest {
     @Test
     public void should_getLockStatus_get_to_workspace_rest_api()
             throws Exception {
-        server.request(by(uri("/workspace/" + URLEncoder.encode(filePath.toString(), "UTF-8") + "/lockStatus"))).response(LockStatus.LOCKED_BY_ME.name());
+        server.request(match(uri("/workspace/.*/lockStatus"))).response(LockStatus.LOCKED_BY_ME.name());
 
         LockStatus lockStatus = studioWorkspaceResourceHandler.getLockStatus(filePath);
 
@@ -194,7 +200,7 @@ public class StudioWorkspaceResourceHandlerTest {
     @Test
     public void should_getLockStatus_return_UNLOCKED_as_default_value()
             throws Exception {
-        server.request(by(uri("/workspace/" + URLEncoder.encode(filePath.toString(), "UTF-8") + "/lockStatus"))).response(status(HttpStatus.OK.value()));
+        server.request(match(uri("/workspace/.*/lockStatus"))).response(status(HttpStatus.OK.value()));
 
         LockStatus lockStatus = studioWorkspaceResourceHandler.getLockStatus(filePath);
 
@@ -204,7 +210,7 @@ public class StudioWorkspaceResourceHandlerTest {
     @Test(expected = ResourceNotFoundException.class)
     public void should_getLockStatus_throw_a_ResourceNotFoundException_if_status_NOT_FOUND()
             throws Exception {
-        server.request(by(uri("/workspace/" + URLEncoder.encode(filePath.toString(), "UTF-8") + "/lockStatus"))).response(status(HttpStatus.NOT_FOUND.value()));
+        server.request(by(uri("/workspace/" + encode(filePath.toString(), "UTF-8") + "/lockStatus"))).response(status(HttpStatus.NOT_FOUND.value()));
 
         studioWorkspaceResourceHandler.getLockStatus(filePath);
     }

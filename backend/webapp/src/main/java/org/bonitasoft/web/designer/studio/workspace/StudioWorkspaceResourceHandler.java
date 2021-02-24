@@ -14,11 +14,10 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -26,6 +25,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import static java.net.URLEncoder.encode;
 
 /**
  * @author Romain Bioteau
@@ -172,14 +173,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     }
 
     private String createGetURL(final Path filePath, final String action) {
-        String encodedURL;
-        try {
-            encodedURL = URLEncoder.encode(filePath.toFile().toString(), StandardCharsets.UTF_8.name());
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException("Failed to encode: " + filePath + " with charset: " + StandardCharsets.UTF_8.name(), e);
-        }
-        return restClient.createURI(encodedURL + "/"
-                + action);
+        String encodedURL = encode(filePath.toFile().toString(), StandardCharsets.UTF_8);
+        return restClient.createURI(encodedURL + "/" + action);
     }
 
     private String createPostURL(final WorkspaceResourceEvent action) {
@@ -194,6 +189,5 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
         }
         throw new RuntimeException("Unhandled exception", e);
     }
-
 
 }

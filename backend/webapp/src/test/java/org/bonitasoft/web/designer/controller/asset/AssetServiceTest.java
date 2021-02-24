@@ -14,18 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import static junitparams.JUnitParamsRunner.$;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
-import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
-import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,25 +33,45 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
 import org.springframework.mock.web.MockMultipartFile;
+
+import static junitparams.JUnitParamsRunner.$;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
+import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @RunWith(JUnitParamsRunner.class)
 public class AssetServiceTest {
 
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-    @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private Repository<Page> repository;
+
     @Mock
     private AssetRepository<Page> assetRepository;
+
     @Mock
     private AssetImporter<Page> assetImporter;
 
@@ -76,33 +84,35 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_uploading_file_null() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Part named [file] is needed to successfully import a component"));
-
-        assetService.upload(null, aPage().build(), "js");
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                assetService.upload(null, aPage().build(), "js")
+        );
+        assertThat(exception.getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
     }
 
     @Test
     public void should_return_error_when_uploading_file_empty() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Part named [file] is needed to successfully import a component"));
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            //We construct a mockfile (the first arg is the name of the property expected in the controller
+            MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
-        //We construct a mockfile (the first arg is the name of the property expected in the controller
-        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
-
-        assetService.upload(file, aPage().build(), "js");
+            assetService.upload(file, aPage().build(), "js");
+        });
+        assertThat(exception.getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
     }
 
     @Test
     public void should_return_error_when_uploadind_type_invalid() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Part named [file] is needed to successfully import a component"));
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            //We construct a mockfile (the first arg is the name of the property expected in the controller
+            MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
-        //We construct a mockfile (the first arg is the name of the property expected in the controller
-        MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
+            assetService.upload(file, aPage().build(), "INVALID");
+        });
+        assertThat(exception.getMessage()).isEqualTo("Part named [file] is needed to successfully import a component");
 
-        assetService.upload(file, aPage().build(), "INVALID");
     }
+
 
     @Test
     public void should_upload_newfile_and_save_new_asset() throws Exception {
@@ -144,14 +154,17 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_uploading_with_error_onsave() throws Exception {
-        expectedException.expect(RepositoryException.class);
-        expectedException.expectMessage(is("Error while saving internal asset"));
-
         Page page = aPage().build();
         MockMultipartFile file = new MockMultipartFile("file.js", "myfile.inv", "application/javascript", "function(){}".getBytes());
-        doThrow(IOException.class).when(repository).updateLastUpdateAndSave(page);
 
-        assetService.upload(file, page, "js");
+        final String message = "Error while saving internal asset";
+        when(repository.updateLastUpdateAndSave(any())).thenThrow(new RepositoryException(message,new IllegalArgumentException()));
+
+        final Exception exception = assertThrows(Exception.class, () -> {
+            assetService.upload(file, page, "js");
+        });
+        assertThat(exception).isInstanceOf(RepositoryException.class);
+        assertThat(exception.getMessage()).isEqualTo(message);
     }
 
     @Test
@@ -176,27 +189,27 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_adding_asset_with_name_null() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset URL is required"));
-
-        assetService.save(aPage().withId("page-id").build(), anAsset().withName(null).build());
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            assetService.save(aPage().withId("page-id").build(), anAsset().withName(null).build());
+        });
+        assertThat(exception.getMessage()).isEqualTo("Asset URL is required");
     }
 
     @Test
     public void should_return_error_when_adding_asset_with_name_empty() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset URL is required"));
-
-        //We construct a mockfile (the first arg is the name of the property expected in the controller
-        assetService.save(aPage().withId("page-id").build(), anAsset().withName("").build());
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            //We construct a mockfile (the first arg is the name of the property expected in the controller
+            assetService.save(aPage().withId("page-id").build(), anAsset().withName("").build());
+        });
+        assertThat(exception.getMessage()).isEqualTo("Asset URL is required");
     }
 
     @Test
     public void should_return_error_when_adding_asset_with_type_invalid() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset type is required"));
-
-        assetService.save(aPage().withId("page-id").build(), anAsset().withName("http://mycdn.com/myasset.js").withType(null).build());
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            assetService.save(aPage().withId("page-id").build(), anAsset().withName("http://mycdn.com/myasset.js").withType(null).build());
+        });
+        assertThat(exception.getMessage()).isEqualTo("Asset type is required");
     }
 
     @Test
@@ -236,11 +249,11 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_error_onsave() throws Exception {
-        expectedException.expect(RepositoryException.class);
         Page page = aPage().build();
         doThrow(RepositoryException.class).when(repository).updateLastUpdateAndSave(page);
 
-        assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build());
+        assertThrows(RepositoryException.class, () ->
+                assetService.save(page, anAsset().withName("http://mycdn.com/myasset.js").withType(JAVASCRIPT).build()));
     }
 
     @Test
@@ -250,6 +263,7 @@ public class AssetServiceTest {
         doThrow(IOException.class).when(assetRepository).delete(asset);
         assetService.save(page, asset);
     }
+
     protected Object[] invalidArgsForDuplicate() throws Exception {
         Path tempPath = Files.createTempDirectory("test");
         return $(
@@ -264,10 +278,10 @@ public class AssetServiceTest {
     public void should_not_duplicate_asset_when_arg_invalid(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId,
             String expectedErrorMessage) throws Exception {
         when(repository.getComponentName()).thenReturn("page");
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is(expectedErrorMessage));
-
-        assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId);
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId)
+        );
+        assertThat(exception.getMessage()).isEqualTo(expectedErrorMessage);
     }
 
     @Test
@@ -285,10 +299,11 @@ public class AssetServiceTest {
 
     @Test
     public void should_return_error_when_deleting_asset_with_name_empty() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset id is required"));
-        //We construct a mockfile (the first arg is the name of the property expected in the controller
-        assetService.delete(aPage().withId("page-id").build(), null);
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                //We construct a mockfile (the first arg is the name of the property expected in the controller
+                assetService.delete(aPage().withId("page-id").build(), null)
+        );
+        assertThat(exception.getMessage()).isEqualTo("Asset id is required");
     }
 
     @Test
@@ -316,9 +331,10 @@ public class AssetServiceTest {
 
     @Test
     public void should_throw_IllegalArgument_when_sorting_asset_component_with_no_name() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage(is("Asset id is required"));
-        assetService.changeAssetOrderInComponent(aPage().build(), null, DECREMENT);
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                assetService.changeAssetOrderInComponent(aPage().build(), null, DECREMENT)
+        );
+        assertThat(exception.getMessage()).isEqualTo("Asset id is required");
     }
 
     private Asset[] getSortedAssets() {
@@ -493,8 +509,6 @@ public class AssetServiceTest {
 
         String content = assetService.getAssetContent(page, myAsset);
         assertThat(content).isEqualTo("myContentOfAsset");
-
-
 
     }
 }

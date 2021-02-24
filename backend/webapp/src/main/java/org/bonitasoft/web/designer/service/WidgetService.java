@@ -14,11 +14,10 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static java.util.Collections.singletonList;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +32,8 @@ import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
+
+import static java.util.Collections.singletonList;
 
 @Named
 public class WidgetService extends AbstractArtifactService<Widget> {

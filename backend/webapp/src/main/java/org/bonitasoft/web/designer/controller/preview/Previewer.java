@@ -15,8 +15,6 @@
 package org.bonitasoft.web.designer.controller.preview;
 
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +28,11 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Named
 public class Previewer {

@@ -32,7 +32,9 @@ import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
+import org.bonitasoft.web.designer.controller.utils.CopyResources;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -63,18 +65,27 @@ public class WorkspaceTest {
     private WorkspaceProperties workspaceProperties;
     @Mock
     private WidgetDirectiveBuilder widgetDirectiveBuilder;
+
     @Mock
     private FragmentDirectiveBuilder fragmentDirectiveBuilder;
+
     @Mock
     private ResourceLoader resourceLoader;
+
     @Mock
     private AssetImporter<Widget> widgetAssetImporter;
 
     private UiDesignerProperties uiDesignerProperties;
+
     @Mock
     private Resource resource;
+
+    @Mock
+    private CopyResources copyResources;
+
     @Mock
     private BeanValidator validator;
+
     //We use the real instance because we want to verify the folder and the directive files
     private JsonFileBasedPersister<Widget> widgetPersister;
     //We use a real instance of object mapper
@@ -84,6 +95,9 @@ public class WorkspaceTest {
     private Workspace workspace;
 
     private WidgetRepository widgetRepository;
+
+    private WorkspaceUidProperties workspaceUidProperties;
+
     @Before
     public void setUp() throws URISyntaxException, IOException {
         MockitoAnnotations.initMocks(this);
@@ -100,6 +114,8 @@ public class WorkspaceTest {
 
         when(resource.getURI()).thenReturn(temporaryFolder.toPath().resolve("widgets").toUri());
         when(resourceLoader.getResource(anyString())).thenReturn(resource);
+        workspaceUidProperties = new WorkspaceUidProperties();
+        workspaceUidProperties.setExtractPath(Paths.get("src/test/resources/workspace/"));
 
         widgetRepository = new WidgetRepository(
                 workspaceProperties,
@@ -108,7 +124,7 @@ public class WorkspaceTest {
                 validator,
                 mock(Watcher.class), mock(UiDesignerProperties.class));
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jacksonObjectMapper);
-        workspace = new Workspace(workspaceProperties, widgetRepository, widgetLoader, widgetDirectiveBuilder, fragmentDirectiveBuilder, resourceLoader, widgetAssetImporter,uiDesignerProperties);
+        workspace = new Workspace(workspaceProperties, widgetRepository, widgetLoader, widgetDirectiveBuilder, fragmentDirectiveBuilder, resourceLoader, widgetAssetImporter,uiDesignerProperties, workspaceUidProperties, mock(CopyResources.class));
     }
 
     private void mockWidgetsBasePath(Path path) throws IOException {
@@ -199,7 +215,7 @@ public class WorkspaceTest {
     @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_with_same_version() throws Exception {
         mockWidgetsBasePath(Paths.get("src/test/resources/workspace/widgets"));
-        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \""+ CURRENT_MODEL_VERSION + "\"}";
+        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + CURRENT_MODEL_VERSION + "\"}";
         createWidget("pbLabel", existingWidgetContent);
 
         workspace.initialize();
@@ -221,7 +237,7 @@ public class WorkspaceTest {
     @Test
     public void should_delete_page_reference_when_page_doesnt_exist_anymore_but_any_file_stay_on_filesystem() throws Exception {
         //Folder creation
-        temporaryFolder.newFolderPath("pages","myPageToRemove","js");
+        temporaryFolder.newFolderPath("pages", "myPageToRemove", "js");
         temporaryFolder.newFilePath("pages/.gitignore");
 
         workspace.cleanPageWorkspace();
@@ -233,7 +249,7 @@ public class WorkspaceTest {
     @Test
     public void should_delete_only_js_folder_for_page_artifact_when_page_exist() throws Exception {
         //Folder creation
-        temporaryFolder.newFolderPath("pages","myPage","js");
+        temporaryFolder.newFolderPath("pages", "myPage", "js");
         temporaryFolder.newFilePath("pages/myPage/myPage.json");
 
         workspace.cleanPageWorkspace();
@@ -245,8 +261,8 @@ public class WorkspaceTest {
     @Test
     public void should_keep_file_with_a_reference_on_workspace_when_cleanup_is_called() throws Exception {
         //Folder creation
-        temporaryFolder.newFolderPath("pages",".metadata");
-        temporaryFolder.newFolderPath("pages","myPage");
+        temporaryFolder.newFolderPath("pages", ".metadata");
+        temporaryFolder.newFolderPath("pages", "myPage");
         temporaryFolder.newFilePath("pages/myPage/myPage.json");
 
         temporaryFolder.newFilePath("pages/.metadata/.index.json");
@@ -268,9 +284,9 @@ public class WorkspaceTest {
         workspace.initialize();
 
         // no exception expected and we have 3 folders
-        assertThat(temporaryFolder.toPath().resolve("pages")).exists();
-        assertThat(temporaryFolder.toPath().resolve("widgets")).exists();
-        assertThat(temporaryFolder.toPath().resolve("fragments")).exists();
+        assertThat(workspaceProperties.getPages().getDir()).exists();
+        assertThat(workspaceProperties.getWidgets().getDir()).exists();
+        assertThat(workspaceProperties.getFragments().getDir()).exists();
     }
 
     @Test
@@ -303,7 +319,7 @@ public class WorkspaceTest {
     @Test
     public void should_delete_fragment_reference_when_fragment_doesnt_exist_anymore_but_any_file_stay_on_filesystem() throws Exception {
         //Folder creation
-        temporaryFolder.newFolderPath("fragments","myFragment");
+        temporaryFolder.newFolderPath("fragments", "myFragment");
         temporaryFolder.newFilePath("fragments/myFragment/widgets-abcd487.min.js");
 
         workspace.initialize();
@@ -314,8 +330,8 @@ public class WorkspaceTest {
     @Test
     public void should_delete_only_js_file_for_fragment_artifact_when_fragment_descriptor_exist() throws Exception {
         //Folder creation
-        temporaryFolder.newFolderPath("fragments","myFragment");
-        temporaryFolder.newFolderPath("fragments",".metadata");
+        temporaryFolder.newFolderPath("fragments", "myFragment");
+        temporaryFolder.newFolderPath("fragments", ".metadata");
         temporaryFolder.newFilePath("fragments/myFragment/widgets-abcd487.min.js");
         temporaryFolder.newFilePath("fragments/myFragment/myFragment.json");
         temporaryFolder.newFilePath("fragments/.metadata/myFragment.json");

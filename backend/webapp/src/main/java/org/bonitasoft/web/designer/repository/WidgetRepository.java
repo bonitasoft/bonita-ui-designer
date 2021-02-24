@@ -14,15 +14,12 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.trimToEmpty;
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
-
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -35,6 +32,10 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
+import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 @Named
 public class WidgetRepository extends AbstractRepository<Widget> {

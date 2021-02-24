@@ -19,10 +19,10 @@
     "query-string": "^5.1.0",
     "superagent": "4.1.0",
     "url": "^0.11.0",
-    "webdriver-manager": "12.0.6"
+    "webdriver-manager": "12.1.8"
   },
   "scripts": {
-    "pretest": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.38",
+    "pretest": "webdriver-manager update --versions.standalone=3.141.0 --versions.chrome=2.38",
     "test": "gulp checkTestsCompleteness && gulp test",
     "test:headless": "cross-env HEADLESS=true npm-run-all test"
   },

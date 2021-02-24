@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
-
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -24,6 +22,8 @@ import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 public class FragmentsExportStep<T extends AbstractPage> implements ExportStep<T> {
 

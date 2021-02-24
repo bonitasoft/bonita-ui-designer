@@ -16,6 +16,9 @@ package org.bonitasoft.web.designer.config;
 
 
 public class DesignerInitializerException extends RuntimeException{
+    public DesignerInitializerException(String message) {
+        super(message);
+    }
     public DesignerInitializerException(String message, Throwable cause) {
         super(message, cause);
     }

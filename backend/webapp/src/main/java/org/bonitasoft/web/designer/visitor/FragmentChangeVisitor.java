@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.emptySet;
-
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +30,8 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
+import static java.util.Collections.emptySet;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect rename reference of fragment
  *
@@ -44,6 +43,7 @@ public class FragmentChangeVisitor implements ElementVisitor<Set<String>> {
     private String newFragmentId;
 
     private String fragmentToReplace;
+    private boolean newHasValidationError;
 
     @Override
     public Set<String> visit(Container container) {
@@ -135,5 +135,6 @@ public class FragmentChangeVisitor implements ElementVisitor<Set<String>> {
     }
 
     public void setNewHasValidationError(boolean newHasValidationError) {
+        this.newHasValidationError = newHasValidationError;
     }
 }

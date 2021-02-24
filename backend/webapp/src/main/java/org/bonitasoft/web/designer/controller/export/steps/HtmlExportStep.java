@@ -14,37 +14,38 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static java.nio.file.Paths.get;
-import static org.bonitasoft.web.designer.config.WebMvcConfiguration.BACKEND_RESOURCES;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
-import org.springframework.core.io.ResourceLoader;
+
+import static java.nio.file.Paths.get;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
 @Named
 public class HtmlExportStep implements ExportStep<Page> {
 
+    private final WorkspaceUidProperties workspaceUidProperties;
     private HtmlGenerator generator;
-    private ResourceLoader resourceLoader;
 
     @Inject
-    public HtmlExportStep(HtmlGenerator generator, ResourceLoader resourceLoader) {
+    public HtmlExportStep(HtmlGenerator generator, WorkspaceUidProperties workspaceUidProperties) {
         this.generator = generator;
-        this.resourceLoader = resourceLoader;
+        this.workspaceUidProperties = workspaceUidProperties;
     }
 
     @Override
     public void execute(Zipper zipper, Page page) throws IOException {
+
         zipper.addDirectoryToZip(
-                get(resourceLoader.getResource(BACKEND_RESOURCES + "runtime").getURI()),
+                get(workspaceUidProperties.getExportBackendResourcesPath().toUri()),
                 ALL_DIRECTORIES,
                 ALL_FILES,
                 RESOURCES);

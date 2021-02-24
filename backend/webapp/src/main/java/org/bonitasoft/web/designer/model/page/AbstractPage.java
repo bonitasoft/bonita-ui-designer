@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -46,6 +44,9 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
+
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
 
 public abstract class AbstractPage extends DesignerArtifact implements Previewable, Identifiable, ElementContainer, Assetable {
 

@@ -25,12 +25,13 @@ if (process.env.HEADLESS) {
     // Temporarily needed if running on Windows.
     '--disable-gpu',
     // We must disable the Chrome sandbox when running Chrome inside Docker
-    '--no-sandbox'
+    '--no-sandbox',
+    '--allow-insecure-localhost'
   ];
 }
 
 exports.config = {
-  seleniumServerJar: './node_modules/webdriver-manager/selenium/selenium-server-standalone-3.11.0.jar',
+  seleniumServerJar: './node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.0.jar',
   chromeDriver: './node_modules/webdriver-manager/selenium/chromedriver_2.38',
   specs: [
     './src/test/spec/**/*.spec.js'

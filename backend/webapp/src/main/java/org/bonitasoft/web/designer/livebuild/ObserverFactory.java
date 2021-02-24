@@ -14,16 +14,17 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import static java.lang.String.format;
-
 import java.io.File;
 import java.nio.file.Path;
+
 import javax.inject.Named;
 
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 @Named
 public class ObserverFactory {

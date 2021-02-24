@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.asset.Asset;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Predicate that return only page assets (i.e. not widget assets)

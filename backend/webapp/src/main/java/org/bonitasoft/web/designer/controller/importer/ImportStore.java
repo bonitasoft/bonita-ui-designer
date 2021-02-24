@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static org.apache.commons.io.FileUtils.deleteQuietly;
-
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+
+import static org.apache.commons.io.FileUtils.deleteQuietly;
 
 @Named
 public class ImportStore {

@@ -14,15 +14,6 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import static java.util.Collections.singletonList;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
-import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
-import static org.mockito.Mockito.*;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,7 +35,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static java.util.Collections.singletonList;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
+import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetServiceTest {
@@ -76,7 +80,7 @@ public class WidgetServiceTest {
         Property constantTextProperty = aProperty().name("text").bond(CONSTANT).build();
         Property interpolationTextProperty = aProperty().name("text").bond(INTERPOLATION).build();
         Widget persistedWidget = aWidget().id("labelWidget").modelVersion("2.0").property(constantTextProperty).build();
-        when(widgetRepository.get("labelWidget")).thenReturn(persistedWidget);
+        lenient().when(widgetRepository.get("labelWidget")).thenReturn(persistedWidget);
 
         widgetService.updateProperty("labelWidget", "text", interpolationTextProperty);
 
@@ -102,7 +106,7 @@ public class WidgetServiceTest {
         Widget widget = aWidget().id("widget").modelVersion("2.0").build();
         Widget widgetMigrated = aWidget().id("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
         MigrationResult mr = new MigrationResult(widget, Arrays.asList(any(MigrationStepReport.class)));
-        when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
+        lenient().when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
         when(widgetRepository.get("widget")).thenReturn(widget);
 
         widgetService.get("widget");
@@ -118,8 +122,8 @@ public class WidgetServiceTest {
         Widget widget2 = aWidget().id("widget2").designerVersion("1.0.0").build();
         Widget widget1Migrated = aWidget().id("widget1").designerVersion("2.0").build();
         Widget widget2Migrated = aWidget().id("widget2").designerVersion("2.0").build();
-        when(widgetRepository.get("widget1")).thenReturn(widget1);
-        when(widgetRepository.get("widget2")).thenReturn(widget2);
+        lenient().when(widgetRepository.get("widget1")).thenReturn(widget1);
+        lenient().when(widgetRepository.get("widget2")).thenReturn(widget2);
         when(widgetMigrationApplyer.migrate(widget1)).thenReturn(new MigrationResult(widget1Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS, "widget1"))));
         when(widgetMigrationApplyer.migrate(widget2)).thenReturn(new MigrationResult(widget2Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS, "widget2"))));
 

@@ -14,9 +14,8 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import static java.util.Arrays.asList;
-
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
@@ -45,9 +44,12 @@ import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import static java.util.Arrays.asList;
 
 @Configuration
 public class MigrationConfig {

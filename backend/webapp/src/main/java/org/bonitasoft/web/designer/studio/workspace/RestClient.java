@@ -14,25 +14,25 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+
 import org.springframework.web.client.RestTemplate;
+
+import static org.springframework.util.StringUtils.hasText;
 
 /**
  * @author Romain Bioteau
  */
 @Named
+@RequiredArgsConstructor
 public class RestClient {
 
     private final RestTemplate template;
-    private final RestClientProperties clientProperties;
 
-    @Inject
-    public RestClient(RestTemplate template, RestClientProperties clientProperties) {
-        this.template = template;
-        this.clientProperties = clientProperties;
-    }
+    private final WorkspaceProperties workspaceProperties;
 
     /**
      * Gets rest template.
@@ -45,7 +45,7 @@ public class RestClient {
      * Creates URL based on the URI passed in.
      */
     public String createURI(String uri) {
-        StringBuilder sb = new StringBuilder(clientProperties.getUrl());
+        StringBuilder sb = new StringBuilder(workspaceProperties.getApiUrl());
         if (sb.charAt(sb.length() - 1) != '/') {
             sb.append("/");
         }
@@ -54,7 +54,7 @@ public class RestClient {
     }
 
     public boolean isConfigured() {
-        return clientProperties.isURLSet();
+        return hasText(workspaceProperties.getApiUrl());
     }
 
 }

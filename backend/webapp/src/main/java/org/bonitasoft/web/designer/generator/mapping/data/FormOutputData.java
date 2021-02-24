@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.bonitasoft.web.designer.model.data.DataType.EXPRESSION;
-
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
+
+import static org.bonitasoft.web.designer.model.data.DataType.EXPRESSION;
 
 public class FormOutputData implements PageData {
 

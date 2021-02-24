@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -106,7 +106,7 @@ public class PreviewControllerTest {
 
     @Test
     public void should_respond_404_when_page_asset_is_not_found() throws Exception {
-        mockMvc.perform(get("preview/page/no-app-selected/ma-page/assets/js/unkknown.js")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/preview/page/no-app-selected/ma-page/assets/js/unkknown.js")).andExpect(status().isNotFound());
     }
 
     @Test

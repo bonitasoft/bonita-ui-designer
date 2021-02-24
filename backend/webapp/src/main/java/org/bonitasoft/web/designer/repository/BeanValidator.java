@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.repository;
 
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 

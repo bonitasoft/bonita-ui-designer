@@ -23,16 +23,15 @@ import java.util.regex.Pattern;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.fedorahosted.tennera.jgettext.Catalog;
 import org.fedorahosted.tennera.jgettext.Message;
-import org.fedorahosted.tennera.jgettext.MessageProcessor;
 import org.fedorahosted.tennera.jgettext.PoParser;
 
 public class LanguagePack {
 
+    private final File poFile;
+
     private PoParser poParser;
 
     private JacksonObjectMapper objectMapper;
-
-    private final File poFile;
 
     LanguagePack(PoParser poParser, JacksonObjectMapper objectMapper, File poFile) {
         this.poParser = poParser;
@@ -54,18 +53,14 @@ public class LanguagePack {
         Catalog catalog = poParser.parseCatalog(poFile);
         language.put(extractLanguageFrom(catalog.locateHeader()), translations);
 
-        catalog.processMessages(new MessageProcessor() {
-
-            @Override
-            public void processMessage(Message message) {
-                if (isHeader(message)) { // ignore header
-                    return;
-                }
-                translations.put(message.getMsgid(),
-                        isPlural(message) ?
-                                message.getMsgstrPlural() :
-                                message.getMsgstr());
+        catalog.processMessages(message -> {
+            if (isHeader(message)) { // ignore header
+                return;
             }
+            translations.put(
+                    message.getMsgid(),
+                    isPlural(message) ? message.getMsgstrPlural() : message.getMsgstr()
+            );
         });
         return objectMapper.toJson(language);
     }

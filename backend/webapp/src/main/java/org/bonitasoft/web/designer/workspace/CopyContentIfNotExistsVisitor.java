@@ -14,13 +14,15 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import static java.nio.file.Files.*;
-
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+
+import static java.nio.file.Files.copy;
+import static java.nio.file.Files.createDirectory;
+import static java.nio.file.Files.exists;
 
 /**
  * Copy all file located at the root of a directory to another directory.

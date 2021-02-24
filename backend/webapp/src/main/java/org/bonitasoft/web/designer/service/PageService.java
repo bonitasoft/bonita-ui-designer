@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.service;
 
 import java.util.Collections;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 

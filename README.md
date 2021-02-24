@@ -1,7 +1,7 @@
-# Bonita UI designer ![Build](https://github.com/bonitasoft/bonita-ui-designer/workflows/Build/badge.svg)
+# Bonita UI designer ![Build](https://github.com/bonitasoft/bonita-ui-designer-internal/workflows/Build/badge.svg)
 
-The WYSIWYG web editor by Bonita.
-//TODO screenshot
+
+![The WYSIWYG web editor by Bonita.](img/WysiwygUIDEditor.png)
 
 Create your own pages for your Bonita application or your own project.
 
@@ -98,27 +98,36 @@ Other available options are listed here : http://tomcat.apache.org/maven-plugin-
     
 #### Develop
 Backend and frontend side could be launched in dev mode by using _server.sh_ script. 
-It launch _gulp serve_ backend task, waits for jetty to be running then launches _gulp serve_ frontend task.
+It launch _gulp serve_ backend task, waits for backend webabb to be running then launches _gulp serve_ frontend task.
 
 ```shell
 $ ./server.sh
 ```
 
-You can access the application at http://localhost:3000/index-dev.html, backend side is accessible at http://localhost:8080/
+You can access the application at http://localhost:3000/index-dev.html, backend side is accessible at http://localhost:8080/bonita
 
 #### Debug mode
+
 How to debug backend with some breakpoint ?
 
-In community/backend run debug mode:
+### IntelliJ
+
+Run `Start Backend` target configuration as debug mode.
+
+Run `Start Frontend` target configuration to get liveReload on html/javascript frontend part.
+
+## Command line
+
+In backend run debug mode:
  
 ```shell
-    mvnDebug jetty:run
+    mvn spring-boot:run -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
 ````
 
 Go in your IDE, edit run configuration: Select `Remote`. Only change port value (5000 by default) to value display in your shell.
 Run this configuration in debug.
 
-In community/frontend, run:
+In frontend, run:
 ```shell
     yarn start
 ````
@@ -126,6 +135,7 @@ In community/frontend, run:
 Now you can debug your application with breakpoint.
 
 #### Docker
+
 You can run the ui-designer locally using Docker (of course, you need to install Docker to do so).
 The Dockerfile is a really simple one, using a base image with java7, adding the build standalone jar and starting it.
 Before building docker image, you need to build the project.

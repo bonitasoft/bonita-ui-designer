@@ -15,12 +15,12 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import static org.springframework.beans.BeanUtils.getPropertyDescriptor;
-
 import java.beans.PropertyDescriptor;
 import java.util.Objects;
 
 import com.google.common.base.Predicate;
+
+import static org.springframework.beans.BeanUtils.getPropertyDescriptor;
 
 public class Predicates {
 

@@ -14,9 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static java.nio.file.Files.notExists;
-
 import java.nio.file.Path;
+
+import static java.nio.file.Files.notExists;
 
 public abstract class ImportPathResolver {
 

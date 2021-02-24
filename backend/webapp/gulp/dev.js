@@ -19,7 +19,7 @@ function devWatch(done) {
 }
 
 /**
- * html task, just updating the templates used by jetty
+ * html task, just updating the templates used by server
  */
 function devHtml() {
   return src(config.paths.templates).pipe(dest('target/classes/templates/'));
@@ -56,9 +56,9 @@ function devWidgetsWc(done) {
 
 /**
  * dev task
- * Watch js and html files and launch jetty, without automatic reloading
+ * Watch js and html files and launch spring boot, without automatic reloading
  */
-exports.runServer = series(widgets.copy, runtime.copy, devHtml, devWatch, shell.task('mvn jetty:run -Djetty.reload=manual ' + config.javaArgs));
+exports.runServer = series(widgets.copy, runtime.copy, devHtml, devWatch, shell.task('mvn spring-boot:run ' + config.javaArgs));
 
 
 

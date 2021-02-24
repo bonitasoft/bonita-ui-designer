@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.apache.commons.io.FileUtils.forceMkdir;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -36,7 +31,13 @@ import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.util.StringUtils;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.apache.commons.io.FileUtils.forceMkdir;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file

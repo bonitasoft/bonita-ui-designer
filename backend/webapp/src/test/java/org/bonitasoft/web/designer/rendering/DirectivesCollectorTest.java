@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.rendering;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * @author Benjamin Parisel
@@ -67,7 +68,6 @@ public class DirectivesCollectorTest {
 
     @Before
     public void beforeEach() throws IOException {
-        when(workspaceUidProperties.getPath()).thenReturn(temporaryFolder.toPath());
         when(workspaceUidProperties.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
         when(workspaceUidProperties.getTmpFragmentsRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("fragments"));
 
@@ -102,7 +102,7 @@ public class DirectivesCollectorTest {
     public void should_collect_widget_file_directive_and_fragment_file_when_fragment_will_be_use_in_page() throws IOException {
         Page page = PageBuilder.aPage().build();
         Fragment fragment = FragmentBuilder.aFragment().build();
-        initFileAndMockForPageWhoHasFragment(page,fragment);
+        initFileAndMockForPageWhoHasFragment(page, fragment);
         List<String> expected = asList("js/widgets-123456.js",
                 "fragments/" + fragment.getId() + "/" + fragment.getId() + ".js");
 
@@ -116,8 +116,8 @@ public class DirectivesCollectorTest {
         Path pagePathAsset = workspaceUidProperties.getTmpPagesRepositoryPath().resolve(page.getId()).resolve("js");
         Path fragmentsPath = workspaceUidProperties.getTmpFragmentsRepositoryPath();
 
-        when(directiveFileGenerator.generateAllDirectivesFilesInOne(page,pagePathAsset)).thenReturn("widgets-123456.js");
-        when(directiveFileGenerator.generateAllDirectivesFilesInOne(fragment,  fragmentsPath)).thenReturn("widgets-654321.js");
+        lenient().when(directiveFileGenerator.generateAllDirectivesFilesInOne(page, pagePathAsset)).thenReturn("widgets-123456.js");
+        lenient().when(directiveFileGenerator.generateAllDirectivesFilesInOne(fragment, fragmentsPath)).thenReturn("widgets-654321.js");
 
         HashSet<String> fragmentIds = new HashSet<>(asList(fragment.getId()));
         when(fragmentIdVisitor.visit(page)).thenReturn(fragmentIds);

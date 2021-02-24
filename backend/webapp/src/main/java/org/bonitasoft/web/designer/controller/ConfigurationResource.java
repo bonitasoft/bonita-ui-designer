@@ -15,49 +15,37 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.config.UiDesignerProperties.BONITA_BDM_URL;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/rest/config")
+@RequiredArgsConstructor
 public class ConfigurationResource {
 
-    protected static final Logger logger = LoggerFactory.getLogger(ConfigurationResource.class);
-
-    protected final UiDesignerProperties uiDesignerProperties;
-
-    public ConfigurationResource(UiDesignerProperties uiDesignerProperties) {
-        this.uiDesignerProperties = uiDesignerProperties;
-    }
+    private final UiDesignerProperties uiDesignerProperties;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ConfigurationReport> getConfig() {
-
-        String bdrUrl = this.uiDesignerProperties.getBonita().getBdm().getUrl();
+        String bdrUrl = uiDesignerProperties.getBonita().getBdm().getUrl();
         try {
             new URL(bdrUrl);
-        } catch (MalformedURLException e) {
-            logger.warn("System property " + BONITA_BDM_URL + " is not set, or not a valid URL.");
+        }
+        catch (MalformedURLException e) {
+            log.warn("System property bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }
-
-        return new ResponseEntity<>(new ConfigurationReport(this.uiDesignerProperties.getVersion(), this.uiDesignerProperties.getModelVersion(), bdrUrl, this.uiDesignerProperties.isExperimental()), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllConfig() {
-        return new ResponseEntity(this.uiDesignerProperties, HttpStatus.OK);
+        return new ResponseEntity<>(new ConfigurationReport(this.uiDesignerProperties.getVersion(), this.uiDesignerProperties.getModelVersion(), bdrUrl, uiDesignerProperties.isExperimental()), HttpStatus.OK);
     }
 }

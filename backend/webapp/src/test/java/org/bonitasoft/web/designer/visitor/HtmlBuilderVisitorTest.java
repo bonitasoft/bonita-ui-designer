@@ -38,6 +38,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -68,7 +69,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlBuilderVisitorTest {
@@ -117,9 +118,16 @@ public class HtmlBuilderVisitorTest {
 
     @Before
     public void setUp() throws Exception {
-        initMocks(this);
-        visitor = new HtmlBuilderVisitor(fragmentRepository, asList(pageFactory), requiredModulesVisitor, assetVisitor, directivesCollector, pageAssetRepository, widgetAssetRepository);
-        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.<String> emptySet());
+        visitor = new HtmlBuilderVisitor(
+                assetVisitor,
+                List.of(pageFactory),
+                requiredModulesVisitor,
+                directivesCollector,
+                pageAssetRepository,
+                widgetAssetRepository,
+                fragmentRepository
+        );
+        when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.emptySet());
         when(pageAssetRepository.readAllBytes(anyString(), any(Asset.class))).thenReturn(assetsContent);
         when(widgetAssetRepository.readAllBytes(any(Asset.class))).thenReturn(assetsContent);
         assetSHA1 = DigestUtils.sha1Hex(assetsContent);

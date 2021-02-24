@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.generator.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.inject.Named;
 
 @Named

@@ -14,19 +14,18 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.transform;
-import static org.bonitasoft.web.designer.model.widget.Widget.spinalCase;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.inject.Named;
+
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -54,36 +53,26 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.google.common.base.Joiner.on;
+import static com.google.common.collect.Lists.transform;
+import static org.bonitasoft.web.designer.model.widget.Widget.spinalCase;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
  */
+@Named
+@RequiredArgsConstructor
 public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     private static final Logger logger = LoggerFactory.getLogger(HtmlBuilderVisitor.class);
 
-    private AssetVisitor assetVisitor;
-    private List<PageFactory> pageFactories;
-    private RequiredModulesVisitor requiredModulesVisitor;
-    private DirectivesCollector directivesCollector;
-    private AssetRepository<Page> pageAssetRepository;
-    private AssetRepository<Widget> widgetAssetRepository;
-    private FragmentRepository fragmentRepository;
-
-    public HtmlBuilderVisitor(FragmentRepository fragmentRepository,
-                              List<PageFactory> pageFactories,
-                              RequiredModulesVisitor requiredModulesVisitor,
-                              AssetVisitor assetVisitor,
-                              DirectivesCollector directivesCollector,
-                              AssetRepository<Page> pageAssetRepository,
-                              AssetRepository<Widget> widgetAssetRepository) {
-        this.fragmentRepository = fragmentRepository;
-        this.pageFactories = pageFactories;
-        this.requiredModulesVisitor = requiredModulesVisitor;
-        this.assetVisitor = assetVisitor;
-        this.directivesCollector = directivesCollector;
-        this.pageAssetRepository = pageAssetRepository;
-        this.widgetAssetRepository = widgetAssetRepository;
-    }
+    private final AssetVisitor assetVisitor;
+    private final List<PageFactory> pageFactories;
+    private final RequiredModulesVisitor requiredModulesVisitor;
+    private final DirectivesCollector directivesCollector;
+    private final AssetRepository<Page> pageAssetRepository;
+    private final AssetRepository<Widget> widgetAssetRepository;
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public String visit(FragmentElement fragmentElement) {

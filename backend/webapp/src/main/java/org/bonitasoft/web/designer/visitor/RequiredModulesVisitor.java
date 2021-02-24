@@ -18,6 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Named;
+
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -32,15 +35,12 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 
+@Named
+@RequiredArgsConstructor
 public class RequiredModulesVisitor implements ElementVisitor<Set<String>> {
 
-    private WidgetRepository widgetRepository;
-    private FragmentRepository fragmentRepository;
-
-    public RequiredModulesVisitor(WidgetRepository widgetRepository, FragmentRepository fragmentRepository) {
-        this.widgetRepository = widgetRepository;
-        this.fragmentRepository = fragmentRepository;
-    }
+    private final WidgetRepository widgetRepository;
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public Set<String> visit(FragmentElement fragmentElement) {

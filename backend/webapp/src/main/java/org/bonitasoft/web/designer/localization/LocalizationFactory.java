@@ -14,11 +14,10 @@
  */
 package org.bonitasoft.web.designer.localization;
 
-import static java.lang.String.format;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +32,8 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.visitor.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 @Named
 public class LocalizationFactory implements PageFactory {

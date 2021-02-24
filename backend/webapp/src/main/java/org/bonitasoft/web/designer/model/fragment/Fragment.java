@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.fragment;
 
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,8 @@ import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FragmentElement;
+
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 
 public class Fragment extends AbstractPage {

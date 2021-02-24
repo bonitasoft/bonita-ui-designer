@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.walkFileTree;
-import static org.apache.commons.io.FileUtils.copyDirectory;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -37,6 +32,11 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.joda.time.Instant;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.walkFileTree;
+import static org.apache.commons.io.FileUtils.copyDirectory;
 
 /**
  * File based repository
@@ -226,11 +226,11 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
-    public String getNextAvailableId(String name) throws RepositoryException {
+    public String getNextAvailableId(String name)  {
         try {
             return loader.getNextAvailableObjectId(path, name);
         } catch (IOException e) {
-            throw new RepositoryException(format("Failed to gerenrate object ID"), e);
+            throw new RepositoryException("Failed to generate object ID", e);
         }
     }
 

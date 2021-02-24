@@ -6,7 +6,8 @@
 
 node_modules/
 target/
-npm-debug.log
+logs/
+*.log
 .extract/
 
 backend/webapp/node/

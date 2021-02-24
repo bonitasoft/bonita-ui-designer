@@ -15,59 +15,44 @@
 package org.bonitasoft.web.designer.config;
 
 import java.nio.file.Path;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @Named
+@ConfigurationProperties(prefix = "designer.workspace")
 public class WorkspaceProperties {
 
-    @Value("${designer.workspace.path}")
     private Path path;
+    private String apiUrl;
 
-    @Inject
     private Pages pages = new Pages();
-
-    @Inject
     private Fragments fragments = new Fragments();
-
-    @Inject
     private Widgets widgets= new Widgets();
-
-    @Inject
     private WidgetsWc widgetsWc = new WidgetsWc();
 
     @Data
-    @Named
     public static class Pages {
-        @Value("${designer.workspace.pages.dir}")
         private Path dir;
     }
 
     @Data
-    @Named
     public static class Fragments {
-        @Value("${designer.workspace.fragments.dir}")
         private Path dir;
     }
 
     @Data
-    @Named
     public static class Widgets {
 
         public static final String WIDGET_SUFFIX_WC = "Wc";
 
-        @Value("${designer.workspace.widgets.dir}")
         private Path dir;
     }
 
     @Data
-    @Named
     public static class WidgetsWc {
-        @Value("${designer.workspace.widgetsWc.dir}")
         private Path dir;
     }
 

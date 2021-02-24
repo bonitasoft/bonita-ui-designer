@@ -18,14 +18,12 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.Path;
 import java.util.Arrays;
 import javax.inject.Inject;
 
-import org.bonitasoft.web.designer.ApplicationConfig;
-import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -33,29 +31,21 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.studio.workspace.LockedResourceException;
 import org.bonitasoft.web.designer.studio.workspace.ResourceNotFoundException;
 import org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author Romain Bioteau
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class})
-@WebAppConfiguration("src/test/resources")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Main.class)
 @ActiveProfiles(profiles = "studio")
 public class RepositoryAspectTest {
-
-    @Inject
-    @InjectMocks
-    private RepositoryAspect repositoryAspect;
 
     @Inject
     private PageRepository formRepository;
@@ -63,16 +53,8 @@ public class RepositoryAspectTest {
     @Inject
     private WidgetRepository widgetRepository;
 
-    @Mock(name = "handler")
+    @MockBean(name = "handler")
     private WorkspaceResourceHandler workspaceResourceHandler;
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        initMocks(this);
-    }
 
     @Test
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_on_formRepository() throws Exception {
@@ -91,8 +73,8 @@ public class RepositoryAspectTest {
     @Test
     public void should_not_trigger_postSave_on_workspaceResourceHandler_when_saving_several_widgets_in_widgetRepository() throws Exception {
         widgetRepository.saveAll(Arrays.asList(
-                        aWidget().id("widgetId1").build(),
-                        aWidget().id("widgetId2").build())
+                aWidget().id("widgetId1").build(),
+                aWidget().id("widgetId2").build())
         );
 
         verify(workspaceResourceHandler, never()).postSave(any(Path.class));

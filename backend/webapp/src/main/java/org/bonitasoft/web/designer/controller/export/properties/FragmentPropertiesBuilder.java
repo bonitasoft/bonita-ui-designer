@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Properties;
+
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.config.UiDesignerProperties;

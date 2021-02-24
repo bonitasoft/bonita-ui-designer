@@ -15,8 +15,6 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import static java.lang.String.format;
-
 import java.util.Optional;
 
 import org.bonitasoft.web.designer.model.Assetable;
@@ -25,6 +23,8 @@ import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 public class AssetExternalMigrationStep<A extends Identifiable & Assetable> extends AbstractMigrationStep<A> {
 

@@ -43,7 +43,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetDirectiveBuilderTest {
@@ -80,7 +80,8 @@ public class WidgetDirectiveBuilderTest {
                 new DesignerConfig().widgetFileBasedPersister(new UiDesignerProperties("1.13.0","2.0")),
                 widgetLoader,
                 validator,
-                mock(Watcher.class), mock(UiDesignerProperties.class));
+                mock(Watcher.class),
+                mock(UiDesignerProperties.class));
 
         pbInput = aWidget().id("pbInput").build();
         pbInput.setCustom(true);

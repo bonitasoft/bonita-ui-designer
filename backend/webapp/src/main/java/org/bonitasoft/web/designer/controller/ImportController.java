@@ -14,12 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.zip.ZipException;
+
 import javax.inject.Inject;
 
 import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
@@ -32,6 +31,7 @@ import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -42,6 +42,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
 
 @Controller
 public class ImportController {

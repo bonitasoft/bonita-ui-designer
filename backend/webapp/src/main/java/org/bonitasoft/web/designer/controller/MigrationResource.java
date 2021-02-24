@@ -15,8 +15,8 @@
 package org.bonitasoft.web.designer.controller;
 
 import java.io.IOException;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +38,7 @@ import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -165,7 +166,7 @@ public class MigrationResource {
     }
 
     @RequestMapping(value = "/fragment/{fragmentId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MigrationReport> migrateFragments(HttpServletRequest request, @PathVariable("fragmentId") String fragmentId) throws RepositoryException {
+    public ResponseEntity<MigrationReport> migrateFragments(@PathVariable("fragmentId") String fragmentId) throws RepositoryException {
         Fragment fragment = fragmentRepository.get(fragmentId);
         return MigrationResource.migrateArtifact(fragmentId, fragment, fragmentService);
 

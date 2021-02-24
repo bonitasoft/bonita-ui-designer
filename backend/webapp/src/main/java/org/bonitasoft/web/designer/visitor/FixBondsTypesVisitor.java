@@ -14,10 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Iterables.concat;
-import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
-import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
-
 import java.util.List;
 
 import org.bonitasoft.web.designer.model.page.Component;
@@ -32,6 +28,10 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
+
+import static com.google.common.collect.Iterables.concat;
+import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
+import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
 
 public class FixBondsTypesVisitor implements ElementVisitor<Void> {
 

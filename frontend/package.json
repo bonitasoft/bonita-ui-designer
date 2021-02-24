@@ -84,7 +84,7 @@
     "jasmine-reporters": "2.3.2",
     "karma": "^5.2.3",
     "karma-babel-preprocessor": "6.0.1",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma-chrome-launcher": "3.1.0",
     "karma-cli": "0.0.4",
     "karma-commonjs": "0.0.13",
     "karma-coverage": "^2.0.3",
@@ -105,13 +105,13 @@
     "serve-static": "~1.6.2",
     "source-map-support": "0.4.0",
     "through2": "^0.6.5",
-    "webdriver-manager": "12.0.6"
+    "webdriver-manager": "12.1.8"
   },
   "scripts": {
     "build": "gulp --dist",
     "test": "gulp test",
     "test-watch": "gulp testWatch",
-    "pree2e": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.38",
+    "pree2e": "webdriver-manager update --versions.standalone=3.141.0 --versions.chrome=2.38",
     "e2e": "gulp e2e",
     "e2e:headless": "cross-env HEADLESS=true npm-run-all e2e",
     "pot": "gulp pot",

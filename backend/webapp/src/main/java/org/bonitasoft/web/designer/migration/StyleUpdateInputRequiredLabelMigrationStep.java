@@ -14,12 +14,11 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import static java.lang.String.format;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,6 +28,8 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 @Named
 public class StyleUpdateInputRequiredLabelMigrationStep extends AbstractMigrationStep<Page> {

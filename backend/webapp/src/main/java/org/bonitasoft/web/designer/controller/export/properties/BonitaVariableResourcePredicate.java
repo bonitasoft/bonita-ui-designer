@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import static java.lang.String.valueOf;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
-
 import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.data.Variable;
+
+import static java.lang.String.valueOf;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 public class BonitaVariableResourcePredicate implements Predicate<Variable> {
 

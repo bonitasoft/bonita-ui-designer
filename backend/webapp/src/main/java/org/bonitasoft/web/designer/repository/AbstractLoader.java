@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.*;
-
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -39,6 +36,11 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.newDirectoryStream;
+import static java.nio.file.Files.readAllBytes;
 
 /**
  * Load a component

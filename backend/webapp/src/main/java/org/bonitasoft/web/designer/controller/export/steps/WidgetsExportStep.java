@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.export.steps;
 
-import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -28,11 +26,13 @@ import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.Minifier;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
+import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
+
 public class WidgetsExportStep<T extends AbstractPage> implements ExportStep<T> {
 
-    private Path widgetsPath;
-    private WidgetIdVisitor widgetIdVisitor;
-    private DirectiveFileGenerator directiveFileGenerator;
+    private final Path widgetsPath;
+    private final WidgetIdVisitor widgetIdVisitor;
+    private final DirectiveFileGenerator directiveFileGenerator;
 
     public WidgetsExportStep(Path widgetsPath, WidgetIdVisitor widgetIdVisitor,
                              DirectiveFileGenerator directiveFileGenerator) {

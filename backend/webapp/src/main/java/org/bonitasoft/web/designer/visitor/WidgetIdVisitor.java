@@ -14,12 +14,13 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static java.util.Collections.singleton;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Named;
+
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -31,18 +32,18 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 
+import static java.util.Collections.singleton;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the widget IDs used in a page
  *
  * @author JB Nizet
  */
+@Named
+@RequiredArgsConstructor
 public class WidgetIdVisitor implements ElementVisitor<Set<String>> {
 
     private final FragmentRepository fragmentRepository;
-
-    public WidgetIdVisitor(FragmentRepository fragmentRepository) {
-        this.fragmentRepository = fragmentRepository;
-    }
 
     @Override
     public Set<String> visit(FragmentElement fragmentElement) {

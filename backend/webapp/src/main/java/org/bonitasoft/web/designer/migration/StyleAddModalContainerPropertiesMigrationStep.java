@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import static java.lang.String.format;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,6 +33,8 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 @Named
 public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigrationStep<Page> {

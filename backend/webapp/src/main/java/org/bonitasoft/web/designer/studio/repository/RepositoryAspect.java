@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.studio.repository;
 
 import java.io.IOException;
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 
 import org.aspectj.lang.JoinPoint;
@@ -29,6 +30,7 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.studio.workspace.ResourceNotFoundException;
 import org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -63,7 +65,8 @@ public class RepositoryAspect {
         postSaveAndUpdateDate(joinPoint);
     }
 
-    @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository.delete(String))")
+//    @Around("execution(* org.bonitasoft.web.designer.repository.AbstractRepository+.delete(String))")
+    @Around("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
     public void delete(JoinPoint joinPoint) {
         try {
             Object component = get(joinPoint);
@@ -72,10 +75,10 @@ public class RepositoryAspect {
         } catch (ResourceNotFoundException | IOException e) {
             throw new RepositoryException("An error occured while proceeding delete action.", e);
         }
-    }
-
-    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
-    public void postDelete(JoinPoint joinPoint) {
+//    }
+//
+//    @After("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
+//    public void postDelete(JoinPoint joinPoint) {
         try {
             handler.postDelete(filePath(joinPoint));
         } catch (ResourceNotFoundException e) {

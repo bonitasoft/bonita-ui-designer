@@ -14,33 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.readAllLines;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
-import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
-import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
-import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -87,14 +60,56 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.readAllLines;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
+import static java.util.Collections.singletonMap;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
+import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.data.DataType.URL;
+import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.notNull;
+import static org.mockito.Matchers.nullable;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
@@ -193,7 +208,7 @@ public class PageResourceTest {
         Asset pageAsset = aPageAsset();
         Asset widgetAsset = aWidgetAsset();
         Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(pageAsset, widgetAsset).build();
-        when(pageRepository.get("my-page-source"))
+        lenient().when(pageRepository.get("my-page-source"))
                 .thenReturn(aPage().withId("my-page-source").withName("test").withAsset(pageAsset, widgetAsset).build());
         when(pageRepository.getNextAvailableId("test")).thenReturn("test");
 
@@ -208,7 +223,7 @@ public class PageResourceTest {
         verify(pageRepository).updateLastUpdateAndSave(argument.capture());
         assertThat(argument.getValue().getName()).isEqualTo(pageToBeSaved.getName());
         assertThat(argument.getValue().getAssets()).containsOnly(pageAsset);
-        verify(pageAssetService).duplicateAsset(any(Path.class), any(Path.class), eq("my-page-source"), anyString());
+        verify(pageAssetService).duplicateAsset(nullable(Path.class), nullable(Path.class), eq("my-page-source"), anyString());
     }
 
     @Test
@@ -357,7 +372,7 @@ public class PageResourceTest {
     @Test
     public void should_respond_500_internal_error_if_error_occurs_while_saving_a_page() throws Exception {
         Page page = aPage().withId("my-page").build();
-        Mockito.doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).updateLastUpdateAndSave(page);
+        lenient().doThrow(new RepositoryException("exception occurs", new Exception())).when(pageRepository).updateLastUpdateAndSave(page);
 
         mockMvc
                 .perform(
@@ -365,7 +380,6 @@ public class PageResourceTest {
                                 convertObjectToJsonBytes(page)))
                 .andExpect(status().isInternalServerError());
     }
-
 
 
     @Test
@@ -401,7 +415,7 @@ public class PageResourceTest {
     @Test
     public void should_respond_422_on_save_when_page_is_incompatible() throws Exception {
         Page pageToBeSaved = mockPageOfId("my-page");
-        pageToBeSaved.setStatus(new MigrationStatusReport(false,true));
+        pageToBeSaved.setStatus(new MigrationStatusReport(false, true));
         ResultActions result = mockMvc
                 .perform(
                         put("/rest/pages/my-page").contentType(MediaType.APPLICATION_JSON_VALUE).content(
@@ -606,7 +620,7 @@ public class PageResourceTest {
     @Test
     public void should_list_page_assets() throws Exception {
         Page page = mockPageOfId("my-page");
-        Asset[] assets = new Asset[]{
+        Asset[] assets = new Asset[] {
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(AssetScope.PAGE).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withScope(AssetScope.PAGE).withType(JAVASCRIPT).build()
@@ -627,7 +641,7 @@ public class PageResourceTest {
     public void should_list_page_assets_while_getting_a_page() throws Exception {
         Page page = mockPageOfId("my-page");
         page.setStatus(new MigrationStatusReport(true, true));
-        Asset[] assets = new Asset[]{
+        Asset[] assets = new Asset[] {
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
                 anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
                 anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build()
@@ -728,7 +742,7 @@ public class PageResourceTest {
                 .perform(get("/rest/pages/page-id/assets/js/asset.js?format=text"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "inline; filename=\"pbLabel.js\""))
                 .andExpect(content().encoding("UTF-8"));
@@ -743,7 +757,7 @@ public class PageResourceTest {
                 .perform(get("/rest/pages/page-id/assets/js/asset.js"))
                 .andExpect(status().isOk())
                 .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_OCTET_STREAM_VALUE))
                 .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
                 .andExpect(header().string("Content-Disposition", "attachment; filename=\"pbLabel.js\""))
                 .andExpect(content().encoding("UTF-8"));

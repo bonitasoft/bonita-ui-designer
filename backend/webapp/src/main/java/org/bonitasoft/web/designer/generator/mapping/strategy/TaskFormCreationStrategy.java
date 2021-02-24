@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import static java.lang.String.format;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,6 +51,8 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import static java.lang.String.format;
 
 public class TaskFormCreationStrategy implements PageCreationStrategy {
 

@@ -14,16 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.filterValues;
-import static com.google.common.collect.Sets.filter;
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
-import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
-import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -34,6 +24,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -63,6 +54,7 @@ import org.bonitasoft.web.designer.visitor.AuthRulesCollector;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -76,6 +68,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.filterValues;
+import static com.google.common.collect.Sets.filter;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
 
 @RestController
 @RequestMapping("/rest/pages")

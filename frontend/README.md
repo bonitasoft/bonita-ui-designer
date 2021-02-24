@@ -22,6 +22,8 @@ $ yarn start
 ```
 This starts a server on port 3000 which allows serving the development page (index.html)
 
+You can also run `npm start frontend` target configuration in your IntelliJ
+
 ## Format code
 
 During build, a gulp task based on Eslint is used to check the code is formatted properly.

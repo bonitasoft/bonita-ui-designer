@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.visitor;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -30,12 +32,11 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
  * An element visitor which traverses the tree of elements recursively to find out if a page still contains elements that have a validation error
  *
  */
+@Named
 public class PageHasValidationErrorVisitor {
 
-    public PageHasValidationErrorVisitor() {}
-
     public boolean visit(Container container) {
-        if (container.getHasValidationError()){
+        if (container.getHasValidationError()) {
             return true;
         }
         return traverseRow(container.getRows());
@@ -66,14 +67,10 @@ public class PageHasValidationErrorVisitor {
     }
 
     private boolean traverseRow(List<List<Element>> rows) {
-        boolean[] hasValidationError = new boolean[]{false};
-        rows.stream().forEach(row -> {
-            List<Element> elements = row;
-            elements.stream()
-                    .forEach(element -> {
-                        hasValidationError[0] = hasValidationError[0] || element.getHasValidationError();
-                    });
-        });
+        boolean[] hasValidationError = new boolean[] { false };
+        rows.forEach(row -> row.forEach(
+                element -> hasValidationError[0] = hasValidationError[0] || element.getHasValidationError())
+        );
         return hasValidationError[0];
     }
 }

@@ -27,7 +27,7 @@ import javax.validation.Validation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.ApplicationConfig;
+import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
@@ -43,7 +43,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class, DesignerConfig.class })
+@ContextConfiguration(classes = { Main.class, DesignerConfig.class })
 @WebAppConfiguration("src/test/resources")
 public class PageRepositoryIT {
 

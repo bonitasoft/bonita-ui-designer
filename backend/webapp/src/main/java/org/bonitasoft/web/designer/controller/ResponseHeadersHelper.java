@@ -16,9 +16,11 @@ package org.bonitasoft.web.designer.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

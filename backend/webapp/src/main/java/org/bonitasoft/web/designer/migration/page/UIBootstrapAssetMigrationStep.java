@@ -15,12 +15,10 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -36,6 +34,9 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
+import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 
 @Named
 public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {

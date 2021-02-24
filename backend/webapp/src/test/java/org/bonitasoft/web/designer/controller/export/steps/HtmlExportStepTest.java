@@ -19,13 +19,13 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import javax.servlet.ServletContext;
+import java.nio.file.Paths;
 
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
@@ -34,18 +34,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlExportStepTest {
 
     @Mock
     private HtmlGenerator htmlGenerator;
-
-    @Mock
-    private ServletContext servletContext;
 
     @InjectMocks
     private HtmlExportStep step;
@@ -54,16 +49,13 @@ public class HtmlExportStepTest {
     private Zipper zipper;
 
     @Mock
-    private ResourceLoader resourceLoader;
+    private WorkspaceUidProperties workspaceUidProperties;
 
-    @Mock
-    private Resource resource;
 
     @Before
     public void setUp() throws Exception {
+        when(workspaceUidProperties.getExportBackendResourcesPath()).thenReturn(Paths.get("src/test/resources/"));
         when(htmlGenerator.generateHtml(any(Page.class))).thenReturn("");
-        when(resource.getURI()).thenReturn(new File("src/test/resources/generator").toURI());
-        when(resourceLoader.getResource(anyString())).thenReturn(resource);
     }
 
     @Test
@@ -71,7 +63,7 @@ public class HtmlExportStepTest {
 
         step.execute(zipper, aPage().build());
 
-        verify(zipper).addDirectoryToZip(get(new File("src/test/resources/generator").toURI()), ALL_DIRECTORIES, ALL_FILES, "resources");
+        verify(zipper).addDirectoryToZip(get(new File("src/test/resources/").toURI()), ALL_DIRECTORIES, ALL_FILES, "resources");
     }
 
     @Test

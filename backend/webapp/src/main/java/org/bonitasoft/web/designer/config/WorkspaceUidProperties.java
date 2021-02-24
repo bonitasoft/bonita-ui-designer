@@ -14,24 +14,28 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import static java.nio.file.Files.createDirectories;
-
 import java.io.IOException;
 import java.nio.file.Path;
+
 import javax.inject.Named;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import static java.nio.file.Files.createDirectories;
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.EXTRACT_BACKEND_RESOURCES;
 
 @Data
 @Named
+@ConfigurationProperties(prefix = "designer.workspace-uid")
 public class WorkspaceUidProperties {
 
     public static final String FRAGMENTS = "fragments";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
 
-    @Value("${designer.workspace-uid.path}")
     private Path path;
+    private Path extractPath;
 
     public Path getTmpFragmentsRepositoryPath() {
         return path.resolve(FRAGMENTS);
@@ -43,5 +47,12 @@ public class WorkspaceUidProperties {
 
     public Path getTmpI18nPath() throws IOException {
         return createDirectories(path.resolve("i18n"));
+    }
+    public Path getExtractPath(){
+        return extractPath;
+    }
+
+    public Path getExportBackendResourcesPath(){
+        return getExtractPath().resolve(EXTRACT_BACKEND_RESOURCES).resolve("runtime");
     }
 }

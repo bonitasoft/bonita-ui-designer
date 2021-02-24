@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.importer.dependencies;
 
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -30,6 +27,9 @@ import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.readAllBytes;
 
 public class AssetImporter<T extends Identifiable & Assetable> implements DependencyImporter<Asset> {
 

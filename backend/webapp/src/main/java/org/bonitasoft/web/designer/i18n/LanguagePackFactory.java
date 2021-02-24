@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.i18n;
 
 import java.io.File;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 

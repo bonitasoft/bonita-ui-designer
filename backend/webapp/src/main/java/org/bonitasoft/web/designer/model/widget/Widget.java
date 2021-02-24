@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.model.widget;
 
-import static com.google.common.collect.Iterables.find;
-import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 
@@ -43,6 +41,9 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.Instant;
+
+import static com.google.common.collect.Iterables.find;
+import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 
 public class Widget extends DesignerArtifact implements Identifiable, Assetable {

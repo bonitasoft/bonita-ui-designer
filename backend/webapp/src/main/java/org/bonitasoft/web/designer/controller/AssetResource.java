@@ -14,14 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static java.lang.Boolean.TRUE;
-import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
-import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,6 +35,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +46,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import static java.lang.Boolean.TRUE;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
+import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 
 public abstract class AssetResource<T extends Assetable> {
 

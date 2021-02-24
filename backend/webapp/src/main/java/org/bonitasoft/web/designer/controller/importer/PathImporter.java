@@ -14,14 +14,15 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
-
 import java.nio.file.Path;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.google.common.base.Function;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+
+import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
 
 @Named
 public class PathImporter {

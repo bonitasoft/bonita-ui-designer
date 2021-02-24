@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

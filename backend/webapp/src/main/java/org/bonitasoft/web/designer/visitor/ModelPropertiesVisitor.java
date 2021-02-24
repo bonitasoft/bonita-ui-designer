@@ -14,18 +14,14 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import static com.google.common.collect.Maps.filterKeys;
-import static com.google.common.collect.Maps.transformEntries;
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.inject.Inject;
 
-import com.google.common.base.Predicate;
+import javax.inject.Named;
+
 import com.google.common.collect.ImmutableMap;
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -45,17 +41,19 @@ import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
+import static com.google.common.collect.Maps.filterKeys;
+import static com.google.common.collect.Maps.transformEntries;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
+
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the data used in a page
  */
+@Named
+@RequiredArgsConstructor
 public class ModelPropertiesVisitor implements ElementVisitor<Map<String, Map<String, PropertyValue>>>, PageFactory {
 
-    private FragmentRepository fragmentRepository;
-
-    @Inject
-    public ModelPropertiesVisitor(FragmentRepository fragmentRepository) {
-        this.fragmentRepository = fragmentRepository;
-    }
+    private final FragmentRepository fragmentRepository;
 
     @Override
     public Map<String, Map<String, PropertyValue>> visit(ModalContainer modalContainer) {
@@ -127,13 +125,7 @@ public class ModelPropertiesVisitor implements ElementVisitor<Map<String, Map<St
     private Map<String, PropertyValue> getBindings(FragmentElement fragmentElement, final Fragment fragment) {
 
         final Map<String, Variable> exposedData = fragment.getExposedVariables();
-        Map<String, String> bindings = filterKeys(fragmentElement.getBinding(), new Predicate<String>() {
-
-            @Override
-            public boolean apply(String dataName) {
-                return exposedData.containsKey(dataName);
-            }
-        });
+        Map<String, String> bindings = filterKeys(fragmentElement.getBinding(), exposedData::containsKey);
 
         return transformEntries(bindings, new FragmentBindingValueTransformer());
     }

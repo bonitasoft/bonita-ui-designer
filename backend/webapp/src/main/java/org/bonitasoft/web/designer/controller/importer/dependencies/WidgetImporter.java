@@ -20,20 +20,22 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Named;
+
+import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
+@Named
 public class WidgetImporter extends ComponentDependencyImporter<Widget> {
 
-    protected static final Logger logger = LoggerFactory.getLogger(WidgetImporter.class);
-    private WidgetFileBasedLoader widgetLoader;
-    private WidgetRepository widgetRepository;
-    private AssetImporter<Widget> widgetAssetImporter;
+    private final WidgetFileBasedLoader widgetLoader;
+    private final WidgetRepository widgetRepository;
+    private final AssetImporter<Widget> widgetAssetImporter;
 
     public WidgetImporter(WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository, AssetImporter<Widget> widgetAssetImporter) {
         super(widgetRepository);
@@ -64,7 +66,7 @@ public class WidgetImporter extends ComponentDependencyImporter<Widget> {
                 );
             } catch (IOException e) {
                 String error = String.format("Technical error when importing widget asset [%s]", widget.getId());
-                logger.error(error, e);
+                log.error(error, e);
                 throw new ImportException(ImportException.Type.UNEXPECTED_ZIP_STRUCTURE, error);
             }
         }

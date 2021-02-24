@@ -15,13 +15,17 @@
 package org.bonitasoft.web.designer.i18n;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
+import org.bonitasoft.web.designer.controller.utils.CopyResources;
+
+import static org.bonitasoft.web.designer.config.WebMvcConfiguration.I18N_RESOURCES;
 
 /**
  * Context Listener initializing bonita internationalization
@@ -34,11 +38,19 @@ public class I18nInitializer {
     @Inject
     private LanguagePackBuilder languagePackBuilder;
 
+    @Inject
+    private CopyResources copyResources;
+
+    @Inject
+    private WorkspaceUidProperties workspaceUidProperties;
+
     @PostConstruct
     public void contextInitialized() {
         try {
-            languagePackBuilder.start(Paths.get(getClass().getResource("/i18n").toURI()));
-        } catch (IOException | URISyntaxException e) {
+            Path extractPath = workspaceUidProperties.getExtractPath();
+            copyResources.copyResources(extractPath, I18N_RESOURCES);
+            languagePackBuilder.start(extractPath.resolve("i18n"));
+        } catch (IOException e) {
             throw new DesignerInitializerException("Unable to convert po files into json", e);
         }
     }

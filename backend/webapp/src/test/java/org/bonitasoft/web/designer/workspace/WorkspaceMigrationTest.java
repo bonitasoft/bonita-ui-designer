@@ -15,12 +15,14 @@
 
 package org.bonitasoft.web.designer.workspace;
 
-import java.util.Map;
+import static com.google.common.collect.Iterables.concat;
+import static com.google.common.collect.Iterables.transform;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
 import javax.inject.Inject;
 
-import org.bonitasoft.web.designer.ApplicationConfig;
-import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -32,35 +34,25 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static org.assertj.core.api.Assertions.assertThat;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationConfig.class })
-@WebAppConfiguration("file:target/test-classes")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Main.class)
 public class WorkspaceMigrationTest {
 
     @Inject
-    UiDesignerProperties uiDesignerProperties;
+    private WorkspaceInitializer workspaceInitializer;
 
     @Inject
-    WorkspaceInitializer workspaceInitializer;
+    private PageRepository pageRepository;
 
     @Inject
-    PageRepository pageRepository;
+    private WidgetRepository widgetRepository;
 
-    @Inject
-    WidgetRepository widgetRepository;
+    private String PAGE_HIGHER_MIGRATION_VERSION = "2.1";
 
-    String PAGE_HIGHER_MIGRATION_VERSION = "2.1";
-
-    String WIDGET_HIGHER_MIGRATION_VERSION = "2.1";
+    private String WIDGET_HIGHER_MIGRATION_VERSION = "2.1";
 
     @Before
     public void setUp() throws Exception {

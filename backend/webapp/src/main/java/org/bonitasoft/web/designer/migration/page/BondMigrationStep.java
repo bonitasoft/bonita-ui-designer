@@ -15,8 +15,6 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import static java.lang.String.format;
-
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -36,6 +34,8 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.lang.String.format;
 
 
 public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<T> {

@@ -12,9 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer;
-
-import static org.apache.commons.lang3.StringUtils.isBlank;
+package org.bonitasoft.web.designer.controller.preview;
 
 import java.io.IOException;
 import java.net.HttpCookie;
@@ -27,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +43,8 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Extending {@link ProxyServlet} to fix the cookie path which was overriden even when preserveCookie is set to true

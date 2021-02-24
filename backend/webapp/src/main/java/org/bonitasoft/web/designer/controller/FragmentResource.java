@@ -14,17 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static com.google.common.base.Predicates.not;
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
-import static com.google.common.collect.Iterables.any;
-import static java.lang.String.format;
-import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
-import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
-import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
-import static org.bonitasoft.web.designer.repository.exception.NotAllowedException.checkNotAllowed;
-import static org.jsoup.helper.StringUtil.isBlank;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +65,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.google.common.base.Predicates.not;
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
+import static com.google.common.collect.Iterables.any;
+import static java.lang.String.format;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
+import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
+import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
+import static org.bonitasoft.web.designer.repository.exception.NotAllowedException.checkNotAllowed;
+import static org.jsoup.helper.StringUtil.isBlank;
 
 @RestController
 @RequestMapping("/rest/fragments")
