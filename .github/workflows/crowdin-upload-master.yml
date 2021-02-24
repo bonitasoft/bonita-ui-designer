@@ -1,9 +1,9 @@
-name: Crowdin upload files
+name: Crowdin upload files for master
 
 # Triggers the workflow every night
 on:
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 4 * * *'
 
   workflow_dispatch:
     inputs:
@@ -13,7 +13,7 @@ jobs:
     name: Crowdin upload
     strategy:
       max-parallel: 1
-    runs-on: [self-hosted, uid-runner]
+    runs-on: self-hosted
     steps:
       - name: Extract parameter
         id: init
@@ -22,12 +22,12 @@ jobs:
           then
               echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
           else
-              echo "##[set-output name=baseBranch;]$(echo dev)"
+              echo "##[set-output name=baseBranch;]$(echo master)"
           fi
       - uses: actions/checkout@v2
         with:
           ref: ${{ steps.init.outputs.baseBranch }}
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           # Mandatory to use a old node version with our actual dependencies
           node-version: '8'
