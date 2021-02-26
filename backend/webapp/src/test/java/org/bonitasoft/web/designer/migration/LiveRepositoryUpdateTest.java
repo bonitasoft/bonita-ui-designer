@@ -15,13 +15,6 @@
 
 package org.bonitasoft.web.designer.migration;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.write;
-import static java.util.Collections.EMPTY_LIST;
-import static java.util.Collections.singletonList;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,9 +25,9 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
-
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -54,10 +47,25 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import static java.lang.String.format;
+import static java.nio.file.Files.write;
+import static java.util.Collections.EMPTY_LIST;
+import static java.util.Collections.singletonList;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.nullable;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LiveRepositoryUpdateTest {
+
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
 
     JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
 
@@ -65,9 +73,6 @@ public class LiveRepositoryUpdateTest {
     JsonFileBasedPersister<Page> persister;
 
     JsonFileBasedLoader<Page> loader = new JsonFileBasedLoader<>(objectMapper, Page.class);
-
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
 
     @Mock
     BeanValidator beanValidator;
@@ -81,7 +86,7 @@ public class LiveRepositoryUpdateTest {
         workspaceProperties = new WorkspaceProperties();
         workspaceProperties.getPages().setDir(folder.toPath());
         workspaceProperties.getWidgets().setDir(folder.toPath());
-        repository = new PageRepository(workspaceProperties, persister, loader, beanValidator, mock(Watcher.class));
+        repository = new PageRepository(workspaceProperties, new WorkspaceUidProperties(), persister, loader, beanValidator, mock(Watcher.class));
     }
 
     @Test
@@ -150,7 +155,7 @@ public class LiveRepositoryUpdateTest {
     public void should_order_LiveRepositoryUpdate() throws Exception {
         LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, loader, EMPTY_LIST);
 
-        Repository<Widget> wRepo = new WidgetRepository(workspaceProperties, mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class), mock(UiDesignerProperties.class));
+        Repository<Widget> wRepo = new WidgetRepository(workspaceProperties, new WorkspaceUidProperties(),mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class), mock(UiDesignerProperties.class));
 
         LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate = new LiveRepositoryUpdate<>(wRepo, mock(WidgetFileBasedLoader.class), EMPTY_LIST);
 

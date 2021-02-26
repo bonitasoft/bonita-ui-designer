@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -51,7 +52,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void preOpen(final Path filePath) throws LockedResourceException, ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.PRE_OPEN);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (e instanceof HttpClientErrorException) {
                 if (HttpStatus.LOCKED.equals(((HttpClientErrorException) e).getStatusCode())) {
                     throw new LockedResourceException(filePath.toString(), e);
@@ -69,7 +71,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postClose(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_CLOSE);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -83,7 +86,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void delete(Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.DELETE);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -97,7 +101,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postDelete(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_DELETE);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -110,7 +115,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postSave(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_SAVE);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -144,7 +150,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
             if (lockStatusResponse.hasBody()) {
                 return LockStatus.valueOf(lockStatusResponse.getBody());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             handleResourceException(filePath, e);
         }
 
@@ -152,24 +159,18 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     }
 
     protected ResponseEntity<String> doGet(final Path filePath, String action) {
-        if (restClient.isConfigured()) {
-            final String url = createGetURL(filePath, action);
-            RestTemplate restTemplate = restClient.getRestTemplate();
-            return restTemplate.getForEntity(URI.create(url), String.class);
-        }
-        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        final String url = createGetURL(filePath, action);
+        RestTemplate restTemplate = restClient.getRestTemplate();
+        return restTemplate.getForEntity(URI.create(url), String.class);
     }
 
     protected ResponseEntity<String> doPost(final Path filePath, WorkspaceResourceEvent actionEvent) {
         if (actionEvent == null) {
             throw new IllegalArgumentException("actionEvent is null");
         }
-        if (restClient.isConfigured()) {
-            final String url = createPostURL(actionEvent);
-            RestTemplate restTemplate = restClient.getRestTemplate();
-            return restTemplate.postForEntity(URI.create(url), filePath != null ? filePath.toString() : null, String.class);
-        }
-        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        final String url = createPostURL(actionEvent);
+        RestTemplate restTemplate = restClient.getRestTemplate();
+        return restTemplate.postForEntity(URI.create(url), filePath != null ? filePath.toString() : null, String.class);
     }
 
     private String createGetURL(final Path filePath, final String action) {

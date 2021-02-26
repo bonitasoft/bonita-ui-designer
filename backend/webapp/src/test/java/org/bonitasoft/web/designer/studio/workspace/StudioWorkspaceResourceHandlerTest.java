@@ -49,8 +49,6 @@ public class StudioWorkspaceResourceHandlerTest {
 
     private static RestServer server;
 
-    //    @Rule
-//    public MocoJunitRunner runner = MocoJunitRunner.restRunner(server);
     public Runner runner;
 
     private StudioWorkspaceResourceHandler studioWorkspaceResourceHandler;
@@ -90,22 +88,6 @@ public class StudioWorkspaceResourceHandlerTest {
         if (runner != null) {
             runner.stop();
         }
-    }
-
-    @Test
-    public void should_doPost_doNothing_if_rest_client_is_not_configured()
-            throws Exception {
-        lenient().when(workspaceProperties.getApiUrl()).thenReturn(null);
-
-        studioWorkspaceResourceHandler.doPost(filePath, WorkspaceResourceEvent.POST_CLOSE);
-    }
-
-    @Test
-    public void should_doGet_doNothing_if_rest_client_is_not_configured()
-            throws Exception {
-        lenient().when(workspaceProperties.getApiUrl()).thenReturn(null);
-
-        studioWorkspaceResourceHandler.doGet(filePath, StudioWorkspaceResourceHandler.GET_LOCK_STATUS);
     }
 
     @Test

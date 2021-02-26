@@ -31,6 +31,7 @@ import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
@@ -69,6 +70,7 @@ public class PageRepositoryIT {
         workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
         repository = new PageRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),

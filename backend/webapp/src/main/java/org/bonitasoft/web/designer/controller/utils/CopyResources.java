@@ -21,7 +21,7 @@ public class CopyResources {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "/" + patternLocation + "/**");
         for (Resource resource : resources) {
-            if (resource.exists() & resource.isReadable() && resource.contentLength() > 0) {
+            if (resource.exists() && resource.isReadable() && resource.contentLength() > 0) {
                 URL url = resource.getURL();
                 String urlString = url.toExternalForm();
                 String targetName = urlString.substring(urlString.indexOf(patternLocation));

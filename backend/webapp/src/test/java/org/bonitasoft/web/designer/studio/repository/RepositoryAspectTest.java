@@ -30,6 +30,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.studio.workspace.LockedResourceException;
 import org.bonitasoft.web.designer.studio.workspace.ResourceNotFoundException;
+import org.bonitasoft.web.designer.studio.workspace.StudioHealthCheck;
 import org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,8 +44,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Romain Bioteau
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Main.class)
-@ActiveProfiles(profiles = "studio")
+@SpringBootTest(classes = Main.class,properties = "designer.workspace.apiUrl=http://dummy.con")
 public class RepositoryAspectTest {
 
     @Inject
@@ -55,6 +55,10 @@ public class RepositoryAspectTest {
 
     @MockBean(name = "handler")
     private WorkspaceResourceHandler workspaceResourceHandler;
+
+    // We need avoid jvm suicide because of dummy studio url check
+    @MockBean
+    private StudioHealthCheck studioHealthCheck;
 
     @Test
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_on_formRepository() throws Exception {

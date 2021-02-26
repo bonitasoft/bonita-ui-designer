@@ -25,6 +25,7 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -45,11 +46,12 @@ public class WidgetRepository extends AbstractRepository<Widget> {
     @Inject
     public WidgetRepository(
             WorkspaceProperties workspaceProperties,
+            WorkspaceUidProperties workspaceUidProperties,
             @Named("widgetFileBasedPersister") JsonFileBasedPersister<Widget> fileBasedRepository,
             @Named("widgetFileBasedLoader") JsonFileBasedLoader<Widget> widgetLoader,
             BeanValidator validator,
             Watcher watcher, UiDesignerProperties uiDesignerProperties) {
-        super(workspaceProperties.getWidgets().getDir(), fileBasedRepository, widgetLoader, validator, watcher);
+        super(workspaceProperties.getWidgets().getDir(), fileBasedRepository, widgetLoader, validator, watcher, workspaceUidProperties.getTemplateResourcesPath());
         this.workspaceProperties = workspaceProperties;
         this.uiDesignerProperties = uiDesignerProperties;
     }

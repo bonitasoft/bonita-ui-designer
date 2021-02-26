@@ -18,6 +18,7 @@ package org.bonitasoft.web.designer.config;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -185,7 +186,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         ServletRegistrationBean<PreservingCookiePathProxyServlet> servletRegistration =
                 new ServletRegistrationBean<>(new PreservingCookiePathProxyServlet(), "/bdm/*");
         servletRegistration.setLoadOnStartup(1);
-        servletRegistration.addInitParameter("targetUri", uiDesignerProperties.getBonita().getBdm().getUrl() + "/bdm");
+        final String url = Optional.ofNullable(uiDesignerProperties.getBonita().getBdm().getUrl()).orElse("");
+        servletRegistration.addInitParameter("targetUri", url + "/bdm");
         servletRegistration.addInitParameter(ProxyServlet.P_LOG, "true");
         servletRegistration.setName("bonitaDataRepository");
 

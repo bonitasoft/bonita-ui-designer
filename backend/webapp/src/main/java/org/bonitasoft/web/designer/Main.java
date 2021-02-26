@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Slf4j
 @SpringBootApplication
 @EnableConfigurationProperties({ UiDesignerProperties.class, WorkspaceUidProperties.class, WorkspaceProperties.class })
@@ -26,6 +28,9 @@ public class Main {
 
     @Inject
     private WorkspaceUidProperties workspaceUidProperties;
+
+    @Inject
+    private UiDesignerProperties uiDesignerProperties;
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -46,5 +51,9 @@ public class Main {
         log.info("TemporaryWorkspacePath: {}", workspaceUidProperties.getPath());
 
         log.info("TmpI18nRepositoryPath: {}", workspaceUidProperties.getTmpI18nPath());
+
+        if (!hasText(uiDesignerProperties.getBonita().getBdm().getUrl())) {
+            log.warn("BDM API url not set or empty ! No synchronization will be performed between Studio and UID on BDM objects");
+        }
     }
 }

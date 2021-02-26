@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -41,11 +42,12 @@ public class PageRepository extends AbstractRepository<Page> implements Refreshi
     @Inject
     public PageRepository(
             WorkspaceProperties workspaceProperties,
+            WorkspaceUidProperties  workspaceUidProperties,
             @Named("pageFileBasedPersister") JsonFileBasedPersister<Page> persister,
             @Named("pageFileBasedLoader") JsonFileBasedLoader<Page> loader,
             BeanValidator validator,
             Watcher watcher) {
-        super(workspaceProperties.getPages().getDir(), persister, loader, validator, watcher);
+        super(workspaceProperties.getPages().getDir(), persister, loader, validator, watcher, workspaceUidProperties.getTemplateResourcesPath());
     }
 
     @Override

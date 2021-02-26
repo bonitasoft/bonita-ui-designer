@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -52,6 +53,7 @@ public class TemporaryFragmentRepository extends TemporaryFolder {
 
         repository = new FragmentRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 new JsonFileBasedPersister<>(objectMapper, mock(BeanValidator.class),new UiDesignerProperties("1.13.0","2.0")),
                 new JsonFileBasedLoader<>(objectMapper, Fragment.class),
                 mock(BeanValidator.class),

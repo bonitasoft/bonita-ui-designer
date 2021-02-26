@@ -44,7 +44,6 @@ public class StudioHealthCheckTest {
 
     @Before
     public void prepareMocks() throws Exception {
-        when(restClient.isConfigured()).thenReturn(true);
         when(restClient.createURI("status/")).thenReturn(statusURI);
         when(restClient.getRestTemplate()).thenReturn(restTemplate);
         when(successResponse.getStatusCode()).thenReturn(HttpStatus.OK);

@@ -119,6 +119,7 @@ public class WorkspaceTest {
 
         widgetRepository = new WidgetRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 widgetPersister,
                 new WidgetFileBasedLoader(jacksonObjectMapper),
                 validator,

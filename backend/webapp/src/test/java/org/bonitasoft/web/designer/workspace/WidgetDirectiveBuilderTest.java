@@ -29,6 +29,7 @@ import java.nio.file.Paths;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -77,6 +78,7 @@ public class WidgetDirectiveBuilderTest {
         workspaceProperties.getWidgets().setDir(Paths.get(widgetRepositoryDirectory.getRoot().getPath()));
         WidgetRepository repository = new WidgetRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 new DesignerConfig().widgetFileBasedPersister(new UiDesignerProperties("1.13.0","2.0")),
                 widgetLoader,
                 validator,

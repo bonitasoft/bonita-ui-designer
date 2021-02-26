@@ -33,6 +33,7 @@ import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -66,6 +67,7 @@ public class FragmentRepositoryTest {
         workspaceProperties.getFragments().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
         repository = new FragmentRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),

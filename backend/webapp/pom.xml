@@ -220,6 +220,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>*.properties</include>
+                    <include>config/*.properties</include>
                 </includes>
             </testResource>
             <testResource>
@@ -227,6 +228,7 @@
                 <filtering>false</filtering>
                 <excludes>
                     <exclude>*.properties</exclude>
+                    <exclude>config/*.properties</exclude>
                 </excludes>
             </testResource>
         </testResources>

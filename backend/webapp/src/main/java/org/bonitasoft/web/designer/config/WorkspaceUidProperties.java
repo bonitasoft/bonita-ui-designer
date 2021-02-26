@@ -32,10 +32,13 @@ import static org.bonitasoft.web.designer.config.WebMvcConfiguration.EXTRACT_BAC
 public class WorkspaceUidProperties {
 
     public static final String FRAGMENTS = "fragments";
+
+    public static final String TEMPLATES_RESOURCES = "templates";
+
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
 
-    private Path path;
-    private Path extractPath;
+    private Path path = Path.of(System.getProperty("java.io.tmpdir")).resolve("workspace-uid");
+    private Path extractPath = path.resolve("extract");
 
     public Path getTmpFragmentsRepositoryPath() {
         return path.resolve(FRAGMENTS);
@@ -54,5 +57,8 @@ public class WorkspaceUidProperties {
 
     public Path getExportBackendResourcesPath(){
         return getExtractPath().resolve(EXTRACT_BACKEND_RESOURCES).resolve("runtime");
+    }
+    public Path getTemplateResourcesPath(){
+        return getExtractPath().resolve(TEMPLATES_RESOURCES);
     }
 }

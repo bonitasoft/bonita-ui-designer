@@ -43,6 +43,7 @@ import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JacksonObjectMapper;
@@ -101,6 +102,7 @@ public class WidgetRepositoryTest {
         objectMapper = spy(new DesignerConfig().objectMapperWrapper());
         widgetRepository = new WidgetRepository(
                 workspaceProperties,
+                new WorkspaceUidProperties(),
                 jsonFileRepository,
                 new WidgetFileBasedLoader(objectMapper),
                 new BeanValidator(validatorFactory.getValidator()),

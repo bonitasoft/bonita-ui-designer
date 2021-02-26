@@ -52,9 +52,4 @@ public class RestClient {
         sb.append(uri);
         return sb.toString();
     }
-
-    public boolean isConfigured() {
-        return hasText(workspaceProperties.getApiUrl());
-    }
-
 }

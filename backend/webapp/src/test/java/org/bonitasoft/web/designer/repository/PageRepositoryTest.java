@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -45,7 +46,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PageRepositoryTest {
@@ -64,14 +65,19 @@ public class PageRepositoryTest {
     private PageRepository repository;
     private WorkspaceProperties workspaceProperties;
 
+    private WorkspaceUidProperties workspaceUidProperties;
+
     @Before
     public void setUp() throws Exception {
         persister = spy(new DesignerConfig().pageFileBasedPersister(mock(UiDesignerProperties.class)));
         loader = spy(new DesignerConfig().pageFileBasedLoader());
         workspaceProperties = new WorkspaceProperties();
         workspaceProperties.getPages().setDir(Paths.get(temporaryFolder.getRoot().getPath()));
+        workspaceUidProperties = new WorkspaceUidProperties();
+        workspaceUidProperties.setExtractPath(Path.of("./target/test-classes/"));
         repository = new PageRepository(
                 workspaceProperties,
+                workspaceUidProperties,
                 persister,
                 loader,
                 new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator()),

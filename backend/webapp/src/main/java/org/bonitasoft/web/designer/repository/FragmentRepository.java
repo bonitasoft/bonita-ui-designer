@@ -24,6 +24,7 @@ import javax.inject.Named;
 
 import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -38,11 +39,12 @@ public class FragmentRepository extends AbstractRepository<Fragment> implements 
     @Inject
     public FragmentRepository(
             WorkspaceProperties workspaceProperties,
+            WorkspaceUidProperties workspaceUidProperties,
             @Named("fragmentFileBasedPersister") JsonFileBasedPersister<Fragment> persister,
             @Named("fragmentFileBasedLoader") JsonFileBasedLoader<Fragment> loader,
             BeanValidator validator,
             Watcher watcher) {
-        super(workspaceProperties.getFragments().getDir(), persister, loader, validator, watcher);
+        super(workspaceProperties.getFragments().getDir(), persister, loader, validator, watcher, workspaceUidProperties.getTemplateResourcesPath());
     }
 
     @Override

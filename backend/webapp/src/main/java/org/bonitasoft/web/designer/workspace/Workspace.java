@@ -83,6 +83,8 @@ public class Workspace {
     }
 
     public void initialize() throws IOException {
+        ensureTemplateRepositoryPresent();
+        ensureTemplateRepositoryFilled();
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
@@ -160,6 +162,12 @@ public class Workspace {
         return pageWorkspace.resolve(pageFolder).resolve(pageFolder + ".json").toFile().exists();
     }
 
+    private void ensureTemplateRepositoryPresent() throws IOException {
+        createDirectories(extractPath.resolve(WorkspaceUidProperties.TEMPLATES_RESOURCES));
+    }
+    private void ensureTemplateRepositoryFilled() throws IOException {
+        copyResources.copyResources(extractPath, WorkspaceUidProperties.TEMPLATES_RESOURCES);
+    }
     private void ensurePageRepositoryPresent() throws IOException {
         createDirectories(workspaceProperties.getPages().getDir());
     }

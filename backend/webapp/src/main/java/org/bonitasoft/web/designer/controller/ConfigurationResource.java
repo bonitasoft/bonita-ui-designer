@@ -43,7 +43,7 @@ public class ConfigurationResource {
             new URL(bdrUrl);
         }
         catch (MalformedURLException e) {
-            log.warn("System property bonita data repository url is not set, or not a valid URL.");
+            log.warn("Bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }
         return new ResponseEntity<>(new ConfigurationReport(this.uiDesignerProperties.getVersion(), this.uiDesignerProperties.getModelVersion(), bdrUrl, uiDesignerProperties.isExperimental()), HttpStatus.OK);

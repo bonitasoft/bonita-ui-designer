@@ -14,10 +14,7 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -45,18 +42,25 @@ import static org.apache.commons.io.FileUtils.copyDirectory;
  */
 public abstract class AbstractRepository<T extends Identifiable> implements Repository<T> {
 
-    protected JsonFileBasedPersister<T> persister;
-    protected Path path;
-    protected BeanValidator validator;
-    protected Loader<T> loader;
-    private Watcher watcher;
+    private final Watcher watcher;
 
-    public AbstractRepository(Path path, JsonFileBasedPersister<T> persister, Loader<T> loader, BeanValidator validator, Watcher watcher) {
+    private final Path templatePath;
+
+    protected JsonFileBasedPersister<T> persister;
+
+    protected Path path;
+
+    protected BeanValidator validator;
+
+    protected Loader<T> loader;
+
+    public AbstractRepository(Path path, JsonFileBasedPersister<T> persister, Loader<T> loader, BeanValidator validator, Watcher watcher, Path templatePath) {
         this.path = path;
         this.persister = persister;
         this.validator = validator;
         this.loader = loader;
         this.watcher = watcher;
+        this.templatePath = templatePath;
     }
 
     public abstract String getComponentName();
@@ -65,9 +69,11 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public T get(String id) throws NotFoundException, RepositoryException {
         try {
             return loader.get(path.resolve(format("%s/%s.json", id, id)));
-        } catch (NoSuchFileException e) {
+        }
+        catch (NoSuchFileException e) {
             throw new NotFoundException(format("Non existing %s [%s]", getComponentName(), id));
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while getting %s [%s]", getComponentName(), id), e);
         }
     }
@@ -76,7 +82,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public T getByUUID(String uuid) throws RepositoryException {
         try {
             return loader.getByUUID(path, uuid);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while getting %s with UUID %s", getComponentName(), uuid), e);
         }
     }
@@ -85,7 +92,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public List<T> getAll() throws RepositoryException {
         try {
             return loader.getAll(path);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
         }
     }
@@ -94,7 +102,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public boolean containsObject(String id) throws RepositoryException {
         try {
             return loader.contains(path, id);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while searching %ss which used an object", getComponentName()), e);
         }
     }
@@ -117,7 +126,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         try {
             persister.save(resolvePathFolder(component.getId()), component);
             return component;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while saving %s [%s]", getComponentName(), component.getId()), e);
         }
     }
@@ -135,7 +145,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public List<T> findByObjectId(String id) throws RepositoryException {
         try {
             return loader.findByObjectId(path, id);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while searching %ss using an object", getComponentName()), e);
         }
     }
@@ -144,7 +155,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     public Map<String, List<T>> findByObjectIds(List<String> ids) throws RepositoryException {
         try {
             return loader.findByObjectIds(path, ids);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while searching %ss using an object", getComponentName()), e);
         }
     }
@@ -159,7 +171,8 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         T component = get(id);
         try {
             persister.delete(resolvePathFolder(component.getId()), component);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException(format("Error while deleting %s [%s]", getComponentName(), id), e);
         }
     }
@@ -174,10 +187,27 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
             Path componentDirectory = path.resolve(component.getId());
             if (!Files.exists(componentDirectory)) {
                 createDirectories(componentDirectory);
-                copyTemplate(component, this.getClass().getResource(format("/templates/%s", getComponentName())));
+                initializeComponentDirectoryFromTemplate(component);
             }
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             throw new RepositoryException(format("Impossible to create the folder to save the component [ %s ] : %s", component.getId(), path), ex);
+        }
+    }
+
+    /**
+     * Initialize Component directory content from template if any matching template found
+     * @param component the component for which, the directory should be initialized
+     */
+    private void initializeComponentDirectoryFromTemplate(T component) {
+        Path componentTemplateDir = templatePath.resolve(getComponentName());
+        if (Files.exists(componentTemplateDir)) {
+            try {
+                copyDirectory(componentTemplateDir.toFile(), resolvePath(component.getId()).toFile());
+            }
+            catch (IOException e) {
+                throw new RepositoryException(format("Failed to initialize %s [%s] from template\"", getComponentName(), component.getId()), e);
+            }
         }
     }
 
@@ -195,22 +225,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         watcher.watch(path, pathListener);
     }
 
-    /**
-     * Copy template found at templateUrl into component
-     *
-     * @param component to update with template
-     * @param templateUrl point at component template directory
-     */
-    private void copyTemplate(T component, URL templateUrl) {
-        try {
-            if (templateUrl != null) {
-                copyDirectory(new File(templateUrl.toURI()), resolvePath(component.getId()).toFile());
-            }
-        } catch (IOException | URISyntaxException e) {
-            throw new RepositoryException(format("Failed to initialize %s [%s] from template\"", getComponentName(), component.getId()), e);
-        }
-    }
-
     @Override
     public T markAsFavorite(String id) {
         T component = get(id);
@@ -226,10 +240,11 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
-    public String getNextAvailableId(String name)  {
+    public String getNextAvailableId(String name) {
         try {
             return loader.getNextAvailableObjectId(path, name);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RepositoryException("Failed to generate object ID", e);
         }
     }
