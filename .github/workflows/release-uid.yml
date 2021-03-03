@@ -11,7 +11,10 @@ on:
         description: true to Publish binaries
         required: true
         default: true
-
+      pushToPublic:
+        description: true to push on public repository
+        required: true
+        default: false
 jobs:
   createGithubRelease:
     name: Create release
@@ -19,6 +22,8 @@ jobs:
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
       - name: Get tag version
         id: newTagVersion
         shell: bash
@@ -42,13 +47,17 @@ jobs:
           ./infrastructure/update-version.sh ${{ steps.newTagVersion.outputs.value }}
           git commit -a -m "other(${{ steps.newTagVersion.outputs.value }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
           git push --tags
-
+      - name: Push public dev tag
+        if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
+        shell: bash
+        run: |
+          git remote add public-repo https://github.com/bonitasoft/bonita-ui-designer.git
+          git push public-repo ${{ steps.newTagVersion.outputs.value}}
       - name: changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
         env:
           REPO: ${{ github.repository }}
-
       - name: Create Release
         uses: actions/create-release@latest
         id: create_release
@@ -61,7 +70,7 @@ jobs:
             ${{ steps.Changelog.outputs.changelog }}
           prerelease: true
       - name: Create Public Release
-        if: ${{ github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
         uses: actions/create-release@latest
         id: create_public_release
         env:
