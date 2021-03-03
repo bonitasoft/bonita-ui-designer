@@ -23,7 +23,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
-import org.bonitasoft.web.designer.controller.utils.CopyResources;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

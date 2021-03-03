@@ -1,0 +1,34 @@
+function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
+
+  'use strict';
+
+  function createGetter(accessor) {
+    return accessor && $parse(accessor);
+  }
+
+  this.getLabel = createGetter($scope.properties.displayedKey) || function (item) {
+    return typeof item === 'string' ? item : JSON.stringify(item);
+  };
+
+  this.getValue = createGetter($scope.properties.returnedKey) || function (item) {
+    return item;
+  };
+
+  this.onSelectedCallback = function ($item, $model, $label) {
+    this.selectedItem = $item;
+  };
+
+  this.formatLabel = function ($model) {
+    if (this.selectedItem) {
+      return this.getLabel(this.selectedItem);
+    } else {
+      return this.getLabel($model);
+    }
+  };
+
+  this.name = widgetNameFactory.getName('pbAutocomplete');
+
+  if (!$scope.properties.isBound('value')) {
+    $log.error('the pbAutocomplete property named "value" need to be bound to a variable');
+  }
+}

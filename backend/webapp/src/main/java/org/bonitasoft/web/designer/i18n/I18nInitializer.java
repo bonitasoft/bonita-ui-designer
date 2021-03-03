@@ -23,7 +23,6 @@ import javax.inject.Named;
 
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
-import org.bonitasoft.web.designer.controller.utils.CopyResources;
 
 import static org.bonitasoft.web.designer.config.WebMvcConfiguration.I18N_RESOURCES;
 

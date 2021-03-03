@@ -1,4 +1,4 @@
-package org.bonitasoft.web.designer.controller.utils;
+package org.bonitasoft.web.designer.i18n;
 
 import java.io.File;
 import java.io.IOException;
