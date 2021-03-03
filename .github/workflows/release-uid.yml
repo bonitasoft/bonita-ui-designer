@@ -59,9 +59,21 @@ jobs:
           release_name: Release ${{ steps.newTagVersion.outputs.value }}
           body: |
             ${{ steps.Changelog.outputs.changelog }}
-          draft: false
           prerelease: true
-
+      - name: Create Public Release
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        uses: actions/create-release@latest
+        id: create_public_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+        with:
+          tag_name: ${{ steps.newTagVersion.outputs.value }}
+          release_name: Release ${{ steps.newTagVersion.outputs.value }}
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
+          prerelease: true
+          owner: bonitasoft
+          repo: bonita-ui-designer
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
         uses: peter-evans/repository-dispatch@v1
