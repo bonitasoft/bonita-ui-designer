@@ -14,7 +14,7 @@ on:
       pushToPublic:
         description: true to push on public repository
         required: true
-        default: false
+        default: true
 jobs:
   createGithubRelease:
     name: Create release
@@ -34,7 +34,6 @@ jobs:
           else
               echo "##[set-output name=value;]$(echo ${{ github.event.inputs.version }})"
           fi
-
       - name: Config git
         run: |
           git config --local user.email "ui-designer-bot@users.noreply.github.com"
@@ -47,42 +46,25 @@ jobs:
           ./infrastructure/update-version.sh ${{ steps.newTagVersion.outputs.value }}
           git commit -a -m "other(${{ steps.newTagVersion.outputs.value }}) prepare release ${{ steps.newTagVersion.outputs.value }}" && git tag -a ${{ steps.newTagVersion.outputs.value}} -m "Release ${{ steps.newTagVersion.outputs.value }}"
           git push --tags
+          echo "releaseDate=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+
       - name: Push public dev tag
         if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
         shell: bash
         run: |
-          git remote add public-repo https://github.com/bonitasoft/bonita-ui-designer.git
+          git config remote.public.url >&- || git remote add public https://github.com/bonitasoft/bonita-ui-designer.git
           git push public-repo ${{ steps.newTagVersion.outputs.value}}
-      - name: changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
+
       - name: Create Release
-        uses: actions/create-release@latest
+        uses: ncipollo/release-action@v1
         id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.newTagVersion.outputs.value }}
-          release_name: Release ${{ steps.newTagVersion.outputs.value }}
-          body: |
-            ${{ steps.Changelog.outputs.changelog }}
+          tag: ${{ steps.newTagVersion.outputs.value }}
+          name: Release ${{ steps.newTagVersion.outputs.value }}
+          body: Release ${{ steps.newTagVersion.outputs.value }} (${{ env.releaseDate}})
           prerelease: true
-      - name: Create Public Release
-        if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
-        uses: actions/create-release@latest
-        id: create_public_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
-        with:
-          tag_name: ${{ steps.newTagVersion.outputs.value }}
-          release_name: Release ${{ steps.newTagVersion.outputs.value }}
-          body: |
-            ${{ steps.Changelog.outputs.changelog }}
-          prerelease: true
-          owner: bonitasoft
-          repo: bonita-ui-designer
+          token: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
         uses: peter-evans/repository-dispatch@v1
