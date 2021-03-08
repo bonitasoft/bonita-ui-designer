@@ -80,7 +80,7 @@ public class PageRepository extends AbstractRepository<Page> implements Refreshi
         try {
             persister.refreshIndexing(this.path.resolve(METADATA), pages);
         } catch (Exception e) {
-            logger.error("Cannot refresh workspace indexing.");
+            logger.error("Cannot refresh workspace indexing.", e);
         }
     }
 

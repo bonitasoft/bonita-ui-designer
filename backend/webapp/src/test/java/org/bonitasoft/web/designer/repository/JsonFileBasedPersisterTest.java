@@ -19,8 +19,8 @@ import static org.apache.commons.io.FileUtils.deleteQuietly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
@@ -165,7 +165,6 @@ public class JsonFileBasedPersisterTest {
         Page page2 = PageBuilder.aPage().withUUID("foo-uuid").withName("foo").withId("foo-id").build();
         JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<Page>(objectMapper, validator, uiDesignerProperties);
         Path metadataFolder = repoDirectory.resolve(".metadata");
-        metadataFolder.toFile().mkdir();
         new Thread(() -> {
             try {
                 pageRepository.saveInIndex(metadataFolder, page2);
@@ -198,8 +197,6 @@ public class JsonFileBasedPersisterTest {
         pages.add(page2);
         JsonFileBasedPersister<Page> pageRepository = new JsonFileBasedPersister<>(objectMapper, validator, uiDesignerProperties);
         Path metadataFolder = repoDirectory.resolve(".metadata");
-        metadataFolder.toFile().mkdir();
-
         new Thread(() -> {
             try {
                 pageRepository.refreshIndexing(metadataFolder, pages);
@@ -219,4 +216,5 @@ public class JsonFileBasedPersisterTest {
                     }
                 });
     }
+    
 }

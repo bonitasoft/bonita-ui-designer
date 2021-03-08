@@ -14,13 +14,17 @@
  */
 package org.bonitasoft.web.designer.repository;
 
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.apache.commons.io.FileUtils.forceMkdir;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.MigrationConfig;
@@ -31,13 +35,9 @@ import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.util.StringUtils;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.apache.commons.io.FileUtils.forceMkdir;
+import com.fasterxml.jackson.core.JsonGenerationException;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -50,7 +50,8 @@ public class JsonFileBasedPersister<T extends Identifiable> {
     protected UiDesignerProperties uiDesignerProperties;
     protected static final Logger logger = LoggerFactory.getLogger(JsonFileBasedPersister.class);
 
-    public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator, UiDesignerProperties uiDesignerProperties) {
+    public JsonFileBasedPersister(JacksonObjectMapper objectMapper, BeanValidator validator,
+            UiDesignerProperties uiDesignerProperties) {
         this.objectMapper = objectMapper;
         this.validator = validator;
         this.uiDesignerProperties = uiDesignerProperties;
@@ -78,7 +79,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         try {
             write(jsonFile(directory, content.getId()), objectMapper.toPrettyJson(content, JsonViewPersistence.class));
             Path metadataPath = updateMetadata(directory, content);
-            if (content instanceof HasUUID && !StringUtils.isEmpty(((HasUUID) content).getUUID())) {
+            if (content instanceof HasUUID && StringUtils.hasText(((HasUUID) content).getUUID())) {
                 //update index used by the studio to find artifacts given their UUID
                 saveInIndex(metadataPath, content);
             }
@@ -110,6 +111,9 @@ public class JsonFileBasedPersister<T extends Identifiable> {
 
     private synchronized void writeIndexFile(Path indexPath, Map<String, String> index) throws IOException {
         try {
+            if (!indexPath.getParent().toFile().exists()) {
+                forceMkdir(indexPath.getParent().toFile());
+            }
             write(indexPath, objectMapper.toJson(index));
         } catch (JsonGenerationException e) {
             logger.error(format("Cannot generate index. Maybe a migration is required."));
@@ -123,8 +127,9 @@ public class JsonFileBasedPersister<T extends Identifiable> {
             try {
                 index = objectMapper.fromJsonToMap(indexFileContent);
             } catch (Exception e) {
-                if (indexFileContent.length > 0) {  //file is not empty and cannot be parsed
-                    logger.error(String.format("Failed to parse '%s' file with content:\n%s", indexPath, new String(indexFileContent)), e);
+                if (indexFileContent.length > 0) { //file is not empty and cannot be parsed
+                    logger.error(String.format("Failed to parse '%s' file with content:\n%s", indexPath,
+                            new String(indexFileContent)), e);
                 }
                 //else file is empty, ignore exception
             }
@@ -185,7 +190,7 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         Map<String, String> refreshingIndex = new HashMap<>();
         pages.forEach(page -> {
             String uuidIfExist = getUUIDIfExist(page);
-            if (uuidIfExist!= null) {
+            if (uuidIfExist != null) {
                 refreshingIndex.put(uuidIfExist, page.getId());
             }
         });
