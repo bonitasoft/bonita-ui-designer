@@ -1,0 +1,62 @@
+name: Deploy Nightly
+
+on:
+#  schedule:
+#    - cron: '0 4 * * *'
+
+  workflow_dispatch:
+    inputs:
+      dockerUrl:
+        description: Docker url, where the UID will be deployed
+        default: tcp://docker.rd.lan:2375
+        required: true
+      dockerName:
+        description: Docker name
+        default: nightly-uid
+        required: true
+      port:
+        description: Port where UID is running each night (50000 for dev, 50001 for master)
+        default: 50000
+        required: true
+jobs:
+  createGithubRelease:
+    name: Create release
+    runs-on: [self-hosted, uid-runner]
+    steps:
+      - name: Extract parameter
+        id: init
+        run: |
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]
+          then
+              echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
+          else
+              echo "##[set-output name=baseBranch;]$(echo dev)"
+          fi
+      - name: Setup checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.init.outputs.baseBranch }}
+      - name: Set up Java 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Build binaries
+        if: ${{ success()}
+        run: ./mvnw -B package -DskipTests
+      - name: Define env variable
+        if: ${{ success()}
+        shell: bash
+        run: |
+          echo "DOCKER_IMAGE_NAME=$(echo nightly-uid-${{ steps.init.outputs.baseBranch }})" >> $GITHUB_ENV
+      - name: Deploy to docker
+        if: ${{ success()}}
+        shell: bash
+        run: |
+          export DOCKER_HOST="${{ github.event.inputs.dockerUrl }}"
+          (docker kill "${{ env.DOCKER_IMAGE_NAME }}" ) || true
+          (docker rm -vf ${{ env.DOCKER_IMAGE_NAME }}) || true
+          docker build -t bonita/"${{ env.DOCKER_IMAGE_NAME }}" .
+          docker run -p "${{ github.event.inputs.port }}":8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
+          echo "Container is running on http://${{ github.event.inputs.dockerUrl }}:${{ github.event.inputs.port }}/bonita"
+
+
