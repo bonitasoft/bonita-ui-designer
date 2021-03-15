@@ -1,8 +1,8 @@
 name: Deploy Nightly
 
 on:
-#  schedule:
-#    - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 4 * * *'
 
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ on:
         default: tcp://docker.rd.lan:2375
         required: true
       dockerName:
-        description: Docker name
+        description: Docker prefix name
         default: nightly-uid
         required: true
       port:
@@ -41,13 +41,13 @@ jobs:
         with:
           java-version: 11
       - name: Build binaries
-        if: ${{ success()}
+        if: ${{ success()}}
         run: ./mvnw -B package -DskipTests
       - name: Define env variable
-        if: ${{ success()}
+        if: ${{ success()}}
         shell: bash
         run: |
-          echo "DOCKER_IMAGE_NAME=$(echo nightly-uid-${{ steps.init.outputs.baseBranch }})" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_NAME=$(echo nightly-uid-${{ steps.init.outputs.baseBranch }})" | tr "/" - >> $GITHUB_ENV
       - name: Deploy to docker
         if: ${{ success()}}
         shell: bash
@@ -58,5 +58,3 @@ jobs:
           docker build -t bonita/"${{ env.DOCKER_IMAGE_NAME }}" .
           docker run -p "${{ github.event.inputs.port }}":8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
           echo "Container is running on http://${{ github.event.inputs.dockerUrl }}:${{ github.event.inputs.port }}/bonita"
-
-
