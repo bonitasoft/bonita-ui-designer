@@ -19,8 +19,8 @@ on:
         default: 50000
         required: true
 jobs:
-  createGithubRelease:
-    name: Create release
+  deployNightly:
+    name: Deploy Nightly docker image
     runs-on: [self-hosted, uid-runner]
     steps:
       - name: Extract parameter
@@ -52,9 +52,9 @@ jobs:
         if: ${{ success()}}
         shell: bash
         run: |
-          export DOCKER_HOST="${{ github.event.inputs.dockerUrl }}"
+          export DOCKER_HOST=${{ github.event.inputs.dockerUrl }}
           (docker kill "${{ env.DOCKER_IMAGE_NAME }}" ) || true
           (docker rm -vf ${{ env.DOCKER_IMAGE_NAME }}) || true
-          docker build -t bonita/"${{ env.DOCKER_IMAGE_NAME }}" .
-          docker run -p "${{ github.event.inputs.port }}":8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
-          echo "Container is running on http://${{ github.event.inputs.dockerUrl }}:${{ github.event.inputs.port }}/bonita"
+          docker build -t bonita/${{ env.DOCKER_IMAGE_NAME }} .
+          docker run -p ${{ github.event.inputs.port }}:8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
+          echo Container is running on http://${{ github.event.inputs.dockerUrl }}:${{ github.event.inputs.port }}/bonita
