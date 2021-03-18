@@ -8,15 +8,15 @@ on:
     inputs:
       dockerUrl:
         description: Docker url, where the UID will be deployed
-        default: tcp://docker.rd.lan:2375
+        default: "tcp://docker.rd.lan:2375"
         required: true
       dockerName:
         description: Docker prefix name
-        default: nightly-uid
+        default: "nightly-uid"
         required: true
       port:
         description: Port where UID is running each night (50000 for dev, 50001 for master)
-        default: 50000
+        default: "50000"
         required: true
 jobs:
   deployNightly:
