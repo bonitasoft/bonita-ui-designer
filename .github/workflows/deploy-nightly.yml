@@ -29,8 +29,14 @@ jobs:
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]
           then
               echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
+              echo ::set-output name=dockerUrl::${github.event.inputs.dockerUrl}
+              echo ::set-output name=dockerUrl::${github.event.inputs.dockerName}
+              echo ::set-output name=port::${github.event.inputs.port}
           else
               echo "##[set-output name=baseBranch;]$(echo dev)"
+              echo "##[set-output name=dockerUrl;]$(echo tcp://docker.rd.lan:2375)"
+              echo "##[set-output name=dockerName;]$(echo nightly-uid)"
+              echo "##[set-output name=port;]$(echo 50000)"
           fi
       - name: Setup checkout
         uses: actions/checkout@v2
@@ -47,14 +53,14 @@ jobs:
         if: ${{ success()}}
         shell: bash
         run: |
-          echo "DOCKER_IMAGE_NAME=$(echo nightly-uid-${{ steps.init.outputs.baseBranch }})" | tr "/" - >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_NAME=$(echo ${{ steps.init.outputs.dockerName }}-${{ steps.init.outputs.baseBranch }})" | tr "/" - >> $GITHUB_ENV
       - name: Deploy to docker
         if: ${{ success()}}
         shell: bash
         run: |
-          export DOCKER_HOST=${{ github.event.inputs.dockerUrl }}
+          export DOCKER_HOST=${{ steps.init.outputs.dockerUrl }}
           (docker kill "${{ env.DOCKER_IMAGE_NAME }}" ) || true
           (docker rm -vf ${{ env.DOCKER_IMAGE_NAME }}) || true
           docker build -t bonita/${{ env.DOCKER_IMAGE_NAME }} .
-          docker run -p ${{ github.event.inputs.port }}:8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
-          echo Container is running on http://${{ github.event.inputs.dockerUrl }}:${{ github.event.inputs.port }}/bonita
+          docker run -p ${{ steps.init.outputs.port }}:8080 --name="${{ env.DOCKER_IMAGE_NAME }}" -d bonita/"${{ env.DOCKER_IMAGE_NAME }}"
+          echo Container is running on http://${{ steps.init.outputs.dockerUrl }}:${{ steps.init.outputs.port }}/bonita
