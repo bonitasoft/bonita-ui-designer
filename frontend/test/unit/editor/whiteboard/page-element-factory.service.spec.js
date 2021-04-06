@@ -113,7 +113,6 @@
       };
 
       let element = service.createTabsContainerElement(tabsContainer);
-      console.log(element);
       expect(element).toEqual({
         id: 'pbTabsContainer',
         type: 'tabsContainer',

@@ -44,6 +44,17 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       type: $scope.isExposed(data) ? 'constant' : data.type,
       displayValue: $scope.isExposed(data) ? '' : (data.type === 'businessdata' ? JSON.stringify(data.variableInfo.data) : data.displayValue)
     };
+
+    if(data.type === 'url'){
+      let advancedOptions= {};
+      if (data.advancedOptions.headers){
+        advancedOptions.headers = data.advancedOptions.headers;
+      }
+      if (data.advancedOptions.statusCode){
+        advancedOptions.statusCode = data.advancedOptions.statusCode;
+      }
+      $scope.page.variables[data.$$name].advancedOptions = advancedOptions;
+    }
   };
 
   $scope.getType = data => ($scope.isExposed(data)) ? '(' + gettextCatalog.getString('Exposed') + ')' : $scope.getLabel(data.type);

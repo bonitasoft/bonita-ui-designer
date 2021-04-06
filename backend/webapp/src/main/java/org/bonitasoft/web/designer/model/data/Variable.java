@@ -34,11 +34,13 @@ public class Variable {
     private DataType type = DataType.CONSTANT;
     private String displayValue;
     private boolean exposed;
+    private VariableAdvancedOptions advancedOptions;
 
     @JsonCreator
-    public Variable(@JsonProperty("type") DataType type, @JsonProperty("value") List<String> value) {
+    public Variable(@JsonProperty("type") DataType type, @JsonProperty("value") List<String> value, @JsonProperty("advancedOptions") VariableAdvancedOptions advancedOptions) {
         this.type = type;
         this.displayValue = getValueAsString(value);
+        this.advancedOptions = advancedOptions;
     }
 
     public Variable(DataType type, String displayValue) {
@@ -65,6 +67,16 @@ public class Variable {
         this.displayValue = getValueAsString(value);
     }
 
+    @JsonView({JsonViewPersistence.class})
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public VariableAdvancedOptions getAdvancedOptions() {
+        return this.advancedOptions;
+    }
+
+    public void setAdvancedOptions(VariableAdvancedOptions options) {
+        this.advancedOptions = options;
+    }
+
     public String getDisplayValue() {
         return displayValue;
     }
@@ -78,7 +90,7 @@ public class Variable {
     }
 
     private static String getValueAsString(List<String> value) {
-        return (value != null) ? String.join("\n", value): null;
+        return (value != null) ? String.join("\n", value) : null;
     }
 
     @JsonView({JsonViewPersistence.class})

@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   class ResolverService {
@@ -9,8 +9,9 @@
     addResolverType(name, Resolver) {
       this.resolvers[name] = Resolver;
     }
+
     createResolver(model, name, data) {
-      return this.resolvers[data.type](model, name, data.displayValue);
+      return this.resolvers[data.type](model, name, data.displayValue, data.advancedOptions);
     }
   }
 

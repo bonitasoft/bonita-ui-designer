@@ -52,6 +52,46 @@
                 <label ng-switch-when="url" class="control-label" for="value" translate>API URL</label>
                 <input ng-switch-when="url" autofocus type="text" class="form-control" placeholder="../API" id="value"
                        name="value" ng-model="newData.displayValue" required valid-url>
+                <!-- Advanced options -->
+                <div ng-switch-when="url" class="DataPopPup-advanced-options" ng-init="advancedOptions= !newData.advancedOptions.hasOwnProperty('headers') && !newData.advancedOptions.hasOwnProperty('statusCode')">
+                    <label ng-click="advancedOptions = !advancedOptions">
+                        <i class="property-collapsed glyphicon"
+                           ng-class="{'glyphicon-chevron-right': advancedOptions, 'glyphicon-chevron-down': !advancedOptions}"></i>
+                        <translate>Advanced options</translate>
+                    </label>
+                    <span><i class="fa fa-question-circle" title="{{'Bind and use these variables in your artifact.' | translate}}"></i></span>
+                    <div uib-collapse="advancedOptions">
+                        <label class="control-label" for="headers" translate>Response headers</label>
+                        <span><i class="fa fa-question-circle" title="{{ 'Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders[\'header-name\']' | translate}}"></i></span>
+                        <div class="input-group input-group-sm">
+                            <uid-property-typeahead
+                                id="headers"
+                                autocomplete="off"
+                                uid-property-typeahead-values="getDataNames()"
+                                uid-property-typeahead-model="newData.advancedOptions.headers">
+                            </uid-property-typeahead>
+                            <span class="input-group-btn"
+                                  title="{{ 'Variable in read-write binding with the property value' | translate }}">
+                            <button class="btn btn-bonita-property" type="button" disabled="true"><i class="fa fa-link"></i></button>
+                        </span>
+                        </div>
+                        <label class="control-label" for="statusCode" translate>Response status code</label>
+                        <span><i class="fa fa-question-circle" title="{{ 'Store as Number value' | translate}}"></i></span>
+                        <div class="input-group input-group-sm">
+                            <uid-property-typeahead
+                                id="statusCode"
+                                autocomplete="off"
+                                uid-property-typeahead-values="getDataNames()"
+                                uid-property-typeahead-model="newData.advancedOptions.statusCode">
+                            </uid-property-typeahead>
+                            <span class="input-group-btn"
+                                  title="{{ 'Variable in read-write binding with the property value' | translate }}">
+                            <button class="btn btn-bonita-property" type="button" disabled="true"><i class="fa fa-link"></i></button>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Business Data -->
                 <div ng-hide="offlineMode || businessDataRepoIsEmpty" ng-switch-when="businessdata"
                      class="form-group form-group--data">
@@ -76,12 +116,15 @@
                         <translate>Import, define or deploy a Business Data Model in Bonita Studio.</translate>
                     </div>
                     <div ng-if="!offlineMode && !businessDataRepoIsEmpty">
-                        <translate><strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data Model currently deployed.</translate>
+                        <translate><strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data
+                            Model currently deployed.
+                        </translate>
                         <br/>
                         <translate>You can only edit the query filters and pagination.</translate>
                     </div>
                     <div ng-if="offlineMode">
-                        <translate>Unable to access Business Data Model. Restart Bonita Studio and try again.</translate>
+                        <translate>Unable to access Business Data Model. Restart Bonita Studio and try again.
+                        </translate>
                         <br/>
                         <span ng-if="newData.businessObject" translate>
                             You can only edit the query filters and pagination.
@@ -95,11 +138,18 @@
                 <div class="help-block" ng-switch-when="url" translate>
                     <p><span class="tip">Tips:</span></p>
                     <ul>
-                        <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li>
+                        <li translate>To get data from the <i>Business Data Model</i>, please use the Business data
+                            variable type.
+                        </li>
                         <li translate>You can use data in the URL with the <i><em
-                            ng-non-bindable>{{dataName}}</em></i> syntax.</li>
-                        <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li>
-                        <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li>
+                            ng-non-bindable>{{dataName}}</em></i> syntax.
+                        </li>
+                        <li translate>You can extend our REST API capabilities by creating REST API extensions in the
+                            Studio and use them here.
+                        </li>
+                        <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding
+                            and use it in the artifact.
+                        </li>
                     </ul>
                 </div>
 

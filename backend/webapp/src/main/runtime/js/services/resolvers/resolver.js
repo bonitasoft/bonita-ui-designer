@@ -7,11 +7,13 @@
   function createResolver() {
 
     class Resolver {
-      constructor(model, name, content) {
+      constructor(model, name, content, advancedOptions) {
         this.content = content;
         this.name = name;
         this.model = model;
+        this.advancedOptions = advancedOptions;
       }
+
       resolve() {}
       watchDependencies() {}
       hasDependencies() { return false; }
