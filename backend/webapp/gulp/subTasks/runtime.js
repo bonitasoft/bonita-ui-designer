@@ -35,7 +35,7 @@ function runtimeFonts(){
     .pipe(dest(config.paths.dest.fonts));
 }
 
-function runtimeJs(){
+function runtimeJs(done){
   let tpl = src(config.paths.templates)
     .pipe(html2js({
       moduleName: 'bonitasoft.ui.templates'
@@ -54,11 +54,12 @@ function runtimeJs(){
       add: true
     }));
 
-  return merge(app, tpl)
+  merge(app, tpl)
     .pipe(concat('runtime.min.js'))
     .pipe(uglify().on('error', console.error))
     .pipe(sourcemaps.write('.'))
     .pipe(dest(config.paths.dest.js));
+  done();
 }
 
 exports.vendor = vendor;
