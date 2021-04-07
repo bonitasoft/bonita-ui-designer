@@ -59,7 +59,7 @@
                            ng-class="{'glyphicon-chevron-right': advancedOptions, 'glyphicon-chevron-down': !advancedOptions}"></i>
                         <translate>Advanced options</translate>
                     </label>
-                    <span><i class="fa fa-question-circle" title="{{'Bind and use these variables in your artifact.' | translate}}"></i></span>
+                    <span><i class="fa fa-question-circle" title="{{'Bind these options to a UI-Designer variable and use them in your artifact.' | translate}}"></i></span>
                     <div uib-collapse="advancedOptions">
                         <label class="control-label" for="headers" translate>Response headers</label>
                         <span><i class="fa fa-question-circle" title="{{ 'Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders[\'header-name\']' | translate}}"></i></span>
@@ -67,7 +67,7 @@
                             <uid-property-typeahead
                                 id="headers"
                                 autocomplete="off"
-                                uid-property-typeahead-values="getDataNames()"
+                                uid-property-typeahead-values="getDataNamesWithoutActualVariable()"
                                 uid-property-typeahead-model="newData.advancedOptions.headers">
                             </uid-property-typeahead>
                             <span class="input-group-btn"
@@ -81,7 +81,7 @@
                             <uid-property-typeahead
                                 id="statusCode"
                                 autocomplete="off"
-                                uid-property-typeahead-values="getDataNames()"
+                                uid-property-typeahead-values="getDataNamesWithoutActualVariable()"
                                 uid-property-typeahead-model="newData.advancedOptions.statusCode">
                             </uid-property-typeahead>
                             <span class="input-group-btn"
@@ -147,7 +147,7 @@
                         <li translate>You can extend our REST API capabilities by creating REST API extensions in the
                             Studio and use them here.
                         </li>
-                        <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding
+                        <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding
                             and use it in the artifact.
                         </li>
                     </ul>

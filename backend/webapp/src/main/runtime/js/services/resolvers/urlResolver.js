@@ -41,9 +41,18 @@
       }
 
       /**
-       *
-       * @param data Array to process to unflatten
-       * @return
+       * Convert entry data with flat key (key contains '.') into a real object with depth then returns this object
+       * @example entry object like {data.headers: "myValue", data.secondLevel.code : "400" } will give you
+       * {
+       *  data : {
+       *   headers: "myValue",
+       *   secondLevel : {
+       *     code: 400
+       *   }
+       *  }
+       * }
+       * @param Object Object to process to unflatten
+       * @return Object a depth object
        */
       unflattenArray(data) {
         let result = {};

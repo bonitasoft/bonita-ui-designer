@@ -127,8 +127,8 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
       $uibModalInstance.dismiss();
     };
 
-    $scope.getDataNames = function() {
-      return Object.keys($scope.pageData || {});
+    $scope.getDataNamesWithoutActualVariable = function() {
+      return Object.keys($scope.pageData || {}).filter(variable => variable !== $scope.newData.$$name);
     };
 
   });

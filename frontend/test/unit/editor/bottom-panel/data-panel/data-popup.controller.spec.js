@@ -25,8 +25,8 @@
     }));
 
     describe('Variable creation', function() {
-      var pageData = { users: { value: [] } };
-      var data;
+      let pageData = { users: { value: [] } };
+      let data;
 
       beforeEach(function() {
         getController(pageData, data);
@@ -53,8 +53,8 @@
     });
 
     describe('Edit variable', function() {
-      var data = { $$name: 'users', displayValue: '4', type: 'constant' };
-      var pageData = { users: { displayValue: '4' } };
+      let data = { $$name: 'users', displayValue: '4', type: 'constant' };
+      let pageData = { users: { displayValue: '4' } };
 
       beforeEach(function() {
         getController(pageData, data);
@@ -69,15 +69,15 @@
     });
 
     describe('save variable', function() {
-      var pageData = { users: { value: ['4'] } };
-      var data;
+      let pageData = { users: { value: ['4'] } };
+      let data;
 
       beforeEach(function() {
         getController(pageData, data);
       });
 
       it('should close modal', function() {
-        var data = {
+        let data = {
           $$name: 'user',
           type: 'constant',
           displayValue: 'silentBob'
@@ -85,6 +85,22 @@
 
         $scope.save(data, 'silentBob');
         expect($uibModalInstance.close).toHaveBeenCalledWith(data);
+      });
+    });
+
+    describe('Variable update', function() {
+
+      let data = { $$name: 'users', displayValue: '4', type: 'url' };
+      let pageData = { users: { displayValue: '4' }, userResponse: { displayValue: {} }, toto: { displayValue: {} }};
+
+      beforeEach(function() {
+        getController(pageData, data);
+      });
+
+      it('should get list of all variable without himself', function() {
+        let filterData = $scope.getDataNamesWithoutActualVariable();
+        expect(filterData.length).toBe(2);
+        expect(filterData['users']).toBe(undefined);
       });
     });
   });
