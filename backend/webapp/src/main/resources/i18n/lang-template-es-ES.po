@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-02-08 03:31\n"
+"PO-Revision-Date: 2021-04-08 01:32\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -171,7 +171,7 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por Convención, el archivo tiene q
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> o <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax.</li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li> <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li> </ul>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact. </li> </ul>"
 msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -495,6 +495,9 @@ msgstr "Debido a este cambio, si usted recibe un fragmento, cámbielo el nombre 
 
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
+
+msgid "Bind and use these variables in your artifact."
+msgstr ""
 
 msgid "Bind the <em>formInput</em> variable of your form."
 msgstr "Vincule las variables <em>formInput</em> del formulario."
@@ -1940,6 +1943,12 @@ msgstr "Restablecer mapeo por defecto"
 msgid "Response"
 msgstr "Respuesta"
 
+msgid "Response headers"
+msgstr ""
+
+msgid "Response status code"
+msgstr ""
+
 msgid "Returned key"
 msgstr "Clave de retorno"
 
@@ -2177,6 +2186,12 @@ msgstr "Estático"
 
 msgid "Step"
 msgstr "Tarea"
+
+msgid "Store as Number value"
+msgstr ""
+
+msgid "Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders['header-name']"
+msgstr ""
 
 msgid "String"
 msgstr "Cadena (String)"
@@ -2956,7 +2971,7 @@ msgid "You can provide a filter for users to update the displayed table to show 
 "            the filter. To do this :"
 msgstr "Puede proporcionar un filtro para que los usuarios actualicen la tabla mostrada para mostrar sólo los registros que coincidan con el filtro. Para hacer esto:"
 
-msgid "You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status)."
+msgid "You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact."
 msgstr ""
 
 msgid "You can save the content of a plain container as a reusable fragment."

@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2021-02-08 03:31\n"
+"PO-Revision-Date: 2021-04-08 01:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -173,7 +173,7 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por convenção, o arquivo deve ser
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type.</li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax.</li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here.</li> <li translate>You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status).</li> </ul>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact. </li> </ul>"
 msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -500,6 +500,9 @@ msgid "Because of this change, if you receive a fragment, rename it and then sha
 msgstr "Por causa desta alteração, se você receber um fragmento, renomeá-lo e depois compartilhá-lo de volta, ele será considerado como um novo arquivo pelos outros Projetos Bonita ou Designers de UI."
 
 msgid "Bidirectional bond"
+msgstr ""
+
+msgid "Bind and use these variables in your artifact."
 msgstr ""
 
 msgid "Bind the <em>formInput</em> variable of your form."
@@ -1948,6 +1951,12 @@ msgstr "Redefinir mapeamento para o padrão"
 msgid "Response"
 msgstr "Resposta"
 
+msgid "Response headers"
+msgstr ""
+
+msgid "Response status code"
+msgstr ""
+
 msgid "Returned key"
 msgstr ""
 
@@ -2185,6 +2194,12 @@ msgid "Static"
 msgstr "Estático"
 
 msgid "Step"
+msgstr ""
+
+msgid "Store as Number value"
+msgstr ""
+
+msgid "Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders['header-name']"
 msgstr ""
 
 msgid "String"
@@ -2973,7 +2988,7 @@ msgid "You can provide a filter for users to update the displayed table to show 
 msgstr "Você pode fornecer um filtro para que os usuários atualizem a tabela exibida para mostrar apenas as linhas que correspondem\n"
 "            ao filtro. Para fazer isso:"
 
-msgid "You can retrieve the Status Code or Response Headers with __status and __headers on the variable (e.g. variablename.__status)."
+msgid "You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact."
 msgstr ""
 
 msgid "You can save the content of a plain container as a reusable fragment."
