@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.min.js',
       'node_modules/mousetrap/mousetrap.min.js',
       'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.min.js',
+      'node_modules/mousetrap/plugins/pause/mousetrap-pause.js',
       'bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js',
       'bower_components/identicon.js/pnglib.js',
       'bower_components/identicon.js/identicon.js',

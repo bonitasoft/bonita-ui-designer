@@ -27,6 +27,7 @@ var paths = {
     'bower_components/sockjs/sockjs.min.js',
     'node_modules/mousetrap/mousetrap.js',
     'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
+    'node_modules/mousetrap/plugins/pause/mousetrap-pause.js',
     'bower_components/angular-moment/angular-moment.min.js',
     'bower_components/angular-dynamic-locale/tmhDynamicLocale.min.js',
     'bower_components/jsSHA/src/sha1.js',

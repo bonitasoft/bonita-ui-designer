@@ -9,7 +9,7 @@ describe('switchComponentPopupController', function () {
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.whiteboard', 'bonitasoft.designer.common.repositories', 'mock.modal'));
 
-  beforeEach(inject(function ($rootScope, $controller, _widgetRepo_, _$uibModalInstance_, $q, _properties_) {
+  beforeEach(inject(function ($rootScope, $controller, _widgetRepo_, _$uibModalInstance_, $q, _properties_, keyBindingService) {
     $scope = $rootScope.$new();
 
     widgetRepo = _widgetRepo_;
@@ -21,7 +21,9 @@ describe('switchComponentPopupController', function () {
       widgetFrom: widget,
       widgets: widgets,
       properties: _properties_,
-      dictionary: {}
+      dictionary: {},
+      keyBindingService: keyBindingService,
+      $scope: $scope
     });
   }));
 
