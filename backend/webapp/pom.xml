@@ -119,7 +119,7 @@
         <dependency>
             <groupId>org.mitre.dsmiley.httpproxy</groupId>
             <artifactId>smiley-http-proxy-servlet</artifactId>
-            <version>1.10</version>
+            <version>1.12</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
