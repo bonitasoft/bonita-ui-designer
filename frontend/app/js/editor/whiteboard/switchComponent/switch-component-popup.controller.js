@@ -15,7 +15,7 @@
 (function() {
 
   class SwitchComponentPopupController {
-    constructor($uibModalInstance, widgets, widgetFrom, properties, dictionary) {
+    constructor($uibModalInstance, widgets, widgetFrom, properties, dictionary, $scope, keyBindingService) {
       this.$uibModalInstance = $uibModalInstance;
       this.widgets = widgets;
       this.widgetFrom = widgetFrom;
@@ -31,6 +31,13 @@
       this.dictionary = this._attachDictionary(dictionaryValues[0]);
       this.propertiesIsDisplay = false;
 
+      this.scope = $scope;
+      // Pause keyBindingService to avoid move selection in background when user press arrow key
+      keyBindingService.pause();
+      // Unpause keyBindingService when popup is destroy
+      this.scope.$on('$destroy', function() {
+        keyBindingService.unpause();
+      });
     }
 
     _filterWidget(widget) {

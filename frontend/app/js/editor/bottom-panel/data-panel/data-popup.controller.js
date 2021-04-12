@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
-  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples, dataManagementRepo, gettextCatalog, businessDataUpdateService) {
+  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples, dataManagementRepo, gettextCatalog, businessDataUpdateService, keyBindingService) {
 
     'use strict';
     const BUSINESS_DATA_TYPE = 'businessdata';
@@ -32,6 +32,13 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     $scope.offlineMode = false;
     $scope.businessDataRepoIsEmpty = false;
     $scope.validity = false;
+
+    // Pause keyBindingService to avoid move selection in background when user press arrow key
+    keyBindingService.pause();
+    // Unpause keyBindingService when popup is destroy
+    $scope.$on('$destroy', function() {
+      keyBindingService.unpause();
+    });
 
     dataManagementRepo.getDataObjects().then(data => {
       $scope.offlineMode = data.error;

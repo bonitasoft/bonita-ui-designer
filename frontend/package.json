@@ -37,7 +37,7 @@
     "less.js": "less/less.js#1.7.0",
     "moment": "moment/moment#>=2.8.0 <2.10.0",
     "gulp-eslint": "^6.0.0",
-    "mousetrap": "1.5.3",
+    "mousetrap": "1.6.5",
     "ng-sortable": "a5hik/ng-sortable#~1.1.7",
     "ngUpload": "twilson63/ngUpload#0.5.16",
     "ngstorage": "gsklee/ngStorage#0.3.11",

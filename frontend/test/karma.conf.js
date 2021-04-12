@@ -41,6 +41,7 @@ module.exports = function(config) {
       'node_modules/bonita-js-components/dist/bonita-lib-tpl.js',
       'node_modules/mousetrap/mousetrap.min.js',
       'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.min.js',
+      'node_modules/mousetrap/plugins/pause/mousetrap-pause.js',
       'node_modules/angular-dynamic-locale/tmhDynamicLocale.min.js',
       'node_modules/identicon.js/pnglib.js',
       'node_modules/identicon.js/identicon.js',

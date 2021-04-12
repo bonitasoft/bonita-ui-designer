@@ -6372,10 +6372,10 @@ mkdirp@~0.3.5:
   version "2.9.0"
   resolved "https://codeload.github.com/moment/moment/tar.gz/94ad539f965689289af54b6493abca0a65ab4ce6"
 
-mousetrap@1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.5.3.tgz#33a900b15184427c4f583e9d9822ee6c3eaf265b"
-  integrity sha1-M6kAsVGEQnxPWD6dmCLubD6vJls=
+mousetrap@1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
+  integrity sha512-QNo4kEepaIBwiT8CDhP98umTetp+JNfQYBWvC1pc6/OAibuXtRcxZ58Qz8skvEHYvURne/7R8T5VoOI7rDsEUA==
 
 ms@0.6.2:
   version "0.6.2"

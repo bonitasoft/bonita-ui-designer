@@ -22,6 +22,7 @@ const paths = {
     'node_modules/sockjs/sockjs.min.js',
     'node_modules/mousetrap/mousetrap.js',
     'node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js',
+    'node_modules/mousetrap/plugins/pause/mousetrap-pause.js',
     'node_modules/angular-moment/angular-moment.min.js',
     'node_modules/angular-dynamic-locale/tmhDynamicLocale.min.js',
     'node_modules/jsSHA/src/sha1.js',
