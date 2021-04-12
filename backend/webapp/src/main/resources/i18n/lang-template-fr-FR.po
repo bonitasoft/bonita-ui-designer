@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-04-08 01:29\n"
+"PO-Revision-Date: 2021-04-12 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -169,7 +169,7 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Par convention, le fichier doit êt
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> ou <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact. </li> </ul>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact. </li> </ul>"
 msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -494,9 +494,6 @@ msgstr "De ce fait, si vous recevez un fragment, le renommez et le repartagez, i
 msgid "Bidirectional bond"
 msgstr "Binding bidirectionnel"
 
-msgid "Bind and use these variables in your artifact."
-msgstr ""
-
 msgid "Bind the <em>formInput</em> variable of your form."
 msgstr "Lier la variable <em>formInput</em> de votre formulaire."
 
@@ -505,6 +502,9 @@ msgstr "Lier la variable de filtre à la propriété Filtre du widget Data Table
 
 msgid "Bind the filter variable to the widget."
 msgstr "Lier la variable de filtre au widget."
+
+msgid "Bind these options to a UI-Designer variable and use them in your artifact."
+msgstr ""
 
 msgid "Bind to a Variable to filter the table 'Content'"
 msgstr "Binder à une variable pour filtrer le tableau « Contenu »"
@@ -2970,7 +2970,7 @@ msgid "You can provide a filter for users to update the displayed table to show 
 "            the filter. To do this :"
 msgstr "Vous pouvez fournir un filtre permettant aux utilisateurs de mettre à jour le tableau affiché pour ne montrer que les lignes qui correspondent au filtre. Pour faire cela :"
 
-msgid "You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact."
+msgid "You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact."
 msgstr ""
 
 msgid "You can save the content of a plain container as a reusable fragment."

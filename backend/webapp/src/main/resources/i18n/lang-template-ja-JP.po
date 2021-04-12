@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-04-08 01:30\n"
+"PO-Revision-Date: 2021-04-12 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -171,7 +171,7 @@ msgstr "<i class=\"fa fa-warning\"></i>&nbsp;ファイル名は規則で <em>loc
 msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> または <i>myVar.myDocument_ref</i>"
 
-msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact. </li> </ul>"
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact. </li> </ul>"
 msgstr ""
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
@@ -500,9 +500,6 @@ msgstr "この変更によりフラグメントを受け取り、名前を変更
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
 
-msgid "Bind and use these variables in your artifact."
-msgstr ""
-
 msgid "Bind the <em>formInput</em> variable of your form."
 msgstr "フォームの <em>formInput</em> 変数をバインドします。"
 
@@ -511,6 +508,9 @@ msgstr "フィルタ変数をデータテーブル ウィジェットのFilter�
 
 msgid "Bind the filter variable to the widget."
 msgstr "フィルタ変数をウィジェットにバインドします。"
+
+msgid "Bind these options to a UI-Designer variable and use them in your artifact."
+msgstr ""
 
 msgid "Bind to a Variable to filter the table 'Content'"
 msgstr "テーブル「Content」をフィルタリングする変数にバインドします。"
@@ -2990,7 +2990,7 @@ msgid "You can provide a filter for users to update the displayed table to show 
 msgstr "ユーザーが表示されたテーブルを更新して、フィルターに一致する行のみを表示するための \n"
 "             フィルターを提供できます。 これを実行するには ："
 
-msgid "You can retrieve the Status Code or Response Headers with a classic variable binding and use it in the artifact."
+msgid "You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact."
 msgstr ""
 
 msgid "You can save the content of a plain container as a reusable fragment."
