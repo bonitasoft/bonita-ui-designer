@@ -1,10 +1,15 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>{{ name }}</title>
+    {{#if displayName}}
+    <title>{{ displayName }}</title>
+    {{else}}
+    <title>{{ name}}</title>
+    {{/if}}
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel='stylesheet' href='{{resourceContext}}css/bootstrap.min.css'>
     <link rel='stylesheet' href='../theme/theme.css'>
 

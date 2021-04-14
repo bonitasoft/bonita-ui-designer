@@ -299,6 +299,19 @@ public class HtmlBuilderVisitorTest {
     }
 
     @Test
+    public void should_generate_html_for_a_page_with_a_custom_display_name_put_in_title_tag() throws Exception {
+        Page page = aPage().withId("page-id")
+                .withDisplayName("This is a beautiful title for this page")
+                .build();
+        when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
+
+        String html = visitor.build(page, "mycontext/");
+
+        assertThatHtmlBody(html).isEqualToBody(testResource.load("pageCustomDisplayName.html"));
+        assertThatHtmlHead(html).isEqualToHead(testResource.load("pageCustomDisplayName.html"));
+    }
+
+    @Test
     public void should_generate_html_for_a_formcontainer() throws GenerationException {
         assertThatHtmlBody(
                 visitor.visit(aFormContainer()
@@ -336,7 +349,6 @@ public class HtmlBuilderVisitorTest {
      */
     @Test
     public void should_build_a_modal_container() throws GenerationException {
-
         assertThatHtmlBody(visitor.visit(aModalContainer().with(aContainer().withReference("container-reference").build())
                 .withReference("modal-container-reference")
                 .withPropertyValue("property", "value")
