@@ -19,8 +19,12 @@
      * - fr_FR <=> fr-FR || fr-fr
      * - fr-BE <=> fr
      * - fr_BE <=> fr
+     * - ja <=> ja-JP
+     * - ja-JP <=> ja-JP
      */
     function get(code, codes) {
+      // Particular use case for Japanese
+      code = code === 'ja' ? 'ja-JP' : code;
       return match(codes, code) ||
         match(codes, code + '_' + code) ||
         match(codes, code.replace('-', '_')) ||
