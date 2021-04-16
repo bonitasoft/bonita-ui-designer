@@ -388,9 +388,6 @@
                             <goal>yarn</goal>
                         </goals>
                         <phase>initialize</phase>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>yarn build</id>
@@ -452,35 +449,82 @@
     <profiles>
         <profile>
             <id>dependencies</id>
+            <properties>
+                <bonitaMinorVersion></bonitaMinorVersion>
+            </properties>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-licenses-data</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>download-licenses</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>bower-license license-checker</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>initialize</phase>
-                                <configuration>
-                                    <arguments>add --dev bower-license license-checker</arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>list dependencies</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>yarn</goal>
                                 </goals>
-                                <phase>initialize</phase>
                                 <configuration>
-                                    <arguments>
-                                        listDependencies
-                                    </arguments>
+                                    <arguments>listDependencies</arguments>
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <executions>
+                            <execution>
+                                <id>generate-adoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <properties>
+                                        <bonitaMinorVersion>${bonitaMinorVersion}</bonitaMinorVersion>
+                                        <templateDir>${project.basedir}/src/main/groovy/templates</templateDir>
+                                        <outputFileName>${project.build.directory}/bonita-ui-designer-dependencies.adoc</outputFileName>
+                                        <mavenLicensesFile>${project.build.directory}/generated-resources/licenses.xml</mavenLicensesFile>
+                                        <pageNodeJsDepFile>${project.build.directory}/ui-designer-backend-webapp.json</pageNodeJsDepFile>
+                                        <editorNodeJsDepFile>${project.basedir}/../../frontend/ui-designer-frontend-yarn-dependencies.json</editorNodeJsDepFile>
+                                        <editorBowerDepFile>${project.basedir}/../../frontend/ui-designer-frontend-bower-dependencies.json</editorBowerDepFile>
+                                    </properties>
+                                    <source>${project.basedir}/src/main/groovy/dependencies-adoc.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-json</artifactId>
+                                <version>3.0.7</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-xml</artifactId>
+                                <version>3.0.7</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.github.jknack</groupId>
+                                <artifactId>handlebars</artifactId>
+                                <version>4.1.2</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>

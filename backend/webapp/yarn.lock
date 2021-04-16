@@ -944,6 +944,17 @@ bower-json@~0.4.0:
     graceful-fs "~2.0.0"
     intersect "~0.0.3"
 
+bower-license@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/bower-license/-/bower-license-0.4.4.tgz#32f327b40f303ec1f390a4960f41d66c490bc514"
+  dependencies:
+    bower-json "~0.4.0"
+    npm-license "~0.3.3"
+    package-license "~0.1.1"
+    raptor-args "~1.0.1"
+    treeify "~1.0.1"
+    underscore "~1.5.2"
+
 bower-logger@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/bower-logger/-/bower-logger-0.2.2.tgz#39be07e979b2fc8e03a94634205ed9422373d381"
@@ -4005,6 +4016,12 @@ mkdirp@~0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.3.5.tgz#de3e5f8961c88c787ee1368df849ac4413eca8d7"
 
+mkdirp@~0.5.0:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
+  dependencies:
+    minimist "^1.2.5"
+
 mkpath@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/mkpath/-/mkpath-0.1.0.tgz#7554a6f8d871834cc97b5462b122c4c124d6de91"
@@ -4115,6 +4132,10 @@ node-uuid@~1.4.0:
     chalk "~0.4.0"
     underscore "~1.6.0"
 
+nopt-usage@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/nopt-usage/-/nopt-usage-0.1.0.tgz#b18b8c183e181047ca9e63b7cde7cfc702cca579"
+
 nopt@3.x, nopt@~3.0.0, nopt@~3.0.1:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-3.0.6.tgz#c6465dbf08abcd4db359317f79ac68a646b28ff9"
@@ -4163,6 +4184,19 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-2.1.1.tgz#1ab28b556e198363a8c1a6f7e6fa20137fe6aed9"
   dependencies:
     remove-trailing-separator "^1.0.1"
+
+npm-license@~0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/npm-license/-/npm-license-0.3.3.tgz#f67f4bc23c863f6e062cde639414e05116dcdb82"
+  dependencies:
+    mkdirp "~0.5.0"
+    nopt "~3.0.1"
+    nopt-usage "^0.1.0"
+    package-license "~0.1.1"
+    pkginfo "^0.3.0"
+    read-installed "~4.0.3"
+    treeify "~1.0.1"
+    underscore "~1.4.4"
 
 npmconf@^2.0.1:
   version "2.1.2"
@@ -4402,6 +4436,10 @@ package-json@^0.2.0:
     got "^0.3.0"
     registry-url "^0.1.0"
 
+package-license@~0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/package-license/-/package-license-0.1.2.tgz#f5c449a7a50fadf4a22341e2949099f91a42028b"
+
 parse-filepath@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parse-filepath/-/parse-filepath-1.0.1.tgz#159d6155d43904d16c10ef698911da1e91969b73"
@@ -4541,7 +4579,7 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
-pkginfo@0.3.x:
+pkginfo@0.3.x, pkginfo@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.3.1.tgz#5b29f6a81f70717142e09e765bbeab97b4f81e21"
 
@@ -4660,6 +4698,10 @@ randomatic@^1.1.3:
 range-parser@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
+
+raptor-args@~1.0.1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/raptor-args/-/raptor-args-1.0.3.tgz#e096ce5c0f9de5e0848617a78bfface94c54dc86"
 
 raw-body@2.3.2:
   version "2.3.2"
@@ -5771,6 +5813,10 @@ treeify@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/treeify/-/treeify-1.1.0.tgz#4e31c6a463accd0943879f30667c4fdaff411bb8"
 
+treeify@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/treeify/-/treeify-1.0.1.tgz#69b3cd022022a168424e7cfa1ced44c939d3eb2f"
+
 trim-newlines@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
@@ -5891,6 +5937,14 @@ unc-path-regex@^0.1.0:
 underscore@1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.2.tgz#64df2eb590899de950782f3735190ba42ebf311d"
+
+underscore@~1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.4.4.tgz#61a6a32010622afa07963bf325203cf12239d604"
+
+underscore@~1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.5.2.tgz#1335c5e4f5e6d33bbb4b006ba8c86a00f556de08"
 
 underscore@~1.6.0:
   version "1.6.0"

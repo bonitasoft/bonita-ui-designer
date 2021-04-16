@@ -3,6 +3,8 @@
 .classpath
 .project
 .settings/
+*.log
+logs/
 
 bower_components/
 node_modules/
@@ -16,7 +18,13 @@ backend/webapp/src/test/resources/i18n/*.json
 
 frontend/node/
 frontend/build/
+frontend/Chrome_*
+frontend/ui-designer-frontend-bower-dependencies.json
+frontend/ui-designer-frontend-yarn-dependencies.json
+frontend/ui-designer-frontend-dependencies.json
+tests/build/
 
 tests/node/
 *.swp
 node/
+
