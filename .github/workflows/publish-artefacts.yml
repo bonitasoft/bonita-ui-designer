@@ -5,10 +5,10 @@ on:
     inputs:
       releaseVersion:
         description: base tag version to publish
-        default: 1.11.100
+        default: 1.12.X
         required: true
       pushMavenCentral:
-        description: true to push on maven Central
+        description: true to push on artifactory
         default: false
         required: true
   repository_dispatch:
@@ -41,14 +41,8 @@ jobs:
           java-version: 8
 
       - name: Publish artefact
-        if: ${{ success() && ( github.event.action == 'github-publish')}}
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.gpg_private_key }}
-          gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.ossrh_username }}
-          nexus_password: ${{ secrets.ossrh_password }}
-          maven_args: "-DskipTests"
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=bonita.releases::default::http://artifacts.rd.lan/maven/internal.releases/
 
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
@@ -66,16 +60,8 @@ jobs:
               icon_emoji: ':rocket:',
               attachments: [{
                 color: 'good',
-                text: `UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully.`,
+                text: `UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. You can open a PR on studio repository if needed`,
               }]
             }
         env:
-               SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Send message to Slack channel
-        uses: act10ns/slack@v1
-        if: ${{ failure() }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
-        with:
-          status: ${{ job.status }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
