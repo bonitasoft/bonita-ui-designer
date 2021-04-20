@@ -22,7 +22,13 @@
       processAdvancedOptions(response) {
         let tmpAdvancedOptions = {};
         if (this.advancedOptions.headers) {
-          tmpAdvancedOptions[this.advancedOptions.headers] = response.headers();
+          let headers = {};
+          let responseHeaders = response.headers();
+          // Convert key as String to avoid key with '-' character
+          Object.keys(responseHeaders).forEach(key => {
+            headers[[key]] = responseHeaders[key];
+          });
+          tmpAdvancedOptions[this.advancedOptions.headers] = headers;
         }
 
         if (this.advancedOptions.statusCode) {
@@ -33,9 +39,9 @@
         let unFlattenedOptions = this.unflattenArray(tmpAdvancedOptions);
         for (var key in unFlattenedOptions) {
           if(typeof this.model[key]  === 'object'){
-            Object.assign(this.model[key], unFlattenedOptions[key]);
+            Object.assign(this.model[[key]], unFlattenedOptions[key]);
           } else {
-            this.model[key] = unFlattenedOptions[key];
+            this.model[[key]] = unFlattenedOptions[key];
           }
         }
       }
