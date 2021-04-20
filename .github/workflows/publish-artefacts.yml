@@ -5,7 +5,7 @@ on:
     inputs:
       releaseVersion:
         description: base tag version to publish
-        default: 1.11.100
+        default: 1.12.X
         required: true
       pushMavenCentral:
         description: true to push on artifactory
@@ -25,7 +25,7 @@ jobs:
           if [ ${{ github.event.action }} == 'github-publish' ]
             then
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
-                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.studioBaseBranch }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.ref }})"
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
                 echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
@@ -64,4 +64,4 @@ jobs:
               }]
             }
         env:
-               SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

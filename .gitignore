@@ -3,6 +3,8 @@
 .classpath
 .project
 .settings/
+*.log
+logs/
 
 node_modules/
 target/
@@ -16,9 +18,14 @@ backend/webapp/src/test/resources/i18n/*.json
 
 frontend/node/
 frontend/build/
-frontend/Chrome_Headless*
+frontend/Chrome_*
+frontend/ui-designer-frontend-bower-dependencies.json
+frontend/ui-designer-frontend-yarn-dependencies.json
+frontend/ui-designer-frontend-dependencies.json
+tests/build/
 
 tests/build/
 tests/node/
 *.swp
 node/
+

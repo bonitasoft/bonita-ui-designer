@@ -229,26 +229,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>dependencies</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-project-info-reports-plugin</artifactId>
-                        <version>${projectInfoReports.version}</version>
-                        <executions>
-                            <execution>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>dependencies</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
 </project>

@@ -1,0 +1,40 @@
+= Bonita-ui-designer {{project.version}} dependencies for Bonita {{bonitaMinorVersion}}
+
+{{#if mavenDeps}}
+== UI-Designer Backend dependencies
+
+|===
+| Name |Version | Licenses
+
+{{#each mavenDeps}}
+| {{artifactId}} ({{groupId}}) | {{version}} | {{#each licenses}}{{url}}[{{name}}] {{/each}}
+
+{{/each}}
+|===
+{{/if}}
+
+{{#if nodeDeps}}
+== UI-Designer frontend dependencies
+
+|===
+| Name | Version | Licenses
+
+{{#each nodeDeps}}
+| {{name}} | {{version}} | {{#each licenses}}{{.}} {{/each}}
+{{/each}}
+|===
+{{/if}}
+Note: The angular version 1.8.x is a "dependency" of angular-filter. In fact, this package does not use this dependency,
+so UI Designer does not embed angular 1.8.x
+
+{{#if pageDeps}}
+== Living application page dependencies
+
+|===
+| Name | Version | Licenses
+
+{{#each pageDeps}}
+| {{name}} | {{version}} | {{#each licenses}}{{.}} {{/each}}
+{{/each}}
+|===
+{{/if}}

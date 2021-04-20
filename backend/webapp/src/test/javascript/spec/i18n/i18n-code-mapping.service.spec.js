@@ -32,6 +32,11 @@ describe('i18n code mapping', function () {
     expect(i18nCodeMapping.get('fr_FR', ['fr-FR', 'en-US'])).toBe('fr-FR');
   });
 
+  it('should get corresponding code for japanese code', function() {
+    expect(i18nCodeMapping.get('ja', ['fr_FR', 'en_US', 'ja-JP'])).toBe('ja-JP');
+    expect(i18nCodeMapping.get('ja-JP', ['fr_FR', 'en_US', 'ja-JP'])).toBe('ja-JP');
+  });
+
   it('should get return code in argument otherwise', function() {
     expect(i18nCodeMapping.get('unknown', ['fr_FR', 'en_US'])).toBe('unknown');
   });

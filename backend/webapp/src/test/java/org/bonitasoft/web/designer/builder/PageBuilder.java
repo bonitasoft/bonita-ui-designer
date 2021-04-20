@@ -55,6 +55,7 @@ public class PageBuilder {
     private Map<String, Data> data = null;
     private Map<String, Variable> variables = new HashMap<>();
     private String name = "pageName";
+    private String displayName = "";
     private String id = UUID.randomUUID().toString();
     private String uuid = UUID.randomUUID().toString();
     private String designerVersion;
@@ -140,6 +141,11 @@ public class PageBuilder {
         return this;
     }
 
+    public PageBuilder withDisplayName(String displayName) {
+        this.displayName = displayName;
+        return this;
+    }
+
     public PageBuilder withId(String id) {
         this.id = id;
         return this;
@@ -203,6 +209,7 @@ public class PageBuilder {
     public Page build() {
         Page page = new Page();
         page.setName(name);
+        page.setDisplayName(displayName);
         page.setRows(rows);
         page.setData(data);
         page.setVariables(variables);

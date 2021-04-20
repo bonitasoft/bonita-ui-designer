@@ -1,0 +1,33 @@
+= List Dependencies on UID
+
+Checkout branch or tag on which list dependencies
+
+    git checkout tags/your-tag-name
+
+== Generate dependencies reports
+
+Run
+
+    ./mvnw package -Pdependencies -DbonitaMinorVersion=7.x
+
+This command allow you to generate reports for maven dependencies and for npm dependencies on each module.
+
+== Generate dependencies reports
+
+Move dependency report in one folder, to do this run:
+
+    ./infrastructure/dependencies/moveDependenciesReportsFiles.sh
+
+At this step, you get a folder name *bonita-ui-designer-dependencies* at the root of this project.
+
+== Summarize dependencies in AsciiDoc file
+
+Enter this following command line:
+
+[source,shell]
+----
+ ./mvnw initialize -Pdependencies -DbonitaMinorVersion=7.12
+----
+
+👏👏 Congratulations you get your dependencies report ./backend/webapp/target/bonita-ui-designer-dependencies-7.x.adoc
+

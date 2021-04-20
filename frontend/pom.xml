@@ -31,30 +31,30 @@
                     </execution>
                     <execution>
                         <id>yarn install</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
                     <execution>
                         <id>yarn build</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
                             <arguments>run build</arguments>
                         </configuration>
                     </execution>
                     <execution>
                         <id>yarn test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>yarn</goal>
                         </goals>
-                        <phase>test</phase>
                         <configuration>
                             <arguments>run test</arguments>
                         </configuration>
@@ -99,10 +99,10 @@
                             </execution>
                             <execution>
                                 <id>e2e tests</id>
+                                <phase>integration-test</phase>
                                 <goals>
                                     <goal>yarn</goal>
                                 </goals>
-                                <phase>integration-test</phase>
                                 <configuration>
                                     <arguments>run e2e:headless</arguments>
                                 </configuration>
@@ -127,16 +127,15 @@
                                 </goals>
                                 <phase>initialize</phase>
                             </execution>
+
                             <execution>
                                 <id>list yarn dependencies</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>yarn</goal>
                                 </goals>
-                                <phase>initialize</phase>
                                 <configuration>
-                                    <arguments>
-                                        listDependencies
-                                    </arguments>
+                                    <arguments>listDependenciesYarn</arguments>
                                 </configuration>
                             </execution>
                         </executions>
