@@ -25,7 +25,7 @@ jobs:
           if [ ${{ github.event.action }} == 'github-publish' ]
             then
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
-                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.studioBaseBranch }})"
+                echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.event.client_payload.ref }})"
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
                 echo "##[set-output name=studioBaseBranch;]$(echo ${{ github.ref }})"
@@ -65,3 +65,5 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+

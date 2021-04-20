@@ -62,13 +62,14 @@ jobs:
           draft: false
           prerelease: true
 
+      # repository-dispatch event will call always on default branch ('dev' in our case)
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           event-type: github-publish
-          client-payload: '{"studioBaseBranch":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
+          client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
 
       - name: Send message to Slack channel
         uses: act10ns/slack@v1
