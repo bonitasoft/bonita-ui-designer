@@ -36,9 +36,17 @@ jobs:
           ref: ${{ steps.init.outputs.tagVersion }}
 
       - name: Set up Java 11
+        if: ${{ steps.init.outputs.studioBaseBranch != 'refs/heads/master'}}
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
+      # When repository-dispatch is called, default branch is always trigger, that's why we configure java 8 here for master branch
+      - name: Set up Java 8
+        if: ${{ steps.init.outputs.studioBaseBranch  == 'refs/heads/master' &&  github.event.action == 'github-publish' }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
 
       - name: Publish artefact
         if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
