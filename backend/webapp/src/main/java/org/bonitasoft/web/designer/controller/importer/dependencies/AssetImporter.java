@@ -18,6 +18,7 @@ import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 public class AssetImporter<T extends Identifiable & Assetable> implements DependencyImporter<Asset> {
 
+    public static final String ASSETS_FOLDER_NAME = "assets";
     private AssetRepository<T> assetRepository;
 
     public AssetImporter(AssetRepository<T> assetRepository) {
@@ -41,7 +43,7 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
 
     @Override
     public List<Asset> load(Identifiable component, Path resources) throws IOException {
-        Path assetsPath = component instanceof Widget ? resources.resolve(component.getId()).resolve("assets") : resources.resolve("assets");
+        Path assetsPath = component instanceof Widget ? getWidgetAssetsFolderPath(component.getId(), resources) : resources.resolve("assets");
 
         if (exists(assetsPath)) {
             List<Asset> assets = new ArrayList<>();
@@ -57,11 +59,18 @@ public class AssetImporter<T extends Identifiable & Assetable> implements Depend
         return new ArrayList<>();
     }
 
+    /**
+     * Return assets path, could be componentId/assets or only assets/
+     */
+    private Path getWidgetAssetsFolderPath(String componentId, Path resources) {
+        Path assetsPath =  resources.resolve(componentId).resolve(ASSETS_FOLDER_NAME);
+        return Files.exists(assetsPath) ? assetsPath : resources.resolve(ASSETS_FOLDER_NAME);
+    }
 
     @Override
     public void save(List<Asset> elements, Path resources) {
         for (Asset asset : elements) {
-            Path assetsPath = AssetScope.WIDGET.equals(asset.getScope()) ?  resources.resolve(asset.getComponentId()).resolve("assets") : resources.resolve("assets");
+            Path assetsPath = AssetScope.WIDGET.equals(asset.getScope()) ?  getWidgetAssetsFolderPath(asset.getComponentId(), resources) : resources.resolve("assets");
             Path sourceFile = assetsPath.resolve(asset.getType().getPrefix()).resolve(asset.getName());
             try {
                 assetRepository.save(asset, readAllBytes(sourceFile));
