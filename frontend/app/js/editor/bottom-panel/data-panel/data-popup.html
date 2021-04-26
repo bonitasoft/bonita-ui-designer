@@ -89,6 +89,20 @@
                             <button class="btn btn-bonita-property" type="button" disabled="true"><i class="fa fa-link"></i></button>
                         </span>
                         </div>
+                        <label class="control-label" for="statusCode" translate>Failed response value</label>
+                        <span><i class="fa fa-question-circle" title="{{ 'Holds the response when the request has failed' | translate}}"></i></span>
+                        <div class="input-group input-group-sm">
+                            <uid-property-typeahead
+                                id="failedResponseValue"
+                                autocomplete="off"
+                                uid-property-typeahead-values="getDataNamesWithoutActualVariable()"
+                                uid-property-typeahead-model="newData.advancedOptions.failedResponseValue">
+                            </uid-property-typeahead>
+                            <span class="input-group-btn"
+                                  title="{{ 'Variable in read-write binding with the property value' | translate }}">
+                            <button class="btn btn-bonita-property" type="button" disabled="true"><i class="fa fa-link"></i></button>
+                        </span>
+                        </div>
                     </div>
                 </div>
 

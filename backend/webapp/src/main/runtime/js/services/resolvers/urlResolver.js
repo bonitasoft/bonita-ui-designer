@@ -11,15 +11,39 @@
         return $interpolate(this.content, false, null, true)(this.model);
       }
 
-      processResponse(response) {
-        if (this.advancedOptions) {
-          this.processAdvancedOptions(response);
+      resolve() {
+        let url = this.interpolateUrl();
+        if (angular.isDefined(url)) {
+          return $http.get(url).then((data) => {
+            return this.processResponse(data, false);
+          }).catch((data) => {
+            return this.processResponse(data, true);
+          });
         }
-        this.model[this.name] = response.data;
+      }
+
+      watchDependencies() {
+        if (this.hasDependencies()) {
+          $rootScope.$watch(() => this.interpolateUrl(), () => this.resolve());
+        }
+      }
+
+      hasDependencies() {
+        //test if the url contains some {{ }} which shows that it has dependencies
+        return (this.content || '').match(/\{\{[^\}]+\}\}/);
+      }
+
+      processResponse(response, isOnError) {
+        if (this.advancedOptions) {
+          this.processAdvancedOptions(response, isOnError);
+        }
+        if(!isOnError){
+          this.model[this.name] = response.data;
+        }
         return this.model[this.name];
       }
 
-      processAdvancedOptions(response) {
+      processAdvancedOptions(response, isOnError) {
         let tmpAdvancedOptions = {};
         if (this.advancedOptions.headers) {
           let headers = {};
@@ -33,6 +57,10 @@
 
         if (this.advancedOptions.statusCode) {
           tmpAdvancedOptions[this.advancedOptions.statusCode] = response.status;
+        }
+
+        if(this.advancedOptions.failedResponseValue){
+          tmpAdvancedOptions[this.advancedOptions.failedResponseValue] = isOnError ? response.data : undefined;
         }
 
         // Push or set value of each model key
@@ -69,28 +97,6 @@
           }, result)
         }
         return result;
-      }
-
-      resolve() {
-        let url = this.interpolateUrl();
-        if (angular.isDefined(url)) {
-          return $http.get(url).then((data) => {
-            return this.processResponse(data);
-          }).catch((data) => {
-            return this.processResponse(data);
-          });
-        }
-      }
-
-      watchDependencies() {
-        if (this.hasDependencies()) {
-          $rootScope.$watch(() => this.interpolateUrl(), () => this.resolve());
-        }
-      }
-
-      hasDependencies() {
-        //test if the url contains some {{ }} which shows that it has dependencies
-        return (this.content || '').match(/\{\{[^\}]+\}\}/);
       }
     }
 

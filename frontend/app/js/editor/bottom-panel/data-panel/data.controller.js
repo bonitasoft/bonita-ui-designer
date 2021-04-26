@@ -53,6 +53,9 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       if (data.advancedOptions.statusCode){
         advancedOptions.statusCode = data.advancedOptions.statusCode;
       }
+      if (data.advancedOptions.failedResponseValue){
+        advancedOptions.failedResponseValue = data.advancedOptions.failedResponseValue;
+      }
       $scope.page.variables[data.$$name].advancedOptions = advancedOptions;
     }
   };

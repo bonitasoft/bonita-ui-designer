@@ -27,11 +27,15 @@ public class VariableAdvancedOptions {
     //Bind to a UI-Designer to store information at runtime
     private String headers;
     private String statusCode;
+    private String failedResponseValue;
 
     @JsonCreator
-    public VariableAdvancedOptions(@JsonProperty("headers") String  headers, @JsonProperty("statusCode") String statusCode) {
+    public VariableAdvancedOptions(@JsonProperty("headers") String  headers,
+                                   @JsonProperty("statusCode") String statusCode,
+                                   @JsonProperty("failedResponseValue") String failedResponseValue) {
         this.headers = headers;
         this.statusCode = statusCode;
+        this.failedResponseValue = failedResponseValue;
     }
 
     @JsonView({JsonViewPersistence.class})
@@ -52,9 +56,20 @@ public class VariableAdvancedOptions {
         this.statusCode = statusCode;
     }
 
+    @JsonView({JsonViewPersistence.class})
+    public String getFailedResponseValue() {
+        return failedResponseValue;
+    }
+
+    public void setFailedResponseValue(String failedResponseValue) {
+        this.failedResponseValue = failedResponseValue;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this).
-                append("headers", headers).append("statusCode", statusCode).toString();
+                append("headers", headers)
+                .append("statusCode", statusCode)
+                .append("failedResponseValue", failedResponseValue).toString();
     }
 }
