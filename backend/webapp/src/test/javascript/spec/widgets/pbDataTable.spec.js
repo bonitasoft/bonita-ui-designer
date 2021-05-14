@@ -319,25 +319,50 @@ describe('pbDataTable', function() {
         content: [
           {
             id: 1,
-            name:'Jeanne'
+            name:'Jeanne',
+            date_of_birth:"2020-12-24T11:22:28Z"
           }, {
             id: 2,
-            name:'Serge'
+            name:'Serge',
+            date_of_birth:"2021-03-26T00:01:00Z"
           },{
             id: 3,
-            name:'Colin'
+            name:'Colin',
+            date_of_birth:"2020-10-10T18:32:43Z"
           },{
             id: 4,
-            name:'Phil'
+            name:'Phil',
+            date_of_birth:"2021-02-17T21:13:35Z"
           },{
             id: 5,
-            name:'Vincent'
+            name:'Vincent',
+            date_of_birth:"2020-09-06T22:23:33Z",
           },{
             id: 6,
-            name:'Nathalie'
+            name:'Nathalie',
+            date_of_birth:"2020-12-05T10:19:11Z"
           }
         ]
       };
+    });
+
+    it('should order a list with an angularJS filter as column key', function() {
+      scope.properties.columnsKey = ['id', 'name', 'date_of_birth | uiDate'];
+      scope.properties.sortColumns = ['date_of_birth | uiDate'];
+      scope.properties.headers = ['Id', 'Name', 'Birth date'];
+      let element = $compile('<pb-data-table></pb-data-table>')(scope);
+      scope.$digest();
+      let sortButtons = element.find('.bo-SortButton');
+      expect(sortButtons.length).toBe(3);
+      expect($(sortButtons[2]).text().trim()).toEqual('Birth date');
+
+      element.find('.bo-SortButton')[2].click();
+
+      let ids =  [].map.call(element.find('tr td:first-child'), function(td) {
+        return td.innerText.trim();
+      });
+
+      expect(ids).toEqual(['5', '3', '6']);
     });
 
     it('should display a pagination', function() {
