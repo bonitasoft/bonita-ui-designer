@@ -28,6 +28,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 public class FragmentElement extends Element {
 
     private String id;
+    private String description;
 
     /**
      * Optional fragment data binding to page data.
@@ -53,6 +54,15 @@ public class FragmentElement extends Element {
         this.binding = binding;
     }
 
+    @JsonView({JsonViewPersistence.class})
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public <T> T accept(ElementVisitor<T> visitor) {
         if (visitor instanceof ElementVisitor) {
@@ -69,6 +79,7 @@ public class FragmentElement extends Element {
                     .append(id, other.id)
                     .append(getDimension(), other.getDimension())
                     .append(binding, other.binding)
+                    .append(description, other.description)
                     .isEquals();
         } else {
             return false;
@@ -81,6 +92,7 @@ public class FragmentElement extends Element {
                 .append(id)
                 .append(getDimension())
                 .append(binding)
+                .append(description)
                 .toHashCode();
     }
 }
